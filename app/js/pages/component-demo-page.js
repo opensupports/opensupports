@@ -5,6 +5,7 @@ import {Link}        from 'react-router';
 import DocumentTitle from 'react-document-title';
 
 import Button from '../components-core/button.js';
+import Widget from '../components-core/widget.js';
 
 var DemoPage = React.createClass({
 
@@ -17,6 +18,16 @@ var DemoPage = React.createClass({
 			title: 'Primary Button',
 			render: (
 				<Button type="primary">Sign up</Button>
+			)
+		},
+		{
+			title: 'Widget',
+			render: (
+				<Widget>
+					<h2>Register here!</h2>
+
+					<Button type="primary">SIGN UP</Button>
+				</Widget>
 			)
 		}
 	],
