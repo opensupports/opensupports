@@ -68,5 +68,9 @@
     "unmockedModulePathPatterns": [
       "react"
     ]
+  },
+  "dependencies": {
+    "app-module-path": "^1.0.3",
+    "classnames": "^2.1.3"
   }
 }

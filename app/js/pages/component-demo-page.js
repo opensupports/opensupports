@@ -4,32 +4,47 @@ import React         from 'react/addons';
 import {Link}        from 'react-router';
 import DocumentTitle from 'react-document-title';
 
-import Footer        from '../components/Footer.js';
+import Button from '../components-core/button.js';
 
-var HomePage = React.createClass({
+var DemoPage = React.createClass({
 
 	propTypes: {
 		currentUser: React.PropTypes.object.isRequired
 	},
 
+	elements: [
+		{
+			title: 'Primary Button',
+			render: (
+				<Button type="primary">Sign up</Button>
+			)
+		}
+	],
+
 	render() {
 		return (
 			<DocumentTitle title="Demo Page">
 				<section className="home-page">
-
-					<div>
-						FooterDemo
-					</div>
-
-					<div>
-						<Footer />
-					</div>
-
+					{this.renderElements()}
 				</section>
 			</DocumentTitle>
 		);
-	}
+	},
 
+	renderElements: function () {
+		return this.elements.map((element) => {
+			return (
+			<div className="demo-element">
+				<h4>
+					{element.title}
+				</h4>
+				<div class="demo-element--example">
+					{element.render}
+				</div>
+			</div>
+			);
+		});
+	}
 });
 
-export default HomePage;
+export default DemoPage;

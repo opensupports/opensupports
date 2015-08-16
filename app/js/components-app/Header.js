@@ -7,9 +7,6 @@ var Header = React.createClass({
   render() {
     return (
       <header>
-
-        Header
-
       </header>
     );
   }

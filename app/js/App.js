@@ -6,8 +6,8 @@ import {RouteHandler}     from 'react-router';
 
 import CurrentUserActions from './actions/CurrentUserActions';
 import CurrentUserStore   from './stores/CurrentUserStore';
-import Header             from './components/Header';
-import Footer             from './components/Footer';
+import Header             from './components-app/Header';
+import Footer             from './components-app/Footer';
 
 var App = React.createClass({
 

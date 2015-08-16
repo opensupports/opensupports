@@ -1,6 +1,9 @@
+@import 'reset';
 @import 'vars';
 @import 'typography';
 @import 'base';
 
-@import 'elements/header';
-@import 'elements/footer';
+@import 'app-components/header';
+@import 'app-components/footer';
+@import 'core-components/button';
+@import 'core-components/widget';
