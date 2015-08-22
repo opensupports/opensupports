@@ -20,7 +20,7 @@ var config       = require('../config');
 function buildScript(file, watch) {
 
   var bundler = browserify({
-    entries: [config.sourceDir + 'js/' + file],
+    entries: [config.sourceDir + 'app/' + file],
     debug: !global.isProd,
     cache: {},
     packageCache: {},

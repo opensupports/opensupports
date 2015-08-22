@@ -15,7 +15,6 @@ export default (
     <DefaultRoute handler={HomePage} />
 
     <Route name='Home' path='/' handler={HomePage} />
-    <Route name='Search' path='/search' handler={SearchPage} />
     <Route name='Demo' path='/demo' handler={DemoPage} />
 
     <NotFoundRoute handler={NotFoundPage} />
