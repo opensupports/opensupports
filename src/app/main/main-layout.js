@@ -6,7 +6,7 @@ var MainLayout = React.createClass({
 
 	render() {
 		return (
-			<div>
+			<div className="main-layout">
 
 				MainHeader
 
