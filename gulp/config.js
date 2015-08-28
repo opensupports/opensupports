@@ -15,7 +15,7 @@ module.exports = {
   },
 
   'styles': {
-    'src': './src/styles/**/*.scss',
+    'src': './src/**/*.scss',
     'dest': './build/css/'
   },
 

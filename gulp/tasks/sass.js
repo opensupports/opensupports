@@ -5,12 +5,14 @@ var sass         = require('gulp-sass');
 var gulpif       = require('gulp-if');
 var browserSync  = require('browser-sync');
 var autoprefixer = require('gulp-autoprefixer');
+var bulkSass     = require('gulp-sass-bulk-import');
 var handleErrors = require('../util/handle-errors');
 var config       = require('../config');
 
 gulp.task('sass', function () {
 
   return gulp.src(config.styles.src)
+	.pipe(bulkSass())
     .pipe(sass({
       sourceComments: global.isProd ? 'none' : 'map',
       sourceMap: 'sass',
