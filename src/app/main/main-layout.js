@@ -1,23 +1,24 @@
 import React              from 'react/addons';
-import {ListenerMixin}    from 'reflux';
 import {RouteHandler}     from 'react-router';
+
+import MainHeader         from 'app/main/main-layout-header';
 
 var MainLayout = React.createClass({
 
-	render() {
-		return (
-			<div className="main-layout">
+    render() {
+        return (
+            <div className="main-layout">
 
-				MainHeader
+                <MainHeader />
 
-				<RouteHandler params={this.props.params}
-					query={this.props.query} />
+                <RouteHandler params={this.props.params}
+                    query={this.props.query} />
 
-				MainFooter
+                MainFooter
 
-			</div>
-		);
-	}
+            </div>
+        );
+    }
 });
 
 export default MainLayout;

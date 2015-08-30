@@ -11,7 +11,8 @@ var Button = React.createClass({
     propTypes: {
         children: React.PropTypes.node,
         type: React.PropTypes.oneOf([
-            'primary'
+            'primary',
+            'light'
         ])
     },
 
