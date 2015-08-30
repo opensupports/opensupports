@@ -6,13 +6,15 @@ import DemoPage                             from 'app/demo/components-demo-page'
 
 import MainLayout                           from 'app/main/main-layout';
 import MainHomePage                         from 'app/main/main-home-page';
+import MainSignUpPage                       from 'app/main/main-signup-page';
 
 
 export default (
   <Route handler={App} path='/'>
 
     <Route name='main' path='/app' handler={MainLayout}>
-		<DefaultRoute handler={MainHomePage} />
+		<DefaultRoute name='home' handler={MainHomePage} />
+        <Route name='signup' path='/app/signup' handler={MainSignUpPage}/>
 	</Route>
 
     <Route name='Demo' path='/demo' handler={DemoPage} />
