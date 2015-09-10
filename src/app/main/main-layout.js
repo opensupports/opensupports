@@ -2,6 +2,7 @@ import React              from 'react/addons';
 import {RouteHandler}     from 'react-router';
 
 import MainHeader         from 'app/main/main-layout-header';
+import MainFooter         from 'app/main/main-layout-footer';
 
 var MainLayout = React.createClass({
 
@@ -14,7 +15,7 @@ var MainLayout = React.createClass({
                 <RouteHandler params={this.props.params}
                     query={this.props.query} />
 
-                MainFooter
+                <MainFooter />
 
             </div>
         );
