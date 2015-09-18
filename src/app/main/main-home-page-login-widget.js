@@ -8,7 +8,7 @@ import Button             from 'core-components/button';
 var MainHomePageLoginWidget = React.createClass({
     render() {
         return (
-            <Widget>
+            <Widget className="main-home-page--widget">
                 <h3>Login</h3>
                 <Form>
                     <div>

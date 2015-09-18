@@ -1,4 +1,10 @@
 .main-home-page {
   text-align: center;
   min-height: 400px;
+
+  &--widget {
+    display: inline-block;
+    margin: 35px auto 0;
+    height: 327px;
+  }
 }
