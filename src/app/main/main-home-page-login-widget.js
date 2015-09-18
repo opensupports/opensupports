@@ -1,5 +1,6 @@
 import React              from 'react/addons';
 
+import Form               from 'core-components/form';
 import Widget             from 'core-components/widget';
 import Input              from 'core-components/input';
 import Button             from 'core-components/button';
@@ -9,11 +10,14 @@ var MainHomePageLoginWidget = React.createClass({
         return (
             <Widget>
                 <h3>Login</h3>
+                <Form>
+                    <div>
+                        <Input placeholder="email" name="email" />
+                    </div>
+                    <Input placeholder="password" name="password" />
 
-                <Input placeholder="email" />
-                <Input placeholder="password" />
-
-                <Button type="primary">LOG IN</Button>
+                    <Button type="primary">LOG IN</Button>
+                </Form>
             </Widget>
         );
     }
