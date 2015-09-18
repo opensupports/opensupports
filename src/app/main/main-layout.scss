@@ -1,6 +1,9 @@
+@import "../../scss/vars";
+
+
 .main-layout {
   margin: 0 auto;
-  background-color: white;
+  background-color: $grey;
   width: 1100px;
   border-radius: 4px;
 }
