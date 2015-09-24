@@ -9,6 +9,11 @@ module.exports = {
     'dest': './build/js/'
   },
 
+  'phpserver': {
+    'base': './src/server/',
+    'port': 8000
+  },
+
   'images': {
     'src': './src/assets/images/**/*.{jpeg,jpg,png}',
     'dest': './build/images/'
