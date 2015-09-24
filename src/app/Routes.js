@@ -5,8 +5,8 @@ import App                                  from 'app/App';
 import DemoPage                             from 'app/demo/components-demo-page';
 
 import MainLayout                           from 'app/main/main-layout';
-import MainHomePage                         from 'app/main/main-home-page';
-import MainSignUpPage                       from 'app/main/main-signup-page';
+import MainHomePage                         from 'app/main/main-home/main-home-page';
+import MainSignUpPage                       from 'app/main/main-signup/main-signup-page';
 
 
 export default (

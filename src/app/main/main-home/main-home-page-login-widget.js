@@ -11,11 +11,8 @@ var MainHomePageLoginWidget = React.createClass({
             <Widget className="main-home-page--widget">
                 <h3>Login</h3>
                 <Form>
-                    <div>
-                        <Input placeholder="email" name="email" />
-                    </div>
-                    <Input placeholder="password" name="password" />
-
+                    <Input placeholder="email" name="email" className="login-widget--input"/>
+                    <Input placeholder="password" name="password" className="login-widget--input"/>
                     <Button type="primary">LOG IN</Button>
                 </Form>
             </Widget>
