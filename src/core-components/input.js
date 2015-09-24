@@ -1,4 +1,6 @@
-import React from 'react';
+import React              from 'react';
+import classNames         from 'classnames';
+import _                  from 'lodash';
 
 var Input = React.createClass({
 
@@ -8,12 +10,6 @@ var Input = React.createClass({
         onChange: React.PropTypes.func
     },
 
-    getDefaultProps() {
-        return {
-            value: ''
-        };
-    },
-
     render() {
         return (
             <input {...this.getProps()} />
@@ -21,7 +17,22 @@ var Input = React.createClass({
     },
 
     getProps() {
-        return this.props;
+        var props = _.clone(this.props);
+
+        props.className = this.getClass();
+        props.type = 'text';
+
+        return props;
+    },
+
+    getClass() {
+        var classes = {
+            'input': true
+        };
+
+        classes[this.props.className] = (this.props.className);
+
+        return classNames(classes);
     }
 });
 

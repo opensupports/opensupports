@@ -1,0 +1,11 @@
+@import "../scss/vars";
+
+.input {
+  border: 1px solid $grey;
+  border-radius: 3px;
+  padding: 8px;
+
+  &:hover {
+    border-color: $dark-grey;
+  }
+}
