@@ -15,7 +15,7 @@ var Form = React.createClass({
 
     render() {
         return (
-            <form>
+            <form {...this.getProps()}>
                 {this.renderTraversedChildren(this.props.children)}
             </form>
         );
@@ -39,6 +39,14 @@ var Form = React.createClass({
         }.bind(this));
     },
 
+    getProps() {
+        var props = _.clone(this.props);
+
+        props.onSubmit = this.handleSubmit;
+
+        return props;
+    },
+
     getInputProps(props) {
         var inputName = props.name;
 
@@ -48,6 +56,14 @@ var Form = React.createClass({
             onChange: this.handleInputChange.bind(this, inputName),
             value: this.state.form[inputName] || props.value
         };
+    },
+
+    handleSubmit (event) {
+        event.preventDefault();
+
+        if (this.props.onSubmit) {
+            this.props.onSubmit(this.state.form);
+        }
     },
 
     handleInputChange(inputName, event) {
