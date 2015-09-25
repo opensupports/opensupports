@@ -2,10 +2,6 @@
 
 .button {
 
-  &:focus {
-    outline: none;
-  }
-
   &-primary {
     background-color: $primary-red;
     border: solid transparent;

@@ -8,4 +8,9 @@
   &:hover {
     border-color: $dark-grey;
   }
+
+  &:focus {
+    outline: none;
+    border-color: $primary-blue;
+  }
 }
