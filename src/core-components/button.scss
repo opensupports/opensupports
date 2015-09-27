@@ -12,8 +12,19 @@
     width: 239px;
   }
 
-  &-light {
+  &-clean {
     background: none;
     border: none;
+  }
+
+  &-link {
+    background: none;
+    border: none;
+    color: $dark-grey;
+    text-decoration: underline;
+
+    &:focus {
+      outline: none;
+    }
   }
 }

@@ -21,7 +21,9 @@ describe('Button', () => {
 
 	it('should add passed types to class', () => {
 		var types = [
-			'primary'
+			'primary',
+            'clean',
+            'link'
 		];
 
 		types.forEach((type) => {

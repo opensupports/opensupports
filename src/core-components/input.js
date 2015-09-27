@@ -7,7 +7,14 @@ var Input = React.createClass({
     propTypes: {
         value: React.PropTypes.string,
         validation: React.PropTypes.func,
-        onChange: React.PropTypes.func
+        onChange: React.PropTypes.func,
+        type: React.PropTypes.string
+    },
+
+    getDefaultProps() {
+        return {
+            type: 'text'
+        };
     },
 
     render() {
@@ -20,7 +27,6 @@ var Input = React.createClass({
         var props = _.clone(this.props);
 
         props.className = this.getClass();
-        props.type = 'text';
 
         return props;
     },

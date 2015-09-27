@@ -12,7 +12,8 @@ var Button = React.createClass({
         children: React.PropTypes.node,
         type: React.PropTypes.oneOf([
             'primary',
-            'light'
+            'clean',
+            'link'
         ]),
         route: React.PropTypes.shape({
             to: React.PropTypes. string.isRequired,

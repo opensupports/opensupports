@@ -7,8 +7,8 @@ var MainLayoutHeader = React.createClass({
         return (
             <div className="main-layout-header">
                 <div className="main-layout-header--login-links">
-                   <Button type="light" route={{to:'home'}}>Log in</Button>
-                   <Button type="light" route={{to:'signup'}}>Sign up</Button>
+                   <Button type="clean" route={{to:'home'}}>Log in</Button>
+                   <Button type="clean" route={{to:'signup'}}>Sign up</Button>
                 </div>
             </div>
         );

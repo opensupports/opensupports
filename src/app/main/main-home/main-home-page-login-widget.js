@@ -13,13 +13,15 @@ import Button             from 'core-components/button';
 var MainHomePageLoginWidget = React.createClass({
     render() {
         return (
-            <Widget className="main-home-page--widget">
-                <h3>Login</h3>
-                <Form onSubmit={this.handleSubmit} ref="form">
-                    <Input placeholder="email" name="email" className="login-widget--input"/>
-                    <Input placeholder="password" name="password" className="login-widget--input"/>
+            <Widget className="main-home-page--widget" title="Login">
+                <Form className="login-widget--form" onSubmit={this.handleSubmit}>
+                    <div className="login-widget--inputs">
+                        <Input placeholder="email" name="email" className="login-widget--input"/>
+                        <Input placeholder="password" name="password" type="password" className="login-widget--input"/>
+                    </div>
                     <Button type="primary">LOG IN</Button>
                 </Form>
+                <Button type="link">{'Forgot your password?'}</Button>
             </Widget>
         );
     },
