@@ -21,7 +21,7 @@ var MainHomePageLoginWidget = React.createClass({
                     </div>
                     <Button type="primary">LOG IN</Button>
                 </Form>
-                <Button type="link">{'Forgot your password?'}</Button>
+                <Button className="login-widget--forgot-password"type="link">{'Forgot your password?'}</Button>
             </Widget>
         );
     },

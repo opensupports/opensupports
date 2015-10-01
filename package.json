@@ -46,6 +46,7 @@
     "humps": "^0.6.0",
     "jest-cli": "^0.4.19",
     "lodash": "^3.10.0",
+    "messageformat": "^0.2.2",
     "morgan": "^1.6.1",
     "react": "^0.13.x",
     "react-document-title": "^1.0.2",
