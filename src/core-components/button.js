@@ -1,12 +1,12 @@
 import React              from 'react/addons';
 import classNames         from 'classnames';
-import {Navigation}       from 'react-router';
+import {History}       from 'react-router';
 
 import callback           from 'utils/callback';
 
 var Button = React.createClass({
 
-    mixins: [Navigation],
+    mixins: [History],
 
     propTypes: {
         children: React.PropTypes.node,
@@ -49,7 +49,7 @@ var Button = React.createClass({
 
     handleClick() {
         if (this.props.route) {
-            this.transitionTo(this.props.route.to, this.props.route.param, this.props.route.query);
+            this.history.pushState(null, this.props.route.to, this.props.route.query);
         }
     }
 });

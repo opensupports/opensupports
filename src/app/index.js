@@ -8,6 +8,4 @@ if ( process.env.NODE_ENV !== 'production' ) {
   window.React = React;
 }
 
-Router.run(routes, Router.HistoryLocation, (Handler, state) => {
-  React.render(<Handler params={state.params} query={state.query} />, document.getElementById('app'));
-});
+React.render(routes, document.getElementById('app'));

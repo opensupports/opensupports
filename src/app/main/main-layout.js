@@ -12,8 +12,7 @@ var MainLayout = React.createClass({
 
                 <MainHeader />
 
-                <RouteHandler params={this.props.params}
-                    query={this.props.query} />
+                {this.props.children}
 
                 <MainFooter />
 
