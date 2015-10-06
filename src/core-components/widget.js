@@ -15,7 +15,7 @@ var Widget = React.createClass({
 
     render() {
         return (
-            <div className={this.getClass()}>
+            <div {...this.props} className={this.getClass()}>
                 {this.renderTitle()}
                 {this.props.children}
             </div>

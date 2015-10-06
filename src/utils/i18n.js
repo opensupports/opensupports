@@ -1,4 +1,4 @@
-import MessageFormat                 from 'messageformat';
+import MessageFormat      from 'messageformat';
 
 import CommonStore        from 'stores/common-store';
 import i18nData           from 'data/i18n-data';
