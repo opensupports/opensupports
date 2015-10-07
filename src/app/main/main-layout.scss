@@ -6,4 +6,10 @@
   background-color: $grey;
   max-width: 1100px;
   border-radius: 4px;
+
+  &--content {
+    text-align: center;
+    min-height: 400px;
+    width: 1100px;
+  }
 }
