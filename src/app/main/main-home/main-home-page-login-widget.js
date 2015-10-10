@@ -1,51 +1,35 @@
 import React              from 'react/addons';
 import {ListenerMixin}    from 'reflux';
-import {Motion, spring}   from 'react-motion';
 
 import UserActions        from 'actions/user-actions';
 import UserStore          from 'stores/user-store';
 
-import Form               from 'core-components/form';
-import Widget             from 'core-components/widget';
-import Input              from 'core-components/input';
 import Button             from 'core-components/button';
+import Form               from 'core-components/form';
+import Input              from 'core-components/input';
+import Widget             from 'core-components/widget';
+import WidgetTransition   from 'core-components/widget-transition';
 
 var MainHomePageLoginWidget = React.createClass({
 
     getInitialState() {
         return {
-            showed: 'login'
-        };
-    },
-
-    getDefaultAnimation() {
-        return {
-            rotateY: -90
+            sideToShow: 'front'
         };
     },
 
     render() {
         return (
-            <Motion defaultStyle={this.getDefaultAnimation()} style={{ rotateY: (this.state.showed == 'login') ? spring(0, [100, 20]) : spring(180, [100, 20])}}>
-                {(animation) => {
-                    return (
-                        <div className="main-home-page--widget-container">
-                            {this.renderLogin(animation)}
-                            {this.renderPasswordRecovery(animation)}
-                        </div>
-                    )
-                }}
-            </Motion>
+            <WidgetTransition sideToShow={this.state.sideToShow} className="login-widget--container">
+                {this.renderLogin()}
+                {this.renderPasswordRecovery()}
+            </WidgetTransition>
         );
     },
 
-    renderLogin(variants) {
-        var loginStyle = {
-            transform: `rotateY(${(variants.rotateY) ? variants.rotateY: 0}deg)`
-        };
-
+    renderLogin() {
         return (
-            <Widget className="main-home-page--widget" title="Login" style={loginStyle}>
+            <Widget className="main-home-page--widget" title="Login">
                 <Form className="login-widget--form" onSubmit={this.handleLoginFormSubmit}>
                     <div className="login-widget--inputs">
                         <Input placeholder="email" name="email" className="login-widget--input"/>
@@ -60,13 +44,9 @@ var MainHomePageLoginWidget = React.createClass({
         );
     },
 
-    renderPasswordRecovery(variants) {
-        var passwordRecoveryStyle = {
-            transform: `rotateY(${-180+variants.rotateY}deg)`
-        };
-
+    renderPasswordRecovery() {
         return (
-            <Widget className="main-home-page--widget main-home-page--password-widget" title="Password Recovery" style={passwordRecoveryStyle}>
+            <Widget className="main-home-page--widget main-home-page--password-widget" title="Password Recovery">
                 <Form className="login-widget--form" onSubmit={this.handleSubmit}>
                     <div className="login-widget--inputs">
                         <Input placeholder="email" name="email" className="login-widget--input"/>
@@ -83,7 +63,7 @@ var MainHomePageLoginWidget = React.createClass({
 
     handleForgetPasswordClick() {
         this.setState({
-            showed: 'password'
+            sideToShow: 'back'
         });
     }
 });

@@ -1,0 +1,11 @@
+.widget-transition {
+  position: relative;
+  display: inline-block;
+
+  &--widget {
+    display: inline-block;
+    backface-visibility: hidden;
+    position: absolute;
+    left: 0;
+  }
+}
