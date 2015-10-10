@@ -1,8 +1,21 @@
 .main-home-page {
 
-  &--widget {
+  &--widget-container {
+    position: relative;
     display: inline-block;
     margin: 35px auto 0;
     height: 327px;
+    width: 324px;
+  }
+
+  &--widget {
+    display: inline-block;
+    backface-visibility: hidden;
+    position: absolute;
+    left: 0;
+  }
+
+  &--password-widget {
+//    backface-visibility: visible;
   }
 }
