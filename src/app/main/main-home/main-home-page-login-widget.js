@@ -53,6 +53,9 @@ var MainHomePageLoginWidget = React.createClass({
                     </div>
                     <Button type="primary">Recover my password</Button>
                 </Form>
+                <Button className="login-widget--forgot-password" type="link" onClick={this.handleBackToLoginClick}>
+                    {'Back to login form'}
+                </Button>
             </Widget>
         );
     },
@@ -64,6 +67,12 @@ var MainHomePageLoginWidget = React.createClass({
     handleForgetPasswordClick() {
         this.setState({
             sideToShow: 'back'
+        });
+    },
+
+    handleBackToLoginClick() {
+        this.setState({
+            sideToShow: 'front'
         });
     }
 });
