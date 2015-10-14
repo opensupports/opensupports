@@ -10,7 +10,10 @@ var reactDFS = function (children, visitFunction) {
     while(stack.length) {
         let element = stack.pop();
         let tempChilds = [];
-        React.Children.forEach(element.props.children, child => tempChilds.push(child));
+
+        if(element.props && element.props.children) {
+            React.Children.forEach(element.props.children, child => tempChilds.push(child));
+        }
 
         visitFunction(element);
         stack = stack.concat(tempChilds.reverse());
