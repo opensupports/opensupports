@@ -4,9 +4,9 @@ import React         from 'react/addons';
 import {Link}        from 'react-router';
 import DocumentTitle from 'react-document-title';
 
-import Button from 'core-components/button';
-import Input from 'core-components/input';
-import Widget from 'core-components/widget';
+import Button           from 'core-components/button';
+import Input            from 'core-components/input';
+import Widget           from 'core-components/widget';
 
 var DemoPage = React.createClass({
 
@@ -21,20 +21,26 @@ var DemoPage = React.createClass({
 				<Button type="primary">Sign up</Button>
 			)
 		},
-		{
-			title: 'Widget',
-			render: (
-				<Widget>
-					<h2>Register here!</h2>
-
-					<Button type="primary">SIGN UP</Button>
-				</Widget>
-			)
-		},
         {
             title: 'Input',
             render: (
                 <Input placeholder="placeholder"/>
+            )
+        },
+        {
+            title: 'Input wrapped in a label',
+            render: (
+                <Input placeholder="placeholder" label="This is a label" />
+            )
+        },
+        {
+            title: 'Widget',
+            render: (
+                <Widget>
+                    <h2>Register here!</h2>
+
+                    <Button type="primary">SIGN UP</Button>
+                </Widget>
             )
         }
 	],

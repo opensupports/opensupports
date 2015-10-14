@@ -19,7 +19,10 @@ var Input = React.createClass({
 
     render() {
         return (
-            <input {...this.getProps()} />
+            <label className="input-label">
+                <span className="input-label--text">{this.props.label}</span>
+                <input {...this.getProps()} />
+            </label>
         );
     },
 

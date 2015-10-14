@@ -44,11 +44,10 @@ var Form = React.createClass({
         return props;
     },
 
-    getInputProps(child) {
-        var props = child.props;
+    getInputProps({props, type}) {
         var additionalProps = {};
 
-        if(child.type === Input) {
+        if(type === Input) {
             let inputName = props.name;
 
             this.validations[inputName] = props.validation;

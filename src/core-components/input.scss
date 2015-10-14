@@ -13,4 +13,17 @@
     outline: none;
     border-color: $primary-blue;
   }
+
+  &-label {
+    position: relative;
+
+    &--text {
+      color: $primary-black;
+      font-size: 14px;
+      display: block;
+      position: absolute;
+      top: -26px;
+      left: 2px;
+    }
+  }
 }
