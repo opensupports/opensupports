@@ -1,8 +1,8 @@
 import React              from 'react/addons';
 import classNames         from 'classnames';
-import {History}       from 'react-router';
+import {History}          from 'react-router';
 
-import callback           from 'utils/callback';
+import callback           from 'lib/callback';
 
 var Button = React.createClass({
 

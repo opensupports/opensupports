@@ -1,7 +1,7 @@
 import React              from 'react/addons';
 import Button             from 'core-components/button';
 import CommonActions      from 'actions/common-actions';
-import i18n               from 'utils/i18n';
+import i18n               from 'lib/i18n';
 
 var MainLayoutHeader = React.createClass({
 

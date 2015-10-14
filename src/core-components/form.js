@@ -2,7 +2,7 @@ import React              from 'react/addons';
 import _                  from 'lodash';
 
 import Input              from 'core-components/input';
-import {reactDFS, renderChildrenWithProps}  from 'utils/react-dfs';
+import {reactDFS, renderChildrenWithProps}  from 'lib/react-dfs';
 
 var Form = React.createClass({
 

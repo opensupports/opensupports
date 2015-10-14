@@ -1,10 +1,7 @@
 import React              from 'react/addons';
-import {RouteHandler}     from 'react-router';
 
 import MainHeader         from 'app/main/main-layout-header';
 import MainFooter         from 'app/main/main-layout-footer';
-import {TransitionMotion, spring} from 'react-motion';
-import RouteTransition from 'utils/route-transition';
 
 var MainLayout = React.createClass({
 
