@@ -44,7 +44,7 @@
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.6",
     "humps": "^0.6.0",
-    "jest-cli": "^0.4.19",
+    "jest-cli": "^0.5.10",
     "lodash": "^3.10.0",
     "messageformat": "^0.2.2",
     "morgan": "^1.6.1",
