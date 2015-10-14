@@ -2,6 +2,7 @@ import React              from 'react/addons';
 import _                  from 'lodash';
 
 import Input              from 'core-components/input';
+import {reactDFS, renderChildrenWithProps}  from 'utils/react-dfs';
 
 var Form = React.createClass({
 
@@ -13,30 +14,26 @@ var Form = React.createClass({
         }
     },
 
+    componentDidMount() {
+        var formState = {};
+
+        reactDFS(this.props.children, (child) => {
+            if (child.type === Input) {
+                formState[child.props.name] = child.props.value;
+            }
+        });
+
+        this.setState({
+            form: formState
+        });
+    },
+
     render() {
         return (
             <form {...this.getProps()}>
-                {this.renderTraversedChildren(this.props.children)}
+                {renderChildrenWithProps(this.props.children, this.getInputProps)}
             </form>
         );
-    },
-
-    renderTraversedChildren(children) {
-        if (typeof children !== 'object' || children === null) {
-            return children;
-        }
-
-        return React.Children.map(children, function (child) {
-            if (typeof child !== 'object' || child === null) {
-                return child;
-            }
-
-            if (child.props && child.type === Input) {
-                return React.cloneElement(child, this.getInputProps(child.props), child.props && child.props.children);
-            } else {
-                return React.cloneElement(child, {}, this.renderTraversedChildren(child.props && child.props.children));
-            }
-        }.bind(this));
     },
 
     getProps() {
@@ -47,15 +44,22 @@ var Form = React.createClass({
         return props;
     },
 
-    getInputProps(props) {
-        var inputName = props.name;
+    getInputProps(child) {
+        var props = child.props;
+        var additionalProps = {};
 
-        this.validations[inputName] = props.validation;
+        if(child.type === Input) {
+            let inputName = props.name;
 
-        return {
-            onChange: this.handleInputChange.bind(this, inputName),
-            value: this.state.form[inputName] || props.value
-        };
+            this.validations[inputName] = props.validation;
+
+            additionalProps = {
+                onChange: this.handleInputChange.bind(this, inputName),
+                value: this.state.form[inputName] || props.value
+            }
+        }
+
+        return additionalProps;
     },
 
     handleSubmit (event) {

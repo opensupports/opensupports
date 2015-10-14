@@ -1,6 +1,3 @@
-/**
- * Created by ivan on 16/08/15.
- */
 jest.dontMock('../button.js');
 
 import React from 'react/addons';
