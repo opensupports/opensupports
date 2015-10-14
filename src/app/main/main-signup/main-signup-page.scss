@@ -1,0 +1,17 @@
+.main-signup-page {
+  &--widget-container {
+    height: 401px;
+  }
+
+  .signup-widget {
+
+    &--inputs {
+      display: inline-block;
+      margin: 0 auto 20px;
+    }
+
+    &--input {
+      margin-bottom: 5px;
+    }
+  }
+}

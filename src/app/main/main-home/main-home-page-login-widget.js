@@ -33,7 +33,7 @@ var MainHomePageLoginWidget = React.createClass({
                 <Form className="login-widget--form" onSubmit={this.handleLoginFormSubmit}>
                     <div className="login-widget--inputs">
                         <Input placeholder="email" name="email" className="login-widget--input"/>
-                        <Input placeholder="password" name="password" type="password" className="login-widget--input"/>
+                        <Input placeholder="password" name="password" className="login-widget--input" password/>
                     </div>
                     <Button type="primary">LOG IN</Button>
                 </Form>

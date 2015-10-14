@@ -8,20 +8,21 @@ var Input = React.createClass({
         value: React.PropTypes.string,
         validation: React.PropTypes.func,
         onChange: React.PropTypes.func,
-        type: React.PropTypes.string
+        inputType: React.PropTypes.string,
+        password: React.PropTypes.boolean
     },
 
     getDefaultProps() {
         return {
-            type: 'text'
+            inputType: 'primary'
         };
     },
 
     render() {
         return (
-            <label className="input-label">
-                <span className="input-label--text">{this.props.label}</span>
-                <input {...this.getProps()} />
+            <label className={this.getClass()}>
+                <span className="input--label">{this.props.label}</span>
+                <input {...this.getProps()} className="input--text" />
             </label>
         );
     },
@@ -29,17 +30,18 @@ var Input = React.createClass({
     getProps() {
         var props = _.clone(this.props);
 
-        props.className = this.getClass();
+        props.type = (this.props.password) ? 'password' : 'text';
 
         return props;
     },
 
     getClass() {
         var classes = {
-            'input': true
-        };
+            'input': true,
+            ['input_' + this.props.inputType]: true,
 
-        classes[this.props.className] = (this.props.className);
+            [this.props.className]: (this.props.className)
+        };
 
         return classNames(classes);
     }

@@ -1,12 +1,8 @@
 .login-widget {
 
   &--container {
-    margin: 35px auto 0;
+    margin: 0 auto;
     height: 327px;
-    width: 324px;
-  }
-
-  &--inputs {
   }
 
   &--input {
@@ -14,7 +10,8 @@
   }
 
   &--inputs {
-    margin-bottom: 20px;
+    display: inline-block;
+    margin: 0 auto 20px;
   }
 
   &--forgot-password {

@@ -19,10 +19,10 @@ var MainSignUpPageWidget = React.createClass({
                     <Widget className="signup-widget" title="Register">
                         <Form className="signup-widget--form" onSubmit={this.handleLoginFormSubmit}>
                             <div className="signup-widget--inputs">
-                                <Input placeholder="Full Name..." name="name" className="signup-widget--input"/>
-                                <Input placeholder="Email Address..." name="email" className="signup-widget--input"/>
-                                <Input placeholder="Password..." name="password" type="password" className="signup-widget--input"/>
-                                <Input placeholder="Repeat Password..." name="repeated-password" type="password" className="signup-widget--input"/>
+                                <Input {...this.getInputProps()} label="Full Name" name="name"/>
+                                <Input {...this.getInputProps()} label="Email Address" name="email"/>
+                                <Input {...this.getInputProps()} label="Password" name="password" password/>
+                                <Input {...this.getInputProps()} label="Repeat Password" name="repeated-password" password/>
                             </div>
                             <Button type="primary">SIGN UP</Button>
                         </Form>
@@ -30,6 +30,13 @@ var MainSignUpPageWidget = React.createClass({
                 </WidgetTransition>
             </div>
         );
+    },
+
+    getInputProps() {
+        return {
+            inputType: 'secondary',
+            className: 'signup-widget-input'
+        }
     },
 
     handleLoginFormSubmit(formState) {
