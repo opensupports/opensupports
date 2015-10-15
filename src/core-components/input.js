@@ -9,7 +9,7 @@ var Input = React.createClass({
         validation: React.PropTypes.func,
         onChange: React.PropTypes.func,
         inputType: React.PropTypes.string,
-        password: React.PropTypes.boolean
+        password: React.PropTypes.bool
     },
 
     getDefaultProps() {
