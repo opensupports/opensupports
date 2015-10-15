@@ -2,29 +2,29 @@
 
 .button {
 
-  &-primary {
-    background-color: $primary-red;
-    border: solid transparent;
-    border-radius: 4px;
-    color: white;
-    height: 47px;
-    text-transform: uppercase;
-    width: 239px;
-  }
-
-  &-clean {
-    background: none;
-    border: none;
-  }
-
-  &-link {
-    background: none;
-    border: none;
-    color: $dark-grey;
-    text-decoration: underline;
-
-    &:focus {
-      outline: none;
+    &-primary {
+        background-color: $primary-red;
+        border: solid transparent;
+        border-radius: 4px;
+        color: white;
+        height: 47px;
+        text-transform: uppercase;
+        width: 239px;
     }
-  }
+
+    &-clean {
+        background: none;
+        border: none;
+    }
+
+    &-link {
+        background: none;
+        border: none;
+        color: $dark-grey;
+        text-decoration: underline;
+
+        &:focus {
+            outline: none;
+        }
+    }
 }

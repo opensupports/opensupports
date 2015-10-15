@@ -1,18 +1,17 @@
 @import "../scss/vars";
 
 .widget {
-  background-color: white;
-  border-radius: 4px;
-  text-align: center;
-  padding: 20px;
-  width: 324px;
-  min-height: 327px;
+    background-color: white;
+    border-radius: 4px;
+    text-align: center;
+    padding: 20px;
+    width: 324px;
+    min-height: 327px;
 
-
-  &--title {
-    text-transform: uppercase;
-    color: $primary-black;
-    font-size: 17px;
-    margin-bottom: 20px;
-  }
+    &--title {
+        text-transform: uppercase;
+        color: $primary-black;
+        font-size: 17px;
+        margin-bottom: 20px;
+    }
 }

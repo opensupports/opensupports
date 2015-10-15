@@ -2,16 +2,16 @@
 
 
 .main-layout {
-  margin: 0 auto;
-  background-color: $grey;
-  max-width: 1100px;
-  border-radius: 4px;
-  transition: max-height 0.15s ease-out;
+    margin: 0 auto;
+    background-color: $grey;
+    max-width: 1100px;
+    border-radius: 4px;
+    transition: max-height 0.15s ease-out;
 
-  &--content {
-    text-align: center;
-    min-height: 400px;
-    width: 1100px;
-    padding: 20px;
-  }
+    &--content {
+        text-align: center;
+        min-height: 400px;
+        width: 1100px;
+        padding: 20px;
+    }
 }

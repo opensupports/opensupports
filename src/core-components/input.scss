@@ -1,37 +1,37 @@
 @import "../scss/vars";
 
 .input {
-  display: block;
-
-  &--text {
-    border: 1px solid $grey;
-    border-radius: 3px;
-    padding: 8px;
-    width: 100%;
-
-    &:hover {
-      border-color: $medium-grey;
-    }
-
-    &:focus {
-      outline: none;
-      border-color: $primary-blue;
-    }
-  }
-
-  &--label {
-    color: $primary-black;
-    font-size: 15px;
     display: block;
-    padding: 3px 0;
-    text-align: left;
-  }
 
-  &_primary {
-    width: 200px;
-  }
+    &--text {
+        border: 1px solid $grey;
+        border-radius: 3px;
+        padding: 8px;
+        width: 100%;
 
-  &_secondary {
-    width: 250px;
-  }
+        &:hover {
+            border-color: $medium-grey;
+        }
+
+        &:focus {
+            outline: none;
+            border-color: $primary-blue;
+        }
+    }
+
+    &--label {
+        color: $primary-black;
+        font-size: 15px;
+        display: block;
+        padding: 3px 0;
+        text-align: left;
+    }
+
+    &_primary {
+        width: 200px;
+    }
+
+    &_secondary {
+        width: 250px;
+    }
 }

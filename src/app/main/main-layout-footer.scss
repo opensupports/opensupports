@@ -1,19 +1,19 @@
 @import "../../scss/vars";
 
 .main-layout-footer {
-  background-color: $primary-blue;
-  text-align: center;
-  height: 32px;
-  width: 100%;
+    background-color: $primary-blue;
+    text-align: center;
+    height: 32px;
+    width: 100%;
 
-  &--powered {
-    color: white;
-    display: inline-block;
-    padding-top: 7px;
-  }
+    &--powered {
+        color: white;
+        display: inline-block;
+        padding-top: 7px;
+    }
 
-  &--os-link {
-    color: $secondary-red;
-    text-decoration: none;
-  }
+    &--os-link {
+        color: $secondary-red;
+        text-decoration: none;
+    }
 }

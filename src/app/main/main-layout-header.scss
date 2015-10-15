@@ -1,16 +1,16 @@
 @import "../../scss/vars";
 
 .main-layout-header {
-  background-color: $primary-blue;
-  border-radius: 4px 4px 0 0;
-  height: 32px;
-  width: 100%;
-
-  &--login-links {
-    border-top-left-radius: 4px;
-    color: white;
-    display: inline-block;
+    background-color: $primary-blue;
+    border-radius: 4px 4px 0 0;
     height: 32px;
-    padding: 5px 20px 0 10px;
-  }
+    width: 100%;
+
+    &--login-links {
+        border-top-left-radius: 4px;
+        color: white;
+        display: inline-block;
+        height: 32px;
+        padding: 5px 20px 0 10px;
+    }
 }

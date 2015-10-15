@@ -1,20 +1,20 @@
 .login-widget {
 
-  &--container {
-    margin: 0 auto;
-    height: 327px;
-  }
+    &--container {
+        margin: 0 auto;
+        height: 327px;
+    }
 
-  &--input {
-    margin: 10px 0;
-  }
+    &--input {
+        margin: 10px 0;
+    }
 
-  &--inputs {
-    display: inline-block;
-    margin: 0 auto 20px;
-  }
+    &--inputs {
+        display: inline-block;
+        margin: 0 auto 20px;
+    }
 
-  &--forgot-password {
+    &--forgot-password {
     margin-top: 20px;
-  }
+    }
 }

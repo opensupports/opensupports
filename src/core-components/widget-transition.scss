@@ -1,12 +1,12 @@
 .widget-transition {
-  position: relative;
-  display: inline-block;
-  width: 324px;
-
-  &--widget {
+    position: relative;
     display: inline-block;
-    backface-visibility: hidden;
-    position: absolute;
-    left: 0;
-  }
+    width: 324px;
+
+    &--widget {
+        display: inline-block;
+        backface-visibility: hidden;
+        position: absolute;
+        left: 0;
+    }
 }
