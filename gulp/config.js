@@ -24,6 +24,11 @@ module.exports = {
     'dest': './build/css/'
   },
 
+  'fonts': {
+    'src': './src/scss/font_awesome/fonts/*',
+    'dest': './build/fonts/'
+  },
+
   'sourceDir': './src/',
 
   'buildDir': './build/'
