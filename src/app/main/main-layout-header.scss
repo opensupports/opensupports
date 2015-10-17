@@ -13,4 +13,11 @@
         height: 32px;
         padding: 5px 20px 0 10px;
     }
+
+    &--languages {
+        float: right;
+        position: relative;
+        top: 5px;
+        left: -6px;
+    }
 }
