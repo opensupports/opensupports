@@ -13,7 +13,8 @@ var App = React.createClass({
     render() {
         return (
           <div>
-            {this.props.children}
+            <RouteHandler params={this.props.params}
+                          query={this.props.query} />
           </div>
         );
     },

@@ -1,6 +1,5 @@
 import React                                from 'react/addons';
-import {Router, Route, IndexRoute}          from 'react-router';
-import CreateBrowserHistory                 from 'react-router/node_modules/history/lib/createBrowserHistory';
+import {Route, NotFoundRoute, DefaultRoute} from 'react-router';
 
 import App                                  from 'app/App';
 import DemoPage                             from 'app/demo/components-demo-page';
@@ -11,16 +10,14 @@ import MainSignUpPage                       from 'app/main/main-signup/main-sign
 
 
 export default (
-    <Router history={CreateBrowserHistory()}>
-      <Route component={App} path='/'>
+  <Route handler={App} path='/'>
 
-        <Route path='/app' component={MainLayout}>
-            <IndexRoute component={MainHomePage} />
-            <Route path='signup' component={MainSignUpPage}/>
-        </Route>
+    <Route name='main' path='/app' handler={MainLayout}>
+		<DefaultRoute name='home' handler={MainHomePage} />
+        <Route name='signup' path='/app/signup' handler={MainSignUpPage}/>
+	</Route>
 
-        <Route name='Demo' path='demo' component={DemoPage} />
+    <Route name='Demo' path='/demo' handler={DemoPage} />
 
-      </Route>
-    </Router>
+  </Route>
 );
