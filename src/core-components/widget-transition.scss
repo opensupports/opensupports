@@ -1,7 +1,7 @@
 .widget-transition {
     position: relative;
     display: inline-block;
-    width: 324px;
+    min-width: 324px;
 
     &--widget {
         display: inline-block;

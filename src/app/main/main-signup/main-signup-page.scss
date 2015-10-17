@@ -1,6 +1,8 @@
 .main-signup-page {
+
     &--widget-container {
         height: 525px;
+        width: 364px;
     }
 
     .signup-widget {
@@ -19,6 +21,8 @@
         &--captcha {
             margin-top: 30px;
             margin-bottom: 20px;
+            height: 78px;
+            width: 304px;
         }
     }
 }
