@@ -48,7 +48,7 @@ var DropDown = React.createClass({
         var animation = this.getAnimationStyles();
 
         return (
-            <div className="drop-down">
+            <div className={this.getClass()}>
                 <div className="drop-down--current" onClick={this.getClickCallback(this.getSelectedIndex())}>
                     {this.props.items[this.getSelectedIndex()]}
                 </div>
@@ -72,17 +72,21 @@ var DropDown = React.createClass({
     },
 
     renderItem(item, index) {
-        var render = null;
+        return (
+            <li className="drop-down--list-item" onClick={this.getClickCallback(index)}>
+                {item}
+            </li>
+        );
+    },
 
-        if (index !== this.state.selectedIndex) {
-            render = (
-                <li className="drop-down--list-item" onClick={this.getClickCallback(index)}>
-                    {item}
-                </li>
-            );
-        }
+    getClass() {
+        var classes = {
+            'drop-down': true,
 
-        return render;
+            [this.props.className]: (this.props.className)
+        };
+
+        return classNames(classes);
     },
 
     getClickCallback(index) {
@@ -90,16 +94,10 @@ var DropDown = React.createClass({
     },
 
     handleClick(index) {
-        if (this.getSelectedIndex() === index) {
-            this.setState({
-                opened: !this.state.opened
-            });
-        }
-        else {
-            this.setState({
-                selectedIndex: index
-            });
-        }
+        this.setState({
+            opened: !this.state.opened,
+            selectedIndex: index
+        });
     },
 
     getSelectedIndex() {

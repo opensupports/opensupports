@@ -8,13 +8,16 @@
     cursor: pointer;
 
     &--current {
-        color: $primary-black;
         background-color: $light-grey;
-        padding: 8px;
+        border-radius: 4px 4px 0 0;
+        color: $primary-black;
+        padding: 6px;
     }
 
     &--list-container {
         background-color: white;
+        position: absolute;
+        width: 150px;
     }
 
     &--list {
