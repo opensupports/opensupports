@@ -26,7 +26,7 @@ var MainSignUpPageWidget = React.createClass({
                                 <Input {...this.getInputProps()} label="Repeat Password" name="repeated-password" password/>
                             </div>
                             <div className="signup-widget--captcha">
-                                <ReCAPTCHA sitekey="6LeSP-8SAAAAABFCFiNhSz19syuGI4TspYChe7dX" onChange={function () {}}/>
+                                <ReCAPTCHA sitekey="custom-site-key" onChange={function () {}}/>
                             </div>
                             <Button type="primary">SIGN UP</Button>
                         </Form>
