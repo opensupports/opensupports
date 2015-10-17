@@ -3,8 +3,8 @@ import classNames         from 'classnames';
 import _                  from 'lodash';
 import {Motion, spring}   from 'react-motion';
 
-
 import callback           from 'lib/callback';
+import getIcion           from 'lib/callback';
 
 var DropDown = React.createClass({
 
@@ -12,7 +12,10 @@ var DropDown = React.createClass({
         defaultSelectedIndex: React.PropTypes.number,
         selectedIndex: React.PropTypes.number,
 
-        items: React.PropTypes.array.isRequired
+        items: React.PropTypes.arrayOf(React.PropTypes.shape({
+            content: React.PropTypes.string.isRequired,
+            icon: React.PropTypes.string
+        })).isRequired
     },
 
     getDefaultProps() {

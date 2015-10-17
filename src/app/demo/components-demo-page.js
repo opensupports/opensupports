@@ -10,7 +10,7 @@ import Checkbox         from 'core-components/checkbox';
 import Widget           from 'core-components/widget';
 import DropDown         from 'core-components/drop-down';
 
-var dropDownItems = ['English', 'Spanish', 'German', 'Portuguese', 'Japanese'];
+var dropDownItems = [{content: 'English'}, {content: 'Spanish'}, {content: 'German'}, {content: 'Portuguese'}, {content: 'Japanese'}];
 
 var DemoPage = React.createClass({
 

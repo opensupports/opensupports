@@ -6,9 +6,15 @@ import CommonActions      from 'actions/common-actions';
 import Button             from 'core-components/button';
 import DropDown           from 'core-components/drop-down';
 
-var MainLayoutHeader = React.createClass({
+var languageList = ['English', 'Spanish', 'Portuguese', 'German'];
+var codeLanguages = {
+    'English': 'en',
+    'Spanish': 'es',
+    'Portuguese': 'pt',
+    'German': 'de'
+};
 
-    languageList: ['English', 'Spanish', 'Portuguese', 'German'],
+var MainLayoutHeader = React.createClass({
 
     render() {
         return (
@@ -17,19 +23,25 @@ var MainLayoutHeader = React.createClass({
                     <Button type="clean" route={{to:'/app'}}>{i18n('LOG_IN')}</Button>
                     <Button type="clean" route={{to:'/app/signup'}}>{i18n('SIGN_UP')}</Button>
                 </div>
-                <DropDown className="main-layout-header--languages" items={this.languageList} onChange={this.changeLanguage}/>
+                <DropDown className="main-layout-header--languages" items={this.getLanguageList()} onChange={this.changeLanguage}/>
             </div>
         );
     },
 
+    getLanguageList() {
+        return languageList.map((item) => {
+            return {
+                content: (
+                    <span>
+                        <img src={`../images/icons/${codeLanguages[item]}.png`} />{item}
+                    </span>
+                )
+            };
+        });
+    },
+
     changeLanguage(event) {
-        var codeLanguages = {
-            'English': 'en',
-            'Spanish': 'es',
-            'Portuguese': 'pt',
-            'German': 'de'
-        };
-        var language = this.languageList[event.index];
+        var language = languageList[event.index];
 
         CommonActions.changeLanguage(codeLanguages[language]);
     }
