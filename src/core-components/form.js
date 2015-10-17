@@ -1,8 +1,10 @@
 import React              from 'react/addons';
 import _                  from 'lodash';
 
-import Input              from 'core-components/input';
 import {reactDFS, renderChildrenWithProps}  from 'lib/react-dfs';
+
+import Input              from 'core-components/input';
+import Checkbox           from 'core-components/checkbox';
 
 var Form = React.createClass({
 
@@ -19,7 +21,10 @@ var Form = React.createClass({
 
         reactDFS(this.props.children, (child) => {
             if (child.type === Input) {
-                formState[child.props.name] = child.props.value;
+                formState[child.props.name] = child.props.value || '';
+            }
+            else if (child.type === Checkbox) {
+                formState[child.props.name] = child.props.checked || false;
             }
         });
 
@@ -47,13 +52,13 @@ var Form = React.createClass({
     getInputProps({props, type}) {
         var additionalProps = {};
 
-        if(type === Input) {
+        if (type === Input || type === Checkbox) {
             let inputName = props.name;
 
             this.validations[inputName] = props.validation;
 
             additionalProps = {
-                onChange: this.handleInputChange.bind(this, inputName),
+                onChange: this.handleInputChange.bind(this, inputName, type),
                 value: this.state.form[inputName] || props.value
             }
         }
@@ -69,10 +74,14 @@ var Form = React.createClass({
         }
     },
 
-    handleInputChange(inputName, event) {
+    handleInputChange(inputName, type, event) {
         var form = _.clone(this.state.form);
 
         form[inputName] = event.target.value;
+
+        if (type === Checkbox) {
+            form[inputName] = event.target.checked || false;
+        }
 
         this.setState({
             form: form

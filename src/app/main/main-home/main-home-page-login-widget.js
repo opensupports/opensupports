@@ -7,6 +7,7 @@ import UserStore          from 'stores/user-store';
 import Button             from 'core-components/button';
 import Form               from 'core-components/form';
 import Input              from 'core-components/input';
+import Checkbox           from 'core-components/checkbox';
 import Widget             from 'core-components/widget';
 import WidgetTransition   from 'core-components/widget-transition';
 
@@ -34,6 +35,7 @@ var MainHomePageLoginWidget = React.createClass({
                     <div className="login-widget--inputs">
                         <Input placeholder="email" name="email" className="login-widget--input"/>
                         <Input placeholder="password" name="password" className="login-widget--input" password/>
+                        <Checkbox name="remember" label="Remember Me" className="login-widget--input"/>
                     </div>
                     <Button type="primary">LOG IN</Button>
                 </Form>
@@ -61,7 +63,8 @@ var MainHomePageLoginWidget = React.createClass({
     },
 
     handleLoginFormSubmit(formState) {
-        UserActions.login(formState.email, formState.password);
+        console.log(formState);
+        UserActions.login(formState);
     },
 
     handleForgetPasswordClick() {

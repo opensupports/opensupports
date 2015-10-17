@@ -13,8 +13,8 @@ var UserStore = Reflux.createStore({
 		this.listenTo(UserActions.logout, this.logoutUser);
 	},
 
-    loginUser(email, password) {
-        console.log(email + ':' + password);
+    loginUser({email, password, remember}) {
+        console.log(`${email}:${password} (${remember})`);
 	}
 });
 

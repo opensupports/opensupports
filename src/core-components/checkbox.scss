@@ -1,0 +1,32 @@
+@import "../scss/vars";
+
+.checkbox {
+    color: $primary-black;
+    border-radius: 5px;
+    display: inline-block;
+
+    &--box {
+        display: none;
+    }
+
+    &--icon {
+        color: $light-grey;
+        outline: none;
+
+        &:focus {
+            color: $grey;
+        }
+    }
+
+    &--label {
+        margin-left: 10px;
+        font-size: 14px;
+        user-select: none;
+    }
+
+    &_checked {
+        .checkbox--icon {
+            color: $primary-red;
+        }
+    }
+}

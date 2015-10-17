@@ -6,6 +6,7 @@ import DocumentTitle from 'react-document-title';
 
 import Button           from 'core-components/button';
 import Input            from 'core-components/input';
+import Checkbox         from 'core-components/checkbox';
 import Widget           from 'core-components/widget';
 
 var DemoPage = React.createClass({
@@ -31,6 +32,12 @@ var DemoPage = React.createClass({
             title: 'Input wrapped in a label',
             render: (
                 <Input placeholder="placeholder" label="This is a label" />
+            )
+        },
+        {
+            title: 'Checkbox',
+            render: (
+                <Checkbox label="Remember me" />
             )
         },
         {
