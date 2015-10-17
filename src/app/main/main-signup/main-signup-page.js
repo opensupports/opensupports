@@ -1,5 +1,6 @@
 import React              from 'react/addons';
 import {ListenerMixin}    from 'reflux';
+import ReCAPTCHA          from 'react-google-recaptcha';
 
 import UserActions        from 'actions/user-actions';
 import UserStore          from 'stores/user-store';
@@ -23,6 +24,9 @@ var MainSignUpPageWidget = React.createClass({
                                 <Input {...this.getInputProps()} label="Email Address" name="email"/>
                                 <Input {...this.getInputProps()} label="Password" name="password" password/>
                                 <Input {...this.getInputProps()} label="Repeat Password" name="repeated-password" password/>
+                            </div>
+                            <div className="signup-widget--captcha">
+                                <ReCAPTCHA sitekey="6LeSP-8SAAAAABFCFiNhSz19syuGI4TspYChe7dX" onChange={function () {}}/>
                             </div>
                             <Button type="primary">SIGN UP</Button>
                         </Form>
