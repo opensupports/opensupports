@@ -8,6 +8,9 @@ import Button           from 'core-components/button';
 import Input            from 'core-components/input';
 import Checkbox         from 'core-components/checkbox';
 import Widget           from 'core-components/widget';
+import DropDown         from 'core-components/drop-down';
+
+var dropDownItems = ['English', 'Spanish', 'German', 'Portuguese', 'Japanese'];
 
 var DemoPage = React.createClass({
 
@@ -43,11 +46,17 @@ var DemoPage = React.createClass({
         {
             title: 'Widget',
             render: (
-                <Widget>
+                <Widget style={{ width: 324 }}>
                     <h2>Register here!</h2>
 
                     <Button type="primary">SIGN UP</Button>
                 </Widget>
+            )
+        },
+        {
+            title: 'DropDown',
+            render: (
+                <DropDown items={dropDownItems} />
             )
         }
 	],
