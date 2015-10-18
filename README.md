@@ -3,7 +3,7 @@ OpenSupports v4.0
 
 ### Getting up and running
 
-1. [Create MySQL Database](#create-mysql-database)
+1. [Create MySQL Database](#markdown-header-create-mysql-database)
 2. Clone this repo
 3. Run `npm install` from the root directory
 4. Create a mysql database
