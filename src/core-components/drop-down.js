@@ -77,7 +77,7 @@ var DropDown = React.createClass({
     renderItem(item, index) {
         return (
             <li className="drop-down--list-item" onClick={this.getClickCallback(index)}>
-                {item}
+                {item.content}
             </li>
         );
     },

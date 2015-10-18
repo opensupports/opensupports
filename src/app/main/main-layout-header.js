@@ -6,12 +6,14 @@ import CommonActions      from 'actions/common-actions';
 import Button             from 'core-components/button';
 import DropDown           from 'core-components/drop-down';
 
-var languageList = ['English', 'Spanish', 'Portuguese', 'German'];
+var languageList = ['English', 'Spanish', 'Portuguese', 'German', 'Turkish', 'Indian'];
 var codeLanguages = {
-    'English': 'en',
+    'English': 'us',
     'Spanish': 'es',
     'Portuguese': 'pt',
-    'German': 'de'
+    'German': 'de',
+    'Turkish': 'tr',
+    'Indian': 'in'
 };
 
 var MainLayoutHeader = React.createClass({
@@ -33,7 +35,7 @@ var MainLayoutHeader = React.createClass({
             return {
                 content: (
                     <span>
-                        <img src={`../images/icons/${codeLanguages[item]}.png`} />{item}
+                        <img className="language-icon" src={`../images/icons/${codeLanguages[item]}.png`} />{item}
                     </span>
                 )
             };
