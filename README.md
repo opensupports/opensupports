@@ -3,7 +3,7 @@ OpenSupports v4.0
 
 ### Getting up and running
 
-1. [Create MySQL Database](#Create MySQL Database)
+1. [Create MySQL Database](#create-mysql-database)
 2. Clone this repo
 3. Run `npm install` from the root directory
 4. Create a mysql database
@@ -14,6 +14,7 @@ OpenSupports v4.0
 Now that `gulp dev` is running, the server is up as well and serving files from the `/build` directory. Any changes in the `/src` directory will be automatically processed by Gulp and the changes will be injected to any open browsers pointed at the proxy address.
 
 ### Create MySQL Database
+
 1. Install mysql-server
 
     Ubuntu
