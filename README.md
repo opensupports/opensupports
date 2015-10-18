@@ -42,6 +42,10 @@ Now that `gulp dev` is running, the server is up as well and serving files from 
 
     `GRANT ALL ON os_dev.* TO 'os_dev'@'os_dev';`
 
+6. Run the MySQL server
+
+    `sudo /etc/init.d/mysql start`
+
 ##### Production Task
 
 Just as there is the `gulp dev` task for development, there is also a `gulp prod` task for putting your project into a production-ready state. This will run each of the tasks, while also adding the image minification task discussed above. There is also an empty `gulp deploy` task that is included when running the production task. This deploy task can be fleshed out to automatically push your production-ready site to your hosting setup.
