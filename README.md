@@ -30,17 +30,13 @@ Now that `gulp dev` is running, the server is up as well and serving files from 
 
      `mysql -u root -p`
 
-3. Create a new user 
-
-    `CREATE USER 'os_dev'@'localhost' IDENTIFIED BY 'os_dev';`
-
-4. Create a new database
+3. Create a new database
 
     `CREATE DATABASE os_dev;`
 
-5. Assign privileges to user  
+4. Assign privileges to user  
 
-    `GRANT ALL ON os_dev.* TO 'os_dev'@'os_dev';`
+    `GRANT ALL PRIVILEGES ON os_dev.* To 'os_dev'@'localhost' IDENTIFIED BY 'os_dev';`
 
 6. Run the MySQL server
 
