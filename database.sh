@@ -7,7 +7,3 @@ for t in $TABLES
 do
  mysql -u os_dev -pos_dev os_dev -e "DROP TABLE $t"
 done
-
-# EXECUTE SQL
-
-mysql -u os_dev -pos_dev os_dev < src/server/mock_db/database.sql
