@@ -1,5 +1,4 @@
 import React              from 'react/addons';
-import {ListenerMixin}    from 'reflux';
 
 import UserActions        from 'actions/user-actions';
 import UserStore          from 'stores/user-store';
