@@ -45,6 +45,7 @@
     "gulp-util": "^3.0.6",
     "humps": "^0.6.0",
     "jest-cli": "^0.5.10",
+    "jquery": "^2.1.4",
     "lodash": "^3.10.0",
     "messageformat": "^0.2.2",
     "morgan": "^1.6.1",
@@ -55,7 +56,6 @@
     "react-router": "^0.13.x",
     "reflux": "^0.2.9",
     "run-sequence": "^1.1.1",
-    "superagent": "^1.2.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.2.x"
   },

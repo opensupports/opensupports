@@ -6,6 +6,7 @@ var express = require('express');
 var gulp    = require('gulp');
 var gutil   = require('gulp-util');
 var morgan  = require('morgan');
+var proxy = require('express-http-proxy');
 
 gulp.task('server', function() {
 
@@ -14,6 +15,13 @@ gulp.task('server', function() {
   // log all requests to the console
   server.use(morgan('dev'));
   server.use(express.static(config.buildDir));
+
+  // Proxy php server api
+  server.use('/server', proxy('http://localhost:8080/', {
+    forwardPath: function(req, res) {
+        return require('url').parse(req.url).path;
+    }
+  }));
 
   // Serve index.html for all routes to leave routing up to react-router
   server.all('/*', function(req, res) {

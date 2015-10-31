@@ -1,9 +1,0 @@
-{
-    "require": {
-        "slim/slim": "~2.0",
-        "gabordemooij/redbean": "~4.2"
-    },
-    "require-dev": {
-      "phpunit/phpunit": "5.0.*"
-    }
-}

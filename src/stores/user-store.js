@@ -1,4 +1,5 @@
 import Reflux             from 'reflux';
+import APIUtils           from 'lib/APIUtils';
 
 import UserActions        from 'actions/user-actions';
 
@@ -13,8 +14,10 @@ var UserStore = Reflux.createStore({
 		this.listenTo(UserActions.logout, this.logoutUser);
 	},
 
-    loginUser({email, password, remember}) {
-        console.log(`${email}:${password} (${remember})`);
+    loginUser(loginData) {
+        APIUtils.post('user/login').then(result => {
+            console.log(result);
+        });
 	}
 });
 
