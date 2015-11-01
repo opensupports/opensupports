@@ -9,10 +9,6 @@ RedBean::setup('mysql:host='. $mysql_host .';dbname=' . $mysql_database, $mysql_
 // SLIM FRAMEWORK
 \Slim\Slim::registerAutoLoader();
 $app = new \Slim\Slim();
-$app->config('debug', true);
-$app->error(function (\Exception $e) use ($app) {
-    echo "error";
-});
 
 // LOAD MODELS
 spl_autoload_register(function ($class) {

@@ -44,7 +44,6 @@ class User {
             $this->_user = $user;
         }
         else {
-            //echo RedBean;
             $this->_user = RedBean::dispense('users');
             $this->setDefaultProperties();
         }

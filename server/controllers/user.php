@@ -6,7 +6,6 @@ $app->group('/user', function () use ($app) {
     });
 
     $app->get('/add/:user/:pass', function ($user, $pass) use ($app) {
-        // $app->response()->setStatus(400);
         $userInstance = new User();
         $userInstance->setProperties(array(
             'user' => $user,
