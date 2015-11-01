@@ -15,7 +15,7 @@ var UserStore = Reflux.createStore({
 	},
 
     loginUser(loginData) {
-        APIUtils.post('user/login').then(result => {
+        APIUtils.post('user/login', loginData).then(result => {
             console.log(result);
         });
 	}
