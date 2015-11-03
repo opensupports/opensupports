@@ -13,7 +13,9 @@ $app->group('/user', function () use ($app) {
             'admin' => 0
         ));
         $id = $userInstance->store();
-        $app->response()->setBody("{ \"id\": $id }");
+        Response::respondSuccess(array(
+            'id' => $id
+        ));
     });
 
     $app->post('/login', function () use ($app) {
@@ -23,11 +25,12 @@ $app->group('/user', function () use ($app) {
         if ($userInstance = User::getUser($user, 'user')) {
             $pass = $userInstance->password;
         }
+
         if ($pass === $password) {
-            $app->response()->setBody("{ \"response\": \"OK\" }");
+            Response::respondSuccess();
         }
         else {
-            $app->response()->setBody("{ \"response\": \"FAIL\" }");
+            Response::respondError(ERRORS::UNDEFINED_CREDENTIALS);
         }
     });
 
