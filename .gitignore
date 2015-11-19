@@ -21,6 +21,7 @@ build/Release
 # Dependency directories
 node_modules
 bower_components
+server/vendor
 
 # Build files
 build
