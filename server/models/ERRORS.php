@@ -1,4 +1,4 @@
 <?php
 class ERRORS {
-    const UNDEFINED_CREDENTIALS = 'User or password is not defined';
+    const INVALID_CREDENTIALS = 'User or password is not defined';
 }

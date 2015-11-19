@@ -8,9 +8,6 @@ class User extends DataStore {
         'password',
         'admin',
     );
-    const ERRORS = array(
-        'UNDEFINED_CREDENTIALS' => 'User or password is not defined'
-    );
 
     public static function getUser($value, $property = 'id') {
         if ($property === 'id') {

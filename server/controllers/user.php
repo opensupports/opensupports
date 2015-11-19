@@ -5,6 +5,7 @@ $app->group('/user', function () use ($app) {
         echo "Returns the user with $by = $value as a json";
     });
 
+    //TODO: THIS METHOD CAN BE ONLY USED IF IT IS LOGIN AS ADMIN
     $app->get('/add/:user/:pass', function ($user, $pass) use ($app) {
         $userInstance = new User();
         $userInstance->setProperties(array(
@@ -21,20 +22,20 @@ $app->group('/user', function () use ($app) {
     $app->post('/login', function () use ($app) {
         $user =  $app->request()->post('email');
         $password =  $app->request()->post('password');
-        $pass = '';
+
         if ($userInstance = User::getUser($user, 'user')) {
             $pass = $userInstance->password;
+        }
+        else {
+            return;
+            Response::respondError(ERRORS::INVALID_CREDENTIALS);
         }
 
         if ($pass === $password) {
             Response::respondSuccess();
         }
         else {
-            Response::respondError(ERRORS::UNDEFINED_CREDENTIALS);
+            Response::respondError(ERRORS::INVALID_CREDENTIALS);
         }
-    });
-
-    $app->post('/add', function () use ($app) {
-        echo "You have the new";
     });
 });

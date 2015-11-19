@@ -1,5 +1,5 @@
 <?php
-class Response{
+class Response {
     private static $errored;
 
     public static function respondError($errorMsg, $data = null) {
