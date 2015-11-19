@@ -26,5 +26,6 @@ server/vendor
 # Build files
 build
 
+server/composer.lock
 .idea
 .jshintrc
