@@ -1,5 +1,0 @@
-/*
-
-Put the rb.php file in this directory
-
-*/
