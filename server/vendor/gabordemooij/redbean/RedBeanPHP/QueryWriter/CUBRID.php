@@ -1,10 +1,10 @@
 <?php
 
-namespace RedBeanPHP\QueryWriter; 
+namespace RedBeanPHP\QueryWriter;
 use RedBeanPHP\QueryWriter\AQueryWriter as AQueryWriter;
 use RedBeanPHP\QueryWriter as QueryWriter;
 use RedBeanPHP\Adapter\DBAdapter as DBAdapter;
-use RedBeanPHP\Adapter as Adapter; 
+use RedBeanPHP\Adapter as Adapter;
 use RedBeanPHP\RedException\SQL as SQLException;
 
 /**
@@ -52,13 +52,13 @@ class CUBRID extends AQueryWriter implements QueryWriter
 	 * later on.
 	 * This methods accepts a type and infers the corresponding table name.
 	 *
+	 * @param  string $type        type that will have a foreign key field
+	 * @param  string $targetType  points to this type
+	 * @param  string $property       field that contains the foreign key value
+	 * @param  string $targetProperty field where the fk points to
+	 * @param  bool $isDep
 	 *
-	 * @param  string $type           type that will have a foreign key field
-	 * @param  string $targetType     points to this type
-	 * @param  string $field          field that contains the foreign key value
-	 * @param  string $targetField    field where the fk points to
-	 *
-	 * @return void
+	 * @return bool
 	 */
 	protected function buildFK( $type, $targetType, $property, $targetProperty, $isDep = FALSE )
 	{
@@ -137,7 +137,7 @@ class CUBRID extends AQueryWriter implements QueryWriter
 	 * This method returns the datatype to be used for primary key IDS and
 	 * foreign keys. Returns one if the data type constants.
 	 *
-	 * @return integer $const data type to be used for IDS.
+	 * @return integer
 	 */
 	public function getTypeForID()
 	{
@@ -340,9 +340,9 @@ class CUBRID extends AQueryWriter implements QueryWriter
 		$table = $this->esc( $type, TRUE );
 		$field = $this->esc( $property, TRUE ) . '_id';
 		$keys = $this->getKeyMapForType( $table );
-		
+
 		foreach( $keys as $key ) {
-			if ( 
+			if (
 				$key['from'] === $field
 			) return $key['table'];
 		}

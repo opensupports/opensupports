@@ -157,7 +157,7 @@ class Writer extends \RedUNIT\Mysql
 		asrt( $writer->scanType( FALSE ), MySQL::C_DATATYPE_BOOL );
 		asrt( $writer->scanType( TRUE ), MySQL::C_DATATYPE_BOOL );
 		asrt( $writer->scanType( INF ), MySQL::C_DATATYPE_TEXT7 );
-		
+
 		asrt( $writer->scanType( NULL ), MySQL::C_DATATYPE_BOOL );
 
 		asrt( $writer->scanType( 2 ), MySQL::C_DATATYPE_UINT32 );
@@ -178,6 +178,10 @@ class Writer extends \RedUNIT\Mysql
 		asrt( $writer->scanType( "2001-10-10" ), MySQL::C_DATATYPE_TEXT7 );
 
 		asrt( $writer->scanType( "2001-10-10 10:00:00" ), MySQL::C_DATATYPE_TEXT7 );
+
+		asrt( $writer->scanType( "1.23", TRUE ), MySQL::C_DATATYPE_SPECIAL_MONEY );
+		asrt( $writer->scanType( "12.23", TRUE ), MySQL::C_DATATYPE_SPECIAL_MONEY );
+		asrt( $writer->scanType( "124.23", TRUE ), MySQL::C_DATATYPE_SPECIAL_MONEY );
 
 		asrt( $writer->scanType( str_repeat( "lorem ipsum", 100 ) ), MySQL::C_DATATYPE_TEXT16 );
 
@@ -543,6 +547,37 @@ class Writer extends \RedUNIT\Mysql
 
 		asrt( $cols['date'], 'date' );
 	}
+
+	/**
+	 * Test money types.
+	 *
+	 * @return void
+	 */
+	public function testTypesMon()
+	{
+		$bean       = R::dispense( 'bean' );
+
+		$bean->amount = '22.99';
+
+		R::store( $bean );
+
+		$cols = R::getColumns( 'bean' );
+
+		asrt( $cols['amount'], 'decimal(10,2)' );
+
+		R::nuke();
+
+		$bean       = R::dispense( 'bean' );
+
+		$bean->amount = '-22.99';
+
+		R::store( $bean );
+
+		$cols = R::getColumns( 'bean' );
+
+		asrt( $cols['amount'], 'decimal(10,2)' );
+	}
+
 
 	/**
 	 * Date-time

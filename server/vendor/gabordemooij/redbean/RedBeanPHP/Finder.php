@@ -2,10 +2,6 @@
 
 namespace RedBeanPHP;
 
-use RedBeanPHP\ToolBox as ToolBox;
-use RedBeanPHP\OODB as OODB;
-use RedBeanPHP\RedException\Security as Security;
-use RedBeanPHP\OODBBean as OODBBean;
 
 /**
  * RedBeanPHP Finder.
@@ -59,8 +55,6 @@ class Finder
 	 * @param array  $bindings values array of values to be bound to parameters in query
 	 *
 	 * @return array
-	 *
-	 * @throws Security
 	 */
 	public function find( $type, $sql = NULL, $bindings = array() )
 	{
@@ -75,8 +69,12 @@ class Finder
 
 	/**
 	 * Like find() but also exports the beans as an array.
+	 * This method will perform a find-operation. For every bean
+	 * in the result collection this method will call the export() method.
+	 * This method returns an array containing the array representations
+	 * of every bean in the result set.
 	 *
-	 * @see Finder::findAndExport
+	 * @see Finder::find
 	 *
 	 * @param string $type     type   the type of bean you are looking for
 	 * @param string $sql      sql    SQL query to find the desired bean, starting right after WHERE clause
@@ -97,6 +95,7 @@ class Finder
 	/**
 	 * Like find() but returns just one bean instead of an array of beans.
 	 * This method will return only the first bean of the array.
+	 * If no beans are found, this method will return NULL.
 	 *
 	 * @see Finder::find
 	 *
@@ -109,7 +108,7 @@ class Finder
 	public function findOne( $type, $sql = NULL, $bindings = array() )
 	{
 		$sql = $this->toolbox->getWriter()->glueLimitOne( $sql );
-		
+
 		$items = $this->find( $type, $sql, $bindings );
 
 		if ( empty($items) ) {
@@ -122,6 +121,7 @@ class Finder
 	/**
 	 * Like find() but returns the last bean of the result array.
 	 * Opposite of Finder::findLast().
+	 * If no beans are found, this method will return NULL.
 	 *
 	 * @see Finder::find
 	 *
@@ -252,9 +252,11 @@ class Finder
 	 *
 	 * Example:
 	 *
+	 * <code>
 	 * $stuff = $finder->findMulti('movie,review', '
 	 *          SELECT movie.*, review.* FROM movie
 	 *          LEFT JOIN review ON review.movie_id = movie.id');
+	 * </code>
 	 *
 	 * After this operation, $stuff will contain an entry 'movie' containing all
 	 * movies and an entry named 'review' containing all reviews (all beans).
@@ -267,18 +269,21 @@ class Finder
 	 * The remapping argument (optional) should contain an array of arrays.
 	 * Each array in the remapping array should contain the following entries:
 	 *
+	 * <code>
 	 * array(
 	 * 	'a'       => TYPE A
 	 *    'b'       => TYPE B
 	 *    'matcher' => MATCHING FUNCTION ACCEPTING A, B and ALL BEANS
 	 *    'do'      => OPERATION FUNCTION ACCEPTING A, B, ALL BEANS, ALL REMAPPINGS
 	 * )
+	 * </code>
 	 *
 	 * Using this mechanism you can build your own 'preloader' with tiny function
 	 * snippets (and those can be re-used and shared online of course).
 	 *
 	 * Example:
 	 *
+	 * <code>
 	 * array(
 	 * 	'a'       => 'movie'     //define A as movie
 	 *    'b'       => 'review'    //define B as review
@@ -290,6 +295,7 @@ class Finder
 	 *       $a->clearHistory();                 //optional, act 'as if these beans have been loaded through ownReviewList'.
 	 *    }
 	 * )
+	 * </code>
 	 *
 	 * The Query Template parameter is optional as well but can be used to
 	 * set a different SQL template (sprintf-style) for processing the original query.

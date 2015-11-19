@@ -50,11 +50,11 @@ class SimpleFacadeBeanHelper implements BeanHelper
 	 * Sets the factory function to create the model when using FUSE
 	 * to connect a bean to a model.
 	 *
-	 * @param closure $factory
+	 * @param closure $factory factory function
 	 *
 	 * @return void
 	 */
-	public static function setFactoryFunction( $factory ) 
+	public static function setFactoryFunction( $factory )
 	{
 		self::$factory = $factory;
 	}
@@ -86,7 +86,7 @@ class SimpleFacadeBeanHelper implements BeanHelper
 			if ( !class_exists( $modelName ) ) {
 				//second try
 				$modelName = $prefix . ucfirst( $model );
-				
+
 				if ( !class_exists( $modelName ) ) {
 					return NULL;
 				}

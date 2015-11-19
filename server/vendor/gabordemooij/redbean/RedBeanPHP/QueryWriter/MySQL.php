@@ -39,6 +39,7 @@ class MySQL extends AQueryWriter implements QueryWriter
 	const C_DATATYPE_SPECIAL_POINT    = 90;
 	const C_DATATYPE_SPECIAL_LINESTRING = 91;
 	const C_DATATYPE_SPECIAL_POLYGON    = 92;
+	const C_DATATYPE_SPECIAL_MONEY    = 93;
 
 	const C_DATATYPE_SPECIFIED        = 99;
 
@@ -57,6 +58,7 @@ class MySQL extends AQueryWriter implements QueryWriter
 	 */
 	protected function getKeyMapForType( $type )
 	{
+		$databaseName = $this->adapter->getCell('SELECT DATABASE()');
 		$table = $this->esc( $type, TRUE );
 		$keys = $this->adapter->get('
 			SELECT
@@ -68,17 +70,15 @@ class MySQL extends AQueryWriter implements QueryWriter
 				information_schema.referential_constraints.delete_rule AS `on_delete`
 				FROM information_schema.key_column_usage
 				INNER JOIN information_schema.referential_constraints
-					ON (
-						information_schema.referential_constraints.constraint_name = information_schema.key_column_usage.constraint_name
-						AND information_schema.referential_constraints.constraint_schema = information_schema.key_column_usage.constraint_schema
-						AND information_schema.referential_constraints.constraint_catalog = information_schema.key_column_usage.constraint_catalog
-					)
+				ON information_schema.referential_constraints.constraint_name = information_schema.key_column_usage.constraint_name
 			WHERE
-				information_schema.key_column_usage.table_schema IN ( SELECT DATABASE() )
-				AND information_schema.key_column_usage.table_name = ?
+				information_schema.key_column_usage.table_schema = :database
+				AND information_schema.referential_constraints.constraint_schema  = :database
+				AND information_schema.key_column_usage.constraint_schema  = :database
+				AND information_schema.key_column_usage.table_name = :table
 				AND information_schema.key_column_usage.constraint_name != \'PRIMARY\'
 				AND information_schema.key_column_usage.referenced_table_name IS NOT NULL
-		', array($table));
+		', array( ':database' => $databaseName, ':table' => $table ) );
 		$keyInfoList = array();
 		foreach ( $keys as $k ) {
 			$label = $this->makeFKLabel( $k['from'], $k['table'], $k['to'] );
@@ -114,6 +114,7 @@ class MySQL extends AQueryWriter implements QueryWriter
 			MySQL::C_DATATYPE_SPECIAL_POINT    => ' POINT ',
 			MySQL::C_DATATYPE_SPECIAL_LINESTRING => ' LINESTRING ',
 			MySQL::C_DATATYPE_SPECIAL_POLYGON => ' POLYGON ',
+			MySQL::C_DATATYPE_SPECIAL_MONEY    => ' DECIMAL(10,2) '
 		);
 
 		$this->sqltype_typeno = array();
@@ -131,7 +132,7 @@ class MySQL extends AQueryWriter implements QueryWriter
 	 * This method returns the datatype to be used for primary key IDS and
 	 * foreign keys. Returns one if the data type constants.
 	 *
-	 * @return integer $const data type to be used for IDS.
+	 * @return integer
 	 */
 	public function getTypeForID()
 	{
@@ -185,6 +186,9 @@ class MySQL extends AQueryWriter implements QueryWriter
 		if ( $value === INF ) return MySQL::C_DATATYPE_TEXT7;
 
 		if ( $flagSpecial ) {
+			if ( preg_match( '/^-?\d+\.\d{2}$/', $value ) ) {
+				return MySQL::C_DATATYPE_SPECIAL_MONEY;
+			}
 			if ( preg_match( '/^\d{4}\-\d\d-\d\d$/', $value ) ) {
 				return MySQL::C_DATATYPE_SPECIAL_DATE;
 			}
@@ -297,6 +301,7 @@ class MySQL extends AQueryWriter implements QueryWriter
 
 	/**
 	 * @see QueryWriter::addFK
+	 * @return bool
 	 */
 	public function addFK( $type, $targetType, $property, $targetProperty, $isDependent = FALSE )
 	{
@@ -329,6 +334,7 @@ class MySQL extends AQueryWriter implements QueryWriter
 		} catch ( SQLException $e ) {
 			// Failure of fk-constraints is not a problem
 		}
+		return true;
 	}
 
 	/**

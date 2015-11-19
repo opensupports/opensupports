@@ -123,7 +123,7 @@ abstract class AQueryWriter
 	 * Globally available service method for RedBeanPHP.
 	 * Converts a camel cased string to a snake cased string.
 	 *
-	 * @param string $camel a camelCased string
+	 * @param string $camel camelCased string to converty to snake case
 	 *
 	 * @return string
 	 */
@@ -172,6 +172,7 @@ abstract class AQueryWriter
 	 * This is a lowlevel method to set the SQL filter array.
 	 * The format of this array is:
 	 *
+	 * <code>
 	 * array(
 	 * 		'<MODE, i.e. 'r' for read, 'w' for write>' => array(
 	 * 			'<TABLE NAME>' => array(
@@ -179,22 +180,27 @@ abstract class AQueryWriter
 	 * 			)
 	 * 		)
 	 * )
+	 * </code>
 	 *
 	 * Example:
 	 *
+	 * <code>
 	 * array(
-	 * QueryWriter::C_SQLFILTER_READ => array(
+	 *   QueryWriter::C_SQLFILTER_READ => array(
 	 * 	'book' => array(
 	 * 		'title' => ' LOWER(book.title) '
 	 * 	)
 	 * )
+	 * </code>
 	 *
 	 * Note that you can use constants instead of magical chars
 	 * as keys for the uppermost array.
 	 * This is a lowlevel method. For a more friendly method
 	 * please take a look at the facade: R::bindFunc().
 	 *
-	 * @param array
+	 * @param array list of filters to set
+	 *
+	 * @return void
 	 */
 	public static function setSQLFilters( $sqlFilters, $safeMode = false )
 	{
@@ -284,7 +290,7 @@ abstract class AQueryWriter
 	 * improve caching efficiency (issue #400).
 	 *
 	 * @param string $cacheTag cache tag (secondary key)
-	 * @param string $key      key
+	 * @param string $key      key to store values under
 	 * @param array  $values   content to be stored
 	 *
 	 * @return void
@@ -303,15 +309,17 @@ abstract class AQueryWriter
 	/**
 	 * Creates an SQL snippet from a list of conditions of format:
 	 *
+	 * <code>
 	 * array(
 	 *    key => array(
 	 *           value1, value2, value3 ....
 	 *        )
 	 * )
+	 * </code>
 	 *
 	 * @param array  $conditions list of conditions
 	 * @param array  $bindings   parameter bindings for SQL snippet
-	 * @param string $addSql     SQL snippet
+	 * @param string $addSql     additional SQL snippet to append to result
 	 *
 	 * @return string
 	 */
@@ -434,6 +442,7 @@ abstract class AQueryWriter
 	 * A foreign key map describes the foreign keys in a table.
 	 * A FKM always has the same structure:
 	 *
+	 * <code>
 	 * array(
 	 * 	'name'      => <name of the foreign key>
 	 *    'from'      => <name of the column on the source table>
@@ -442,6 +451,7 @@ abstract class AQueryWriter
 	 *    'on_update' => <update rule: 'SET NULL','CASCADE' or 'RESTRICT'>
 	 *    'on_delete' => <delete rule: 'SET NULL','CASCADE' or 'RESTRICT'>
 	 * )
+	 * </code>
 	 *
 	 * @note the keys in the result array are FKDLs, i.e. descriptive unique
 	 * keys per source table. Also see: AQueryWriter::makeFKLabel for details.
@@ -510,9 +520,9 @@ abstract class AQueryWriter
 	 * If you pass an offset the bindings will be re-added to the value list.
 	 * Some databases cant handle duplicate parameter names in queries.
 	 *
-	 * @param array   &$valueList     list of values to generate slots for (gets modified if needed)
-	 * @param array   $otherBindings  list of additional bindings
-	 * @param integer $offset         start counter at...
+	 * @param array   &$valueList    list of values to generate slots for (gets modified if needed)
+	 * @param array   $otherBindings list of additional bindings
+	 * @param integer $offset        start counter at...
 	 *
 	 * @return string
 	 */
@@ -648,8 +658,6 @@ abstract class AQueryWriter
 	 * @param string $table table string
 	 *
 	 * @return string
-	 *
-	 * @throws Security
 	 */
 	protected function check( $struct )
 	{
@@ -712,7 +720,7 @@ abstract class AQueryWriter
 	 */
 	public function glueLimitOne( $sql = '')
 	{
-		return ( strpos( $sql, 'LIMIT' ) === FALSE ) ? ( $sql . ' LIMIT 1 ' ) : $sql;
+		return ( strpos( strtoupper( $sql ), 'LIMIT' ) === FALSE ) ? ( $sql . ' LIMIT 1 ' ) : $sql;
 	}
 
 	/**
@@ -831,7 +839,6 @@ abstract class AQueryWriter
 		$sql   = "SELECT {$fieldSelection} {$sqlFilterStr} FROM {$table} {$sql} -- keep-cache";
 
 		$rows  = $this->adapter->get( $sql, $bindings );
-
 
 		if ( $this->flagUseCache && $key ) {
 			$this->putResultInCache( $type, $key, $rows );
@@ -1107,6 +1114,8 @@ abstract class AQueryWriter
 	 * use a result row cache.
 	 *
 	 * @param boolean
+	 *
+	 * @return void
 	 */
 	public function setUseCache( $yesNo )
 	{

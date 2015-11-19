@@ -7,7 +7,7 @@ use RedBeanPHP\OODBBean as OODBBean;
 
 /**
  * Bean Helper Interface.
- * 
+ *
  * Interface for Bean Helper.
  * A little bolt that glues the whole machinery together.
  *
@@ -28,7 +28,7 @@ interface BeanHelper
 	 * as such the bean is a proxy for OODB. This allows beans to implement
 	 * their magic getters and setters and return lists.
 	 *
-	 * @return ToolBox $toolbox toolbox
+	 * @return ToolBox
 	 */
 	public function getToolbox();
 
@@ -46,9 +46,9 @@ interface BeanHelper
 	 * Given a certain bean this method will
 	 * return the corresponding model.
 	 *
-	 * @param OODBBean $bean
+	 * @param OODBBean $bean bean to obtain the corresponding model of
 	 *
-	 * @return object
+	 * @return SimpleModel|CustomModel
 	 */
 	public function getModelForBean( OODBBean $bean );
 }

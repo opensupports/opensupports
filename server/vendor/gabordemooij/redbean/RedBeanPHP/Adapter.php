@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace RedBeanPHP;
 
@@ -6,7 +6,7 @@ namespace RedBeanPHP;
  * Adapter Interface.
  * Describes the API for a RedBeanPHP Database Adapter.
  * This interface defines the API contract for
- * a RedBeanPHP Database Adapter.  
+ * a RedBeanPHP Database Adapter.
  *
  * @file    RedBeanPHP/Adapter.php
  * @author  Gabor de Mooij and the RedBeanPHP Community
@@ -20,7 +20,7 @@ namespace RedBeanPHP;
 interface Adapter
 {
 	/**
-	 * Returns the latest SQL statement
+	 * Returns the latest SQL statement.
 	 *
 	 * @return string
 	 */
@@ -32,9 +32,11 @@ interface Adapter
 	 * observers to notify about the SQL execution; this to prevent
 	 * infinite recursion when using observers.
 	 *
-	 * @param string  $sql      SQL
-	 * @param array   $bindings values
+	 * @param string  $sql      string containing SQL code for database
+	 * @param array   $bindings array of values to bind to parameters in query string
 	 * @param boolean $noevent  no event firing
+	 *
+	 * @return void
 	 */
 	public function exec( $sql, $bindings = array(), $noevent = FALSE );
 
@@ -44,8 +46,8 @@ interface Adapter
 	 * The values array can be used to bind values to the place holders in the
 	 * SQL query.
 	 *
-	 * @param string $sql      SQL
-	 * @param array  $bindings values
+	 * @param string $sql      string containing SQL code for database
+	 * @param array  $bindings array of values to bind to parameters in query string
 	 *
 	 * @return array
 	 */
@@ -57,8 +59,8 @@ interface Adapter
 	 * The values array can be used to bind values to the place holders in the
 	 * SQL query.
 	 *
-	 * @param string $sql      SQL
-	 * @param array  $bindings values to bind
+	 * @param string $sql      string containing SQL code for database
+	 * @param array  $bindings array of values to bind to parameters in query string
 	 *
 	 * @return array
 	 */
@@ -70,8 +72,8 @@ interface Adapter
 	 * The values array can be used to bind values to the place holders in the
 	 * SQL query.
 	 *
-	 * @param string $sql      SQL
-	 * @param array  $bindings values to bind
+	 * @param string $sql      string containing SQL code for database
+	 * @param array  $bindings array of values to bind to parameters in query string
 	 *
 	 * @return array
 	 */
@@ -83,8 +85,8 @@ interface Adapter
 	 * The values array can be used to bind values to the place holders in the
 	 * SQL query.
 	 *
-	 * @param string $sql      SQL
-	 * @param array  $bindings values to bind
+	 * @param string $sql      string containing SQL code for database
+	 * @param array  $bindings array of values to bind to parameters in query string
 	 *
 	 * @return string
 	 */
@@ -98,18 +100,18 @@ interface Adapter
 	 * The values array can be used to bind values to the place holders in the
 	 * SQL query.
 	 *
-	 * @param string $sql      SQL
-	 * @param array  $bindings values to bind
+	 * @param string $sql      string containing SQL code for database
+	 * @param array  $bindings array of values to bind to parameters in query string
 	 *
 	 * @return array
 	 */
 	public function getAssoc( $sql, $bindings = array() );
-	
+
 	/**
 	 * Executes the SQL query specified in $sql and indexes
 	 * the row by the first column.
-	 * 
-	 * @param string $sql      SQL
+	 *
+	 * @param string $sql      Sstring containing SQL code for databaseQL
 	 * @param array  $bindings values to bind
 	 *
 	 * @return array
@@ -134,8 +136,8 @@ interface Adapter
 	/**
 	 * Returns a database agnostic Cursor object.
 	 *
-	 * @param string $sql      SQL
-	 * @param array  $bindings bindings
+	 * @param string $sql      string containing SQL code for database
+	 * @param array  $bindings array of values to bind to parameters in query string
 	 *
 	 * @return Cursor
 	 */
@@ -147,7 +149,7 @@ interface Adapter
 	 * adapter. RedBean will only access the adapter and never to talk
 	 * directly to the driver though.
 	 *
-	 * @return object
+	 * @return mixed
 	 */
 	public function getDatabase();
 

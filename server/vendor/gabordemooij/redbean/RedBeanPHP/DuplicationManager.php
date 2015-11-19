@@ -278,11 +278,15 @@ class DuplicationManager
 	 *
 	 * This method allows two array formats:
 	 *
+	 * <code>
 	 * array( TABLE1, TABLE2 ... )
+	 * </code>
 	 *
 	 * or
 	 *
+	 * <code>
 	 * array( TABLE1 => array( COLUMN1, COLUMN2 ... ) ... )
+	 * </code>
 	 *
 	 * @param array $tables a table cache array
 	 *
@@ -335,6 +339,8 @@ class DuplicationManager
 	 * the default behavior.
 	 *
 	 * @param array $filters list of tables to be filtered
+	 *
+	 * @return void
 	 */
 	public function setFilters( $filters )
 	{

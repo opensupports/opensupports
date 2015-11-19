@@ -40,7 +40,7 @@ if ($mode !== 'onlyphar') {
 
 	function addFile($file) {
 		global $code;
-		echo 'Added '. $file . ' to package... '.PHP_EOL;
+		echo 'Added ', $file , ' to package... ',PHP_EOL;
 		$raw = file_get_contents($file);
 		$raw = preg_replace('/namespace\s+([a-zA-Z0-9\\\;]+);/m', 'namespace $1 {', $raw);
 		$raw .= '}';
@@ -85,6 +85,11 @@ if ($mode !== 'onlyphar') {
 	addFile( DIR . 'LabelMaker.php' );
 	addFile( DIR . 'Facade.php' );
 	addFile( DIR . 'DuplicationManager.php' );
+	addFile( DIR . 'Util/ArrayTool.php' );
+	addFile( DIR . 'Util/DispenseHelper.php' );
+	addFile( DIR . 'Util/Dump.php' );
+	addFile( DIR . 'Util/MultiLoader.php' );
+	addFile( DIR . 'Util/Transaction.php' );
 	addFile( DIR . 'Plugin.php' );
 
 	$func = file_get_contents(DIR . 'Functions.php');
@@ -106,16 +111,16 @@ if ($mode !== 'onlyphar') {
 
 	$code = '<?php'.str_replace('<?php', '', $code);
 
-	echo 'Okay, seems we have all the code.. now writing file: rb.php' .PHP_EOL;
+	echo 'Okay, seems we have all the code.. now writing file: rb.php' ,PHP_EOL;
 
 	$b = file_put_contents('rb.php', $code);
 
-	echo 'Written: '.$b.' bytes.'.PHP_EOL;
+	echo 'Written: ',$b,' bytes.',PHP_EOL;
 
 	if ($b > 0) {
-		echo 'Done!' .PHP_EOL;
+		echo 'Done!' ,PHP_EOL;
 	} else {
-		echo 'Hm, something seems to have gone wrong... '.PHP_EOL;
+		echo 'Hm, something seems to have gone wrong... ',PHP_EOL;
 	}
 
 }

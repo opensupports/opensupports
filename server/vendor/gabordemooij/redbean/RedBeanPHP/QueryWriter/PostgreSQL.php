@@ -37,6 +37,7 @@ class PostgreSQL extends AQueryWriter implements QueryWriter
 	const C_DATATYPE_SPECIAL_CIRCLE   = 92;
 	const C_DATATYPE_SPECIAL_MONEY    = 93;
 	const C_DATATYPE_SPECIAL_POLYGON  = 94;
+	const C_DATATYPE_SPECIAL_MONEY2   = 95; //Numbers only money, i.e. fixed point numeric
 	const C_DATATYPE_SPECIFIED        = 99;
 
 	/**
@@ -136,6 +137,7 @@ class PostgreSQL extends AQueryWriter implements QueryWriter
 			self::C_DATATYPE_SPECIAL_LSEG     => ' lseg ',
 			self::C_DATATYPE_SPECIAL_CIRCLE   => ' circle ',
 			self::C_DATATYPE_SPECIAL_MONEY    => ' money ',
+			self::C_DATATYPE_SPECIAL_MONEY2   => ' numeric(10,2) ',
 			self::C_DATATYPE_SPECIAL_POLYGON  => ' polygon ',
 		);
 
@@ -152,7 +154,7 @@ class PostgreSQL extends AQueryWriter implements QueryWriter
 	 * This method returns the datatype to be used for primary key IDS and
 	 * foreign keys. Returns one if the data type constants.
 	 *
-	 * @return integer $const data type to be used for IDS.
+	 * @return integer
 	 */
 	public function getTypeForID()
 	{
@@ -184,7 +186,7 @@ class PostgreSQL extends AQueryWriter implements QueryWriter
 	{
 		$table      = $this->esc( $table, TRUE );
 
-		$columnsRaw = $this->adapter->get( "SELECT column_name, data_type FROM information_schema.columns WHERE table_name='$table'" );
+		$columnsRaw = $this->adapter->get( "SELECT column_name, data_type FROM information_schema.columns WHERE table_name='$table' AND table_schema = ANY( current_schemas( FALSE ) )" );
 
 		$columns = array();
 		foreach ( $columnsRaw as $r ) {
@@ -231,12 +233,16 @@ class PostgreSQL extends AQueryWriter implements QueryWriter
 			if ( preg_match( '/^\-?(\$|€|¥|£)[\d,\.]+$/', $value ) ) {
 				return PostgreSQL::C_DATATYPE_SPECIAL_MONEY;
 			}
+
+			if ( preg_match( '/^-?\d+\.\d{2}$/', $value ) ) {
+				return PostgreSQL::C_DATATYPE_SPECIAL_MONEY2;
+			}
 		}
 
 		if ( is_float( $value ) ) return self::C_DATATYPE_DOUBLE;
 
 		if ( $this->startsWithZeros( $value ) ) return self::C_DATATYPE_TEXT;
-		
+
 		if ( $value === FALSE || $value === TRUE || $value === NULL || ( is_numeric( $value )
 				&& AQueryWriter::canBeTreatedAsInt( $value )
 				&& $value < 2147483648

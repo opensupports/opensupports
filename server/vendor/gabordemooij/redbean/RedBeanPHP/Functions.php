@@ -7,7 +7,7 @@
  * @file    RedBeanPHP/Functions.php
  * @author  Gabor de Mooij and the RedBeanPHP community
  * @license BSD/GPLv2
- * 
+ *
  * @copyright
  * copyright (c) G.J.G.T. (Gabor) de Mooij and the RedBeanPHP Community.
  * This source file is subject to the BSD/GPLv2 License that is bundled
@@ -19,7 +19,9 @@
  *
  * Usage:
  *
+ * <code>
  * R::find( 'paint', ' color_id = ? ', [ EID('color:yellow') ] );
+ * </code>
  *
  * If a function called EID() already exists you'll have to write this
  * wrapper yourself ;)

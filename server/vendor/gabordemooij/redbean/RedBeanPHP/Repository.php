@@ -2,17 +2,11 @@
 
 namespace RedBeanPHP;
 
-use RedBeanPHP\OODBBean as OODBBean;
-use RedBeanPHP\Observable as Observable;
 use RedBeanPHP\Adapter\DBAdapter as DBAdapter;
-use RedBeanPHP\BeanHelper\FacadeBeanHelper as FacadeBeanHelper;
 use RedBeanPHP\QueryWriter as QueryWriter;
-use RedBeanPHP\RedException\Security as Security;
-use RedBeanPHP\SimpleModel as SimpleModel;
 use RedBeanPHP\BeanHelper as BeanHelper;
 use RedBeanPHP\RedException\SQL as SQLException;
 use RedBeanPHP\QueryWriter\AQueryWriter as AQueryWriter;
-use RedBeanPHP\OODB as OODB;
 use RedBeanPHP\Cursor as Cursor;
 use RedBeanPHP\Cursor\NullCursor as NullCursor;
 
@@ -29,7 +23,7 @@ use RedBeanPHP\Cursor\NullCursor as NullCursor;
  * @file    RedBeanPHP/Repository.php
  * @author  Gabor de Mooij and the RedBeanPHP community
  * @license BSD/GPLv2
- * 
+ *
  * @copyright
  * copyright (c) G.J.G.T. (Gabor) de Mooij and the RedBeanPHP Community
  * This source file is subject to the BSD/GPLv2 License that is bundled
@@ -55,7 +49,7 @@ abstract class Repository
 	/**
 	 * Stores a bean and its lists in one run.
 	 *
-	 * @param OODBBean $bean
+	 * @param OODBBean $bean bean to process
 	 *
 	 * @return void
 	 */
@@ -140,8 +134,6 @@ abstract class Repository
 	 * @param array            $sharedAdditions  list with shared additions
 	 *
 	 * @return void
-	 *
-	 * @throws Security
 	 */
 	protected function processSharedAdditions( $bean, $sharedAdditions )
 	{
@@ -161,8 +153,8 @@ abstract class Repository
 	 * checks if there have been any modification to this bean, in that case
 	 * the bean is stored once again, otherwise the bean will be left untouched.
 	 *
-	 * @param OODBBean $bean       the bean
-	 * @param array            $ownresidue list
+	 * @param OODBBean $bean       bean tor process
+	 * @param array    $ownresidue list to process
 	 *
 	 * @return void
 	 */
@@ -184,14 +176,13 @@ abstract class Repository
 	 * If not, the connection between the bean and the owner bean will be broken by
 	 * setting the ID to NULL.
 	 *
-	 * @param OODBBean $bean        the bean
-	 * @param array            $ownTrashcan list
+	 * @param OODBBean $bean bean   to process
+	 * @param array    $ownTrashcan list to process
 	 *
 	 * @return void
 	 */
 	protected function processTrashcan( $bean, $ownTrashcan )
 	{
-
 		foreach ( $ownTrashcan as $trash ) {
 
 			$myFieldLink = $bean->getMeta( 'type' ) . '_id';
@@ -210,8 +201,8 @@ abstract class Repository
 	/**
 	 * Unassociates the list items in the trashcan.
 	 *
-	 * @param OODBBean $bean           bean
-	 * @param array            $sharedTrashcan list
+	 * @param OODBBean $bean           bean to process
+	 * @param array    $sharedTrashcan list to process
 	 *
 	 * @return void
 	 */
@@ -225,8 +216,8 @@ abstract class Repository
 	/**
 	 * Stores all the beans in the residue group.
 	 *
-	 * @param OODBBean $bean          bean
-	 * @param array            $sharedresidue list
+	 * @param OODBBean $bean          bean to process
+	 * @param array    $sharedresidue list to process
 	 *
 	 * @return void
 	 */
@@ -259,19 +250,20 @@ abstract class Repository
 		return $processLists;
 	}
 
-
 	/**
 	 * Converts an embedded bean to an ID, removed the bean property and
 	 * stores the bean in the embedded beans array.
 	 *
-	 * @param array            $embeddedBeans destination array for embedded bean
-	 * @param OODBBean $bean          target bean
-	 * @param string           $property      property that contains the embedded bean
+	 * @param array    $embeddedBeans destination array for embedded bean
+	 * @param OODBBean $bean          target bean to process
+	 * @param string   $property      property that contains the embedded bean
 	 * @param OODBBean $value         embedded bean itself
+	 *
+	 * @return void
 	 */
 	protected function processEmbeddedBean( &$embeddedBeans, $bean, $property, OODBBean $value )
 	{
-		$linkField        = $property . '_id';
+		$linkField = $property . '_id';
 		$id = $this->prepareEmbeddedBean( $value );
 		if ($bean->$linkField != $id) $bean->$linkField = $id;
 		$bean->setMeta( 'cast.' . $linkField, 'id' );
@@ -279,11 +271,13 @@ abstract class Repository
 		unset( $bean->$property );
 	}
 
-
 	/**
 	 * Constructor, requires a query writer.
+	 * Creates a new instance of the bean respository class.
 	 *
-	 * @param QueryWriter $writer writer
+	 * @param QueryWriter $writer the Query Writer to use for this repository
+	 *
+	 * @return void
 	 */
 	public function __construct( OODB $oodb, QueryWriter $writer )
 	{
@@ -299,8 +293,6 @@ abstract class Repository
 	 * @param OODBBean $bean the bean that needs to be checked
 	 *
 	 * @return void
-	 *
-	 * @throws Security $exception
 	 */
 	public function check( OODBBean $bean )
 	{
@@ -339,10 +331,12 @@ abstract class Repository
 	 *
 	 * Conditions need to take form:
 	 *
+	 * <code>
 	 * array(
 	 *    'PROPERTY' => array( POSSIBLE VALUES... 'John', 'Steve' )
 	 *    'PROPERTY' => array( POSSIBLE VALUES... )
 	 * );
+	 * </code>
 	 *
 	 * All conditions are glued together using the AND-operator, while all value lists
 	 * are glued using IN-operators thus acting as OR-conditions.
@@ -356,7 +350,6 @@ abstract class Repository
 	 * @param array  $bindings   whether you prefer to use a WHERE clause or not (TRUE = not)
 	 *
 	 * @return array
-	 *
 	 */
 	public function find( $type, $conditions = array(), $sql = NULL, $bindings = array() )
 	{
@@ -512,8 +505,6 @@ abstract class Repository
 	 * @param array  $bindings parameters to bind to SQL
 	 *
 	 * @return integer
-	 *
-	 * @throws SQLException
 	 */
 	public function count( $type, $addSQL = '', $bindings = array() )
 	{
@@ -543,8 +534,6 @@ abstract class Repository
 	 * @param OODBBean|SimpleModel $bean bean you want to remove from database
 	 *
 	 * @return void
-	 *
-	 * @throws SQLException
 	 */
 	public function trash( $bean )
 	{
@@ -591,8 +580,6 @@ abstract class Repository
 	 * @param string $type type of bean you wish to delete all instances of
 	 *
 	 * @return boolean
-	 *
-	 * @throws SQLException
 	 */
 	public function wipe( $type )
 	{

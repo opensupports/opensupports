@@ -5,7 +5,6 @@ namespace RedBeanPHP\Logger\RDefault;
 use RedBeanPHP\Logger as Logger;
 use RedBeanPHP\Logger\RDefault as RDefault;
 use RedBeanPHP\RedException as RedException;
-use RedBeanPHP\RedException\Security as Security;
 
 /**
  * Debug logger.
@@ -57,7 +56,7 @@ class Debug extends RDefault implements Logger
 	 * Fills in a value of a binding and truncates the
 	 * resulting string if necessary.
 	 *
-	 * @param mixed $value
+	 * @param mixed $value bound value
 	 *
 	 * @return string
 	 */
@@ -89,7 +88,7 @@ class Debug extends RDefault implements Logger
 	protected function output( $str )
 	{
 		$this->logs[] = $str;
-		if ( !$this->mode ) echo $str .'<br />';
+		if ( !$this->mode ) echo $str ,'<br />';
 	}
 
 	/**

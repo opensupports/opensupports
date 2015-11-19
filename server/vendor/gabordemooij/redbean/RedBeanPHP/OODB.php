@@ -2,16 +2,9 @@
 
 namespace RedBeanPHP;
 
-use RedBeanPHP\OODBBean as OODBBean;
-use RedBeanPHP\Observable as Observable;
 use RedBeanPHP\Adapter\DBAdapter as DBAdapter;
-use RedBeanPHP\BeanHelper\FacadeBeanHelper as FacadeBeanHelper;
-use RedBeanPHP\AssociationManager as AssociationManager;
 use RedBeanPHP\QueryWriter as QueryWriter;
-use RedBeanPHP\RedException\Security as Security;
-use RedBeanPHP\SimpleModel as SimpleModel;
 use RedBeanPHP\BeanHelper as BeanHelper;
-use RedBeanPHP\RedException\SQL as SQL;
 use RedBeanPHP\QueryWriter\AQueryWriter as AQueryWriter;
 use RedBeanPHP\Repository as Repository;
 use RedBeanPHP\Repository\Fluid as FluidRepo;
@@ -19,7 +12,7 @@ use RedBeanPHP\Repository\Frozen as FrozenRepo;
 
 /**
  * RedBean Object Oriented DataBase.
- * 
+ *
  * The RedBean OODB Class is the main class of RedBeanPHP.
  * It takes OODBBean objects and stores them to and loads them from the
  * database as well as providing other CRUD functions. This class acts as a
@@ -45,7 +38,6 @@ class OODB extends Observable
 	 * @var array
 	 */
 	protected $chillList = array();
-
 
 	/**
 	 * @var array
@@ -93,14 +85,30 @@ class OODB extends Observable
 	protected $fluidRepository = NULL;
 
 	/**
+	 * @var boolean
+	 */
+	protected static $autoClearHistoryAfterStore = FALSE;
+
+	/**
+	 * If set to TRUE, this method will call clearHistory every time
+	 * the bean gets stored.
+	 *
+	 * @param boolean $autoClear auto clear option
+	 *
+	 * @return void
+	 */
+	public static function autoClearHistoryAfterStore( $autoClear = TRUE )
+	{
+		self::$autoClearHistoryAfterStore = (boolean) $autoClear;
+	}
+
+	/**
 	 * Unboxes a bean from a FUSE model if needed and checks whether the bean is
 	 * an instance of OODBBean.
 	 *
 	 * @param OODBBean $bean bean you wish to unbox
 	 *
 	 * @return OODBBean
-	 *
-	 * @throws Security
 	 */
 	protected function unboxIfNeeded( $bean )
 	{
@@ -259,8 +267,6 @@ class OODB extends Observable
 	 * @param OODBBean $bean the bean that needs to be checked
 	 *
 	 * @return void
-	 *
-	 * @throws Security $exception
 	 */
 	public function check( OODBBean $bean )
 	{
@@ -273,10 +279,12 @@ class OODB extends Observable
 	 *
 	 * Conditions need to take form:
 	 *
+	 * <code>
 	 * array(
 	 *    'PROPERTY' => array( POSSIBLE VALUES... 'John', 'Steve' )
 	 *    'PROPERTY' => array( POSSIBLE VALUES... )
 	 * );
+	 * </code>
 	 *
 	 * All conditions are glued together using the AND-operator, while all value lists
 	 * are glued using IN-operators thus acting as OR-conditions.
@@ -287,11 +295,9 @@ class OODB extends Observable
 	 * @param string $type       type of beans you are looking for
 	 * @param array  $conditions list of conditions
 	 * @param string $addSQL     SQL to be used in query
-	 * @param array  $bindings   whether you prefer to use a WHERE clause or not (TRUE = not)
+	 * @param array  $bindings   a list of values to bind to query parameters
 	 *
 	 * @return array
-	 *
-	 * @throws SQL
 	 */
 	public function find( $type, $conditions = array(), $sql = NULL, $bindings = array() )
 	{
@@ -301,13 +307,11 @@ class OODB extends Observable
 	/**
 	 * Same as find() but returns a BeanCollection.
 	 *
-	 * @param string $type       type of beans you are looking for
-	 * @param string $addSQL     SQL to be used in query
-	 * @param array  $bindings   whether you prefer to use a WHERE clause or not (TRUE = not)
+	 * @param string $type     type of beans you are looking for
+	 * @param string $addSQL   SQL to be used in query
+	 * @param array  $bindings a list of values to bind to query parameters
 	 *
 	 * @return array
-	 *
-	 * @throws SQL
 	 */
 	public function findCollection(  $type, $sql = NULL, $bindings = array() )
 	{
@@ -348,13 +352,15 @@ class OODB extends Observable
 	 * @param OODBBean|SimpleModel $bean bean to store
 	 *
 	 * @return integer|string
-	 *
-	 * @throws Security
 	 */
 	public function store( $bean )
 	{
 		$bean = $this->unboxIfNeeded( $bean );
-		return $this->repository->store( $bean );
+		$id = $this->repository->store( $bean );
+		if ( self::$autoClearHistoryAfterStore ) {
+				$bean->clearHistory();
+		}
+		return $id;
 	}
 
 	/**
@@ -377,10 +383,7 @@ class OODB extends Observable
 	 * @param string  $type type of bean you want to load
 	 * @param integer $id   ID of the bean you want to load
 	 *
-	 * @throws SQL
-	 *
 	 * @return OODBBean
-	 *
 	 */
 	public function load( $type, $id )
 	{
@@ -395,8 +398,6 @@ class OODB extends Observable
 	 * @param OODBBean|SimpleModel $bean bean you want to remove from database
 	 *
 	 * @return void
-	 *
-	 * @throws Security
 	 */
 	public function trash( $bean )
 	{
@@ -449,8 +450,6 @@ class OODB extends Observable
 	 * @param array  $bindings parameters to bind to SQL
 	 *
 	 * @return integer
-	 *
-	 * @throws SQL
 	 */
 	public function count( $type, $addSQL = '', $bindings = array() )
 	{
@@ -463,8 +462,6 @@ class OODB extends Observable
 	 * @param string $type type of bean you wish to delete all instances of
 	 *
 	 * @return boolean
-	 *
-	 * @throws SQL
 	 */
 	public function wipe( $type )
 	{
@@ -477,8 +474,6 @@ class OODB extends Observable
 	 * storage and more.
 	 *
 	 * @return AssociationManager
-	 *
-	 * @throws Security
 	 */
 	public function getAssociationManager()
 	{
@@ -521,9 +516,11 @@ class OODB extends Observable
 	 * MySQL spatial columns, because they need to be processed first using
 	 * the asText/GeomFromText functions.
 	 *
-	 * @param string $mode (read or write)
-	 * @param string $field
-	 * @param string $function
+	 * @param string $mode     mode to set function for, i.e. read or write
+	 * @param string $field    field (table.column) to bind SQL function to
+	 * @param string $function SQL function to bind to field
+	 *
+	 * @return void
 	 */
 	public function bindFunc( $mode, $field, $function )
 	{

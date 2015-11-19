@@ -3,16 +3,10 @@
 namespace RedBeanPHP\Repository;
 
 use RedBeanPHP\OODBBean as OODBBean;
-use RedBeanPHP\Observable as Observable;
-use RedBeanPHP\Adapter\DBAdapter as DBAdapter;
-use RedBeanPHP\BeanHelper\FacadeBeanHelper as FacadeBeanHelper;
 use RedBeanPHP\QueryWriter as QueryWriter;
 use RedBeanPHP\RedException as RedException;
-use RedBeanPHP\RedException\Security as Security;
-use RedBeanPHP\SimpleModel as SimpleModel;
 use RedBeanPHP\BeanHelper as BeanHelper;
 use RedBeanPHP\RedException\SQL as SQLException;
-use RedBeanPHP\QueryWriter\AQueryWriter as AQueryWriter;
 use RedBeanPHP\Repository as Repository;
 
 /**
@@ -41,8 +35,6 @@ class Fluid extends Repository
 	 * @param string $cast cast identifier
 	 *
 	 * @return integer
-	 *
-	 * @throws Security
 	 */
 	private function getTypeFromCast( $cast )
 	{
@@ -63,8 +55,8 @@ class Fluid extends Repository
 	 * Orders the Query Writer to create a table if it does not exist already and
 	 * adds a note in the build report about the creation.
 	 *
-	 * @param OODBBean $bean  bean to update report of
-	 * @param string           $table table to check and create if not exists
+	 * @param OODBBean $bean bean to update report of
+	 * @param string         $table table to check and create if not exists
 	 *
 	 * @return void
 	 */
@@ -149,12 +141,15 @@ class Fluid extends Repository
 	 * adds a foreign key. Also adds a constraint in case the type is
 	 * in the dependent list.
 	 *
-	 * @param OODBBean $bean         bean
-	 * @param array            $ownAdditions list of addition beans in own-list
+	 * Note that this method raises a custom exception if the bean
+	 * is not an instance of OODBBean. Therefore it does not use
+	 * a type hint. This allows the user to take action in case
+	 * invalid objects are passed in the list.
+	 *
+	 * @param OODBBean $bean         bean to process
+	 * @param array    $ownAdditions list of addition beans in own-list
 	 *
 	 * @return void
-	 *
-	 * @throws Security
 	 */
 	protected function processAdditions( $bean, $ownAdditions )
 	{
@@ -217,13 +212,11 @@ class Fluid extends Repository
 	}
 
 	/**
-	 * Handles\Exceptions. Suppresses exceptions caused by missing structures.
+	 * Handles exceptions. Suppresses exceptions caused by missing structures.
 	 *
-	 * @param\Exception $exception exception
+	 * @param Exception $exception exception
 	 *
 	 * @return void
-	 *
-	 * @throws\Exception
 	 */
 	protected function handleException( \Exception $exception )
 	{
@@ -286,10 +279,7 @@ class Fluid extends Repository
 	 * @param string  $type type of bean you want to load
 	 * @param integer $id   ID of the bean you want to load
 	 *
-	 * @throws SQL
-	 *
 	 * @return OODBBean
-	 *
 	 */
 	public function load( $type, $id )
 	{

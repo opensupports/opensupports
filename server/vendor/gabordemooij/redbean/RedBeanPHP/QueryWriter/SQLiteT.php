@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace RedBeanPHP\QueryWriter;
 
@@ -55,7 +55,7 @@ class SQLiteT extends AQueryWriter implements QueryWriter
 	 *
 	 * @param string $type type you want to get info of
 	 *
-	 * @return array $info
+	 * @return array
 	 */
 	protected function getTable( $type )
 	{
@@ -83,6 +83,8 @@ class SQLiteT extends AQueryWriter implements QueryWriter
 	 * then store it with putTable()...
 	 *
 	 * @param array $tableMap information array
+	 *
+	 * @return void
 	 */
 	protected function putTable( $tableMap )
 	{
@@ -131,11 +133,11 @@ class SQLiteT extends AQueryWriter implements QueryWriter
 	}
 
 	/**
-	 * Returns the indexes for type $type.
+	 * Returns the an array describing the indexes for type $type.
 	 *
-	 * @param string $type
+	 * @param string $type type to describe indexes of
 	 *
-	 * @return array $indexInfo index information
+	 * @return array
 	 */
 	protected function getIndexes( $type )
 	{
@@ -153,7 +155,9 @@ class SQLiteT extends AQueryWriter implements QueryWriter
 	}
 
 	/**
-	 * Adds a foreign key to a type
+	 * Adds a foreign key to a type.
+	 * Note: cant put this in try-catch because that can hide the fact
+	 * that database has been damaged.
 	 *
 	 * @param  string  $type        type you want to modify table of
 	 * @param  string  $targetType  target type
@@ -161,10 +165,7 @@ class SQLiteT extends AQueryWriter implements QueryWriter
 	 * @param  string  $targetField field where the fk needs to point to
 	 * @param  integer $buildopt    0 = NO ACTION, 1 = ON DELETE CASCADE
 	 *
-	 * @return boolean $didIt
-	 *
-	 * @note: cant put this in try-catch because that can hide the fact
-	 *      that database has been damaged.
+	 * @return boolean
 	 */
 	protected function buildFK( $type, $targetType, $property, $targetProperty, $constraint = FALSE )
 	{
@@ -259,7 +260,7 @@ class SQLiteT extends AQueryWriter implements QueryWriter
 		if ( $this->startsWithZeros( $value ) ) return self::C_DATATYPE_TEXT;
 
 		if ( $value === TRUE || $value === FALSE )  return self::C_DATATYPE_INTEGER;
-		
+
 		if ( is_numeric( $value ) && ( intval( $value ) == $value ) && $value < 2147483648 && $value > -2147483648 ) return self::C_DATATYPE_INTEGER;
 
 		if ( ( is_numeric( $value ) && $value < 2147483648 && $value > -2147483648)
@@ -290,7 +291,7 @@ class SQLiteT extends AQueryWriter implements QueryWriter
 	public function code( $typedescription, $includeSpecials = FALSE )
 	{
 		$r = ( ( isset( $this->sqltype_typeno[$typedescription] ) ) ? $this->sqltype_typeno[$typedescription] : 99 );
-		
+
 		return $r;
 	}
 
@@ -400,7 +401,7 @@ class SQLiteT extends AQueryWriter implements QueryWriter
 	public function wipe( $type )
 	{
 		$table = $this->esc( $type );
-		
+
 		$this->adapter->exec( "DELETE FROM $table " );
 	}
 
