@@ -10,16 +10,7 @@ class User extends DataStore {
     );
 
     public static function getUser($value, $property = 'id') {
-        if ($property === 'id') {
-            $mapValue = 'id=:value';
-        }
-        else if ($property === 'user') {
-            $mapValue = 'user=:value';
-        }
-
-        $user = RedBean::findOne('users', $mapValue, array(':value'  => $value));
-
-        return ($user) ? new User($user) : null;
+        return parent::getDataStore($value, $property);
     }
 
     public static function deleteUser($user) {

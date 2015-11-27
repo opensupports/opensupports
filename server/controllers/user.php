@@ -27,7 +27,6 @@ $app->group('/user', function () use ($app) {
             $pass = $userInstance->password;
         }
         else {
-            return;
             Response::respondError(ERRORS::INVALID_CREDENTIALS);
         }
 

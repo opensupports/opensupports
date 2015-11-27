@@ -2,10 +2,18 @@
 use RedBeanPHP\Facade as RedBean;
 
 abstract class DataStore {
-    protected $_id;
     protected $_bean;
 
     abstract protected function getDefaultProperties();
+
+    public static function getDataStore($value, $property = 'id') {
+        $bean = RedBean::findOne(static::TABLE, ':property=:value', array(
+            ':property' => $property,
+            ':value'  => $value
+        ));
+
+        return ($bean) ? new static($bean) : null;
+    }
 
     public function __construct($beanInstance = null) {
 
@@ -15,13 +23,14 @@ abstract class DataStore {
         else {
             $this->_bean = RedBean::dispense(static::TABLE);
             $defaultProperties = $this->getDefaultProperties();
+
             foreach ($defaultProperties as $PROP => $VALUE) {
                 $this->_bean[$PROP] = $VALUE;
             }
         }
     }
 
-    protected function deleteDataStore($dataStore) {
+    protected static function deleteDataStore($dataStore) {
         if ($dataStore instanceof DataStore) {
             RedBean::trash($dataStore->getBeanInstance());
             unset($dataStore);
@@ -32,13 +41,15 @@ abstract class DataStore {
         }
     }
 
-    protected function getBeanInstance() {
+    public function getBeanInstance() {
         return $this->_bean;
     }
 
     public function setProperties($properties) {
         foreach (static::PROPERTIES as $PROP) {
-            $this->_bean[$PROP] = $properties[$PROP];
+            if(array_key_exists($PROP, $properties)) {
+                $this->_bean[$PROP] = $properties[$PROP];
+            }
         }
     }
 
