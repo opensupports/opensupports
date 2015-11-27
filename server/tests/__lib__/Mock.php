@@ -34,7 +34,7 @@ class Stub {
     }
 
     public function hasBeenCalledWithArgs() {
-        $argumentsMatchAssertion = serialize(func_get_args()) === serialize($this->lastArgs);
+        $argumentsMatchAssertion = serialize(func_get_args()) === serialize($this->lastArgs[0]);
 
         return $this->timesCalled && $argumentsMatchAssertion;
     }

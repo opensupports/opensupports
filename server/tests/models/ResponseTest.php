@@ -1,9 +1,7 @@
 <?php
-include_once '__tests__/__lib__/Mock.php';
-include_once '__tests__/__mocks__/SlimMock.php';
+include_once 'tests/__lib__/Mock.php';
+include_once 'tests/__mocks__/SlimMock.php';
 include_once 'models/Response.php';
-
-//use \Mockery as Mockery;
 
 class ResponseTest extends PHPUnit_Framework_TestCase {
     public function testErrorResponseFormat() {
