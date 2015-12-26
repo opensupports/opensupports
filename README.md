@@ -2,13 +2,13 @@ OpenSupports v4.0
 ============
 
 ### Getting up and running FRONT-END
-1) Clone this repo
-2) Install node `sudo apt-get install node`
-3) Install npm `sudo apt-get install npm`
-4) Install gulp `sudo npm install -g gulp`
-5) Go to repo `cd os4-react`
-6) Install npm dependences `sudo npm install`
-7) Run `gulp dev`
+1. Clone this repo
+2. Install node `sudo apt-get install node`
+3. Install npm `sudo apt-get install npm`
+4. Install gulp `sudo npm install -g gulp`
+5. Go to repo `cd os4-react`
+6. Install npm dependences `sudo npm install`
+7. Run `gulp dev`
 
 
 ### Getting up and running
