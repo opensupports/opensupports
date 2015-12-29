@@ -20,7 +20,7 @@
     "npm": "^2.1.x"
   },
   "scripts": {
-    "test": "jest"
+    "test": "export NODE_PATH=src && jest"
   },
   "devDependencies": {
     "babel-core": "^5.8.22",

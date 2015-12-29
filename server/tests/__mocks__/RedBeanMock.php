@@ -21,7 +21,7 @@ namespace RedBeanPHP {
             if (self::$functionList[$key]) {
                 $function =  self::$functionList[$key];
 
-                return $function($arguments);
+                return call_user_func_array($function, $arguments);
             }
         }
 
