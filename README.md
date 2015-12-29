@@ -6,7 +6,9 @@ OpenSupports v4.0
 1. Clone this repo
 2. Install node 4.x version
     `sudo apt-get install curl`
+    
     `curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -`
+    
     `sudo apt-get install -y nodejs`
 3. Install npm `sudo apt-get install npm`
 4. Install gulp `sudo npm install -g gulp`
