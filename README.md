@@ -1,6 +1,6 @@
 OpenSupports v4.0
 
-[![Build Status](https://codeship.com/projects/124436/status?branch=master)](https://codeship.com/projects/124436/) 
+[![Build Status](https://codeship.com/projects/3faec3f0-908d-0133-1dce-661fcf0def08/status?branch=master)](https://codeship.com/projects/124436/) 
 ============
 
 ### Getting up and running FRONT-END
