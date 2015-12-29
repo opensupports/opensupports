@@ -4,13 +4,17 @@ OpenSupports v4.0
 ### Getting up and running FRONT-END
 0. update `sudo apt-get update`
 1. Clone this repo
-2. Install node `sudo apt-get install nodejs`
+2. Install node 4.x version
+    `sudo apt-get install curl`
+    `curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -`
+    `sudo apt-get install -y nodejs`
 3. Install npm `sudo apt-get install npm`
 4. Install gulp `sudo npm install -g gulp`
 5. Go to repo `cd os4-react`
-6. agregar carpeta node_modules, descomprimir el zip y hacer `sudo npm rebuild node-sass`
-7. Run `gulp dev`
-
+6. Install dependences `sudo npm install`
+7. Rebuild node-sass `sudo npm rebuild node-sass`
+8. Run `gulp dev`
+9. Go to the main app: `http://localhost:3000/app` or the component demo `http://localhost:3000/demo`
 
 ### Getting up and running
 
