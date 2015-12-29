@@ -5,6 +5,7 @@ import CommonActions      from 'actions/common-actions';
 
 import Button             from 'core-components/button';
 import DropDown           from 'core-components/drop-down';
+import Icon               from 'core-components/icon';
 
 var languageList = ['English', 'Spanish', 'Portuguese', 'German', 'Turkish', 'Indian'];
 var codeLanguages = {
@@ -35,7 +36,7 @@ var MainLayoutHeader = React.createClass({
             return {
                 content: (
                     <span>
-                        <img className="language-icon" src={`../images/icons/${codeLanguages[item]}.png`} />{item}
+                        <Icon name={codeLanguages[item]} />{item}
                     </span>
                 )
             };

@@ -4,7 +4,6 @@ import _                  from 'lodash';
 import {Motion, spring}   from 'react-motion';
 
 import callback           from 'lib/callback';
-import getIcion           from 'lib/callback';
 
 var DropDown = React.createClass({
 
@@ -44,7 +43,7 @@ var DropDown = React.createClass({
         return {
             defaultStyle: closedStyle,
             style: (this.state.opened) ? openedStyle : closedStyle
-        }
+        };
     },
 
     render() {
