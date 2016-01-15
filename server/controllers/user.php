@@ -6,10 +6,10 @@ $app->group('/user', function () use ($app) {
     });
 
     //TODO: THIS METHOD CAN BE ONLY USED IF IT IS LOGIN AS ADMIN
-    $app->get('/add/:user/:pass', function ($user, $pass) use ($app) {
+    $app->get('/add/:email/:pass', function ($email, $pass) use ($app) {
         $userInstance = new User();
         $userInstance->setProperties(array(
-            'user' => $user,
+            'email' => $email,
             'password' => $pass,
             'admin' => 0
         ));
@@ -20,17 +20,17 @@ $app->group('/user', function () use ($app) {
     });
 
     $app->post('/login', function () use ($app) {
-        $user =  $app->request()->post('email');
-        $password =  $app->request()->post('password');
+        $email =  Controller::request('email');
+        $password =  Controller::request('password');
 
-        if ($userInstance = User::getUser($user, 'user')) {
+        if ($userInstance = User::getUser($email, 'email')) {
             $pass = $userInstance->password;
         }
         else {
             Response::respondError(ERRORS::INVALID_CREDENTIALS);
         }
 
-        if ($pass === $password) {
+        if ($userInstance->password === $password) {
             Response::respondSuccess();
         }
         else {

@@ -1,13 +1,21 @@
 <?php
-use RedBeanPHP\Facade as RedBean;
 
 class User extends DataStore {
     const TABLE = 'users';
-    const PROPERTIES = array(
-        'user',
-        'password',
-        'admin',
-    );
+
+    public static function getProps() {
+        return array(
+            'email',
+            'password',
+            'admin',
+        );
+    }
+
+    public function getDefaultProperties() {
+        return [
+            'admin' => 0
+        ];
+    }
 
     public static function getUser($value, $property = 'id') {
         return parent::getDataStore($value, $property);
@@ -15,12 +23,6 @@ class User extends DataStore {
 
     public static function deleteUser($user) {
         parent::deleteDataStore($user);
-    }
-
-    public function getDefaultProperties() {
-        return [
-            'admin' => 0
-        ];
     }
 
     public function showUserDetails() {

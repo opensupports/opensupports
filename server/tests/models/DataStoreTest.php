@@ -8,11 +8,14 @@ use RedBeanPHP\Facade as RedBean;
 
 class DataStoreMock extends DataStore {
     const TABLE = 'MOCK_TABLE';
-    const PROPERTIES = array(
-        'prop1',
-        'prop2',
-        'prop3'
-    );
+
+    public static function getProps() {
+        return array(
+            'prop1',
+            'prop2',
+            'prop3',
+        );
+    }
 
     public function getDefaultProperties() {
         return array(
@@ -67,9 +70,8 @@ class DataStoreTest extends PHPUnit_Framework_TestCase {
 
         $this->assertTrue(RedBean::get('findOne')->hasBeenCalledWithArgs(
             'MOCK_TABLE',
-            ':property=:value',
+            'id =:value',
             array(
-               ':property' => 'id',
                ':value'  => 'ID_VALUE'
             )
         ));

@@ -20,6 +20,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
 
         //Should have been called with expected format
         $this->assertTrue($responseInstance->setBody->hasBeenCalledWithArgs($expectedArgument));
+        $this->assertTrue($responseInstance->finalize->hasBeenCalled());
     }
 
     public function testErrorResponseFormatWithoutData() {
@@ -37,6 +38,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
 
         //Should have been called with expected format
         $this->assertTrue($responseInstance->setBody->hasBeenCalledWithArgs($expectedArgument));
+        $this->assertTrue($responseInstance->finalize->hasBeenCalled());
     }
 
     public function testSuccessFormat() {
@@ -53,6 +55,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
 
         //Should have been called with expected format
         $this->assertTrue($responseInstance->setBody->hasBeenCalledWithArgs($expectedArgument));
+        $this->assertTrue($responseInstance->finalize->hasBeenCalled());
     }
 
     public function testSuccessFormatWithoutData() {
@@ -68,5 +71,6 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
 
         //Should have been called with expected format
         $this->assertTrue($responseInstance->setBody->hasBeenCalledWithArgs($expectedArgument));
+        $this->assertTrue($responseInstance->finalize->hasBeenCalled());
     }
 }

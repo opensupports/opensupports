@@ -1,6 +1,5 @@
 <?php
 class Response {
-    private static $errored;
 
     public static function respondError($errorMsg, $data = null) {
         $response = array(
@@ -11,6 +10,7 @@ class Response {
 
         $app = \Slim\Slim::getInstance();
         $app->response()->setBody(json_encode($response));
+        $app->response()->finalize();
     }
 
     public static function respondSuccess($data = null) {
@@ -21,5 +21,6 @@ class Response {
 
         $app = \Slim\Slim::getInstance();
         $app->response()->setBody(json_encode($response));
+        $app->response()->finalize();
     }
 }

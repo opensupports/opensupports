@@ -5,10 +5,10 @@ abstract class DataStore {
     protected $_bean;
 
     abstract protected function getDefaultProperties();
+    abstract static protected function getProps();
 
     public static function getDataStore($value, $property = 'id') {
-        $bean = RedBean::findOne(static::TABLE, ':property=:value', array(
-            ':property' => $property,
+        $bean = RedBean::findOne(static::TABLE, static::validateProp($property) . ' =:value', array(
             ':value'  => $value
         ));
 
@@ -46,7 +46,7 @@ abstract class DataStore {
     }
 
     public function setProperties($properties) {
-        foreach (static::PROPERTIES as $PROP) {
+        foreach (static::getProps() as $PROP) {
             if(array_key_exists($PROP, $properties)) {
                 $this->_bean[$PROP] = $properties[$PROP];
             }
@@ -64,5 +64,17 @@ abstract class DataStore {
 
     public function store() {
         return RedBean::store($this->_bean);
+    }
+
+    private static function validateProp($propToValidate) {
+        $validProp = false;
+
+        foreach (static::getProps() as $prop) {
+            if($propToValidate === $prop) {
+                $validProp = true;
+            }
+        }
+
+        return ($validProp) ? $propToValidate : 'id';
     }
 }

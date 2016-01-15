@@ -8,6 +8,7 @@ namespace Slim {
             if (self::$instance === null ) {
                 self::$instance = new \Mock();
                 self::$instance->setBody = \Mock::stub();
+                self::$instance->finalize = \Mock::stub();
             }
 
             return self::$instance;
