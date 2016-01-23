@@ -56,7 +56,7 @@ var DemoPage = React.createClass({
         {
             title: 'DropDown',
             render: (
-                <DropDown items={dropDownItems} />
+                <DropDown items={dropDownItems} onChange={function (index) { console.log('changed to ' + index); }} />
             )
         }
 	],
