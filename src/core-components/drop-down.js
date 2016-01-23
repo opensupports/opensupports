@@ -51,7 +51,7 @@ var DropDown = React.createClass({
 
         return (
             <div className={this.getClass()}>
-                <div className="drop-down--current" onClick={this.getClickCallback(this.getSelectedIndex())}>
+                <div className="drop-down--current" onBlur={this.handleBlur} onClick={this.handleClick} tabIndex="0" ref="current">
                     {this.props.items[this.getSelectedIndex()]}
                 </div>
                 <Motion defaultStyle={animation.defaultStyle} style={animation.style}>
@@ -75,7 +75,7 @@ var DropDown = React.createClass({
 
     renderItem(item, index) {
         return (
-            <li className="drop-down--list-item" onClick={this.getClickCallback(index)}>
+            <li className="drop-down--list-item" onClick={this.handleItemClick.bind(this, index)} onMouseDown={this.handleItemMouseDown}>
                 {item.content}
             </li>
         );
@@ -91,15 +91,31 @@ var DropDown = React.createClass({
         return classNames(classes);
     },
 
-    getClickCallback(index) {
-        return callback(this.handleClick.bind(this, index), this.props.onChange, {index: index})
+    handleBlur() {
+        this.setState({
+            opened: false
+        });
     },
 
-    handleClick(index) {
+    handleClick() {
         this.setState({
-            opened: !this.state.opened,
+            opened: !this.state.opened
+        });
+    },
+
+    handleItemClick(index) {
+        this.setState({
+            opened: false,
             selectedIndex: index
         });
+
+        if (this.props.onChange) {
+            this.props.onChange(index);
+        }
+    },
+
+    handleItemMouseDown(event) {
+        event.preventDefault();
     },
 
     getSelectedIndex() {
