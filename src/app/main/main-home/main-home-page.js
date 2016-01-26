@@ -1,4 +1,4 @@
-import React              from 'react/addons';
+import React              from 'react';
 import {ListenerMixin}    from 'reflux';
 import {RouteHandler}     from 'react-router';
 

@@ -1,7 +1,7 @@
 jest.dontMock('core-components/form.js');
 jest.dontMock('core-components/form.js');
 
-import React from 'react/addons';
+import React from 'react';
 import Form from 'core-components/form.js';
 import Input from 'core-components/input.js';
 

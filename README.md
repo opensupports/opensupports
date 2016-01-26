@@ -1,6 +1,6 @@
 OpenSupports v4.0
 
-[![Build Status](https://codeship.com/projects/3faec3f0-908d-0133-1dce-661fcf0def08/status?branch=master)](https://codeship.com/projects/124436/) 
+[![Build Status](https://codeship.com/projects/3faec3f0-908d-0133-1dce-661fcf0def08/status?branch=master)](https://codeship.com/projects/124436/)
 ============
 
 ### Getting up and running FRONT-END
@@ -13,22 +13,19 @@ OpenSupports v4.0
 3. Install npm `sudo apt-get install npm`
 4. Install gulp `sudo npm install -g gulp`
 5. Go to repo `cd os4-react`
-6. Install dependences `sudo npm install`
-7. Rebuild node-sass `sudo npm rebuild node-sass`
+6. Install dependences `npm install`
+7. Rebuild node-sass `npm rebuild node-sass`
 8. Run `gulp dev`
 9. Go to the main app: `http://localhost:3000/app` or the component demo `http://localhost:3000/demo`
-
-### Getting up and running
-
-1. [Create MySQL Database](#markdown-header-create-mysql-database)
-2. Clone this repo
-3. Run `npm install` from the root directory
-4. Create a mysql database
-5. Run `gulp dev` (may require installing Gulp globally `npm install gulp -g`)
-6. Your browser will automatically be opened and directed to the browser-sync proxy address
-7. To prepare assets for production, run the `gulp prod` task (Note: the production task does not fire up the express server, and won't provide you with browser-sync's live reloading. Simply use `gulp dev` during development. More information below)
+10. Your browser will automatically be opened and directed to the browser-sync proxy address
 
 Now that `gulp dev` is running, the server is up as well and serving files from the `/build` directory. Any changes in the `/src` directory will be automatically processed by Gulp and the changes will be injected to any open browsers pointed at the proxy address.
+
+### Getting up and running BACK-END
+
+1. Clone this repo
+2. [Create MySQL Database](#markdown-header-create-mysql-database)
+TODO
 
 ### Create MySQL Database
 
@@ -37,13 +34,13 @@ Now that `gulp dev` is running, the server is up as well and serving files from 
     Ubuntu
 
      `sudo apt-get install mysql-server`
-   
+
     Cent OS
 
     `sudo yum install mysql-server`
     `/etc/init.d/mysqld start`
 
-2. Access the mysql shell 
+2. Access the mysql shell
 
      `mysql -u root -p`
 

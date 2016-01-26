@@ -12,7 +12,7 @@ let DropDown = React.createClass({
         selectedIndex: React.PropTypes.number,
 
         items: React.PropTypes.arrayOf(React.PropTypes.shape({
-            content: React.PropTypes.string.isRequired,
+            content: React.PropTypes.node.isRequired,
             icon: React.PropTypes.string
         })).isRequired
     },
@@ -52,7 +52,7 @@ let DropDown = React.createClass({
         return (
             <div className={this.getClass()}>
                 <div className="drop-down--current" onBlur={this.handleBlur} onClick={this.handleClick} tabIndex="0" ref="current">
-                    {this.props.items[this.getSelectedIndex()]}
+                    {this.props.items[this.getSelectedIndex()].content}
                 </div>
                 <Motion defaultStyle={animation.defaultStyle} style={animation.style}>
                     {this.renderList}
@@ -75,7 +75,7 @@ let DropDown = React.createClass({
 
     renderItem(item, index) {
         return (
-            <li className="drop-down--list-item" onClick={this.handleItemClick.bind(this, index)} onMouseDown={this.handleItemMouseDown}>
+            <li {...this.getItemProps(index)}>
                 {item.content}
             </li>
         );
@@ -89,6 +89,15 @@ let DropDown = React.createClass({
         };
 
         return classNames(classes);
+    },
+
+    getItemProps(index) {
+        return {
+            className: 'drop-down--list-item',
+            onClick: this.handleItemClick.bind(this, index),
+            onMouseDown: this.handleItemMouseDown,
+            key: index
+        };
     },
 
     handleBlur() {
@@ -110,7 +119,9 @@ let DropDown = React.createClass({
         });
 
         if (this.props.onChange) {
-            this.props.onChange(index);
+            this.props.onChange({
+                index
+            });
         }
     },
 

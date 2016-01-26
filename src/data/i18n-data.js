@@ -1,7 +1,7 @@
 import keys         from 'data/i18n-keys'
 
 let languages = [
-    'en',
+    'us',
     'es'
 ];
 

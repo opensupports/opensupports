@@ -1,4 +1,4 @@
-import React              from 'react/addons';
+import React              from 'react';
 
 import UserActions        from 'actions/user-actions';
 import UserStore          from 'stores/user-store';

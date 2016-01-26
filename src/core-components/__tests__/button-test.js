@@ -1,6 +1,6 @@
 jest.dontMock('../button.js');
 
-import React from 'react/addons';
+import React from 'react';
 import Button from '../button.js';
 
 let TestUtils = React.addons.TestUtils;

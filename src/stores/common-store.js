@@ -5,7 +5,7 @@ import CommonActions      from 'actions/common-actions';
 let CommonStore = Reflux.createStore({
 
     init() {
-        this.language = 'en';
+        this.language = 'us';
 
         this.listenTo(CommonActions.changeLanguage, this.changeLanguage);
     },

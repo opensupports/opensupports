@@ -1,4 +1,4 @@
-import React              from 'react/addons';
+import React              from 'react';
 import classNames         from 'classnames';
 import _                  from 'lodash';
 import {Motion, spring}   from 'react-motion';

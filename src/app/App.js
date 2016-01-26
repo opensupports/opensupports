@@ -1,4 +1,4 @@
-import React              from 'react/addons';
+import React              from 'react';
 import Reflux             from 'reflux';
 import {ListenerMixin}    from 'reflux';
 import {RouteHandler}     from 'react-router';
@@ -13,8 +13,7 @@ let App = React.createClass({
     render() {
         return (
           <div>
-            <RouteHandler params={this.props.params}
-                          query={this.props.query} />
+              {React.cloneElement(this.props.children, {})}
           </div>
         );
     },
@@ -24,7 +23,6 @@ let App = React.createClass({
             this.forceUpdate();
         }
     }
-
 });
 
 export default App;

@@ -1,4 +1,4 @@
-import React     from 'react/addons';
+import React     from 'react';
 import _         from 'lodash';
 
 let reactDFS = function (children, visitFunction) {

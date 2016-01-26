@@ -1,4 +1,4 @@
-import React              from 'react/addons';
+import React              from 'react';
 import _                  from 'lodash';
 
 import {reactDFS, renderChildrenWithProps}  from 'lib/react-dfs';
