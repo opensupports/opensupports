@@ -5,7 +5,7 @@ import {Motion, spring}   from 'react-motion';
 
 import callback           from 'lib/callback';
 
-var DropDown = React.createClass({
+let DropDown = React.createClass({
 
     propTypes: {
         defaultSelectedIndex: React.PropTypes.number,
@@ -31,11 +31,11 @@ var DropDown = React.createClass({
     },
 
     getAnimationStyles() {
-        var closedStyle = {
+        let closedStyle = {
             opacity: spring(0, [200, 20]),
             translateY: spring(20, [200, 20])
         };
-        var openedStyle = {
+        let openedStyle = {
             opacity: spring(1, [200, 20]),
             translateY: spring(0, [200, 20])
         };
@@ -47,7 +47,7 @@ var DropDown = React.createClass({
     },
 
     render() {
-        var animation = this.getAnimationStyles();
+        let animation = this.getAnimationStyles();
 
         return (
             <div className={this.getClass()}>
@@ -62,7 +62,7 @@ var DropDown = React.createClass({
     },
 
     renderList({opacity, translateY}) {
-        var style = { opacity: opacity, transform: `translateY(${translateY}px)`};
+        let style = { opacity: opacity, transform: `translateY(${translateY}px)`};
 
         return (
             <div className="drop-down--list-container" style={style}>
@@ -82,7 +82,7 @@ var DropDown = React.createClass({
     },
 
     getClass() {
-        var classes = {
+        let classes = {
             'drop-down': true,
 
             [this.props.className]: (this.props.className)

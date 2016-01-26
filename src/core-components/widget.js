@@ -1,7 +1,7 @@
 import React from 'react/addons';
 import classNames from 'classnames';
 
-var Widget = React.createClass({
+let Widget = React.createClass({
     propTypes: {
         title: React.PropTypes.string,
         children: React.PropTypes.node.isRequired
@@ -23,7 +23,7 @@ var Widget = React.createClass({
     },
 
     renderTitle() {
-        var titleNode = null;
+        let titleNode = null;
 
         if (this.props.title) {
             titleNode = <h2 className="widget--title">{this.props.title}</h2>;
@@ -33,7 +33,7 @@ var Widget = React.createClass({
     },
 
     getClass() {
-        var classes = {
+        let classes = {
             'widget': true
         };
 

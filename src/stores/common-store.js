@@ -2,7 +2,7 @@ import Reflux             from 'reflux';
 
 import CommonActions      from 'actions/common-actions';
 
-var CommonStore = Reflux.createStore({
+let CommonStore = Reflux.createStore({
 
     init() {
         this.language = 'en';

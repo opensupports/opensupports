@@ -7,8 +7,8 @@ import Button             from 'core-components/button';
 import DropDown           from 'core-components/drop-down';
 import Icon               from 'core-components/icon';
 
-var languageList = ['English', 'Spanish', 'Portuguese', 'German', 'Turkish', 'Indian'];
-var codeLanguages = {
+let languageList = ['English', 'Spanish', 'Portuguese', 'German', 'Turkish', 'Indian'];
+let codeLanguages = {
     'English': 'us',
     'Spanish': 'es',
     'Portuguese': 'pt',
@@ -17,7 +17,7 @@ var codeLanguages = {
     'Indian': 'in'
 };
 
-var MainLayoutHeader = React.createClass({
+let MainLayoutHeader = React.createClass({
 
     render() {
         return (
@@ -44,7 +44,7 @@ var MainLayoutHeader = React.createClass({
     },
 
     changeLanguage(event) {
-        var language = languageList[event.index];
+        let language = languageList[event.index];
 
         CommonActions.changeLanguage(codeLanguages[language]);
     }

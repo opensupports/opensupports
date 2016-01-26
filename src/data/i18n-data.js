@@ -1,13 +1,13 @@
 import keys         from 'data/i18n-keys'
 
-var languages = [
+let languages = [
     'en',
     'es'
 ];
 
 
-var i18nData = function (key, lang) {
-    var langIndex = languages.indexOf(lang);
+let i18nData = function (key, lang) {
+    let langIndex = languages.indexOf(lang);
 
     return keys[key][langIndex];
 };

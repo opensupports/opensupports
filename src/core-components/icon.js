@@ -1,6 +1,6 @@
 import React from 'react';
 
-var Icon = React.createClass({
+let Icon = React.createClass({
 
     propTypes: {
         name: React.PropTypes.string.isRequired

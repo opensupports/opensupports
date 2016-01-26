@@ -6,7 +6,7 @@ import {reactDFS, renderChildrenWithProps}  from 'lib/react-dfs';
 import Input              from 'core-components/input';
 import Checkbox           from 'core-components/checkbox';
 
-var Form = React.createClass({
+let Form = React.createClass({
 
     validations: {},
 
@@ -17,7 +17,7 @@ var Form = React.createClass({
     },
 
     componentDidMount() {
-        var formState = {};
+        let formState = {};
 
         reactDFS(this.props.children, (child) => {
             if (child.type === Input) {
@@ -42,7 +42,7 @@ var Form = React.createClass({
     },
 
     getProps() {
-        var props = _.clone(this.props);
+        let props = _.clone(this.props);
 
         props.onSubmit = this.handleSubmit;
 
@@ -50,7 +50,7 @@ var Form = React.createClass({
     },
 
     getInputProps({props, type}) {
-        var additionalProps = {};
+        let additionalProps = {};
 
         if (type === Input || type === Checkbox) {
             let inputName = props.name;
@@ -75,7 +75,7 @@ var Form = React.createClass({
     },
 
     handleInputChange(inputName, type, event) {
-        var form = _.clone(this.state.form);
+        let form = _.clone(this.state.form);
 
         form[inputName] = event.target.value;
 

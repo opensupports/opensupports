@@ -10,9 +10,9 @@ import Checkbox         from 'core-components/checkbox';
 import Widget           from 'core-components/widget';
 import DropDown         from 'core-components/drop-down';
 
-var dropDownItems = [{content: 'English'}, {content: 'Spanish'}, {content: 'German'}, {content: 'Portuguese'}, {content: 'Japanese'}];
+let dropDownItems = [{content: 'English'}, {content: 'Spanish'}, {content: 'German'}, {content: 'Portuguese'}, {content: 'Japanese'}];
 
-var DemoPage = React.createClass({
+let DemoPage = React.createClass({
 
 	propTypes: {
 		currentUser: React.PropTypes.object.isRequired

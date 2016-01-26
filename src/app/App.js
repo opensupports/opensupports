@@ -6,7 +6,7 @@ import {RouteHandler}     from 'react-router';
 import CommonActions      from 'actions/common-actions';
 import CommonStore        from 'stores/common-store';
 
-var App = React.createClass({
+let App = React.createClass({
 
     mixins: [Reflux.listenTo(CommonStore, 'onCommonStoreChanged')],
 

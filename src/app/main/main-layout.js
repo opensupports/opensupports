@@ -4,7 +4,7 @@ import {RouteHandler}     from 'react-router';
 import MainHeader         from 'app/main/main-layout-header';
 import MainFooter         from 'app/main/main-layout-footer';
 
-var MainLayout = React.createClass({
+let MainLayout = React.createClass({
 
     render() {
         return (

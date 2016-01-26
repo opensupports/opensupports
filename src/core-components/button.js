@@ -4,7 +4,7 @@ import {Navigation}       from 'react-router';
 
 import callback           from 'lib/callback';
 
-var Button = React.createClass({
+let Button = React.createClass({
 
     mixins: [Navigation],
 
@@ -37,7 +37,7 @@ var Button = React.createClass({
     },
 
     getClass() {
-        var classes = {
+        let classes = {
             'button': true
         };
 
