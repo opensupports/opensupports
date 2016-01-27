@@ -4,7 +4,7 @@ import $              from 'jquery';
 
 const APIUtils = {
 
-    root: 'http://localhost:3000/server/',
+    root: 'http://localhost:3000/api/',
 
     getPromise(path, method, data) {
         return (resolve, reject) => {

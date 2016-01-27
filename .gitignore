@@ -21,11 +21,11 @@ build/Release
 # Dependency directories
 node_modules
 bower_components
-server/vendor
+api/vendor
 
 # Build files
 build
 
-server/composer.lock
+api/composer.lock
 .idea
 .jshintrc
