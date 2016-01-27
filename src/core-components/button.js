@@ -1,12 +1,13 @@
-import React              from 'react/addons';
+import React              from 'react';
 import classNames         from 'classnames';
-import {Navigation}       from 'react-router';
-
+import Router             from 'react-router';
 import callback           from 'lib/callback';
 
-var Button = React.createClass({
+let Button = React.createClass({
 
-    mixins: [Navigation],
+    contextTypes: {
+        router: React.PropTypes.object
+    },
 
     propTypes: {
         children: React.PropTypes.node,
@@ -37,7 +38,7 @@ var Button = React.createClass({
     },
 
     getClass() {
-        var classes = {
+        let classes = {
             'button': true
         };
 
@@ -49,7 +50,7 @@ var Button = React.createClass({
 
     handleClick() {
         if (this.props.route) {
-            this.transitionTo(this.props.route.to, this.props.route.param, this.props.route.query);
+            this.context.router.push(this.props.route.to);
         }
     }
 });

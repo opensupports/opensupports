@@ -1,4 +1,4 @@
-import React              from 'react/addons';
+import React              from 'react';
 
 import UserActions        from 'actions/user-actions';
 import UserStore          from 'stores/user-store';
@@ -10,7 +10,7 @@ import Checkbox           from 'core-components/checkbox';
 import Widget             from 'core-components/widget';
 import WidgetTransition   from 'core-components/widget-transition';
 
-var MainHomePageLoginWidget = React.createClass({
+let MainHomePageLoginWidget = React.createClass({
 
     getInitialState() {
         return {

@@ -3,7 +3,7 @@ import APIUtils           from 'lib/APIUtils';
 
 import UserActions        from 'actions/user-actions';
 
-var UserStore = Reflux.createStore({
+let UserStore = Reflux.createStore({
 
 	init() {
 		this.user = null;

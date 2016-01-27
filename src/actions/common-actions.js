@@ -1,6 +1,6 @@
 import Reflux from 'reflux';
 
-var CommonActions = Reflux.createActions([
+let CommonActions = Reflux.createActions([
     'changeLanguage'
 ]);
 

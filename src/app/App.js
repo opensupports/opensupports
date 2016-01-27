@@ -1,4 +1,4 @@
-import React              from 'react/addons';
+import React              from 'react';
 import Reflux             from 'reflux';
 import {ListenerMixin}    from 'reflux';
 import {RouteHandler}     from 'react-router';
@@ -6,15 +6,14 @@ import {RouteHandler}     from 'react-router';
 import CommonActions      from 'actions/common-actions';
 import CommonStore        from 'stores/common-store';
 
-var App = React.createClass({
+let App = React.createClass({
 
     mixins: [Reflux.listenTo(CommonStore, 'onCommonStoreChanged')],
 
     render() {
         return (
           <div>
-            <RouteHandler params={this.props.params}
-                          query={this.props.query} />
+              {React.cloneElement(this.props.children, {})}
           </div>
         );
     },
@@ -24,7 +23,6 @@ var App = React.createClass({
             this.forceUpdate();
         }
     }
-
 });
 
 export default App;

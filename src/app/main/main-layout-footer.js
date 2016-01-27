@@ -1,6 +1,6 @@
-import React              from 'react/addons';
+import React              from 'react';
 
-var MainLayoutFooter = React.createClass({
+let MainLayoutFooter = React.createClass({
 
     render() {
         return (

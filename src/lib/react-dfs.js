@@ -1,8 +1,8 @@
-import React     from 'react/addons';
+import React     from 'react';
 import _         from 'lodash';
 
-var reactDFS = function (children, visitFunction) {
-    var stack = [];
+let reactDFS = function (children, visitFunction) {
+    let stack = [];
 
     React.Children.forEach(children, child => stack.push(child));
     stack.reverse();
@@ -20,13 +20,13 @@ var reactDFS = function (children, visitFunction) {
     }
 };
 
-var renderChildrenWithProps = function(children, mapFunction) {
+let renderChildrenWithProps = function(children, mapFunction) {
     if (typeof children !== 'object' || children === null) {
         return children;
     }
 
     return React.Children.map(children, function (child) {
-        var props = mapFunction(child);
+        let props = mapFunction(child);
 
         if (typeof child !== 'object' || child === null) {
             return child;

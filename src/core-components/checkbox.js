@@ -5,7 +5,7 @@ import _                  from 'lodash';
 import callback           from 'lib/callback';
 import getIcon            from 'lib/get-icon';
 
-var CheckBox = React.createClass({
+let CheckBox = React.createClass({
 
     propTypes: {
         alignment: React.PropTypes.string,
@@ -38,7 +38,7 @@ var CheckBox = React.createClass({
     },
 
     getProps() {
-        var props = _.clone(this.props);
+        let props = _.clone(this.props);
 
         props.type = 'checkbox';
 
@@ -52,7 +52,7 @@ var CheckBox = React.createClass({
     },
 
     getClass() {
-        var classes = {
+        let classes = {
             'checkbox': true,
             'checkbox_checked': this.state.checked,
 
