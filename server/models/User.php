@@ -3,6 +3,20 @@
 class User extends DataStore {
     const TABLE = 'users';
 
+    public static function hashPassword($password) {
+        return password_hash($password);
+    }
+
+    public static function verifyPassword($password, $hash) {
+        return password_verify($password, $hash);
+    }
+
+    public static function authenticate($userEmail, $userPassword) {
+        $user = static::getUser($userEmail, 'email');
+
+        return ($user && static::verifyPassword($userPassword, $user->password)) ? $user : null;
+    }
+
     public static function getProps() {
         return array(
             'email',

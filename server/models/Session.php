@@ -3,7 +3,7 @@
 class Session {
     private $instance = null;
 
-    private  function __construct() {}
+    private function __construct() {}
 
     public function initSession() {
         session_start();
@@ -22,7 +22,7 @@ class Session {
     }
 
     public function createSession($userId) {
-        $this->store('userid', $userId);
+        $this->store('userId', $userId);
         $this->store('token', $this->generateToken());
     }
 
@@ -30,9 +30,17 @@ class Session {
         return $this->getStoredData('token');
     }
 
+    public function sessionExists() {
+        return !!$this->getToken();
+    }
+
     public function checkAuthentication($data) {
-        return $this->getStoredData('user_id') === $data['user_id'] &&
+        return $this->getStoredData('userId') === $data['userId'] &&
                $this->getStoredData('token') === $data['token'];
+    }
+
+    public function isLoggedWithId($userId) {
+        return ($this->getStoredData('userId') === $userId);
     }
 
     private function store($key, $value) {
@@ -40,7 +48,7 @@ class Session {
     }
 
     private function getStoredData($key) {
-        return $_SESSION[$key];
+        return $_SESSION[$key] || null;
     }
 
     private function generateToken() {
