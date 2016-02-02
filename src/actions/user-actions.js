@@ -1,6 +1,6 @@
 import Reflux from 'reflux';
 
-var UserActions = Reflux.createActions([
+let UserActions = Reflux.createActions([
 	'checkLoginStatus',
 	'login',
 	'logout'

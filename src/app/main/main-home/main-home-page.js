@@ -1,10 +1,10 @@
-import React              from 'react/addons';
+import React              from 'react';
 import {ListenerMixin}    from 'reflux';
 import {RouteHandler}     from 'react-router';
 
 import MainHomePageLoginWidget  from 'app/main/main-home/main-home-page-login-widget';
 
-var MainHomePage = React.createClass({
+let MainHomePage = React.createClass({
 
 	render() {
 		return (

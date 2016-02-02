@@ -1,4 +1,4 @@
-import React              from 'react/addons';
+import React              from 'react';
 import {ListenerMixin}    from 'reflux';
 import ReCAPTCHA          from 'react-google-recaptcha';
 
@@ -11,7 +11,7 @@ import Input              from 'core-components/input';
 import Widget             from 'core-components/widget';
 import WidgetTransition   from 'core-components/widget-transition';
 
-var MainSignUpPageWidget = React.createClass({
+let MainSignUpPageWidget = React.createClass({
 
     render() {
         return (

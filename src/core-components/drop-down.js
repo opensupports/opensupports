@@ -5,14 +5,14 @@ import {Motion, spring}   from 'react-motion';
 
 import callback           from 'lib/callback';
 
-var DropDown = React.createClass({
+let DropDown = React.createClass({
 
     propTypes: {
         defaultSelectedIndex: React.PropTypes.number,
         selectedIndex: React.PropTypes.number,
 
         items: React.PropTypes.arrayOf(React.PropTypes.shape({
-            content: React.PropTypes.string.isRequired,
+            content: React.PropTypes.node.isRequired,
             icon: React.PropTypes.string
         })).isRequired
     },
@@ -31,11 +31,11 @@ var DropDown = React.createClass({
     },
 
     getAnimationStyles() {
-        var closedStyle = {
+        let closedStyle = {
             opacity: spring(0, [200, 20]),
             translateY: spring(20, [200, 20])
         };
-        var openedStyle = {
+        let openedStyle = {
             opacity: spring(1, [200, 20]),
             translateY: spring(0, [200, 20])
         };
@@ -47,12 +47,12 @@ var DropDown = React.createClass({
     },
 
     render() {
-        var animation = this.getAnimationStyles();
+        let animation = this.getAnimationStyles();
 
         return (
             <div className={this.getClass()}>
                 <div className="drop-down--current" onBlur={this.handleBlur} onClick={this.handleClick} tabIndex="0" ref="current">
-                    {this.props.items[this.getSelectedIndex()]}
+                    {this.props.items[this.getSelectedIndex()].content}
                 </div>
                 <Motion defaultStyle={animation.defaultStyle} style={animation.style}>
                     {this.renderList}
@@ -62,7 +62,7 @@ var DropDown = React.createClass({
     },
 
     renderList({opacity, translateY}) {
-        var style = { opacity: opacity, transform: `translateY(${translateY}px)`};
+        let style = { opacity: opacity, transform: `translateY(${translateY}px)`};
 
         return (
             <div className="drop-down--list-container" style={style}>
@@ -75,20 +75,29 @@ var DropDown = React.createClass({
 
     renderItem(item, index) {
         return (
-            <li className="drop-down--list-item" onClick={this.handleItemClick.bind(this, index)} onMouseDown={this.handleItemMouseDown}>
+            <li {...this.getItemProps(index)}>
                 {item.content}
             </li>
         );
     },
 
     getClass() {
-        var classes = {
+        let classes = {
             'drop-down': true,
 
             [this.props.className]: (this.props.className)
         };
 
         return classNames(classes);
+    },
+
+    getItemProps(index) {
+        return {
+            className: 'drop-down--list-item',
+            onClick: this.handleItemClick.bind(this, index),
+            onMouseDown: this.handleItemMouseDown,
+            key: index
+        };
     },
 
     handleBlur() {
@@ -110,7 +119,9 @@ var DropDown = React.createClass({
         });
 
         if (this.props.onChange) {
-            this.props.onChange(index);
+            this.props.onChange({
+                index
+            });
         }
     },
 

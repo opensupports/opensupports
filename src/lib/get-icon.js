@@ -2,7 +2,7 @@ import React   from 'react';
 import _       from 'lodash';
 
 export default function () {
-    var className = 'fa';
+    let className = 'fa';
 
     _.each(arguments, (arg) => {
         className += ' fa-' + arg;

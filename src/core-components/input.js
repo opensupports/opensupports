@@ -2,7 +2,7 @@ import React              from 'react';
 import classNames         from 'classnames';
 import _                  from 'lodash';
 
-var Input = React.createClass({
+let Input = React.createClass({
 
     propTypes: {
         value: React.PropTypes.string,
@@ -28,7 +28,7 @@ var Input = React.createClass({
     },
 
     getProps() {
-        var props = _.clone(this.props);
+        let props = _.clone(this.props);
 
         props.type = (this.props.password) ? 'password' : 'text';
 
@@ -36,7 +36,7 @@ var Input = React.createClass({
     },
 
     getClass() {
-        var classes = {
+        let classes = {
             'input': true,
             ['input_' + this.props.inputType]: true,
 

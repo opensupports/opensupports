@@ -1,11 +1,11 @@
-import React              from 'react/addons';
+import React              from 'react';
 import classNames         from 'classnames';
 import _                  from 'lodash';
 import {Motion, spring}   from 'react-motion';
 
 import Widget             from 'core-components/widget';
 
-var WidgetTransition = React.createClass({
+let WidgetTransition = React.createClass({
 
     propTypes: {
         sideToShow: React.PropTypes.string
@@ -35,7 +35,7 @@ var WidgetTransition = React.createClass({
         return (
             <div className={this.getClass()}>
                 {React.Children.map(this.props.children, function (child, index) {
-                    var modifiedChild;
+                    let modifiedChild;
 
                     if (index === 0) {
                         modifiedChild = React.cloneElement(child, {
@@ -60,7 +60,7 @@ var WidgetTransition = React.createClass({
     },
 
     getClass() {
-        var classes = {
+        let classes = {
             'widget-transition': true,
             [this.props.className]: (this.props.className)
         };
