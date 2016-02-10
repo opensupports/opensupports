@@ -9,4 +9,12 @@ if ( process.env.NODE_ENV !== 'production' ) {
   window.React = React;
 }
 
+//TODO: Add env variable to determinate if it should use fixtures
+/*
+if ( process.env.API !== 'production' ) {
+  // Mock API calls
+  require('lib/fixtures/fixtures-loader');
+}
+*/
+
 render(routes, document.getElementById('app'));
