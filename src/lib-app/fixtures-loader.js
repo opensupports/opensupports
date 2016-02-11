@@ -7,9 +7,7 @@ let fixtures = (function () {
 
     return {
         add(fixtures) {
-            fixtures.forEach((fixture) => {
-                fixturesData.push(fixture);
-            });
+            fixturesData = fixturesData.concat(fixtures);
         },
         getAll() {
             return fixturesData;
@@ -25,6 +23,8 @@ _.each(fixtures.getAll(), function (fixture) {
         contentType: 'application/json',
         url: 'http://localhost:3000/api/' + fixture.path,
         responseTime: fixture.time || 500,
-        responseText: fixture.response
+        response: function (settings) {
+            this.responseText = fixture.response(settings.data)
+        }
     });
 });
