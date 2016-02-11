@@ -9,8 +9,7 @@ if ( process.env.NODE_ENV !== 'production' ) {
     window.React = React;
 }
 
-//TODO: This should be optional via gulp like: "gulp dev --no-fixtures"
-if (fixturesEnabled === 'disabled') {
+if (noFixtures === 'disabled') {
     require('lib-app/fixtures-loader');
 }
 

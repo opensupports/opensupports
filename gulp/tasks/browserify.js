@@ -24,8 +24,8 @@ function buildScript(file, watch) {
     entries: [config.sourceDir + 'app/' + file],
     debug: !global.isProd,
     insertGlobalVars: {
-      fixturesEnabled: function() {
-        return (util.env.api) ? "'enabled'" : "'disabled'";
+      noFixtures: function() {
+        return (util.env['api']) ? "'enabled'" : "'disabled'";
       }
     },
     cache: {},
