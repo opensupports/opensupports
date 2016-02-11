@@ -57,7 +57,8 @@
     "react-google-recaptcha": "^0.5.2",
     "react-motion": "^0.3.0",
     "react-router": "^2.0.0-rc5",
-    "reflux": "^0.2.9"
+    "reflux": "^0.2.9",
+    "sessionstorage": "0.0.1"
   },
   "jest": {
     "scriptPreprocessor": "./preprocessor.js",

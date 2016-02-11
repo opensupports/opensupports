@@ -1,7 +1,7 @@
-import Reflux             from 'reflux';
-import APIUtils           from 'lib/APIUtils';
+const Reflux = require('reflux');
+const API = require('lib-app/api-call');
 
-import UserActions        from 'actions/user-actions';
+const UserActions = require('actions/user-actions');
 
 let UserStore = Reflux.createStore({
 
@@ -15,8 +15,10 @@ let UserStore = Reflux.createStore({
 	},
 
     loginUser(loginData) {
-        APIUtils.post('user/login', loginData).then(result => {
-            console.log(result);
+		API.call('user/login', loginData, result => {
+			console.log(result);
+
+			API.setConfig(result.userId, result.token);
         });
 	}
 });

@@ -3,8 +3,8 @@ module.exports = [
         path: 'user/login',
         time: 1000,
         response: {
-            'userid': 12,
-            'token': 'CUSTOM_VALUE'
+            'userId': 12,
+            'token': 'cc6b4921e6733d6aafe284ec0d7be57e'
         }
     }
 ];

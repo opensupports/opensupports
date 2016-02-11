@@ -7,7 +7,9 @@ let fixtures = (function () {
 
     return {
         add(fixtures) {
-            fixturesData.concat(fixtures);
+            fixtures.forEach((fixture) => {
+                fixturesData.push(fixture);
+            });
         },
         getAll() {
             return fixturesData;
@@ -22,8 +24,8 @@ _.each(fixtures.getAll(), function (fixture) {
     //ADD FIXTURE TO MOCKJAX
     mockjax({
         contentType: 'application/json',
-        url: fixture.path,
+        url: 'http://localhost:3000/api/' + fixture.path,
         responseTime: fixture.time || 500,
-        responseText: JSON.fixture.response
+        responseText: fixture.response
     });
 });

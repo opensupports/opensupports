@@ -1,7 +1,7 @@
 import React              from 'react';
 import classNames         from 'classnames';
 import Router             from 'react-router';
-import callback           from 'lib/callback';
+import callback           from 'lib-core/callback';
 
 let Button = React.createClass({
 
