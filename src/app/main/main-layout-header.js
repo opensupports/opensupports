@@ -1,6 +1,6 @@
 import React              from 'react';
 
-import i18n               from 'lib/i18n';
+import i18n               from 'lib-app/i18n';
 import CommonActions      from 'actions/common-actions';
 
 import Button             from 'core-components/button';

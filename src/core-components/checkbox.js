@@ -2,8 +2,8 @@ import React              from 'react';
 import classNames         from 'classnames';
 import _                  from 'lodash';
 
-import callback           from 'lib/callback';
-import getIcon            from 'lib/get-icon';
+import callback           from 'lib-core/callback';
+import getIcon            from 'lib-core/get-icon';
 
 let CheckBox = React.createClass({
 

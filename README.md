@@ -18,6 +18,7 @@ OpenSupports v4.0
 8. Run `gulp dev`
 9. Go to the main app: `http://localhost:3000/app` or the component demo `http://localhost:3000/demo`
 10. Your browser will automatically be opened and directed to the browser-sync proxy address
+12. Use `gulp dev --api` to disable fixtures and use the real php server api (it must be running).
 
 Now that `gulp dev` is running, the server is up as well and serving files from the `/build` directory. Any changes in the `/src` directory will be automatically processed by Gulp and the changes will be injected to any open browsers pointed at the proxy address.
 
