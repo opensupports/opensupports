@@ -17,7 +17,7 @@ module.exports = [
                         'userId': 12,
                         'token': 'cc6b4921e6733d6aafe284ec0d7be57e'
                     }
-                }
+                };
             }
 
             return response;

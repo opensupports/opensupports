@@ -12,7 +12,7 @@ let fixtures = (function () {
         getAll() {
             return fixturesData;
         }
-    }
+    };
 })();
 
 // FIXTURES
@@ -24,7 +24,7 @@ _.each(fixtures.getAll(), function (fixture) {
         url: 'http://localhost:3000/api/' + fixture.path,
         responseTime: fixture.time || 500,
         response: function (settings) {
-            this.responseText = fixture.response(settings.data)
+            this.responseText = fixture.response(settings.data);
         }
     });
 });
