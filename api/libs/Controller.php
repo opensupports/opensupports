@@ -1,8 +1,20 @@
 <?php
 
-class Controller {
+abstract class Controller {
+
+    /**
+     * Instance-related stuff
+    */
+    abstract public function handler();
+
+    public function getHandler() {
+        return function () {
+            $this->handler();
+        };
+    }
+
     public static function request($key) {
-        $app = \Slim\Slim::getInstance();
+        $app = self::getAppInstance();
 
         return $app->request()->post($key);
     }
@@ -26,5 +38,9 @@ class Controller {
 
     public static function checkAdminLogged() {
         return self::checkUserLogged() && (self::getLoggedUser()->admin === 2);
+    }
+
+    public static function getAppInstance() {
+        return \Slim\Slim::getInstance();
     }
 }

@@ -21,6 +21,8 @@ spl_autoload_register(function ($class) {
 
 // LOAD CONTROLLERS
 include 'libs/Controller.php';
+include 'libs/ControllerGroup.php';
+
 foreach (glob('controllers/*.php') as $controller) {
     include $controller;
 }
