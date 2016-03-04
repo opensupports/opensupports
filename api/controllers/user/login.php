@@ -3,7 +3,6 @@
 class LoginController extends Controller {
     const PATH = '/login';
 
-
     public function handler() {
         $email =  Controller::request('email');
         $password =  Controller::request('password');
@@ -20,4 +19,4 @@ class LoginController extends Controller {
     }
 }
 
-$controllerGroup->addController(new LoginController());
+$controllerGroup->addController(new LoginController);
