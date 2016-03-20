@@ -1,15 +1,12 @@
-'use strict';
-
-import $              from 'jquery';
+const _ = require('lodash');
+const $ = require('jquery');
 
 const APIUtils = {
-
-    root: 'http://localhost:3000/api/',
 
     getPromise(path, method, data) {
         return (resolve, reject) => {
             $.ajax({
-                url: this.root + path,
+                url: path,
                 method: method,
                 data: data,
                 dataType: 'json'

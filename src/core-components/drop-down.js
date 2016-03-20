@@ -3,7 +3,7 @@ import classNames         from 'classnames';
 import _                  from 'lodash';
 import {Motion, spring}   from 'react-motion';
 
-import callback           from 'lib/callback';
+import callback           from 'lib-core/callback';
 
 let DropDown = React.createClass({
 

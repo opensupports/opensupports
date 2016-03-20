@@ -18,14 +18,19 @@ OpenSupports v4.0
 8. Run `gulp dev`
 9. Go to the main app: `http://localhost:3000/app` or the component demo `http://localhost:3000/demo`
 10. Your browser will automatically be opened and directed to the browser-sync proxy address
+12. Use `gulp dev --api` to disable fixtures and use the real php server api (it must be running at :8080).
 
 Now that `gulp dev` is running, the server is up as well and serving files from the `/build` directory. Any changes in the `/src` directory will be automatically processed by Gulp and the changes will be injected to any open browsers pointed at the proxy address.
 
 ### Getting up and running BACK-END
 
 1. Clone this repo
-2. [Create MySQL Database](#markdown-header-create-mysql-database)
-TODO
+2. [Install PHP5](http://www.howtogeek.com/howto/ubuntu/installing-php5-and-apache-on-ubuntu/)
+3. [Create MySQL Database](#markdown-header-create-mysql-database)
+4. [Install composer](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-14-04)
+5. Go to `cd os4-react/api`
+6. Run `composer install`
+7. Run the server with `php -S localhost:8080`
 
 ### Create MySQL Database
 

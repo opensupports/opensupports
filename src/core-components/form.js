@@ -1,7 +1,7 @@
 import React              from 'react';
 import _                  from 'lodash';
 
-import {reactDFS, renderChildrenWithProps}  from 'lib/react-dfs';
+import {reactDFS, renderChildrenWithProps}  from 'lib-core/react-dfs';
 
 import Input              from 'core-components/input';
 import Checkbox           from 'core-components/checkbox';
