@@ -20,5 +20,3 @@ class SignUpController extends Controller {
         ));
     }
 }
-
-$controllerGroup->addController(new SignUpController);

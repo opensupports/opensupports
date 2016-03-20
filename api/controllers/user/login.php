@@ -18,5 +18,3 @@ class LoginController extends Controller {
         return;
     }
 }
-
-$controllerGroup->addController(new LoginController);

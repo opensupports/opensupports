@@ -1,9 +1,11 @@
 <?php
-
-$controllerGroup = new ControllerGroup();
-$controllerGroup->setGroupPath('/user');
-
 include 'user/login.php';
 include 'user/signup.php';
 
-$controllerGroup->finalize();
+$userControllers = new ControllerGroup();
+$userControllers->setGroupPath('/user');
+
+$userControllers->addController(new LoginController);
+$userControllers->addController(new SignUpController);
+
+$userControllers->finalize();

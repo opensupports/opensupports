@@ -20,8 +20,8 @@ spl_autoload_register(function ($class) {
 });
 
 // LOAD CONTROLLERS
-include 'libs/Controller.php';
-include 'libs/ControllerGroup.php';
+include_once 'libs/Controller.php';
+include_once 'libs/ControllerGroup.php';
 
 foreach (glob('controllers/*.php') as $controller) {
     include $controller;
