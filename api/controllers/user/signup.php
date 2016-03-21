@@ -7,16 +7,22 @@ class SignUpController extends Controller {
         $email =  Controller::request('email');
         $password =  Controller::request('password');
 
+        $userId = $this->createNewUserAndRetrieveId($email, $password);
+
+        Response::respondSuccess(array(
+            'userId' => $userId,
+            'userEmail' => $email
+        ));
+    }
+
+    public function createNewUserAndRetrieveId() {
         $userInstance = new User();
         $userInstance->setProperties(array(
             'email' => $email,
-            'password' => $password,
+            'password' => User::hashPassword($password),
             'admin' => 0
         ));
-        $id = $userInstance->store();
 
-        Response::respondSuccess(array(
-            'id' => $id
-        ));
+        return $userInstance->store();
     }
 }
