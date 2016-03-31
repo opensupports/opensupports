@@ -3,30 +3,63 @@
 class LoginController extends Controller {
     const PATH = '/login';
 
+    private $userInstance;
+    private $session;
+
     public function handler() {
-        $session = Session::getInstance();
-
-        $email =  Controller::request('email');
-        $password =  Controller::request('password');
-
-        if ($session->sessionExists()) {
+        if ($this->isAlreadyLoggedIn()) {
             Response::respondError(ERRORS::SESSION_EXISTS);
             return;
         }
 
-        $userInstance = User::getUser($email, $password);
+        if ($this->areCredentialsValid()) {
+            $this->createUserSession();
 
-        if ($userInstance !== null) {
-            $session->createSession($userInstance->id);
-
-            Response::respondSuccess(array(
-                'userId' => $userInstance->id,
-                'userEmail' => $userInstance->email,
-                'userIsAdmin' => $userInstance->admin,
-                'token' => $session->getToken()
-            ));
+            Response::respondSuccess($this->getUserData());
         } else {
             Response::respondError(ERRORS::INVALID_CREDENTIALS);
         }
+    }
+
+    private function isAlreadyLoggedIn() {
+        return $this->getSession()->sessionExists();
+    }
+
+    private function areCredentialsValid() {
+        return ($this->getUserByInputCredentials() !== null);
+    }
+
+    private function createUserSession() {
+        $this->getSession()->createSession($this->userInstance->id);
+    }
+
+    private function getUserData() {
+        $userInstance = $this->getUserByInputCredentials();
+
+        return array(
+            'userId' => $userInstance->id,
+            'userEmail' => $userInstance->email,
+            'userIsAdmin' => $userInstance->admin,
+            'token' => $this->getSession()->getToken()
+        );
+    }
+
+    private function getUserByInputCredentials() {
+        if ($this->userInstance === null) {
+            $email =  Controller::request('email');
+            $password =  Controller::request('password');
+
+            $this->userInstance = User::getUser($email, $password);
+        }
+
+        return $this->userInstance;
+    }
+
+    private function getSession() {
+        if ($this->session === null) {
+            $this->session = Session::getInstance();
+        }
+
+        return $this->session;
     }
 }
