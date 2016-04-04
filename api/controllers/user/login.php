@@ -49,7 +49,7 @@ class LoginController extends Controller {
             $email =  Controller::request('email');
             $password =  Controller::request('password');
 
-            $this->userInstance = User::getUser($email, $password);
+            $this->userInstance = User::authenticate($email, $password);
         }
 
         return $this->userInstance;
