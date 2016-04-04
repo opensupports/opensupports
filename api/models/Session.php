@@ -1,9 +1,11 @@
 <?php
 
 class Session {
-    private $instance = null;
+    static $instance = null;
 
-    private function __construct() {}
+    private function __construct() {
+        $this->initSession();
+    }
 
     public function initSession() {
         session_start();
@@ -13,12 +15,12 @@ class Session {
         session_destroy();
     }
 
-    public function getInstance() {
-        if (!$this->instance) {
-            $this->instance = new Session();
+    public static function getInstance() {
+        if (!self::$instance) {
+            self::$instance = new Session();
         }
 
-        return $this->instance;
+        return self::$instance;
     }
 
     public function createSession($userId) {
@@ -48,7 +50,13 @@ class Session {
     }
 
     private function getStoredData($key) {
-        return $_SESSION[$key] || null;
+        $storedValue = null;
+
+        if (array_key_exists($key, $_SESSION)) {
+            $storedValue = $_SESSION[$key];
+        }
+
+        return $storedValue;
     }
 
     private function generateToken() {

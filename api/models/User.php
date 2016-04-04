@@ -4,7 +4,7 @@ class User extends DataStore {
     const TABLE = 'users';
 
     public static function hashPassword($password) {
-        return password_hash($password);
+        return password_hash($password, PASSWORD_DEFAULT);
     }
 
     public static function verifyPassword($password, $hash) {

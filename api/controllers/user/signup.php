@@ -15,7 +15,7 @@ class SignUpController extends Controller {
         ));
     }
 
-    public function createNewUserAndRetrieveId() {
+    public function createNewUserAndRetrieveId($email, $password) {
         $userInstance = new User();
         $userInstance->setProperties(array(
             'email' => $email,
