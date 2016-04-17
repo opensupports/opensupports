@@ -3,7 +3,7 @@ OpenSupports v4.0
 [![Build Status](https://codeship.com/projects/3faec3f0-908d-0133-1dce-661fcf0def08/status?branch=master)](https://codeship.com/projects/124436/)
 ============
 
-### Getting up and running FRONT-END
+### Getting up and running FRONT-END (client folder)
 0. update `sudo apt-get update`
 1. Clone this repo
 2. Install node 4.x version
@@ -22,7 +22,7 @@ OpenSupports v4.0
 
 Now that `gulp dev` is running, the server is up as well and serving files from the `/build` directory. Any changes in the `/src` directory will be automatically processed by Gulp and the changes will be injected to any open browsers pointed at the proxy address.
 
-### Getting up and running BACK-END
+### Getting up and running BACK-END (server folder)
 
 1. Clone this repo
 2. [Install PHP5](http://www.howtogeek.com/howto/ubuntu/installing-php5-and-apache-on-ubuntu/)
