@@ -1,15 +1,15 @@
-import React              from 'react';
-import {ListenerMixin}    from 'reflux';
-import {RouteHandler}     from 'react-router';
+const React = require( 'react');
 
-import MainHomePageLoginWidget  from 'app/main/main-home/main-home-page-login-widget';
+const MainHomePageLoginWidget  = require('app/main/main-home/main-home-page-login-widget');
+const MainHomePagePortal  = require('app/main/main-home/main-home-page-portal');
 
-let MainHomePage = React.createClass({
+const MainHomePage = React.createClass({
 
 	render() {
 		return (
 			<div className="main-home-page">
-				<MainHomePageLoginWidget />
+				<MainHomePageLoginWidget className="col-md-4" />
+				<MainHomePagePortal className="col-md-8" />
 			</div>
 		);
 	}

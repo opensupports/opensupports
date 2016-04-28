@@ -1,14 +1,15 @@
-import React              from 'react';
+const React = require( 'react');
+const classNames = require('classnames');
 
-import UserActions        from 'actions/user-actions';
-import UserStore          from 'stores/user-store';
+const UserActions = require('actions/user-actions');
+const UserStore = require('stores/user-store');
 
-import Button             from 'core-components/button';
-import Form               from 'core-components/form';
-import Input              from 'core-components/input';
-import Checkbox           from 'core-components/checkbox';
-import Widget             from 'core-components/widget';
-import WidgetTransition   from 'core-components/widget-transition';
+const Button = require('core-components/button');
+const Form = require('core-components/form');
+const Input = require('core-components/input');
+const Checkbox = require('core-components/checkbox');
+const Widget = require('core-components/widget');
+const WidgetTransition = require('core-components/widget-transition');
 
 let MainHomePageLoginWidget = React.createClass({
 
@@ -20,7 +21,7 @@ let MainHomePageLoginWidget = React.createClass({
 
     render() {
         return (
-            <WidgetTransition sideToShow={this.state.sideToShow} className="login-widget--container">
+            <WidgetTransition sideToShow={this.state.sideToShow} className={classNames('login-widget--container', this.props.className)}>
                 {this.renderLogin()}
                 {this.renderPasswordRecovery()}
             </WidgetTransition>
@@ -36,7 +37,9 @@ let MainHomePageLoginWidget = React.createClass({
                         <Input placeholder="password" name="password" className="login-widget--input" password/>
                         <Checkbox name="remember" label="Remember Me" className="login-widget--input"/>
                     </div>
-                    <Button type="primary">LOG IN</Button>
+                    <div className="login-widget--submit-button">
+                        <Button type="primary">LOG IN</Button>
+                    </div>
                 </Form>
                 <Button className="login-widget--forgot-password" type="link" onClick={this.handleForgetPasswordClick}>
                     {'Forgot your password?'}
@@ -52,7 +55,9 @@ let MainHomePageLoginWidget = React.createClass({
                     <div className="login-widget--inputs">
                         <Input placeholder="email" name="email" className="login-widget--input"/>
                     </div>
-                    <Button type="primary">Recover my password</Button>
+                    <div className="login-widget--submit-button">
+                        <Button type="primary">Recover my password</Button>
+                    </div>
                 </Form>
                 <Button className="login-widget--forgot-password" type="link" onClick={this.handleBackToLoginClick}>
                     {'Back to login form'}
