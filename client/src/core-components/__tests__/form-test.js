@@ -1,3 +1,4 @@
+/*
 jest.dontMock('core-components/form.js');
 jest.dontMock('core-components/form.js');
 
@@ -57,3 +58,4 @@ describe('Form', function () {
         expect(results.props.onSubmit).toBeCalledWith(results.state.form);
     });
 });
+*/
