@@ -19,8 +19,7 @@ class SignUpController extends Controller {
         $userInstance = new User();
         $userInstance->setProperties(array(
             'email' => $email,
-            'password' => User::hashPassword($password),
-            'admin' => 0
+            'password' => User::hashPassword($password)
         ));
 
         return $userInstance->store();

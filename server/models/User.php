@@ -20,15 +20,12 @@ class User extends DataStore {
     public static function getProps() {
         return array(
             'email',
-            'password',
-            'admin',
+            'password'
         );
     }
 
     public function getDefaultProperties() {
-        return [
-            'admin' => 0
-        ];
+        return array();
     }
 
     public static function getUser($value, $property = 'id') {
