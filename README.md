@@ -22,6 +22,11 @@ OpenSupports v4.0
 
 Now that `gulp dev` is running, the server is up as well and serving files from the `/build` directory. Any changes in the `/src` directory will be automatically processed by Gulp and the changes will be injected to any open browsers pointed at the proxy address.
 
+#### Frontend Unit Testing
+1. Do the steps described before
+2. Install mocha "sudo npm install -g mocha"
+3. Run `npm test` to run the tests
+
 ### Getting up and running BACK-END (server folder)
 
 1. Clone this repo
