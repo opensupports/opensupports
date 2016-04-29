@@ -8,6 +8,7 @@ class Session {
     }
 
     public function initSession() {
+        session_cache_limiter(false);
         session_start();
     }
 
