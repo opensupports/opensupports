@@ -39,7 +39,6 @@ class LoginController extends Controller {
         return array(
             'userId' => $userInstance->id,
             'userEmail' => $userInstance->email,
-            'userIsAdmin' => $userInstance->admin,
             'token' => $this->getSession()->getToken()
         );
     }

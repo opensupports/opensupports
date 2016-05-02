@@ -38,7 +38,6 @@ class LoginControllerTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue(Response::get('respondSuccess')->hasBeenCalledWithArgs(array(
             'userId' => 'MOCK_ID',
             'userEmail' => 'MOCK_EMAIL',
-            'userIsAdmin' => 'MOCK_ADMIN_VALUE',
             'token' => 'TEST_TOKEN'
         )));
     }
