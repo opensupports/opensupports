@@ -1,27 +1,24 @@
-/*
-jest.dontMock('core-components/form.js');
-jest.dontMock('core-components/form.js');
+const Form = require('core-components/form');
+const Input = require('core-components/input');
 
-import React from 'react';
-import Form from 'core-components/form.js';
-import Input from 'core-components/input.js';
+describe('Form component', function () {
+    let form, inputs, onSubmit = stub();
 
-let TestUtils = React.addons.TestUtils;
-
-describe('Form', function () {
-    let results = TestUtils.renderIntoDocument(
-        <Form onSubmit={jest.genMockFunction()}>
-            <div>
-                <Input name="first" value="value1"/>
-                <Input name="second" value="value2" />
-            </div>
-            <Input name="third" value="value3" />
-        </Form>
-    );
-    let inputs = TestUtils.scryRenderedComponentsWithType(results, Input);
+    beforeEach(function () {
+        form = TestUtils.renderIntoDocument(
+            <Form onSubmit={onSubmit}>
+                <div>
+                    <Input name="first" value="value1"/>
+                    <Input name="second" value="value2" />
+                </div>
+                <Input name="third" value="value3" />
+            </Form>
+        );
+        inputs = TestUtils.scryRenderedComponentsWithType(form, Input);
+    });
 
     it('should store input value in form state', function () {
-        expect(results.state.form).toEqual({
+        expect(form.state.form).to.deep.equal({
             first: 'value1',
             second: 'value2',
             third: 'value3'
@@ -31,7 +28,7 @@ describe('Form', function () {
     it('should update form state if an input value changes', function () {
         inputs[0].props.onChange({ target: {value: 'value4'}});
 
-        expect(results.state.form).toEqual({
+        expect(form.state.form).to.deep.equal({
             first: 'value4',
             second: 'value2',
             third: 'value3'
@@ -39,7 +36,7 @@ describe('Form', function () {
     });
 
     it('should update input value if state value changes', function () {
-        results.setState({
+        form.setState({
             form: {
                 first: 'value6',
                 second: 'value7',
@@ -47,15 +44,14 @@ describe('Form', function () {
             }
         });
 
-        expect(inputs[0].props.value).toEqual('value6');
-        expect(inputs[1].props.value).toEqual('value7');
-        expect(inputs[2].props.value).toEqual('value8');
+        expect(inputs[0].props.value).to.equal('value6');
+        expect(inputs[1].props.value).to.equal('value7');
+        expect(inputs[2].props.value).to.equal('value8');
     });
 
     it('should call onSubmit callback when form is submitted', function () {
-        TestUtils.Simulate.submit(results.getDOMNode());
+        TestUtils.Simulate.submit(ReactDOM.findDOMNode(form));
 
-        expect(results.props.onSubmit).toBeCalledWith(results.state.form);
+        expect(form.props.onSubmit).to.have.been.calledWith(form.state.form);
     });
 });
-*/

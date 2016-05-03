@@ -1,6 +1,4 @@
-let Button = requireUnit('core-components/button', {
-    'lib-core/callback': function () {}
-});
+let Button = require('core-components/button');
 
 describe('Button component', function () {
 
