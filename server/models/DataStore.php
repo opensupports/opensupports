@@ -5,7 +5,6 @@ abstract class DataStore {
     protected $_bean;
 
     abstract protected function getDefaultProperties();
-    abstract static protected function getProps();
 
     public static function getDataStore($value, $property = 'id') {
         $bean = RedBean::findOne(static::TABLE, static::validateProp($property) . ' =:value', array(

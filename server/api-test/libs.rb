@@ -6,11 +6,22 @@ def request(path, data)
     return JSON.parse(response.body)
 end
 
-def getRow(table, id)
-    database = Mysql.new('localhost', 'root', '', 'os_dev')
-    queryResponse = database.query("select * from #{table} where id='#{id.to_s}'")
+class Database
+    def initialize()
+        mysqlUser = ENV['MYSQL_USER'] || 'root';
+        mysqlPass = ENV['MYSQL_PASSWORD'] || '';
+        @connection = Mysql.new('localhost', mysqlUser ,  mysqlPass, 'development')
+    end
 
-    database.close
+    def close()
+        @connection.close
+    end
 
-    return queryResponse.fetch_hash
+    def getRow(table, value, field = 'id')
+        queryResponse = @connection.query("select * from #{table} where #{field}='#{value.to_s}'")
+
+        return queryResponse.fetch_hash
+    end
 end
+
+$database = Database.new

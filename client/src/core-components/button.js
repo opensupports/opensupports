@@ -1,7 +1,6 @@
-import React              from 'react';
-import classNames         from 'classnames';
-import Router             from 'react-router';
-import callback           from 'lib-core/callback';
+var React       = require('react');
+var classNames  = require('classnames');
+var callback    = require('lib-core/callback');
 
 let Button = React.createClass({
 

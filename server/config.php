@@ -1,5 +1,5 @@
 <?php
 $mysql_host       = 'localhost';
-$mysql_user       = 'os_dev';
-$mysql_password   = 'os_dev';
-$mysql_database   = 'os_dev';
+$mysql_user       = $_ENV['MYSQL_USER'] || 'root';
+$mysql_password   = $_ENV['MYSQL_PASSWORD'] || '';
+$mysql_database   = 'development';

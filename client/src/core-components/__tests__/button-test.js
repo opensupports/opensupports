@@ -1,19 +1,14 @@
-jest.dontMock('../button.js');
+let Button = require('core-components/button');
 
-import React from 'react';
-import Button from '../button.js';
+describe('Button component', function () {
 
-let TestUtils = React.addons.TestUtils;
+    it('should render children correctly', function () {
 
-describe('Button', function () {
-    it('should render children', function () {
         let button = TestUtils.renderIntoDocument(
-            <Button>
-                testcontent
-            </Button>
+            <Button>test content</Button>
         );
 
-        expect(button.getDOMNode().textContent).toEqual('testcontent');
+        expect(ReactDOM.findDOMNode(button).textContent).to.eql('test content');
     });
 
     it('should add passed types to class', function () {
@@ -26,11 +21,11 @@ describe('Button', function () {
         types.forEach(function (type) {
             let button = TestUtils.renderIntoDocument(
                 <Button type={type}>
-                    testcontent
+                    test content
                 </Button>
             );
 
-            expect(button.getDOMNode().getAttribute('class')).toContain('button-' + type);
+            expect(ReactDOM.findDOMNode(button).getAttribute('class')).to.include('button-' + type);
         });
     });
 });

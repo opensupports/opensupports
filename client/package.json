@@ -13,13 +13,15 @@
     "npm": "^2.1.x"
   },
   "scripts": {
-    "test": "export NODE_PATH=src && jest"
+    "test": "export NODE_PATH=src && mocha src/lib-test/preprocessor.js --compilers js:babel-core/register --recursive src/**/__tests__/*-test.js"
   },
   "devDependencies": {
     "babel-core": "^5.8.22",
+    "babel-register": "^6.7.2",
     "babelify": "^6.1.x",
     "browser-sync": "^2.7.13",
     "browserify": "^10.2.6",
+    "chai": "^3.5.0",
     "debowerify": "^1.3.1",
     "del": "^1.2.0",
     "express": "^4.13.1",
@@ -38,10 +40,14 @@
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.6",
     "humps": "^0.6.0",
-    "jest-cli": "^0.5.10",
     "jquery-mockjax": "^2.1.0",
+    "jsdom": "^8.4.1",
     "morgan": "^1.6.1",
+    "proxyquire": "^1.7.4",
+    "react-addons-test-utils": "^15.0.1",
     "run-sequence": "^1.1.1",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.2.x"
   },
@@ -51,28 +57,13 @@
     "jquery": "^2.1.4",
     "lodash": "^3.10.0",
     "messageformat": "^0.2.2",
-    "react": "^0.14.6",
+    "react": "^15.0.1",
     "react-document-title": "^1.0.2",
-    "react-dom": "^0.14.6",
+    "react-dom": "^15.0.1",
     "react-google-recaptcha": "^0.5.2",
     "react-motion": "^0.3.0",
-    "react-router": "^2.0.0-rc5",
-    "reflux": "^0.2.9",
+    "react-router": "^2.4.0",
+    "reflux": "^0.4.1",
     "sessionstorage": "0.0.1"
-  },
-  "jest": {
-    "scriptPreprocessor": "./preprocessor.js",
-    "testFileExtensions": [
-      "es6",
-      "js"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "es6"
-    ],
-    "unmockedModulePathPatterns": [
-      "react"
-    ]
   }
 }
