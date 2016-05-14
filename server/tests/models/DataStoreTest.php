@@ -17,15 +17,11 @@ class DataStoreMock extends DataStore {
         );
     }
 
-    public function getDefaultProperties() {
+    public function getDefaultProps() {
         return array(
             'prop1' => 0,
             'prop2' => 'hello'
         );
-    }
-
-    public static function deleteDataStore($dataStore) {
-        return parent::deleteDataStore($dataStore);
     }
 }
 
@@ -78,9 +74,8 @@ class DataStoreTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testDeleteDataStore() {
-        $beanInstance = $this->instance->getBeanInstance();
-        DataStoreMock::deleteDataStore($this->instance);
+        $this->instance->delete();
 
-        $this->assertTrue(RedBean::get('trash')->hasBeenCalledWithArgs($beanInstance));
+        $this->assertTrue(RedBean::get('trash')->hasBeenCalledWithArgs($this->instance->getBeanInstance()));
     }
 }

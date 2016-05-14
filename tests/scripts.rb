@@ -7,5 +7,6 @@ class Scripts
 
         if response['status'] === 'fail'
             raise "Could not create user"
+        end
     end
 end

@@ -1,7 +1,7 @@
 <?php
 
 class User extends DataStore {
-    const TABLE = 'user';
+    const TABLE = 'users';
 
     public static function authenticate($userEmail, $userPassword) {
         $user = User::getUser($userEmail, 'email');
@@ -19,7 +19,7 @@ class User extends DataStore {
         );
     }
 
-    public function getDefaultProperties() {
+    public function getDefaultProps() {
         return array(
             'ownTickets' => []
         );

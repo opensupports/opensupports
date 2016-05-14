@@ -1,7 +1,7 @@
 <?php
 
 class Ticket extends DataStore {
-    const TABLE = 'ticket';
+    const TABLE = 'tickets';
 
     public static function getProps() {
         return array(
