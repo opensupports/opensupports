@@ -10,6 +10,11 @@ RedBean::setup('mysql:host='. $mysql_host .';dbname=' . $mysql_database, $mysql_
 \Slim\Slim::registerAutoLoader();
 $app = new \Slim\Slim();
 
+// LOAD LIBRARIES
+include_once 'libs/Controller.php';
+include_once 'libs/ControllerGroup.php';
+include_once 'libs/Hashing.php';
+
 // LOAD MODELS
 spl_autoload_register(function ($class) {
     $classPath = "models/{$class}.php";
@@ -20,9 +25,6 @@ spl_autoload_register(function ($class) {
 });
 
 // LOAD CONTROLLERS
-include_once 'libs/Controller.php';
-include_once 'libs/ControllerGroup.php';
-
 foreach (glob('controllers/*.php') as $controller) {
     include $controller;
 }

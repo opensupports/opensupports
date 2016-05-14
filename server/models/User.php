@@ -1,42 +1,35 @@
 <?php
 
 class User extends DataStore {
-    const TABLE = 'users';
-
-    public static function hashPassword($password) {
-        return password_hash($password, PASSWORD_DEFAULT);
-    }
-
-    public static function verifyPassword($password, $hash) {
-        return password_verify($password, $hash);
-    }
+    const TABLE = 'user';
 
     public static function authenticate($userEmail, $userPassword) {
-        $user = static::getUser($userEmail, 'email');
+        $user = User::getUser($userEmail, 'email');
 
-        return ($user && static::verifyPassword($userPassword, $user->password)) ? $user : null;
+        return ($user && Hashing::verifyPassword($userPassword, $user->password)) ? $user : null;
     }
 
     public static function getProps() {
         return array(
             'email',
-            'password'
+            'password',
+            'name',
+            'verificationToken',
+            'ownTickets'
         );
     }
 
     public function getDefaultProperties() {
-        return array();
+        return array(
+            'ownTickets' => []
+        );
+    }
+
+    public function addTicket($ticket) {
+        $this->ownTickets[] = $ticket;
     }
 
     public static function getUser($value, $property = 'id') {
         return parent::getDataStore($value, $property);
-    }
-
-    public static function deleteUser($user) {
-        parent::deleteDataStore($user);
-    }
-
-    public function showUserDetails() {
-        return $this->_user;
     }
 }
