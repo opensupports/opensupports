@@ -45,7 +45,6 @@
     "morgan": "^1.6.1",
     "proxyquire": "^1.7.4",
     "react-addons-test-utils": "^15.0.1",
-    "react-tools": "^0.13.3",
     "run-sequence": "^1.1.1",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
