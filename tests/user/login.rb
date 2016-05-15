@@ -22,3 +22,4 @@ describe '/user/login' do
     it 'should fail if already logged in' do
 
     end
+end
