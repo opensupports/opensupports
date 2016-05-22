@@ -1,35 +1,40 @@
-import React              from 'react';
-import _                  from 'lodash';
+const React = require('react');
+const _ = require('lodash');
 
-import {reactDFS, renderChildrenWithProps}  from 'lib-core/react-dfs';
+const {reactDFS, renderChildrenWithProps} = require('lib-core/react-dfs');
+const ValidationFactory = require('lib-app/validations/validations-factory');
 
-import Input              from 'core-components/input';
-import Checkbox           from 'core-components/checkbox';
+const Input = require('core-components/input');
+const Checkbox = require('core-components/checkbox');
 
-let Form = React.createClass({
-
-    validations: {},
+const Form = React.createClass({
 
     getInitialState() {
         return {
-            form: {}
+            form: {},
+            validations: {},
+            errors: {}
         }
     },
 
     componentDidMount() {
         let formState = {};
+        let validations = {};
 
-        reactDFS(this.props.children, (child) => {
+        reactDFS(this.props.children, function (child) {
             if (child.type === Input) {
                 formState[child.props.name] = child.props.value || '';
+                validations[child.props.name] = ValidationFactory.getValidator(child.props.validation || 'DEFAULT');
             }
             else if (child.type === Checkbox) {
                 formState[child.props.name] = child.props.checked || false;
+                validations[child.props.name] = ValidationFactory.getValidator(child.props.validation || 'DEFAULT');
             }
-        });
+        }.bind(this));
 
         this.setState({
-            form: formState
+            form: formState,
+            validations: validations
         });
     },
 
@@ -55,37 +60,65 @@ let Form = React.createClass({
         if (type === Input || type === Checkbox) {
             let inputName = props.name;
 
-            this.validations[inputName] = props.validation;
-
             additionalProps = {
-                onChange: this.handleInputChange.bind(this, inputName, type),
-                value: this.state.form[inputName] || props.value
+                ref: inputName,
+                value: this.state.form[inputName] || props.value,
+                error: this.state.errors[inputName],
+                onChange: this.handleInputChange.bind(this, inputName, type)
             }
         }
 
         return additionalProps;
     },
 
-    handleSubmit (event) {
+    handleSubmit(event) {
         event.preventDefault();
 
-        if (this.props.onSubmit) {
+        if (this.hasFormErrors()) {
+            this.focusFirstErrorField();
+        } else if (this.props.onSubmit) {
             this.props.onSubmit(this.state.form);
         }
     },
 
     handleInputChange(inputName, type, event) {
         let form = _.clone(this.state.form);
+        let errors = _.clone(this.state.errors);
+        let inputValue = event.target.value;
 
-        form[inputName] = event.target.value;
+        form[inputName] = inputValue;
+        errors[inputName] = this.state.validations[inputName].validate(inputValue, form);
 
         if (type === Checkbox) {
             form[inputName] = event.target.checked || false;
         }
 
+        console.log(errors);
+
         this.setState({
-            form: form
+            form: form,
+            errors: errors
         });
+    },
+
+    hasFormErrors() {
+        return _.some(this.validateAllFields(), (error) => error);
+    },
+
+    focusFirstErrorField() {
+        let firstErrorField = this.getFirstErrorField();
+
+        if (firstErrorField) {
+            this.refs[firstErrorField].focus();
+        }
+    },
+
+    getFirstErrorField() {
+
+    },
+
+    validateAllFields: function () {
+
     }
 });
 
