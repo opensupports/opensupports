@@ -1,12 +1,12 @@
-const React = require('react');
-const classNames = require('classnames');
-const _ = require('lodash');
+import React              from 'react';
+import classNames         from 'classnames';
+import _                  from 'lodash';
 
-const Input = React.createClass({
+let Input = React.createClass({
 
     propTypes: {
         value: React.PropTypes.string,
-        validation: React.PropTypes.string,
+        validation: React.PropTypes.func,
         onChange: React.PropTypes.func,
         inputType: React.PropTypes.string,
         password: React.PropTypes.bool

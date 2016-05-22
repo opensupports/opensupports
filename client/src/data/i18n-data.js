@@ -1,13 +1,15 @@
-const englishLanguage = require('data/languages/en');
-const spanishLanguage = require('data/languages/es');
+import keys         from 'data/i18n-keys'
 
-const languages = {
-    'us': englishLanguage,
-    'es': spanishLanguage
-};
+let languages = [
+    'us',
+    'es'
+];
 
-const i18nData = function (key, lang) {
-    return languages[lang][key];
+
+let i18nData = function (key, lang) {
+    let langIndex = languages.indexOf(lang);
+
+    return keys[key][langIndex];
 };
 
 export default i18nData
