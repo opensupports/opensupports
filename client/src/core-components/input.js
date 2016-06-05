@@ -1,15 +1,16 @@
-import React              from 'react';
-import classNames         from 'classnames';
-import _                  from 'lodash';
+const React = require('react');
+const classNames = require('classnames');
+const _ = require('lodash');
 
-let Input = React.createClass({
+const Input = React.createClass({
 
     propTypes: {
         value: React.PropTypes.string,
-        validation: React.PropTypes.func,
+        validation: React.PropTypes.string,
         onChange: React.PropTypes.func,
         inputType: React.PropTypes.string,
-        password: React.PropTypes.bool
+        password: React.PropTypes.bool,
+        required: React.PropTypes.bool
     },
 
     getDefaultProps() {
@@ -22,15 +23,18 @@ let Input = React.createClass({
         return (
             <label className={this.getClass()}>
                 <span className="input--label">{this.props.label}</span>
-                <input {...this.getProps()} className="input--text" />
+                <input {...this.getInputProps()} className="input--text" />
             </label>
         );
     },
 
-    getProps() {
+    getInputProps() {
         let props = _.clone(this.props);
 
+        props.required = null;
+        props['aria-required'] = this.props.required;
         props.type = (this.props.password) ? 'password' : 'text';
+        props.ref = 'nativeInput';
 
         return props;
     },
@@ -44,6 +48,12 @@ let Input = React.createClass({
         };
 
         return classNames(classes);
+    },
+
+    focus() {
+        if (this.refs.nativeInput) {
+            this.refs.nativeInput.focus();
+        }
     }
 });
 

@@ -11,6 +11,7 @@ global.chai = require('chai');
 global.expect = chai.expect;
 global.sinon = require('sinon');
 global.stub = sinon.stub;
+global.spy = sinon.spy;
 global.proxyquire = require('proxyquire');
 global.ReactMock  = require('lib-test/react-mock');
 chai.use(require('sinon-chai'));
