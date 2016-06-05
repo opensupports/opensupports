@@ -19,35 +19,13 @@ const Form = React.createClass({
     },
 
     componentDidMount() {
-        let formState = {};
-        let validations = {};
-
-        reactDFS(this.props.children, (child) => {
-
-            if (this.isValidInputType(child)) {
-                if (child.type === Input) {
-                    formState[child.props.name] = child.props.value || '';
-                }
-                else if (child.type === Checkbox) {
-                    formState[child.props.name] = child.props.checked || false;
-                }
-
-                if (child.props.required) {
-                    validations[child.props.name] = ValidationFactory.getValidator(child.props.validation || 'DEFAULT');
-                }
-            }
-        });
-
-        this.setState({
-            form: formState,
-            validations: validations
-        });
+        this.setState(this.getInitialFormAndValidations());
     },
 
     render() {
         return (
             <form {...this.getProps()}>
-                {renderChildrenWithProps(this.props.children, this.getInputProps)}
+                {renderChildrenWithProps(this.props.children, this.getFieldProps)}
             </form>
         );
     },
@@ -60,21 +38,81 @@ const Form = React.createClass({
         return props;
     },
 
-    getInputProps({props, type}) {
+    getFieldProps({props, type}) {
         let additionalProps = {};
 
         if (type === Input || type === Checkbox) {
-            let inputName = props.name;
+            let fieldName = props.name;
 
             additionalProps = {
-                ref: inputName,
-                value: this.state.form[inputName] || props.value,
-                error: this.state.errors[inputName],
-                onChange: this.handleInputChange.bind(this, inputName, type)
+                ref: fieldName,
+                value: this.state.form[fieldName] || props.value,
+                error: this.state.errors[fieldName],
+                onChange: this.handleFieldChange.bind(this, fieldName, type),
+                onBlur: this.validateField.bind(this, fieldName)
             }
         }
 
         return additionalProps;
+    },
+
+    getFirstErrorField() {
+        let fieldName = _.findKey(this.state.errors);
+        let fieldNode;
+
+        if (fieldName) {
+            fieldNode = this.refs[fieldName];
+        }
+
+        return fieldNode;
+    },
+
+    getAllFieldErrors() {
+        let form = this.state.form;
+        let fields = Object.keys(this.state.form);
+        let errors = {};
+
+        _.each(fields, (fieldName) => {
+            errors = this.getErrorsWithValidatedField(fieldName, form, errors);
+        });
+
+        return errors;
+    },
+
+    getErrorsWithValidatedField(fieldName, form = this.state.form, errors = this.state.errors) {
+        let newErrors = _.clone(errors);
+
+        if (this.state.validations[fieldName]) {
+            newErrors[fieldName] = this.state.validations[fieldName].validate(form[fieldName], form);
+        }
+
+        return newErrors;
+    },
+
+    getInitialFormAndValidations() {
+        let form = {};
+        let validations = {};
+
+        reactDFS(this.props.children, (child) => {
+
+            if (this.isValidFieldType(child)) {
+                if (child.type === Input) {
+                    form[child.props.name] = child.props.value || '';
+                }
+                else if (child.type === Checkbox) {
+                    form[child.props.name] = child.props.checked || false;
+                }
+
+                if (child.props.required) {
+                    validations[child.props.name] = ValidationFactory.getValidator(child.props.validation || 'DEFAULT');
+                }
+            }
+        });
+
+        return {
+            form: form,
+            validations: validations
+        }
     },
 
     handleSubmit(event) {
@@ -82,32 +120,39 @@ const Form = React.createClass({
 
         if (this.hasFormErrors()) {
             this.setState({
-                errors: this.validateAllFields()
+                errors: this.getAllFieldErrors()
             }, this.focusFirstErrorField);
         } else if (this.props.onSubmit) {
             this.props.onSubmit(this.state.form);
         }
     },
 
-    handleInputChange(inputName, type, event) {
+    handleFieldChange(fieldName, type, event) {
         let form = _.clone(this.state.form);
-        let errors;
 
-        form[inputName] = event.target.value;
+        form[fieldName] = event.target.value;
 
         if (type === Checkbox) {
-            form[inputName] = event.target.checked || false;
+            form[fieldName] = event.target.checked || false;
         }
 
-        errors = this.validateField(inputName, form);
         this.setState({
-            form: form,
-            errors: errors
+            form: form
         });
     },
 
+    isValidFieldType(child) {
+        return child.type === Input || child.type === Checkbox;
+    },
+
     hasFormErrors() {
-        return _.some(this.validateAllFields(), (error) => error);
+        return _.some(this.getAllFieldErrors());
+    },
+
+    validateField(fieldName) {
+        this.setState({
+            errors: this.getErrorsWithValidatedField(fieldName)
+        });
     },
 
     focusFirstErrorField() {
@@ -116,43 +161,6 @@ const Form = React.createClass({
         if (firstErrorField) {
             firstErrorField.focus();
         }
-    },
-
-    getFirstErrorField() {
-        let fieldName = _.findKey(this.state.errors);
-        let fieldNode;
-
-        if (fieldName) {
-            fieldNode = ReactDOM.findDOMNode(this.refs[fieldName]);
-        }
-
-        return fieldNode;
-    },
-
-    isValidInputType(child) {
-        return child.type === Input || child.type === Checkbox;
-    },
-
-    validateAllFields() {
-        let form = this.state.form;
-        let inputList = Object.keys(this.state.form);
-        let errors = {};
-
-        _.each(inputList, (inputName) => {
-            errors = this.validateField(inputName, form, errors);
-        });
-
-        return errors;
-    },
-
-    validateField(inputName, form = this.state.form, errors = this.state.errors) {
-        let newErrors = _.clone(errors);
-
-        if (this.state.validations[inputName]) {
-            newErrors[inputName] = this.state.validations[inputName].validate(form[inputName], form);
-        }
-
-        return newErrors;
     }
 });
 

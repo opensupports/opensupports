@@ -34,6 +34,7 @@ const Input = React.createClass({
         props.required = null;
         props['aria-required'] = this.props.required;
         props.type = (this.props.password) ? 'password' : 'text';
+        props.ref = 'nativeInput';
 
         return props;
     },
@@ -47,6 +48,12 @@ const Input = React.createClass({
         };
 
         return classNames(classes);
+    },
+
+    focus() {
+        if (this.refs.nativeInput) {
+            this.refs.nativeInput.focus();
+        }
     }
 });
 
