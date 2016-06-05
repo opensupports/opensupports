@@ -1,4 +1,5 @@
 const React = require('react');
+const ReactDOM = require('react-dom');
 const _ = require('lodash');
 
 const {reactDFS, renderChildrenWithProps} = require('lib-core/react-dfs');
@@ -14,23 +15,28 @@ const Form = React.createClass({
             form: {},
             validations: {},
             errors: {}
-        }
+        };
     },
 
     componentDidMount() {
         let formState = {};
         let validations = {};
 
-        reactDFS(this.props.children, function (child) {
-            if (child.type === Input) {
-                formState[child.props.name] = child.props.value || '';
-                validations[child.props.name] = ValidationFactory.getValidator(child.props.validation || 'DEFAULT');
+        reactDFS(this.props.children, (child) => {
+
+            if (this.isValidInputType(child)) {
+                if (child.type === Input) {
+                    formState[child.props.name] = child.props.value || '';
+                }
+                else if (child.type === Checkbox) {
+                    formState[child.props.name] = child.props.checked || false;
+                }
+
+                if (child.props.required) {
+                    validations[child.props.name] = ValidationFactory.getValidator(child.props.validation || 'DEFAULT');
+                }
             }
-            else if (child.type === Checkbox) {
-                formState[child.props.name] = child.props.checked || false;
-                validations[child.props.name] = ValidationFactory.getValidator(child.props.validation || 'DEFAULT');
-            }
-        }.bind(this));
+        });
 
         this.setState({
             form: formState,
@@ -75,7 +81,9 @@ const Form = React.createClass({
         event.preventDefault();
 
         if (this.hasFormErrors()) {
-            this.focusFirstErrorField();
+            this.setState({
+                errors: this.validateAllFields()
+            }, this.focusFirstErrorField);
         } else if (this.props.onSubmit) {
             this.props.onSubmit(this.state.form);
         }
@@ -83,18 +91,15 @@ const Form = React.createClass({
 
     handleInputChange(inputName, type, event) {
         let form = _.clone(this.state.form);
-        let errors = _.clone(this.state.errors);
-        let inputValue = event.target.value;
+        let errors;
 
-        form[inputName] = inputValue;
-        errors[inputName] = this.state.validations[inputName].validate(inputValue, form);
+        form[inputName] = event.target.value;
 
         if (type === Checkbox) {
             form[inputName] = event.target.checked || false;
         }
 
-        console.log(errors);
-
+        errors = this.validateField(inputName, form);
         this.setState({
             form: form,
             errors: errors
@@ -109,16 +114,45 @@ const Form = React.createClass({
         let firstErrorField = this.getFirstErrorField();
 
         if (firstErrorField) {
-            this.refs[firstErrorField].focus();
+            firstErrorField.focus();
         }
     },
 
     getFirstErrorField() {
+        let fieldName = _.findKey(this.state.errors);
+        let fieldNode;
 
+        if (fieldName) {
+            fieldNode = ReactDOM.findDOMNode(this.refs[fieldName]);
+        }
+
+        return fieldNode;
     },
 
-    validateAllFields: function () {
+    isValidInputType(child) {
+        return child.type === Input || child.type === Checkbox;
+    },
 
+    validateAllFields() {
+        let form = this.state.form;
+        let inputList = Object.keys(this.state.form);
+        let errors = {};
+
+        _.each(inputList, (inputName) => {
+            errors = this.validateField(inputName, form, errors);
+        });
+
+        return errors;
+    },
+
+    validateField(inputName, form = this.state.form, errors = this.state.errors) {
+        let newErrors = _.clone(errors);
+
+        if (this.state.validations[inputName]) {
+            newErrors[inputName] = this.state.validations[inputName].validate(form[inputName], form);
+        }
+
+        return newErrors;
     }
 });
 

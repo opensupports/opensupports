@@ -33,8 +33,8 @@ let MainHomePageLoginWidget = React.createClass({
             <Widget className="main-home-page--widget" title="Login">
                 <Form className="login-widget--form" onSubmit={this.handleLoginFormSubmit}>
                     <div className="login-widget--inputs">
-                        <Input placeholder="email" name="email" className="login-widget--input" validation="EMAIL"/>
-                        <Input placeholder="password" name="password" className="login-widget--input" password/>
+                        <Input placeholder="email" name="email" className="login-widget--input" validation="EMAIL" required/>
+                        <Input placeholder="password" name="password" className="login-widget--input" password required/>
                         <Checkbox name="remember" label="Remember Me" className="login-widget--input"/>
                     </div>
                     <div className="login-widget--submit-button">

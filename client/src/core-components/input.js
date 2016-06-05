@@ -9,7 +9,8 @@ const Input = React.createClass({
         validation: React.PropTypes.string,
         onChange: React.PropTypes.func,
         inputType: React.PropTypes.string,
-        password: React.PropTypes.bool
+        password: React.PropTypes.bool,
+        required: React.PropTypes.bool
     },
 
     getDefaultProps() {
@@ -22,14 +23,16 @@ const Input = React.createClass({
         return (
             <label className={this.getClass()}>
                 <span className="input--label">{this.props.label}</span>
-                <input {...this.getProps()} className="input--text" />
+                <input {...this.getInputProps()} className="input--text" />
             </label>
         );
     },
 
-    getProps() {
+    getInputProps() {
         let props = _.clone(this.props);
 
+        props.required = null;
+        props['aria-required'] = this.props.required;
         props.type = (this.props.password) ? 'password' : 'text';
 
         return props;
