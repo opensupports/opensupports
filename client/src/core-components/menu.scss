@@ -1,0 +1,23 @@
+@import "../scss/vars";
+
+.menu {
+    background-color: white;
+    color: $dark-grey;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+    &--list-item {
+        padding: 8px;
+
+        &:hover {
+            background-color: $primary-red;
+            color: white;
+        }
+    }
+
+    &--icon {
+        margin-right: 8px;
+        margin-bottom: 2px;
+    }
+}

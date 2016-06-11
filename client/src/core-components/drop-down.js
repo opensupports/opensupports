@@ -4,6 +4,7 @@ const _ = require('lodash');
 const {Motion, spring} = require('react-motion');
 const callback = require('lib-core/callback');
 
+const Menu = require('core-components/menu');
 const Icon = require('core-components/icon');
 
 const DropDown = React.createClass({
@@ -11,11 +12,7 @@ const DropDown = React.createClass({
     propTypes: {
         defaultSelectedIndex: React.PropTypes.number,
         selectedIndex: React.PropTypes.number,
-
-        items: React.PropTypes.arrayOf(React.PropTypes.shape({
-            content: React.PropTypes.string.isRequired,
-            icon: React.PropTypes.string
-        })).isRequired
+        items: Menu.propTypes.items
     },
 
     getDefaultProps() {
@@ -53,9 +50,7 @@ const DropDown = React.createClass({
 
         return (
             <div className={this.getClass()}>
-                <div className="drop-down--current" onBlur={this.handleBlur} onClick={this.handleClick} tabIndex="0" ref="current">
-                    {this.renderItem(selectedItem)}
-                </div>
+                {this.renderCurrentItem(selectedItem)}
                 <Motion defaultStyle={animation.defaultStyle} style={animation.style}>
                     {this.renderList}
                 </Motion>
@@ -65,35 +60,30 @@ const DropDown = React.createClass({
 
     renderList({opacity, translateY}) {
         let style = { opacity: opacity, transform: `translateY(${translateY}px)`};
+        let menuProps = {
+            items: this.props.items,
+            onItemClick: this.handleItemClick,
+            onMouseDown: this.handleListMouseDown
+        };
 
         return (
             <div className="drop-down--list-container" style={style}>
-                <ul className="drop-down--list">
-                    {this.props.items.map(this.renderListItem)}
-                </ul>
+                <Menu {...menuProps} />
             </div>
         );
     },
 
-    renderListItem(item, index) {
-        return (
-            <li {...this.getItemProps(index)}>
-                {this.renderItem(item)}
-            </li>
-        );
-    },
+    renderCurrentItem(item) {
+        var iconNode = null;
 
-    renderItem(item) {
-        return (
-            <span>
-                {(item.icon) ? this.renderIcon(item.icon) : null}{item.content}
-            </span>
-        );
-    },
+        if (item.icon) {
+            iconNode = <Icon className="drop-down--current-item-icon" name={item.icon} />;
+        }
 
-    renderIcon(icon) {
         return (
-            <Icon className="drop-down--icon" name={icon} />
+            <div className="drop-down--current-item" onBlur={this.handleBlur} onClick={this.handleClick} tabIndex="0">
+                {iconNode}{item.content}
+            </div>
         );
     },
 
@@ -106,15 +96,6 @@ const DropDown = React.createClass({
         };
 
         return classNames(classes);
-    },
-
-    getItemProps(index) {
-        return {
-            className: 'drop-down--list-item',
-            onClick: this.handleItemClick.bind(this, index),
-            onMouseDown: this.handleItemMouseDown,
-            key: index
-        };
     },
 
     handleBlur() {
@@ -142,7 +123,7 @@ const DropDown = React.createClass({
         }
     },
 
-    handleItemMouseDown(event) {
+    handleListMouseDown(event) {
         event.preventDefault();
     },
 
