@@ -1,18 +1,19 @@
-import React              from 'react';
-import classNames         from 'classnames';
-import _                  from 'lodash';
-import {Motion, spring}   from 'react-motion';
+const React = require('react');
+const classNames = require('classnames');
+const _ = require('lodash');
+const {Motion, spring} = require('react-motion');
+const callback = require('lib-core/callback');
 
-import callback           from 'lib-core/callback';
+const Icon = require('core-components/icon');
 
-let DropDown = React.createClass({
+const DropDown = React.createClass({
 
     propTypes: {
         defaultSelectedIndex: React.PropTypes.number,
         selectedIndex: React.PropTypes.number,
 
         items: React.PropTypes.arrayOf(React.PropTypes.shape({
-            content: React.PropTypes.node.isRequired,
+            content: React.PropTypes.string.isRequired,
             icon: React.PropTypes.string
         })).isRequired
     },
@@ -48,11 +49,12 @@ let DropDown = React.createClass({
 
     render() {
         let animation = this.getAnimationStyles();
+        let selectedItem = this.props.items[this.getSelectedIndex()];
 
         return (
             <div className={this.getClass()}>
                 <div className="drop-down--current" onBlur={this.handleBlur} onClick={this.handleClick} tabIndex="0" ref="current">
-                    {this.props.items[this.getSelectedIndex()].content}
+                    {this.renderItem(selectedItem)}
                 </div>
                 <Motion defaultStyle={animation.defaultStyle} style={animation.style}>
                     {this.renderList}
@@ -67,23 +69,38 @@ let DropDown = React.createClass({
         return (
             <div className="drop-down--list-container" style={style}>
                 <ul className="drop-down--list">
-                    {this.props.items.map(this.renderItem)}
+                    {this.props.items.map(this.renderListItem)}
                 </ul>
             </div>
         );
     },
 
-    renderItem(item, index) {
+    renderListItem(item, index) {
         return (
             <li {...this.getItemProps(index)}>
-                {item.content}
+                {this.renderItem(item)}
             </li>
+        );
+    },
+
+    renderItem(item) {
+        return (
+            <span>
+                {(item.icon) ? this.renderIcon(item.icon) : null}{item.content}
+            </span>
+        );
+    },
+
+    renderIcon(icon) {
+        return (
+            <Icon className="drop-down--icon" name={icon} />
         );
     },
 
     getClass() {
         let classes = {
             'drop-down': true,
+            'drop-down_closed': !this.state.opened,
 
             [this.props.className]: (this.props.className)
         };

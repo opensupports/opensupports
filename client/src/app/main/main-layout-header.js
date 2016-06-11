@@ -32,13 +32,10 @@ let MainLayoutHeader = React.createClass({
     },
 
     getLanguageList() {
-        return languageList.map((item) => {
+        return languageList.map((language) => {
             return {
-                content: (
-                    <span>
-                        <Icon name={codeLanguages[item]} />{item}
-                    </span>
-                )
+                content: language,
+                icon: codeLanguages[language]
             };
         });
     },

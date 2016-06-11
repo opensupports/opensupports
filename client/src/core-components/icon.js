@@ -8,7 +8,7 @@ let Icon = React.createClass({
 
     render() {
         return (
-            <img className="language-icon" src={`../images/icons/${this.props.name}.png`} />
+            <img className={this.props.className} src={`../images/icons/${this.props.name}.png`} />
         );
     }
 
