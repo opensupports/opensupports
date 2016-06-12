@@ -6,6 +6,7 @@
     margin: 0;
     padding: 0;
     list-style-type: none;
+    cursor: pointer;
 
     &--list-item {
         padding: 8px;
@@ -19,5 +20,11 @@
     &--icon {
         margin-right: 8px;
         margin-bottom: 2px;
+    }
+
+    &_secondary {
+        .menu--list-item:hover {
+            background-color: $secondary-blue;
+        }
     }
 }
