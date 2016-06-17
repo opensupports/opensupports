@@ -31,15 +31,15 @@ class CreateController extends Controller {
 
     private function validateData() {
         if (strlen($this->title)<3 ){
-            return 'title is so short';
+            return 'title is too short';
         }
         if (strlen($this->title)>30){
             return 'title is very long';
         }
         if (strlen($this->content)<5){
-            return 'content is so short';
+            return 'content is too short';
         }
-        if (strlen($this->content)>100){
+        if (strlen($this->content)>500){
             return 'content is very long';
         }
 
