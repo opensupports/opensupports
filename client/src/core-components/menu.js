@@ -31,24 +31,16 @@ const Menu = React.createClass({
     },
 
     renderListItem(item, index) {
+        let iconNode = null;
+
+        if (item.icon) {
+            iconNode = <Icon className="menu__icon" name={item.icon} />;
+        }
+
         return (
             <li {...this.getItemProps(index)}>
-                {this.renderItem(item)}
+                {iconNode}{item.content}
             </li>
-        );
-    },
-
-    renderItem(item) {
-        return (
-            <span>
-                {(item.icon) ? this.renderIcon(item.icon) : null}{item.content}
-            </span>
-        );
-    },
-
-    renderIcon(icon) {
-        return (
-            <Icon className="menu--icon" name={icon} />
         );
     },
 
@@ -80,8 +72,8 @@ const Menu = React.createClass({
 
     getItemClass(index) {
         let classes = {
-            'menu--list-item': true,
-            'menu--list-item_selected': (this.props.selectedIndex === index)
+            'menu__list-item': true,
+            'menu__list-item_selected': (this.props.selectedIndex === index)
         };
 
         return classNames(classes);
