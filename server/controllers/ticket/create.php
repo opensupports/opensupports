@@ -3,34 +3,57 @@
 class CreateController extends Controller {
     const PATH = '/create';
 
+    private $title ;
+    private $content;
+    private $departmentId;
+    private $language;
+
     public function handler(){
-        $title = Controller::request('title');
-        $content = Controller::request('content');
-        $departmentId = Controller::request('departmentId');
-        $language = Controller::request('language');
-        if (strlen($title)<3 ){
-            Response::respondError('title is so short');
-            return;
+        $this->requestTicketData();
+
+        $validateResult = $this->validateData();
+
+        if ($validateResult !== true) {
+            Response::respondError($validateResult);
+        } else {
+            $this->storeTicket();
+
+            Response::respondSuccess();
         }
-        if (strlen($title)>30){
-            Response::respondError('title is so long');
-            return;
+    }
+
+    private function requestTicketData(){
+        $this->title = Controller::request('title');
+        $this->content = Controller::request('content');
+        $this->departmentId = Controller::request('departmentId');
+        $this->language = Controller::request('language');
+    }
+
+    private function validateData() {
+        if (strlen($this->title)<3 ){
+            return 'title is so short';
         }
-        if (strlen($content)<5){
-            Response::respondError('content is so short');
-            return;
+        if (strlen($this->title)>30){
+            return 'title is very long';
         }
-        if (strlen($content)>100){
-            Response::respondError('content is so long');
-            return;
+        if (strlen($this->content)<5){
+            return 'content is so short';
         }
+        if (strlen($this->content)>100){
+            return 'content is very long';
+        }
+
+        return true;
+    }
+
+    private function storeTicket() {
         $ticket = new Ticket();
         $ticket->setProperties(array(
             'ticketId' => '',
-            'title' => $title,
-            'content' => $content,
-            'language' => $language,
-            'department' => $departmentId,
+            'title' => $this->title,
+            'content' => $this->content,
+            'language' => $this->language,
+            'department' => $this->departmentId,
             'file' => '',
             'date' => date("F j, Y, g:i a"),
             'unread' => false,
@@ -39,9 +62,6 @@ class CreateController extends Controller {
             'owner'=> '',
             'ownComments' => []
         ));
-
         $ticket->store();
-        Response::respondSuccess();
-
     }
 }
