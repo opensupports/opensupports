@@ -59,6 +59,8 @@ const Menu = React.createClass({
             'menu_secondary': (this.props.type === 'secondary')
         };
 
+        classes[this.props.className] = true;
+
         return classNames(classes);
     },
 

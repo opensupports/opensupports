@@ -53,14 +53,30 @@ describe('Menu component', function () {
     });
 
     it('should add custom class if passsed', function () {
+        renderMenu({
+            className: 'CUSTOM_CLASSNAME'
+        });
 
+        expect(ReactDOM.findDOMNode(menu).className).to.contain('CUSTOM_CLASSNAME');
     });
 
     it('should add selected class to selected index', function () {
+        renderMenu({
+            selectedIndex: 2
+        });
 
+        expect(ReactDOM.findDOMNode(items[2]).className).to.contain('menu__list-item_selected')
     });
 
     it('should call onItemClick if an item is clicked', function () {
+        let callback = stub();
 
-    })
+        renderMenu({
+            onItemClick: callback
+        });
+
+        TestUtils.Simulate.click(ReactDOM.findDOMNode(items[2]));
+
+        expect(callback).to.have.been.calledWith(2);
+    });
 });
