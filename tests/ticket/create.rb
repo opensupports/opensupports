@@ -3,8 +3,9 @@ describe '/user/login' do
       result = request('/ticket/create',{
           title: 'GG'
       })
+
       (result['status']).should.equal('fail')
-      (result['message']).should.equal('title is too short')
+      (result['message']).should.equal('Title is too short')
 
   end
 
@@ -12,8 +13,9 @@ describe '/user/login' do
       result = request('/ticket/create',{
           title: 'I WISH I WAS THE MONSTER YOU THINK I AM. -Tyrion'
       })
+
       (result['status']).should.equal('fail')
-      (result['message']).should.equal('title is very long')
+      (result['message']).should.equal('Title is very long')
 
   end
 
@@ -22,8 +24,9 @@ describe '/user/login' do
           title: 'Winter is coming',
           content: 'Test'
       })
+
       (result['status']).should.equal('fail')
-      (result['message']).should.equal('content is too short')
+      (result['message']).should.equal('Content is too short')
   end
 
   it 'should fail if content is very long' do
@@ -34,8 +37,9 @@ describe '/user/login' do
         title: 'Winter is coming',
         content: long_text
     })
+
     (result['status']).should.equal('fail')
-    (result['message']).should.equal('content is very long')
+    (result['message']).should.equal('Content is very long')
 
   end
 
@@ -44,6 +48,7 @@ describe '/user/login' do
           title: 'Winter is coming',
           content: 'The north remembers'
       })
+
       (result['status']).should.equal('success')
       ticket = $database.getRow('tickets','Winter is coming','title')
       (ticket['content']).should.equal('The north remembers')
