@@ -8,7 +8,7 @@ class CreateController extends Controller {
     private $departmentId;
     private $language;
 
-    public function handler(){
+    public function handler() {
         $this->requestTicketData();
 
         $validateResult = $this->validateData();
@@ -22,7 +22,7 @@ class CreateController extends Controller {
         }
     }
 
-    private function requestTicketData(){
+    private function requestTicketData() {
         $this->title = Controller::request('title');
         $this->content = Controller::request('content');
         $this->departmentId = Controller::request('departmentId');
@@ -30,16 +30,16 @@ class CreateController extends Controller {
     }
 
     private function validateData() {
-        if (strlen($this->title)<3 ){
+        if (strlen($this->title) < 3) {
             return 'title is too short';
         }
-        if (strlen($this->title)>30){
+        if (strlen($this->title) > 30) {
             return 'title is very long';
         }
-        if (strlen($this->content)<5){
+        if (strlen($this->content) < 5) {
             return 'content is too short';
         }
-        if (strlen($this->content)>500){
+        if (strlen($this->content) > 500) {
             return 'content is very long';
         }
 
