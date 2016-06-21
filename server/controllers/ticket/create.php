@@ -31,16 +31,16 @@ class CreateController extends Controller {
 
     private function validateData() {
         if (strlen($this->title) < 3) {
-            Response::respondError(ERRORS::SHORT_TITLE);
+            return ERRORS::SHORT_TITLE;
         }
         if (strlen($this->title) > 30) {
-            Response::respondError(ERRORS::LONG_TITLE);
+            return ERRORS::LONG_TITLE;
         }
         if (strlen($this->content) < 5) {
-            Response::respondError(ERRORS::SHORT_CONTENT);
+            return ERRORS::SHORT_CONTENT;
         }
         if (strlen($this->content) > 500) {
-            Response::respondError(ERRORS::LONG_CONTENT);
+            return ERRORS::LONG_CONTENT;
         }
 
         return true;
