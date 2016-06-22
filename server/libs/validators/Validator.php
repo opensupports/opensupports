@@ -6,9 +6,15 @@ class Validator {
         throw new ValidationException($message);
     }
 
-    public function validate($value) {
-        if (!$value) {
-            throw new ValidationException();
+    protected $baseValidator;
+
+    public function __construct(Validator $baseValidator = null) {
+        $this->baseValidator = $baseValidator;
+    }
+
+    public function validate($value, $fullData = []) {
+        if ($this->baseValidator) {
+            $this->baseValidator->validate($value, $fullData);
         }
     }
 }
