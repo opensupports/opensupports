@@ -1,16 +1,23 @@
 'use strict';
 
-import React         from 'react';
-import {Link}        from 'react-router';
-import DocumentTitle from 'react-document-title';
+const React = require('react');
+const DocumentTitle = require('react-document-title');
 
-import Button           from 'core-components/button';
-import Input            from 'core-components/input';
-import Checkbox         from 'core-components/checkbox';
-import Widget           from 'core-components/widget';
-import DropDown         from 'core-components/drop-down';
+const Button = require('core-components/button');
+const Input = require('core-components/input');
+const Checkbox = require('core-components/checkbox');
+const Widget = require('core-components/widget');
+const DropDown = require('core-components/drop-down');
+const Menu = require('core-components/menu');
 
 let dropDownItems = [{content: 'English'}, {content: 'Spanish'}, {content: 'German'}, {content: 'Portuguese'}, {content: 'Japanese'}];
+let secondaryMenuItems = [
+    {content: 'My Tickets', icon: 'file-text'},
+    {content: 'New Ticket', icon: 'plus'},
+    {content: 'Articles', icon: 'book'},
+    {content: 'Edit Profile', icon: 'pencil'},
+    {content: 'Close Session', icon: 'lock'}
+];
 
 let DemoPage = React.createClass({
 
@@ -58,13 +65,25 @@ let DemoPage = React.createClass({
             render: (
                 <DropDown items={dropDownItems} onChange={function (index) { console.log('changed to ' + index); }} />
             )
+        },
+        {
+            title: 'Primary Menu',
+            render: (
+                <Menu items={dropDownItems} />
+            )
+        },
+        {
+            title: 'Secondary Menu',
+            render: (
+                <Menu items={secondaryMenuItems} type="secondary"/>
+            )
         }
 	],
 
 	render() {
 		return (
 			<DocumentTitle title="Demo Page">
-				<section className="home-page">
+				<section className="demo-page">
 					{this.renderElements()}
 				</section>
 			</DocumentTitle>
@@ -74,7 +93,7 @@ let DemoPage = React.createClass({
 	renderElements: function () {
 		return this.elements.map((element) => {
 			return (
-				<div className="demo-element">
+				<div className="demo-element col-md-3">
 					<h4>
 					{element.title}
 					</h4>

@@ -7,32 +7,28 @@
     user-select: none;
     cursor: pointer;
 
-    &--current {
+    &--current-item {
         background-color: $light-grey;
         border-radius: 4px 4px 0 0;
         color: $primary-black;
         padding: 6px;
     }
 
-    &--list-container {
-        background-color: white;
-        position: absolute;
-        width: 150px;
+    &--current-item-icon {
+        margin-right: 8px;
+        margin-bottom: 2px;
     }
 
-    &--list {
-        color: $dark-grey;
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
+    &--list-container {
+        position: absolute;
+        width: 150px;
+        z-index: 5;
+    }
 
-        &-item {
-            padding: 8px;
+    &_closed {
 
-            &:hover {
-                background-color: $primary-red;
-                color: white;
-            }
+        .drop-down--list-container {
+            pointer-events: none;
         }
     }
 }

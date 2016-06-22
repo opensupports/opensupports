@@ -1,9 +1,10 @@
 const React = require('react');
+const _ = require('lodash');
 
-module.exports = function () {
-    return React.createClass({
+module.exports = function (options) {
+    return React.createClass(_.extend({
         render() {
-            return <div {...this.props} />;
+            return <div {...this.props}></div>;
         }
-    });
+    }, options));
 };
