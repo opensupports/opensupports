@@ -9,3 +9,4 @@ require './scripts.rb'
 
 # TESTS
 require './user/signup.rb'
+require './ticket/create.rb'
