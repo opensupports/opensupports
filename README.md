@@ -66,11 +66,7 @@ Just as there is the `gulp dev` task for development, there is also a `gulp prod
 
     `CREATE DATABASE development;`
 
-4. Assign privileges to user  
-
-    `GRANT ALL PRIVILEGES ON development.* To 'root'@'localhost' IDENTIFIED BY 'root';`
-
-6. Run the MySQL server
+4. Run the MySQL server
 
     `sudo /etc/init.d/mysql start`
     
