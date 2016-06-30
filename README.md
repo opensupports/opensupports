@@ -22,6 +22,14 @@ OpenSupports v4.0
 
 Now that `gulp dev` is running, the server is up as well and serving files from the `/build` directory. Any changes in the `/src` directory will be automatically processed by Gulp and the changes will be injected to any open browsers pointed at the proxy address.
 
+
+##### Production Task
+
+Just as there is the `gulp dev` task for development, there is also a `gulp prod` task for putting your project into a production-ready state. This will run each of the tasks, while also adding the image minification task discussed above. There is also an empty `gulp deploy` task that is included when running the production task. This deploy task can be fleshed out to automatically push your production-ready site to your hosting setup.
+
+**Reminder:** When running the production task, gulp will not fire up the express server and serve your index.html. This task is designed to be run before the `deploy` step that may copy the files from `/build` to a production web server.
+
+
 #### Frontend Unit Testing
 1. Do the steps described before
 2. Install mocha "sudo npm install -g mocha"
@@ -30,12 +38,21 @@ Now that `gulp dev` is running, the server is up as well and serving files from 
 ### Getting up and running BACK-END (server folder)
 
 1. Clone this repo
-2. [Install PHP5](http://www.howtogeek.com/howto/ubuntu/installing-php5-and-apache-on-ubuntu/)
+2. [Install PHP 5.6](https://www.dev-metal.com/install-setup-php-5-6-ubuntu-14-04-lts/)
 3. [Create MySQL Database](#markdown-header-create-mysql-database)
 4. [Install composer](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-14-04)
 5. Go to `cd os4-react/api`
 6. Run `composer install`
 7. Run the server with `php -S localhost:8080`
+
+### BACKEND API RUBY TESTING
+
+1. Install ruby `sudo apt-get install ruby-full`
+2. Install mysql dev dependencies `sudo apt-get install libmysqlclient-dev libmysqlclient16 ruby-dev`
+3. Install bundle `sudo gem install bundler`
+4. Go to test folder `cd os4-react/tests`
+5. Install project dependencies `sudo gem install bundler`
+Test can run by using executing `run-tests.sh` file.
 
 ### Create MySQL Database
 
@@ -52,22 +69,16 @@ Now that `gulp dev` is running, the server is up as well and serving files from 
 
 2. Access the mysql shell
 
-     `mysql -u root -p`
+     `mysql -u root`
 
 3. Create a new database
 
-    `CREATE DATABASE os_dev;`
+    `CREATE DATABASE development;`
 
 4. Assign privileges to user  
 
-    `GRANT ALL PRIVILEGES ON os_dev.* To 'os_dev'@'localhost' IDENTIFIED BY 'os_dev';`
+    `GRANT ALL PRIVILEGES ON development.* To 'root'@'localhost' IDENTIFIED BY 'root';`
 
 6. Run the MySQL server
 
     `sudo /etc/init.d/mysql start`
-
-##### Production Task
-
-Just as there is the `gulp dev` task for development, there is also a `gulp prod` task for putting your project into a production-ready state. This will run each of the tasks, while also adding the image minification task discussed above. There is also an empty `gulp deploy` task that is included when running the production task. This deploy task can be fleshed out to automatically push your production-ready site to your hosting setup.
-
-**Reminder:** When running the production task, gulp will not fire up the express server and serve your index.html. This task is designed to be run before the `deploy` step that may copy the files from `/build` to a production web server.
