@@ -1,9 +1,10 @@
 <?php
+use RedBeanPHP\Facade as RedBean;
 
 class CreateController extends Controller {
     const PATH = '/create';
 
-    private $title ;
+    private $title;
     private $content;
     private $departmentId;
     private $language;

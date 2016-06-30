@@ -20,6 +20,10 @@ class Ticket extends DataStore {
         );
     }
 
+    public static function getTicket($value, $property = 'id') {
+        return parent::getDataStore($value, $property);
+    }
+
     protected function getDefaultProps() {
         return array();
     }
