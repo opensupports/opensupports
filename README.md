@@ -45,16 +45,7 @@ Just as there is the `gulp dev` task for development, there is also a `gulp prod
 6. Run `composer install`
 7. Run the server with `php -S localhost:8080`
 
-### BACKEND API RUBY TESTING
-
-1. Install ruby `sudo apt-get install ruby-full`
-2. Install mysql dev dependencies `sudo apt-get install libmysqlclient-dev libmysqlclient16 ruby-dev`
-3. Install bundle `sudo gem install bundler`
-4. Go to test folder `cd os4-react/tests`
-5. Install project dependencies `sudo gem install bundler`
-Test can run by using executing `run-tests.sh` file.
-
-### Create MySQL Database
+##### Create MySQL Database
 
 1. Install mysql-server
 
@@ -82,3 +73,12 @@ Test can run by using executing `run-tests.sh` file.
 6. Run the MySQL server
 
     `sudo /etc/init.d/mysql start`
+    
+##### BACKEND API RUBY TESTING
+
+1. Install ruby `sudo apt-get install ruby-full`
+2. Install mysql dev dependencies `sudo apt-get install libmysqlclient-dev libmysqlclient16 ruby-dev`
+3. Install bundle `sudo gem install bundler`
+4. Go to test folder `cd os4-react/tests`
+5. Install project dependencies `sudo gem install bundler`
+Test can run by using executing `run-tests.sh` file.
