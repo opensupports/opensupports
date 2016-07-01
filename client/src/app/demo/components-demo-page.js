@@ -35,13 +35,13 @@ let DemoPage = React.createClass({
         {
             title: 'Input',
             render: (
-                <Input placeholder="placeholder"/>
+                <Input placeholder="placeholder" error="No anda"/>
             )
         },
         {
             title: 'Input wrapped in a label',
             render: (
-                <Input placeholder="placeholder" label="This is a label" />
+                <Input placeholder="placeholder" label="This is a label" icon="user"/>
             )
         },
         {

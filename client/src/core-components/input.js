@@ -2,6 +2,8 @@ const React = require('react');
 const classNames = require('classnames');
 const _ = require('lodash');
 
+const Icon = require('core-components/icon');
+
 const Input = React.createClass({
 
     propTypes: {
@@ -10,7 +12,9 @@ const Input = React.createClass({
         onChange: React.PropTypes.func,
         inputType: React.PropTypes.string,
         password: React.PropTypes.bool,
-        required: React.PropTypes.bool
+        required: React.PropTypes.bool,
+        icon: React.PropTypes.string,
+        error: React.PropTypes.string
     },
 
     getDefaultProps() {
@@ -22,10 +26,32 @@ const Input = React.createClass({
     render() {
         return (
             <label className={this.getClass()}>
-                <span className="input--label">{this.props.label}</span>
-                <input {...this.getInputProps()} className="input--text" />
+                <span className="input__label">{this.props.label}</span>
+                {this.renderIcon()}
+                <input {...this.getInputProps()} className="input__text" />
+                {this.renderError()}
             </label>
         );
+    },
+
+    renderError() {
+        let error = null;
+
+        if (this.props.error){
+            error = <span className="input__error"> {this.props.error} </span>;
+        }
+
+        return error;
+    },
+
+    renderIcon() {
+        let icon = null;
+
+        if (this.props.icon) {
+            icon = <span className="input__icon"><Icon name={this.props.icon} /></span>
+        }
+
+        return icon;
     },
 
     getInputProps() {
@@ -42,6 +68,8 @@ const Input = React.createClass({
     getClass() {
         let classes = {
             'input': true,
+            'input_with-icon': (this.props.icon),
+            'input_with-error': (this.props.error),
             ['input_' + this.props.inputType]: true,
 
             [this.props.className]: (this.props.className)
