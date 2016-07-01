@@ -42,13 +42,26 @@
             position: absolute;
             margin: 1px;
             padding: 8px 12px;
+            border-bottom-left-radius: 3px;
+            border-top-left-radius: 3px;
             background-color: #eee;
         }
 
         .input__text {
-            border-bottom-left-radius: 0;
-            border-top-left-radius: 0;
             padding-left: 40px;
         }
     }
+
+    &_with-error {
+        .input__error {
+            color: red;
+            font-size: $font-size--sm;
+            display: block;
+            position: absolute;
+        }
+        .input__text {
+            border: 1px solid red;
+        }
+    }
+
 }

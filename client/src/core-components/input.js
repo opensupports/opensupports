@@ -13,7 +13,8 @@ const Input = React.createClass({
         inputType: React.PropTypes.string,
         password: React.PropTypes.bool,
         required: React.PropTypes.bool,
-        icon: React.PropTypes.string
+        icon: React.PropTypes.string,
+        error: React.PropTypes.string
     },
 
     getDefaultProps() {
@@ -28,8 +29,19 @@ const Input = React.createClass({
                 <span className="input__label">{this.props.label}</span>
                 {this.renderIcon()}
                 <input {...this.getInputProps()} className="input__text" />
+                {this.renderError()}
             </label>
         );
+    },
+
+    renderError() {
+        let error = null;
+
+        if (this.props.error){
+            error = <span className="input__error"> {this.props.error} </span>;
+        }
+
+        return error;
     },
 
     renderIcon() {
@@ -57,6 +69,7 @@ const Input = React.createClass({
         let classes = {
             'input': true,
             'input_with-icon': (this.props.icon),
+            'input_with-error': (this.props.error),
             ['input_' + this.props.inputType]: true,
 
             [this.props.className]: (this.props.className)
