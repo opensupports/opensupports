@@ -44,7 +44,7 @@
             padding: 8px 12px;
             border-bottom-left-radius: 3px;
             border-top-left-radius: 3px;
-            background-color: #eee;
+            background-color: $light-grey;
         }
 
         .input__text {
@@ -54,13 +54,13 @@
 
     &_with-error {
         .input__error {
-            color: red;
+            color: $primary-red;
             font-size: $font-size--sm;
             display: block;
             position: absolute;
         }
         .input__text {
-            border: 1px solid red;
+            border: 1px solid $primary-red;
         }
     }
 
