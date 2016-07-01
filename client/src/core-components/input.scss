@@ -3,7 +3,7 @@
 .input {
     display: block;
 
-    &--text {
+    &__text {
         border: 1px solid $grey;
         border-radius: 3px;
         padding: 8px;
@@ -19,7 +19,7 @@
         }
     }
 
-    &--label {
+    &__label {
         color: $primary-black;
         font-size: 15px;
         display: block;
@@ -33,5 +33,22 @@
 
     &_secondary {
         width: 250px;
+    }
+
+    &_with-icon {
+        position: relative;
+
+        .input__icon {
+            position: absolute;
+            margin: 1px;
+            padding: 8px 12px;
+            background-color: #eee;
+        }
+
+        .input__text {
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+            padding-left: 40px;
+        }
     }
 }

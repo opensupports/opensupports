@@ -41,7 +41,7 @@ let DemoPage = React.createClass({
         {
             title: 'Input wrapped in a label',
             render: (
-                <Input placeholder="placeholder" label="This is a label" />
+                <Input placeholder="placeholder" label="This is a label" icon="user" />
             )
         },
         {
