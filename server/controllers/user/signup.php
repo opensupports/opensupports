@@ -3,6 +3,13 @@
 class SignUpController extends Controller {
     const PATH = '/signup';
 
+    public function validations() {
+        return [
+            'permission' => 'any',
+            'requestData' => []
+        ];
+    }
+
     public function handler() {
         $email =  Controller::request('email');
         $password =  Controller::request('password');

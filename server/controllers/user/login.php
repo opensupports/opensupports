@@ -5,6 +5,13 @@ class LoginController extends Controller {
 
     private $userInstance;
     private $session;
+    
+    public function validations() {
+        return [
+            'permission' => 'any',
+            'requestData' => []
+        ];
+    }
 
     public function handler() {
         if ($this->isAlreadyLoggedIn()) {
