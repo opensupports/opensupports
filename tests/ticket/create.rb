@@ -50,7 +50,7 @@ describe '/user/login' do
       })
 
       (result['status']).should.equal('success')
-      ticket = $database.getRow('tickets','Winter is coming','title')
+      ticket = $database.getRow('ticket','Winter is coming','title')
       (ticket['content']).should.equal('The north remembers')
       end
 end

@@ -5,7 +5,7 @@ describe '/user/signup' do
           'password' => 'custom'
         })
 
-        userRow = $database.getRow('users', response['data']['userId'])
+        userRow = $database.getRow('user', response['data']['userId'])
 
         (userRow['email']).should.equal('steve@jobs.com')
     end

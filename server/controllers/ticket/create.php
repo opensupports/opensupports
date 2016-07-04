@@ -59,10 +59,11 @@ class CreateController extends Controller {
             'date' => date("F j, Y, g:i a"),
             'unread' => false,
             'closed' => false,
-            'author' => '',
-            'owner'=> '',
-            'ownComments' => []
+            'author' => null,
+            'owner'=> null
         ));
+        $ticket->getBeanInstance()->ownCommentList[] = RedBean::dispense('comment');
+
         $ticket->store();
     }
 }

@@ -8,38 +8,25 @@ class CommentController extends Controller {
     private $content;
 
     public function handler() {
-        /*
-        //$this->storeComment();
-        $ticket = RedBean::load('tickets', Controller::request('ticketId'));
-        $comment = RedBean::dispense('comments');
-        $comment->content = Controller::request('content');
+        $this->requestData();
+        $this->storeComment();
 
-        $ticket->ownCommentsList[] = $comment;
+        Response::respondSuccess();
+    }
 
-        RedBean::store($ticket);
-        $ticket = RedBean::load('tickets', Controller::request('ticketId'));
-
-        $string = "";
-        $string += count($ticket->ownCommentsList);
-
-        foreach( $ticket->ownCommentsList as $comment2 ) {
-        }*/
+    private function requestData() {
+        $this->ticketId = Controller::request('ticketId');
+        $this->content = Controller::request('content');
     }
 
     private function storeComment() {
-        $this->ticketId = Controller::request('ticketId');
-        $this->content = Controller::request('content');
-        $ticket = Ticket::getTicket($this->ticketId);
-
         $comment = new Comment();
         $comment->setProperties(array(
             'content' => $this->content
-            //'ticket' => $ticket->getBeanInstance()
         ));
 
-        $ticket->getBeanInstance()->ownCommentsList = [$comment->getBeanInstance()];
-        $ticket->store();
         $ticket = Ticket::getTicket($this->ticketId);
-        Response::respondError(count($ticket->ownCommentsList));
+        $ticket->addComment($comment);
+        $ticket->store();
     }
 }
