@@ -1,9 +1,11 @@
 <?php
 class EmailSender {
 
-    public function validRegister($mail) {
+    public static function validRegister($mail) {
 
         $newMail = new PHPMailer;
+
+        $mail->From = "Admin@opensupports.com";
 
         $newMail->addAddress($mail);
 

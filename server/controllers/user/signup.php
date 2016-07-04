@@ -16,7 +16,7 @@ class SignUpController extends Controller {
             'userEmail' => $email
         ));
 
-        EmailSender::validRegister($email);
+        EmailSender::validRegister($this->email);
     }
     public function requestUserData(){
         $this->email =  Controller::request('email');
