@@ -21,7 +21,7 @@ class CreateController extends Controller {
                 'content' => [
                     'validation' => DataValidator::length(10, 500),
                     'error' => ERRORS::INVALID_CONTENT
-                ],
+                ]
             ]
         ];
     }
