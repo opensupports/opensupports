@@ -3,9 +3,11 @@
 class SignUpController extends Controller {
     const PATH = '/signup';
 
+    private $email;
+    private $password;
+
     public function handler() {
-        $email =  Controller::request('email');
-        $password =  Controller::request('password');
+        $this->requestUserData();
 
         $userId = $this->createNewUserAndRetrieveId($email, $password);
 
@@ -13,6 +15,12 @@ class SignUpController extends Controller {
             'userId' => $userId,
             'userEmail' => $email
         ));
+
+        EmailSender::validRegister($email);
+    }
+    public function requestUserData(){
+        $this->email =  Controller::request('email');
+        $this->password =  Controller::request('password');
     }
 
     public function createNewUserAndRetrieveId($email, $password) {
