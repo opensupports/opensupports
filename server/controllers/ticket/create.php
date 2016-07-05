@@ -58,11 +58,11 @@ class CreateController extends Controller {
             'file' => '',
             'date' => date("F j, Y, g:i a"),
             'unread' => false,
-            'closed' => false,
-            'author' => null,
-            'owner'=> null
+            'closed' => false
         ));
-        $ticket->getBeanInstance()->ownCommentList[] = RedBean::dispense('comment');
+        
+        //TODO: Add logged user as author
+        $ticket->setAuthor(User::getUser(1));
 
         $ticket->store();
     }

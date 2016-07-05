@@ -1,4 +1,4 @@
-describe '/user/login' do
+describe '/ticket/create' do
   it 'should fail if title is too short' do
       result = request('/ticket/create',{
           title: 'GG'

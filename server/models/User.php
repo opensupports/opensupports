@@ -15,8 +15,7 @@ class User extends DataStore {
             'email',
             'password',
             'name',
-            'verificationToken',
-            'ownTicketList'
+            'verificationToken'
         );
     }
 
@@ -24,8 +23,8 @@ class User extends DataStore {
         return array();
     }
 
-    public function addTicket($ticket) {
-        $this->ownTicketList[] = $ticket;
+    public function addTicket(Ticket $ticket) {
+        $this->getBeanInstance()->sharedTicketList[] = $ticket->getBeanInstance();
     }
 
     public static function getUser($value, $property = 'id') {

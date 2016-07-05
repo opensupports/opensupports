@@ -1,4 +1,5 @@
 <?php
+use RedBeanPHP\Facade as RedBean;
 
 class SignUpController extends Controller {
     const PATH = '/signup';
@@ -21,6 +22,8 @@ class SignUpController extends Controller {
             'email' => $email,
             'password' => Hashing::hashPassword($password)
         ));
+
+        //$userInstance->getBeanInstance()->sharedTicketList[] = RedBean::dispense('ticket');
 
         return $userInstance->store();
     }
