@@ -23,8 +23,6 @@ class SignUpController extends Controller {
             'password' => Hashing::hashPassword($password)
         ));
 
-        //$userInstance->getBeanInstance()->sharedTicketList[] = RedBean::dispense('ticket');
-
         return $userInstance->store();
     }
 }
