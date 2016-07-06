@@ -26,7 +26,7 @@ const Icon = React.createClass({
 
     renderFlag() {
         return (
-            <img className={this.props.className} src={`/images/icons/${this.props.name}.png`} aria-hidden="true" />
+            <img className={this.props.className} src={`../images/icons/${this.props.name}.png`} aria-hidden="true" />
         );
     },
 
