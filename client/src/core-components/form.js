@@ -11,7 +11,7 @@ const Checkbox = require('core-components/checkbox');
 const Form = React.createClass({
 
     propTypes: {
-        errors: React.PropTypes.func,
+        errors: React.PropTypes.object,
         onValidateErrors: React.PropTypes.func,
         onSubmit: React.PropTypes.func
     },
@@ -40,6 +40,9 @@ const Form = React.createClass({
         let props = _.clone(this.props);
 
         props.onSubmit = this.handleSubmit;
+        
+        delete props.errors;
+        delete props.onValidateErrors;
 
         return props;
     },

@@ -1,6 +1,10 @@
-var React       = require('react');
-var classNames  = require('classnames');
-var callback    = require('lib-core/callback');
+// VENDOR LIBS
+import React from 'react';
+import _ from 'lodash';
+import classNames from 'classnames';
+
+// CORE LIBS
+import callback from 'lib-core/callback';
 
 let Button = React.createClass({
 
@@ -30,10 +34,22 @@ let Button = React.createClass({
 
     render() {
         return (
-            <button {...this.props} onClick={callback(this.handleClick, this.props.onClick)} className={this.getClass()}>
+            <button {...this.getProps()}>
                 {this.props.children}
             </button>
         );
+    },
+
+    getProps() {
+        let props = _.clone(this.props);
+
+        props.onClick = callback(this.handleClick, this.props.onClick);
+        props.className = this.getClass();
+
+        delete props.route;
+        delete props.type;
+
+        return props;
     },
 
     getClass() {

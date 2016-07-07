@@ -90,13 +90,13 @@ describe('Form component', function () {
             expect(fields[0].props.error).to.equal(undefined);
             expect(fields[0].props.error).to.equal(undefined);
 
-            TestUtils.Simulate.blur(ReactDOM.findDOMNode(fields[0]));
+            fields[0].props.onBlur();
             expect(fields[0].props.error).to.equal('MOCK_ERROR');
 
-            TestUtils.Simulate.blur(ReactDOM.findDOMNode(fields[1]));
+            fields[1].props.onBlur();
             expect(fields[1].props.error).to.equal('MOCK_ERROR_2');
 
-            TestUtils.Simulate.blur(ReactDOM.findDOMNode(fields[2]));
+            fields[2].props.onBlur();
             expect(fields[2].props.error).to.equal(undefined);
         });
     });

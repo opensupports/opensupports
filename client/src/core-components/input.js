@@ -57,10 +57,15 @@ const Input = React.createClass({
     getInputProps() {
         let props = _.clone(this.props);
 
-        props.required = null;
         props['aria-required'] = this.props.required;
         props.type = (this.props.password) ? 'password' : 'text';
         props.ref = 'nativeInput';
+
+        delete props.required;
+        delete props.validation;
+        delete props.inputType;
+        delete props.error;
+        delete props.password;
 
         return props;
     },
