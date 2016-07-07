@@ -1,4 +1,6 @@
-const React = require( 'react');
+const React = require('react');
+const Reflux = require('reflux');
+const _ = require('lodash');
 const classNames = require('classnames');
 
 const UserActions = require('actions/user-actions');
@@ -12,10 +14,13 @@ const Widget = require('core-components/widget');
 const WidgetTransition = require('core-components/widget-transition');
 
 let MainHomePageLoginWidget = React.createClass({
+    
+    mixins: [Reflux.listenTo(UserStore, 'onUserStoreChanged')],
 
     getInitialState() {
         return {
-            sideToShow: 'front'
+            sideToShow: 'front',
+            loginFormErrors: {}
         };
     },
 
@@ -31,7 +36,7 @@ let MainHomePageLoginWidget = React.createClass({
     renderLogin() {
         return (
             <Widget className="main-home-page--widget" title="Login">
-                <Form className="login-widget--form" onSubmit={this.handleLoginFormSubmit}>
+                <Form className="login-widget--form" ref="loginForm" onSubmit={this.handleLoginFormSubmit} errors={this.state.loginFormErrors} onValidateErrors={this.handleLoginFormErrorsValidation}>
                     <div className="login-widget--inputs">
                         <Input placeholder="email" name="email" className="login-widget--input" validation="EMAIL" required/>
                         <Input placeholder="password" name="password" className="login-widget--input" password required/>
@@ -71,6 +76,12 @@ let MainHomePageLoginWidget = React.createClass({
         UserActions.login(formState);
     },
 
+    handleLoginFormErrorsValidation(errors) {
+        this.setState({
+            loginFormErrors: errors
+        });
+    },
+
     handleForgetPasswordClick() {
         this.setState({
             sideToShow: 'back'
@@ -81,6 +92,18 @@ let MainHomePageLoginWidget = React.createClass({
         this.setState({
             sideToShow: 'front'
         });
+    },
+    
+    onUserStoreChanged(event) {
+        if (event === 'LOGIN_FAIL') {
+            this.setState({
+                loginFormErrors: {
+                    password: 'Password does not match'
+                }
+            }, function () {
+                this.refs.loginForm.refs.password.focus()
+            }.bind(this));
+        }
     }
 });
 

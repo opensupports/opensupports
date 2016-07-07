@@ -12,8 +12,14 @@ function processData (data) {
 }
 
 module.exports = {
-    call: function (path, data, callback) {
-        APIUtils.post(root + path, processData(data)).then(callback);
+    call: function ({path, data, onSuccess, onFail}) {
+        APIUtils.post(root + path, processData(data)).then(function (result) {
+            if (result.status === 'success') {
+                onSuccess && onSuccess(result);
+            } else {
+                onFail && onFail(result);
+            }
+        });
     },
     setConfig: function (userId, token) {
         SessionStorage.setItem('userId', userId);

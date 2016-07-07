@@ -1,7 +1,9 @@
 const Reflux = require('reflux');
 const API = require('lib-app/api-call');
+const SessionStore = require('lib-app/session-store');
 
 const UserActions = require('actions/user-actions');
+const CommonActions = require('actions/common-actions');
 
 const UserStore = Reflux.createStore({
 
@@ -15,11 +17,37 @@ const UserStore = Reflux.createStore({
     },
 
     loginUser(loginData) {
-        API.call('user/login', loginData, result => {
-            console.log(result);
-
-            API.setConfig(result.userId, result.token);
+        API.call({
+            path: 'user/login',
+            data: loginData,
+            onSuccess: this.handleLoginSuccess,
+            onFail: this.handleLoginFail
         });
+    },
+
+    logoutUser() {
+        API.call({
+            path: 'user/logout',
+            onSuccess: function () {
+                SessionStore.closeSession();
+                this.trigger('LOGOUT');
+                CommonActions.loggedOut();
+            }.bind(this)
+        });
+    },
+
+    isLoggedIn() {
+        return SessionStore.isLoggedIn();
+    },
+
+    handleLoginSuccess(result) {
+        SessionStore.createSession(result.data.userId, result.data.token);
+        this.trigger('LOGIN_SUCCESS');
+        CommonActions.logged();
+    },
+
+    handleLoginFail(result) {
+        this.trigger('LOGIN_FAIL');
     }
 });
 
