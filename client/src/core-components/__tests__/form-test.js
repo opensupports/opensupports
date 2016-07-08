@@ -2,7 +2,7 @@
 const ValidationFactoryMock = require('lib-app/__mocks__/validations/validation-factory-mock');
 const Input = ReactMock();
 
-// COMPONENTS
+// COMPONENT
 const Form = requireUnit('core-components/form', {
     'lib-app/validations/validations-factory': ValidationFactoryMock,
     'core-components/input': Input
@@ -11,9 +11,9 @@ const Form = requireUnit('core-components/form', {
 describe('Form component', function () {
     let form, fields, onSubmit = stub();
 
-    function renderForm() {
+    function renderForm(props = {}) {
         form = TestUtils.renderIntoDocument(
-            <Form onSubmit={onSubmit}>
+            <Form {...props} onSubmit={onSubmit}>
                 <div>
                     <Input name="first" value="value1" required/>
                     <Input name="second" value="value2" required validation="CUSTOM"/>
@@ -98,6 +98,66 @@ describe('Form component', function () {
 
             fields[2].props.onBlur();
             expect(fields[2].props.error).to.equal(undefined);
+        });
+    });
+
+    describe('when using controlled errors', function () {
+        let onValidateErrors;
+
+        beforeEach(function () {
+            onValidateErrors = stub();
+
+            ValidationFactoryMock.validators.defaultValidatorMock.validate = stub().returns('MOCK_ERROR');
+            ValidationFactoryMock.validators.customValidatorMock.validate = stub().returns('MOCK_ERROR_2');
+
+            renderForm({
+                errors: {first: 'MOCK_ERROR_CONTROLLED'},
+                onValidateErrors: onValidateErrors
+            });
+        });
+        afterEach(resetStubs);
+
+        it('should pass the errors to inputs', function () {
+            expect(fields[0].props.error).to.equal('MOCK_ERROR_CONTROLLED');
+            expect(fields[1].props.error).to.equal(undefined);
+        });
+
+        it('should prioritize prop error over state error', function () {
+            fields[1].props.onBlur();
+            expect(fields[1].props.error).to.equal(undefined);
+        });
+
+        it('should call onValidateErrors when state changes', function () {
+            fields[1].props.onBlur();
+            expect(onValidateErrors).to.have.been.calledWith({second: 'MOCK_ERROR_2'});
+
+        });
+
+        it('should still working if the error prop changes', function () {
+            function setErrorsOrRender(errors = {}) {
+                form = reRenderIntoDocument(
+                    <Form errors={errors}>
+                        <div>
+                            <Input name="first" value="value1" required/>
+                            <Input name="second" value="value2" required validation="CUSTOM"/>
+                        </div>
+                        <Input name="third" value="value3" />
+                    </Form>
+                );
+                fields = TestUtils.scryRenderedComponentsWithType(form, Input);
+            }
+
+            setErrorsOrRender();
+            expect(fields[0].props.error).to.equal(undefined);
+            expect(fields[1].props.error).to.equal(undefined);
+
+            setErrorsOrRender({second: 'MOCK_ERROR_CONTROLLED_2'});
+            expect(fields[0].props.error).to.equal(undefined);
+            expect(fields[1].props.error).to.equal('MOCK_ERROR_CONTROLLED_2');
+
+            setErrorsOrRender({first: 'MOCK_ERROR_CONTROLLED', second: 'MOCK_ERROR_CONTROLLED_2'});
+            expect(fields[0].props.error).to.equal('MOCK_ERROR_CONTROLLED');
+            expect(fields[1].props.error).to.equal('MOCK_ERROR_CONTROLLED_2');
         });
     });
 

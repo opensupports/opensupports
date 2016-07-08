@@ -13,7 +13,7 @@
     "npm": "^2.1.x"
   },
   "scripts": {
-    "test": "export NODE_PATH=src && mocha src/lib-test/preprocessor.js --compilers js:babel-core/register --recursive src/**/__tests__/*-test.js"
+    "test": "export NODE_PATH=src && mocha src/lib-test/preprocessor.js --compilers js:babel-core/register --recursive src/**/**/__tests__/*-test.js"
   },
   "devDependencies": {
     "babel-core": "^5.8.22",

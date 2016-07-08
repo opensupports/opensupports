@@ -1,7 +1,5 @@
 import React              from 'react';
 import Reflux             from 'reflux';
-import {ListenerMixin}    from 'reflux';
-import {RouteHandler}     from 'react-router';
 
 import CommonStore        from 'stores/common-store';
 

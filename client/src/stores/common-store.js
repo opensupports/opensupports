@@ -23,10 +23,6 @@ let CommonStore = Reflux.createStore({
 
     loggedOut() {
         this.trigger('loggedOut');
-    },
-    
-    isLogged() {
-        return this.logged()
     }
 });
 

@@ -9,7 +9,6 @@ const UserStore = Reflux.createStore({
 
     init() {
         this.user = null;
-        this.hasBeenChecked = false;
 
         this.listenTo(UserActions.checkLoginStatus, this.checkLoginStatus);
         this.listenTo(UserActions.login, this.loginUser);
@@ -46,7 +45,7 @@ const UserStore = Reflux.createStore({
         CommonActions.logged();
     },
 
-    handleLoginFail(result) {
+    handleLoginFail() {
         this.trigger('LOGIN_FAIL');
     }
 });

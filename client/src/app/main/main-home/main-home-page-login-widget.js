@@ -46,7 +46,7 @@ let MainHomePageLoginWidget = React.createClass({
                         <Button type="primary">LOG IN</Button>
                     </div>
                 </Form>
-                <Button className="login-widget--forgot-password" type="link" onClick={this.handleForgetPasswordClick}>
+                <Button className="login-widget--forgot-password" type="link" onClick={this.handleForgotPasswordClick}>
                     {'Forgot your password?'}
                 </Button>
             </Widget>
@@ -56,7 +56,7 @@ let MainHomePageLoginWidget = React.createClass({
     renderPasswordRecovery() {
         return (
             <Widget className="main-home-page--widget main-home-page--password-widget" title="Password Recovery">
-                <Form className="login-widget--form" onSubmit={this.handleSubmit}>
+                <Form className="login-widget--form" onSubmit={this.handleForgotPasswordSubmit}>
                     <div className="login-widget--inputs">
                         <Input placeholder="email" name="email" className="login-widget--input" validation="EMAIL"/>
                     </div>
@@ -72,8 +72,11 @@ let MainHomePageLoginWidget = React.createClass({
     },
 
     handleLoginFormSubmit(formState) {
-        console.log(formState);
         UserActions.login(formState);
+    },
+
+    handleForgotPasswordSubmit() {
+
     },
 
     handleLoginFormErrorsValidation(errors) {
@@ -82,7 +85,7 @@ let MainHomePageLoginWidget = React.createClass({
         });
     },
 
-    handleForgetPasswordClick() {
+    handleForgotPasswordClick() {
         this.setState({
             sideToShow: 'back'
         });

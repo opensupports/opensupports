@@ -19,3 +19,14 @@ global.TestUtils = require('react-addons-test-utils');
 global.requireUnit = function (path, mocks) {
     return proxyquire(process.cwd() + '/src/' + path + '.js', mocks)
 };
+global.reRenderIntoDocument = (function () {
+    let div;
+    
+    return function (jsx) {
+        if (!div) {
+            div = document.createElement('div')
+        }
+        
+        return ReactDOM.render(jsx, div);
+    }
+})();

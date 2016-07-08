@@ -1,5 +1,4 @@
 const React = require('react');
-const ReactDOM = require('react-dom');
 const _ = require('lodash');
 
 const {reactDFS, renderChildrenWithProps} = require('lib-core/react-dfs');
