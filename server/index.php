@@ -14,6 +14,7 @@ $app = new \Slim\Slim();
 include_once 'libs/Controller.php';
 include_once 'libs/ControllerGroup.php';
 include_once 'libs/Hashing.php';
+include_once 'libs/EmailSender.php';
 
 // LOAD MODELS
 spl_autoload_register(function ($class) {

@@ -9,11 +9,11 @@ class SignUpController extends Controller {
     public function handler() {
         $this->requestUserData();
 
-        $userId = $this->createNewUserAndRetrieveId($email, $password);
+        $userId = $this->createNewUserAndRetrieveId($this->email, $this->password);
 
         Response::respondSuccess(array(
             'userId' => $userId,
-            'userEmail' => $email
+            'userEmail' => $this->email
         ));
 
         EmailSender::validRegister($this->email);

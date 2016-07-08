@@ -2,10 +2,9 @@
 class EmailSender {
 
     public static function validRegister($mail) {
-
         $newMail = new PHPMailer;
 
-        $mail->From = "Admin@opensupports.com";
+        $mail->From = "admin@opensupports.com";
 
         $newMail->addAddress($mail);
 
@@ -13,7 +12,7 @@ class EmailSender {
 
         if(!$newMail->send())
         {
-            echo "Mailer Error: " . $newMail->ErrorInfo;
+            Response::respondError("Mailer Error: " . $newMail->ErrorInfo);
         }
         else
         {
