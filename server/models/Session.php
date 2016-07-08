@@ -38,8 +38,12 @@ class Session {
     }
 
     public function checkAuthentication($data) {
-        return $this->getStoredData('userId') === $data['userId'] &&
-               $this->getStoredData('token') === $data['token'];
+        $userId = $this->getStoredData('userId');
+        $token = $this->getStoredData('token');
+        
+        return $userId && $token &&
+               $userId === $data['userId'] &&
+               $token === $data['token'];
     }
 
     public function isLoggedWithId($userId) {
