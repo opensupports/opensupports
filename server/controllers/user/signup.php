@@ -1,4 +1,5 @@
 <?php
+use RedBeanPHP\Facade as RedBean;
 
 class SignUpController extends Controller {
     const PATH = '/signup';

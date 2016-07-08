@@ -1,11 +1,14 @@
 <?php
+use RedBeanPHP\Facade as RedBean;
 
 class Ticket extends DataStore {
-    const TABLE = 'tickets';
+    const TABLE = 'ticket';
+
+    private $author;
 
     public static function getProps() {
         return array(
-            'ticketId',
+            'ticketNumber',
             'title',
             'content',
             'language',
@@ -16,11 +19,38 @@ class Ticket extends DataStore {
             'closed',
             'author',
             'owner',
-            'ownComments'
+            'ownCommentList'
         );
     }
 
-    protected function getDefaultProps() {
-        return array();
+    public static function getTicket($value, $property = 'id') {
+        return parent::getDataStore($value, $property);
+    }
+    
+    public function getDefaultProps() {
+        return array(
+            'owner' => null
+        );
+    }
+    
+    public function setAuthor(User $user) {
+        $this->author = $user;
+        $this->author->addTicket($this);
+        
+        $this->setProperties(array(
+            'author' => $this->author->getBeanInstance()
+        ));
+    }
+
+    public function addComment(Comment $comment) {
+        $this->getBeanInstance()->ownCommentList[] = $comment->getBeanInstance();
+    }
+    
+    public function store() {
+        parent::store();
+        
+        if ($this->author instanceof User) {
+            $this->author->store();
+        }
     }
 }

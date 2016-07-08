@@ -1,11 +1,12 @@
 <?php
+use RedBeanPHP\Facade as RedBean;
 
 use Respect\Validation\Validator as DataValidator;
 
 class CreateController extends Controller {
     const PATH = '/create';
 
-    private $title ;
+    private $title;
     private $content;
     private $departmentId;
     private $language;
@@ -51,11 +52,12 @@ class CreateController extends Controller {
             'file' => '',
             'date' => date('F j, Y, g:i a'),
             'unread' => false,
-            'closed' => false,
-            'author' => '',
-            'owner'=> '',
-            'ownComments' => []
+            'closed' => false
         ));
+        
+        //TODO: Add logged user as author
+        $ticket->setAuthor(User::getUser(1));
+
         $ticket->store();
     }
 }

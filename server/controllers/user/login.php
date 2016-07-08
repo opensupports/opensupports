@@ -45,6 +45,7 @@ class LoginController extends Controller {
 
         return array(
             'userId' => $userInstance->id,
+            'list' => count($userInstance->ownTicketList),
             'userEmail' => $userInstance->email,
             'token' => $this->getSession()->getToken()
         );
