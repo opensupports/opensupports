@@ -1,14 +1,11 @@
 const _ = require('lodash');
 const APIUtils = require('lib-core/APIUtils');
-const SessionStorage = require('sessionstorage');
+const SessionStore = require('lib-app/session-store');
 
 const root = 'http://localhost:3000/api/';
 
 function processData (data) {
-    return _.extend({
-        userId: SessionStorage.getItem('userId'),
-        token: SessionStorage.getItem('token')
-    }, data);
+    return _.extend(SessionStore.getSessionData(), data);
 }
 
 module.exports = {
