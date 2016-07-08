@@ -9,7 +9,6 @@ describe('App component', function () {
         let app;
 
         beforeEach(function () {
-            console.log(App);
             app = TestUtils.renderIntoDocument(
                 <App><span>MOCK_CHILD</span></App>
             );

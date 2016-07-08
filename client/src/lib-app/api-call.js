@@ -20,9 +20,5 @@ module.exports = {
                 onFail && onFail(result);
             }
         });
-    },
-    setConfig: function (userId, token) {
-        SessionStorage.setItem('userId', userId);
-        SessionStorage.setItem('token', token);
     }
 };
