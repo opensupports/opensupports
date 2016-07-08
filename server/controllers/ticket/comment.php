@@ -7,6 +7,13 @@ class CommentController extends Controller {
     private $ticketId;
     private $content;
 
+    public function validations() {
+        return [
+            'permission' => 'any',
+            'requestData' => []
+        ];
+    }
+
     public function handler() {
         $this->requestData();
         $this->storeComment();
