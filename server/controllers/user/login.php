@@ -5,6 +5,7 @@ class LoginController extends Controller {
 
     private $userInstance;
     private $session;
+    private $remembertoken;
     
     public function validations() {
         return [
@@ -19,8 +20,9 @@ class LoginController extends Controller {
             return;
         }
 
-        if ($this->areCredentialsValid()) {
+        if ($this->areCredentialsValid() || $this->isTokenValid()) {
             $this->createUserSession();
+            $this->createSessionCookie();
 
             Response::respondSuccess($this->getUserData());
         } else {
@@ -46,7 +48,8 @@ class LoginController extends Controller {
         return array(
             'userId' => $userInstance->id,
             'userEmail' => $userInstance->email,
-            'token' => $this->getSession()->getToken()
+            'token' => $this->getSession()->getToken(),
+            'rememberToken' => $this->remembertoken
         );
     }
 
@@ -67,5 +70,26 @@ class LoginController extends Controller {
         }
 
         return $this->session;
+    }
+    private function isTokenValid(){
+        $sessioncookie = SessionCookie::getDataStore(Controller::request('rememberToken'),'token');
+        if($sessioncookie !== null){
+            $this->userInstance = $sessioncookie->user;
+            return true;
+        }
+    }
+    private function createSessionCookie(){
+        $remember =  Controller::request('remember');
+        if($remember){
+            $this->remembertoken = md5(uniqid(rand()));
+
+            $sessioncookie = new SessionCookie();
+
+            $sessioncookie->setProperties(array(
+                'user' => $this->userInstance->getBeanInstance(),
+                'token' => $this->remembertoken
+            ));
+            $sessioncookie->store();
+        }
     }
 }
