@@ -11,6 +11,7 @@
     &__list-item {
         padding: 8px;
 
+        &_selected,
         &:hover {
             background-color: $primary-red;
             color: white;
@@ -23,6 +24,7 @@
     }
 
     &_secondary {
+        .menu__list-item_selected,
         .menu__list-item:hover {
             background-color: $secondary-blue;
         }

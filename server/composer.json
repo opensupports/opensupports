@@ -2,6 +2,7 @@
     "require": {
         "slim/slim": "~2.0",
         "gabordemooij/redbean": "~4.2",
+        "respect/validation": "^1.1",
         "phpmailer/phpmailer": "^5.2"
     },
     "require-dev": {

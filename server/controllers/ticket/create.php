@@ -1,49 +1,44 @@
 <?php
+use RedBeanPHP\Facade as RedBean;
+
+use Respect\Validation\Validator as DataValidator;
 
 class CreateController extends Controller {
     const PATH = '/create';
 
-    private $title ;
+    private $title;
     private $content;
     private $departmentId;
     private $language;
 
-    public function handler() {
-        $this->requestTicketData();
-
-        $validateResult = $this->validateData();
-
-        if ($validateResult !== true) {
-            Response::respondError($validateResult);
-        } else {
-            $this->storeTicket();
-
-            Response::respondSuccess();
-        }
+    public function validations() {
+        return [
+            'permission' => 'any',
+            'requestData' => [
+                'title' => [
+                    'validation' => DataValidator::length(3, 30),
+                    'error' => ERRORS::INVALID_TITLE
+                ],
+                'content' => [
+                    'validation' => DataValidator::length(10, 500),
+                    'error' => ERRORS::INVALID_CONTENT
+                ]
+            ]
+        ];
     }
 
-    private function requestTicketData() {
+    public function handler() {
+        $this->storeRequestData();
+        $this->storeTicket();
+
+        Response::respondSuccess();
+    }
+
+    private function storeRequestData() {
         $this->title = Controller::request('title');
         $this->content = Controller::request('content');
         $this->departmentId = Controller::request('departmentId');
         $this->language = Controller::request('language');
-    }
-
-    private function validateData() {
-        if (strlen($this->title) < 3) {
-            return ERRORS::SHORT_TITLE;
-        }
-        if (strlen($this->title) > 30) {
-            return ERRORS::LONG_TITLE;
-        }
-        if (strlen($this->content) < 5) {
-            return ERRORS::SHORT_CONTENT;
-        }
-        if (strlen($this->content) > 500) {
-            return ERRORS::LONG_CONTENT;
-        }
-
-        return true;
     }
 
     private function storeTicket() {
@@ -55,13 +50,14 @@ class CreateController extends Controller {
             'language' => $this->language,
             'department' => $this->departmentId,
             'file' => '',
-            'date' => date("F j, Y, g:i a"),
+            'date' => date('F j, Y, g:i a'),
             'unread' => false,
-            'closed' => false,
-            'author' => '',
-            'owner'=> '',
-            'ownComments' => []
+            'closed' => false
         ));
+        
+        //TODO: Add logged user as author
+        $ticket->setAuthor(User::getUser(1));
+
         $ticket->store();
     }
 }

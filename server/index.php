@@ -21,13 +21,13 @@ spl_autoload_register(function ($class) {
     $classPath = "models/{$class}.php";
 
     if(file_exists($classPath)) {
-        include $classPath;
+        include_once $classPath;
     }
 });
 
 // LOAD CONTROLLERS
 foreach (glob('controllers/*.php') as $controller) {
-    include $controller;
+    include_once $controller;
 }
 
 $app->run();

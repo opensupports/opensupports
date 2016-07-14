@@ -1,11 +1,11 @@
-describe '/user/login' do
+describe '/ticket/create' do
   it 'should fail if title is too short' do
-      result = request('/ticket/create',{
+      result = request('/ticket/create', {
           title: 'GG'
       })
 
       (result['status']).should.equal('fail')
-      (result['message']).should.equal('Title is too short')
+      (result['message']).should.equal('Invalid title')
 
   end
 
@@ -15,7 +15,7 @@ describe '/user/login' do
       })
 
       (result['status']).should.equal('fail')
-      (result['message']).should.equal('Title is very long')
+      (result['message']).should.equal('Invalid title')
 
   end
 
@@ -26,7 +26,7 @@ describe '/user/login' do
       })
 
       (result['status']).should.equal('fail')
-      (result['message']).should.equal('Content is too short')
+      (result['message']).should.equal('Invalid content')
   end
 
   it 'should fail if content is very long' do
@@ -39,7 +39,7 @@ describe '/user/login' do
     })
 
     (result['status']).should.equal('fail')
-    (result['message']).should.equal('Content is very long')
+    (result['message']).should.equal('Invalid content')
 
   end
 
@@ -50,7 +50,7 @@ describe '/user/login' do
       })
 
       (result['status']).should.equal('success')
-      ticket = $database.getRow('tickets','Winter is coming','title')
+      ticket = $database.getRow('ticket','Winter is coming','title')
       (ticket['content']).should.equal('The north remembers')
       end
 end

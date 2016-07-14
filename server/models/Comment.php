@@ -1,7 +1,7 @@
 <?php
 
 class Comment extends DataStore {
-    const TABLE = 'comments';
+    const TABLE = 'comment';
 
     public static function getProps() {
         return array(

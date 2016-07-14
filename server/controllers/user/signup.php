@@ -3,24 +3,25 @@
 class SignUpController extends Controller {
     const PATH = '/signup';
 
-    private $email;
-    private $password;
+    public function validations() {
+        return [
+            'permission' => 'any',
+            'requestData' => []
+        ];
+    }
 
     public function handler() {
-        $this->requestUserData();
+        $email =  Controller::request('email');
+        $password =  Controller::request('password');
 
-        $userId = $this->createNewUserAndRetrieveId($this->email, $this->password);
+        $userId = $this->createNewUserAndRetrieveId($email, $password);
+
+        EmailSender::validRegister($email);
 
         Response::respondSuccess(array(
             'userId' => $userId,
-            'userEmail' => $this->email
+            'userEmail' => $email
         ));
-
-        EmailSender::validRegister($this->email);
-    }
-    public function requestUserData(){
-        $this->email =  Controller::request('email');
-        $this->password =  Controller::request('password');
     }
 
     public function createNewUserAndRetrieveId($email, $password) {

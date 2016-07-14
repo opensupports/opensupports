@@ -1,7 +1,8 @@
 <?php
+use RedBeanPHP\Facade as RedBean;
 
 class User extends DataStore {
-    const TABLE = 'users';
+    const TABLE = 'user';
 
     public static function authenticate($userEmail, $userPassword) {
         $user = User::getUser($userEmail, 'email');
@@ -14,19 +15,16 @@ class User extends DataStore {
             'email',
             'password',
             'name',
-            'verificationToken',
-            'ownTickets'
+            'verificationToken'
         );
     }
 
     public function getDefaultProps() {
-        return array(
-            'ownTickets' => []
-        );
+        return array();
     }
 
-    public function addTicket($ticket) {
-        $this->ownTickets[] = $ticket;
+    public function addTicket(Ticket $ticket) {
+        $this->getBeanInstance()->sharedTicketList[] = $ticket->getBeanInstance();
     }
 
     public static function getUser($value, $property = 'id') {
