@@ -46,7 +46,11 @@ let CheckBox = React.createClass({
         props.className = 'checkbox--box';
         props.checked = this.getValue();
         props.onChange = callback(this.handleChange, this.props.onChange);
-        props.value = null;
+
+        delete props.alignment;
+        delete props.error;
+        delete props.label;
+        delete props.value;
 
         return props;
     },

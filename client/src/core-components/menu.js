@@ -48,7 +48,11 @@ const Menu = React.createClass({
         var props = _.clone(this.props);
 
         props.className = this.getClass();
-        props.type = null;
+
+        delete props.items;
+        delete props.onItemClick;
+        delete props.selectedIndex;
+        delete props.type;
 
         return props;
     },

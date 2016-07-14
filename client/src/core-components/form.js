@@ -1,5 +1,4 @@
 const React = require('react');
-const ReactDOM = require('react-dom');
 const _ = require('lodash');
 
 const {reactDFS, renderChildrenWithProps} = require('lib-core/react-dfs');
@@ -9,6 +8,12 @@ const Input = require('core-components/input');
 const Checkbox = require('core-components/checkbox');
 
 const Form = React.createClass({
+
+    propTypes: {
+        errors: React.PropTypes.object,
+        onValidateErrors: React.PropTypes.func,
+        onSubmit: React.PropTypes.func
+    },
 
     getInitialState() {
         return {
@@ -34,6 +39,9 @@ const Form = React.createClass({
         let props = _.clone(this.props);
 
         props.onSubmit = this.handleSubmit;
+        
+        delete props.errors;
+        delete props.onValidateErrors;
 
         return props;
     },
@@ -47,13 +55,22 @@ const Form = React.createClass({
             additionalProps = {
                 ref: fieldName,
                 value: this.state.form[fieldName] || props.value,
-                error: this.state.errors[fieldName],
+                error: this.getFieldError(fieldName),
                 onChange: this.handleFieldChange.bind(this, fieldName, type),
                 onBlur: this.validateField.bind(this, fieldName)
             }
         }
 
         return additionalProps;
+    },
+
+    getFieldError(fieldName) {
+        let error = this.state.errors[fieldName];
+
+        if (this.props.errors) {
+            error = this.props.errors[fieldName]
+        }
+        return error;
     },
 
     getFirstErrorField() {
@@ -119,9 +136,7 @@ const Form = React.createClass({
         event.preventDefault();
 
         if (this.hasFormErrors()) {
-            this.setState({
-                errors: this.getAllFieldErrors()
-            }, this.focusFirstErrorField);
+            this.updateErrors(this.getAllFieldErrors(), this.focusFirstErrorField);
         } else if (this.props.onSubmit) {
             this.props.onSubmit(this.state.form);
         }
@@ -150,9 +165,17 @@ const Form = React.createClass({
     },
 
     validateField(fieldName) {
+        this.updateErrors(this.getErrorsWithValidatedField(fieldName));
+    },
+
+    updateErrors(errors, callback) {
         this.setState({
-            errors: this.getErrorsWithValidatedField(fieldName)
-        });
+            errors
+        }, callback);
+
+        if (this.props.onValidateErrors) {
+            this.props.onValidateErrors(errors);
+        }
     },
 
     focusFirstErrorField() {

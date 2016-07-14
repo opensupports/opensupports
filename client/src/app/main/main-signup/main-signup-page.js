@@ -11,7 +11,15 @@ import Input              from 'core-components/input';
 import Widget             from 'core-components/widget';
 import WidgetTransition   from 'core-components/widget-transition';
 
+const CommonActions = require('actions/common-actions');
+
 let MainSignUpPageWidget = React.createClass({
+
+    componentDidMount() {
+        if (UserStore.isLoggedIn()) {
+            CommonActions.logged();
+        }
+    },
 
     render() {
         return (

@@ -22,5 +22,15 @@ module.exports = [
 
             return response;
         }
+    },
+    {
+        path: 'user/logout',
+        time: 1000,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
     }
 ];
