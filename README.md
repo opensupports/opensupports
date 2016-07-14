@@ -78,3 +78,21 @@ Just as there is the `gulp dev` task for development, there is also a `gulp prod
 4. Go to test folder `cd os4-react/tests`
 5. Install project dependencies `sudo gem install bundler`
 Test can run by using executing `run-tests.sh` file.
+
+##### BACKEND SMTP SERVER TESTING
+An email SMTP server can be configured in by EmailSender class. If you're doing development, you can use a fakeSMTP server.
+
+1. Install java if you don't have it
+
+     `sudo apt-get install default-jre`
+     `sudo apt-get install default-jdk`
+
+2. Download FakeSMTP: https://nilhcem.github.io/FakeSMTP/download.html
+
+3. Extract the file from the zip and run it
+
+    `java -jar fakeSMTP-2.0.jar`
+
+4. Set the port to 7070 and start the SMTP server
+
+5. Now every time that the application sends an email, it will be reflected there.

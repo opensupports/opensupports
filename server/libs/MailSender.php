@@ -5,11 +5,11 @@ class MailSender {
     
     //TODO: Add real initial options when Settings class is available
     public function __construct() {
-        $this->mailOptions['from'] = '';
+        $this->mailOptions['from'] = 'noreply@opensupports.com';
         
         //SMTP Options
-        $this->mailOptions['smtp_host'] = '';
-        $this->mailOptions['smtp_port'] = 0;
+        $this->mailOptions['smtp_host'] = 'localhost';
+        $this->mailOptions['smtp_port'] = 7070;
         $this->mailOptions['smtp_user'] = '';
         $this->mailOptions['smtp_pass'] = '';
     }
@@ -36,7 +36,7 @@ class MailSender {
         $mailer->Port = $this->mailOptions['smtp_port'];
         $mailer->Username = $this->mailOptions['smtp_user'];
         $mailer->Password = $this->mailOptions['smtp_pass'];
-        $mailer->SMTPSecure = "tls";
+        //$mailer->SMTPSecure = "tls";
         $mailer->Timeout = 1000;
 
         if ($mailer->smtpConnect()) {
