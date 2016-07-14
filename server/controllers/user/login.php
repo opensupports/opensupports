@@ -5,7 +5,7 @@ class LoginController extends Controller {
 
     private $userInstance;
     private $session;
-    private $remembertoken;
+    private $rememberToken;
     
     public function validations() {
         return [
@@ -38,6 +38,15 @@ class LoginController extends Controller {
         return ($this->getUserByInputCredentials() !== null);
     }
 
+    private function isTokenValid() {
+        $sessionCookie = SessionCookie::getDataStore(Controller::request('rememberToken'),'token');
+        $userid = Controller::request('userId');
+        if ($sessionCookie !== null && $userid === $sessionCookie->user->id) {
+            $this->userInstance = $sessionCookie->user;
+            return true;
+        }
+    }
+
     private function createUserSession() {
         $this->getSession()->createSession($this->userInstance->id);
     }
@@ -49,7 +58,7 @@ class LoginController extends Controller {
             'userId' => $userInstance->id,
             'userEmail' => $userInstance->email,
             'token' => $this->getSession()->getToken(),
-            'rememberToken' => $this->remembertoken
+            'rememberToken' => $this->rememberToken
         );
     }
 
@@ -71,25 +80,19 @@ class LoginController extends Controller {
 
         return $this->session;
     }
-    private function isTokenValid(){
-        $sessioncookie = SessionCookie::getDataStore(Controller::request('rememberToken'),'token');
-        if($sessioncookie !== null){
-            $this->userInstance = $sessioncookie->user;
-            return true;
-        }
-    }
     private function createSessionCookie(){
         $remember =  Controller::request('remember');
         if($remember){
-            $this->remembertoken = md5(uniqid(rand()));
+            $this->rememberToken = Hashing::generateRandomToken();
+            $sessionCookie = new SessionCookie();
 
-            $sessioncookie = new SessionCookie();
-
-            $sessioncookie->setProperties(array(
+            $sessionCookie->setProperties(array(
                 'user' => $this->userInstance->getBeanInstance(),
-                'token' => $this->remembertoken
+                'token' => $this->rememberToken,
+                'ip' => $_SERVER[‘REMOTE_ADDR’],
+                'creationDate' =>  date("d-m-Y (H:i:s)"
             ));
-            $sessioncookie->store();
+            $sessionCookie->store();
         }
     }
 }
