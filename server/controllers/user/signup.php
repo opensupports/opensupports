@@ -2,6 +2,9 @@
 
 class SignUpController extends Controller {
     const PATH = '/signup';
+    
+    private $userEmail;
+    private $userPassword;
 
     public function validations() {
         return [
@@ -11,26 +14,45 @@ class SignUpController extends Controller {
     }
 
     public function handler() {
-        $email =  Controller::request('email');
-        $password =  Controller::request('password');
+        $this->setRequestData();
 
-        $userId = $this->createNewUserAndRetrieveId($email, $password);
+        try {
+            $userId = $this->createNewUserAndRetrieveId();
+            $this->sendRegistrationMail();
 
-        EmailSender::validRegister($email);
+            Response::respondSuccess([
+                'userId' => $userId,
+                'userEmail' => $this->userEmail
+            ]);
+        } catch (Exception $e) {
+            Response::respondError($e->getMessage());
+        }
 
-        Response::respondSuccess(array(
-            'userId' => $userId,
-            'userEmail' => $email
-        ));
+    }
+    
+    public function setRequestData() {
+        $this->userEmail = Controller::request('email');
+        $this->userPassword = Controller::request('password');
     }
 
-    public function createNewUserAndRetrieveId($email, $password) {
+    public function createNewUserAndRetrieveId() {
         $userInstance = new User();
-        $userInstance->setProperties(array(
-            'email' => $email,
-            'password' => Hashing::hashPassword($password)
-        ));
+        
+        $userInstance->setProperties([
+            'email' => $this->userEmail,
+            'password' => Hashing::hashPassword($this->userPassword)
+        ]);
 
         return $userInstance->store();
+    }
+    
+    public function sendRegistrationMail() {
+        $mailSender = new MailSender();
+        
+        $mailSender->setTemplate(MailTemplate::USER_SIGNUP, [
+            'to' => $this->userEmail
+        ]);
+        
+        $mailSender->send();
     }
 }
