@@ -89,8 +89,8 @@ class LoginController extends Controller {
             $sessionCookie->setProperties(array(
                 'user' => $this->userInstance->getBeanInstance(),
                 'token' => $this->rememberToken,
-                'ip' => $_SERVER[‘REMOTE_ADDR’],
-                'creationDate' =>  date("d-m-Y (H:i:s)"
+                'ip' => $_SERVER['REMOTE_ADDR'],
+                'creationDate' =>  date('d-m-Y (H:i:s)')
             ));
             $sessionCookie->store();
         }

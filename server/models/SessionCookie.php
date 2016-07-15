@@ -1,6 +1,6 @@
 <?php
 
-class sessioncookie extends DataStore {
+class SessionCookie extends DataStore {
     const TABLE = 'session';
 
     public static function getProps() {
