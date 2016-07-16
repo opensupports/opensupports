@@ -20,7 +20,7 @@ class LoginController extends Controller {
             return;
         }
 
-        if ($this->areCredentialsValid() || $this->isTokenValid()) {
+        if ($this->areCredentialsValid() || $this->isRememberTokenValid()) {
             $this->createUserSession();
             $this->createSessionCookie();
 
@@ -38,7 +38,7 @@ class LoginController extends Controller {
         return ($this->getUserByInputCredentials() !== null);
     }
 
-    private function isTokenValid() {
+    private function isRememberTokenValid() {
         $rememberToken = Controller::request('rememberToken');
 
         if ($rememberToken) {
