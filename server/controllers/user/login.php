@@ -87,10 +87,10 @@ class LoginController extends Controller {
     }
     private function createSessionCookie(){
         $remember =  Controller::request('remember');
-        if($remember){
+        if ($remember) {
             $this->rememberToken = Hashing::generateRandomToken();
-            $sessionCookie = new SessionCookie();
 
+            $sessionCookie = new SessionCookie();
             $sessionCookie->setProperties(array(
                 'user' => $this->userInstance->getBeanInstance(),
                 'token' => $this->rememberToken,
