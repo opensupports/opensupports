@@ -1,7 +1,7 @@
 <?php
 
 class SessionCookie extends DataStore {
-    const TABLE = 'session';
+    const TABLE = 'sessioncookie';
 
     public static function getProps() {
         return array (
@@ -12,6 +12,7 @@ class SessionCookie extends DataStore {
             'expirationDate'
         );
     }
+
     protected function getDefaultProps() {
         return array();
     }

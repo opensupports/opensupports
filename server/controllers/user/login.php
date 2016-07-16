@@ -6,7 +6,7 @@ class LoginController extends Controller {
     private $userInstance;
     private $session;
     private $rememberToken;
-    
+
     public function validations() {
         return [
             'permission' => 'any',
@@ -39,11 +39,16 @@ class LoginController extends Controller {
     }
 
     private function isTokenValid() {
-        $sessionCookie = SessionCookie::getDataStore(Controller::request('rememberToken'),'token');
-        $userid = Controller::request('userId');
-        if ($sessionCookie !== null && $userid === $sessionCookie->user->id) {
-            $this->userInstance = $sessionCookie->user;
-            return true;
+        $rememberToken = Controller::request('rememberToken');
+
+        if ($rememberToken) {
+            $sessionCookie = SessionCookie::getDataStore($rememberToken, 'token');
+            $userid = Controller::request('userId');
+
+            if ($sessionCookie !== null && $userid === $sessionCookie->user->id) {
+                $this->userInstance = $sessionCookie->user;
+                return true;
+            }
         }
     }
 
