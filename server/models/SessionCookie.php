@@ -13,7 +13,7 @@ class SessionCookie extends DataStore {
         );
     }
 
-    protected function getDefaultProps() {
+    public function getDefaultProps() {
         return array();
     }
 }
