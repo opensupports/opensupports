@@ -1,11 +1,9 @@
 import SessionStorage from 'sessionstorage';
-
+import LocalStore from 'lib-app/local-store';
 
 class SessionStore {
     static initialize() {
-        if (!SessionStorage.getItem('language')) {
-            SessionStorage.setItem('language', 'english');
-        }
+
     }
 
     static createSession(userId, token) {

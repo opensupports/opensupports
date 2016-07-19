@@ -29,8 +29,8 @@ const UserStore = Reflux.createStore({
             path: 'user/logout',
             onSuccess: function () {
                 SessionStore.closeSession();
-                this.trigger('LOGOUT');
                 CommonActions.loggedOut();
+                this.trigger('LOGOUT');
             }.bind(this)
         });
     },
@@ -41,8 +41,8 @@ const UserStore = Reflux.createStore({
 
     handleLoginSuccess(result) {
         SessionStore.createSession(result.data.userId, result.data.token);
-        this.trigger('LOGIN_SUCCESS');
         CommonActions.logged();
+        this.trigger('LOGIN_SUCCESS');
     },
 
     handleLoginFail() {
