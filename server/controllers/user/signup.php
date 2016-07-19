@@ -11,15 +11,15 @@ class SignUpController extends Controller {
             'permission' => 'any',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::length(2, 55),
+                    'validation' => DataValidator::length(2, 55)->alpha(),
                     'error' => ERRORS::INVALID_NAME
                 ],
                 'email' => [
-                    'validation' => DataValidator::contains('@'),
+                    'validation' => DataValidator::email(),
                     'error' => ERRORS::INVALID_EMAIL
                 ],
                 'password' => [
-                    'validation' => DataValidator::length(5, 20),
+                    'validation' => DataValidator::length(5, 200),
                     'error' => ERRORS::INVALID_PASSWORD
                 ]
             ]
