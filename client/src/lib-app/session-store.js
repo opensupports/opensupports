@@ -1,33 +1,42 @@
 import SessionStorage from 'sessionstorage';
-import LocalStore from 'lib-app/local-store';
 
 class SessionStore {
-    static initialize() {
-
+    constructor() {
+        this.storage = SessionStorage;
     }
 
-    static createSession(userId, token) {
-        SessionStorage.setItem('userId', userId);
-        SessionStorage.setItem('token', token);
+    createSession(userId, token) {
+        this.setItem('userId', userId);
+        this.setItem('token', token);
     }
 
-    static getSessionData() {
+    getSessionData() {
         return {
-            userId: SessionStorage.getItem('userId'),
-            token: SessionStorage.getItem('token')
+            userId: this.getItem('userId'),
+            token: this.getItem('token')
         };
     }
 
-    static isLoggedIn() {
-        return !!SessionStorage.getItem('userId');
+    isLoggedIn() {
+        return !!this.getItem('userId');
     }
 
-    static closeSession() {
-        SessionStorage.removeItem('userId');
-        SessionStorage.removeItem('token');
+    closeSession() {
+        this.removeItem('userId');
+        this.removeItem('token');
+    }
+
+    getItem(key) {
+        return this.storage.getItem(key);
+    }
+
+    setItem(key, value) {
+        return this.storage.setItem(key, value);
+    }
+
+    removeItem(key) {
+        return this.storage.removeItem(key);
     }
 }
 
-SessionStore.initialize();
-
-export default SessionStore;
+export default new SessionStore();

@@ -11,6 +11,7 @@ function processData (data) {
 module.exports = {
     call: function ({path, data, onSuccess, onFail}) {
         APIUtils.post(root + path, processData(data)).then(function (result) {
+            console.log(result);
             if (result.status === 'success') {
                 onSuccess && onSuccess(result);
             } else {

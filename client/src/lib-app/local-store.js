@@ -1,10 +1,9 @@
-import LocalStorage from 'localstorage';
+import LocalStorage from 'localStorage';
 
 class LocalStore {
 
     constructor() {
-        this.setItem = LocalStorage.setItem;
-        this.getItem = LocalStorage.getItem;
+        this.storage  = LocalStorage;
     }
 
     initialize() {
@@ -18,21 +17,37 @@ class LocalStore {
     }
 
     storeRememberData({token, userId, expiration}) {
-        this.setItem('rememberData', {
-            token,
-            userId,
-            expiration
-        });
+        this.setItem('rememberData-token', token);
+        this.setItem('rememberData-userId', userId);
+        this.setItem('rememberData-expiration', expiration);
     }
 
     isRememberDataExpired() {
-        let rememberData = this.getItem('rememberData');
+        let rememberData = this.getRememberData();
 
-        return rememberData && rememberData.expirationDate > 2016
+        return rememberData.expiration < 2016;
+    }
+
+    getRememberData() {
+        return {
+            token: this.getItem('rememberData-token'),
+            userId: parseInt(this.getItem('rememberData-userId')),
+            expiration: parseInt(this.getItem('rememberData-expiration'))
+        };
     }
 
     clearRememberData() {
-        this.setItem('rememberData', null);
+        this.setItem('rememberData-token', null);
+        this.setItem('rememberData-userId', null);
+        this.setItem('rememberData-expiration', null);
+    }
+
+    getItem(key) {
+        return this.storage.getItem(key);
+    }
+
+    setItem(key, value) {
+        return this.storage.setItem(key, value);
     }
 }
 
