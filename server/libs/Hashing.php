@@ -7,4 +7,7 @@ class Hashing {
     public static function verifyPassword($password, $hash) {
         return password_verify($password, $hash);
     }
+    public static function generateRandomToken() {
+        return md5(uniqid(rand()));
+    }
 }

@@ -65,6 +65,6 @@ class Session {
     }
 
     private function generateToken() {
-        return md5(uniqid(rand()));
+        return Hashing::generateRandomToken();;
     }
 }
