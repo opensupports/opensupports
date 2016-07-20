@@ -1,4 +1,5 @@
 <?php
+use Respect\Validation\Validator as DataValidator;
 
 class RecoverPasswordController extends Controller {
     const PATH = '/recoverpassword';
@@ -11,27 +12,50 @@ class RecoverPasswordController extends Controller {
     public function validations() {
         return [
             'permission' => 'any',
-            'requestData' => []
+            'requestData' => [
+                'email' => [
+                    'validation' => DataValidator::email() ,
+                    'error' => ERRORS::INVALID_EMAIL
+                ],
+                'password' => [
+                    'validation' => DataValidator::length(5, 200),
+                    'error' => ERRORS::INVALID_PASSWORD
+                ]
+            ]
         ];
     }
 
     public function handler(){
-            $this->email = Controller::request('email');
-            $this->token = Controller::request('token');
-            $this->password = Controller::request('password');
+        $this->requestData();
+        $this->changePassword();
+    }
+
+    public function requestData(){
+        $this->email = Controller::request('email');
+        $this->token = Controller::request('token');
+        $this->password = Controller::request('password');
+    }
+    public function changePassword(){
         if ($this->email && $this->token) {
             $this->recoverPassword = RecoverPassword::getDatastore($this->token, 'token');
 
-            if($this->recoverPassword){
-                // TODO: borar item en base de datos
-                $changePassword = User::getDataStore($this->email, 'email');
+            if($this->recoverPassword) {
+                $user = User::getDataStore($this->email, 'email');
 
-                $changePassword->password = $this->password;
+                if ($user) {
+                    $this->recoverPassword->trash();
 
-                Response::respondSuccess('password changed');
+                    $user->setProperties([
+                        'password' => Hashing::hashPassword($this->password)
+                    ]);
+
+                    $user->store();
+                    Response::respondSuccess('password changed');
+                    return;
+                }
             }
-        }else {
-            Response::respondError(ERRORS::NO_PERMISSION);
         }
+
+        Response::respondError(ERRORS::NO_PERMISSION);
     }
 }

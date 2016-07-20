@@ -1,35 +1,34 @@
 <?php
+use Respect\Validation\Validator as DataValidator;
 
 class SendRecoverPasswordController extends Controller {
     const PATH = '/sendrecoverpassword';
 
-    private $email;
-    private $token;
-
     public function validations() {
         return [
             'permission' => 'any',
-            'requestData' => []
+            'requestData' => [
+                'email' => [
+                    'validation' => DataValidator::email(),
+                    'error' => ERRORS::INVALID_EMAIL
+                ]
+            ]
         ];
     }
 
     public function handler() {
-        $this->email = Controller::request('email');
+        $email = Controller::request('email');
 
-        if($this->email) {
-            $this->token = Hashing::generateRandomToken();
+        $token = Hashing::generateRandomToken();
 
-            $recoverPassword = new RecoverPassword();
+        $recoverPassword = new RecoverPassword();
+        $recoverPassword->setProperties(array(
+            'email' => $email,
+            'token' => $token
+        ));
+        $recoverPassword->store();
 
-            $recoverPassword->setProperties(array(
-                'email' => $this->email,
-                'token' => $this->token
-            ));
-
-            $recoverPassword->store();
-            Response::respondSuccess();
-            //TODO:  mandar  mail con token
-
-        }
+        Response::respondSuccess();
+        //TODO:  mandar  mail con token
     }
 }

@@ -1,6 +1,5 @@
 <?php
 use RedBeanPHP\Facade as RedBean;
-
 use Respect\Validation\Validator as DataValidator;
 
 class CreateController extends Controller {
@@ -54,7 +53,7 @@ class CreateController extends Controller {
             'unread' => false,
             'closed' => false
         ));
-        
+
         //TODO: Add logged user as author
         $ticket->setAuthor(User::getUser(1));
 
