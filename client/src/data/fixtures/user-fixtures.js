@@ -27,11 +27,23 @@ module.exports = [
     },
     {
         path: 'user/logout',
-        time: 1000,
+        time: 100,
         response: function () {
             return {
                 status: 'success',
                 data: {}
+            };
+        }
+    },
+    {
+        path: 'user/check-session',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {
+                    sessionActive: true
+                }
             };
         }
     }

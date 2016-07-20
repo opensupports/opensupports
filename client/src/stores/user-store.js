@@ -1,7 +1,6 @@
 const Reflux = require('reflux');
 const API = require('lib-app/api-call');
 const sessionStore = require('lib-app/session-store');
-const localStore = require('lib-app/local-store');
 
 const UserActions = require('actions/user-actions');
 const CommonActions = require('actions/common-actions');
@@ -14,29 +13,43 @@ const UserStore = Reflux.createStore({
         this.listenTo(UserActions.checkLoginStatus, this.checkLoginStatus);
         this.listenTo(UserActions.login, this.loginUser);
         this.listenTo(UserActions.logout, this.logoutUser);
+    },
+    
+    initSession() {
+        return API.call({
+            path: 'user/check-session',
+            data: {}
+        }).then(this.tryLoginIfSessionIsInactive);
+    },
 
-        if (!this.isLoggedIn()) {
-            this.loginIfRememberExists();
+    tryLoginIfSessionIsInactive(result) {
+        if (!result.data.sessionActive) {
+            if (sessionStore.isRememberDataExpired()) {
+                return this.logoutUser();
+            } else {
+                return this.loginWithRememberData();
+            }
         }
     },
 
     loginUser(loginData) {
-        API.call({
+        let onSuccessLogin = (loginData.remember) ? this.handleLoginSuccessWithRemember : this.handleLoginSuccess;
+        let onFailedLogin = (loginData.isAutomatic) ? null : this.handleLoginFail;
+
+        return API.call({
             path: 'user/login',
-            data: loginData,
-            onSuccess: (loginData.remember) ? this.handleLoginSuccessWithRemember : this.handleLoginSuccess,
-            onFail: (loginData.isAutomatic) ? null : this.handleLoginFail
-        });
+            data: loginData
+        }).then(onSuccessLogin, onFailedLogin);
     },
 
     logoutUser() {
-        API.call({
-            path: 'user/logout',
-            onSuccess: function () {
-                sessionStore.closeSession();
-                CommonActions.loggedOut();
-                this.trigger('LOGOUT');
-            }.bind(this)
+        return API.call({
+            path: 'user/logout'
+        }).then(() => {
+            sessionStore.closeSession();
+            sessionStore.clearRememberData();
+            CommonActions.loggedOut();
+            this.trigger('LOGOUT');
         });
     },
 
@@ -44,20 +57,18 @@ const UserStore = Reflux.createStore({
         return sessionStore.isLoggedIn();
     },
 
-    loginIfRememberExists() {
-        let rememberData = localStore.getRememberData();
+    loginWithRememberData() {
+        let rememberData = sessionStore.getRememberData();
 
-        if (!localStore.isRememberDataExpired()) {
-            UserActions.login({
-                userId: rememberData.userId,
-                rememberToken: rememberData.token,
-                isAutomatic: true
-            });
-        }
+        return this.loginUser({
+            userId: rememberData.userId,
+            rememberToken: rememberData.token,
+            isAutomatic: true
+        });
     },
 
     handleLoginSuccessWithRemember(result) {
-        localStore.storeRememberData({
+        sessionStore.storeRememberData({
             token: result.data.rememberToken,
             userId: result.data.userId,
             expiration: result.data.rememberExpiration

@@ -1,8 +1,13 @@
-import SessionStorage from 'sessionstorage';
+import LocalStorage from 'localStorage';
+import date from 'lib-app/date';
 
 class SessionStore {
     constructor() {
-        this.storage = SessionStorage;
+        this.storage = LocalStorage;
+
+        if (!this.getItem('language')) {
+            this.setItem('language', 'english');
+        }
     }
 
     createSession(userId, token) {
@@ -18,13 +23,40 @@ class SessionStore {
     }
 
     isLoggedIn() {
-        return !!this.getItem('userId');
+        return !!this.getItem('token');
     }
 
     closeSession() {
         this.removeItem('userId');
         this.removeItem('token');
     }
+
+    storeRememberData({token, userId, expiration}) {
+        this.setItem('rememberData-token', token);
+        this.setItem('rememberData-userId', userId);
+        this.setItem('rememberData-expiration', expiration);
+    }
+
+    isRememberDataExpired() {
+        let rememberData = this.getRememberData();
+
+        return rememberData.expiration < date.getCurrentDate();
+    }
+
+    getRememberData() {
+        return {
+            token: this.getItem('rememberData-token'),
+            userId: this.getItem('rememberData-userId'),
+            expiration: this.getItem('rememberData-expiration')
+        };
+    }
+
+    clearRememberData() {
+        this.removeItem('rememberData-token');
+        this.removeItem('rememberData-userId');
+        this.removeItem('rememberData-expiration');
+    }
+
 
     getItem(key) {
         return this.storage.getItem(key);
@@ -35,7 +67,7 @@ class SessionStore {
     }
 
     removeItem(key) {
-        return this.storage.removeItem(key);
+        this.storage.removeItem(key);
     }
 }
 

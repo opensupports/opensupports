@@ -9,14 +9,17 @@ function processData (data) {
 }
 
 module.exports = {
-    call: function ({path, data, onSuccess, onFail}) {
-        APIUtils.post(root + path, processData(data)).then(function (result) {
-            console.log(result);
-            if (result.status === 'success') {
-                onSuccess && onSuccess(result);
-            } else {
-                onFail && onFail(result);
-            }
+    call: function ({path, data}) {
+        return new Promise(function (resolve, reject) {
+            APIUtils.post(root + path, processData(data)).then(function (result) {
+                console.log(result);
+
+                if (result.status === 'success') {
+                    resolve(result);
+                } else if (reject) {
+                    reject(result);
+                }
+            });
         });
     }
 };
