@@ -61,7 +61,6 @@ describe '/user/signup' do
 
         (result['status']).should.equal('fail')
         (result['message']).should.equal('Invalid email')
-
     end
 
     it 'should fail if password is invalid' do
@@ -82,6 +81,9 @@ describe '/user/signup' do
             email: 'tyrion@outlook.com',
             password: long_text
         })
+
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('Invalid password')
     end
 
 end

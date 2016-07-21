@@ -8,5 +8,4 @@ class ERRORS {
     const INVALID_PASSWORD = 'Invalid password';
     const INVALID_TITLE = 'Invalid title';
     const INVALID_CONTENT = 'Invalid content';
-    
 }
