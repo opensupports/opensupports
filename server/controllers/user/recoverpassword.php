@@ -2,12 +2,11 @@
 use Respect\Validation\Validator as DataValidator;
 
 class RecoverPasswordController extends Controller {
-    const PATH = '/recoverpassword';
+    const PATH = '/recover-password';
 
     private $email;
     private $token;
     private $password;
-    private $recoverPassword;
 
     public function validations() {
         return [
@@ -36,24 +35,20 @@ class RecoverPasswordController extends Controller {
         $this->password = Controller::request('password');
     }
     public function changePassword(){
-        if ($this->email && $this->token) {
-            $this->recoverPassword = RecoverPassword::getDatastore($this->token, 'token');
+        $recoverPassword = RecoverPassword::getDatastore($this->token, 'token');
+        $user = User::getDataStore($this->email, 'email');
 
-            if($this->recoverPassword) {
-                $user = User::getDataStore($this->email, 'email');
+        if($recoverPassword && $user) {
+            $recoverPassword->trash();
 
-                if ($user) {
-                    $this->recoverPassword->trash();
+            $user->setProperties([
+                'password' => Hashing::hashPassword($this->password)
+            ]);
 
-                    $user->setProperties([
-                        'password' => Hashing::hashPassword($this->password)
-                    ]);
+            $user->store();
+            Response::respondSuccess('password changed');
+            return;
 
-                    $user->store();
-                    Response::respondSuccess('password changed');
-                    return;
-                }
-            }
         }
 
         Response::respondError(ERRORS::NO_PERMISSION);

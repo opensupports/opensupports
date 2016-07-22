@@ -2,8 +2,8 @@
 include 'user/login.php';
 include 'user/signup.php';
 include 'user/logout.php';
-include 'user/recoverpassword.php';
-include 'user/sendrecoverpassword.php';
+include 'user/recover-password.php';
+include 'user/send-recover-password.php';
 
 $userControllers = new ControllerGroup();
 $userControllers->setGroupPath('/user');

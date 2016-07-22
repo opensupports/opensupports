@@ -10,6 +10,6 @@ require './scripts.rb'
 # TESTS
 require './user/signup.rb'
 require './user/login.rb'
-require './user/sendrecoverpassword.rb'
-require './user/recoverpassword.rb'
+require './user/send-recover-password.rb'
+require './user/recover-password.rb'
 #require './ticket/create.rb'

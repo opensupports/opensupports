@@ -2,7 +2,7 @@
 use Respect\Validation\Validator as DataValidator;
 
 class SendRecoverPasswordController extends Controller {
-    const PATH = '/sendrecoverpassword';
+    const PATH = '/send-recover-password';
 
     public function validations() {
         return [
