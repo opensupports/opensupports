@@ -64,7 +64,6 @@
     "react-google-recaptcha": "^0.5.2",
     "react-motion": "^0.3.0",
     "react-router": "^2.4.0",
-    "reflux": "^0.4.1",
-    "sessionstorage": "0.0.1"
+    "reflux": "^0.4.1"
   }
 }

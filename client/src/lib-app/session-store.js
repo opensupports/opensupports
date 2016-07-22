@@ -57,7 +57,6 @@ class SessionStore {
         this.removeItem('rememberData-expiration');
     }
 
-
     getItem(key) {
         return this.storage.getItem(key);
     }
