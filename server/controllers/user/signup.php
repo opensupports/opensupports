@@ -1,5 +1,7 @@
 <?php
 
+use Respect\Validation\Validator as DataValidator;
+
 class SignUpController extends Controller {
     const PATH = '/signup';
     
@@ -9,7 +11,20 @@ class SignUpController extends Controller {
     public function validations() {
         return [
             'permission' => 'any',
-            'requestData' => []
+            'requestData' => [
+                'name' => [
+                    'validation' => DataValidator::length(2, 55)->alpha(),
+                    'error' => ERRORS::INVALID_NAME
+                ],
+                'email' => [
+                    'validation' => DataValidator::email(),
+                    'error' => ERRORS::INVALID_EMAIL
+                ],
+                'password' => [
+                    'validation' => DataValidator::length(5, 200),
+                    'error' => ERRORS::INVALID_PASSWORD
+                ]
+            ]
         ];
     }
 
