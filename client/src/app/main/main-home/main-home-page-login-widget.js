@@ -7,7 +7,6 @@ const classNames = require('classnames');
 const UserActions = require('actions/user-actions');
 const UserStore = require('stores/user-store');
 const focus = require('lib-core/focus');
-const empty = require('lib-core/empty');
 
 const Button = require('core-components/button');
 const Form = require('core-components/form');
@@ -49,7 +48,7 @@ let MainHomePageLoginWidget = React.createClass({
                         <Button type="primary">LOG IN</Button>
                     </div>
                 </Form>
-                <Button className="login-widget--forgot-password" type="link" onClick={this.handleForgotPasswordClick} onMouseDown={empty.preventDefault}>
+                <Button className="login-widget--forgot-password" type="link" onClick={this.handleForgotPasswordClick} onMouseDown={(event) => {event.preventDefault()}}>
                     {'Forgot your password?'}
                 </Button>
             </Widget>
@@ -67,7 +66,7 @@ let MainHomePageLoginWidget = React.createClass({
                         <Button type="primary">Recover my password</Button>
                     </div>
                 </Form>
-                <Button className="login-widget--forgot-password" type="link" onClick={this.handleBackToLoginClick} onMouseDown={empty.preventDefault}>
+                <Button className="login-widget--forgot-password" type="link" onClick={this.handleBackToLoginClick} onMouseDown={(event) => {event.preventDefault()}}>
                     {'Back to login form'}
                 </Button>
             </Widget>
