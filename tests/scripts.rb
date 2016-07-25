@@ -1,6 +1,7 @@
 class Scripts
-    def self.createUser(email = 'steve@jobs.com', password = 'custompassword')
+    def self.createUser(email = 'steve@jobs.com', password = 'custompassword', name = 'steve jobs')
         response = request('/user/signup', {
+            'name' => name,
             'email' => email,
             'password' => password
         })
