@@ -7,4 +7,5 @@ class ERRORS {
     const INVALID_CONTENT = 'Invalid content';
     const INVALID_EMAIL = 'Invalid email';
     const INVALID_PASSWORD = 'Invalid password';
+    const INVALID_NAME = 'Invalid name';
 }
