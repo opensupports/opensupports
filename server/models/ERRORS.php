@@ -5,4 +5,6 @@ class ERRORS {
     const NO_PERMISSION = 'You have no permission to access';
     const INVALID_TITLE = 'Invalid title';
     const INVALID_CONTENT = 'Invalid content';
+    const INVALID_EMAIL = 'Invalid email';
+    const INVALID_PASSWORD = 'Invalid password';
 }
