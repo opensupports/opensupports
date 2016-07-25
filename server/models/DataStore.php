@@ -72,4 +72,8 @@ abstract class DataStore {
 
         return ($validProp) ? $propToValidate : 'id';
     }
+
+    public function trash() {
+        RedBean::trash($this->_bean);
+    }
 }
