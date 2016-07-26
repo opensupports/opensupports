@@ -1,10 +1,12 @@
 const React = require('react');
+const ReactDOM = require('react-dom');
 const Reflux = require('reflux');
 const _ = require('lodash');
 const classNames = require('classnames');
 
 const UserActions = require('actions/user-actions');
 const UserStore = require('stores/user-store');
+const focus = require('lib-core/focus');
 
 const Button = require('core-components/button');
 const Form = require('core-components/form');
@@ -35,7 +37,7 @@ let MainHomePageLoginWidget = React.createClass({
 
     renderLogin() {
         return (
-            <Widget className="main-home-page--widget" title="Login">
+            <Widget className="main-home-page--widget" title="Login" ref="loginWidget">
                 <Form className="login-widget--form" ref="loginForm" onSubmit={this.handleLoginFormSubmit} errors={this.state.loginFormErrors} onValidateErrors={this.handleLoginFormErrorsValidation}>
                     <div className="login-widget--inputs">
                         <Input placeholder="email" name="email" className="login-widget--input" validation="EMAIL" required/>
@@ -46,7 +48,7 @@ let MainHomePageLoginWidget = React.createClass({
                         <Button type="primary">LOG IN</Button>
                     </div>
                 </Form>
-                <Button className="login-widget--forgot-password" type="link" onClick={this.handleForgotPasswordClick}>
+                <Button className="login-widget--forgot-password" type="link" onClick={this.handleForgotPasswordClick} onMouseDown={(event) => {event.preventDefault()}}>
                     {'Forgot your password?'}
                 </Button>
             </Widget>
@@ -55,7 +57,7 @@ let MainHomePageLoginWidget = React.createClass({
 
     renderPasswordRecovery() {
         return (
-            <Widget className="main-home-page--widget main-home-page--password-widget" title="Password Recovery">
+            <Widget className="main-home-page--widget main-home-page--password-widget" title="Password Recovery" ref="recoverWidget">
                 <Form className="login-widget--form" onSubmit={this.handleForgotPasswordSubmit}>
                     <div className="login-widget--inputs">
                         <Input placeholder="email" name="email" className="login-widget--input" validation="EMAIL"/>
@@ -64,7 +66,7 @@ let MainHomePageLoginWidget = React.createClass({
                         <Button type="primary">Recover my password</Button>
                     </div>
                 </Form>
-                <Button className="login-widget--forgot-password" type="link" onClick={this.handleBackToLoginClick}>
+                <Button className="login-widget--forgot-password" type="link" onClick={this.handleBackToLoginClick} onMouseDown={(event) => {event.preventDefault()}}>
                     {'Back to login form'}
                 </Button>
             </Widget>
@@ -88,13 +90,13 @@ let MainHomePageLoginWidget = React.createClass({
     handleForgotPasswordClick() {
         this.setState({
             sideToShow: 'back'
-        });
+        }, this.moveFocusToCurrentSide);
     },
 
     handleBackToLoginClick() {
         this.setState({
             sideToShow: 'front'
-        });
+        }, this.moveFocusToCurrentSide);
     },
     
     onUserStoreChanged(event) {
@@ -106,6 +108,23 @@ let MainHomePageLoginWidget = React.createClass({
             }, function () {
                 this.refs.loginForm.refs.password.focus()
             }.bind(this));
+        }
+    },
+
+    moveFocusToCurrentSide() {
+        let currentWidget;
+        let previousWidget;
+
+        if (this.state.sideToShow === 'front') {
+            currentWidget = ReactDOM.findDOMNode(this.refs.loginWidget);
+            previousWidget = ReactDOM.findDOMNode(this.refs.recoverWidget);
+        } else {
+            currentWidget = ReactDOM.findDOMNode(this.refs.recoverWidget);
+            previousWidget = ReactDOM.findDOMNode(this.refs.loginWidget);
+        }
+
+        if (focus.isActiveElementInsideDOMTree(previousWidget)) {
+            focus.focusFirstInput(currentWidget);
         }
     }
 });
