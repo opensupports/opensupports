@@ -16,6 +16,15 @@ include_once 'libs/ControllerGroup.php';
 include_once 'libs/Hashing.php';
 include_once 'libs/MailSender.php';
 
+// LOAD DATA
+spl_autoload_register(function ($class) {
+    $classPath = "data/{$class}.php";
+
+    if(file_exists($classPath)) {
+        include_once $classPath;
+    }
+});
+
 // LOAD MODELS
 spl_autoload_register(function ($class) {
     $classPath = "models/{$class}.php";

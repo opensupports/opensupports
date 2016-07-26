@@ -12,8 +12,4 @@ class SessionCookie extends DataStore {
             'expirationDate'
         );
     }
-
-    public function getDefaultProps() {
-        return array();
-    }
 }

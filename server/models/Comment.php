@@ -12,8 +12,4 @@ class Comment extends DataStore {
             'date'
         );
     }
-
-    protected function getDefaultProps() {
-        return array();
-    }
 }

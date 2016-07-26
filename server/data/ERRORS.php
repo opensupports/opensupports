@@ -8,4 +8,5 @@ class ERRORS {
     const INVALID_EMAIL = 'Invalid email';
     const INVALID_PASSWORD = 'Invalid password';
     const INVALID_NAME = 'Invalid name';
+    const INIT_SETTINGS_DONE = 'Settings already initialized';
 }

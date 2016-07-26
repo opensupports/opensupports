@@ -4,8 +4,8 @@ use RedBeanPHP\Facade as RedBean;
 abstract class DataStore {
     protected $_bean;
 
-    public function getDefaultProps() {
-        return [];
+    public static function isTableEmpty() {
+        return (RedBean::count(static::TABLE) === 0);
     }
 
     public static function getDataStore($value, $property = 'id') {
@@ -29,6 +29,10 @@ abstract class DataStore {
                 $this->_bean[$PROP] = $VALUE;
             }
         }
+    }
+
+    public function getDefaultProps() {
+        return [];
     }
 
     public function delete() {
@@ -65,7 +69,7 @@ abstract class DataStore {
         $validProp = false;
 
         foreach (static::getProps() as $prop) {
-            if($propToValidate === $prop) {
+            if ($propToValidate === $prop) {
                 $validProp = true;
             }
         }
