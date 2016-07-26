@@ -1,6 +1,7 @@
 import React  from 'react';
 import {render} from 'react-dom'
 import Router from 'react-router';
+import UserStore from 'stores/user-store';
 
 import routes from './Routes';
 
@@ -13,4 +14,9 @@ if (noFixtures === 'disabled') {
     require('lib-app/fixtures-loader');
 }
 
-render(routes, document.getElementById('app'));
+let onSessionInit = function () {
+    render(routes, document.getElementById('app'));
+};
+
+UserStore.initSession().then(onSessionInit, onSessionInit);
+

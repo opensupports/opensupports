@@ -14,12 +14,12 @@ const DashboardLayout = React.createClass({
     },
 
     render() {
-        return (
+        return (UserStore.isLoggedIn()) ? (
             <div>
                 <div><DashboardMenu location={this.props.location} /></div>
                 <div>{this.props.children}</div>
             </div>
-        );
+        ) : null;
     }
 });
 

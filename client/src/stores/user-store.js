@@ -1,6 +1,6 @@
 const Reflux = require('reflux');
 const API = require('lib-app/api-call');
-const SessionStore = require('lib-app/session-store');
+const sessionStore = require('lib-app/session-store');
 
 const UserActions = require('actions/user-actions');
 const CommonActions = require('actions/common-actions');
@@ -14,35 +14,73 @@ const UserStore = Reflux.createStore({
         this.listenTo(UserActions.login, this.loginUser);
         this.listenTo(UserActions.logout, this.logoutUser);
     },
+    
+    initSession() {
+        return API.call({
+            path: 'user/check-session',
+            data: {}
+        }).then(this.tryLoginIfSessionIsInactive);
+    },
+
+    tryLoginIfSessionIsInactive(result) {
+        if (!result.data.sessionActive) {
+            if (sessionStore.isRememberDataExpired()) {
+                return this.logoutUser();
+            } else {
+                return this.loginWithRememberData();
+            }
+        }
+    },
 
     loginUser(loginData) {
-        API.call({
+        let onSuccessLogin = (loginData.remember) ? this.handleLoginSuccessWithRemember : this.handleLoginSuccess;
+        let onFailedLogin = (loginData.isAutomatic) ? null : this.handleLoginFail;
+
+        return API.call({
             path: 'user/login',
-            data: loginData,
-            onSuccess: this.handleLoginSuccess,
-            onFail: this.handleLoginFail
-        });
+            data: loginData
+        }).then(onSuccessLogin, onFailedLogin);
     },
 
     logoutUser() {
-        API.call({
-            path: 'user/logout',
-            onSuccess: function () {
-                SessionStore.closeSession();
-                this.trigger('LOGOUT');
-                CommonActions.loggedOut();
-            }.bind(this)
+        return API.call({
+            path: 'user/logout'
+        }).then(() => {
+            sessionStore.closeSession();
+            sessionStore.clearRememberData();
+            CommonActions.loggedOut();
+            this.trigger('LOGOUT');
         });
     },
 
     isLoggedIn() {
-        return SessionStore.isLoggedIn();
+        return sessionStore.isLoggedIn();
+    },
+
+    loginWithRememberData() {
+        let rememberData = sessionStore.getRememberData();
+
+        return this.loginUser({
+            userId: rememberData.userId,
+            rememberToken: rememberData.token,
+            isAutomatic: true
+        });
+    },
+
+    handleLoginSuccessWithRemember(result) {
+        sessionStore.storeRememberData({
+            token: result.data.rememberToken,
+            userId: result.data.userId,
+            expiration: result.data.rememberExpiration
+        });
+
+        this.handleLoginSuccess(result)
     },
 
     handleLoginSuccess(result) {
-        SessionStore.createSession(result.data.userId, result.data.token);
-        this.trigger('LOGIN_SUCCESS');
+        sessionStore.createSession(result.data.userId, result.data.token);
         CommonActions.logged();
+        this.trigger('LOGIN_SUCCESS');
     },
 
     handleLoginFail() {

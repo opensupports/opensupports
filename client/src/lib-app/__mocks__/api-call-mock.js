@@ -1,3 +1,5 @@
 export default {
-    call: stub()
+    call: stub().returns(new Promise(function (resolve) {
+        resolve();
+    }))
 };
