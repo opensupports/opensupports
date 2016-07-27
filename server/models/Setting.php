@@ -4,7 +4,7 @@ class Setting extends DataStore {
     const TABLE = 'setting';
 
     public static function getSetting($name) {
-        return parent::getDataStore('name', $name);
+        return parent::getDataStore($name, 'name');
     }
 
     public static function getProps() {

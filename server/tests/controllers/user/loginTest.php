@@ -5,7 +5,7 @@ include_once 'tests/__mocks__/ResponseMock.php';
 include_once 'tests/__mocks__/ControllerMock.php';
 include_once 'tests/__mocks__/SessionMock.php';
 include_once 'tests/__mocks__/UserMock.php';
-include_once 'models/ERRORS.php';
+include_once 'data/ERRORS.php';
 
 include_once 'controllers/user/login.php';
 
