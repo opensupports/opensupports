@@ -8,14 +8,14 @@ class MailTemplate extends DataStore {
     const USER_PASSWORD = 'USER_PASSWORD';
     
     public static function getTemplate($type) {
-        $globalLanguage = Setting::getSetting('language');
+        $globalLanguage = Setting::getSetting('language')->value;
         
         $bean = RedBean::findOne(MailTemplate::TABLE, 'type = :type AND language = :language', array(
             ':type'  => $type,
             ':language' => $globalLanguage
         ));
 
-        return ($bean) ? new MailTemplate($bean) : null;
+        return ($bean) ? new MailTemplate($bean) : new NullDataStore();
     }
     
     public static function getProps() {

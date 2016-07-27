@@ -13,7 +13,7 @@ abstract class DataStore {
             ':value'  => $value
         ));
 
-        return ($bean) ? new static($bean) : null;
+        return ($bean) ? new static($bean) : new NullDataStore();
     }
 
     public function __construct($beanInstance = null) {
@@ -79,5 +79,9 @@ abstract class DataStore {
 
     public function trash() {
         RedBean::trash($this->_bean);
+    }
+    
+    public function isNull() {
+        return false;
     }
 }
