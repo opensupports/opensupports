@@ -9,6 +9,7 @@ describe '/user/signup' do
         userRow = $database.getRow('user', response['data']['userId'])
 
         (userRow['email']).should.equal('steve@jobs.com')
+        (userRow['name']).should.equal('Steve Jobs')
     end
 
     it 'should fail if name is invalid' do
