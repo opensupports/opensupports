@@ -23,7 +23,12 @@ class InitSettingsController extends Controller {
 
     private function storeGlobalSettings() {
         $this->storeSettings([
-            'language' => 'en'
+            'language' => 'en',
+            'no-reply-email' => 'noreply@opensupports.com',
+            'smtp-host' => 'localhost',
+            'smtp-port' => 7070,
+            'smtp-user' => '',
+            'smtp-pass' => '',
         ]);
     }
 

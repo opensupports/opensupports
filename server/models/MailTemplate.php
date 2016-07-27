@@ -12,7 +12,7 @@ class MailTemplate extends DataStore {
         
         $bean = RedBean::findOne(MailTemplate::TABLE, 'type = :type AND language = :language', array(
             ':type'  => $type,
-            ':language' => $globalLanguage->value
+            ':language' => $globalLanguage
         ));
 
         return ($bean) ? new MailTemplate($bean) : null;
