@@ -1,5 +1,5 @@
 
-def request(path, data)
+def request(path, data = {})
     uri = URI('http://localhost:8080' + path)
     response = Net::HTTP.post_form(uri, data)
 
@@ -8,8 +8,8 @@ end
 
 class Database
     def initialize()
-        mysqlUser = ENV['MYSQL_USER'] || 'root';
-        mysqlPass = ENV['MYSQL_PASSWORD'] || '';
+        mysqlUser = ENV['MYSQL_USER'] || 'root'
+        mysqlPass = ENV['MYSQL_PASSWORD'] || ''
         @connection = Mysql.new('localhost', mysqlUser ,  mysqlPass, 'development')
     end
 

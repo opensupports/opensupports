@@ -8,6 +8,7 @@ require './libs.rb'
 require './scripts.rb'
 
 # TESTS
+require './system/init-settings.rb'
 require './user/signup.rb'
 require './user/login.rb'
 require './user/send-recover-password.rb'

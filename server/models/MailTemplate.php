@@ -1,4 +1,6 @@
 <?php
+use RedBeanPHP\Facade as RedBean;
+
 class MailTemplate extends DataStore {
     const TABLE = 'mailtemplate';
     
@@ -6,22 +8,21 @@ class MailTemplate extends DataStore {
     const USER_PASSWORD = 'USER_PASSWORD';
     
     public static function getTemplate($type) {
-        //TODO: Add initial mails templates to the database
-        //return MailTemplate::getDataStore($type, 'type');
+        $globalLanguage = Setting::getSetting('language');
+        
+        $bean = RedBean::findOne(MailTemplate::TABLE, 'type = :type AND language = :language', array(
+            ':type'  => $type,
+            ':language' => $globalLanguage
+        ));
 
-        $template = new MailTemplate();
-        $template->setProperties([
-            'type' => $type,
-            'subject' => 'Test Subject for {{to}}',
-            'body' => 'Test body for {{to}}'
-        ]);
-        return $template;
+        return ($bean) ? new MailTemplate($bean) : null;
     }
     
     public static function getProps() {
         return [
             'type',
             'subject',
+            'language',
             'body'
         ];
     }
