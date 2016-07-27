@@ -6,6 +6,7 @@ class SignUpController extends Controller {
     const PATH = '/signup';
     
     private $userEmail;
+    private $userName;
     private $userPassword;
 
     public function validations() {
@@ -29,7 +30,7 @@ class SignUpController extends Controller {
     }
 
     public function handler() {
-        $this->setRequestData();
+        $this->storeRequestData();
 
         try {
             $userId = $this->createNewUserAndRetrieveId();
@@ -45,7 +46,8 @@ class SignUpController extends Controller {
 
     }
     
-    public function setRequestData() {
+    public function storeRequestData() {
+        $this->userName = Controller::request('name');
         $this->userEmail = Controller::request('email');
         $this->userPassword = Controller::request('password');
     }
@@ -54,6 +56,7 @@ class SignUpController extends Controller {
         $userInstance = new User();
         
         $userInstance->setProperties([
+            'name' => $this->userName,
             'email' => $this->userEmail,
             'password' => Hashing::hashPassword($this->userPassword)
         ]);
@@ -65,7 +68,8 @@ class SignUpController extends Controller {
         $mailSender = new MailSender();
         
         $mailSender->setTemplate(MailTemplate::USER_SIGNUP, [
-            'to' => $this->userEmail
+            'to' => $this->userEmail,
+            'name' => $this->userName
         ]);
         
         $mailSender->send();
