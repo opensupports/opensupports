@@ -1,6 +1,7 @@
 <?php
 // MOCKS
 include_once 'tests/__lib__/Mock.php';
+include_once 'tests/__mocks__/NullDataStoreMock.php';
 include_once 'tests/__mocks__/ResponseMock.php';
 include_once 'tests/__mocks__/ControllerMock.php';
 include_once 'tests/__mocks__/SessionMock.php';
@@ -45,7 +46,7 @@ class LoginControllerTest extends PHPUnit_Framework_TestCase {
 
     public function testShouldRespondErrorIfCredentialsAreInvalid() {
         User::setStatics(array(
-            'authenticate' => \Mock::stub()->returns(null)
+            'authenticate' => \Mock::stub()->returns(new NullDataStore())
         ));
 
         $this->loginController->handler();

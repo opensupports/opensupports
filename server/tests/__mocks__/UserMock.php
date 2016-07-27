@@ -7,9 +7,13 @@ class User extends \Mock {
             'authenticate' => parent::stub()->returns(self::getUserInstanceMock()),
         ));
     }
+    
+    public function isNull() {
+        return false;
+    }
 
     private static function getUserInstanceMock() {
-        $mockUserInstance = new \stdClass();
+        $mockUserInstance = new User();
 
         $mockUserInstance->id = 'MOCK_ID';
         $mockUserInstance->email = 'MOCK_EMAIL';
