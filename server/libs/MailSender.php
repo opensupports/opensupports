@@ -3,15 +3,13 @@ class MailSender {
 
     private $mailOptions = [];
     
-    //TODO: Add real initial options when Settings class is available
     public function __construct() {
-        $this->mailOptions['from'] = 'noreply@opensupports.com';
+        $this->mailOptions['from'] = Setting::getSetting('no-reply-email');
         
-        //SMTP Options
-        $this->mailOptions['smtp_host'] = 'localhost';
-        $this->mailOptions['smtp_port'] = 7070;
-        $this->mailOptions['smtp_user'] = '';
-        $this->mailOptions['smtp_pass'] = '';
+        $this->mailOptions['smtp-host'] = Setting::getSetting('smtp-host');
+        $this->mailOptions['smtp-port'] = Setting::getSetting('smtp-host');
+        $this->mailOptions['smtp-user'] = Setting::getSetting('smtp-host');
+        $this->mailOptions['smtp-pass'] = Setting::getSetting('smtp-host');
     }
 
     public function setTemplate($type, $config) {
@@ -29,14 +27,12 @@ class MailSender {
         $mailer->Subject = $this->mailOptions['subject'];
         $mailer->Body = $this->mailOptions['body'];
 
-        //$mailer->SMTPDebug = 3;
         $mailer->isSMTP();
         $mailer->SMTPAuth = true;
-        $mailer->Host = $this->mailOptions['smtp_host'];
-        $mailer->Port = $this->mailOptions['smtp_port'];
-        $mailer->Username = $this->mailOptions['smtp_user'];
-        $mailer->Password = $this->mailOptions['smtp_pass'];
-        //$mailer->SMTPSecure = "tls";
+        $mailer->Host = $this->mailOptions['smtp-host'];
+        $mailer->Port = $this->mailOptions['smtp-port'];
+        $mailer->Username = $this->mailOptions['smtp-user'];
+        $mailer->Password = $this->mailOptions['smtp-pass'];
         $mailer->Timeout = 1000;
 
         if ($mailer->smtpConnect()) {
