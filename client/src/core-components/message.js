@@ -54,6 +54,7 @@ const Message = React.createClass({
             'message_error': (this.props.type === 'error'),
             'message_info': (this.props.type === 'info'),
             'message_with-title': (this.props.title),
+            'message_left-aligned': (this.props.leftAligned),
 
             [this.props.className]: (this.props.className)
         };

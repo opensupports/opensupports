@@ -71,16 +71,28 @@
     &_with-title {
         text-align: left;
 
-        .message__title {
-            font-size: $font-size--md;
-            font-weight: bold;
-        }
-
         .message__icon {
             position: initial;
             float: left;
             margin-top: 7px;
             margin-right: 20px;
+        }
+
+        .message__title {
+            font-size: $font-size--md;
+            font-weight: bold;
+        }
+
+        .message__content {
+            font-size: $font-size--sm;
+            overflow: auto;
+        }
+    }
+
+    &_left-aligned {
+        .message__content {
+            text-align: left;
+            padding-left: 28px;
         }
     }
 }
