@@ -62,7 +62,7 @@ describe('Login/Recover Widget', function () {
         it('should add error if login fails', function () {
             component.refs.loginForm.refs.password.focus.reset();
             component.onUserStoreChanged('LOGIN_FAIL');
-            expect(loginForm.props.errors).to.deep.equal({password: 'Password does not match'});
+            expect(loginForm.props.errors).to.deep.equal({password: 'Invalid password'});
             expect(component.refs.loginForm.refs.password.focus).to.have.been.called;
         });
         
