@@ -63,7 +63,8 @@ const DropDown = React.createClass({
         let menuProps = {
             items: this.props.items,
             onItemClick: this.handleItemClick,
-            onMouseDown: this.handleListMouseDown
+            onMouseDown: this.handleListMouseDown,
+            selectedIndex: this.state.selectedIndex
         };
 
         return (

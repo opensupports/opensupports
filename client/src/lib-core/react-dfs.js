@@ -11,11 +11,14 @@ let reactDFS = function (children, visitFunction) {
         let element = stack.pop();
         let tempChilds = [];
 
-        if(element.props && element.props.children) {
-            React.Children.forEach(element.props.children, child => tempChilds.push(child));
+        if (element) {
+            if (element.props && element.props.children) {
+                React.Children.forEach(element.props.children, child => tempChilds.push(child));
+            }
+
+            visitFunction(element);
         }
 
-        visitFunction(element);
         stack = stack.concat(tempChilds.reverse());
     }
 };
@@ -26,11 +29,11 @@ let renderChildrenWithProps = function(children, mapFunction) {
     }
 
     return React.Children.map(children, function (child) {
-        let props = mapFunction(child);
-
         if (typeof child !== 'object' || child === null) {
             return child;
         }
+
+        let props = mapFunction(child);
 
         if (!_.isEmpty(props)) {
             return React.cloneElement(child, props, child.props && child.props.children);

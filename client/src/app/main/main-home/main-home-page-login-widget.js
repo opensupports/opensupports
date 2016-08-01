@@ -1,19 +1,19 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-const Reflux = require('reflux');
-const _ = require('lodash');
-const classNames = require('classnames');
+import React      from 'react';
+import ReactDOM   from 'react-dom';
+import Reflux     from 'reflux';
+import classNames from 'classnames';
 
-const UserActions = require('actions/user-actions');
-const UserStore = require('stores/user-store');
-const focus = require('lib-core/focus');
+import UserActions from 'actions/user-actions';
+import UserStore   from 'stores/user-store';
+import focus       from 'lib-core/focus';
+import i18n        from 'lib-app/i18n';
 
-const Button = require('core-components/button');
-const Form = require('core-components/form');
-const Input = require('core-components/input');
-const Checkbox = require('core-components/checkbox');
-const Widget = require('core-components/widget');
-const WidgetTransition = require('core-components/widget-transition');
+import Button           from 'core-components/button';
+import Form             from 'core-components/form';
+import Input            from 'core-components/input';
+import Checkbox         from 'core-components/checkbox';
+import Widget           from 'core-components/widget';
+import WidgetTransition from 'core-components/widget-transition';
 
 let MainHomePageLoginWidget = React.createClass({
     
@@ -49,7 +49,7 @@ let MainHomePageLoginWidget = React.createClass({
                     </div>
                 </Form>
                 <Button className="login-widget--forgot-password" type="link" onClick={this.handleForgotPasswordClick} onMouseDown={(event) => {event.preventDefault()}}>
-                    {'Forgot your password?'}
+                    {i18n('FORGOT_PASSWORD')}
                 </Button>
             </Widget>
         );
@@ -57,7 +57,7 @@ let MainHomePageLoginWidget = React.createClass({
 
     renderPasswordRecovery() {
         return (
-            <Widget className="main-home-page--widget main-home-page--password-widget" title="Password Recovery" ref="recoverWidget">
+            <Widget className="main-home-page--widget main-home-page--password-widget" title={i18n('RECOVER_PASSWORD')} ref="recoverWidget">
                 <Form className="login-widget--form" onSubmit={this.handleForgotPasswordSubmit}>
                     <div className="login-widget--inputs">
                         <Input placeholder="email" name="email" className="login-widget--input" validation="EMAIL"/>
@@ -103,7 +103,7 @@ let MainHomePageLoginWidget = React.createClass({
         if (event === 'LOGIN_FAIL') {
             this.setState({
                 loginFormErrors: {
-                    password: 'Password does not match'
+                    password: i18n('ERROR_PASSWORD')
                 }
             }, function () {
                 this.refs.loginForm.refs.password.focus()

@@ -1,4 +1,4 @@
-const Validator = require('lib-app/validations/validator');
+import Validator from 'lib-app/validations/validator';
 
 class EmailValidator extends Validator {
 

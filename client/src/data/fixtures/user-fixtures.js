@@ -46,5 +46,24 @@ module.exports = [
                 }
             };
         }
+    },
+    {
+        path: 'user/recover-password',
+        time: 100,
+        response: function (data) {
+
+            if (data.password.length > 6) {
+                return {
+                    status: 'success',
+                    data: {}
+                };
+            } else {
+                return {
+                    status: 'fail',
+                    message: 'Invalid token',
+                    data: {}
+                };
+            }
+        }
     }
 ];

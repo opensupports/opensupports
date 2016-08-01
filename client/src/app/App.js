@@ -3,10 +3,11 @@ import Reflux             from 'reflux';
 
 import CommonStore        from 'stores/common-store';
 
-let App = React.createClass({
+const App = React.createClass({
 
     contextTypes: {
-        router: React.PropTypes.object
+        router: React.PropTypes.object,
+        location: React.PropTypes.object
     },
 
     mixins: [Reflux.listenTo(CommonStore, 'onCommonStoreChanged')],
@@ -21,7 +22,7 @@ let App = React.createClass({
 
     onCommonStoreChanged(change) {
         let handle = {
-            'i18n': () => {this.forceUpdate()},
+            'i18n': () => {this.context.router.push(this.context.location.pathname)},
             'logged': () => {this.context.router.push('/app/dashboard')},
             'loggedOut': () => {this.context.router.push('/app')}
         };

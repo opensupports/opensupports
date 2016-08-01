@@ -7,6 +7,7 @@ const DemoPage = require('app/demo/components-demo-page');
 const MainLayout = require('app/main/main-layout');
 const MainHomePage = require('app/main/main-home/main-home-page');
 const MainSignUpPage = require('app/main/main-signup/main-signup-page');
+const MainRecoverPasswordPage = require('app/main/main-recover-password/main-recover-password-page');
 
 const DashboardLayout = require('app/main/dashboard/dashboard-layout');
 
@@ -25,6 +26,7 @@ export default (
             <Route path='/app' component={MainLayout}>
                 <IndexRoute component={MainHomePage} />
                 <Route path='signup' component={MainSignUpPage}/>
+                <Route path='recover-password' component={MainRecoverPasswordPage}/>
                 <Route path='dashboard' component={DashboardLayout}>
                     <IndexRoute component={DashboardListTicketsPage} />
                     <Route path='articles' component={DashboardListArticlesPage}/>
