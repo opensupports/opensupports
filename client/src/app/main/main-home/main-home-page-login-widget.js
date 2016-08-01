@@ -27,7 +27,8 @@ let MainHomePageLoginWidget = React.createClass({
             loginFormErrors: {},
             recoverFormErrors: {},
             recoverSent: false,
-            loading: false
+            loadingLogin: false,
+            loadingRecover: false
         };
     },
 
@@ -95,7 +96,7 @@ let MainHomePageLoginWidget = React.createClass({
 
     getLoginFormProps() {
         return {
-            loading: this.state.loading,
+            loading: this.state.loadingLogin,
             className: 'login-widget__form',
             ref: 'loginForm',
             onSubmit:this.handleLoginFormSubmit,
@@ -106,7 +107,7 @@ let MainHomePageLoginWidget = React.createClass({
 
     getRecoverFormProps() {
         return {
-            loading: this.state.loading,
+            loading: this.state.loadingRecover,
             className: 'login-widget__form',
             ref: 'recoverForm',
             onSubmit:this.handleForgotPasswordSubmit,
@@ -119,7 +120,7 @@ let MainHomePageLoginWidget = React.createClass({
         UserActions.login(formState);
 
         this.setState({
-            loading: true
+            loadingLogin: true
         });
     },
 
@@ -127,7 +128,7 @@ let MainHomePageLoginWidget = React.createClass({
         UserActions.sendRecover(formState);
 
         this.setState({
-            loading: true
+            loadingRecover: true
         });
     },
 
@@ -159,7 +160,7 @@ let MainHomePageLoginWidget = React.createClass({
     onUserStoreChanged(event) {
         if (event === 'LOGIN_FAIL') {
             this.setState({
-                loading: false,
+                loadingLogin: false,
                 loginFormErrors: {
                     password: i18n('ERROR_PASSWORD')
                 }
@@ -170,7 +171,7 @@ let MainHomePageLoginWidget = React.createClass({
 
         if (event === 'SEND_RECOVER_FAIL') {
             this.setState({
-                loading: false,
+                loadingRecover: false,
                 recoverFormErrors: {
                     email: i18n('EMAIL_NOT_EXIST')
                 }
@@ -182,7 +183,7 @@ let MainHomePageLoginWidget = React.createClass({
 
         if (event === 'SEND_RECOVER_SUCCESS') {
             this.setState({
-                loading: false,
+                loadingRecover: false,
                 recoverSent: true
             });
         }
