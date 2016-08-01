@@ -11,6 +11,7 @@ import Widget          from 'core-components/widget';
 import Form            from 'core-components/form';
 import Input           from 'core-components/input';
 import Button          from 'core-components/button';
+import Message         from 'core-components/message';
 
 const MainRecoverPasswordPage = React.createClass({
 
@@ -59,9 +60,9 @@ const MainRecoverPasswordPage = React.createClass({
     renderRecoverStatus() {
         switch (this.state.recoverStatus) {
             case 'valid':
-                return <div className="recover-password__text_valid">{i18n('VALID_RECOVER')}</div>;
+                return <Message type="success">{i18n('VALID_RECOVER')}</Message>;
             case 'invalid':
-                return <div className="recover-password__text_invalid">{i18n('INVALID_RECOVER')}</div>;
+                return <Message type="error">{i18n('INVALID_RECOVER')}</Message>;
             case 'waiting':
                 return null;
         }

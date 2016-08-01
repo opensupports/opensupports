@@ -60,7 +60,7 @@ const UserStore = Reflux.createStore({
             data: recoverData
         }).then(() => {
             this.trigger('VALID_RECOVER');
-            setTimeout(CommonActions.loggedOut, 2000);
+            //setTimeout(CommonActions.loggedOut, 2000);
         }, () => {
             this.trigger('INVALID_RECOVER')
         });

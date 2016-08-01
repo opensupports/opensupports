@@ -5,12 +5,12 @@ const Icon = React.createClass({
 
     propTypes: {
         name: React.PropTypes.string.isRequired,
-        size: React.PropTypes.number
+        size: React.PropTypes.string
     },
 
     getDefaultProps() {
         return {
-            size: 0
+            size: 'lg'
         };
     },
 
