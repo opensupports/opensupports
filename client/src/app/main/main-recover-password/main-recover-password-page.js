@@ -10,7 +10,7 @@ import i18n            from 'lib-app/i18n';
 import Widget          from 'core-components/widget';
 import Form            from 'core-components/form';
 import Input           from 'core-components/input';
-import Button          from 'core-components/button';
+import SubmitButton    from 'core-components/submit-button';
 import Message         from 'core-components/message';
 
 const MainRecoverPasswordPage = React.createClass({
@@ -34,7 +34,8 @@ const MainRecoverPasswordPage = React.createClass({
 
     getInitialState() {
         return {
-            recoverStatus: 'waiting'
+            recoverStatus: 'waiting',
+            loading: false
         };
     },
 
@@ -42,13 +43,13 @@ const MainRecoverPasswordPage = React.createClass({
         return (
             <div className="main-recover-password-page">
                 <Widget title={i18n('RECOVER_PASSWORD')} className="col-md-4 col-md-offset-4">
-                    <Form className="recover-password__form" onSubmit={this.handleRecoverPasswordSubmit}>
+                    <Form className="recover-password__form" onSubmit={this.handleRecoverPasswordSubmit} loading={this.state.loading}>
                         <div className="recover-password__inputs">
                             <Input placeholder={i18n('NEW_PASSWORD')} name="password" className="recover-password__input" validation="PASSWORD" password required/>
                             <Input placeholder={i18n('REPEAT_NEW_PASSWORD')} name="password-repeat" className="recover-password__input" validation="REPEAT_PASSWORD" password required/>
                         </div>
                         <div className="recover-password__submit-button">
-                            <Button type="primary">{i18n('SUBMIT')}</Button>
+                            <SubmitButton type="primary">{i18n('SUBMIT')}</SubmitButton>
                         </div>
                         {this.renderRecoverStatus()}
                     </Form>
@@ -74,16 +75,22 @@ const MainRecoverPasswordPage = React.createClass({
         recoverData.email = this.props.location.query.email;
 
         UserActions.recoverPassword(formState);
+        this.setState({
+            loading: true
+        });
     },
 
     onUserStoreChanged(event) {
         if (event === 'VALID_RECOVER') {
+            setTimeout(CommonActions.loggedOut, 2000);
             this.setState({
-                recoverStatus: 'valid'
+                recoverStatus: 'valid',
+                loading: false
             });
         } else {
             this.setState({
-                recoverStatus: 'invalid'
+                recoverStatus: 'invalid',
+                loading: false
             });
         }
     }

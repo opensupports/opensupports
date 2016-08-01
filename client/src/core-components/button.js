@@ -6,7 +6,7 @@ import classNames from 'classnames';
 // CORE LIBS
 import callback from 'lib-core/callback';
 
-let Button = React.createClass({
+const Button = React.createClass({
 
     contextTypes: {
         router: React.PropTypes.object
@@ -54,7 +54,8 @@ let Button = React.createClass({
 
     getClass() {
         let classes = {
-            'button': true
+            'button': true,
+            'button_disabled': this.props.disabled
         };
 
         classes['button-' + this.props.type] = (this.props.type);

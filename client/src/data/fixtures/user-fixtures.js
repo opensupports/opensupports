@@ -49,7 +49,7 @@ module.exports = [
     },
     {
         path: 'user/send-recover-password',
-        time: 100,
+        time: 2000,
         response: function (data) {
 
             if (data.email.length > 10) {
@@ -68,7 +68,7 @@ module.exports = [
     },
     {
         path: 'user/recover-password',
-        time: 100,
+        time: 1000,
         response: function (data) {
 
             if (data.password.length > 6) {

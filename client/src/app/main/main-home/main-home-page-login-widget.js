@@ -8,6 +8,7 @@ import UserStore   from 'stores/user-store';
 import focus       from 'lib-core/focus';
 import i18n        from 'lib-app/i18n';
 
+import SubmitButton     from 'core-components/submit-button';
 import Button           from 'core-components/button';
 import Form             from 'core-components/form';
 import Input            from 'core-components/input';
@@ -25,7 +26,8 @@ let MainHomePageLoginWidget = React.createClass({
             sideToShow: 'front',
             loginFormErrors: {},
             recoverFormErrors: {},
-            recoverSent: false
+            recoverSent: false,
+            loading: false
         };
     },
 
@@ -41,14 +43,14 @@ let MainHomePageLoginWidget = React.createClass({
     renderLogin() {
         return (
             <Widget className="main-home-page__widget" title="Login" ref="loginWidget">
-                <Form className="login-widget__form" ref="loginForm" onSubmit={this.handleLoginFormSubmit} errors={this.state.loginFormErrors} onValidateErrors={this.handleLoginFormErrorsValidation}>
+                <Form {...this.getLoginFormProps()}>
                     <div className="login-widget__inputs">
                         <Input placeholder="email" name="email" className="login-widget__input" validation="EMAIL" required/>
                         <Input placeholder="password" name="password" className="login-widget__input" password required/>
                         <Checkbox name="remember" label="Remember Me" className="login-widget__input"/>
                     </div>
                     <div className="login-widget__submit-button">
-                        <Button type="primary">LOG IN</Button>
+                        <SubmitButton type="primary">LOG IN</SubmitButton>
                     </div>
                 </Form>
                 <Button className="login-widget__forgot-password" type="link" onClick={this.handleForgotPasswordClick} onMouseDown={(event) => {event.preventDefault()}}>
@@ -61,12 +63,12 @@ let MainHomePageLoginWidget = React.createClass({
     renderPasswordRecovery() {
         return (
             <Widget className="main-home-page__widget login-widget_password" title={i18n('RECOVER_PASSWORD')} ref="recoverWidget">
-                <Form className="login-widget__form" ref="recoverForm" onSubmit={this.handleForgotPasswordSubmit} errors={this.state.recoverFormErrors}  onValidateErrors={this.handleRecoverFormErrorsValidation}>
+                <Form {...this.getRecoverFormProps()}>
                     <div className="login-widget__inputs">
                         <Input placeholder="email" name="email" className="login-widget__input" validation="EMAIL" required/>
                     </div>
                     <div className="login-widget__submit-button">
-                        <Button type="primary">{i18n('RECOVER_PASSWORD')}</Button>
+                        <SubmitButton type="primary">{i18n('RECOVER_PASSWORD')}</SubmitButton>
                     </div>
                 </Form>
                 <Button className="login-widget__forgot-password" type="link" onClick={this.handleBackToLoginClick} onMouseDown={(event) => {event.preventDefault()}}>
@@ -91,12 +93,42 @@ let MainHomePageLoginWidget = React.createClass({
         return status;
     },
 
+    getLoginFormProps() {
+        return {
+            loading: this.state.loading,
+            className: 'login-widget__form',
+            ref: 'loginForm',
+            onSubmit:this.handleLoginFormSubmit,
+            errors: this.state.loginFormErrors,
+            onValidateErrors: this.handleLoginFormErrorsValidation
+        };
+    },
+
+    getRecoverFormProps() {
+        return {
+            loading: this.state.loading,
+            className: 'login-widget__form',
+            ref: 'recoverForm',
+            onSubmit:this.handleForgotPasswordSubmit,
+            errors: this.state.recoverFormErrors,
+            onValidateErrors: this.handleRecoverFormErrorsValidation
+        };
+    },
+
     handleLoginFormSubmit(formState) {
         UserActions.login(formState);
+
+        this.setState({
+            loading: true
+        });
     },
 
     handleForgotPasswordSubmit(formState) {
         UserActions.sendRecover(formState);
+
+        this.setState({
+            loading: true
+        });
     },
 
     handleLoginFormErrorsValidation(errors) {
@@ -119,13 +151,15 @@ let MainHomePageLoginWidget = React.createClass({
 
     handleBackToLoginClick() {
         this.setState({
-            sideToShow: 'front'
+            sideToShow: 'front',
+            recoverSent: false
         }, this.moveFocusToCurrentSide);
     },
     
     onUserStoreChanged(event) {
         if (event === 'LOGIN_FAIL') {
             this.setState({
+                loading: false,
                 loginFormErrors: {
                     password: i18n('ERROR_PASSWORD')
                 }
@@ -136,6 +170,7 @@ let MainHomePageLoginWidget = React.createClass({
 
         if (event === 'SEND_RECOVER_FAIL') {
             this.setState({
+                loading: false,
                 recoverFormErrors: {
                     email: i18n('EMAIL_NOT_EXIST')
                 }
@@ -147,6 +182,7 @@ let MainHomePageLoginWidget = React.createClass({
 
         if (event === 'SEND_RECOVER_SUCCESS') {
             this.setState({
+                loading: false,
                 recoverSent: true
             });
         }
