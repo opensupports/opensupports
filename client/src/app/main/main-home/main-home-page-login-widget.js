@@ -24,6 +24,7 @@ let MainHomePageLoginWidget = React.createClass({
         return {
             sideToShow: 'front',
             loginFormErrors: {},
+            recoverFormErrors: {},
             recoverSent: false
         };
     },
@@ -60,16 +61,16 @@ let MainHomePageLoginWidget = React.createClass({
     renderPasswordRecovery() {
         return (
             <Widget className="main-home-page__widget login-widget_password" title={i18n('RECOVER_PASSWORD')} ref="recoverWidget">
-                <Form className="login-widget__form" onSubmit={this.handleForgotPasswordSubmit}>
+                <Form className="login-widget__form" ref="recoverForm" onSubmit={this.handleForgotPasswordSubmit} errors={this.state.recoverFormErrors}  onValidateErrors={this.handleRecoverFormErrorsValidation}>
                     <div className="login-widget__inputs">
-                        <Input placeholder="email" name="email" className="login-widget__input" validation="EMAIL"/>
+                        <Input placeholder="email" name="email" className="login-widget__input" validation="EMAIL" required/>
                     </div>
                     <div className="login-widget__submit-button">
-                        <Button type="primary">Recover my password</Button>
+                        <Button type="primary">{i18n('RECOVER_PASSWORD')}</Button>
                     </div>
                 </Form>
                 <Button className="login-widget__forgot-password" type="link" onClick={this.handleBackToLoginClick} onMouseDown={(event) => {event.preventDefault()}}>
-                    {'Back to login form'}
+                    {i18n('BACK_LOGIN_FORM')}
                 </Button>
                 {this.renderRecoverStatus()}
             </Widget>
@@ -94,15 +95,19 @@ let MainHomePageLoginWidget = React.createClass({
         UserActions.login(formState);
     },
 
-    handleForgotPasswordSubmit() {
-        this.setState({
-            recoverSent: true
-        });
+    handleForgotPasswordSubmit(formState) {
+        UserActions.sendRecover(formState);
     },
 
     handleLoginFormErrorsValidation(errors) {
         this.setState({
             loginFormErrors: errors
+        });
+    },
+
+    handleRecoverFormErrorsValidation(errors) {
+        this.setState({
+            recoverFormErrors: errors
         });
     },
 
@@ -125,8 +130,25 @@ let MainHomePageLoginWidget = React.createClass({
                     password: i18n('ERROR_PASSWORD')
                 }
             }, function () {
-                this.refs.loginForm.refs.password.focus()
+                this.refs.loginForm.refs.password.focus();
             }.bind(this));
+        }
+
+        if (event === 'SEND_RECOVER_FAIL') {
+            this.setState({
+                recoverFormErrors: {
+                    email: i18n('EMAIL_NOT_EXIST')
+                }
+            }, function () {
+                this.refs.recoverForm.refs.email.focus();
+            }.bind(this));
+
+        }
+
+        if (event === 'SEND_RECOVER_SUCCESS') {
+            this.setState({
+                recoverSent: true
+            });
         }
     },
 

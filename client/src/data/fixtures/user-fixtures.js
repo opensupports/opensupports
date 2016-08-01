@@ -48,6 +48,25 @@ module.exports = [
         }
     },
     {
+        path: 'user/send-recover-password',
+        time: 100,
+        response: function (data) {
+
+            if (data.email.length > 10) {
+                return {
+                    status: 'success',
+                    data: {}
+                };
+            } else {
+                return {
+                    status: 'fail',
+                    message: 'Email not exists',
+                    data: {}
+                };
+            }
+        }
+    },
+    {
         path: 'user/recover-password',
         time: 100,
         response: function (data) {
