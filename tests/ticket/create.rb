@@ -52,5 +52,5 @@ describe '/ticket/create' do
       (result['status']).should.equal('success')
       ticket = $database.getRow('ticket','Winter is coming','title')
       (ticket['content']).should.equal('The north remembers')
-      end
+  end
 end

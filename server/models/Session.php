@@ -65,6 +65,6 @@ class Session {
     }
 
     private function generateToken() {
-        return Hashing::generateRandomToken();;
+        return Hashing::generateRandomToken();
     }
 }
