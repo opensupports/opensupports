@@ -9,6 +9,7 @@ const Message = React.createClass({
     propTypes: {
         title: React.PropTypes.string,
         children: React.PropTypes.node,
+        leftAligned: React.PropTypes.bool,
         type: React.PropTypes.oneOf(['success', 'error', 'info'])
     },
 
