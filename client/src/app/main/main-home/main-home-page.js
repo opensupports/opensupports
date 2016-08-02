@@ -1,10 +1,10 @@
-const React = require( 'react');
+import React from 'react';
 
-const MainHomePageLoginWidget  = require('app/main/main-home/main-home-page-login-widget');
-const MainHomePagePortal  = require('app/main/main-home/main-home-page-portal');
+import MainHomePageLoginWidget from 'app/main/main-home/main-home-page-login-widget';
+import MainHomePagePortal      from 'app/main/main-home/main-home-page-portal';
 
-const CommonActions = require('actions/common-actions');
-const UserStore = require('stores/user-store');
+import CommonActions from 'actions/common-actions';
+import UserStore     from 'stores/user-store';
 
 const MainHomePage = React.createClass({
 

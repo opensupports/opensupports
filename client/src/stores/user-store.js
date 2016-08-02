@@ -13,6 +13,8 @@ const UserStore = Reflux.createStore({
         this.listenTo(UserActions.checkLoginStatus, this.checkLoginStatus);
         this.listenTo(UserActions.login, this.loginUser);
         this.listenTo(UserActions.logout, this.logoutUser);
+        this.listenTo(UserActions.recoverPassword, this.recoverPassword);
+        this.listenTo(UserActions.sendRecover, this.sendRecoverPassword);
     },
     
     initSession() {
@@ -50,6 +52,29 @@ const UserStore = Reflux.createStore({
             sessionStore.clearRememberData();
             CommonActions.loggedOut();
             this.trigger('LOGOUT');
+        });
+    },
+
+    sendRecoverPassword(recoverData) {
+        return API.call({
+            path: 'user/send-recover-password',
+            data: recoverData
+        }).then(() => {
+            this.trigger('SEND_RECOVER_SUCCESS');
+        }, () => {
+            this.trigger('SEND_RECOVER_FAIL')
+        });
+    },
+
+    recoverPassword(recoverData) {
+        return API.call({
+            path: 'user/recover-password',
+            data: recoverData
+        }).then(() => {
+            this.trigger('VALID_RECOVER');
+            setTimeout(CommonActions.loggedOut, 1000);
+        }, () => {
+            this.trigger('INVALID_RECOVER')
         });
     },
 

@@ -16,6 +16,10 @@ describe('App component', function () {
             app.context = {
                 router: {
                     push: stub()
+                },
+
+                location: {
+                    pathname: 'MOCK_PATH'
                 }
             };
 
@@ -23,9 +27,10 @@ describe('App component', function () {
         });
 
         it('should update with i18n', function () {
+            app.context.router.push.reset();
             app.forceUpdate.reset();
             app.onCommonStoreChanged('i18n');
-            expect(app.forceUpdate).to.have.been.called;
+            expect(app.context.router.push).to.have.been.calledWith('MOCK_PATH');
         });
 
         it('should redirect when logged in', function () {

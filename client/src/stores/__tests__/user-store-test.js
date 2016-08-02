@@ -156,7 +156,7 @@ describe('UserStore', function () {
         });
 
         describe('and no session is active', function () {
-            beforeEach(function() {
+            beforeEach(function () {
                 let mockSuccessData = {
                     status: 'success',
                     data: {
@@ -198,5 +198,92 @@ describe('UserStore', function () {
                 });
             });
         });
-    }})
+    }});
+
+    describe('when recovering password', function () {
+        beforeEach(function () {
+            let mockSuccessData = {
+                status: 'success',
+                data: {}
+            };
+            API.call = stub().returns({
+                then: (resolve) => {resolve(mockSuccessData)}
+            });
+            spy(UserStore, 'trigger');
+        });
+
+        afterEach(function () {
+            UserStore.trigger.restore();
+        });
+
+        it('should send recover password', function () {
+            UserStore.sendRecoverPassword({
+                email: 'SOME_EMAIL'
+            });
+
+            expect(API.call).to.have.been.calledWithMatch({
+                path: 'user/send-recover-password',
+                data: {
+                    email: 'SOME_EMAIL'
+                }
+            });
+            expect(UserStore.trigger).to.have.been.calledWith('SEND_RECOVER_SUCCESS');
+        });
+
+        it('should trigger fail if send recover fails', function () {
+            API.call = stub().returns({
+                then: (resolve, reject) => {reject({ status: 'fail'})}
+            });
+            UserStore.sendRecoverPassword({
+                email: 'SOME_EMAIL'
+            });
+
+            expect(API.call).to.have.been.calledWithMatch({
+                path: 'user/send-recover-password',
+                data: {
+                    email: 'SOME_EMAIL'
+                }
+            });
+            expect(UserStore.trigger).to.have.been.calledWith('SEND_RECOVER_FAIL');
+        });
+
+        it('should recover password', function () {
+            UserStore.recoverPassword({
+                email: 'SOME_EMAIL',
+                token: 'SOME_TOKEN',
+                password: 'SOME_PASSWORD'
+            });
+
+            expect(API.call).to.have.been.calledWithMatch({
+                path: 'user/recover-password',
+                data: {
+                    email: 'SOME_EMAIL',
+                    token: 'SOME_TOKEN',
+                    password: 'SOME_PASSWORD'
+                }
+            });
+            expect(UserStore.trigger).to.have.been.calledWith('VALID_RECOVER');
+        });
+
+        it('should trigger fail if recover password fails', function () {
+            API.call = stub().returns({
+                then: (resolve, reject) => {reject({ status: 'fail'})}
+            });
+            UserStore.recoverPassword({
+                email: 'SOME_EMAIL',
+                token: 'SOME_TOKEN',
+                password: 'SOME_PASSWORD'
+            });
+
+            expect(API.call).to.have.been.calledWithMatch({
+                path: 'user/recover-password',
+                data: {
+                    email: 'SOME_EMAIL',
+                    token: 'SOME_TOKEN',
+                    password: 'SOME_PASSWORD'
+                }
+            });
+            expect(UserStore.trigger).to.have.been.calledWith('INVALID_RECOVER');
+        });
+    });
 });

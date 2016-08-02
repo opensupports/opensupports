@@ -7,14 +7,13 @@ import UserStore          from 'stores/user-store';
 
 import Button             from 'core-components/button';
 import DropDown           from 'core-components/drop-down';
-import Icon               from 'core-components/icon';
 
-let languageList = ['English', 'Spanish', 'Portuguese', 'German', 'Turkish', 'Indian'];
 let codeLanguages = {
     'English': 'us',
     'Spanish': 'es',
-    'Portuguese': 'pt',
     'German': 'de',
+    'French': 'fr',
+    'Chinese': 'cn',
     'Turkish': 'tr',
     'Indian': 'in'
 };
@@ -52,7 +51,7 @@ let MainLayoutHeader = React.createClass({
     },
 
     getLanguageList() {
-        return languageList.map((language) => {
+        return Object.keys(codeLanguages).map((language) => {
             return {
                 content: language,
                 icon: codeLanguages[language]
@@ -61,7 +60,7 @@ let MainLayoutHeader = React.createClass({
     },
 
     changeLanguage(event) {
-        let language = languageList[event.index];
+        let language = Object.keys(codeLanguages)[event.index];
 
         CommonActions.changeLanguage(codeLanguages[language]);
     },

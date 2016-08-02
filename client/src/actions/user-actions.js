@@ -1,9 +1,11 @@
 import Reflux from 'reflux';
 
-let UserActions = Reflux.createActions([
+const UserActions = Reflux.createActions([
 	'checkLoginStatus',
 	'login',
-	'logout'
+	'logout',
+	'sendRecover',
+	'recoverPassword'
 ]);
 
 export default UserActions;

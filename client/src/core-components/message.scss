@@ -1,0 +1,98 @@
+@import "../scss/vars";
+
+.message {
+    padding: 10px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+
+    &__icon {
+        position: absolute;
+        top: 13px;
+        left: 13px;
+    }
+
+    &__title {
+
+    }
+
+    &__content {
+        color: white;
+    }
+
+    &_success {
+        background-color: #d8f7b3;
+
+        .message__icon {
+            color: #189e1e;
+        }
+
+        .message__title {
+            color: $primary-blue;
+        }
+
+        .message__content {
+            color: $primary-blue;
+        }
+    }
+
+    &_error {
+        background-color: #ffb4b4;
+
+        .message__icon {
+            color: red;
+        }
+
+        .message__title {
+            color: #bb4242;
+        }
+
+        .message__content {
+            color: white;
+        }
+    }
+
+    &_info {
+        background-color: #ceefff;
+
+        .message__icon {
+            color: #4c80ff;
+        }
+
+        .message__title {
+            color: $primary-blue;
+        }
+
+        .message__content {
+            color: $primary-blue;
+        }
+    }
+
+    &_with-title {
+        text-align: left;
+
+        .message__icon {
+            position: initial;
+            float: left;
+            margin-top: 7px;
+            margin-right: 20px;
+        }
+
+        .message__title {
+            font-size: $font-size--md;
+            font-weight: bold;
+        }
+
+        .message__content {
+            font-size: $font-size--sm;
+            overflow: auto;
+        }
+    }
+
+    &_left-aligned {
+        .message__content {
+            text-align: left;
+            padding-left: 28px;
+        }
+    }
+}

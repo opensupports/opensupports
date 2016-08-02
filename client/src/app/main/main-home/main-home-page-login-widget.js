@@ -1,19 +1,20 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-const Reflux = require('reflux');
-const _ = require('lodash');
-const classNames = require('classnames');
+import React      from 'react';
+import ReactDOM   from 'react-dom';
+import Reflux     from 'reflux';
+import classNames from 'classnames';
 
-const UserActions = require('actions/user-actions');
-const UserStore = require('stores/user-store');
-const focus = require('lib-core/focus');
+import UserActions from 'actions/user-actions';
+import UserStore   from 'stores/user-store';
+import focus       from 'lib-core/focus';
+import i18n        from 'lib-app/i18n';
 
-const Button = require('core-components/button');
-const Form = require('core-components/form');
-const Input = require('core-components/input');
-const Checkbox = require('core-components/checkbox');
-const Widget = require('core-components/widget');
-const WidgetTransition = require('core-components/widget-transition');
+import Button           from 'core-components/button';
+import Form             from 'core-components/form';
+import Input            from 'core-components/input';
+import Checkbox         from 'core-components/checkbox';
+import Widget           from 'core-components/widget';
+import WidgetTransition from 'core-components/widget-transition';
+import Message          from 'core-components/message';
 
 let MainHomePageLoginWidget = React.createClass({
     
@@ -22,13 +23,15 @@ let MainHomePageLoginWidget = React.createClass({
     getInitialState() {
         return {
             sideToShow: 'front',
-            loginFormErrors: {}
+            loginFormErrors: {},
+            recoverFormErrors: {},
+            recoverSent: false
         };
     },
 
     render() {
         return (
-            <WidgetTransition sideToShow={this.state.sideToShow} className={classNames('login-widget--container', this.props.className)}>
+            <WidgetTransition sideToShow={this.state.sideToShow} className={classNames('login-widget__container', this.props.className)}>
                 {this.renderLogin()}
                 {this.renderPasswordRecovery()}
             </WidgetTransition>
@@ -37,19 +40,19 @@ let MainHomePageLoginWidget = React.createClass({
 
     renderLogin() {
         return (
-            <Widget className="main-home-page--widget" title="Login" ref="loginWidget">
-                <Form className="login-widget--form" ref="loginForm" onSubmit={this.handleLoginFormSubmit} errors={this.state.loginFormErrors} onValidateErrors={this.handleLoginFormErrorsValidation}>
-                    <div className="login-widget--inputs">
-                        <Input placeholder="email" name="email" className="login-widget--input" validation="EMAIL" required/>
-                        <Input placeholder="password" name="password" className="login-widget--input" password required/>
-                        <Checkbox name="remember" label="Remember Me" className="login-widget--input"/>
+            <Widget className="main-home-page__widget" title="Login" ref="loginWidget">
+                <Form className="login-widget__form" ref="loginForm" onSubmit={this.handleLoginFormSubmit} errors={this.state.loginFormErrors} onValidateErrors={this.handleLoginFormErrorsValidation}>
+                    <div className="login-widget__inputs">
+                        <Input placeholder="email" name="email" className="login-widget__input" validation="EMAIL" required/>
+                        <Input placeholder="password" name="password" className="login-widget__input" password required/>
+                        <Checkbox name="remember" label="Remember Me" className="login-widget__input"/>
                     </div>
-                    <div className="login-widget--submit-button">
+                    <div className="login-widget__submit-button">
                         <Button type="primary">LOG IN</Button>
                     </div>
                 </Form>
-                <Button className="login-widget--forgot-password" type="link" onClick={this.handleForgotPasswordClick} onMouseDown={(event) => {event.preventDefault()}}>
-                    {'Forgot your password?'}
+                <Button className="login-widget__forgot-password" type="link" onClick={this.handleForgotPasswordClick} onMouseDown={(event) => {event.preventDefault()}}>
+                    {i18n('FORGOT_PASSWORD')}
                 </Button>
             </Widget>
         );
@@ -57,33 +60,54 @@ let MainHomePageLoginWidget = React.createClass({
 
     renderPasswordRecovery() {
         return (
-            <Widget className="main-home-page--widget main-home-page--password-widget" title="Password Recovery" ref="recoverWidget">
-                <Form className="login-widget--form" onSubmit={this.handleForgotPasswordSubmit}>
-                    <div className="login-widget--inputs">
-                        <Input placeholder="email" name="email" className="login-widget--input" validation="EMAIL"/>
+            <Widget className="main-home-page__widget login-widget_password" title={i18n('RECOVER_PASSWORD')} ref="recoverWidget">
+                <Form className="login-widget__form" ref="recoverForm" onSubmit={this.handleForgotPasswordSubmit} errors={this.state.recoverFormErrors}  onValidateErrors={this.handleRecoverFormErrorsValidation}>
+                    <div className="login-widget__inputs">
+                        <Input placeholder="email" name="email" className="login-widget__input" validation="EMAIL" required/>
                     </div>
-                    <div className="login-widget--submit-button">
-                        <Button type="primary">Recover my password</Button>
+                    <div className="login-widget__submit-button">
+                        <Button type="primary">{i18n('RECOVER_PASSWORD')}</Button>
                     </div>
                 </Form>
-                <Button className="login-widget--forgot-password" type="link" onClick={this.handleBackToLoginClick} onMouseDown={(event) => {event.preventDefault()}}>
-                    {'Back to login form'}
+                <Button className="login-widget__forgot-password" type="link" onClick={this.handleBackToLoginClick} onMouseDown={(event) => {event.preventDefault()}}>
+                    {i18n('BACK_LOGIN_FORM')}
                 </Button>
+                {this.renderRecoverStatus()}
             </Widget>
         );
+    },
+
+    renderRecoverStatus() {
+        let status = null;
+
+        if (this.state.recoverSent) {
+            status = (
+                <Message className="login-widget__message" type="info" leftAligned>
+                    {i18n('RECOVER_SENT')}
+                </Message>
+            );
+        }
+
+        return status;
     },
 
     handleLoginFormSubmit(formState) {
         UserActions.login(formState);
     },
 
-    handleForgotPasswordSubmit() {
-
+    handleForgotPasswordSubmit(formState) {
+        UserActions.sendRecover(formState);
     },
 
     handleLoginFormErrorsValidation(errors) {
         this.setState({
             loginFormErrors: errors
+        });
+    },
+
+    handleRecoverFormErrorsValidation(errors) {
+        this.setState({
+            recoverFormErrors: errors
         });
     },
 
@@ -103,11 +127,28 @@ let MainHomePageLoginWidget = React.createClass({
         if (event === 'LOGIN_FAIL') {
             this.setState({
                 loginFormErrors: {
-                    password: 'Password does not match'
+                    password: i18n('ERROR_PASSWORD')
                 }
             }, function () {
-                this.refs.loginForm.refs.password.focus()
+                this.refs.loginForm.refs.password.focus();
             }.bind(this));
+        }
+
+        if (event === 'SEND_RECOVER_FAIL') {
+            this.setState({
+                recoverFormErrors: {
+                    email: i18n('EMAIL_NOT_EXIST')
+                }
+            }, function () {
+                this.refs.recoverForm.refs.email.focus();
+            }.bind(this));
+
+        }
+
+        if (event === 'SEND_RECOVER_SUCCESS') {
+            this.setState({
+                recoverSent: true
+            });
         }
     },
 
