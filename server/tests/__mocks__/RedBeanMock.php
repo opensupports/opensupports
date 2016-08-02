@@ -1,5 +1,8 @@
 <?php
+
 namespace RedBeanPHP {
+    include_once 'tests/__mocks__/BeanMock.php';
+
     class Facade extends \Mock {
         public static $functionList = array();
 
@@ -7,7 +10,7 @@ namespace RedBeanPHP {
             self::setStatics(array(
                 'trash' => parent::stub(),
                 'store' => parent::stub(),
-                'dispense' => parent::stub()->returns(array())
+                'dispense' => parent::stub()->returns(new \BeanMock())
             ));
         }
     }

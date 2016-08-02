@@ -1,12 +1,31 @@
 <?php
 include_once 'tests/__lib__/Mock.php';
+include_once 'tests/__mocks__/BeanMock.php';
+include_once 'tests/__mocks__/SettingMock.php';
+include_once 'tests/__mocks__/RedBeanMock.php';
 include_once 'models/MailTemplate.php';
 
+use RedBeanPHP\Facade as RedBean;
+
 class MailTemplateTest extends PHPUnit_Framework_TestCase {
+
+    protected function setUp() {
+        RedBean::initStubs();
+        Setting::initStubs();
+
+        RedBean::setStatics([
+            'findOne' => \Mock::stub()->returns($this->getMockTemplateBean())
+        ]);
+    }
+
     public function testGetTemplateShouldReturnSpecifiedTemplate() {
         $mailTemplate = MailTemplate::getTemplate(MailTemplate::USER_SIGNUP);
         
-        $this->assertEquals(MailTemplate::USER_SIGNUP, $mailTemplate->type);
+        $this->assertEquals('TEST_TYPE', $mailTemplate->type);
+        $this->assertTrue(Redbean::get('findOne')->hasBeenCalledWithArgs('mailtemplate', 'type = :type AND language = :language', array(
+            ':type'  => 'USER_SIGNUP',
+            ':language' => 'MOCK_SETTING_VALUE'
+        )));
     }
 
     public function testCompilation() {
@@ -23,5 +42,15 @@ class MailTemplateTest extends PHPUnit_Framework_TestCase {
 
         $this->assertEquals($result['subject'], 'Welcoming to cersei@opensupports.com');
         $this->assertEquals($result['body'], 'Welcome, Cersei Lannister to our team');
+    }
+
+    private function getMockTemplateBean() {
+        $mailTemplateBean = new BeanMock();
+        $mailTemplateBean->type = 'TEST_TYPE';
+        $mailTemplateBean->body = 'Some body';
+        $mailTemplateBean->subject = 'Some subject';
+        $mailTemplateBean->language = 'en';
+
+        return $mailTemplateBean;
     }
 }

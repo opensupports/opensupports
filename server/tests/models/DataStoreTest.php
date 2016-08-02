@@ -1,5 +1,6 @@
 <?php
 include_once 'tests/__lib__/Mock.php';
+include_once 'tests/__mocks__/BeanMock.php';
 include_once 'tests/__mocks__/SlimMock.php';
 include_once 'tests/__mocks__/RedBeanMock.php';
 include_once 'models/DataStore.php';
@@ -57,7 +58,7 @@ class DataStoreTest extends PHPUnit_Framework_TestCase {
 
     public function testGetDataStore() {
         RedBean::setStatics(array(
-            'findOne' => \Mock::stub()->returns(array('TEST_PROP' => 'TEST_VALUE'))
+            'findOne' => \Mock::stub()->returns(new BeanMock(['TEST_PROP' => 'TEST_VALUE']))
         ));
 
         $dataStoreIntance = DataStoreMock::getDataStore('ID_VALUE');

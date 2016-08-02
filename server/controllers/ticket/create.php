@@ -1,5 +1,4 @@
 <?php
-use RedBeanPHP\Facade as RedBean;
 use Respect\Validation\Validator as DataValidator;
 
 class CreateController extends Controller {

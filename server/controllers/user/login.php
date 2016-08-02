@@ -4,7 +4,6 @@ class LoginController extends Controller {
     const PATH = '/login';
 
     private $userInstance;
-    private $session;
     private $rememberToken;
 
     public function validations() {
@@ -20,7 +19,7 @@ class LoginController extends Controller {
             return;
         }
 
-        if ($this->areCredentialsValid() || $this->isRememberTokenValid()) {
+        if ($this->checkInputCredentials() || $this->checkRememberToken()) {
             $this->createUserSession();
             $this->createSessionCookie();
 
@@ -31,61 +30,61 @@ class LoginController extends Controller {
     }
 
     private function isAlreadyLoggedIn() {
-        return $this->getSession()->sessionExists();
+        return Session::getInstance()->sessionExists();
     }
 
-    private function areCredentialsValid() {
-        return ($this->getUserByInputCredentials() !== null);
+    private function checkInputCredentials() {
+        $this->userInstance = $this->getUserByInputCredentials();
+        
+        return !$this->userInstance->isNull();
     }
 
-    private function isRememberTokenValid() {
-        $rememberToken = Controller::request('rememberToken');
-
-        if ($rememberToken) {
-            $sessionCookie = SessionCookie::getDataStore($rememberToken, 'token');
-            $userid = Controller::request('userId');
-
-            if ($sessionCookie !== null && $userid === $sessionCookie->user->id) {
-                $this->userInstance = $sessionCookie->user;
-                return true;
-            }
-        }
+    private function checkRememberToken() {
+        $this->userInstance = $this->getUserByRememberToken();
+        
+        return !$this->userInstance->isNull();
     }
 
     private function createUserSession() {
-        $this->getSession()->createSession($this->userInstance->id);
+        Session::getInstance()->createSession($this->userInstance->id);
     }
 
     private function getUserData() {
-        $userInstance = $this->getUserByInputCredentials();
+        $userInstance = $this->userInstance;
 
         return array(
             'userId' => $userInstance->id,
             'userEmail' => $userInstance->email,
-            'token' => $this->getSession()->getToken(),
+            'token' => Session::getInstance()->getToken(),
             'rememberToken' => $this->rememberToken
         );
     }
 
     private function getUserByInputCredentials() {
-        if ($this->userInstance === null) {
-            $email =  Controller::request('email');
-            $password =  Controller::request('password');
+        $email =  Controller::request('email');
+        $password =  Controller::request('password');
 
-            $this->userInstance = User::authenticate($email, $password);
+        return User::authenticate($email, $password);
+    }
+    
+    private function getUserByRememberToken() {
+        $rememberToken = Controller::request('rememberToken');
+        $userInstance = new NullDataStore();
+
+        if ($rememberToken) {
+            $sessionCookie = SessionCookie::getDataStore($rememberToken, 'token');
+            $userId = Controller::request('userId');
+
+            if (!$sessionCookie->isNull() && $userId === $sessionCookie->user->id) {
+                $userInstance = new User($sessionCookie->user);
+                $sessionCookie->trash();
+            }
         }
-
-        return $this->userInstance;
+        
+        return $userInstance;
     }
 
-    private function getSession() {
-        if ($this->session === null) {
-            $this->session = Session::getInstance();
-        }
-
-        return $this->session;
-    }
-    private function createSessionCookie(){
+    private function createSessionCookie() {
         $remember =  Controller::request('remember');
         if ($remember) {
             $this->rememberToken = Hashing::generateRandomToken();
