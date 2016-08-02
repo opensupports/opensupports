@@ -4,7 +4,7 @@ const UserActions = Reflux.createActions([
 	'checkLoginStatus',
 	'login',
 	'logout',
-	'sendRecover',
+	'sendRecoverPassword',
 	'recoverPassword'
 ]);
 

@@ -14,7 +14,7 @@ const UserStore = Reflux.createStore({
         this.listenTo(UserActions.login, this.loginUser);
         this.listenTo(UserActions.logout, this.logoutUser);
         this.listenTo(UserActions.recoverPassword, this.recoverPassword);
-        this.listenTo(UserActions.sendRecover, this.sendRecoverPassword);
+        this.listenTo(UserActions.sendRecoverPassword, this.sendRecoverPassword);
     },
     
     initSession() {

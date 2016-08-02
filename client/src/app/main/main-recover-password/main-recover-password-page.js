@@ -74,7 +74,7 @@ const MainRecoverPasswordPage = React.createClass({
         recoverData.token = this.props.location.query.token;
         recoverData.email = this.props.location.query.email;
 
-        UserActions.recoverPassword(formState);
+        UserActions.recoverPassword(recoverData);
         this.setState({
             loading: true
         });

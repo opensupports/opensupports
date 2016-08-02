@@ -125,7 +125,7 @@ let MainHomePageLoginWidget = React.createClass({
     },
 
     handleForgotPasswordSubmit(formState) {
-        UserActions.sendRecover(formState);
+        UserActions.sendRecoverPassword(formState);
 
         this.setState({
             loadingRecover: true
