@@ -15,6 +15,7 @@ include_once 'libs/Controller.php';
 include_once 'libs/ControllerGroup.php';
 include_once 'libs/Hashing.php';
 include_once 'libs/MailSender.php';
+include_once 'libs/Date.php';
 
 // LOAD DATA
 spl_autoload_register(function ($class) {

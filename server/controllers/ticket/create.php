@@ -11,7 +11,7 @@ class CreateController extends Controller {
 
     public function validations() {
         return [
-            'permission' => 'any',
+            'permission' => 'user',
             'requestData' => [
                 'title' => [
                     'validation' => DataValidator::length(3, 30),
@@ -48,13 +48,12 @@ class CreateController extends Controller {
             'language' => $this->language,
             'department' => $this->departmentId,
             'file' => '',
-            'date' => date('F j, Y, g:i a'),
+            'date' => Date::getCurrentDate(),
             'unread' => false,
             'closed' => false
         ));
 
-        //TODO: Add logged user as author
-        $ticket->setAuthor(User::getUser(1));
+        $ticket->setAuthor(Controller::getLoggedUser());
 
         $ticket->store();
     }
