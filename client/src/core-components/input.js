@@ -6,6 +6,10 @@ const Icon = require('core-components/icon');
 
 const Input = React.createClass({
 
+    contextTypes: {
+        loading: React.PropTypes.bool
+    },
+
     propTypes: {
         value: React.PropTypes.string,
         validation: React.PropTypes.string,
@@ -60,6 +64,7 @@ const Input = React.createClass({
         props['aria-required'] = this.props.required;
         props.type = (this.props.password) ? 'password' : 'text';
         props.ref = 'nativeInput';
+        props.disabled = this.context.loading;
 
         delete props.required;
         delete props.validation;

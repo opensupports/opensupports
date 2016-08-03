@@ -203,4 +203,22 @@ describe('Form component', function () {
             expect(fields[1].focus).to.have.been.called;
         });
     });
+
+    describe('when using loading prop', function () {
+        it('should pass loading context in true if enabled', function () {
+            renderForm({ loading: true });
+
+            expect(fields[0].context.loading).to.equal(true);
+            expect(fields[1].context.loading).to.equal(true);
+            expect(fields[2].context.loading).to.equal(true);
+        });
+
+        it('should pass loading context in true if disabled', function () {
+            renderForm({ loading: false });
+
+            expect(fields[0].context.loading).to.equal(false);
+            expect(fields[1].context.loading).to.equal(false);
+            expect(fields[2].context.loading).to.equal(false);
+        });
+    });
 });

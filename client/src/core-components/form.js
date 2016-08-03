@@ -10,9 +10,20 @@ const Checkbox = require('core-components/checkbox');
 const Form = React.createClass({
 
     propTypes: {
+        loading: React.PropTypes.bool,
         errors: React.PropTypes.object,
         onValidateErrors: React.PropTypes.func,
         onSubmit: React.PropTypes.func
+    },
+
+    childContextTypes: {
+        loading: React.PropTypes.bool
+    },
+
+    getChildContext() {
+        return {
+            loading: this.props.loading
+        };
     },
 
     getInitialState() {
@@ -41,6 +52,7 @@ const Form = React.createClass({
         props.onSubmit = this.handleSubmit;
         
         delete props.errors;
+        delete props.loading;
         delete props.onValidateErrors;
 
         return props;
