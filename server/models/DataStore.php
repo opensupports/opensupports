@@ -92,6 +92,7 @@ abstract class DataStore {
     }
 
     public function store() {
+        $this->updateBeanProperties();
 
         return RedBean::store($this->getBeanInstance());
     }
@@ -102,8 +103,6 @@ abstract class DataStore {
     }
 
     public function getBeanInstance() {
-        $this->updateBeanProperties();
-
         return $this->_bean;
     }
 
@@ -111,7 +110,7 @@ abstract class DataStore {
         return false;
     }
 
-    private function updateBeanProperties() {
+    public function updateBeanProperties() {
         foreach ($this->properties as $key => $prop) {
             $this->updateBeanProp($key, $prop);
         }

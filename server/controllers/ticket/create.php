@@ -44,8 +44,7 @@ class CreateController extends Controller {
         $this->language = Controller::request('language');
     }
 
-    private function storeTicket()
-    {
+    private function storeTicket() {
         $department = Department::getDataStore($this->departmentId);
         $author = Controller::getLoggedUser();
 

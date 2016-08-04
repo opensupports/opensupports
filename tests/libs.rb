@@ -1,7 +1,8 @@
+@@agent = Mechanize.new
 
 def request(path, data = {})
-    uri = URI('http://localhost:8080' + path)
-    response = Net::HTTP.post_form(uri, data)
+    uri = 'http://localhost:8080' + path
+    response = @@agent.post(uri, data)
 
     return JSON.parse(response.body)
 end

@@ -28,6 +28,7 @@ class DataStoreList {
         $beanList = [];
         
         foreach($this->list as $item) {
+            $item->updateBeanProperties();
             $beanList[] = $item->getBeanInstance();
         }
         
