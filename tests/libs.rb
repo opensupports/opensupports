@@ -1,8 +1,8 @@
-@@agent = Mechanize.new
+$agent = Mechanize.new
 
 def request(path, data = {})
     uri = 'http://localhost:8080' + path
-    response = @@agent.post(uri, data)
+    response = $agent.post(uri, data)
 
     return JSON.parse(response.body)
 end

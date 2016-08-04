@@ -1,4 +1,4 @@
-describe 'ticket/comment/' do
+describe '/ticket/comment/' do
     it 'should fail if invalid token is passed' do
         result = request('/ticket/comment', {
             content: 'some comment content',
