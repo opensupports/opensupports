@@ -26,7 +26,7 @@ class Session {
 
     public function createSession($userId) {
         $this->store('userId', $userId);
-        $this->store('token', $this->generateToken());
+        $this->store('token', Hashing::generateRandomToken());
     }
 
     public function getToken() {
@@ -46,10 +46,6 @@ class Session {
                $token === $data['token'];
     }
 
-    public function isLoggedWithId($userId) {
-        return ($this->getStoredData('userId') === $userId);
-    }
-
     private function store($key, $value) {
         $_SESSION[$key] = $value;
     }
@@ -63,8 +59,8 @@ class Session {
 
         return $storedValue;
     }
-
-    private function generateToken() {
-        return Hashing::generateRandomToken();
+    
+    public function isLoggedWithId($userId) {
+        return ($this->getStoredData('userId') === $userId);
     }
 }

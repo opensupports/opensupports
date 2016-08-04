@@ -1,40 +1,57 @@
 <?php
-use RedBeanPHP\Facade as RedBean;
+use Respect\Validation\Validator as DataValidator;
+DataValidator::with('CustomValidations', true);
 
 class CommentController extends Controller {
     const PATH = '/comment';
 
-    private $ticketId;
+    private $ticket;
     private $content;
 
     public function validations() {
         return [
-            'permission' => 'any',
-            'requestData' => []
+            'permission' => 'user',
+            'requestData' => [
+                'content' => [
+                    'validation' => DataValidator::length(20, 500),
+                    'error' => ERRORS::INVALID_CONTENT
+                ],
+                'ticketId' => [
+                    'validation' => DataValidator::dataStoreId('ticket'),
+                    'error' => ERRORS::INVALID_TICKET
+                ]
+            ]
         ];
     }
 
     public function handler() {
+        $session = Session::getInstance();
         $this->requestData();
-        $this->storeComment();
 
-        Response::respondSuccess();
+        if ($session->isLoggedWithId($this->ticket->author->id) || Controller::isStaffLogged()) {
+            $this->storeComment();
+            Response::respondSuccess();
+        } else {
+            Response::respondError(ERRORS::NO_PERMISSION);
+        }
     }
 
     private function requestData() {
-        $this->ticketId = Controller::request('ticketId');
+        $ticketId = Controller::request('ticketId');
+
+        $this->ticket = Ticket::getTicket($ticketId);
         $this->content = Controller::request('content');
     }
 
     private function storeComment() {
         $comment = new Comment();
         $comment->setProperties(array(
-            'content' => $this->content
+            'content' => $this->content,
+            'author' => Controller::getLoggedUser(),
+            'date' => Date::getCurrentDate()
         ));
 
-        $ticket = Ticket::getTicket($this->ticketId);
-        $ticket->ownCommentList->add($comment);
-        //$comment->store();
-        $ticket->store();
+        $this->ticket->ownCommentList->add($comment);
+        $this->ticket->store();
     }
 }

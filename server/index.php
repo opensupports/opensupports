@@ -38,7 +38,7 @@ spl_autoload_register(function ($class) {
 });
 
 //Load custom validations
-include_once 'libs/validations/dataStoreExists.php';
+include_once 'libs/validations/dataStoreId.php';
 
 // LOAD CONTROLLERS
 foreach (glob('controllers/*.php') as $controller) {

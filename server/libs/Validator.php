@@ -15,9 +15,9 @@ class Validator {
     private function validatePermissions($permission) {
         $permissions = [
             'any' => true,
-            'user' => $this->isUserLogged(),
-            'staff' => $this->isStaffLogged(),
-            'admin' => $this->isAdminLogged()
+            'user' => Controller::isUserLogged(),
+            'staff' => Controller::isStaffLogged(),
+            'admin' => Controller::isAdminLogged()
         ];
 
         if (!$permissions[$permission]) {
@@ -39,23 +39,6 @@ class Validator {
         if (!$dataValidator->validate($value)) {
             throw new ValidationException($error);
         }
-    }
-
-    private function isUserLogged() {
-        $session = Session::getInstance();
-
-        return $session->checkAuthentication(array(
-            'userId' => Controller::request('csrf_userid'),
-            'token' => Controller::request('csrf_token')
-        ));
-    }
-
-    private function isStaffLogged() {
-        return $this->isUserLogged() && (Controller::getLoggedUser()->admin === 1);
-    }
-
-    private function isAdminLogged() {
-        return $this->isUserLogged() && (Controller::getLoggedUser()->admin === 2);
     }
 
 }

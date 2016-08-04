@@ -1,15 +1,16 @@
 describe '/user/signup' do
     it 'should create user in database' do
         response = request('/user/signup', {
-          'name' => 'Steve Jobs',
-          'email' => 'steve@jobs.com',
-          'password' => 'custom'
+          :name => 'Steve Jobs',
+          :email => 'steve@jobs.com',
+          :password => 'custom'
         })
 
         userRow = $database.getRow('user', response['data']['userId'])
 
         (userRow['email']).should.equal('steve@jobs.com')
         (userRow['name']).should.equal('Steve Jobs')
+        (userRow['admin']).should.equal('0')
     end
 
     it 'should fail if name is invalid' do

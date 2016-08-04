@@ -10,5 +10,6 @@ class ERRORS {
     const INVALID_NAME = 'Invalid name';
     const INVALID_SETTING = 'Invalid setting';
     const INVALID_DEPARTMENT = 'Invalid department';
+    const INVALID_TICKET = 'Invalid ticket';
     const INIT_SETTINGS_DONE = 'Settings already initialized';
 }
