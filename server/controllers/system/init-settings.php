@@ -14,6 +14,7 @@ class InitSettingsController extends Controller {
         if (Setting::isTableEmpty()) {
             $this->storeGlobalSettings();
             $this->storeMailTemplates();
+            $this->storeMockedDepartments();
 
             Response::respondSuccess();
         } else {
@@ -61,6 +62,20 @@ class InitSettingsController extends Controller {
             ]);
 
             $setting->store();
+        }
+    }
+
+    private function storeMockedDepartments() {
+        $departments = [
+            'Tech Support',
+            'Suggestions',
+            'Sales and Subscriptions'
+        ];
+
+        foreach ($departments as $departmentName) {
+            $department = new Department();
+            $department->name = $departmentName;
+            $department->store();
         }
     }
 }

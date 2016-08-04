@@ -35,6 +35,7 @@ class DataStoreTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testContructor() {
+        $this->instance->store();
         $newInstance = new DataStoreMock($this->instance->getBeanInstance());
 
         $this->assertEquals($newInstance->prop1, 0);
@@ -58,12 +59,12 @@ class DataStoreTest extends PHPUnit_Framework_TestCase {
 
     public function testGetDataStore() {
         RedBean::setStatics(array(
-            'findOne' => \Mock::stub()->returns(new BeanMock(['TEST_PROP' => 'TEST_VALUE']))
+            'findOne' => \Mock::stub()->returns(new BeanMock(['prop1' => 'TEST_VALUE']))
         ));
 
         $dataStoreIntance = DataStoreMock::getDataStore('ID_VALUE');
 
-        $this->assertEquals($dataStoreIntance->TEST_PROP, 'TEST_VALUE');
+        $this->assertEquals($dataStoreIntance->prop1, 'TEST_VALUE');
 
         $this->assertTrue(RedBean::get('findOne')->hasBeenCalledWithArgs(
             'MOCK_TABLE',

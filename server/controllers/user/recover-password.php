@@ -39,7 +39,7 @@ class RecoverPasswordController extends Controller {
         $user = User::getDataStore($this->email, 'email');
 
         if($recoverPassword && $user) {
-            $recoverPassword->trash();
+            $recoverPassword->delete();
 
             $user->setProperties([
                 'password' => Hashing::hashPassword($this->password)

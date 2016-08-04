@@ -11,20 +11,20 @@ class User extends DataStore {
     }
 
     public static function getProps() {
-        return array(
+        return [
             'email',
             'password',
             'name',
-            'verificationToken'
-        );
+            'admin',
+            'sharedTicketList',
+            'verificationToken',
+        ];
     }
 
     public function getDefaultProps() {
-        return array();
-    }
-
-    public function addTicket(Ticket $ticket) {
-        $this->getBeanInstance()->sharedTicketList[] = $ticket->getBeanInstance();
+        return [
+            'admin' => 0
+        ];
     }
 
     public static function getUser($value, $property = 'id') {

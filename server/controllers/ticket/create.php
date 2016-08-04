@@ -1,5 +1,6 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
+DataValidator::with('CustomValidations', true);
 
 class CreateController extends Controller {
     const PATH = '/create';
@@ -20,6 +21,10 @@ class CreateController extends Controller {
                 'content' => [
                     'validation' => DataValidator::length(10, 500),
                     'error' => ERRORS::INVALID_CONTENT
+                ],
+                'departmentId' => [
+                    'validation' => DataValidator::dataStoreId('department'),
+                    'error' => ERRORS::INVALID_DEPARTMENT
                 ]
             ]
         ];
@@ -39,22 +44,28 @@ class CreateController extends Controller {
         $this->language = Controller::request('language');
     }
 
-    private function storeTicket() {
+    private function storeTicket()
+    {
+        $department = Department::getDataStore($this->departmentId);
+        $author = Controller::getLoggedUser();
+
         $ticket = new Ticket();
         $ticket->setProperties(array(
             'ticketId' => '',
             'title' => $this->title,
             'content' => $this->content,
             'language' => $this->language,
-            'department' => $this->departmentId,
+            'author' => $author,
+            'department' => $department,
             'file' => '',
             'date' => Date::getCurrentDate(),
             'unread' => false,
-            'closed' => false
+            'closed' => false,
         ));
+        
+        $author->sharedTicketList->add($ticket);
 
-        $ticket->setAuthor(Controller::getLoggedUser());
-
+        $author->store();
         $ticket->store();
     }
 }

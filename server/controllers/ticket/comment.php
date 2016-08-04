@@ -33,7 +33,8 @@ class CommentController extends Controller {
         ));
 
         $ticket = Ticket::getTicket($this->ticketId);
-        $ticket->addComment($comment);
+        $ticket->ownCommentList->add($comment);
+        //$comment->store();
         $ticket->store();
     }
 }

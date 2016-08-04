@@ -33,19 +33,6 @@ class Ticket extends DataStore {
         );
     }
     
-    public function setAuthor(User $user) {
-        $this->author = $user;
-        $this->author->addTicket($this);
-        
-        $this->setProperties(array(
-            'author' => $this->author->getBeanInstance()
-        ));
-    }
-
-    public function addComment(Comment $comment) {
-        $this->getBeanInstance()->ownCommentList[] = $comment->getBeanInstance();
-    }
-    
     public function store() {
         parent::store();
         

@@ -14,4 +14,8 @@ class Setting extends DataStore {
             'permission'
         );
     }
+
+    public function getValue() {
+        return $this->value;
+    }
 }

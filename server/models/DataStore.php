@@ -3,6 +3,7 @@ use RedBeanPHP\Facade as RedBean;
 
 abstract class DataStore {
     protected $_bean;
+    protected $properties = [];
 
     public static function isTableEmpty() {
         return (RedBean::count(static::TABLE) === 0);
@@ -14,55 +15,6 @@ abstract class DataStore {
         ));
 
         return ($bean) ? new static($bean) : new NullDataStore();
-    }
-
-    public function __construct($beanInstance = null) {
-
-        if ($beanInstance) {
-            $this->_bean = $beanInstance;
-        }
-        else {
-            $this->_bean = RedBean::dispense(static::TABLE);
-            $defaultProperties = $this->getDefaultProps();
-
-            foreach ($defaultProperties as $PROP => $VALUE) {
-                $this->_bean[$PROP] = $VALUE;
-            }
-        }
-    }
-
-    public function getDefaultProps() {
-        return [];
-    }
-
-    public function delete() {
-        RedBean::trash($this->getBeanInstance());
-        unset($this);
-    }
-
-    public function getBeanInstance() {
-        return $this->_bean;
-    }
-
-    public function setProperties($properties) {
-        foreach (static::getProps() as $PROP) {
-            if(array_key_exists($PROP, $properties)) {
-                $this->_bean[$PROP] = $properties[$PROP];
-            }
-        }
-    }
-
-    public function __get($name) {
-        if ($this->_bean[$name]) {
-            return $this->_bean[$name];
-        }
-        else {
-            return null;
-        }
-    }
-
-    public function store() {
-        return RedBean::store($this->_bean);
     }
 
     private static function validateProp($propToValidate) {
@@ -77,11 +29,111 @@ abstract class DataStore {
         return ($validProp) ? $propToValidate : 'id';
     }
 
-    public function trash() {
-        RedBean::trash($this->_bean);
+    public function __construct($beanInstance = null) {
+        if ($beanInstance) {
+            $this->setBean($beanInstance);
+        } else {
+            $this->setBean(RedBean::dispense(static::TABLE));
+            $this->setProperties($this->getDefaultProps());
+        }
     }
-    
+
+    public function getDefaultProps() {
+        return [];
+    }
+
+    public function setProperties($properties) {
+        foreach (static::getProps() as $PROP) {
+            if(array_key_exists($PROP, $properties)) {
+                $this->properties[$PROP] = $properties[$PROP];
+            }
+        }
+    }
+
+    public function __set($prop, $value) {
+        if (in_array($prop, static::getProps())) {
+            $this->properties[$prop] = $value;
+        } else {
+            throw new Exception("Invalid prop: $prop");
+        }
+    }
+
+    public function &__get($name) {
+        if (!array_key_exists($name, $this->properties) || !$this->properties[$name]) {
+            $this->properties[$name] = $this->parseBeanProp($name);
+        }
+
+        if ($name !== 'id') {
+            $property =& $this->properties[$name];
+        } else {
+            $property = $this->_bean->id;
+        }
+
+        return $property;
+    }
+
+    private function setBean($beanInstance) {
+        $this->_bean = $beanInstance;
+    }
+
+    private function parseBeanProp($prop) {
+        $parsedProp = $this->_bean[$prop];
+
+        if (strpos($prop, 'List')) {
+            $parsedProp = DataStoreList::getList($this->getListType($prop), $parsedProp);
+        } else if ($parsedProp instanceof \RedBeanPHP\OODBBean) {
+            $beanType = ucfirst($parsedProp->getPropertiesAndType()[1]);
+
+            $parsedProp = new $beanType($parsedProp);
+
+        }
+
+        return $parsedProp;
+    }
+
+    public function store() {
+
+        return RedBean::store($this->getBeanInstance());
+    }
+
+    public function delete() {
+        RedBean::trash($this->getBeanInstance());
+        unset($this);
+    }
+
+    public function getBeanInstance() {
+        $this->updateBeanProperties();
+
+        return $this->_bean;
+    }
+
     public function isNull() {
         return false;
+    }
+
+    private function updateBeanProperties() {
+        foreach ($this->properties as $key => $prop) {
+            $this->updateBeanProp($key, $prop);
+        }
+    }
+
+    private function updateBeanProp($key, $value) {
+        if ($value instanceof DataStoreList) {
+            $this->_bean[$key] = $value->toBeanList();
+        } else if ($value instanceof DataStore) {
+            $this->_bean[$key] = $value->getBeanInstance();
+        } else {
+            $this->_bean[$key] = $value;
+        }
+    }
+
+    private function getListType($listName) {
+        $listType = $listName;
+
+        $listType = str_replace('List', '', $listType);
+        $listType = str_replace('shared', '', $listType);
+        $listType = str_replace('own', '', $listType);
+
+        return $listType;
     }
 }

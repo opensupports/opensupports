@@ -76,8 +76,8 @@ class LoginController extends Controller {
             $userId = Controller::request('userId');
 
             if (!$sessionCookie->isNull() && $userId === $sessionCookie->user->id) {
-                $userInstance = new User($sessionCookie->user);
-                $sessionCookie->trash();
+                $userInstance = $sessionCookie->user;
+                $sessionCookie->delete();
             }
         }
         
@@ -91,7 +91,7 @@ class LoginController extends Controller {
 
             $sessionCookie = new SessionCookie();
             $sessionCookie->setProperties(array(
-                'user' => $this->userInstance->getBeanInstance(),
+                'user' => $this->userInstance,
                 'token' => $this->rememberToken,
                 'ip' => $_SERVER['REMOTE_ADDR'],
                 'creationDate' =>  date('d-m-Y (H:i:s)')

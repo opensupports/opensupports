@@ -7,7 +7,6 @@ class Comment extends DataStore {
         return array(
             'content',
             'file',
-            'ticket',
             'author',
             'date'
         );
