@@ -3,7 +3,7 @@
 class Department extends DataStore {
     const TABLE = 'department';
     
-    public function getProps() {
+    public static function getProps() {
         return [
             'name',
             'sharedTicketList'
