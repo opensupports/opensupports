@@ -1,5 +1,6 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
+DataValidator::with('CustomValidations', true);
 
 class RecoverPasswordController extends Controller {
     const PATH = '/recover-password';
@@ -13,7 +14,7 @@ class RecoverPasswordController extends Controller {
             'permission' => 'any',
             'requestData' => [
                 'email' => [
-                    'validation' => DataValidator::email() ,
+                    'validation' => DataValidator::email()->userEmail(),
                     'error' => ERRORS::INVALID_EMAIL
                 ],
                 'password' => [
@@ -24,21 +25,21 @@ class RecoverPasswordController extends Controller {
         ];
     }
 
-    public function handler(){
+    public function handler() {
         $this->requestData();
         $this->changePassword();
     }
 
-    public function requestData(){
+    public function requestData() {
         $this->email = Controller::request('email');
         $this->token = Controller::request('token');
         $this->password = Controller::request('password');
     }
-    public function changePassword(){
-        $recoverPassword = RecoverPassword::getDatastore($this->token, 'token');
+    public function changePassword() {
+        $recoverPassword = RecoverPassword::getDataStore($this->token, 'token');
         $user = User::getDataStore($this->email, 'email');
 
-        if($recoverPassword && $user) {
+        if (!$recoverPassword->isNull() && !$user->isNull()) {
             $recoverPassword->delete();
 
             $user->setProperties([
@@ -46,11 +47,9 @@ class RecoverPasswordController extends Controller {
             ]);
 
             $user->store();
-            Response::respondSuccess('password changed');
-            return;
-
+            Response::respondSuccess();
+        } else {
+            Response::respondError(ERRORS::NO_PERMISSION);
         }
-
-        Response::respondError(ERRORS::NO_PERMISSION);
     }
 }

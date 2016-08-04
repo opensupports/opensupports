@@ -30,7 +30,7 @@ class DataStoreId extends AbstractRule {
                 break;
         }
 
-        return !($dataStore instanceof \NullDataStore);
+        return !$dataStore->isNull();
     }
 
     private function isDataStoreNameValid($dataStoreName) {

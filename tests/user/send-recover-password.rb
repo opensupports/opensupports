@@ -9,14 +9,21 @@ describe '/user/send-recover-password' do
             email: 'login@os4com'
         })
 
-        (result['status']).should.equal('fail');
+        (result['status']).should.equal('fail')
 
         result = request('/user/send-recover-password', {
             email: 'loginos4.com'
         })
 
-        (result['status']).should.equal('fail');
+        (result['status']).should.equal('fail')
+
+        result = request('/user/send-recover-password', {
+            email: 'invalid@invalid.com'
+        })
+
+        (result['status']).should.equal('fail')
     end
+
     it 'should success if email is correct' do
         result = request('/user/send-recover-password', {
             email: @recoverEmail
