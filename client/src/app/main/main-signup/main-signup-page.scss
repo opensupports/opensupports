@@ -1,9 +1,13 @@
 .main-signup-page {
-    height: 629px;
+    height: 669px;
 
     .signup-widget {
         padding: 30px;
         text-align: center;
+
+        &__form {
+            margin-bottom: 20px;
+        }
 
         &__inputs {
             display: inline-block;
@@ -11,7 +15,7 @@
         }
 
         &__captcha {
-            margin: 20px 0;
+            margin: 10px 84px 20px;
             height: 78px;
             width: 304px;
         }
