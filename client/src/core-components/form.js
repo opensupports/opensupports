@@ -1,5 +1,6 @@
 const React = require('react');
 const _ = require('lodash');
+const classNames = require('classnames');
 
 const {reactDFS, renderChildrenWithProps} = require('lib-core/react-dfs');
 const ValidationFactory = require('lib-app/validations/validations-factory');
@@ -49,13 +50,24 @@ const Form = React.createClass({
     getProps() {
         let props = _.clone(this.props);
 
+        props.className = this.getClass();
         props.onSubmit = this.handleSubmit;
-        
+
         delete props.errors;
         delete props.loading;
         delete props.onValidateErrors;
 
         return props;
+    },
+
+    getClass() {
+        let classes = {
+            'form': true
+        };
+
+        classes[this.props.className] = (this.props.className);
+
+        return classNames(classes);
     },
 
     getFieldProps({props, type}) {
@@ -112,7 +124,7 @@ const Form = React.createClass({
         let newErrors = _.clone(errors);
 
         if (this.state.validations[fieldName]) {
-            newErrors[fieldName] = this.state.validations[fieldName].validate(form[fieldName], form);
+            newErrors[fieldName] = this.state.validations[fieldName].performValidation(form[fieldName], form);
         }
 
         return newErrors;

@@ -24,17 +24,17 @@ let MainSignUpPageWidget = React.createClass({
     render() {
         return (
             <div className="main-signup-page">
-                <WidgetTransition sideToShow="front" className="main-signup-page--widget-container">
+                <WidgetTransition sideToShow="front" className="main-signup-page__widget-container col-md-4 col-md-offset-4">
                     <Widget className="signup-widget" title="Register">
-                        <Form className="signup-widget--form" onSubmit={this.handleLoginFormSubmit}>
-                            <div className="signup-widget--inputs">
-                                <Input {...this.getInputProps()} label="Full Name" name="name"/>
-                                <Input {...this.getInputProps()} label="Email Address" name="email"/>
-                                <Input {...this.getInputProps()} label="Password" name="password" password/>
-                                <Input {...this.getInputProps()} label="Repeat Password" name="repeated-password" password/>
+                        <Form className="signup-widget__form" onSubmit={this.handleLoginFormSubmit}>
+                            <div className="signup-widget__inputs">
+                                <Input {...this.getInputProps()} label="Full Name" name="name" validation="NAME" required/>
+                                <Input {...this.getInputProps()} label="Email Address" name="email" validation="EMAIL" required/>
+                                <Input {...this.getInputProps()} label="Password" name="password" password validation="PASSWORD" required/>
+                                <Input {...this.getInputProps()} label="Repeat Password" name="repeated-password" password validation="REPEAT_PASSWORD" required/>
                             </div>
-                            <div className="signup-widget--captcha">
-                                <ReCAPTCHA sitekey="custom-site-key" onChange={function () {}}/>
+                            <div className="signup-widget__captcha">
+                                <ReCAPTCHA sitekey="6LfM5CYTAAAAAGLz6ctpf-hchX2_l0Ge-Bn-n8wS" onChange={function () {}}/>
                             </div>
                             <Button type="primary">SIGN UP</Button>
                         </Form>
@@ -47,7 +47,7 @@ let MainSignUpPageWidget = React.createClass({
     getInputProps() {
         return {
             inputType: 'secondary',
-            className: 'signup-widget-input'
+            className: 'signup-widget__input'
         }
     },
 

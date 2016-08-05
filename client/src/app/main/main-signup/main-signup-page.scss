@@ -1,26 +1,17 @@
 .main-signup-page {
-
-    &--widget-container {
-        height: 525px;
-        width: 364px;
-    }
+    height: 629px;
 
     .signup-widget {
         padding: 30px;
         text-align: center;
 
-        &--inputs {
+        &__inputs {
             display: inline-block;
             margin: 0 auto;
         }
 
-        &--input {
-            margin-bottom: 5px;
-        }
-
-        &--captcha {
-            margin-top: 30px;
-            margin-bottom: 20px;
+        &__captcha {
+            margin: 20px 0;
             height: 78px;
             width: 304px;
         }

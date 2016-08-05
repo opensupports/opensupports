@@ -15,6 +15,7 @@ export default {
     //ERRORS
     'ERROR_EMPTY': 'Invalid value',
     'ERROR_PASSWORD': 'Invalid password',
+    'ERROR_NAME': 'Invalid name',
     'ERROR_EMAIL': 'Invalid email',
     'PASSWORD_NOT_MATCH': 'Password does not match'
 };
