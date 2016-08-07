@@ -25,8 +25,8 @@ describe('Form component', function () {
     }
 
     function resetStubs() {
-        ValidationFactoryMock.validators.defaultValidatorMock.validate = stub();
-        ValidationFactoryMock.validators.customValidatorMock.validate = stub();
+        ValidationFactoryMock.validators.defaultValidatorMock.performValidation = stub();
+        ValidationFactoryMock.validators.customValidatorMock.performValidation = stub();
         ValidationFactoryMock.getValidator.reset();
         onSubmit.reset();
     }
@@ -84,8 +84,8 @@ describe('Form component', function () {
         });
 
         it('should validate required fields when blurring', function () {
-            ValidationFactoryMock.validators.defaultValidatorMock.validate = stub().returns('MOCK_ERROR');
-            ValidationFactoryMock.validators.customValidatorMock.validate = stub().returns('MOCK_ERROR_2');
+            ValidationFactoryMock.validators.defaultValidatorMock.performValidation = stub().returns('MOCK_ERROR');
+            ValidationFactoryMock.validators.customValidatorMock.performValidation = stub().returns('MOCK_ERROR_2');
             expect(fields[0].props.error).to.equal(undefined);
             expect(fields[0].props.error).to.equal(undefined);
             expect(fields[0].props.error).to.equal(undefined);
@@ -107,8 +107,8 @@ describe('Form component', function () {
         beforeEach(function () {
             onValidateErrors = stub();
 
-            ValidationFactoryMock.validators.defaultValidatorMock.validate = stub().returns('MOCK_ERROR');
-            ValidationFactoryMock.validators.customValidatorMock.validate = stub().returns('MOCK_ERROR_2');
+            ValidationFactoryMock.validators.defaultValidatorMock.performValidation = stub().returns('MOCK_ERROR');
+            ValidationFactoryMock.validators.customValidatorMock.performValidation = stub().returns('MOCK_ERROR_2');
 
             renderForm({
                 errors: {first: 'MOCK_ERROR_CONTROLLED'},
@@ -172,8 +172,8 @@ describe('Form component', function () {
         });
 
         it('should validate all fields and not call onSubmit if there are errors', function () {
-            ValidationFactoryMock.validators.defaultValidatorMock.validate = stub().returns('MOCK_ERROR');
-            ValidationFactoryMock.validators.customValidatorMock.validate = stub().returns('MOCK_ERROR_2');
+            ValidationFactoryMock.validators.defaultValidatorMock.performValidation = stub().returns('MOCK_ERROR');
+            ValidationFactoryMock.validators.customValidatorMock.performValidation = stub().returns('MOCK_ERROR_2');
             fields[0].focus = spy(fields[0].focus);
             fields[1].focus = spy(fields[1].focus);
 
@@ -186,15 +186,15 @@ describe('Form component', function () {
         });
 
         it('should focus the first field with error', function () {
-            ValidationFactoryMock.validators.defaultValidatorMock.validate = stub().returns('MOCK_ERROR');
-            ValidationFactoryMock.validators.customValidatorMock.validate = stub().returns('MOCK_ERROR_2');
+            ValidationFactoryMock.validators.defaultValidatorMock.performValidation = stub().returns('MOCK_ERROR');
+            ValidationFactoryMock.validators.customValidatorMock.performValidation = stub().returns('MOCK_ERROR_2');
             fields[0].focus = spy(fields[0].focus);
             fields[1].focus = spy(fields[1].focus);
 
             TestUtils.Simulate.submit(ReactDOM.findDOMNode(form));
             expect(fields[0].focus).to.have.been.called;
 
-            ValidationFactoryMock.validators.defaultValidatorMock.validate = stub();
+            ValidationFactoryMock.validators.defaultValidatorMock.performValidation = stub();
             fields[0].focus.reset();
             fields[1].focus.reset();
 

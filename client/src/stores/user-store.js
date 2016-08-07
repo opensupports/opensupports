@@ -12,6 +12,7 @@ const UserStore = Reflux.createStore({
 
         this.listenTo(UserActions.checkLoginStatus, this.checkLoginStatus);
         this.listenTo(UserActions.login, this.loginUser);
+        this.listenTo(UserActions.signup, this.signupUser);
         this.listenTo(UserActions.logout, this.logoutUser);
         this.listenTo(UserActions.recoverPassword, this.recoverPassword);
         this.listenTo(UserActions.sendRecoverPassword, this.sendRecoverPassword);
@@ -32,6 +33,13 @@ const UserStore = Reflux.createStore({
                 return this.loginWithRememberData();
             }
         }
+    },
+
+    signupUser(signupData) {
+        return API.call({
+            path: 'user/signup',
+            data: signupData
+        }).then(this.handleSignupSuccess, this.handleSignupFail);
     },
 
     loginUser(loginData) {
@@ -109,6 +117,14 @@ const UserStore = Reflux.createStore({
 
     handleLoginFail() {
         this.trigger('LOGIN_FAIL');
+    },
+
+    handleSignupSuccess() {
+        this.trigger('SIGNUP_SUCCESS');
+    },
+
+    handleSignupFail() {
+        this.trigger('SIGNUP_FAIL');
     }
 });
 

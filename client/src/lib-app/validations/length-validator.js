@@ -1,8 +1,8 @@
 import Validator from 'lib-app/validations/validator';
 
 class LengthValidator extends Validator {
-    constructor(length, errorKey = 'INVALID_VALUE') {
-        super();
+    constructor(length, errorKey = 'INVALID_VALUE', validator = null) {
+        super(validator);
         
         this.minlength = length;
         this.errorKey = errorKey;

@@ -15,7 +15,8 @@ const Message = React.createClass({
 
     getDefaultProps() {
         return {
-            type: 'info'
+            type: 'info',
+            leftAligned: false
         };
     },
 

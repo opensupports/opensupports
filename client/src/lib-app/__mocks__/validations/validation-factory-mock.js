@@ -1,5 +1,5 @@
-let customValidatorMock = {validate: stub()};
-let defaultValidatorMock = {validate: stub()};
+let customValidatorMock = {performValidation: stub(), validate: stub()};
+let defaultValidatorMock = {performValidation: stub(), validate: stub()};
 
 export default {
     getValidator: spy(function (validation) {

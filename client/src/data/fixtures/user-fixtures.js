@@ -84,5 +84,24 @@ module.exports = [
                 };
             }
         }
+    },
+    {
+        path: 'user/signup',
+        time: 1000,
+        response: function (data) {
+
+            if (data.email.length > 15) {
+                return {
+                    status: 'success',
+                    data: {}
+                };
+            } else {
+                return {
+                    status: 'fail',
+                    message: 'Email already exists',
+                    data: {}
+                };
+            }
+        }
     }
 ];
