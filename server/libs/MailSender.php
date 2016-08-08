@@ -7,9 +7,9 @@ class MailSender {
         $this->mailOptions['from'] = Setting::getSetting('no-reply-email')->value;
         
         $this->mailOptions['smtp-host'] = Setting::getSetting('smtp-host')->value;
-        $this->mailOptions['smtp-port'] = Setting::getSetting('smtp-host')->value;
-        $this->mailOptions['smtp-user'] = Setting::getSetting('smtp-host')->value;
-        $this->mailOptions['smtp-pass'] = Setting::getSetting('smtp-host')->value;
+        $this->mailOptions['smtp-port'] = Setting::getSetting('smtp-port')->value;
+        $this->mailOptions['smtp-user'] = Setting::getSetting('smtp-user')->value;
+        $this->mailOptions['smtp-pass'] = Setting::getSetting('smtp-pass')->value;
     }
 
     public function setTemplate($type, $config) {
