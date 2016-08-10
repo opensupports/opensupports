@@ -15,6 +15,7 @@ class EditEmail extends Controller{
             ]
         ];
     }
+    
     public function handler() {
         $newEmail = Controller::request('newEmail');
         $user = Controller::getLoggedUser();

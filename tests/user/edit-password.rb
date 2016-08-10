@@ -16,7 +16,7 @@ describe '/user/edit-password' do
             newPassword: 'np',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
-            })
+        })
         (result['status']).should.equal('fail')
         (result['message']).should.equal('Invalid password')
 
@@ -28,7 +28,7 @@ describe '/user/edit-password' do
             newPassword: long_text,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
-            })
+        })
         (result['status']).should.equal('fail')
         (result['message']).should.equal('Invalid password')
     end
@@ -39,7 +39,7 @@ describe '/user/edit-password' do
             newPassword: 'newpassword',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
-            })
+        })
         (result['status']).should.equal('fail')
         (result['message']).should.equal('Invalid old password')
     end
@@ -50,7 +50,7 @@ describe '/user/edit-password' do
             newPassword: 'newpassword',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
-            })
+        })
         (result['status']).should.equal('success')
     end
 end

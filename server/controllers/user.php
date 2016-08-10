@@ -18,5 +18,4 @@ $userControllers->addController(new RecoverPasswordController);
 $userControllers->addController(new EditPassword);
 $userControllers->addController(new EditEmail);
 
-
 $userControllers->finalize();

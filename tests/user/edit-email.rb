@@ -15,7 +15,7 @@ describe '/user/edit-email' do
             newEmail: 'newemail@jobscom',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
-            })
+        })
         (result['status']).should.equal('fail')
         (result['message']).should.equal('Invalid email')
 
@@ -23,7 +23,7 @@ describe '/user/edit-email' do
             newEmail: 'newemailjobs.com',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
-            })
+        })
         (result['status']).should.equal('fail')
         (result['message']).should.equal('Invalid email')
     end
@@ -33,7 +33,7 @@ describe '/user/edit-email' do
             newEmail: 'newemail@jobs.com',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
-            })
+        })
         (result['status']).should.equal('success')
     end
 end
