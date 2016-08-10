@@ -63,7 +63,7 @@ describe '/ticket/comment/' do
         comment = $database.getRow('comment', '1', 'id')
         (comment['content']).should.equal('some comment content')
         (comment['ticket_id']).should.equal('1')
-        (comment['author_id']).should.equal('1')
+        (comment['author_id']).should.equal($csrf_userid)
     end
 
     it 'should fail if user is not the author nor owner' do

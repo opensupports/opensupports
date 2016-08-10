@@ -1,8 +1,9 @@
 describe '/ticket/create' do
     request('/user/logout')
+    Scripts.createUser('jonhsnow@os4.com','jonhpass','Jonh Snow')
     result = request('/user/login', {
-        email: 'steve@jobs.com',
-        password: 'custom'
+        email: 'jonhsnow@os4.com',
+        password: 'jonhpass'
     })
 
     $csrf_userid = result['data']['userId']
@@ -106,9 +107,9 @@ describe '/ticket/create' do
         (ticket['unread']).should.equal('0')
         (ticket['closed']).should.equal('0')
         (ticket['department_id']).should.equal('1')
-        (ticket['author_id']).should.equal('1')
+        (ticket['author_id']).should.equal($csrf_userid)
 
         ticket_user_relation = $database.getRow('ticket_user','1','ticket_id')
-        (ticket_user_relation['user_id']).should.equal('1')
+        (ticket_user_relation['user_id']).should.equal($csrf_userid)
     end
 end
