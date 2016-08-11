@@ -124,9 +124,13 @@ class MainHomePageLoginWidget extends React.Component {
     }
 
     getLoginFormErrors() {
-        return _.extend({}, this.state.loginFormErrors, {
-            password: (this.props.session.failed) ? i18n('ERROR_PASSWORD') : null
-        });
+        let errors = _.extend({}, this.state.loginFormErrors);
+
+        if (this.props.session.failed) {
+            errors.password = i18n('ERROR_PASSWORD');
+        }
+
+        return errors;
     }
 
     onLoginFormSubmit(formState) {

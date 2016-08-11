@@ -1,3 +1,6 @@
+const SessionActionsMock = require('actions/__mocks__/session-actions-mock');
+const APICallMock = require('lib-app/__mocks__/api-call-mock');
+
 const SubmitButton = ReactMock();
 const Button = ReactMock();
 const Input = ReactMock();
@@ -8,6 +11,9 @@ const Widget = ReactMock();
 const WidgetTransition = ReactMock();
 
 const MainHomePageLoginWidget = requireUnit('app/main/main-home/main-home-page-login-widget', {
+    'react-redux': ReduxMock,
+    'actions/session-actions': SessionActionsMock,
+    'lib-app/api-call': APICallMock,
     'core-components/submit-button': SubmitButton,
     'core-components/button': Button,
     'core-components/input': Input,
@@ -24,9 +30,12 @@ describe('Login/Recover Widget', function () {
         let loginWidget, loginForm, widgetTransition, inputs, checkbox, component,
             forgotPasswordButton, submitButton;
 
-        beforeEach(function () {
-            component = TestUtils.renderIntoDocument(
-                <MainHomePageLoginWidget />
+        let dispatch = stub();
+
+        function renderComponent(props = {session: {pending: false, failed: false}}) {
+
+            component = reRenderIntoDocument(
+                <MainHomePageLoginWidget dispatch={dispatch} {...props}/>
             );
             widgetTransition = TestUtils.scryRenderedComponentsWithType(component, WidgetTransition)[0];
             loginWidget = TestUtils.scryRenderedComponentsWithType(component, Widget)[0];
@@ -43,7 +52,9 @@ describe('Login/Recover Widget', function () {
                     }
                 }
             };
-        });
+        }
+
+        beforeEach(renderComponent);
 
         it('should control form errors by prop', function () {
             expect(loginForm.props.errors).to.deep.equal({});
@@ -53,25 +64,38 @@ describe('Login/Recover Widget', function () {
 
         it('should trigger login action when submitted', function () {
             let mockSubmitData = {email: 'MOCK_VALUE', password: 'MOCK_VALUE'};
+            let actionMock = {};
+            SessionActionsMock.login.returns(actionMock);
+            dispatch.reset();
 
-            UserActions.login.reset();
             loginForm.props.onSubmit(mockSubmitData);
-            expect(UserActions.login).to.have.been.calledWith(mockSubmitData);
+            expect(SessionActionsMock.login).to.have.been.calledWith(mockSubmitData);
+            expect(dispatch).to.have.been.calledWith(actionMock);
         });
 
-        it('should set loading true in the form when submitted', function () {
-            let mockSubmitData = {email: 'MOCK_VALUE', password: 'MOCK_VALUE'};
-
-            loginForm.props.onSubmit(mockSubmitData);
+        it('should set loading true if session login is pending', function () {
+            expect(loginForm.props.loading).to.equal(false);
+            renderComponent({
+                session: {
+                    pending: true,
+                    failed: false
+                }
+            });
             expect(loginForm.props.loading).to.equal(true);
         });
 
         it('should add error and stop loading if login fails', function () {
-            component.refs.loginForm.refs.password.focus.reset();
-            component.onUserStoreChanged('LOGIN_FAIL');
+            component.setState({
+                loginFormErrors: {}
+            });
+            renderComponent({
+                session: {
+                    pending: false,
+                    failed: true
+                }
+            });
             expect(loginForm.props.errors).to.deep.equal({password: 'Invalid password'});
             expect(loginForm.props.loading).to.equal(false);
-            expect(component.refs.loginForm.refs.password.focus).to.have.been.called;
         });
         
         it('should show back side if \'Forgot your password?\' link is clicked', function () {
@@ -85,9 +109,11 @@ describe('Login/Recover Widget', function () {
         let recoverWidget, recoverForm, widgetTransition, emailInput, component,
             backToLoginButton, submitButton;
 
+        let dispatch = stub();
+
         beforeEach(function () {
             component = TestUtils.renderIntoDocument(
-                <MainHomePageLoginWidget />
+                <MainHomePageLoginWidget dispatch={dispatch} session={{pending: false, failed: false}} />
             );
             widgetTransition = TestUtils.scryRenderedComponentsWithType(component, WidgetTransition)[0];
             recoverWidget = TestUtils.scryRenderedComponentsWithType(component, Widget)[1];
@@ -111,12 +137,15 @@ describe('Login/Recover Widget', function () {
             expect(recoverForm.props.errors).to.deep.equal({email: 'MOCK_ERROR'});
         });
 
-        it('should trigger sendRecoverPassword action when submitted', function () {
+        it('should call sendRecoverPassword when submitted', function () {
             let mockSubmitData = {email: 'MOCK_VALUE'};
+            APICallMock.call.reset();
 
-            UserActions.sendRecoverPassword.reset();
             recoverForm.props.onSubmit(mockSubmitData);
-            expect(UserActions.sendRecoverPassword).to.have.been.calledWith(mockSubmitData);
+            expect(APICallMock.call).to.have.been.calledWith({
+                path: '/user/send-recover-password',
+                data: mockSubmitData
+            });
         });
 
         it('should set loading true in the form when submitted', function () {
@@ -128,7 +157,8 @@ describe('Login/Recover Widget', function () {
 
         it('should add error and stop loading when send recover fails', function () {
             component.refs.recoverForm.refs.email.focus.reset();
-            component.onUserStoreChanged('SEND_RECOVER_FAIL');
+
+            component.onRecoverPasswordFail();
             expect(recoverForm.props.errors).to.deep.equal({email: 'Email does not exist'});
             expect(recoverForm.props.loading).to.equal(false);
             expect(component.refs.recoverForm.refs.email.focus).to.have.been.called;
@@ -138,7 +168,7 @@ describe('Login/Recover Widget', function () {
             let message = TestUtils.scryRenderedComponentsWithType(component, Message)[0];
             expect(message).to.equal(undefined);
 
-            component.onUserStoreChanged('SEND_RECOVER_SUCCESS');
+            component.onRecoverPasswordSent();
             message = TestUtils.scryRenderedComponentsWithType(component, Message)[0];
 
             expect(recoverForm.props.loading).to.equal(false);

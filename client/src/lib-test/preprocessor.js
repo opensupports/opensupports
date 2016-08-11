@@ -32,3 +32,6 @@ global.reRenderIntoDocument = (function () {
         return ReactDOM.render(jsx, div);
     }
 })();
+global.ReduxMock = {
+    connect: stub().returns(stub().returnsArg(0))
+};
