@@ -1,9 +1,4 @@
-const CommonActions = require('actions/__mocks__/common-actions-mock');
-const UserStore = require('stores/__mocks__/user-store-mock');
-
 const DashboardLayout = requireUnit('app/main/dashboard/dashboard-layout', {
-    'actions/common-actions': CommonActions,
-    'stores/user-store': UserStore,
     'app/main/dashboard/dashboard-menu': ReactMock()
 });
 

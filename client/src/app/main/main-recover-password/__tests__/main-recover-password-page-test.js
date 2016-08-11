@@ -1,7 +1,3 @@
-const CommonActions = require('actions/__mocks__/common-actions-mock');
-const UserActions = require('actions/__mocks__/user-actions-mock');
-const UserStore = require('stores/__mocks__/user-store-mock');
-
 const SubmitButton = ReactMock();
 const Button = ReactMock();
 const Input = ReactMock();
@@ -15,10 +11,7 @@ const MainRecoverPasswordPage = requireUnit('app/main/main-recover-password/main
     'core-components/input': Input,
     'core-components/form': Form,
     'core-components/message': Message,
-    'core-components/widget': Widget,
-    'actions/common-actions': CommonActions,
-    'actions/user-actions': UserActions,
-    'stores/user-store': UserStore
+    'core-components/widget': Widget
 });
 
 describe('Recover Password form', function () {

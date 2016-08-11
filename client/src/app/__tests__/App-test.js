@@ -1,7 +1,6 @@
-const CommonStore = require('stores/__mocks__/common-store-mock');
 
 const App = requireUnit('app/App', {
-    'store/common-store': CommonStore
+
 });
 
 describe('App component', function () {

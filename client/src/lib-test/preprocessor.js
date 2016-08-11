@@ -1,3 +1,5 @@
+'use strict';
+
 var jsdom = require('jsdom').jsdom;
 
 global.document = jsdom('<html><body></body></html>');

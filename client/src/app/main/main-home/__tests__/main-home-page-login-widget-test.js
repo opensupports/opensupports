@@ -1,6 +1,3 @@
-const UserActions = require('actions/__mocks__/user-actions-mock');
-const UserStore = require('stores/__mocks__/user-store-mock');
-
 const SubmitButton = ReactMock();
 const Button = ReactMock();
 const Input = ReactMock();
@@ -18,9 +15,7 @@ const MainHomePageLoginWidget = requireUnit('app/main/main-home/main-home-page-l
     'core-components/checkbox': Checkbox,
     'core-components/message': Message,
     'core-components/widget': Widget,
-    'core-components/widget-transition': WidgetTransition,
-    'actions/user-actions': UserActions,
-    'stores/user-store': UserStore
+    'core-components/widget-transition': WidgetTransition
 });
 
 

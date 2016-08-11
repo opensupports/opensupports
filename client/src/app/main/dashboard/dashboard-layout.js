@@ -1,9 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-//import UserStore from 'stores/user-store';
-//import CommonActions from 'actions/common-actions';
-
 import DashboardMenu from 'app/main/dashboard/dashboard-menu';
 
 const DashboardLayout = React.createClass({

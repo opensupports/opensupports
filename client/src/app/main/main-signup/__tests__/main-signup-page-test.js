@@ -1,9 +1,4 @@
-const CommonActions = require('actions/__mocks__/common-actions-mock');
-const UserStore = require('stores/__mocks__/user-store-mock');
-
 const MainSignupPage = requireUnit('app/main/main-signup/main-signup-page', {
-    'actions/common-actions': CommonActions,
-    'stores/user-store': UserStore,
     'react-google-recaptcha': ReactMock()
 });
 
