@@ -12,4 +12,5 @@ class ERRORS {
     const INVALID_DEPARTMENT = 'Invalid department';
     const INVALID_TICKET = 'Invalid ticket';
     const INIT_SETTINGS_DONE = 'Settings already initialized';
+    const INVALID_OLD_PASSWORD = 'Invalid old password';
 }
