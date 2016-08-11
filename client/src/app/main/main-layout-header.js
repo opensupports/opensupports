@@ -2,7 +2,7 @@ import React              from 'react';
 import { connect }        from 'react-redux'
 
 import i18n               from 'lib-app/i18n';
-import SessionActions     from 'actions/user-actions';
+import SessionActions     from 'actions/session-actions';
 import ConfigActions      from 'actions/config-actions';
 
 import Button             from 'core-components/button';
