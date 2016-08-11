@@ -1,9 +1,9 @@
 import React              from 'react';
+import { connect }        from 'react-redux'
 
 import i18n               from 'lib-app/i18n';
-import CommonActions      from 'actions/common-actions';
-import UserActions        from 'actions/user-actions';
-import UserStore          from 'stores/user-store';
+import SessionActions     from 'actions/user-actions';
+import ConfigActions      from 'actions/config-actions';
 
 import Button             from 'core-components/button';
 import DropDown           from 'core-components/drop-down';
@@ -18,23 +18,24 @@ let codeLanguages = {
     'Indian': 'in'
 };
 
-let MainLayoutHeader = React.createClass({
+class MainLayoutHeader extends React.Component {
 
     render() {
         return (
             <div className="main-layout-header">
                 {this.renderAccessLinks()}
-                <DropDown className="main-layout-header--languages" items={this.getLanguageList()} onChange={this.changeLanguage}/>
+                <DropDown className="main-layout-header--languages" items={this.getLanguageList()} onChange={this.changeLanguage.bind(this)}/>
             </div>
         );
-    },
+    }
     
     renderAccessLinks() {
         let result;
-        if (UserStore.isLoggedIn()) {
+        
+        if (this.props.session.logged) {
             result = (
                 <div className="main-layout-header--login-links">
-                    Welcome, pepito 
+                    Welcome, John 
                     <Button type="clean" onClick={this.logout}>(Close Session)</Button>
                 </div>
             );
@@ -48,7 +49,7 @@ let MainLayoutHeader = React.createClass({
         }
 
         return result;
-    },
+    }
 
     getLanguageList() {
         return Object.keys(codeLanguages).map((language) => {
@@ -57,17 +58,22 @@ let MainLayoutHeader = React.createClass({
                 icon: codeLanguages[language]
             };
         });
-    },
+    }
 
     changeLanguage(event) {
         let language = Object.keys(codeLanguages)[event.index];
 
-        CommonActions.changeLanguage(codeLanguages[language]);
-    },
+        this.props.dispatch(ConfigActions.changeLanguage(codeLanguages[language]));
+    }
 
     logout() {
-        UserActions.logout();
+        this.props.dispatch(SessionActions.logout());
     }
-});
+}
 
-export default MainLayoutHeader;
+export default connect((store) => {
+    return {
+        session: store.session,
+        config: store.config
+    };
+})(MainLayoutHeader);

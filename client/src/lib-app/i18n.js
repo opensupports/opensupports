@@ -1,12 +1,12 @@
 import MessageFormat      from 'messageformat';
 
-import CommonStore        from 'stores/common-store';
+import store              from 'app/store';
 import i18nData           from 'data/i18n-data';
 
 let mf = new MessageFormat('en');
 
 let i18n = function (key, params = null) {
-    let i18nKey = i18nData(key, CommonStore.language);
+    let i18nKey = i18nData(key, store.getState().config.language);
     let message = mf.compile(i18nKey);
 
     return message(params);

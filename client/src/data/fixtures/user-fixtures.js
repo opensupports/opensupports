@@ -1,6 +1,6 @@
 module.exports = [
     {
-        path: 'user/login',
+        path: '/user/login',
         time: 1000,
         response: function (data) {
             let response;
@@ -26,7 +26,7 @@ module.exports = [
         }
     },
     {
-        path: 'user/logout',
+        path: '/user/logout',
         time: 100,
         response: function () {
             return {
@@ -36,7 +36,7 @@ module.exports = [
         }
     },
     {
-        path: 'user/check-session',
+        path: '/user/check-session',
         time: 100,
         response: function () {
             return {
@@ -48,7 +48,7 @@ module.exports = [
         }
     },
     {
-        path: 'user/send-recover-password',
+        path: '/user/send-recover-password',
         time: 2000,
         response: function (data) {
 
@@ -67,7 +67,7 @@ module.exports = [
         }
     },
     {
-        path: 'user/recover-password',
+        path: '/user/recover-password',
         time: 1000,
         response: function (data) {
 
@@ -86,7 +86,7 @@ module.exports = [
         }
     },
     {
-        path: 'user/signup',
+        path: '/user/signup',
         time: 1000,
         response: function (data) {
 

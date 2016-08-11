@@ -6,7 +6,7 @@ class SessionStore {
         this.storage = LocalStorage;
 
         if (!this.getItem('language')) {
-            this.setItem('language', 'english');
+            this.setItem('language', 'us');
         }
     }
 

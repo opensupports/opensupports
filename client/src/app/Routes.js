@@ -1,5 +1,8 @@
 const React = require('react');
 const {Router, Route, IndexRoute, browserHistory} = require('react-router');
+import { syncHistoryWithStore } from 'react-router-redux';
+
+import store from 'app/store';
 
 const App = require('app/App');
 const DemoPage = require('app/demo/components-demo-page');
@@ -20,8 +23,10 @@ const DashboardEditProfilePage = require('app/main/dashboard/dashboard-edit-prof
 const DashboardArticlePage = require('app/main/dashboard/dashboard-article/dashboard-article-page');
 const DashboardTicketPage = require('app/main/dashboard/dashboard-ticket/dashboard-ticket-page');
 
+const history = syncHistoryWithStore(browserHistory, store);
+
 export default (
-    <Router history={browserHistory}>
+    <Router history={history}>
         <Route component={App} path='/'>
             <Route path='/app' component={MainLayout}>
                 <IndexRoute component={MainHomePage} />

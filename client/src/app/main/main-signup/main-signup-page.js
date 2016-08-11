@@ -1,11 +1,8 @@
 import React              from 'react';
-import Reflux             from 'reflux';
 import ReCAPTCHA          from 'react-google-recaptcha';
 
-import CommonActions      from 'actions/common-actions';
-import UserActions        from 'actions/user-actions';
-import UserStore          from 'stores/user-store';
 import i18n               from 'lib-app/i18n';
+import API                from 'lib-app/api-call';
 
 import SubmitButton       from 'core-components/submit-button';
 import Message            from 'core-components/message';
@@ -14,22 +11,16 @@ import Input              from 'core-components/input';
 import Widget             from 'core-components/widget';
 
 
-let MainSignUpPageWidget = React.createClass({
-    
-    mixins: [Reflux.listenTo(UserStore, 'onUserStoreChanged')],
+class MainSignUpPageWidget extends React.Component {
 
-    componentDidMount() {
-        if (UserStore.isLoggedIn()) {
-            CommonActions.logged();
-        }
-    },
+    constructor(props) {
+        super(props);
 
-    getInitialState() {
-        return {
+        this.state = {
             loading: false,
             email: null
         };
-    },
+    }
 
     render() {
         return (
@@ -52,7 +43,7 @@ let MainSignUpPageWidget = React.createClass({
                 </Widget>
             </div>
         );
-    },
+    }
     
     renderMessage() {
         switch (this.state.message) {
@@ -63,37 +54,47 @@ let MainSignUpPageWidget = React.createClass({
             default:
                 return null;
         }
-    },
+    }
 
     getFormProps() {
         return {
             loading: this.state.loading,
             className: 'signup-widget__form',
-            onSubmit: this.handleLoginFormSubmit
+            onSubmit: this.onLoginFormSubmit.bind(this)
         };
-    },
+    }
 
     getInputProps() {
         return {
             inputType: 'secondary',
             className: 'signup-widget__input'
         };
-    },
+    }
 
-    handleLoginFormSubmit(formState) {
+    onLoginFormSubmit(formState) {
         this.setState({
             loading: true
         });
 
-        UserActions.signup(formState);
-    },
-    
-    onUserStoreChanged(event) {
+        API.call({
+            path: '/user/signup',
+            data: formState
+        }).then(this.onSignupSuccess.bind(this)).catch(this.onSignupFail.bind(this));
+    }
+
+    onSignupSuccess() {
         this.setState({
             loading: false,
-            message: (event === 'SIGNUP_FAIL') ? 'fail': 'success'
+            message: 'success'
         });
     }
-});
+
+    onSignupFail() {
+        this.setState({
+            loading: false,
+            message: 'fail'
+        });
+    }
+}
 
 export default MainSignUpPageWidget;

@@ -1,16 +1,44 @@
 import React              from 'react';
-import Reflux             from 'reflux';
+import _                  from 'lodash';
+import { connect }        from 'react-redux'
 
-import CommonStore        from 'stores/common-store';
-
-const App = React.createClass({
-
-    contextTypes: {
+class App extends React.Component {
+    static contextTypes = {
         router: React.PropTypes.object,
         location: React.PropTypes.object
-    },
+    };
 
-    mixins: [Reflux.listenTo(CommonStore, 'onCommonStoreChanged')],
+    constructor(props, context) {
+        super(props, context);
+
+        if (_.includes(props.location.pathname, '/app/dashboard') && !props.config.logged) {
+            context.router.push('/app');
+        }
+
+        if (!_.includes(props.location.pathname, '/app/dashboard') && props.config.logged) {
+            context.router.push('/app/dashboard');
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const validations = {
+            languageChanged: nextProps.config.language !== this.props.config.language,
+            loggedIn: nextProps.session.logged && !this.props.session.logged,
+            loggedOut: !nextProps.session.logged && this.props.session.logged
+        };
+
+        if (validations.languageChanged) {
+            this.context.router.push(this.props.location.pathname);
+        }
+
+        if (validations.loggedIn) {
+            this.context.router.push('/app/dashboard');
+        }
+
+        if (validations.loggedOut) {
+            this.context.router.push('/app');
+        }
+    }
 
     render() {
         return (
@@ -18,19 +46,13 @@ const App = React.createClass({
               {React.cloneElement(this.props.children, {})}
           </div>
         );
-    },
-
-    onCommonStoreChanged(change) {
-        let handle = {
-            'i18n': () => {this.context.router.push(this.context.location.pathname)},
-            'logged': () => {this.context.router.push('/app/dashboard')},
-            'loggedOut': () => {this.context.router.push('/app')}
-        };
-
-        if (handle[change]) {
-            handle[change]();
-        }
     }
-});
+}
 
-export default App;
+export default connect((store) => {
+    return {
+        config: store.config,
+        session: store.session,
+        routing: store.routing
+    };
+})(App);

@@ -2,7 +2,7 @@ const _ = require('lodash');
 const APIUtils = require('lib-core/APIUtils');
 const SessionStore = require('lib-app/session-store');
 
-const root = 'http://localhost:3000/api/';
+const root = 'http://localhost:3000/api';
 
 function processData (data) {
     return _.extend(SessionStore.getSessionData(), data);
