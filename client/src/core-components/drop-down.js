@@ -1,32 +1,30 @@
-const React = require('react');
-const classNames = require('classnames');
-const _ = require('lodash');
-const {Motion, spring} = require('react-motion');
-const callback = require('lib-core/callback');
+import React from 'react';
+import classNames from 'classnames';
+import {Motion, spring} from 'react-motion';
 
-const Menu = require('core-components/menu');
-const Icon = require('core-components/icon');
+import Menu from 'core-components/menu';
+import Icon from 'core-components/icon';
 
-const DropDown = React.createClass({
+class DropDown extends React.Component {
 
-    propTypes: {
+    static propTypes = {
         defaultSelectedIndex: React.PropTypes.number,
         selectedIndex: React.PropTypes.number,
         items: Menu.propTypes.items
-    },
+    };
 
-    getDefaultProps() {
-        return {
-            defaultSelectedIndex: 0
-        };
-    },
+    static defaultProps = {
+        defaultSelectedIndex: 2
+    };
 
-    getInitialState() {
-        return {
+    constructor(props) {
+        super(props);
+
+        this.state = {
             selectedIndex: 0,
             opened: false
         };
-    },
+    }
 
     getAnimationStyles() {
         let closedStyle = {
@@ -42,7 +40,7 @@ const DropDown = React.createClass({
             defaultStyle: closedStyle,
             style: (this.state.opened) ? openedStyle : closedStyle
         };
-    },
+    }
 
     render() {
         let animation = this.getAnimationStyles();
@@ -52,18 +50,18 @@ const DropDown = React.createClass({
             <div className={this.getClass()}>
                 {this.renderCurrentItem(selectedItem)}
                 <Motion defaultStyle={animation.defaultStyle} style={animation.style}>
-                    {this.renderList}
+                    {this.renderList.bind(this)}
                 </Motion>
             </div>
         );
-    },
+    }
 
     renderList({opacity, translateY}) {
         let style = { opacity: opacity, transform: `translateY(${translateY}px)`};
         let menuProps = {
             items: this.props.items,
-            onItemClick: this.handleItemClick,
-            onMouseDown: this.handleListMouseDown,
+            onItemClick: this.handleItemClick.bind(this),
+            onMouseDown: this.handleListMouseDown.bind(this),
             selectedIndex: this.state.selectedIndex
         };
 
@@ -72,7 +70,7 @@ const DropDown = React.createClass({
                 <Menu {...menuProps} />
             </div>
         );
-    },
+    }
 
     renderCurrentItem(item) {
         var iconNode = null;
@@ -82,11 +80,11 @@ const DropDown = React.createClass({
         }
 
         return (
-            <div className="drop-down--current-item" onBlur={this.handleBlur} onClick={this.handleClick} tabIndex="0">
+            <div className="drop-down--current-item" onBlur={this.handleBlur.bind(this)} onClick={this.handleClick.bind(this)} tabIndex="0">
                 {iconNode}{item.content}
             </div>
         );
-    },
+    }
 
     getClass() {
         let classes = {
@@ -97,19 +95,19 @@ const DropDown = React.createClass({
         };
 
         return classNames(classes);
-    },
+    }
 
     handleBlur() {
         this.setState({
             opened: false
         });
-    },
+    }
 
     handleClick() {
         this.setState({
             opened: !this.state.opened
         });
-    },
+    }
 
     handleItemClick(index) {
         this.setState({
@@ -122,15 +120,15 @@ const DropDown = React.createClass({
                 index
             });
         }
-    },
+    }
 
     handleListMouseDown(event) {
         event.preventDefault();
-    },
+    }
 
     getSelectedIndex() {
         return (this.props.selectedIndex !== undefined) ? this.props.selectedIndex : this.state.selectedIndex;
     }
-});
+}
 
 export default DropDown;

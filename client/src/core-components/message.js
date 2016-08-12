@@ -4,29 +4,27 @@ import classNames         from 'classnames';
 import {Motion, spring}   from 'react-motion';
 import Icon               from 'core-components/icon';
 
-const Message = React.createClass({
+class Message extends React.Component {
 
-    propTypes: {
+    static propTypes = {
         title: React.PropTypes.string,
         children: React.PropTypes.node,
         leftAligned: React.PropTypes.bool,
         type: React.PropTypes.oneOf(['success', 'error', 'info'])
-    },
+    };
 
-    getDefaultProps() {
-        return {
-            type: 'info',
-            leftAligned: false
-        };
-    },
+    static defaultProps = {
+        type: 'info',
+        leftAligned: false
+    };
 
     render() {
         return (
             <Motion {...this.getAnimationProps()}>
-                {this.renderMessage}
+                {this.renderMessage.bind(this)}
             </Motion>
         );
-    },
+    }
 
     getAnimationProps() {
         return {
@@ -37,7 +35,7 @@ const Message = React.createClass({
                 opacity: spring(1, [100, 30])
             }
         };
-    },
+    }
 
     renderMessage(style) {
         return (
@@ -47,7 +45,7 @@ const Message = React.createClass({
                 <div className="message__content">{this.props.children}</div>
             </div>
         )
-    },
+    }
 
     getClass() {
         let classes = {
@@ -62,7 +60,7 @@ const Message = React.createClass({
         };
 
         return classNames(classes);
-    },
+    }
 
     getIconName() {
         let iconNames = {
@@ -72,11 +70,11 @@ const Message = React.createClass({
         };
 
         return iconNames[this.props.type];
-    },
+    }
 
     getIconSize() {
         return (this.props.title) ? '2x' : 'lg';
     }
-});
+}
 
 export default Message;

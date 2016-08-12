@@ -1,16 +1,16 @@
-const React = require('react');
-const classNames = require('classnames');
-const _ = require('lodash');
+import React from 'react';
+import classNames from 'classnames';
+import _ from 'lodash';
 
-const Icon = require('core-components/icon');
+import Icon from 'core-components/icon';
 
-const Input = React.createClass({
+class Input extends React.Component {
 
-    contextTypes: {
+    static contextTypes = {
         loading: React.PropTypes.bool
-    },
+    };
 
-    propTypes: {
+    static propTypes = {
         value: React.PropTypes.string,
         validation: React.PropTypes.string,
         onChange: React.PropTypes.func,
@@ -19,13 +19,11 @@ const Input = React.createClass({
         required: React.PropTypes.bool,
         icon: React.PropTypes.string,
         error: React.PropTypes.string
-    },
+    };
 
-    getDefaultProps() {
-        return {
+    static defaultProps = {
             inputType: 'primary'
-        };
-    },
+    };
 
     render() {
         return (
@@ -36,7 +34,7 @@ const Input = React.createClass({
                 {this.renderError()}
             </label>
         );
-    },
+    }
 
     renderError() {
         let error = null;
@@ -46,7 +44,7 @@ const Input = React.createClass({
         }
 
         return error;
-    },
+    }
 
     renderIcon() {
         let icon = null;
@@ -56,7 +54,7 @@ const Input = React.createClass({
         }
 
         return icon;
-    },
+    }
 
     getInputProps() {
         let props = _.clone(this.props);
@@ -73,7 +71,7 @@ const Input = React.createClass({
         delete props.password;
 
         return props;
-    },
+    }
 
     getClass() {
         let classes = {
@@ -86,13 +84,13 @@ const Input = React.createClass({
         };
 
         return classNames(classes);
-    },
+    }
 
     focus() {
         if (this.refs.nativeInput) {
             this.refs.nativeInput.focus();
         }
     }
-});
+}
 
 export default Input;

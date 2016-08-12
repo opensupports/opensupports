@@ -1,34 +1,32 @@
-const React = require('react');
-const _ = require('lodash');
-const classNames = require('classnames');
+import React from 'react';
+import _ from 'lodash';
+import classNames from 'classnames';
 
-const Icon = require('core-components/icon');
+import Icon from 'core-components/icon';
 
-const Menu = React.createClass({
+class Menu extends React.Component {
 
-    propTypes: {
+    static propTypes = {
         type: React.PropTypes.oneOf(['primary', 'secondary']),
         items: React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.string.isRequired,
             icon: React.PropTypes.string
         })).isRequired,
         selectedIndex: React.PropTypes.number
-    },
+    };
 
-    getDefaultProps() {
-        return {
-            type: 'primary',
-            selectedIndex: 0
-        };
-    },
+    static defaultProps = {
+        type: 'primary',
+        selectedIndex: 0
+    };
 
     render() {
         return (
             <ul {...this.getProps()}>
-                {this.props.items.map(this.renderListItem)}
+                {this.props.items.map(this.renderListItem.bind(this))}
             </ul>
         )
-    },
+    }
 
     renderListItem(item, index) {
         let iconNode = null;
@@ -42,7 +40,7 @@ const Menu = React.createClass({
                 {iconNode}{item.content}
             </li>
         );
-    },
+    }
 
     getProps() {
         var props = _.clone(this.props);
@@ -55,7 +53,7 @@ const Menu = React.createClass({
         delete props.type;
 
         return props;
-    },
+    }
 
     getClass() {
         let classes = {
@@ -66,7 +64,7 @@ const Menu = React.createClass({
         classes[this.props.className] = true;
 
         return classNames(classes);
-    },
+    }
 
     getItemProps(index) {
         return {
@@ -74,7 +72,7 @@ const Menu = React.createClass({
             onClick: this.handleItemClick.bind(this, index),
             key: index
         };
-    },
+    }
 
     getItemClass(index) {
         let classes = {
@@ -83,13 +81,13 @@ const Menu = React.createClass({
         };
 
         return classNames(classes);
-    },
+    }
 
     handleItemClick(index) {
         if (this.props.onItemClick) {
             this.props.onItemClick(index);
         }
     }
-});
+}
 
 export default Menu;
