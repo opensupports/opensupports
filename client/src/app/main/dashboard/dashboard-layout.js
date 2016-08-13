@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import DashboardMenu from 'app/main/dashboard/dashboard-menu';
 
-const DashboardLayout = React.createClass({
+class DashboardLayout extends React.Component {
 
     render() {
         return (this.props.session.logged) ? (
@@ -13,7 +13,7 @@ const DashboardLayout = React.createClass({
             </div>
         ) : null;
     }
-});
+}
 
 export default connect((store) => {
     return {

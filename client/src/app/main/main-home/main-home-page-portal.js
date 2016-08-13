@@ -1,9 +1,9 @@
-const React = require('react');
-const classNames = require('classnames');
+import React from 'react';
+import classNames from 'classnames';
 
-const Widget = require('core-components/widget');
+import Widget from 'core-components/widget';
 
-const MainHomePagePortal = React.createClass({
+class MainHomePagePortal extends React.Component {
     render() {
         return (
             <Widget className={classNames('main-home-page-portal', this.props.className)}>
@@ -11,6 +11,6 @@ const MainHomePagePortal = React.createClass({
             </Widget>
         );
     }
-});
+}
 
 export default MainHomePagePortal;

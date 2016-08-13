@@ -90,7 +90,7 @@ class CheckBox extends React.Component {
         if (event.keyCode == 32) {
             event.preventDefault();
 
-            callback(this.handleChange, this.props.onChange)({
+            callback(this.handleChange.bind(this), this.props.onChange)({
                 target: {
                     checked: !this.state.checked
                 }

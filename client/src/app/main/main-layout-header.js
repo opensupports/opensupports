@@ -36,7 +36,7 @@ class MainLayoutHeader extends React.Component {
             result = (
                 <div className="main-layout-header--login-links">
                     Welcome, John 
-                    <Button type="clean" onClick={this.logout}>(Close Session)</Button>
+                    <Button type="clean" onClick={this.logout.bind(this)}>(Close Session)</Button>
                 </div>
             );
         } else {

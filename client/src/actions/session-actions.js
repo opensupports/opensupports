@@ -31,7 +31,7 @@ export default {
 
     logout() {
         return {
-            type: 'LOG_OUT',
+            type: 'LOGOUT',
             payload: API.call({
                 path: '/user/logout',
                 data: {}
@@ -48,7 +48,9 @@ export default {
             }).then((result) => {
                 if (!result.data.sessionActive) {
                     if (sessionStore.isRememberDataExpired()) {
-                        store.dispatch(this.logout());
+                        store.dispatch({
+                            type: 'LOGOUT_FULFILLED'
+                        });
                     } else {
                         store.dispatch(this.autoLogin());
                     }

@@ -1,6 +1,7 @@
 import React              from 'react';
 import _                  from 'lodash';
 import { connect }        from 'react-redux'
+import { browserHistory } from 'react-router';
 
 class App extends React.Component {
     static contextTypes = {
@@ -8,36 +9,12 @@ class App extends React.Component {
         location: React.PropTypes.object
     };
 
-    constructor(props, context) {
-        super(props, context);
-
-        if (_.includes(props.location.pathname, '/app/dashboard') && !props.config.logged) {
-            context.router.push('/app');
-        }
-
-        if (!_.includes(props.location.pathname, '/app/dashboard') && props.config.logged) {
-            context.router.push('/app/dashboard');
-        }
+    componentWillMount() {
+        this.redirectIfPathIsNotValid(this.props);
     }
 
     componentWillReceiveProps(nextProps) {
-        const validations = {
-            languageChanged: nextProps.config.language !== this.props.config.language,
-            loggedIn: nextProps.session.logged && !this.props.session.logged,
-            loggedOut: !nextProps.session.logged && this.props.session.logged
-        };
-
-        if (validations.languageChanged) {
-            this.context.router.push(this.props.location.pathname);
-        }
-
-        if (validations.loggedIn) {
-            this.context.router.push('/app/dashboard');
-        }
-
-        if (validations.loggedOut) {
-            this.context.router.push('/app');
-        }
+        this.redirectIfPathIsNotValid(nextProps);
     }
 
     render() {
@@ -46,6 +23,26 @@ class App extends React.Component {
               {React.cloneElement(this.props.children, {})}
           </div>
         );
+    }
+
+    redirectIfPathIsNotValid(props) {
+        const validations = {
+            languageChanged: props.config.language !== this.props.config.language,
+            loggedIn: !_.includes(props.location.pathname, '/app/dashboard') && props.session.logged,
+            loggedOut: _.includes(props.location.pathname, '/app/dashboard') && !props.session.logged
+        };
+
+        if (validations.languageChanged) {
+            browserHistory.push(props.location.pathname);
+        }
+
+        if (validations.loggedOut) {
+            browserHistory.push('/app');
+        }
+
+        if (validations.loggedIn) {
+            browserHistory.push('/app/dashboard');
+        }
     }
 }
 

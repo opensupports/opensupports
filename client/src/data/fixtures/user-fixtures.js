@@ -5,14 +5,14 @@ module.exports = [
         response: function (data) {
             let response;
 
-            if (data.password === 'valid' || (data.rememberToken === 'aa41efe0a1b3eeb9bf303e4561ff8392' && data.userId === 12)) {
+            if (data.password === 'valid' || (data.rememberToken === 'aa41efe0a1b3eeb9bf303e4561ff8392' && data.userId == 12)) {
                 response = {
                     status: 'success',
                     data: {
                         'userId': 12,
                         'token': 'cc6b4921e6733d6aafe284ec0d7be57e',
                         'rememberToken': (data.remember) ? 'aa41efe0a1b3eeb9bf303e4561ff8392' : null,
-                        'rememberExpiration': (data.remember) ? 2018 : 0
+                        'rememberExpiration': (data.remember) ? 20180806 : 0
                     }
                 };
             } else {
@@ -42,7 +42,7 @@ module.exports = [
             return {
                 status: 'success',
                 data: {
-                    sessionActive: true
+                    sessionActive: false
                 }
             };
         }

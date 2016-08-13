@@ -16,12 +16,12 @@ class SessionReducer extends Reducer {
     getTypeHandlers() {
         return {
             'LOGIN_PENDING': this.onLoginPending,
-            'LOGIN_FULFILLED': this.onLoginCompleted,
+            'LOGIN_FULFILLED': this.onLoginCompleted.bind(this),
             'LOGIN_REJECTED': this.onLoginFailed,
             'LOGOUT_FULFILLED': this.onLogout,
             'CHECK_SESSION_REJECTED': (state) => { return _.extend({}, state, {initDone: true})},
-            'SESSION_CHECKED': (state) => { return _.extend({}, state, {initDone: true})},
-            'LOGIN_AUTO_FULFILLED': this.onAutoLogin,
+            'SESSION_CHECKED': (state) => { return _.extend({}, state, {initDone: true, logged: true})},
+            'LOGIN_AUTO_FULFILLED': this.onAutoLogin.bind(this),
             'LOGIN_AUTO_REJECTED': this.onAutoLoginFail
         };
     }
@@ -35,16 +35,8 @@ class SessionReducer extends Reducer {
     }
 
     onLoginCompleted(state, payload) {
-        if (payload.data.rememberToken) {
-            sessionStore.storeRememberData({
-                token: payload.data.rememberToken,
-                userId: payload.data.userId,
-                expiration: payload.data.rememberExpiration
-            });
-        } else {
-            sessionStore.createSession(payload.data.userId, payload.data.token);
-        }
-        
+        this.storeLoginResultData(payload.data);
+
         return _.extend({}, state, {
             logged: true,
             pending: false,
@@ -65,25 +57,43 @@ class SessionReducer extends Reducer {
         sessionStore.clearRememberData();
 
         return _.extend({}, state, {
+            initDone: true,
             logged: false,
             pending: false,
             failed: false
         });
     }
 
-    onAutoLogin() {
+    onAutoLogin(state, payload) {
+        this.storeLoginResultData(payload.data);
+
         return _.extend({}, state, {
-            initDone: true
+            initDone: true,
+            logged: true,
+            pending: false,
+            failed: false
         });
     }
 
-    onAutoLoginFail() {
+    onAutoLoginFail(state) {
         sessionStore.closeSession();
         sessionStore.clearRememberData();
 
         return _.extend({}, state, {
             initDone: true
         });
+    }
+
+    storeLoginResultData(resultData) {
+        if (resultData.rememberToken) {
+            sessionStore.storeRememberData({
+                token: resultData.rememberToken,
+                userId: resultData.userId,
+                expiration: resultData.rememberExpiration
+            });
+        } else {
+            sessionStore.createSession(resultData.userId, resultData.token);
+        }
     }
 }
 

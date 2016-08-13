@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DashboardEditProfilePage = React.createClass({
+class DashboardEditProfilePage extends React.Component {
 
     render() {
         return (
@@ -9,6 +9,6 @@ const DashboardEditProfilePage = React.createClass({
             </div>
         );
     }
-});
+}
 
 export default DashboardEditProfilePage;

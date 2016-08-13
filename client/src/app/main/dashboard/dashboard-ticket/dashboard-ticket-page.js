@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DashboardTicketPage = React.createClass({
+class DashboardTicketPage extends React.Component {
 
     render() {
         return (
@@ -9,6 +9,6 @@ const DashboardTicketPage = React.createClass({
             </div>
         );
     }
-});
+}
 
 export default DashboardTicketPage;

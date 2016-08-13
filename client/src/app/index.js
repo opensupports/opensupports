@@ -18,7 +18,7 @@ if (noFixtures === 'disabled') {
 let renderApplication = function () {
     render(<Provider store={store}>{routes}</Provider>, document.getElementById('app'));
 };
-
+window.store = store;
 store.dispatch(SessionActions.initSession());
 
 let unsubscribe = store.subscribe(() => {
