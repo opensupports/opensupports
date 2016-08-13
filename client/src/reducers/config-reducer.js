@@ -13,7 +13,8 @@ class ConfigReducer extends Reducer {
 
     getTypeHandlers() {
         return {
-            'CHANGE_LANGUAGE': this.onLanguageChange
+            'CHANGE_LANGUAGE': this.onLanguageChange,
+            'INIT_CONFIGS_FULFILLED': this.onInitConfigs
         };
     }
 
@@ -23,6 +24,12 @@ class ConfigReducer extends Reducer {
         return _.extend({}, state, {
             language: payload
         });
+    }
+
+    onInitConfigs(state, payload) {
+        sessionStore.storeConfigs(payload.data);
+
+        return _.extend({}, state, payload.data);
     }
 }
 

@@ -62,7 +62,7 @@ class DropDown extends React.Component {
             items: this.props.items,
             onItemClick: this.handleItemClick.bind(this),
             onMouseDown: this.handleListMouseDown.bind(this),
-            selectedIndex: this.state.selectedIndex
+            selectedIndex: this.getSelectedIndex()
         };
 
         return (

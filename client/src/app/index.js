@@ -3,6 +3,7 @@ import {render} from 'react-dom'
 import { Provider } from 'react-redux';
 
 import SessionActions from 'actions/session-actions';
+import ConfigActions from 'actions/config-actions';
 import routes from './Routes';
 import store from './store';
 
@@ -19,6 +20,7 @@ let renderApplication = function () {
     render(<Provider store={store}>{routes}</Provider>, document.getElementById('app'));
 };
 window.store = store;
+store.dispatch(ConfigActions.init());
 store.dispatch(SessionActions.initSession());
 
 let unsubscribe = store.subscribe(() => {

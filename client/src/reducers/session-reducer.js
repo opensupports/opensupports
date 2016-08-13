@@ -91,9 +91,9 @@ class SessionReducer extends Reducer {
                 userId: resultData.userId,
                 expiration: resultData.rememberExpiration
             });
-        } else {
-            sessionStore.createSession(resultData.userId, resultData.token);
         }
+
+        sessionStore.createSession(resultData.userId, resultData.token);
     }
 }
 

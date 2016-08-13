@@ -24,7 +24,7 @@ class MainLayoutHeader extends React.Component {
         return (
             <div className="main-layout-header">
                 {this.renderAccessLinks()}
-                <DropDown className="main-layout-header--languages" items={this.getLanguageList()} onChange={this.changeLanguage.bind(this)}/>
+                <DropDown {...this.getLanguageSelectorProps()}/>
             </div>
         );
     }
@@ -49,6 +49,15 @@ class MainLayoutHeader extends React.Component {
         }
 
         return result;
+    }
+
+    getLanguageSelectorProps() {
+        return {
+            className: 'main-layout-header--languages',
+            items: this.getLanguageList(),
+            selectedIndex: Object.values(codeLanguages).indexOf(this.props.config.language),
+            onChange: this.changeLanguage.bind(this)
+        };
     }
 
     getLanguageList() {
