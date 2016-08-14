@@ -6,5 +6,8 @@ export default {
     getRememberData: stub(),
     isRememberDataExpired: stub().returns(false),
     isLoggedIn: stub().returns(false),
+    setConfigs: stub().returns(false),
+    getConfigs: stub().returns({}),
+    areConfigsStored: stub().returns(false),
     closeSession: stub()
 };
