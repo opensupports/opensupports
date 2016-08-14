@@ -1,0 +1,30 @@
+@import "../scss/vars";
+
+.table {
+
+    &__header {
+        background-color: $primary-blue;
+        color: white;
+        font-variant: small-caps;
+    }
+
+    &__header-column {
+
+    }
+
+    &__row {
+        color: #B8B8B8;
+
+        &:nth-child(even) {
+            background-color: #F9F9F9;
+        }
+
+        &:nth-child(odd) {
+            background-color: $light-grey;
+        }
+    }
+
+    &__cell {
+
+    }
+}
