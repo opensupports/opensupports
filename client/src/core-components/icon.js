@@ -1,34 +1,32 @@
-const React = require('react');
-const classNames = require('classnames');
+import React from 'react';
+import classNames from 'classnames';
 
-const Icon = React.createClass({
+class Icon extends React.Component {
 
-    propTypes: {
+    static propTypes = {
         name: React.PropTypes.string.isRequired,
         size: React.PropTypes.string
-    },
+    };
 
-    getDefaultProps() {
-        return {
-            size: 'lg'
-        };
-    },
+    static defaultProps = {
+        size: 'lg'
+    };
 
     render() {
         return (this.props.name.length > 2) ? this.renderFontIcon() : this.renderFlag();
-    },
+    }
 
     renderFontIcon() {
         return (
             <span className={this.getFontIconClass()} aria-hidden="true" />
         );
-    },
+    }
 
     renderFlag() {
         return (
             <img className={this.props.className} src={`/images/icons/${this.props.name}.png`} aria-hidden="true" />
         );
-    },
+    }
 
     getFontIconClass() {
         let classes = {
@@ -40,6 +38,6 @@ const Icon = React.createClass({
 
         return classNames(classes);
     }
-});
+}
 
 export default Icon;

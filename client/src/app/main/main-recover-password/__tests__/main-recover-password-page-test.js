@@ -1,6 +1,4 @@
-const CommonActions = require('actions/__mocks__/common-actions-mock');
-const UserActions = require('actions/__mocks__/user-actions-mock');
-const UserStore = require('stores/__mocks__/user-store-mock');
+const APICallMock = require('lib-app/__mocks__/api-call-mock');
 
 const SubmitButton = ReactMock();
 const Button = ReactMock();
@@ -10,15 +8,13 @@ const Message = ReactMock();
 const Widget = ReactMock();
 
 const MainRecoverPasswordPage = requireUnit('app/main/main-recover-password/main-recover-password-page', {
+    'lib-app/api-call': APICallMock,
     'core-components/submit-button': SubmitButton,
     'core-components/button': Button,
     'core-components/input': Input,
     'core-components/form': Form,
     'core-components/message': Message,
-    'core-components/widget': Widget,
-    'actions/common-actions': CommonActions,
-    'actions/user-actions': UserActions,
-    'stores/user-store': UserStore
+    'core-components/widget': Widget
 });
 
 describe('Recover Password form', function () {
@@ -38,12 +34,16 @@ describe('Recover Password form', function () {
     });
 
     it('should trigger recoverPassword action when submitted', function () {
-        UserActions.sendRecoverPassword.reset();
+        APICallMock.call.reset();
         recoverForm.props.onSubmit({password: 'MOCK_VALUE'});
-        expect(UserActions.recoverPassword).to.have.been.calledWith({
-            password: 'MOCK_VALUE',
-            token: 'SOME_TOKEN',
-            email: 'SOME_EMAIL'
+        
+        expect(APICallMock.call).to.have.been.calledWith({
+            path: '/user/recover-password',
+            data: {
+                password: 'MOCK_VALUE',
+                token: 'SOME_TOKEN',
+                email: 'SOME_EMAIL'
+            }
         });
     });
 
@@ -53,7 +53,7 @@ describe('Recover Password form', function () {
     });
 
     it('should show message when recover fails', function () {
-        component.onUserStoreChanged('INVALID_RECOVER');
+        component.onPasswordRecoverFail();
         expect(recoverForm.props.loading).to.equal(false);
 
         let message = TestUtils.scryRenderedComponentsWithType(component, Message)[0];
@@ -63,7 +63,7 @@ describe('Recover Password form', function () {
     });
 
     it('should show message when recover success', function () {
-        component.onUserStoreChanged('VALID_RECOVER');
+        component.onPasswordRecovered();
         expect(recoverForm.props.loading).to.equal(false);
 
         let message = TestUtils.scryRenderedComponentsWithType(component, Message)[0];

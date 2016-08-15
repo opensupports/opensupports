@@ -1,6 +1,6 @@
 import React              from 'react';
 
-let MainLayoutFooter = React.createClass({
+class MainLayoutFooter extends React.Component {
 
     render() {
         return (
@@ -11,6 +11,6 @@ let MainLayoutFooter = React.createClass({
             </div>
         );
     }
-});
+}
 
 export default MainLayoutFooter;

@@ -1,64 +1,66 @@
-const React = require('react');
-const _ = require('lodash');
-const classNames = require('classnames');
+import React from 'react';
+import _ from 'lodash';
+import classNames from 'classnames';
 
-const {reactDFS, renderChildrenWithProps} = require('lib-core/react-dfs');
-const ValidationFactory = require('lib-app/validations/validations-factory');
+import {reactDFS, renderChildrenWithProps} from 'lib-core/react-dfs';
+import ValidationFactory from 'lib-app/validations/validations-factory';
 
-const Input = require('core-components/input');
-const Checkbox = require('core-components/checkbox');
+import Input from 'core-components/input';
+import Checkbox from 'core-components/checkbox';
 
-const Form = React.createClass({
+class Form extends React.Component {
 
-    propTypes: {
+    static propTypes = {
         loading: React.PropTypes.bool,
         errors: React.PropTypes.object,
         onValidateErrors: React.PropTypes.func,
         onSubmit: React.PropTypes.func
-    },
+    };
 
-    childContextTypes: {
+    static childContextTypes = {
         loading: React.PropTypes.bool
-    },
+    };
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            form: {},
+            validations: {},
+            errors: {}
+        };
+    }
 
     getChildContext() {
         return {
             loading: this.props.loading
         };
-    },
-
-    getInitialState() {
-        return {
-            form: {},
-            validations: {},
-            errors: {}
-        };
-    },
+    }
 
     componentDidMount() {
         this.setState(this.getInitialFormAndValidations());
-    },
+    }
 
     render() {
         return (
             <form {...this.getProps()}>
-                {renderChildrenWithProps(this.props.children, this.getFieldProps)}
+                {renderChildrenWithProps(this.props.children, this.getFieldProps.bind(this))}
             </form>
         );
-    },
+    }
 
     getProps() {
         let props = _.clone(this.props);
 
         props.className = this.getClass();
-        props.onSubmit = this.handleSubmit;
+        props.onSubmit = this.handleSubmit.bind(this);
 
         delete props.errors;
         delete props.loading;
         delete props.onValidateErrors;
 
         return props;
-    },
+    }
 
     getClass() {
         let classes = {
@@ -68,7 +70,7 @@ const Form = React.createClass({
         classes[this.props.className] = (this.props.className);
 
         return classNames(classes);
-    },
+    }
 
     getFieldProps({props, type}) {
         let additionalProps = {};
@@ -86,7 +88,7 @@ const Form = React.createClass({
         }
 
         return additionalProps;
-    },
+    }
 
     getFieldError(fieldName) {
         let error = this.state.errors[fieldName];
@@ -95,7 +97,7 @@ const Form = React.createClass({
             error = this.props.errors[fieldName]
         }
         return error;
-    },
+    }
 
     getFirstErrorField() {
         let fieldName = _.findKey(this.state.errors);
@@ -106,7 +108,7 @@ const Form = React.createClass({
         }
 
         return fieldNode;
-    },
+    }
 
     getAllFieldErrors() {
         let form = this.state.form;
@@ -118,7 +120,7 @@ const Form = React.createClass({
         });
 
         return errors;
-    },
+    }
 
     getErrorsWithValidatedField(fieldName, form = this.state.form, errors = this.state.errors) {
         let newErrors = _.clone(errors);
@@ -128,7 +130,7 @@ const Form = React.createClass({
         }
 
         return newErrors;
-    },
+    }
 
     getInitialFormAndValidations() {
         let form = {};
@@ -154,17 +156,17 @@ const Form = React.createClass({
             form: form,
             validations: validations
         }
-    },
+    }
 
     handleSubmit(event) {
         event.preventDefault();
 
         if (this.hasFormErrors()) {
-            this.updateErrors(this.getAllFieldErrors(), this.focusFirstErrorField);
+            this.updateErrors(this.getAllFieldErrors(), this.focusFirstErrorField.bind(this));
         } else if (this.props.onSubmit) {
             this.props.onSubmit(this.state.form);
         }
-    },
+    }
 
     handleFieldChange(fieldName, type, event) {
         let form = _.clone(this.state.form);
@@ -178,19 +180,19 @@ const Form = React.createClass({
         this.setState({
             form: form
         });
-    },
+    }
 
     isValidFieldType(child) {
         return child.type === Input || child.type === Checkbox;
-    },
+    }
 
     hasFormErrors() {
         return _.some(this.getAllFieldErrors());
-    },
+    }
 
     validateField(fieldName) {
         this.updateErrors(this.getErrorsWithValidatedField(fieldName));
-    },
+    }
 
     updateErrors(errors, callback) {
         this.setState({
@@ -200,7 +202,7 @@ const Form = React.createClass({
         if (this.props.onValidateErrors) {
             this.props.onValidateErrors(errors);
         }
-    },
+    }
 
     focusFirstErrorField() {
         let firstErrorField = this.getFirstErrorField();
@@ -209,6 +211,6 @@ const Form = React.createClass({
             firstErrorField.focus();
         }
     }
-});
+}
 
 export default Form;

@@ -6,21 +6,19 @@ import classNames from 'classnames';
 // CORE LIBS
 import Button from 'core-components/button';
 
-const SubmitButton = React.createClass({
+class SubmitButton extends React.Component {
 
-    contextTypes: {
+    static contextTypes = {
         loading: React.PropTypes.bool
-    },
+    };
 
-    propTypes: {
+    static propTypes = {
         children: React.PropTypes.node
-    },
+    };
 
-    getDefaultProps() {
-        return {
-            type: 'primary'
-        };
-    },
+    static defaultProps = {
+        type: 'primary'
+    };
 
     render() {
         return (
@@ -28,20 +26,20 @@ const SubmitButton = React.createClass({
                 {(this.context.loading) ? this.renderLoading() : this.props.children}
             </Button>
         );
-    },
+    }
 
     renderLoading() {
         return (
             <div className="submit-button__loader"></div>
         );
-    },
+    }
 
     getProps() {
         return _.extend({}, this.props, {
             disabled: this.context.loading,
             className: this.getClass()
         });
-    },
+    }
 
     getClass() {
         let classes = {
@@ -53,6 +51,6 @@ const SubmitButton = React.createClass({
 
         return classNames(classes);
     }
-});
+}
 
 export default SubmitButton;

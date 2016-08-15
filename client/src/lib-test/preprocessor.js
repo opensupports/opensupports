@@ -1,3 +1,5 @@
+'use strict';
+
 var jsdom = require('jsdom').jsdom;
 
 global.document = jsdom('<html><body></body></html>');
@@ -30,3 +32,6 @@ global.reRenderIntoDocument = (function () {
         return ReactDOM.render(jsx, div);
     }
 })();
+global.ReduxMock = {
+    connect: stub().returns(stub().returnsArg(0))
+};

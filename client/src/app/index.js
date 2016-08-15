@@ -1,9 +1,11 @@
 import React  from 'react';
 import {render} from 'react-dom'
-import Router from 'react-router';
-import UserStore from 'stores/user-store';
+import { Provider } from 'react-redux';
 
+import SessionActions from 'actions/session-actions';
+import ConfigActions from 'actions/config-actions';
 import routes from './Routes';
+import store from './store';
 
 if ( process.env.NODE_ENV !== 'production' ) {
     // Enable React devtools
@@ -14,9 +16,18 @@ if (noFixtures === 'disabled') {
     require('lib-app/fixtures-loader');
 }
 
-let onSessionInit = function () {
-    render(routes, document.getElementById('app'));
+let renderApplication = function () {
+    render(<Provider store={store}>{routes}</Provider>, document.getElementById('app'));
 };
+window.store = store;
+store.dispatch(ConfigActions.init());
+store.dispatch(SessionActions.initSession());
 
-UserStore.initSession().then(onSessionInit, onSessionInit);
+let unsubscribe = store.subscribe(() => {
+    console.log(store.getState());
 
+    if (store.getState().session.initDone) {
+        unsubscribe();
+        renderApplication();
+    }
+});

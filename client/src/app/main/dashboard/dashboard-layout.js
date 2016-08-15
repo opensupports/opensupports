@@ -1,26 +1,22 @@
 import React from 'react';
-
-import UserStore from 'stores/user-store';
-import CommonActions from 'actions/common-actions';
+import {connect} from 'react-redux';
 
 import DashboardMenu from 'app/main/dashboard/dashboard-menu';
 
-const DashboardLayout = React.createClass({
-
-    componentWillMount() {
-        if (!UserStore.isLoggedIn()) {
-            CommonActions.loggedOut();
-        }
-    },
+class DashboardLayout extends React.Component {
 
     render() {
-        return (UserStore.isLoggedIn()) ? (
+        return (this.props.session.logged) ? (
             <div>
                 <div><DashboardMenu location={this.props.location} /></div>
                 <div>{this.props.children}</div>
             </div>
         ) : null;
     }
-});
+}
 
-export default DashboardLayout;
+export default connect((store) => {
+    return {
+        session: store.session
+    };
+})(DashboardLayout);

@@ -1,10 +1,11 @@
 import React      from 'react';
 import ReactDOM   from 'react-dom';
-import Reflux     from 'reflux';
+import {connect}  from 'react-redux';
 import classNames from 'classnames';
+import _          from 'lodash';
 
-import UserActions from 'actions/user-actions';
-import UserStore   from 'stores/user-store';
+import SessionActions from 'actions/session-actions';
+import API         from 'lib-app/api-call';
 import focus       from 'lib-core/focus';
 import i18n        from 'lib-app/i18n';
 
@@ -17,12 +18,12 @@ import Widget           from 'core-components/widget';
 import WidgetTransition from 'core-components/widget-transition';
 import Message          from 'core-components/message';
 
-let MainHomePageLoginWidget = React.createClass({
-    
-    mixins: [Reflux.listenTo(UserStore, 'onUserStoreChanged')],
+class MainHomePageLoginWidget extends React.Component {
 
-    getInitialState() {
-        return {
+    constructor(props) {
+        super(props);
+
+        this.state = {
             sideToShow: 'front',
             loginFormErrors: {},
             recoverFormErrors: {},
@@ -30,7 +31,13 @@ let MainHomePageLoginWidget = React.createClass({
             loadingLogin: false,
             loadingRecover: false
         };
-    },
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!prevProps.session.failed && this.props.session.failed) {
+            this.refs.loginForm.refs.password.focus();
+        }
+    }
 
     render() {
         return (
@@ -39,7 +46,7 @@ let MainHomePageLoginWidget = React.createClass({
                 {this.renderPasswordRecovery()}
             </WidgetTransition>
         );
-    },
+    }
 
     renderLogin() {
         return (
@@ -54,12 +61,12 @@ let MainHomePageLoginWidget = React.createClass({
                         <SubmitButton type="primary">LOG IN</SubmitButton>
                     </div>
                 </Form>
-                <Button className="login-widget__forgot-password" type="link" onClick={this.handleForgotPasswordClick} onMouseDown={(event) => {event.preventDefault()}}>
+                <Button className="login-widget__forgot-password" type="link" onClick={this.onForgotPasswordClick.bind(this)} onMouseDown={(event) => {event.preventDefault()}}>
                     {i18n('FORGOT_PASSWORD')}
                 </Button>
             </Widget>
         );
-    },
+    }
 
     renderPasswordRecovery() {
         return (
@@ -72,13 +79,13 @@ let MainHomePageLoginWidget = React.createClass({
                         <SubmitButton type="primary">{i18n('RECOVER_PASSWORD')}</SubmitButton>
                     </div>
                 </Form>
-                <Button className="login-widget__forgot-password" type="link" onClick={this.handleBackToLoginClick} onMouseDown={(event) => {event.preventDefault()}}>
+                <Button className="login-widget__forgot-password" type="link" onClick={this.onBackToLoginClick.bind(this)} onMouseDown={(event) => {event.preventDefault()}}>
                     {i18n('BACK_LOGIN_FORM')}
                 </Button>
                 {this.renderRecoverStatus()}
             </Widget>
         );
-    },
+    }
 
     renderRecoverStatus() {
         let status = null;
@@ -92,102 +99,98 @@ let MainHomePageLoginWidget = React.createClass({
         }
 
         return status;
-    },
+    }
 
     getLoginFormProps() {
         return {
-            loading: this.state.loadingLogin,
+            loading: this.props.session.pending,
             className: 'login-widget__form',
             ref: 'loginForm',
-            onSubmit:this.handleLoginFormSubmit,
-            errors: this.state.loginFormErrors,
-            onValidateErrors: this.handleLoginFormErrorsValidation
+            onSubmit: this.onLoginFormSubmit.bind(this),
+            errors: this.getLoginFormErrors(),
+            onValidateErrors: this.onLoginFormErrorsValidation.bind(this)
         };
-    },
+    }
 
     getRecoverFormProps() {
         return {
             loading: this.state.loadingRecover,
             className: 'login-widget__form',
             ref: 'recoverForm',
-            onSubmit:this.handleForgotPasswordSubmit,
+            onSubmit: this.onForgotPasswordSubmit.bind(this),
             errors: this.state.recoverFormErrors,
-            onValidateErrors: this.handleRecoverFormErrorsValidation
+            onValidateErrors: this.onRecoverFormErrorsValidation.bind(this)
         };
-    },
+    }
 
-    handleLoginFormSubmit(formState) {
-        UserActions.login(formState);
+    getLoginFormErrors() {
+        let errors = _.extend({}, this.state.loginFormErrors);
 
+        if (this.props.session.failed) {
+            errors.password = i18n('ERROR_PASSWORD');
+        }
+
+        return errors;
+    }
+
+    onLoginFormSubmit(formState) {
+        this.props.dispatch(SessionActions.login(formState));
+    }
+
+    onForgotPasswordSubmit(formState) {
         this.setState({
-            loadingLogin: true
+            loadingRecover: true,
+            recoverSent: false
         });
-    },
 
-    handleForgotPasswordSubmit(formState) {
-        UserActions.sendRecoverPassword(formState);
+        API.call({
+            path: '/user/send-recover-password',
+            data: formState
+        }).then(this.onRecoverPasswordSent.bind(this)).catch(this.onRecoverPasswordFail.bind(this));
+    }
 
-        this.setState({
-            loadingRecover: true
-        });
-    },
-
-    handleLoginFormErrorsValidation(errors) {
+    onLoginFormErrorsValidation(errors) {
         this.setState({
             loginFormErrors: errors
         });
-    },
+    }
 
-    handleRecoverFormErrorsValidation(errors) {
+    onRecoverFormErrorsValidation(errors) {
         this.setState({
             recoverFormErrors: errors
         });
-    },
+    }
 
-    handleForgotPasswordClick() {
+    onForgotPasswordClick() {
         this.setState({
             sideToShow: 'back'
         }, this.moveFocusToCurrentSide);
-    },
+    }
 
-    handleBackToLoginClick() {
+    onBackToLoginClick() {
         this.setState({
             sideToShow: 'front',
             recoverSent: false
         }, this.moveFocusToCurrentSide);
-    },
-    
-    onUserStoreChanged(event) {
-        if (event === 'LOGIN_FAIL') {
-            this.setState({
-                loadingLogin: false,
-                loginFormErrors: {
-                    password: i18n('ERROR_PASSWORD')
-                }
-            }, function () {
-                this.refs.loginForm.refs.password.focus();
-            }.bind(this));
-        }
+    }
 
-        if (event === 'SEND_RECOVER_FAIL') {
-            this.setState({
-                loadingRecover: false,
-                recoverFormErrors: {
-                    email: i18n('EMAIL_NOT_EXIST')
-                }
-            }, function () {
-                this.refs.recoverForm.refs.email.focus();
-            }.bind(this));
+    onRecoverPasswordSent() {
+        this.setState({
+            loadingRecover: false,
+            recoverSent: true
+        });
+    }
 
-        }
-
-        if (event === 'SEND_RECOVER_SUCCESS') {
-            this.setState({
-                loadingRecover: false,
-                recoverSent: true
-            });
-        }
-    },
+    onRecoverPasswordFail() {
+        this.setState({
+            loadingRecover: false,
+            recoverFormErrors: {
+                email: i18n('EMAIL_NOT_EXIST')
+            }
+        }, function () {
+            this.refs.recoverForm.refs.email.focus();
+        }.bind(this));
+    }
 
     moveFocusToCurrentSide() {
         let currentWidget;
@@ -205,6 +208,11 @@ let MainHomePageLoginWidget = React.createClass({
             focus.focusFirstInput(currentWidget);
         }
     }
-});
+}
 
-export default MainHomePageLoginWidget;
+
+export default connect((store) => {
+    return {
+        session: store.session
+    };
+})(MainHomePageLoginWidget);

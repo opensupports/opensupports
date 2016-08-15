@@ -6,13 +6,13 @@ import classNames from 'classnames';
 // CORE LIBS
 import callback from 'lib-core/callback';
 
-const Button = React.createClass({
+class Button extends React.Component {
 
-    contextTypes: {
+    static contextTypes = {
         router: React.PropTypes.object
-    },
+    };
 
-    propTypes: {
+    static propTypes = {
         children: React.PropTypes.node,
         type: React.PropTypes.oneOf([
             'primary',
@@ -24,13 +24,11 @@ const Button = React.createClass({
             params: React.PropTypes.object,
             query: React.PropTypes.query
         })
-    },
+    };
 
-    getDefaultProps() {
-        return {
-            type: 'primary'
-        };
-    },
+    static defaultProps = {
+        type: 'primary'
+    };
 
     render() {
         return (
@@ -38,19 +36,19 @@ const Button = React.createClass({
                 {this.props.children}
             </button>
         );
-    },
+    }
 
     getProps() {
         let props = _.clone(this.props);
 
-        props.onClick = callback(this.handleClick, this.props.onClick);
+        props.onClick = callback(this.handleClick.bind(this), this.props.onClick);
         props.className = this.getClass();
 
         delete props.route;
         delete props.type;
 
         return props;
-    },
+    }
 
     getClass() {
         let classes = {
@@ -62,13 +60,13 @@ const Button = React.createClass({
         classes[this.props.className] = (this.props.className);
 
         return classNames(classes);
-    },
+    }
 
     handleClick() {
         if (this.props.route) {
             this.context.router.push(this.props.route.to);
         }
     }
-});
+}
 
 export default Button;

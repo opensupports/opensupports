@@ -1,27 +1,32 @@
-const React = require('react');
-const {Router, Route, IndexRoute, browserHistory} = require('react-router');
+import React from 'react';
+import {Router, Route, IndexRoute, browserHistory} from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
 
-const App = require('app/App');
-const DemoPage = require('app/demo/components-demo-page');
+import store from 'app/store';
 
-const MainLayout = require('app/main/main-layout');
-const MainHomePage = require('app/main/main-home/main-home-page');
-const MainSignUpPage = require('app/main/main-signup/main-signup-page');
-const MainRecoverPasswordPage = require('app/main/main-recover-password/main-recover-password-page');
+import App from 'app/App';
+import DemoPage from 'app/demo/components-demo-page';
 
-const DashboardLayout = require('app/main/dashboard/dashboard-layout');
+import MainLayout from 'app/main/main-layout';
+import MainHomePage from 'app/main/main-home/main-home-page';
+import MainSignUpPage from 'app/main/main-signup/main-signup-page';
+import MainRecoverPasswordPage from 'app/main/main-recover-password/main-recover-password-page';
 
-const DashboardListTicketsPage = require('app/main/dashboard/dashboard-list-tickets/dashboard-list-tickets-page');
-const DashboardListArticlesPage = require('app/main/dashboard/dashboard-list-articles/dashboard-list-articles-page');
+import DashboardLayout from 'app/main/dashboard/dashboard-layout';
 
-const DashboardCreateTicketPage = require('app/main/dashboard/dashboard-create-ticket/dashboard-create-ticket-page');
-const DashboardEditProfilePage = require('app/main/dashboard/dashboard-edit-profile/dashboard-edit-profile-page');
+import DashboardListTicketsPage from 'app/main/dashboard/dashboard-list-tickets/dashboard-list-tickets-page';
+import DashboardListArticlesPage from 'app/main/dashboard/dashboard-list-articles/dashboard-list-articles-page';
 
-const DashboardArticlePage = require('app/main/dashboard/dashboard-article/dashboard-article-page');
-const DashboardTicketPage = require('app/main/dashboard/dashboard-ticket/dashboard-ticket-page');
+import DashboardCreateTicketPage from 'app/main/dashboard/dashboard-create-ticket/dashboard-create-ticket-page';
+import DashboardEditProfilePage from 'app/main/dashboard/dashboard-edit-profile/dashboard-edit-profile-page';
+
+import DashboardArticlePage from 'app/main/dashboard/dashboard-article/dashboard-article-page';
+import DashboardTicketPage from 'app/main/dashboard/dashboard-ticket/dashboard-ticket-page';
+
+const history = syncHistoryWithStore(browserHistory, store);
 
 export default (
-    <Router history={browserHistory}>
+    <Router history={history}>
         <Route component={App} path='/'>
             <Route path='/app' component={MainLayout}>
                 <IndexRoute component={MainHomePage} />

@@ -6,7 +6,7 @@ class SessionStore {
         this.storage = LocalStorage;
 
         if (!this.getItem('language')) {
-            this.setItem('language', 'english');
+            this.setItem('language', 'us');
         }
     }
 
@@ -35,6 +35,22 @@ class SessionStore {
         this.setItem('rememberData-token', token);
         this.setItem('rememberData-userId', userId);
         this.setItem('rememberData-expiration', expiration);
+    }
+
+    storeConfigs(configs) {
+        this.setItem('language', configs.language);
+        this.setItem('reCaptchaKey', configs.reCaptchaKey);
+    }
+
+    getConfigs() {
+        return {
+            language: this.getItem('language'),
+            reCaptchaKey: this.getItem('reCaptchaKey')
+        };
+    }
+
+    areConfigsStored() {
+        return !!this.getItem('reCaptchaKey');
     }
 
     isRememberDataExpired() {

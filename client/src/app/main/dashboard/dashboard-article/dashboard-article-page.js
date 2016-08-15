@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DashboardArticlePage = React.createClass({
+class DashboardArticlePage extends React.Component {
 
     render() {
         return (
@@ -9,6 +9,6 @@ const DashboardArticlePage = React.createClass({
             </div>
         );
     }
-});
+}
 
 export default DashboardArticlePage;

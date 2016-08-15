@@ -3,35 +3,31 @@ import classNames         from 'classnames';
 import _                  from 'lodash';
 import {Motion, spring}   from 'react-motion';
 
-import Widget             from 'core-components/widget';
+class WidgetTransition extends React.Component {
 
-let WidgetTransition = React.createClass({
-
-    propTypes: {
+    static propTypes = {
         sideToShow: React.PropTypes.string
-    },
+    };
 
-    getDefaultProps() {
-        return {
-            sideToShow: 'front'
-        };
-    },
+    static defaultProps = {
+        sideToShow: 'front'
+    };
 
     getDefaultAnimation() {
         return {
             rotateY: -90
         };
-    },
+    }
 
     render() {
         return (
             <Motion defaultStyle={this.getDefaultAnimation()} style={this.getAnimation()}>
-                {this.renderChildren}
+                {this.renderChildren.bind(this)}
             </Motion>
         );
-    },
+    }
 
-    renderChildren: function (animation) {
+    renderChildren(animation) {
         return (
             <div className={this.getClass()}>
                 {React.Children.map(this.props.children, function (child, index) {
@@ -57,7 +53,7 @@ let WidgetTransition = React.createClass({
                 })}
             </div>
         )
-    },
+    }
 
     getClass() {
         let classes = {
@@ -66,13 +62,13 @@ let WidgetTransition = React.createClass({
         };
 
         return classNames(classes);
-    },
+    }
 
     getAnimation() {
         return {
             rotateY: (this.props.sideToShow === 'front') ? spring(0, [100, 20]) : spring(180, [100, 20])
         };
     }
-});
+}
 
 export default WidgetTransition;

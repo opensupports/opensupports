@@ -1,17 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
 
-let Widget = React.createClass({
-    propTypes: {
+class Widget extends React.Component {
+    static propTypes = {
         title: React.PropTypes.string,
         children: React.PropTypes.node.isRequired
-    },
+    };
 
-    getDefaultProps() {
-        return {
-            title: ''
-        };
-    },
+    static defaultProps = {
+        title: ''
+    };
 
     render() {
         return (
@@ -20,7 +18,7 @@ let Widget = React.createClass({
                 {this.props.children}
             </div>
         );
-    },
+    }
 
     renderTitle() {
         let titleNode = null;
@@ -30,7 +28,7 @@ let Widget = React.createClass({
         }
 
         return titleNode;
-    },
+    }
 
     getClass() {
         let classes = {
@@ -41,6 +39,6 @@ let Widget = React.createClass({
 
         return classNames(classes);
     }
-});
+}
 
 export default Widget;

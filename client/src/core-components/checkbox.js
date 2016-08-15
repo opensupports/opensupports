@@ -5,25 +5,25 @@ import _                  from 'lodash';
 import callback           from 'lib-core/callback';
 import getIcon            from 'lib-core/get-icon';
 
-let CheckBox = React.createClass({
+class CheckBox extends React.Component {
 
-    propTypes: {
+    static propTypes = {
         alignment: React.PropTypes.string,
         label: React.PropTypes.string,
         value: React.PropTypes.bool
-    },
+    };
 
-    getDefaultProps() {
-        return {
-            alignment: 'right'
-        };
-    },
+    static defaultProps = {
+        alignment: 'right'
+    };
 
-    getInitialState() {
-        return {
+    constructor(props) {
+        super(props);
+
+        this.state = {
             checked: false
         };
-    },
+    }
 
     render() {
         return (
@@ -35,7 +35,7 @@ let CheckBox = React.createClass({
                 <input {...this.getProps()}/>
             </label>
         );
-    },
+    }
 
     getProps() {
         let props = _.clone(this.props);
@@ -45,7 +45,7 @@ let CheckBox = React.createClass({
         props['aria-hidden'] = true;
         props.className = 'checkbox--box';
         props.checked = this.getValue();
-        props.onChange = callback(this.handleChange, this.props.onChange);
+        props.onChange = callback(this.handleChange.bind(this), this.props.onChange);
 
         delete props.alignment;
         delete props.error;
@@ -53,7 +53,7 @@ let CheckBox = React.createClass({
         delete props.value;
 
         return props;
-    },
+    }
 
     getClass() {
         let classes = {
@@ -64,39 +64,39 @@ let CheckBox = React.createClass({
         };
 
         return classNames(classes);
-    },
+    }
 
     getIconProps() {
         return {
             'aria-checked': this.getValue(),
             className: 'checkbox--icon',
-            onKeyDown: callback(this.handleIconKeyDown, this.props.onKeyDown),
+            onKeyDown: callback(this.handleIconKeyDown.bind(this), this.props.onKeyDown),
             role: "checkbox",
             tabIndex: 0
         };
-    },
+    }
 
     getValue() {
         return (this.props.value === undefined) ? this.state.checked : this.props.value;
-    },
+    }
 
-    handleChange: function (event) {
+    handleChange(event) {
         this.setState({
             checked: event.target.checked
         });
-    },
+    }
 
-    handleIconKeyDown: function (event) {
+    handleIconKeyDown(event) {
         if (event.keyCode == 32) {
             event.preventDefault();
 
-            callback(this.handleChange, this.props.onChange)({
+            callback(this.handleChange.bind(this), this.props.onChange)({
                 target: {
                     checked: !this.state.checked
                 }
             });
         }
     }
-});
+}
 
 export default CheckBox;

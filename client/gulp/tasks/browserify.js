@@ -38,7 +38,7 @@ function buildScript(file, watch) {
     bundler.on('update', rebundle);
   }
 
-  bundler.transform(babelify);
+  bundler.transform(babelify, {'optional': ['es7.classProperties']});
   bundler.transform(debowerify);
 
   function rebundle() {

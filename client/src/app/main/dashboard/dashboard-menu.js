@@ -10,48 +10,48 @@ let dashboardRoutes = [
     { path: '/app/dashboard/edit-profile', text: 'Edit Profile' }
 ];
 
-const DashboardMenu = React.createClass({
-    contextTypes: {
+class DashboardMenu extends React.Component {
+    static contextTypes = {
         router: React.PropTypes.object
-    },
+    };
 
-    propTypes: {
+    static propTypes = {
         location: React.PropTypes.object
-    },
+    };
 
     render() {
         return (
             <Menu {...this.getProps()} />
         );
-    },
+    }
 
     getProps() {
         return {
             items: this.getMenuItems(),
             selectedIndex: this.getSelectedIndex(),
-            onItemClick: this.goToPathByIndex
+            onItemClick: this.goToPathByIndex.bind(this)
         };
-    },
+    }
 
-    getMenuItems: function () {
-        return dashboardRoutes.map(this.getMenuItem);
-    },
+    getMenuItems() {
+        return dashboardRoutes.map(this.getMenuItem.bind(this));
+    }
 
     getMenuItem(item) {
         return {
             content: item.text
         };
-    },
+    }
 
     getSelectedIndex() {
         let pathname = this.props.location.pathname;
 
         return _.findIndex(dashboardRoutes, {path: pathname});
-    },
+    }
 
     goToPathByIndex(itemIndex) {
         this.context.router.push(dashboardRoutes[itemIndex].path);
     }
-});
+}
 
 export default DashboardMenu;
