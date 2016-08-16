@@ -28,8 +28,8 @@ class App extends React.Component {
     redirectIfPathIsNotValid(props) {
         const validations = {
             languageChanged: props.config.language !== this.props.config.language,
-            loggedIn: !_.includes(props.location.pathname, '/app/dashboard') && props.session.logged,
-            loggedOut: _.includes(props.location.pathname, '/app/dashboard') && !props.session.logged
+            loggedIn: !_.includes(props.location.pathname, '/dashboard') && props.session.logged,
+            loggedOut: _.includes(props.location.pathname, '/dashboard') && !props.session.logged
         };
 
         if (validations.languageChanged) {
@@ -37,11 +37,11 @@ class App extends React.Component {
         }
 
         if (validations.loggedOut) {
-            browserHistory.push('/app');
+            browserHistory.push('/');
         }
 
         if (validations.loggedIn) {
-            browserHistory.push('/app/dashboard');
+            browserHistory.push('/dashboard');
         }
     }
 }

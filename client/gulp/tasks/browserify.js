@@ -21,7 +21,7 @@ var util = require('gulp-util');
 function buildScript(file, watch) {
 
   var bundler = browserify({
-    entries: [config.sourceDir + 'app/' + file],
+    entries: [config.sourceDir + '/' + file],
     debug: !global.isProd,
     insertGlobalVars: {
       noFixtures: function() {

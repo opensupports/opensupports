@@ -4,10 +4,10 @@ import _ from 'lodash';
 import Menu from 'core-components/menu';
 
 let dashboardRoutes = [
-    { path: '/app/dashboard', text: 'Ticket List', icon: 'file-text-o' },
-    { path: '/app/dashboard/create-ticket', text: 'Create Ticket', icon: 'plus' },
-    { path: '/app/dashboard/articles', text: 'View Articles', icon: 'book' },
-    { path: '/app/dashboard/edit-profile', text: 'Edit Profile', icon: 'pencil' }
+    { path: '/dashboard', text: 'Ticket List', icon: 'file-text-o' },
+    { path: '/dashboard/create-ticket', text: 'Create Ticket', icon: 'plus' },
+    { path: '/dashboard/articles', text: 'View Articles', icon: 'book' },
+    { path: '/dashboard/edit-profile', text: 'Edit Profile', icon: 'pencil' }
 ];
 
 class DashboardMenu extends React.Component {

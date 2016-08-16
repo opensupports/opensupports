@@ -23,4 +23,10 @@
     &__date {
         text-align: right;
     }
+
+    &__title-link:hover,
+    &__title-link:focus {
+        outline: none;
+        text-decoration: underline;
+    }
 }

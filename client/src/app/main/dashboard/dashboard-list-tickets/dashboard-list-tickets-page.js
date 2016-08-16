@@ -130,7 +130,11 @@ class DashboardListTicketsPage extends React.Component {
 
         return {
             number: '#' + ticket.ticketNumber,
-            title: <Button type="clean" route={{to: '/app/dashboard/view-ticket/' + ticket.ticketNumber}}>{titleText}</Button>,
+            title: (
+                <Button className="dashboard-ticket-list__title-link" type="clean" route={{to: '/dashboard/ticket/' + ticket.ticketNumber}}>
+                    {titleText}
+                </Button>
+            ),
             department: ticket.department,
             date: ticket.date,
             highlighted: ticket.unread

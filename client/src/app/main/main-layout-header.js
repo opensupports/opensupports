@@ -42,8 +42,8 @@ class MainLayoutHeader extends React.Component {
         } else {
             result = (
                 <div className="main-layout-header--login-links">
-                    <Button type="clean" route={{to:'/app'}}>{i18n('LOG_IN')}</Button>
-                    <Button type="clean" route={{to:'/app/signup'}}>Sign up</Button>
+                    <Button type="clean" route={{to:'/'}}>{i18n('LOG_IN')}</Button>
+                    <Button type="clean" route={{to:'/signup'}}>Sign up</Button>
                 </div>
             );
         }
