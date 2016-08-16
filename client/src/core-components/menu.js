@@ -7,6 +7,7 @@ import Icon from 'core-components/icon';
 class Menu extends React.Component {
 
     static propTypes = {
+        header: React.PropTypes.string,
         type: React.PropTypes.oneOf(['primary', 'secondary']),
         items: React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.string.isRequired,
@@ -22,10 +23,23 @@ class Menu extends React.Component {
 
     render() {
         return (
-            <ul {...this.getProps()}>
-                {this.props.items.map(this.renderListItem.bind(this))}
-            </ul>
+            <div className={this.getClass()}>
+                {this.renderHeader()}
+                <ul {...this.getProps()}>
+                    {this.props.items.map(this.renderListItem.bind(this))}
+                </ul>
+            </div>
         )
+    }
+
+    renderHeader() {
+        let header = null;
+
+        if (this.props.header) {
+            header = <div className="menu__header">{this.props.header}</div>;
+        }
+
+        return header;
     }
 
     renderListItem(item, index) {
@@ -45,8 +59,9 @@ class Menu extends React.Component {
     getProps() {
         var props = _.clone(this.props);
 
-        props.className = this.getClass();
+        props.className = 'menu__list';
 
+        delete props.header;
         delete props.items;
         delete props.onItemClick;
         delete props.selectedIndex;

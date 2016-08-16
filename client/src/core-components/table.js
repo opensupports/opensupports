@@ -8,7 +8,7 @@ class Table extends React.Component {
             value: React.PropTypes.string,
             className: React.PropTypes.string
         })),
-        rows: React.PropTypes.arrayOf(React.PropTypes.objectOf(React.PropTypes.node)),
+        rows: React.PropTypes.arrayOf(React.PropTypes.object),
         type: React.PropTypes.oneOf(['default'])
     };
 
@@ -46,7 +46,7 @@ class Table extends React.Component {
         let headersKeys = this.props.headers.map(header => header.key);
 
         return (
-            <tr className="table__row" key={index}>
+            <tr className={this.getRowClass(row)} key={index}>
                 {headersKeys.map(this.renderCell.bind(this, row))}
             </tr>
         );
@@ -61,6 +61,15 @@ class Table extends React.Component {
         return (
             <td className={classNames(classes)} key={key}>{row[key]}</td>
         );
+    }
+    
+    getRowClass(row) {
+        let classes = {
+            'table__row': true,
+            'table__row-highlighted': row.highlighted
+        };
+        
+        return classNames(classes);
     }
 }
 

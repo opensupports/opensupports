@@ -5,11 +5,11 @@
     &__header {
         background-color: $primary-blue;
         color: white;
-        font-variant: small-caps;
+        font-weight: normal;
     }
 
     &__header-column {
-        padding: 10px;
+        font-weight: normal;
 
         &:first-child {
             border-top-left-radius: 4px;
@@ -21,6 +21,7 @@
     }
 
     &__row {
+        border: 0;
         color: #B8B8B8;
 
         &:nth-child(even) {
@@ -28,11 +29,18 @@
         }
 
         &:nth-child(odd) {
-            background-color: $light-grey;
+            background-color: #F1F1F1;
+        }
+
+        &-highlighted {
+            color: $secondary-blue;
+            font-weight: bold;
+            background-color: white !important;
         }
     }
 
-    &__cell {
+    &__cell00 {
+        border: 0;
         padding: 10px;
     }
 }

@@ -4,10 +4,10 @@ import _ from 'lodash';
 import Menu from 'core-components/menu';
 
 let dashboardRoutes = [
-    { path: '/app/dashboard', text: 'Ticket List' },
-    { path: '/app/dashboard/create-ticket', text: 'Create Ticket' },
-    { path: '/app/dashboard/articles', text: 'View Articles' },
-    { path: '/app/dashboard/edit-profile', text: 'Edit Profile' }
+    { path: '/app/dashboard', text: 'Ticket List', icon: 'file-text-o' },
+    { path: '/app/dashboard/create-ticket', text: 'Create Ticket', icon: 'plus' },
+    { path: '/app/dashboard/articles', text: 'View Articles', icon: 'book' },
+    { path: '/app/dashboard/edit-profile', text: 'Edit Profile', icon: 'pencil' }
 ];
 
 class DashboardMenu extends React.Component {
@@ -27,9 +27,11 @@ class DashboardMenu extends React.Component {
 
     getProps() {
         return {
+            header: 'Dashboard',
             items: this.getMenuItems(),
             selectedIndex: this.getSelectedIndex(),
-            onItemClick: this.goToPathByIndex.bind(this)
+            onItemClick: this.goToPathByIndex.bind(this),
+            type: 'secondary'
         };
     }
 
@@ -39,7 +41,8 @@ class DashboardMenu extends React.Component {
 
     getMenuItem(item) {
         return {
-            content: item.text
+            content: item.text,
+            icon: item.icon
         };
     }
 
