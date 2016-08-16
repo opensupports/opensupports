@@ -1,0 +1,17 @@
+.dashboard-ticket-list {
+    &__number {
+        text-align: left;
+    }
+
+    &__title {
+        text-align: left;
+    }
+
+    &__department {
+        text-align: right;
+    }
+
+    &__date {
+        text-align: right;
+    }
+}

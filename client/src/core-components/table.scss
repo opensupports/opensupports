@@ -9,7 +9,15 @@
     }
 
     &__header-column {
+        padding: 10px;
 
+        &:first-child {
+            border-top-left-radius: 4px;
+        }
+
+        &:last-child {
+            border-top-right-radius: 4px
+        }
     }
 
     &__row {
@@ -25,6 +33,6 @@
     }
 
     &__cell {
-
+        padding: 10px;
     }
 }

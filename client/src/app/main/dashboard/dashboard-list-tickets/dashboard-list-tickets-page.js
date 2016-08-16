@@ -13,45 +13,67 @@ class DashboardListTicketsPage extends React.Component {
 
     getTableHeaders() {
         return [
-            'Number',
-            'Title',
-            'Department',
-            'Date'
+            {
+                key: 'number',
+                value: 'Number',
+                className: 'dashboard-ticket-list__number col-md-1'
+            },
+            {
+                key: 'title',
+                value: 'Title',
+                className: 'dashboard-ticket-list__title col-md-7'
+            },
+            {
+                key: 'department',
+                value: 'Department',
+                className: 'dashboard-ticket-list__department col-md-2'
+            },
+            {
+                key: 'date',
+                value: 'Date',
+                className: 'dashboard-ticket-list__date col-md-2'
+            }
         ];
     }
 
     getTableRows() {
         return [
-            [
-                '#445441',
-                'Problem with installation',
-                'Environment Setup',
-                '15 Apr 2016'
-            ],
-            [
-                '#445441',
-                'Problem with installation',
-                'Environment Setup',
-                '15 Apr 2016'
-            ],
-            [
-                '#445441',
-                'Problem with installation',
-                'Environment Setup',
-                '15 Apr 2016'
-            ],
-            [
-                '#445441',
-                'Problem with installation',
-                'Environment Setup',
-                '15 Apr 2016'
-            ],
-            [
-                '#445441',
-                'Problem with installation',
-                'Environment Setup',
-                '15 Apr 2016'
-            ]
+            {
+                number: '#445441',
+                title: 'Problem with installation',
+                department: 'Environment Setup',
+                date: '15 Apr 2016'
+            },
+            {
+                number: '#445441',
+                title: 'Problem with installation',
+                department: 'Environment Setup',
+                date: '15 Apr 2016'
+            },
+            {
+                number: '#445441',
+                title: 'Problem with installation',
+                department: 'Environment Setup',
+                date: '15 Apr 2016'
+            },
+            {
+                number: '#445441',
+                title: 'Problem with installation',
+                department: 'Environment Setup',
+                date: '15 Apr 2016'
+            },
+            {
+                number: '#445441',
+                title: 'Problem with installation',
+                department: 'Environment Setup',
+                date: '15 Apr 2016'
+            },
+            {
+                number: '#445441',
+                title: 'Problem with installation',
+                department: 'Environment Setup',
+                date: '15 Apr 2016'
+            }
         ];
     }
 }
