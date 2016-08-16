@@ -5,6 +5,9 @@ DataValidator::with('CustomValidations', true);
 class SendRecoverPasswordController extends Controller {
     const PATH = '/send-recover-password';
 
+    private $token;
+    private $user;
+
     public function validations() {
         return [
             'permission' => 'any',
@@ -19,17 +22,36 @@ class SendRecoverPasswordController extends Controller {
 
     public function handler() {
         $email = Controller::request('email');
+        $this->user = User::getUser($email,'email');
+        
+        if(!$this->user->isNull()) {
+            $this->token = Hashing::generateRandomToken();
 
-        $token = Hashing::generateRandomToken();
+            $recoverPassword = new RecoverPassword();
+            $recoverPassword->setProperties(array(
+                'email' => $email,
+                'token' => $this->token
+            ));
+            $recoverPassword->store();
 
-        $recoverPassword = new RecoverPassword();
-        $recoverPassword->setProperties(array(
-            'email' => $email,
-            'token' => $token
-        ));
-        $recoverPassword->store();
+            $this->sendEmail();
 
-        Response::respondSuccess();
-        //TODO:  mandar  mail con token
+            Response::respondSuccess();
+        } else {
+            Response::respondError(ERRORS::INVALID_EMAIL);
+        }
+        
+    }
+
+    public function sendEmail() {
+        $mailSender = new MailSender();
+
+        $mailSender->setTemplate(MailTemplate::PASSWORD_FORGOT, [
+            'to' => $this->user->email,
+            'name' => $this->user->name,
+            'token' => $this->token
+        ]);
+
+        $mailSender->send();
     }
 }

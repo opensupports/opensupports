@@ -32,7 +32,27 @@ class InitialMails {
                     'subject' => 'Tu correo electronico a sido cambiada - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-edit-email-es.html')
                 ]
-            ]
+            ],
+            'PASSWORD_FORGOT' => [
+                'en' => [
+                    'subject' => 'forgotten password - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/user-password-forgot-en.html')
+                ],
+                'es' => [
+                    'subject' => 'Contraseña olvidada - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/user-password-forgot-es.html')
+                ]
+            ],
+            'PASSWORD_RECOVERED' => [
+                'en' => [
+                    'subject' => 'Recover Password - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/user-recovered-password-en.html')
+                ],
+                'es' => [
+                    'subject' => 'Recuperación de contraseña - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/user-recovered-password-es.html')
+                ]
+            ],
         ];
     }
 }

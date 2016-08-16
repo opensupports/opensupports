@@ -8,6 +8,7 @@ class RecoverPasswordController extends Controller {
     private $email;
     private $token;
     private $password;
+    private $user;
 
     public function validations() {
         return [
@@ -37,19 +38,31 @@ class RecoverPasswordController extends Controller {
     }
     public function changePassword() {
         $recoverPassword = RecoverPassword::getDataStore($this->token, 'token');
-        $user = User::getDataStore($this->email, 'email');
+        $this->user = User::getDataStore($this->email, 'email');
 
-        if (!$recoverPassword->isNull() && !$user->isNull()) {
+        if (!$recoverPassword->isNull() && !$this->user->isNull()) {
             $recoverPassword->delete();
 
-            $user->setProperties([
+            $this->user->setProperties([
                 'password' => Hashing::hashPassword($this->password)
             ]);
 
-            $user->store();
+            $this->user->store();
+
+            $this->sendMail();
             Response::respondSuccess();
         } else {
             Response::respondError(ERRORS::NO_PERMISSION);
         }
+    }
+    public function sendMail() {
+        $mailSender = new MailSender();
+
+        $mailSender->setTemplate(MailTemplate::PASSWORD_RECOVERED, [
+            'to' => $this->user->email,
+            'name' => $this->user->name,
+        ]);
+
+        $mailSender->send();
     }
 }
