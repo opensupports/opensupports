@@ -19,8 +19,9 @@ class SessionReducer extends Reducer {
             'LOGIN_FULFILLED': this.onLoginCompleted.bind(this),
             'LOGIN_REJECTED': this.onLoginFailed,
             'LOGOUT_FULFILLED': this.onLogout,
+            'USER_DATA_FULFILLED': this.onUserDataRetrieved,
             'CHECK_SESSION_REJECTED': (state) => { return _.extend({}, state, {initDone: true})},
-            'SESSION_CHECKED': (state) => { return _.extend({}, state, {initDone: true, logged: true})},
+            'SESSION_CHECKED': this.onSessionChecked,
             'LOGIN_AUTO_FULFILLED': this.onAutoLogin.bind(this),
             'LOGIN_AUTO_REJECTED': this.onAutoLoginFail
         };
@@ -54,7 +55,6 @@ class SessionReducer extends Reducer {
 
     onLogout(state) {
         sessionStore.closeSession();
-        sessionStore.clearRememberData();
 
         return _.extend({}, state, {
             initDone: true,
@@ -77,7 +77,6 @@ class SessionReducer extends Reducer {
 
     onAutoLoginFail(state) {
         sessionStore.closeSession();
-        sessionStore.clearRememberData();
 
         return _.extend({}, state, {
             initDone: true
@@ -94,6 +93,30 @@ class SessionReducer extends Reducer {
         }
 
         sessionStore.createSession(resultData.userId, resultData.token);
+    }
+
+    onUserDataRetrieved(state, payload) {
+        let userData = payload.data;
+        
+        sessionStore.storeUserData(payload.data);
+        
+        return _.extend({}, state, {
+            userName: userData.name, 
+            userEmail: userData.email, 
+            userTickets: userData.tickets
+        });
+    }
+    
+    onSessionChecked(state) {
+        let userData = sessionStore.getUserData();
+        
+        return _.extend({}, state, {
+            initDone: true, 
+            logged: true,
+            userName: userData.name,
+            userEmail: userData.email,
+            userTickets: userData.tickets
+        });
     }
 }
 

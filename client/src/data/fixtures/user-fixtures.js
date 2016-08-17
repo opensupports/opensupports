@@ -103,5 +103,107 @@ module.exports = [
                 };
             }
         }
+    },
+    {
+        path: '/user/get',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {
+                    name: 'Haskell Curry',
+                    email: 'haskell@lambda.com',
+                    tickets: [
+                        {
+                            ticketNumber: '445441',
+                            title: 'Problem with installation',
+                            content: 'I had a problem with the installation of the php server',
+                            department: {
+                                id: 2,
+                                name: 'Environment Setup'
+                            },
+                            date: '15 Apr 2016',
+                            file: 'http://www.opensupports.com/some_file.zip',
+                            language: 'en',
+                            unread: true,
+                            closed: false,
+                            author: {
+                                id: 12,
+                                name: 'Haskell Curry',
+                                email: 'haskell@lambda.com'
+                            },
+                            owner: {
+                                id: 15,
+                                name: 'Steve Jobs',
+                                email: 'steve@jobs.com'
+                            },
+                            comments: [
+                                {
+                                    content: 'Do you have apache installed? It generally happens if you dont have apache.',
+                                    author: {
+                                        id: 15,
+                                        name: 'Steve Jobs',
+                                        email: 'jobs@steve.com',
+                                        staff: true
+                                    },
+                                    date: '12 Dec 2016',
+                                    file: ''
+                                },
+                                {
+                                    content: 'I have already installed apache, but the problem persists',
+                                    author: {
+                                        id: 12,
+                                        name: 'Haskell Curry',
+                                        steve: 'haskell@lambda.com',
+                                        staff: false
+                                    },
+                                    date: '12 Dec 2016',
+                                    file: ''
+                                }
+                            ]
+                        },
+                        {
+                            ticketNumber: '878552',
+                            title: 'Lorem ipsum door',
+                            content: 'I had a problem with the installation of the php server',
+                            department: {
+                                id: 2,
+                                name: 'Environment Setup'
+                            },
+                            date: '15 Apr 2016',
+                            file: 'http://www.opensupports.com/some_file.zip',
+                            language: 'en',
+                            unread: false,
+                            closed: false,
+                            author: {
+                                name: 'Haskell Curry',
+                                email: 'haskell@lambda.com'
+                            },
+                            owner: {
+                                name: 'Steve Jobs'
+                            },
+                            comments: [
+                                {
+                                    content: 'Do you have apache installed? It generally happens if you dont have apache.',
+                                    author: {
+                                        name: 'Steve Jobs',
+                                        email: 'jobs@steve.com',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    content: 'I have already installed apache, but the problem persists',
+                                    author: {
+                                        name: 'Haskell Curry',
+                                        steve: 'haskell@lambda.com',
+                                        staff: false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            };
+        }
     }
 ];

@@ -29,6 +29,17 @@ class SessionStore {
     closeSession() {
         this.removeItem('userId');
         this.removeItem('token');
+
+        this.clearRememberData();
+        this.clearUserData();
+    }
+
+    storeUserData(data) {
+        this.setItem('userData', JSON.stringify(data));
+    }
+
+    getUserData() {
+        return JSON.parse(this.getItem('userData'));
     }
 
     storeRememberData({token, userId, expiration}) {
@@ -71,6 +82,10 @@ class SessionStore {
         this.removeItem('rememberData-token');
         this.removeItem('rememberData-userId');
         this.removeItem('rememberData-expiration');
+    }
+
+    clearUserData() {
+        this.removeItem('userData');
     }
 
     getItem(key) {

@@ -1,4 +1,5 @@
 export default {
+    'WELCOME': 'Welcome',
     'SUBMIT': 'Submit',
     'LOG_IN': 'Log in',
     'SIGN_UP': 'Sign up',
@@ -8,6 +9,11 @@ export default {
     'NEW_PASSWORD': 'New password',
     'REPEAT_NEW_PASSWORD': 'Repeat new password',
     'BACK_LOGIN_FORM': 'Back to login form',
+    'TICKET_LIST': 'Ticket List',
+    'CREATE_TICKET': 'Create Ticket',
+    'VIEW_ARTICLES': 'View Articles',
+    'EDIT_PROFILE': 'Edit Profile',
+    'CLOSE_SESSION': 'Close session',
 
     //ERRORS
     'EMAIL_NOT_EXIST': 'Email does not exist',

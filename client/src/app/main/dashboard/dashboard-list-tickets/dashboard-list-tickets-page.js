@@ -1,82 +1,8 @@
 import React from 'react';
+import {connect} from 'react-redux';
+
 import Table from 'core-components/table';
 import Button from 'core-components/button';
-
-let mockTickets = [
-    {
-        ticketNumber: '445441',
-        title: 'Problem with installation',
-        content: 'I had a problem with the installation of the php server',
-        department: 'Environment Setup',
-        date: '15 Apr 2016',
-        file: 'http://www.opensupports.com/some_file.zip',
-        language: 'en',
-        unread: true,
-        closed: false,
-        author: {
-            name: 'John Smith',
-            email: 'john@smith.com'
-        },
-        owner: {
-            name: 'Steve Jobs'
-        },
-        comments: [
-            {
-                content: 'Do you have apache installed? It generally happens if you dont have apache.',
-                author: {
-                    name: 'Steve Jobs',
-                    email: 'jobs@steve.com',
-                    staff: true
-                }
-            },
-            {
-                content: 'I have already installed apache, but the problem persists',
-                author: {
-                    name: 'John Smith',
-                    steve: 'john@smith.com',
-                    staff: false
-                }
-            }
-        ]
-    },
-    {
-        ticketNumber: '87852',
-        title: 'Lorem ipsum door',
-        content: 'I had a problem with the installation of the php server',
-        department: 'Environment Setup',
-        date: '15 Apr 2016',
-        file: 'http://www.opensupports.com/some_file.zip',
-        language: 'en',
-        unread: false,
-        closed: false,
-        author: {
-            name: 'John Smith',
-            email: 'john@smith.com'
-        },
-        owner: {
-            name: 'Steve Jobs'
-        },
-        comments: [
-            {
-                content: 'Do you have apache installed? It generally happens if you dont have apache.',
-                author: {
-                    name: 'Steve Jobs',
-                    email: 'jobs@steve.com',
-                    staff: true
-                }
-            },
-            {
-                content: 'I have already installed apache, but the problem persists',
-                author: {
-                    name: 'John Smith',
-                    steve: 'john@smith.com',
-                    staff: false
-                }
-            }
-        ]
-    }
-];
-
 
 class DashboardListTicketsPage extends React.Component {
     static propTypes = {
@@ -84,7 +10,7 @@ class DashboardListTicketsPage extends React.Component {
     };
 
     static defaultProps = {
-        tickets: mockTickets.concat([mockTickets[1], mockTickets[1]])
+        tickets: []
     };
 
     render() {
@@ -135,11 +61,16 @@ class DashboardListTicketsPage extends React.Component {
                     {titleText}
                 </Button>
             ),
-            department: ticket.department,
+            department: ticket.department.name,
             date: ticket.date,
             highlighted: ticket.unread
         };
     }
 }
 
-export default DashboardListTicketsPage;
+
+export default connect((store) => {
+    return {
+        tickets: store.session.userTickets
+    };
+})(DashboardListTicketsPage);

@@ -15,7 +15,7 @@ class Menu extends React.Component {
             icon: React.PropTypes.string
         })).isRequired,
         selectedIndex: React.PropTypes.number,
-        tabbable: React.PropTypes.boolean
+        tabbable: React.PropTypes.bool
     };
 
     static defaultProps = {
