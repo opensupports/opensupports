@@ -4,8 +4,8 @@ import { Provider } from 'react-redux';
 
 import SessionActions from 'actions/session-actions';
 import ConfigActions from 'actions/config-actions';
-import routes from './Routes';
-import store from './store';
+import routes from 'app/Routes';
+import store from 'app/store';
 
 if ( process.env.NODE_ENV !== 'production' ) {
     // Enable React devtools

@@ -31,6 +31,7 @@ class DashboardMenu extends React.Component {
             items: this.getMenuItems(),
             selectedIndex: this.getSelectedIndex(),
             onItemClick: this.goToPathByIndex.bind(this),
+            tabbable: true,
             type: 'secondary'
         };
     }
