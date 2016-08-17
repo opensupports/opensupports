@@ -29,7 +29,8 @@ class Ticket extends DataStore {
     
     public function getDefaultProps() {
         return array(
-            'owner' => null
+            'owner' => null,
+            'ticketNumber' => $this->generateUniqueTicketNumber()
         );
     }
     
@@ -39,5 +40,21 @@ class Ticket extends DataStore {
         if ($this->author instanceof User) {
             $this->author->store();
         }
+    }
+    public function generateUniqueTicketNumber() {
+        $ticketQuantity = Ticket::count('ticket');
+        $minValue = 100000;
+        $maxValue = 999999;
+
+        if ($ticketQuantity === 0) {
+            $ticketNumber = Hashing::getRandomTicketNumber($minValue, $maxValue);
+        } else {
+            $firstTicketNumber = Ticket::getTicket(1)->ticketNumber;
+            $gap = 176611;
+
+            $ticketNumber = ($firstTicketNumber - $minValue + $ticketQuantity * $gap) % $maxValue + $minValue;
+        }
+
+        return $ticketNumber;
     }
 }
