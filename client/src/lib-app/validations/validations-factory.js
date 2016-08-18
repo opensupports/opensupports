@@ -8,6 +8,7 @@ let validators = {
     'DEFAULT': new Validator(),
     'NAME': new AlphaNumericValidator('ERROR_NAME', new LengthValidator(2, 'ERROR_NAME')),
     'EMAIL': new EmailValidator(),
+    'TEXT_AREA': new LengthValidator(10, 'ERROR_CONTENT_SHORT'),
     'PASSWORD': new LengthValidator(6, 'ERROR_PASSWORD'),
     'REPEAT_PASSWORD': new RepeatPasswordValidator()
 };

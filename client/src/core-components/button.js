@@ -50,6 +50,7 @@ class Button extends React.Component {
         props.className = this.getClass();
 
         delete props.route;
+        delete props.iconName;
         delete props.type;
 
         return props;

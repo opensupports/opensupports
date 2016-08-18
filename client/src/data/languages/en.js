@@ -21,6 +21,7 @@ export default {
     'ERROR_PASSWORD': 'Invalid password',
     'ERROR_NAME': 'Invalid name',
     'ERROR_EMAIL': 'Invalid email',
+    'ERROR_CONTENT_SHORT': 'Content too short',
     'PASSWORD_NOT_MATCH': 'Password does not match',
     'INVALID_RECOVER': 'Invalid recover data',
 

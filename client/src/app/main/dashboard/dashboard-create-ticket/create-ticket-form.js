@@ -23,7 +23,8 @@ class CreateTicketForm extends React.Component {
                     {content: 'Department3'}
                     ]} />
                     <Input label="Title" name="title" required />
-                    <TextArea label="Content" name="content" required />
+                    <TextArea label="Content" name="content" required validation="TEXT_AREA" />
+                    <SubmitButton>Sumibtea ameo</SubmitButton>
                 </Form>
             </div>
         );

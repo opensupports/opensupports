@@ -11,7 +11,7 @@ class TextArea extends React.Component {
     };
 
     static propTypes = {
-        value: React.PropTypes.string,
+        value: React.PropTypes.object,
         validation: React.PropTypes.string,
         onChange: React.PropTypes.func,
         required: React.PropTypes.bool,
@@ -45,6 +45,9 @@ class TextArea extends React.Component {
         props.className = 'text-area__input';
         props.ref = 'nativeTextArea';
         props.disabled = this.context.loading;
+        props.value = this.props.value;
+        props.onChange = this.props.onChange;
+        props.errored = !!this.props.error;
 
         delete props.required;
         delete props.validation;

@@ -1,17 +1,20 @@
 import React from 'react';
 import _ from 'lodash';
 import classNames from 'classnames';
+import {EditorState} from 'draft-js';
+import {stateToHTML} from 'draft-js-export-html';
 
 import {reactDFS, renderChildrenWithProps} from 'lib-core/react-dfs';
 import ValidationFactory from 'lib-app/validations/validations-factory';
 
 import Input from 'core-components/input';
 import Checkbox from 'core-components/checkbox';
-//import TextArea from 'core-components/text-area';
+import TextArea from 'core-components/text-area';
 
 const validFieldTypes = [
     Input,
-    CheckBox
+    TextArea,
+    Checkbox
 ];
 
 class Form extends React.Component {
@@ -151,9 +154,9 @@ class Form extends React.Component {
                 else if (child.type === Checkbox) {
                     form[child.props.name] = child.props.checked || false;
                 }
-  //              else if (child.type === TextArea) {
-                    // DO SOMETHING
-  //            }
+                else if (child.type === TextArea) {
+                    form[child.props.name] = child.props.value || EditorState.createEmpty();
+                }
 
                 if (child.props.required) {
                     validations[child.props.name] = ValidationFactory.getValidator(child.props.validation || 'DEFAULT');
@@ -170,10 +173,18 @@ class Form extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
+        const form = _.mapValues(this.state.form, (field) => {
+            if (field instanceof EditorState) {
+                return stateToHTML(field.getCurrentContent());
+            } else {
+                return field;
+            }
+        });
+
         if (this.hasFormErrors()) {
             this.updateErrors(this.getAllFieldErrors(), this.focusFirstErrorField.bind(this));
         } else if (this.props.onSubmit) {
-            this.props.onSubmit(this.state.form);
+            this.props.onSubmit(form);
         }
     }
 

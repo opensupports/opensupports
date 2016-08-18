@@ -7,7 +7,9 @@ import Button from 'core-components/button';
 
 class TextEditor extends React.Component {
     static propTypes = {
-        error: React.PropTypes.bool
+        errored: React.PropTypes.bool,
+        onChange: React.PropTypes.func,
+        value: React.PropTypes.object
     };
 
     constructor(props) {
@@ -23,8 +25,10 @@ class TextEditor extends React.Component {
         return (
             <div className={this.getClass()}>
                 {this.renderEditOptions()}
-                <div className="text-editor__editor" onClick={this.focus.bind(this)}>
-                    <Editor {...this.getEditorProps()} />
+                <div className="text-editor__editor" onClick={this.focus.bind(this)} onMouseDown={(event) => event.preventDefault()}>
+                    <span onMouseDown={(event) => event.stopPropagation()}>
+                        <Editor {...this.getEditorProps()} />
+                    </span>
                 </div>
             </div>
         );
@@ -37,7 +41,7 @@ class TextEditor extends React.Component {
         };
         const onItalicsClick = (event) => {
             event.preventDefault();
-            this.onEditorChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALICS'));
+            this.onEditorChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC'));
         };
         const onUnderlineClick = (event) => {
             event.preventDefault();
@@ -68,7 +72,7 @@ class TextEditor extends React.Component {
 
     getEditorProps() {
         return {
-            editorState: this.state.editorState,
+            editorState: this.props.value || this.state.editorState,
             ref: 'editor',
             onChange: this.onEditorChange.bind(this),
             onFocus: this.onEditorFocus.bind(this),
@@ -78,14 +82,30 @@ class TextEditor extends React.Component {
 
     onEditorChange(editorState) {
         this.setState({editorState});
+
+        if (this.props.onChange) {
+            this.props.onChange({
+                target: {
+                    value: editorState
+                }
+            });
+        }
     }
 
-    onEditorFocus() {
+    onEditorFocus(event) {
         this.setState({focused: true});
+
+        if(this.props.onFocus) {
+            this.props.onFocus(event)
+        }
     }
 
-    onBlur() {
+    onBlur(event) {
         this.setState({focused: false});
+
+        if(this.props.onBlur) {
+            this.props.onBlur(event)
+        }
     }
 
     focus() {
