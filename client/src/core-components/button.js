@@ -6,6 +6,9 @@ import classNames from 'classnames';
 // CORE LIBS
 import callback from 'lib-core/callback';
 
+// CORE COMPONENTS
+import Icon from 'core-components/icon';
+
 class Button extends React.Component {
 
     static contextTypes = {
@@ -16,6 +19,7 @@ class Button extends React.Component {
         children: React.PropTypes.node,
         type: React.PropTypes.oneOf([
             'primary',
+            'primary-icon',
             'clean',
             'link'
         ]),
@@ -23,7 +27,8 @@ class Button extends React.Component {
             to: React.PropTypes. string.isRequired,
             params: React.PropTypes.object,
             query: React.PropTypes.query
-        })
+        }),
+        iconName: React.PropTypes.string
     };
 
     static defaultProps = {
@@ -33,7 +38,7 @@ class Button extends React.Component {
     render() {
         return (
             <button {...this.getProps()}>
-                {this.props.children}
+                {(this.props.iconName) ? <Icon size="sm" name={this.props.iconName}/> : this.props.children}
             </button>
         );
     }

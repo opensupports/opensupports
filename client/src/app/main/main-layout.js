@@ -9,7 +9,7 @@ class MainLayout extends React.Component {
         return (
             <div className="main-layout">
                 <MainHeader />
-                <div className="main-layout--content">
+                <div className="main-layout--content row">
                     {this.props.children}
                 </div>
                 <MainFooter />

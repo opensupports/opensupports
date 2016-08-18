@@ -1,0 +1,42 @@
+@import "../scss/vars";
+
+.text-area {
+    display: block;
+
+    &__editor {
+        border: 1px solid $grey;
+        border-radius: 3px;
+        padding: 8px;
+        width: 100%;
+
+        &:hover {
+            border-color: $medium-grey;
+        }
+
+        &:focus {
+            outline: none;
+            border-color: $primary-blue;
+        }
+    }
+
+    &__label {
+        color: $primary-black;
+        font-size: 15px;
+        display: block;
+        padding: 3px 0;
+        text-align: left;
+    }
+
+    &_with-error {
+        .text-area__error {
+            color: $primary-red;
+            font-size: $font-size--sm;
+            display: block;
+            position: absolute;
+        }
+        .text-area__text {
+            border: 1px solid $primary-red;
+        }
+    }
+
+}

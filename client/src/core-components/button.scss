@@ -2,7 +2,8 @@
 
 .button {
 
-    &-primary {
+    &-primary,
+    &-primary-icon {
         background-color: $primary-red;
         border: solid transparent;
         border-radius: 4px;
@@ -10,6 +11,11 @@
         height: 47px;
         text-transform: uppercase;
         width: 239px;
+    }
+
+    &-primary-icon {
+        width: initial;
+        height: initial;
     }
 
     &-clean {
