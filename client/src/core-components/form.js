@@ -7,6 +7,12 @@ import ValidationFactory from 'lib-app/validations/validations-factory';
 
 import Input from 'core-components/input';
 import Checkbox from 'core-components/checkbox';
+//import TextArea from 'core-components/text-area';
+
+const validFieldTypes = [
+    Input,
+    CheckBox
+];
 
 class Form extends React.Component {
 
@@ -75,7 +81,7 @@ class Form extends React.Component {
     getFieldProps({props, type}) {
         let additionalProps = {};
 
-        if (type === Input || type === Checkbox) {
+        if (this.isValidFieldType({type})) {
             let fieldName = props.name;
 
             additionalProps = {
@@ -145,6 +151,9 @@ class Form extends React.Component {
                 else if (child.type === Checkbox) {
                     form[child.props.name] = child.props.checked || false;
                 }
+  //              else if (child.type === TextArea) {
+                    // DO SOMETHING
+  //            }
 
                 if (child.props.required) {
                     validations[child.props.name] = ValidationFactory.getValidator(child.props.validation || 'DEFAULT');
@@ -183,7 +192,7 @@ class Form extends React.Component {
     }
 
     isValidFieldType(child) {
-        return child.type === Input || child.type === Checkbox;
+        return _.includes(validFieldTypes, child.type);
     }
 
     hasFormErrors() {

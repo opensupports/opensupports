@@ -30,4 +30,10 @@
             border-color: $primary-blue;
         }
     }
+
+    &_errored {
+        .text-editor__editor {
+            border: 1px solid $primary-red;
+        }
+    }
 }

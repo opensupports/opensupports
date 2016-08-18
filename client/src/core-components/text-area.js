@@ -18,22 +18,13 @@ class TextArea extends React.Component {
         error: React.PropTypes.string
     };
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            editorState: EditorState.createEmpty()
-        };
-        this.onChange = (editorState) => this.setState({editorState});
-    }
-
     render() {
         return (
-            <label className={this.getClass()}>
+            <span className={this.getClass()}>
                 <span className="text-area__label">{this.props.label}</span>
-                    <TextEditor />
+                <TextEditor {...this.getEditorProps()}/>
                 {this.renderError()}
-            </label>
+            </span>
         );
     }
 
@@ -47,7 +38,7 @@ class TextArea extends React.Component {
         return error;
     }
 
-    /*getEditorProps() {
+    getEditorProps() {
         let props = _.clone(this.props);
 
         props['aria-required'] = this.props.required;
@@ -57,11 +48,10 @@ class TextArea extends React.Component {
 
         delete props.required;
         delete props.validation;
-        delete props.error;
         delete props.password;
 
         return props;
-    }*/
+    }
 
     getClass() {
         let classes = {

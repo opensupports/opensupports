@@ -6,6 +6,9 @@ import {Editor, EditorState, RichUtils} from 'draft-js';
 import Button from 'core-components/button';
 
 class TextEditor extends React.Component {
+    static propTypes = {
+        error: React.PropTypes.bool
+    };
 
     constructor(props) {
         super(props);
@@ -54,6 +57,7 @@ class TextEditor extends React.Component {
     getClass() {
         let classes = {
             'text-editor': true,
+            'text-editor_errored': (this.props.error),
             'text-editor_focused': (this.state.focused),
 
             [this.props.className]: (this.props.className)

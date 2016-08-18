@@ -8,7 +8,7 @@ import SubmitButton       from 'core-components/submit-button';
 import Message            from 'core-components/message';
 import Form               from 'core-components/form';
 import Input              from 'core-components/input';
-import TextEditor         from 'core-components/text-editor';
+import TextArea           from 'core-components/text-area';
 import DropDown           from 'core-components/drop-down';
 import Widget             from 'core-components/widget';
 
@@ -23,7 +23,7 @@ class CreateTicketForm extends React.Component {
                     {content: 'Department3'}
                     ]} />
                     <Input label="Title" name="title" required />
-                    <TextEditor label="Content" name="content" required />
+                    <TextArea label="Content" name="content" required />
                 </Form>
             </div>
         );

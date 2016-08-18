@@ -55,7 +55,7 @@ class MainLayoutHeader extends React.Component {
         return {
             className: 'main-layout-header__languages',
             items: this.getLanguageList(),
-            selectedIndex: Object.values(codeLanguages).indexOf(this.props.config.language),
+            selectedIndex: Object.keys(codeLanguages).map((key) => codeLanguages[key]).indexOf(this.props.config.language),
             onChange: this.changeLanguage.bind(this)
         };
     }
