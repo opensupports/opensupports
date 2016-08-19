@@ -25,9 +25,11 @@ export default {
     'ERROR_CONTENT_SHORT': 'Content too short',
     'PASSWORD_NOT_MATCH': 'Password does not match',
     'INVALID_RECOVER': 'Invalid recover data',
+    'TICKET_SENT_ERROR': 'An error occurred while trying to create the ticket.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',
+    'TICKET_SENT': 'Ticket has been created successfully.',
     'VALID_RECOVER': 'Password recovered successfully',
     'EMAIL_EXISTS': 'Email already exists, please try to log in or recover password'
 };
