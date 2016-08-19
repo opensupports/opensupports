@@ -13,10 +13,11 @@ class CreateTicketForm extends React.Component {
     render() {
         return (
             <div>
-                <Form>
+                <h2>Create Ticket</h2>
+                <Form onSubmit={this.onSubmit.bind(this)}>
                     <div className="row">
                         <FormField className="col-md-7" label="Title" name="title" validation="TITLE" required field="input" fieldProps={{size: 'large'}}/>
-                        <FormField className="col-md-5" label="Department" name="department" required field="select" fieldProps={{
+                        <FormField className="col-md-5" label="Department" name="department" field="select" fieldProps={{
                             items: [
                                 {content: 'Sales Support'},
                                 {content: 'Technical Issues'},
@@ -30,6 +31,10 @@ class CreateTicketForm extends React.Component {
                 </Form>
             </div>
         );
+    }
+
+    onSubmit(formState) {
+        console.log(formState);
     }
 }
 
