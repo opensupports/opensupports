@@ -1,12 +1,15 @@
 @import "../scss/vars";
 
 .menu {
-    background-color: white;
-    color: $dark-grey;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    cursor: pointer;
+
+    &__list {
+        background-color: white;
+        color: $dark-grey;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        cursor: pointer;
+    }
 
     &__list-item {
         padding: 8px;
@@ -27,6 +30,15 @@
         .menu__list-item_selected,
         .menu__list-item:hover {
             background-color: $secondary-blue;
+        }
+
+        .menu__header {
+            padding: 8px;
+            background-color: $primary-blue;
+            color: white;
+            font-size: 16px;
+            border-top-right-radius: 4px;
+            border-top-left-radius: 4px;
         }
     }
 }

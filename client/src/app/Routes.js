@@ -27,8 +27,8 @@ const history = syncHistoryWithStore(browserHistory, store);
 
 export default (
     <Router history={history}>
-        <Route component={App} path='/'>
-            <Route path='/app' component={MainLayout}>
+        <Route component={App}>
+            <Route path='/' component={MainLayout}>
                 <IndexRoute component={MainHomePage} />
                 <Route path='signup' component={MainSignUpPage}/>
                 <Route path='recover-password' component={MainRecoverPasswordPage}/>
@@ -40,7 +40,7 @@ export default (
                     <Route path='edit-profile' component={DashboardEditProfilePage}/>
 
                     <Route path='article' component={DashboardArticlePage}/>
-                    <Route path='ticket' component={DashboardTicketPage}/>
+                    <Route path='ticket/:ticketNumber' component={DashboardTicketPage}/>
                 </Route>
             </Route>
 

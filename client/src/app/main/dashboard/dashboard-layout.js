@@ -2,14 +2,17 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import DashboardMenu from 'app/main/dashboard/dashboard-menu';
+import Widget from 'core-components/widget';
 
 class DashboardLayout extends React.Component {
 
     render() {
         return (this.props.session.logged) ? (
-            <div>
-                <div><DashboardMenu location={this.props.location} /></div>
-                <div>{this.props.children}</div>
+            <div className="dashboard">
+                <div className="dashboard__menu col-md-3"><DashboardMenu location={this.props.location} /></div>
+                <Widget className="dashboard__content col-md-9">
+                    {this.props.children}
+                </Widget>
             </div>
         ) : null;
     }

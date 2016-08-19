@@ -8,7 +8,7 @@ gulp.task('browserSync', function() {
 
   browserSync({
     proxy: 'localhost:' + config.serverport,
-    startPath: 'app'
+    startPath: '/'
   });
 
 });

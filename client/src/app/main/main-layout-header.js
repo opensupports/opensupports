@@ -34,16 +34,16 @@ class MainLayoutHeader extends React.Component {
         
         if (this.props.session.logged) {
             result = (
-                <div className="main-layout-header--login-links">
-                    Welcome, John 
-                    <Button type="clean" onClick={this.logout.bind(this)}>(Close Session)</Button>
+                <div className="main-layout-header__login-links">
+                    {i18n('WELCOME')}, 
+                    <span className="main-layout-header__user-name"> {this.props.session.userName}</span>
                 </div>
             );
         } else {
             result = (
-                <div className="main-layout-header--login-links">
-                    <Button type="clean" route={{to:'/app'}}>{i18n('LOG_IN')}</Button>
-                    <Button type="clean" route={{to:'/app/signup'}}>Sign up</Button>
+                <div className="main-layout-header__login-links">
+                    <Button type="clean" route={{to:'/'}}>{i18n('LOG_IN')}</Button>
+                    <Button type="clean" route={{to:'/signup'}}>Sign up</Button>
                 </div>
             );
         }
@@ -53,7 +53,7 @@ class MainLayoutHeader extends React.Component {
 
     getLanguageSelectorProps() {
         return {
-            className: 'main-layout-header--languages',
+            className: 'main-layout-header__languages',
             items: this.getLanguageList(),
             selectedIndex: Object.values(codeLanguages).indexOf(this.props.config.language),
             onChange: this.changeLanguage.bind(this)
@@ -73,10 +73,6 @@ class MainLayoutHeader extends React.Component {
         let language = Object.keys(codeLanguages)[event.index];
 
         this.props.dispatch(ConfigActions.changeLanguage(codeLanguages[language]));
-    }
-
-    logout() {
-        this.props.dispatch(SessionActions.logout());
     }
 }
 

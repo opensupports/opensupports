@@ -6,7 +6,11 @@
     height: 32px;
     width: 100%;
 
-    &--login-links {
+    &__user-name {
+        color: $primary-red;
+    }
+
+    &__login-links {
         border-top-left-radius: 4px;
         color: white;
         display: inline-block;
@@ -14,7 +18,7 @@
         padding: 5px 20px 0 10px;
     }
 
-    &--languages {
+    &__languages {
         float: right;
         position: relative;
         top: 5px;

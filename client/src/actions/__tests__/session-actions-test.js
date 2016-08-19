@@ -11,42 +11,55 @@ const SessionActions = requireUnit('actions/session-actions', {
 });
 
 describe('Session Actions,', function () {
-    APICallMock.call.returns('API_RESULT');
 
     describe('login action', function () {
-        it('should return LOGIN with with API_RESULT promise', function () {
-            APICallMock.call.reset();
+        it('should return LOGIN with with a result promise', function () {
+            APICallMock.call.returns({
+                then: function (resolve) {
+                    resolve({
+                        data: {
+                            userId: 14
+                        }
+                    });
+                }
+            });
+
             let loginData = {
                 email: 'SOME_EMAIL',
                 password: 'SOME_PASSWORD',
                 remember: false
             };
 
-            expect(SessionActions.login(loginData)).to.deep.equal({
-                type: 'LOGIN',
-                payload: 'API_RESULT'
-            });
-
+            expect(SessionActions.login(loginData).type).to.equal('LOGIN');
+            expect(storeMock.dispatch).to.have.been.calledWithMatch({type: 'USER_DATA'});
             expect(APICallMock.call).to.have.been.calledWith({
-                path: '/user/login',
-                data: loginData
+                path: '/user/get',
+                data: {
+                    userId: 14
+                }
             });
         });
     });
 
     describe('autoLogin action', function () {
         it('should return LOGIN_AUTO with remember data from sessionStore', function () {
-            APICallMock.call.reset();
+            APICallMock.call.returns({
+                then: function (resolve) {
+                    resolve({
+                        data: {
+                            userId: 14
+                        }
+                    });
+                }
+            });
             sessionStoreMock.getRememberData.returns({
                 token: 'SOME_TOKEN',
                 userId: 'SOME_ID',
                 expiration: 'SOME_EXPIRATION'
             });
 
-            expect(SessionActions.autoLogin()).to.deep.equal({
-                type: 'LOGIN_AUTO',
-                payload: 'API_RESULT'
-            });
+            expect(SessionActions.autoLogin().type).to.equal('LOGIN_AUTO');
+            expect(storeMock.dispatch).to.have.been.calledWithMatch({type: 'USER_DATA'});
             expect(APICallMock.call).to.have.been.calledWith({
                 path: '/user/login',
                 data: {
@@ -60,6 +73,7 @@ describe('Session Actions,', function () {
 
     describe('logout action', function () {
         it('should return LOGOUT and call /user/logout', function () {
+            APICallMock.call.returns('API_RESULT');
             APICallMock.call.reset();
 
             expect(SessionActions.logout()).to.deep.equal({

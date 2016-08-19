@@ -1,31 +1,48 @@
 import React from 'react';
 import _ from 'lodash';
 import classNames from 'classnames';
+import keyCode from 'keycode';
 
 import Icon from 'core-components/icon';
 
 class Menu extends React.Component {
 
     static propTypes = {
+        header: React.PropTypes.string,
         type: React.PropTypes.oneOf(['primary', 'secondary']),
         items: React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.string.isRequired,
             icon: React.PropTypes.string
         })).isRequired,
-        selectedIndex: React.PropTypes.number
+        selectedIndex: React.PropTypes.number,
+        tabbable: React.PropTypes.bool
     };
 
     static defaultProps = {
         type: 'primary',
-        selectedIndex: 0
+        selectedIndex: 0,
+        tabbable: false
     };
 
     render() {
         return (
-            <ul {...this.getProps()}>
-                {this.props.items.map(this.renderListItem.bind(this))}
-            </ul>
+            <div className={this.getClass()}>
+                {this.renderHeader()}
+                <ul {...this.getProps()}>
+                    {this.props.items.map(this.renderListItem.bind(this))}
+                </ul>
+            </div>
         )
+    }
+
+    renderHeader() {
+        let header = null;
+
+        if (this.props.header) {
+            header = <div className="menu__header">{this.props.header}</div>;
+        }
+
+        return header;
     }
 
     renderListItem(item, index) {
@@ -45,11 +62,13 @@ class Menu extends React.Component {
     getProps() {
         var props = _.clone(this.props);
 
-        props.className = this.getClass();
+        props.className = 'menu__list';
 
+        delete props.header;
         delete props.items;
         delete props.onItemClick;
         delete props.selectedIndex;
+        delete props.tabbable;
         delete props.type;
 
         return props;
@@ -69,7 +88,9 @@ class Menu extends React.Component {
     getItemProps(index) {
         return {
             className: this.getItemClass(index),
-            onClick: this.handleItemClick.bind(this, index),
+            onClick: this.onItemClick.bind(this, index),
+            tabIndex: (this.props.tabbable) ? '0' : null,
+            onKeyDown: this.onKeyDown.bind(this, index),
             key: index
         };
     }
@@ -83,7 +104,16 @@ class Menu extends React.Component {
         return classNames(classes);
     }
 
-    handleItemClick(index) {
+    onKeyDown(index, event) {
+        let enterKey = keyCode('ENTER');
+        let spaceKey = keyCode('SPACE');
+
+        if(event.keyCode === enterKey || event.keyCode === spaceKey) {
+            this.onItemClick(index);
+        }
+    }
+
+    onItemClick(index) {
         if (this.props.onItemClick) {
             this.props.onItemClick(index);
         }

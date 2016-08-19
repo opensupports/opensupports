@@ -1,14 +1,11 @@
 import React from 'react';
 import _ from 'lodash';
 
-import Menu from 'core-components/menu';
+import {dispatch} from 'app/store';
+import SessionActions from 'actions/session-actions';
+import i18n from 'lib-app/i18n';
 
-let dashboardRoutes = [
-    { path: '/app/dashboard', text: 'Ticket List' },
-    { path: '/app/dashboard/create-ticket', text: 'Create Ticket' },
-    { path: '/app/dashboard/articles', text: 'View Articles' },
-    { path: '/app/dashboard/edit-profile', text: 'Edit Profile' }
-];
+import Menu from 'core-components/menu';
 
 class DashboardMenu extends React.Component {
     static contextTypes = {
@@ -27,30 +24,62 @@ class DashboardMenu extends React.Component {
 
     getProps() {
         return {
+            header: 'Dashboard',
             items: this.getMenuItems(),
             selectedIndex: this.getSelectedIndex(),
-            onItemClick: this.goToPathByIndex.bind(this)
+            onItemClick: this.onItemClick.bind(this),
+            tabbable: true,
+            type: 'secondary'
         };
     }
 
     getMenuItems() {
-        return dashboardRoutes.map(this.getMenuItem.bind(this));
+        let items = this.getDashboardRoutes().map(this.getMenuItem.bind(this));
+
+        items.push(this.getCloseSessionItem());
+
+        return items;
     }
 
     getMenuItem(item) {
         return {
-            content: item.text
+            content: item.text,
+            icon: item.icon
         };
+    }
+
+    getCloseSessionItem() {
+        return {
+            content: i18n('CLOSE_SESSION'),
+            icon: 'lock'
+        }
     }
 
     getSelectedIndex() {
         let pathname = this.props.location.pathname;
 
-        return _.findIndex(dashboardRoutes, {path: pathname});
+        return _.findIndex(this.getDashboardRoutes(), {path: pathname});
+    }
+
+    onItemClick(itemIndex) {
+        if (itemIndex < this.getDashboardRoutes().length) {
+            this.goToPathByIndex(itemIndex)
+        } else {
+            dispatch(SessionActions.logout());
+        }
     }
 
     goToPathByIndex(itemIndex) {
-        this.context.router.push(dashboardRoutes[itemIndex].path);
+        this.context.router.push(this.getDashboardRoutes()[itemIndex].path);
+    }
+    
+    getDashboardRoutes() {
+        return [
+            { path: '/dashboard', text: i18n('TICKET_LIST'), icon: 'file-text-o' },
+            { path: '/dashboard/create-ticket', text: i18n('CREATE_TICKET'), icon: 'plus' },
+            { path: '/dashboard/articles', text: i18n('VIEW_ARTICLES'), icon: 'book' },
+            { path: '/dashboard/edit-profile', text: i18n('EDIT_PROFILE'), icon: 'pencil' }
+        ];
     }
 }
 

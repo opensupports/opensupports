@@ -9,6 +9,10 @@ export default {
             payload: API.call({
                 path: '/user/login',
                 data: loginData
+            }).then((result) => {
+                store.dispatch(this.getUserData(result.data.userId));
+
+                return result;
             })
         };
     },
@@ -25,6 +29,10 @@ export default {
                     rememberToken: rememberData.token,
                     isAutomatic: true
                 }
+            }).then((result) => {
+                store.dispatch(this.getUserData(result.data.userId));
+
+                return result;
             })
         };
     },
@@ -37,6 +45,18 @@ export default {
                 data: {}
             })
         };
+    },
+
+    getUserData(userId) {
+        return {
+            type: 'USER_DATA',
+            payload: API.call({
+                path: '/user/get',
+                data: {
+                    userId: userId
+                }
+            })
+        }
     },
 
     initSession() {

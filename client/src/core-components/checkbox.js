@@ -1,6 +1,7 @@
 import React              from 'react';
 import classNames         from 'classnames';
 import _                  from 'lodash';
+import keyCode from 'keycode';
 
 import callback           from 'lib-core/callback';
 import getIcon            from 'lib-core/get-icon';
@@ -87,7 +88,7 @@ class CheckBox extends React.Component {
     }
 
     handleIconKeyDown(event) {
-        if (event.keyCode == 32) {
+        if (event.keyCode === keyCode('SPACE')) {
             event.preventDefault();
 
             callback(this.handleChange.bind(this), this.props.onChange)({
