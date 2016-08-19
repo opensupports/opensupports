@@ -28,13 +28,12 @@ class CheckBox extends React.Component {
 
     render() {
         return (
-            <label className={this.getClass()}>
+            <span className={this.getClass()}>
                 <span {...this.getIconProps()}>
                     {getIcon((this.getValue()) ? 'check-square' : 'square', 'lg') }
                 </span>
-                <span className="checkbox--label">{this.props.label}</span>
                 <input {...this.getProps()}/>
-            </label>
+            </span>
         );
     }
 
@@ -49,7 +48,7 @@ class CheckBox extends React.Component {
         props.onChange = callback(this.handleChange.bind(this), this.props.onChange);
 
         delete props.alignment;
-        delete props.error;
+        delete props.errored;
         delete props.label;
         delete props.value;
 

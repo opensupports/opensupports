@@ -61,7 +61,7 @@ class TextEditor extends React.Component {
     getClass() {
         let classes = {
             'text-editor': true,
-            'text-editor_errored': (this.props.error),
+            'text-editor_errored': (this.props.errored),
             'text-editor_focused': (this.state.focused),
 
             [this.props.className]: (this.props.className)

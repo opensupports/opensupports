@@ -7,24 +7,26 @@ import API                from 'lib-app/api-call';
 import SubmitButton       from 'core-components/submit-button';
 import Message            from 'core-components/message';
 import Form               from 'core-components/form';
-import Input              from 'core-components/input';
-import TextArea           from 'core-components/text-area';
-import DropDown           from 'core-components/drop-down';
-import Widget             from 'core-components/widget';
+import FormField          from 'core-components/form-field';
 
 class CreateTicketForm extends React.Component {
     render() {
         return (
             <div>
                 <Form>
-                    <DropDown items={[
-                    {content: 'Department1'},
-                    {content: 'Department2'},
-                    {content: 'Department3'}
-                    ]} />
-                    <Input label="Title" name="title" required />
-                    <TextArea label="Content" name="content" required validation="TEXT_AREA" />
-                    <SubmitButton>Sumibtea ameo</SubmitButton>
+                    <div className="row">
+                        <FormField className="col-md-7" label="Title" name="title" validation="TITLE" required field="input" fieldProps={{size: 'large'}}/>
+                        <FormField className="col-md-5" label="Department" name="department" required field="select" fieldProps={{
+                            items: [
+                                {content: 'Sales Support'},
+                                {content: 'Technical Issues'},
+                                {content: 'System and Administration'}
+                            ],
+                            size: 'medium'
+                        }} />
+                    </div>
+                    <FormField label="Content" name="content" validation="TEXT_AREA" required field="textarea" />
+                    <SubmitButton>Create Ticket</SubmitButton>
                 </Form>
             </div>
         );

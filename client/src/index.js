@@ -7,6 +7,13 @@ import ConfigActions from 'actions/config-actions';
 import routes from 'app/Routes';
 import store from 'app/store';
 
+Array.prototype.swap = function (x,y) {
+    var b = this[x];
+    this[x] = this[y];
+    this[y] = b;
+    return this;
+};
+
 if ( process.env.NODE_ENV !== 'production' ) {
     // Enable React devtools
     window.React = React;

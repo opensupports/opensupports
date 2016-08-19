@@ -14,7 +14,7 @@ class Input extends React.Component {
         value: React.PropTypes.string,
         validation: React.PropTypes.string,
         onChange: React.PropTypes.func,
-        inputType: React.PropTypes.string,
+        size: React.PropTypes.oneOf(['small', 'medium', 'large']),
         password: React.PropTypes.bool,
         required: React.PropTypes.bool,
         icon: React.PropTypes.string,
@@ -22,28 +22,16 @@ class Input extends React.Component {
     };
 
     static defaultProps = {
-            inputType: 'primary'
+        size: 'small'
     };
 
     render() {
         return (
-            <label className={this.getClass()}>
-                <span className="input__label">{this.props.label}</span>
+            <span className={this.getClass()}>
                 {this.renderIcon()}
                 <input {...this.getInputProps()} className="input__text" />
-                {this.renderError()}
-            </label>
+            </span>
         );
-    }
-
-    renderError() {
-        let error = null;
-
-        if (this.props.error){
-            error = <span className="input__error"> {this.props.error} </span>;
-        }
-
-        return error;
     }
 
     renderIcon() {
@@ -62,12 +50,12 @@ class Input extends React.Component {
         props['aria-required'] = this.props.required;
         props.type = (this.props.password) ? 'password' : 'text';
         props.ref = 'nativeInput';
-        props.disabled = this.context.loading;
 
+        delete props.errored;
         delete props.required;
         delete props.validation;
         delete props.inputType;
-        delete props.error;
+        delete props.errored;
         delete props.password;
 
         return props;
@@ -77,8 +65,8 @@ class Input extends React.Component {
         let classes = {
             'input': true,
             'input_with-icon': (this.props.icon),
-            'input_with-error': (this.props.error),
-            ['input_' + this.props.inputType]: true,
+            'input_errored': (this.props.errored),
+            ['input_' + this.props.size]: true,
 
             [this.props.className]: (this.props.className)
         };

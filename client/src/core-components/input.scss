@@ -19,20 +19,16 @@
         }
     }
 
-    &__label {
-        color: $primary-black;
-        font-size: 15px;
-        display: block;
-        padding: 3px 0;
-        text-align: left;
-    }
-
-    &_primary {
+    &_small {
         width: 200px;
     }
 
-    &_secondary {
+    &_medium {
         width: 250px;
+    }
+
+    &_large {
+        width: 350px;
     }
 
     &_with-icon {
@@ -52,16 +48,9 @@
         }
     }
 
-    &_with-error {
-        .input__error {
-            color: $primary-red;
-            font-size: $font-size--sm;
-            display: block;
-            position: absolute;
-        }
+    &_errored {
         .input__text {
             border: 1px solid $primary-red;
         }
     }
-
 }

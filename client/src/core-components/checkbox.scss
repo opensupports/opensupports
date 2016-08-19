@@ -18,12 +18,6 @@
         }
     }
 
-    &--label {
-        margin-left: 10px;
-        font-size: 14px;
-        user-select: none;
-    }
-
     &_checked {
         .checkbox--icon {
             color: $primary-red;

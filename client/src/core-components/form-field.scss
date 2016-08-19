@@ -1,0 +1,42 @@
+@import "../scss/vars";
+
+.form-field {
+    display: block;
+    margin-bottom: 20px;
+
+    &__label {
+        color: $primary-black;
+        font-size: 15px;
+        display: block;
+        padding: 3px 0;
+        text-align: left;
+    }
+
+    &_errored {
+        .form-field__error {
+            color: $primary-red;
+            font-size: $font-size--sm;
+            display: block;
+            position: absolute;
+        }
+    }
+
+    &_checkbox {
+        display: inline-block;
+        margin-bottom: 0;
+
+        .form-field__label {
+            display: inline-block;
+
+            margin-left: 10px;
+            font-size: 14px;
+            user-select: none;
+        }
+    }
+
+    &_select {
+        .form-field__label {
+            padding-bottom: 10px;
+        }
+    }
+}

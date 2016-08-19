@@ -7,19 +7,23 @@
     user-select: none;
     cursor: pointer;
 
-    &--current-item {
+    &__current-item {
         background-color: $light-grey;
         border-radius: 4px 4px 0 0;
         color: $primary-black;
         padding: 6px;
+
+        &:focus {
+            outline: none;
+        }
     }
 
-    &--current-item-icon {
+    &__current-item-icon {
         margin-right: 8px;
         margin-bottom: 2px;
     }
 
-    &--list-container {
+    &__list-container {
         position: absolute;
         width: 150px;
         z-index: 5;
@@ -27,8 +31,21 @@
 
     &_closed {
 
-        .drop-down--list-container {
+        .drop-down__list-container {
             pointer-events: none;
+        }
+    }
+
+    &_medium {
+        width: 200px;
+
+        .drop-down__current-item {
+            border-radius: 4px;
+        }
+
+        .drop-down__list-container {
+            width: 200px;
+            border: 1px solid $light-grey;
         }
     }
 }
