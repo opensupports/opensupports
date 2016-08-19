@@ -38,6 +38,9 @@ class FormField extends React.Component {
         else if (field === 'textarea') {
             return EditorState.createEmpty();
         }
+        else if (field === 'select') {
+            return 0;
+        }
     }
 
     render() {
