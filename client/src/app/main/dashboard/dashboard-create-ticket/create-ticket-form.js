@@ -12,6 +12,14 @@ import FormField          from 'core-components/form-field';
 
 class CreateTicketForm extends React.Component {
 
+    static propTypes = {
+        userLogged: React.PropTypes.boolean
+    };
+
+    static defaultProps ={
+        userLogged: true
+    };
+
     constructor(props) {
         super(props);
 
@@ -26,6 +34,7 @@ class CreateTicketForm extends React.Component {
             <div className="create-ticket-form">
                 <h2>Create Ticket</h2>
                 <Form loading={this.state.loading} onSubmit={this.onSubmit.bind(this)}>
+                    {(!this.props.userLogged) ? this.renderEmailAndName() : null}
                     <div className="row">
                         <FormField className="col-md-7" label="Title" name="title" validation="TITLE" required field="input" fieldProps={{size: 'large'}}/>
                         <FormField className="col-md-5" label="Department" name="departmentId" field="select" fieldProps={{
@@ -38,9 +47,27 @@ class CreateTicketForm extends React.Component {
                         }} />
                     </div>
                     <FormField label="Content" name="content" validation="TEXT_AREA" required field="textarea" />
+                    {(!this.props.userLogged) ? this.renderCaptcha() : null}
                     <SubmitButton>Create Ticket</SubmitButton>
                 </Form>
                 {this.renderMessage()}
+            </div>
+        );
+    }
+
+    renderEmailAndName() {
+        return (
+            <div className="row">
+                <FormField className="col-md-6" label="Email" name="email" validation="EMAIL" required field="input" fieldProps={{size: 'large'}}/>
+                <FormField className="col-md-6" label="Full Name" name="name" validation="NAME" required field="input" fieldProps={{size: 'large'}}/>
+            </div>
+        );
+    }
+
+    renderCaptcha() {
+        return (
+            <div className="create-ticket-form__captcha">
+                <ReCAPTCHA sitekey="6LfM5CYTAAAAAGLz6ctpf-hchX2_l0Ge-Bn-n8wS" onChange={function () {}}/>
             </div>
         );
     }
