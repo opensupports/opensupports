@@ -15,7 +15,7 @@ export default {
     'CREATE_TICKET': 'Create Ticket',
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
     'TICKET_LIST': 'Ticket List',
-    'TICKET_LIST_DESCRIPTION': 'Here you can find a list of all tickets you have sent to our support team. Notice that the highlighted ones have new unread messages.',
+    'TICKET_LIST_DESCRIPTION': 'Here you can find a list of all tickets you have sent to our support team.',
 
     //ERRORS
     'EMAIL_NOT_EXIST': 'Email does not exist',

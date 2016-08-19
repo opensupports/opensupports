@@ -4,6 +4,8 @@ import { browserHistory } from 'react-router';
 
 import i18n               from 'lib-app/i18n';
 import API                from 'lib-app/api-call';
+import store              from 'app/store';
+import SessionActions     from 'actions/session-actions';
 
 import Header             from 'core-components/header';
 import Form               from 'core-components/form';
@@ -100,6 +102,8 @@ class CreateTicketForm extends React.Component {
             loading: false,
             message: 'success'
         });
+
+        store.dispatch(SessionActions.getUserData());
 
         setTimeout(() => {browserHistory.push('/dashboard')}, 2000);
     }
