@@ -5,18 +5,19 @@ import { browserHistory } from 'react-router';
 import i18n               from 'lib-app/i18n';
 import API                from 'lib-app/api-call';
 
-import SubmitButton       from 'core-components/submit-button';
-import Message            from 'core-components/message';
+import Header             from 'core-components/header';
 import Form               from 'core-components/form';
 import FormField          from 'core-components/form-field';
+import SubmitButton       from 'core-components/submit-button';
+import Message            from 'core-components/message';
 
 class CreateTicketForm extends React.Component {
 
     static propTypes = {
-        userLogged: React.PropTypes.boolean
+        userLogged: React.PropTypes.bool
     };
 
-    static defaultProps ={
+    static defaultProps = {
         userLogged: true
     };
 
@@ -32,7 +33,7 @@ class CreateTicketForm extends React.Component {
     render() {
         return (
             <div className="create-ticket-form">
-                <h2>Create Ticket</h2>
+                <Header title={i18n('CREATE_TICKET')} description={i18n('CREATE_TICKET_DESCRIPTION')} />
                 <Form loading={this.state.loading} onSubmit={this.onSubmit.bind(this)}>
                     {(!this.props.userLogged) ? this.renderEmailAndName() : null}
                     <div className="row">

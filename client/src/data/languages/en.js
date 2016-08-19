@@ -9,11 +9,13 @@ export default {
     'NEW_PASSWORD': 'New password',
     'REPEAT_NEW_PASSWORD': 'Repeat new password',
     'BACK_LOGIN_FORM': 'Back to login form',
-    'TICKET_LIST': 'Ticket List',
-    'CREATE_TICKET': 'Create Ticket',
     'VIEW_ARTICLES': 'View Articles',
     'EDIT_PROFILE': 'Edit Profile',
     'CLOSE_SESSION': 'Close session',
+    'CREATE_TICKET': 'Create Ticket',
+    'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
+    'TICKET_LIST': 'Ticket List',
+    'TICKET_LIST_DESCRIPTION': 'Here you can find a list of all tickets you have sent to our support team. Notice that the highlighted ones have new unread messages.',
 
     //ERRORS
     'EMAIL_NOT_EXIST': 'Email does not exist',
