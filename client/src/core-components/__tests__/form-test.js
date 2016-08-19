@@ -1,11 +1,16 @@
 // MOCKS
 const ValidationFactoryMock = require('lib-app/__mocks__/validations/validation-factory-mock');
-const Input = ReactMock();
+const FormField = ReactMock();
+const {EditorState} = require('draft-js');
+const draftJsExportHTML = {
+    stateToHTML: stub().returns('HTML_CODE')
+};
 
 // COMPONENT
 const Form = requireUnit('core-components/form', {
     'lib-app/validations/validations-factory': ValidationFactoryMock,
-    'core-components/input': Input
+    'draft-js-export-html': draftJsExportHTML,
+    'core-components/form-field': FormField
 });
 
 describe('Form component', function () {
@@ -15,13 +20,13 @@ describe('Form component', function () {
         form = TestUtils.renderIntoDocument(
             <Form {...props} onSubmit={onSubmit}>
                 <div>
-                    <Input name="first" value="value1" required/>
-                    <Input name="second" value="value2" required validation="CUSTOM"/>
+                    <FormField name="first" value="value1" required/>
+                    <FormField name="second" value="value2" required validation="CUSTOM"/>
                 </div>
-                <Input name="third" value="value3" />
+                <FormField name="third" value="value3" />
             </Form>
         );
-        fields = TestUtils.scryRenderedComponentsWithType(form, Input);
+        fields = TestUtils.scryRenderedComponentsWithType(form, FormField);
     }
 
     function resetStubs() {
@@ -117,7 +122,7 @@ describe('Form component', function () {
         });
         afterEach(resetStubs);
 
-        it('should pass the errors to inputs', function () {
+        it('should pass the errors to fields', function () {
             expect(fields[0].props.error).to.equal('MOCK_ERROR_CONTROLLED');
             expect(fields[1].props.error).to.equal(undefined);
         });
@@ -138,13 +143,13 @@ describe('Form component', function () {
                 form = reRenderIntoDocument(
                     <Form errors={errors}>
                         <div>
-                            <Input name="first" value="value1" required/>
-                            <Input name="second" value="value2" required validation="CUSTOM"/>
+                            <FormField name="first" value="value1" required/>
+                            <FormField name="second" value="value2" required validation="CUSTOM"/>
                         </div>
-                        <Input name="third" value="value3" />
+                        <FormField name="third" value="value3" />
                     </Form>
                 );
-                fields = TestUtils.scryRenderedComponentsWithType(form, Input);
+                fields = TestUtils.scryRenderedComponentsWithType(form, FormField);
             }
 
             setErrorsOrRender();
@@ -169,6 +174,19 @@ describe('Form component', function () {
             TestUtils.Simulate.submit(ReactDOM.findDOMNode(form));
 
             expect(form.props.onSubmit).to.have.been.calledWith(form.state.form);
+        });
+
+        it('should tranform EditorState to HTML usign draft-js-export-html library', function () {
+            draftJsExportHTML.stateToHTML.reset();
+            form.state.form.first = EditorState.createEmpty();
+
+            TestUtils.Simulate.submit(ReactDOM.findDOMNode(form));
+            expect(draftJsExportHTML.stateToHTML).to.have.been.calledWith(form.state.form.first.getCurrentContent());
+            expect(form.props.onSubmit).to.have.been.calledWith({
+                first: 'HTML_CODE',
+                second: 'value2',
+                third: 'value3'
+            });
         });
 
         it('should validate all fields and not call onSubmit if there are errors', function () {
