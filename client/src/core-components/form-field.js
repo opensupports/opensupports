@@ -36,7 +36,7 @@ class FormField extends React.Component {
             return false;
         }
         else if (field === 'textarea') {
-            return EditorState.createEmpty();
+             return EditorState.createEmpty();
         }
         else if (field === 'select') {
             return 0;
@@ -76,7 +76,7 @@ class FormField extends React.Component {
         let error = null;
 
         if (this.props.error) {
-            error = <span className="form-field__error" key="error"> {this.props.error} </span>;
+            error = <span className="form-field__error" key="error">{this.props.error}</span>;
         }
 
         return error;
