@@ -20,6 +20,7 @@ class Setting extends \Mock {
 
         $mockUserInstance->name = 'MOCK_SETTING_NAME';
         $mockUserInstance->value = 'MOCK_SETTING_VALUE';
+        $mockUserInstance->getValue = \Mock::stub()->returns('MOCK_SETTING_VALUE');
 
         return $mockUserInstance;
     }
