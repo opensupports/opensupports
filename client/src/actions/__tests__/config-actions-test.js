@@ -11,8 +11,8 @@ const ConfigActions = requireUnit('actions/config-actions', {
 describe('Config Actions,', function () {
 
     describe('init action', function () {
-        it('should return INIT_CONFIGS_FULFILLED with configs if it is already retrieved', function () {
-            sessionStoreMock.areConfigsStored.returns(true);
+        it('should return INIT_CONFIGS_FULFILLED with configs if it user is logged in', function () {
+            sessionStoreMock.isLoggedIn.returns(true);
             sessionStoreMock.getConfigs.returns({
                 config1: 'CONFIG_1',
                 config2: 'CONFIG_2'
@@ -31,7 +31,7 @@ describe('Config Actions,', function () {
 
         it('should return INIT_CONFIGS with API_RESULT if it is not retrieved', function () {
             APICallMock.call.reset();
-            sessionStoreMock.areConfigsStored.returns(false);
+            sessionStoreMock.isLoggedIn.returns(false);
             sessionStoreMock.getConfigs.returns({
                 config1: 'CONFIG_1',
                 config2: 'CONFIG_2'

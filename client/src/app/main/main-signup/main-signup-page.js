@@ -1,9 +1,11 @@
 import React              from 'react';
-import ReCAPTCHA          from 'react-google-recaptcha';
+import ReactDOM           from 'react-dom';
+import _                  from 'lodash';
 
 import i18n               from 'lib-app/i18n';
 import API                from 'lib-app/api-call';
 
+import Captcha            from 'app/main/captcha';
 import SubmitButton       from 'core-components/submit-button';
 import Message            from 'core-components/message';
 import Form               from 'core-components/form';
@@ -34,7 +36,7 @@ class MainSignUpPageWidget extends React.Component {
                             <FormField {...this.getInputProps(true)} label="Repeat Password" name="repeated-password" validation="REPEAT_PASSWORD" required/>
                         </div>
                         <div className="signup-widget__captcha">
-                            <ReCAPTCHA sitekey="6LfM5CYTAAAAAGLz6ctpf-hchX2_l0Ge-Bn-n8wS" onChange={function () {}}/>
+                            <Captcha ref="captcha"/>
                         </div>
                         <SubmitButton type="primary">SIGN UP</SubmitButton>
                     </Form>
@@ -75,14 +77,20 @@ class MainSignUpPageWidget extends React.Component {
     }
 
     onLoginFormSubmit(formState) {
-        this.setState({
-            loading: true
-        });
+        const captcha = this.refs.captcha.getWrappedInstance();
 
-        API.call({
-            path: '/user/signup',
-            data: formState
-        }).then(this.onSignupSuccess.bind(this)).catch(this.onSignupFail.bind(this));
+        if (!captcha.getValue()) {
+            captcha.focus();
+        } else {
+            this.setState({
+                loading: true
+            });
+
+            API.call({
+                path: '/user/signup',
+                data: _.extend({captcha: captcha.getValue()}, formState)
+            }).then(this.onSignupSuccess.bind(this)).catch(this.onSignupFail.bind(this));
+        }
     }
 
     onSignupSuccess() {

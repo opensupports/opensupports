@@ -7,7 +7,12 @@ module.exports = [
                 status: 'success',
                 data: {
                     'language': 'us',
-                    'reCaptchaKey': '6LfM5CYTAAAAAGLz6ctpf-hchX2_l0Ge-Bn-n8wS'
+                    'reCaptchaKey': '6LfM5CYTAAAAAGLz6ctpf-hchX2_l0Ge-Bn-n8wS',
+                    'departments': [
+                        'Sales Support',
+                        'Technical Issues',
+                        'System and Administration'
+                    ]
                 }
             };
         }

@@ -3,7 +3,7 @@ import sessionStore from 'lib-app/session-store';
 
 export default {
     init() {
-        if (sessionStore.areConfigsStored()) {
+        if (sessionStore.isLoggedIn()) {
             return {
                 type: 'INIT_CONFIGS_FULFILLED',
                 payload: {

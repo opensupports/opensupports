@@ -2,6 +2,8 @@ import API from 'lib-app/api-call';
 import sessionStore from 'lib-app/session-store';
 import store from 'app/store';
 
+import ConfigActions from 'actions/config-actions';
+
 export default {
     login(loginData) {
         return {
