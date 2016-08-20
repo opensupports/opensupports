@@ -1,6 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+import i18n from 'lib-app/i18n';
+
+import Header from 'core-components/header';
 import Table from 'core-components/table';
 import Button from 'core-components/button';
 
@@ -16,7 +19,7 @@ class DashboardListTicketsPage extends React.Component {
     render() {
         return (
             <div className="dashboard-ticket-list">
-                <div className="dashboard-ticket-list__header">Tickets</div>
+                <Header title={i18n('TICKET_LIST')} description={i18n('TICKET_LIST_DESCRIPTION')} />
                 <Table headers={this.getTableHeaders()} rows={this.getTableRows()} />
             </div>
         );

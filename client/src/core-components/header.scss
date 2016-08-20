@@ -1,0 +1,17 @@
+@import '../scss/vars';
+
+.header {
+    margin-bottom: 30px;
+    text-align: left;
+
+    &__title {
+        margin: 5px 0 14px;
+        font-size: 24px;
+    }
+
+    &__description {
+        font-size: 13px;
+        color: $dark-grey;
+        font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial, sans-serif;
+    }
+}

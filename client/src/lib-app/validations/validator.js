@@ -1,4 +1,6 @@
-const i18n = require('lib-app/i18n');
+import {EditorState} from 'draft-js';
+
+import i18n from 'lib-app/i18n';
 
 class Validator {
     constructor(validator = null) {
@@ -18,7 +20,11 @@ class Validator {
     }
 
     validate(value, form) {
-        if (!value.length) return this.getError('ERROR_EMPTY');
+        if (value instanceof EditorState) {
+            value = value.getCurrentContent().getPlainText()
+        }
+
+        if (value.length === 0) return this.getError('ERROR_EMPTY');
     }
 
     getError(errorKey) {

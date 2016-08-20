@@ -12,8 +12,7 @@ import i18n        from 'lib-app/i18n';
 import SubmitButton     from 'core-components/submit-button';
 import Button           from 'core-components/button';
 import Form             from 'core-components/form';
-import Input            from 'core-components/input';
-import Checkbox         from 'core-components/checkbox';
+import FormField        from 'core-components/form-field';
 import Widget           from 'core-components/widget';
 import WidgetTransition from 'core-components/widget-transition';
 import Message          from 'core-components/message';
@@ -53,9 +52,9 @@ class MainHomePageLoginWidget extends React.Component {
             <Widget className="main-home-page__widget" title="Login" ref="loginWidget">
                 <Form {...this.getLoginFormProps()}>
                     <div className="login-widget__inputs">
-                        <Input placeholder="email" name="email" className="login-widget__input" validation="EMAIL" required/>
-                        <Input placeholder="password" name="password" className="login-widget__input" password required/>
-                        <Checkbox name="remember" label="Remember Me" className="login-widget__input"/>
+                        <FormField placeholder="email" name="email" className="login-widget__input" validation="EMAIL" required/>
+                        <FormField placeholder="password" name="password" className="login-widget__input" required fieldProps={{password: true}}/>
+                        <FormField name="remember" label="Remember Me" className="login-widget__input" field="checkbox"/>
                     </div>
                     <div className="login-widget__submit-button">
                         <SubmitButton type="primary">LOG IN</SubmitButton>
@@ -73,7 +72,7 @@ class MainHomePageLoginWidget extends React.Component {
             <Widget className="main-home-page__widget login-widget_password" title={i18n('RECOVER_PASSWORD')} ref="recoverWidget">
                 <Form {...this.getRecoverFormProps()}>
                     <div className="login-widget__inputs">
-                        <Input placeholder="email" name="email" className="login-widget__input" validation="EMAIL" required/>
+                        <FormField placeholder="email" name="email" className="login-widget__input" validation="EMAIL" required/>
                     </div>
                     <div className="login-widget__submit-button">
                         <SubmitButton type="primary">{i18n('RECOVER_PASSWORD')}</SubmitButton>

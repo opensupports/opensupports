@@ -7,7 +7,7 @@ import API                from 'lib-app/api-call';
 import SubmitButton       from 'core-components/submit-button';
 import Message            from 'core-components/message';
 import Form               from 'core-components/form';
-import Input              from 'core-components/input';
+import FormField          from 'core-components/form-field';
 import Widget             from 'core-components/widget';
 
 
@@ -28,10 +28,10 @@ class MainSignUpPageWidget extends React.Component {
                 <Widget className="signup-widget col-md-6 col-md-offset-3" title="Register">
                     <Form {...this.getFormProps()}>
                         <div className="signup-widget__inputs">
-                            <Input {...this.getInputProps()} label="Full Name" name="name" validation="NAME" required/>
-                            <Input {...this.getInputProps()} label="Email Address" name="email" validation="EMAIL" required/>
-                            <Input {...this.getInputProps()} label="Password" name="password" password validation="PASSWORD" required/>
-                            <Input {...this.getInputProps()} label="Repeat Password" name="repeated-password" password validation="REPEAT_PASSWORD" required/>
+                            <FormField {...this.getInputProps()} label="Full Name" name="name" validation="NAME" required/>
+                            <FormField {...this.getInputProps()} label="Email Address" name="email" validation="EMAIL" required/>
+                            <FormField {...this.getInputProps(true)} label="Password" name="password" validation="PASSWORD" required/>
+                            <FormField {...this.getInputProps(true)} label="Repeat Password" name="repeated-password" validation="REPEAT_PASSWORD" required/>
                         </div>
                         <div className="signup-widget__captcha">
                             <ReCAPTCHA sitekey="6LfM5CYTAAAAAGLz6ctpf-hchX2_l0Ge-Bn-n8wS" onChange={function () {}}/>
@@ -64,10 +64,13 @@ class MainSignUpPageWidget extends React.Component {
         };
     }
 
-    getInputProps() {
+    getInputProps(password) {
         return {
-            inputType: 'secondary',
-            className: 'signup-widget__input'
+            className: 'signup-widget__input',
+            fieldProps: {
+                size: 'medium',
+                password: password
+            }
         };
     }
 

@@ -1,12 +1,13 @@
 import React from 'react';
 import _ from 'lodash';
 import classNames from 'classnames';
+import {EditorState} from 'draft-js';
+import {stateToHTML} from 'draft-js-export-html';
 
 import {reactDFS, renderChildrenWithProps} from 'lib-core/react-dfs';
 import ValidationFactory from 'lib-app/validations/validations-factory';
 
-import Input from 'core-components/input';
-import Checkbox from 'core-components/checkbox';
+import FormField from 'core-components/form-field';
 
 class Form extends React.Component {
 
@@ -75,14 +76,14 @@ class Form extends React.Component {
     getFieldProps({props, type}) {
         let additionalProps = {};
 
-        if (type === Input || type === Checkbox) {
+        if (this.isValidField({type})) {
             let fieldName = props.name;
 
             additionalProps = {
                 ref: fieldName,
                 value: this.state.form[fieldName] || props.value,
                 error: this.getFieldError(fieldName),
-                onChange: this.handleFieldChange.bind(this, fieldName, type),
+                onChange: this.handleFieldChange.bind(this, fieldName),
                 onBlur: this.validateField.bind(this, fieldName)
             }
         }
@@ -138,13 +139,8 @@ class Form extends React.Component {
 
         reactDFS(this.props.children, (child) => {
 
-            if (this.isValidFieldType(child)) {
-                if (child.type === Input) {
-                    form[child.props.name] = child.props.value || '';
-                }
-                else if (child.type === Checkbox) {
-                    form[child.props.name] = child.props.checked || false;
-                }
+            if (this.isValidField(child)) {
+                form[child.props.name] = child.props.value || FormField.getDefaultValue(child.props.field);
 
                 if (child.props.required) {
                     validations[child.props.name] = ValidationFactory.getValidator(child.props.validation || 'DEFAULT');
@@ -161,29 +157,33 @@ class Form extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
+        const form = _.mapValues(this.state.form, (field) => {
+            if (field instanceof EditorState) {
+                return stateToHTML(field.getCurrentContent());
+            } else {
+                return field;
+            }
+        });
+
         if (this.hasFormErrors()) {
             this.updateErrors(this.getAllFieldErrors(), this.focusFirstErrorField.bind(this));
         } else if (this.props.onSubmit) {
-            this.props.onSubmit(this.state.form);
+            this.props.onSubmit(form);
         }
     }
 
-    handleFieldChange(fieldName, type, event) {
+    handleFieldChange(fieldName, event) {
         let form = _.clone(this.state.form);
 
         form[fieldName] = event.target.value;
-
-        if (type === Checkbox) {
-            form[fieldName] = event.target.checked || false;
-        }
 
         this.setState({
             form: form
         });
     }
 
-    isValidFieldType(child) {
-        return child.type === Input || child.type === Checkbox;
+    isValidField(node) {
+        return node.type === FormField;
     }
 
     hasFormErrors() {

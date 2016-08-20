@@ -35,3 +35,10 @@ global.reRenderIntoDocument = (function () {
 global.ReduxMock = {
     connect: stub().returns(stub().returnsArg(0))
 };
+
+Array.prototype.swap = function (x,y) {
+    var b = this[x];
+    this[x] = this[y];
+    this[y] = b;
+    return this;
+};

@@ -7,7 +7,9 @@ import LengthValidator from 'lib-app/validations/length-validator';
 let validators = {
     'DEFAULT': new Validator(),
     'NAME': new AlphaNumericValidator('ERROR_NAME', new LengthValidator(2, 'ERROR_NAME')),
+    'TITLE': new AlphaNumericValidator('ERROR_TITLE', new LengthValidator(2, 'ERROR_TITLE')),
     'EMAIL': new EmailValidator(),
+    'TEXT_AREA': new LengthValidator(10, 'ERROR_CONTENT_SHORT'),
     'PASSWORD': new LengthValidator(6, 'ERROR_PASSWORD'),
     'REPEAT_PASSWORD': new RepeatPasswordValidator()
 };

@@ -6,7 +6,7 @@ import API             from 'lib-app/api-call';
 
 import Widget          from 'core-components/widget';
 import Form            from 'core-components/form';
-import Input           from 'core-components/input';
+import FormField       from 'core-components/form-field';
 import SubmitButton    from 'core-components/submit-button';
 import Message         from 'core-components/message';
 
@@ -32,8 +32,8 @@ class MainRecoverPasswordPage extends React.Component {
                 <Widget title={i18n('RECOVER_PASSWORD')} className="col-md-4 col-md-offset-4">
                     <Form className="recover-password__form" onSubmit={this.onRecoverPasswordSubmit.bind(this)} loading={this.state.loading}>
                         <div className="recover-password__inputs">
-                            <Input placeholder={i18n('NEW_PASSWORD')} name="password" className="recover-password__input" validation="PASSWORD" password required/>
-                            <Input placeholder={i18n('REPEAT_NEW_PASSWORD')} name="password-repeat" className="recover-password__input" validation="REPEAT_PASSWORD" password required/>
+                            <FormField placeholder={i18n('NEW_PASSWORD')} name="password" className="recover-password__input" validation="PASSWORD" password required/>
+                            <FormField placeholder={i18n('REPEAT_NEW_PASSWORD')} name="password-repeat" className="recover-password__input" validation="REPEAT_PASSWORD" password required/>
                         </div>
                         <div className="recover-password__submit-button">
                             <SubmitButton type="primary">{i18n('SUBMIT')}</SubmitButton>

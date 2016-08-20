@@ -10,7 +10,8 @@ class DropDown extends React.Component {
     static propTypes = {
         defaultSelectedIndex: React.PropTypes.number,
         selectedIndex: React.PropTypes.number,
-        items: Menu.propTypes.items
+        items: Menu.propTypes.items,
+        size: React.PropTypes.oneOf(['small', 'medium', 'large'])
     };
 
     static defaultProps = {
@@ -66,7 +67,7 @@ class DropDown extends React.Component {
         };
 
         return (
-            <div className="drop-down--list-container" style={style}>
+            <div className="drop-down__list-container" style={style}>
                 <Menu {...menuProps} />
             </div>
         );
@@ -76,11 +77,11 @@ class DropDown extends React.Component {
         var iconNode = null;
 
         if (item.icon) {
-            iconNode = <Icon className="drop-down--current-item-icon" name={item.icon} />;
+            iconNode = <Icon className="drop-down__current-item-icon" name={item.icon} />;
         }
 
         return (
-            <div className="drop-down--current-item" onBlur={this.handleBlur.bind(this)} onClick={this.handleClick.bind(this)} tabIndex="0">
+            <div className="drop-down__current-item" onBlur={this.handleBlur.bind(this)} onClick={this.handleClick.bind(this)} tabIndex="0">
                 {iconNode}{item.content}
             </div>
         );
@@ -91,6 +92,7 @@ class DropDown extends React.Component {
             'drop-down': true,
             'drop-down_closed': !this.state.opened,
 
+            ['drop-down_' + this.props.size]: true,
             [this.props.className]: (this.props.className)
         };
 

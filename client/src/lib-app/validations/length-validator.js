@@ -1,3 +1,5 @@
+import {EditorState} from 'draft-js';
+
 import Validator from 'lib-app/validations/validator';
 
 class LengthValidator extends Validator {
@@ -9,6 +11,10 @@ class LengthValidator extends Validator {
     }
 
     validate(value, form) {
+        if (value instanceof EditorState) {
+            value = value.getCurrentContent().getPlainText();
+        }
+
         if (value.length < this.minlength) return this.getError(this.errorKey);
     }
 }
