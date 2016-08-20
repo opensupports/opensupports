@@ -10,6 +10,7 @@ require './scripts.rb'
 
 # TESTS
 require './system/init-settings.rb'
+require './system/get-settings.rb'
 require './user/signup.rb'
 require './user/login.rb'
 require './user/send-recover-password.rb'
