@@ -1,6 +1,6 @@
 module.exports = [
     {
-        path: '/system/get-configs',
+        path: '/system/get-settings',
         time: 1000,
         response: function () {
             return {

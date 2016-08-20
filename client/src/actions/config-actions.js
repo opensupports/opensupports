@@ -14,7 +14,7 @@ export default {
             return {
                 type: 'INIT_CONFIGS',
                 payload: API.call({
-                    path: '/system/get-configs',
+                    path: '/system/get-settings',
                     data: {}
                 })
             };

@@ -42,7 +42,7 @@ describe('Config Actions,', function () {
                 payload: 'API_RESULT'
             });
             expect(APICallMock.call).to.have.been.calledWith({
-                path: '/system/get-configs',
+                path: '/system/get-settings',
                 data: {}
             });
         });
