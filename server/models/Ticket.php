@@ -26,17 +26,17 @@ class Ticket extends DataStore {
     public static function getTicket($value, $property = 'id') {
         return parent::getDataStore($value, $property);
     }
-    
+
     public function getDefaultProps() {
         return array(
             'owner' => null,
             'ticketNumber' => $this->generateUniqueTicketNumber()
         );
     }
-    
+
     public function store() {
         parent::store();
-        
+
         if ($this->author instanceof User) {
             $this->author->store();
         }
@@ -52,7 +52,7 @@ class Ticket extends DataStore {
             $firstTicketNumber = Ticket::getTicket(1)->ticketNumber;
             $gap = 176611;
 
-            $ticketNumber = ($firstTicketNumber - $minValue + $ticketQuantity * $gap) % $maxValue + $minValue;
+            $ticketNumber = ($firstTicketNumber - $minValue + $ticketQuantity * $gap) % ($maxValue - $minValue + 1) + $minValue;
         }
 
         return $ticketNumber;

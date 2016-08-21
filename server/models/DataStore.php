@@ -17,7 +17,7 @@ abstract class DataStore {
         return ($bean) ? new static($bean) : new NullDataStore();
     }
     public static function count() {
-        RedBean::count(static::TABLE);
+       return RedBean::count(static::TABLE);
     }
 
     private static function validateProp($propToValidate) {
