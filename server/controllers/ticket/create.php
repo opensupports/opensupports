@@ -50,7 +50,6 @@ class CreateController extends Controller {
 
         $ticket = new Ticket();
         $ticket->setProperties(array(
-            'ticketId' => '',
             'title' => $this->title,
             'content' => $this->content,
             'language' => $this->language,

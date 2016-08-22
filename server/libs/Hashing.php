@@ -10,4 +10,7 @@ class Hashing {
     public static function generateRandomToken() {
         return md5(uniqid(rand()));
     }
+    public static function getRandomTicketNumber($min,$max) {
+        return rand($min,$max);
+    }
 }
