@@ -43,10 +43,6 @@
     }
 
     &__content {
-        background-color: white;
-        border: 2px solid $light-grey;
-        padding: 20px 10px;
-        text-align: left;
         margin-top: 10px;
     }
 
@@ -57,10 +53,6 @@
         font-size: 12px;
     }
 
-    &__comments {
-        margin-top: 10px;
-    }
-
     &__comments-title {
         text-align: left;
         background-color: $dark-grey;
@@ -69,19 +61,35 @@
     }
 
     &__comment {
-        margin-top: 5px;
+        margin-top: 20px;
 
         &-author {
             text-align: left;
             float: left;
-            padding: 10px;
+            position: relative;
+            padding-top: 22px;
+            padding-left: 70px;
+
+            &-icon {
+                background-color: $secondary-blue;
+                color: white;
+                border-radius: 100%;
+                display: inline-block;
+                width: 42px;
+                height: 42px;
+                padding-left: 8px;
+                padding-top: 4px;
+                position: absolute;
+                top: 10px;
+                left: 10px;
+            }
         }
 
         &-date {
             text-align: right;
             border: 2px solid $light-grey;
             border-bottom: none;
-            padding: 10px;
+            padding: 22px;
             background-color: $light-grey;
 
         }
@@ -92,6 +100,10 @@
             border-top: none;
             padding: 20px 10px;
             text-align: left;
+        }
+
+        &_staff {
+
         }
     }
 }

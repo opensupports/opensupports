@@ -1,4 +1,6 @@
 import React from 'react';
+import classNames from 'classnames';
+
 import Icon from 'core-components/icon';
 
 class TicketViewer extends React.Component {
@@ -31,10 +33,10 @@ class TicketViewer extends React.Component {
                     <div className="ticket-viewer__author col-md-4">{this.props.ticket.author.name}</div>
                     <div className="ticket-viewer__date col-md-4">{this.props.ticket.date}</div>
                 </div>
-                <div className="ticket-viewer__content row">{this.props.ticket.content}</div>
-                {this.renderFileRow(this.props.ticket.file)}
+                <div className="ticket-viewer__content">
+                    {this.renderComment(this.props.ticket)}
+                </div>
                 <div className="ticket-viewer__comments">
-                    <div className="ticket-viewer__comments-title row">Responses</div>
                     {this.props.ticket.comments.map(this.renderComment.bind(this))}
                 </div>
                 <div className="ticket-viewer__response">
@@ -45,11 +47,19 @@ class TicketViewer extends React.Component {
         );
     }
 
-    renderComment(comment, index) {
+    renderComment(comment) {
         return (
-            <div className="ticket-viewer__comment" key={index}>
+            <div className={this.getCommentClass(comment)}>
                 <div className="row">
-                    <div className="ticket-viewer__comment-author">{comment.author.name}</div>
+                    <div className="ticket-viewer__comment-icon"></div>
+                    <div className="ticket-viewer__comment-author">
+                        <span className="ticket-viewer__comment-author-icon">
+                            <Icon name="comment-o" size="2x" />
+                        </span>
+                        <span className="ticket-viewer__comment-author-name">
+                            {comment.author.name}
+                        </span>
+                    </div>
                     <div className="ticket-viewer__comment-date">{comment.date}</div>
                 </div>
                 <div className="ticket-viewer__comment-content row">{comment.content}</div>
@@ -72,6 +82,15 @@ class TicketViewer extends React.Component {
                 {node}
             </div>
         )
+    }
+    
+    getCommentClass(comment) {
+        let classes = {
+            'ticket-viewer__comment': true,
+            'ticket-viewer__comment_staff': comment.author.staff
+        };
+        
+        return classNames(classes);
     }
 
     getFileLink(filePath = '') {
