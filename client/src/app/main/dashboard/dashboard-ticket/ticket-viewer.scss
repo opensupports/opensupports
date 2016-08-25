@@ -47,7 +47,7 @@
     }
 
     &__file {
-        background-color: $light-grey;
+        background-color: $very-light-grey;
         text-align: right;
         padding: 5px 10px;
         font-size: 12px;
@@ -60,50 +60,69 @@
         padding: 5px;
     }
 
-    &__comment {
+    &__action {
         margin-top: 20px;
+        text-align: left;
+
+
+        &_staff {
+            .ticket-viewer__comment-action {
+                background-color: $primary-blue;
+            }
+
+            .ticket-viewer__comment-pointer {
+                left: 100%;
+                border-right-color: transparent;
+                border-left-color: $light-grey;
+            }
+        }
+    }
+
+    &__comment {
+        position: relative;
+
+        &-action {
+            vertical-align: top;
+            background-color: $secondary-blue;
+            color: white;
+            border-radius: 5px;
+            width: 42px;
+            height: 42px;
+            padding-left: 8px;
+            padding-top: 4px;
+        }
+
+        &-pointer {
+            right: 100%;
+            border: solid transparent;
+            position: absolute;
+            border-right-color: $light-grey;
+            border-width: 13px;
+            margin-top: 8px;
+        }
 
         &-author {
             text-align: left;
             float: left;
             position: relative;
-            padding-top: 22px;
-            padding-left: 70px;
-
-            &-icon {
-                background-color: $secondary-blue;
-                color: white;
-                border-radius: 100%;
-                display: inline-block;
-                width: 42px;
-                height: 42px;
-                padding-left: 8px;
-                padding-top: 4px;
-                position: absolute;
-                top: 10px;
-                left: 10px;
-            }
+            padding: 12px;
         }
 
         &-date {
             text-align: right;
             border: 2px solid $light-grey;
             border-bottom: none;
-            padding: 22px;
+            padding: 12px;
             background-color: $light-grey;
 
         }
 
         &-content {
             background-color: white;
-            border: 2px solid $light-grey;
+            border: 2px solid $very-light-grey;
             border-top: none;
             padding: 20px 10px;
             text-align: left;
-        }
-
-        &_staff {
-
         }
     }
 }

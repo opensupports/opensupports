@@ -48,22 +48,32 @@ class TicketViewer extends React.Component {
     }
 
     renderComment(comment) {
-        return (
-            <div className={this.getCommentClass(comment)}>
-                <div className="row">
-                    <div className="ticket-viewer__comment-icon"></div>
+        const iconNode = (
+            <div className="col-md-1">
+                <div className="ticket-viewer__comment-action">
+                    <Icon name="comment-o" size="2x" />
+                </div>
+            </div>
+        );
+        const commentNode = (
+            <div className="col-md-11">
+                <div className="ticket-viewer__comment">
+                    <span className="ticket-viewer__comment-pointer" />
                     <div className="ticket-viewer__comment-author">
-                        <span className="ticket-viewer__comment-author-icon">
-                            <Icon name="comment-o" size="2x" />
-                        </span>
                         <span className="ticket-viewer__comment-author-name">
                             {comment.author.name}
                         </span>
                     </div>
                     <div className="ticket-viewer__comment-date">{comment.date}</div>
+                    <div className="ticket-viewer__comment-content">{comment.content}</div>
+                    {this.renderFileRow(comment.file)}
                 </div>
-                <div className="ticket-viewer__comment-content row">{comment.content}</div>
-                {this.renderFileRow(comment.file)}
+            </div>
+        );
+
+        return (
+            <div className={this.getActionClass(comment)}>
+                {comment.author.staff ? [commentNode, iconNode] : [iconNode, commentNode]}
             </div>
         );
     }
@@ -78,16 +88,17 @@ class TicketViewer extends React.Component {
         }
 
         return (
-            <div className="ticket-viewer__file row">
+            <div className="ticket-viewer__file">
                 {node}
             </div>
         )
     }
-    
-    getCommentClass(comment) {
+
+    getActionClass(action) {
         let classes = {
-            'ticket-viewer__comment': true,
-            'ticket-viewer__comment_staff': comment.author.staff
+            'row': true,
+            'ticket-viewer__action': true,
+            'ticket-viewer__action_staff': action.author.staff
         };
         
         return classNames(classes);
