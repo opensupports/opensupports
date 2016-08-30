@@ -108,8 +108,42 @@ describe '/ticket/create' do
         (ticket['closed']).should.equal('0')
         (ticket['department_id']).should.equal('1')
         (ticket['author_id']).should.equal($csrf_userid)
+        (ticket['ticket_number'].size).should.equal(6)
 
         ticket_user_relation = $database.getRow('ticket_user','1','ticket_id')
         (ticket_user_relation['user_id']).should.equal($csrf_userid)
+    end
+
+    it 'should set correct ticket number' do
+        result = request('/ticket/create',{
+            title: 'Winter is coming1',
+            content: 'The north remembers',
+            departmentId: 1,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        result = request('/ticket/create',{
+            title: 'Winter is coming2',
+            content: 'The north remembers',
+            departmentId: 1,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        result = request('/ticket/create',{
+            title: 'Winter is coming3',
+            content: 'The north remembers',
+            departmentId: 1,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        ticket0 = $database.getRow('ticket','Winter is coming','title')['ticket_number'].to_i
+        ticket1 = $database.getRow('ticket','Winter is coming1','title')['ticket_number'].to_i
+        ticket2 = $database.getRow('ticket','Winter is coming2','title')['ticket_number'].to_i
+        ticket3 = $database.getRow('ticket','Winter is coming3','title')['ticket_number'].to_i
+
+        (ticket1).should.equal((ticket0 - 100000 + 1 * 176611) % 900000 + 100000)
+        (ticket2).should.equal((ticket0 - 100000 + 2 * 176611) % 900000 + 100000)
+        (ticket3).should.equal((ticket0 - 100000 + 3 * 176611) % 900000 + 100000)
     end
 end

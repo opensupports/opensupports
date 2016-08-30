@@ -1,5 +1,8 @@
 export default {
     'WELCOME': 'Welcome',
+    'TICKETS': 'Tickets',
+    'ARTICLES': 'Articles',
+    'ACCOUNT': 'Account',
     'SUBMIT': 'Submit',
     'LOG_IN': 'Log in',
     'SIGN_UP': 'Sign up',
@@ -16,6 +19,9 @@ export default {
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
     'TICKET_LIST': 'Ticket List',
     'TICKET_LIST_DESCRIPTION': 'Here you can find a list of all tickets you have sent to our support team.',
+    'TICKETS_DESCRIPTION': 'A  random  text  about    tickets',
+    'ARTICLES_DESCRIPTION': 'A random text about articles',
+    'ACCOUNT_DESCRIPTION': 'A random text about account',
     'DEPARTMENT': 'Department',
     'AUTHOR': 'Author',
     'DATE': 'Date',
