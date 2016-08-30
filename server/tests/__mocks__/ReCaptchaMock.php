@@ -5,10 +5,11 @@ namespace ReCaptcha {
 
     class ReCaptcha extends \Mock {
         public static $functionList = array();
-        public static $verify;
+        public static $staticVerify;
+        public $verify;
 
         public static function initVerify($value = true) {
-            self::$verify = \Mock::stub()->returns(new \Mock([
+            self::$staticVerify = \Mock::stub()->returns(new \Mock([
                 'isSuccess' => \Mock::stub()->returns($value)
             ]));
         }
@@ -17,7 +18,7 @@ namespace ReCaptcha {
             parent::__construct();
             
             $this->privateKey = $privateKey;
-            $this->verify = ReCaptcha::$verify;
+            $this->verify = self::$staticVerify;
         }
     }
 }

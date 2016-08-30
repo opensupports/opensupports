@@ -30,6 +30,6 @@ class CaptchaValidationTest extends PHPUnit_Framework_TestCase {
         $captchaValidation->validate('MOCK_RESPONSE');
 
         $this->assertTrue(Setting::get('getSetting')->hasBeenCalledWithArgs('recaptcha-private'));
-        $this->assertTrue(\ReCaptcha\ReCaptcha::$verify->hasBeenCalledWithArgs('MOCK_RESPONSE', 'MOCK_REMOTE'));
+        $this->assertTrue(\ReCaptcha\ReCaptcha::$staticVerify->hasBeenCalledWithArgs('MOCK_RESPONSE', 'MOCK_REMOTE'));
     }
 }
