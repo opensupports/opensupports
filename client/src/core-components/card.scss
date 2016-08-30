@@ -1,0 +1,26 @@
+@import "../scss/vars";
+
+.card{
+  padding: 15px;
+  width: 200px;
+  height: 260px;
+  color: white;
+  display: inline-block;
+  margin-right: 10px;
+  border-radius: 4px;
+  &__title{
+    font-variant: small-caps;
+    font-size: 20px;
+  }
+  &__description{
+  }
+  &_red{
+    background-color: $primary-red;
+  }
+  &_blue{
+    background-color: $secondary-blue;
+  }
+  &_green{
+    background-color: $primary-green;
+  }
+}
