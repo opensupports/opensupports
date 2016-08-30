@@ -1,7 +1,10 @@
 import React from 'react';
-import classNames from 'classnames';
 
-import Icon from 'core-components/icon';
+import i18n from 'lib-app/i18n';
+import TicketAction       from 'app/main/dashboard/dashboard-ticket/ticket-action';
+import Form               from 'core-components/form';
+import FormField          from 'core-components/form-field';
+import SubmitButton       from 'core-components/submit-button';
 
 class TicketViewer extends React.Component {
     static propTypes = {
@@ -24,9 +27,9 @@ class TicketViewer extends React.Component {
                     <span className="ticket-viewer__title">{this.props.ticket.title}</span>
                 </div>
                 <div className="ticket-viewer__info-row-header row">
-                    <div className="ticket-viewer__department col-md-4">Department</div>
-                    <div className="ticket-viewer__author col-md-4">Author</div>
-                    <div className="ticket-viewer__date col-md-4">Date</div>
+                    <div className="ticket-viewer__department col-md-4">{i18n('DEPARTMENT')}</div>
+                    <div className="ticket-viewer__author col-md-4">{i18n('AUTHOR')}</div>
+                    <div className="ticket-viewer__date col-md-4">{i18n('DATE')}</div>
                 </div>
                 <div className="ticket-viewer__info-row-values row">
                     <div className="ticket-viewer__department col-md-4">{this.props.ticket.department.name}</div>
@@ -34,82 +37,28 @@ class TicketViewer extends React.Component {
                     <div className="ticket-viewer__date col-md-4">{this.props.ticket.date}</div>
                 </div>
                 <div className="ticket-viewer__content">
-                    {this.renderComment(this.props.ticket)}
+                    <TicketAction type="comment" config={this.props.ticket} />
                 </div>
                 <div className="ticket-viewer__comments">
                     {this.props.ticket.comments.map(this.renderComment.bind(this))}
                 </div>
                 <div className="ticket-viewer__response">
-                    <div className="ticket-viewer__response-title row">Respond</div>
-                    <div className="ticket-viewer__response-field row">Response field</div>
-                </div>
-            </div>
-        );
-    }
-
-    renderComment(comment) {
-        const iconNode = (
-            <div className="col-md-1">
-                <div className="ticket-viewer__comment-action">
-                    <Icon name="comment-o" size="2x" />
-                </div>
-            </div>
-        );
-        const commentNode = (
-            <div className="col-md-11">
-                <div className="ticket-viewer__comment">
-                    <span className="ticket-viewer__comment-pointer" />
-                    <div className="ticket-viewer__comment-author">
-                        <span className="ticket-viewer__comment-author-name">
-                            {comment.author.name}
-                        </span>
+                    <div className="ticket-viewer__response-title row">{i18n('RESPOND')}</div>
+                    <div className="ticket-viewer__response-field row">
+                        <Form>
+                            <FormField name="content" validation="TEXT_AREA" required field="textarea" />
+                            <SubmitButton>{i18n('RESPOND_TICKET')}</SubmitButton>
+                        </Form>
                     </div>
-                    <div className="ticket-viewer__comment-date">{comment.date}</div>
-                    <div className="ticket-viewer__comment-content">{comment.content}</div>
-                    {this.renderFileRow(comment.file)}
                 </div>
             </div>
         );
+    }
 
+    renderComment(comment, index) {
         return (
-            <div className={this.getActionClass(comment)}>
-                {comment.author.staff ? [commentNode, iconNode] : [iconNode, commentNode]}
-            </div>
+            <TicketAction type="comment" config={comment} key={index} />
         );
-    }
-
-    renderFileRow(file) {
-        let node = null;
-
-        if (file) {
-            node = <span> {this.getFileLink(this.props.ticket.file)} <Icon name="paperclip" /> </span>;
-        } else {
-            node = 'No file attachment';
-        }
-
-        return (
-            <div className="ticket-viewer__file">
-                {node}
-            </div>
-        )
-    }
-
-    getActionClass(action) {
-        let classes = {
-            'row': true,
-            'ticket-viewer__action': true,
-            'ticket-viewer__action_staff': action.author.staff
-        };
-        
-        return classNames(classes);
-    }
-
-    getFileLink(filePath = '') {
-        const fileName = filePath.replace(/^.*[\\\/]/, '');
-
-        return (
-            <a href={filePath} target="_blank">{fileName}</a>
-        )
     }
 }
 
