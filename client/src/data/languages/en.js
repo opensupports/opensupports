@@ -19,9 +19,11 @@ export default {
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
     'TICKET_LIST': 'Ticket List',
     'TICKET_LIST_DESCRIPTION': 'Here you can find a list of all tickets you have sent to our support team.',
-    'TICKETS_DESCRIPTION': 'A  random  text  about    tickets',
-    'ARTICLES_DESCRIPTION': 'A random text about articles',
-    'ACCOUNT_DESCRIPTION': 'A random text about account',
+    'TICKETS_DESCRIPTION': 'Send ticket through our support center and get response of your doubts, suggestions and issues.',
+    'ARTICLES_DESCRIPTION': 'Take a look to our articles about common issues, guides and documentation.',
+    'ACCOUNT_DESCRIPTION': 'All your tickets are stored in your accounts\'s profile. Keep track off all your tickets you send to our staff team.',
+    'SUPPORT_CENTER': 'Support Center',
+    'SUPPORT_CENTER_DESCRIPTION': 'Welcome to our support center. You can contact us through a tickets system. Your tickets will be answered by our staff.',
 
     //ERRORS
     'EMAIL_NOT_EXIST': 'Email does not exist',
