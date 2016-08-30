@@ -3,7 +3,7 @@ import sessionStore from 'lib-app/session-store';
 
 export default {
     init() {
-        if (sessionStore.areConfigsStored()) {
+        if (sessionStore.isLoggedIn()) {
             return {
                 type: 'INIT_CONFIGS_FULFILLED',
                 payload: {
@@ -14,7 +14,7 @@ export default {
             return {
                 type: 'INIT_CONFIGS',
                 payload: API.call({
-                    path: '/system/get-configs',
+                    path: '/system/get-settings',
                     data: {}
                 })
             };

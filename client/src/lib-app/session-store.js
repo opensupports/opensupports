@@ -42,6 +42,10 @@ class SessionStore {
         return JSON.parse(this.getItem('userData'));
     }
 
+    getDepartments() {
+        return JSON.parse(this.getItem('departments'));
+    }
+
     storeRememberData({token, userId, expiration}) {
         this.setItem('rememberData-token', token);
         this.setItem('rememberData-userId', userId);
@@ -51,17 +55,15 @@ class SessionStore {
     storeConfigs(configs) {
         this.setItem('language', configs.language);
         this.setItem('reCaptchaKey', configs.reCaptchaKey);
+        this.setItem('departments', JSON.stringify(configs.departments));
     }
 
     getConfigs() {
         return {
             language: this.getItem('language'),
-            reCaptchaKey: this.getItem('reCaptchaKey')
+            reCaptchaKey: this.getItem('reCaptchaKey'),
+            departments: this.getDepartments()
         };
-    }
-
-    areConfigsStored() {
-        return !!this.getItem('reCaptchaKey');
     }
 
     isRememberDataExpired() {
