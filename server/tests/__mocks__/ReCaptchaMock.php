@@ -8,7 +8,7 @@ namespace ReCaptcha {
         public static $verify;
 
         public static function initVerify($value = true) {
-            ReCaptcha::$verify = \Mock::stub()->returns(new \Mock([
+            self::$verify = \Mock::stub()->returns(new \Mock([
                 'isSuccess' => \Mock::stub()->returns($value)
             ]));
         }
