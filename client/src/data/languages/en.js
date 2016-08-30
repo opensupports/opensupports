@@ -22,6 +22,14 @@ export default {
     'TICKETS_DESCRIPTION': 'A  random  text  about    tickets',
     'ARTICLES_DESCRIPTION': 'A random text about articles',
     'ACCOUNT_DESCRIPTION': 'A random text about account',
+    'DEPARTMENT': 'Department',
+    'AUTHOR': 'Author',
+    'DATE': 'Date',
+    'RESPOND': 'Respond',
+    'RESPOND_TICKET': 'Respond Ticket',
+    'NO_ATTACHMENT': 'No file attachment',
+    'STAFF': 'Staff',
+    'CUSTOMER': 'Customer',
 
     //ERRORS
     'EMAIL_NOT_EXIST': 'Email does not exist',
