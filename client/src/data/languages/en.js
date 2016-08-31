@@ -24,6 +24,14 @@ export default {
     'ACCOUNT_DESCRIPTION': 'All your tickets are stored in your accounts\'s profile. Keep track off all your tickets you send to our staff team.',
     'SUPPORT_CENTER': 'Support Center',
     'SUPPORT_CENTER_DESCRIPTION': 'Welcome to our support center. You can contact us through a tickets system. Your tickets will be answered by our staff.',
+    'DEPARTMENT': 'Department',
+    'AUTHOR': 'Author',
+    'DATE': 'Date',
+    'RESPOND': 'Respond',
+    'RESPOND_TICKET': 'Respond Ticket',
+    'NO_ATTACHMENT': 'No file attachment',
+    'STAFF': 'Staff',
+    'CUSTOMER': 'Customer',
 
     //ERRORS
     'EMAIL_NOT_EXIST': 'Email does not exist',

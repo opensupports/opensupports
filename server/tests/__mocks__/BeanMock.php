@@ -1,6 +1,7 @@
 <?php
+include_once 'tests/__lib__/Mock.php';
 
-class BeanMock implements ArrayAccess {
+class BeanMock extends \Mock implements ArrayAccess {
     private $properties;
 
     public function __construct($array = []) {

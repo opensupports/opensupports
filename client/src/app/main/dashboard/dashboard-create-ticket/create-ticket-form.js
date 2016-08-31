@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 
 import i18n               from 'lib-app/i18n';
 import API                from 'lib-app/api-call';
+import SessionStore       from 'lib-app/session-store';
 import store              from 'app/store';
 import SessionActions     from 'actions/session-actions';
 
@@ -41,11 +42,7 @@ class CreateTicketForm extends React.Component {
                     <div className="row">
                         <FormField className="col-md-7" label="Title" name="title" validation="TITLE" required field="input" fieldProps={{size: 'large'}}/>
                         <FormField className="col-md-5" label="Department" name="departmentId" field="select" fieldProps={{
-                            items: [
-                                {content: 'Sales Support'},
-                                {content: 'Technical Issues'},
-                                {content: 'System and Administration'}
-                            ],
+                            items: SessionStore.getDepartments().map((department) => {return {content: department}}),
                             size: 'medium'
                         }} />
                     </div>
@@ -70,7 +67,7 @@ class CreateTicketForm extends React.Component {
     renderCaptcha() {
         return (
             <div className="create-ticket-form__captcha">
-                <ReCAPTCHA sitekey="6LfM5CYTAAAAAGLz6ctpf-hchX2_l0Ge-Bn-n8wS" onChange={function () {}}/>
+                <Captcha />
             </div>
         );
     }

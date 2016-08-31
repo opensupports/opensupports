@@ -1,6 +1,7 @@
 <?php
 
 use Respect\Validation\Validator as DataValidator;
+DataValidator::with('CustomValidations', true);
 
 class SignUpController extends Controller {
     const PATH = '/signup';
@@ -24,6 +25,10 @@ class SignUpController extends Controller {
                 'password' => [
                     'validation' => DataValidator::length(5, 200),
                     'error' => ERRORS::INVALID_PASSWORD
+                ],
+                'captcha' => [
+                    'validation' => DataValidator::captcha(),
+                    'error' => ERRORS::INVALID_CAPTCHA
                 ]
             ]
         ];

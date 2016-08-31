@@ -25,6 +25,8 @@ class InitSettingsController extends Controller {
     private function storeGlobalSettings() {
         $this->storeSettings([
             'language' => 'en',
+            'recaptcha-public' => '',
+            'recaptcha-private' => '',
             'no-reply-email' => 'noreply@opensupports.com',
             'smtp-host' => 'localhost',
             'smtp-port' => 7070,

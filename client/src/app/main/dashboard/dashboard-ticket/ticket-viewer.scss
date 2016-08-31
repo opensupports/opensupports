@@ -1,0 +1,79 @@
+@import "../../../../scss/vars";
+
+.ticket-viewer {
+    &__header {
+        background-color: $primary-blue;
+        border-top-right-radius: 4px;
+        border-top-left-radius: 4px;
+        color: white;
+        font-size: 16px;
+        padding: 6px 0;
+    }
+
+    &__number {
+        color: white;
+        margin-right: 10px;
+        font-size: 14px;
+    }
+
+    &__title {
+        display: inline-block;
+    }
+
+    &__info-row-header {
+        background-color: $light-grey;
+        font-weight: bold;
+    }
+
+    &__info-row-values {
+        background-color: $light-grey;
+        color: $secondary-blue;
+    }
+
+    &__date {
+
+    }
+
+    &__author {
+
+    }
+
+    &__department {
+
+    }
+
+    &__content {
+        margin-top: 10px;
+    }
+
+    &__file {
+        background-color: $very-light-grey;
+        text-align: right;
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+
+    &__comments {
+        position: relative;
+    }
+
+    &__response {
+        margin-top: 20px;
+        position: relative;
+
+        &-title {
+            background-color: $primary-blue;
+            text-align: left;
+            padding: 5px;
+            color: white;
+            border-top-right-radius: 4px;
+            border-top-left-radius: 4px;
+        }
+
+        &-field {
+            background-color: $very-light-grey;
+            padding: 20px;
+            text-align: left;
+        }
+    }
+}

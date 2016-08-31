@@ -40,6 +40,7 @@ spl_autoload_register(function ($class) {
 //Load custom validations
 include_once 'libs/validations/dataStoreId.php';
 include_once 'libs/validations/userEmail.php';
+include_once 'libs/validations/captcha.php';
 
 // LOAD CONTROLLERS
 foreach (glob('controllers/*.php') as $controller) {
