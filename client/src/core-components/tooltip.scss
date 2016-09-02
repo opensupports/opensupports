@@ -1,5 +1,6 @@
 .tooltip {
     position: relative;
+    display: inline-block;
     &__children{
 
     }
@@ -15,5 +16,15 @@
         background-color: #F7F7F7;
         color: black;
         padding: 10px;
+    }
+    &__pointer{
+
+        border: solid transparent;
+        position: absolute;
+        border-top-color: #8D8D8D;
+        border-width: 10px;
+        top: -10px;
+        left: 50%;
+        margin-left: -8px;
     }
 }

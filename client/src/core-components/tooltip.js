@@ -1,4 +1,5 @@
 import React from 'react'
+import {Motion, spring} from 'react-motion';
 
 class Tooltip extends React.Component {
     
@@ -13,15 +14,25 @@ class Tooltip extends React.Component {
     render (){
         return (
             <div className="tooltip" >
-                {(this.state.show) ? this.renderMessage() : null}
+                {(this.state.show) ? this.renderAnimatedMessage() : null}
                 <div className="tooltip__children" onClick={this.onClick.bind(this)}>{this.props.children}</div>
             </div>
         );
     }
-    renderMessage(){
+    renderAnimatedMessage(){
         return (
-            <div className="tooltip__message">
-                {this.props.content}
+            <Motion defaultStyle={{opacity:spring(0)}} style={{opacity:spring(1)}}>
+                {this.renderMessage.bind(this)}
+            </Motion>
+        )
+    }
+    renderMessage(animation){
+        return (
+            <div style={animation}>
+                <div className="tooltip__message">
+                    {this.props.content}
+                </div>
+                <span className="tooltip__pointer"/>
             </div>
         )
     }

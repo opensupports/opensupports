@@ -82,7 +82,7 @@ let DemoPage = React.createClass({
         {
             title: 'Tooltip',
             render: (
-                <Tooltip content="mensaje adicionalsssssssssssssssss ssssss ssssssssssssssssssss">hola</Tooltip>
+                <Tooltip content="mensaje mensa jemensajemens ajem ensaje  nsaje adicionals">hola</Tooltip>
             )
         }
 	],
