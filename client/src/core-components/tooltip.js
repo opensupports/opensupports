@@ -7,10 +7,12 @@ class Tooltip extends React.Component {
         children: React.PropTypes.node,
         content: React.PropTypes.node
     };
+
     constructor (props){
         super(props);
-        this.state = {show : false}
+        this.state = {show : false};
     }
+
     render (){
         return (
             <div className="tooltip" >
@@ -19,6 +21,7 @@ class Tooltip extends React.Component {
             </div>
         );
     }
+
     renderAnimatedMessage(){
         return (
             <Motion defaultStyle={{opacity:spring(0)}} style={{opacity:spring(1)}}>
@@ -26,6 +29,7 @@ class Tooltip extends React.Component {
             </Motion>
         )
     }
+
     renderMessage(animation){
         return (
             <div style={animation}>
@@ -37,15 +41,12 @@ class Tooltip extends React.Component {
         )
     }
     onClick(){
-        if(this.state.show){
+        if (this.state.show) {
             this.setState({show : false});
-        }else{
+        } else {
             this.setState({show : true});
         }
-
-
     }
 }
-
 
 export default Tooltip;
