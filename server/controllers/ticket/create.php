@@ -9,6 +9,7 @@ class CreateController extends Controller {
     private $content;
     private $departmentId;
     private $language;
+    private $ticketNumber;
 
     public function validations() {
         return [
@@ -31,17 +32,16 @@ class CreateController extends Controller {
     }
 
     public function handler() {
-        $this->storeRequestData();
-        $this->storeTicket();
-
-        Response::respondSuccess();
-    }
-
-    private function storeRequestData() {
         $this->title = Controller::request('title');
         $this->content = Controller::request('content');
         $this->departmentId = Controller::request('departmentId');
         $this->language = Controller::request('language');
+
+        $this->storeTicket();
+
+        Response::respondSuccess([
+            'ticketNumber' => $this->ticketNumber
+        ]);
     }
 
     private function storeTicket() {
@@ -65,5 +65,7 @@ class CreateController extends Controller {
 
         $author->store();
         $ticket->store();
+        
+        $this->ticketNumber = $ticket->ticketNumber;
     }
 }

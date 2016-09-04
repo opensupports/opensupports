@@ -1,9 +1,9 @@
 describe '/ticket/create' do
     request('/user/logout')
-    Scripts.createUser('jonhsnow@os4.com','jonhpass','Jonh Snow')
+    Scripts.createUser('jonsnow@os4.com','jonpass','Jon Snow')
     result = request('/user/login', {
-        email: 'jonhsnow@os4.com',
-        password: 'jonhpass'
+        email: 'jonsnow@os4.com',
+        password: 'jonpass'
     })
 
     $csrf_userid = result['data']['userId']
