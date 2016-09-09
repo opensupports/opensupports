@@ -1,4 +1,5 @@
 import React              from 'react';
+import _                  from 'lodash';
 import ReCAPTCHA          from 'react-google-recaptcha';
 import { browserHistory } from 'react-router';
 
@@ -90,7 +91,9 @@ class CreateTicketForm extends React.Component {
 
         API.call({
             path: '/ticket/create',
-            data: formState
+            data: _.extend({}, formState, {
+                departmentId: formState.departmentId + 1
+            })
         }).then(this.onTicketSuccess.bind(this)).catch(this.onTicketFail.bind(this));
     }
 

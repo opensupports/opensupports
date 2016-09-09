@@ -4,6 +4,7 @@ import _                  from 'lodash';
 
 import i18n               from 'lib-app/i18n';
 import API                from 'lib-app/api-call';
+import SessionStore       from 'lib-app/session-store';
 
 import Captcha            from 'app/main/captcha';
 import SubmitButton       from 'core-components/submit-button';

@@ -37,17 +37,20 @@ class SignUpController extends Controller {
     public function handler() {
         $this->storeRequestData();
 
-        try {
-            $userId = $this->createNewUserAndRetrieveId();
-            $this->sendRegistrationMail();
+        $existentUser = User::getUser($this->userEmail, 'email');
 
-            Response::respondSuccess([
-                'userId' => $userId,
-                'userEmail' => $this->userEmail
-            ]);
-        } catch (Exception $e) {
-            Response::respondError($e->getMessage());
+        if (!$existentUser->isNull()) {
+            Response::respondError(ERRORS::USER_EXISTS);
+            return;
         }
+
+        $userId = $this->createNewUserAndRetrieveId();
+        $this->sendRegistrationMail();
+
+        Response::respondSuccess([
+            'userId' => $userId,
+            'userEmail' => $this->userEmail
+        ]);
 
     }
     

@@ -17,7 +17,7 @@ gulp.task('server', function() {
   server.use(express.static(config.buildDir));
 
   // Proxy php server api
-  server.use('/api', proxy('http://localhost:8080/', {
+  server.use('/api', proxy('http://localhost:8080', {
     forwardPath: function(req, res) {
         return require('url').parse(req.url).path;
     }

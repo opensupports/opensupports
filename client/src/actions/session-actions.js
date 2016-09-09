@@ -12,7 +12,7 @@ export default {
                 path: '/user/login',
                 data: loginData
             }).then((result) => {
-                store.dispatch(this.getUserData(result.data.userId));
+                store.dispatch(this.getUserData(result.data.userId, result.data.token));
 
                 return result;
             })
@@ -32,7 +32,7 @@ export default {
                     isAutomatic: true
                 }
             }).then((result) => {
-                store.dispatch(this.getUserData(result.data.userId));
+                store.dispatch(this.getUserData(result.data.userId, result.data.token));
 
                 return result;
             })
@@ -49,14 +49,21 @@ export default {
         };
     },
 
-    getUserData(userId) {
+    getUserData(userId, token) {
+        let data  = {};
+
+        if (userId && token) {
+            data = {
+                csrf_userid: userId,
+                csrf_token: token
+            };
+        }
+
         return {
             type: 'USER_DATA',
             payload: API.call({
                 path: '/user/get',
-                data: {
-                    userId: userId
-                }
+                data: data
             })
         }
     },
