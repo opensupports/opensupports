@@ -10,7 +10,7 @@ class TicketGetController extends Controller {
             'permission' => 'user',
             'requestData' => [
                 'ticketNumber' => [
-                    'validation' => DataValidator::length(6),
+                    'validation' => DataValidator::validTicketNumber(),
                     'error' => ERRORS::INVALID_TICKET
                 ]
             ]
@@ -22,7 +22,7 @@ class TicketGetController extends Controller {
 
         $ticket = Ticket::getByTicketNumber($ticketNumber);
 
-        if ($ticket->isNull() || $ticket->author->id != Controller::getLoggedUser()->id) {
+        if ($ticket->author->id != Controller::getLoggedUser()->id) {
             Response::respondError(ERRORS::INVALID_TICKET);
         } else {
             Response::respondSuccess($ticket->toArray());
