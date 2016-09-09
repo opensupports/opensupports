@@ -18,7 +18,8 @@ describe('Session Actions,', function () {
                 then: function (resolve) {
                     resolve({
                         data: {
-                            userId: 14
+                            userId: 14,
+                            token: 'SOME_TOKEN'
                         }
                     });
                 }
@@ -35,7 +36,8 @@ describe('Session Actions,', function () {
             expect(APICallMock.call).to.have.been.calledWith({
                 path: '/user/get',
                 data: {
-                    userId: 14
+                    csrf_userid: 14,
+                    csrf_token: 'SOME_TOKEN'
                 }
             });
         });

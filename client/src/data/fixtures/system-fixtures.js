@@ -6,7 +6,7 @@ module.exports = [
             return {
                 status: 'success',
                 data: {
-                    'language': 'us',
+                    'language': 'en',
                     'reCaptchaKey': '6LfM5CYTAAAAAGLz6ctpf-hchX2_l0Ge-Bn-n8wS',
                     'departments': [
                         'Sales Support',
