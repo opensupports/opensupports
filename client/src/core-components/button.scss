@@ -21,22 +21,6 @@
         background-color: $secondary-blue;
     }
 
-    &_clean {
-        background: none;
-        border: none;
-    }
-
-    &_link {
-        background: none;
-        border: none;
-        color: $dark-grey;
-        text-decoration: underline;
-
-        &:focus {
-            outline: none;
-        }
-    }
-
     &_disabled {
         background-color: #ec9696;
     }
@@ -57,5 +41,25 @@
     &_auto {
         width: initial;
         height: initial;
+    }
+
+    &_clean {
+        background: none;
+        border: none;
+        width: initial;
+        height: initial;
+    }
+
+    &_link {
+        background: none;
+        border: none;
+        color: $dark-grey;
+        width: initial;
+        height: initial;
+
+        &:focus, &:hover {
+            outline: none;
+            text-decoration: underline;
+        }
     }
 }

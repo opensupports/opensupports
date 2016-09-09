@@ -3,9 +3,7 @@
 const React = require('react');
 const DocumentTitle = require('react-document-title');
 
-const ModalActions = require('actions/modal-actions');
-const store = require('app/store');
-
+const ModalContainer = require('app/modal-container');
 const AreYouSure = require('app-components/are-you-sure');
 
 const Button = require('core-components/button');
@@ -96,10 +94,8 @@ let DemoPage = React.createClass({
             title: 'ModalTrigger',
             render: (
                 <Button onClick={function () {
-                    store.dispatch(
-                        ModalActions.openModal(
-                            <AreYouSure description="I confirm I want to perform this action." onYes={()=> {alert('yes');}} />
-                        )
+                    ModalContainer.openModal(
+                        <AreYouSure description="I confirm I want to perform this action." onYes={()=> {alert('yes');}} />
                     );
                 }}>
                     Open Modal

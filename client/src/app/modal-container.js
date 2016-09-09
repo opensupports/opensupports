@@ -2,11 +2,20 @@ import React              from 'react';
 import { connect }        from 'react-redux';
 import keyCode            from 'keycode';
 
+import store from 'app/store';
 import ModalActions from 'actions/modal-actions';
 import Modal from 'core-components/modal';
 
 class ModalContainer extends React.Component {
 
+    static openModal(content) {
+        store.dispatch(
+            ModalActions.openModal(
+                content
+            )
+        );
+    }
+    
     static childContextTypes = {
         closeModal: React.PropTypes.func
     };
@@ -21,7 +30,7 @@ class ModalContainer extends React.Component {
         window.addEventListener('keydown', this.onKeyDown.bind(this));
     }
     
-    componentWillUnMount() {
+    componentWillUnmount() {
         window.removeEventListener('keydown', this.onKeyDown.bind(this));
     }
 

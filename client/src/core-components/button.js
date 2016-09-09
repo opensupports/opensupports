@@ -56,6 +56,7 @@ class Button extends React.Component {
 
         props.onClick = callback(this.handleClick.bind(this), this.props.onClick);
         props.className = this.getClass();
+        props.ref = 'button';
 
         delete props.route;
         delete props.iconName;
@@ -90,6 +91,10 @@ class Button extends React.Component {
         if (this.props.route) {
             this.context.router.push(this.props.route.to);
         }
+    }
+
+    focus() {
+        this.refs.button.focus();
     }
 }
 

@@ -9,11 +9,9 @@ class Modal extends React.Component {
 
     render() {
         return (
-            <div className="modal">
-                <Motion {...this.getAnimations()}>
-                    {this.renderContent.bind(this)}
-                </Motion>
-            </div>
+            <Motion {...this.getAnimations()}>
+                {this.renderModal.bind(this)}
+            </Motion>
         );
     }
 
@@ -21,7 +19,7 @@ class Modal extends React.Component {
         return {
             defaultStyle: {
                 scale: spring(0.7),
-                fade: spring(0)
+                fade: spring(0.5)
             },
             style: {
                 scale: spring(1),
@@ -30,15 +28,12 @@ class Modal extends React.Component {
         }
     }
 
-    renderContent(animation) {
-        const style = {
-            transform: 'scale(' + animation.scale + ')',
-            opacity: animation.fade
-        };
-
+    renderModal(animation) {
         return (
-            <div className="modal__content" style={style}>
-                {this.props.content}
+            <div className="modal" style={{opacity: animation.fade}}>
+                <div className="modal__content" style={{transform: 'scale(' + animation.scale + ')'}}>
+                    {this.props.content}
+                </div>
             </div>
         )
     }
