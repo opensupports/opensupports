@@ -1,13 +1,7 @@
 describe '/ticket/create' do
     request('/user/logout')
-    Scripts.createUser('jonsnow@os4.com','jonpass','Jon Snow')
-    result = request('/user/login', {
-        email: 'jonsnow@os4.com',
-        password: 'jonpass'
-    })
-
-    $csrf_userid = result['data']['userId']
-    $csrf_token = result['data']['token']
+    Scripts.createUser('creator@os4.com','creator','Creator')
+    Scripts.login('creator@os4.com','creator')
 
     it 'should fail if invalid token is passed' do
         result = request('/ticket/create', {
@@ -77,7 +71,7 @@ describe '/ticket/create' do
     end
 
     it 'should fail if departmentId is invalid' do
-        result = request('/ticket/create',{
+        result = request('/ticket/create', {
             title: 'Winter is coming',
             content: 'The north remembers',
             departmentId: 30,
@@ -91,7 +85,7 @@ describe '/ticket/create' do
     end
 
     it 'should create ticket if pass data is valid' do
-        result = request('/ticket/create',{
+        result = request('/ticket/create', {
             title: 'Winter is coming',
             content: 'The north remembers',
             departmentId: 1,
@@ -110,7 +104,7 @@ describe '/ticket/create' do
         (ticket['author_id']).should.equal($csrf_userid)
         (ticket['ticket_number'].size).should.equal(6)
 
-        ticket_user_relation = $database.getRow('ticket_user','1','ticket_id')
+        ticket_user_relation = $database.getRow('ticket_user', ticket['id'],'ticket_id')
         (ticket_user_relation['user_id']).should.equal($csrf_userid)
     end
 

@@ -1,30 +1,51 @@
 describe '/ticket/get/' do
     request('/user/logout')
     Scripts.createUser('cersei@os4.com', 'cersei','Cersei Lannister')
-    result = request('/user/login', {
-        email: 'cersei@os4.com',
-        password: 'cersei'
-    })
-    $csrf_userid = result['data']['userId']
-    $csrf_token = result['data']['token']
-    result = request('/ticket/create', {
-        title: 'Should we pay?',
-        content: 'A Lannister always pays his debts.',
-        departmentId: 1,
-        csrf_userid: $csrf_userid,
-        csrf_token: $csrf_token
-    })
-    @ticketNumber = result['data']['ticketNumber']
+    Scripts.createUser('not_ticket_getter@os4.com', 'not_ticket_getter','No Author')
 
-    #it 'should fail if ticketNumber is invalid' do
+    before do
+        result = Scripts.login('cersei@os4.com', 'cersei')
+        $csrf_userid = result['userId']
+        $csrf_token = result['token']
+        result = request('/ticket/create', {
+            title: 'Should we pay?',
+            content: 'A Lannister always pays his debts.',
+            departmentId: 1,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        @ticketNumber = result['data']['ticketNumber']
+    end
 
-    #end
+    it 'should fail if ticketNumber is invalid' do
+        result = request('/ticket/get', {
+            ticketNumber: (@ticketNumber.to_i + 1).to_s,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
 
-    #it 'should fail if ticket does not belong to user' do
+        (result['status']).should.equal('fail')
+    end
 
-    #end
+    it 'should fail if ticket does not belong to user' do
+        request('/user/logout')
+        result = Scripts.login('not_ticket_getter@os4.com', 'not_ticket_getter')
+
+        $csrf_userid = result['userId']
+        $csrf_token = result['token']
+        result = request('/ticket/get', {
+            ticketNumber: @ticketNumber,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        (result['status']).should.equal('fail')
+    end
 
     it 'should successfully return the ticket information' do
+        result = Scripts.login('cersei@os4.com', 'cersei')
+        $csrf_userid = result['userId']
+        $csrf_token = result['token']
         result = request('/ticket/get', {
             ticketNumber: @ticketNumber,
             csrf_userid: $csrf_userid,

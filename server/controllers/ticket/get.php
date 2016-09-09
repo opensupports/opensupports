@@ -22,6 +22,10 @@ class TicketGetController extends Controller {
 
         $ticket = Ticket::getByTicketNumber($ticketNumber);
 
-        Response::respondSuccess($ticket->toArray());
+        if ($ticket->isNull() || $ticket->author->id != Controller::getLoggedUser()->id) {
+            Response::respondError(ERRORS::INVALID_TICKET);
+        } else {
+            Response::respondSuccess($ticket->toArray());
+        }
     }
 }
