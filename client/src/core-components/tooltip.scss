@@ -1,0 +1,30 @@
+.tooltip {
+    position: relative;
+    display: inline-block;
+    &__children{
+
+    }
+
+    &__message{
+        position: absolute;
+        bottom: 100%;
+        left: -25%;
+        margin-bottom: 10px;
+        box-shadow: 0 0 4px #8D8D8D;
+        border-radius: 4px;
+        max-width: 200px;
+        background-color: #F7F7F7;
+        color: black;
+        padding: 10px;
+    }
+    &__pointer{
+
+        border: solid transparent;
+        position: absolute;
+        border-top-color: #8D8D8D;
+        border-width: 10px;
+        top: -10px;
+        left: 50%;
+        margin-left: -8px;
+    }
+}

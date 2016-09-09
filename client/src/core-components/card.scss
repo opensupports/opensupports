@@ -1,26 +1,30 @@
 @import "../scss/vars";
 
-.card{
-  padding: 15px;
-  width: 200px;
-  height: 260px;
-  color: white;
-  display: inline-block;
-  margin-right: 10px;
-  border-radius: 4px;
-  &__title{
-    font-variant: small-caps;
-    font-size: 20px;
-  }
-  &__description{
-  }
-  &_red{
-    background-color: $primary-red;
-  }
-  &_blue{
-    background-color: $secondary-blue;
-  }
-  &_green{
-    background-color: $primary-green;
-  }
+.card {
+    border-radius: 4px;
+    color: white;
+    height: 260px;
+    padding: 15px;
+
+    &__title {
+        font-variant: small-caps;
+        margin: 10px 0;
+        font-size: $font-size--lg;
+    }
+
+    &__description {
+        font-size: $font-size--sm;
+    }
+
+    &_red {
+        background-color: $primary-red;
+    }
+
+    &_blue {
+        background-color: $secondary-blue;
+    }
+
+    &_green {
+        background-color: $primary-green;
+    }
 }

@@ -9,6 +9,7 @@ const Checkbox = require('core-components/checkbox');
 const Widget = require('core-components/widget');
 const DropDown = require('core-components/drop-down');
 const Menu = require('core-components/menu');
+const Tooltip = require('core-components/tooltip');
 
 let dropDownItems = [{content: 'English'}, {content: 'Spanish'}, {content: 'German'}, {content: 'Portuguese'}, {content: 'Japanese'}];
 let secondaryMenuItems = [
@@ -76,6 +77,12 @@ let DemoPage = React.createClass({
             title: 'Secondary Menu',
             render: (
                 <Menu items={secondaryMenuItems} type="secondary"/>
+            )
+        },
+        {
+            title: 'Tooltip',
+            render: (
+                <Tooltip content="mensaje mensa jemensajemens ajem ensaje  nsaje adicionals">hola</Tooltip>
             )
         }
 	],
