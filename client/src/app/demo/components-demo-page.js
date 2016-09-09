@@ -3,6 +3,11 @@
 const React = require('react');
 const DocumentTitle = require('react-document-title');
 
+const ModalActions = require('actions/modal-actions');
+const store = require('app/store');
+
+const AreYouSure = require('app-components/are-you-sure');
+
 const Button = require('core-components/button');
 const Input = require('core-components/input');
 const Checkbox = require('core-components/checkbox');
@@ -82,7 +87,23 @@ let DemoPage = React.createClass({
         {
             title: 'Tooltip',
             render: (
-                <Tooltip content="mensaje mensa jemensajemens ajem ensaje  nsaje adicionals">hola</Tooltip>
+                <div>
+                    <Tooltip content="mensaje mensa jemensajemens ajem ensaje  nsaje adicionals">hola</Tooltip>
+                </div>
+            )
+        },
+        {
+            title: 'ModalTrigger',
+            render: (
+                <Button onClick={function () {
+                    store.dispatch(
+                        ModalActions.openModal(
+                            <AreYouSure description="I confirm I want to perform this action." onYes={()=> {alert('yes');}} />
+                        )
+                    );
+                }}>
+                    Open Modal
+                </Button>
             )
         }
 	],

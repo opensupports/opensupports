@@ -2,28 +2,31 @@
 
 .button {
 
-    &-primary,
-    &-primary-icon {
+    &_primary,
+    &_secondary,
+    &_tertiary {
         background-color: $primary-red;
         border: solid transparent;
         border-radius: 4px;
         color: white;
         height: 47px;
         text-transform: uppercase;
-        width: 239px;
     }
 
-    &-primary-icon {
-        width: initial;
-        height: initial;
+    &_secondary {
+        background-color: $primary-green;
     }
 
-    &-clean {
+    &_tertiary {
+        background-color: $secondary-blue;
+    }
+
+    &_clean {
         background: none;
         border: none;
     }
 
-    &-link {
+    &_link {
         background: none;
         border: none;
         color: $dark-grey;
@@ -36,5 +39,23 @@
 
     &_disabled {
         background-color: #ec9696;
+    }
+
+    &_small {
+        width: 100px;
+        height: 47px;
+    }
+
+    &_medium {
+        width: 239px;
+    }
+
+    &_large {
+        //width: 239px;
+    }
+
+    &_auto {
+        width: initial;
+        height: initial;
     }
 }

@@ -3,6 +3,8 @@ import _                  from 'lodash';
 import { connect }        from 'react-redux'
 import { browserHistory } from 'react-router';
 
+import ModalContainer from 'app/modal-container';
+
 class App extends React.Component {
     static contextTypes = {
         router: React.PropTypes.object,
@@ -21,6 +23,7 @@ class App extends React.Component {
         return (
           <div>
               {React.cloneElement(this.props.children, {})}
+              <ModalContainer />
           </div>
         );
     }
@@ -49,6 +52,7 @@ class App extends React.Component {
 export default connect((store) => {
     return {
         config: store.config,
+        modal: store.modal,
         session: store.session,
         routing: store.routing
     };

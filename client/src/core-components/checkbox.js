@@ -1,7 +1,7 @@
 import React              from 'react';
 import classNames         from 'classnames';
 import _                  from 'lodash';
-import keyCode from 'keycode';
+import keyCode            from 'keycode';
 
 import callback           from 'lib-core/callback';
 import getIcon            from 'lib-core/get-icon';
