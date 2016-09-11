@@ -29,7 +29,16 @@ abstract class DataStore {
             }
         }
 
-        return ($validProp) ? $propToValidate : 'id';
+        return ($validProp) ? self::from_camel_case($propToValidate) : 'id';
+    }
+
+    private static function from_camel_case($input) {
+        preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
+        $ret = $matches[0];
+        foreach ($ret as &$match) {
+            $match = $match == strtoupper($match) ? strtolower($match) : lcfirst($match);
+        }
+        return implode('_', $ret);
     }
 
     public function __construct($beanInstance = null) {
@@ -62,6 +71,7 @@ abstract class DataStore {
     }
 
     public function &__get($name) {
+        'hello';
         if (!array_key_exists($name, $this->properties) || !$this->properties[$name]) {
             $this->properties[$name] = $this->parseBeanProp($name);
         }

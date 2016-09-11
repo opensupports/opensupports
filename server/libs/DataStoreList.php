@@ -1,7 +1,7 @@
 <?php
 require_once 'models/DataStore.php';
 
-class DataStoreList {
+class DataStoreList implements IteratorAggregate{
     private $list = [];
     
     public static function getList($type, $beanList) {
@@ -12,6 +12,10 @@ class DataStoreList {
         }
         
         return $dataStoreList;
+    }
+
+    public function getIterator() {
+        return new ArrayIterator($this->list);
     }
 
     public function add(DataStore $dataStore) {

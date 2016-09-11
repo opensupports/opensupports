@@ -14,13 +14,13 @@ class Captcha extends React.Component {
     }
 
     render() {
-        return (
+        return (this.props.sitekey) ? (
             <ReCAPTCHA sitekey={this.props.sitekey} ref="reCaptcha" onChange={(value) => {this.setState({value})}} tabIndex="0" />
-        );
+        ) : <div></div>;
     }
 
     getValue() {
-        return this.state.value;
+        return (this.props.sitekey) ? this.state.value : 'valid';
     }
 
     focus() {

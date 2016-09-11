@@ -50,7 +50,7 @@ class TicketAction extends React.Component {
                     <span className="ticket-action__comment-author-type">({i18n((config.author.staff) ? 'STAFF' : 'CUSTOMER')})</span>
                 </div>
                 <div className="ticket-action__comment-date">{config.date}</div>
-                <div className="ticket-action__comment-content">{config.content}</div>
+                <div className="ticket-action__comment-content" dangerouslySetInnerHTML={{__html: config.content}}></div>
                 {this.renderFileRow(config.file)}
             </div>
         );

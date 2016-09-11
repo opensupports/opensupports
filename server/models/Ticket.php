@@ -4,8 +4,6 @@ use RedBeanPHP\Facade as RedBean;
 class Ticket extends DataStore {
     const TABLE = 'ticket';
 
-    private $author;
-
     public static function getProps() {
         return array(
             'ticketNumber',
@@ -26,6 +24,10 @@ class Ticket extends DataStore {
     public static function getTicket($value, $property = 'id') {
         return parent::getDataStore($value, $property);
     }
+    
+    public static function getByTicketNumber($value) {
+        return Ticket::getTicket($value, 'ticketNumber');
+    }
 
     public function getDefaultProps() {
         return array(
@@ -36,10 +38,6 @@ class Ticket extends DataStore {
 
     public function store() {
         parent::store();
-
-        if ($this->author instanceof User) {
-            $this->author->store();
-        }
     }
     public function generateUniqueTicketNumber() {
         $ticketQuantity = Ticket::count('ticket');
@@ -56,5 +54,75 @@ class Ticket extends DataStore {
         }
 
         return $ticketNumber;
+    }
+    
+    public function toArray() {
+        $author = $this->author;
+
+        return [
+            'ticketNumber' => $this->ticketNumber,
+            'title' => $this->title,
+            'content' => $this->content,
+            'department' => [
+                'id' => $this->department->id,
+                'name' => $this->department->name
+            ],
+            'date' => $this->date,
+            'file' => $this->file,
+            'language' => $this->language,
+            'unread' => !!$this->unread,
+            'closed' => !!$this->closed,
+            'author' => $this->authorToArray(),
+            'owner' => $this->ownerToArray(),
+            'comments' => $this->commentsToArray()
+        ];
+    }
+
+    public function authorToArray() {
+        $author = $this->author;
+
+        if ($author && !$author->isNull()) {
+            return [
+                'id' => $author->id,
+                'name' => $author->name,
+                'email' => $author->email
+            ];
+        } else {
+            return [];
+        }
+    }
+
+    public function ownerToArray() {
+        $owner = $this->owner;
+
+        if ($owner && !$owner->isNull()) {
+            return [
+                'id' => $owner->id,
+                'name' => $owner->name,
+                'email' => $owner->email
+            ];
+        } else {
+            return [];
+        }
+    }
+
+    public function commentsToArray() {
+        $comments = [];
+
+        foreach ($this->ownCommentList as $comment) {
+            $comments[] = [
+                'content'=> $comment->content,
+                'author' => [
+                    'id'=> 15,
+                    'name' => $comment->author->name,
+                    'email' => $comment->author->email,
+                    'staff' => $comment->author->staff
+                ],
+                'date'=> $comment->date,
+                'file'=> $comment->file
+            ];
+        }
+
+        return $comments;
     }
 }

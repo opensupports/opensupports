@@ -5,7 +5,10 @@ const SessionStore = require('lib-app/session-store');
 const root = 'http://localhost:3000/api';
 
 function processData (data) {
-    return _.extend(SessionStore.getSessionData(), data);
+    return _.extend({
+        csrf_token: SessionStore.getSessionData().token,
+        csrf_userid: SessionStore.getSessionData().userId
+    }, data);
 }
 
 module.exports = {

@@ -16,8 +16,8 @@ class CommentController extends Controller {
                     'validation' => DataValidator::length(20, 500),
                     'error' => ERRORS::INVALID_CONTENT
                 ],
-                'ticketId' => [
-                    'validation' => DataValidator::dataStoreId('ticket'),
+                'ticketNumber' => [
+                    'validation' => DataValidator::validTicketNumber(),
                     'error' => ERRORS::INVALID_TICKET
                 ]
             ]
@@ -37,9 +37,9 @@ class CommentController extends Controller {
     }
 
     private function requestData() {
-        $ticketId = Controller::request('ticketId');
+        $ticketNumber = Controller::request('ticketNumber');
 
-        $this->ticket = Ticket::getTicket($ticketId);
+        $this->ticket = Ticket::getByTicketNumber($ticketNumber);
         $this->content = Controller::request('content');
     }
 

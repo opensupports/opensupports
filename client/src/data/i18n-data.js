@@ -7,7 +7,7 @@ import turkishLanguage from 'data/languages/en';
 import indianLanguage  from 'data/languages/en';
 
 const languages = {
-    'us': englishLanguage,
+    'en': englishLanguage,
     'es': spanishLanguage,
     'de': germanLanguage,
     'fr': frenchLanguage,
