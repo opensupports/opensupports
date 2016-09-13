@@ -21,5 +21,15 @@ module.exports = [
 
             return response;
         }
+    },
+    {
+        path: '/ticket/comment',
+        time: 1000,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
     }
 ];

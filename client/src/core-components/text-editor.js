@@ -1,9 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import _ from 'lodash';
-import {Editor, EditorState, RichUtils} from 'draft-js';
-import Button from 'core-components/button';
+import RichTextEditor from 'react-rte-browserify';
 
 class TextEditor extends React.Component {
     static propTypes = {
@@ -12,50 +9,17 @@ class TextEditor extends React.Component {
         value: React.PropTypes.object
     };
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            editorState: EditorState.createEmpty(),
-            focused: false
-        };
-    }
+    state = {
+        value: RichTextEditor.createEmptyValue(),
+        focused: false
+    };
 
     render() {
         return (
             <div className={this.getClass()}>
-                {this.renderEditOptions()}
-                <div className="text-editor__editor" onClick={this.focus.bind(this)} onMouseDown={(event) => event.preventDefault()}>
-                    <span onMouseDown={(event) => event.stopPropagation()}>
-                        <Editor {...this.getEditorProps()} />
-                    </span>
-                </div>
+                <RichTextEditor {...this.getEditorProps()} />
             </div>
         );
-    }
-
-    renderEditOptions() {
-        const onBoldClick = (event) => {
-            event.preventDefault();
-            this.onEditorChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
-        };
-        const onItalicsClick = (event) => {
-            event.preventDefault();
-            this.onEditorChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC'));
-        };
-        const onUnderlineClick = (event) => {
-            event.preventDefault();
-            this.onEditorChange(RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE'));
-        };
-
-
-        return (
-            <div className="text-editor__options">
-                <Button type="primary-icon" iconName="bold" onClick={onBoldClick.bind(this)} onMouseDown={(e) => {e.preventDefault()}} />
-                <Button type="primary-icon" iconName="italic" onClick={onItalicsClick.bind(this)} onMouseDown={(e) => {e.preventDefault()}} />
-                <Button type="primary-icon" iconName="underline" onClick={onUnderlineClick.bind(this)} onMouseDown={(e) => {e.preventDefault()}} />
-            </div>
-        )
     }
 
     getClass() {
@@ -72,7 +36,8 @@ class TextEditor extends React.Component {
 
     getEditorProps() {
         return {
-            editorState: this.props.value || this.state.editorState,
+            className: 'text-editor__editor',
+            value: this.state.value,
             ref: 'editor',
             onChange: this.onEditorChange.bind(this),
             onFocus: this.onEditorFocus.bind(this),
@@ -80,15 +45,11 @@ class TextEditor extends React.Component {
         };
     }
 
-    onEditorChange(editorState) {
-        this.setState({editorState});
+    onEditorChange(value) {
+        this.setState({value});
 
         if (this.props.onChange) {
-            this.props.onChange({
-                target: {
-                    value: editorState
-                }
-            });
+            this.props.onChange({target: {value}});
         }
     }
 
