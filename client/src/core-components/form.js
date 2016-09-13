@@ -158,7 +158,6 @@ class Form extends React.Component {
 
         const form = _.mapValues(this.state.form, (field) => {
             if (field instanceof RichTextEditor.EditorValue) {
-                console.log('YESS');
                 return field.toString('html');
             } else {
                 return field;

@@ -71,7 +71,7 @@ class TextEditor extends React.Component {
 
     focus() {
         if (this.refs.editor) {
-            this.refs.editor.focus();
+            this.refs.editor._focus();
         }
     }
 }
