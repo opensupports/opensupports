@@ -2,39 +2,64 @@
 
 .button {
 
-    &-primary,
-    &-primary-icon {
+    &_primary,
+    &_secondary,
+    &_tertiary {
         background-color: $primary-red;
         border: solid transparent;
         border-radius: 4px;
         color: white;
         height: 47px;
         text-transform: uppercase;
-        width: 239px;
     }
 
-    &-primary-icon {
-        width: initial;
-        height: initial;
+    &_secondary {
+        background-color: $primary-green;
     }
 
-    &-clean {
-        background: none;
-        border: none;
-    }
-
-    &-link {
-        background: none;
-        border: none;
-        color: $dark-grey;
-        text-decoration: underline;
-
-        &:focus {
-            outline: none;
-        }
+    &_tertiary {
+        background-color: $secondary-blue;
     }
 
     &_disabled {
         background-color: #ec9696;
+    }
+
+    &_small {
+        width: 100px;
+        height: 47px;
+    }
+
+    &_medium {
+        width: 239px;
+    }
+
+    &_large {
+        //width: 239px;
+    }
+
+    &_auto {
+        width: initial;
+        height: initial;
+    }
+
+    &_clean {
+        background: none;
+        border: none;
+        width: initial;
+        height: initial;
+    }
+
+    &_link {
+        background: none;
+        border: none;
+        color: $dark-grey;
+        width: initial;
+        height: initial;
+
+        &:focus, &:hover {
+            outline: none;
+            text-decoration: underline;
+        }
     }
 }

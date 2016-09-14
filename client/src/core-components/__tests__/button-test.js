@@ -25,7 +25,7 @@ describe('Button component', function () {
                 </Button>
             );
 
-            expect(ReactDOM.findDOMNode(button).getAttribute('class')).to.include('button-' + type);
+            expect(ReactDOM.findDOMNode(button).getAttribute('class')).to.include('button_' + type);
         });
     });
 });

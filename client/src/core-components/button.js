@@ -17,9 +17,16 @@ class Button extends React.Component {
 
     static propTypes = {
         children: React.PropTypes.node,
+        size: React.PropTypes.oneOf([
+            'small',
+            'medium',
+            'large',
+            'auto'
+        ]),
         type: React.PropTypes.oneOf([
             'primary',
-            'primary-icon',
+            'secondary',
+            'tertiary',
             'clean',
             'link'
         ]),
@@ -32,7 +39,8 @@ class Button extends React.Component {
     };
 
     static defaultProps = {
-        type: 'primary'
+        type: 'primary',
+        size: 'medium'
     };
 
     render() {
@@ -48,6 +56,7 @@ class Button extends React.Component {
 
         props.onClick = callback(this.handleClick.bind(this), this.props.onClick);
         props.className = this.getClass();
+        props.ref = 'button';
 
         delete props.route;
         delete props.iconName;
@@ -59,10 +68,20 @@ class Button extends React.Component {
     getClass() {
         let classes = {
             'button': true,
-            'button_disabled': this.props.disabled
+            'button_disabled': this.props.disabled,
+            
+            'button_primary': (this.props.type === 'primary'),
+            'button_secondary': (this.props.type === 'secondary'),
+            'button_tertiary': (this.props.type === 'tertiary'),
+            'button_clean': (this.props.type === 'clean'),
+            'button_link': (this.props.type === 'link'),
+
+            'button_small': (this.props.size === 'small'),
+            'button_medium': (this.props.size === 'medium'),
+            'button_large': (this.props.size === 'large'),
+            'button_auto': (this.props.size === 'auto')
         };
 
-        classes['button-' + this.props.type] = (this.props.type);
         classes[this.props.className] = (this.props.className);
 
         return classNames(classes);
@@ -72,6 +91,10 @@ class Button extends React.Component {
         if (this.props.route) {
             this.context.router.push(this.props.route.to);
         }
+    }
+
+    focus() {
+        this.refs.button.focus();
     }
 }
 
