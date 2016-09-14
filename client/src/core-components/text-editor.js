@@ -51,9 +51,9 @@ class TextEditor extends React.Component {
 
         return (
             <div className="text-editor__options">
-                <Button type="primary-icon" iconName="bold" onClick={onBoldClick.bind(this)} onMouseDown={(e) => {e.preventDefault()}} />
-                <Button type="primary-icon" iconName="italic" onClick={onItalicsClick.bind(this)} onMouseDown={(e) => {e.preventDefault()}} />
-                <Button type="primary-icon" iconName="underline" onClick={onUnderlineClick.bind(this)} onMouseDown={(e) => {e.preventDefault()}} />
+                <Button type="primary" size="auto" iconName="bold" onClick={onBoldClick.bind(this)} onMouseDown={(e) => {e.preventDefault()}} />
+                <Button type="primary" size="auto" iconName="italic" onClick={onItalicsClick.bind(this)} onMouseDown={(e) => {e.preventDefault()}} />
+                <Button type="primary" size="auto" iconName="underline" onClick={onUnderlineClick.bind(this)} onMouseDown={(e) => {e.preventDefault()}} />
             </div>
         )
     }

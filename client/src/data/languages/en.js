@@ -32,6 +32,8 @@ export default {
     'NO_ATTACHMENT': 'No file attachment',
     'STAFF': 'Staff',
     'CUSTOMER': 'Customer',
+    'YES': 'Yes',
+    'CANCEL': 'Cancel',
 
     //ERRORS
     'EMAIL_NOT_EXIST': 'Email does not exist',
@@ -49,5 +51,6 @@ export default {
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',
     'TICKET_SENT': 'Ticket has been created successfully.',
     'VALID_RECOVER': 'Password recovered successfully',
-    'EMAIL_EXISTS': 'Email already exists, please try to log in or recover password'
+    'EMAIL_EXISTS': 'Email already exists, please try to log in or recover password',
+    'ARE_YOU_SURE': 'Are you sure?'
 };

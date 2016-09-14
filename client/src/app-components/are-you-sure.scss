@@ -1,0 +1,30 @@
+@import "../scss/vars";
+
+.are-you-sure {
+    width: 400px;
+    text-align: center;
+
+    &__header {
+        color: $primary-red;
+        font-size: $font-size--xl;
+        font-weight: bold;
+        margin-bottom: 20px;
+
+    }
+
+    &__description {
+        color: $dark-grey;
+        font-size: $font-size--md;
+        margin-bottom: 50px;
+    }
+
+    &__butttons {
+        margin: 0 auto;
+    }
+
+    &__yes-button,
+    &__no-button {
+        display: inline-block;
+        margin-right: 10px;
+    }
+}
