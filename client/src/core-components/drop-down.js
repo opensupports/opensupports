@@ -1,6 +1,8 @@
 import React from 'react';
+import _ from 'lodash';
 import classNames from 'classnames';
 import {Motion, spring} from 'react-motion';
+import keyCode            from 'keycode';
 
 import Menu from 'core-components/menu';
 import Icon from 'core-components/icon';
@@ -22,7 +24,9 @@ class DropDown extends React.Component {
         super(props);
 
         this.state = {
-            selectedIndex: 0,
+            menuId: _.uniqueId('drop-down-menu_'),
+            selectedIndex: props.selectedIndex || 0,
+            highlightedIndex: props.selectedIndex || 0,
             opened: false
         };
     }
@@ -38,7 +42,7 @@ class DropDown extends React.Component {
         };
 
         return {
-            defaultStyle: closedStyle,
+            defaultStyle: {opacity: 0, translateY: 20},
             style: (this.state.opened) ? openedStyle : closedStyle
         };
     }
@@ -50,7 +54,7 @@ class DropDown extends React.Component {
         return (
             <div className={this.getClass()}>
                 {this.renderCurrentItem(selectedItem)}
-                <Motion defaultStyle={animation.defaultStyle} style={animation.style}>
+                <Motion defaultStyle={animation.defaultStyle} style={animation.style} onRest={this.onAnimationFinished.bind(this)}>
                     {this.renderList.bind(this)}
                 </Motion>
             </div>
@@ -59,16 +63,10 @@ class DropDown extends React.Component {
 
     renderList({opacity, translateY}) {
         let style = { opacity: opacity, transform: `translateY(${translateY}px)`};
-        let menuProps = {
-            items: this.props.items,
-            onItemClick: this.handleItemClick.bind(this),
-            onMouseDown: this.handleListMouseDown.bind(this),
-            selectedIndex: this.getSelectedIndex()
-        };
 
         return (
             <div className="drop-down__list-container" style={style}>
-                <Menu {...menuProps} />
+                <Menu {...this.getMenuProps()} />
             </div>
         );
     }
@@ -81,7 +79,7 @@ class DropDown extends React.Component {
         }
 
         return (
-            <div className="drop-down__current-item" onBlur={this.handleBlur.bind(this)} onClick={this.handleClick.bind(this)} tabIndex="0">
+            <div {...this.getCurrentItemProps()}>
                 {iconNode}{item.content}
             </div>
         );
@@ -99,6 +97,96 @@ class DropDown extends React.Component {
         return classNames(classes);
     }
 
+    getCurrentItemProps() {
+        return {
+            'aria-expanded': this.state.opened,
+            'aria-autocomplete': 'list',
+            'aria-owns': this.state.menuId,
+            'aria-activedescendant': this.state.menuId + '__' + this.state.highlightedIndex,
+            className: 'drop-down__current-item',
+            onClick: this.handleClick.bind(this),
+            onKeyDown: this.onKeyDown.bind(this),
+            onBlur: this.handleBlur.bind(this),
+            role: 'combobox',
+            tabIndex: 0
+        };
+    }
+
+    getMenuProps() {
+        return {
+            id: this.state.menuId,
+            itemsRole: 'option',
+            items: this.props.items,
+            onItemClick: this.handleItemClick.bind(this),
+            onMouseDown: this.handleListMouseDown.bind(this),
+            selectedIndex: this.state.highlightedIndex,
+            role: 'listbox'
+        };
+    }
+
+    onKeyDown(event) {
+        const keyActions = this.getKeyActions(event);
+        const keyAction = keyActions[keyCode(event)];
+
+        if (keyAction) {
+            keyAction();
+        }
+    }
+
+    getKeyActions(event) {
+        const {highlightedIndex, opened} = this.state;
+        const itemsQuantity = this.props.items.length;
+
+        return {
+            'up': () => {
+                if (opened) {
+                    event.preventDefault();
+
+                    this.setState({
+                        highlightedIndex: this.modulo(highlightedIndex - 1, itemsQuantity)
+                    });
+                }
+            },
+            'down': () => {
+                if (opened) {
+                    event.preventDefault();
+
+                    this.setState({
+                        highlightedIndex: this.modulo(highlightedIndex + 1, itemsQuantity)
+                    });
+                }
+            },
+            'enter': () => {
+                if (opened) {
+                    this.onIndexSelected(highlightedIndex);
+                } else {
+                    this.setState({
+                        opened: true
+                    });
+                }
+            },
+            'space': () => {
+                event.preventDefault();
+
+                this.setState({
+                    opened: true
+                });
+            },
+            'esc': () => {
+                this.setState({
+                    opened: false
+                });
+            },
+            'tab': () => {
+                if (this.state.opened) {
+                    event.preventDefault();
+
+                    this.onIndexSelected(highlightedIndex)
+                }
+            }
+        };
+    }
+
     handleBlur() {
         this.setState({
             opened: false
@@ -112,9 +200,14 @@ class DropDown extends React.Component {
     }
 
     handleItemClick(index) {
+        this.onIndexSelected(index);
+    }
+
+    onIndexSelected(index) {
         this.setState({
             opened: false,
-            selectedIndex: index
+            selectedIndex: index,
+            highlightedIndex: index
         });
 
         if (this.props.onChange) {
@@ -128,8 +221,20 @@ class DropDown extends React.Component {
         event.preventDefault();
     }
 
+    onAnimationFinished() {
+        if (!this.state.opened && this.state.highlightedIndex !== this.getSelectedIndex()) {
+            this.setState({
+                highlightedIndex: this.getSelectedIndex()
+            });
+        }
+    }
+
     getSelectedIndex() {
         return (this.props.selectedIndex !== undefined) ? this.props.selectedIndex : this.state.selectedIndex;
+    }
+
+    modulo(number, mod) {
+        return ((number % mod) + mod) % mod;
     }
 }
 

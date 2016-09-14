@@ -27,9 +27,15 @@ class ConfigReducer extends Reducer {
     }
 
     onInitConfigs(state, payload) {
-        sessionStore.storeConfigs(payload.data);
+        const currentLanguage = sessionStore.getItem('language');
 
-        return _.extend({}, state, payload.data);
+        sessionStore.storeConfigs(_.extend(payload.data, {
+            language: currentLanguage || payload.language
+        }));
+
+        return _.extend({}, state, payload.data, {
+            language: currentLanguage || payload.language
+        });
     }
 }
 

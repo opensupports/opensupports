@@ -5,12 +5,21 @@
     &_primary,
     &_secondary,
     &_tertiary {
-        background-color: $primary-red;
         border: solid transparent;
         border-radius: 4px;
         color: white;
         height: 47px;
         text-transform: uppercase;
+        transition: background-color 0.2s ease;
+    }
+
+    &_primary {
+        background-color: $primary-red;
+
+        &:focus, &:hover {
+            background-color: lighten($primary-red, 5%);
+            outline: none;
+        }
     }
 
     &_secondary {

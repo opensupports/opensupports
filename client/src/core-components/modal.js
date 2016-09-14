@@ -18,8 +18,8 @@ class Modal extends React.Component {
     getAnimations() {
         return {
             defaultStyle: {
-                scale: spring(0.7),
-                fade: spring(0.5)
+                scale: 0.7,
+                fade: 0.5
             },
             style: {
                 scale: spring(1),
