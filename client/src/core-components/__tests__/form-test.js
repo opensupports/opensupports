@@ -1,7 +1,7 @@
 // MOCKS
 const ValidationFactoryMock = require('lib-app/__mocks__/validations/validation-factory-mock');
 const FormField = ReactMock();
-const RichTextEditorMock = require('react-rte-browserify');
+const RichTextEditor = require('react-rte-browserify');
 
 // COMPONENT
 const Form = requireUnit('core-components/form', {
@@ -186,8 +186,8 @@ describe('Form component', function () {
             expect(form.props.onSubmit).to.not.have.been.called;
         });
 
-        it('should tranform EditorState to HTML usign draft-js-export-html library', function () {
-            form.state.form.first = RichTextEditorMock.createEmptyValue();
+        it('should tranform RichTextEditor value to HTML', function () {
+            form.state.form.first = RichTextEditor.createEmptyValue();
             form.state.form.first.toString = stub().returns('HTML_CODE');
 
             TestUtils.Simulate.submit(ReactDOM.findDOMNode(form));

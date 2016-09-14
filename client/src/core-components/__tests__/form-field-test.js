@@ -3,7 +3,7 @@ const Checkbox = ReactMock();
 const DropDown = ReactMock();
 const TextEditor = ReactMock();
 
-const RichTextEditorMock = require('react-rte-browserify');
+const RichTextEditor = require('react-rte-browserify');
 
 const FormField = requireUnit('core-components/form-field', {
     'core-components/input': Input,
@@ -35,7 +35,7 @@ describe('FormField component', function () {
             expect(FormField.getDefaultValue('input')).to.equal('');
             expect(FormField.getDefaultValue('checkbox')).to.equal(false);
             expect(FormField.getDefaultValue('select')).to.equal(0);
-            expect(FormField.getDefaultValue('textarea') instanceof RichTextEditorMock.EditorValue).to.equal(true);
+            expect(FormField.getDefaultValue('textarea') instanceof RichTextEditor.EditorValue).to.equal(true);
         });
     });
 
