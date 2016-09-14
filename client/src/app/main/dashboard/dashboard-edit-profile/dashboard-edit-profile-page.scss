@@ -1,0 +1,9 @@
+@import '../../../../scss/vars';
+
+.edit-profile-page {
+    &__title {
+        color: $dark-grey;
+        font-size: 20px;
+        text-align: left;
+    }
+}
