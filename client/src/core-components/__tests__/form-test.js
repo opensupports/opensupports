@@ -1,15 +1,11 @@
 // MOCKS
 const ValidationFactoryMock = require('lib-app/__mocks__/validations/validation-factory-mock');
 const FormField = ReactMock();
-const {EditorState} = require('draft-js');
-const draftJsExportHTML = {
-    stateToHTML: stub().returns('HTML_CODE')
-};
+const RichTextEditor = require('react-rte-browserify');
 
 // COMPONENT
 const Form = requireUnit('core-components/form', {
     'lib-app/validations/validations-factory': ValidationFactoryMock,
-    'draft-js-export-html': draftJsExportHTML,
     'core-components/form-field': FormField
 });
 
@@ -176,19 +172,6 @@ describe('Form component', function () {
             expect(form.props.onSubmit).to.have.been.calledWith(form.state.form);
         });
 
-        it('should tranform EditorState to HTML usign draft-js-export-html library', function () {
-            draftJsExportHTML.stateToHTML.reset();
-            form.state.form.first = EditorState.createEmpty();
-
-            TestUtils.Simulate.submit(ReactDOM.findDOMNode(form));
-            expect(draftJsExportHTML.stateToHTML).to.have.been.calledWith(form.state.form.first.getCurrentContent());
-            expect(form.props.onSubmit).to.have.been.calledWith({
-                first: 'HTML_CODE',
-                second: 'value2',
-                third: 'value3'
-            });
-        });
-
         it('should validate all fields and not call onSubmit if there are errors', function () {
             ValidationFactoryMock.validators.defaultValidatorMock.performValidation = stub().returns('MOCK_ERROR');
             ValidationFactoryMock.validators.customValidatorMock.performValidation = stub().returns('MOCK_ERROR_2');
@@ -201,6 +184,19 @@ describe('Form component', function () {
             expect(fields[1].props.error).to.equal('MOCK_ERROR_2');
             expect(fields[2].props.error).to.equal(undefined);
             expect(form.props.onSubmit).to.not.have.been.called;
+        });
+
+        it('should tranform RichTextEditor value to HTML', function () {
+            form.state.form.first = RichTextEditor.createEmptyValue();
+            form.state.form.first.toString = stub().returns('HTML_CODE');
+
+            TestUtils.Simulate.submit(ReactDOM.findDOMNode(form));
+            expect(form.state.form.first.toString).to.have.been.called;
+            expect(form.props.onSubmit).to.have.been.calledWith({
+                first: 'HTML_CODE',
+                second: 'value2',
+                third: 'value3'
+            });
         });
 
         it('should focus the first field with error', function () {
