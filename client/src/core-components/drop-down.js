@@ -13,11 +13,12 @@ class DropDown extends React.Component {
         defaultSelectedIndex: React.PropTypes.number,
         selectedIndex: React.PropTypes.number,
         items: Menu.propTypes.items,
+        onChange: React.PropTypes.func,
         size: React.PropTypes.oneOf(['small', 'medium', 'large'])
     };
 
     static defaultProps = {
-        defaultSelectedIndex: 2
+        defaultSelectedIndex: 0
     };
 
     constructor(props) {
@@ -25,8 +26,8 @@ class DropDown extends React.Component {
 
         this.state = {
             menuId: _.uniqueId('drop-down-menu_'),
-            selectedIndex: props.selectedIndex || 0,
-            highlightedIndex: props.selectedIndex || 0,
+            selectedIndex: props.selectedIndex || props.defaultSelectedIndex,
+            highlightedIndex: props.selectedIndex || props.defaultSelectedIndex,
             opened: false
         };
     }
@@ -90,7 +91,7 @@ class DropDown extends React.Component {
             'drop-down': true,
             'drop-down_closed': !this.state.opened,
 
-            ['drop-down_' + this.props.size]: true,
+            ['drop-down_' + this.props.size]: (this.props.size),
             [this.props.className]: (this.props.className)
         };
 
