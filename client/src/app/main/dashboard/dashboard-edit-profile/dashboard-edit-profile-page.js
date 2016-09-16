@@ -9,26 +9,35 @@ import SubmitButton from 'core-components/submit-button';
 
 class DashboardEditProfilePage extends React.Component {
 
-    state = {
-        loading: false
+    state= {
+        loadingEmail: false,
+        loadingPass: false
     };
+
 
     render() {
         return (
             <div className="edit-profile-page">
-                <Header title="Edit Profile" description="adsfasdfasdfasdfasdf asdfa" />
+                <Header title="Edit Profile" description="what ever" />
                 <div className="edit-profile-page__title">Edit Email</div>
-                <Form loading={this.state.loading} onSubmit={this.onSubmit.bind(this)}>
-                    <FormField name="newEmail" label="New Email" field="input" validation="EMAIL" required/>
+                <Form loading={this.state.loadingEmail} onSubmit={this.onSubmitEditEmail.bind(this)}>
+                    <FormField name="newEmail" label="New Email" field="input" validation="EMAIL" fieldProps={{size:'large'}} required/>
                     <SubmitButton>CHANGE EMAIL</SubmitButton>
+                </Form>
+                <div className="edit-profile-page__title">Edit password</div>
+                <Form loading={this.state.loadingPass} onSubmit={this.onSubmitEditPassword.bind(this)}>
+                    <FormField name="oldPassword" label="Old Password" field="input" validation="PASSWORD" fieldProps={{password:true ,size:'large'}} required/>
+                    <FormField name="password" label="New Password" field="input" validation="PASSWORD" fieldProps={{password:true ,size:'large'}} required/>
+                    <FormField name="repeatNewPassword" label="Repeat New Password" field="input" validation="REPEAT_PASSWORD" fieldProps={{password:true ,size:'large'}} required/>
+                    <SubmitButton>CHANGE PASSWORD</SubmitButton>
                 </Form>
             </div>
         );
     }
     
-    onSubmit(formState) {
+    onSubmitEditEmail(formState) {
         this.setState({
-            loading: true
+            loadingEmail: true
         });
 
         API.call({
@@ -38,7 +47,25 @@ class DashboardEditProfilePage extends React.Component {
             }
         }).then(function () {
             this.setState({
-                loading: false
+                loadingEmail: false
+            });
+        }.bind(this));
+    }
+    
+    onSubmitEditPassword(formState) {
+        this.setState({
+            loadingPass: true
+        });
+
+        API.call({
+            path: "/user/edit-password",
+            data: {
+                oldPassword: formState.oldPassword,
+                newPassword: formState.password
+            }
+        }).then(function () {
+            this.setState({
+                loadingPass: false
             });
         }.bind(this));
     }

@@ -6,6 +6,7 @@ import i18n from 'lib-app/i18n';
 import Header from 'core-components/header';
 import Table from 'core-components/table';
 import Button from 'core-components/button';
+import Tooltip from 'core-components/tooltip';
 
 class DashboardListTicketsPage extends React.Component {
     static propTypes = {
@@ -58,7 +59,11 @@ class DashboardListTicketsPage extends React.Component {
         let titleText = (ticket.unread) ? ticket.title  + ' (1)' : ticket.title;
 
         return {
-            number: '#' + ticket.ticketNumber,
+            number: (
+                <Tooltip content="hola">
+                    {'#' + ticket.ticketNumber}
+                </Tooltip>
+            ),
             title: (
                 <Button className="dashboard-ticket-list__title-link" type="clean" route={{to: '/dashboard/ticket/' + ticket.ticketNumber}}>
                     {titleText}
