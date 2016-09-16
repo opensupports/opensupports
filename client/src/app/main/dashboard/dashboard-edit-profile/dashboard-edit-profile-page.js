@@ -6,6 +6,8 @@ import Header from 'core-components/header';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
+import ModalContainer from 'app/modal-container';
+import AreYouSure from 'app-components/are-you-sure';
 
 class DashboardEditProfilePage extends React.Component {
 
@@ -36,10 +38,17 @@ class DashboardEditProfilePage extends React.Component {
     }
     
     onSubmitEditEmail(formState) {
+        ModalContainer.openModal(<AreYouSure onYes={this.callEditEmailAPI.bind(this, formState)}/>);
+    }
+    
+    onSubmitEditPassword(formState) {
+        ModalContainer.openModal(<AreYouSure onYes={this.callEditPassAPI.bind(this, formState)}/>);
+    }
+    
+    callEditEmailAPI(formState){
         this.setState({
             loadingEmail: true
         });
-
         API.call({
             path: "/user/edit-email",
             data: {
@@ -51,12 +60,11 @@ class DashboardEditProfilePage extends React.Component {
             });
         }.bind(this));
     }
-    
-    onSubmitEditPassword(formState) {
+
+    callEditPassAPI(formState){
         this.setState({
             loadingPass: true
         });
-
         API.call({
             path: "/user/edit-password",
             data: {
