@@ -8,6 +8,8 @@ import Icon from 'core-components/icon';
 class Menu extends React.Component {
 
     static propTypes = {
+        id: React.PropTypes.string,
+        itemsRole: React.PropTypes.string,
         header: React.PropTypes.string,
         type: React.PropTypes.oneOf(['primary', 'secondary']),
         items: React.PropTypes.arrayOf(React.PropTypes.shape({
@@ -64,6 +66,7 @@ class Menu extends React.Component {
 
         props.className = 'menu__list';
 
+        delete props.itemsRole;
         delete props.header;
         delete props.items;
         delete props.onItemClick;
@@ -87,10 +90,12 @@ class Menu extends React.Component {
 
     getItemProps(index) {
         return {
+            id: this.props.id + '__' + index,
             className: this.getItemClass(index),
             onClick: this.onItemClick.bind(this, index),
             tabIndex: (this.props.tabbable) ? '0' : null,
             onKeyDown: this.onKeyDown.bind(this, index),
+            role: this.props.itemsRole,
             key: index
         };
     }

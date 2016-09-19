@@ -37,7 +37,8 @@ describe('Menu component', function () {
                 {content: 'Second Item', icon: 'ICON_2'},
                 {content: 'Third Item', icon: 'ICON_3'},
                 {content: 'Fourth Item', icon: 'ICON_4'}
-            ]
+            ],
+            itemsRole: 'some_role'
         });
 
         expect(items.length).to.equal(4);
@@ -47,6 +48,7 @@ describe('Menu component', function () {
         expect(items[3].textContent).to.equal('Fourth Item');
 
         items.forEach((item, index) => {
+            expect(item.getAttribute('role')).to.equal('some_role');
             expect(item.className).to.contain('menu__list-item');
             expect(item.childNodes[0]).to.equal(ReactDOM.findDOMNode(icons[index]));
         });

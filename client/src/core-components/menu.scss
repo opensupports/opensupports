@@ -13,6 +13,7 @@
 
     &__list-item {
         padding: 8px;
+        transition: background-color 0.3s ease, color 0.3s ease;
 
         &_selected,
         &:hover {

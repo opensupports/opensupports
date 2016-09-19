@@ -21,6 +21,10 @@
     &_checked {
         .checkbox--icon {
             color: $primary-red;
+
+            &:focus {
+                color: lighten($primary-red, 5%);;
+            }
         }
     }
 }
