@@ -1,5 +1,8 @@
 import React from 'react';
+import _ from 'lodash';
 import classNames from 'classnames';
+
+import Menu from 'core-components/menu';
 
 class Table extends React.Component {
     static propTypes = {
@@ -9,6 +12,7 @@ class Table extends React.Component {
             className: React.PropTypes.string
         })),
         rows: React.PropTypes.arrayOf(React.PropTypes.object),
+        pageSize: React.PropTypes.number,
         type: React.PropTypes.oneOf(['default'])
     };
 
@@ -16,18 +20,25 @@ class Table extends React.Component {
         type: 'default'
     };
 
+    state = {
+        page: 1
+    };
+
     render() {
         return (
-            <table className="table table-responsive">
-                <thead>
-                    <tr className="table__header">
-                        {this.props.headers.map(this.renderHeaderColumn.bind(this))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.props.rows.map(this.renderRow.bind(this))}
-                </tbody>
-            </table>
+            <div className="table__wrapper">
+                <table className="table table-responsive">
+                    <thead>
+                        <tr className="table__header">
+                            {this.props.headers.map(this.renderHeaderColumn.bind(this))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.props.rows.map(this.renderRow.bind(this))}
+                    </tbody>
+                </table>
+                {(this.props.pageSize && this.props.rows.length > this.props.pageSize) ? this.renderNavigation() : null}
+            </div>
         );
     }
 
@@ -43,13 +54,19 @@ class Table extends React.Component {
     }
 
     renderRow(row, index) {
-        let headersKeys = this.props.headers.map(header => header.key);
+        const headersKeys = this.props.headers.map(header => header.key);
+        let renderCurrentRow = true;
 
-        return (
+        if (this.props.pageSize && (index >= this.props.pageSize * this.state.page || index < this.props.pageSize * (this.state.page - 1))) {
+            renderCurrentRow = false;
+        }
+
+
+        return (renderCurrentRow) ? (
             <tr className={this.getRowClass(row)} key={index}>
                 {headersKeys.map(this.renderCell.bind(this, row))}
             </tr>
-        );
+        ) : null;
     }
 
     renderCell(row, key, index) {
@@ -61,6 +78,21 @@ class Table extends React.Component {
         return (
             <td className={classNames(classes)} key={key}>{row[key]}</td>
         );
+    }
+
+    renderNavigation() {
+        const pages = Math.ceil(this.props.rows.length / this.props.pageSize) + 1;
+        const items = _.range(1, pages).map((index) => {return {content: index};});
+
+        return (
+            <Menu className="table__navigation" type="navigation" items={items} onItemClick={this.onNavigationItemClick.bind(this)}/>
+        );
+    }
+
+    onNavigationItemClick(index) {
+        this.setState({
+            page: index + 1
+        });
     }
     
     getRowClass(row) {

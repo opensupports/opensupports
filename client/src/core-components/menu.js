@@ -11,9 +11,9 @@ class Menu extends React.Component {
         id: React.PropTypes.string,
         itemsRole: React.PropTypes.string,
         header: React.PropTypes.string,
-        type: React.PropTypes.oneOf(['primary', 'secondary']),
+        type: React.PropTypes.oneOf(['primary', 'secondary', 'navigation']),
         items: React.PropTypes.arrayOf(React.PropTypes.shape({
-            content: React.PropTypes.string.isRequired,
+            content: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
             icon: React.PropTypes.string
         })).isRequired,
         selectedIndex: React.PropTypes.number,
@@ -22,8 +22,11 @@ class Menu extends React.Component {
 
     static defaultProps = {
         type: 'primary',
-        selectedIndex: 0,
         tabbable: false
+    };
+
+    state = {
+        selectedIndex: this.props.selectedIndex || 0
     };
 
     render() {
@@ -80,7 +83,8 @@ class Menu extends React.Component {
     getClass() {
         let classes = {
             'menu': true,
-            'menu_secondary': (this.props.type === 'secondary')
+            'menu_secondary': (this.props.type === 'secondary'),
+            'menu_navigation': (this.props.type === 'navigation')
         };
 
         classes[this.props.className] = true;
@@ -90,7 +94,7 @@ class Menu extends React.Component {
 
     getItemProps(index) {
         return {
-            id: this.props.id + '__' + index,
+            id: (this.props.id) ? this.props.id + '__' + index : null,
             className: this.getItemClass(index),
             onClick: this.onItemClick.bind(this, index),
             tabIndex: (this.props.tabbable) ? '0' : null,
@@ -103,7 +107,7 @@ class Menu extends React.Component {
     getItemClass(index) {
         let classes = {
             'menu__list-item': true,
-            'menu__list-item_selected': (this.props.selectedIndex === index)
+            'menu__list-item_selected': (this.getSelectedIndex() === index)
         };
 
         return classNames(classes);
@@ -118,7 +122,15 @@ class Menu extends React.Component {
         }
     }
 
+    getSelectedIndex() {
+        return (this.props.selectedIndex !== undefined) ? this.props.selectedIndex : this.state.selectedIndex;
+    }
+
     onItemClick(index) {
+        this.setState({
+            selectedIndex: index
+        });
+
         if (this.props.onItemClick) {
             this.props.onItemClick(index);
         }
