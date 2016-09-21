@@ -55,14 +55,11 @@ class Table extends React.Component {
 
     renderRow(row, index) {
         const headersKeys = this.props.headers.map(header => header.key);
-        let renderCurrentRow = true;
+        const minIndex = this.props.pageSize * (this.state.page - 1);
+        const maxIndex = this.props.pageSize * this.state.page;
+        const shouldRenderRow = !this.props.pageSize || (index >= minIndex && index < maxIndex);
 
-        if (this.props.pageSize && (index >= this.props.pageSize * this.state.page || index < this.props.pageSize * (this.state.page - 1))) {
-            renderCurrentRow = false;
-        }
-
-
-        return (renderCurrentRow) ? (
+        return (shouldRenderRow) ? (
             <tr className={this.getRowClass(row)} key={index}>
                 {headersKeys.map(this.renderCell.bind(this, row))}
             </tr>
