@@ -2,27 +2,12 @@
 
 .text-editor {
 
-    &__editor {
-        background-color: white;
+    .text-editor__editor {
         border: 1px solid $grey;
         border-radius: 3px;
-        padding: 8px;
-        width: 100%;
-        height: 200px;
-        text-align: left;
-        overflow: auto;
 
-        &:hover {
-            border-color: $medium-grey;
-        }
-    }
-
-    &__options {
-        text-align: left;
-        margin-bottom: 5px;
-
-        .button {
-            margin-right: 3px;
+        .DraftEditor-root {
+            height: 200px;
         }
     }
 

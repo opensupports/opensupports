@@ -1,8 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import classNames from 'classnames';
-import {EditorState} from 'draft-js';
-import {stateToHTML} from 'draft-js-export-html';
+import RichTextEditor from 'react-rte-browserify';
 
 import {reactDFS, renderChildrenWithProps} from 'lib-core/react-dfs';
 import ValidationFactory from 'lib-app/validations/validations-factory';
@@ -158,8 +157,8 @@ class Form extends React.Component {
         event.preventDefault();
 
         const form = _.mapValues(this.state.form, (field) => {
-            if (field instanceof EditorState) {
-                return stateToHTML(field.getCurrentContent());
+            if (field instanceof RichTextEditor.EditorValue) {
+                return field.toString('html');
             } else {
                 return field;
             }
