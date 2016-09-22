@@ -105,6 +105,26 @@ module.exports = [
         }
     },
     {
+        path: '/user/edit-email',
+        time: 1000,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/user/edit-password',
+        time: 1000,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
         path: '/user/get',
         time: 100,
         response: function () {

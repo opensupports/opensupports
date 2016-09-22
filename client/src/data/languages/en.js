@@ -51,6 +51,9 @@ export default {
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',
     'TICKET_SENT': 'Ticket has been created successfully.',
     'VALID_RECOVER': 'Password recovered successfully',
-    'EMAIL_EXISTS': 'Email already exists, please try to log in or recover password',
-    'ARE_YOU_SURE': 'Are you sure?'
+    'EMAIL_EXISTS': 'Email already exists',
+    'ARE_YOU_SURE': 'Are you sure?',
+    'EMAIL_CHANGED': 'Email has been changed successfully',
+    'PASSWORD_CHANGED': 'Password has been changed successfully',
+    'OLD_PASSWORD_INCORRECT': 'Old password is incorrect'
 };
