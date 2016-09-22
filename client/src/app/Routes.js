@@ -13,15 +13,15 @@ import MainSignUpPage from 'app/main/main-signup/main-signup-page';
 import MainRecoverPasswordPage from 'app/main/main-recover-password/main-recover-password-page';
 
 import DashboardLayout from 'app/main/dashboard/dashboard-layout';
-
 import DashboardListTicketsPage from 'app/main/dashboard/dashboard-list-tickets/dashboard-list-tickets-page';
 import DashboardListArticlesPage from 'app/main/dashboard/dashboard-list-articles/dashboard-list-articles-page';
-
 import DashboardCreateTicketPage from 'app/main/dashboard/dashboard-create-ticket/dashboard-create-ticket-page';
 import DashboardEditProfilePage from 'app/main/dashboard/dashboard-edit-profile/dashboard-edit-profile-page';
-
 import DashboardArticlePage from 'app/main/dashboard/dashboard-article/dashboard-article-page';
 import DashboardTicketPage from 'app/main/dashboard/dashboard-ticket/dashboard-ticket-page';
+
+import AdminLoginPage from 'app/admin/admin-login-page';
+import AdminPanel from 'app/admin/panel/admin-panel';
 
 const history = syncHistoryWithStore(browserHistory, store);
 
@@ -41,6 +41,12 @@ export default (
 
                     <Route path='article' component={DashboardArticlePage}/>
                     <Route path='ticket/:ticketNumber' component={DashboardTicketPage}/>
+                </Route>
+            </Route>
+            <Route path='admin'>
+                <IndexRoute component={AdminLoginPage} />
+                <Route path='panel' component={MainLayout}>
+                    <IndexRoute component={AdminPanel} />
                 </Route>
             </Route>
 

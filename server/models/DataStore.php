@@ -71,7 +71,6 @@ abstract class DataStore {
     }
 
     public function &__get($name) {
-        'hello';
         if (!array_key_exists($name, $this->properties) || !$this->properties[$name]) {
             $this->properties[$name] = $this->parseBeanProp($name);
         }
