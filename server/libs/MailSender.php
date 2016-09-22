@@ -34,6 +34,13 @@ class MailSender {
         $mailer->Username = $this->mailOptions['smtp-user'];
         $mailer->Password = $this->mailOptions['smtp-pass'];
         $mailer->Timeout = 1000;
+        $mailer->SMTPOptions  = [
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            ]
+        ];
 
         if ($mailer->smtpConnect()) {
             $mailer->send();
