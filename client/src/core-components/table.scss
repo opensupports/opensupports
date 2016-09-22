@@ -1,6 +1,7 @@
 @import "../scss/vars";
 
 .table {
+    margin-bottom: 0;
 
     &__header {
         background-color: $primary-blue;
@@ -42,5 +43,9 @@
     &__cell00 {
         border: 0;
         padding: 10px;
+    }
+
+    &__navigation {
+        margin-top: 10px;
     }
 }

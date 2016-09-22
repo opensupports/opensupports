@@ -58,7 +58,7 @@ class CheckBox extends React.Component {
     getClass() {
         let classes = {
             'checkbox': true,
-            'checkbox_checked': this.state.checked,
+            'checkbox_checked': this.getValue(),
 
             [this.props.className]: (this.props.className)
         };
