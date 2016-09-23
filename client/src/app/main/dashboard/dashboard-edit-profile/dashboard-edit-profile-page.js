@@ -33,8 +33,8 @@ class DashboardEditProfilePage extends React.Component {
                 </Form>
                 <div className="edit-profile-page__title">Edit password</div>
                 <Form loading={this.state.loadingPass} onSubmit={this.onSubmitEditPassword.bind(this)}>
-                    <FormField name="oldPassword" label="Old Password" field="input" validation="PASSWORD" fieldProps={{password:true ,size:'large'}} required/>
-                    <FormField name="password" label="New Password" field="input" validation="PASSWORD" fieldProps={{password:true ,size:'large'}} required/>
+                    <FormField name="oldPassword" label="Old Password" field="input" validation="PASSWORD" fieldProps={{password:true, size:'large'}} required/>
+                    <FormField name="password" label="New Password" field="input" validation="PASSWORD" fieldProps={{password:true, size:'large'}} required/>
                     <FormField name="repeatNewPassword" label="Repeat New Password" field="input" validation="REPEAT_PASSWORD" fieldProps={{password:true ,size:'large'}} required/>
                     <SubmitButton>CHANGE PASSWORD</SubmitButton>
                     {this.renderMessagePass()}

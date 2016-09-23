@@ -12,7 +12,7 @@ OpenSupports v4.0
     - `sudo apt-get install -y nodejs`
 3. Install npm `sudo apt-get install npm`
 4. Install gulp `sudo npm install -g gulp`
-5. Go to repo `cd os4-react`
+5. Go to repo `cd os4-react/client`
 6. Install dependences `npm install`
 7. Rebuild node-sass `npm rebuild node-sass`
 8. Run `gulp dev`

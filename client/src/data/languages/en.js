@@ -4,6 +4,8 @@ export default {
     'ARTICLES': 'Articles',
     'ACCOUNT': 'Account',
     'SUBMIT': 'Submit',
+    'EMAIL': 'Email',
+    'PASSWORD': 'Password',
     'LOG_IN': 'Log in',
     'SIGN_UP': 'Sign up',
     'FORGOT_PASSWORD': 'Forgot your password?',

@@ -1,0 +1,24 @@
+@import '../../scss/vars';
+
+.admin-login-page {
+    display: flex;
+
+    &__content {
+        margin: 0 auto;
+        display: inline-block;
+        background-color: white;
+        padding: 40px;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+    &__image {
+        width: 365px;
+        margin-bottom: 30px;
+    }
+
+    &__login-form {
+        margin: 0 auto;
+        display: inline-block;
+    }
+}
