@@ -1,0 +1,47 @@
+@import '../../../scss/vars';
+
+.admin-panel-staff-widget {
+    background-color: $secondary-blue;
+    position: relative;
+    width: 100%;
+    height: 165px;
+    text-align: center;
+
+    &__profile-pic-wrapper {
+        position: absolute;
+        top: 8px;
+        border: 4px solid $grey;
+        border-radius: 50%;
+        width: 90px;
+        height: 90px;
+        overflow: hidden;
+        text-align: center;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+
+    &__profile-pic {
+        height: 100%;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+
+    &__user-data {
+        position: absolute;
+        background-color: white;
+        bottom: 0;
+        width: 100%;
+        height: 110px;
+        padding-top: 48px;
+    }
+
+    &__name {
+        font-size: $font-size--md;
+    }
+
+    &__actions {
+        font-size: $font-size--xs;
+        margin-top: 10px;
+    }
+}
