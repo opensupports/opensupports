@@ -9,6 +9,7 @@ module.exports = [
                 response = {
                     status: 'success',
                     data: {
+                        'staff': data.staff,
                         'userId': 12,
                         'token': 'cc6b4921e6733d6aafe284ec0d7be57e',
                         'rememberToken': (data.remember) ? 'aa41efe0a1b3eeb9bf303e4561ff8392' : null,
