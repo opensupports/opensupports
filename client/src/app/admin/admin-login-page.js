@@ -1,23 +1,25 @@
 import React from 'react';
+import _ from 'lodash';
+import {connect}  from 'react-redux';
 
 import i18n from 'lib-app/i18n';
-import API from 'lib-app/api-call';
+import SessionActions from 'actions/session-actions';
 
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
 
 class AdminLoginPage extends React.Component {
-    render(){
+    render() {
         return (
             <div className="admin-login-page">
                 <div className="admin-login-page__content">
                     <div className="admin-login-page__image"><img width="100%" src="/images/logo.png" alt="OpenSupports Admin Panel"/></div>
                     <div className="admin-login-page__login-form">
-                        <Form onSubmit={this.onSubmit.bind(this)}>
+                        <Form onSubmit={this.onSubmit.bind(this)} loading={this.props.session.pending}>
                             <FormField name="email" label={i18n('EMAIL')} field="input" validation="EMAIL" fieldProps={{size:'large'}} required />
-                            <FormField name="password" label={i18n('PASSWORD')} field="input" validation="PASSWORD" fieldProps={{password:true, size:'large'}} required />
-                            <SubmitButton> {i18n('LOG_IN')} </SubmitButton>
+                            <FormField name="password" label={i18n('PASSWORD')} field="input" fieldProps={{password:true, size:'large'}} />
+                            <SubmitButton>{i18n('LOG_IN')}</SubmitButton>
                         </Form>
                     </div>
                 </div>
@@ -26,8 +28,14 @@ class AdminLoginPage extends React.Component {
     }
 
     onSubmit(formState) {
-        
+        this.props.dispatch(SessionActions.login(_.extend({}, formState, {
+            staff: true
+        })));
     }
 }
 
-export default AdminLoginPage;
+export default connect((store) => {
+    return {
+        session: store.session
+    };
+})(AdminLoginPage);
