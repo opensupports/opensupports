@@ -30,7 +30,7 @@ class AdminPanelMenu extends React.Component {
             selectedIndex: this.getGroupIndex(),
             onItemClick: this.onGroupClick.bind(this),
             tabbable: true,
-            type: 'primary'
+            type: 'horizontal'
         };
     }
 
@@ -40,7 +40,7 @@ class AdminPanelMenu extends React.Component {
             selectedIndex: this.getGroupItemIndex(),
             onItemClick: this.onGroupItemClick.bind(this),
             tabbable: true,
-            type: 'secondary'
+            type: 'horizontal-list'
         };
     }
 
@@ -76,9 +76,8 @@ class AdminPanelMenu extends React.Component {
     getGroupItemIndex() {
         const group = this.getRoutes()[this.getGroupIndex()];
         const pathname = this.props.location.pathname;
-        const itemIndex = _.findIndex(group.items, {path: pathname});
 
-        return (itemIndex === -1) ? 0 : itemIndex;
+        return _.findIndex(group.items, {path: pathname});
     }
 
     getGroupIndex() {
