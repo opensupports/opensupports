@@ -15,6 +15,7 @@ class InitSettingsController extends Controller {
             $this->storeGlobalSettings();
             $this->storeMailTemplates();
             $this->storeMockedDepartments();
+            $this->createMockedStaff();
 
             Response::respondSuccess();
         } else {
@@ -79,5 +80,19 @@ class InitSettingsController extends Controller {
             $department->name = $departmentName;
             $department->store();
         }
+    }
+
+    private function createMockedStaff() {
+        $staff = new Staff();
+        $staff->setProperties([
+            'name' => 'Emilia Clarke',
+            'email' => 'staff@opensupports.com',
+            'password' => Hashing::hashPassword('staff'),
+            'profilePic' => 'http://i65.tinypic.com/9bep95.jpg',
+            'level' => 1,
+            'sharedDepartmentList' => Department::getAllDepartments(),
+            'sharedTicketList' => []
+        ]);
+        $staff->store();
     }
 }
