@@ -57,6 +57,7 @@ export default {
     'FILTERS_CUSTOM_FIELDS': 'Filters and Custom Fields',
 
     //ERRORS
+    'EMAIL_OR_PASSWORD': 'Email or password invalid',
     'EMAIL_NOT_EXIST': 'Email does not exist',
     'ERROR_EMPTY': 'Invalid value',
     'ERROR_PASSWORD': 'Invalid password',

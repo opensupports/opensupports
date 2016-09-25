@@ -8,12 +8,14 @@ import SessionActions from 'actions/session-actions';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
+import Message from 'core-components/message';
+import Widget from 'core-components/widget';
 
 class AdminLoginPage extends React.Component {
     render() {
         return (
             <div className="admin-login-page">
-                <div className="admin-login-page__content">
+                <Widget className="admin-login-page__content">
                     <div className="admin-login-page__image"><img width="100%" src="/images/logo.png" alt="OpenSupports Admin Panel"/></div>
                     <div className="admin-login-page__login-form">
                         <Form onSubmit={this.onSubmit.bind(this)} loading={this.props.session.pending}>
@@ -22,9 +24,24 @@ class AdminLoginPage extends React.Component {
                             <SubmitButton>{i18n('LOG_IN')}</SubmitButton>
                         </Form>
                     </div>
-                </div>
+                    {this.renderMessage()}
+                </Widget>
             </div>
         );
+    }
+
+    renderMessage() {
+        let message = null;
+
+        if(this.props.session.failed) {
+            message = (
+                <Message className="admin-login-page__error" type="error">
+                    {i18n('EMAIL_OR_PASSWORD')}
+                </Message>
+            );
+        }
+
+        return message;
     }
 
     onSubmit(formState) {

@@ -45,7 +45,7 @@ class App extends React.Component {
             languageChanged: props.config.language !== this.props.config.language,
             loggedIn: !_.includes(props.location.pathname, '/dashboard') && props.session.logged,
             loggedOut: _.includes(props.location.pathname, '/dashboard') && !props.session.logged,
-            loggedInStaff: !_.includes(props.location.pathname, '/admin/panel') && props.session.staff,
+            loggedInStaff: !_.includes(props.location.pathname, '/admin/panel') && props.session.logged && props.session.staff,
             loggedOutStaff: _.includes(props.location.pathname, '/admin/panel') && !props.session.logged
         };
 
