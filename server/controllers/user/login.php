@@ -46,7 +46,7 @@ class LoginController extends Controller {
     }
 
     private function createUserSession() {
-        Session::getInstance()->createSession($this->userInstance->id);
+        Session::getInstance()->createSession($this->userInstance->id, Controller::request('staff'));
     }
 
     private function getUserData() {
@@ -55,6 +55,7 @@ class LoginController extends Controller {
         return array(
             'userId' => $userInstance->id,
             'userEmail' => $userInstance->email,
+            'staff' => Controller::request('staff'),
             'token' => Session::getInstance()->getToken(),
             'rememberToken' => $this->rememberToken
         );
@@ -64,7 +65,11 @@ class LoginController extends Controller {
         $email =  Controller::request('email');
         $password =  Controller::request('password');
 
-        return User::authenticate($email, $password);
+        if(Controller::request('staff')) {
+            return Staff::authenticate($email, $password);
+        } else {
+            return User::authenticate($email, $password);
+        }
     }
     
     private function getUserByRememberToken() {
