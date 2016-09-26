@@ -10,7 +10,6 @@ describe '/user/signup' do
 
         (userRow['email']).should.equal('steve@jobs.com')
         (userRow['name']).should.equal('Steve Jobs')
-        (userRow['admin']).should.equal('0')
     end
 
     it 'should fail if name is invalid' do

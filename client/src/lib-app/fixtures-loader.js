@@ -17,6 +17,7 @@ let fixtures = (function () {
 
 // FIXTURES
 fixtures.add(require('data/fixtures/user-fixtures'));
+fixtures.add(require('data/fixtures/staff-fixtures'));
 fixtures.add(require('data/fixtures/ticket-fixtures'));
 fixtures.add(require('data/fixtures/system-fixtures'));
 

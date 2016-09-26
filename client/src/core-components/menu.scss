@@ -1,5 +1,7 @@
 @import "../scss/vars";
 
+$transition: background-color 0.3s ease, color 0.3s ease;
+
 .menu {
 
     &__list {
@@ -13,7 +15,7 @@
 
     &__list-item {
         padding: 8px;
-        transition: background-color 0.3s ease, color 0.3s ease;
+        transition: $transition;
 
         &_selected,
         &:hover {
@@ -76,6 +78,95 @@
 
         .menu__list-item:hover {
             color: $primary-blue;
+        }
+    }
+
+    &_horizontal {
+        text-align: center;
+
+        .menu__list {
+            background-color: transparent;
+            font-size: $font-size--md;
+        }
+
+        .menu__icon {
+            display: block;
+            margin-right: 0;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            font-size: $font-size--xl;
+        }
+
+        .menu__list-item {
+            background-color: white;
+            color: $primary-black;
+            cursor: pointer;
+            display: inline-block;
+            height: 120px;
+            width: 16.6667%;
+
+            @media (max-width: 667px) {
+                width: 33.3333%;
+            }
+        }
+
+        .menu__list-item_selected {
+            background-color: $secondary-blue;
+            color: white;
+        }
+
+        .menu__list-item:hover,
+        .menu__list-item:focus {
+            color: $dark-grey;
+            outline: none;
+        }
+
+        .menu__list-item_selected:focus,
+        .menu__list-item_selected:hover {
+            color: white;
+        }
+    }
+
+    &_horizontal-list {
+        text-align: left;
+        background-color: $secondary-blue;
+        min-height: 45px;
+
+        .menu__list {
+            background-color: transparent;
+            font-size: $font-size--sm;
+        }
+
+        .menu__list-item {
+            transition: none;
+            background-color: transparent;
+            color: white;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 11px;
+            margin-bottom: 10px;
+            margin-left: 20px;
+            padding: 2px 13px;
+        }
+
+        .menu__list-item:hover {
+            transition: $transition;
+            background-color: transparent;
+            color: $primary-black;
+        }
+
+        .menu__list-item:focus {
+            color: $grey;
+            outline: none;
+        }
+
+        .menu__list-item_selected,
+        .menu__list-item_selected:hover {
+            transition: $transition;
+            padding: 2px 13px;
+            border-radius: 30px;
+            background-color: $primary-blue;
+            color: white;
         }
     }
 }

@@ -44,7 +44,9 @@ class App extends React.Component {
         const validations = {
             languageChanged: props.config.language !== this.props.config.language,
             loggedIn: !_.includes(props.location.pathname, '/dashboard') && props.session.logged,
-            loggedOut: _.includes(props.location.pathname, '/dashboard') && !props.session.logged
+            loggedOut: _.includes(props.location.pathname, '/dashboard') && !props.session.logged,
+            loggedInStaff: !_.includes(props.location.pathname, '/admin/panel') && props.session.logged && props.session.staff,
+            loggedOutStaff: _.includes(props.location.pathname, '/admin/panel') && !props.session.logged
         };
 
         if (validations.languageChanged) {
@@ -55,8 +57,14 @@ class App extends React.Component {
             browserHistory.push('/');
         }
 
-        if (validations.loggedIn) {
+        if (validations.loggedOutStaff) {
+            browserHistory.push('/admin');
+        }
+
+        if (validations.loggedIn && !props.session.staff) {
             browserHistory.push('/dashboard');
+        } else if(validations.loggedInStaff) {
+            browserHistory.push('/admin/panel');
         }
     }
 }

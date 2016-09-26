@@ -3,6 +3,11 @@
 class Staff extends DataStore {
     const TABLE = 'staff';
 
+    public static function authenticate($userEmail, $userPassword) {
+        $user = Staff::getUser($userEmail, 'email');
+
+        return ($user && Hashing::verifyPassword($userPassword, $user->password)) ? $user : new NullDataStore();
+    }
 
     public static function getProps() {
         return [

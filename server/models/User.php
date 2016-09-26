@@ -15,16 +15,13 @@ class User extends DataStore {
             'email',
             'password',
             'name',
-            'admin',
             'sharedTicketList',
             'verificationToken',
         ];
     }
 
     public function getDefaultProps() {
-        return [
-            'admin' => 0
-        ];
+        return [];
     }
 
     public static function getUser($value, $property = 'id') {

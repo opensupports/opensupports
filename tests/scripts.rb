@@ -11,11 +11,12 @@ class Scripts
         end
     end
 
-    def self.login(email = 'steve@jobs.com', password = 'custompassword')
+    def self.login(email = 'steve@jobs.com', password = 'custompassword', staff = false)
         request('/user/logout')
         response = request('/user/login', {
             :email => email,
-            :password => password
+            :password => password,
+            :staff => staff
         })
 
         if response['data'].any?

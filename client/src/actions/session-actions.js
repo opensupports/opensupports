@@ -12,7 +12,7 @@ export default {
                 path: '/user/login',
                 data: loginData
             }).then((result) => {
-                store.dispatch(this.getUserData(result.data.userId, result.data.token));
+                store.dispatch(this.getUserData(result.data.userId, result.data.token, result.data.staff));
 
                 return result;
             })
@@ -49,7 +49,7 @@ export default {
         };
     },
 
-    getUserData(userId, token) {
+    getUserData(userId, token, staff) {
         let data  = {};
 
         if (userId && token) {
@@ -62,7 +62,7 @@ export default {
         return {
             type: 'USER_DATA',
             payload: API.call({
-                path: '/user/get',
+                path: (staff) ? '/staff/get' : '/user/get',
                 data: data
             })
         }

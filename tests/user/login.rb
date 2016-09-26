@@ -13,13 +13,36 @@ describe '/user/login' do
         (result['status']).should.equal('fail')
     end
 
-#    it 'should login correctly' do
+    it 'should login correctly' do
+        result = request('/user/login', {
+            email: @loginEmail,
+            password: @loginPass
+        })
 
-#    end
+        (result['status']).should.equal('success')
+    end
 
-#    it 'should fail if already logged in' do
+    it 'should fail if already logged in' do
+        result = request('/user/login', {
+            email: @loginEmail,
+            password: @loginPass
+        })
 
-#    end
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('User is already logged in')
+    end
+
+    it 'should login staff member' do
+        request('/user/logout', {})
+        result = request('/user/login', {
+            email: $staff[:email],
+            password: $staff[:password],
+            staff: true
+        })
+
+        (result['status']).should.equal('success')
+        (result['data']['staff']).should.equal('true')
+    end
 
     it 'should return remember token' do
         request('/user/logout', {})
@@ -31,7 +54,7 @@ describe '/user/login' do
 
         (result['status']).should.equal('success')
 
-        @rememberToken = result['data']['rememberToken']# falta comproversion
+        @rememberToken = result['data']['rememberToken']
         @userid = result['data']['userId']
     end
 

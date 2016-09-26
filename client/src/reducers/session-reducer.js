@@ -41,7 +41,8 @@ class SessionReducer extends Reducer {
         return _.extend({}, state, {
             logged: true,
             pending: false,
-            failed: false
+            failed: false,
+            staff: payload.data.staff
         });
     }
 
@@ -101,8 +102,12 @@ class SessionReducer extends Reducer {
         sessionStore.storeUserData(payload.data);
         
         return _.extend({}, state, {
-            userName: userData.name, 
-            userEmail: userData.email, 
+            staff: userData.staff,
+            userName: userData.name,
+            userEmail: userData.email,
+            userProfilePic: userData.profilePic,
+            userLevel: userData.level,
+            userDepartments: userData.departments,
             userTickets: userData.tickets
         });
     }
@@ -113,8 +118,12 @@ class SessionReducer extends Reducer {
         return _.extend({}, state, {
             initDone: true, 
             logged: true,
+            staff: userData.staff,
             userName: userData.name,
             userEmail: userData.email,
+            userProfilePic: userData.profilePic,
+            userLevel: userData.level,
+            userDepartments: userData.departments,
             userTickets: userData.tickets
         });
     }

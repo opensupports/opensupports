@@ -20,7 +20,6 @@ class DashboardEditProfilePage extends React.Component {
         messagePass:''
     };
 
-
     render() {
         return (
             <div className="edit-profile-page">

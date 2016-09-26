@@ -13,6 +13,11 @@ class GetUserController extends Controller {
     }
 
     public function handler() {
+        if (Controller::isStaffLogged()) {
+            Response::respondError(ERRORS::INVALID_CREDENTIALS);
+            return;
+        }
+
         $user = Controller::getLoggedUser();
         $parsedTicketList = [];
         $ticketList = $user->sharedTicketList;
