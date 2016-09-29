@@ -55,6 +55,12 @@ export default {
     'USER_SYSTEM': 'User System',
     'EMAIL_TEMPLATES': 'Email Templates',
     'FILTERS_CUSTOM_FIELDS': 'Filters and Custom Fields',
+    'PRIORITY': 'Priority',
+    'NUMBER': 'Number',
+    'HIGH': 'High',
+    'MEDIUM': 'Medium',
+    'LOW': 'Low',
+    'TITLE': 'Title',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
