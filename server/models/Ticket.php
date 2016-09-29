@@ -17,7 +17,7 @@ class Ticket extends DataStore {
             'closed',
             'author',
             'owner',
-            'ownCommentList'
+            'ownTicketeventList'
         );
     }
 
@@ -39,6 +39,7 @@ class Ticket extends DataStore {
     public function store() {
         parent::store();
     }
+
     public function generateUniqueTicketNumber() {
         $ticketQuantity = Ticket::count('ticket');
         $minValue = 100000;
@@ -57,8 +58,6 @@ class Ticket extends DataStore {
     }
     
     public function toArray() {
-        $author = $this->author;
-
         return [
             'ticketNumber' => $this->ticketNumber,
             'title' => $this->title,
@@ -74,7 +73,7 @@ class Ticket extends DataStore {
             'closed' => !!$this->closed,
             'author' => $this->authorToArray(),
             'owner' => $this->ownerToArray(),
-            'comments' => $this->commentsToArray()
+            'events' => $this->eventsToArray()
         ];
     }
 
@@ -106,23 +105,31 @@ class Ticket extends DataStore {
         }
     }
 
-    public function commentsToArray() {
-        $comments = [];
+    public function eventsToArray() {
+        $events = [];
 
-        foreach ($this->ownCommentList as $comment) {
-            $comments[] = [
-                'content'=> $comment->content,
-                'author' => [
-                    'id'=> 15,
-                    'name' => $comment->author->name,
-                    'email' => $comment->author->email,
-                    'staff' => $comment->author->staff
-                ],
-                'date'=> $comment->date,
-                'file'=> $comment->file
+        foreach ($this->ownTicketeventList as $ticketEvent) {
+            $event = [
+                'type' => $ticketEvent->type,
+                'content'=> $ticketEvent->content,
+                'author' => [],
+                'date'=> $ticketEvent->date,
+                'file'=> $ticketEvent->file
             ];
+
+            $author = $ticketEvent->getAuthor();
+            if(!$author->isNull()) {
+                $event['author'] = [
+                    'id'=> $author->id,
+                    'name' => $author->name,
+                    'email' =>$author->email,
+                    'staff' => $author instanceof Staff
+                ];
+            }
+
+            $events[] = $event;
         }
 
-        return $comments;
+        return $events;
     }
 }
