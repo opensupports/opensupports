@@ -68,9 +68,10 @@ describe '/ticket/comment/' do
         (result['status']).should.equal('success')
 
         ticket = $database.getRow('ticket', @ticketNumber, 'ticket_number')
-        comment = $database.getRow('comment', ticket['id'], 'ticket_id')
+        comment = $database.getRow('ticketevent', ticket['id'], 'ticket_id')
         (comment['content']).should.equal('some comment content')
-        (comment['author_id']).should.equal($csrf_userid)
+        (comment['type']).should.equal('COMMENT')
+        (comment['author_user_id']).should.equal($csrf_userid)
     end
 
     it 'should fail if user is not the author nor owner' do
