@@ -56,7 +56,7 @@ class CommentController extends Controller {
             $comment->authorUser = Controller::getLoggedUser();
         }
 
-        $this->ticket->ownTicketeventList->add($comment);
+        $this->ticket->addEvent($comment);
         $this->ticket->store();
     }
 }

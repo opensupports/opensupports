@@ -132,4 +132,8 @@ class Ticket extends DataStore {
 
         return $events;
     }
+    
+    public function addEvent(Ticketevent $event) {
+        $this->ownTicketeventList->add($event);
+    }
 }
