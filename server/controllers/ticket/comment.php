@@ -44,14 +44,19 @@ class CommentController extends Controller {
     }
 
     private function storeComment() {
-        $comment = new Comment();
+        $comment = Ticketevent::getEvent(Ticketevent::COMMENT);
         $comment->setProperties(array(
             'content' => $this->content,
-            'author' => Controller::getLoggedUser(),
             'date' => Date::getCurrentDate()
         ));
 
-        $this->ticket->ownCommentList->add($comment);
+        if(Controller::isStaffLogged()) {
+            $comment->authorUser = Controller::getLoggedUser();
+        } else {
+            $comment->authorUser = Controller::getLoggedUser();
+        }
+
+        $this->ticket->addEvent($comment);
         $this->ticket->store();
     }
 }

@@ -15,6 +15,13 @@ describe '/ticket/get/' do
             csrf_token: $csrf_token
         })
         @ticketNumber = result['data']['ticketNumber']
+
+        request('/ticket/comment', {
+            ticketNumber: @ticketNumber,
+            content: 'some valid comment made',
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
     end
 
     it 'should fail if ticketNumber is invalid' do
@@ -46,6 +53,7 @@ describe '/ticket/get/' do
         result = Scripts.login('cersei@os4.com', 'cersei')
         $csrf_userid = result['userId']
         $csrf_token = result['token']
+
         result = request('/ticket/get', {
             ticketNumber: @ticketNumber,
             csrf_userid: $csrf_userid,
@@ -68,6 +76,8 @@ describe '/ticket/get/' do
         (result['data']['author']['name']).should.equal('Cersei Lannister')
         (result['data']['author']['email']).should.equal('cersei@os4.com')
         (result['data']['owner']).should.equal([])
-        (result['data']['comments']).should.equal([])
+        (result['data']['events'].size).should.equal(1)
+        (result['data']['events'][0]['type']).should.equal('COMMENT')
+        (result['data']['events'][0]['content']).should.equal('some valid comment made')
     end
 end
