@@ -2,11 +2,11 @@
     position: relative;
     display: inline-block;
 
-    &__children{
+    &__children {
         cursor: default;
     }
 
-    &__message{
+    &__message {
         position: absolute;
         bottom: 100%;
         left: -25%;
@@ -19,8 +19,7 @@
         padding: 10px;
     }
 
-    &__pointer{
-
+    &__pointer {
         border: solid transparent;
         position: absolute;
         border-top-color: #8D8D8D;

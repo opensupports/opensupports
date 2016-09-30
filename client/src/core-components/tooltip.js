@@ -13,7 +13,7 @@ class Tooltip extends React.Component {
         show : false
     };
 
-    render (){
+    render() {
         return (
             <div {...this.getProps()}>
                 {(this.state.show) ? this.renderAnimatedMessage() : null}
@@ -24,7 +24,7 @@ class Tooltip extends React.Component {
         );
     }
 
-    renderAnimatedMessage(){
+    renderAnimatedMessage() {
         return (
             <Motion defaultStyle={{opacity:spring(0)}} style={{opacity:spring(1)}}>
                 {this.renderMessage.bind(this)}
@@ -32,7 +32,7 @@ class Tooltip extends React.Component {
         )
     }
 
-    renderMessage(animation){
+    renderMessage(animation) {
         return (
             <div style={animation}>
                 <div className="tooltip__message">
@@ -43,7 +43,7 @@ class Tooltip extends React.Component {
         )
     }
 
-    getProps(){
+    getProps() {
         let props = {};
 
         props.className = 'tooltip';
@@ -78,7 +78,7 @@ class Tooltip extends React.Component {
         });
     }
 
-    onClick(){
+    onClick() {
         if (this.state.show) {
             this.setState({show: false});
         } else {
