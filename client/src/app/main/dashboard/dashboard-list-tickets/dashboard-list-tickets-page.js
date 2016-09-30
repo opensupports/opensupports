@@ -7,6 +7,7 @@ import Header from 'core-components/header';
 import Table from 'core-components/table';
 import Button from 'core-components/button';
 import Tooltip from 'core-components/tooltip';
+import TicketInfo from 'app-components/ticket-info';
 
 class DashboardListTicketsPage extends React.Component {
     static propTypes = {
@@ -60,7 +61,7 @@ class DashboardListTicketsPage extends React.Component {
 
         return {
             number: (
-                <Tooltip content="hola">
+                <Tooltip content={<TicketInfo ticket={ticket}/>} >
                     {'#' + ticket.ticketNumber}
                 </Tooltip>
             ),

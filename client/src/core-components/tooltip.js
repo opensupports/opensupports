@@ -60,7 +60,7 @@ class Tooltip extends React.Component {
         let props = {};
         props.className= 'tooltip__children';
 
-        if (this.props.openOnHover) {
+        if (!this.props.openOnHover) {
             props.onClick= this.onClick.bind(this);
         }
         return props;
