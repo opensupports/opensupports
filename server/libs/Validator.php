@@ -16,8 +16,9 @@ class Validator {
         $permissions = [
             'any' => true,
             'user' => Controller::isUserLogged(),
-            'staff' => Controller::isStaffLogged(),
-            'admin' => Controller::isAdminLogged()
+            'staff_1' => Controller::isStaffLogged(1),
+            'staff_2' => Controller::isStaffLogged(2),
+            'staff_3' => Controller::isStaffLogged(3)
         ];
 
         if (!$permissions[$permission]) {

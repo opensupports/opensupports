@@ -26,3 +26,8 @@ class Database
 end
 
 $database = Database.new
+
+$staff = {
+    :email => 'staff@opensupports.com',
+    :password => 'staff'
+}

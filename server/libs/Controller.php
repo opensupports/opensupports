@@ -36,7 +36,13 @@ abstract class Controller {
     }
     
     public static function getLoggedUser() {
-        return User::getUser((int)self::request('csrf_userid'));
+        $session = Session::getInstance();
+
+        if ($session->isStaffLogged()) {
+            return Staff::getUser((int)self::request('csrf_userid'));
+        } else {
+            return User::getUser((int)self::request('csrf_userid'));
+        }
     }
 
     public static function isUserLogged() {
@@ -48,12 +54,8 @@ abstract class Controller {
         ));
     }
 
-    public static function isStaffLogged() {
-        return Controller::isUserLogged() && (Controller::getLoggedUser()->admin === 1);
-    }
-
-    public static function isAdminLogged() {
-        return Controller::isUserLogged() && (Controller::getLoggedUser()->admin === 2);
+    public static function isStaffLogged($level = 1) {
+        return Controller::isUserLogged() && (Controller::getLoggedUser()->level >= $level);
     }
 
     public static function getAppInstance() {

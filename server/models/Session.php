@@ -24,8 +24,9 @@ class Session {
         return self::$instance;
     }
 
-    public function createSession($userId) {
+    public function createSession($userId, $staff = false) {
         $this->store('userId', $userId);
+        $this->store('staff', $staff);
         $this->store('token', Hashing::generateRandomToken());
     }
 
@@ -35,6 +36,10 @@ class Session {
 
     public function sessionExists() {
         return !!$this->getToken();
+    }
+
+    public function isStaffLogged() {
+        return $this->getStoredData('staff');
     }
 
     public function checkAuthentication($data) {

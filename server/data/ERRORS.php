@@ -15,4 +15,5 @@ class ERRORS {
     const INIT_SETTINGS_DONE = 'Settings already initialized';
     const INVALID_OLD_PASSWORD = 'Invalid old password';
     const INVALID_CAPTCHA = 'Invalid captcha';
+    const INVALID_TICKET_EVENT = 'INVALID_TICKET_EVENT';
 }

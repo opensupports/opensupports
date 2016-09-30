@@ -66,12 +66,6 @@ let DemoPage = React.createClass({
             )
         },
         {
-            title: 'DropDown',
-            render: (
-                <DropDown items={dropDownItems} onChange={function (index) { console.log('changed to ' + index); }} />
-            )
-        },
-        {
             title: 'Primary Menu',
             render: (
                 <Menu items={dropDownItems} />
@@ -81,6 +75,30 @@ let DemoPage = React.createClass({
             title: 'Secondary Menu',
             render: (
                 <Menu items={secondaryMenuItems} type="secondary"/>
+            )
+        },
+        {
+            title: 'Navigation Menu',
+            render: (
+                <Menu items={secondaryMenuItems} type="navigation"/>
+            )
+        },
+        {
+            title: 'Horizontal Menu',
+            render: (
+                <Menu items={secondaryMenuItems.slice(0, 3)} type="horizontal"/>
+            )
+        },
+        {
+            title: 'HorizontalList Menu',
+            render: (
+                <Menu items={dropDownItems.slice(0, 3)} type="horizontal-list"/>
+            )
+        },
+        {
+            title: 'DropDown',
+            render: (
+                <DropDown items={dropDownItems} onChange={function (index) { console.log('changed to ' + index); }} />
             )
         },
         {

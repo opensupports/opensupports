@@ -35,10 +35,11 @@ class LoginControllerTest extends PHPUnit_Framework_TestCase {
 
         $this->loginController->handler();
 
-        $this->assertTrue(Session::getInstance()->createSession->hasBeenCalledWithArgs('MOCK_ID'));
+        $this->assertTrue(Session::getInstance()->createSession->hasBeenCalledWithArgs('MOCK_ID', null));
         $this->assertTrue(Response::get('respondSuccess')->hasBeenCalledWithArgs(array(
             'userId' => 'MOCK_ID',
             'userEmail' => 'MOCK_EMAIL',
+            'staff' => null,
             'token' => 'TEST_TOKEN',
             'rememberToken' => null
         )));

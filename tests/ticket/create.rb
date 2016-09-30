@@ -100,6 +100,7 @@ describe '/ticket/create' do
         (ticket['content']).should.equal('The north remembers')
         (ticket['unread']).should.equal('0')
         (ticket['closed']).should.equal('0')
+        (ticket['priority']).should.equal('low')
         (ticket['department_id']).should.equal('1')
         (ticket['author_id']).should.equal($csrf_userid)
         (ticket['ticket_number'].size).should.equal(6)

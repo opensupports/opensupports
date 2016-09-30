@@ -84,7 +84,9 @@ class Menu extends React.Component {
         let classes = {
             'menu': true,
             'menu_secondary': (this.props.type === 'secondary'),
-            'menu_navigation': (this.props.type === 'navigation')
+            'menu_navigation': (this.props.type === 'navigation'),
+            'menu_horizontal': (this.props.type === 'horizontal'),
+            'menu_horizontal-list': (this.props.type === 'horizontal-list')
         };
 
         classes[this.props.className] = true;

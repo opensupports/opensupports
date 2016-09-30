@@ -5,11 +5,7 @@
 
     &__content {
         margin: 0 auto;
-        display: inline-block;
-        background-color: white;
         padding: 40px;
-        border-radius: 4px;
-        text-align: center;
     }
 
     &__image {
@@ -20,5 +16,9 @@
     &__login-form {
         margin: 0 auto;
         display: inline-block;
+    }
+
+    &__error {
+        margin-top: 30px;
     }
 }

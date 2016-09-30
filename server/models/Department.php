@@ -21,4 +21,15 @@ class Department extends DataStore {
         
         return $departmentsNameList;
     }
+    
+    public static function getAllDepartments() {
+        $departmentsQuantity = RedBean::count(Department::TABLE);
+        $departmentList = new DataStoreList();
+
+        for ($departmentIndex = 1; $departmentIndex <= $departmentsQuantity; ++$departmentIndex) {
+            $departmentList->add(Department::getDataStore($departmentIndex));
+        }
+
+        return $departmentList;
+    }
 }

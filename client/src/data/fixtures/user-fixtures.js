@@ -9,6 +9,7 @@ module.exports = [
                 response = {
                     status: 'success',
                     data: {
+                        'staff': data.staff,
                         'userId': 12,
                         'token': 'cc6b4921e6733d6aafe284ec0d7be57e',
                         'rememberToken': (data.remember) ? 'aa41efe0a1b3eeb9bf303e4561ff8392' : null,
@@ -147,6 +148,7 @@ module.exports = [
                             language: 'en',
                             unread: true,
                             closed: false,
+                            priority: 'low',
                             author: {
                                 id: 12,
                                 name: 'Haskell Curry',
@@ -195,6 +197,47 @@ module.exports = [
                             language: 'en',
                             unread: false,
                             closed: false,
+                            priority: 'medium',
+                            author: {
+                                name: 'Haskell Curry',
+                                email: 'haskell@lambda.com'
+                            },
+                            owner: {
+                                name: 'Steve Jobs'
+                            },
+                            comments: [
+                                {
+                                    content: 'Do you have apache installed? It generally happens if you dont have apache.',
+                                    author: {
+                                        name: 'Steve Jobs',
+                                        email: 'jobs@steve.com',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    content: 'I have already installed apache, but the problem persists',
+                                    author: {
+                                        name: 'Haskell Curry',
+                                        steve: 'haskell@lambda.com',
+                                        staff: false
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            ticketNumber: '878552',
+                            title: 'Lorem ipsum door',
+                            content: 'I had a problem with the installation of the php server',
+                            department: {
+                                id: 2,
+                                name: 'Environment Setup'
+                            },
+                            date: '15 Apr 2016',
+                            file: 'http://www.opensupports.com/some_file.zip',
+                            language: 'en',
+                            unread: false,
+                            closed: false,
+                            priority: 'high',
                             author: {
                                 name: 'Haskell Curry',
                                 email: 'haskell@lambda.com'
