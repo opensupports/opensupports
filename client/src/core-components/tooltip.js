@@ -60,28 +60,29 @@ class Tooltip extends React.Component {
         let props = {};
         props.className= 'tooltip__children';
 
-        if (!this.props.openOnHover) {
+        if(!this.props.openOnHover) {
             props.onClick= this.onClick.bind(this);
         }
+
         return props;
     }
 
     onMouseOver() {
         this.setState({
-            show:true
-        })
+            show: true
+        });
     }
     onMouseOut() {
         this.setState({
-            show:false
-        })
+            show: false
+        });
     }
 
     onClick(){
         if (this.state.show) {
-            this.setState({show : false});
+            this.setState({show: false});
         } else {
-            this.setState({show : true});
+            this.setState({show: true});
         }
     }
 }

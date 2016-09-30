@@ -5,7 +5,6 @@ import i18n from 'lib-app/i18n';
 
 import Header from 'core-components/header';
 import TicketList from 'app-components/ticket-list';
-import TicketInfo from 'app-components/ticket-info';
 
 class DashboardListTicketsPage extends React.Component {
     static propTypes = {

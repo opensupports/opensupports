@@ -31,7 +31,7 @@ class TicketInfo extends React.Component {
                         <span className="ticket-info__properties__label">
                             Priority:
                         </span>
-                        <span className="ticket-info__properties__badge-green">
+                        <span className={this.getPriorityClass()}>
                             {this.props.ticket.priority}
                         </span>
                     </div>
@@ -55,12 +55,22 @@ class TicketInfo extends React.Component {
             </div>
         );
     }
-    getStatusClass(){
-        if(this.props.ticket.closed){
-            return "ticket-info__properties__badge-red";
-        }else{
-            return "ticket-info__properties__badge-green";
+    getStatusClass() {
+        if(this.props.ticket.closed) {
+            return 'ticket-info__properties__badge-red';
+        } else {
+            return 'ticket-info__properties__badge-green';
         }
+    }
+
+    getPriorityClass() {
+        let priorityClasses = {
+            'low': 'ticket-info__properties__badge-green',
+            'medium': 'ticket-info__properties__badge-blue',
+            'high': 'ticket-info__properties__badge-red'
+        };
+
+        return priorityClasses[this.props.ticket.priority];
     }
 }
 

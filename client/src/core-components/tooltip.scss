@@ -1,8 +1,9 @@
 .tooltip {
     position: relative;
     display: inline-block;
-    &__children{
 
+    &__children{
+        cursor: default;
     }
 
     &__message{
@@ -17,6 +18,7 @@
         color: black;
         padding: 10px;
     }
+
     &__pointer{
 
         border: solid transparent;
