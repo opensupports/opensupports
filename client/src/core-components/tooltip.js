@@ -5,24 +5,26 @@ class Tooltip extends React.Component {
     
     static propTypes = {
         children: React.PropTypes.node,
-        content: React.PropTypes.node
+        content: React.PropTypes.node,
+        openOnHover: React.PropTypes.bool
     };
 
-    constructor (props){
-        super(props);
-        this.state = {show : false};
-    }
+    state = {
+        show : false
+    };
 
-    render (){
+    render() {
         return (
-            <div className="tooltip" >
+            <div {...this.getProps()}>
                 {(this.state.show) ? this.renderAnimatedMessage() : null}
-                <div className="tooltip__children" onClick={this.onClick.bind(this)}>{this.props.children}</div>
+                <div {...this.getChildrenProps()}>
+                    {this.props.children}
+                </div>
             </div>
         );
     }
 
-    renderAnimatedMessage(){
+    renderAnimatedMessage() {
         return (
             <Motion defaultStyle={{opacity:spring(0)}} style={{opacity:spring(1)}}>
                 {this.renderMessage.bind(this)}
@@ -30,7 +32,7 @@ class Tooltip extends React.Component {
         )
     }
 
-    renderMessage(animation){
+    renderMessage(animation) {
         return (
             <div style={animation}>
                 <div className="tooltip__message">
@@ -40,11 +42,47 @@ class Tooltip extends React.Component {
             </div>
         )
     }
-    onClick(){
+
+    getProps() {
+        let props = {};
+
+        props.className = 'tooltip';
+
+        if(this.props.openOnHover) {
+            props.onMouseOver = this.onMouseOver.bind(this);
+            props.onMouseOut = this.onMouseOut.bind(this);
+        }
+
+        return props;
+    }
+
+    getChildrenProps() {
+        let props = {};
+        props.className= 'tooltip__children';
+
+        if(!this.props.openOnHover) {
+            props.onClick= this.onClick.bind(this);
+        }
+
+        return props;
+    }
+
+    onMouseOver() {
+        this.setState({
+            show: true
+        });
+    }
+    onMouseOut() {
+        this.setState({
+            show: false
+        });
+    }
+
+    onClick() {
         if (this.state.show) {
-            this.setState({show : false});
+            this.setState({show: false});
         } else {
-            this.setState({show : true});
+            this.setState({show: true});
         }
     }
 }
