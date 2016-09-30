@@ -13,7 +13,8 @@ class Table extends React.Component {
         })),
         rows: React.PropTypes.arrayOf(React.PropTypes.object),
         pageSize: React.PropTypes.number,
-        type: React.PropTypes.oneOf(['default'])
+        type: React.PropTypes.oneOf(['default']),
+        comp: React.PropTypes.func
     };
 
     static defaultProps = {
@@ -34,7 +35,7 @@ class Table extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.rows.map(this.renderRow.bind(this))}
+                        {this.getRows().map(this.renderRow.bind(this))}
                     </tbody>
                 </table>
                 {(this.props.pageSize && this.props.rows.length > this.props.pageSize) ? this.renderNavigation() : null}
@@ -100,6 +101,13 @@ class Table extends React.Component {
         
         return classNames(classes);
     }
+
+    getRows() {
+        let v = _.clone(this.props.rows);
+        v.sort(this.props.comp);
+        return v;
+    }
+
 }
 
 export default Table;

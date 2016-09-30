@@ -128,21 +128,28 @@ let DemoPage = React.createClass({
                     {value:'Title First', key: 'title1'},
                     {value:'Title Second', key: 'title2'}
                 ]} rows={[
-                    {title1: 'Row1', title2: 'Example'},
-                    {title1: 'Row2', title2: 'Example'},
-                    {title1: 'Row3', title2: 'Example'},
-                    {title1: 'Row4', title2: 'Example'},
-                    {title1: 'Row5', title2: 'Example'},
-                    {title1: 'Row6', title2: 'Example'},
-                    {title1: 'Row7', title2: 'Example'},
-                    {title1: 'Row8', title2: 'Example'},
-                    {title1: 'Row9', title2: 'Example'},
-                    {title1: 'Row10', title2: 'Example'},
-                    {title1: 'Row11', title2: 'Example'},
-                    {title1: 'Row12', title2: 'Example'},
-                    {title1: 'Row13', title2: 'Example'},
-                    {title1: 'Row14', title2: 'Example'}
-                ]} pageSize={3}/>
+                    {title1: 'Row1', title2: 'Example', n: 1},
+                    {title1: 'Row2', title2: 'Example', n: 2},
+                    {title1: 'Row3', title2: 'Example', n: 3},
+                    {title1: 'Row4', title2: 'Example', n: 4},
+                    {title1: 'Row5', title2: 'Example', n: 5},
+                    {title1: 'Row6', title2: 'Example', n: 6},
+                    {title1: 'Row7', title2: 'Example', n: 7},
+                    {title1: 'Row8', title2: 'Example', n: 8},
+                    {title1: 'Row9', title2: 'Example', n: 9},
+                    {title1: 'Row10', title2: 'Example', n: 10},
+                    {title1: 'Row11', title2: 'Example', n: 11},
+                    {title1: 'Row12', title2: 'Example', n: 12},
+                    {title1: 'Row13', title2: 'Example', n: 13},
+                    {title1: 'Row14', title2: 'Example', n: 14}
+                ]} pageSize={3} comp={function (a, b) {
+                    let ans = 0;
+                    if(a.title1 < b.title1)
+                        ans = -1;
+                    else if(a.title1 > b.title1)
+                        ans = 1;
+                    return ans;
+                }}/>
             )
         }
 	],
