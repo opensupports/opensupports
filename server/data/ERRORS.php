@@ -16,4 +16,5 @@ class ERRORS {
     const INVALID_OLD_PASSWORD = 'Invalid old password';
     const INVALID_CAPTCHA = 'Invalid captcha';
     const INVALID_TICKET_EVENT = 'INVALID_TICKET_EVENT';
+    const INVALID_LANGUAGE = 'INVALID_LANGUAGE';
 }

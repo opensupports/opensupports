@@ -41,6 +41,7 @@ spl_autoload_register(function ($class) {
 include_once 'libs/validations/dataStoreId.php';
 include_once 'libs/validations/userEmail.php';
 include_once 'libs/validations/captcha.php';
+include_once 'libs/validations/validLanguage.php';
 include_once 'libs/validations/validTicketNumber.php';
 
 // LOAD CONTROLLERS

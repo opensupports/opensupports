@@ -89,8 +89,8 @@ class InitSettingsController extends Controller {
             'email' => 'staff@opensupports.com',
             'password' => Hashing::hashPassword('staff'),
             'profilePic' => 'http://i65.tinypic.com/9bep95.jpg',
-            'level' => 1,
-            'sharedDepartmentList' => Department::getAllDepartments(),
+            'level' => 3,
+            'sharedDepartmentList' => Department::getAll(),
             'sharedTicketList' => []
         ]);
         $staff->store();
