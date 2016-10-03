@@ -6,11 +6,11 @@ use Respect\Validation\Rules\AbstractRule;
 
 class ValidLanguage extends AbstractRule {
 
+    //TODO: Use a list from database instead
     private $languages = [
         'en',
         'es',
-        'de',
-        'cn',
+        'de'
     ];
     
     public function validate($ticketNumber) {
