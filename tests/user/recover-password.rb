@@ -9,7 +9,7 @@ describe '/user/recover-password' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid email')
+        (result['message']).should.equal('INVALID_EMAIL')
 
         result = request('/user/recover-password', {
             email: 'loginos4.com',
@@ -17,7 +17,7 @@ describe '/user/recover-password' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid email')
+        (result['message']).should.equal('INVALID_EMAIL')
     end
 
     it 'should fail if password is incorrect' do
@@ -47,6 +47,6 @@ describe '/user/recover-password' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('You have no permission to access')
+        (result['message']).should.equal('NO_PERMISSION')
     end
 end

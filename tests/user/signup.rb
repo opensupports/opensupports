@@ -23,7 +23,7 @@ describe '/user/signup' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid name')
+        (result['message']).should.equal('INVALID_NAME')
 
         result = request('/user/signup', {
             name: long_text,
@@ -32,7 +32,7 @@ describe '/user/signup' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid name')
+        (result['message']).should.equal('INVALID_NAME')
 
         result = request('/user/signup', {
             name: 'tyri0n',
@@ -41,7 +41,7 @@ describe '/user/signup' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid name')
+        (result['message']).should.equal('INVALID_NAME')
     end
 
     it 'should fail if email is invalid' do
@@ -52,7 +52,7 @@ describe '/user/signup' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid email')
+        (result['message']).should.equal('INVALID_EMAIL')
 
         result = request('/user/signup', {
             name: 'tyrion',
@@ -61,7 +61,7 @@ describe '/user/signup' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid email')
+        (result['message']).should.equal('INVALID_EMAIL')
     end
 
     it 'should fail if password is invalid' do
@@ -72,7 +72,7 @@ describe '/user/signup' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid password')
+        (result['message']).should.equal('INVALID_PASSWORD')
 
         long_text = ''
         250.times {long_text << 'a'}
@@ -84,7 +84,7 @@ describe '/user/signup' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid password')
+        (result['message']).should.equal('INVALID_PASSWORD')
     end
 
 end
