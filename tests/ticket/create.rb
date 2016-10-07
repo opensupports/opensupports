@@ -12,7 +12,7 @@ describe '/ticket/create' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('You have no permission to access')
+        (result['message']).should.equal('NO_PERMISSION')
 
     end
 
@@ -25,7 +25,7 @@ describe '/ticket/create' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid title')
+        (result['message']).should.equal('INVALID_TITLE')
     end
 
     it 'should fail if title is very long' do
@@ -37,7 +37,7 @@ describe '/ticket/create' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid title')
+        (result['message']).should.equal('INVALID_TITLE')
     end
 
     it 'should fail if content is too short' do
@@ -50,7 +50,7 @@ describe '/ticket/create' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid content')
+        (result['message']).should.equal('INVALID_CONTENT')
     end
 
     it 'should fail if content is very long' do
@@ -66,7 +66,7 @@ describe '/ticket/create' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid content')
+        (result['message']).should.equal('INVALID_CONTENT')
 
     end
 
@@ -80,7 +80,7 @@ describe '/ticket/create' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid department')
+        (result['message']).should.equal('INVALID_DEPARTMENT')
 
     end
 

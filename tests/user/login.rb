@@ -29,7 +29,7 @@ describe '/user/login' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('User is already logged in')
+        (result['message']).should.equal('SESSION_EXISTS')
     end
 
     it 'should login staff member' do

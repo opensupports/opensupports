@@ -15,7 +15,7 @@ describe '/ticket/comment/' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('You have no permission to access')
+        (result['message']).should.equal('NO_PERMISSION')
     end
 
     it 'should fail if content is too short' do
@@ -27,7 +27,7 @@ describe '/ticket/comment/' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid content')
+        (result['message']).should.equal('INVALID_CONTENT')
     end
 
     it 'should fail if content is very long' do
@@ -42,7 +42,7 @@ describe '/ticket/comment/' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid content')
+        (result['message']).should.equal('INVALID_CONTENT')
     end
 
     it 'should fail if ticket does not exist' do
@@ -54,7 +54,7 @@ describe '/ticket/comment/' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid ticket')
+        (result['message']).should.equal('INVALID_TICKET')
     end
 
     it 'should add comment to ticket' do
@@ -86,7 +86,7 @@ describe '/ticket/comment/' do
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('You have no permission to access')
+        (result['message']).should.equal('NO_PERMISSION')
     end
 
     #it 'should add comment if logged as ticket owner' do
