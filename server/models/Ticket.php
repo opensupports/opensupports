@@ -32,7 +32,6 @@ class Ticket extends DataStore {
 
     public function getDefaultProps() {
         return array(
-            'owner' => null,
             'priority' => 'low',
             'ticketNumber' => $this->generateUniqueTicketNumber()
         );
