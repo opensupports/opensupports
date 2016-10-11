@@ -28,7 +28,7 @@ class LanguageSelector extends React.Component {
         return {
             className: this.getClass(),
             items: this.getLanguageList(),
-            selectedIndex: languages.map((key) => codeLanguages[key]).indexOf(this.getPropLanguage()),
+            selectedIndex: this.getSelectedIndex(),
             onChange: this.changeLanguage.bind(this)
         };
     }
@@ -50,6 +50,12 @@ class LanguageSelector extends React.Component {
                 icon: codeLanguages[language]
             };
         });
+    }
+
+    getSelectedIndex() {
+        let selectedIndex = languages.map((key) => codeLanguages[key]).indexOf(this.getPropLanguage());
+
+        return (selectedIndex != -1) ? selectedIndex : undefined;
     }
 
     getPropLanguage() {

@@ -2,8 +2,9 @@ import React from 'react';
 import {connect}  from 'react-redux';
 
 import i18n from 'lib-app/i18n';
-
 import AdminDataActions from 'actions/admin-data-actions';
+
+import Icon from 'core-components/icon';
 import Header from 'core-components/header';
 import Listing from 'core-components/listing';
 import Loading from 'core-components/loading';
@@ -60,7 +61,14 @@ class AdminPanelCustomResponses extends React.Component {
     getItems() {
         return this.props.items.map((item) => {
             return {
-                content: item.name
+                content: (
+                    <span>
+                        {item.name}
+                        <span className="admin-panel-custom-responses__item-flag">
+                            <Icon name={(item.language != 'en') ? item.language : 'us'}/>
+                        </span>
+                    </span>
+                )
             };
         });
     }
