@@ -1,12 +1,23 @@
 import React from 'react';
+import {connect}  from 'react-redux';
 
 import i18n from 'lib-app/i18n';
 
+import AdminDataActions from 'actions/admin-data-actions';
 import Header from 'core-components/header';
 import Listing from 'core-components/listing';
 import Loading from 'core-components/loading';
 
 class AdminPanelCustomResponses extends React.Component {
+    static defaultProps = {
+        items: []
+    };
+    
+    componentDidMount() {
+        if(!this.props.loaded) {
+            this.props.dispatch(AdminDataActions.retrieveCustomResponses());
+        }
+    }
 
     render() {
         return (
@@ -41,10 +52,23 @@ class AdminPanelCustomResponses extends React.Component {
     getListingProps() {
         return {
             title: 'Custom Responses',
-            items: [{content: 'Connection issue'}, {content: 'Change existent name'}, {content: 'Connection issue'}],
+            items: this.getItems(),
             enableAddNew: true
         };
     }
+
+    getItems() {
+        return this.props.items.map((item) => {
+            return {
+                content: item.name
+            };
+        });
+    }
 }
 
-export default AdminPanelCustomResponses;
+export default connect((store) => {
+    return {
+        loaded: store.adminData.customResponsesLoaded,
+        items: store.adminData.customResponses
+    };
+})(AdminPanelCustomResponses);

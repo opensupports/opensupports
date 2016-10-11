@@ -31,5 +31,21 @@ module.exports = [
                 data: {}
             };
         }
+    },
+    {
+        path: '/ticket/get-custom-responses',
+        time: 1000,
+        response: function () {
+            return {
+                status: 'success',
+                data: [
+                    {name: 'Common issue #1', language: 'en', content: 'some content'},
+                    {name: 'Common issue #2', language: 'en', content: 'some content'},
+                    {name: 'Common issue #3', language: 'en', content: 'some content'},
+                    {name: 'Häufiges Problem #1', language: 'de', content: 'einige Inhalte'},
+                    {name: 'Häufiges Problem #2', language: 'de', content: 'einige Inhalte'}
+                ]
+            };
+        }
     }
 ];
