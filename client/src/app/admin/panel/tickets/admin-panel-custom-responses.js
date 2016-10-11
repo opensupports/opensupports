@@ -14,7 +14,7 @@ class AdminPanelCustomResponses extends React.Component {
     };
     
     componentDidMount() {
-        if(!this.props.loaded) {
+        if (!this.props.loaded) {
             this.props.dispatch(AdminDataActions.retrieveCustomResponses());
         }
     }

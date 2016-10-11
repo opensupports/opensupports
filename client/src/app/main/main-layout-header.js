@@ -2,21 +2,10 @@ import React              from 'react';
 import { connect }        from 'react-redux'
 
 import i18n               from 'lib-app/i18n';
-import SessionActions     from 'actions/session-actions';
 import ConfigActions      from 'actions/config-actions';
 
+import LanguageSelector   from 'app-components/language-selector';
 import Button             from 'core-components/button';
-import DropDown           from 'core-components/drop-down';
-
-let codeLanguages = {
-    'English': 'us',
-    'Spanish': 'es',
-    'German': 'de',
-    'French': 'fr',
-    'Chinese': 'cn',
-    'Turkish': 'tr',
-    'Indian': 'in'
-};
 
 class MainLayoutHeader extends React.Component {
 
@@ -24,7 +13,7 @@ class MainLayoutHeader extends React.Component {
         return (
             <div className="main-layout-header">
                 {this.renderAccessLinks()}
-                <DropDown {...this.getLanguageSelectorProps()}/>
+                <LanguageSelector {...this.getLanguageSelectorProps()} />
             </div>
         );
     }
@@ -43,7 +32,7 @@ class MainLayoutHeader extends React.Component {
             result = (
                 <div className="main-layout-header__login-links">
                     <Button type="clean" route={{to:'/'}}>{i18n('LOG_IN')}</Button>
-                    <Button type="clean" route={{to:'/signup'}}>Sign up</Button>
+                    <Button type="clean" route={{to:'/signup'}}>{i18n('SIGN_UP')}</Button>
                 </div>
             );
         }
@@ -54,38 +43,12 @@ class MainLayoutHeader extends React.Component {
     getLanguageSelectorProps() {
         return {
             className: 'main-layout-header__languages',
-            items: this.getLanguageList(),
-            selectedIndex: Object.keys(codeLanguages).map((key) => codeLanguages[key]).indexOf(this.getPropLanguage()),
+            language: this.props.config.language,
             onChange: this.changeLanguage.bind(this)
         };
     }
 
-    getLanguageList() {
-        return Object.keys(codeLanguages).map((language) => {
-            return {
-                content: language,
-                icon: codeLanguages[language]
-            };
-        });
-    }
-
-    getPropLanguage() {
-        let language = this.props.config.language;
-
-        if (language === 'en') {
-            language = 'us';
-        }
-
-        return language;
-    }
-
-    changeLanguage(event) {
-        let language = codeLanguages[Object.keys(codeLanguages)[event.index]];
-
-        if (language === 'us') {
-            language = 'en';
-        }
-
+    changeLanguage(language) {
         this.props.dispatch(ConfigActions.changeLanguage(language));
     }
 }
