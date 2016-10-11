@@ -12,15 +12,28 @@ class AdminPanelCustomResponses extends React.Component {
         return (
             <div className="admin-panel-custom-responses">
                 <Header title={i18n('CUSTOM_RESPONSES')} description={i18n('CUSTOM_RESPONSES_DESCRIPTION')} />
-                <div className="row">
-                    <div className="col-md-3">
-                        <Loading />
-                        <Listing {...this.getListingProps()}/>
-                    </div>
-                    <div className="col-md-9">
-                        Custom response form
-                    </div>
+                {(this.props.loaded) ? this.renderContent() : this.renderLoading()}
+            </div>
+        );
+    }
+
+    renderContent() {
+        return (
+            <div className="row">
+                <div className="col-md-3">
+                    <Listing {...this.getListingProps()}/>
                 </div>
+                <div className="col-md-9">
+                    Custom response form
+                </div>
+            </div>
+        );
+    }
+
+    renderLoading() {
+        return (
+            <div className="admin-panel-custom-responses__loading">
+                <Loading backgrounded size="large"/>
             </div>
         );
     }

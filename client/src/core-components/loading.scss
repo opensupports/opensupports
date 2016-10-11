@@ -6,7 +6,7 @@ $color: white;
     height: 100%;
     position: relative;
 
-    &-icon {
+    &__icon {
         position: absolute;
         top: 0;
         bottom: 0;
@@ -30,6 +30,24 @@ $color: white;
             width: 30px;
             height: 30px;
         }
+    }
+
+    &_large {
+
+        .loading__icon,
+        .loading__icon:after {
+            font-size: 7px;
+            width: 60px;
+            height: 60px;
+        }
+    }
+
+    &_backgrounded {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 4px;
+        background-color: rgba(black, 0.2);
     }
 
     @-webkit-keyframes turnAnimation {
