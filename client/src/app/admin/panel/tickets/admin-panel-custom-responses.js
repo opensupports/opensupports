@@ -4,6 +4,7 @@ import i18n from 'lib-app/i18n';
 
 import Header from 'core-components/header';
 import Listing from 'core-components/listing';
+import Loading from 'core-components/loading';
 
 class AdminPanelCustomResponses extends React.Component {
 
@@ -13,6 +14,7 @@ class AdminPanelCustomResponses extends React.Component {
                 <Header title={i18n('CUSTOM_RESPONSES')} description={i18n('CUSTOM_RESPONSES_DESCRIPTION')} />
                 <div className="row">
                     <div className="col-md-3">
+                        <Loading />
                         <Listing {...this.getListingProps()}/>
                     </div>
                     <div className="col-md-9">

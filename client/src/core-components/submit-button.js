@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 // CORE LIBS
 import Button from 'core-components/button';
+import Loading from 'core-components/loading';
 
 class SubmitButton extends React.Component {
 
@@ -30,7 +31,7 @@ class SubmitButton extends React.Component {
 
     renderLoading() {
         return (
-            <div className="submit-button__loader"></div>
+            <Loading className="submit-button__loader" />
         );
     }
 

@@ -30,7 +30,8 @@
         background-color: $secondary-blue;
     }
 
-    &_disabled {
+    &_disabled,
+    &_disabled:hover {
         background-color: #ec9696;
     }
 
