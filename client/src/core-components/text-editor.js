@@ -37,7 +37,7 @@ class TextEditor extends React.Component {
     getEditorProps() {
         return {
             className: 'text-editor__editor',
-            value: this.state.value,
+            value: this.props.value || this.state.value,
             ref: 'editor',
             onChange: this.onEditorChange.bind(this),
             onFocus: this.onEditorFocus.bind(this),

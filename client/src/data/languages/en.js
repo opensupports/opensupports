@@ -55,7 +55,8 @@ export default {
     'MEDIUM': 'Medium',
     'LOW': 'Low',
     'TITLE': 'Title',
-    
+    'CONTENT': 'Content',
+
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
     'TICKET_LIST_DESCRIPTION': 'Here you can find a list of all tickets you have sent to our support team.',
@@ -86,5 +87,6 @@ export default {
     'ARE_YOU_SURE': 'Are you sure?',
     'EMAIL_CHANGED': 'Email has been changed successfully',
     'PASSWORD_CHANGED': 'Password has been changed successfully',
-    'OLD_PASSWORD_INCORRECT': 'Old password is incorrect'
+    'OLD_PASSWORD_INCORRECT': 'Old password is incorrect',
+    'WILL_LOSE_CHANGES': 'You haven\'t save. Your changes will be lost.'
 };

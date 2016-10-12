@@ -4,7 +4,7 @@ import classNames         from 'classnames';
 import { connect }        from 'react-redux'
 import { browserHistory } from 'react-router';
 
-import ModalContainer from 'app/modal-container';
+import ModalContainer from 'app-components/modal-container';
 
 class App extends React.Component {
     static contextTypes = {

@@ -3,7 +3,7 @@
 const React = require('react');
 const DocumentTitle = require('react-document-title');
 
-const ModalContainer = require('app/modal-container');
+const ModalContainer = require('app-components/modal-container');
 const AreYouSure = require('app-components/are-you-sure');
 
 const Button = require('core-components/button');
