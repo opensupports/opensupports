@@ -10,6 +10,7 @@ import ModalContainer from 'app-components/modal-container';
 import AreYouSure from 'app-components/are-you-sure';
 
 import Icon from 'core-components/icon';
+import Button from 'core-components/button';
 import Header from 'core-components/header';
 import Listing from 'core-components/listing';
 import Loading from 'core-components/loading';
@@ -54,7 +55,17 @@ class AdminPanelCustomResponses extends React.Component {
                     <Form {...this.getFormProps()}>
                         <FormField label={i18n('TITLE')} name="title" validation="TITLE" required fieldProps={{size: 'large'}}/>
                         <FormField label={i18n('CONTENT')} name="content" validation="TEXT_AREA" required field="textarea" />
-                        <SubmitButton>{i18n('SAVE')}</SubmitButton>
+                        <div className="admin-panel-custom-responses__actions">
+                            <div className="admin-panel-custom-responses__save-button">
+                                <SubmitButton type="secondary" size="small">{i18n('SAVE')}</SubmitButton>
+                            </div>
+                            <div className="admin-panel-custom-responses__discard-button">
+                                <Button>{i18n('DISCARD_CHANGES')}</Button>
+                            </div>
+                            <div className="admin-panel-custom-responses__delete-button">
+                                <Button size="small">{i18n('DELETE')}</Button>
+                            </div>
+                        </div>
                     </Form>
                 </div>
             </div>

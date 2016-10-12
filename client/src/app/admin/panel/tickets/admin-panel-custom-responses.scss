@@ -6,4 +6,22 @@
     &__item-flag {
         float: right;
     }
+
+    &__actions {
+        text-align: left;
+    }
+
+    &__save-button {
+        display: inline-block;
+        margin-right: 30px;
+    }
+
+    &__discard-button {
+        display: inline-block;
+    }
+
+    &__delete-button {
+        display: inline-block;
+        float: right;
+    }
 }
