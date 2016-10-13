@@ -43,13 +43,13 @@ class MainLayoutHeader extends React.Component {
     getLanguageSelectorProps() {
         return {
             className: 'main-layout-header__languages',
-            language: this.props.config.language,
+            value: this.props.config.language,
             onChange: this.changeLanguage.bind(this)
         };
     }
 
-    changeLanguage(language) {
-        this.props.dispatch(ConfigActions.changeLanguage(language));
+    changeLanguage(event) {
+        this.props.dispatch(ConfigActions.changeLanguage(event.target.value));
     }
 }
 

@@ -14,6 +14,7 @@ class FormField extends React.Component {
     };
 
     static propTypes = {
+        decorator: React.PropTypes.func,
         validation: React.PropTypes.string,
         onChange: React.PropTypes.func,
         onBlur: React.PropTypes.func,
@@ -62,12 +63,16 @@ class FormField extends React.Component {
     }
 
     renderField() {
-        const Field = {
+        let Field = {
             'input': Input,
             'textarea': TextEditor,
             'select': DropDown,
             'checkbox': Checkbox
         }[this.props.field];
+
+        if(this.props.decorator) {
+            Field = this.props.decorator;
+        }
 
         return <Field {...this.getFieldProps()} />;
     }

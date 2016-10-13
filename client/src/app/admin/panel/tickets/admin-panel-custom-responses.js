@@ -8,6 +8,7 @@ import API from 'lib-app/api-call';
 import AdminDataActions from 'actions/admin-data-actions';
 
 import AreYouSure from 'app-components/are-you-sure';
+import LanguageSelector from 'app-components/language-selector';
 
 import Icon from 'core-components/icon';
 import Button from 'core-components/button';
@@ -28,7 +29,11 @@ class AdminPanelCustomResponses extends React.Component {
         selectedIndex: -1,
         edited: false,
         errors: {},
-        form: {}
+        form: {
+            title: '',
+            content: RichTextEditor.createEmptyValue(),
+            language: 'en'
+        }
     };
     
     componentDidMount() {
@@ -54,7 +59,14 @@ class AdminPanelCustomResponses extends React.Component {
                 </div>
                 <div className="col-md-9">
                     <Form {...this.getFormProps()}>
-                        <FormField label={i18n('TITLE')} name="title" validation="TITLE" required fieldProps={{size: 'large'}}/>
+                        <div className="row">
+                            <div className="col-md-7">
+                                <FormField label={i18n('TITLE')} name="title" validation="TITLE" required fieldProps={{size: 'large'}}/>
+                            </div>
+                            <div className="col-md-5">
+                                <FormField label={i18n('LANGUAGE')} name="language" field="input" decorator={LanguageSelector} fieldProps={{size: 'medium'}} />
+                            </div>
+                        </div>
                         <FormField label={i18n('CONTENT')} name="content" validation="TEXT_AREA" required field="textarea" />
                         <div className="admin-panel-custom-responses__actions">
                             <div className="admin-panel-custom-responses__save-button">
@@ -154,7 +166,6 @@ class AdminPanelCustomResponses extends React.Component {
             API.call({
                 path: '/ticket/add-custom-response',
                 data: {
-                    id: this.state.selectedIndex,
                     name: form.title,
                     content: form.content,
                     language: form.language
@@ -188,6 +199,7 @@ class AdminPanelCustomResponses extends React.Component {
 
         form.title = (this.props.items[index] && this.props.items[index].name) || '';
         form.content = RichTextEditor.createValueFromString((this.props.items[index] && this.props.items[index].content) || '', 'html');
+        form.language = (this.props.items[index] && this.props.items[index].language) || 'en';
 
         this.setState({
             selectedIndex: index,

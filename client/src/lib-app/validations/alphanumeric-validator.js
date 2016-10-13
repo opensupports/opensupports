@@ -8,7 +8,7 @@ class AlphaNumericValidator extends Validator {
     }
 
     validate(value, form) {
-        let alphaMatch = /^[ A-Za-z0-9_@./#&+-]*$/;
+        let alphaMatch = /^[ A-Za-z0-9_@./#&+-äöüÄÖÜß]*$/;
 
         if (!alphaMatch.test(value)) return this.getError(this.errorKey);
     }

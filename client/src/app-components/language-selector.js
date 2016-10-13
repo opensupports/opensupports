@@ -16,7 +16,7 @@ const languageCodes = Object.values(codeLanguages).concat(['en']);
 
 class LanguageSelector extends React.Component {
     static propTypes = {
-        language: React.PropTypes.oneOf(languageCodes)
+        value: React.PropTypes.oneOf(languageCodes)
     };
 
     render() {
@@ -30,7 +30,8 @@ class LanguageSelector extends React.Component {
             className: this.getClass(),
             items: this.getLanguageList(),
             selectedIndex: this.getSelectedIndex(),
-            onChange: this.changeLanguage.bind(this)
+            onChange: this.changeLanguage.bind(this),
+            size: this.props.size
         };
     }
 
@@ -60,7 +61,7 @@ class LanguageSelector extends React.Component {
     }
 
     getPropLanguage() {
-        let language = this.props.language;
+        let language = this.props.value;
 
         if (language === 'en') {
             language = 'us';
@@ -77,7 +78,11 @@ class LanguageSelector extends React.Component {
         }
 
         if (this.props.onChange) {
-            this.props.onChange(language);
+            this.props.onChange({
+                target: {
+                    value: language
+                }
+            });
         }
     }
 }
