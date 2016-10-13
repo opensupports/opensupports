@@ -91,5 +91,6 @@ export default {
     'EMAIL_CHANGED': 'Email has been changed successfully',
     'PASSWORD_CHANGED': 'Password has been changed successfully',
     'OLD_PASSWORD_INCORRECT': 'Old password is incorrect',
-    'WILL_LOSE_CHANGES': 'You haven\'t save. Your changes will be lost.'
+    'WILL_LOSE_CHANGES': 'You haven\'t save. Your changes will be lost.',
+    'WILL_DELETE_CUSTOM_RESPONSE': 'The custom response will be deleted.'
 };

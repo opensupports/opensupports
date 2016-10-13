@@ -47,5 +47,35 @@ module.exports = [
                 ]
             };
         }
+    },
+    {
+        path: '/ticket/add-custom-response',
+        time: 1000,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/ticket/edit-custom-response',
+        time: 1000,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/ticket/delete-custom-response',
+        time: 1000,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
     }
 ];

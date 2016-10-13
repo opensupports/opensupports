@@ -2,6 +2,7 @@ import React from 'react';
 
 import i18n from 'lib-app/i18n';
 import Button from 'core-components/button';
+import ModalContainer from 'app-components/modal-container';
 
 class AreYouSure extends React.Component {
     static propTypes = {
@@ -12,6 +13,12 @@ class AreYouSure extends React.Component {
     static contextTypes = {
         closeModal: React.PropTypes.func
     };
+    
+    static openModal(description, onYes) {
+        ModalContainer.openModal(
+            <AreYouSure description={description} onYes={onYes} />
+        );
+    }
 
     componentDidMount() {
         this.refs.yesButton && this.refs.yesButton.focus();

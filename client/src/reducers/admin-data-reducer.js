@@ -1,7 +1,6 @@
 import _ from 'lodash';
 
 import Reducer from 'reducers/reducer';
-//import sessionStore from 'lib-app/session-store';
 
 class AdminDataReducer extends Reducer {
 
@@ -19,8 +18,6 @@ class AdminDataReducer extends Reducer {
     }
 
     onCustomResponses(state, payload) {
-        //sessionStore.setItem('language', payload);
-
         return _.extend({}, state, {
             customResponses: payload.data,
             customResponsesLoaded: true

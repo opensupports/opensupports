@@ -12,10 +12,11 @@ const codeLanguages = {
     'Indian': 'in'
 };
 const languages = Object.keys(codeLanguages);
+const languageCodes = Object.values(codeLanguages).concat(['en']);
 
 class LanguageSelector extends React.Component {
     static propTypes = {
-        language: React.PropTypes.oneOf(languages)
+        language: React.PropTypes.oneOf(languageCodes)
     };
 
     render() {
