@@ -53,4 +53,18 @@ describe 'CustomResponses' do
             (result['data'][0]['language']).should.equal('en')
         end
     end
+
+    describe '/ticket/delete-custom-responses/' do
+        it 'should delete custom response' do
+            result = request('/ticket/delete-custom-response', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                id: 1
+            })
+
+            (result['status']).should.equal('success')
+            customResponse = $database.getRow('customresponse', 1)
+            (customResponse).should.equal(nil)
+        end
+    end
 end
