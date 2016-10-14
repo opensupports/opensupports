@@ -1,9 +1,10 @@
 'use strict';
 
 const React = require('react');
+const _ = require('lodash');
 const DocumentTitle = require('react-document-title');
 
-const ModalContainer = require('app/modal-container');
+const ModalContainer = require('app-components/modal-container');
 const AreYouSure = require('app-components/are-you-sure');
 
 const Button = require('core-components/button');
@@ -120,6 +121,20 @@ let DemoPage = React.createClass({
                     );
                 }}>
                     Open Modal
+                </Button>
+            )
+        },
+        {
+            title: 'ModalTrigger Large',
+            render: (
+                <Button onClick={function () {
+                    ModalContainer.openModal(
+                        <div>
+                            {_.range(1, 60).map(() => <div>Some modal content</div>)}
+                        </div>
+                    );
+                }}>
+                    Open Large Modal
                 </Button>
             )
         },

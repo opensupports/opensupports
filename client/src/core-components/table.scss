@@ -48,4 +48,15 @@
     &__navigation {
         margin-top: 10px;
     }
+
+    &__loading-wrapper {
+        min-height: 200px;
+    }
+
+    &__loading {
+        position: initial;
+        width: initial;
+        height: initial;
+        margin: auto;
+    }
 }

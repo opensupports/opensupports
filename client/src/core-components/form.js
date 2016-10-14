@@ -14,6 +14,8 @@ class Form extends React.Component {
         loading: React.PropTypes.bool,
         errors: React.PropTypes.object,
         onValidateErrors: React.PropTypes.func,
+        onChange: React.PropTypes.func,
+        values: React.PropTypes.object,
         onSubmit: React.PropTypes.func
     };
 
@@ -58,6 +60,8 @@ class Form extends React.Component {
         delete props.errors;
         delete props.loading;
         delete props.onValidateErrors;
+        delete props.values;
+        delete props.onChange;
 
         return props;
     }
@@ -80,7 +84,7 @@ class Form extends React.Component {
 
             additionalProps = {
                 ref: fieldName,
-                value: this.state.form[fieldName] || props.value,
+                value: this.getFormValue()[fieldName],
                 error: this.getFieldError(fieldName),
                 onChange: this.handleFieldChange.bind(this, fieldName),
                 onBlur: this.validateField.bind(this, fieldName)
@@ -111,8 +115,8 @@ class Form extends React.Component {
     }
 
     getAllFieldErrors() {
-        let form = this.state.form;
-        let fields = Object.keys(this.state.form);
+        let form = this.getFormValue();
+        let fields = Object.keys(form);
         let errors = {};
 
         _.each(fields, (fieldName) => {
@@ -122,7 +126,7 @@ class Form extends React.Component {
         return errors;
     }
 
-    getErrorsWithValidatedField(fieldName, form = this.state.form, errors = this.state.errors) {
+    getErrorsWithValidatedField(fieldName, form = this.getFormValue(), errors = this.state.errors) {
         let newErrors = _.clone(errors);
 
         if (this.state.validations[fieldName]) {
@@ -156,7 +160,7 @@ class Form extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        const form = _.mapValues(this.state.form, (field) => {
+        const form = _.mapValues(this.getFormValue(), (field) => {
             if (field instanceof RichTextEditor.EditorValue) {
                 return field.toString('html');
             } else {
@@ -172,13 +176,18 @@ class Form extends React.Component {
     }
 
     handleFieldChange(fieldName, event) {
-        let form = _.clone(this.state.form);
+        let form = _.clone(this.getFormValue());
 
         form[fieldName] = event.target.value;
 
         this.setState({
             form: form
         });
+
+
+        if (this.props.onChange) {
+            this.props.onChange(form);
+        }
     }
 
     isValidField(node) {
@@ -201,6 +210,10 @@ class Form extends React.Component {
         if (this.props.onValidateErrors) {
             this.props.onValidateErrors(errors);
         }
+    }
+
+    getFormValue() {
+        return this.props.values || this.state.form;
     }
 
     focusFirstErrorField() {

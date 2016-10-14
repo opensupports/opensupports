@@ -1,0 +1,25 @@
+@import "../scss/vars";
+
+.listing {
+    border: 2px solid $grey;
+    min-height: 300px;
+
+    &__header {
+        padding: 15px 0;
+    }
+
+    &__menu {
+        text-align: left;
+    }
+
+    &__add {
+
+        &-button {
+            border-radius: 0;
+            height: 36px;
+            font-size: $font-size--sm;
+            text-transform: none;
+            width: 100%;
+        }
+    }
+}

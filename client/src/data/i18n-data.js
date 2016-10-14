@@ -17,7 +17,7 @@ const languages = {
 };
 
 const i18nData = function (key, lang) {
-    return languages[lang][key];
+    return (languages[lang] && languages[lang][key]) || key;
 };
 
 export default i18nData

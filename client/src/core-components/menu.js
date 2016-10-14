@@ -11,9 +11,9 @@ class Menu extends React.Component {
         id: React.PropTypes.string,
         itemsRole: React.PropTypes.string,
         header: React.PropTypes.string,
-        type: React.PropTypes.oneOf(['primary', 'secondary', 'navigation']),
+        type: React.PropTypes.oneOf(['primary', 'secondary', 'navigation', 'horizontal', 'horizontal-list']),
         items: React.PropTypes.arrayOf(React.PropTypes.shape({
-            content: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+            content: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number, React.PropTypes.node]),
             icon: React.PropTypes.string
         })).isRequired,
         selectedIndex: React.PropTypes.number,

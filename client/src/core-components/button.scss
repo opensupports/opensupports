@@ -20,18 +20,31 @@
             background-color: lighten($primary-red, 5%);
             outline: none;
         }
+
+
+        &.button_disabled,
+        &.button_disabled:hover {
+            background-color: lighten($primary-red, 15%);
+        }
     }
 
     &_secondary {
         background-color: $primary-green;
+
+
+        &.button_disabled,
+        &.button_disabled:hover {
+            background-color: lighten($primary-green, 15%);
+        }
     }
 
     &_tertiary {
         background-color: $secondary-blue;
-    }
 
-    &_disabled {
-        background-color: #ec9696;
+        &.button_disabled,
+        &.button_disabled:hover {
+            background-color: lighten($secondary-blue, 15%);
+        }
     }
 
     &_small {

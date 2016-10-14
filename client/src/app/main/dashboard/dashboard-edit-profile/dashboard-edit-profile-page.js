@@ -1,15 +1,16 @@
 import React from 'react';
 
 import API from 'lib-app/api-call';
+import i18n from 'lib-app/i18n';
+
+import ModalContainer from 'app-components/modal-container';
+import AreYouSure from 'app-components/are-you-sure';
 
 import Header from 'core-components/header';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
-import ModalContainer from 'app/modal-container';
-import AreYouSure from 'app-components/are-you-sure';
 import Message from 'core-components/message';
-import i18n from 'lib-app/i18n';
 
 class DashboardEditProfilePage extends React.Component {
 

@@ -18,14 +18,8 @@ export default {
     'EDIT_PROFILE': 'Edit Profile',
     'CLOSE_SESSION': 'Close session',
     'CREATE_TICKET': 'Create Ticket',
-    'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
     'TICKET_LIST': 'Ticket List',
-    'TICKET_LIST_DESCRIPTION': 'Here you can find a list of all tickets you have sent to our support team.',
-    'TICKETS_DESCRIPTION': 'Send ticket through our support center and get response of your doubts, suggestions and issues.',
-    'ARTICLES_DESCRIPTION': 'Take a look to our articles about common issues, guides and documentation.',
-    'ACCOUNT_DESCRIPTION': 'All your tickets are stored in your accounts\'s profile. Keep track off all your tickets you send to our staff team.',
     'SUPPORT_CENTER': 'Support Center',
-    'SUPPORT_CENTER_DESCRIPTION': 'Welcome to our support center. You can contact us through a tickets system. Your tickets will be answered by our staff.',
     'DEPARTMENT': 'Department',
     'AUTHOR': 'Author',
     'DATE': 'Date',
@@ -61,6 +55,20 @@ export default {
     'MEDIUM': 'Medium',
     'LOW': 'Low',
     'TITLE': 'Title',
+    'CONTENT': 'Content',
+    'SAVE': 'Save',
+    'DISCARD_CHANGES': 'Discard changes',
+    'DELETE': 'Delete',
+    'LANGUAGE': 'Language',
+
+    //VIEW DESCRIPTIONS
+    'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
+    'TICKET_LIST_DESCRIPTION': 'Here you can find a list of all tickets you have sent to our support team.',
+    'TICKETS_DESCRIPTION': 'Send ticket through our support center and get response of your doubts, suggestions and issues.',
+    'ARTICLES_DESCRIPTION': 'Take a look to our articles about common issues, guides and documentation.',
+    'ACCOUNT_DESCRIPTION': 'All your tickets are stored in your accounts\'s profile. Keep track off all your tickets you send to our staff team.',
+    'SUPPORT_CENTER_DESCRIPTION': 'Welcome to our support center. You can contact us through a tickets system. Your tickets will be answered by our staff.',
+    'CUSTOM_RESPONSES_DESCRIPTION': 'Custom responses are automated responses for common problems',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
@@ -83,5 +91,7 @@ export default {
     'ARE_YOU_SURE': 'Are you sure?',
     'EMAIL_CHANGED': 'Email has been changed successfully',
     'PASSWORD_CHANGED': 'Password has been changed successfully',
-    'OLD_PASSWORD_INCORRECT': 'Old password is incorrect'
+    'OLD_PASSWORD_INCORRECT': 'Old password is incorrect',
+    'WILL_LOSE_CHANGES': 'You haven\'t save. Your changes will be lost.',
+    'WILL_DELETE_CUSTOM_RESPONSE': 'The custom response will be deleted.'
 };
