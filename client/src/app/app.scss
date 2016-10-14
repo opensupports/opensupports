@@ -2,11 +2,4 @@
 
 .application {
     padding: $half-space;
-
-    &_modal-opened {
-        .application__content {
-            position: fixed;
-            overflow: hidden;
-        }
-    }
 }

@@ -19,6 +19,8 @@ class ModalReducer extends Reducer {
     }
 
     onOpenModal(state, payload) {
+        document.body.setAttribute('style', 'overflow:hidden');
+
         return _.extend({}, state, {
             opened: true,
             content: payload
@@ -26,6 +28,8 @@ class ModalReducer extends Reducer {
     }
 
     onCloseModal(state) {
+        document.body.setAttribute('style', '');
+        
         return _.extend({}, state, {
             opened: false,
             content: null
