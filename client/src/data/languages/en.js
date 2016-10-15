@@ -60,6 +60,12 @@ export default {
     'DISCARD_CHANGES': 'Discard changes',
     'DELETE': 'Delete',
     'LANGUAGE': 'Language',
+    'OWNER': 'Owner',
+    'OWNED': 'Owned',
+    'STATUS': 'Status',
+    'NONE': 'None',
+    'OPEN': 'Open',
+    'CLOSED': 'Closed',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
