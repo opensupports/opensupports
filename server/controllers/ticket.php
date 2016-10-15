@@ -9,6 +9,7 @@ include 'ticket/get-custom-responses.php';
 include 'ticket/change-department.php';
 include 'ticket/close.php';
 include 'ticket/re-open.php';
+include 'ticket/change-priority.php';
 
 $ticketControllers = new ControllerGroup();
 $ticketControllers->setGroupPath('/ticket');
@@ -23,4 +24,6 @@ $ticketControllers->addController(new GetCustomResponsesController);
 $ticketControllers->addController(new ChangeDepartmentController);
 $ticketControllers->addController(new CloseController);
 $ticketControllers->addController(new ReOpenController);
+$ticketControllers->addController(new ChangePriorityController);
+
 $ticketControllers->finalize();
