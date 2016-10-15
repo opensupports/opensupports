@@ -29,4 +29,6 @@ require './staff/get.rb'
 require './staff/assign-ticket.rb'
 require './staff/un-assign-ticket.rb'
 require './staff/get-tickets.rb'
+require './ticket/change-priority.rb'
+
 
