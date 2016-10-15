@@ -159,28 +159,98 @@ module.exports = [
                                 name: 'Steve Jobs',
                                 email: 'steve@jobs.com'
                             },
-                            comments: [
+                            actions: [
                                 {
-                                    content: 'Do you have apache installed? It generally happens if you dont have apache.',
+                                    type: 'ASSIGN',
+                                    date: 20150409,
                                     author: {
-                                        id: 15,
-                                        name: 'Steve Jobs',
+                                        name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
+                                        profilePic: 'http://i65.tinypic.com/9bep95.jpg',
                                         staff: true
-                                    },
-                                    date: '12 Dec 2016',
-                                    file: ''
+                                    }
                                 },
                                 {
+                                    type: 'COMMENT',
+                                    date: 20150409,
+                                    content: 'Do you have apache installed? It generally happens if you dont have apache.',
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'UN_ASSIGN',
+                                    date: 20150410,
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'DEPARTMENT_CHANGED',
+                                    date: 20150411,
+                                    content: 'System support',
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'COMMENT',
+                                    date: 20150412,
                                     content: 'I have already installed apache, but the problem persists',
                                     author: {
-                                        id: 12,
                                         name: 'Haskell Curry',
                                         steve: 'haskell@lambda.com',
                                         staff: false
-                                    },
-                                    date: '12 Dec 2016',
-                                    file: ''
+                                    }
+                                },
+                                {
+                                    type: 'PRIORITY_CHANGED',
+                                    date: 20150413,
+                                    content: 'MEDIUM',
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'COMMENT',
+                                    date: 20150511,
+                                    content: 'Thanks!, I soved it by myself',
+                                    author: {
+                                        name: 'Haskell Curry',
+                                        steve: 'haskell@lambda.com',
+                                        staff: false
+                                    }
+                                },
+                                {
+                                    type: 'CLOSE',
+                                    date: 20150513,
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'RE_OPEN',
+                                    date: 20151018,
+                                    author: {
+                                        name: 'Haskell Curry',
+                                        email: 'haskell@lambda.com',
+                                        staff: false
+                                    }
                                 }
                             ]
                         },
@@ -205,34 +275,110 @@ module.exports = [
                             owner: {
                                 name: 'Steve Jobs'
                             },
-                            comments: [
+                            actions: [
                                 {
-                                    content: 'Do you have apache installed? It generally happens if you dont have apache.',
+                                    type: 'ASSIGN',
+                                    date: 20150409,
                                     author: {
-                                        name: 'Steve Jobs',
+                                        name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
+                                        profilePic: 'http://i65.tinypic.com/9bep95.jpg',
                                         staff: true
                                     }
                                 },
                                 {
+                                    type: 'COMMENT',
+                                    date: 20150409,
+                                    content: 'Do you have apache installed? It generally happens if you dont have apache.',
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'UN_ASSIGN',
+                                    date: 20150410,
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'DEPARTMENT_CHANGED',
+                                    date: 20150411,
+                                    content: 'System support',
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'COMMENT',
+                                    date: 20150412,
                                     content: 'I have already installed apache, but the problem persists',
                                     author: {
                                         name: 'Haskell Curry',
                                         steve: 'haskell@lambda.com',
                                         staff: false
                                     }
+                                },
+                                {
+                                    type: 'PRIORITY_CHANGED',
+                                    date: 20150413,
+                                    content: 'MEDIUM',
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'COMMENT',
+                                    date: 20150511,
+                                    content: 'Thanks!, I soved it by myself',
+                                    author: {
+                                        name: 'Haskell Curry',
+                                        steve: 'haskell@lambda.com',
+                                        staff: false
+                                    }
+                                },
+                                {
+                                    type: 'CLOSE',
+                                    date: 20150513,
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'RE_OPEN',
+                                    date: 20151018,
+                                    author: {
+                                        name: 'Haskell Curry',
+                                        email: 'haskell@lambda.com',
+                                        staff: false
+                                    }
                                 }
                             ]
                         },
                         {
-                            ticketNumber: '878552',
+                            ticketNumber: '118551',
                             title: 'Lorem ipsum door',
                             content: 'I had a problem with the installation of the php server',
                             department: {
                                 id: 2,
                                 name: 'Environment Setup'
                             },
-                            date: '15 Apr 2016',
+                            date: 20150409,
                             file: 'http://www.opensupports.com/some_file.zip',
                             language: 'en',
                             unread: false,
@@ -245,20 +391,96 @@ module.exports = [
                             owner: {
                                 name: 'Steve Jobs'
                             },
-                            comments: [
+                            actions: [
                                 {
-                                    content: 'Do you have apache installed? It generally happens if you dont have apache.',
+                                    type: 'ASSIGN',
+                                    date: 20150409,
                                     author: {
-                                        name: 'Steve Jobs',
+                                        name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
+                                        profilePic: 'http://i65.tinypic.com/9bep95.jpg',
                                         staff: true
                                     }
                                 },
                                 {
+                                    type: 'COMMENT',
+                                    date: 20150409,
+                                    content: 'Do you have apache installed? It generally happens if you dont have apache.',
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'UN_ASSIGN',
+                                    date: 20150410,
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'DEPARTMENT_CHANGED',
+                                    date: 20150411,
+                                    content: 'System support',
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'COMMENT',
+                                    date: 20150412,
                                     content: 'I have already installed apache, but the problem persists',
                                     author: {
                                         name: 'Haskell Curry',
                                         steve: 'haskell@lambda.com',
+                                        staff: false
+                                    }
+                                },
+                                {
+                                    type: 'PRIORITY_CHANGED',
+                                    date: 20150413,
+                                    content: 'MEDIUM',
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'COMMENT',
+                                    date: 20150511,
+                                    content: 'Thanks!, I soved it by myself',
+                                    author: {
+                                        name: 'Haskell Curry',
+                                        steve: 'haskell@lambda.com',
+                                        staff: false
+                                    }
+                                },
+                                {
+                                    type: 'CLOSE',
+                                    date: 20150513,
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'RE_OPEN',
+                                    date: 20151018,
+                                    author: {
+                                        name: 'Haskell Curry',
+                                        email: 'haskell@lambda.com',
                                         staff: false
                                     }
                                 }
