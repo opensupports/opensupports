@@ -13,10 +13,12 @@ import SubmitButton       from 'core-components/submit-button';
 
 class TicketViewer extends React.Component {
     static propTypes = {
-        ticket: React.PropTypes.object
+        ticket: React.PropTypes.object,
+        editable: React.PropTypes.bool
     };
 
     static defaultProps = {
+        editable: false,
         ticket: {
             author: {},
             department: {},
@@ -50,6 +52,20 @@ class TicketViewer extends React.Component {
                 <div className="ticket-viewer__info-row-values row">
                     <div className="ticket-viewer__department col-md-4">{ticket.department.name}</div>
                     <div className="ticket-viewer__author col-md-4">{ticket.author.name}</div>
+                    <div className="ticket-viewer__date col-md-4">{ticket.date}</div>
+                </div>
+                <div className="ticket-viewer__info-row-header row">
+                    <div className="ticket-viewer__department col-md-4">{i18n('PRIORITY')}</div>
+                    <div className="ticket-viewer__author col-md-4">{i18n('OWNER')}</div>
+                    <div className="ticket-viewer__date col-md-4">{i18n('STATUS')}</div>
+                </div>
+                <div className="ticket-viewer__info-row-values row">
+                    <div className="ticket-viewer__department col-md-4">
+                        {ticket.priority}
+                    </div>
+                    <div className="ticket-viewer__author col-md-4">
+                        {i18n((ticket.closed) ? 'CLOSED' : 'OPEN')}
+                    </div>
                     <div className="ticket-viewer__date col-md-4">{ticket.date}</div>
                 </div>
                 <div className="ticket-viewer__content">
