@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import {connect} from 'react-redux';
 
-import TicketViewer from 'app/main/dashboard/dashboard-ticket/ticket-viewer';
+import TicketViewer from 'app-components/ticket-viewer';
 
 class DashboardTicketPage extends React.Component {
 
