@@ -7,7 +7,7 @@ import store from 'app/store';
 import SessionStore       from 'lib-app/session-store';
 import SessionActions     from 'actions/session-actions';
 
-import TicketAction       from 'app-components/ticket-action';
+import TicketEvent        from 'app-components/ticket-event';
 import AreYouSure         from 'app-components/are-you-sure';
 import Form               from 'core-components/form';
 import FormField          from 'core-components/form-field';
@@ -49,10 +49,10 @@ class TicketViewer extends React.Component {
                 </div>
                 {this.props.editable ? this.renderEditableHeaders() : this.renderHeaders()}
                 <div className="ticket-viewer__content">
-                    <TicketAction type="COMMENT" author={ticket.author} content={ticket.content} date={ticket.date} file={ticket.file}/>
+                    <TicketEvent type="COMMENT" author={ticket.author} content={ticket.content} date={ticket.date} file={ticket.file}/>
                 </div>
                 <div className="ticket-viewer__comments">
-                    {ticket.actions && ticket.actions.map(this.renderAction.bind(this))}
+                    {ticket.events && ticket.events.map(this.renderTicketEvent.bind(this))}
                 </div>
                 <div className="ticket-viewer__response">
                     <div className="ticket-viewer__response-title row">{i18n('RESPOND')}</div>
@@ -162,9 +162,9 @@ class TicketViewer extends React.Component {
         );
     }
 
-    renderAction(action, index) {
+    renderTicketEvent(options, index) {
         return (
-            <TicketAction {...action} key={index} />
+            <TicketEvent {...options} key={index} />
         );
     }
 

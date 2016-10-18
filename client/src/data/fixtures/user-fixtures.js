@@ -159,7 +159,7 @@ module.exports = [
                                 name: 'Steve Jobs',
                                 email: 'steve@jobs.com'
                             },
-                            actions: [
+                            events: [
                                 {
                                     type: 'ASSIGN',
                                     date: 20150409,
@@ -275,7 +275,7 @@ module.exports = [
                             owner: {
                                 name: 'Steve Jobs'
                             },
-                            actions: [
+                            events: [
                                 {
                                     type: 'ASSIGN',
                                     date: 20150409,
@@ -391,7 +391,7 @@ module.exports = [
                             owner: {
                                 name: 'Steve Jobs'
                             },
-                            actions: [
+                            events: [
                                 {
                                     type: 'ASSIGN',
                                     date: 20150409,

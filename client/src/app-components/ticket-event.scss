@@ -1,6 +1,6 @@
 @import "../scss/vars";
 
-.ticket-action {
+.ticket-event {
     margin-top: 20px;
     text-align: left;
     position: relative;
@@ -91,11 +91,11 @@
     }
 
     &_staff {
-        .ticket-action__icon {
+        .ticket-event__icon {
             background-color: $primary-blue;
         }
 
-        .ticket-action__comment-author-type {
+        .ticket-event__comment-author-type {
             color: $primary-blue;
         }
     }
@@ -104,11 +104,11 @@
         margin-top: 35px;
         margin-bottom: 30px;
 
-        .ticket-action__connector {
+        .ticket-event__connector {
             top: 28px;
         }
 
-        .ticket-action__icon {
+        .ticket-event__icon {
             background-color: white;
             color: $primary-black;
             border: 3px solid $light-grey;
@@ -121,48 +121,48 @@
             margin-top: -8px;
         }
 
-        .ticket-action__circled {
+        .ticket-event__circled {
             color: $primary-black;
             font-size: $font-size--sm;
             margin-top: 1px;
         }
 
-        .ticket-action__circled-author {
+        .ticket-event__circled-author {
             color: $secondary-blue;
         }
 
-        .ticket-action__circled-indication {
+        .ticket-event__circled-indication {
             color: $primary-green;
         }
     }
 
     &_unassignment {
-        .ticket-action__icon {
+        .ticket-event__icon {
             padding-left: 6px;
         }
     }
 
     &_close {
-        .ticket-action__icon {
+        .ticket-event__icon {
             padding-left: 9px;
         }
     }
 
     &_reopen {
-        .ticket-action__icon {
+        .ticket-event__icon {
             padding-left: 9px;
             padding-top: 5px;
         }
     }
 
     &_department {
-        .ticket-action__icon {
+        .ticket-event__icon {
             padding-left: 6px;
         }
     }
 
     &_priority {
-        .ticket-action__icon {
+        .ticket-event__icon {
             padding-left: 11px;
             padding-top: 5px;
         }
