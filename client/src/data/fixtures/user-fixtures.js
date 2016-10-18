@@ -141,7 +141,7 @@ module.exports = [
                             content: 'I had a problem with the installation of the php server',
                             department: {
                                 id: 2,
-                                name: 'Environment Setup'
+                                name: 'Technical Issues'
                             },
                             date: '15 Apr 2016',
                             file: 'http://www.opensupports.com/some_file.zip',
@@ -259,8 +259,8 @@ module.exports = [
                             title: 'Lorem ipsum door',
                             content: 'I had a problem with the installation of the php server',
                             department: {
-                                id: 2,
-                                name: 'Environment Setup'
+                                id: 1,
+                                name: 'Sales Support'
                             },
                             date: '15 Apr 2016',
                             file: 'http://www.opensupports.com/some_file.zip',
@@ -375,8 +375,8 @@ module.exports = [
                             title: 'Lorem ipsum door',
                             content: 'I had a problem with the installation of the php server',
                             department: {
-                                id: 2,
-                                name: 'Environment Setup'
+                                id: 1,
+                                name: 'Sales Support'
                             },
                             date: 20150409,
                             file: 'http://www.opensupports.com/some_file.zip',
