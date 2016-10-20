@@ -242,7 +242,9 @@ class TicketViewer extends React.Component {
             loading: false
         });
 
-        store.dispatch(SessionActions.getUserData());
+        if(this.props.onComment) {
+            this.props.onComment();
+        }
     }
 
     onCommentFail() {
