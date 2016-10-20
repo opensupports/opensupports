@@ -10,5 +10,15 @@ export default {
                 data: {}
             })
         };
+    },
+
+    retrieveMyTickets() {
+        return {
+            type: 'MY_TICKETS',
+            payload: API.call({
+                path: '/staff/get-tickets',
+                data: {}
+            })
+        };
     }
 };

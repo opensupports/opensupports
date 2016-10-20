@@ -11,6 +11,7 @@ import DateTransformer from 'lib-core/date-transformer';
 
 class TicketList extends React.Component {
     static propTypes = {
+        loading: React.PropTypes.bool,
         tickets: React.PropTypes.arrayOf(React.PropTypes.object),
         type: React.PropTypes.oneOf([
             'primary',
@@ -26,7 +27,7 @@ class TicketList extends React.Component {
     render() {
         return (
             <div className="ticket-list">
-                <Table headers={this.getTableHeaders()} rows={this.getTableRows()} pageSize={10} comp={this.compareFunction} />
+                <Table loading={this.props.loading} headers={this.getTableHeaders()} rows={this.getTableRows()} pageSize={10} comp={this.compareFunction} />
             </div>
         );
     }
