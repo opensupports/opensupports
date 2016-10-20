@@ -137,8 +137,6 @@ class TicketList extends React.Component {
     }
 
     compareFunction(row1, row2) {
-        let ans = 0;
-
         if (row1.closed == row2.closed) {
             if (row1.unread == row2.unread) {
                 let s1 = row1.date;

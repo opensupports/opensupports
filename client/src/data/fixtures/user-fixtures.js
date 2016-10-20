@@ -43,7 +43,7 @@ module.exports = [
             return {
                 status: 'success',
                 data: {
-                    sessionActive: false
+                    sessionActive: true
                 }
             };
         }

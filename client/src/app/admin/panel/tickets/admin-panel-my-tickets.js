@@ -1,12 +1,14 @@
 import React from 'react';
 
+import i18n from 'lib-app/i18n';
+
+import Header from 'core-components/header';
+
 class AdminPanelMyTickets extends React.Component {
 
     render() {
         return (
-            <div>
-                /admin/panel/tickets/my-tickets
-            </div>
+            <Header title={i18n('MY_TICKETS')} description={i18n('MY_TICKETS_DESCRIPTION')} />
         );
     }
 }

@@ -69,6 +69,7 @@ export default {
     'ACCOUNT_DESCRIPTION': 'All your tickets are stored in your accounts\'s profile. Keep track off all your tickets you send to our staff team.',
     'SUPPORT_CENTER_DESCRIPTION': 'Welcome to our support center. You can contact us through a tickets system. Your tickets will be answered by our staff.',
     'CUSTOM_RESPONSES_DESCRIPTION': 'Custom responses are automated responses for common problems',
+    'MY_TICKETS_DESCRIPTION': 'Here you can view the tickets you are responsible for.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
