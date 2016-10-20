@@ -15,7 +15,8 @@ class Table extends React.Component {
         rows: React.PropTypes.arrayOf(React.PropTypes.object),
         pageSize: React.PropTypes.number,
         loading: React.PropTypes.bool,
-        type: React.PropTypes.oneOf(['default'])
+        type: React.PropTypes.oneOf(['default']),
+        comp: React.PropTypes.func
     };
 
     static defaultProps = {
@@ -36,7 +37,7 @@ class Table extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {(!this.props.loading) ? this.props.rows.map(this.renderRow.bind(this)) : null}
+                        {(!this.props.loading) ? this.getRows().map(this.renderRow.bind(this)) : null}
                     </tbody>
                 </table>
                 {(this.props.loading) ? this.renderLoading() : null}
@@ -111,6 +112,13 @@ class Table extends React.Component {
         
         return classNames(classes);
     }
+
+    getRows() {
+        let v = _.clone(this.props.rows);
+        v.sort(this.props.comp);
+        return v;
+    }
+
 }
 
 export default Table;
