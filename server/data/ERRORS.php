@@ -1,19 +1,22 @@
 <?php
 class ERRORS {
-    const INVALID_CREDENTIALS = 'User or password is not defined';
-    const SESSION_EXISTS = 'User is already logged in';
-    const USER_EXISTS = 'Email already exists';
-    const NO_PERMISSION = 'You have no permission to access';
-    const INVALID_TITLE = 'Invalid title';
-    const INVALID_CONTENT = 'Invalid content';
-    const INVALID_EMAIL = 'Invalid email';
-    const INVALID_PASSWORD = 'Invalid password';
-    const INVALID_NAME = 'Invalid name';
-    const INVALID_SETTING = 'Invalid setting';
-    const INVALID_DEPARTMENT = 'Invalid department';
-    const INVALID_TICKET = 'Invalid ticket';
-    const INIT_SETTINGS_DONE = 'Settings already initialized';
-    const INVALID_OLD_PASSWORD = 'Invalid old password';
-    const INVALID_CAPTCHA = 'Invalid captcha';
+    const INVALID_CREDENTIALS = 'INVALID_CREDENTIALS';
+    const SESSION_EXISTS = 'SESSION_EXISTS';
+    const USER_EXISTS = 'USER_EXISTS';
+    const NO_PERMISSION = 'NO_PERMISSION';
+    const INVALID_TITLE = 'INVALID_TITLE';
+    const INVALID_CONTENT = 'INVALID_CONTENT';
+    const INVALID_EMAIL = 'INVALID_EMAIL';
+    const INVALID_PASSWORD = 'INVALID_PASSWORD';
+    const INVALID_NAME = 'INVALID_NAME';
+    const INVALID_SETTING = 'INVALID_SETTING';
+    const INVALID_DEPARTMENT = 'INVALID_DEPARTMENT';
+    const INVALID_TICKET = 'INVALID_TICKET';
+    const INIT_SETTINGS_DONE = 'INIT_SETTINGS_DONE';
+    const INVALID_OLD_PASSWORD = 'INVALID_OLD_PASSWORD';
+    const INVALID_CAPTCHA = 'INVALID_CAPTCHA';
     const INVALID_TICKET_EVENT = 'INVALID_TICKET_EVENT';
+    const INVALID_LANGUAGE = 'INVALID_LANGUAGE';
+    const TICKET_ALREADY_ASSIGNED = 'TICKET_ALREADY_ASSIGNED';
+    const INVALID_PRIORITY = 'INVALID_PRIORITY';
 }

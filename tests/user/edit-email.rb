@@ -17,7 +17,7 @@ describe '/user/edit-email' do
             csrf_token: $csrf_token
         })
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid email')
+        (result['message']).should.equal('INVALID_EMAIL')
 
         result = request('/user/edit-email', {
             newEmail: 'newemailjobs.com',
@@ -25,7 +25,7 @@ describe '/user/edit-email' do
             csrf_token: $csrf_token
         })
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid email')
+        (result['message']).should.equal('INVALID_EMAIL')
     end
 
     it 'should change email' do

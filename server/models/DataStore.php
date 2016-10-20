@@ -20,6 +20,22 @@ abstract class DataStore {
        return RedBean::count(static::TABLE);
     }
 
+    public static function getAll() {
+        $beanList = RedBean::findAll(static::TABLE);
+        $dataStoreList = new DataStoreList();
+
+        foreach($beanList as $bean) {
+            $dataStoreList->add(new static($bean));
+        }
+
+        return $dataStoreList;
+    }
+    public static function find($query) {
+        $beanList = RedBean::find(static::TABLE,$query);
+        
+        return DataStoreList::getList(ucfirst(static::TABLE),$beanList);
+    }
+
     private static function validateProp($propToValidate) {
         $validProp = false;
 
@@ -107,6 +123,10 @@ abstract class DataStore {
         $this->updateBeanProperties();
 
         return RedBean::store($this->getBeanInstance());
+    }
+
+    public function trash() {
+        RedBean::trash($this->getBeanInstance());
     }
 
     public function delete() {

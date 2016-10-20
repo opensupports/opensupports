@@ -5,6 +5,7 @@ import i18n from 'lib-app/i18n';
 import Table from 'core-components/table';
 import Button from 'core-components/button';
 import Tooltip from 'core-components/tooltip';
+import TicketInfo from 'app-components/ticket-info';
 
 import DateTransformer from 'lib-core/date-transformer';
 
@@ -99,7 +100,7 @@ class TicketList extends React.Component {
 
         return {
             number: (
-                <Tooltip content="hola">
+                <Tooltip content={<TicketInfo ticket={ticket}/>} openOnHover>
                     {'#' + ticket.ticketNumber}
                 </Tooltip>
             ),

@@ -10,7 +10,7 @@ class LengthValidator extends Validator {
         this.errorKey = errorKey;
     }
 
-    validate(value, form) {
+    validate(value = '', form = {}) {
         if (value instanceof RichTextEditor.EditorValue) {
             value = value.getEditorState().getCurrentContent().getPlainText();
         }

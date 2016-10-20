@@ -38,6 +38,17 @@ class DataStoreList implements IteratorAggregate {
         
         return $beanList;
     }
+    
+    public function toArray() {
+        $array = [];
+
+        foreach($this->list as $item) {
+            $item->updateBeanProperties();
+            $array[] = $item->toArray();
+        }
+
+        return $array;
+    }
 
     private function getIndexInListOf($dataStore) {
         foreach ($this->list as $itemIdInList => $item) {

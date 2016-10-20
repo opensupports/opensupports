@@ -3,6 +3,7 @@ import _ from 'lodash';
 import classNames from 'classnames';
 
 import Menu from 'core-components/menu';
+import Loading from 'core-components/loading';
 
 class Table extends React.Component {
     static propTypes = {
@@ -13,6 +14,7 @@ class Table extends React.Component {
         })),
         rows: React.PropTypes.arrayOf(React.PropTypes.object),
         pageSize: React.PropTypes.number,
+        loading: React.PropTypes.bool,
         type: React.PropTypes.oneOf(['default']),
         comp: React.PropTypes.func
     };
@@ -35,9 +37,10 @@ class Table extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.getRows().map(this.renderRow.bind(this))}
+                        {(!this.props.loading) ? this.getRows().map(this.renderRow.bind(this)) : null}
                     </tbody>
                 </table>
+                {(this.props.loading) ? this.renderLoading() : null}
                 {(this.props.pageSize && this.props.rows.length > this.props.pageSize) ? this.renderNavigation() : null}
             </div>
         );
@@ -85,6 +88,14 @@ class Table extends React.Component {
         return (
             <Menu className="table__navigation" type="navigation" items={items} onItemClick={this.onNavigationItemClick.bind(this)}/>
         );
+    }
+
+    renderLoading() {
+        return (
+            <div className="table__loading-wrapper">
+                <Loading className="table__loading" backgrounded size="large"/>
+            </div>
+        )
     }
 
     onNavigationItemClick(index) {

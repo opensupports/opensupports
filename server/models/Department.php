@@ -12,24 +12,13 @@ class Department extends DataStore {
     }
 
     public static function getDepartmentNames() {
-        $departmentsQuantity = RedBean::count(Department::TABLE);
+        $departmentsList = RedBean::findAll(Department::TABLE);
         $departmentsNameList = [];
-        
-        for ($departmentIndex = 1; $departmentIndex <= $departmentsQuantity; ++$departmentIndex) {
-            $departmentsNameList[] = Department::getDataStore($departmentIndex)->name;
+
+        foreach($departmentsList as $department) {
+            $departmentsNameList[] = $department->name;
         }
         
         return $departmentsNameList;
-    }
-    
-    public static function getAllDepartments() {
-        $departmentsQuantity = RedBean::count(Department::TABLE);
-        $departmentList = new DataStoreList();
-
-        for ($departmentIndex = 1; $departmentIndex <= $departmentsQuantity; ++$departmentIndex) {
-            $departmentList->add(Department::getDataStore($departmentIndex));
-        }
-
-        return $departmentList;
     }
 }

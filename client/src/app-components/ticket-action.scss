@@ -1,0 +1,170 @@
+@import "../scss/vars";
+
+.ticket-action {
+    margin-top: 20px;
+    text-align: left;
+    position: relative;
+
+    &__connector {
+        position: absolute;
+        background-color: $light-grey;
+        width: 3px;
+        height: 100%;
+        top: 38px;
+        left: 33px;
+        z-index: 0;
+    }
+
+    &__staff-pic {
+        vertical-align: top;
+        background-color: $secondary-blue;
+        color: white;
+        border-radius: 5px;
+        width: 42px;
+        height: 42px;
+        overflow: hidden;
+        position: relative;
+        border: 2px solid $light-grey;
+
+        &-img {
+            position: absolute;
+            height: 100%;
+            left: 50%;
+            transform: translate(-50%, 0)
+        }
+    }
+
+    &__icon {
+        vertical-align: top;
+        background-color: $secondary-blue;
+        color: white;
+        border-radius: 5px;
+        width: 42px;
+        height: 42px;
+        padding-left: 8px;
+        padding-top: 4px;
+    }
+
+    &__comment {
+        position: relative;
+
+        &-pointer {
+            right: 100%;
+            border: solid transparent;
+            position: absolute;
+            border-right-color: $light-grey;
+            border-width: 13px;
+            margin-top: 8px;
+        }
+
+        &-author {
+            text-align: left;
+            float: left;
+            position: relative;
+            padding: 12px;
+            color: $primary-black;
+
+            &-type {
+                font-size: 10px;
+                padding-left: 10px;
+                color: $secondary-blue;
+                font-variant: small-caps;
+            }
+        }
+
+        &-date {
+            text-align: right;
+            border: 2px solid $light-grey;
+            border-bottom: none;
+            padding: 12px;
+            background-color: $light-grey;
+
+        }
+
+        &-content {
+            background-color: white;
+            border: 2px solid $very-light-grey;
+            border-top: none;
+            padding: 20px 10px;
+            text-align: left;
+        }
+    }
+
+    &_staff {
+        .ticket-action__icon {
+            background-color: $primary-blue;
+        }
+
+        .ticket-action__comment-author-type {
+            color: $primary-blue;
+        }
+    }
+
+    &_circled {
+        margin-top: 35px;
+        margin-bottom: 30px;
+
+        .ticket-action__connector {
+            top: 28px;
+        }
+
+        .ticket-action__icon {
+            background-color: white;
+            color: $primary-black;
+            border: 3px solid $light-grey;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            padding-left: 8px;
+            padding-top: 4px;
+            margin-left: 2px;
+            margin-top: -8px;
+        }
+
+        .ticket-action__circled {
+            color: $primary-black;
+            font-size: $font-size--sm;
+            margin-top: 1px;
+        }
+
+        .ticket-action__circled-author {
+            color: $secondary-blue;
+        }
+
+        .ticket-action__circled-indication {
+            color: $primary-green;
+        }
+    }
+
+    &_unassignment {
+        .ticket-action__icon {
+            padding-left: 6px;
+        }
+    }
+
+    &_close {
+        .ticket-action__icon {
+            padding-left: 9px;
+        }
+    }
+
+    &_reopen {
+        .ticket-action__icon {
+            padding-left: 9px;
+            padding-top: 5px;
+        }
+    }
+
+    &_department {
+        .ticket-action__icon {
+            padding-left: 6px;
+        }
+    }
+
+    &_priority {
+        .ticket-action__icon {
+            padding-left: 11px;
+            padding-top: 5px;
+        }
+    }
+}

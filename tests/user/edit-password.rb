@@ -18,7 +18,7 @@ describe '/user/edit-password' do
             csrf_token: $csrf_token
         })
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid password')
+        (result['message']).should.equal('INVALID_PASSWORD')
 
         long_text = ''
         250.times {long_text << 'a'}
@@ -30,7 +30,7 @@ describe '/user/edit-password' do
             csrf_token: $csrf_token
         })
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid password')
+        (result['message']).should.equal('INVALID_PASSWORD')
     end
 
     it 'should fail if old password is not same than old password ' do
@@ -41,7 +41,7 @@ describe '/user/edit-password' do
             csrf_token: $csrf_token
         })
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('Invalid old password')
+        (result['message']).should.equal('INVALID_OLD_PASSWORD')
     end
 
     it 'should change password' do

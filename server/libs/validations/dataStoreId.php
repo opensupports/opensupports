@@ -28,6 +28,9 @@ class DataStoreId extends AbstractRule {
             case 'department':
                 $dataStore = \Department::getDataStore($dataStoreId);
                 break;
+            case 'customresponse':
+                $dataStore = \CustomResponse::getDataStore($dataStoreId);
+                break;
         }
 
         return !$dataStore->isNull();
@@ -37,7 +40,8 @@ class DataStoreId extends AbstractRule {
         return in_array($dataStoreName, [
             'user',
             'ticket',
-            'department'
+            'department',
+            'customresponse'
         ]);
     }
 }
