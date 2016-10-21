@@ -42,8 +42,8 @@ class CreateTicketForm extends React.Component {
                     {(!this.props.userLogged) ? this.renderEmailAndName() : null}
                     <div className="row">
                         <FormField className="col-md-7" label="Title" name="title" validation="TITLE" required field="input" fieldProps={{size: 'large'}}/>
-                        <FormField className="col-md-5" label="Department" name="departmentId" field="select" fieldProps={{
-                            items: SessionStore.getDepartments().map((department) => {return {content: department}}),
+                        <FormField className="col-md-5" label="Department" name="departmentIndex" field="select" fieldProps={{
+                            items: SessionStore.getDepartments().map((department) => {return {content: department.name}}),
                             size: 'medium'
                         }} />
                     </div>
@@ -92,7 +92,7 @@ class CreateTicketForm extends React.Component {
         API.call({
             path: '/ticket/create',
             data: _.extend({}, formState, {
-                departmentId: formState.departmentId + 1
+                departmentId: SessionStore.getDepartments()[formState.departmentIndex].id
             })
         }).then(this.onTicketSuccess.bind(this)).catch(this.onTicketFail.bind(this));
     }

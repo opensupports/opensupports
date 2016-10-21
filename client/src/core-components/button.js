@@ -18,6 +18,7 @@ class Button extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
         size: React.PropTypes.oneOf([
+            'extra-small',
             'small',
             'medium',
             'large',
@@ -76,6 +77,7 @@ class Button extends React.Component {
             'button_clean': (this.props.type === 'clean'),
             'button_link': (this.props.type === 'link'),
 
+            'button_extra-small': (this.props.size === 'extra-small'),
             'button_small': (this.props.size === 'small'),
             'button_medium': (this.props.size === 'medium'),
             'button_large': (this.props.size === 'large'),

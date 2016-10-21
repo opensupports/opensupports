@@ -28,18 +28,15 @@
     &__info-row-values {
         background-color: $light-grey;
         color: $secondary-blue;
+        padding-bottom: 10px;
     }
 
-    &__date {
+    &__editable-dropdown {
+        margin: auto;
 
-    }
-
-    &__author {
-
-    }
-
-    &__department {
-
+        .drop-down__current-item {
+            background-color: $very-light-grey;
+        }
     }
 
     &__content {
