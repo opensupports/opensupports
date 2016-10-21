@@ -132,17 +132,6 @@ class TicketViewer extends React.Component {
             'high': 'HIGH'
         };
 
-        let ownerNode = null;
-        if (this.props.assignmentAllowed && _.isEmpty(ticket.owner)) {
-            ownerNode = (
-                <Button type="secondary" size="extra-small" onClick={this.onAssignClick.bind(this)}>
-                    {i18n('ASSIGN_TO_ME')}
-                </Button>
-            );
-        } else {
-            ownerNode  = i18n((ticket.closed) ? 'CLOSED' : 'OPENED');
-        }
-
         return (
             <div className="ticket-viewer__headers">
                 <div className="ticket-viewer__info-row-header row">
@@ -168,11 +157,27 @@ class TicketViewer extends React.Component {
                         {(ticket.owner) ? ticket.owner.name : i18n('NONE')}
                     </div>
                     <div className="col-md-4">
-                        {ownerNode}
+                        {this.renderOwnerNode()}
                     </div>
                 </div>
             </div>
         );
+    }
+
+    renderOwnerNode() {
+        let ownerNode = null;
+
+        if (this.props.assignmentAllowed && _.isEmpty(this.props.ticket.owner)) {
+            ownerNode = (
+                <Button type="secondary" size="extra-small" onClick={this.onAssignClick.bind(this)}>
+                    {i18n('ASSIGN_TO_ME')}
+                </Button>
+            );
+        } else {
+            ownerNode  = i18n((this.props.closed) ? 'CLOSED' : 'OPENED');
+        }
+
+        return ownerNode;
     }
 
     renderTicketEvent(options, index) {

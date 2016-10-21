@@ -85,19 +85,19 @@ module.exports = [
             return {
                 status: 'success',
                 data: {
-                    ticketNumber: '118551',
+                    ticketNumber: '878552',
                     title: 'Lorem ipsum door',
                     content: 'I had a problem with the installation of the php server',
                     department: {
                         id: 1,
                         name: 'Sales Support'
                     },
-                    date: 20150409,
+                    date: '20160415',
                     file: 'http://www.opensupports.com/some_file.zip',
                     language: 'en',
                     unread: false,
                     closed: false,
-                    priority: 'high',
+                    priority: 'medium',
                     author: {
                         name: 'Haskell Curry',
                         email: 'haskell@lambda.com'
@@ -108,7 +108,7 @@ module.exports = [
                     events: [
                         {
                             type: 'ASSIGN',
-                            date: 20150409,
+                            date: '20150409',
                             author: {
                                 name: 'Emilia Clarke',
                                 email: 'jobs@steve.com',
@@ -118,7 +118,7 @@ module.exports = [
                         },
                         {
                             type: 'COMMENT',
-                            date: 20150409,
+                            date: '20150409',
                             content: 'Do you have apache installed? It generally happens if you dont have apache.',
                             author: {
                                 name: 'Emilia Clarke',
@@ -129,7 +129,7 @@ module.exports = [
                         },
                         {
                             type: 'UN_ASSIGN',
-                            date: 20150410,
+                            date: '20150410',
                             author: {
                                 name: 'Emilia Clarke',
                                 email: 'jobs@steve.com',
@@ -139,7 +139,7 @@ module.exports = [
                         },
                         {
                             type: 'DEPARTMENT_CHANGED',
-                            date: 20150411,
+                            date: '20150411',
                             content: 'System support',
                             author: {
                                 name: 'Emilia Clarke',
@@ -150,7 +150,7 @@ module.exports = [
                         },
                         {
                             type: 'COMMENT',
-                            date: 20150412,
+                            date: '20150412',
                             content: 'I have already installed apache, but the problem persists',
                             author: {
                                 name: 'Haskell Curry',
@@ -160,7 +160,7 @@ module.exports = [
                         },
                         {
                             type: 'PRIORITY_CHANGED',
-                            date: 20150413,
+                            date: '20150413',
                             content: 'MEDIUM',
                             author: {
                                 name: 'Emilia Clarke',
@@ -171,7 +171,7 @@ module.exports = [
                         },
                         {
                             type: 'COMMENT',
-                            date: 20150511,
+                            date: '20150511',
                             content: 'Thanks!, I soved it by myself',
                             author: {
                                 name: 'Haskell Curry',
@@ -181,7 +181,7 @@ module.exports = [
                         },
                         {
                             type: 'CLOSE',
-                            date: 20150513,
+                            date: '20150513',
                             author: {
                                 name: 'Emilia Clarke',
                                 email: 'jobs@steve.com',
@@ -191,7 +191,7 @@ module.exports = [
                         },
                         {
                             type: 'RE_OPEN',
-                            date: 20151018,
+                            date: '20151018',
                             author: {
                                 name: 'Haskell Curry',
                                 email: 'haskell@lambda.com',
