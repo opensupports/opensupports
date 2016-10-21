@@ -18,7 +18,8 @@ class Ticket extends DataStore {
             'priority',
             'author',
             'owner',
-            'ownTicketeventList'
+            'ownTicketeventList',
+            'unreadStaff'
         );
     }
 
