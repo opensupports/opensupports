@@ -30,6 +30,11 @@ abstract class DataStore {
 
         return $dataStoreList;
     }
+    public static function find($query) {
+        $beanList = RedBean::find(static::TABLE,$query);
+        
+        return DataStoreList::getList(ucfirst(static::TABLE),$beanList);
+    }
 
     private static function validateProp($propToValidate) {
         $validProp = false;
