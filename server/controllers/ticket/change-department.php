@@ -34,6 +34,7 @@ class ChangeDepartmentController extends Controller {
         }
 
         $ticket->department = $department;
+        $ticket->unread = true;
         $ticket->store();
         Response::respondSuccess();
     }

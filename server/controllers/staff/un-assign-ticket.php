@@ -26,6 +26,7 @@ class UnAssignStaffController extends Controller {
             $user->sharedTicketList->remove($ticket);
             $user->store();
             $ticket->owner = null;
+            $ticket->uread = true;
             $ticket->store();
             Response::respondSuccess();
         } else {

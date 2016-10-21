@@ -21,13 +21,13 @@ class SeenController extends Controller {
         $user = Controller::getLoggedUser();
         $ticket = Ticket::getByTicketNumber($ticketnumber);
         
-        if (Controller::isStaffLogged() && $ticket->owner_id === $user->id) {
+        if (Controller::isStaffLogged() && $ticket->owner && $ticket->owner->id === $user->id) {
             $ticket->unreadStaff = false;
             $ticket->store();
             Response::respondSuccess();
             return;
         }
-        if (!Controller::isStaffLogged() && $user->id === $ticket->author_id) {
+        if (!Controller::isStaffLogged() && $ticket->author && $user->id === $ticket->author->id) {
             $ticket->unread  = false;
             $ticket->store();
             Response::respondSuccess();
