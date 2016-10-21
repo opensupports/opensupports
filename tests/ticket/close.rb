@@ -17,6 +17,7 @@ describe '/ticket/close' do
 
         ticket = $database.getRow('ticket', 1 , 'id')
         (ticket['closed']).should.equal('1')
+        (ticket['unread']).should.equal('1')
 
     end
 end
