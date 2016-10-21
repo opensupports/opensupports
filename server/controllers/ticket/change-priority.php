@@ -28,6 +28,7 @@ class ChangePriorityController extends Controller {
 
         if($ticket->owner && $user->id === $ticket->owner->id) {
             $ticket->priority = $priority;
+            $ticket->unread = true;
             $ticket->store();
             Response::respondSuccess();
         } else {

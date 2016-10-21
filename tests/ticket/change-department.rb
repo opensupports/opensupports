@@ -17,6 +17,7 @@ describe '/ticket/change-department' do
         (result['status']).should.equal('success')
 
         ticket = $database.getRow('ticket', 1 , 'id')
+        (ticket['unread']).should.equal('1')
         (ticket['department_id']).should.equal('2')
     end
 end

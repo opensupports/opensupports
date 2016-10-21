@@ -18,6 +18,7 @@ describe '/ticket/change-priority' do
 
         ticket = $database.getRow('ticket', 1 , 'id')
         (ticket['priority']).should.equal('high')
+        (ticket['unread']).should.equal('1')
     end
 
     it 'should change priority to medium if everything is okey' do
@@ -34,6 +35,7 @@ describe '/ticket/change-priority' do
 
         ticket = $database.getRow('ticket', 1 , 'id')
         (ticket['priority']).should.equal('medium')
+        (ticket['unread']).should.equal('1')
     end
 
     it 'should change priority to low if everything is okey' do
@@ -50,6 +52,7 @@ describe '/ticket/change-priority' do
 
         ticket = $database.getRow('ticket', 1 , 'id')
         (ticket['priority']).should.equal('low')
+        (ticket['unread']).should.equal('1')
     end
 
 end

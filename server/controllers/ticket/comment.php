@@ -51,11 +51,11 @@ class CommentController extends Controller {
         ));
 
         if(Controller::isStaffLogged()) {
-            $comment->authorUser = Controller::getLoggedUser();
+            $this->ticket->unread = true;
         } else {
-            $comment->authorUser = Controller::getLoggedUser();
+            $this->ticket->unreadStaff = true;
         }
-
+        $comment->authorUser = Controller::getLoggedUser();
         $this->ticket->addEvent($comment);
         $this->ticket->store();
     }

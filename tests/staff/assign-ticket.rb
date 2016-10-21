@@ -22,6 +22,8 @@ describe '/staff/assign-ticket' do
 
         (ticket['owner_id']).should.equal('1')
 
+        (ticket['unread']).should.equal('1')
+
         staff_ticket = $database.getRow('staff_ticket', 1 , 'id')
 
         (staff_ticket['staff_id']).should.equal('1')
