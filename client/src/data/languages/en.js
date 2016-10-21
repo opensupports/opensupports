@@ -70,6 +70,7 @@ export default {
     'RE_OPEN': 'Re open',
     'ASSIGN_TO_ME': 'Assign to me',
     'UN_ASSIGN': 'Unassign',
+    'VIEW_TICKET': 'View Ticket',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
@@ -79,6 +80,7 @@ export default {
     'ACCOUNT_DESCRIPTION': 'All your tickets are stored in your accounts\'s profile. Keep track off all your tickets you send to our staff team.',
     'SUPPORT_CENTER_DESCRIPTION': 'Welcome to our support center. You can contact us through a tickets system. Your tickets will be answered by our staff.',
     'CUSTOM_RESPONSES_DESCRIPTION': 'Custom responses are automated responses for common problems',
+    'TICKET_VIEW_DESCRIPTION': 'This ticket has been sent by a customer. Here you can respond or assign the ticket',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
@@ -92,6 +94,7 @@ export default {
     'PASSWORD_NOT_MATCH': 'Password does not match',
     'INVALID_RECOVER': 'Invalid recover data',
     'TICKET_SENT_ERROR': 'An error occurred while trying to create the ticket.',
+    'NO_PERMISSION': 'You\'ve no permission to access to this page.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',

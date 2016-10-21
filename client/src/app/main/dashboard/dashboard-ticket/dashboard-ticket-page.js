@@ -14,7 +14,7 @@ class DashboardTicketPage extends React.Component {
     render() {
         return (
             <div className="dashboard-ticket-page">
-                <TicketViewer ticket={this.getTicketData()} onComment={this.retrieveUserData.bind(this)}/>
+                <TicketViewer ticket={this.getTicketData()} onChange={this.retrieveUserData.bind(this)}/>
             </div>
         );
     }
