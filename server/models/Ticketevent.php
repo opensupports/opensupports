@@ -5,20 +5,21 @@ class Ticketevent extends DataStore {
 
     const COMMENT = 'COMMENT';
     const ASSIGN = 'ASSIGN';
-    const UNASSIGN = 'UNASSIGN';
+    const UN_ASSIGN = 'UN_ASSIGN';
     const CLOSE = 'CLOSE';
-    const REOPEN = 'REOPEN';
+    const RE_OPEN = 'RE_OPEN';
     const DEPARTMENT_CHANGED = 'DEPARTMENT_CHANGED';
     const PRIORITY_CHANGED = 'PRIORITY_CHANGED';
 
     private static function getEventTypes() {
         return [
             'COMMENT',
-            'UNASSIGN',
+            'ASSIGN',
+            'UN_ASSIGN',
             'CLOSE',
-            'REOPEN',
+            'RE_OPEN',
             'DEPARTMENT_CHANGED',
-            'PRIORITY_CHANGED',
+            'PRIORITY_CHANGED'
         ];
     }
 
