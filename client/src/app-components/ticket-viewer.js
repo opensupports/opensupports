@@ -20,6 +20,7 @@ class TicketViewer extends React.Component {
         ticket: React.PropTypes.object,
         onChange: React.PropTypes.func,
         editable: React.PropTypes.bool,
+        customResponses: React.PropTypes.array,
         assignmentAllowed: React.PropTypes.bool
     };
 
@@ -58,6 +59,7 @@ class TicketViewer extends React.Component {
                 </div>
                 <div className="ticket-viewer__response">
                     <div className="ticket-viewer__response-title row">{i18n('RESPOND')}</div>
+                    {this.renderCustomResponses()}
                     <div className="ticket-viewer__response-field row">
                         <Form onSubmit={this.onSubmit.bind(this)} loading={this.state.loading}>
                             <FormField name="content" validation="TEXT_AREA" required field="textarea" />
@@ -184,6 +186,30 @@ class TicketViewer extends React.Component {
         return (
             <TicketEvent {...options} key={index} />
         );
+    }
+
+    renderCustomResponses() {
+        let customResponsesNode = null;
+
+        if (this.props.customResponses && this.props.editable) {
+            let customResponses = this.props.customResponses.map((customResponse) => {
+                return {
+                    content: customResponse.name
+                };
+            });
+
+            customResponses.unshift({
+                content: i18n('SELECT_CUSTOM_RESPONSE')
+            });
+
+            customResponsesNode = (
+                <div className="ticket-viewer__response-custom row">
+                    <DropDown items={customResponses} size="medium" />
+                </div>
+            );
+        }
+
+        return customResponsesNode;
     }
 
     onDepartmentDropdownChanged(event) {
