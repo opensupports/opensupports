@@ -39,11 +39,11 @@ module.exports = [
             return {
                 status: 'success',
                 data: [
-                    {name: 'Common issue #1', language: 'en', content: 'some content'},
-                    {name: 'Common issue #2', language: 'en', content: 'some content'},
-                    {name: 'Common issue #3', language: 'en', content: 'some content'},
-                    {name: 'Häufiges Problem #1', language: 'de', content: 'einige Inhalte'},
-                    {name: 'Häufiges Problem #2', language: 'de', content: 'einige Inhalte'}
+                    {name: 'Common issue #1', language: 'en', content: 'some content 1'},
+                    {name: 'Common issue #2', language: 'en', content: 'some content 2'},
+                    {name: 'Common issue #3', language: 'en', content: 'some content 3'},
+                    {name: 'Häufiges Problem #1', language: 'de', content: 'einige Inhalte 1'},
+                    {name: 'Häufiges Problem #2', language: 'de', content: 'einige Inhalte 2'}
                 ]
             };
         }
