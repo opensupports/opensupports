@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import {connect}  from 'react-redux';
 
 import API from 'lib-app/api-call';
 import i18n from 'lib-app/i18n';
@@ -62,16 +63,12 @@ class AdminPanelViewTicket extends React.Component {
             ticket: this.state.ticket,
             onChange: this.retrieveTicket.bind(this),
             assignmentAllowed: true,
+            customResponses: this.props.customResponses,
             editable: _.get(this.state.ticket, 'owner.id') === SessionStore.getUserData().id
         };
     }
 
     retrieveTicket() {
-        this.setState({
-            loading: true,
-            ticket: {}
-        });
-
         API.call({
             path: '/ticket/get',
             date: {
@@ -95,4 +92,8 @@ class AdminPanelViewTicket extends React.Component {
     }
 }
 
-export default AdminPanelViewTicket;
+export default connect((store) => {
+    return {
+        customResponses: store.adminData.customResponses
+    };
+})(AdminPanelViewTicket);

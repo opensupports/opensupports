@@ -71,6 +71,7 @@ export default {
     'ASSIGN_TO_ME': 'Assign to me',
     'UN_ASSIGN': 'Unassign',
     'VIEW_TICKET': 'View Ticket',
+    'SELECT_CUSTOM_RESPONSE': 'Select a custom response...',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',

@@ -17,7 +17,7 @@ class TicketEvent extends React.Component {
         ]),
         author: React.PropTypes.object,
         content: React.PropTypes.string,
-        date: React.PropTypes.number
+        date: React.PropTypes.string
     };
 
     render() {

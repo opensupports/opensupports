@@ -1,11 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
+import RichTextEditor from 'react-rte-browserify';
 
 import i18n  from 'lib-app/i18n';
 import API   from 'lib-app/api-call';
-import store from 'app/store';
 import SessionStore       from 'lib-app/session-store';
-import SessionActions     from 'actions/session-actions';
 
 import TicketEvent        from 'app-components/ticket-event';
 import AreYouSure         from 'app-components/are-you-sure';
@@ -20,6 +19,7 @@ class TicketViewer extends React.Component {
         ticket: React.PropTypes.object,
         onChange: React.PropTypes.func,
         editable: React.PropTypes.bool,
+        customResponses: React.PropTypes.array,
         assignmentAllowed: React.PropTypes.bool
     };
 
@@ -32,13 +32,11 @@ class TicketViewer extends React.Component {
         }
     };
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            loading: false
-        };
-    }
+    state = {
+        loading: false,
+        commentValue: RichTextEditor.createEmptyValue(),
+        commentEdited: false
+    };
 
     render() {
         const ticket = this.props.ticket;
@@ -58,8 +56,9 @@ class TicketViewer extends React.Component {
                 </div>
                 <div className="ticket-viewer__response">
                     <div className="ticket-viewer__response-title row">{i18n('RESPOND')}</div>
+                    {this.renderCustomResponses()}
                     <div className="ticket-viewer__response-field row">
-                        <Form onSubmit={this.onSubmit.bind(this)} loading={this.state.loading}>
+                        <Form {...this.getCommentFormProps()}>
                             <FormField name="content" validation="TEXT_AREA" required field="textarea" />
                             <SubmitButton>{i18n('RESPOND_TICKET')}</SubmitButton>
                         </Form>
@@ -186,6 +185,44 @@ class TicketViewer extends React.Component {
         );
     }
 
+    renderCustomResponses() {
+        let customResponsesNode = null;
+
+        if (this.props.customResponses && this.props.editable) {
+            let customResponses = this.props.customResponses.map((customResponse) => {
+                return {
+                    content: customResponse.name
+                };
+            });
+
+            customResponses.unshift({
+                content: i18n('SELECT_CUSTOM_RESPONSE')
+            });
+
+            customResponsesNode = (
+                <div className="ticket-viewer__response-custom row">
+                    <DropDown items={customResponses} size="medium" onChange={this.onCustomResponsesChanged.bind(this)}/>
+                </div>
+            );
+        }
+
+        return customResponsesNode;
+    }
+
+    getCommentFormProps() {
+        return {
+            onSubmit: this.onSubmit.bind(this),
+            loading: this.state.loading,
+            onChange: (formState) => {this.setState({
+                commentValue: formState.content,
+                commentEdited: true
+            })},
+            values: {
+                'content': this.state.commentValue
+            }
+        };
+    }
+
     onDepartmentDropdownChanged(event) {
         AreYouSure.openModal(null, this.changeDepartment.bind(this, event.index));
     }
@@ -240,6 +277,21 @@ class TicketViewer extends React.Component {
                 priority: priorities[index]
             }
         }).then(this.onTicketModification.bind(this));
+    }
+
+    onCustomResponsesChanged({index}) {
+        let replaceContentWithCustomResponse = () => {
+            this.setState({
+                commentValue: RichTextEditor.createValueFromString(this.props.customResponses[index-1].content || '', 'html'),
+                commentEdited: false
+            });
+        };
+
+        if (this.state.commentEdited && index) {
+            AreYouSure.openModal(null, replaceContentWithCustomResponse);
+        } else {
+            replaceContentWithCustomResponse();
+        }
     }
 
     onSubmit(formState) {
