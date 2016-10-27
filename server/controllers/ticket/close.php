@@ -31,7 +31,12 @@ class CloseController extends Controller {
             Response::respondError(ERRORS::NO_PERMISSION);
             return;
         }
-
+        
+        if(Controller::isStaffLogged()) {
+            $ticket->unread = true;
+        } else {
+            $ticket->unreadStaff = true;
+        }
         $ticket->closed = true;
         $ticket->store();
         Response::respondSuccess();

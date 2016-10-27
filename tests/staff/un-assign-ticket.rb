@@ -21,6 +21,7 @@ describe '/staff/un-assign-ticket' do
         ticket = $database.getRow('ticket', 1 , 'id')
 
         (ticket['owner_id']).should.equal(nil)
+        (ticket['unread']).should.equal('1')
 
         staff_ticket = $database.getRow('staff_ticket', 1 , 'id')
 

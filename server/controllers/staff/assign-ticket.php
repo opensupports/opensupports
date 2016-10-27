@@ -34,6 +34,7 @@ class AssignStaffController extends Controller {
         } else {
             $this->user->sharedTicketList->add($this->ticket);
             $this->ticket->owner = $this->user;
+            $this->ticket->unread = true;
             $this->ticket->store();
             $this->user->store();
             

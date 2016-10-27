@@ -58,6 +58,7 @@ class CreateController extends Controller {
             'file' => '',
             'date' => Date::getCurrentDate(),
             'unread' => false,
+            'unreadStaff' => true,
             'closed' => false,
         ));
         

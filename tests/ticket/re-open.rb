@@ -17,6 +17,7 @@ describe '/ticket/re-open' do
 
         ticket = $database.getRow('ticket', 1 , 'id')
         (ticket['closed']).should.equal('0')
+        (ticket['unread']).should.equal('1')
 
     end
 end

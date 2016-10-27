@@ -30,7 +30,11 @@ class ReOpenController extends Controller {
             Response::respondError(ERRORS::NO_PERMISSION);
             return;
         }
-
+        if(Controller::isStaffLogged()) {
+            $ticket->unread = true;
+        } else {
+            $ticket->unreadStaff = true;
+        }
         $ticket->closed = false;
         $ticket->store();
         Response::respondSuccess();

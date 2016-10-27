@@ -140,7 +140,7 @@ module.exports = [
                             content: 'I had a problem with the installation of the php server',
                             department: {
                                 id: 2,
-                                name: 'Environment Setup'
+                                name: 'Technical Issues'
                             },
                             date: '20160416',
                             file: 'http://www.opensupports.com/some_file.zip',
@@ -158,7 +158,7 @@ module.exports = [
                                 name: 'Steve Jobs',
                                 email: 'steve@jobs.com'
                             },
-                            actions: [
+                            events: [
                                 {
                                     type: 'ASSIGN',
                                     date: '20150409',
@@ -258,8 +258,8 @@ module.exports = [
                             title: 'Lorem ipsum door',
                             content: 'I had a problem with the installation of the php server',
                             department: {
-                                id: 2,
-                                name: 'Environment Setup'
+                                id: 1,
+                                name: 'Sales Support'
                             },
                             date: '20160415',
                             file: 'http://www.opensupports.com/some_file.zip',
@@ -274,7 +274,7 @@ module.exports = [
                             owner: {
                                 name: 'Steve Jobs'
                             },
-                            actions: [
+                            events: [
                                 {
                                     type: 'ASSIGN',
                                     date: '20150409',
@@ -374,8 +374,8 @@ module.exports = [
                             title: 'Lorem ipsum door',
                             content: 'I had a problem with the installation of the php server',
                             department: {
-                                id: 2,
-                                name: 'Environment Setup'
+                                id: 1,
+                                name: 'Sales Support'
                             },
                             date: '20150409',
                             file: 'http://www.opensupports.com/some_file.zip',
@@ -390,7 +390,7 @@ module.exports = [
                             owner: {
                                 name: 'Steve Jobs'
                             },
-                            actions: [
+                            events: [
                                 {
                                     type: 'ASSIGN',
                                     date: '20150409',

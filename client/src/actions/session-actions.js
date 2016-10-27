@@ -1,8 +1,7 @@
 import API from 'lib-app/api-call';
+import AdminDataActions from 'actions/admin-data-actions';
 import sessionStore from 'lib-app/session-store';
 import store from 'app/store';
-
-import ConfigActions from 'actions/config-actions';
 
 export default {
     login(loginData) {
@@ -13,6 +12,10 @@ export default {
                 data: loginData
             }).then((result) => {
                 store.dispatch(this.getUserData(result.data.userId, result.data.token, result.data.staff));
+                
+                if(result.data.staff) {
+                    store.dispatch(AdminDataActions.retrieveCustomResponses());
+                }
 
                 return result;
             })

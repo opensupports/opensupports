@@ -84,7 +84,7 @@ export default (
                         <Route path="new-tickets" component={AdminPanelNewTickets} />
                         <Route path="all-tickets" component={AdminPanelAllTickets} />
                         <Route path="custom-responses" component={AdminPanelCustomResponses} />
-                        <Route path="view-ticket" component={AdminPanelViewTicket} />
+                        <Route path="view-ticket/:ticketNumber" component={AdminPanelViewTicket} />
                     </Route>
 
                     <Route path="users">

@@ -18,7 +18,8 @@ class Ticket extends DataStore {
             'priority',
             'author',
             'owner',
-            'ownTicketeventList'
+            'ownTicketeventList',
+            'unreadStaff'
         );
     }
 
@@ -33,6 +34,8 @@ class Ticket extends DataStore {
     public function getDefaultProps() {
         return array(
             'priority' => 'low',
+            'unread' => false,
+            'unreadStaff' => true,
             'ticketNumber' => $this->generateUniqueTicketNumber()
         );
     }

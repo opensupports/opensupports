@@ -72,6 +72,7 @@ describe '/ticket/comment/' do
         (comment['content']).should.equal('some comment content')
         (comment['type']).should.equal('COMMENT')
         (comment['author_user_id']).should.equal($csrf_userid)
+        (ticket['unread_staff']).should.equal('1')
     end
 
     it 'should fail if user is not the author nor owner' do
