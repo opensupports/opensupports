@@ -83,7 +83,7 @@ class AdminPanelViewTicket extends React.Component {
             ticket: result.data
         });
 
-        if(result.data.unreadStaff){
+        if(result.data.unreadStaff) {
             API.call({
                 path: '/ticket/seen',
                 data: {

@@ -16,21 +16,24 @@ class DashboardTicketPage extends React.Component {
 
     componentDidMount() {
         let ticket = this.getTicketData();
+
         if(ticket.unread) {
             API.call({
                 path: '/ticket/seen',
                 data: {
                     ticketNumber: ticket.ticketNumber
                 }
-            })
+            });
         }
     }
 
     render() {
         let ticketView = i18n('NO_PERMISSION');
+
         if(!_.isEmpty(this.getTicketData())) {
             ticketView = <TicketViewer ticket={this.getTicketData()} onChange={this.retrieveUserData.bind(this)}/>;
         }
+
         return (
             <div className="dashboard-ticket-page">
                 {ticketView}
