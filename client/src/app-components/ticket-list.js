@@ -5,7 +5,6 @@ import i18n from 'lib-app/i18n';
 import DateTransformer from 'lib-core/date-transformer';
 
 import TicketInfo from 'app-components/ticket-info';
-
 import Table from 'core-components/table';
 import Button from 'core-components/button';
 import Tooltip from 'core-components/tooltip';
@@ -24,6 +23,7 @@ class TicketList extends React.Component {
     };
 
     static defaultProps = {
+        loading: false,
         tickets: [],
         ticketPath: '/dashboard/ticket/',
         type: 'primary'

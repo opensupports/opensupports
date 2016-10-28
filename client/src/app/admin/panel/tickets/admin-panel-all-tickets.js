@@ -41,7 +41,7 @@ class AdminPanelAllTickets extends React.Component {
 export default connect((store) => {
     return {
         departments: store.session.userDepartments,
-        tickets: store.adminData.newTickets,
-        loading: !store.adminData.newTicketsLoaded
+        tickets: store.adminData.allTickets,
+        loading: !store.adminData.allTicketsLoaded
     };
 })(AdminPanelAllTickets);
