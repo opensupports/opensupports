@@ -20,5 +20,25 @@ export default {
                 data: {}
             })
         };
+    },
+
+    retrieveNewTickets() {
+        return {
+            type: 'NEW_TICKETS',
+            payload: API.call({
+                path: '/staff/get-new-tickets',
+                data: {}
+            })
+        };
+    },
+
+    retrieveAllTickets() {
+        return {
+            type: 'ALL_TICKETS',
+            payload: API.call({
+                path: '/staff/get-all-tickets',
+                data: {}
+            })
+        };
     }
 };

@@ -1,16 +1,19 @@
 import React from 'react';
+import _ from 'lodash';
 
 import i18n from 'lib-app/i18n';
+import DateTransformer from 'lib-core/date-transformer';
+
+import TicketInfo from 'app-components/ticket-info';
 
 import Table from 'core-components/table';
 import Button from 'core-components/button';
 import Tooltip from 'core-components/tooltip';
-import TicketInfo from 'app-components/ticket-info';
-
-import DateTransformer from 'lib-core/date-transformer';
+import DropDown from 'core-components/drop-down';
 
 class TicketList extends React.Component {
     static propTypes = {
+        departments: React.PropTypes.array,
         loading: React.PropTypes.bool,
         ticketPath: React.PropTypes.string,
         tickets: React.PropTypes.arrayOf(React.PropTypes.object),
@@ -26,12 +29,49 @@ class TicketList extends React.Component {
         type: 'primary'
     };
 
+    state = {
+        selectedDepartment: 0
+    };
+
     render() {
         return (
             <div className="ticket-list">
+                {(this.props.type === 'secondary') ? this.renderDepartmentsDropDown() : null}
                 <Table loading={this.props.loading} headers={this.getTableHeaders()} rows={this.getTableRows()} pageSize={10} comp={this.compareFunction} />
             </div>
         );
+    }
+
+    renderDepartmentsDropDown() {
+        return (
+            <div className="ticket-list__department-selector">
+                <DropDown {...this.getDepartmentDropdownProps()} />
+            </div>
+        );
+    }
+
+    getDepartmentDropdownProps() {
+        return {
+            items: this.getDepartments(),
+            onChange: (event) => {
+                this.setState({
+                    selectedDepartment: event.index && this.props.departments[event.index - 1].id
+                });
+            },
+            size: 'medium'
+        };
+    }
+
+    getDepartments() {
+        let departments = this.props.departments.map((department) => {
+            return {content: department.name};
+        });
+
+        departments.unshift({
+            content: i18n('ALL_DEPARTMENTS')
+        });
+
+        return departments;
     }
 
     getTableHeaders() {
@@ -95,7 +135,13 @@ class TicketList extends React.Component {
     }
 
     getTableRows() {
-        return this.props.tickets.map(this.gerTicketTableObject.bind(this));
+        return this.getTickets().map(this.gerTicketTableObject.bind(this));
+    }
+
+    getTickets() {
+        return (this.state.selectedDepartment) ? _.filter(this.props.tickets, (ticket) => {
+            return ticket.department.id == this.state.selectedDepartment
+        }) : this.props.tickets;
     }
 
     gerTicketTableObject(ticket) {

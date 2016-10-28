@@ -83,6 +83,8 @@ export default {
     'SUPPORT_CENTER_DESCRIPTION': 'Welcome to our support center. You can contact us through a tickets system. Your tickets will be answered by our staff.',
     'CUSTOM_RESPONSES_DESCRIPTION': 'Custom responses are automated responses for common problems',
     'MY_TICKETS_DESCRIPTION': 'Here you can view the tickets you are responsible for.',
+    'NEW_TICKETS_DESCRIPTION': 'Here you can view all the new tickets that are not assigned by anyone.',
+    'ALL_TICKETS_DESCRIPTION': 'Here you can view the tickets of the departments you are assigned.',
     'TICKET_VIEW_DESCRIPTION': 'This ticket has been sent by a customer. Here you can respond or assign the ticket',
 
     //ERRORS
