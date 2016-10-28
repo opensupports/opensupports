@@ -1,5 +1,51 @@
+@import "../scss/vars";
+
 .ticket-list {
+
     &__department-selector {
         margin-bottom: 25px;
+    }
+
+    &__number {
+        text-align: left;
+    }
+
+    &__title {
+        text-align: left;
+    }
+
+    &__department {
+        text-align: right;
+    }
+
+    &__date {
+        text-align: right;
+    }
+
+    &__title-link:hover,
+    &__title-link:focus {
+        outline: none;
+        text-decoration: underline;
+    }
+
+    &__priority-low,
+    &__priority-medium,
+    &__priority-high {
+        display: inline-block;
+        border-radius: 10px;
+        width: 70px;
+        color: white;
+    }
+
+    &__priority-low {
+        background-color: $primary-green;
+    }
+
+    &__priority-medium {
+        background-color: $secondary-blue;
+    }
+
+    &__priority-high {
+        background-color: $primary-red;
     }
 }
