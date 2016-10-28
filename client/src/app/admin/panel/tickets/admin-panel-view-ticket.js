@@ -71,7 +71,7 @@ class AdminPanelViewTicket extends React.Component {
     retrieveTicket() {
         API.call({
             path: '/ticket/get',
-            date: {
+            data: {
                 ticketNumber: this.props.params.ticketNumber
             }
         }).then(this.onRetrieveSuccess.bind(this)).catch(this.onRetrieveFail.bind(this))
@@ -82,6 +82,15 @@ class AdminPanelViewTicket extends React.Component {
             loading: false,
             ticket: result.data
         });
+
+        if(result.data.unreadStaff){
+            API.call({
+                path: '/ticket/seen',
+                data: {
+                    ticketNumber: this.props.params.ticketNumber
+                }
+            })
+        }
     }
 
     onRetrieveFail() {

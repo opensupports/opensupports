@@ -79,6 +79,16 @@ module.exports = [
         }
     },
     {
+        path: '/ticket/seen',
+        time: 200,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
         path: '/ticket/get',
         time: 1000,
         response: function () {
@@ -96,6 +106,7 @@ module.exports = [
                     file: 'http://www.opensupports.com/some_file.zip',
                     language: 'en',
                     unread: false,
+                    unreadStaff: true,
                     closed: false,
                     priority: 'medium',
                     author: {
