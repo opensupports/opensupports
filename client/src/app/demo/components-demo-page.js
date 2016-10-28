@@ -15,6 +15,7 @@ const DropDown = require('core-components/drop-down');
 const Menu = require('core-components/menu');
 const Tooltip = require('core-components/tooltip');
 const Table = require('core-components/table');
+const InfoTooltip = require('core-components/info-tooltip');
 
 let dropDownItems = [{content: 'English'}, {content: 'Spanish'}, {content: 'German'}, {content: 'Portuguese'}, {content: 'Japanese'}];
 let secondaryMenuItems = [
@@ -167,6 +168,12 @@ let DemoPage = React.createClass({
                         ans = 1;
                     return ans;
                 }}/>
+            )
+        },
+        {
+            title: 'InfoTooltip',
+            render: (
+                <InfoTooltip type="warning" text="Some helping text" />
             )
         }
 	],
