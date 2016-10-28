@@ -166,7 +166,7 @@ let DemoPage = React.createClass({
                     else if(a.title1 > b.title1)
                         ans = 1;
                     return ans;
-                }} loading/>
+                }}/>
             )
         }
 	],
