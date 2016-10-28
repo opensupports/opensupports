@@ -13,9 +13,7 @@ module.exports = [
                     staff: true,
                     departments: [
                         {id: 1, name: 'Sales Support'},
-                        {id: 2, name: 'Technical Issues'},
-                        {id: 3, name: 'System and Administration'},
-                        {id: 4, name: 'Guillermo\'s department'}
+                        {id: 2, name: 'Technical Issues'}
                     ]
                 }
             };
@@ -23,7 +21,7 @@ module.exports = [
     },
     {
         path: '/staff/get-tickets',
-        time: 2000,
+        time: 300,
         response: function () {
             return {
                 status: 'success',
@@ -34,7 +32,7 @@ module.exports = [
                         content: 'I had a problem with the installation of the php server',
                         department: {
                             id: 2,
-                            name: 'Environment Setup'
+                            name: 'Technical Issues'
                         },
                         date: '20160416',
                         file: 'http://www.opensupports.com/some_file.zip',
@@ -52,7 +50,7 @@ module.exports = [
                             name: 'Steve Jobs',
                             email: 'steve@jobs.com'
                         },
-                        actions: [
+                        events: [
                             {
                                 type: 'ASSIGN',
                                 date: '20150409',
@@ -153,7 +151,7 @@ module.exports = [
                         content: 'I had a problem with the installation of the php server',
                         department: {
                             id: 2,
-                            name: 'Environment Setup'
+                            name: 'Technical Issues'
                         },
                         date: '20160415',
                         file: 'http://www.opensupports.com/some_file.zip',
@@ -168,7 +166,7 @@ module.exports = [
                         owner: {
                             name: 'Steve Jobs'
                         },
-                        actions: [
+                        events: [
                             {
                                 type: 'ASSIGN',
                                 date: '20150409',
@@ -269,7 +267,7 @@ module.exports = [
                         content: 'I had a problem with the installation of the php server',
                         department: {
                             id: 2,
-                            name: 'Environment Setup'
+                            name: 'Technical Issues'
                         },
                         date: '20150409',
                         file: 'http://www.opensupports.com/some_file.zip',
@@ -284,7 +282,7 @@ module.exports = [
                         owner: {
                             name: 'Steve Jobs'
                         },
-                        actions: [
+                        events: [
                             {
                                 type: 'ASSIGN',
                                 date: '20150409',
@@ -378,6 +376,32 @@ module.exports = [
                                 }
                             }
                         ]
+                    },
+                    {
+                        ticketNumber: '445441',
+                        title: 'Inscription ACM ICPC',
+                        content: 'I had a problem with the installation of the php server',
+                        department: {
+                            id: 1,
+                            name: 'Sales Support'
+                        },
+                        date: '20160416',
+                        file: 'http://www.opensupports.com/some_file.zip',
+                        language: 'en',
+                        unread: false,
+                        closed: false,
+                        priority: 'low',
+                        author: {
+                            id: 12,
+                            name: 'Haskell Curry',
+                            email: 'haskell@lambda.com'
+                        },
+                        owner: {
+                            id: 15,
+                            name: 'Steve Jobs',
+                            email: 'steve@jobs.com'
+                        },
+                        events: []
                     }
                 ]
             }

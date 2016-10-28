@@ -12,6 +12,7 @@ import DateTransformer from 'lib-core/date-transformer';
 class TicketList extends React.Component {
     static propTypes = {
         loading: React.PropTypes.bool,
+        ticketPath: React.PropTypes.string,
         tickets: React.PropTypes.arrayOf(React.PropTypes.object),
         type: React.PropTypes.oneOf([
             'primary',
@@ -21,6 +22,7 @@ class TicketList extends React.Component {
 
     static defaultProps = {
         tickets: [],
+        ticketPath: '/dashboard/ticket/',
         type: 'primary'
     };
 
@@ -106,7 +108,7 @@ class TicketList extends React.Component {
                 </Tooltip>
             ),
             title: (
-                <Button className="ticket-list__title-link" type="clean" route={{to: '/dashboard/ticket/' + ticket.ticketNumber}}>
+                <Button className="ticket-list__title-link" type="clean" route={{to: this.props.ticketPath + ticket.ticketNumber}}>
                     {titleText}
                 </Button>
             ),
