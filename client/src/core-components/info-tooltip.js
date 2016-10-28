@@ -31,8 +31,12 @@ class InfoTooltip extends React.Component {
     }
 
     renderText() {
+        let message = (this.props.type === 'default') ? 'Information' : 'Warning';
         return (
             <div className="info-tooltip__text">
+                <div className="info-tooltip__text__title">
+                    {message}
+                </div>
                 {this.props.text}
             </div>
         );

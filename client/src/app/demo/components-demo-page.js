@@ -173,7 +173,10 @@ let DemoPage = React.createClass({
         {
             title: 'InfoTooltip',
             render: (
-                <InfoTooltip type="warning" text="Some helping text" />
+                <div>
+                    <InfoTooltip text="You should read the manual" />
+                    <InfoTooltip type="warning" text="No staff member is assigned to this department." />
+                </div>
             )
         }
 	],

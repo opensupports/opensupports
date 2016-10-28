@@ -2,7 +2,10 @@
 
 .info-tooltip {
     &__text {
-
+        &__title {
+            color: $secondary-blue;
+            font-size: $font-size--md;
+        }
     }
 
     &__icon {
@@ -12,6 +15,12 @@
     &_warning {
         .info-tooltip__icon {
             color: $primary-red;
+        }
+
+        .info-tooltip__text {
+            &__title {
+                color: $primary-red;
+            }
         }
     }
 }
