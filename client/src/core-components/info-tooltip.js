@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import i18n from 'lib-app/i18n';
 import Icon from 'core-components/icon';
 import Tooltip from 'core-components/tooltip';
 
@@ -31,10 +32,10 @@ class InfoTooltip extends React.Component {
     }
 
     renderText() {
-        let message = (this.props.type === 'default') ? 'Information' : 'Warning';
+        let message = (this.props.type === 'default') ? i18n('INFO') : i18n('WARNING');
         return (
             <div className="info-tooltip__text">
-                <div className="info-tooltip__text__title">
+                <div className="info-tooltip__text-title">
                     {message}
                 </div>
                 {this.props.text}

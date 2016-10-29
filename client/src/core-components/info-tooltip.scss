@@ -2,7 +2,7 @@
 
 .info-tooltip {
     &__text {
-        &__title {
+        &-title {
             color: $secondary-blue;
             font-size: $font-size--md;
         }
@@ -18,7 +18,7 @@
         }
 
         .info-tooltip__text {
-            &__title {
+            &-title {
                 color: $primary-red;
             }
         }
