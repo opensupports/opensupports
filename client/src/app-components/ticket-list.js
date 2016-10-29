@@ -25,6 +25,7 @@ class TicketList extends React.Component {
     static defaultProps = {
         loading: false,
         tickets: [],
+        departments: [],
         ticketPath: '/dashboard/ticket/',
         type: 'primary'
     };
