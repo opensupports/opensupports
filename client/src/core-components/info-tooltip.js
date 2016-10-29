@@ -16,8 +16,6 @@ class InfoTooltip extends React.Component {
     };
 
     render() {
-        // exclamation-triangle
-        // question-circle
         let name = (this.props.type === 'default') ? 'question-circle' : 'exclamation-triangle';
 
         return (
