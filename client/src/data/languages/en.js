@@ -72,6 +72,8 @@ export default {
     'UN_ASSIGN': 'Unassign',
     'VIEW_TICKET': 'View Ticket',
     'SELECT_CUSTOM_RESPONSE': 'Select a custom response...',
+    'WARNING': 'Warning',
+    'INFO': 'Information',
     'ALL_DEPARTMENTS': 'All Departments',
 
     //VIEW DESCRIPTIONS
