@@ -74,6 +74,7 @@ export default {
     'SELECT_CUSTOM_RESPONSE': 'Select a custom response...',
     'WARNING': 'Warning',
     'INFO': 'Information',
+    'ALL_DEPARTMENTS': 'All Departments',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
@@ -83,6 +84,9 @@ export default {
     'ACCOUNT_DESCRIPTION': 'All your tickets are stored in your accounts\'s profile. Keep track off all your tickets you send to our staff team.',
     'SUPPORT_CENTER_DESCRIPTION': 'Welcome to our support center. You can contact us through a tickets system. Your tickets will be answered by our staff.',
     'CUSTOM_RESPONSES_DESCRIPTION': 'Custom responses are automated responses for common problems',
+    'MY_TICKETS_DESCRIPTION': 'Here you can view the tickets you are responsible for.',
+    'NEW_TICKETS_DESCRIPTION': 'Here you can view all the new tickets that are not assigned by anyone.',
+    'ALL_TICKETS_DESCRIPTION': 'Here you can view the tickets of the departments you are assigned.',
     'TICKET_VIEW_DESCRIPTION': 'This ticket has been sent by a customer. Here you can respond or assign the ticket',
 
     //ERRORS
