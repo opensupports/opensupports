@@ -2,6 +2,10 @@
 
 .ticket-list {
 
+    &__department-selector {
+        margin-bottom: 25px;
+    }
+
     &__number {
         text-align: left;
     }
