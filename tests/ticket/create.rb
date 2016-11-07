@@ -29,8 +29,11 @@ describe '/ticket/create' do
     end
 
     it 'should fail if title is very long' do
+        long_text = ''
+        300.times {long_text << 'a'}
+
         result = request('/ticket/create',{
-            title: 'I WISH I WAS THE MONSTER YOU THINK I AM. -Tyrion',
+            title: long_text,
             departmentId: 1,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token

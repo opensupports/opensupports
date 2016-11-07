@@ -16,8 +16,9 @@ abstract class DataStore {
 
         return ($bean) ? new static($bean) : new NullDataStore();
     }
-    public static function count() {
-       return RedBean::count(static::TABLE);
+
+    public static function count($addSQL = '', $bindings = array()) {
+       return RedBean::count(static::TABLE, $addSQL, $bindings);
     }
 
     public static function getAll() {
@@ -30,10 +31,10 @@ abstract class DataStore {
 
         return $dataStoreList;
     }
-    public static function find($query) {
-        $beanList = RedBean::find(static::TABLE,$query);
+    public static function find($query = '', $matches = []) {
+        $beanList = RedBean::find(static::TABLE, $query, $matches);
         
-        return DataStoreList::getList(ucfirst(static::TABLE),$beanList);
+        return DataStoreList::getList(ucfirst(static::TABLE), $beanList);
     }
 
     private static function validateProp($propToValidate) {

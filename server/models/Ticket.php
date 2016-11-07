@@ -45,7 +45,7 @@ class Ticket extends DataStore {
     }
 
     public function generateUniqueTicketNumber() {
-        $ticketQuantity = Ticket::count('ticket');
+        $ticketQuantity = Ticket::count();
         $minValue = 100000;
         $maxValue = 999999;
 
@@ -53,7 +53,7 @@ class Ticket extends DataStore {
             $ticketNumber = Hashing::getRandomTicketNumber($minValue, $maxValue);
         } else {
             $firstTicketNumber = Ticket::getTicket(1)->ticketNumber;
-            $gap = 176611;
+            $gap = 176611; //TODO: USE RANDOM PRIME INSTEAD
 
             $ticketNumber = ($firstTicketNumber - $minValue + $ticketQuantity * $gap) % ($maxValue - $minValue + 1) + $minValue;
         }
