@@ -88,7 +88,7 @@ class InitSettingsController extends Controller {
             'name' => 'Emilia Clarke',
             'email' => 'staff@opensupports.com',
             'password' => Hashing::hashPassword('staff'),
-            'profilePic' => 'http://i65.tinypic.com/9bep95.jpg',
+            'profilePic' => 'http://www.opensupports.com/profilepic.jpg',
             'level' => 3,
             'sharedDepartmentList' => Department::getAll(),
             'sharedTicketList' => []
