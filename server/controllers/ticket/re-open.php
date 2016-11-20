@@ -35,6 +35,12 @@ class ReOpenController extends Controller {
         } else {
             $ticket->unreadStaff = true;
         }
+        $event = Ticketevent::getEvent(Ticketevent::RE_OPEN);
+        $event->setProperties(array(
+            'authorUser' => Controller::getLoggedUser(),
+            'date' => Date::getCurrentDate()
+        ));
+        $ticket->addEvent($event);
         $ticket->closed = false;
         $ticket->store();
         Response::respondSuccess();

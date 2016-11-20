@@ -35,9 +35,16 @@ class AssignStaffController extends Controller {
             $this->user->sharedTicketList->add($this->ticket);
             $this->ticket->owner = $this->user;
             $this->ticket->unread = true;
+            $event = Ticketevent::getEvent(Ticketevent::ASSIGN);
+            $event->setProperties(array(
+                'authorStaff' => Controller::getLoggedUser(),
+                'date' => Date::getCurrentDate()
+            ));
+            $this->ticket->addEvent($event);
+
             $this->ticket->store();
             $this->user->store();
-            
+
             Response::respondSuccess();
         }
 
