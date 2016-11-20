@@ -5,6 +5,8 @@ DataValidator::with('CustomValidations', true);
 class CloseController extends Controller {
     const PATH = '/close';
 
+    private $ticket;
+
     public function validations() {
         return [
             'permission' => 'user',
@@ -18,34 +20,48 @@ class CloseController extends Controller {
     }
 
     public function handler() {
-        $ticketNumber = Controller::request('ticketNumber');
-        $ticket = Ticket::getByTicketNumber($ticketNumber);
+        $this->ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
+
+        if($this->shouldDenyPermission()) {
+            Response::respondError(ERRORS::NO_PERMISSION);
+            return;
+        }
+
+        $this->markAsUnread();
+        $this->addCloseEvent();
+        $this->ticket->closed = true;
+
+        $this->ticket->store();
+        Response::respondSuccess();
+    }
+
+    private function shouldDenyPermission() {
         $user = Controller::getLoggedUser();
 
-        if(!Controller::isStaffLogged() && $ticket->author->id !== $user->id){
-            Response::respondError(ERRORS::NO_PERMISSION);
-            return;
-        }
+        return (!Controller::isStaffLogged() && $this->ticket->author->id !== $user->id) ||
+               (Controller::isStaffLogged() && $this->ticket->owner && $this->ticket->owner->id !== $user->id);
+    }
 
-        if(Controller::isStaffLogged() && $ticket->owner && $ticket->owner->id !== $user->id){
-            Response::respondError(ERRORS::NO_PERMISSION);
-            return;
-        }
-        
+    private function markAsUnread() {
         if(Controller::isStaffLogged()) {
-            $ticket->unread = true;
+            $this->ticket->unread = true;
         } else {
-            $ticket->unreadStaff = true;
+            $this->ticket->unreadStaff = true;
         }
+    }
+
+    private function addCloseEvent() {
         $event = Ticketevent::getEvent(Ticketevent::CLOSE);
         $event->setProperties(array(
-            'authorStaff' => Controller::getLoggedUser(),
             'date' => Date::getCurrentDate()
         ));
-        
-        $ticket->addEvent($event);
-        $ticket->closed = true;
-        $ticket->store();
-        Response::respondSuccess();
+
+        if(Controller::isStaffLogged()) {
+            $event->authorStaff = Controller::getLoggedUser();
+        } else {
+            $event->authorUser = Controller::getLoggedUser();
+        }
+
+        $this->ticket->addEvent($event);
     }
 }
