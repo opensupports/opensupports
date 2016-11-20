@@ -15,6 +15,7 @@ class TicketList extends React.Component {
         departments: React.PropTypes.array,
         loading: React.PropTypes.bool,
         ticketPath: React.PropTypes.string,
+        showDepartmentDropdown: React.PropTypes.bool,
         tickets: React.PropTypes.arrayOf(React.PropTypes.object),
         type: React.PropTypes.oneOf([
             'primary',
@@ -23,6 +24,7 @@ class TicketList extends React.Component {
     };
 
     static defaultProps = {
+        showDepartmentDropdown: true,
         loading: false,
         tickets: [],
         departments: [],
@@ -37,8 +39,8 @@ class TicketList extends React.Component {
     render() {
         return (
             <div className="ticket-list">
-                {(this.props.type === 'secondary') ? this.renderDepartmentsDropDown() : null}
-                <Table loading={this.props.loading} headers={this.getTableHeaders()} rows={this.getTableRows()} pageSize={10} comp={this.compareFunction} />
+                {(this.props.type === 'secondary' && this.props.showDepartmentDropdown) ? this.renderDepartmentsDropDown() : null}
+                <Table {...this.getTableProps()} />
             </div>
         );
     }
@@ -60,6 +62,19 @@ class TicketList extends React.Component {
                 });
             },
             size: 'medium'
+        };
+    }
+    
+    getTableProps() {
+        return {
+            loading: this.props.loading,
+            headers: this.getTableHeaders(),
+            rows: this.getTableRows(),
+            pageSize: 10,
+            comp: this.compareFunction,
+            page: this.props.page,
+            pages: this.props.pages,
+            onPageChange: this.props.onPageChange
         };
     }
 

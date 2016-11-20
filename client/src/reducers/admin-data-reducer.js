@@ -77,7 +77,8 @@ class AdminDataReducer extends Reducer {
 
     onAllTicketsRetrieved(state, payload) {
         return _.extend({}, state, {
-            allTickets: payload.data,
+            allTickets: payload.data.tickets,
+            allTicketsPages: payload.data.pages,
             allTicketsLoaded: true
         })
     }

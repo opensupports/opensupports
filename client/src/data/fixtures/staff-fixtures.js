@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 module.exports = [
     {
         path: '/staff/get',
@@ -498,90 +500,81 @@ module.exports = [
     },
     {
         path: '/staff/get-all-tickets',
+        time: 1000,
+        response: function () {
+            return {
+                status: 'success',
+                data: {
+                    tickets: _.range(0, 10).map(() => {
+                        return {
+                            ticketNumber: '445441',
+                            title: 'Inscription ACM ICPC',
+                            content: 'I had a problem with the installation of the php server',
+                            department: {
+                                id: 1,
+                                name: 'Sales Support'
+                            },
+                            date: '20160416',
+                            file: 'http://www.opensupports.com/some_file.zip',
+                            language: 'en',
+                            unread: false,
+                            closed: false,
+                            priority: 'low',
+                            author: {
+                                id: 12,
+                                name: 'Haskell Curry',
+                                email: 'haskell@lambda.com'
+                            },
+                            owner: {
+                                id: 15,
+                                name: 'Steve Jobs',
+                                email: 'steve@jobs.com'
+                            },
+                            events: []
+                        };
+                    }),
+                    pages: 4
+                }
+            }
+        }
+    },
+    {
+        path: '/staff/search-tickets',
         time: 300,
         response: function () {
             return {
                 status: 'success',
-                data: [
-                    {
-                        ticketNumber: '445441',
-                        title: 'Inscription ACM ICPC',
-                        content: 'I had a problem with the installation of the php server',
-                        department: {
-                            id: 1,
-                            name: 'Sales Support'
-                        },
-                        date: '20160416',
-                        file: 'http://www.opensupports.com/some_file.zip',
-                        language: 'en',
-                        unread: true,
-                        closed: false,
-                        priority: 'low',
-                        author: {
-                            id: 12,
-                            name: 'Haskell Curry',
-                            email: 'haskell@lambda.com'
-                        },
-                        owner: {
-                            id: 15,
-                            name: 'Steve Jobs',
-                            email: 'steve@jobs.com'
-                        },
-                        events: []
-                    },
-                    {
-                        ticketNumber: '445441',
-                        title: 'Inscription ACM ICPC',
-                        content: 'I had a problem with the installation of the php server',
-                        department: {
-                            id: 1,
-                            name: 'Sales Support'
-                        },
-                        date: '20160416',
-                        file: 'http://www.opensupports.com/some_file.zip',
-                        language: 'en',
-                        unread: true,
-                        closed: false,
-                        priority: 'low',
-                        author: {
-                            id: 12,
-                            name: 'Haskell Curry',
-                            email: 'haskell@lambda.com'
-                        },
-                        owner: {
-                            id: 15,
-                            name: 'Steve Jobs',
-                            email: 'steve@jobs.com'
-                        },
-                        events: []
-                    },
-                    {
-                        ticketNumber: '445441',
-                        title: 'Code jam is awesome',
-                        content: 'I had a problem with the installation of the php server',
-                        department: {
-                            id: 2,
-                            name: 'Technical Issues'
-                        },
-                        date: '20160416',
-                        file: 'http://www.opensupports.com/some_file.zip',
-                        language: 'en',
-                        unread: true,
-                        closed: false,
-                        priority: 'low',
-                        author: {
-                            id: 12,
-                            name: 'Haskell Curry',
-                            email: 'haskell@lambda.com'
-                        },
-                        owner: {
-                            id: 15,
-                            name: 'Steve Jobs',
-                            email: 'steve@jobs.com'
-                        },
-                        events: []
-                    }
-                ]
+                data: {
+                    tickets: _.range(0, 10).map(() => {
+                        return {
+                            ticketNumber: '445441',
+                            title: 'Inscription ACM ICPC',
+                            content: 'I had a problem with the installation of the php server',
+                            department: {
+                                id: 1,
+                                name: 'Sales Support'
+                            },
+                            date: '20160416',
+                            file: 'http://www.opensupports.com/some_file.zip',
+                            language: 'en',
+                            unread: false,
+                            closed: false,
+                            priority: 'low',
+                            author: {
+                                id: 12,
+                                name: 'Haskell Curry',
+                                email: 'haskell@lambda.com'
+                            },
+                            owner: {
+                                id: 15,
+                                name: 'Steve Jobs',
+                                email: 'steve@jobs.com'
+                            },
+                            events: []
+                        };
+                    }),
+                    pages: 2
+                }
             }
         }
     }

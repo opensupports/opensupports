@@ -32,12 +32,22 @@ export default {
         };
     },
 
-    retrieveAllTickets() {
+    retrieveAllTickets(page) {
         return {
             type: 'ALL_TICKETS',
             payload: API.call({
                 path: '/staff/get-all-tickets',
-                data: {}
+                data: {page}
+            })
+        };
+    },
+
+    searchTickets(query, page) {
+        return {
+            type: 'ALL_TICKETS',
+            payload: API.call({
+                path: '/staff/search-tickets',
+                data: {query, page}
             })
         };
     }
