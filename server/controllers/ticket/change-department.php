@@ -33,6 +33,13 @@ class ChangeDepartmentController extends Controller {
             return;
         }
 
+        $event = Ticketevent::getEvent(Ticketevent::DEPARTMENT_CHANGED);
+        $event->setProperties(array(
+            'authorStaff' => Controller::getLoggedUser(),
+            'content' => $department->name,
+            'date' => Date::getCurrentDate()
+        ));
+        $ticket->addEvent($event);
         $ticket->department = $department;
         $ticket->unread = true;
         $ticket->store();

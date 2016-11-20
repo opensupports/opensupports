@@ -29,6 +29,13 @@ class ChangePriorityController extends Controller {
         if($ticket->owner && $user->id === $ticket->owner->id) {
             $ticket->priority = $priority;
             $ticket->unread = true;
+            $event = Ticketevent::getEvent(Ticketevent::PRIORITY_CHANGED);
+            $event->setProperties(array(
+                'authorStaff' => Controller::getLoggedUser(), 
+                'content' => $ticket->priority,
+                'date' => Date::getCurrentDate()
+            ));
+            $ticket->addEvent($event);
             $ticket->store();
             Response::respondSuccess();
         } else {

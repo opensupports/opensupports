@@ -37,6 +37,13 @@ class CloseController extends Controller {
         } else {
             $ticket->unreadStaff = true;
         }
+        $event = Ticketevent::getEvent(Ticketevent::CLOSE);
+        $event->setProperties(array(
+            'authorStaff' => Controller::getLoggedUser(),
+            'date' => Date::getCurrentDate()
+        ));
+        
+        $ticket->addEvent($event);
         $ticket->closed = true;
         $ticket->store();
         Response::respondSuccess();

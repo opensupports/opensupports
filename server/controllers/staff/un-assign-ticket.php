@@ -27,6 +27,13 @@ class UnAssignStaffController extends Controller {
             $user->store();
             $ticket->owner = null;
             $ticket->unread = true;
+            $event = Ticketevent::getEvent(Ticketevent::UN_ASSIGN);
+            $event->setProperties(array(
+                'authorStaff' => Controller::getLoggedUser(),
+                'date' => Date::getCurrentDate()
+            ));
+            
+            $ticket->addEvent($event);
             $ticket->store();
             Response::respondSuccess();
         } else {
