@@ -10,5 +10,45 @@ export default {
                 data: {}
             })
         };
+    },
+
+    retrieveMyTickets() {
+        return {
+            type: 'MY_TICKETS',
+            payload: API.call({
+                path: '/staff/get-tickets',
+                data: {}
+            })
+        };
+    },
+
+    retrieveNewTickets() {
+        return {
+            type: 'NEW_TICKETS',
+            payload: API.call({
+                path: '/staff/get-new-tickets',
+                data: {}
+            })
+        };
+    },
+
+    retrieveAllTickets(page) {
+        return {
+            type: 'ALL_TICKETS',
+            payload: API.call({
+                path: '/staff/get-all-tickets',
+                data: {page}
+            })
+        };
+    },
+
+    searchTickets(query, page) {
+        return {
+            type: 'ALL_TICKETS',
+            payload: API.call({
+                path: '/staff/search-tickets',
+                data: {query, page}
+            })
+        };
     }
 };

@@ -31,6 +31,7 @@ require './staff/un-assign-ticket.rb'
 require './staff/get-tickets.rb'
 require './ticket/change-priority.rb'
 require './staff/get-new-tickets.rb'
+require './staff/get-all-tickets.rb'
 require './ticket/events.rb'
 
 

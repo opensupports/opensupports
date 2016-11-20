@@ -50,7 +50,9 @@
     }
 
     &__loading-wrapper {
-        min-height: 200px;
+        min-height: 380px;
+        position: relative;
+        background-color: $grey;
     }
 
     &__loading {

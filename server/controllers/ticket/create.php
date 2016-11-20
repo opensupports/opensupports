@@ -16,7 +16,7 @@ class CreateController extends Controller {
             'permission' => 'user',
             'requestData' => [
                 'title' => [
-                    'validation' => DataValidator::length(3, 30),
+                    'validation' => DataValidator::length(10, 200),
                     'error' => ERRORS::INVALID_TITLE
                 ],
                 'content' => [

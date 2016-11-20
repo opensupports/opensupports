@@ -39,11 +39,11 @@ module.exports = [
             return {
                 status: 'success',
                 data: [
-                    {name: 'Common issue #1', language: 'en', content: 'some content'},
-                    {name: 'Common issue #2', language: 'en', content: 'some content'},
-                    {name: 'Common issue #3', language: 'en', content: 'some content'},
-                    {name: 'HÃ¤ufiges Problem #1', language: 'de', content: 'einige Inhalte'},
-                    {name: 'HÃ¤ufiges Problem #2', language: 'de', content: 'einige Inhalte'}
+                    {name: 'Common issue #1', language: 'en', content: 'some content 1'},
+                    {name: 'Common issue #2', language: 'en', content: 'some content 2'},
+                    {name: 'Common issue #3', language: 'en', content: 'some content 3'},
+                    {name: 'Häufiges Problem #1', language: 'de', content: 'einige Inhalte 1'},
+                    {name: 'Häufiges Problem #2', language: 'de', content: 'einige Inhalte 2'}
                 ]
             };
         }
@@ -79,6 +79,16 @@ module.exports = [
         }
     },
     {
+        path: '/ticket/seen',
+        time: 200,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
         path: '/ticket/get',
         time: 1000,
         response: function () {
@@ -96,6 +106,7 @@ module.exports = [
                     file: 'http://www.opensupports.com/some_file.zip',
                     language: 'en',
                     unread: false,
+                    unreadStaff: true,
                     closed: false,
                     priority: 'medium',
                     author: {
@@ -112,7 +123,7 @@ module.exports = [
                             author: {
                                 name: 'Emilia Clarke',
                                 email: 'jobs@steve.com',
-                                profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                profilePic: 'http://www.opensupports.com/profilepic.jpg',
                                 staff: true
                             }
                         },
@@ -123,7 +134,7 @@ module.exports = [
                             author: {
                                 name: 'Emilia Clarke',
                                 email: 'jobs@steve.com',
-                                profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                profilePic: 'http://www.opensupports.com/profilepic.jpg',
                                 staff: true
                             }
                         },
@@ -133,7 +144,7 @@ module.exports = [
                             author: {
                                 name: 'Emilia Clarke',
                                 email: 'jobs@steve.com',
-                                profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                profilePic: 'http://www.opensupports.com/profilepic.jpg',
                                 staff: true
                             }
                         },
@@ -144,7 +155,7 @@ module.exports = [
                             author: {
                                 name: 'Emilia Clarke',
                                 email: 'jobs@steve.com',
-                                profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                profilePic: 'http://www.opensupports.com/profilepic.jpg',
                                 staff: true
                             }
                         },
@@ -165,7 +176,7 @@ module.exports = [
                             author: {
                                 name: 'Emilia Clarke',
                                 email: 'jobs@steve.com',
-                                profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                profilePic: 'http://www.opensupports.com/profilepic.jpg',
                                 staff: true
                             }
                         },
@@ -185,7 +196,7 @@ module.exports = [
                             author: {
                                 name: 'Emilia Clarke',
                                 email: 'jobs@steve.com',
-                                profilePic: 'http://i65.tinypic.com/9bep95.jpg',
+                                profilePic: 'http://www.opensupports.com/profilepic.jpg',
                                 staff: true
                             }
                         },

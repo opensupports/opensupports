@@ -1,0 +1,21 @@
+@import "../scss/vars";
+
+.search-box {
+    position: relative;
+    color: $dark-grey;
+
+    &__text {
+        width: 100%;
+        font-size: $font-size--lg;
+
+        .input__text {
+            padding-left: 50px;
+        }
+    }
+
+    &__icon {
+        position: absolute;
+        top: 15px;
+        left: 20px;
+    }
+}

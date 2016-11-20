@@ -13,9 +13,12 @@ class Table extends React.Component {
             className: React.PropTypes.string
         })),
         rows: React.PropTypes.arrayOf(React.PropTypes.object),
-        pageSize: React.PropTypes.number,
         loading: React.PropTypes.bool,
         type: React.PropTypes.oneOf(['default']),
+        page: React.PropTypes.number,
+        pages: React.PropTypes.number,
+        pageSize: React.PropTypes.number,
+        onPageChange: React.PropTypes.func,
         comp: React.PropTypes.func
     };
 
@@ -41,7 +44,7 @@ class Table extends React.Component {
                     </tbody>
                 </table>
                 {(this.props.loading) ? this.renderLoading() : null}
-                {(this.props.pageSize && this.props.rows.length > this.props.pageSize) ? this.renderNavigation() : null}
+                {this.renderPagination()}
             </div>
         );
     }
@@ -59,8 +62,8 @@ class Table extends React.Component {
 
     renderRow(row, index) {
         const headersKeys = this.props.headers.map(header => header.key);
-        const minIndex = this.props.pageSize * (this.state.page - 1);
-        const maxIndex = this.props.pageSize * this.state.page;
+        const minIndex = this.props.pageSize * ((this.props.page) ? 0 : this.state.page - 1);
+        const maxIndex = this.props.pageSize * ((this.props.page) ? 1 : this.state.page);
         const shouldRenderRow = !this.props.pageSize || (index >= minIndex && index < maxIndex);
 
         return (shouldRenderRow) ? (
@@ -81,12 +84,15 @@ class Table extends React.Component {
         );
     }
 
+    renderPagination() {
+        return (this.props.pages || (this.props.pageSize && this.props.rows.length > this.props.pageSize)) ? this.renderNavigation() : null
+    }
+
     renderNavigation() {
-        const pages = Math.ceil(this.props.rows.length / this.props.pageSize) + 1;
-        const items = _.range(1, pages).map((index) => {return {content: index};});
+        const items = _.range(1, this.getPages()).map((index) => {return {content: index};});
 
         return (
-            <Menu className="table__navigation" type="navigation" items={items} onItemClick={this.onNavigationItemClick.bind(this)}/>
+            <Menu className="table__navigation" type="navigation" items={items} selectedIndex={this.getPageNumber() - 1} onItemClick={this.onNavigationItemClick.bind(this)} />
         );
     }
 
@@ -102,6 +108,10 @@ class Table extends React.Component {
         this.setState({
             page: index + 1
         });
+
+        if(this.props.onPageChange) {
+            this.props.onPageChange({target: {value: index + 1}});
+        }
     }
     
     getRowClass(row) {
@@ -114,11 +124,19 @@ class Table extends React.Component {
     }
 
     getRows() {
-        let v = _.clone(this.props.rows);
-        v.sort(this.props.comp);
-        return v;
+        let sortedRows = _.clone(this.props.rows);
+        sortedRows.sort(this.props.comp);
+
+        return sortedRows;
     }
 
+    getPages() {
+        return (this.props.pages !== undefined) ? this.props.pages + 1 : Math.ceil(this.props.rows.length / this.props.pageSize) + 1;
+    }
+
+    getPageNumber() {
+        return (this.props.page !== undefined) ? this.props.page: this.state.page;
+    }
 }
 
 export default Table;

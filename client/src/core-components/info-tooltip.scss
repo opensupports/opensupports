@@ -1,0 +1,26 @@
+@import "../scss/vars";
+
+.info-tooltip {
+    &__text {
+        &-title {
+            color: $secondary-blue;
+            font-size: $font-size--md;
+        }
+    }
+
+    &__icon {
+        color: $secondary-blue;
+    }
+
+    &_warning {
+        .info-tooltip__icon {
+            color: $primary-red;
+        }
+
+        .info-tooltip__text {
+            &-title {
+                color: $primary-red;
+            }
+        }
+    }
+}
