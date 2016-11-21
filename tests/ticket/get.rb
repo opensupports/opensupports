@@ -75,7 +75,7 @@ describe '/ticket/get/' do
         (result['data']['unread']).should.equal(false)
         (result['data']['author']['name']).should.equal('Cersei Lannister')
         (result['data']['author']['email']).should.equal('cersei@os4.com')
-        (result['data']['owner']).should.equal([])
+        (result['data']['owner']).should.equal(nil)
         (result['data']['events'].size).should.equal(1)
         (result['data']['events'][0]['type']).should.equal('COMMENT')
         (result['data']['events'][0]['content']).should.equal('some valid comment made')

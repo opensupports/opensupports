@@ -5,6 +5,8 @@ DataValidator::with('CustomValidations', true);
 class TicketGetController extends Controller {
     const PATH = '/get';
 
+    private $ticket;
+
     public function validations() {
         return [
             'permission' => 'user',
@@ -18,14 +20,19 @@ class TicketGetController extends Controller {
     }
 
     public function handler() {
-        $ticketNumber = Controller::request('ticketNumber');
+        $this->ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
 
-        $ticket = Ticket::getByTicketNumber($ticketNumber);
-
-        if ($ticket->author->id != Controller::getLoggedUser()->id) {
-            Response::respondError(ERRORS::INVALID_TICKET);
+        if ($this->shouldDenyPermission()) {
+            Response::respondError(ERRORS::NO_PERMISSION);
         } else {
-            Response::respondSuccess($ticket->toArray());
+            Response::respondSuccess($this->ticket->toArray());
         }
+    }
+
+    private function shouldDenyPermission() {
+        $user = Controller::getLoggedUser();
+
+        return (!Controller::isStaffLogged() && $this->ticket->author->id !== $user->id) ||
+               (Controller::isStaffLogged() && $this->ticket->owner && $this->ticket->owner->id !== $user->id);
     }
 }

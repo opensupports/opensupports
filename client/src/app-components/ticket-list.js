@@ -161,7 +161,7 @@ class TicketList extends React.Component {
     }
 
     gerTicketTableObject(ticket) {
-        let titleText = (ticket.unread) ? ticket.title  + ' (1)' : ticket.title;
+        let titleText = (this.isTicketUnread(ticket)) ? ticket.title  + ' (1)' : ticket.title;
 
         return {
             number: (
@@ -178,8 +178,8 @@ class TicketList extends React.Component {
             department: ticket.department.name,
             author: ticket.author.name,
             date: DateTransformer.transformToString(ticket.date),
-            unread: ticket.unread,
-            highlighted: ticket.unread
+            unread: this.isTicketUnread(ticket),
+            highlighted: this.isTicketUnread(ticket)
         };
     }
 
@@ -230,6 +230,10 @@ class TicketList extends React.Component {
             return row1.unread ? -1 : 1;
         }
         return row1.closed ? -1 : 1;
+    }
+
+    isTicketUnread(ticket) {
+        return (this.props.type === 'primary' && ticket.unread) || (this.props.type === 'secondary' && ticket.unreadStaff);
     }
 }
 

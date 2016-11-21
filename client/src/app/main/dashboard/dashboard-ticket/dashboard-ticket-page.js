@@ -23,6 +23,8 @@ class DashboardTicketPage extends React.Component {
                 data: {
                     ticketNumber: ticket.ticketNumber
                 }
+            }).then(() => {
+                this.retrieveUserData();
             });
         }
     }

@@ -74,6 +74,7 @@ class Ticket extends DataStore {
             'file' => $this->file,
             'language' => $this->language,
             'unread' => !!$this->unread,
+            'unreadStaff' => !!$this->unreadStaff,
             'closed' => !!$this->closed,
             'priority' => $this->priority,
             'author' => $this->authorToArray(),
@@ -106,7 +107,7 @@ class Ticket extends DataStore {
                 'email' => $owner->email
             ];
         } else {
-            return [];
+            return null;
         }
     }
 
@@ -128,6 +129,7 @@ class Ticket extends DataStore {
                     'id'=> $author->id,
                     'name' => $author->name,
                     'email' =>$author->email,
+                    'profilePic' => ($author instanceof Staff) ? $author->profilePic : null,
                     'staff' => $author instanceof Staff
                 ];
             }

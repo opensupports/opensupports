@@ -13,6 +13,7 @@ class CustomResponse extends DataStore {
 
     public function toArray() {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'language' => $this->language,
             'content' => $this->content,

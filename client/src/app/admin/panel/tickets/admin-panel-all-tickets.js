@@ -52,7 +52,11 @@ class AdminPanelAllTickets extends React.Component {
 
     onSearch(query) {
         this.setState({query, page: 1});
-        this.props.dispatch(AdminDataAction.searchTickets(query));
+        if (query) {
+            this.props.dispatch(AdminDataAction.searchTickets(query));
+        } else {
+            this.props.dispatch(AdminDataAction.retrieveAllTickets());
+        }
     }
 
     onPageChange(event) {

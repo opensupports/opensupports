@@ -16,7 +16,10 @@ class Department extends DataStore {
         $departmentsNameList = [];
 
         foreach($departmentsList as $department) {
-            $departmentsNameList[] = $department->name;
+            $departmentsNameList[] = [
+                'id' => $department->id,
+                'name' => $department->name
+            ];
         }
         
         return $departmentsNameList;
