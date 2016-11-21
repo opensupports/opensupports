@@ -153,7 +153,7 @@ class AdminPanelCustomResponses extends React.Component {
             API.call({
                 path: '/ticket/edit-custom-response',
                 data: {
-                    id: this.state.selectedIndex,
+                    id: this.props.items[this.state.selectedIndex].id,
                     name: form.name,
                     content: form.content,
                     language: form.language
@@ -161,7 +161,7 @@ class AdminPanelCustomResponses extends React.Component {
             }).then(() => {
                 this.setState({formLoading: false});
                 this.retrieveCustomResponses();
-            });
+            }).catch(this.onItemChange.bind(this, -1));
         } else {
             API.call({
                 path: '/ticket/add-custom-response',
@@ -171,17 +171,19 @@ class AdminPanelCustomResponses extends React.Component {
                     language: form.language
                 }
             }).then(() => {
-                this.setState({formLoading: false});
                 this.retrieveCustomResponses();
-            });
+                this.onItemChange(-1);
+            }).catch(this.onItemChange.bind(this, -1));
         }
     }
 
-    onDiscardChangesClick() {
+    onDiscardChangesClick(event) {
+        event.preventDefault();
         this.onItemChange(this.state.selectedIndex);
     }
 
-    onDeleteClick() {
+    onDeleteClick(event) {
+        event.preventDefault();
         AreYouSure.openModal(i18n('WILL_DELETE_CUSTOM_RESPONSE'), this.deleteCustomResponse.bind(this));
     }
 
@@ -189,9 +191,12 @@ class AdminPanelCustomResponses extends React.Component {
         API.call({
             path: '/ticket/delete-custom-response',
             data: {
-                id: this.state.selectedIndex
+                id: this.props.items[this.state.selectedIndex].id
             }
-        }).then(this.retrieveCustomResponses.bind(this));
+        }).then(() => {
+            this.retrieveCustomResponses();
+            this.onItemChange(-1);
+        });
     }
 
     updateForm(index) {
@@ -204,6 +209,7 @@ class AdminPanelCustomResponses extends React.Component {
         this.setState({
             selectedIndex: index,
             edited: false,
+            formLoading: false,
             form: form,
             errors: {}
         });
@@ -211,6 +217,9 @@ class AdminPanelCustomResponses extends React.Component {
 
     retrieveCustomResponses() {
         this.props.dispatch(AdminDataActions.retrieveCustomResponses());
+        this.setState({
+            edited: false
+        });
     }
 }
 

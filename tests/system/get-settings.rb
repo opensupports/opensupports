@@ -4,8 +4,8 @@ describe '/system/get-settings' do
 
         (result['status']).should.equal('success')
         (result['data']['language']).should.equal('en')
-        (result['data']['departments'][0]).should.equal('Tech Support')
-        (result['data']['departments'][1]).should.equal('Suggestions')
-        (result['data']['departments'][2]).should.equal('Sales and Subscriptions')
+        (result['data']['departments'][0]['name']).should.equal('Tech Support')
+        (result['data']['departments'][1]['name']).should.equal('Suggestions')
+        (result['data']['departments'][2]['name']).should.equal('Sales and Subscriptions')
     end
 end

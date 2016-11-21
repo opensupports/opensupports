@@ -51,7 +51,7 @@ describe '/user/get' do
         (ticketFromUser['unread']).should.equal(false)
         (ticketFromUser['author']['name']).should.equal('User Get')
         (ticketFromUser['author']['email']).should.equal('user_get@os4.com')
-        (ticketFromUser['owner']).should.equal([])
+        (ticketFromUser['owner']).should.equal(nil)
         (ticketFromUser['events']).should.equal([])
     end
 end

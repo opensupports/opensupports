@@ -32,7 +32,7 @@ export default {
         };
     },
 
-    retrieveAllTickets(page) {
+    retrieveAllTickets(page = 1) {
         return {
             type: 'ALL_TICKETS',
             payload: API.call({
@@ -42,7 +42,7 @@ export default {
         };
     },
 
-    searchTickets(query, page) {
+    searchTickets(query, page = 1) {
         return {
             type: 'ALL_TICKETS',
             payload: API.call({

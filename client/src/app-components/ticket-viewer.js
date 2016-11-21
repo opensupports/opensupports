@@ -54,16 +54,7 @@ class TicketViewer extends React.Component {
                 <div className="ticket-viewer__comments">
                     {ticket.events && ticket.events.map(this.renderTicketEvent.bind(this))}
                 </div>
-                <div className="ticket-viewer__response">
-                    <div className="ticket-viewer__response-title row">{i18n('RESPOND')}</div>
-                    {this.renderCustomResponses()}
-                    <div className="ticket-viewer__response-field row">
-                        <Form {...this.getCommentFormProps()}>
-                            <FormField name="content" validation="TEXT_AREA" required field="textarea" />
-                            <SubmitButton>{i18n('RESPOND_TICKET')}</SubmitButton>
-                        </Form>
-                    </div>
-                </div>
+                {(!this.props.ticket.closed && (this.props.editable || !this.props.assignmentAllowed)) ? this.renderResponseField() : null}
             </div>
         );
     }
@@ -173,7 +164,7 @@ class TicketViewer extends React.Component {
                 </Button>
             );
         } else {
-            ownerNode  = i18n((this.props.closed) ? 'CLOSED' : 'OPENED');
+            ownerNode  = i18n((this.props.ticket.closed) ? 'CLOSED' : 'OPENED');
         }
 
         return ownerNode;
@@ -182,6 +173,21 @@ class TicketViewer extends React.Component {
     renderTicketEvent(options, index) {
         return (
             <TicketEvent {...options} key={index} />
+        );
+    }
+
+    renderResponseField() {
+        return (
+            <div className="ticket-viewer__response">
+                <div className="ticket-viewer__response-title row">{i18n('RESPOND')}</div>
+                {this.renderCustomResponses()}
+                <div className="ticket-viewer__response-field row">
+                    <Form {...this.getCommentFormProps()}>
+                        <FormField name="content" validation="TEXT_AREA" required field="textarea" />
+                        <SubmitButton>{i18n('RESPOND_TICKET')}</SubmitButton>
+                    </Form>
+                </div>
+            </div>
         );
     }
 

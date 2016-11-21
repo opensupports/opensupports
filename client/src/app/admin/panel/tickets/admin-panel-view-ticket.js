@@ -64,7 +64,7 @@ class AdminPanelViewTicket extends React.Component {
             onChange: this.retrieveTicket.bind(this),
             assignmentAllowed: true,
             customResponses: this.props.customResponses,
-            editable: _.get(this.state.ticket, 'owner.id') === SessionStore.getUserData().id
+            editable: this.state.ticket.owner && this.state.ticket.owner.id == SessionStore.getSessionData().userId
         };
     }
 
@@ -89,7 +89,7 @@ class AdminPanelViewTicket extends React.Component {
                 data: {
                     ticketNumber: this.props.params.ticketNumber
                 }
-            })
+            });
         }
     }
 
