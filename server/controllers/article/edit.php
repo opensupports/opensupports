@@ -1,0 +1,56 @@
+<?php
+use Respect\Validation\Validator as DataValidator;
+DataValidator::with('CustomValidations', true);
+
+class EditArticleController extends Controller {
+    const PATH = '/edit';
+
+    public function validations() {
+        return [
+            'permission' => 'staff_2',
+            'requestData' => [
+                'articleId' => [
+                    'validation' => DataValidator::dataStoreId('article'),
+                    'error' => ERRORS::INVALID_TOPIC
+                ]
+            ]
+        ];
+    }
+
+    public function handler() {
+        $article = Article::getDataStore(Controller::request('articleId'));
+
+        if (Controller::request('topicId')) {
+            $currentArticleTopic = $article->topic;
+            $newArticleTopic = Topic::getDataStore(Controller::request('topicId'));
+
+            if (!$newArticleTopic->isNull() /*&& $currentArticleTopic->ownArticleList->remove($article)*/) {
+                /*$newArticleTopic->ownArticleList->add($article);
+
+                $currentArticleTopic->store();
+                $newArticleTopic->store();*/
+                $article->topic = $newArticleTopic;
+            } else {
+                Response::respondError(ERRORS::INVALID_TOPIC);
+                return;
+            }
+        }
+
+        if(Controller::request('content')) {
+            $article->content = Controller::request('content');
+        }
+
+        if(Controller::request('title')) {
+            $article->title = Controller::request('title');
+        }
+
+        if(Controller::request('position')) {
+            $article->position = Controller::request('position');
+        }
+
+        $article->lastEdited = Date::getCurrentDate();
+
+        $article->store();
+        Response::respondSuccess();
+    }
+}

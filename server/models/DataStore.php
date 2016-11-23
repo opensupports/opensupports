@@ -126,10 +126,6 @@ abstract class DataStore {
         return RedBean::store($this->getBeanInstance());
     }
 
-    public function trash() {
-        RedBean::trash($this->getBeanInstance());
-    }
-
     public function delete() {
         RedBean::trash($this->getBeanInstance());
         unset($this);
