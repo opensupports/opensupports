@@ -19,7 +19,7 @@ class DeleteCustomResponseController extends Controller {
 
     public function handler() {
         $customResponse = CustomResponse::getDataStore(Controller::request('id'));
-        $customResponse->trash();
+        $customResponse->delete();
 
         Response::respondSuccess();
     }
