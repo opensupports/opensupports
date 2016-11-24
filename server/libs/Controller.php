@@ -14,12 +14,11 @@ abstract class Controller {
         return function () {
             try {
                 $this->validate();
-            } catch (ValidationException $exception) {
+                $this->handler();
+            } catch (\Exception $exception) {
                 Response::respondError($exception->getMessage());
                 return;
             }
-
-            $this->handler();
         };
     }
     

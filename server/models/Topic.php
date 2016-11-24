@@ -3,7 +3,7 @@
 class Topic extends DataStore {
     const TABLE = 'topic';
 
-    public function getProps() {
+    public static function getProps() {
         return [
             'name',
             'icon',

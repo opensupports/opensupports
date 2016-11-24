@@ -3,7 +3,7 @@
 class Article extends DataStore {
     const TABLE  = 'article';
 
-    public function getProps() {
+    public static function getProps() {
         return [
             'title',
             'content',
