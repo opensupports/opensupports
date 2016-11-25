@@ -88,6 +88,7 @@ export default {
     'NEW_TICKETS_DESCRIPTION': 'Here you can view all the new tickets that are not assigned by anyone.',
     'ALL_TICKETS_DESCRIPTION': 'Here you can view the tickets of the departments you are assigned.',
     'TICKET_VIEW_DESCRIPTION': 'This ticket has been sent by a customer. Here you can respond or assign the ticket',
+    'LIST_USERS_DESCRIPTION': 'This is the list of users that are registered in this platform. You can search for someone in particular, delete it or ban it.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
