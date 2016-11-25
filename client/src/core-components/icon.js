@@ -5,6 +5,7 @@ class Icon extends React.Component {
 
     static propTypes = {
         name: React.PropTypes.string.isRequired,
+        color: React.PropTypes.string,
         size: React.PropTypes.string
     };
 
@@ -18,7 +19,7 @@ class Icon extends React.Component {
 
     renderFontIcon() {
         return (
-            <span className={this.getFontIconClass()} aria-hidden="true" />
+            <span className={this.getFontIconClass()} aria-hidden="true" style={{color: this.props.color}}/>
         );
     }
 

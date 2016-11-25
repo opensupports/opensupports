@@ -1,0 +1,35 @@
+@import "../scss/vars";
+
+.topic-viewer {
+    text-align: left;
+    //font-weight: bold;
+    &__header {
+        margin-bottom: 15px;
+    }
+    &__icon {
+        color: $primary-green;
+    }
+    &__title {
+        font-size: $font-size--lg;
+        margin-left: 15px;
+    }
+    &__list {
+        &-item {
+            display: inline-block;
+            width: 50%;
+            color: $secondary-blue;
+            margin-bottom: 10px;
+        }
+        &-item:before {
+            content: "• ";
+            color: $grey;
+        }
+        //
+        &-item:nth-child(even) {
+            //background: red;
+        }
+        &-item:nth-child(odd) {
+            //background: green;
+        }
+    }
+}

@@ -20,6 +20,7 @@ fixtures.add(require('data/fixtures/user-fixtures'));
 fixtures.add(require('data/fixtures/staff-fixtures'));
 fixtures.add(require('data/fixtures/ticket-fixtures'));
 fixtures.add(require('data/fixtures/system-fixtures'));
+fixtures.add(require('data/fixtures/article-fixtures'));
 
 _.each(fixtures.getAll(), function (fixture) {
     mockjax({
