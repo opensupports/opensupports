@@ -2,6 +2,7 @@ let month = ["", "Jan", "Feb", "Mar", "May", "Jun", "Jul", "Aug", "Sep", "Oct", 
 
 export default {
     transformToString (date) {
+        date += ''; //Transform to string
         let y = date.substring(0, 4);
         let m = date.substring(4, 6);
         let d = date.substring(6, 8);

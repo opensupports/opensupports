@@ -32,7 +32,7 @@ class Table extends React.Component {
 
     render() {
         return (
-            <div className="table__wrapper">
+            <div className={this.getClass()}>
                 <table className="table table-responsive">
                     <thead>
                         <tr className="table__header">
@@ -92,7 +92,7 @@ class Table extends React.Component {
         const items = _.range(1, this.getPages()).map((index) => {return {content: index};});
 
         return (
-            <Menu className="table__navigation" type="navigation" items={items} selectedIndex={this.getPageNumber() - 1} onItemClick={this.onNavigationItemClick.bind(this)} />
+            <Menu className="table__navigation" type="navigation" items={items} selectedIndex={this.getPageNumber() - 1} onItemClick={this.onNavigationItemClick.bind(this)} tabbable/>
         );
     }
 
@@ -102,6 +102,16 @@ class Table extends React.Component {
                 <Loading className="table__loading" backgrounded size="large"/>
             </div>
         )
+    }
+
+    getClass() {
+        let classes = {
+            'table__wrapper': true
+        };
+
+        classes[this.props.className] = (this.props.className);
+
+        return classNames(classes);
     }
 
     onNavigationItemClick(index) {

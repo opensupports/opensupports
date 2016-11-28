@@ -125,6 +125,94 @@ module.exports = [
         }
     },
     {
+        path: '/user/get-users',
+        time: 100,
+        response: function (data) {
+            return {
+                status: 'success',
+                data: {
+                    page: data.page,
+                    pages: 10,
+                    orderBy: 'date',
+                    desc: true,
+                    search: '',
+                    users: [
+                        {
+                            id: 101,
+                            name: 'Haskell Curry',
+                            email: 'haskell@currycurrylady.com',
+                            tickets: 5,
+                            signupDate: 20160415
+                        },
+                        {
+                            id: 97,
+                            name: 'Alan Turing',
+                            email: 'turing@currycurrylady.com',
+                            tickets: 1,
+                            signupDate: 20160401
+                        },
+                        {
+                            id: 89,
+                            name: 'David Hilbert',
+                            email: 'hilbert@currycurrylady.com',
+                            tickets: 2,
+                            signupDate: 20160208
+                        },
+                        {
+                            id: 83,
+                            name: 'Kurt Gödel',
+                            email: 'kurt@currycurrylady.com',
+                            tickets: 10,
+                            signupDate: 20160110
+                        },
+                        {
+                            id: 79,
+                            name: 'Mojzesz Presburger',
+                            email: 'presburger@currycurrylady.com',
+                            tickets: 6,
+                            signupDate: 20150415
+                        },
+                        {
+                            id: 73,
+                            name: 'Haskell Curry',
+                            email: 'haskell@currycurrylady.com',
+                            tickets: 5,
+                            signupDate: 20160415
+                        },
+                        {
+                            id: 71,
+                            name: 'Alan Turing',
+                            email: 'turing@currycurrylady.com',
+                            tickets: 1,
+                            signupDate: 20160401
+                        },
+                        {
+                            id: 67,
+                            name: 'David Hilbert',
+                            email: 'hilbert@currycurrylady.com',
+                            tickets: 2,
+                            signupDate: 20160208
+                        },
+                        {
+                            id: 61,
+                            name: 'Kurt Gödel',
+                            email: 'kurt@currycurrylady.com',
+                            tickets: 10,
+                            signupDate: 20160110
+                        },
+                        {
+                            id: 59,
+                            name: 'Mojzesz Presburger',
+                            email: 'presburger@currycurrylady.com',
+                            tickets: 6,
+                            signupDate: 20150415
+                        }
+                    ]
+                }
+            };
+        }
+    },
+    {
         path: '/user/get',
         time: 100,
         response: function () {

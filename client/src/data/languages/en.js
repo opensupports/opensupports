@@ -75,6 +75,9 @@ export default {
     'WARNING': 'Warning',
     'INFO': 'Information',
     'ALL_DEPARTMENTS': 'All Departments',
+    'NAME': 'Name',
+    'SIGNUP_DATE': 'Sign up date',
+    'SEARCH_USERS': 'Search users...',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
