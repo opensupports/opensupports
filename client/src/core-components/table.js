@@ -3,6 +3,7 @@ import _ from 'lodash';
 import classNames from 'classnames';
 
 import Menu from 'core-components/menu';
+import Icon from 'core-components/icon';
 import Loading from 'core-components/loading';
 
 class Table extends React.Component {
@@ -56,7 +57,23 @@ class Table extends React.Component {
         };
         
         return (
-            <th className={classNames(classes)} key={header.key}>{header.value}</th>
+            <th className={classNames(classes)} key={header.key}>
+                {header.value}
+                {(header.order) ? this.renderHeaderArrows(header.onOrderUp, header.onOrderDown) : null}
+            </th>
+        );
+    }
+
+    renderHeaderArrows(onArrowUp, onArrowDown) {
+        return (
+            <span className="table__header-arrows">
+                <span className="table__header-arrow-up" onClick={onArrowUp}>
+                    <Icon name="arrow-up"/>
+                </span>
+                <span className="table__header-arrow-down" onClick={onArrowDown}>
+                    <Icon name="arrow-down"/>
+                </span>
+            </span>
         );
     }
 

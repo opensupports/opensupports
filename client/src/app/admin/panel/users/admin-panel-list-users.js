@@ -14,6 +14,8 @@ class AdminPanelListUsers extends React.Component {
     state = {
         loading: true,
         users: [],
+        orderBy: 'id',
+        desc: true,
         page: 1,
         pages: 1
     };
@@ -65,12 +67,18 @@ class AdminPanelListUsers extends React.Component {
             {
                 key: 'tickets',
                 value: i18n('TICKETS'),
-                className: 'admin-panel-list-users__table-tickets col-md-2'
+                className: 'admin-panel-list-users__table-tickets col-md-2',
+                order: true,
+                onOrderUp: this.orderByTickets.bind(this, false),
+                onOrderDown: this.orderByTickets.bind(this, true)
             },
             {
                 key: 'signupDate',
                 value: i18n('SIGNUP_DATE'),
-                className: 'admin-panel-list-users__table-date col-md-2'
+                className: 'admin-panel-list-users__table-date col-md-2',
+                order: true,
+                onOrderUp: this.orderById.bind(this, false),
+                onOrderDown: this.orderById.bind(this, true)
             }
         ];
     }
@@ -106,6 +114,24 @@ class AdminPanelListUsers extends React.Component {
             page: event.target.value,
             orderBy: this.state.orderBy,
             desc: this.state.desc,
+            search: this.state.search
+        });
+    }
+
+    orderByTickets(desc) {
+        this.retrieveUsers({
+            page: 1,
+            orderBy: 'tickets',
+            desc: desc,
+            search: this.state.search
+        });
+    }
+
+    orderById(desc) {
+        this.retrieveUsers({
+            page: 1,
+            orderBy: 'id',
+            desc: desc,
             search: this.state.search
         });
     }
