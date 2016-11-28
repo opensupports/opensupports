@@ -1,0 +1,40 @@
+@import '../../../../scss/vars';
+
+.admin-panel-view-user {
+
+    &__info {
+        text-align: left;
+
+        &-item {
+            display: inline-block;
+            margin-right: 20px;
+            width: 200px;
+        }
+
+        &-box {
+            background-color: $grey;
+            color: $primary-black;
+            font-size: $font-size--sm;
+            padding: 5px 15px;
+            text-align: center;
+        }
+    }
+
+    &__delete-button {
+        margin-top: 20px;
+    }
+
+    &__separator {
+        background-color: $grey;
+        display: block;
+        margin: 30px 0;
+        height: 1px;
+        width: 100%;
+    }
+
+    &__tickets-title {
+        font-size: $font-size--md;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+}
