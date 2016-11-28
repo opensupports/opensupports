@@ -3,6 +3,7 @@ import _ from 'lodash';
 import classNames from 'classnames';
 
 import Menu from 'core-components/menu';
+import Icon from 'core-components/icon';
 import Loading from 'core-components/loading';
 
 class Table extends React.Component {
@@ -32,7 +33,7 @@ class Table extends React.Component {
 
     render() {
         return (
-            <div className="table__wrapper">
+            <div className={this.getClass()}>
                 <table className="table table-responsive">
                     <thead>
                         <tr className="table__header">
@@ -56,7 +57,23 @@ class Table extends React.Component {
         };
         
         return (
-            <th className={classNames(classes)} key={header.key}>{header.value}</th>
+            <th className={classNames(classes)} key={header.key}>
+                {header.value}
+                {(header.order) ? this.renderHeaderArrows(header.onOrderUp, header.onOrderDown) : null}
+            </th>
+        );
+    }
+
+    renderHeaderArrows(onArrowUp, onArrowDown) {
+        return (
+            <span className="table__header-arrows">
+                <span className="table__header-arrow-up" onClick={onArrowUp}>
+                    <Icon name="arrow-up"/>
+                </span>
+                <span className="table__header-arrow-down" onClick={onArrowDown}>
+                    <Icon name="arrow-down"/>
+                </span>
+            </span>
         );
     }
 
@@ -92,7 +109,7 @@ class Table extends React.Component {
         const items = _.range(1, this.getPages()).map((index) => {return {content: index};});
 
         return (
-            <Menu className="table__navigation" type="navigation" items={items} selectedIndex={this.getPageNumber() - 1} onItemClick={this.onNavigationItemClick.bind(this)} />
+            <Menu className="table__navigation" type="navigation" items={items} selectedIndex={this.getPageNumber() - 1} onItemClick={this.onNavigationItemClick.bind(this)} tabbable/>
         );
     }
 
@@ -102,6 +119,16 @@ class Table extends React.Component {
                 <Loading className="table__loading" backgrounded size="large"/>
             </div>
         )
+    }
+
+    getClass() {
+        let classes = {
+            'table__wrapper': true
+        };
+
+        classes[this.props.className] = (this.props.className);
+
+        return classNames(classes);
     }
 
     onNavigationItemClick(index) {
