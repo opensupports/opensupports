@@ -127,6 +127,16 @@ module.exports = [
         }
     },
     {
+        path: '/user/delete',
+        time: 1000,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
         path: '/user/get-user',
         time: 100,
         response: function () {
