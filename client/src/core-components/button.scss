@@ -59,11 +59,14 @@
     }
 
     &_medium {
-        width: 239px;
+        width: auto;
+        padding: 5px 15px;
+        height: 35px;
+        text-transform: none;
     }
 
     &_large {
-        //width: 239px;
+        width: 239px;
     }
 
     &_auto {
