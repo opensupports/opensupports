@@ -82,8 +82,9 @@ export default {
     'NAME': 'Name',
     'SIGNUP_DATE': 'Sign up date',
     'SEARCH_USERS': 'Search users...',
+    'SEARCH_EMAIL': 'Search email...',
     'USER_VIEW_TITLE': 'User #{userId}',
-    
+
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
     'TICKET_LIST_DESCRIPTION': 'Here you can find a list of all tickets you have sent to our support team.',

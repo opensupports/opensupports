@@ -29,7 +29,7 @@ class AdminPanelBanUsers extends React.Component {
             <div className="admin-panel-ban-users row">
                 <Header title={i18n('BAN_USERS')} description={i18n('BAN_USERS_DESCRIPTION')} />
                 <div className="admin-panel-ban-users__email-list col-md-6">
-                    <SearchBox className="admin-panel-ban-users__search" onSearch={this.onSearch.bind(this)} searchOnType/>
+                    <SearchBox className="admin-panel-ban-users__search" onSearch={this.onSearch.bind(this)} searchOnType placeholder={i18n('SEARCH_EMAIL')}/>
                     <Table {...this.getTableProps()} />
                 </div>
                 <div className="admin-panel-ban-users__ban-email col-md-6">
