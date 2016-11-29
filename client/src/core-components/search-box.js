@@ -31,6 +31,7 @@ class SearchBox extends React.Component {
 
     static propTypes = {
         onSearch: React.PropTypes.func,
+        placeholder: React.PropTypes.string,
         searchOnType: React.PropTypes.bool
     };
 
@@ -42,7 +43,7 @@ class SearchBox extends React.Component {
     render() {
         return (
             <div className={this.getClass()}>
-                <Input className="search-box__text" value={this.state.value} onChange={this.onChange.bind(this)} onKeyDown={this.onKeyDown.bind(this)} />
+                <Input className="search-box__text" value={this.state.value} placeholder={this.props.placeholder} onChange={this.onChange.bind(this)} onKeyDown={this.onKeyDown.bind(this)} />
                 <span className="search-box__icon">
                     <Icon name="search" />
                 </span>

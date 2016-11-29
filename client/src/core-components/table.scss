@@ -7,6 +7,18 @@
         background-color: $primary-blue;
         color: white;
         font-weight: normal;
+
+        &-arrow-up {
+            cursor: pointer;
+            font-size: $font-size--xs;
+            margin-left: 10px;
+        }
+
+        &-arrow-down {
+            cursor: pointer;
+            font-size: $font-size--xs;
+            margin-left: 3px;
+        }
     }
 
     &__header-column {
