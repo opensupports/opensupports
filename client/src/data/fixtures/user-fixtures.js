@@ -489,5 +489,86 @@ module.exports = [
                 }
             };
         }
+    },
+    {
+        path: '/user/un-ban',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/user/ban',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/user/list-ban',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: [
+                    'unairable@randomword.com',
+                    'hotchpot@randomword.com',
+                    'elucidator@randomword.com',
+                    'sug@randomword.com',
+                    'nonculpability@randomword.com',
+                    'steeplechaser@randomword.com',
+                    'undefinite@randomword.com',
+                    'anthobian@randomword.com',
+                    'nontourist@randomword.com',
+                    'berberis@randomword.com',
+                    'sextus@randomword.com',
+                    'empiristic@randomword.com',
+                    'epistolized@randomword.com',
+                    'duntroon@randomword.com',
+                    'unpalled@randomword.com',
+                    'baddish@randomword.com',
+                    'subcritical@randomword.com',
+                    'bolger@randomword.com',
+                    'deactivate@randomword.com',
+                    'visually@randomword.com',
+                    'cameral@randomword.com',
+                    'unpieced@randomword.com',
+                    'gaging@randomword.com',
+                    'advancement@randomword.com',
+                    'plenteous@randomword.com',
+                    'thallious@randomword.com',
+                    'vernalizing@randomword.com',
+                    'nekhbetv@randomword.com',
+                    'unsmocke@randomword.com',
+                    'nonprojective@randomword.com',
+                    'nonconductible@randomword.com',
+                    'gladsomeness@randomword.com',
+                    'nongravitation@randomword.com',
+                    'restatement@randomword.com',
+                    'pokeys@randomword.com',
+                    'epis@randomword.com',
+                    'successor@randomword.com',
+                    'jurisprudentially@randomword.com',
+                    'medullization@randomword.com',
+                    'evan@randomword.com',
+                    'outliver@randomword.com',
+                    'antipode@randomword.com',
+                    'sunshiny@randomword.com',
+                    'microscopopy@randomword.com',
+                    'enatic@randomword.com',
+                    'smittle@randomword.com',
+                    'musk@randomword.com',
+                    'litui@randomword.com',
+                    'aquarellist@randomword.com',
+                    'chirac@randomword.com'
+                ]
+            };
+        }
     }
 ];

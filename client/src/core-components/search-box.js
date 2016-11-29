@@ -1,4 +1,6 @@
 import React from 'react';
+import classNames from 'classnames';
+import _ from 'lodash';
 
 import Input from 'core-components/input';
 import Icon from 'core-components/icon';
@@ -6,17 +8,40 @@ import keyCode from 'keycode';
 
 class SearchBox extends React.Component {
 
+    static searchQueryInList(list, query) {
+        let match = [];
+        let rest = [];
+
+        list.forEach(function (item) {
+            if(_.startsWith(item, query)) {
+                match.push(item);
+            } else {
+                rest.push(item);
+            }
+        });
+
+        rest.forEach(function (item) {
+            if(_.includes(item, query)) {
+                match.push(item);
+            }
+        });
+
+        return match;
+    }
+
     static propTypes = {
-        onSearch: React.PropTypes.func
+        onSearch: React.PropTypes.func,
+        searchOnType: React.PropTypes.bool
     };
 
     state = {
-        value: ''
+        value: '',
+        searchOnType: false
     };
 
     render() {
         return (
-            <div className="search-box">
+            <div className={this.getClass()}>
                 <Input className="search-box__text" value={this.state.value} onChange={this.onChange.bind(this)} onKeyDown={this.onKeyDown.bind(this)} />
                 <span className="search-box__icon">
                     <Icon name="search" />
@@ -25,14 +50,28 @@ class SearchBox extends React.Component {
         );
     }
 
+    getClass() {
+        let classes = {
+            'search-box': true
+        };
+
+        classes[this.props.className] = (this.props.className);
+
+        return classNames(classes);
+    }
+
     onChange(event) {
         this.setState({
             value: event.target.value
         });
+
+        if (this.props.searchOnType && this.props.onSearch) {
+            this.props.onSearch(event.target.value);
+        }
     }
 
     onKeyDown(event) {
-        if(keyCode(event) === 'enter' && this.props.onSearch) {
+        if(keyCode(event) === 'enter' && this.props.onSearch && !this.props.searchOnType) {
             this.props.onSearch(this.state.value);
         }
     }

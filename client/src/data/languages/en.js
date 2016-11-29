@@ -75,6 +75,10 @@ export default {
     'WARNING': 'Warning',
     'INFO': 'Information',
     'ALL_DEPARTMENTS': 'All Departments',
+    'EMAIL_BANNED': 'Email banned',
+    'UN_BAN': 'Disable ban',
+    'BAN_NEW_EMAIL': 'Ban new email',
+    'BAN_EMAIL': 'Ban email',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
@@ -88,6 +92,7 @@ export default {
     'NEW_TICKETS_DESCRIPTION': 'Here you can view all the new tickets that are not assigned by anyone.',
     'ALL_TICKETS_DESCRIPTION': 'Here you can view the tickets of the departments you are assigned.',
     'TICKET_VIEW_DESCRIPTION': 'This ticket has been sent by a customer. Here you can respond or assign the ticket',
+    'BAN_USERS_DESCRIPTION': 'Here you can see a list of banned emails, you can un-ban them or add more emails to the list.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
