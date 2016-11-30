@@ -11,6 +11,9 @@ include 'user/get.php';
 include 'user/get-users.php';
 include 'user/get-user.php';
 include 'user/delete.php';
+include 'user/ban.php';
+include 'user/un-ban.php';
+include 'user/list-ban.php';
 
 $userControllers = new ControllerGroup();
 $userControllers->setGroupPath('/user');
@@ -27,4 +30,7 @@ $userControllers->addController(new GetUserController);
 $userControllers->addController(new GetUsersController);
 $userControllers->addController(new GetUserByIdController);
 $userControllers->addController(new DeleteUserController);
+$userControllers->addController(new BanUserController);
+$userControllers->addController(new UnBanUserController);
+$userControllers->addController(new ListBanUserController);
 $userControllers->finalize();
