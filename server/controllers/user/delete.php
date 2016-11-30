@@ -2,12 +2,12 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
-class GetUserByIdController extends Controller {
-    const PATH = '/get-user';
-    
+class DeleteUserController extends Controller {
+    const PATH = '/delete';
+
     public function validations() {
         return [
-            'permission' => 'staff_2',
+            'permission' => 'staff_1',
             'requestData' => [
                 'userId' => [
                     'validation' => DataValidator::dataStoreId('user'),
@@ -21,11 +21,7 @@ class GetUserByIdController extends Controller {
         $userId = Controller::request('userId');
         $user = User::getDataStore($userId);
 
-        Response::respondSuccess([
-            'name' => $user->name,
-            'email' => $user->email,
-            'signupDate' => $user->signupDate,
-            'tickets' => $user->sharedTicketList->toArray()
-        ]);
+        $user->delete();
+        Response::respondSuccess();
     }
 }
