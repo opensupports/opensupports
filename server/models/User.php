@@ -17,8 +17,7 @@ class User extends DataStore {
             'name',
             'signupDate',
             'tickets',
-            'sharedTicketList',
-            'verificationToken'
+            'sharedTicketList'
         ];
     }
 

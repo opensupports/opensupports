@@ -9,6 +9,7 @@ include 'user/edit-password.php';
 include 'user/edit-email.php';
 include 'user/get.php';
 include 'user/get-users.php';
+include 'user/get-user';
 
 $userControllers = new ControllerGroup();
 $userControllers->setGroupPath('/user');
@@ -23,5 +24,6 @@ $userControllers->addController(new EditPassword);
 $userControllers->addController(new EditEmail);
 $userControllers->addController(new GetUserController);
 $userControllers->addController(new GetUsersController);
+$userControllers->addController(new GetUserController);
 
 $userControllers->finalize();
