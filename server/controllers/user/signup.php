@@ -65,6 +65,8 @@ class SignUpController extends Controller {
         
         $userInstance->setProperties([
             'name' => $this->userName,
+            'signupDate' => Date::getCurrentDate(),
+            'tickets' => 0,
             'email' => $this->userEmail,
             'password' => Hashing::hashPassword($this->userPassword)
         ]);

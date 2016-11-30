@@ -8,6 +8,7 @@ include 'user/send-recover-password.php';
 include 'user/edit-password.php';
 include 'user/edit-email.php';
 include 'user/get.php';
+include 'user/get-users.php';
 
 $userControllers = new ControllerGroup();
 $userControllers->setGroupPath('/user');
@@ -21,5 +22,6 @@ $userControllers->addController(new RecoverPasswordController);
 $userControllers->addController(new EditPassword);
 $userControllers->addController(new EditEmail);
 $userControllers->addController(new GetUserController);
+$userControllers->addController(new GetUsersController);
 
 $userControllers->finalize();
