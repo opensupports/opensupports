@@ -1,0 +1,24 @@
+@import '../../../../scss/vars';
+
+.admin-panel-list-users {
+
+    &__search-box {
+        margin: 20px;
+    }
+
+    &__table {
+        text-align: left;
+    }
+
+    &__name-link {
+        color: $secondary-blue;
+    }
+
+    &__tickets-number {
+        background-color: white;
+        border-radius: 10px;
+        width: 70px;
+        display: inline-block;
+        text-align: center;
+    }
+}

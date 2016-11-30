@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 module.exports = [
     {
         path: '/user/login',
@@ -121,6 +123,235 @@ module.exports = [
             return {
                 status: 'success',
                 data: {}
+            };
+        }
+    },
+    {
+        path: '/user/delete',
+        time: 1000,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/user/get-user',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {
+                    name: 'Kurt Gödel',
+                    email: 'kurt@currycurrylady.hs',
+                    tickets: _.times(13).map(() => {
+                        return {
+                            ticketNumber: '118551',
+                            title: 'Lorem ipsum door',
+                            content: 'I had a problem with the installation of the php server',
+                            department: {
+                                id: 1,
+                                name: 'Sales Support'
+                            },
+                            date: '20150409',
+                            file: 'http://www.opensupports.com/some_file.zip',
+                            language: 'en',
+                            unread: false,
+                            closed: false,
+                            priority: 'low',
+                            author: {
+                                name: 'Haskell Curry',
+                                email: 'haskell@lambda.com'
+                            },
+                            owner: {
+                                name: 'Steve Jobs'
+                            },
+                            events: [
+                                {
+                                    type: 'ASSIGN',
+                                    date: '20150409',
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'COMMENT',
+                                    date: '20150409',
+                                    content: 'Do you have apache installed? It generally happens if you dont have apache.',
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'UN_ASSIGN',
+                                    date: '20150410',
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'DEPARTMENT_CHANGED',
+                                    date: '20150411',
+                                    content: 'System support',
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'COMMENT',
+                                    date: '20150412',
+                                    content: 'I have already installed apache, but the problem persists',
+                                    author: {
+                                        name: 'Haskell Curry',
+                                        steve: 'haskell@lambda.com',
+                                        staff: false
+                                    }
+                                },
+                                {
+                                    type: 'PRIORITY_CHANGED',
+                                    date: '20150413',
+                                    content: 'MEDIUM',
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'COMMENT',
+                                    date: '20150511',
+                                    content: 'Thanks!, I soved it by myself',
+                                    author: {
+                                        name: 'Haskell Curry',
+                                        steve: 'haskell@lambda.com',
+                                        staff: false
+                                    }
+                                },
+                                {
+                                    type: 'CLOSE',
+                                    date: '20150513',
+                                    author: {
+                                        name: 'Emilia Clarke',
+                                        email: 'jobs@steve.com',
+                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        staff: true
+                                    }
+                                },
+                                {
+                                    type: 'RE_OPEN',
+                                    date: '20151018',
+                                    author: {
+                                        name: 'Haskell Curry',
+                                        email: 'haskell@lambda.com',
+                                        staff: false
+                                    }
+                                }
+                            ]
+                        };
+                    })
+                }
+            }
+        }
+    },
+    {
+        path: '/user/get-users',
+        time: 100,
+        response: function (data) {
+            return {
+                status: 'success',
+                data: {
+                    page: data.page,
+                    pages: 10,
+                    orderBy: 'date',
+                    desc: true,
+                    search: '',
+                    users: [
+                        {
+                            id: 101,
+                            name: 'Haskell Curry',
+                            email: 'haskell@currycurrylady.com',
+                            tickets: 5,
+                            signupDate: 20160415
+                        },
+                        {
+                            id: 97,
+                            name: 'Alan Turing',
+                            email: 'turing@currycurrylady.com',
+                            tickets: 1,
+                            signupDate: 20160401
+                        },
+                        {
+                            id: 89,
+                            name: 'David Hilbert',
+                            email: 'hilbert@currycurrylady.com',
+                            tickets: 2,
+                            signupDate: 20160208
+                        },
+                        {
+                            id: 83,
+                            name: 'Kurt Gödel',
+                            email: 'kurt@currycurrylady.com',
+                            tickets: 10,
+                            signupDate: 20160110
+                        },
+                        {
+                            id: 79,
+                            name: 'Mojzesz Presburger',
+                            email: 'presburger@currycurrylady.com',
+                            tickets: 6,
+                            signupDate: 20150415
+                        },
+                        {
+                            id: 73,
+                            name: 'Haskell Curry',
+                            email: 'haskell@currycurrylady.com',
+                            tickets: 5,
+                            signupDate: 20160415
+                        },
+                        {
+                            id: 71,
+                            name: 'Alan Turing',
+                            email: 'turing@currycurrylady.com',
+                            tickets: 1,
+                            signupDate: 20160401
+                        },
+                        {
+                            id: 67,
+                            name: 'David Hilbert',
+                            email: 'hilbert@currycurrylady.com',
+                            tickets: 2,
+                            signupDate: 20160208
+                        },
+                        {
+                            id: 61,
+                            name: 'Kurt Gödel',
+                            email: 'kurt@currycurrylady.com',
+                            tickets: 10,
+                            signupDate: 20160110
+                        },
+                        {
+                            id: 59,
+                            name: 'Mojzesz Presburger',
+                            email: 'presburger@currycurrylady.com',
+                            tickets: 6,
+                            signupDate: 20150415
+                        }
+                    ]
+                }
             };
         }
     },

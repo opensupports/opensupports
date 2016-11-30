@@ -90,7 +90,7 @@ export default (
                     <Route path="users">
                         <IndexRedirect to="list-users" />
                         <Route path="list-users" component={AdminPanelListUsers} />
-                        <Route path="view-user" component={AdminPanelViewUser} />
+                        <Route path="view-user/:userId" component={AdminPanelViewUser} />
                         <Route path="ban-users" component={AdminPanelBanUsers} />
                     </Route>
 

@@ -41,7 +41,7 @@ class Button extends React.Component {
 
     static defaultProps = {
         type: 'primary',
-        size: 'medium'
+        size: 'large'
     };
 
     render() {
