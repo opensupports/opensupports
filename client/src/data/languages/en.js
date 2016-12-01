@@ -59,7 +59,6 @@ export default {
     'SAVE': 'Save',
     'DISCARD_CHANGES': 'Discard changes',
     'DELETE': 'Delete',
-    'DELETE_AND_BAN': 'Delete and ban',
     'LANGUAGE': 'Language',
     'OWNER': 'Owner',
     'OWNED': 'Owned',
@@ -76,11 +75,16 @@ export default {
     'WARNING': 'Warning',
     'INFO': 'Information',
     'ALL_DEPARTMENTS': 'All Departments',
+    'EMAIL_BANNED': 'Email banned',
+    'UN_BAN': 'Disable ban',
+    'BAN_NEW_EMAIL': 'Ban new email',
+    'BAN_EMAIL': 'Ban email',
     'NAME': 'Name',
     'SIGNUP_DATE': 'Sign up date',
     'SEARCH_USERS': 'Search users...',
+    'SEARCH_EMAIL': 'Search email...',
     'USER_VIEW_TITLE': 'User #{userId}',
-    
+
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
     'TICKET_LIST_DESCRIPTION': 'Here you can find a list of all tickets you have sent to our support team.',
@@ -93,6 +97,7 @@ export default {
     'NEW_TICKETS_DESCRIPTION': 'Here you can view all the new tickets that are not assigned by anyone.',
     'ALL_TICKETS_DESCRIPTION': 'Here you can view the tickets of the departments you are assigned.',
     'TICKET_VIEW_DESCRIPTION': 'This ticket has been sent by a customer. Here you can respond or assign the ticket',
+    'BAN_USERS_DESCRIPTION': 'Here you can see a list of banned emails, you can un-ban them or add more emails to the list.',
     'LIST_USERS_DESCRIPTION': 'This is the list of users that are registered in this platform. You can search for someone in particular, delete it or ban it.',
     'USER_VIEW_DESCRIPTION': 'Here you can find all the information about an user and all the tickets sent by the user. You can also delete or ban it.',
     'DELETE_USER_DESCRIPTION': 'The user will not be able to log in aging and all its tickets will be erased. Also, the email can not be used any more.',
