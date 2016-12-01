@@ -10,7 +10,7 @@ module.exports = [
                         id: 1,
                         name: 'Membership Settings',
                         icon: 'user',
-                        iconColor: 'green',
+                        iconColor: '#82CA9C',
                         articles: [
                             {
                                 id: 1,
@@ -93,6 +93,46 @@ module.exports = [
                         ]
                     }
                 ]
+            };
+        }
+    },
+    {
+        path: '/article/edit-topic',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/article/edit',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/article/add',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/article/add-topic',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
             };
         }
     }

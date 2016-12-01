@@ -29,7 +29,7 @@ class AdminPanelListArticles extends React.Component {
         return (
             <div>
                 {this.state.topics.map(function (topic) {
-                    return <TopicViewer {...topic} />
+                    return <TopicViewer {...topic} topicId={topic.id} />
                 })}
             </div>
         )

@@ -97,7 +97,7 @@ export default (
                     <Route path="articles">
                         <IndexRedirect to="list-articles" />
                         <Route path="list-articles" component={AdminPanelListArticles} />
-                        <Route path="view-article" component={AdminPanelViewArticle} />
+                        <Route path="view-article/:articleId" component={AdminPanelViewArticle} />
                     </Route>
 
                     <Route path="staff">
