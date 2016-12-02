@@ -14,10 +14,14 @@ class ColorSelector extends React.Component {
         value: '#ff6900'
     };
 
+    state = {
+        show: false
+    };
+
     render() {
         return (
             <div className="color-selector">
-                <Tooltip content={this.renderTooltipContent()}>
+                <Tooltip content={this.renderTooltipContent()} show={this.state.show} onToggle={(show) => this.setState({show})}>
                     <span className="color-selector__current" style={{backgroundColor: this.props.value}} />
                 </Tooltip>
             </div>
@@ -39,6 +43,10 @@ class ColorSelector extends React.Component {
     }
 
     onColorClick(color) {
+        this.setState({
+            show: false
+        });
+
         if(this.props.onChange) {
             this.props.onChange({target: {value: color}});
         }

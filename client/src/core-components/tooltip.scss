@@ -1,3 +1,5 @@
+@import "../scss/vars";
+
 .tooltip {
     position: relative;
     display: inline-block;
@@ -10,23 +12,38 @@
         position: absolute;
         bottom: 100%;
         left: -25%;
-        margin-bottom: 10px;
-        box-shadow: 0 0 4px #8D8D8D;
+        margin-bottom: 15px;
+        margin-left: -10px;
+        border: 0 solid rgba(0, 0, 0, 0.247059);
+        box-shadow: rgba(0, 0, 0, 0.247059) 0 -1px 4px;
         border-radius: 4px;
         min-width: 200px;
-        background-color: #F7F7F7;
+        background-color: white;
         color: black;
         padding: 10px;
-        z-index: 1000;
+        z-index: 900;
     }
 
     &__pointer {
         border: solid transparent;
         position: absolute;
-        border-top-color: #8D8D8D;
-        border-width: 10px;
-        top: -10px;
+        border-top-color: white;
+        border-width: 13px;
+        top: -15px;
         left: 50%;
-        margin-left: -8px;
+        margin-left: -13px;
+        z-index: 910;
+        pointer-events: none;
+    }
+
+    &__pointer-shadow {
+        border: solid transparent;
+        position: absolute;
+        border-top-color: rgba(black, 0.1);
+        border-width: 14px;
+        top: -15px;
+        left: 50%;
+        margin-left: -14px;
+        pointer-events: none;
     }
 }

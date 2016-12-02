@@ -1,0 +1,21 @@
+.color-selector {
+
+    &__current {
+        cursor: pointer;
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+    }
+
+    &__tooltip {
+        width: 200px;
+    }
+
+    &__tooltip-color {
+        cursor: pointer;
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        margin: 2px 5px;
+    }
+}

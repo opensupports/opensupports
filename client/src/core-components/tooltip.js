@@ -6,7 +6,9 @@ class Tooltip extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
         content: React.PropTypes.node,
-        openOnHover: React.PropTypes.bool
+        openOnHover: React.PropTypes.bool,
+        show: React.PropTypes.bool,
+        onToggle: React.PropTypes.func
     };
 
     state = {
@@ -16,7 +18,7 @@ class Tooltip extends React.Component {
     render() {
         return (
             <div {...this.getProps()}>
-                {(this.state.show) ? this.renderAnimatedMessage() : null}
+                {(this.getShowValue()) ? this.renderAnimatedMessage() : null}
                 <div {...this.getChildrenProps()}>
                     {this.props.children}
                 </div>
@@ -26,7 +28,7 @@ class Tooltip extends React.Component {
 
     renderAnimatedMessage() {
         return (
-            <Motion defaultStyle={{opacity:spring(0)}} style={{opacity:spring(1)}}>
+            <Motion defaultStyle={{opacity: 0}} style={{opacity: spring(1)}}>
                 {this.renderMessage.bind(this)}
             </Motion>
         )
@@ -35,10 +37,11 @@ class Tooltip extends React.Component {
     renderMessage(animation) {
         return (
             <div style={animation}>
+                <span className="tooltip__pointer-shadow"/>
+                <span className="tooltip__pointer"/>
                 <div className="tooltip__message">
                     {this.props.content}
                 </div>
-                <span className="tooltip__pointer"/>
             </div>
         )
     }
@@ -58,10 +61,10 @@ class Tooltip extends React.Component {
 
     getChildrenProps() {
         let props = {};
-        props.className= 'tooltip__children';
+        props.className = 'tooltip__children';
 
         if(!this.props.openOnHover) {
-            props.onClick= this.onClick.bind(this);
+            props.onClick = this.onClick.bind(this);
         }
 
         return props;
@@ -71,19 +74,34 @@ class Tooltip extends React.Component {
         this.setState({
             show: true
         });
+
+        if(this.props.onToggle) {
+            this.props.onToggle(true);
+        }
     }
+
     onMouseOut() {
         this.setState({
             show: false
         });
+
+        if(this.props.onToggle) {
+            this.props.onToggle(false);
+        }
     }
 
     onClick() {
-        if (this.state.show) {
-            this.setState({show: false});
-        } else {
-            this.setState({show: true});
+        this.setState({
+            show: !this.getShowValue()
+        });
+
+        if(this.props.onToggle) {
+            this.props.onToggle(!this.getShowValue());
         }
+    }
+
+    getShowValue() {
+        return (this.props.show !== undefined) ? this.props.show : this.state.show;
     }
 }
 

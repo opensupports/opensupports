@@ -1,0 +1,19 @@
+.topic-edit-modal {
+
+    &__icon {
+        display: inline-block;
+        float: left;
+    }
+
+    &__color {
+        margin-left: 60px;
+    }
+
+    &__save-button {
+
+    }
+
+    &__discard-button {
+        float: right;
+    }
+}

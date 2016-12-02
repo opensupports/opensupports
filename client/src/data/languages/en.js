@@ -80,7 +80,11 @@ export default {
     'SIGNUP_DATE': 'Sign up date',
     'SEARCH_USERS': 'Search users...',
     'USER_VIEW_TITLE': 'User #{userId}',
-    
+    'EDIT_TOPIC': 'Edit Topic',
+    'ADD_TOPIC': 'Add Topic',
+    'ICON': 'Icon',
+    'COLOR': 'Color',
+
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
     'TICKET_LIST_DESCRIPTION': 'Here you can find a list of all tickets you have sent to our support team.',
@@ -96,6 +100,8 @@ export default {
     'LIST_USERS_DESCRIPTION': 'This is the list of users that are registered in this platform. You can search for someone in particular, delete it or ban it.',
     'USER_VIEW_DESCRIPTION': 'Here you can find all the information about an user and all the tickets sent by the user. You can also delete or ban it.',
     'DELETE_USER_DESCRIPTION': 'The user will not be able to log in aging and all its tickets will be erased. Also, the email can not be used any more.',
+    'DELETE_TOPIC_DESCRIPTION': 'By deleting the topic, all articles on it will be erased.',
+    'EDIT_TOPIC_DESCRIPTION': 'Here you can change the name, the icon and the icon color of the topic.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',

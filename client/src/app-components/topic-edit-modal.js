@@ -31,14 +31,14 @@ class TopicEditModal extends React.Component {
             <div className="topic-edit-modal">
                 <Header title={i18n('EDIT_TOPIC')} description={i18n('EDIT_TOPIC_DESCRIPTION')} />
                 <Form values={this.state.values} onChange={this.onFormChange.bind(this)} onSubmit={this.onSubmit.bind(this)}>
-                    <FormField name="title" label={i18n('TITLE')} />
-                    <FormField name="icon" label={i18n('ICON')} decorator={IconSelector} />
-                    <FormField name="color" label={i18n('COLOR')} decorator={ColorSelector} />
+                    <FormField name="title" label={i18n('TITLE')} fieldProps={{size: 'large'}} />
+                    <FormField className="topic-edit-modal__icon" name="icon" label={i18n('ICON')} decorator={IconSelector} />
+                    <FormField className="topic-edit-modal__color" name="color" label={i18n('COLOR')} decorator={ColorSelector} />
 
-                    <SubmitButton type="secondary" size="small">
+                    <SubmitButton className="topic-edit-modal__save-button" type="secondary" size="small">
                         {i18n('SAVE')}
                     </SubmitButton>
-                    <Button onDiscardClick={this.onDiscardClick.bind(this)}>{i18n('DISCARD_CHANGES')}</Button>
+                    <Button className="topic-edit-modal__discard-button" onClick={this.onDiscardClick.bind(this)}>{i18n('DISCARD_CHANGES')}</Button>
                 </Form>
             </div>
         );
@@ -62,10 +62,9 @@ class TopicEditModal extends React.Component {
         });
     }
 
-    onDiscardClick() {
-        this.setState({
-            values: this.props.defaultValues
-        }, this.context.closeModal);
+    onDiscardClick(event) {
+        event.preventDefault();
+        this.context.closeModal();
     }
 }
 

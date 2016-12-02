@@ -135,5 +135,25 @@ module.exports = [
                 data: {}
             };
         }
+    },
+    {
+        path: '/article/delete',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/article/delete-topic',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
     }
 ];
