@@ -15,7 +15,7 @@ import Button from 'core-components/button';
 
 class TopicViewer extends React.Component {
     static propTypes = {
-        topicId: React.PropTypes.number.isRequired,
+        id: React.PropTypes.number.isRequired,
         name: React.PropTypes.string.isRequired,
         icon: React.PropTypes.string.isRequired,
         iconColor: React.PropTypes.string.isRequired,
@@ -83,7 +83,7 @@ class TopicViewer extends React.Component {
 
     renderEditModal() {
         let props = {
-            topicId: this.props.topicId,
+            topicId: this.props.id,
             defaultValues: {
                 title: this.props.name,
                 icon: this.props.icon,
@@ -98,7 +98,7 @@ class TopicViewer extends React.Component {
 
     renderAddNewArticle() {
         let props = {
-            topicId: this.props.topicId,
+            topicId: this.props.id,
             position: this.props.articles.length,
             topicName: this.props.name
         };
@@ -139,7 +139,7 @@ class TopicViewer extends React.Component {
         API.call({
             path: '/article/delete-topic',
             data: {
-                topicId: this.props.topicId
+                topicId: this.props.id
             }
         }).then(this.onChange.bind(this));
     }

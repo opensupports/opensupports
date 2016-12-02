@@ -19,21 +19,22 @@ class TopicEditModal extends React.Component {
 
     static propTypes = {
         defaultValues: React.PropTypes.object,
+        addForm: React.PropTypes.bool,
         topicId: React.PropTypes.number
     };
 
     state = {
-        values: this.props.defaultValues
+        values: this.props.defaultValues || {title: ''}
     };
 
     render() {
         return (
             <div className="topic-edit-modal">
-                <Header title={i18n('EDIT_TOPIC')} description={i18n('EDIT_TOPIC_DESCRIPTION')} />
+                <Header title={i18n((this.props.addForm) ? 'ADD_TOPIC' : 'EDIT_TOPIC')} description={i18n((this.props.addForm) ? 'ADD_TOPIC_DESCRIPTION' : 'EDIT_TOPIC_DESCRIPTION')} />
                 <Form values={this.state.values} onChange={this.onFormChange.bind(this)} onSubmit={this.onSubmit.bind(this)}>
                     <FormField name="title" label={i18n('TITLE')} fieldProps={{size: 'large'}} validation="TITLE" required />
-                    <FormField className="topic-edit-modal__icon" name="icon" label={i18n('ICON')} decorator={IconSelector} />
-                    <FormField className="topic-edit-modal__color" name="color" label={i18n('COLOR')} decorator={ColorSelector} />
+                    <FormField name="icon" className="topic-edit-modal__icon" label={i18n('ICON')} decorator={IconSelector} />
+                    <FormField name="color" className="topic-edit-modal__color" label={i18n('COLOR')} decorator={ColorSelector} />
 
                     <SubmitButton className="topic-edit-modal__save-button" type="secondary" size="small">
                         {i18n('SAVE')}
@@ -48,10 +49,10 @@ class TopicEditModal extends React.Component {
 
     onSubmit() {
         API.call({
-            path: '/article/edit-topic',
+            path: (this.props.addForm) ? '/article/add-topic' : '/article/edit-topic',
             data: {
                 topicId: this.props.topicId,
-                name: this.state.values['name'],
+                name: this.state.values['title'],
                 icon: this.state.values['icon'],
                 iconColor: this.state.values['color']
             }
