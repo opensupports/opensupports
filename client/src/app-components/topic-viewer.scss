@@ -38,6 +38,12 @@
             width: 50%;
             color: $secondary-blue;
             margin-bottom: 10px;
+
+            &-hidden {
+                width: 80%;
+                display: inline-block;
+                opacity: 0;
+            }
         }
 
         &-item:before {

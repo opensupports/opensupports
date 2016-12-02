@@ -1,4 +1,6 @@
 import React from 'react';
+import _ from 'lodash';
+import classNames from 'classnames';
 import {Link} from 'react-router';
 
 import i18n from 'lib-app/i18n';
@@ -27,6 +29,11 @@ class TopicViewer extends React.Component {
         editable: true
     };
 
+    state = {
+        articles: this.props.articles,
+        currentDraggedId: 0
+    };
+
     render() {
         return (
             <div className="topic-viewer">
@@ -37,7 +44,7 @@ class TopicViewer extends React.Component {
                     {(this.props.editable) ? this.renderDeleteButton() : null}
                 </div>
                 <ul className="topic-viewer__list">
-                    {this.props.articles.map(this.renderArticleItem.bind(this))}
+                    {this.state.articles.map(this.renderArticleItem.bind(this))}
                     <li className="topic-viewer__list-item">
                         <Button type="link" className="topic-viewer__add-item" onClick={() => ModalContainer.openModal(this.renderAddNewArticle())}>
                             {i18n('ADD_NEW_ARTICLE')}
@@ -67,7 +74,7 @@ class TopicViewer extends React.Component {
     renderArticleItem(article, index) {
         return (
             <li className="topic-viewer__list-item" key={index}>
-                <Link className="topic-viewer__list-item-button" to={this.props.articlePath + article.id}>
+                <Link {...this.getArticleLinkProps(article, index)}>
                     {article.title}
                 </Link>
             </li>
@@ -100,6 +107,33 @@ class TopicViewer extends React.Component {
             <ArticleAddModal {...props}/>
         );
     }
+    
+    getArticleLinkProps(article, index) {
+        let classes = {
+            'topic-viewer__list-item-button': true,
+            'topic-viewer__list-item-hidden': article.hidden
+        };
+        
+        let props = {
+            className: classNames(classes),
+            to: this.props.articlePath + article.id
+        };
+
+        if(this.props.editable) {
+            _.extend(props, {
+                onDragOver: this.onItemDragOver.bind(this, article, index),
+                onDrop: this.onItemDrop.bind(this, article, index),
+                onDragStart: () => this.setState({currentDraggedId: article.id}),
+                onDragEnd: () => {
+                    if(this.state.currentDraggedId) {
+                        this.setState({articles: this.props.articles});
+                    }
+                }
+            });
+        }
+
+        return props;
+    }
 
     onDeleteClick() {
         API.call({
@@ -108,6 +142,94 @@ class TopicViewer extends React.Component {
                 topicId: this.props.topicId
             }
         }).then(this.onChange.bind(this));
+    }
+
+    onItemDragOver(article, index, event) {
+        event.preventDefault();
+
+        if(!article.hidden) {
+            let articles = [];
+            let draggedId = this.state.currentDraggedId;
+            let draggedIndex = _.findIndex(this.props.articles, {id: draggedId});
+
+            _.forEach(this.props.articles, (current, currentIndex) => {
+                if(draggedIndex < index) {
+                    if(current.id !== draggedId) {
+                        articles.push(current);
+                    }
+
+                    if(index === currentIndex) {
+                        articles.push({
+                            id: article.id,
+                            title: 'X',
+                            hidden: true
+                        });
+                    }
+                } else {
+                    if(index === currentIndex) {
+                        articles.push({
+                            id: article.id,
+                            title: 'X',
+                            hidden: true
+                        });
+                    }
+
+                    if(current.id !== draggedId) {
+                        articles.push(current);
+                    }
+                }
+            });
+
+            this.setState({articles});
+        }
+    }
+
+    onItemDrop(article, index, event) {
+        event.stopPropagation();
+        event.preventDefault();
+        let articles = [];
+        let draggedId = this.state.currentDraggedId;
+        let dragged = _.find(this.props.articles, {id: draggedId});
+        let draggedIndex = _.findIndex(this.props.articles, {id: draggedId});
+
+        _.forEach(this.props.articles, (current) => {
+            if(current.id !== draggedId) {
+                if(draggedIndex < index) {
+                    articles.push(current);
+
+                    if(current.id === article.id) {
+                        articles.push(dragged);
+                    }
+                } else {
+                    if(current.id === article.id) {
+                        articles.push(dragged);
+                    }
+
+                    articles.push(current);
+                }
+            }
+        });
+
+        if(draggedIndex === index) {
+            this.setState({articles: this.props.articles, currentDraggedId: 0});
+        } else {
+            this.updatePositions(articles.map((article) => article.id));
+            this.setState({articles, currentDraggedId: 0}, this.onChange.bind(this));
+        }
+    }
+
+    updatePositions(positions) {
+        _.forEach(positions, (id, index) => {
+            if(this.props.articles[index].id !== id) {
+                API.call({
+                    path: '/article/edit',
+                    data: {
+                        articleId: id,
+                        position: index
+                    }
+                });
+            }
+        });
     }
 
     onChange() {
