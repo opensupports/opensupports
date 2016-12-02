@@ -1,7 +1,8 @@
 import React from 'react';
+import {connect}  from 'react-redux';
 
-import API from 'lib-app/api-call';
 import i18n from 'lib-app/i18n';
+import ArticlesActions from 'actions/articles-actions';
 
 import TopicViewer from 'app-components/topic-viewer';
 import ModalContainer from 'app-components/modal-container';
@@ -14,16 +15,13 @@ import Icon from 'core-components/icon';
 class ArticlesList extends React.Component {
 
     static propTypes = {
-        editable: React.PropTypes.bool
+        editable: React.PropTypes.bool,
+        loading: React.PropTypes.bool,
+        topics: React.PropTypes.array
     };
 
     static defaultProps = {
         editable: true
-    };
-
-    state = {
-        loading: true,
-        topics: []
     };
 
     componentDidMount() {
@@ -31,7 +29,7 @@ class ArticlesList extends React.Component {
     }
 
     render() {
-        return (this.state.loading) ? <Loading /> : this.renderContent();
+        return (this.props.loading) ? <Loading /> : this.renderContent();
     }
 
     renderContent() {
@@ -46,7 +44,7 @@ class ArticlesList extends React.Component {
     renderTopics() {
         return (
             <div className="articles-list__topics">
-                {this.state.topics.map((topic, index) => {
+                {this.props.topics.map((topic, index) => {
                     return (
                         <div key={index}>
                             <TopicViewer {...topic} editable={this.props.editable} onChange={this.retrieveArticles.bind(this)}/>
@@ -69,18 +67,13 @@ class ArticlesList extends React.Component {
     }
 
     retrieveArticles() {
-        API.call({
-            path: '/article/get-all',
-            data: {}
-        }).then(this.onRetrieveSuccess.bind(this));
-    }
-
-    onRetrieveSuccess(result) {
-        this.setState({
-            loading: false,
-            topics: result.data
-        });
+        this.props.dispatch(ArticlesActions.retrieveArticles());
     }
 }
 
-export default ArticlesList;
+export default connect((store) => {
+    return {
+        topics: store.articles.topics,
+        loading: store.articles.loading
+    };
+})(ArticlesList);
