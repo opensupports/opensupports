@@ -38,7 +38,9 @@ class TopicEditModal extends React.Component {
                     <SubmitButton className="topic-edit-modal__save-button" type="secondary" size="small">
                         {i18n('SAVE')}
                     </SubmitButton>
-                    <Button className="topic-edit-modal__discard-button" onClick={this.onDiscardClick.bind(this)}>{i18n('DISCARD_CHANGES')}</Button>
+                    <Button className="topic-edit-modal__discard-button" onClick={this.onDiscardClick.bind(this)} size="small">
+                        {i18n('CANCEL')}
+                    </Button>
                 </Form>
             </div>
         );
