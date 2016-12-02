@@ -1,5 +1,10 @@
 .admin-panel-view-article {
 
+    &__edit-button {
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
     &__last-edited {
         font-style: italic;
         text-align: right;

@@ -87,6 +87,7 @@ export default {
     'ADD_NEW_ARTICLE': 'Add new article',
     'ADD_ARTICLE': 'Add article',
     'LAST_EDITED_IN': 'Last edited in {date}',
+    'EDIT': 'Edit',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',

@@ -9,6 +9,7 @@ import DateTransformer from 'lib-core/date-transformer';
 
 import Header from 'core-components/header';
 import Loading from 'core-components/loading';
+import Button from 'core-components/button';
 
 class AdminPanelViewArticle extends React.Component {
 
@@ -20,6 +21,10 @@ class AdminPanelViewArticle extends React.Component {
     static defaultProps = {
         topics: [],
         loading: true
+    };
+
+    state = {
+        editable: false
     };
 
     componentDidMount() {
@@ -45,17 +50,34 @@ class AdminPanelViewArticle extends React.Component {
     }
 
     renderArticle(article) {
-        return (
-            <div className="admin-panel-view-article__article">
-                <Header title={article.title}/>
+        return (this.state.editable) ? this.renderArticleEdit(article) : this.renderArticlePreview(article);
+    }
 
-                <div className="admin-panel-view-article__content">
-                    <div dangerouslySetInnerHTML={{__html: article.content}}/>
+    renderArticlePreview(article) {
+        return (
+            <div className="admin-panel-view-article__content">
+                <div className="admin-panel-view-article__edit-button">
+                    <Button size="medium" onClick={this.onEditClick.bind(this)}>{i18n('EDIT')}</Button>
                 </div>
-                <div className="admin-panel-view-article__last-edited">
-                    {i18n('LAST_EDITED_IN', {date: DateTransformer.transformToString(article.lastEdited)})}
+
+                <div className="admin-panel-view-article__article">
+                    <Header title={article.title}/>
+
+                    <div className="admin-panel-view-article__article-content">
+                        <div dangerouslySetInnerHTML={{__html: article.content}}/>
+                    </div>
+                    <div className="admin-panel-view-article__last-edited">
+                        {i18n('LAST_EDITED_IN', {date: DateTransformer.transformToString(article.lastEdited)})}
+                    </div>
                 </div>
             </div>
+        );
+    }
+
+    renderArticleEdit(article) {
+        //add form
+        return (
+            <div></div>
         );
     }
 
@@ -69,6 +91,12 @@ class AdminPanelViewArticle extends React.Component {
         });
 
         return article;
+    }
+
+    onEditClick() {
+        this.setState({
+            editable: true
+        });
     }
 }
 
