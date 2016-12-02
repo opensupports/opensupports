@@ -6,8 +6,8 @@ import API from 'lib-app/api-call';
 import ModalContainer from 'app-components/modal-container';
 import TopicEditModal from 'app-components/topic-edit-modal';
 import AreYouSure from 'app-components/are-you-sure';
+import ArticleAddModal from 'app-components/article-add-modal';
 
-import Header from 'core-components/header';
 import Icon from 'core-components/icon';
 import Button from 'core-components/button';
 
@@ -38,6 +38,11 @@ class TopicViewer extends React.Component {
                 </div>
                 <ul className="topic-viewer__list">
                     {this.props.articles.map(this.renderArticleItem.bind(this))}
+                    <li className="topic-viewer__list-item">
+                        <Button type="link" className="topic-viewer__add-item" onClick={() => ModalContainer.openModal(this.renderAddNewArticle())}>
+                            {i18n('ADD_NEW_ARTICLE')}
+                        </Button>
+                    </li>
                 </ul>
             </div>
         );
@@ -81,6 +86,18 @@ class TopicViewer extends React.Component {
 
         return (
             <TopicEditModal {...props} />
+        );
+    }
+
+    renderAddNewArticle() {
+        let props = {
+            topicId: this.props.topicId,
+            position: this.props.articles.length,
+            topicName: this.props.name
+        };
+
+        return (
+            <ArticleAddModal {...props}/>
         );
     }
 

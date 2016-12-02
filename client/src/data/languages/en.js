@@ -84,6 +84,8 @@ export default {
     'ADD_TOPIC': 'Add Topic',
     'ICON': 'Icon',
     'COLOR': 'Color',
+    'ADD_NEW_ARTICLE': 'Add new article',
+    'ADD_ARTICLE': 'Add article',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
@@ -102,6 +104,7 @@ export default {
     'DELETE_USER_DESCRIPTION': 'The user will not be able to log in aging and all its tickets will be erased. Also, the email can not be used any more.',
     'DELETE_TOPIC_DESCRIPTION': 'By deleting the topic, all articles on it will be erased.',
     'EDIT_TOPIC_DESCRIPTION': 'Here you can change the name, the icon and the icon color of the topic.',
+    'ADD_ARTICLE_DESCRIPTION': 'Here you can add an article that will be available for every user. It will be added inside the category {category}.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',

@@ -32,26 +32,25 @@
     }
 
     &__list {
+
         &-item {
             display: inline-block;
             width: 50%;
             color: $secondary-blue;
             margin-bottom: 10px;
         }
+
         &-item:before {
             content: "• ";
             color: $grey;
-        }
-        //
-        &-item:nth-child(even) {
-            //background: red;
-        }
-        &-item:nth-child(odd) {
-            //background: green;
         }
 
         &-item-button {
             color: $secondary-blue;
         }
+    }
+
+    &__add-item {
+        color: $dark-grey;
     }
 }

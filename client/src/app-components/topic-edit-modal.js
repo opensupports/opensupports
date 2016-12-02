@@ -31,7 +31,7 @@ class TopicEditModal extends React.Component {
             <div className="topic-edit-modal">
                 <Header title={i18n('EDIT_TOPIC')} description={i18n('EDIT_TOPIC_DESCRIPTION')} />
                 <Form values={this.state.values} onChange={this.onFormChange.bind(this)} onSubmit={this.onSubmit.bind(this)}>
-                    <FormField name="title" label={i18n('TITLE')} fieldProps={{size: 'large'}} />
+                    <FormField name="title" label={i18n('TITLE')} fieldProps={{size: 'large'}} validation="TITLE" required />
                     <FormField className="topic-edit-modal__icon" name="icon" label={i18n('ICON')} decorator={IconSelector} />
                     <FormField className="topic-edit-modal__color" name="color" label={i18n('COLOR')} decorator={ColorSelector} />
 
