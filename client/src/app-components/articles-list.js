@@ -16,6 +16,7 @@ class ArticlesList extends React.Component {
 
     static propTypes = {
         editable: React.PropTypes.bool,
+        articlePath: React.PropTypes.string,
         loading: React.PropTypes.bool,
         topics: React.PropTypes.array
     };
@@ -47,7 +48,11 @@ class ArticlesList extends React.Component {
                 {this.props.topics.map((topic, index) => {
                     return (
                         <div key={index}>
-                            <TopicViewer {...topic} editable={this.props.editable} onChange={this.retrieveArticles.bind(this)}/>
+                            <TopicViewer
+                                {...topic}
+                                editable={this.props.editable}
+                                onChange={this.retrieveArticles.bind(this)}
+                                articlePath={this.props.articlePath} />
                             <span className="articles-list__topic-separator" />
                         </div>
                     );

@@ -45,11 +45,7 @@ class TopicViewer extends React.Component {
                 </div>
                 <ul className="topic-viewer__list">
                     {this.state.articles.map(this.renderArticleItem.bind(this))}
-                    <li className="topic-viewer__list-item">
-                        <Button type="link" className="topic-viewer__add-item" onClick={() => ModalContainer.openModal(this.renderAddNewArticle())}>
-                            {i18n('ADD_NEW_ARTICLE')}
-                        </Button>
-                    </li>
+                    {(this.props.editable) ? this.renderAddNewArticle() : null}
                 </ul>
             </div>
         );
@@ -81,6 +77,16 @@ class TopicViewer extends React.Component {
         );
     }
 
+    renderAddNewArticle() {
+        return (
+            <li className="topic-viewer__list-item">
+                <Button type="link" className="topic-viewer__add-item" onClick={() => ModalContainer.openModal(this.renderAddNewArticleModal())}>
+                    {i18n('ADD_NEW_ARTICLE')}
+                </Button>
+            </li>
+        );
+    }
+
     renderEditModal() {
         let props = {
             topicId: this.props.id,
@@ -96,7 +102,7 @@ class TopicViewer extends React.Component {
         );
     }
 
-    renderAddNewArticle() {
+    renderAddNewArticleModal() {
         let props = {
             topicId: this.props.id,
             position: this.props.articles.length,

@@ -66,7 +66,7 @@ export default (
                     <Route path='create-ticket' component={DashboardCreateTicketPage}/>
                     <Route path='edit-profile' component={DashboardEditProfilePage}/>
 
-                    <Route path='article' component={DashboardArticlePage}/>
+                    <Route path='article/:articleId' component={DashboardArticlePage}/>
                     <Route path='ticket/:ticketNumber' component={DashboardTicketPage}/>
                 </Route>
             </Route>

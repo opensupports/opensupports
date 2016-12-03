@@ -42,7 +42,7 @@ export default {
     'CUSTOM_RESPONSES': 'Custom Responses',
     'LIST_USERS': 'List Users',
     'BAN_USERS': 'Ban Users',
-    'LIST_ARTICLES': 'List Articles',
+    'LIST_ARTICLES': 'Article List',
     'STAFF_MEMBERS': 'Staff Members',
     'DEPARTMENTS': 'Departments',
     'SYSTEM_PREFERENCES': 'System Preferences',
