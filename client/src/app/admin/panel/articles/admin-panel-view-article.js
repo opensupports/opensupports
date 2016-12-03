@@ -1,15 +1,20 @@
 import React from 'react';
 import _ from 'lodash';
 import {connect}  from 'react-redux';
+import RichTextEditor from 'react-rte-browserify';
 
 import ArticlesActions from 'actions/articles-actions';
 import SessionStore from 'lib-app/session-store';
 import i18n from 'lib-app/i18n';
+import API from 'lib-app/api-call';
 import DateTransformer from 'lib-core/date-transformer';
 
 import Header from 'core-components/header';
 import Loading from 'core-components/loading';
 import Button from 'core-components/button';
+import Form from 'core-components/form';
+import FormField from 'core-components/form-field';
+import SubmitButton from 'core-components/submit-button';
 
 class AdminPanelViewArticle extends React.Component {
 
@@ -57,7 +62,7 @@ class AdminPanelViewArticle extends React.Component {
         return (
             <div className="admin-panel-view-article__content">
                 <div className="admin-panel-view-article__edit-button">
-                    <Button size="medium" onClick={this.onEditClick.bind(this)}>{i18n('EDIT')}</Button>
+                    <Button size="medium" onClick={this.onEditClick.bind(this, article)}>{i18n('EDIT')}</Button>
                 </div>
 
                 <div className="admin-panel-view-article__article">
@@ -74,10 +79,18 @@ class AdminPanelViewArticle extends React.Component {
         );
     }
 
-    renderArticleEdit(article) {
-        //add form
+    renderArticleEdit() {
         return (
-            <div></div>
+            <Form values={this.state.form} onChange={(form) => this.setState({form})} onSubmit={this.onFormSubmit.bind(this)}>
+                <div className="admin-panel-view-article__buttons">
+                    <SubmitButton className="admin-panel-view-article__button" type="secondary" size="medium">{i18n('SAVE')}</SubmitButton>
+                    <Button className="admin-panel-view-article__button" size="medium" onClick={this.onFormCancel.bind(this)}>
+                        {i18n('CANCEL')}
+                    </Button>
+                </div>
+                <FormField name="title" label={i18n('TITLE')} />
+                <FormField name="content" label={i18n('CONTENT')} field="textarea" />
+            </Form>
         );
     }
 
@@ -93,9 +106,36 @@ class AdminPanelViewArticle extends React.Component {
         return article;
     }
 
-    onEditClick() {
+    onEditClick(article) {
         this.setState({
-            editable: true
+            editable: true,
+            form: {
+                title: article.title,
+                content: RichTextEditor.createValueFromString(article.content, 'html')
+            }
+        });
+    }
+
+    onFormSubmit(form) {
+        API.call({
+            path: '/article/edit',
+            data: {
+                title: form.title,
+                content: form.content
+            }
+        }).then(() => {
+            this.props.dispatch(ArticlesActions.retrieveArticles());
+            this.setState({
+                editable: false
+            });
+        });
+    }
+
+    onFormCancel(event) {
+        event.preventDefault();
+
+        this.setState({
+            editable: false
         });
     }
 }
