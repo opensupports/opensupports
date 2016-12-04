@@ -1,0 +1,36 @@
+@import '../../../../scss/vars';
+
+.admin-panel-ban-users {
+    padding: 0 20px;
+
+    &__email-list {
+
+    }
+
+    &__search {
+        margin-bottom: 20px;
+    }
+
+    &__email-row {
+        text-align: left;
+        padding: 5px 10px;
+    }
+
+    &__un-ban-button {
+        float: right;
+        margin-top: -5px;
+    }
+
+    &__ban-email {
+        text-align: center;
+
+        &-title {
+            color: $primary-black;
+            font-size: $font-size--md;
+        }
+    }
+
+    &__input {
+        display: inline-block;
+    }
+}
