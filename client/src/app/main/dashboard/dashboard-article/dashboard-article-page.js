@@ -9,6 +9,7 @@ import DateTransformer from 'lib-core/date-transformer';
 
 import Header from 'core-components/header';
 import Loading from 'core-components/loading';
+import BreadCrumb from 'core-components/breadcrumb';
 
 class DashboardArticlePage extends React.Component {
 
@@ -33,6 +34,9 @@ class DashboardArticlePage extends React.Component {
     render() {
         return (
             <div className="dashboard-article-page">
+                <div className="dashboard-article-page__breadcrumb">
+                    <BreadCrumb items={this.getBreadCrumbItems()}/>
+                </div>
                 {(this.props.loading) ? <Loading /> : this.renderContent()}
             </div>
         );
@@ -69,6 +73,36 @@ class DashboardArticlePage extends React.Component {
         });
 
         return article;
+    }
+
+    findTopic() {
+        let topicFound = {};
+
+        _.forEach(this.props.topics, (topic) => {
+            if(_.find(topic.articles, {id: this.props.params.articleId * 1})) {
+                topicFound = topic;
+            }
+        });
+
+        return topicFound;
+    }
+
+    getBreadCrumbItems() {
+        let article = this.findArticle();
+        let topic = this.findTopic();
+        let items = [
+            {content: i18n('ARTICLES'), url: '/dashboard/articles'}
+        ];
+
+        if(topic && topic.name) {
+            items.push({content: topic.name, url: '/dashboard/articles'});
+        }
+
+        if(article && article.title) {
+            items.push({content: article.title});
+        }
+
+        return items;
     }
 }
 
