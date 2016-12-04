@@ -2,9 +2,7 @@ describe '/user/get' do
     request('/user/logout')
     Scripts.createUser('user_get@os4.com', 'user_get','User Get')
 
-    result = Scripts.login('user_get@os4.com', 'user_get')
-    $csrf_userid = result['userId']
-    $csrf_token = result['token']
+    Scripts.login('user_get@os4.com', 'user_get')
     result = request('/ticket/create', {
         title: 'Should we pay?',
         content: 'A Lannister always pays his debts.',

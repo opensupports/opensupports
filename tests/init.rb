@@ -35,5 +35,9 @@ require './staff/get-all-tickets.rb'
 require './ticket/events.rb'
 require './article/topic.rb'
 require './article/article.rb'
+require './user/get-user.rb'
+require './user/ban.rb'
+require './user/get-users-test.rb'
+require './user/delete.rb'
 
 

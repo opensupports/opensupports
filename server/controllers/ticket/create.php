@@ -63,7 +63,8 @@ class CreateController extends Controller {
         ));
         
         $author->sharedTicketList->add($ticket);
-
+        $author->tickets++;
+        
         $author->store();
         $ticket->store();
         

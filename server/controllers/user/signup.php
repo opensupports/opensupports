@@ -43,6 +43,12 @@ class SignUpController extends Controller {
             Response::respondError(ERRORS::USER_EXISTS);
             return;
         }
+        $banRow = Ban::getDataStore($this->userEmail,'email');
+
+        if (!$banRow->isNull()) {
+            Response::respondError(ERRORS::ALREADY_BANNED);
+            return;
+        }
 
         $userId = $this->createNewUserAndRetrieveId();
         $this->sendRegistrationMail();
@@ -65,6 +71,8 @@ class SignUpController extends Controller {
         
         $userInstance->setProperties([
             'name' => $this->userName,
+            'signupDate' => Date::getCurrentDate(),
+            'tickets' => 0,
             'email' => $this->userEmail,
             'password' => Hashing::hashPassword($this->userPassword)
         ]);
