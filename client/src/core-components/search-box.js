@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import _ from 'lodash';
 
 import Input from 'core-components/input';
 import Icon from 'core-components/icon';
@@ -8,12 +7,12 @@ import keyCode from 'keycode';
 
 class SearchBox extends React.Component {
 
-    static searchQueryInList(list, query) {
+    static searchQueryInList(list, query, startsWith, includes) {
         let match = [];
         let rest = [];
 
         list.forEach(function (item) {
-            if(_.startsWith(item, query)) {
+            if(startsWith(item, query)) {
                 match.push(item);
             } else {
                 rest.push(item);
@@ -21,7 +20,7 @@ class SearchBox extends React.Component {
         });
 
         rest.forEach(function (item) {
-            if(_.includes(item, query)) {
+            if(includes(item, query)) {
                 match.push(item);
             }
         });

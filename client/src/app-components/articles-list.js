@@ -18,15 +18,19 @@ class ArticlesList extends React.Component {
         editable: React.PropTypes.bool,
         articlePath: React.PropTypes.string,
         loading: React.PropTypes.bool,
-        topics: React.PropTypes.array
+        topics: React.PropTypes.array,
+        retrieveOnMount: React.PropTypes.bool
     };
 
     static defaultProps = {
-        editable: true
+        editable: true,
+        retrieveOnMount: true
     };
 
     componentDidMount() {
-        this.retrieveArticles();
+        if(this.props.retrieveOnMount) {
+            this.retrieveArticles();
+        }
     }
 
     render() {
