@@ -93,6 +93,7 @@ export default {
     'LAST_EDITED_IN': 'Last edited in {date}',
     'EDIT': 'Edit',
     'NO_RESULTS': 'No results',
+    'DELETE_AND_BAN': 'Delete and ban',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
@@ -114,6 +115,7 @@ export default {
     'EDIT_TOPIC_DESCRIPTION': 'Here you can change the name, the icon and the icon color of the topic.',
     'ADD_ARTICLE_DESCRIPTION': 'Here you can add an article that will be available for every user. It will be added inside the category {category}.',
     'LIST_ARTICLES_DESCRIPTION': 'This is a list of articles that includes information about our services.',
+    'ADD_TOPIC_DESCRIPTION': 'Here you can add a topic that works as a category for articles.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',

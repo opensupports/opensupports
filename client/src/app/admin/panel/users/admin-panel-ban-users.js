@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'react';
+import _ from 'lodash';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
