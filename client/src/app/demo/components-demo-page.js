@@ -107,7 +107,7 @@ let DemoPage = React.createClass({
             title: 'Tooltip',
             render: (
                 <div>
-                    <Tooltip content="mensaje mensa jemensajemens ajem ensaje  nsaje adicionals" openOnHover={true}>
+                    <Tooltip content="mensaje mensa jemensajemens ajem ensaje  nsaje adicionals">
                         hola
                     </Tooltip>
                 </div>

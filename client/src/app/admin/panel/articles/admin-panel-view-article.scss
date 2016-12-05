@@ -1,0 +1,22 @@
+.admin-panel-view-article {
+
+    &__edit-button {
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    &__last-edited {
+        font-style: italic;
+        text-align: right;
+        margin-top: 20px;
+    }
+
+    &__buttons {
+        text-align: left;
+        margin-bottom: 20px;
+    }
+    
+    &__button {
+        margin-right: 20px;
+    }
+}

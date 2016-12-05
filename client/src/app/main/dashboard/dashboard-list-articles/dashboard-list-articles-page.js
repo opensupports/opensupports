@@ -1,14 +1,109 @@
 import React from 'react';
+import {connect}  from 'react-redux';
+import _ from 'lodash';
+import {Link} from 'react-router';
+
+import i18n from 'lib-app/i18n';
+import ArticlesList from 'app-components/articles-list';
+import ArticlesActions from 'actions/articles-actions';
+
+import Header from 'core-components/header';
+import SearchBox from 'core-components/search-box';
 
 class DashboardListArticlesPage extends React.Component {
 
+    state = {
+        results: [],
+        showSearchResults: false
+    };
+
+    componentDidMount() {
+        this.props.dispatch(ArticlesActions.retrieveArticles());
+    }
+
     render() {
         return (
-            <div>
-                DASHBOARD ARTICLES LIST
+            <div classnames="dashboard-list-articles-page">
+                <Header title={i18n('LIST_ARTICLES')} description={i18n('LIST_ARTICLES_DESCRIPTION')}/>
+                <SearchBox className="dashboard-list-articles-page__search-box" onSearch={this.onSearch.bind(this)} searchOnType />
+                {(!this.state.showSearchResults) ? this.renderArticleList() : this.renderSearchResults()}
             </div>
         );
     }
+
+    renderArticleList() {
+        return (
+            <ArticlesList editable={false} articlePath="/dashboard/article/" retrieveOnMount={false}/>
+        );
+    }
+
+    renderSearchResults() {
+        return (
+            <div className="dashboard-list-articles-page__search-results">
+                {(_.isEmpty(this.state.results)) ? i18n('NO_RESULTS') : this.state.results.map(this.renderSearchResultsItem.bind(this))}
+            </div>
+        );
+    }
+
+    renderSearchResultsItem(item) {
+        let content = this.stripHTML(item.content);
+        content = content.substring(0, 100);
+        content += '...';
+
+        return (
+            <div className="dashboard-list-articles-page__search-result">
+                <div className="dashboard-list-articles-page__search-result-title">
+                    <Link to={'/dashboard/article/' + item.id}>{item.title}</Link>
+                </div>
+                <div className="dashboard-list-articles-page__search-result-description">{content}</div>
+                <div className="dashboard-list-articles-page__search-result-topic">{item.topic}</div>
+            </div>
+        );
+    }
+
+    onSearch(query) {
+        this.setState({
+            results: SearchBox.searchQueryInList(this.getArticles(), query, this.isQueryInTitle.bind(this), this.isQueryInContent.bind(this)),
+            showSearchResults: query.length
+        });
+    }
+
+    getArticles() {
+        let articles = [];
+
+        _.forEach(this.props.topics, (topic) => {
+            _.forEach(topic.articles, (article) => {
+                articles.push({
+                    id: article.id,
+                    title: article.title,
+                    content: article.content,
+                    topic: topic.name
+                });
+            });
+        });
+
+        return articles;
+    }
+
+    isQueryInTitle(article, query) {
+        return _.includes(article.title.toLowerCase(), query.toLowerCase());
+    }
+
+    isQueryInContent(article, query) {
+        return _.includes(article.content.toLowerCase(), query.toLowerCase());
+    }
+
+    stripHTML(html){
+        let tmp = document.createElement('DIV');
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || "";
+    }
 }
 
-export default DashboardListArticlesPage;
+
+export default connect((store) => {
+    return {
+        topics: store.articles.topics,
+        loading: store.articles.loading
+    };
+})(DashboardListArticlesPage);

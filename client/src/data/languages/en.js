@@ -42,7 +42,7 @@ export default {
     'CUSTOM_RESPONSES': 'Custom Responses',
     'LIST_USERS': 'List Users',
     'BAN_USERS': 'Ban Users',
-    'LIST_ARTICLES': 'List Articles',
+    'LIST_ARTICLES': 'Article List',
     'STAFF_MEMBERS': 'Staff Members',
     'DEPARTMENTS': 'Departments',
     'SYSTEM_PREFERENCES': 'System Preferences',
@@ -84,6 +84,16 @@ export default {
     'SEARCH_USERS': 'Search users...',
     'SEARCH_EMAIL': 'Search email...',
     'USER_VIEW_TITLE': 'User #{userId}',
+    'EDIT_TOPIC': 'Edit Topic',
+    'ADD_TOPIC': 'Add Topic',
+    'ICON': 'Icon',
+    'COLOR': 'Color',
+    'ADD_NEW_ARTICLE': 'Add new article',
+    'ADD_ARTICLE': 'Add article',
+    'LAST_EDITED_IN': 'Last edited in {date}',
+    'EDIT': 'Edit',
+    'NO_RESULTS': 'No results',
+    'DELETE_AND_BAN': 'Delete and ban',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
@@ -101,6 +111,11 @@ export default {
     'LIST_USERS_DESCRIPTION': 'This is the list of users that are registered in this platform. You can search for someone in particular, delete it or ban it.',
     'USER_VIEW_DESCRIPTION': 'Here you can find all the information about an user and all the tickets sent by the user. You can also delete or ban it.',
     'DELETE_USER_DESCRIPTION': 'The user will not be able to log in aging and all its tickets will be erased. Also, the email can not be used any more.',
+    'DELETE_TOPIC_DESCRIPTION': 'By deleting the topic, all articles on it will be erased.',
+    'EDIT_TOPIC_DESCRIPTION': 'Here you can change the name, the icon and the icon color of the topic.',
+    'ADD_ARTICLE_DESCRIPTION': 'Here you can add an article that will be available for every user. It will be added inside the category {category}.',
+    'LIST_ARTICLES_DESCRIPTION': 'This is a list of articles that includes information about our services.',
+    'ADD_TOPIC_DESCRIPTION': 'Here you can add a topic that works as a category for articles.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',

@@ -16,6 +16,10 @@ class ModalContainer extends React.Component {
         );
     }
     
+    static closeModal() {
+        store.dispatch(ModalActions.closeModal());
+    }
+    
     static childContextTypes = {
         closeModal: React.PropTypes.func
     };

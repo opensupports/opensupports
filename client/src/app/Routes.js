@@ -66,7 +66,7 @@ export default (
                     <Route path='create-ticket' component={DashboardCreateTicketPage}/>
                     <Route path='edit-profile' component={DashboardEditProfilePage}/>
 
-                    <Route path='article' component={DashboardArticlePage}/>
+                    <Route path='article/:articleId' component={DashboardArticlePage}/>
                     <Route path='ticket/:ticketNumber' component={DashboardTicketPage}/>
                 </Route>
             </Route>
@@ -97,7 +97,7 @@ export default (
                     <Route path="articles">
                         <IndexRedirect to="list-articles" />
                         <Route path="list-articles" component={AdminPanelListArticles} />
-                        <Route path="view-article" component={AdminPanelViewArticle} />
+                        <Route path="view-article/:articleId" component={AdminPanelViewArticle} />
                     </Route>
 
                     <Route path="staff">

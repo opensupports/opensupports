@@ -1,0 +1,62 @@
+@import "../scss/vars";
+
+.topic-viewer {
+    text-align: left;
+
+    &__header {
+        cursor: default;
+        margin-bottom: 15px;
+        font-size: $font-size--bg;
+
+        &:hover {
+            .topic-viewer__edit-icon {
+                display: inline-block;
+            }
+        }
+    }
+
+    &__icon {
+        color: $primary-green;
+    }
+
+    &__title {
+        font-size: $font-size--md;
+        margin-left: 15px;
+    }
+
+    &__edit-icon {
+        color: $grey;
+        cursor: pointer;
+        margin-left: 10px;
+        display: none;
+    }
+
+    &__list {
+
+        &-item {
+            display: inline-block;
+            width: 50%;
+            color: $secondary-blue;
+            margin-bottom: 10px;
+
+            &-hidden {
+                width: 80%;
+                display: inline-block;
+                opacity: 0;
+            }
+        }
+
+        &-item:before {
+            content: "• ";
+            color: $grey;
+        }
+
+        &-item-button {
+            color: $secondary-blue;
+        }
+    }
+
+    &__add-item {
+        color: $dark-grey;
+    }
+}

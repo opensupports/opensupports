@@ -1,0 +1,18 @@
+@import "../scss/vars";
+
+.breadcrumb {
+    padding: 0;
+    text-align: left;
+    margin-bottom: 20px;
+
+    &__item {
+        color: $grey;
+        display: inline-block;
+        text-decoration: none;
+    }
+
+    &__arrow {
+        color: $grey;
+        margin: 0 5px;
+    }
+}

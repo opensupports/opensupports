@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -79,7 +80,7 @@ class AdminPanelBanUsers extends React.Component {
 
     onSearch(query) {
         this.setState({
-            filteredEmails: SearchBox.searchQueryInList(this.state.emails, query)
+            filteredEmails: SearchBox.searchQueryInList(this.state.emails, query, _.startsWith, _.includes)
         });
     }
 

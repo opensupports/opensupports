@@ -1,0 +1,32 @@
+@import "../../../../scss/vars";
+
+.dashboard-list-articles-page {
+
+    &__search-results {
+
+    }
+
+    &__search-box {
+        margin-bottom: 30px;
+    }
+
+    &__search-result {
+        margin-bottom: 20px;
+        text-align: left;
+
+        &-title {
+
+        }
+
+        &-description {
+            font-size: $font-size--xs;
+            margin: 5px 0;
+        }
+
+        &-topic {
+            color: $grey;
+            font-size: $font-size--sm;
+            text-transform: uppercase;
+        }
+    }
+}
