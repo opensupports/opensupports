@@ -68,7 +68,7 @@ class DashboardArticlePage extends React.Component {
 
         _.forEach(this.props.topics, (topic) => {
             if(!article) {
-                article = _.find(topic.articles, {id: this.props.params.articleId * 1});
+                article = _.find(topic.articles, {id: this.props.params.articleId});
             }
         });
 
@@ -79,7 +79,7 @@ class DashboardArticlePage extends React.Component {
         let topicFound = {};
 
         _.forEach(this.props.topics, (topic) => {
-            if(_.find(topic.articles, {id: this.props.params.articleId * 1})) {
+            if(_.find(topic.articles, {id: this.props.params.articleId})) {
                 topicFound = topic;
             }
         });

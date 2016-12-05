@@ -69,16 +69,16 @@ class AdminPanelListUsers extends React.Component {
                 value: i18n('TICKETS'),
                 className: 'admin-panel-list-users__table-tickets col-md-2',
                 order: true,
-                onOrderUp: this.orderByTickets.bind(this, false),
-                onOrderDown: this.orderByTickets.bind(this, true)
+                onOrderUp: this.orderByTickets.bind(this, 0),
+                onOrderDown: this.orderByTickets.bind(this, 1)
             },
             {
                 key: 'signupDate',
                 value: i18n('SIGNUP_DATE'),
                 className: 'admin-panel-list-users__table-date col-md-2',
                 order: true,
-                onOrderUp: this.orderById.bind(this, false),
-                onOrderDown: this.orderById.bind(this, true)
+                onOrderUp: this.orderById.bind(this, 0),
+                onOrderDown: this.orderById.bind(this, 1)
             }
         ];
     }
@@ -153,7 +153,7 @@ class AdminPanelListUsers extends React.Component {
             pages: result.data.pages,
             users: result.data.users,
             orderBy: result.data.orderBy,
-            desc: result.data.desc,
+            desc: (result.data.desc === '1'),
             loading: false
         });
     }

@@ -21,14 +21,9 @@ class EditArticleController extends Controller {
         $article = Article::getDataStore(Controller::request('articleId'));
 
         if (Controller::request('topicId')) {
-            $currentArticleTopic = $article->topic;
             $newArticleTopic = Topic::getDataStore(Controller::request('topicId'));
 
-            if (!$newArticleTopic->isNull() /*&& $currentArticleTopic->ownArticleList->remove($article)*/) {
-                /*$newArticleTopic->ownArticleList->add($article);
-
-                $currentArticleTopic->store();
-                $newArticleTopic->store();*/
+            if (!$newArticleTopic->isNull()) {
                 $article->topic = $newArticleTopic;
             } else {
                 Response::respondError(ERRORS::INVALID_TOPIC);

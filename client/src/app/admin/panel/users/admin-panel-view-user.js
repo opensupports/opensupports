@@ -107,7 +107,12 @@ class AdminPanelViewUser extends React.Component {
                 userId: this.props.params.userId
             }
         }).then(() => {
-            browserHistory.push('/admin/panel/user/list-users');
+            API.call({
+                path: '/user/ban',
+                data: {
+                    email: this.state.email
+                }
+            }).then(() => browserHistory.push('/admin/panel/users/list-users'));
         });
     }
 }

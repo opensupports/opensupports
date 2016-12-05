@@ -99,7 +99,7 @@ class AdminPanelViewArticle extends React.Component {
 
         _.forEach(this.props.topics, (topic) => {
             if(!article) {
-                article = _.find(topic.articles, {id: this.props.params.articleId * 1});
+                article = _.find(topic.articles, {id: this.props.params.articleId});
             }
         });
 
@@ -120,6 +120,7 @@ class AdminPanelViewArticle extends React.Component {
         API.call({
             path: '/article/edit',
             data: {
+                articleId: this.findArticle().id,
                 title: form.title,
                 content: form.content
             }

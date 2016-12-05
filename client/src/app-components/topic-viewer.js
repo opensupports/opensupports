@@ -30,9 +30,19 @@ class TopicViewer extends React.Component {
     };
 
     state = {
-        articles: this.props.articles,
+        articles: this.props.articles.sort((a, b) => {
+            return (a.position*1) - (b.position*1);
+        }),
         currentDraggedId: 0
     };
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            articles: nextProps.articles.sort((a, b) => {
+                return (a.position*1) - (b.position*1);
+            })
+        });
+    }
 
     render() {
         return (
@@ -90,6 +100,7 @@ class TopicViewer extends React.Component {
     renderEditModal() {
         let props = {
             topicId: this.props.id,
+            onChange: this.props.onChange,
             defaultValues: {
                 title: this.props.name,
                 icon: this.props.icon,
@@ -106,6 +117,7 @@ class TopicViewer extends React.Component {
         let props = {
             topicId: this.props.id,
             position: this.props.articles.length,
+            onChange: this.props.onChange,
             topicName: this.props.name
         };
 
@@ -231,7 +243,7 @@ class TopicViewer extends React.Component {
                     path: '/article/edit',
                     data: {
                         articleId: id,
-                        position: index
+                        position: index + 1
                     }
                 });
             }

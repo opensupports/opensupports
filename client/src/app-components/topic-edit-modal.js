@@ -24,7 +24,7 @@ class TopicEditModal extends React.Component {
     };
 
     state = {
-        values: this.props.defaultValues || {title: ''}
+        values: this.props.defaultValues || {title: '', icon: 'address-card', color: '#ff6900'}
     };
 
     render() {
@@ -56,7 +56,13 @@ class TopicEditModal extends React.Component {
                 icon: this.state.values['icon'],
                 iconColor: this.state.values['color']
             }
-        }).then(this.context.closeModal);
+        }).then(() => {
+            this.context.closeModal();
+            
+            if(this.props.onChange) {
+                this.props.onChange();
+            }
+        });
     }
 
     onFormChange(form) {

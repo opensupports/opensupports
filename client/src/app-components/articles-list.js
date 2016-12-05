@@ -54,6 +54,7 @@ class ArticlesList extends React.Component {
                         <div key={index}>
                             <TopicViewer
                                 {...topic}
+                                id={topic.id * 1}
                                 editable={this.props.editable}
                                 onChange={this.retrieveArticles.bind(this)}
                                 articlePath={this.props.articlePath} />
@@ -68,7 +69,7 @@ class ArticlesList extends React.Component {
     renderAddTopicButton() {
         return (
             <div className="articles-list__add-topic-button">
-                <Button onClick={() => ModalContainer.openModal(<TopicEditModal addForm/>)} type="secondary" className="articles-list__add">
+                <Button onClick={() => ModalContainer.openModal(<TopicEditModal addForm onChange={this.retrieveArticles.bind(this)} />)} type="secondary" className="articles-list__add">
                     <Icon name="plus-circle" size="2x" className="articles-list__add-icon"/> {i18n('ADD_TOPIC')}
                 </Button>
             </div>

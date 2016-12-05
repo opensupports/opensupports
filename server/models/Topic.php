@@ -20,6 +20,7 @@ class Topic extends DataStore {
         }
 
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'icon' => $this->icon,
             'iconColor' => $this->iconColor,
