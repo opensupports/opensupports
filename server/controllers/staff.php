@@ -6,6 +6,7 @@ require_once 'staff/get-tickets.php';
 require_once 'staff/get-new-tickets.php';
 require_once 'staff/get-all-tickets.php';
 require_once 'staff/search-tickets.php';
+require_once 'staff/add.php';
 
 $systemControllerGroup = new ControllerGroup();
 $systemControllerGroup->setGroupPath('/staff');
@@ -17,5 +18,6 @@ $systemControllerGroup->addController(new GetTicketStaffController);
 $systemControllerGroup->addController(new GetNewTicketsStaffController);
 $systemControllerGroup->addController(new GetAllTicketsStaffController);
 $systemControllerGroup->addController(new SearchTicketStaffController);
+$systemControllerGroup->addController(new AddStaffController);
 
 $systemControllerGroup->finalize();
