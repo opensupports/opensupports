@@ -39,20 +39,19 @@ class AddStaffController extends Controller {
     }
 
     public function handler() {
-
         $this->storeRequestData();
-        $staff =  new Staff();
+        $staff = new Staff();
 
-        $staffrow = Staff::getDataStore($this->email,'email');
+        $staffRow = Staff::getDataStore($this->email,'email');
 
-        if($staffrow->isNull()) {
+        if($staffRow->isNull()) {
             $staff->setProperties([
                 'name'=> $this->name,
                 'email' => $this->email,
                 'password'=> $this->password,
                 'profilePic' => $this->profilePic,
                 'level' => $this->level,
-                'sharedDepartmentList'=> $this->departments,
+                'sharedDepartmentList'=> $this->getDepartmentList(),
             ]);
 
             $staff->store();
@@ -62,9 +61,8 @@ class AddStaffController extends Controller {
         }
 
         Response::respondError(ERRORS::ALREADY_A_STAFF);
-
-
     }
+
     public function storeRequestData() {
         $this->name = Controller::request('name');
         $this->email = Controller::request('email');
@@ -72,5 +70,17 @@ class AddStaffController extends Controller {
         $this->profilePic = Controller::request('profilePic');
         $this->level = Controller::request('level');
         $this->departments = Controller::request('departments');
+    }
+
+    public function getDepartmentList() {
+        $listDepartments = new DataStoreList();
+        $departmentIds = json_decode($this->departments);
+
+        foreach($departmentIds as $id) {
+            $department = Department::getDataStore($id);
+            $listDepartments->add($department);
+        }
+
+        return $listDepartments;
     }
 }
