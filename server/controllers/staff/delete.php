@@ -9,17 +9,24 @@ class DeleteStaffController extends Controller {
         return [
             'permission' => 'staff_3',
             'requestData' => [
-                
+                'staffId' => [
+                    'validation' => DataValidator::dataStoreId('staff'),
+                    'error' => ERRORS::INVALID_STAFF
+                ]
             ]
         ];
     }
 
     public function handler() {
-        $staffId = Controller::request('userId');
-        
-        
-        
+        $staffId = Controller::request('staffId');
         $staff = Staff::getDataStore($staffId);
+
+        foreach($staff->sharedTicketList as $ticket) {
+            $ticket->owner = null;
+            $ticket->unread = true;
+            $ticket->store();
+        }
+
         $staff->delete();
         Response::respondSuccess();
     }
