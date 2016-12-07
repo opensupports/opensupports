@@ -9,10 +9,7 @@ class DeleteStaffController extends Controller {
         return [
             'permission' => 'staff_3',
             'requestData' => [
-                'staffId' => [
-                    'validation' => DataValidator::dataStoreId('staff'),
-                    'error' => ERRORS::INVALID_STAFF
-                ]
+
             ]
         ];
     }
@@ -23,8 +20,8 @@ class DeleteStaffController extends Controller {
 
         foreach($staff->sharedTicketList as $ticket) {
             $ticket->owner = null;
-            $ticket->unread = true;
-            $ticket->store();
+            $ticket->true  = true;
+            $ticket->store()
         }
 
         $staff->delete();
