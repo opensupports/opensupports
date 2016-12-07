@@ -103,7 +103,7 @@ export default (
                     <Route path="staff">
                         <IndexRedirect to="staff-members" />
                         <Route path="staff-members" component={AdminPanelStaffMembers} />
-                        <Route path="view-staff" component={AdminPanelViewStaff} />
+                        <Route path="view-staff/:staffId" component={AdminPanelViewStaff} />
                         <Route path="departments" component={AdminPanelDepartments} />
                     </Route>
 

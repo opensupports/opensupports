@@ -94,6 +94,8 @@ export default {
     'EDIT': 'Edit',
     'NO_RESULTS': 'No results',
     'DELETE_AND_BAN': 'Delete and ban',
+    'STAFF_LEVEL': 'Staff Level',
+    'ASSIGNED': 'Assigned',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
