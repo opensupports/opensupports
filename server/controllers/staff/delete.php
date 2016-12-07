@@ -1,5 +1,6 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
+DataValidator::with('CustomValidations', true);
 
 class DeleteStaffController extends Controller {
     const PATH = '/delete';
@@ -7,12 +8,20 @@ class DeleteStaffController extends Controller {
     public function validations() {
         return [
             'permission' => 'staff_3',
-            'requestData' => []
+            'requestData' => [
+                
+            ]
         ];
     }
 
-    public function handler (){
+    public function handler() {
+        $staffId = Controller::request('userId');
         
+        
+        
+        $staff = Staff::getDataStore($staffId);
+        $staff->delete();
+        Response::respondSuccess();
     }
     
 }
