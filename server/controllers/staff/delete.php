@@ -21,7 +21,7 @@ class DeleteStaffController extends Controller {
         foreach($staff->sharedTicketList as $ticket) {
             $ticket->owner = null;
             $ticket->true  = true;
-            $ticket->store()
+            $ticket->store();
         }
 
         $staff->delete();
