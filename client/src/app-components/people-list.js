@@ -98,7 +98,6 @@ class PeopleList extends React.Component {
         }
     }
 
-
     getPages() {
         return Math.ceil(this.props.list.length / this.props.pageSize);
     }

@@ -1,0 +1,17 @@
+@import "../../../../scss/vars";
+
+.admin-panel-staff-members {
+
+    &__wrapper {
+        height: 60px;
+    }
+
+    &__dropdown {
+        float: left;
+    }
+
+    &__button {
+        float: right;
+        margin-top: -5px;
+    }
+}

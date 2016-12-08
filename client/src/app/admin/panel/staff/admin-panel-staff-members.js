@@ -28,14 +28,15 @@ class AdminPanelStaffMembers extends React.Component {
     }
 
     render() {
-        console.log(this.state.staffList);
         return (
-            <div>
+            <div className="admin-panel-staff-members">
                 <Header title={i18n('STAFF_MEMBERS')} description={i18n('STAFF_MEMBERS_DESCRIPTION')} />
-                <DropDown {...this.getDepartmentDropdownProps()} />
-                <Button size="medium" onClick={() => {}} type="secondary" className="">
-                    <Icon name="user-plus" className=""/> {i18n('ADD_NEW_STAFF')}
-                </Button>
+                <div className="admin-panel-staff-members__wrapper">
+                    <DropDown {...this.getDepartmentDropdownProps()} className="admin-panel-staff-members__dropdown" />
+                    <Button size="medium" onClick={() => {}} type="secondary" className="admin-panel-staff-members__button">
+                        <Icon name="user-plus" className=""/> {i18n('ADD_NEW_STAFF')}
+                    </Button>
+                </div>
                 {(this.state.loading) ? <Loading backgrounded /> : <PeopleList list={this.getStaffList()} />}
             </div>
         );
