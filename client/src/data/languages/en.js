@@ -98,6 +98,7 @@ export default {
     'CLOSED_TICKETS': '{tickets} closed tickets',
     'LAST_LOGIN': 'Last login',
     'STAFF_MEMBERS': 'Staff members',
+    'ADD_NEW_STAFF': 'Add new staff',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
