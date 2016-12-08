@@ -30,9 +30,11 @@ class Staff extends DataStore {
     public static function getUser($value, $property = 'id') {
         return parent::getDataStore($value, $property);
     }
+
     public function toArray() {
         return [
-            'name'=> $this->name,
+            'id' => $this->id,
+            'name' => $this->name,
             'email' => $this->email,
             'profilePic' => $this->profilePic,
             'level' => $this->level,

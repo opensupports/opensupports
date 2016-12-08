@@ -27,6 +27,7 @@ class GetAllStaffController extends Controller {
             }
 
             $staffArray[] = [
+                'id' => $staff->id,
                 'name' => $staff->name,
                 'email' => $staff->email,
                 'profilePic' => $staff->profilePic,

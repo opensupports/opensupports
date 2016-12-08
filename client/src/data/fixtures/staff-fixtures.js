@@ -536,6 +536,7 @@ module.exports = [
                     pages: 4
                 }
             }
+
         }
     },
     {

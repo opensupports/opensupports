@@ -7,7 +7,7 @@ class Department extends DataStore {
     public static function getProps() {
         return [
             'name',
-            'sharedTicketList',
+            'sharedTicketList'
         ];
     }
 
