@@ -31,25 +31,41 @@ class PeopleList extends React.Component {
         return (
             <div className="people-list">
                 <div className="people-list__list">
-                    <StaggeredMotion defaultStyles={_.times(this.props.pageSize).map(() => {return {offset: -100, alpha: 0};})} styles={(prevStyles) => prevStyles.map((_, i) => {
-                        return i === 0
-                          ? {offset: spring(0), alpha: spring(1)}
-                          : {offset: spring(prevStyles[i - 1].offset), alpha: spring(prevStyles[i - 1].alpha)}
-                      })}>
-                        {(styles) =>
-                            <div>
-                                {styles.map((style, index) =>
-                                    <div style={{transform: 'translateX('+style.offset+'px)', opacity: style.alpha}}>
-                                        {this.renderItem(index + this.props.pageSize * (this.props.page - 1))}
-                                    </div>
-                                )}
-                            </div>
-                        }
+                    <StaggeredMotion defaultStyles={this.getDefaultStyles()} styles={this.getStyles.bind(this)}>
+                        {this.renderList.bind(this)}
                     </StaggeredMotion>
                 </div>
                 <div className="people-list__pagination">
                     <Menu type="navigation" items={pages} selectedIndex={this.props.page - 1} onItemClick={this.props.onPageSelect} tabbable/>
                 </div>
+            </div>
+        );
+    }
+
+    getDefaultStyles() {
+        return _.times(this.props.pageSize).map(() => {return {offset: -100, alpha: 0}});
+    }
+
+    getStyles(prevStyles) {
+        return prevStyles.map((_, i) => {
+            return i === 0
+                ? {offset: spring(0), alpha: spring(1)}
+                : {offset: spring(prevStyles[i - 1].offset), alpha: spring(prevStyles[i - 1].alpha)}
+        });
+    }
+
+    renderList(styles) {
+        return (
+            <div>
+                {styles.map(this.renderAnimatedItem.bind(this))}
+            </div>
+        );
+    }
+
+    renderAnimatedItem(style, index) {
+        return (
+            <div style={{transform: 'translateX('+style.offset+'px)', opacity: style.alpha}}>
+                {this.renderItem(index + this.props.pageSize * (this.props.page - 1))}
             </div>
         );
     }
