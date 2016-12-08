@@ -15,16 +15,14 @@ class PeopleList extends React.Component {
             closedTickets: React.PropTypes.number,
             lastLogin: React.PropTypes.number
         })),
-        pageSize: React.PropTypes.number
+        pageSize: React.PropTypes.number,
+        page: React.PropTypes.number,
+        onPageSelect: React.PropTypes.func
     };
 
     static defaultProps = {
         pageSize: 4,
         list: []
-    };
-
-    state = {
-        page: 1
     };
 
     render() {
@@ -42,7 +40,7 @@ class PeopleList extends React.Component {
                             <div>
                                 {styles.map((style, index) =>
                                     <div style={{transform: 'translateX('+style.offset+'px)', opacity: style.alpha}}>
-                                        {this.renderItem(index + this.props.pageSize * (this.state.page - 1))}
+                                        {this.renderItem(index + this.props.pageSize * (this.props.page - 1))}
                                     </div>
                                 )}
                             </div>
@@ -50,7 +48,7 @@ class PeopleList extends React.Component {
                     </StaggeredMotion>
                 </div>
                 <div className="people-list__pagination">
-                    <Menu type="navigation" items={pages} selectedIndex={this.state.page - 1} onItemClick={(index) => this.setState({page: index+1})} tabbable/>
+                    <Menu type="navigation" items={pages} selectedIndex={this.props.page - 1} onItemClick={this.props.onPageSelect} tabbable/>
                 </div>
             </div>
         );
@@ -62,8 +60,8 @@ class PeopleList extends React.Component {
         }
 
         const item = this.props.list[index];
-        const minIndex = this.props.pageSize * (this.state.page - 1);
-        const maxIndex = this.props.pageSize * this.state.page;
+        const minIndex = this.props.pageSize * (this.props.page - 1);
+        const maxIndex = this.props.pageSize * this.props.page;
 
         return (minIndex <= index && index < maxIndex) ? (
             <div className="people-list__item">
@@ -86,8 +84,8 @@ class PeopleList extends React.Component {
     }
 
     getRowsQuantity() {
-        console.log(this.state.page);
-        if(this.state.page == this.getPages()){
+        console.log(this.props.page);
+        if(this.props.page == this.getPages()){
             console.log("Ultima pagina");
             console.log(this.props.list.length);
             console.log(this.props.pageSize);

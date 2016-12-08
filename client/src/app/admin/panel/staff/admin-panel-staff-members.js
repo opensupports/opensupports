@@ -17,7 +17,8 @@ class AdminPanelStaffMembers extends React.Component {
     state = {
         selectedDepartment: 0,
         staffList: [],
-        loading: true
+        loading: true,
+        page: 1
     };
 
     componentDidMount() {
@@ -37,7 +38,7 @@ class AdminPanelStaffMembers extends React.Component {
                         <Icon name="user-plus" className=""/> {i18n('ADD_NEW_STAFF')}
                     </Button>
                 </div>
-                {(this.state.loading) ? <Loading backgrounded /> : <PeopleList list={this.getStaffList()} />}
+                {(this.state.loading) ? <Loading backgrounded /> : <PeopleList list={this.getStaffList()} page={this.state.page} onPageSelect={(index) => this.setState({page: index+1})} />}
             </div>
         );
     }
@@ -48,7 +49,8 @@ class AdminPanelStaffMembers extends React.Component {
             onChange: (event) => {
                 let departments = SessionStore.getDepartments();
                 this.setState({
-                    selectedDepartment: event.index && departments[event.index - 1].id
+                    selectedDepartment: event.index && departments[event.index - 1].id,
+                    page: 1
                 });
             },
             size: 'medium'
