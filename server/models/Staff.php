@@ -17,7 +17,8 @@ class Staff extends DataStore {
             'profilePic',
             'level',
             'sharedDepartmentList',
-            'sharedTicketList'
+            'sharedTicketList',
+            'lastLogin'
         ];
     }
 
@@ -39,7 +40,8 @@ class Staff extends DataStore {
             'profilePic' => $this->profilePic,
             'level' => $this->level,
             'departments' => $this->sharedDepartmentList->toArray(),
-            'tickets' => $this->sharedTicketList->toArray()
+            'tickets' => $this->sharedTicketList->toArray(),
+            'lastLogin' => $this->lastLogin
         ];
     }
 }
