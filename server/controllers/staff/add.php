@@ -48,15 +48,16 @@ class AddStaffController extends Controller {
             $staff->setProperties([
                 'name'=> $this->name,
                 'email' => $this->email,
-                'password'=> $this->password,
+                'password'=> Hashing::hashPassword($this->password),
                 'profilePic' => $this->profilePic,
                 'level' => $this->level,
                 'sharedDepartmentList'=> $this->getDepartmentList(),
             ]);
 
-            $staff->store();
-
-            Response::respondSuccess();
+            
+            Response::respondSuccess([
+                'id' => $staff->store()
+            ]);
             return;
         }
 

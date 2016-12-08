@@ -34,11 +34,10 @@ class Staff extends DataStore {
         return [
             'name'=> $this->name,
             'email' => $this->email,
-            'password' => $this->password,
             'profilePic' => $this->profilePic,
             'level' => $this->level,
             'departments' => $this->sharedDepartmentList->toArray(),
-            'tickets' => $this->sharedTicketList->toArray(),
+            'tickets' => $this->sharedTicketList->toArray()
         ];
     }
 }

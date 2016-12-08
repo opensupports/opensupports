@@ -9,13 +9,8 @@ class EditStaffController extends Controller {
 
     public function validations() {
         return [
-            'permission' => 'staff_3',
-            'requestData' => [
-                'staffId' =>[
-                    'validation' => DataValidator::dataStoreId('staff'),
-                    'error' => ERRORS::INVALID_STAFF
-                ]
-            ]
+            'permission' => 'staff_1',
+            'requestData' => []
         ];
     }
 
@@ -24,8 +19,16 @@ class EditStaffController extends Controller {
 
         if(!$this->staffId) {
             $this->staffRow = Controller::getLoggedUser();
+        } else if(Controller::isStaffLogged(3)) {
+            $this->staffRow = Staff::getDataStore($this->staffId, 'id');
+
+            if($this->staffRow->isNull()) {
+                Response::respondError(ERRORS::INVALID_STAFF);
+                return;
+            }
         } else {
-            $this->staffRow = Staff::getDataStore($this->staffId,'id');
+            Response::respondError(ERRORS::NO_PERMISSION);
+            return;
         }
 
         $this->editInformation();
@@ -39,12 +42,14 @@ class EditStaffController extends Controller {
         }
 
         if(Controller::request('password')) {
-            $this->staffRow->password = Controller::request('password');
+            $this->staffRow->password = Hashing::hashPassword(Controller::request('password'));
         }
-        if(Controller::request('level')) {
+        
+        if(Controller::request('level') && Controller::isStaffLogged(3)) {
             $this->staffRow->level = Controller::request('level');
         }
-        if(Controller::request('departments')) {
+        
+        if(Controller::request('departments') && Controller::isStaffLogged(3)) {
             $this->staffRow->sharedDepartmentList = $this->getDepartmentList();
         }
 

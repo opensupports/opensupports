@@ -18,7 +18,23 @@ class GetAllStaffController extends Controller {
         $staffArray = [];
 
         foreach($staffs as $staff) {
-            $staffArray[] = $staff->toArray();
+            $assignedTickets = 0;
+            $closedTickets = 0;
+
+            foreach ($staff->sharedTicketList as $ticket) {
+                if($ticket->closed) $closedTickets++;
+                else $assignedTickets++;
+            }
+
+            $staffArray[] = [
+                'name' => $staff->name,
+                'email' => $staff->email,
+                'profilePic' => $staff->profilePic,
+                'level' => $staff->level,
+                'departments' => $staff->sharedDepartmentList->toArray(),
+                'assignedTickets' => $assignedTickets,
+                'closedTickets' => $closedTickets,
+            ];
         }
 
         Response::respondSuccess($staffArray);

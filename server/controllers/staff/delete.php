@@ -9,7 +9,10 @@ class DeleteStaffController extends Controller {
         return [
             'permission' => 'staff_3',
             'requestData' => [
-
+                'staffId' =>[
+                    'validation' => DataValidator::dataStoreId('staff'),
+                    'error' => ERRORS::INVALID_STAFF
+                ]
             ]
         ];
     }

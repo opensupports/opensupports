@@ -24,4 +24,10 @@ class Department extends DataStore {
         
         return $departmentsNameList;
     }
+    public function toArray() {
+        return [
+            'id' => $this->id,
+            'name' => $this->name
+        ];
+    }
 }
