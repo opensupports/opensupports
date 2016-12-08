@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -12,14 +13,6 @@ import Icon from 'core-components/icon';
 import Loading from 'core-components/loading';
 
 class AdminPanelStaffMembers extends React.Component {
-
-    static propTypes = {
-        departments: React.PropTypes.array
-    };
-
-    static defaultProps = {
-        departments: []
-    };
 
     state = {
         selectedDepartment: 0,
@@ -35,6 +28,7 @@ class AdminPanelStaffMembers extends React.Component {
     }
 
     render() {
+        console.log(this.state.staffList);
         return (
             <div>
                 <Header title={i18n('STAFF_MEMBERS')} description={i18n('STAFF_MEMBERS_DESCRIPTION')} />
@@ -42,7 +36,7 @@ class AdminPanelStaffMembers extends React.Component {
                 <Button size="medium" onClick={() => {}} type="secondary" className="">
                     <Icon name="user-plus" className=""/> {i18n('ADD_NEW_STAFF')}
                 </Button>
-                {(this.state.loading) ? <Loading backgrounded /> : <PeopleList list={this.state.staffList} />}
+                {(this.state.loading) ? <Loading backgrounded /> : <PeopleList list={this.getStaffList()} />}
             </div>
         );
     }
@@ -51,12 +45,23 @@ class AdminPanelStaffMembers extends React.Component {
         return {
             items: this.getDepartments(),
             onChange: (event) => {
+                let departments = SessionStore.getDepartments();
                 this.setState({
-                    selectedDepartment: event.index  && this.props.departments[event.index - 1].id
+                    selectedDepartment: event.index && departments[event.index - 1].id
                 });
             },
             size: 'medium'
         };
+    }
+
+    getStaffList() {
+        if(!this.state.selectedDepartment) {
+            return this.state.staffList;
+        }
+
+        return _.filter(this.state.staffList, (o) => {
+            return _.findIndex(o.departments, {id: this.state.selectedDepartment}) !== -1;
+        });
     }
 
     getDepartments() {
