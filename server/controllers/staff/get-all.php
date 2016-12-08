@@ -35,6 +35,7 @@ class GetAllStaffController extends Controller {
                 'departments' => $staff->sharedDepartmentList->toArray(),
                 'assignedTickets' => $assignedTickets,
                 'closedTickets' => $closedTickets,
+                'lastLogin' => $staff->lastLogin
             ];
         }
 
