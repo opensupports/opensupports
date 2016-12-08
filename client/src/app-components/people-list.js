@@ -100,11 +100,7 @@ class PeopleList extends React.Component {
     }
 
     getRowsQuantity() {
-        console.log(this.props.page);
         if(this.props.page == this.getPages()){
-            console.log("Ultima pagina");
-            console.log(this.props.list.length);
-            console.log(this.props.pageSize);
             return this.props.list.length % this.props.pageSize;
         }
         else {
