@@ -1,0 +1,64 @@
+@import "../scss/vars";
+
+.people-list {
+    max-width: 800px;
+    margin: 0 auto;
+
+    &__list {
+    }
+
+    &__item {
+        border: 2px solid $grey;
+        border-radius: 4px;
+        margin-bottom: 12px;
+        position: relative;
+        height: 105px;
+        padding-left: 60px;
+        font-size: $font-size--md;
+
+        &-profile-pic-wrapper {
+            vertical-align: top;
+            background-color: $secondary-blue;
+            color: white;
+            border-radius: 5px;
+            width: 60px;
+            height: 60px;
+            top: 20px;
+            left: 20px;
+
+            overflow: hidden;
+            position: absolute;
+            border: 2px solid $light-grey;
+        }
+
+        &-profile-pic {
+            position: absolute;
+            height: 100%;
+            left: 50%;
+            transform: translate(-50%, 0)
+        }
+
+        &-block {
+            padding: 30px 0;
+            width: 25%;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        &-assigned-tickets {
+
+        }
+
+        &-closed-tickets {
+
+        }
+
+        &-last-login {
+
+        }
+    }
+
+    &__pagination {
+
+    }
+}
