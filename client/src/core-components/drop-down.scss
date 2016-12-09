@@ -49,4 +49,17 @@
             border: 1px solid $light-grey;
         }
     }
+
+    &_large {
+        width: 300px;
+
+        .drop-down__current-item {
+            border-radius: 4px;
+        }
+
+        .drop-down__list-container {
+            width: 300px;
+            border: 1px solid $light-grey;
+        }
+    }
 }

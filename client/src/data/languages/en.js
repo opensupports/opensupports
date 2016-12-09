@@ -97,10 +97,12 @@ export default {
     'ASSIGNED_TICKETS': '{tickets} assigned tickets',
     'CLOSED_TICKETS': '{tickets} closed tickets',
     'LAST_LOGIN': 'Last login',
-    'STAFF_MEMBERS': 'Staff members',
     'ADD_NEW_STAFF': 'Add new staff',
     'ADD_STAFF': 'Add staff',
     'LEVEL': 'Level',
+    'LEVEL_1': 'Level 1 (Tickets)',
+    'LEVEL_2': 'Level 2 (Tickets + Articles)',
+    'LEVEL_3': 'Level 2 (Tickets + Articles + Staff)',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
