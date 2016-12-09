@@ -53,7 +53,7 @@ class CheckBox extends React.Component {
         props.type = 'checkbox';
 
         props['aria-hidden'] = true;
-        props.className = 'checkbox--box';
+        props.className = 'checkbox__box';
         props.checked = this.getValue();
         props.onChange = callback(this.handleChange.bind(this), this.props.onChange);
 
@@ -79,7 +79,7 @@ class CheckBox extends React.Component {
     getIconProps() {
         return {
             'aria-checked': this.getValue(),
-            className: 'checkbox--icon',
+            className: 'checkbox__icon',
             onKeyDown: callback(this.handleIconKeyDown.bind(this), this.props.onKeyDown),
             role: "checkbox",
             tabIndex: 0
