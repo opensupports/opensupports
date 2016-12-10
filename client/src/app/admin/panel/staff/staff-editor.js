@@ -2,6 +2,11 @@ import React from 'react';
 import _ from 'lodash';
 
 import i18n from 'lib-app/i18n';
+import API from 'lib-app/api-call';
+
+import Form from 'core-components/form';
+import FormField from 'core-components/form-field';
+import SubmitButton from 'core-components/submit-button';
 
 class StaffEditor extends React.Component {
     static propTypes = {
@@ -51,7 +56,25 @@ class StaffEditor extends React.Component {
                     </div>
                     <div className="col-md-8">
                         <div className="staff-editor__form">
-                            FORM
+                            <Form>
+                                <FormField name="email" validation="EMAIL" required/>
+                                <SubmitButton>{i18n('UPDATE_EMAIL')}</SubmitButton>
+                            </Form>
+                            <span className="staff-editor__separator" />
+                            <Form>
+                                <FormField name="password" validation="EMAIL" required/>
+                                <FormField name="rpassword" validation="EMAIL" required/>
+                                <SubmitButton>{i18n('UPDATE_PASSWORD')}</SubmitButton>
+                            </Form>
+                            <span className="staff-editor__separator" />
+                            <Form>
+                                <FormField name="level" label={i18n('LEVEL')} field="select" fieldProps={{
+                                    items: [{content: i18n('LEVEL_1')}, {content: i18n('LEVEL_2')}, {content: i18n('LEVEL_3')}],
+                                    size: 'large'
+                                }} />
+                                <SubmitButton>{i18n('UPDATE_LEVEL')}</SubmitButton>
+                            </Form>
+                            <span className="staff-editor__separator" />
                         </div>
                     </div>
                 </div>
