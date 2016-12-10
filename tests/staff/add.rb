@@ -22,6 +22,10 @@ describe'/staff/add' do
         (row['email']).should.equal('tyrion@opensupports.com')
         (row['profile_pic']).should.equal('http://www.opensupports.com/profilepic.jpg')
         (row['level']).should.equal('2')
+
+        row = $database.getRow('department', 1, 'id')
+        (row['owners']).should.equal('2')
+
     end
     it 'should fail if staff member is alrady a staff' do
         result= request('/staff/add', {
@@ -38,5 +42,7 @@ describe'/staff/add' do
         (result['status']).should.equal('fail')
         (result['message']).should.equal('ALREADY_A_STAFF')
 
+        row = $database.getRow('department', 1, 'id')
+        (row['owners']).should.equal('2')
     end
 end

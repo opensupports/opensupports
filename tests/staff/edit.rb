@@ -23,6 +23,12 @@ describe'/staff/edit' do
 
         (rows['department_id']).should.equal('1')
 
+        row = $database.getRow('department', 1, 'id')
+        (row['owners']).should.equal('2')
+
+        row = $database.getRow('department', 2, 'id')
+        (row['owners']).should.equal('2')
+
     end
 
     it 'should edit staff member ' do
@@ -51,6 +57,9 @@ describe'/staff/edit' do
 
         (row['email']).should.equal('newwstaff@opensupports.com')
         (row['level']).should.equal('2')
+
+        row = $database.getRow('department', 1, 'id')
+        (row['owners']).should.equal('3')
 
     end
 end
