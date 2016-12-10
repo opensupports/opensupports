@@ -93,6 +93,10 @@ class InitSettingsController extends Controller {
             'sharedDepartmentList' => Department::getAll(),
             'sharedTicketList' => []
         ]);
+        foreach(Department::getAll() as $department) {
+            $department->owners++;
+            $department->store();
+        }
         $staff->store();
     }
 }

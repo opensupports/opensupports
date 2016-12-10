@@ -7,7 +7,14 @@ class Department extends DataStore {
     public static function getProps() {
         return [
             'name',
-            'sharedTicketList'
+            'sharedTicketList',
+            'owners'
+        ];
+    }
+    
+    public function getDefaultProps() {
+        return [
+            'owners' => 0 
         ];
     }
 
@@ -18,7 +25,8 @@ class Department extends DataStore {
         foreach($departmentsList as $department) {
             $departmentsNameList[] = [
                 'id' => $department->id,
-                'name' => $department->name
+                'name' => $department->name,
+                'owners' => $department->owners
             ];
         }
         
@@ -27,7 +35,8 @@ class Department extends DataStore {
     public function toArray() {
         return [
             'id' => $this->id,
-            'name' => $this->name
+            'name' => $this->name,
+            'owners' => $this->owners
         ];
     }
 }
