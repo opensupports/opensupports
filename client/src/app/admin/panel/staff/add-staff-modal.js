@@ -1,20 +1,33 @@
 import React from 'react';
+import _ from 'lodash';
 
 import i18n from 'lib-app/i18n';
+import API from 'lib-app/api-call';
 import SessionStore from 'lib-app/session-store';
 
 import Header from 'core-components/header'
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
+import Button from 'core-components/button';
 
 class AddStaffModal extends React.Component {
+
+    static contextTypes = {
+        closeModal: React.PropTypes.func
+    };
+
+    state = {
+        loading: false,
+        errors: {},
+        error: null
+    };
 
     render() {
         return (
             <div className="add-staff-modal">
                 <Header title={i18n('ADD_STAFF')} description={i18n('ADD_STAFF_DESCRIPTION')} />
-                <Form onSubmit={this.onSubmit.bind(this)}>
+                <Form onSubmit={this.onSubmit.bind(this)} errors={this.getErrors()} onValidateErrors={errors => this.setState({errors})} loading={this.state.loading}>
                     <div className="row">
                         <div className="col-md-7">
                             <FormField name="name" label={i18n('NAME')} fieldProps={{size: 'large'}} validation="NAME" required />
@@ -37,17 +50,55 @@ class AddStaffModal extends React.Component {
                     <SubmitButton type="secondary" size="small">
                         {i18n('SAVE')}
                     </SubmitButton>
+                    <Button type="clean" onClick={this.onCancelClick.bind(this)}>
+                        {i18n('CANCEL')}
+                    </Button>
                 </Form>
             </div>
         );
     }
 
     getDepartments() {
-        return SessionStore.getDepartments().map((department) => department.name);
+        return SessionStore.getDepartments().map(department => department.name);
     }
 
     onSubmit(form) {
-        console.log(form);
+        let departments = _.filter(SessionStore.getDepartments(), (department, index) => {
+            return _.includes(form.departments, index);
+        }).map(department => department.id);
+
+        this.setState({loading: true});
+
+        API.call({
+            path: '/staff/add',
+            data: {
+                name: form.name,
+                email: form.email,
+                password: form.password,
+                level: form.level + 1,
+                department: JSON.stringify(departments)
+            }
+        }).then(this.context.closeModal).catch((result) => {
+            this.setState({
+                loading: false,
+                error: result.message
+            });
+        });
+    }
+
+    onCancelClick(event) {
+        event.preventDefault();
+        this.context.closeModal();
+    }
+
+    getErrors() {
+        let errors = _.extend({}, this.state.errors);
+
+        if (this.state.error === 'ALREADY_A_STAFF') {
+            errors.email = i18n('EMAIL_EXISTS');
+        }
+
+        return errors;
     }
 }
 
