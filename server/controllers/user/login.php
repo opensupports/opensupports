@@ -22,6 +22,10 @@ class LoginController extends Controller {
         if ($this->checkInputCredentials() || $this->checkRememberToken()) {
             $this->createUserSession();
             $this->createSessionCookie();
+            if(Controller::request('staff')) {
+                $this->userInstance->lastLogin = Date::getCurrentDate();
+                $this->userInstance->store();
+            }
 
             Response::respondSuccess($this->getUserData());
         } else {

@@ -5,11 +5,11 @@
     border-radius: 5px;
     display: inline-block;
 
-    &--box {
+    &__box {
         display: none;
     }
 
-    &--icon {
+    &__icon {
         color: $light-grey;
         outline: none;
 
@@ -18,8 +18,12 @@
         }
     }
 
+    &__label {
+        margin-left: 10px;
+    }
+
     &_checked {
-        .checkbox--icon {
+        .checkbox__icon {
             color: $primary-red;
 
             &:focus {

@@ -11,28 +11,38 @@ class CheckBox extends React.Component {
     static propTypes = {
         alignment: React.PropTypes.string,
         label: React.PropTypes.string,
-        value: React.PropTypes.bool
+        value: React.PropTypes.bool,
+        wrapInLabel: React.PropTypes.bool,
+        onChange: React.PropTypes.func
     };
 
     static defaultProps = {
+        wrapInLabel: false,
         alignment: 'right'
     };
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            checked: false
-        };
-    }
+    state = {
+        checked: false
+    };
 
     render() {
+        let Wrapper = (this.props.wrapInLabel) ? 'label' : 'span';
+
         return (
-            <span className={this.getClass()}>
+            <Wrapper className={this.getClass()}>
                 <span {...this.getIconProps()}>
                     {getIcon((this.getValue()) ? 'check-square' : 'square', 'lg') }
                 </span>
                 <input {...this.getProps()}/>
+                {(this.props.label) ? this.renderLabel() : null}
+            </Wrapper>
+        );
+    }
+
+    renderLabel() {
+        return (
+            <span className="checkbox__label">
+                {this.props.label}
             </span>
         );
     }
@@ -43,7 +53,7 @@ class CheckBox extends React.Component {
         props.type = 'checkbox';
 
         props['aria-hidden'] = true;
-        props.className = 'checkbox--box';
+        props.className = 'checkbox__box';
         props.checked = this.getValue();
         props.onChange = callback(this.handleChange.bind(this), this.props.onChange);
 
@@ -69,7 +79,7 @@ class CheckBox extends React.Component {
     getIconProps() {
         return {
             'aria-checked': this.getValue(),
-            className: 'checkbox--icon',
+            className: 'checkbox__icon',
             onKeyDown: callback(this.handleIconKeyDown.bind(this), this.props.onKeyDown),
             role: "checkbox",
             tabIndex: 0

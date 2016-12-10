@@ -17,7 +17,8 @@ class Staff extends DataStore {
             'profilePic',
             'level',
             'sharedDepartmentList',
-            'sharedTicketList'
+            'sharedTicketList',
+            'lastLogin'
         ];
     }
 
@@ -29,5 +30,18 @@ class Staff extends DataStore {
 
     public static function getUser($value, $property = 'id') {
         return parent::getDataStore($value, $property);
+    }
+
+    public function toArray() {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'profilePic' => $this->profilePic,
+            'level' => $this->level,
+            'departments' => $this->sharedDepartmentList->toArray(),
+            'tickets' => $this->sharedTicketList->toArray(),
+            'lastLogin' => $this->lastLogin
+        ];
     }
 }

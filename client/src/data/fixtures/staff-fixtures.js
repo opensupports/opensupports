@@ -536,6 +536,7 @@ module.exports = [
                     pages: 4
                 }
             }
+
         }
     },
     {
@@ -576,6 +577,69 @@ module.exports = [
                     pages: 2
                 }
             }
+        }
+    },
+    {
+        path: '/staff/get-all',
+        time: 100,
+        response: function() {
+            return {
+                status: 'success',
+                data: [
+                    {
+                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                        name: 'Emilia Clarke',
+                        departments: [{id: 2, name: 'Technical issues'}],
+                        assignedTickets: 4,
+                        closedTickets: 21,
+                        lastLogin: 20161212
+                    },
+                    {
+                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                        name: 'Yulian A GUI Yermo',
+                        departments: [{id: 2, name: 'Technical issues'}, {id: 1, name: 'Sales Support'}],
+                        assignedTickets: 9,
+                        closedTickets: 0,
+                        lastLogin: 20161212
+                    },
+                    {
+                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                        name: 'Miltona Costa',
+                        departments: [{id: 1, name: 'Sales Support'}],
+                        assignedTickets: -1,
+                        closedTickets: -1,
+                        lastLogin: 20160212
+                    },
+                    {
+                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                        name: 'Emiliasnikova Rusachestkvuy',
+                        departments: [{id: 1, name: 'Sales Support'}, {id: 3, name: 'System and Administration'}],
+                        assignedTickets: 100,
+                        closedTickets: 21,
+                        lastLogin: 20130101
+                    },
+                    {
+                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                        name: 'Laurita Morrechaga Rusachestkvuy',
+                        departments: [{id: 3, name: 'System and Administration'}],
+                        assignedTickets: 1,
+                        closedTickets: 1,
+                        lastLogin: 2012050
+                    }
+                ]
+            };
+        }
+    },
+    {
+        path: '/staff/add',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {
+                    staffId: 5
+                }
+            };
         }
     }
 ];

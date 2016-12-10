@@ -14,6 +14,14 @@ class GetStaffController extends Controller {
 
     public function handler() {
         $user = Controller::getLoggedUser();
+
+        $userId = Controller::request('staffId');
+        $userRow = Staff::getDataStore($userId);
+
+        if($user->level == 3 && !$userRow->isNull()) {
+            $user = $userRow;
+        }
+
         $parsedDepartmentList = [];
         $departmentList = $user->sharedDepartmentList;
 
