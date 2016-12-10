@@ -97,8 +97,12 @@ export default {
     'ASSIGNED_TICKETS': '{tickets} assigned tickets',
     'CLOSED_TICKETS': '{tickets} closed tickets',
     'LAST_LOGIN': 'Last login',
-    'STAFF_MEMBERS': 'Staff members',
     'ADD_NEW_STAFF': 'Add new staff',
+    'ADD_STAFF': 'Add staff',
+    'LEVEL': 'Level',
+    'LEVEL_1': 'Level 1 (Tickets)',
+    'LEVEL_2': 'Level 2 (Tickets + Articles)',
+    'LEVEL_3': 'Level 2 (Tickets + Articles + Staff)',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
@@ -122,6 +126,7 @@ export default {
     'LIST_ARTICLES_DESCRIPTION': 'This is a list of articles that includes information about our services.',
     'ADD_TOPIC_DESCRIPTION': 'Here you can add a topic that works as a category for articles.',
     'STAFF_MEMBERS_DESCRIPTION': 'Here you can see who are your staff members.',
+    'ADD_STAFF_DESCRIPTION': 'Here you can add staff members to your teams',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',

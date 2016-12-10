@@ -26,3 +26,36 @@ $font-size--md: 16px;
 $font-size--bg: 19px;
 $font-size--lg: 24px;
 $font-size--xl: 32px;
+
+@mixin scrollbars() {
+    $size: .4em;
+    $color: $grey;
+
+    &::-webkit-scrollbar {
+        width:  $size;
+        height: $size;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-track {
+        backgroundr: transparent;
+    }
+
+    &:hover {
+        &::-webkit-scrollbar {
+            width:  $size;
+            height: $size;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: $color;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: lighten($color, 50%);
+        }
+    }
+}

@@ -629,6 +629,17 @@ module.exports = [
                 ]
             };
         }
-
+    },
+    {
+        path: '/staff/add',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {
+                    staffId: 5
+                }
+            };
+        }
     }
 ];

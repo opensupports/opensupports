@@ -6,6 +6,7 @@ import _ from 'lodash';
 import Input from 'core-components/input';
 import DropDown from 'core-components/drop-down';
 import Checkbox from 'core-components/checkbox';
+import CheckboxGroup from 'core-components/checkbox-group';
 import TextEditor from 'core-components/text-editor';
 
 class FormField extends React.Component {
@@ -21,7 +22,7 @@ class FormField extends React.Component {
         required: React.PropTypes.bool,
         error: React.PropTypes.string,
         value: React.PropTypes.any,
-        field: React.PropTypes.oneOf(['input', 'textarea', 'select', 'checkbox']),
+        field: React.PropTypes.oneOf(['input', 'textarea', 'select', 'checkbox', 'checkbox-group']),
         fieldProps: React.PropTypes.object
     };
     
@@ -36,6 +37,9 @@ class FormField extends React.Component {
         else if (field === 'checkbox') {
             return false;
         }
+        else if (field === 'checkbox-group') {
+            return [];
+        }
         else if (field === 'textarea') {
              return RichTextEditor.createEmptyValue();
         }
@@ -45,7 +49,7 @@ class FormField extends React.Component {
     }
 
     render() {
-        const Wrapper = (this.props.field === 'textarea') ? 'div' : 'label';
+        const Wrapper = (_.includes(this.getDivTypes(), this.props.field)) ? 'div' : 'label';
         const fieldContent = [
             <span className="form-field__label" key="label">{this.props.label}</span>,
             this.renderField(),
@@ -67,7 +71,8 @@ class FormField extends React.Component {
             'input': Input,
             'textarea': TextEditor,
             'select': DropDown,
-            'checkbox': Checkbox
+            'checkbox': Checkbox,
+            'checkbox-group': CheckboxGroup
         }[this.props.field];
 
         if(this.props.decorator) {
@@ -120,6 +125,13 @@ class FormField extends React.Component {
         }
 
         return props;
+    }
+
+    getDivTypes() {
+        return [
+            'textarea',
+            'checkbox-group'
+        ];
     }
 
     onChange(nativeEvent) {

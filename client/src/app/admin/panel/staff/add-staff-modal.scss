@@ -1,0 +1,23 @@
+@import "../../../../scss/vars";
+
+.add-staff-modal {
+    width: 700px;
+
+    &__level-selector {
+        text-align: center;
+    }
+
+    &__departments {
+        @include scrollbars();
+
+        border: 1px solid $grey;
+        padding: 20px;
+        height: 320px;
+        overflow-y: auto;
+    }
+
+    &__departments-title {
+        font-size: $font-size--md;
+        text-align: center;
+    }
+}

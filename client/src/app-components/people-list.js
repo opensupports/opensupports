@@ -64,7 +64,7 @@ class PeopleList extends React.Component {
 
     renderAnimatedItem(style, index) {
         return (
-            <div style={{transform: 'translateX('+style.offset+'px)', opacity: style.alpha}}>
+            <div style={{transform: 'translateX('+style.offset+'px)', opacity: style.alpha}} key={index}>
                 {this.renderItem(index + this.props.pageSize * (this.props.page - 1))}
             </div>
         );

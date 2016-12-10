@@ -1,0 +1,11 @@
+@import "../scss/vars";
+
+.checkbox-group {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    &__item {
+        margin: 10px 0;
+    }
+}
