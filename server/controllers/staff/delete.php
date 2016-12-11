@@ -26,6 +26,12 @@ class DeleteStaffController extends Controller {
             $ticket->true  = true;
             $ticket->store();
         }
+            
+        foreach($staff->sharedDepartmentList as $department) {
+            $department->owners--;
+            $department->store();
+        }
+        
 
         $staff->delete();
         Response::respondSuccess();

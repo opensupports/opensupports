@@ -51,9 +51,11 @@ class AddStaffController extends Controller {
                 'password'=> Hashing::hashPassword($this->password),
                 'profilePic' => $this->profilePic,
                 'level' => $this->level,
-                'sharedDepartmentList'=> $this->getDepartmentList(),
-            ]);
+                'sharedDepartmentList' => $this->getDepartmentList()
 
+            ]);
+            
+            $this->addOwner();
             
             Response::respondSuccess([
                 'id' => $staff->store()
@@ -83,5 +85,14 @@ class AddStaffController extends Controller {
         }
 
         return $listDepartments;
+    }
+    public function addOwner() {
+        $departmentIds = json_decode($this->departments);
+
+        foreach($departmentIds as $id) {
+            $departmentRow = Department::getDataStore($id);
+            $departmentRow->owners++;
+            $departmentRow->store();
+        }
     }
 }
