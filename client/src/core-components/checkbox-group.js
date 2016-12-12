@@ -27,7 +27,7 @@ class CheckboxGroup extends React.Component {
         
         return (
             <li className="checkbox-group__item" key={index}>
-                <Checkbox label={label} checked={checked} onChange={this.onCheckboxChange.bind(this, index)} wrapInLabel/>
+                <Checkbox label={label} value={checked} onChange={this.onCheckboxChange.bind(this, index)} wrapInLabel/>
             </li>
         );
     }

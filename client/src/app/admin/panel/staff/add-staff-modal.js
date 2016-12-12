@@ -35,9 +35,9 @@ class AddStaffModal extends React.Component {
                             <FormField name="password" label={i18n('PASSWORD')} fieldProps={{size: 'large', password: true}} validation="PASSWORD" required />
                             <div className="add-staff-modal__level-selector">
                                 <FormField name="level" label={i18n('LEVEL')} field="select" fieldProps={{
-                            items: [{content: i18n('LEVEL_1')}, {content: i18n('LEVEL_2')}, {content: i18n('LEVEL_3')}],
-                            size: 'large'
-                        }} />
+                                    items: [{content: i18n('LEVEL_1')}, {content: i18n('LEVEL_2')}, {content: i18n('LEVEL_3')}],
+                                    size: 'large'
+                                }} />
                             </div>
                         </div>
                         <div className="col-md-5">

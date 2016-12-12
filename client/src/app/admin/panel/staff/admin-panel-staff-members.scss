@@ -14,4 +14,13 @@
         float: right;
         margin-top: -5px;
     }
+
+    &__link {
+        color: $primary-black;
+
+        &:hover {
+            color: $primary-black;
+            text-decoration: none;
+        }
+    }
 }
