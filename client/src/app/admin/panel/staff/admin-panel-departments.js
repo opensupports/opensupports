@@ -118,7 +118,7 @@ class AdminPanelDepartments extends React.Component {
             API.call({
                 path: '/staff/edit-department',
                 data: {
-                    id: this.getCurrentDepartment().id,
+                    departmentId: this.getCurrentDepartment().id,
                     name: form.name
                 }
             }).then(() => {
@@ -150,7 +150,7 @@ class AdminPanelDepartments extends React.Component {
         API.call({
             path: '/staff/delete-department',
             data: {
-                id: this.getCurrentDepartment().id
+                departmentId: this.getCurrentDepartment().id
             }
         }).then(() => {
             this.retrieveDepartments();
