@@ -15,7 +15,7 @@ module.exports = [
                         'userId': 12,
                         'token': 'cc6b4921e6733d6aafe284ec0d7be57e',
                         'rememberToken': (data.remember) ? 'aa41efe0a1b3eeb9bf303e4561ff8392' : null,
-                        'rememberExpiration': (data.remember) ? 20180806 : 0
+                        'rememberExpiration': (data.remember) ? 201808061020 : 0
                     }
                 };
             } else {
@@ -147,14 +147,14 @@ module.exports = [
                     email: 'kurt@currycurrylady.hs',
                     tickets: _.times(13).map(() => {
                         return {
-                            ticketNumber: '118551',
+                            ticketNumber: '1185510000',
                             title: 'Lorem ipsum door',
                             content: 'I had a problem with the installation of the php server',
                             department: {
                                 id: 1,
                                 name: 'Sales Support'
                             },
-                            date: '20150409',
+                            date: '201504090001',
                             file: 'http://www.opensupports.com/some_file.zip',
                             language: 'en',
                             unread: false,
@@ -170,7 +170,7 @@ module.exports = [
                             events: [
                                 {
                                     type: 'ASSIGN',
-                                    date: '20150409',
+                                    date: '201504090003',
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
@@ -180,7 +180,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'COMMENT',
-                                    date: '20150409',
+                                    date: '201504090005',
                                     content: 'Do you have apache installed? It generally happens if you dont have apache.',
                                     author: {
                                         name: 'Emilia Clarke',
@@ -191,7 +191,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'UN_ASSIGN',
-                                    date: '20150410',
+                                    date: '201504100009',
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
@@ -201,7 +201,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'DEPARTMENT_CHANGED',
-                                    date: '20150411',
+                                    date: '201504110011',
                                     content: 'System support',
                                     author: {
                                         name: 'Emilia Clarke',
@@ -212,7 +212,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'COMMENT',
-                                    date: '20150412',
+                                    date: '201504120024',
                                     content: 'I have already installed apache, but the problem persists',
                                     author: {
                                         name: 'Haskell Curry',
@@ -222,7 +222,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'PRIORITY_CHANGED',
-                                    date: '20150413',
+                                    date: '201504130035',
                                     content: 'MEDIUM',
                                     author: {
                                         name: 'Emilia Clarke',
@@ -233,7 +233,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'COMMENT',
-                                    date: '20150511',
+                                    date: '201505110110',
                                     content: 'Thanks!, I soved it by myself',
                                     author: {
                                         name: 'Haskell Curry',
@@ -243,7 +243,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'CLOSE',
-                                    date: '20150513',
+                                    date: '201505130113',
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
@@ -253,7 +253,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'RE_OPEN',
-                                    date: '20151018',
+                                    date: '201510180114',
                                     author: {
                                         name: 'Haskell Curry',
                                         email: 'haskell@lambda.com',
@@ -285,70 +285,70 @@ module.exports = [
                             name: 'Haskell Curry',
                             email: 'haskell@currycurrylady.com',
                             tickets: 5,
-                            signupDate: 20160415
+                            signupDate: 201604151230
                         },
                         {
                             id: 97,
                             name: 'Alan Turing',
                             email: 'turing@currycurrylady.com',
                             tickets: 1,
-                            signupDate: 20160401
+                            signupDate: 201604011230
                         },
                         {
                             id: 89,
                             name: 'David Hilbert',
                             email: 'hilbert@currycurrylady.com',
                             tickets: 2,
-                            signupDate: 20160208
+                            signupDate: 201602081230
                         },
                         {
                             id: 83,
                             name: 'Kurt Gödel',
                             email: 'kurt@currycurrylady.com',
                             tickets: 10,
-                            signupDate: 20160110
+                            signupDate: 201601101230
                         },
                         {
                             id: 79,
                             name: 'Mojzesz Presburger',
                             email: 'presburger@currycurrylady.com',
                             tickets: 6,
-                            signupDate: 20150415
+                            signupDate: 201504151230
                         },
                         {
                             id: 73,
                             name: 'Haskell Curry',
                             email: 'haskell@currycurrylady.com',
                             tickets: 5,
-                            signupDate: 20160415
+                            signupDate: 201604151230
                         },
                         {
                             id: 71,
                             name: 'Alan Turing',
                             email: 'turing@currycurrylady.com',
                             tickets: 1,
-                            signupDate: 20160401
+                            signupDate: 201604011230
                         },
                         {
                             id: 67,
                             name: 'David Hilbert',
                             email: 'hilbert@currycurrylady.com',
                             tickets: 2,
-                            signupDate: 20160208
+                            signupDate: 201602081230
                         },
                         {
                             id: 61,
                             name: 'Kurt Gödel',
                             email: 'kurt@currycurrylady.com',
                             tickets: 10,
-                            signupDate: 20160110
+                            signupDate: 201601101233
                         },
                         {
                             id: 59,
                             name: 'Mojzesz Presburger',
                             email: 'presburger@currycurrylady.com',
                             tickets: 6,
-                            signupDate: 20150415
+                            signupDate: 201504151236
                         }
                     ]
                 }
@@ -373,7 +373,7 @@ module.exports = [
                                 id: 2,
                                 name: 'Technical Issues'
                             },
-                            date: '20160416',
+                            date: '201604161427',
                             file: 'http://www.opensupports.com/some_file.zip',
                             language: 'en',
                             unread: true,
@@ -392,7 +392,7 @@ module.exports = [
                             events: [
                                 {
                                     type: 'ASSIGN',
-                                    date: '20150409',
+                                    date: '201504090729',
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
@@ -402,7 +402,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'COMMENT',
-                                    date: '20150409',
+                                    date: '201504090731',
                                     content: 'Do you have apache installed? It generally happens if you dont have apache.',
                                     author: {
                                         name: 'Emilia Clarke',
@@ -413,7 +413,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'UN_ASSIGN',
-                                    date: '20150410',
+                                    date: '201504100732',
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
@@ -423,7 +423,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'DEPARTMENT_CHANGED',
-                                    date: '20150411',
+                                    date: '201504110735',
                                     content: 'System support',
                                     author: {
                                         name: 'Emilia Clarke',
@@ -434,7 +434,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'COMMENT',
-                                    date: '20150412',
+                                    date: '201504120749',
                                     content: 'I have already installed apache, but the problem persists',
                                     author: {
                                         name: 'Haskell Curry',
@@ -444,7 +444,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'PRIORITY_CHANGED',
-                                    date: '20150413',
+                                    date: '201504130755',
                                     content: 'MEDIUM',
                                     author: {
                                         name: 'Emilia Clarke',
@@ -455,7 +455,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'COMMENT',
-                                    date: '20150511',
+                                    date: '201505110759',
                                     content: 'Thanks!, I solved it by myself',
                                     author: {
                                         name: 'Haskell Curry',
@@ -465,7 +465,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'CLOSE',
-                                    date: '20150513',
+                                    date: '201505130800',
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
@@ -475,7 +475,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'RE_OPEN',
-                                    date: '20151018',
+                                    date: '201510180807',
                                     author: {
                                         name: 'Haskell Curry',
                                         email: 'haskell@lambda.com',
@@ -492,7 +492,7 @@ module.exports = [
                                 id: 1,
                                 name: 'Sales Support'
                             },
-                            date: '20160415',
+                            date: '201604150849',
                             file: 'http://www.opensupports.com/some_file.zip',
                             language: 'en',
                             unread: false,
@@ -508,7 +508,7 @@ module.exports = [
                             events: [
                                 {
                                     type: 'ASSIGN',
-                                    date: '20150409',
+                                    date: '201504090855',
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
@@ -518,7 +518,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'COMMENT',
-                                    date: '20150409',
+                                    date: '201504090912',
                                     content: 'Do you have apache installed? It generally happens if you dont have apache.',
                                     author: {
                                         name: 'Emilia Clarke',
@@ -529,7 +529,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'UN_ASSIGN',
-                                    date: '20150410',
+                                    date: '201504100924',
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
@@ -539,7 +539,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'DEPARTMENT_CHANGED',
-                                    date: '20150411',
+                                    date: '201504110932',
                                     content: 'System support',
                                     author: {
                                         name: 'Emilia Clarke',
@@ -550,7 +550,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'COMMENT',
-                                    date: '20150412',
+                                    date: '201504120941',
                                     content: 'I have already installed apache, but the problem persists',
                                     author: {
                                         name: 'Haskell Curry',
@@ -560,7 +560,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'PRIORITY_CHANGED',
-                                    date: '20150413',
+                                    date: '201504130943',
                                     content: 'MEDIUM',
                                     author: {
                                         name: 'Emilia Clarke',
@@ -571,7 +571,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'COMMENT',
-                                    date: '20150511',
+                                    date: '201505110955',
                                     content: 'Thanks!, I soved it by myself',
                                     author: {
                                         name: 'Haskell Curry',
@@ -581,7 +581,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'CLOSE',
-                                    date: '20150513',
+                                    date: '201505131030',
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
@@ -591,7 +591,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'RE_OPEN',
-                                    date: '20151018',
+                                    date: '201510181031',
                                     author: {
                                         name: 'Haskell Curry',
                                         email: 'haskell@lambda.com',
@@ -608,7 +608,7 @@ module.exports = [
                                 id: 1,
                                 name: 'Sales Support'
                             },
-                            date: '20150409',
+                            date: '201504091032',
                             file: 'http://www.opensupports.com/some_file.zip',
                             language: 'en',
                             unread: false,
@@ -624,7 +624,7 @@ module.exports = [
                             events: [
                                 {
                                     type: 'ASSIGN',
-                                    date: '20150409',
+                                    date: '201504091033',
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
@@ -634,7 +634,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'COMMENT',
-                                    date: '20150409',
+                                    date: '201504091055',
                                     content: 'Do you have apache installed? It generally happens if you dont have apache.',
                                     author: {
                                         name: 'Emilia Clarke',
@@ -645,7 +645,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'UN_ASSIGN',
-                                    date: '20150410',
+                                    date: '201504101059',
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
@@ -655,7 +655,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'DEPARTMENT_CHANGED',
-                                    date: '20150411',
+                                    date: '201504111115',
                                     content: 'System support',
                                     author: {
                                         name: 'Emilia Clarke',
@@ -666,7 +666,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'COMMENT',
-                                    date: '20150412',
+                                    date: '201504121117',
                                     content: 'I have already installed apache, but the problem persists',
                                     author: {
                                         name: 'Haskell Curry',
@@ -676,7 +676,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'PRIORITY_CHANGED',
-                                    date: '20150413',
+                                    date: '201504131119',
                                     content: 'MEDIUM',
                                     author: {
                                         name: 'Emilia Clarke',
@@ -687,7 +687,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'COMMENT',
-                                    date: '20150511',
+                                    date: '201505111121',
                                     content: 'Thanks!, I soved it by myself',
                                     author: {
                                         name: 'Haskell Curry',
@@ -697,7 +697,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'CLOSE',
-                                    date: '20150513',
+                                    date: '201505131231',
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
@@ -707,7 +707,7 @@ module.exports = [
                                 },
                                 {
                                     type: 'RE_OPEN',
-                                    date: '20151018',
+                                    date: '201510181244',
                                     author: {
                                         name: 'Haskell Curry',
                                         email: 'haskell@lambda.com',

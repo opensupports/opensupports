@@ -57,7 +57,7 @@ class DashboardArticlePage extends React.Component {
                     <div dangerouslySetInnerHTML={{__html: article.content}}/>
                 </div>
                 <div className="dashboard-article-page__last-edited">
-                    {i18n('LAST_EDITED_IN', {date: DateTransformer.transformToString(article.lastEdited)})}
+                    {i18n('LAST_EDITED_IN', {date: DateTransformer.transformToString(article.lastEdited, true)})}
                 </div>
             </div>
         );

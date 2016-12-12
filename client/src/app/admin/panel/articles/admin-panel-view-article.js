@@ -72,7 +72,7 @@ class AdminPanelViewArticle extends React.Component {
                         <div dangerouslySetInnerHTML={{__html: article.content}}/>
                     </div>
                     <div className="admin-panel-view-article__last-edited">
-                        {i18n('LAST_EDITED_IN', {date: DateTransformer.transformToString(article.lastEdited)})}
+                        {i18n('LAST_EDITED_IN', {date: DateTransformer.transformToString(article.lastEdited, true)})}
                     </div>
                 </div>
             </div>
