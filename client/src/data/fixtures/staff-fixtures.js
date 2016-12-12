@@ -14,8 +14,8 @@ module.exports = [
                     level: 1,
                     staff: true,
                     departments: [
-                        {id: 1, name: 'Sales Support'},
-                        {id: 2, name: 'Technical Issues'}
+                        {id: 1, name: 'Sales Support', owners: 2},
+                        {id: 2, name: 'Technical Issues', owners: 5}
                     ]
                 }
             };
@@ -34,7 +34,8 @@ module.exports = [
                         content: 'I had a problem with the installation of the php server',
                         department: {
                             id: 2,
-                            name: 'Technical Issues'
+                            name: 'Technical Issues',
+                            owners: 5
                         },
                         date: '20160416',
                         file: 'http://www.opensupports.com/some_file.zip',
@@ -153,7 +154,8 @@ module.exports = [
                         content: 'I had a problem with the installation of the php server',
                         department: {
                             id: 2,
-                            name: 'Technical Issues'
+                            name: 'Technical Issues',
+                            owners: 5
                         },
                         date: '20160415',
                         file: 'http://www.opensupports.com/some_file.zip',
@@ -269,7 +271,8 @@ module.exports = [
                         content: 'I had a problem with the installation of the php server',
                         department: {
                             id: 2,
-                            name: 'Technical Issues'
+                            name: 'Technical Issues',
+                            owners: 5
                         },
                         date: '20150409',
                         file: 'http://www.opensupports.com/some_file.zip',
@@ -385,7 +388,8 @@ module.exports = [
                         content: 'I had a problem with the installation of the php server',
                         department: {
                             id: 1,
-                            name: 'Sales Support'
+                            name: 'Sales Support',
+                            owners: 2
                         },
                         date: '20160416',
                         file: 'http://www.opensupports.com/some_file.zip',
@@ -422,7 +426,8 @@ module.exports = [
                         content: 'I had a problem with the installation of the php server',
                         department: {
                             id: 1,
-                            name: 'Sales Support'
+                            name: 'Sales Support',
+                            owners: 2
                         },
                         date: '20160416',
                         file: 'http://www.opensupports.com/some_file.zip',
@@ -448,7 +453,8 @@ module.exports = [
                         content: 'I had a problem with the installation of the php server',
                         department: {
                             id: 1,
-                            name: 'Sales Support'
+                            name: 'Sales Support',
+                            owners: 2
                         },
                         date: '20160416',
                         file: 'http://www.opensupports.com/some_file.zip',
@@ -474,7 +480,8 @@ module.exports = [
                         content: 'I had a problem with the installation of the php server',
                         department: {
                             id: 2,
-                            name: 'Technical Issues'
+                            name: 'Technical Issues',
+                            owners: 2
                         },
                         date: '20160416',
                         file: 'http://www.opensupports.com/some_file.zip',
@@ -512,7 +519,8 @@ module.exports = [
                             content: 'I had a problem with the installation of the php server',
                             department: {
                                 id: 1,
-                                name: 'Sales Support'
+                                name: 'Sales Support',
+                                owners: 2
                             },
                             date: '20160416',
                             file: 'http://www.opensupports.com/some_file.zip',
@@ -639,6 +647,36 @@ module.exports = [
                 data: {
                     staffId: 5
                 }
+            };
+        }
+    },
+    {
+        path: '/staff/add-department',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/staff/edit-department',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/staff/delete-department',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
             };
         }
     }
