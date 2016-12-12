@@ -58,7 +58,7 @@ class ArticlesList extends React.Component {
                                 editable={this.props.editable}
                                 onChange={this.retrieveArticles.bind(this)}
                                 articlePath={this.props.articlePath} />
-                            <span className="articles-list__topic-separator" />
+                            <span className="separator" />
                         </div>
                     );
                 })}

@@ -68,7 +68,7 @@ class AdminPanelViewUser extends React.Component {
                         <Button onClick={this.onDeleteClick.bind(this)} size="medium">{i18n('DELETE_AND_BAN')}</Button>
                     </div>
                 </div>
-                <span className="admin-panel-view-user__separator" />
+                <span className="separator" />
                 <div className="admin-panel-view-user__tickets">
                     <div className="admin-panel-view-user__tickets-title">{i18n('TICKETS')}</div>
                     <TicketList {...this.getTicketListProps()}/>
