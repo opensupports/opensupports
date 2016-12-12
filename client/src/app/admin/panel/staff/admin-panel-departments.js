@@ -46,10 +46,10 @@ class AdminPanelDepartments extends React.Component {
                         <Form {...this.getFormProps()}>
                             <FormField label={i18n('NAME')} name="name" validation="NAME" required fieldProps={{size: 'large'}}/>
                             <SubmitButton size="medium" className="admin-panel-departments__update-name-button" type="secondary">
-                                {i18n((this.state.selectedIndex !== -1) ? 'UPDATE_NAME' : 'ADD_DEPARTMENT')}
+                                {i18n((this.state.selectedIndex !== -1) ? 'UPDATE_DEPARTMENT' : 'ADD_DEPARTMENT')}
                             </SubmitButton>
                         </Form>
-                        {(this.state.selectedIndex !== -1) ? this.renderOptionalButtons() : null}
+                        {(this.state.selectedIndex !== -1 && this.props.departments.length) ? this.renderOptionalButtons() : null}
                     </div>
                 </div>
             </div>
