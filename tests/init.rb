@@ -43,5 +43,8 @@ require './user/ban.rb'
 require './user/get-users-test.rb'
 require './user/delete.rb'
 require './staff/get-all.rb'
+require './system/add-department.rb'
+require './system/edit-department.rb'
+require './system/delete-department.rb'
 
 
