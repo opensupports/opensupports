@@ -39,13 +39,15 @@ class AdminPanelDepartments extends React.Component {
             <div className="admin-panel-departments">
                 <Header title={i18n('DEPARTMENTS')} description={i18n('DEPARTMENTS_DESCRIPTION')} />
                 <div className="row">
-                    <div className="col-md-3">
+                    <div className="col-md-4">
                         <Listing {...this.getListingProps()}/>
                     </div>
-                    <div className="col-md-9">
+                    <div className="col-md-8">
                         <Form {...this.getFormProps()}>
                             <FormField label={i18n('NAME')} name="name" validation="NAME" required fieldProps={{size: 'large'}}/>
-                            <SubmitButton size="medium" className="admin-panel-departments__update-name-button">{i18n('UPDATE_NAME')}</SubmitButton>
+                            <SubmitButton size="medium" className="admin-panel-departments__update-name-button" type="secondary">
+                                {i18n((this.state.selectedIndex !== -1) ? 'UPDATE_NAME' : 'ADD_DEPARTMENT')}
+                            </SubmitButton>
                         </Form>
                         {(this.state.selectedIndex !== -1) ? this.renderOptionalButtons() : null}
                     </div>
@@ -58,10 +60,10 @@ class AdminPanelDepartments extends React.Component {
         return (
             <div className="admin-panel-departments__optional-buttons">
                 <div className="admin-panel-departments__discard-button">
-                    <Button onClick={this.onDiscardChangesClick.bind(this)}>{i18n('DISCARD_CHANGES')}</Button>
+                    <Button onClick={this.onDiscardChangesClick.bind(this)} size="medium">{i18n('DISCARD_CHANGES')}</Button>
                 </div>
                 <div className="admin-panel-departments__delete-button">
-                    <Button onClick={this.onDeleteClick.bind(this)}>{i18n('DELETE')}</Button>
+                    <Button onClick={this.onDeleteClick.bind(this)} size="medium">{i18n('DELETE')}</Button>
                 </div>
             </div>
         );
@@ -70,6 +72,7 @@ class AdminPanelDepartments extends React.Component {
 
     getListingProps() {
         return {
+            className: 'admin-panel-departments__list',
             title: i18n('DEPARTMENTS'),
             items: this.props.departments.map(department => {
                 return {

@@ -2,23 +2,27 @@
 
 .admin-panel-departments {
 
-    &__update-name-button {
 
+    &__list {
+        position: relative;
+    }
+
+    &__update-name-button {
+        float: left;
     }
 
     &__optional-buttons {
-
+        float: right;
     }
 
-    &__discard-button {
-
-    }
-
+    &__discard-button,
     &__delete-button {
-
+        display: inline-block;
+        margin-left: 10px;
     }
 
     &__warning {
-
+        position: absolute;
+        right: 10px;
     }
 }
