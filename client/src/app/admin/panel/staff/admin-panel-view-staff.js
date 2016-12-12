@@ -1,149 +1,51 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import _ from 'lodash';
 
+import i18n from 'lib-app/i18n';
+import API from 'lib-app/api-call';
+
 import StaffEditor from 'app/admin/panel/staff/staff-editor';
+import Header from 'core-components/header';
+import Loading from 'core-components/loading';
 
 class AdminPanelViewStaff extends React.Component {
 
+    state = {
+        loading: true,
+        userData: {}
+    };
+
+    componentDidMount() {
+        API.call({
+            path: '/staff/get',
+            data: {
+                staffId: this.props.params.staffId
+            }
+        }).then(this.onStaffRetrieved.bind(this));
+    }
+
     render() {
         return (
-            <div>
-                <StaffEditor {...this.getEditorProps()}/>
+            <div className="admin-panel-view-staff">
+                <Header title={i18n('EDIT_STAFF')} description={i18n('EDIT_STAFF_DESCRIPTION')} />
+                {(this.state.loading) ? <Loading /> : <StaffEditor {...this.getProps()} />}
             </div>
         );
     }
 
-    getEditorProps() {
-        return {
-            name: 'Emilia Clarke',
-            email: 'jobs@steve.com',
-            profilePic: 'http://www.opensupports.com/profilepic.jpg',
-            level: 3,
-            departments: [
-                {id: 1, name: 'Sales Support'},
-                {id: 2, name: 'Technical Issues'}
-            ],
-            tickets : _.times(13).map(() => {
-                return {
-                    ticketNumber: '118551',
-                    title: 'Lorem ipsum door',
-                    content: 'I had a problem with the installation of the php server',
-                    department: {
-                        id: 1,
-                        name: 'Sales Support'
-                    },
-                    date: '20150409',
-                    file: 'http://www.opensupports.com/some_file.zip',
-                    language: 'en',
-                    unread: false,
-                    closed: false,
-                    priority: 'low',
-                    author: {
-                        name: 'Haskell Curry',
-                        email: 'haskell@lambda.com'
-                    },
-                    owner: {
-                        name: 'Steve Jobs'
-                    },
-                    events: [
-                        {
-                            type: 'ASSIGN',
-                            date: '20150409',
-                            author: {
-                                name: 'Emilia Clarke',
-                                email: 'jobs@steve.com',
-                                profilePic: 'http://www.opensupports.com/profilepic.jpg',
-                                staff: true
-                            }
-                        },
-                        {
-                            type: 'COMMENT',
-                            date: '20150409',
-                            content: 'Do you have apache installed? It generally happens if you dont have apache.',
-                            author: {
-                                name: 'Emilia Clarke',
-                                email: 'jobs@steve.com',
-                                profilePic: 'http://www.opensupports.com/profilepic.jpg',
-                                staff: true
-                            }
-                        },
-                        {
-                            type: 'UN_ASSIGN',
-                            date: '20150410',
-                            author: {
-                                name: 'Emilia Clarke',
-                                email: 'jobs@steve.com',
-                                profilePic: 'http://www.opensupports.com/profilepic.jpg',
-                                staff: true
-                            }
-                        },
-                        {
-                            type: 'DEPARTMENT_CHANGED',
-                            date: '20150411',
-                            content: 'System support',
-                            author: {
-                                name: 'Emilia Clarke',
-                                email: 'jobs@steve.com',
-                                profilePic: 'http://www.opensupports.com/profilepic.jpg',
-                                staff: true
-                            }
-                        },
-                        {
-                            type: 'COMMENT',
-                            date: '20150412',
-                            content: 'I have already installed apache, but the problem persists',
-                            author: {
-                                name: 'Haskell Curry',
-                                steve: 'haskell@lambda.com',
-                                staff: false
-                            }
-                        },
-                        {
-                            type: 'PRIORITY_CHANGED',
-                            date: '20150413',
-                            content: 'MEDIUM',
-                            author: {
-                                name: 'Emilia Clarke',
-                                email: 'jobs@steve.com',
-                                profilePic: 'http://www.opensupports.com/profilepic.jpg',
-                                staff: true
-                            }
-                        },
-                        {
-                            type: 'COMMENT',
-                            date: '20150511',
-                            content: 'Thanks!, I soved it by myself',
-                            author: {
-                                name: 'Haskell Curry',
-                                steve: 'haskell@lambda.com',
-                                staff: false
-                            }
-                        },
-                        {
-                            type: 'CLOSE',
-                            date: '20150513',
-                            author: {
-                                name: 'Emilia Clarke',
-                                email: 'jobs@steve.com',
-                                profilePic: 'http://www.opensupports.com/profilepic.jpg',
-                                staff: true
-                            }
-                        },
-                        {
-                            type: 'RE_OPEN',
-                            date: '20151018',
-                            author: {
-                                name: 'Haskell Curry',
-                                email: 'haskell@lambda.com',
-                                staff: false
-                            }
-                        }
-                    ]
-                };
-            })
-        };
+    getProps() {
+        return _.extend({}, this.state.userData, {
+            staffId: this.props.params.staffId * 1
+        });
     }
 
+    onStaffRetrieved(result) {
+        this.setState({
+            loading: false,
+            userData: result.data
+        });
+    }
 }
 
 export default AdminPanelViewStaff;

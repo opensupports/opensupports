@@ -38,7 +38,8 @@ class GetStaffController extends Controller {
             'profilePic' => $user->profilePic,
             'level' => $user->level,
             'staff' => true,
-            'departments' => $parsedDepartmentList
+            'departments' => $parsedDepartmentList,
+            'tickets' => $user->sharedTicketList->toArray()
         ]);
     }
 }

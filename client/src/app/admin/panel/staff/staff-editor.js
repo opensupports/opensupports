@@ -12,13 +12,15 @@ import SubmitButton from 'core-components/submit-button';
 
 class StaffEditor extends React.Component {
     static propTypes = {
+        myAccount: React.PropTypes.bool,
         staffId: React.PropTypes.number,
         email: React.PropTypes.string.isRequired,
         name: React.PropTypes.string.isRequired,
         profilePic: React.PropTypes.string.isRequired,
         level: React.PropTypes.number.isRequired,
         tickets: React.PropTypes.array.isRequired,
-        departments: React.PropTypes.array.isRequired
+        departments: React.PropTypes.array.isRequired,
+        onChange: React.PropTypes.func
     };
 
     state = {
@@ -69,21 +71,14 @@ class StaffEditor extends React.Component {
                                 <FormField name="email" validation="EMAIL" required label={i18n('EMAIL')} fieldProps={{size: 'large'}}/>
                                 <SubmitButton size="medium" className="staff-editor__submit-button">{i18n('UPDATE_EMAIL')}</SubmitButton>
                             </Form>
-                            <span className="separator" />
+                            <span className="separator staff-editor__separator" />
                             <Form className="staff-editor__update-password" onSubmit={this.onSubmit.bind(this)}>
                                 <FormField name="password" validation="PASSWORD" required label={i18n('PASSWORD')} fieldProps={{size: 'large'}}/>
                                 <FormField name="rpassword" validation="REPEAT_PASSWORD" required label={i18n('REPEAT_PASSWORD')} fieldProps={{size: 'large'}}/>
                                 <SubmitButton size="medium" className="staff-editor__submit-button">{i18n('UPDATE_PASSWORD')}</SubmitButton>
                             </Form>
-                            <span className="separator"/>
-                            <Form className="staff-editor__update-level" values={{level: this.state.level}} onChange={form => this.setState({level: form.level})} onSubmit={this.onSubmit.bind(this)}>
-                                <FormField name="level" label={i18n('LEVEL')} field="select" fieldProps={{
-                                    items: [{content: i18n('LEVEL_1')}, {content: i18n('LEVEL_2')}, {content: i18n('LEVEL_3')}],
-                                    size: 'large'
-                                }} />
-                                <SubmitButton size="medium" className="staff-editor__submit-button">{i18n('UPDATE_LEVEL')}</SubmitButton>
-                            </Form>
-                            <span className="separator" />
+                            {(!this.props.myAccount) ? this.renderLevelForm() : null}
+                            <span className="separator staff-editor__separator" />
                         </div>
                     </div>
                 </div>
@@ -103,7 +98,30 @@ class StaffEditor extends React.Component {
                         </div>
                     </div>
                 </div>
-                <span className="separator" />
+                {(this.props.tickets) ? this.renderTickets() : null}
+            </div>
+        );
+    }
+
+    renderLevelForm() {
+        return (
+            <div>
+                <span className="separator staff-editor__separator"/>
+                <Form className="staff-editor__update-level" values={{level: this.state.level}} onChange={form => this.setState({level: form.level})} onSubmit={this.onSubmit.bind(this)}>
+                    <FormField name="level" label={i18n('LEVEL')} field="select" fieldProps={{
+                                    items: [{content: i18n('LEVEL_1')}, {content: i18n('LEVEL_2')}, {content: i18n('LEVEL_3')}],
+                                    size: 'large'
+                                }} />
+                    <SubmitButton size="medium" className="staff-editor__submit-button">{i18n('UPDATE_LEVEL')}</SubmitButton>
+                </Form>
+            </div>
+        );
+    }
+
+    renderTickets() {
+        return (
+            <div>
+                <span className="separator"/>
                 <div className="staff-editor__tickets">
                     <div className="staff-editor__tickets-title">{i18n('TICKETS')}</div>
                     <TicketList {...this.getTicketListProps()}/>
@@ -156,7 +174,7 @@ class StaffEditor extends React.Component {
                 level: (form.level !== undefined) ? form.level + 1 : null,
                 departments: departments && JSON.stringify(departments)
             }
-        });
+        }).then(this.props.onChange);
     }
 }
 

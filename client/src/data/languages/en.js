@@ -110,6 +110,7 @@ export default {
     'UPDATE_PASSWORD': 'Update password',
     'UPDATE_LEVEL': 'Update level',
     'UPDATE_DEPARTMENTS': 'Update departments',
+    'EDIT_STAFF': 'Edit staff member',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
@@ -133,7 +134,9 @@ export default {
     'LIST_ARTICLES_DESCRIPTION': 'This is a list of articles that includes information about our services.',
     'ADD_TOPIC_DESCRIPTION': 'Here you can add a topic that works as a category for articles.',
     'STAFF_MEMBERS_DESCRIPTION': 'Here you can see who are your staff members.',
-    'ADD_STAFF_DESCRIPTION': 'Here you can add staff members to your teams',
+    'ADD_STAFF_DESCRIPTION': 'Here you can add staff members to your teams.',
+    'EDIT_STAFF_DESCRIPTION': 'Here you can edit information about a staff member.',
+    'MY_ACCOUNT_DESCRIPTION': 'Here you can edit information about you.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',

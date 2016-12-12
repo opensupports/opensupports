@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 import _ from 'lodash';
 
 import i18n from 'lib-app/i18n';
@@ -65,12 +66,24 @@ class AdminPanelStaffMembers extends React.Component {
     }
 
     getStaffList() {
+        let staffList;
+
         if(!this.state.selectedDepartment) {
-            return this.state.staffList;
+            staffList = this.state.staffList;
+        } else {
+            staffList = _.filter(this.state.staffList, (o) => {
+                return _.findIndex(o.departments, {id: this.state.selectedDepartment}) !== -1;
+            })
         }
 
-        return _.filter(this.state.staffList, (o) => {
-            return _.findIndex(o.departments, {id: this.state.selectedDepartment}) !== -1;
+        return staffList.map(staff => {
+            return _.extend({}, staff, {
+                name: (
+                    <Link className="admin-panel-staff-members__link" to={'/admin/panel/staff/view-staff/' + staff.id}>
+                        {staff.name}
+                    </Link>
+                )
+            });
         });
     }
 
