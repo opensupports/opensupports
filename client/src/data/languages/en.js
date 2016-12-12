@@ -6,6 +6,7 @@ export default {
     'SUBMIT': 'Submit',
     'EMAIL': 'Email',
     'PASSWORD': 'Password',
+    'REPEAT_PASSWORD': 'Repeat password',
     'LOG_IN': 'Log in',
     'SIGN_UP': 'Sign up',
     'FORGOT_PASSWORD': 'Forgot your password?',
@@ -104,7 +105,11 @@ export default {
     'LEVEL': 'Level',
     'LEVEL_1': 'Level 1 (Tickets)',
     'LEVEL_2': 'Level 2 (Tickets + Articles)',
-    'LEVEL_3': 'Level 2 (Tickets + Articles + Staff)',
+    'LEVEL_3': 'Level 3 (Tickets + Articles + Staff)',
+    'UPDATE_EMAIL': 'Update email',
+    'UPDATE_PASSWORD': 'Update password',
+    'UPDATE_LEVEL': 'Update level',
+    'UPDATE_DEPARTMENTS': 'Update departments',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',

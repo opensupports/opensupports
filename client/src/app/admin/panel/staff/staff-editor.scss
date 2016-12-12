@@ -79,4 +79,43 @@
             }
         }
     }
+
+    &__form {
+
+    }
+
+    &__submit-button {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 180px;
+    }
+
+    &__update-email,
+    &__update-password,
+    &__update-level {
+        position: relative;
+    }
+
+    &__departments {
+        border: 1px solid $grey;
+        padding: 20px 50px;
+        text-align: left;
+    }
+
+    &__departments-title {
+        font-size: $font-size--md;
+        text-align: center;
+    }
+
+    &__tickets {
+        padding: 0 20px;
+        margin-top: 20px;
+    }
+
+    &__tickets-title {
+        font-size: $font-size--md;
+        text-align: left;
+        margin-bottom: 20px;
+    }
 }

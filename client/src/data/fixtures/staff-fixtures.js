@@ -641,5 +641,15 @@ module.exports = [
                 }
             };
         }
+    },
+    {
+        path: '/staff/edit',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
     }
 ];
