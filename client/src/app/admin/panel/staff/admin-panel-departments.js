@@ -16,6 +16,7 @@ import Listing from 'core-components/listing';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
+import DropDown from 'core-components/drop-down';
 
 class AdminPanelDepartments extends React.Component {
     static defaultProps = {
@@ -25,6 +26,7 @@ class AdminPanelDepartments extends React.Component {
     state = {
         formLoading: false,
         selectedIndex: -1,
+        selectedDropDownIndex: 0,
         edited: false,
         errors: {},
         form: {
@@ -69,6 +71,21 @@ class AdminPanelDepartments extends React.Component {
         );
     }
 
+    renderDelete() {
+        return (
+            <div>
+                {i18n('WILL_DELETE_DEPARTMENT')}
+                <div className="admin-panel-departments__transfer-tickets">
+                    <span className="admin-panel-departments__transfer-tickets-title">{i18n('TRANSFER_TICKETS_TO')}</span>
+                    <DropDown className="admin-panel-departments__transfer-tickets-drop-down" items={this.props.departments.filter((department, index) => index !== this.state.selectedIndex).map(department => {
+                        return {
+                            content: department.name
+                        };
+                    })} onChange={(department, index) => this.setState({selectedDropDownIndex: index})} size="medium"/>
+                </div>
+            </div>
+        );
+    }
 
     getListingProps() {
         return {
@@ -146,14 +163,19 @@ class AdminPanelDepartments extends React.Component {
     }
 
     onDeleteClick() {
-        AreYouSure.openModal(i18n('WILL_DELETE_DEPARTMENT'), this.deleteDepartment.bind(this));
+        this.setState({
+            selectedDropDownIndex: 0
+        });
+
+        AreYouSure.openModal(this.renderDelete(), this.deleteDepartment.bind(this));
     }
 
     deleteDepartment() {
         API.call({
             path: '/staff/delete-department',
             data: {
-                departmentId: this.getCurrentDepartment().id
+                departmentId: this.getCurrentDepartment().id,
+                transferDepartmentId: this.getDropDownItemId()
             }
         }).then(() => {
             this.retrieveDepartments();
@@ -185,6 +207,10 @@ class AdminPanelDepartments extends React.Component {
 
     getCurrentDepartment(index) {
         return this.props.departments[(index == undefined) ? this.state.selectedIndex : index];
+    }
+
+    getDropDownItemId() {
+        return this.props.departments.filter((department, index) => index !== this.state.selectedIndex)[this.state.selectedDropDownIndex].id;
     }
 }
 

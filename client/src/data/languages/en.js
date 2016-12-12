@@ -113,6 +113,7 @@ export default {
     'EDIT_STAFF': 'Edit staff member',
     'ADD_DEPARTMENT': 'Add department',
     'UPDATE_DEPARTMENT': 'Update department',
+    'TRANSFER_TICKETS_TO': 'Transfer tickets to',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',

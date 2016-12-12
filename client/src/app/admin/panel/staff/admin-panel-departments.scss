@@ -25,4 +25,17 @@
         position: absolute;
         right: 10px;
     }
+
+    &__transfer-tickets {
+        margin-top: 40px;
+    }
+
+    &__transfer-tickets-title {
+        margin-right: 20px;
+        color: $primary-black;
+    }
+
+    &__transfer-tickets-drop-down {
+        display: inline-block;
+    }
 }
