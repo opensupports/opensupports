@@ -11,7 +11,7 @@ module.exports = [
                     name: 'Emilia Clarke',
                     email: 'staff@opensupports.com',
                     profilePic: 'http://www.opensupports.com/profilepic.jpg',
-                    level: 1,
+                    level: 3,
                     staff: true,
                     departments: [
                         {id: 1, name: 'Sales Support', owners: 2},

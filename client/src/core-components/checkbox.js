@@ -61,6 +61,7 @@ class CheckBox extends React.Component {
         delete props.errored;
         delete props.label;
         delete props.value;
+        delete props.wrapInLabel;
 
         return props;
     }
