@@ -34,7 +34,7 @@ class InitSettingsController extends Controller {
             'smtp-user' => '',
             'smtp-pass' => '',
             'time-zone' => 0,
-            'maintenance-mode' => false,
+            'maintenance-mode' => 0,
             'layout' => 'boxed',
             'allow-attachments' => 0,
             'max-size' => 0,
