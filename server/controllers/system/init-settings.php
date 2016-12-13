@@ -33,6 +33,12 @@ class InitSettingsController extends Controller {
             'smtp-port' => 7070,
             'smtp-user' => '',
             'smtp-pass' => '',
+            'time-zone' => 0,
+            'maintenance-mode' => false,
+            'layout' => 'boxed',
+            'allow-attachments' => 0,
+            'max-size' => 0,
+
         ]);
     }
 
