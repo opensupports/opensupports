@@ -1,7 +1,7 @@
 let month = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 export default {
-    transformToString(date, expressive) {
+    transformToString(date, expressive = true) {
         date += ''; // Transform to string
         let y = date.substring(0, 4);
         let m = date.substring(4, 6);

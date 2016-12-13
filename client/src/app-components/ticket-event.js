@@ -24,7 +24,7 @@ class TicketEvent extends React.Component {
 
     render() {
         let iconNode = null;
-        
+
         if (this.props.type === 'COMMENT' && this.props.author && this.props.author.staff) {
             iconNode = this.renderStaffPic();
         } else {
@@ -82,7 +82,7 @@ class TicketEvent extends React.Component {
                     <span className="ticket-event__comment-author-name">{this.props.author.name}</span>
                     <span className="ticket-event__comment-author-type">({i18n((this.props.author.staff) ? 'STAFF' : 'CUSTOMER')})</span>
                 </div>
-                <div className="ticket-event__comment-date">{DateTransformer.transformToString(this.props.date, true)}</div>
+                <div className="ticket-event__comment-date">{DateTransformer.transformToString(this.props.date)}</div>
                 <div className="ticket-event__comment-content" dangerouslySetInnerHTML={{__html: this.props.content}}></div>
                 {this.renderFileRow(this.props.file)}
             </div>
@@ -94,7 +94,7 @@ class TicketEvent extends React.Component {
             <div className="ticket-event__circled">
                 <span className="ticket-event__circled-author">{this.props.author.name}</span>
                 <span className="ticket-event__circled-text"> assigned this ticket</span>
-                <span className="ticket-event__circled-date"> on {DateTransformer.transformToString(this.props.date, true)}</span>
+                <span className="ticket-event__circled-date"> on {DateTransformer.transformToString(this.props.date)}</span>
             </div>
         )
     }
@@ -104,7 +104,7 @@ class TicketEvent extends React.Component {
             <div className="ticket-event__circled">
                 <span className="ticket-event__circled-author">{this.props.author.name}</span>
                 <span className="ticket-event__circled-text"> unassigned this ticket</span>
-                <span className="ticket-event__circled-date"> on {DateTransformer.transformToString(this.props.date, true)}</span>
+                <span className="ticket-event__circled-date"> on {DateTransformer.transformToString(this.props.date)}</span>
             </div>
         )
     }
@@ -114,7 +114,7 @@ class TicketEvent extends React.Component {
             <div className="ticket-event__circled">
                 <span className="ticket-event__circled-author">{this.props.author.name}</span>
                 <span className="ticket-event__circled-text"> closed this ticket</span>
-                <span className="ticket-event__circled-date"> on {DateTransformer.transformToString(this.props.date, true)}</span>
+                <span className="ticket-event__circled-date"> on {DateTransformer.transformToString(this.props.date)}</span>
             </div>
         )
     }
@@ -124,7 +124,7 @@ class TicketEvent extends React.Component {
             <div className="ticket-event__circled">
                 <span className="ticket-event__circled-author">{this.props.author.name}</span>
                 <span className="ticket-event__circled-text"> reopen this ticket</span>
-                <span className="ticket-event__circled-date"> on {DateTransformer.transformToString(this.props.date, true)}</span>
+                <span className="ticket-event__circled-date"> on {DateTransformer.transformToString(this.props.date)}</span>
             </div>
         );
     }
@@ -135,7 +135,7 @@ class TicketEvent extends React.Component {
                 <span className="ticket-event__circled-author">{this.props.author.name}</span>
                 <span className="ticket-event__circled-text"> change department to</span>
                 <span className="ticket-event__circled-indication"> {this.props.content}</span>
-                <span className="ticket-event__circled-date"> on {DateTransformer.transformToString(this.props.date, true)}</span>
+                <span className="ticket-event__circled-date"> on {DateTransformer.transformToString(this.props.date)}</span>
             </div>
         );
     }
@@ -146,7 +146,7 @@ class TicketEvent extends React.Component {
                 <span className="ticket-event__circled-author">{this.props.author.name}</span>
                 <span className="ticket-event__circled-text"> change priority to</span>
                 <span className="ticket-event__circled-indication"> {this.props.content}</span>
-                <span className="ticket-event__circled-date"> on {DateTransformer.transformToString(this.props.date, true)}</span>
+                <span className="ticket-event__circled-date"> on {DateTransformer.transformToString(this.props.date)}</span>
             </div>
         );
     }

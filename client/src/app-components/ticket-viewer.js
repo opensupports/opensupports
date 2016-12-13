@@ -89,7 +89,7 @@ class TicketViewer extends React.Component {
                                   onChange={this.onDepartmentDropdownChanged.bind(this)} />
                     </div>
                     <div className="col-md-4">{ticket.author.name}</div>
-                    <div className="col-md-4">{DateTransformer.transformToString(ticket.date, true)}</div>
+                    <div className="col-md-4">{DateTransformer.transformToString(ticket.date)}</div>
                 </div>
                 <div className="ticket-viewer__info-row-header row">
                     <div className="col-md-4">{i18n('PRIORITY')}</div>
