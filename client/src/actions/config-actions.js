@@ -26,5 +26,15 @@ export default {
             type: 'CHANGE_LANGUAGE',
             payload: newLanguage
         };
+    },
+    
+    updateData() {
+        return {
+            type: 'UPDATE_DEPARTMENTS',
+            payload: API.call({
+                path: '/system/get-settings',
+                data: {}
+            })
+        };
     }
 };

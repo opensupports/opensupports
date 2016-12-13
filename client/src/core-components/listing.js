@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import Menu from 'core-components/menu';
 import Button from 'core-components/button';
@@ -20,7 +21,7 @@ class Listing extends React.Component {
 
     render() {
         return (
-            <div className="listing">
+            <div className={this.getClass()}>
                 <div className="listing__header">
                     {this.props.title}
                 </div>
@@ -40,6 +41,16 @@ class Listing extends React.Component {
                 </Button>
             </div>
         );
+    }
+
+    getClass() {
+        let classes = {
+            'listing': true
+        };
+
+        classes[this.props.className] = (this.props.className);
+
+        return classNames(classes);
     }
 
 }

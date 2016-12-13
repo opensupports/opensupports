@@ -111,6 +111,9 @@ export default {
     'UPDATE_LEVEL': 'Update level',
     'UPDATE_DEPARTMENTS': 'Update departments',
     'EDIT_STAFF': 'Edit staff member',
+    'ADD_DEPARTMENT': 'Add department',
+    'UPDATE_DEPARTMENT': 'Update department',
+    'TRANSFER_TICKETS_TO': 'Transfer tickets to',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
@@ -137,6 +140,7 @@ export default {
     'ADD_STAFF_DESCRIPTION': 'Here you can add staff members to your teams.',
     'EDIT_STAFF_DESCRIPTION': 'Here you can edit information about a staff member.',
     'MY_ACCOUNT_DESCRIPTION': 'Here you can edit information about you.',
+    'DEPARTMENTS_DESCRIPTION': 'A department is a group where the tickets can go. They are used to categorize the tickets. You can assign them to other staff members.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
@@ -163,5 +167,7 @@ export default {
     'PASSWORD_CHANGED': 'Password has been changed successfully',
     'OLD_PASSWORD_INCORRECT': 'Old password is incorrect',
     'WILL_LOSE_CHANGES': 'You haven\'t save. Your changes will be lost.',
-    'WILL_DELETE_CUSTOM_RESPONSE': 'The custom response will be deleted.'
+    'WILL_DELETE_CUSTOM_RESPONSE': 'The custom response will be deleted.',
+    'WILL_DELETE_DEPARTMENT': 'The department will be deleted. All the tickets will be transfer to the department selected.',
+    'NO_STAFF_ASSIGNED': 'No staff member is assigned to this department.'
 };

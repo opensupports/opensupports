@@ -14,7 +14,8 @@ class ConfigReducer extends Reducer {
     getTypeHandlers() {
         return {
             'CHANGE_LANGUAGE': this.onLanguageChange,
-            'INIT_CONFIGS_FULFILLED': this.onInitConfigs
+            'INIT_CONFIGS_FULFILLED': this.onInitConfigs,
+            'UPDATE_DATA_FULFILLED': this.onInitConfigs
         };
     }
 
@@ -29,7 +30,7 @@ class ConfigReducer extends Reducer {
     onInitConfigs(state, payload) {
         const currentLanguage = sessionStore.getItem('language');
 
-        sessionStore.storeConfigs(_.extend(payload.data, {
+        sessionStore.storeConfigs(_.extend({}, payload.data, {
             language: currentLanguage || payload.language
         }));
 

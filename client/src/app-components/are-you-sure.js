@@ -6,7 +6,7 @@ import ModalContainer from 'app-components/modal-container';
 
 class AreYouSure extends React.Component {
     static propTypes = {
-        description: React.PropTypes.string,
+        description: React.PropTypes.node,
         onYes: React.PropTypes.func
     };
 

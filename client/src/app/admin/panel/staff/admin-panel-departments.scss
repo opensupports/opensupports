@@ -1,0 +1,41 @@
+@import "../../../../scss/vars";
+
+.admin-panel-departments {
+
+
+    &__list {
+        position: relative;
+    }
+
+    &__update-name-button {
+        float: left;
+    }
+
+    &__optional-buttons {
+        float: right;
+    }
+
+    &__discard-button,
+    &__delete-button {
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    &__warning {
+        position: absolute;
+        right: 10px;
+    }
+
+    &__transfer-tickets {
+        margin-top: 40px;
+    }
+
+    &__transfer-tickets-title {
+        margin-right: 20px;
+        color: $primary-black;
+    }
+
+    &__transfer-tickets-drop-down {
+        display: inline-block;
+    }
+}
