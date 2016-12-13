@@ -82,7 +82,7 @@ $transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     &_horizontal {
-        text-align: center;
+        text-align: left;
 
         .menu__list {
             background-color: transparent;
@@ -98,6 +98,7 @@ $transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .menu__list-item {
+            text-align: center;
             background-color: white;
             color: $primary-black;
             cursor: pointer;

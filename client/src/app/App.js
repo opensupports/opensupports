@@ -6,6 +6,17 @@ import { browserHistory } from 'react-router';
 
 import ModalContainer from 'app-components/modal-container';
 
+const level2Paths = [
+    '/admin/panel/tickets/custom-responses',
+    '/admin/panel/users',
+    '/admin/panel/articles'
+];
+
+const level3Paths = [
+    '/admin/panel/staff',
+    '/admin/panel/settings'
+];
+
 class App extends React.Component {
     static contextTypes = {
         router: React.PropTypes.object,
@@ -66,6 +77,25 @@ class App extends React.Component {
         } else if(validations.loggedInStaff) {
             browserHistory.push('/admin/panel');
         }
+
+        if (this.props.session.userLevel && !this.isPathAvailableForStaff()) {
+            browserHistory.push('/admin/panel');
+        }
+    }
+
+    isPathAvailableForStaff() {
+        let pathForLevel2 = _.findIndex(level2Paths, path => _.includes(this.props.location.pathname, path)) !== -1;
+        let pathForLevel3 = _.findIndex(level3Paths, path => _.includes(this.props.location.pathname, path)) !== -1;
+
+        if (this.props.session.userLevel === 1) {
+            return !pathForLevel2 && !pathForLevel3;
+        }
+
+        if (this.props.session.userLevel === 2) {
+            return !pathForLevel3;
+        }
+
+        return true;
     }
 }
 
