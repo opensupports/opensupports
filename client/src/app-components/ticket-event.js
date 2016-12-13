@@ -24,6 +24,7 @@ class TicketEvent extends React.Component {
 
     render() {
         let iconNode = null;
+        
         if (this.props.type === 'COMMENT' && this.props.author && this.props.author.staff) {
             iconNode = this.renderStaffPic();
         } else {
