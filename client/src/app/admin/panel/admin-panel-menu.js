@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import {connect} from 'react-redux';
 
 import {dispatch} from 'app/store';
 import i18n from 'lib-app/i18n';
@@ -90,113 +91,142 @@ class AdminPanelMenu extends React.Component {
     }
 
     getRoutes() {
-        return [
+        return this.getItemsByFilteredByLevel([
             {
                 groupName: i18n('DASHBOARD'),
                 path: '/admin/panel',
                 icon: 'tachometer',
-                items: [
+                level: 1,
+                items: this.getItemsByFilteredByLevel([
                     {
                         name: i18n('TICKET_STATS'),
-                        path: '/admin/panel/stats'
+                        path: '/admin/panel/stats',
+                        level: 1
                     },
                     {
                         name: i18n('LAST_ACTIVITY'),
-                        path: '/admin/panel/activity'
+                        path: '/admin/panel/activity',
+                        level: 1
                     }
-                ]
+                ])
             },
             {
                 groupName: i18n('TICKETS'),
                 path: '/admin/panel/tickets',
                 icon: 'ticket',
-                items: [
+                level: 1,
+                items: this.getItemsByFilteredByLevel([
                     {
                         name: i18n('MY_TICKETS'),
-                        path: '/admin/panel/tickets/my-tickets'
+                        path: '/admin/panel/tickets/my-tickets',
+                        level: 1
                     },
                     {
                         name: i18n('NEW_TICKETS'),
-                        path: '/admin/panel/tickets/new-tickets'
+                        path: '/admin/panel/tickets/new-tickets',
+                        level: 1
                     },
                     {
                         name: i18n('ALL_TICKETS'),
-                        path: '/admin/panel/tickets/all-tickets'
+                        path: '/admin/panel/tickets/all-tickets',
+                        level: 1
                     },
                     {
                         name: i18n('CUSTOM_RESPONSES'),
-                        path: '/admin/panel/tickets/custom-responses'
+                        path: '/admin/panel/tickets/custom-responses',
+                        level: 2
                     }
-                ]
+                ])
             },
             {
                 groupName: i18n('USERS'),
                 path: '/admin/panel/users',
                 icon: 'user',
-                items: [
+                level: 1,
+                items: this.getItemsByFilteredByLevel([
                     {
                         name: i18n('LIST_USERS'),
-                        path: '/admin/panel/users/list-users'
+                        path: '/admin/panel/users/list-users',
+                        level: 1
                     },
                     {
                         name: i18n('BAN_USERS'),
-                        path: '/admin/panel/users/ban-users'
+                        path: '/admin/panel/users/ban-users',
+                        level: 1
                     }
-                ]
+                ])
             },
             {
                 groupName: i18n('ARTICLES'),
                 path: '/admin/panel/articles',
                 icon: 'book',
-                items: [
+                level: 2,
+                items: this.getItemsByFilteredByLevel([
                     {
                         name: i18n('LIST_ARTICLES'),
-                        path: '/admin/panel/articles/list-articles'
+                        path: '/admin/panel/articles/list-articles',
+                        level: 2
                     }
-                ]
+                ])
             },
             {
 
                 groupName: i18n('STAFF'),
                 path: '/admin/panel/staff',
                 icon: 'users',
-                items: [
+                level: 3,
+                items: this.getItemsByFilteredByLevel([
                     {
                         name: i18n('STAFF_MEMBERS'),
-                        path: '/admin/panel/staff/staff-members'
+                        path: '/admin/panel/staff/staff-members',
+                        level: 3
                     },
                     {
                         name: i18n('DEPARTMENTS'),
-                        path: '/admin/panel/staff/departments'
+                        path: '/admin/panel/staff/departments',
+                        level: 3
                     }
-                ]
+                ])
             },
             {
 
                 groupName: i18n('SETTINGS'),
                 path: '/admin/panel/settings',
                 icon: 'cogs',
-                items: [
+                level: 3,
+                items: this.getItemsByFilteredByLevel([
                     {
                         name: i18n('SYSTEM_PREFERENCES'),
-                        path: '/admin/panel/settings/system-preferences'
+                        path: '/admin/panel/settings/system-preferences',
+                        level: 3
                     },
                     {
                         name: i18n('USER_SYSTEM'),
-                        path: '/admin/panel/settings/user-system'
+                        path: '/admin/panel/settings/user-system',
+                        level: 3
                     },
                     {
                         name: i18n('EMAIL_TEMPLATES'),
-                        path: '/admin/panel/settings/email-templates'
+                        path: '/admin/panel/settings/email-templates',
+                        level: 3
                     },
                     {
                         name: i18n('FILTERS_CUSTOM_FIELDS'),
-                        path: '/admin/panel/settings/custom-fields'
+                        path: '/admin/panel/settings/custom-fields',
+                        level: 3
                     }
-                ]
+                ])
             }
-        ];
+        ]);
+    }
+
+    getItemsByFilteredByLevel(items) {
+        return (this.props.level) ? _.filter(items, route => this.props.level >= route.level) : items;
     }
 }
 
-export default AdminPanelMenu;
+export default connect((store) => {
+    return {
+        level: store.session.userLevel
+    };
+})(AdminPanelMenu);
