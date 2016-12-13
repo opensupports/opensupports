@@ -14,6 +14,6 @@ export default {
         let hr = date.substring(8, 10);
         let min = date.substring(10, 12);
 
-        return d + " " + month[m] + " " + y + " " + hr + ":" + min;
+        return d + " " + month[m] + " " + y + " at " + hr + ":" + min;
     }
 };

@@ -96,7 +96,7 @@ class AdminPanelListUsers extends React.Component {
                     {user.tickets}
                 </span>
             ),
-            signupDate: DateTransformer.transformToString(user.signupDate, true)
+            signupDate: DateTransformer.transformToString(user.signupDate, false)
         };
     }
 

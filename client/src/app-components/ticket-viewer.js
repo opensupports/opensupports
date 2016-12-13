@@ -8,6 +8,7 @@ import SessionStore       from 'lib-app/session-store';
 
 import TicketEvent        from 'app-components/ticket-event';
 import AreYouSure         from 'app-components/are-you-sure';
+import DateTransformer    from 'lib-core/date-transformer';
 import Form               from 'core-components/form';
 import FormField          from 'core-components/form-field';
 import SubmitButton       from 'core-components/submit-button';
@@ -88,7 +89,7 @@ class TicketViewer extends React.Component {
                                   onChange={this.onDepartmentDropdownChanged.bind(this)} />
                     </div>
                     <div className="col-md-4">{ticket.author.name}</div>
-                    <div className="col-md-4">{ticket.date}</div>
+                    <div className="col-md-4">{DateTransformer.transformToString(ticket.date, true)}</div>
                 </div>
                 <div className="ticket-viewer__info-row-header row">
                     <div className="col-md-4">{i18n('PRIORITY')}</div>
@@ -132,7 +133,7 @@ class TicketViewer extends React.Component {
                 <div className="ticket-viewer__info-row-values row">
                     <div className="ticket-viewer__department col-md-4">{ticket.department.name}</div>
                     <div className="ticket-viewer__author col-md-4">{ticket.author.name}</div>
-                    <div className="ticket-viewer__date col-md-4">{ticket.date}</div>
+                    <div className="ticket-viewer__date col-md-4">{DateTransformer.transformToString(ticket.date, false)}</div>
                 </div>
                 <div className="ticket-viewer__info-row-header row">
                     <div className="ticket-viewer__department col-md-4">{i18n('PRIORITY')}</div>
@@ -317,7 +318,7 @@ class TicketViewer extends React.Component {
         this.setState({
             loading: false
         });
-        
+
         this.onTicketModification();
     }
 
@@ -326,7 +327,7 @@ class TicketViewer extends React.Component {
             loading: false
         });
     }
-    
+
     onTicketModification() {
         if (this.props.onChange) {
             this.props.onChange();

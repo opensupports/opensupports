@@ -177,7 +177,7 @@ class TicketList extends React.Component {
             priority: this.getTicketPriority(ticket.priority),
             department: ticket.department.name,
             author: ticket.author.name,
-            date: DateTransformer.transformToString(ticket.date, true),
+            date: DateTransformer.transformToString(ticket.date, false),
             unread: this.isTicketUnread(ticket),
             highlighted: this.isTicketUnread(ticket)
         };
