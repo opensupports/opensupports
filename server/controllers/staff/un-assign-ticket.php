@@ -25,11 +25,13 @@ class UnAssignStaffController extends Controller {
         if($ticket->owner && $ticket->owner->id == $user->id) {
             $user->sharedTicketList->remove($ticket);
             $user->store();
+            
             $ticket->owner = null;
             $ticket->unread = true;
+            
             $event = Ticketevent::getEvent(Ticketevent::UN_ASSIGN);
             $event->setProperties(array(
-                'authorStaff' => Controller::getLoggedUser(),
+                'authorStaff' => $user,
                 'date' => Date::getCurrentDate()
             ));
             

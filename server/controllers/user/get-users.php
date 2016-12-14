@@ -6,7 +6,7 @@ class GetUsersController extends Controller {
 
     public function validations() {
         return[
-            'permission' => 'staff_2',
+            'permission' => 'staff_1',
             'requestData' => [
                 'page' => [
                     'validation' => DataValidator::numeric(),

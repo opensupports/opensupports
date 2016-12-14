@@ -96,7 +96,6 @@ describe '/ticket/create' do
             csrf_token: $csrf_token
         })
 
-        puts result['message']
         (result['status']).should.equal('success')
 
         ticket = $database.getRow('ticket','Winter is coming','title')
