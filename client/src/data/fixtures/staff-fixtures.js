@@ -1047,35 +1047,5 @@ module.exports = [
                 data: {}
             };
         }
-    },
-    {
-        path: '/staff/add-department',
-        time: 100,
-        response: function () {
-            return {
-                status: 'success',
-                data: {}
-            };
-        }
-    },
-    {
-        path: '/staff/edit-department',
-        time: 100,
-        response: function () {
-            return {
-                status: 'success',
-                data: {}
-            };
-        }
-    },
-    {
-        path: '/staff/delete-department',
-        time: 100,
-        response: function () {
-            return {
-                status: 'success',
-                data: {}
-            };
-        }
     }
 ];

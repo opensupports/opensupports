@@ -136,7 +136,7 @@ class AdminPanelDepartments extends React.Component {
 
         if(this.state.selectedIndex !== -1) {
             API.call({
-                path: '/staff/edit-department',
+                path: '/system/edit-department',
                 data: {
                     departmentId: this.getCurrentDepartment().id,
                     name: form.name
@@ -147,9 +147,9 @@ class AdminPanelDepartments extends React.Component {
             }).catch(this.onItemChange.bind(this, -1));
         } else {
             API.call({
-                path: '/staff/add-department',
+                path: '/system/add-department',
                 data: {
-                    name: form.title
+                    name: form.name
                 }
             }).then(() => {
                 this.retrieveDepartments();
@@ -172,7 +172,7 @@ class AdminPanelDepartments extends React.Component {
 
     deleteDepartment() {
         API.call({
-            path: '/staff/delete-department',
+            path: '/system/delete-department',
             data: {
                 departmentId: this.getCurrentDepartment().id,
                 transferDepartmentId: this.getDropDownItemId()
