@@ -102,7 +102,7 @@ module.exports = [
                         id: 1,
                         name: 'Sales Support'
                     },
-                    date: '20160415',
+                    date: '201604151155',
                     file: 'http://www.opensupports.com/some_file.zip',
                     language: 'en',
                     unread: false,
@@ -119,7 +119,7 @@ module.exports = [
                     events: [
                         {
                             type: 'ASSIGN',
-                            date: '20150409',
+                            date: '201504090650',
                             author: {
                                 name: 'Emilia Clarke',
                                 email: 'jobs@steve.com',
@@ -129,7 +129,7 @@ module.exports = [
                         },
                         {
                             type: 'COMMENT',
-                            date: '20150409',
+                            date: '201504090729',
                             content: 'Do you have apache installed? It generally happens if you dont have apache.',
                             author: {
                                 name: 'Emilia Clarke',
@@ -140,7 +140,7 @@ module.exports = [
                         },
                         {
                             type: 'UN_ASSIGN',
-                            date: '20150410',
+                            date: '201504100922',
                             author: {
                                 name: 'Emilia Clarke',
                                 email: 'jobs@steve.com',
@@ -150,7 +150,7 @@ module.exports = [
                         },
                         {
                             type: 'DEPARTMENT_CHANGED',
-                            date: '20150411',
+                            date: '201504111000',
                             content: 'System support',
                             author: {
                                 name: 'Emilia Clarke',
@@ -161,7 +161,7 @@ module.exports = [
                         },
                         {
                             type: 'COMMENT',
-                            date: '20150412',
+                            date: '201504121001',
                             content: 'I have already installed apache, but the problem persists',
                             author: {
                                 name: 'Haskell Curry',
@@ -171,7 +171,7 @@ module.exports = [
                         },
                         {
                             type: 'PRIORITY_CHANGED',
-                            date: '20150413',
+                            date: '201504131002',
                             content: 'MEDIUM',
                             author: {
                                 name: 'Emilia Clarke',
@@ -182,7 +182,7 @@ module.exports = [
                         },
                         {
                             type: 'COMMENT',
-                            date: '20150511',
+                            date: '201505111003',
                             content: 'Thanks!, I soved it by myself',
                             author: {
                                 name: 'Haskell Curry',
@@ -192,7 +192,7 @@ module.exports = [
                         },
                         {
                             type: 'CLOSE',
-                            date: '20150513',
+                            date: '201505131004',
                             author: {
                                 name: 'Emilia Clarke',
                                 email: 'jobs@steve.com',
@@ -202,7 +202,7 @@ module.exports = [
                         },
                         {
                             type: 'RE_OPEN',
-                            date: '20151018',
+                            date: '201510181005',
                             author: {
                                 name: 'Haskell Curry',
                                 email: 'haskell@lambda.com',

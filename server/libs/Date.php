@@ -1,6 +1,6 @@
-<?php 
+<?php
 class Date {
     public static function getCurrentDate() {
-        return date('Ymd');
+        return date('YmdHi');
     }
 }
