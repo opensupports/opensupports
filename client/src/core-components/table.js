@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import classNames from 'classnames';
 
-import Menu from 'core-components/menu';
+import Pagination from 'core-components/pagination';
 import Icon from 'core-components/icon';
 import Loading from 'core-components/loading';
 
@@ -97,6 +97,7 @@ class Table extends React.Component {
         };
 
         return (
+            
             <td className={classNames(classes)} key={key}>{row[key]}</td>
         );
     }
@@ -106,10 +107,8 @@ class Table extends React.Component {
     }
 
     renderNavigation() {
-        const items = _.range(1, this.getPages()).map((index) => {return {content: index};});
-
         return (
-            <Menu className="table__navigation" type="navigation" items={items} selectedIndex={this.getPageNumber() - 1} onItemClick={this.onNavigationItemClick.bind(this)} tabbable/>
+            <Pagination className="table__navigation" page={this.getPageNumber()} pages={this.getPages()} onChange={this.onNavigationChange.bind(this)} tabbable/>
         );
     }
 
@@ -131,13 +130,13 @@ class Table extends React.Component {
         return classNames(classes);
     }
 
-    onNavigationItemClick(index) {
+    onNavigationChange(index) {
         this.setState({
-            page: index + 1
+            page: index
         });
 
         if(this.props.onPageChange) {
-            this.props.onPageChange({target: {value: index + 1}});
+            this.props.onPageChange({target: {value: index}});
         }
     }
     
@@ -158,7 +157,7 @@ class Table extends React.Component {
     }
 
     getPages() {
-        return (this.props.pages !== undefined) ? this.props.pages + 1 : Math.ceil(this.props.rows.length / this.props.pageSize) + 1;
+        return (this.props.pages !== undefined) ? this.props.pages : Math.ceil(this.props.rows.length / this.props.pageSize);
     }
 
     getPageNumber() {
