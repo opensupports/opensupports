@@ -1,8 +1,12 @@
 .admin-panel-view-article {
 
-    &__edit-button {
+    &__edit-buttons {
         text-align: left;
         margin-bottom: 20px;
+    }
+
+    &__edit-button {
+        margin-right: 20px;
     }
 
     &__last-edited {
