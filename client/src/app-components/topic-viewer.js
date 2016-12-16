@@ -139,12 +139,12 @@ class TopicViewer extends React.Component {
 
         if(this.props.editable) {
             _.extend(props, {
-                onDragOver: this.onItemDragOver.bind(this, article, index),
-                onDrop: this.onItemDrop.bind(this, article, index),
+                onDragOver: (this.state.currentDraggedId) ? this.onItemDragOver.bind(this, article, index) : null,
+                onDrop: (this.state.currentDraggedId) ? this.onItemDrop.bind(this, article, index) : null,
                 onDragStart: () => this.setState({currentDraggedId: article.id}),
                 onDragEnd: () => {
                     if(this.state.currentDraggedId) {
-                        this.setState({articles: this.props.articles});
+                        this.setState({articles: this.props.articles, currentDraggedId: 0});
                     }
                 }
             });
