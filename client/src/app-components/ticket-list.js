@@ -64,7 +64,7 @@ class TicketList extends React.Component {
             size: 'medium'
         };
     }
-    
+
     getTableProps() {
         return {
             loading: this.props.loading,
@@ -177,7 +177,7 @@ class TicketList extends React.Component {
             priority: this.getTicketPriority(ticket.priority),
             department: ticket.department.name,
             author: ticket.author.name,
-            date: DateTransformer.transformToString(ticket.date),
+            date: DateTransformer.transformToString(ticket.date, false),
             unread: this.isTicketUnread(ticket),
             highlighted: this.isTicketUnread(ticket)
         };

@@ -76,7 +76,7 @@ class AddStaffModal extends React.Component {
                 email: form.email,
                 password: form.password,
                 level: form.level + 1,
-                department: JSON.stringify(departments)
+                departments: JSON.stringify(departments)
             }
         }).then(this.context.closeModal).catch((result) => {
             this.setState({

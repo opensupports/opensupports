@@ -73,8 +73,8 @@ class StaffEditor extends React.Component {
                             </Form>
                             <span className="separator staff-editor__separator" />
                             <Form className="staff-editor__update-password" onSubmit={this.onSubmit.bind(this)}>
-                                <FormField name="password" validation="PASSWORD" required label={i18n('PASSWORD')} fieldProps={{size: 'large'}}/>
-                                <FormField name="rpassword" validation="REPEAT_PASSWORD" required label={i18n('REPEAT_PASSWORD')} fieldProps={{size: 'large'}}/>
+                                <FormField name="password" validation="PASSWORD" required label={i18n('PASSWORD')} fieldProps={{size: 'large', password: true}}/>
+                                <FormField name="rpassword" validation="REPEAT_PASSWORD" required label={i18n('REPEAT_PASSWORD')} fieldProps={{size: 'large', password: true}}/>
                                 <SubmitButton size="medium" className="staff-editor__submit-button">{i18n('UPDATE_PASSWORD')}</SubmitButton>
                             </Form>
                             {(!this.props.myAccount) ? this.renderLevelForm() : null}
@@ -86,10 +86,7 @@ class StaffEditor extends React.Component {
                     <div className="col-md-4">
                         <div className="staff-editor__departments">
                             <div className="staff-editor__departments-title">{i18n('Departments')}</div>
-                            <Form values={{departments: this.state.departments}} onChange={form => this.setState({departments: form.departments})} onSubmit={this.onSubmit.bind(this)}>
-                                <FormField name="departments" field="checkbox-group" fieldProps={{items: this.getDepartments()}} />
-                                <SubmitButton size="medium">{i18n('UPDATE_DEPARTMENTS')}</SubmitButton>
-                            </Form>
+                            {(!this.props.myAccount) ? this.renderDepartmentsForm() : this.renderDepartmentsInfo()}
                         </div>
                     </div>
                     <div className="col-md-8">
@@ -115,6 +112,24 @@ class StaffEditor extends React.Component {
                     <SubmitButton size="medium" className="staff-editor__submit-button">{i18n('UPDATE_LEVEL')}</SubmitButton>
                 </Form>
             </div>
+        );
+    }
+
+    renderDepartmentsForm() {
+        return (
+            <Form values={{departments: this.state.departments}} onChange={form => this.setState({departments: form.departments})} onSubmit={this.onSubmit.bind(this)}>
+                <FormField name="departments" field="checkbox-group" fieldProps={{items: this.getDepartments()}} />
+                <SubmitButton size="medium">{i18n('UPDATE_DEPARTMENTS')}</SubmitButton>
+            </Form>
+        );
+    }
+
+
+    renderDepartmentsInfo() {
+        return (
+            <Form values={{departments: this.state.departments}}>
+                <FormField name="departments" field="checkbox-group" fieldProps={{items: this.getDepartments()}} />
+            </Form>
         );
     }
 

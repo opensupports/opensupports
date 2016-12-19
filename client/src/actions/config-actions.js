@@ -30,7 +30,7 @@ export default {
     
     updateData() {
         return {
-            type: 'UPDATE_DEPARTMENTS',
+            type: 'UPDATE_DATA',
             payload: API.call({
                 path: '/system/get-settings',
                 data: {}

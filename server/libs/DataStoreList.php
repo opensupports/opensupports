@@ -33,6 +33,18 @@ class DataStoreList implements IteratorAggregate {
         }
     }
 
+    public function includesId($id) {
+        $includes = false;
+
+        foreach($this->list as $item) {
+            if($item->id == $id) {
+                $includes = true;
+            }
+        }
+
+        return $includes;
+    }
+
     public function toBeanList() {
         $beanList = [];
         
