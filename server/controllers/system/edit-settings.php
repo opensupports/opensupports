@@ -13,19 +13,20 @@ class EditSettingsController extends Controller {
 
     public function handler() {
         $settings = [
-            'manteniance-mode',
-            'system-title',
-            'timezone',
-            'layout',
-            'smtp-server',
-            'smtp-email',
-            'smtp-password',
-            'smtp-port',
-            'default-language',
+            'language',
             'recaptcha-public',
             'recaptcha-private',
+            'no-reply-email',
+            'smtp-host',
+            'smtp-port',
+            'smtp-user',
+            'smtp-pass',
+            'time-zone',
+            'maintenance-mode',
+            'layout',
             'allow-attachments',
-            'max-size'
+            'max-size',
+            'system-title'
         ];
 
         foreach($settings as $setting) {

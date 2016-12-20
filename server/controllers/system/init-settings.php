@@ -38,7 +38,7 @@ class InitSettingsController extends Controller {
             'layout' => 'boxed',
             'allow-attachments' => 0,
             'max-size' => 0,
-
+            'system-title' => 'Support Center'
         ]);
     }
 
