@@ -58,7 +58,7 @@ describe '/ticket/create' do
 
     it 'should fail if content is very long' do
         long_text = ''
-        600.times {long_text << 'a'}
+        6000.times {long_text << 'a'}
 
         result = request('/ticket/create',{
             title: 'Winter is coming',
