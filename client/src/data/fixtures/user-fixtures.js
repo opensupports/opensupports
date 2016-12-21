@@ -368,7 +368,7 @@ module.exports = [
                         {
                             ticketNumber: '445441',
                             title: 'Problem with installation',
-                            content: 'I had a problem with the installation of the php server',
+                            content: 'In varius, tellus ut luctus vestibulum, orci erat commodo ligula, sit amet bibendum arcu libero sed magna. Suspendisse in ligula vitae ante placerat varius id in eros. Etiam commodo viverra nisi in ornare. Donec ullamcorper felis sapien, eu laoreet dolor tincidunt nec. Aliquam erat volutpat. Proin semper viverra purus eget facilisis. Proin fermentum et odio in elementum. Maecenas lacinia, massa consectetur gravida lacinia, nisl lectus tincidunt diam, ut viverra ipsum ex sit amet diam. Mauris ac massa turpis. Fusce ultrices venenatis vestibulum. In et nulla purus. Nullam porta vestibulum leo in dignissim. Duis id ullamcorper odio. Ut purus nulla, consequat lobortis volutpat quis, consequat et libero. Maecenas sit amet libero laoreet, dictum sapien at, hendrerit sapien.',
                             department: {
                                 id: 2,
                                 name: 'Technical Issues'
@@ -502,24 +502,11 @@ module.exports = [
                                 name: 'Haskell Curry',
                                 email: 'haskell@lambda.com'
                             },
-                            owner: {
-                                name: 'Steve Jobs'
-                            },
+                            owner: null,
                             events: [
                                 {
                                     type: 'ASSIGN',
                                     date: '201504090855',
-                                    author: {
-                                        name: 'Emilia Clarke',
-                                        email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
-                                        staff: true
-                                    }
-                                },
-                                {
-                                    type: 'COMMENT',
-                                    date: '201504090912',
-                                    content: 'Do you have apache installed? It generally happens if you dont have apache.',
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
