@@ -28,7 +28,7 @@ class Tooltip extends React.Component {
 
     renderAnimatedMessage() {
         return (
-            <Motion defaultStyle={{opacity: 0}} style={{opacity: spring(1)}}>
+            <Motion defaultStyle={{opacity: 0, top: -30}} style={{opacity: spring(1), top: spring(0)}}>
                 {this.renderMessage.bind(this)}
             </Motion>
         )
@@ -36,7 +36,7 @@ class Tooltip extends React.Component {
 
     renderMessage(animation) {
         return (
-            <div style={animation}>
+            <div className="tooltip__animated-container" style={animation}>
                 <span className="tooltip__pointer-shadow"/>
                 <span className="tooltip__pointer"/>
                 <div className="tooltip__message">
