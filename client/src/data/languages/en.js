@@ -157,6 +157,7 @@ export default {
     'PASSWORD_NOT_MATCH': 'Password does not match',
     'INVALID_RECOVER': 'Invalid recover data',
     'TICKET_SENT_ERROR': 'An error occurred while trying to create the ticket.',
+    'TICKET_COMMENT_ERROR': 'An error occurred while trying to add the comment.',
     'NO_PERMISSION': 'You\'ve no permission to access to this page.',
     'INVALID_USER': 'User id is invalid',
 
