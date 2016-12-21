@@ -36,6 +36,25 @@ class EditSettingsController extends Controller {
                 $settingInstance->store();
             }
         }
+
+        if(Controller::request('allowedLanguages') || Controller::request('supportedLanguages')) {
+            $this->handleLanguages();
+        }
         Response::respondSuccess();
+    }
+    
+    public function handleLanguages() {
+        $allowed = json_decode(Controller::request('allowedLanguages'));
+        $supported = json_decode(Controller::request('supportedLanguages'));
+
+        foreach(Language::LANGUAGES as $languageCode) {
+            $language = Language::getDataStore($languageCode, 'code');
+
+            $language->allowed = in_array($languageCode, $allowed);
+            $language->supported = in_array($languageCode, $supported);
+
+            $language->store();
+        }
+
     }
 }
