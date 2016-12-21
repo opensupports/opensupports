@@ -38,11 +38,21 @@
             width: 50%;
             color: $secondary-blue;
             margin-bottom: 10px;
+            user-select: none;
 
             &-hidden {
-                width: 80%;
-                display: inline-block;
                 opacity: 0;
+            }
+
+            &:hover {
+                .topic-viewer__grab-icon {
+                    display: inline-block;
+                    left: 0;
+                }
+            }
+
+            &-button {
+                user-select: none;
             }
         }
 
@@ -52,8 +62,16 @@
         }
 
         &-item-button {
+            display: inline-block;
             color: $secondary-blue;
         }
+    }
+
+    &__grab-icon {
+        color: $grey;
+        cursor: move;
+        margin-left: 10px;
+        display: none;
     }
 
     &__add-item {

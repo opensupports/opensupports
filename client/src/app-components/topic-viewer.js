@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import classNames from 'classnames';
 import {Link} from 'react-router';
@@ -78,11 +79,33 @@ class TopicViewer extends React.Component {
     }
 
     renderArticleItem(article, index) {
+        let props = {
+            className: 'topic-viewer__list-item',
+            key: index,
+            draggable: true
+        };
+
+        if(this.props.editable) {
+            _.extend(props, {
+                onDragOver: (this.state.currentDraggedId) ? this.onItemDragOver.bind(this, article, index) : null,
+                onDrop: (this.state.currentDraggedId) ? this.onItemDrop.bind(this, article, index) : null,
+                onDragStart: () => {
+                    this.setState({currentDraggedId: article.id})
+                },
+                onDragEnd: () => {
+                    if(this.state.currentDraggedId) {
+                        this.setState({articles: this.props.articles, currentDraggedId: 0});
+                    }
+                }
+            });
+        }
+
         return (
-            <li className="topic-viewer__list-item" key={index}>
+            <li {...props}>
                 <Link {...this.getArticleLinkProps(article, index)}>
                     {article.title}
                 </Link>
+                <Icon className="topic-viewer__grab-icon" name="arrows" ref={'grab-' + index}/>
             </li>
         );
     }
@@ -126,31 +149,16 @@ class TopicViewer extends React.Component {
         );
     }
     
-    getArticleLinkProps(article, index) {
+    getArticleLinkProps(article) {
         let classes = {
             'topic-viewer__list-item-button': true,
             'topic-viewer__list-item-hidden': article.hidden
         };
-        
-        let props = {
+
+        return {
             className: classNames(classes),
             to: this.props.articlePath + article.id
         };
-
-        if(this.props.editable) {
-            _.extend(props, {
-                onDragOver: (this.state.currentDraggedId) ? this.onItemDragOver.bind(this, article, index) : null,
-                onDrop: (this.state.currentDraggedId) ? this.onItemDrop.bind(this, article, index) : null,
-                onDragStart: () => this.setState({currentDraggedId: article.id}),
-                onDragEnd: () => {
-                    if(this.state.currentDraggedId) {
-                        this.setState({articles: this.props.articles, currentDraggedId: 0});
-                    }
-                }
-            });
-        }
-
-        return props;
     }
 
     onDeleteClick() {
