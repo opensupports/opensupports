@@ -21,6 +21,11 @@ class DeleteStaffController extends Controller {
         $staffId = Controller::request('staffId');
         $staff = Staff::getDataStore($staffId);
 
+        if($staffId === Controller::getLoggedUser()->id) {
+            Response::respondError(ERRORS::INVALID_STAFF);
+            return;
+        }
+
         foreach($staff->sharedTicketList as $ticket) {
             $ticket->owner = null;
             $ticket->true  = true;
@@ -31,7 +36,6 @@ class DeleteStaffController extends Controller {
             $department->owners--;
             $department->store();
         }
-        
 
         $staff->delete();
         Response::respondSuccess();

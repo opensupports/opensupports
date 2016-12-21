@@ -4,8 +4,7 @@ use Respect\Validation\Validator as DataValidator;
 class EditStaffController extends Controller {
     const PATH = '/edit';
 
-    private $staffRow;
-    private $staffId;
+    private $staffInstance;
 
     public function validations() {
         return [
@@ -15,14 +14,14 @@ class EditStaffController extends Controller {
     }
 
     public function handler() {
-        $this->staffId = Controller::request('staffId');
+        $staffId = Controller::request('staffId');
 
-        if(!$this->staffId) {
-            $this->staffRow = Controller::getLoggedUser();
+        if(!$staffId) {
+            $this->staffInstance = Controller::getLoggedUser();
         } else if(Controller::isStaffLogged(3)) {
-            $this->staffRow = Staff::getDataStore($this->staffId, 'id');
+            $this->staffInstance = Staff::getDataStore($staffId, 'id');
 
-            if($this->staffRow->isNull()) {
+            if($this->staffInstance->isNull()) {
                 Response::respondError(ERRORS::INVALID_STAFF);
                 return;
             }
@@ -39,29 +38,29 @@ class EditStaffController extends Controller {
         Response::respondSuccess();
      }
 
-    public function editInformation() {
+    private function editInformation() {
 
         if(Controller::request('email')) {
-            $this->staffRow->email = Controller::request('email');
+            $this->staffInstance->email = Controller::request('email');
         }
 
         if(Controller::request('password')) {
-            $this->staffRow->password = Hashing::hashPassword(Controller::request('password'));
+            $this->staffInstance->password = Hashing::hashPassword(Controller::request('password'));
         }
         
-        if(Controller::request('level') && Controller::isStaffLogged(3)) {
-            $this->staffRow->level = Controller::request('level');
+        if(Controller::request('level') && Controller::isStaffLogged(3) && Controller::request('staffId') !== Controller::getLoggedUser()->id) {
+            $this->staffInstance->level = Controller::request('level');
         }
         
         if(Controller::request('departments') && Controller::isStaffLogged(3)) {
-            $this->staffRow->sharedDepartmentList = $this->getDepartmentList();
+            $this->staffInstance->sharedDepartmentList = $this->getDepartmentList();
         }
 
-        $this->staffRow->store();
+        $this->staffInstance->store();
     }
 
 
-    public function getDepartmentList() {
+    private function getDepartmentList() {
         $listDepartments = new DataStoreList();
         $departmentIds = json_decode(Controller::request('departments'));
 
@@ -73,8 +72,8 @@ class EditStaffController extends Controller {
         return $listDepartments;
     }
 
-    public function updateDepartmentsOwners() {
-        $list1 = $this->staffRow->sharedDepartmentList;
+    private function updateDepartmentsOwners() {
+        $list1 = $this->staffInstance->sharedDepartmentList;
         $list2 = $this->getDepartmentList();
 
         foreach ($list1 as $department1) {
