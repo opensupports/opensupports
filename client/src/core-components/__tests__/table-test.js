@@ -1,6 +1,6 @@
-const Menu = ReactMock();
+const Pagination = ReactMock();
 const Table = requireUnit('core-components/table', {
-    'core-components/menu': Menu
+    'core-components/pagination': Pagination
 });
 
 describe('Table component', function () {
@@ -26,7 +26,7 @@ describe('Table component', function () {
             <Table headers={headers} rows={rows} {...props} />
         );
 
-        menu = TestUtils.scryRenderedComponentsWithType(table, Menu)[0];
+        menu = TestUtils.scryRenderedComponentsWithType(table, Pagination)[0];
         tr = TestUtils.scryRenderedDOMComponentsWithTag(table, 'tr');
         th = TestUtils.scryRenderedDOMComponentsWithTag(table, 'th');
     }
@@ -82,10 +82,9 @@ describe('Table component', function () {
         expect(tr[3].children[0].textContent).to.equal('Row3 header1');
         expect(tr[3].children[1].textContent).to.equal('Row3 header2');
 
-        expect(menu.props.type).to.equal('navigation');
-        expect(menu.props.items).to.deep.equal([{content: 1}, {content: 2}, {content: 3}]);
+        expect(menu.props.pages).to.equal(3);
 
-        menu.props.onItemClick(1);
+        menu.props.onChange(2);
         tr = TestUtils.scryRenderedDOMComponentsWithTag(table, 'tr');
 
         expect(tr.length).to.equal(4);
@@ -96,7 +95,7 @@ describe('Table component', function () {
         expect(tr[3].children[0].textContent).to.equal('Row6 header1');
         expect(tr[3].children[1].textContent).to.equal('Row6 header2');
 
-        menu.props.onItemClick(2);
+        menu.props.onChange(3);
         tr = TestUtils.scryRenderedDOMComponentsWithTag(table, 'tr');
 
         expect(tr.length).to.equal(3);
