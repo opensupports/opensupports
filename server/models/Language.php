@@ -24,5 +24,24 @@ class Language extends DataStore {
         ];
     }
 
+    public static function getSupportedLanguages() {
+        $array = [];
+        foreach(Language::LANGUAGES as $languageCode) {
+            if (self::getDataStore($languageCode,'code')->supported) {
+                array_push($array, $languageCode);
+            }
+        }
+        return $array;
+    }
+    public static function getAllowedLanguages() {
+        $array = [];
+        foreach(Language::LANGUAGES as $languageCode) {
+            if (self::getDataStore($languageCode,'code')->allowed) {
+                array_push($array, $languageCode);
+            }
+        }
+        return $array;
+    }
+
     
 }

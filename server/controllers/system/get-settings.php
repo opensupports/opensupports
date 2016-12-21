@@ -19,7 +19,9 @@ class GetSettingsController extends Controller {
             'layout' => Setting::getSetting('layout')->getValue(),
             'allow-attachments' => Setting::getSetting('allow-attachments')->getValue(),
             'max-size' => Setting::getSetting('max-size')->getValue(),
-            'departments' => Department::getDepartmentNames()
+            'departments' => Department::getDepartmentNames(),
+            'supportedLanguages' => Language::getSupportedLanguages(),
+            'allowedLanguages' => Language::getAllowedLanguages()
         ]);
     }
 }

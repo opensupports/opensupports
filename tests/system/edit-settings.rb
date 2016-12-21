@@ -18,7 +18,6 @@ describe'system/edit-settings' do
                 "smtp-user" => 'admin',
                 "smtp-pass" => 'pass1234',
             })
-            puts result['message']
 
             (result['status']).should.equal('success')
 
@@ -51,6 +50,48 @@ describe'system/edit-settings' do
 
             row = $database.getRow('setting', 'smtp-pass', 'name')
             (row['value']).should.equal('pass1234')
+
+            request('/user/logout')
+        end
+        it 'should change allowed and supported languages' do
+            request('/user/logout')
+            Scripts.login($staff[:email], $staff[:password], true)
+
+            result= request('/system/edit-settings', {
+                "csrf_userid" => $csrf_userid,
+                "csrf_token" => $csrf_token,
+                "supportedLanguages" => '["en", "pr", "jp", "ru"]',
+                "allowedLanguages" => '["en","pr", "jp", "ru", "de"]'
+            })
+
+            (result['status']).should.equal('success')
+
+            row = $database.getRow('language', 'en', 'code')
+            (row['supported']).should.equal('1')
+
+            row = $database.getRow('language', 'pr', 'code')
+            (row['supported']).should.equal('1')
+
+            row = $database.getRow('language', 'jp', 'code')
+            (row['supported']).should.equal('1')
+
+            row = $database.getRow('language', 'ru', 'code')
+            (row['supported']).should.equal('1')
+
+            row = $database.getRow('language', 'en', 'code')
+            (row['allowed']).should.equal('1')
+
+            row = $database.getRow('language', 'pr', 'code')
+            (row['allowed']).should.equal('1')
+
+            row = $database.getRow('language', 'jp', 'code')
+            (row['allowed']).should.equal('1')
+
+            row = $database.getRow('language', 'ru', 'code')
+            (row['allowed']).should.equal('1')
+
+            row = $database.getRow('language', 'de', 'code')
+            (row['allowed']).should.equal('1')
 
             request('/user/logout')
         end

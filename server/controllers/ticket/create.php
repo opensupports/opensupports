@@ -26,6 +26,10 @@ class CreateController extends Controller {
                 'departmentId' => [
                     'validation' => DataValidator::dataStoreId('department'),
                     'error' => ERRORS::INVALID_DEPARTMENT
+                ],
+                'language' => [
+                    'validation' => DataValidator::in(Language::getSupportedLanguages()),
+                    'error' => ERRORS::INVALID_LANGUAGE
                 ]
             ]
         ];
