@@ -26,7 +26,7 @@ class LoginController extends Controller {
                 $this->userInstance->lastLogin = Date::getCurrentDate();
                 $this->userInstance->store();
             }
-
+            
             Response::respondSuccess($this->getUserData());
         } else {
             Response::respondError(ERRORS::INVALID_CREDENTIALS);

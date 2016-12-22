@@ -68,13 +68,16 @@ class SignUpController extends Controller {
 
     public function createNewUserAndRetrieveId() {
         $userInstance = new User();
-        
+
+        $token = Hashing::generateRandomToken();
+
         $userInstance->setProperties([
             'name' => $this->userName,
             'signupDate' => Date::getCurrentDate(),
             'tickets' => 0,
             'email' => $this->userEmail,
-            'password' => Hashing::hashPassword($this->userPassword)
+            'password' => Hashing::hashPassword($this->userPassword),
+            'verificationToken' => $token
         ]);
 
         return $userInstance->store();
