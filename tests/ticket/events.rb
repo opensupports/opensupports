@@ -8,6 +8,7 @@ describe 'Ticket Events' do
             title: 'Ticket with many events',
             content: 'This is a ticket with many events',
             departmentId: 1,
+            language: 'en',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
