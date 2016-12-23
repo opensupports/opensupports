@@ -12,11 +12,7 @@ describe'system/edit-settings' do
                 "allow-attachments" => 1,
                 "max-size" => 2,
                 "language" => 'es',
-                "no-reply-email" => 'testemail@hotmail.com',
-                "smtp-host" => 'www.opensupports.com',
-                "smtp-port" => 18,
-                "smtp-user" => 'admin',
-                "smtp-pass" => 'pass1234',
+                "no-reply-email" => 'testemail@hotmail.com'
             })
 
             (result['status']).should.equal('success')
@@ -38,18 +34,6 @@ describe'system/edit-settings' do
 
             row = $database.getRow('setting', 'no-reply-email', 'name')
             (row['value']).should.equal('testemail@hotmail.com')
-
-            row = $database.getRow('setting', 'smtp-host', 'name')
-            (row['value']).should.equal('www.opensupports.com')
-
-            row = $database.getRow('setting', 'smtp-port', 'name')
-            (row['value']).should.equal('18')
-
-            row = $database.getRow('setting', 'smtp-user', 'name')
-            (row['value']).should.equal('admin')
-
-            row = $database.getRow('setting', 'smtp-pass', 'name')
-            (row['value']).should.equal('pass1234')
 
             request('/user/logout')
         end
