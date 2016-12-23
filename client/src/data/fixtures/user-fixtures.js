@@ -147,7 +147,7 @@ module.exports = [
                     email: 'kurt@currycurrylady.hs',
                     tickets: _.times(13).map(() => {
                         return {
-                            ticketNumber: '1185510000',
+                            ticketNumber: '118551',
                             title: 'Lorem ipsum door',
                             content: 'I had a problem with the installation of the php server',
                             department: {

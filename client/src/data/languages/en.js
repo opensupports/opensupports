@@ -116,6 +116,7 @@ export default {
     'UPDATE_DEPARTMENT': 'Update department',
     'TRANSFER_TICKETS_TO': 'Transfer tickets to',
     'COMMENTS': 'Comments',
+    'EMAIL_BANNED_SUCCESSFULLY': 'Email has been banned successfully',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
@@ -161,6 +162,9 @@ export default {
     'NO_PERMISSION': 'You\'ve no permission to access to this page.',
     'INVALID_USER': 'User id is invalid',
     'ERROR_RETRIEVING_TICKETS': 'An error occurred while trying to retrieve tickets.',
+    'ERROR_RETRIEVING_USERS': 'An error occurred while trying to retrieve users.',
+    'ERROR_RETRIEVING_BAN_LIST': 'An error occurred while trying to retrieve the list of banned emails.',
+    'ERROR_BANNING_EMAIL': 'An error occurred while trying to ban the email.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',
