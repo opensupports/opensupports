@@ -9,6 +9,7 @@ class ArticlesReducer extends Reducer {
         return {
             retrieved: false,
             loading: true,
+            errored: false,
             topics: []
         };
     }
@@ -16,6 +17,7 @@ class ArticlesReducer extends Reducer {
     getTypeHandlers() {
         return {
             'GET_ARTICLES_FULFILLED': this.onArticlesRetrieved,
+            'GET_ARTICLES_REJECTED': this.onArticlesRejected,
             'INIT_ARTICLES': this.onInitArticles
         };
     }
@@ -26,7 +28,16 @@ class ArticlesReducer extends Reducer {
         return _.extend({}, state, {
             retrieved: true,
             loading: false,
+            errored: false,
             topics: payload.data
+        });
+    }
+
+    onArticlesRejected(state) {
+        return _.extend({}, state, {
+            retrieved: true,
+            loading: false,
+            errored: true
         });
     }
 
