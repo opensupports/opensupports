@@ -160,6 +160,7 @@ export default {
     'TICKET_COMMENT_ERROR': 'An error occurred while trying to add the comment.',
     'NO_PERMISSION': 'You\'ve no permission to access to this page.',
     'INVALID_USER': 'User id is invalid',
+    'ERROR_RETRIEVING_TICKETS': 'An error occurred while trying to retrieve tickets.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',
