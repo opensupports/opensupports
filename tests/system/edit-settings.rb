@@ -18,7 +18,6 @@ describe'system/edit-settings' do
                 "smtp-user" => 'admin',
                 "smtp-pass" => 'pass1234',
             })
-            puts result['message']
 
             (result['status']).should.equal('success')
 
