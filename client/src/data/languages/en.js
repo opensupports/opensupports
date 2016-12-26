@@ -179,5 +179,8 @@ export default {
     'WILL_LOSE_CHANGES': 'You haven\'t save. Your changes will be lost.',
     'WILL_DELETE_CUSTOM_RESPONSE': 'The custom response will be deleted.',
     'WILL_DELETE_DEPARTMENT': 'The department will be deleted. All the tickets will be transfer to the department selected.',
-    'NO_STAFF_ASSIGNED': 'No staff member is assigned to this department.'
+    'NO_STAFF_ASSIGNED': 'No staff member is assigned to this department.',
+    'LEVEL_UPDATED': 'Level has been updated successfully.',
+    'DEPARTMENTS_UPDATED': 'Departments have been updated successfully.',
+    'FAILED_EDIT_STAFF': 'An error occurred while trying to edit staff member.'
 };
