@@ -116,7 +116,7 @@ export default {
     'UPDATE_DEPARTMENT': 'Update department',
     'TRANSFER_TICKETS_TO': 'Transfer tickets to',
     'COMMENTS': 'Comments',
-    'EMAIL_BANNED_SUCCESSFULLY': 'Email has been banned successfully',
+    'DELETE_STAFF_MEMBER': 'Delete staff member',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
@@ -182,5 +182,7 @@ export default {
     'NO_STAFF_ASSIGNED': 'No staff member is assigned to this department.',
     'LEVEL_UPDATED': 'Level has been updated successfully.',
     'DEPARTMENTS_UPDATED': 'Departments have been updated successfully.',
-    'FAILED_EDIT_STAFF': 'An error occurred while trying to edit staff member.'
+    'FAILED_EDIT_STAFF': 'An error occurred while trying to edit staff member.',
+    'EMAIL_BANNED_SUCCESSFULLY': 'Email has been banned successfully',
+    'WILL_DELETE_STAFF': 'This staff member will be deleted and all its tickets will be unassigned.'
 };

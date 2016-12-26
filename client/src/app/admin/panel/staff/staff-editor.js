@@ -5,11 +5,13 @@ import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
 import SessionStore from 'lib-app/session-store';
 import TicketList from 'app-components/ticket-list';
+import AreYouSure from 'app-components/are-you-sure';
 
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
 import Message from 'core-components/message';
+import Button from 'core-components/button';
 
 class StaffEditor extends React.Component {
     static propTypes = {
@@ -21,7 +23,8 @@ class StaffEditor extends React.Component {
         level: React.PropTypes.number.isRequired,
         tickets: React.PropTypes.array.isRequired,
         departments: React.PropTypes.array.isRequired,
-        onChange: React.PropTypes.func
+        onChange: React.PropTypes.func,
+        onDelete: React.PropTypes.func
     };
 
     state = {
@@ -99,6 +102,7 @@ class StaffEditor extends React.Component {
                     </div>
                 </div>
                 {(this.props.tickets) ? this.renderTickets() : null}
+                {(!this.props.myAccount) ? this.renderDelete() : null}
             </div>
         );
     }
@@ -172,6 +176,22 @@ class StaffEditor extends React.Component {
             </div>
         );
     }
+    
+    renderDelete() {
+        return (
+            <div>
+                <span className="separator"/>
+                <div className="staff-editor__delete">
+                    <div className="staff-editor__delete-title">
+                        {i18n('DELETE_STAFF_MEMBER')}
+                    </div>
+                    <Button onClick={AreYouSure.openModal.bind(this, i18n('WILL_DELETE_STAFF'), this.onDeleteClick.bind(this))}>
+                        {i18n('DELETE_STAFF_MEMBER')}
+                    </Button>
+                </div>
+            </div>
+        );
+    }
 
     getTicketListProps() {
         return {
@@ -217,14 +237,26 @@ class StaffEditor extends React.Component {
                 level: (form.level !== undefined) ? form.level + 1 : null,
                 departments: departments && JSON.stringify(departments)
             }
-        }).then((result) => {
+        }).then(() => {
             window.scrollTo(0,0);
             this.setState({message: eventType});
 
             if(this.props.onChange) {
                 this.props.onChange();
             }
-        }).catch((result) => {
+        }).catch(() => {
+            window.scrollTo(0,0);
+            this.setState({message: 'FAIL'});
+        });
+    }
+
+    onDeleteClick() {
+        API.call({
+            path: '/staff/delete',
+            data: {
+                staffId: this.props.staffId
+            }
+        }).then(this.props.onDelete).catch(() => {
             window.scrollTo(0,0);
             this.setState({message: 'FAIL'});
         });
