@@ -37,6 +37,7 @@ class Scripts
             title: 'Winter is coming',
             content: 'The north remembers',
             departmentId: 1,
+            language: 'en',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })

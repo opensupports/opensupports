@@ -19,7 +19,8 @@ class Ticket extends DataStore {
             'author',
             'owner',
             'ownTicketeventList',
-            'unreadStaff'
+            'unreadStaff',
+            'language'
         );
     }
 

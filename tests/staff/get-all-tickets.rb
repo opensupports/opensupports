@@ -7,6 +7,7 @@ describe 'Retrieve all tickets' do
                 title: title,
                 content: 'The north remembers',
                 departmentId: 1,
+                language: 'en',
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token
             })

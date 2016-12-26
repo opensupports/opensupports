@@ -7,6 +7,7 @@ describe '/ticket/create' do
         result = request('/ticket/create', {
             title: 'GG',
             departmentId: 1,
+            language: 'en',
             csrf_userid: $csrf_userid,
             csrf_token: 'INVALID_TOKEN'
         })
@@ -20,6 +21,7 @@ describe '/ticket/create' do
         result = request('/ticket/create', {
             title: 'GG',
             departmentId: 1,
+            language: 'en',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
@@ -35,6 +37,7 @@ describe '/ticket/create' do
         result = request('/ticket/create',{
             title: long_text,
             departmentId: 1,
+            language: 'en',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
@@ -48,6 +51,7 @@ describe '/ticket/create' do
             title: 'Winter is coming',
             content: 'Test',
             departmentId: 1,
+            language: 'en',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
@@ -64,6 +68,7 @@ describe '/ticket/create' do
             title: 'Winter is coming',
             content: long_text,
             departmentId: 1,
+            language: 'en',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
@@ -78,6 +83,7 @@ describe '/ticket/create' do
             title: 'Winter is coming',
             content: 'The north remembers',
             departmentId: 30,
+            language: 'en',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
@@ -92,6 +98,7 @@ describe '/ticket/create' do
             title: 'Winter is coming',
             content: 'The north remembers',
             departmentId: 1,
+            language: 'en',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
@@ -116,6 +123,7 @@ describe '/ticket/create' do
             title: 'Winter is coming1',
             content: 'The north remembers',
             departmentId: 1,
+            language: 'en',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
@@ -123,6 +131,7 @@ describe '/ticket/create' do
             title: 'Winter is coming2',
             content: 'The north remembers',
             departmentId: 1,
+            language: 'en',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
@@ -130,6 +139,7 @@ describe '/ticket/create' do
             title: 'Winter is coming3',
             content: 'The north remembers',
             departmentId: 1,
+            language: 'en',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })

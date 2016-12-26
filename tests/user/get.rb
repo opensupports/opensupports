@@ -7,6 +7,8 @@ describe '/user/get' do
         title: 'Should we pay?',
         content: 'A Lannister always pays his debts.',
         departmentId: 1,
+        language: 'en',
+        language: 'en',
         csrf_userid: $csrf_userid,
         csrf_token: $csrf_token
     })

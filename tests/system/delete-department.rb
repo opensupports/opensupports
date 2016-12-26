@@ -7,6 +7,7 @@ describe 'system/delete-department' do
             title: 'Transferible ticket 1',
             content: 'The north remembers',
             departmentId: 4,
+            language: 'en',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
@@ -14,6 +15,7 @@ describe 'system/delete-department' do
             title: 'Transferible ticket 2',
             content: 'The north remembers',
             departmentId: 4,
+            language: 'en',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
@@ -21,6 +23,7 @@ describe 'system/delete-department' do
             title: 'Transferible ticket 3',
             content: 'The north remembers',
             departmentId: 4,
+            language: 'en',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })

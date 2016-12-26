@@ -14,6 +14,7 @@ class InitSettingsController extends Controller {
         if (Setting::isTableEmpty()) {
             $this->storeGlobalSettings();
             $this->storeMailTemplates();
+            $this->storeLanguages();
             $this->storeMockedDepartments();
             $this->createMockedStaff();
 
@@ -71,6 +72,18 @@ class InitSettingsController extends Controller {
             ]);
 
             $setting->store();
+        }
+    }
+    private function storeLanguages() {
+        foreach(Language::LANGUAGES as $languageCode) {
+            $language = new Language();
+            $language->setProperties([
+                'code' => $languageCode,
+                'allowed' => 1,
+                'supported' => ($languageCode === 'en')
+            ]);
+
+            $language->store();
         }
     }
 
