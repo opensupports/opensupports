@@ -8,6 +8,7 @@ module.exports = [
                 data: {
                     'language': 'en',
                     'reCaptchaKey': '6LfM5CYTAAAAAGLz6ctpf-hchX2_l0Ge-Bn-n8wS',
+                    'maintenance-mode': false,
                     'departments': [
                         {id: 1, name: 'Sales Support', owners: 2},
                         {id: 2, name: 'Technical Issues', owners: 5},

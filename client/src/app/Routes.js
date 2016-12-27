@@ -11,6 +11,7 @@ import MainLayout from 'app/main/main-layout';
 import MainHomePage from 'app/main/main-home/main-home-page';
 import MainSignUpPage from 'app/main/main-signup/main-signup-page';
 import MainRecoverPasswordPage from 'app/main/main-recover-password/main-recover-password-page';
+import MainMaintenancePage from 'app/main/main-maintenance-page';
 
 import DashboardLayout from 'app/main/dashboard/dashboard-layout';
 import DashboardListTicketsPage from 'app/main/dashboard/dashboard-list-tickets/dashboard-list-tickets-page';
@@ -59,6 +60,7 @@ export default (
                 <IndexRoute component={MainHomePage} />
                 <Route path='signup' component={MainSignUpPage}/>
                 <Route path='recover-password' component={MainRecoverPasswordPage}/>
+                <Route path='maintenance' component={MainMaintenancePage}/>
                 <Route path='dashboard' component={DashboardLayout}>
                     <IndexRoute component={DashboardListTicketsPage} />
                     <Route path='articles' component={DashboardListArticlesPage}/>
