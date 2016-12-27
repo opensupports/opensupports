@@ -14,6 +14,7 @@ import FormField          from 'core-components/form-field';
 import SubmitButton       from 'core-components/submit-button';
 import DropDown           from 'core-components/drop-down';
 import Button             from 'core-components/button';
+import Message             from 'core-components/message';
 
 class TicketViewer extends React.Component {
     static propTypes = {
@@ -188,6 +189,7 @@ class TicketViewer extends React.Component {
                         <SubmitButton>{i18n('RESPOND_TICKET')}</SubmitButton>
                     </Form>
                 </div>
+                {(this.state.commentError) ? this.renderCommentError() : null}
             </div>
         );
     }
@@ -214,6 +216,12 @@ class TicketViewer extends React.Component {
         }
 
         return customResponsesNode;
+    }
+
+    renderCommentError() {
+        return (
+            <Message className="ticket-viewer__message" type="error">{i18n('TICKET_COMMENT_ERROR')}</Message>
+        );
     }
 
     getCommentFormProps() {
@@ -316,7 +324,8 @@ class TicketViewer extends React.Component {
 
     onCommentSuccess() {
         this.setState({
-            loading: false
+            loading: false,
+            commentError: false
         });
 
         this.onTicketModification();
@@ -324,7 +333,8 @@ class TicketViewer extends React.Component {
 
     onCommentFail() {
         this.setState({
-            loading: false
+            loading: false,
+            commentError: true
         });
     }
 

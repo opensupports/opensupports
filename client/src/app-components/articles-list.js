@@ -11,6 +11,7 @@ import TopicEditModal from 'app-components/topic-edit-modal';
 import Loading from 'core-components/loading';
 import Button from 'core-components/button';
 import Icon from 'core-components/icon';
+import Message from 'core-components/message';
 
 class ArticlesList extends React.Component {
 
@@ -18,6 +19,7 @@ class ArticlesList extends React.Component {
         editable: React.PropTypes.bool,
         articlePath: React.PropTypes.string,
         loading: React.PropTypes.bool,
+        errored: React.PropTypes.bool,
         topics: React.PropTypes.array,
         retrieveOnMount: React.PropTypes.bool
     };
@@ -34,6 +36,10 @@ class ArticlesList extends React.Component {
     }
 
     render() {
+        if(this.props.errored) {
+            return <Message type="error">{i18n('ERROR_RETRIEVING_ARTICLES')}</Message>;
+        }
+
         return (this.props.loading) ? <Loading /> : this.renderContent();
     }
 
@@ -84,6 +90,7 @@ class ArticlesList extends React.Component {
 export default connect((store) => {
     return {
         topics: store.articles.topics,
+        errored: store.articles.errored,
         loading: store.articles.loading
     };
 })(ArticlesList);

@@ -19,13 +19,13 @@ class ArticleAddModal extends React.Component {
 
     render() {
         return (
-            <div className="add-article-modal">
+            <div className="article-add-modal">
                 <Header title={i18n('ADD_ARTICLE')} description={i18n('ADD_ARTICLE_DESCRIPTION', {category: this.props.topicName})} />
                 <Form onSubmit={this.onAddNewArticleFormSubmit.bind(this)}>
                     <FormField name="title" label={i18n('TITLE')} field="input" fieldProps={{size: 'large'}} validation="TITLE" required/>
                     <FormField name="content" label={i18n('CONTENT')} field="textarea" validation="TEXT_AREA" required/>
                     <SubmitButton type="secondary">{i18n('ADD_ARTICLE')}</SubmitButton>
-                    <Button className="add-article-modal__cancel-button" type="link" onClick={(event) => {
+                    <Button className="article-add-modal__cancel-button" type="link" onClick={(event) => {
                         event.preventDefault();
                         ModalContainer.closeModal();
                     }}>{i18n('CANCEL')}</Button>

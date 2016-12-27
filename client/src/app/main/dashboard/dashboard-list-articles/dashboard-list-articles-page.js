@@ -23,7 +23,7 @@ class DashboardListArticlesPage extends React.Component {
 
     render() {
         return (
-            <div classnames="dashboard-list-articles-page">
+            <div className="dashboard-list-articles-page">
                 <Header title={i18n('LIST_ARTICLES')} description={i18n('LIST_ARTICLES_DESCRIPTION')}/>
                 <SearchBox className="dashboard-list-articles-page__search-box" onSearch={this.onSearch.bind(this)} searchOnType />
                 {(!this.state.showSearchResults) ? this.renderArticleList() : this.renderSearchResults()}

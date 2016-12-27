@@ -29,7 +29,7 @@ class Message extends React.Component {
     getAnimationProps() {
         return {
             defaultStyle: {
-                opacity: spring(0, [100, 30])
+                opacity: 0
             },
             style: {
                 opacity: spring(1, [100, 30])

@@ -3,19 +3,28 @@
 .ticket-info {
     width: 300px;
     font-weight: normal;
-    &__title{
+
+    &__title {
         color: $primary-black;
-        font-variant: small-caps;
+        font-size: $font-size--md;
     }
-    &__description{
-        color: $grey;
+
+    &__description {
+        margin-top: 5px;
         font-size: small;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
     }
-    &__author{
+
+    &__author {
         color: $primary-blue;
-        margin-bottom: 12px;
+        font-weight: bold;
+        margin-top: 10px;
+        margin-bottom: 5px;
     }
-    &__properties{
+
+    &__properties {
         background-color: $grey;
         padding: 10px;
         font-variant: small-caps;
@@ -35,7 +44,7 @@
 
         &__badge-green,
         &__badge-blue,
-        &__badge-red{
+        &__badge-red {
             color: white;
             border-radius: 7px;
             display: inline-block;
@@ -44,19 +53,19 @@
             margin-left: 5px;
         }
 
-        &__badge-green{
+        &__badge-green {
             background-color: $primary-green;
         }
 
-        &__badge-blue{
+        &__badge-blue {
             background-color: $secondary-blue;
         }
 
-        &__badge-red{
+        &__badge-red {
             background-color: $primary-red;
         }
 
-        &__label{
+        &__label {
             text-align: right;
             width: 71px;
             display: inline-block;
@@ -64,10 +73,11 @@
         }
 
         &__status,
-        &__owner{
+        &__owner {
             margin-right: 10px;
             width: 125px;
-            .ticket-info__properties__label{
+
+            .ticket-info__properties__label {
                 width: 48px;
             }
         }

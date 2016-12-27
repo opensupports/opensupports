@@ -19,7 +19,7 @@ class Icon extends React.Component {
 
     renderFontIcon() {
         return (
-            <span className={this.getFontIconClass()} aria-hidden="true" style={{color: this.props.color}}/>
+            <span onClick={this.props.onClick} className={this.getFontIconClass()} aria-hidden="true" style={{color: this.props.color}}/>
         );
     }
 

@@ -1,4 +1,6 @@
 import React from 'react';
+import _ from 'lodash';
+
 import i18n from 'lib-app/i18n';
 
 class TicketInfo extends React.Component {
@@ -16,12 +18,12 @@ class TicketInfo extends React.Component {
                     {this.props.ticket.content}
                 </div>
                 <div className="ticket-info__author">
-                    Author: {this.props.ticket.author.name}
+                    {i18n('AUTHOR')}: {this.props.ticket.author.name}
                 </div>
                 <div className="ticket-info__properties">
                     <div className="ticket-info__properties__status">
                         <span className="ticket-info__properties__label">
-                            Status:
+                            {i18n('STATUS')}:
                         </span>
                         <span className={this.getStatusClass()}>
                             {(this.props.ticket.closed) ? 'closed' : 'open'}
@@ -29,7 +31,7 @@ class TicketInfo extends React.Component {
                     </div>
                     <div className="ticket-info__properties__priority">
                         <span className="ticket-info__properties__label">
-                            Priority:
+                            {i18n('PRIORITY')}:
                         </span>
                         <span className={this.getPriorityClass()}>
                             {this.props.ticket.priority}
@@ -37,29 +39,38 @@ class TicketInfo extends React.Component {
                     </div>
                     <div className="ticket-info__properties__owner">
                         <span className="ticket-info__properties__label">
-                            Owned:
+                            {i18n('OWNED')}:
                         </span>
-                        <span className="ticket-info__properties__badge-red">
-                            none
+                        <span className={this.getOwnedClass()}>
+                            {(this.props.ticket.owner) ?  i18n('YES') :  i18n('NO')}
                         </span>
                     </div>
                     <div className="ticket-info__properties__comments">
                         <span className="ticket-info__properties__label">
-                            Comments:
+                            {i18n('COMMENTS')}:
                         </span>
                         <span className="ticket-info__properties__badge-blue">
-                            21
+                            {_.filter(this.props.ticket.events, event => event.type === 'COMMENT').length}
                         </span>
                     </div>
                 </div>
             </div>
         );
     }
+
     getStatusClass() {
         if(this.props.ticket.closed) {
             return 'ticket-info__properties__badge-red';
         } else {
             return 'ticket-info__properties__badge-green';
+        }
+    }
+
+    getOwnedClass() {
+        if(this.props.ticket.owner) {
+            return 'ticket-info__properties__badge-green';
+        } else {
+            return 'ticket-info__properties__badge-red';
         }
     }
 
