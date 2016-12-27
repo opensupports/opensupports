@@ -3,10 +3,6 @@
 .admin-panel-ban-users {
     padding: 0 20px;
 
-    &__email-list {
-
-    }
-
     &__search {
         margin-bottom: 20px;
     }
@@ -32,5 +28,9 @@
 
     &__input {
         display: inline-block;
+    }
+
+    &__form-message {
+        margin-top: 20px;
     }
 }

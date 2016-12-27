@@ -8,6 +8,7 @@ import Header from 'core-components/header';
 import Table from 'core-components/table';
 import SearchBox from 'core-components/search-box';
 import Button from 'core-components/button';
+import Message from 'core-components/message';
 
 class AdminPanelListUsers extends React.Component {
 
@@ -16,6 +17,7 @@ class AdminPanelListUsers extends React.Component {
         users: [],
         orderBy: 'id',
         desc: true,
+        error: false,
         page: 1,
         pages: 1
     };
@@ -34,7 +36,7 @@ class AdminPanelListUsers extends React.Component {
             <div className="admin-panel-list-users">
                 <Header title={i18n('LIST_USERS')} description={i18n('LIST_USERS_DESCRIPTION')} />
                 <SearchBox className="admin-panel-list-users__search-box" placeholder={i18n('SEARCH_USERS')} onSearch={this.onSearch.bind(this)} />
-                <Table {...this.getTableProps()} />
+                {(this.state.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_USERS')}</Message> : <Table {...this.getTableProps()}/>}
             </div>
         );
     }
@@ -144,7 +146,7 @@ class AdminPanelListUsers extends React.Component {
         API.call({
             path: '/user/get-users',
             data: data
-        }).then(this.onUsersRetrieved.bind(this));
+        }).then(this.onUsersRetrieved.bind(this)).catch(this.onUsersRejected.bind(this));
     }
 
     onUsersRetrieved(result) {
@@ -154,6 +156,14 @@ class AdminPanelListUsers extends React.Component {
             users: result.data.users,
             orderBy: result.data.orderBy,
             desc: (result.data.desc === '1'),
+            error: false,
+            loading: false
+        });
+    }
+
+    onUsersRejected() {
+        this.setState({
+            error: true,
             loading: false
         });
     }

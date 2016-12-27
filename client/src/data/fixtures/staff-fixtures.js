@@ -1047,5 +1047,15 @@ module.exports = [
                 data: {}
             };
         }
+    },
+    {
+        path: '/staff/delete',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
     }
 ];

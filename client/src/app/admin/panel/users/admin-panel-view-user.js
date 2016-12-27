@@ -5,10 +5,12 @@ import {browserHistory} from 'react-router';
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
 
-import Header from 'core-components/header';
-import Button from 'core-components/button';
 import TicketList from 'app-components/ticket-list';
 import AreYouSure from 'app-components/are-you-sure';
+
+import Header from 'core-components/header';
+import Button from 'core-components/button';
+import Message from 'core-components/message';
 
 class AdminPanelViewUser extends React.Component {
 
@@ -43,7 +45,7 @@ class AdminPanelViewUser extends React.Component {
     renderInvalid() {
         return (
             <div className="admin-panel-view-user__invalid">
-                {i18n('INVALID_USER')}
+                <Message type="error">{i18n('INVALID_USER')}</Message>
             </div>
         );
     }

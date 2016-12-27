@@ -30,6 +30,7 @@ export default {
     'STAFF': 'Staff',
     'CUSTOMER': 'Customer',
     'YES': 'Yes',
+    'NO': 'No',
     'CANCEL': 'Cancel',
     'MY_ACCOUNT': 'My Account',
     'DASHBOARD': 'Dashboard',
@@ -114,6 +115,8 @@ export default {
     'ADD_DEPARTMENT': 'Add department',
     'UPDATE_DEPARTMENT': 'Update department',
     'TRANSFER_TICKETS_TO': 'Transfer tickets to',
+    'COMMENTS': 'Comments',
+    'DELETE_STAFF_MEMBER': 'Delete staff member',
     'MAINTENANCE_MODE': 'Maintenance mode',
 
     //VIEW DESCRIPTIONS
@@ -137,6 +140,7 @@ export default {
     'ADD_ARTICLE_DESCRIPTION': 'Here you can add an article that will be available for every user. It will be added inside the category {category}.',
     'LIST_ARTICLES_DESCRIPTION': 'This is a list of articles that includes information about our services.',
     'ADD_TOPIC_DESCRIPTION': 'Here you can add a topic that works as a category for articles.',
+    'DELETE_ARTICLE_DESCRIPTION': 'You\'re going to delete this article for ever.',
     'STAFF_MEMBERS_DESCRIPTION': 'Here you can see who are your staff members.',
     'ADD_STAFF_DESCRIPTION': 'Here you can add staff members to your teams.',
     'EDIT_STAFF_DESCRIPTION': 'Here you can edit information about a staff member.',
@@ -156,8 +160,14 @@ export default {
     'PASSWORD_NOT_MATCH': 'Password does not match',
     'INVALID_RECOVER': 'Invalid recover data',
     'TICKET_SENT_ERROR': 'An error occurred while trying to create the ticket.',
+    'TICKET_COMMENT_ERROR': 'An error occurred while trying to add the comment.',
     'NO_PERMISSION': 'You\'ve no permission to access to this page.',
     'INVALID_USER': 'User id is invalid',
+    'ERROR_RETRIEVING_TICKETS': 'An error occurred while trying to retrieve tickets.',
+    'ERROR_RETRIEVING_USERS': 'An error occurred while trying to retrieve users.',
+    'ERROR_RETRIEVING_BAN_LIST': 'An error occurred while trying to retrieve the list of banned emails.',
+    'ERROR_BANNING_EMAIL': 'An error occurred while trying to ban the email.',
+    'ERROR_RETRIEVING_ARTICLES': 'An error occurred while trying to retrieve articles.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',
@@ -171,5 +181,10 @@ export default {
     'WILL_LOSE_CHANGES': 'You haven\'t save. Your changes will be lost.',
     'WILL_DELETE_CUSTOM_RESPONSE': 'The custom response will be deleted.',
     'WILL_DELETE_DEPARTMENT': 'The department will be deleted. All the tickets will be transfer to the department selected.',
-    'NO_STAFF_ASSIGNED': 'No staff member is assigned to this department.'
+    'NO_STAFF_ASSIGNED': 'No staff member is assigned to this department.',
+    'LEVEL_UPDATED': 'Level has been updated successfully.',
+    'DEPARTMENTS_UPDATED': 'Departments have been updated successfully.',
+    'FAILED_EDIT_STAFF': 'An error occurred while trying to edit staff member.',
+    'EMAIL_BANNED_SUCCESSFULLY': 'Email has been banned successfully',
+    'WILL_DELETE_STAFF': 'This staff member will be deleted and all its tickets will be unassigned.'
 };

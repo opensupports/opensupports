@@ -8,12 +8,15 @@
         cursor: default;
     }
 
+    &__animated-container {
+        position: relative;
+    }
+
     &__message {
         position: absolute;
         bottom: 100%;
-        left: -25%;
         margin-bottom: 15px;
-        margin-left: -10px;
+        margin-left: -15px;
         border: 0 solid rgba(0, 0, 0, 0.247059);
         box-shadow: rgba(0, 0, 0, 0.247059) 0 -1px 4px;
         border-radius: 4px;

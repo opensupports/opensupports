@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import {browserHistory} from 'react-router';
 import _ from 'lodash';
 
 import i18n from 'lib-app/i18n';
@@ -36,7 +36,8 @@ class AdminPanelViewStaff extends React.Component {
 
     getProps() {
         return _.extend({}, this.state.userData, {
-            staffId: this.props.params.staffId * 1
+            staffId: this.props.params.staffId * 1,
+            onDelete: this.onDelete.bind(this)
         });
     }
 
@@ -45,6 +46,10 @@ class AdminPanelViewStaff extends React.Component {
             loading: false,
             userData: result.data
         });
+    }
+
+    onDelete() {
+        browserHistory.push('/admin/panel/staff/staff-members');
     }
 }
 
