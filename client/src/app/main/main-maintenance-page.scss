@@ -1,0 +1,39 @@
+@import "../../scss/vars";
+
+.main-maintenance-page {
+    margin: auto;
+    width: 70%;
+    padding: 50px 100px;
+    border: 2px solid $dark-grey;
+    text-align: center;
+    background-color: white;
+    border-radius: 4px;
+
+    &__icon {
+        color: $primary-yellow;
+        background-color: $light-grey;
+        display: inline-block;
+        padding: 10px 15px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+
+    &__title {
+        font-size: $font-size--xl;
+        margin-bottom: 30px;
+        color: $primary-yellow;
+        font-weight: bold;
+    }
+
+    &__description {
+        font-size: $font-size--bg;
+        color: $primary-black;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .main-maintenance-page {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
