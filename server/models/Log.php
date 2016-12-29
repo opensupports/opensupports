@@ -7,7 +7,7 @@ class Log extends DataStore {
     public static function getProps() {
         return [
             'type',
-            'author',
+            'authorUser',
             'authorStaff',
             'to'
         ];
@@ -20,10 +20,17 @@ class Log extends DataStore {
 
         $log->setProperties(array(
             'type' => $type,
-            'author' => (!$author->isNull() && !$author->staff) ? $author : null,
+            'authorUser' => (!$author->isNull() && !$author->staff) ? $author : null,
             'authorStaff' => (!$author->isNull() && $author->staff) ? $author : null,
             'to' => $to,
         ));
         $log->store();
+    }
+    public function toArray() {
+        return [
+            'type' => $this->type,
+            'to' => $this->to,
+            'author' => ($this->authorUser) ? $this->authorUser->toArray() : $this->authorStaff->toArray()
+        ];
     }
 }

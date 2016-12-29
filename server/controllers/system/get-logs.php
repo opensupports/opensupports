@@ -18,5 +18,8 @@ class GetLogsController extends Controller {
 
     public function handler() {
         $page =Controller::request('page');
+        $logList = Log::find('LIMIT ? OFFSET ?', [10, 10*($page-1)+1]);
+
+        Response::respondSuccess($logList->toArray());
     }
 }
