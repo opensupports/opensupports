@@ -4,6 +4,7 @@ describe '/user/get-users' do
     Scripts.createUser('tests@hotmail.com','passdasdasdas','laasdasd')
     Scripts.createUser('tests2@hotmail.com','passfasfasfsa','laeaefae')
     Scripts.createUser('tests3@hotmail.com','passfasfasfws','laeczvwaf')
+
     result = request('/user/login', {
         email: 'staff@opensupports.com',
         password: 'staff',

@@ -8,6 +8,11 @@ describe '/user/signup' do
 
         userRow = $database.getRow('user', response['data']['userId'])
 
+        request('/user/verify', {
+          :email => 'steve@jobs.com',
+          :token => userRow['verification_token']
+        })
+
         (userRow['email']).should.equal('steve@jobs.com')
         (userRow['name']).should.equal('Steve Jobs')
     end
