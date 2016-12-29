@@ -28,4 +28,12 @@ class User extends DataStore {
     public static function getUser($value, $property = 'id') {
         return parent::getDataStore($value, $property);
     }
+
+    public function toArray() {
+        return [
+            'email' => $this->email,
+            'id' => $this->id,
+            'name' => $this->name
+        ];
+    }
 }

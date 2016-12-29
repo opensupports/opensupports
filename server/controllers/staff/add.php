@@ -55,10 +55,9 @@ class AddStaffController extends Controller {
 
             ]);
             
-            $staff = Controller::getLoggedUser();
-            Log::createLog('ADD_STAFF', $this->name);
-
             $this->addOwner();
+            
+            Log::createLog('ADD_STAFF', $this->name);
             
             Response::respondSuccess([
                 'id' => $staff->store()
