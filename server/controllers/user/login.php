@@ -27,6 +27,14 @@ class LoginController extends Controller {
                 $this->userInstance->store();
             }
 
+            $email =  Controller::request('email');
+            $userRow = User::getDataStore($email, 'email');
+
+            if($userRow->verificationToken !== null) {
+                Response::respondError(ERRORS::UNVERIFIED_USER);
+                return;
+            }
+
             Response::respondSuccess($this->getUserData());
         } else {
             Response::respondError(ERRORS::INVALID_CREDENTIALS);

@@ -11,24 +11,35 @@ import Button from 'core-components/button';
 import SubmitButton from 'core-components/submit-button';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
+import Message from 'core-components/message';
 
 class AdminPanelBanUsers extends React.Component {
 
     state = {
         loadingList: true,
         loadingForm: false,
+        listError: false,
+        addBanStatus: 'none',
         emails: [],
         filteredEmails: []
     };
 
     componentDidMount() {
-        this.retrieveEmails()
+        this.retrieveEmails();
     }
 
     render() {
         return (
             <div className="admin-panel-ban-users row">
                 <Header title={i18n('BAN_USERS')} description={i18n('BAN_USERS_DESCRIPTION')} />
+                {(this.state.listError) ? <Message type="error">{i18n('ERROR_RETRIEVING_BAN_LIST')}</Message> : this.renderContent()}
+            </div>
+        );
+    }
+
+    renderContent() {
+        return (
+            <div>
                 <div className="admin-panel-ban-users__email-list col-md-6">
                     <SearchBox className="admin-panel-ban-users__search" onSearch={this.onSearch.bind(this)} searchOnType placeholder={i18n('SEARCH_EMAIL')}/>
                     <Table {...this.getTableProps()} />
@@ -41,9 +52,21 @@ class AdminPanelBanUsers extends React.Component {
                         <FormField className="admin-panel-ban-users__input" placeholder="email" name="email" validation="EMAIL" required fieldProps={{size: 'large'}}/>
                         <SubmitButton>{i18n('BAN_EMAIL')}</SubmitButton>
                     </Form>
+                    {this.renderMessage()}
                 </div>
             </div>
         );
+    }
+
+    renderMessage() {
+        switch (this.state.addBanStatus) {
+            case 'success':
+                return <Message className="admin-panel-ban-users__form-message" type="success">{i18n('EMAIL_BANNED_SUCCESSFULLY')}</Message>;
+            case 'fail':
+                return <Message className="admin-panel-ban-users__form-message" type="error">{i18n('ERROR_BANNING_EMAIL')}</Message>;
+            default:
+                return null;
+        }
     }
 
     getTableProps() {
@@ -94,7 +117,12 @@ class AdminPanelBanUsers extends React.Component {
             data: {
                 email: form.email
             }
-        }).then(this.retrieveEmails.bind(this));
+        }).then(() => {
+            this.setState({
+                addBanStatus: 'success'
+            });
+            this.retrieveEmails();
+        }).catch(() => this.setState({addBanStatus: 'fail', loadingForm: false}));
     }
 
     onUnBanClick(email) {
@@ -114,14 +142,17 @@ class AdminPanelBanUsers extends React.Component {
         API.call({
             path: '/user/list-ban',
             data: {}
-        }).then((result) => {
-            this.setState({
-                loadingList: false,
-                loadingForm: false,
-                emails: result.data,
-                filteredEmails: result.data
-            });
-        });
+        }).then(result => this.setState({
+            listError: false,
+            loadingList: false,
+            loadingForm: false,
+            emails: result.data,
+            filteredEmails: result.data
+        })).catch(() => this.setState({
+            listError: true,
+            loadingList: false,
+            loadingForm: false
+        }));
     }
 }
 

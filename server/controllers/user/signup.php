@@ -9,6 +9,7 @@ class SignUpController extends Controller {
     private $userEmail;
     private $userName;
     private $userPassword;
+    private $verificationToken;
 
     public function validations() {
         return [
@@ -65,17 +66,19 @@ class SignUpController extends Controller {
         $this->userName = Controller::request('name');
         $this->userEmail = Controller::request('email');
         $this->userPassword = Controller::request('password');
+        $this->verificationToken = Hashing::generateRandomToken();
     }
 
     public function createNewUserAndRetrieveId() {
         $userInstance = new User();
-        
+
         $userInstance->setProperties([
             'name' => $this->userName,
             'signupDate' => Date::getCurrentDate(),
             'tickets' => 0,
             'email' => $this->userEmail,
-            'password' => Hashing::hashPassword($this->userPassword)
+            'password' => Hashing::hashPassword($this->userPassword),
+            'verificationToken' => $this->verificationToken
         ]);
 
         return $userInstance->store();
@@ -86,7 +89,8 @@ class SignUpController extends Controller {
         
         $mailSender->setTemplate(MailTemplate::USER_SIGNUP, [
             'to' => $this->userEmail,
-            'name' => $this->userName
+            'name' => $this->userName,
+            'verificationToken' => $this->verificationToken
         ]);
         
         $mailSender->send();

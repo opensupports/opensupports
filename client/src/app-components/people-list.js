@@ -10,7 +10,7 @@ class PeopleList extends React.Component {
     static propTypes = {
         list: React.PropTypes.arrayOf(React.PropTypes.shape({
             profilePic: React.PropTypes.string,
-            name: React.PropTypes.string,
+            name: React.PropTypes.node,
             assignedTickets: React.PropTypes.number,
             closedTickets: React.PropTypes.number,
             lastLogin: React.PropTypes.number

@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import {connect}  from 'react-redux';
+import {browserHistory} from 'react-router';
 import RichTextEditor from 'react-rte-browserify';
 
 import ArticlesActions from 'actions/articles-actions';
@@ -9,6 +10,7 @@ import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
 import DateTransformer from 'lib-core/date-transformer';
 
+import AreYouSure from 'app-components/are-you-sure';
 import Header from 'core-components/header';
 import Loading from 'core-components/loading';
 import Button from 'core-components/button';
@@ -61,10 +63,14 @@ class AdminPanelViewArticle extends React.Component {
     renderArticlePreview(article) {
         return (
             <div className="admin-panel-view-article__content">
-                <div className="admin-panel-view-article__edit-button">
-                    <Button size="medium" onClick={this.onEditClick.bind(this, article)}>{i18n('EDIT')}</Button>
+                <div className="admin-panel-view-article__edit-buttons">
+                    <Button className="admin-panel-view-article__edit-button" size="medium" onClick={this.onEditClick.bind(this, article)} type="tertiary">
+                        {i18n('EDIT')}
+                    </Button>
+                    <Button size="medium" onClick={this.onDeleteClick.bind(this, article)}>
+                        {i18n('DELETE')}
+                    </Button>
                 </div>
-
                 <div className="admin-panel-view-article__article">
                     <Header title={article.title}/>
 
@@ -116,6 +122,10 @@ class AdminPanelViewArticle extends React.Component {
         });
     }
 
+    onDeleteClick(article) {
+        AreYouSure.openModal(i18n('DELETE_ARTICLE_DESCRIPTION'), this.onArticleDeleted.bind(this, article));
+    }
+
     onFormSubmit(form) {
         API.call({
             path: '/article/edit',
@@ -138,6 +148,15 @@ class AdminPanelViewArticle extends React.Component {
         this.setState({
             editable: false
         });
+    }
+
+    onArticleDeleted(article) {
+        API.call({
+            path: '/article/delete',
+            data: {
+                articleId: article.id
+            }
+        }).then(() => browserHistory.push('/admin/panel/articles/list-articles'));
     }
 }
 

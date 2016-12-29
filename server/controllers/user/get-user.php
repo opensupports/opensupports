@@ -34,7 +34,8 @@ class GetUserByIdController extends Controller {
             'name' => $user->name,
             'email' => $user->email,
             'signupDate' => $user->signupDate,
-            'tickets' => $tickets->toArray()
+            'tickets' => $tickets->toArray(),
+            'verified' => !$user->verificationToken
         ]);
     }
 }

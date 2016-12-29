@@ -4,9 +4,11 @@ import {connect}  from 'react-redux';
 import i18n from 'lib-app/i18n';
 
 import AdminDataAction from 'actions/admin-data-actions';
-import Header from 'core-components/header';
 import TicketList from 'app-components/ticket-list';
+
+import Header from 'core-components/header';
 import SearchBox from 'core-components/search-box';
+import Message from 'core-components/message';
 
 class AdminPanelAllTickets extends React.Component {
 
@@ -31,7 +33,7 @@ class AdminPanelAllTickets extends React.Component {
                 <div className="admin-panel-my-tickets__search-box">
                     <SearchBox onSearch={this.onSearch.bind(this)} />
                 </div>
-                <TicketList {...this.getTicketListProps()}/>
+                {(this.props.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketList {...this.getTicketListProps()}/>}
             </div>
         );
     }
@@ -52,7 +54,8 @@ class AdminPanelAllTickets extends React.Component {
 
     onSearch(query) {
         this.setState({query, page: 1});
-        if (query) {
+
+        if(query) {
             this.props.dispatch(AdminDataAction.searchTickets(query));
         } else {
             this.props.dispatch(AdminDataAction.retrieveAllTickets());
@@ -60,9 +63,7 @@ class AdminPanelAllTickets extends React.Component {
     }
 
     onPageChange(event) {
-        this.setState({
-            page: event.target.value
-        });
+        this.setState({page: event.target.value});
 
         if(this.state.query) {
             this.props.dispatch(AdminDataAction.searchTickets(this.state.query, event.target.value));
@@ -77,6 +78,7 @@ export default connect((store) => {
         departments: store.session.userDepartments,
         tickets: store.adminData.allTickets,
         pages: store.adminData.allTicketsPages,
-        loading: !store.adminData.allTicketsLoaded
+        loading: !store.adminData.allTicketsLoaded,
+        error: store.adminData.allTicketsError
     };
 })(AdminPanelAllTickets);

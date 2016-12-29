@@ -47,6 +47,7 @@
 
     &__comment {
         position: relative;
+        word-break: break-all;
 
         &-pointer {
             right: 100%;

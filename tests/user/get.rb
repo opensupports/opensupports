@@ -12,6 +12,7 @@ describe '/user/get' do
         csrf_userid: $csrf_userid,
         csrf_token: $csrf_token
     })
+
     @ticketNumber = result['data']['ticketNumber']
 
     it 'should fail if not logged' do

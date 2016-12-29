@@ -13,7 +13,7 @@ class CommentController extends Controller {
             'permission' => 'user',
             'requestData' => [
                 'content' => [
-                    'validation' => DataValidator::length(20, 500),
+                    'validation' => DataValidator::length(20, 5000),
                     'error' => ERRORS::INVALID_CONTENT
                 ],
                 'ticketNumber' => [

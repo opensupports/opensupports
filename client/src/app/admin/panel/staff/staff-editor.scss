@@ -122,4 +122,21 @@
     &__separator {
         margin: 3px 0;
     }
+
+    &__message {
+        margin-bottom: 20px;
+    }
+
+    &__delete {
+        border: 1px solid $grey;
+        padding: 20px 50px;
+        text-align: right;
+    }
+
+    &__delete-title {
+        font-size: $font-size--md;
+        text-align: center;
+        float: left;
+        margin-top: 11px;
+    }
 }

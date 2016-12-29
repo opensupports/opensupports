@@ -9,6 +9,11 @@ class Scripts
         if response['status'] === 'fail'
             raise response['message']
         end
+        userRow = $database.getRow('user', email, 'email')
+        response = request('/user/verify', {
+                :email => email,
+                :token => userRow['verification_token']
+        })
     end
 
     def self.login(email = 'steve@jobs.com', password = 'custompassword', staff = false)

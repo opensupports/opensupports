@@ -11,10 +11,15 @@ class AdminDataReducer extends Reducer {
             customResponsesLoaded: false,
             myTickets: [],
             myTicketsLoaded: false,
+            myTicketsError: false,
+
             newTickets: [],
             newTicketsLoaded: false,
+            newTicketsError: false,
+
             allTickets: [],
-            allTicketsLoaded: false
+            allTicketsLoaded: false,
+            allTicketsError: false
         };
     }
 
@@ -22,11 +27,17 @@ class AdminDataReducer extends Reducer {
         return {
             'CUSTOM_RESPONSES_FULFILLED': this.onCustomResponses,
             'SESSION_CHECKED': this.onSessionChecked,
+
             'MY_TICKETS_FULFILLED': this.onMyTicketsRetrieved,
+            'MY_TICKETS_REJECTED': this.onMyTicketsRejected,
             'MY_TICKETS_PENDING': this.onMyTicketsPending,
+
             'NEW_TICKETS_FULFILLED': this.onNewTicketsRetrieved,
+            'NEW_TICKETS_REJECTED': this.onNewTicketsRejected,
             'NEW_TICKETS_PENDING': this.onNewTicketsPending,
+
             'ALL_TICKETS_FULFILLED': this.onAllTicketsRetrieved,
+            'ALL_TICKETS_REJECTED': this.onAllTicketsRejected,
             'ALL_TICKETS_PENDING': this.onAllTicketsPending
         };
     }
@@ -53,26 +64,42 @@ class AdminDataReducer extends Reducer {
         return _.extend({}, state, {
             myTickets: payload.data,
             myTicketsLoaded: true
+        });
+    }
+
+    onMyTicketsRejected(state) {
+        return _.extend({}, state, {
+            myTicketsError: true,
+            myTicketsLoaded: true
         })
     }
 
     onMyTicketsPending(state) {
         return _.extend({}, state, {
+            myTicketsError: false,
             myTicketsLoaded: false
-        })
+        });
     }
 
     onNewTicketsRetrieved(state, payload) {
         return _.extend({}, state, {
             newTickets: payload.data,
             newTicketsLoaded: true
-        })
+        });
+    }
+
+    onNewTicketsRejected(state) {
+        return _.extend({}, state, {
+            newTicketsError: true,
+            newTicketsLoaded: false
+        });
     }
 
     onNewTicketsPending(state) {
         return _.extend({}, state, {
+            newTicketsError: false,
             newTicketsLoaded: false
-        })
+        });
     }
 
     onAllTicketsRetrieved(state, payload) {
@@ -80,13 +107,21 @@ class AdminDataReducer extends Reducer {
             allTickets: payload.data.tickets,
             allTicketsPages: payload.data.pages,
             allTicketsLoaded: true
-        })
+        });
+    }
+
+    onAllTicketsRejected(state) {
+        return _.extend({}, state, {
+            allTicketsError: false,
+            allTicketsLoaded: false
+        });
     }
 
     onAllTicketsPending(state) {
         return _.extend({}, state, {
+            allTicketsError: false,
             allTicketsLoaded: false
-        })
+        });
     }
 }
 
