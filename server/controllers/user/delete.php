@@ -21,7 +21,10 @@ class DeleteUserController extends Controller {
         $userId = Controller::request('userId');
         $user = User::getDataStore($userId);
 
+        Log::createLog('DELETE_USER', $user->name);
+
         $user->delete();
+
         Response::respondSuccess();
     }
 }

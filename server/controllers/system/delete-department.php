@@ -37,6 +37,8 @@ class DeleteDepartmentController extends Controller {
         $departmentInstance = Department::getDataStore($this->departmentId);
         $departmentInstance->delete();
 
+        Log::createLog('DELETE_DEPARTMENT', $departmentInstance->name);
+
         Response::respondSuccess();
     }
     

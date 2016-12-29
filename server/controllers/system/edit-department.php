@@ -32,6 +32,8 @@ class EditDepartmentController extends Controller {
 
         $departmentInstance->store();
 
+        Log::createLog('EDIT_DEPARTMENT', $departmentInstance->name);
+        
         Response::respondSuccess();
 
     }

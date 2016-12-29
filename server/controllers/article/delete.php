@@ -19,6 +19,8 @@ class DeleteArticleController extends Controller {
 
     public function handler() {
         $article = Article::getDataStore(Controller::request('articleId'));
+        Log::createLog('DELETE_ARTICLE', $article->title);
+
         $article->delete();
 
         Response::respondSuccess();

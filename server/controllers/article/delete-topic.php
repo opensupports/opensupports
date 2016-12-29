@@ -19,8 +19,10 @@ class DeleteTopicController extends Controller {
 
     public function handler() {
         $topic = Topic::getDataStore(Controller::request('topicId'));
-        $topic->delete();
         
+        Log::createLog('DELETE_TOPIC', $topic->name);
+
+        $topic->delete();
         Response::respondSuccess();
     }
 }

@@ -46,6 +46,9 @@ class EditArticleController extends Controller {
         $article->lastEdited = Date::getCurrentDate();
 
         $article->store();
+
+        Log::createLog('EDIT_ARTICLE', $article->title);
+
         Response::respondSuccess();
     }
 }

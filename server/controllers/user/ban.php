@@ -29,6 +29,8 @@ class BanUserController extends Controller {
 
             $ban->store();
 
+            Log::createLog('BAN_USER', $email);
+
             Response::respondSuccess();
         } else {
             Response::respondError(ERRORS::ALREADY_BANNED);
