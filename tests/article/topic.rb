@@ -17,6 +17,9 @@ describe 'Topic paths' do
         (topic['name']).should.equal('Server management')
         (topic['icon_color']).should.equal('red')
         (topic['icon']).should.equal('cogs')
+
+        lastLog = $database.getLastRow('log')
+        (lastLog['type']).should.equal('ADD_TOPIC')
     end
 
     it 'should edit topic correctly' do
@@ -44,6 +47,9 @@ describe 'Topic paths' do
         })
 
         (result['status']).should.equal('success')
+
+        lastLog = $database.getLastRow('log')
+        (lastLog['type']).should.equal('DELETE_TOPIC')
     end
 
     it 'should deny permission if it is not logged as staff' do

@@ -15,5 +15,8 @@ describe'system/edit-department' do
             row = $database.getRow('department', 4, 'id')
 
             (row['name']).should.equal('second name')
+
+            lastLog = $database.getLastRow('log')
+            (lastLog['type']).should.equal('EDIT_DEPARTMENT')
         end
 end

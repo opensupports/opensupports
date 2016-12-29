@@ -34,6 +34,7 @@ class EditCustomResponseController extends Controller {
 
         $customResponse->store();
 
+        Log::createLog('EDIT_CUSTOM_RESPONSE', null);
         Response::respondSuccess();
     }
 }

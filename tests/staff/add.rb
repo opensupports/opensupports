@@ -26,6 +26,9 @@ describe'/staff/add' do
         row = $database.getRow('department', 1, 'id')
         (row['owners']).should.equal('2')
 
+        lastLog = $database.getLastRow('log')
+        (lastLog['type']).should.equal('ADD_STAFF')
+
     end
     it 'should fail if staff member is alrady a staff' do
         result= request('/staff/add', {

@@ -73,6 +73,9 @@ describe '/ticket/comment/' do
         (comment['type']).should.equal('COMMENT')
         (comment['author_user_id']).should.equal($csrf_userid)
         (ticket['unread_staff']).should.equal('1')
+
+        lastLog = $database.getLastRow('log')
+        (lastLog['type']).should.equal('COMMENT_TICKET')
     end
 
     it 'should fail if user is not the author nor owner' do

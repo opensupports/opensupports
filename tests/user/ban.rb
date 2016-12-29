@@ -22,6 +22,8 @@ describe '/user/ban' do
         user = $database.getRow('ban', 1 , 'id')
         (user['email']).should.equal('nothing@hotmail.com')
 
+        lastLog = $database.getLastRow('log')
+        (lastLog['type']).should.equal('BAN_USER')
     end
 
     it 'should get ban list' do
@@ -58,6 +60,8 @@ describe '/user/ban' do
         user = $database.getRow('ban', 1 , 'id')
         (user).should.equal(nil)
 
+        lastLog = $database.getLastRow('log')
+        (lastLog['type']).should.equal('UN_BAN_USER')
     end
 
     it 'should not un-ban user if it is not banned' do

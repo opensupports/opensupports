@@ -22,7 +22,7 @@ describe '/user/delete' do
         user = $database.getRow('user', 4 , 'id')
         (user).should.equal(nil)
 
+        lastLog = $database.getLastRow('log')
+        (lastLog['type']).should.equal('DELETE_USER')
     end
 end
-
-

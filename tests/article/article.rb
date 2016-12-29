@@ -27,6 +27,9 @@ describe 'Article path' do
         (article['content']).should.equal('This is an article about server management.')
         (article['topic_id']).should.equal(@topic_id.to_s)
         (article['position']).should.equal('1')
+
+        lastLog = $database.getLastRow('log')
+        (lastLog['type']).should.equal('ADD_ARTICLE')
     end
 
     it 'should edit article' do
@@ -43,6 +46,9 @@ describe 'Article path' do
         (article['content']).should.equal('This is an article about server management2.')
         (article['topic_id']).should.equal(@topic_id.to_s)
         (article['position']).should.equal('1')
+
+        lastLog = $database.getLastRow('log')
+        (lastLog['type']).should.equal('EDIT_ARTICLE')
     end
 
     it 'should edit article topic' do
@@ -76,6 +82,9 @@ describe 'Article path' do
             csrf_token: $csrf_token
         })
         (result['status']).should.equal('success')
+
+        lastLog = $database.getLastRow('log')
+        (lastLog['type']).should.equal('DELETE_ARTICLE')
     end
 
     it 'should retrieve all articles' do
@@ -103,5 +112,6 @@ describe 'Article path' do
         (result['data'][0]['articles'][0]['title']).should.equal('Some article')
         (result['data'][0]['articles'][0]['content']).should.equal('This is an article about server management.')
         (result['data'][0]['articles'][0]['position']).should.equal('1')
+
     end
 end

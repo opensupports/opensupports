@@ -19,5 +19,7 @@ describe '/ticket/close' do
         (ticket['closed']).should.equal('1')
         (ticket['unread']).should.equal('1')
 
+        lastLog = $database.getLastRow('log')
+        (lastLog['type']).should.equal('CLOSE_TICKET')
     end
 end

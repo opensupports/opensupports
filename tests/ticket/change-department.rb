@@ -19,5 +19,8 @@ describe '/ticket/change-department' do
         ticket = $database.getRow('ticket', 1 , 'id')
         (ticket['unread']).should.equal('1')
         (ticket['department_id']).should.equal('2')
+
+        lastLog = $database.getLastRow('log')
+        (lastLog['type']).should.equal('CHANGE_DEPARTMENT')
     end
 end

@@ -23,6 +23,12 @@ class Database
 
         return queryResponse.fetch_hash
     end
+
+    def getLastRow(table)
+        queryResponse = @connection.query("select * from #{table} order by id desc limit 1")
+
+        return queryResponse.fetch_hash
+    end
 end
 
 $database = Database.new
