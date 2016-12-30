@@ -58,7 +58,8 @@ class SignUpController extends Controller {
             'userId' => $userId,
             'userEmail' => $this->userEmail
         ]);
-
+        
+        Log::createLog('SIGNUP', null, User::getDataStore($userId));
     }
     
     public function storeRequestData() {

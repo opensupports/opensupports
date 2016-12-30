@@ -38,6 +38,10 @@ class AddArticleController extends Controller {
         $topic->ownArticleList->add($article);
         $topic->store();
 
+        $staff = Controller::getLoggedUser();
+
+        Log::createLog('ADD_ARTICLE', $article->title);
+
         Response::respondSuccess([
             'articleId' => $article->store()
         ]);

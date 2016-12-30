@@ -23,10 +23,10 @@ class AddDepartmentController extends Controller {
         
         $departmentInstance->setProperties([
             'name' => $name,
-            
         ]);
-
         $departmentInstance->store();
+
+        Log::createLog('ADD_DEPARTMENT', $name);
 
         Response::respondSuccess();
 

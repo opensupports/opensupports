@@ -15,6 +15,9 @@ describe '/user/signup' do
 
         (userRow['email']).should.equal('steve@jobs.com')
         (userRow['name']).should.equal('Steve Jobs')
+
+        lastLog = $database.getLastRow('log')
+        (lastLog['type']).should.equal('SIGNUP')
     end
 
     it 'should fail if name is invalid' do

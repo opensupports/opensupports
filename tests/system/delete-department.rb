@@ -81,5 +81,8 @@ describe 'system/delete-department' do
 
             (ticket3['department_id']).should.equal('2')
             (ticket3['owner_id']).should.equal($csrf_userid)
+
+            lastLog = $database.getLastRow('log')
+            (lastLog['type']).should.equal('DELETE_DEPARTMENT')
         end
 end

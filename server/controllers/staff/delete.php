@@ -1,5 +1,7 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
+use RedBeanPHP\Facade as RedBean;
+
 DataValidator::with('CustomValidations', true);
 
 class DeleteStaffController extends Controller {
@@ -36,7 +38,8 @@ class DeleteStaffController extends Controller {
             $department->owners--;
             $department->store();
         }
-
+        
+        RedBean::exec('DELETE FROM log WHERE author_staff_id = ?', [$staffId]);
         $staff->delete();
         Response::respondSuccess();
     }

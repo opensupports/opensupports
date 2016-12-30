@@ -40,6 +40,9 @@ class EditSettingsController extends Controller {
         if(Controller::request('allowedLanguages') || Controller::request('supportedLanguages')) {
             $this->handleLanguages();
         }
+
+        Log::createLog('EDIT_SETTINGS', null);
+
         Response::respondSuccess();
     }
     

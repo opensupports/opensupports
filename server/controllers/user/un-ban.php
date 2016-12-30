@@ -24,6 +24,9 @@ class UnBanUserController extends Controller {
             Response::respondError(ERRORS::INVALID_EMAIL);
         } else {
             $banRow->delete();
+            
+            Log::createLog('UN_BAN_USER', $email);
+
             Response::respondSuccess();
         }
         

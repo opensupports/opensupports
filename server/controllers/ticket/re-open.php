@@ -31,6 +31,9 @@ class ReOpenController extends Controller {
         $this->ticket->closed = false;
 
         $this->ticket->store();
+
+        Log::createLog('RE_OPEN_TICKET', $this->ticket);
+
         Response::respondSuccess();
     }
 

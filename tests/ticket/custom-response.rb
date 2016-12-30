@@ -18,6 +18,9 @@ describe 'CustomResponses' do
             (customResponse['name']).should.equal('Some common problem')
             (customResponse['content']).should.equal('this is the content of a custom response for a common problem')
             (customResponse['language']).should.equal('en')
+
+            lastLog = $database.getLastRow('log')
+            (lastLog['type']).should.equal('ADD_CUSTOM_RESPONSE')
         end
     end
 
@@ -36,6 +39,9 @@ describe 'CustomResponses' do
             (customResponse['name']).should.equal('Some common problem')
             (customResponse['content']).should.equal('this is the content of a custom response for a common problem 2')
             (customResponse['language']).should.equal('en')
+
+            lastLog = $database.getLastRow('log')
+            (lastLog['type']).should.equal('EDIT_CUSTOM_RESPONSE')
         end
     end
 
@@ -65,6 +71,9 @@ describe 'CustomResponses' do
             (result['status']).should.equal('success')
             customResponse = $database.getRow('customresponse', 1)
             (customResponse).should.equal(nil)
+
+            lastLog = $database.getLastRow('log')
+            (lastLog['type']).should.equal('DELETE_CUSTOM_RESPONSE')
         end
     end
 end

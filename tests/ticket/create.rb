@@ -116,6 +116,9 @@ describe '/ticket/create' do
 
         ticket_user_relation = $database.getRow('ticket_user', ticket['id'],'ticket_id')
         (ticket_user_relation['user_id']).should.equal($csrf_userid)
+
+        lastLog = $database.getLastRow('log')
+        (lastLog['type']).should.equal('CREATE_TICKET')
     end
 
     it 'should set correct ticket number' do

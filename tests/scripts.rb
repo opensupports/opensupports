@@ -7,7 +7,7 @@ class Scripts
         })
 
         if response['status'] === 'fail'
-            raise 'Could not create user'
+            raise response['message']
         end
         userRow = $database.getRow('user', email, 'email')
         response = request('/user/verify', {

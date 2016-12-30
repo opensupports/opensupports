@@ -34,6 +34,8 @@ class AddCustomResponseController extends Controller {
         ]);
         $customResponse->store();
 
+        Log::createLog('ADD_CUSTOM_RESPONSE', null);
+
         Response::respondSuccess();
     }
 }

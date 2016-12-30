@@ -14,5 +14,8 @@ describe'system/add-department' do
             row = $database.getRow('department', 4, 'id')
 
             (row['name']).should.equal('new department')
+
+            lastLog = $database.getLastRow('log')
+            (lastLog['type']).should.equal('ADD_DEPARTMENT')
         end
 end
