@@ -33,7 +33,7 @@ store.dispatch(SessionActions.initSession());
 let unsubscribe = store.subscribe(() => {
     console.log(store.getState());
 
-    if (store.getState().session.initDone) {
+    if (store.getState().session.initDone && store.getState().config.initDone) {
         unsubscribe();
         renderApplication();
     }

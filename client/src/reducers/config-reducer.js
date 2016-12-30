@@ -7,7 +7,8 @@ class ConfigReducer extends Reducer {
 
     getInitialState() {
         return {
-            language: sessionStore.getItem('language')
+            language: sessionStore.getItem('language'),
+            initDone: false
         };
     }
 
@@ -35,7 +36,8 @@ class ConfigReducer extends Reducer {
         }));
 
         return _.extend({}, state, payload.data, {
-            language: currentLanguage || payload.language
+            language: currentLanguage || payload.language,
+            initDone: true
         });
     }
 }

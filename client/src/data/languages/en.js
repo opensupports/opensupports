@@ -117,6 +117,7 @@ export default {
     'TRANSFER_TICKETS_TO': 'Transfer tickets to',
     'COMMENTS': 'Comments',
     'DELETE_STAFF_MEMBER': 'Delete staff member',
+    'MAINTENANCE_MODE': 'Maintenance mode',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
@@ -145,6 +146,7 @@ export default {
     'EDIT_STAFF_DESCRIPTION': 'Here you can edit information about a staff member.',
     'MY_ACCOUNT_DESCRIPTION': 'Here you can edit information about you.',
     'DEPARTMENTS_DESCRIPTION': 'A department is a group where the tickets can go. They are used to categorize the tickets. You can assign them to other staff members.',
+    'MAINTENANCE_MODE_DESCRIPTION': 'The support system is in maintenance mode, thus unavailable at the moment. We will come back as soon as possible.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
