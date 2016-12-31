@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 
 import i18n from 'lib-app/i18n';
+import Icon from 'core-components/icon';
 
 class TicketInfo extends React.Component {
     static propTypes = {
@@ -13,10 +14,14 @@ class TicketInfo extends React.Component {
             <div className="ticket-info">
                 <div className="ticket-info__title">
                     {this.props.ticket.title}
+                    <span className="ticket-info__flag">
+                        <Icon name={(this.props.ticket.language === 'en') ? 'us' : this.props.ticket.language}/>
+                    </span>
                 </div>
                 <div className="ticket-info__description">
                     {this.props.ticket.content}
                 </div>
+
                 <div className="ticket-info__author">
                     {i18n('AUTHOR')}: {this.props.ticket.author.name}
                 </div>

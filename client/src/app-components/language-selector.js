@@ -1,22 +1,24 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import classNames from 'classnames';
+
+import languageList from 'data/language-list';
 import DropDown from 'core-components/drop-down';
 
-const codeLanguages = {
-    'English': 'us',
-    'Spanish': 'es',
-    'German': 'de',
-    'French': 'fr',
-    'Chinese': 'cn',
-    'Turkish': 'tr',
-    'Indian': 'in'
-};
-const languages = Object.keys(codeLanguages);
-const languageCodes = languages.map((key) => { return codeLanguages[key]; }).concat(['en']);
+const languageCodes = Object.keys(languageList);
 
 class LanguageSelector extends React.Component {
     static propTypes = {
-        value: React.PropTypes.oneOf(languageCodes)
+        value: React.PropTypes.oneOf(languageCodes),
+        type: React.PropTypes.oneOf(['allowed', 'supported']),
+        allowedLanguages: React.PropTypes.array,
+        supportedLanguages: React.PropTypes.array
+    };
+
+    static defaultProps = {
+        type: 'allowed',
+        allowedLanguages: languageCodes,
+        supportedLanguages: languageCodes
     };
 
     render() {
@@ -28,7 +30,7 @@ class LanguageSelector extends React.Component {
     getProps() {
         return {
             className: this.getClass(),
-            items: this.getLanguageList(),
+            items: this.getLanguageItems(),
             selectedIndex: this.getSelectedIndex(),
             onChange: this.changeLanguage.bind(this),
             size: this.props.size
@@ -45,37 +47,23 @@ class LanguageSelector extends React.Component {
         return classNames(classes);
     }
 
-    getLanguageList() {
-        return languages.map((language) => {
+    getLanguageItems() {
+        return this.getLanguageList().map((languageKey) => {
             return {
-                content: language,
-                icon: codeLanguages[language]
+                content: languageList[languageKey].name,
+                icon: (languageKey === 'en') ? 'us' : languageKey
             };
         });
     }
 
     getSelectedIndex() {
-        let selectedIndex = languages.map((key) => codeLanguages[key]).indexOf(this.getPropLanguage());
+        let selectedIndex = this.getLanguageList().indexOf(this.props.value);
 
-        return (selectedIndex != -1) ? selectedIndex : undefined;
-    }
-
-    getPropLanguage() {
-        let language = this.props.value;
-
-        if (language === 'en') {
-            language = 'us';
-        }
-
-        return language;
+        return (selectedIndex !== -1) ? selectedIndex : undefined;
     }
 
     changeLanguage(event) {
-        let language = codeLanguages[languages[event.index]];
-
-        if (language === 'us') {
-            language = 'en';
-        }
+        let language = this.getLanguageList()[event.index];
 
         if (this.props.onChange) {
             this.props.onChange({
@@ -85,6 +73,15 @@ class LanguageSelector extends React.Component {
             });
         }
     }
+
+    getLanguageList() {
+        return (this.props.type === 'supported') ? this.props.supportedLanguages : this.props.allowedLanguages;
+    }
 }
 
-export default LanguageSelector;
+export default connect((store) => {
+    return {
+        allowedLanguages: store.config.allowedLanguages,
+        supportedLanguages: store.config.supportedLanguages
+    };
+})(LanguageSelector);

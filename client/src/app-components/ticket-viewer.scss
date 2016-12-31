@@ -1,6 +1,7 @@
 @import "../scss/vars";
 
 .ticket-viewer {
+
     &__header {
         background-color: $primary-blue;
         border-top-right-radius: 4px;
@@ -18,6 +19,10 @@
 
     &__title {
         display: inline-block;
+    }
+
+    &__flag {
+        margin-left: 10px;
     }
 
     &__info-row-header {

@@ -2,12 +2,14 @@ import React              from 'react';
 import _                  from 'lodash';
 import ReCAPTCHA          from 'react-google-recaptcha';
 import { browserHistory } from 'react-router';
+import RichTextEditor from 'react-rte-browserify';
 
 import i18n               from 'lib-app/i18n';
 import API                from 'lib-app/api-call';
 import SessionStore       from 'lib-app/session-store';
 import store              from 'app/store';
 import SessionActions     from 'actions/session-actions';
+import LanguageSelector   from 'app-components/language-selector';
 
 import Header             from 'core-components/header';
 import Form               from 'core-components/form';
@@ -25,29 +27,34 @@ class CreateTicketForm extends React.Component {
         userLogged: true
     };
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            loading: false,
-            message: null
-        };
-    }
+    state = {
+        loading: false,
+        message: null,
+        form: {
+            title: '',
+            content: RichTextEditor.createEmptyValue(),
+            language: 'en'
+        }
+    };
 
     render() {
         return (
             <div className="create-ticket-form">
                 <Header title={i18n('CREATE_TICKET')} description={i18n('CREATE_TICKET_DESCRIPTION')} />
-                <Form loading={this.state.loading} onSubmit={this.onSubmit.bind(this)}>
+                <Form {...this.getFormProps()}>
                     {(!this.props.userLogged) ? this.renderEmailAndName() : null}
+                    <FormField label={i18n('TITLE')} name="title" validation="TITLE" required field="input" fieldProps={{size: 'large'}}/>
                     <div className="row">
-                        <FormField className="col-md-7" label="Title" name="title" validation="TITLE" required field="input" fieldProps={{size: 'large'}}/>
-                        <FormField className="col-md-5" label="Department" name="departmentIndex" field="select" fieldProps={{
+                        <FormField className="col-md-5" label={i18n('DEPARTMENT')} name="departmentIndex" field="select" fieldProps={{
                             items: SessionStore.getDepartments().map((department) => {return {content: department.name}}),
                             size: 'medium'
                         }} />
+                        <FormField className="col-md-5" label={i18n('LANGUAGE')} name="language" field="select" decorator={LanguageSelector} fieldProps={{
+                            type: 'supported',
+                            size: 'medium'
+                        }}/>
                     </div>
-                    <FormField label="Content" name="content" validation="TEXT_AREA" required field="textarea" />
+                    <FormField label={i18n('CONTENT')} name="content" validation="TEXT_AREA" required field="textarea" />
                     {(!this.props.userLogged) ? this.renderCaptcha() : null}
                     <SubmitButton>Create Ticket</SubmitButton>
                 </Form>
@@ -82,6 +89,15 @@ class CreateTicketForm extends React.Component {
             default:
                 return null;
         }
+    }
+
+    getFormProps() {
+        return {
+            loading: this.state.loading,
+            onSubmit: this.onSubmit.bind(this),
+            values: this.state.form,
+            onChange: form => this.setState({form})
+        };
     }
 
     onSubmit(formState) {
