@@ -1,8 +1,8 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
-class RecoverMailTemplateController extends Controller {
-    const PATH = '/recover-mail-template';
+class EditMailTemplateController extends Controller {
+    const PATH = '/edit-mail-template';
 
     public function validations() {
         return [
@@ -16,27 +16,33 @@ class RecoverMailTemplateController extends Controller {
                     'validation' => DataValidator::length(2, 2),
                     'error' => ERRORS::INVALID_LANGUAGE
                 ],
+                'subject' => [
+                    'validation' => DataValidator::length(4),
+                    'error' => ERRORS::INVALID_SUBJECT
+                ],
+                'body' => [
+                    'validation' => DataValidator::length(4),
+                    'error' => ERRORS::INVALID_BODY
+                ]
             ]
         ];
     }
 
     public function handler() {
-        $type = Controller::request('templateType');
         $language = Controller::request('language');
+        $templateType = Controller::request('templateType');
+        $subject = Controller::request('subject');
+        $body = Controller::request('body');
 
-        $mailTemplate = MailTemplate::findOne(' language = ? AND type = ?', [$language, $type]);
-
+        $mailTemplate = MailTemplate::findOne(' language = ? AND type = ?', [$language, $templateType]);
         if($mailTemplate->isNull()) {
             Response::respondError(ERRORS::INVALID_TEMPLATE);
             return;
         }
-        $defaultTemplates = InitialMails::retrieve();
-
-        $mailTemplate->body = $defaultTemplates[$type][$language]['body'] ;
-        $mailTemplate->subject = $defaultTemplates[$type][$language]['subject'] ;
-
+        $mailTemplate->subject = $subject;
+        $mailTemplate->body = $body;
         $mailTemplate->store();
-        
+
         Response::respondSuccess();
 
     }

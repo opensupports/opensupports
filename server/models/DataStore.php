@@ -36,6 +36,12 @@ abstract class DataStore {
         
         return DataStoreList::getList(ucfirst(static::TABLE), $beanList);
     }
+    
+    public static function findOne($query = '', $matches = []) {
+        $bean = RedBean::findOne(static::TABLE, $query, $matches);
+        
+        return ($bean) ? new static($bean) : new NullDataStore();
+    }
 
     private static function validateProp($propToValidate) {
         $validProp = false;
