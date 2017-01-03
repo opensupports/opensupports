@@ -58,4 +58,17 @@ class Ticketevent extends DataStore {
 
         return new NullDataStore();
     }
+
+    public function toArray() {
+        $user = ($this->authorUser instanceof User) ? $this->authorUser : $this->authorStaff;
+
+        return [
+            'type' => $this->type,
+            'ticketNumber' => $this->ticket->ticketNumber,
+            'author' => [
+                'name' => $user->name,
+                'id' => $user->id
+            ]
+        ];
+    }
 }

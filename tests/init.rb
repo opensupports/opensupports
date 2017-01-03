@@ -47,5 +47,4 @@ require './staff/get-all.rb'
 require './system/add-department.rb'
 require './system/edit-department.rb'
 require './system/delete-department.rb'
-
-
+require './staff/last-events.rb'
