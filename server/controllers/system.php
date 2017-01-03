@@ -6,6 +6,7 @@ require_once 'system/add-department.php';
 require_once 'system/edit-department.php';
 require_once 'system/delete-department.php';
 require_once 'system/get-logs.php';
+require_once 'system/get-mail-templates.php';
 
 $systemControllerGroup = new ControllerGroup();
 $systemControllerGroup->setGroupPath('/system');
@@ -17,5 +18,6 @@ $systemControllerGroup->addController(new AddDepartmentController);
 $systemControllerGroup->addController(new EditDepartmentController);
 $systemControllerGroup->addController(new DeleteDepartmentController);
 $systemControllerGroup->addController(new GetLogsController);
+$systemControllerGroup->addController(new GetMailTemplatesController);
 
 $systemControllerGroup->finalize();
