@@ -46,4 +46,12 @@ class MailTemplate extends DataStore {
 
         return $compiledString;
     }
+    public function toArray() {
+        return [
+            'type' => $this->type,
+            'subject' => $this->subject,
+            'language' => $this->language,
+            'body' => $this->body,
+        ];
+    }
 }
