@@ -1,0 +1,32 @@
+@import "../../../../scss/vars";
+
+.admin-panel-system-preferences {
+
+    &__maintenance {
+        text-align: left;
+    }
+
+    &__maintenance-field {
+        display: inline-block;
+        margin-left: 30px;
+    }
+
+    &__file-attachments {
+        margin-top: 8px;
+        text-align: left;
+    }
+
+    &__file-attachments-field {
+        display: inline-block;
+        margin-left: 30px;
+    }
+
+    &__max-size {
+        text-align: left;
+    }
+
+    &__max-size-field {
+        display: inline-block;
+        margin-left: 30px;
+    }
+}
