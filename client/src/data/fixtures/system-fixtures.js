@@ -51,6 +51,16 @@ module.exports = [
         }
     },
     {
+        path: '/system/edit-settings',
+        time: 50,
+        response: function() {
+            return {
+                status: 'success',
+                data: {}
+            }
+        }
+    },
+    {
         path: '/staff/add-department',
         time: 100,
         response: function () {
