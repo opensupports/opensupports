@@ -52,13 +52,14 @@ class AdminPanelEmailTemplates extends React.Component {
                     <Listing {...this.getListingProps()}/>
                 </div>
                 <div className="col-md-9">
+                    <FormField label={i18n('LANGUAGE')} decorator={LanguageSelector} value={this.state.language} onChange={event => this.onItemChange(this.state.selectedIndex, event.target.value)} fieldProps={{
+                        type: 'allowed',
+                        size: 'medium'
+                    }}/>
                     <Form {...this.getFormProps()}>
                         <div className="row">
                             <div className="col-md-7">
                                 <FormField label={i18n('TITLE')} name="title" validation="TITLE" required fieldProps={{size: 'large'}}/>
-                            </div>
-                            <div className="col-md-5">
-                                <LanguageSelector type="allowed" size="medium" value={this.state.language} onChange={event => this.onItemChange(this.state.selectedIndex, event.target.value)}/>
                             </div>
                         </div>
                         <FormField label={i18n('CONTENT')} name="content" validation="TEXT_AREA" required field="textarea" />
@@ -67,11 +68,11 @@ class AdminPanelEmailTemplates extends React.Component {
                                 <SubmitButton type="secondary" size="small">{i18n('SAVE')}</SubmitButton>
                             </div>
                             <div className="admin-panel-email-templates__optional-buttons">
-                                <div className="admin-panel-email-templates__discard-button">
-                                    <Button onClick={this.onDiscardChangesClick.bind(this)}>{i18n('DISCARD_CHANGES')}</Button>
-                                </div>
+                                {(this.state.edited) ? this.renderDiscardButton() : null}
                                 <div className="admin-panel-email-templates__recover-button">
-                                    <Button onClick={this.onRecoverClick.bind(this)}>{i18n('RECOVER_DEFAULT')}</Button>
+                                    <Button onClick={this.onRecoverClick.bind(this)} size="medium">
+                                        {i18n('RECOVER_DEFAULT')}
+                                    </Button>
                                 </div>
                             </div>
                         </div>
@@ -85,6 +86,16 @@ class AdminPanelEmailTemplates extends React.Component {
         return (
             <div className="admin-panel-email-templates__loading">
                 <Loading backgrounded size="large"/>
+            </div>
+        );
+    }
+
+    renderDiscardButton() {
+        return (
+            <div className="admin-panel-email-templates__discard-button">
+                <Button onClick={this.onDiscardChangesClick.bind(this)} size="medium">
+                    {i18n('DISCARD_CHANGES')}
+                </Button>
             </div>
         );
     }
