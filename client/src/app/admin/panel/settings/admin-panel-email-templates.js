@@ -58,7 +58,7 @@ class AdminPanelEmailTemplates extends React.Component {
                                 <FormField label={i18n('TITLE')} name="title" validation="TITLE" required fieldProps={{size: 'large'}}/>
                             </div>
                             <div className="col-md-5">
-                                <LanguageSelector type="supported" size="medium" value={this.state.language} onChange={event => this.onItemChange(this.state.selectedIndex, event.target.value)}/>
+                                <LanguageSelector type="allowed" size="medium" value={this.state.language} onChange={event => this.onItemChange(this.state.selectedIndex, event.target.value)}/>
                             </div>
                         </div>
                         <FormField label={i18n('CONTENT')} name="content" validation="TEXT_AREA" required field="textarea" />
@@ -132,7 +132,7 @@ class AdminPanelEmailTemplates extends React.Component {
             path: '/system/edit-mail-template',
             data: {
                 templateType: this.state.items[this.state.selectedIndex].type,
-                subject: form.name,
+                subject: form.title,
                 body: form.content,
                 language: this.state.language
             }
@@ -156,7 +156,8 @@ class AdminPanelEmailTemplates extends React.Component {
         API.call({
             path: '/system/recover-mail-template',
             data: {
-                templateType: this.state.items[this.state.selectedIndex].type
+                templateType: this.state.items[this.state.selectedIndex].type,
+                language: this.state.language
             }
         }).then(() => {
             this.retrieveEmailTemplates();
@@ -189,8 +190,36 @@ class AdminPanelEmailTemplates extends React.Component {
         }).then((result) => this.setState({
             edited: false,
             loaded: true,
-            items: result.data
+            items: this.getParsedItems(result.data)
         }, this.updateForm.bind(this, this.state.selectedIndex)));
+    }
+
+    getParsedItems(items) {
+        let parsedItems = {};
+
+        _.forEach(items, (item) => {
+            if(parsedItems[item.type]) {
+                parsedItems[item.type][item.language] = {
+                    subject: item.subject,
+                    body: item.body
+                };
+            } else {
+                parsedItems[item.type] = {
+                    [item.language]: {
+                        subject: item.subject,
+                        body: item.body
+                    }
+                };
+            }
+        });
+
+        parsedItems = Object.keys(parsedItems).map((type) => {
+            return _.extend({
+                type: type
+            }, parsedItems[type]);
+        });
+
+        return parsedItems;
     }
 }
 

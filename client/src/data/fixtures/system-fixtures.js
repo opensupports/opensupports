@@ -76,34 +76,40 @@ module.exports = [
                 status: 'success',
                 data: [
                     {
-                        type: 'USER_SIGNUP',
-                        'en': {
-                            'subject': 'Signup {{to}} - OpenSupports',
-                            'body' : 'This is the user signup content {{name}}'
-                        },
-                        'es': {
-                            'subject' : 'Registrado {{to}} - OpenSupports',
-                            'body' : 'Este es el contenido de signup {{name}}'
-                        },
-                        'de': {
-                            'subject' : 'Anmelden {{to}} - OpenSupports',
-                            'body' : 'Dies ist der User Signup Content {{name}}'
-                        }
+                        type: 'USER_SINGUP',
+                        language: 'en',
+                        subject: 'Signup {{to}} - OpenSupports',
+                        body : 'This is the user signup content {{name}}'
+                    },
+                    {
+                        type: 'USER_SINGUP',
+                        language: 'es',
+                        subject: 'Registrado {{to}} - OpenSupports',
+                        body : 'Este es el contenido de signup {{name}}'
+                    },
+                    {
+                        type: 'USER_SINGUP',
+                        language: 'de',
+                        subject: 'Anmelden {{to}} - OpenSupports',
+                        body : 'Dies ist der User Signup Content {{name}}'
                     },
                     {
                         type: 'USER_EDIT_PASSWORD',
-                        'en': {
-                            'subject': 'Password changed {{to}} - OpenSupports',
-                            'body' : 'Password has been edited {{name}}'
-                        },
-                        'es': {
-                            'subject' : 'Password cambiado {{to}} - OpenSupports',
-                            'body' : 'El password ha sido editado {{name}}'
-                        },
-                        'de': {
-                            'subject' : 'Passwort geändert {{to}} - OpenSupports',
-                            'body' : 'Passwort wurde bearbeitet {{name}}'
-                        }
+                        language: 'en',
+                        subject: 'Password changed {{to}} - OpenSupports',
+                        body : 'Password has been edited {{name}}'
+                    },
+                    {
+                        type: 'USER_EDIT_PASSWORD',
+                        language: 'es',
+                        subject: 'Password cambiado {{to}} - OpenSupports',
+                        body : 'El password ha sido editado {{name}}'
+                    },
+                    {
+                        type: 'USER_EDIT_PASSWORD',
+                        language: 'de',
+                        subject: 'Passwort geändert {{to}} - OpenSupports',
+                        body : 'Passwort wurde bearbeitet {{name}}'
                     }
                 ]
             };
