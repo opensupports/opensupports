@@ -56,13 +56,17 @@ class SessionStore {
         this.setItem('language', configs.language);
         this.setItem('reCaptchaKey', configs.reCaptchaKey);
         this.setItem('departments', JSON.stringify(configs.departments));
+        this.setItem('allowedLanguages', JSON.stringify(configs.allowedLanguages));
+        this.setItem('supportedLanguages', JSON.stringify(configs.supportedLanguages));
     }
 
     getConfigs() {
         return {
             language: this.getItem('language'),
             reCaptchaKey: this.getItem('reCaptchaKey'),
-            departments: this.getDepartments()
+            departments: this.getDepartments(),
+            allowedLanguages: JSON.parse(this.getItem('allowedLanguages')),
+            supportedLanguages: JSON.parse(this.getItem('supportedLanguages'))
         };
     }
 

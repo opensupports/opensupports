@@ -13,7 +13,9 @@ module.exports = [
                         {id: 1, name: 'Sales Support', owners: 2},
                         {id: 2, name: 'Technical Issues', owners: 5},
                         {id: 3, name: 'System and Administration', owners: 0}
-                    ]
+                    ],
+                    'allowedLanguages': ['en', 'es', 'de', 'fr', 'pt', 'jp', 'ru', 'cn', 'in', 'tr'],
+                    'supportedLanguages': ['en', 'es', 'de']
                 }
             };
         }

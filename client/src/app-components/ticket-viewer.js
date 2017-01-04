@@ -14,7 +14,8 @@ import FormField          from 'core-components/form-field';
 import SubmitButton       from 'core-components/submit-button';
 import DropDown           from 'core-components/drop-down';
 import Button             from 'core-components/button';
-import Message             from 'core-components/message';
+import Message            from 'core-components/message';
+import Icon               from 'core-components/icon';
 
 class TicketViewer extends React.Component {
     static propTypes = {
@@ -48,6 +49,9 @@ class TicketViewer extends React.Component {
                 <div className="ticket-viewer__header row">
                     <span className="ticket-viewer__number">#{ticket.ticketNumber}</span>
                     <span className="ticket-viewer__title">{ticket.title}</span>
+                    <span className="ticket-viewer__flag">
+                        <Icon name={(ticket.language === 'en') ? 'us' : ticket.language}/>
+                    </span>
                 </div>
                 {this.props.editable ? this.renderEditableHeaders() : this.renderHeaders()}
                 <div className="ticket-viewer__content">
