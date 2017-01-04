@@ -10,14 +10,15 @@ import Button from 'core-components/button';
 import Message from 'core-components/message';
 
 import API from 'lib-app/api-call';
-import ToggleButton from 'app-components/toggle-button';
 import i18n from 'lib-app/i18n';
+import LanguageSelector from 'app-components/language-selector';
+import ToggleButton from 'app-components/toggle-button';
 
 class AdminPanelSystemPreferences extends React.Component {
 
     state = {
         loading: true,
-        message: false,
+        message: null,
         values: {
             'maintenance': false
         }
@@ -31,7 +32,7 @@ class AdminPanelSystemPreferences extends React.Component {
         return (
             <div className="admin-panel-system-preferences">
                 <Header title={i18n('SYSTEM_PREFERENCES')} description="Here you can adjust your system preferences :)"/>
-                <Form values={this.state.values} onChange={values => this.setState({values})} onSubmit={this.onSubmit.bind(this)} loading={this.state.loading}>
+                <Form values={this.state.values} onChange={values => this.setState({values, message: null})} onSubmit={this.onSubmit.bind(this)} loading={this.state.loading}>
                     <div className="row">
                         <div className="col-md-12">
                             <div className="admin-panel-system-preferences__maintenance">
@@ -98,16 +99,13 @@ class AdminPanelSystemPreferences extends React.Component {
                             <FormField label={i18n('RECAPTCHA_PRIVATE_KEY')} fieldProps={{size: 'large'}} name="reCaptchaPrivate"/>
                             <div className="admin-panel-system-preferences__file-attachments">
                                 <span>{i18n('ALLOW_FILE_ATTACHMENTS')}</span>
-                                <FormField className="admin-panel-system-preferences__file-attachments-field" name="file-attachments" decorator={ToggleButton}/>
+                                <FormField className="admin-panel-system-preferences__file-attachments-field" name="allow-attachments" decorator={ToggleButton}/>
                             </div>
                             <div className="admin-panel-system-preferences__max-size">
                                 <span>{i18n('MAX_SIZE_KB')}</span>
                                 <FormField className="admin-panel-system-preferences__max-size-field" fieldProps={{size: 'small'}} name="max-size"/>
                             </div>
-                            <FormField name="language" label={i18n('DEFAULT_LANGUAGE')} field="select" fieldProps={{
-                                    items: [{content: 'es'}, {content: 'en'}],
-                                    size: 'large'
-                                }} />
+                            <FormField className="admin-panel-system-preferences__default-language-field" name="language" label={i18n('DEFAULT_LANGUAGE')} decorator={LanguageSelector} />
                         </div>
                     </div>
                     <div className="row">
@@ -120,12 +118,24 @@ class AdminPanelSystemPreferences extends React.Component {
                             <SubmitButton type="secondary">{i18n('UPDATE_SETTINGS')}</SubmitButton>
                         </div>
                         <div className="col-md-4">
-                            <Button onClick={event => event.preventDefault()}>{i18n('DISCARD_CHANGES')}</Button>
+                            <Button onClick={this.onDiscardChangesSubmit.bind(this)}>{i18n('DISCARD_CHANGES')}</Button>
                         </div>
                     </div>
                 </Form>
+                {this.renderMessage()}
             </div>
         );
+    }
+
+    renderMessage() {
+        switch (this.state.message) {
+            case 'success':
+                return <Message className="admin-panel-system-preferences__message" type="success">{i18n('SETTINGS_UPDATED')}</Message>;
+            case 'fail':
+                return <Message className="admin-panel-system-preferences__message" type="error">{i18n('ERROR_UPDATING_SETTINGS')}</Message>;
+            default:
+                return null;
+        }
     }
 
     onSubmit(form) {
@@ -135,9 +145,9 @@ class AdminPanelSystemPreferences extends React.Component {
         API.call({
             path: '/system/edit-settings',
             data: {
-                'language': fullList[form.language],
-                'reCaptchaKey': form.reCaptchaKey,
-                'reCaptchaPrivate': form.reCaptchaPrivate,
+                'language': form.language,
+                'recaptcha-public': form.reCaptchaKey,
+                'recaptcha-private': form.reCaptchaPrivate,
                 'url': form['url'],
                 'title': form['title'],
                 'layout': form['layout'] == 1 ? 'Full width' : 'Boxed',
@@ -148,17 +158,20 @@ class AdminPanelSystemPreferences extends React.Component {
                 'smtp-user': form['smtp-user'],
                 'smtp-pass': form['smtp-password'],
                 'maintenance-mode': form['maintenance-mode'],
-                'file-attachments': form['file-attachments'],
+                'allow-attachments': form['allow-attachments'],
                 'max-size': form['max-size'],
-                'allowedLanguages': form.allowedLanguages.map(index => fullList[index]),
-                'supportedLanguages': form.supportedLanguages.map(index => fullList[index])
+                'allowedLanguages': JSON.stringify(form.allowedLanguages.map(index => fullList[index])),
+                'supportedLanguages': JSON.stringify(form.supportedLanguages.map(index => fullList[index]))
             }
-        }).then(this.onSubmitSuccess.bind(this));
+        }).then(this.onSubmitSuccess.bind(this)).catch(() => this.setState({loading: false, message: 'fail'}));
     }
 
     onSubmitSuccess() {
         this.recoverSettings();
-
+        this.setState({
+            message: 'success',
+            loading: false
+        });
     }
 
     getLanguageList() {
@@ -180,7 +193,7 @@ class AdminPanelSystemPreferences extends React.Component {
         this.setState({
             loading: false,
             values: {
-                'language': _.indexOf(fullList, result.data.language),
+                'language': result.data.language,
                 'reCaptchaKey': result.data.reCaptchaKey,
                 'reCaptchaPrivate': result.data.reCaptchaPrivate,
                 'url': result.data['url'],
@@ -193,7 +206,7 @@ class AdminPanelSystemPreferences extends React.Component {
                 'smtp-user': result.data['smtp-user'],
                 'smtp-pass': '',
                 'maintenance-mode': result.data['maintenance-mode'],
-                'file-attachments': result.data['file-attachments'],
+                'allow-attachments': result.data['allow-attachments'],
                 'max-size': result.data['max-size'],
                 'allowedLanguages': result.data.allowedLanguages.map(lang => (_.indexOf(fullList, lang))),
                 'supportedLanguages': result.data.supportedLanguages.map(lang => (_.indexOf(fullList, lang)))
@@ -202,7 +215,15 @@ class AdminPanelSystemPreferences extends React.Component {
     }
 
     onRecoverSettingsFail(result) {
-
+        this.setState({
+            message: 'error'
+        });
+    }
+    
+    onDiscardChangesSubmit(event) {
+        event.preventDefault();
+        this.setState({loading: true});
+        this.recoverSettings();
     }
 }
 

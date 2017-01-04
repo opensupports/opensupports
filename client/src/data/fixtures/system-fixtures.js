@@ -19,7 +19,7 @@ module.exports = [
                         'smtp-port': '7070',
                         'smtp-user': 'Wesa',
                         'maintenance-mode': false,
-                        'fileAttachments': false,
+                        'allow-attachments': true,
                         'max-size': 500,
                         'departments': [
                             {id: 1, name: 'Sales Support', owners: 2},

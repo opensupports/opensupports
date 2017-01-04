@@ -135,6 +135,7 @@ export default {
     'DEFAULT_LANGUAGE': 'Default Language',
     'SUPPORTED_LANGUAGES': 'Supported Languages',
     'ALLOWED_LANGUAGES': 'Allowed Languages',
+    'SETTINGS_UPDATED': 'Settings have been updated',
     'ON': 'On',
     'OFF': 'Off',
     'BOXED': 'Boxed',
@@ -189,6 +190,7 @@ export default {
     'ERROR_RETRIEVING_BAN_LIST': 'An error occurred while trying to retrieve the list of banned emails.',
     'ERROR_BANNING_EMAIL': 'An error occurred while trying to ban the email.',
     'ERROR_RETRIEVING_ARTICLES': 'An error occurred while trying to retrieve articles.',
+    'ERROR_UPDATING_SETTINGS': 'An error ocurred while trying to update settings.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',
