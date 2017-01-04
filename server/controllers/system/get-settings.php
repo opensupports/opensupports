@@ -11,17 +11,43 @@ class GetSettingsController extends Controller {
     }
 
     public function handler() {
-        Response::respondSuccess([
-            'language' => Setting::getSetting('language')->getValue(),
-            'reCaptchaKey' => Setting::getSetting('recaptcha-public')->getValue(),
-            'time-zone' => Setting::getSetting('time-zone')->getValue(),
-            'maintenance-mode' => Setting::getSetting('maintenance-mode')->getValue(),
-            'layout' => Setting::getSetting('layout')->getValue(),
-            'allow-attachments' => Setting::getSetting('allow-attachments')->getValue(),
-            'max-size' => Setting::getSetting('max-size')->getValue(),
-            'departments' => Department::getDepartmentNames(),
-            'supportedLanguages' => Language::getSupportedLanguages(),
-            'allowedLanguages' => Language::getAllowedLanguages()
-        ]);
+
+        if(Controller::request('allSettings') && Controller::isStaffLogged(3)) {
+            $settingsList = [
+                'language' => Setting::getSetting('language')->getValue(),
+                'reCaptchaKey' => Setting::getSetting('recaptcha-public')->getValue(),
+                'reCaptchaPrivate' => Setting::getSetting('recaptcha-private')->getValue(),
+                'time-zone' => Setting::getSetting('time-zone')->getValue(),
+                'maintenance-mode' => Setting::getSetting('maintenance-mode')->getValue(),
+                'layout' => Setting::getSetting('layout')->getValue(),
+                'allow-attachments' => Setting::getSetting('allow-attachments')->getValue(),
+                'max-size' => Setting::getSetting('max-size')->getValue(),
+                'url' => Setting::getSetting('url')->getValue(),
+                'title' => Setting::getSetting('title')->getValue(),
+                'no-reply-email' => Setting::getSetting('no-reply-email')->getValue(),
+                'smtp-port' => Setting::getSetting('smtp-port')->getValue(),
+                'smtp-host' => Setting::getSetting('smtp-port')->getValue(),
+                'smtp-user' => Setting::getSetting('smtp-port')->getValue(),
+                'departments' => Department::getDepartmentNames(),
+                'supportedLanguages' => Language::getSupportedLanguages(),
+                'allowedLanguages' => Language::getAllowedLanguages()
+            ];
+        } else {
+            $settingsList = [
+                'language' => Setting::getSetting('language')->getValue(),
+                'reCaptchaKey' => Setting::getSetting('recaptcha-public')->getValue(),
+                'time-zone' => Setting::getSetting('time-zone')->getValue(),
+                'maintenance-mode' => Setting::getSetting('maintenance-mode')->getValue(),
+                'layout' => Setting::getSetting('layout')->getValue(),
+                'allow-attachments' => Setting::getSetting('allow-attachments')->getValue(),
+                'max-size' => Setting::getSetting('max-size')->getValue(),
+                'title' => Setting::getSetting('title')->getValue(),
+                'departments' => Department::getDepartmentNames(),
+                'supportedLanguages' => Language::getSupportedLanguages(),
+                'allowedLanguages' => Language::getAllowedLanguages()
+            ];
+        }
+
+        Response::respondSuccess($settingsList);
     }
 }
