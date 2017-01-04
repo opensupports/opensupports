@@ -29,4 +29,20 @@
         display: inline-block;
         margin-left: 30px;
     }
+
+    &__languages {
+        margin: 0 auto;
+
+        &-allowed {
+            text-align: left;
+            display: inline-block;
+            //background-color: red;
+        }
+
+        &-supported {
+            text-align: left;
+            display: inline-block;
+            //background-color: $light-grey;
+        }
+    }
 }
