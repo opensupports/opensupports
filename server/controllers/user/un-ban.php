@@ -29,7 +29,6 @@ class UnBanUserController extends Controller {
 
             Response::respondSuccess();
         }
-        
     }
         
 }

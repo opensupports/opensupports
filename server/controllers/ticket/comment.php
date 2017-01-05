@@ -31,7 +31,7 @@ class CommentController extends Controller {
         if ($session->isLoggedWithId($this->ticket->author->id) || Controller::isStaffLogged()) {
             $this->storeComment();
             
-            Log::createLog('COMMENT_TICKET', $this->ticket);
+            Log::createLog('COMMENT_TICKET', $this->ticket->ticketNumber);
             
             Response::respondSuccess();
         } else {
