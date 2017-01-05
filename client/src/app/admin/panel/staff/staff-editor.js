@@ -137,7 +137,7 @@ class StaffEditor extends React.Component {
             <div>
                 <span className="separator staff-editor__separator"/>
                 <Form className="staff-editor__update-level" values={{level: this.state.level}} onChange={form => this.setState({level: form.level})} onSubmit={this.onSubmit.bind(this, 'LEVEL')}>
-                    <FormField name="level" label={i18n('LEVEL')} field="select" fieldProps={{
+                    <FormField name="level" label={i18n('LEVEL')} field="select" infoMessage={this.getStaffLevelInfo()} fieldProps={{
                                     items: [{content: i18n('LEVEL_1')}, {content: i18n('LEVEL_2')}, {content: i18n('LEVEL_3')}],
                                     size: 'large'
                                 }} />
@@ -217,6 +217,25 @@ class StaffEditor extends React.Component {
 
     getDepartments() {
         return SessionStore.getDepartments().map(department => department.name);
+    }
+
+    getStaffLevelInfo() {
+        return (
+            <div className="staff-editor__level-info">
+                <div className="staff-editor__level-info-box">
+                    <span className="staff-editor__level-info-title">{i18n('LEVEL')} 1 </span>
+                    <span className="staff-editor__level-info-description">{i18n('LEVEL_1_DESCRIPTION')}</span>
+                </div>
+                <div className="staff-editor__level-info-box">
+                    <span className="staff-editor__level-info-title">{i18n('LEVEL')} 2 </span>
+                    <span className="staff-editor__level-info-description">{i18n('LEVEL_2_DESCRIPTION')}</span>
+                </div>
+                <div className="staff-editor__level-info-box">
+                    <span className="staff-editor__level-info-title">{i18n('LEVEL')} 3 </span>
+                    <span className="staff-editor__level-info-description">{i18n('LEVEL_3_DESCRIPTION')}</span>
+                </div>
+            </div>
+        );
     }
 
     onSubmit(eventType, form) {
