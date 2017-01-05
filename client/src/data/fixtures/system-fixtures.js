@@ -116,5 +116,106 @@ module.exports = [
                 ]
             };
         }
+    },
+    {
+        path: '/system/get-logs',
+        time: 30,
+        response: function() {
+            return {
+                status: 'success',
+                data: [
+                    {
+                        "type": "COMMENT",
+                        "ticketNumber": "683061",
+                        "author": {
+                            "name": "Julieta Lannister",
+                            "staff": false,
+                            "id": "10"
+                        }
+                    },
+                    {
+                        "type": "RE_OPEN",
+                        "ticketNumber": "683061",
+                        "author": {
+                            "name": "Elizabelth Lannister",
+                            "staff": false,
+                            "id": "10"
+                        }
+                    },
+                    {
+                        "type": "CLOSE",
+                        "ticketNumber": "683061",
+                        "author": {
+                            "name": "Emilia Clarker",
+                            "staff": true,
+                            "id": "1"
+                        }
+                    },
+                    {
+                        "type": "DEPARTMENT_CHANGED",
+                        "ticketNumber": "683061",
+                        "author": {
+                            "name": "Emilia Clarker",
+                            "staff": true,
+                            "id": "1"
+                        }
+                    },
+                    {
+                        "type": "PRIORITY_CHANGED",
+                        "ticketNumber": "683061",
+                        "author": {
+                            "name": "Emilia Clarker",
+                            "staff": true,
+                            "id": "1"
+                        }
+                    },
+                    {
+                        "type": "ASSIGN",
+                        "ticketNumber": "683061",
+                        "author": {
+                            "name": "Emilia Clarker",
+                            "staff": true,
+                            "id": "1"
+                        }
+                    },
+                    {
+                        "type": "UN_ASSIGN",
+                        "ticketNumber": "683061",
+                        "author": {
+                            "name": "Emilia Clarker",
+                            "staff": true,
+                            "id": "1"
+                        }
+                    },
+                    {
+                        "type": "COMMENT",
+                        "ticketNumber": "683061",
+                        "author": {
+                            "name": "Emilia Clarker",
+                            "staff": true,
+                            "id": "1"
+                        }
+                    },
+                    {
+                        "type": "ASSIGN",
+                        "ticketNumber": "683061",
+                        "author": {
+                            "name": "Emilia Clarker",
+                            "staff": true,
+                            "id": "1"
+                        }
+                    },
+                    {
+                        "type": "PRIORITY_CHANGED",
+                        "ticketNumber": "608120",
+                        "author": {
+                            "name": "Emilia Clarker",
+                            "staff": true,
+                            "id": "1"
+                        }
+                    }
+                ]
+            };
+        }
     }
 ];
