@@ -119,6 +119,13 @@ export default {
     'DELETE_STAFF_MEMBER': 'Delete staff member',
     'MAINTENANCE_MODE': 'Maintenance mode',
     'RECOVER_DEFAULT': 'Recover default',
+    'ACTIVITY_COMMENT': ' commented ',
+    'ACTIVITY_ASSIGN': ' assigned ',
+    'ACTIVITY_UN_ASSIGN': ' unassigned ',
+    'ACTIVITY_CLOSED': ' closed ',
+    'ACTIVITY_RE_OPEN': ' reopened ',
+    'ACTIVITY_DEPARTMENT_CHANGED': ' changed departments of ',
+    'ACTIVITY_PRIORITY_CHANGED': ' changed priority of ',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',

@@ -1,0 +1,26 @@
+@import "../scss/vars";
+
+.activity-row {
+    text-align: left;
+    font-size: $font-size--sm;
+
+    &__icon {
+        margin: 0 10px;
+    }
+
+    &__name-link {
+
+    }
+
+    &__message {
+
+    }
+
+    &__ticket-link {
+
+    }
+}
+
+.separator {
+    margin: 15px;
+}
