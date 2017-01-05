@@ -15,13 +15,15 @@ import Button from 'core-components/button';
 import Message from 'core-components/message';
 import InfoTooltip from 'core-components/info-tooltip';
 
+const languageKeys = Object.keys(languageList);
+
 class AdminPanelSystemPreferences extends React.Component {
 
     state = {
         loading: true,
         message: null,
         values: {
-            'maintenance': false
+            maintenance: false
         }
     };
 
@@ -33,7 +35,7 @@ class AdminPanelSystemPreferences extends React.Component {
         return (
             <div className="admin-panel-system-preferences">
                 <Header title={i18n('SYSTEM_PREFERENCES')} description={i18n('SYSTEM_PREFERENCES_DESCRIPTION')}/>
-                <Form values={this.state.values} onChange={values => this.setState({values, message: null})} onSubmit={this.onSubmit.bind(this)} loading={this.state.loading}>
+                <Form values={this.state.values} onChange={this.onFormChange.bind(this)} onSubmit={this.onSubmit.bind(this)} loading={this.state.loading}>
                     <div className="row">
                         <div className="col-md-12">
                             <div className="admin-panel-system-preferences__maintenance">
@@ -96,7 +98,10 @@ class AdminPanelSystemPreferences extends React.Component {
                             </div>
                         </div>
                         <div className="col-md-6">
-                            <FormField className="admin-panel-system-preferences__default-language-field" name="language" label={i18n('DEFAULT_LANGUAGE')} decorator={LanguageSelector} />
+                            <FormField className="admin-panel-system-preferences__default-language-field" name="language" label={i18n('DEFAULT_LANGUAGE')} decorator={LanguageSelector} fieldProps={{
+                                type: 'custom',
+                                customList: (this.state.values.supportedLanguages && this.state.values.supportedLanguages.length) ? this.state.values.supportedLanguages.map(index => languageKeys[index]) : undefined
+                            }} />
                             <FormField label={i18n('RECAPTCHA_PUBLIC_KEY')} fieldProps={{size: 'large'}} name="reCaptchaKey"/>
                             <FormField label={i18n('RECAPTCHA_PRIVATE_KEY')} fieldProps={{size: 'large'}} name="reCaptchaPrivate"/>
                             <div className="admin-panel-system-preferences__file-attachments">
@@ -139,8 +144,17 @@ class AdminPanelSystemPreferences extends React.Component {
         }
     }
 
+    onFormChange(form) {
+        let values = _.clone(form);
+
+        _.extend(values, {
+            supportedLanguages: _.filter(values.supportedLanguages, (language) => _.includes(values.allowedLanguages, language))
+        });
+
+        this.setState({values, message: null});
+    }
+
     onSubmit(form) {
-        let fullList = Object.keys(languageList);
         this.setState({loading: true});
 
         API.call({
@@ -161,8 +175,8 @@ class AdminPanelSystemPreferences extends React.Component {
                 'maintenance-mode': form['maintenance-mode'],
                 'allow-attachments': form['allow-attachments'],
                 'max-size': form['max-size'],
-                'allowedLanguages': JSON.stringify(form.allowedLanguages.map(index => fullList[index])),
-                'supportedLanguages': JSON.stringify(form.supportedLanguages.map(index => fullList[index]))
+                'allowedLanguages': JSON.stringify(form.allowedLanguages.map(index => languageKeys[index])),
+                'supportedLanguages': JSON.stringify(form.supportedLanguages.map(index => languageKeys[index]))
             }
         }).then(this.onSubmitSuccess.bind(this)).catch(() => this.setState({loading: false, message: 'fail'}));
     }
@@ -189,8 +203,6 @@ class AdminPanelSystemPreferences extends React.Component {
     }
 
     onRecoverSettingsSuccess(result) {
-        let fullList = Object.keys(languageList);
-
         this.setState({
             loading: false,
             values: {
@@ -209,8 +221,8 @@ class AdminPanelSystemPreferences extends React.Component {
                 'maintenance-mode': result.data['maintenance-mode'],
                 'allow-attachments': result.data['allow-attachments'],
                 'max-size': result.data['max-size'],
-                'allowedLanguages': result.data.allowedLanguages.map(lang => (_.indexOf(fullList, lang))),
-                'supportedLanguages': result.data.supportedLanguages.map(lang => (_.indexOf(fullList, lang)))
+                'allowedLanguages': result.data.allowedLanguages.map(lang => (_.indexOf(languageKeys, lang))),
+                'supportedLanguages': result.data.supportedLanguages.map(lang => (_.indexOf(languageKeys, lang)))
             }
         });
     }

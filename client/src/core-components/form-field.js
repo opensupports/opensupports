@@ -22,7 +22,7 @@ class FormField extends React.Component {
         onBlur: React.PropTypes.func,
         required: React.PropTypes.bool,
         error: React.PropTypes.string,
-        infoMessage: React.PropTypes.string,
+        infoMessage: React.PropTypes.node,
         value: React.PropTypes.any,
         field: React.PropTypes.oneOf(['input', 'textarea', 'select', 'checkbox', 'checkbox-group']),
         fieldProps: React.PropTypes.object
