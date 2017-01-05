@@ -1,5 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
+
+import API from 'lib-app/api-call';
+import i18n from 'lib-app/i18n';
+import LanguageSelector from 'app-components/language-selector';
+import ToggleButton from 'app-components/toggle-button';
 import languageList from 'data/language-list';
 
 import Form from 'core-components/form';
@@ -8,11 +13,7 @@ import Header from 'core-components/header';
 import SubmitButton from 'core-components/submit-button';
 import Button from 'core-components/button';
 import Message from 'core-components/message';
-
-import API from 'lib-app/api-call';
-import i18n from 'lib-app/i18n';
-import LanguageSelector from 'app-components/language-selector';
-import ToggleButton from 'app-components/toggle-button';
+import InfoTooltip from 'core-components/info-tooltip';
 
 class AdminPanelSystemPreferences extends React.Component {
 
@@ -31,12 +32,12 @@ class AdminPanelSystemPreferences extends React.Component {
     render() {
         return (
             <div className="admin-panel-system-preferences">
-                <Header title={i18n('SYSTEM_PREFERENCES')} description="Here you can adjust your system preferences :)"/>
+                <Header title={i18n('SYSTEM_PREFERENCES')} description={i18n('SYSTEM_PREFERENCES_DESCRIPTION')}/>
                 <Form values={this.state.values} onChange={values => this.setState({values, message: null})} onSubmit={this.onSubmit.bind(this)} loading={this.state.loading}>
                     <div className="row">
                         <div className="col-md-12">
                             <div className="admin-panel-system-preferences__maintenance">
-                                <span>Maintenance Mode</span>
+                                <span>{i18n('MAINTENANCE_MODE')} <InfoTooltip text={i18n('MAINTENANCE_MODE_INFO')} /></span>
                                 <FormField className="admin-panel-system-preferences__maintenance-field" name="maintenance-mode" decorator={ToggleButton}/>
                             </div>
                         </div>
@@ -85,16 +86,17 @@ class AdminPanelSystemPreferences extends React.Component {
                         <div className="col-md-6">
                             <div className="row admin-panel-system-preferences__languages">
                                 <div className="col-md-6 admin-panel-system-preferences__languages-allowed">
-                                    <div>{i18n('ALLOWED_LANGUAGES')}</div>
+                                    <div>{i18n('ALLOWED_LANGUAGES')} <InfoTooltip text={i18n('ALLOWED_LANGUAGES_INFO')} /></div>
                                     <FormField name="allowedLanguages" field="checkbox-group" fieldProps={{items: this.getLanguageList()}} />
                                 </div>
                                 <div className="col-md-6 admin-panel-system-preferences__languages-supported">
-                                    <div>{i18n('SUPPORTED_LANGUAGES')}</div>
+                                    <div>{i18n('SUPPORTED_LANGUAGES')} <InfoTooltip text={i18n('SUPPORTED_LANGUAGES_INFO')} /></div>
                                     <FormField name="supportedLanguages" field="checkbox-group" fieldProps={{items: this.getLanguageList()}} />
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
+                            <FormField className="admin-panel-system-preferences__default-language-field" name="language" label={i18n('DEFAULT_LANGUAGE')} decorator={LanguageSelector} />
                             <FormField label={i18n('RECAPTCHA_PUBLIC_KEY')} fieldProps={{size: 'large'}} name="reCaptchaKey"/>
                             <FormField label={i18n('RECAPTCHA_PRIVATE_KEY')} fieldProps={{size: 'large'}} name="reCaptchaPrivate"/>
                             <div className="admin-panel-system-preferences__file-attachments">
@@ -105,7 +107,6 @@ class AdminPanelSystemPreferences extends React.Component {
                                 <span>{i18n('MAX_SIZE_KB')}</span>
                                 <FormField className="admin-panel-system-preferences__max-size-field" fieldProps={{size: 'small'}} name="max-size"/>
                             </div>
-                            <FormField className="admin-panel-system-preferences__default-language-field" name="language" label={i18n('DEFAULT_LANGUAGE')} decorator={LanguageSelector} />
                         </div>
                     </div>
                     <div className="row">
@@ -214,7 +215,7 @@ class AdminPanelSystemPreferences extends React.Component {
         });
     }
 
-    onRecoverSettingsFail(result) {
+    onRecoverSettingsFail() {
         this.setState({
             message: 'error'
         });

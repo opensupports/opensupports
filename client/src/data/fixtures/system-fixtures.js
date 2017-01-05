@@ -10,7 +10,7 @@ module.exports = [
                         'language': 'en',
                         'reCaptchaKey': '6LfM5CYTAAAAAGLz6ctpf-hchX2_l0Ge-Bn-n8wS',
                         'reCaptchaPrivate': 'LALA',
-                        'url': 'hola@lala.com',
+                        'url': 'http://www.opensupports.com/support',
                         'title': 'Very Cool',
                         'layout': 'Boxed',
                         'time-zone': 3,
