@@ -61,7 +61,7 @@ module.exports = [
         }
     },
     {
-        path: '/staff/add-department',
+        path: '/system/add-department',
         time: 100,
         response: function () {
             return {
@@ -71,7 +71,7 @@ module.exports = [
         }
     },
     {
-        path: '/staff/edit-department',
+        path: '/system/edit-department',
         time: 100,
         response: function () {
             return {
@@ -81,12 +81,79 @@ module.exports = [
         }
     },
     {
-        path: '/staff/delete-department',
+        path: '/system/delete-department',
         time: 100,
         response: function () {
             return {
                 status: 'success',
                 data: {}
+            };
+        }
+    },
+    {
+        path: '/system/edit-mail-template',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/system/recover-mail-template',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/system/get-mail-templates',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: [
+                    {
+                        type: 'USER_SINGUP',
+                        language: 'en',
+                        subject: 'Signup {{to}} - OpenSupports',
+                        body : 'This is the user signup content {{name}}'
+                    },
+                    {
+                        type: 'USER_SINGUP',
+                        language: 'es',
+                        subject: 'Registrado {{to}} - OpenSupports',
+                        body : 'Este es el contenido de signup {{name}}'
+                    },
+                    {
+                        type: 'USER_SINGUP',
+                        language: 'de',
+                        subject: 'Anmelden {{to}} - OpenSupports',
+                        body : 'Dies ist der User Signup Content {{name}}'
+                    },
+                    {
+                        type: 'USER_EDIT_PASSWORD',
+                        language: 'en',
+                        subject: 'Password changed {{to}} - OpenSupports',
+                        body : 'Password has been edited {{name}}'
+                    },
+                    {
+                        type: 'USER_EDIT_PASSWORD',
+                        language: 'es',
+                        subject: 'Password cambiado {{to}} - OpenSupports',
+                        body : 'El password ha sido editado {{name}}'
+                    },
+                    {
+                        type: 'USER_EDIT_PASSWORD',
+                        language: 'de',
+                        subject: 'Passwort geändert {{to}} - OpenSupports',
+                        body : 'Passwort wurde bearbeitet {{name}}'
+                    }
+                ]
             };
         }
     }

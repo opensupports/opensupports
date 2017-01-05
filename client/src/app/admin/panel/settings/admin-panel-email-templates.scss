@@ -1,0 +1,21 @@
+.admin-panel-email-templates {
+
+    &__save-button {
+        display: inline-block;
+        float: left;
+    }
+
+    &__optional-buttons {
+        display: inline-block;
+        float: right;
+    }
+
+    &__discard-button {
+        display: inline-block;
+    }
+
+    &__recover-button {
+        display: inline-block;
+        margin-left: 10px;
+    }
+}
