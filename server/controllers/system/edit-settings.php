@@ -26,7 +26,8 @@ class EditSettingsController extends Controller {
             'layout',
             'allow-attachments',
             'max-size',
-            'system-title'
+            'title',
+            'url'
         ];
 
         foreach($settings as $setting) {

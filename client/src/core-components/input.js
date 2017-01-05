@@ -14,7 +14,7 @@ class Input extends React.Component {
         value: React.PropTypes.string,
         validation: React.PropTypes.string,
         onChange: React.PropTypes.func,
-        size: React.PropTypes.oneOf(['small', 'medium', 'large']),
+        size: React.PropTypes.oneOf(['small', 'medium', 'large', 'auto']),
         password: React.PropTypes.bool,
         required: React.PropTypes.bool,
         icon: React.PropTypes.string,
