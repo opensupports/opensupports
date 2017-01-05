@@ -16,6 +16,7 @@ const Menu = require('core-components/menu');
 const Tooltip = require('core-components/tooltip');
 const Table = require('core-components/table');
 const InfoTooltip = require('core-components/info-tooltip');
+const ToggleButton = require('app-components/toggle-button');
 
 let dropDownItems = [{content: 'English'}, {content: 'Spanish'}, {content: 'German'}, {content: 'Portuguese'}, {content: 'Japanese'}];
 let secondaryMenuItems = [
