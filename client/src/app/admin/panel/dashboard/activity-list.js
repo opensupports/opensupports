@@ -74,7 +74,7 @@ class ActivityList extends React.Component {
             data: {
                 page: this.state.page
             }
-        }).then(this.onRetrieveSuccess.bind(this)).catch(this.onRetrieveFail.bind(this))
+        }).then(this.onRetrieveSuccess.bind(this));
     }
 
     onRetrieveSuccess(result) {
@@ -84,10 +84,6 @@ class ActivityList extends React.Component {
             limit: (result.data.length !== 10),
             loading: false
         });
-    }
-
-    onRetrieveFail() {
-
     }
 }
 

@@ -32,7 +32,7 @@ class ReOpenController extends Controller {
 
         $this->ticket->store();
 
-        Log::createLog('RE_OPEN_TICKET', $this->ticket->ticketNumber);
+        Log::createLog('RE_OPEN', $this->ticket->ticketNumber);
 
         Response::respondSuccess();
     }

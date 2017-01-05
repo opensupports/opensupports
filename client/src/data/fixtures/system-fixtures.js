@@ -162,96 +162,96 @@ module.exports = [
         time: 30,
         response: function() {
             return {
-                status: 'success',
-                data: [
+                "status": "success",
+                "data": [
                     {
-                        "type": "COMMENT",
-                        "ticketNumber": "683061",
+                        "type": "EDIT_SETTINGS",
+                        "to": null,
                         "author": {
-                            "name": "Julieta Lannister",
-                            "staff": false,
-                            "id": "10"
+                            "name": "Emilia Clarke",
+                            "id": "1",
+                            "staff": true
                         }
                     },
                     {
-                        "type": "RE_OPEN",
-                        "ticketNumber": "683061",
+                        "type": "SIGNUP",
+                        "to": null,
                         "author": {
-                            "name": "Elizabelth Lannister",
-                            "staff": false,
-                            "id": "10"
+                            "name": "Steve Jobs",
+                            "id": "1",
+                            "staff": false
                         }
                     },
                     {
-                        "type": "CLOSE",
-                        "ticketNumber": "683061",
+                        "type": "SIGNUP",
+                        "to": null,
                         "author": {
-                            "name": "Emilia Clarker",
-                            "staff": true,
-                            "id": "1"
+                            "name": "steve jobs",
+                            "id": "2",
+                            "staff": false
                         }
                     },
                     {
-                        "type": "DEPARTMENT_CHANGED",
-                        "ticketNumber": "683061",
+                        "type": "SIGNUP",
+                        "to": null,
                         "author": {
-                            "name": "Emilia Clarker",
-                            "staff": true,
-                            "id": "1"
+                            "name": "steve jobs",
+                            "id": "3",
+                            "staff": false
                         }
                     },
                     {
-                        "type": "PRIORITY_CHANGED",
-                        "ticketNumber": "683061",
+                        "type": "SIGNUP",
+                        "to": null,
                         "author": {
-                            "name": "Emilia Clarker",
-                            "staff": true,
-                            "id": "1"
+                            "name": "Creator",
+                            "id": "5",
+                            "staff": false
                         }
                     },
                     {
-                        "type": "ASSIGN",
-                        "ticketNumber": "683061",
+                        "type": "CREATE_TICKET",
+                        "to": "739228",
                         "author": {
-                            "name": "Emilia Clarker",
-                            "staff": true,
-                            "id": "1"
+                            "name": "Creator",
+                            "id": "5",
+                            "staff": false
                         }
                     },
                     {
-                        "type": "UN_ASSIGN",
-                        "ticketNumber": "683061",
+                        "type": "CREATE_TICKET",
+                        "to": "915839",
                         "author": {
-                            "name": "Emilia Clarker",
-                            "staff": true,
-                            "id": "1"
+                            "name": "Creator",
+                            "id": "5",
+                            "staff": false
                         }
                     },
                     {
-                        "type": "COMMENT",
-                        "ticketNumber": "683061",
+                        "type": "CREATE_TICKET",
+                        "to": "192450",
                         "author": {
-                            "name": "Emilia Clarker",
-                            "staff": true,
-                            "id": "1"
+                            "name": "Creator",
+                            "id": "5",
+                            "staff": false
                         }
                     },
                     {
-                        "type": "ASSIGN",
-                        "ticketNumber": "683061",
+                        "type": "CREATE_TICKET",
+                        "to": "369061",
                         "author": {
-                            "name": "Emilia Clarker",
-                            "staff": true,
-                            "id": "1"
+                            "name": "Creator",
+                            "id": "5",
+                            "staff": false
                         }
                     },
                     {
-                        "type": "PRIORITY_CHANGED",
-                        "ticketNumber": "608120",
+                        "type": "SIGNUP",
+                        "to": null,
                         "author": {
-                            "name": "Emilia Clarker",
-                            "staff": true,
-                            "id": "1"
+                            "name": "Commenter",
+                            "id": "6",
+                            "staff": false
                         }
                     }
                 ]
