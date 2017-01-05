@@ -199,6 +199,8 @@ export default {
     'ERROR_RETRIEVING_BAN_LIST': 'An error occurred while trying to retrieve the list of banned emails.',
     'ERROR_BANNING_EMAIL': 'An error occurred while trying to ban the email.',
     'ERROR_RETRIEVING_ARTICLES': 'An error occurred while trying to retrieve articles.',
+    'ERROR_LIST': 'Select at least one',
+    'ERROR_URL': 'Invalid URL',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',

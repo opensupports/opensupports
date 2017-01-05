@@ -3,6 +3,7 @@ import AlphaNumericValidator from 'lib-app/validations/alphanumeric-validator';
 import EmailValidator from 'lib-app/validations/email-validator';
 import RepeatPasswordValidator from 'lib-app/validations/repeat-password-validator';
 import LengthValidator from 'lib-app/validations/length-validator';
+import ListValidator from 'lib-app/validations/list-validator';
 
 let validators = {
     'DEFAULT': new Validator(),
@@ -11,7 +12,9 @@ let validators = {
     'EMAIL': new EmailValidator(),
     'TEXT_AREA': new LengthValidator(10, 'ERROR_CONTENT_SHORT'),
     'PASSWORD': new LengthValidator(6, 'ERROR_PASSWORD'),
-    'REPEAT_PASSWORD': new RepeatPasswordValidator()
+    'REPEAT_PASSWORD': new RepeatPasswordValidator(),
+    'URL': new LengthValidator(5, 'ERROR_URL'),
+    'LIST': new ListValidator()
 };
 
 class ValidatorFactory {

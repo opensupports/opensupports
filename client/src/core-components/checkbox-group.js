@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import _ from 'lodash';
 
 import Checkbox from 'core-components/checkbox';
@@ -6,6 +7,7 @@ import Checkbox from 'core-components/checkbox';
 class CheckboxGroup extends React.Component {
     static propTypes = {
         items: React.PropTypes.array.isRequired,
+        errored: React.PropTypes.bool,
         value: React.PropTypes.arrayOf(React.PropTypes.number),
         onChange: React.PropTypes.func
     };
@@ -16,7 +18,7 @@ class CheckboxGroup extends React.Component {
     
     render() {
         return (
-            <ul className="checkbox-group">
+            <ul className={this.getClass()}>
                 {this.props.items.map(this.renderItem.bind(this))}
             </ul>
         );
@@ -30,6 +32,17 @@ class CheckboxGroup extends React.Component {
                 <Checkbox label={label} value={checked} onChange={this.onCheckboxChange.bind(this, index)} wrapInLabel/>
             </li>
         );
+    }
+
+    getClass() {
+        let classes = {
+            'checkbox-group': true,
+            'checkbox-group_error': this.props.errored
+        };
+
+        classes[this.props.className] = (this.props.className);
+
+        return classNames(classes);
     }
     
     onCheckboxChange(index) {

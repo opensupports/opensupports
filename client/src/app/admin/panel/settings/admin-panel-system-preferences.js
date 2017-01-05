@@ -51,11 +51,11 @@ class AdminPanelSystemPreferences extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-md-6">
-                            <FormField label={i18n('SUPPORT_CENTER_URL')} fieldProps={{size: 'large'}} name="url"/>
-                            <FormField label={i18n('SUPPORT_CENTER_LAYOUT')} fieldProps={{size: 'large', items: [{content: i18n('BOXED')}, {content: i18n('FULL_WIDTH')}]}} field="select" name="layout"/>
+                            <FormField label={i18n('SUPPORT_CENTER_URL')} fieldProps={{size: 'large'}} name="url" validation="URL" required/>
+                            <FormField label={i18n('SUPPORT_CENTER_LAYOUT')} fieldProps={{size: 'large', items: [{content: i18n('BOXED')}, {content: i18n('FULL_WIDTH')}]}} field="select" name="layout" />
                         </div>
                         <div className="col-md-6">
-                            <FormField label={i18n('SUPPORT_CENTER_TITLE')} fieldProps={{size: 'large'}} name="title"/>
+                            <FormField label={i18n('SUPPORT_CENTER_TITLE')} fieldProps={{size: 'large'}} name="title" validation="TITLE" required/>
                             <FormField label={i18n('DEFAULT_TIMEZONE')} fieldProps={{size: 'large'}} name="time-zone"/>
                         </div>
                     </div>
@@ -89,11 +89,11 @@ class AdminPanelSystemPreferences extends React.Component {
                             <div className="row admin-panel-system-preferences__languages">
                                 <div className="col-md-6 admin-panel-system-preferences__languages-allowed">
                                     <div>{i18n('ALLOWED_LANGUAGES')} <InfoTooltip text={i18n('ALLOWED_LANGUAGES_INFO')} /></div>
-                                    <FormField name="allowedLanguages" field="checkbox-group" fieldProps={{items: this.getLanguageList()}} />
+                                    <FormField name="allowedLanguages" field="checkbox-group" fieldProps={{items: this.getLanguageList()}} validation="LIST" required/>
                                 </div>
                                 <div className="col-md-6 admin-panel-system-preferences__languages-supported">
                                     <div>{i18n('SUPPORTED_LANGUAGES')} <InfoTooltip text={i18n('SUPPORTED_LANGUAGES_INFO')} /></div>
-                                    <FormField name="supportedLanguages" field="checkbox-group" fieldProps={{items: this.getLanguageList()}} />
+                                    <FormField name="supportedLanguages" field="checkbox-group" fieldProps={{items: this.getLanguageList()}} validation="LIST" required/>
                                 </div>
                             </div>
                         </div>
