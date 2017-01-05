@@ -1,0 +1,9 @@
+@import "../scss/vars";
+
+.toggle-button {
+    background-color: $light-grey;
+    width: 80px;
+    padding: 2px;
+    border-radius: 4px;
+    text-align: center;
+}

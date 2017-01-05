@@ -121,6 +121,29 @@ export default {
     'COMMENTS': 'Comments',
     'DELETE_STAFF_MEMBER': 'Delete staff member',
     'MAINTENANCE_MODE': 'Maintenance mode',
+    'RECOVER_DEFAULT': 'Recover default',
+    'SUPPORT_CENTER_URL': 'Support Center URL',
+    'SUPPORT_CENTER_TITLE': 'Support Center Title',
+    'SUPPORT_CENTER_LAYOUT': 'Support Center Layout',
+    'DEFAULT_TIMEZONE': 'Default Timezone',
+    'NOREPLY_EMAIL': 'Noreply Email',
+    'SMTP_USER': 'SMTP User',
+    'SMTP_SERVER': 'SMTP Server',
+    'SMTP_PASSWORD': 'SMTP Password',
+    'PORT': 'Port',
+    'RECAPTCHA_PUBLIC_KEY': 'Recaptcha Public Key',
+    'RECAPTCHA_PRIVATE_KEY': 'Recaptcha Private Key',
+    'ALLOW_FILE_ATTACHMENTS': 'Allow file attachments',
+    'MAX_SIZE_KB': 'Max Size (KB)',
+    'UPDATE_SETTINGS': 'Update settings',
+    'DEFAULT_LANGUAGE': 'Default Language',
+    'SUPPORTED_LANGUAGES': 'Supported Languages',
+    'ALLOWED_LANGUAGES': 'Allowed Languages',
+    'SETTINGS_UPDATED': 'Settings have been updated',
+    'ON': 'On',
+    'OFF': 'Off',
+    'BOXED': 'Boxed',
+    'FULL_WIDTH': 'Full width',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
@@ -150,6 +173,7 @@ export default {
     'MY_ACCOUNT_DESCRIPTION': 'Here you can edit information about you.',
     'DEPARTMENTS_DESCRIPTION': 'A department is a group where the tickets can go. They are used to categorize the tickets. You can assign them to other staff members.',
     'MAINTENANCE_MODE_DESCRIPTION': 'The support system is in maintenance mode, thus unavailable at the moment. We will come back as soon as possible.',
+    'EMAIL_TEMPLATES_DESCRIPTION': 'Here you can edit the templates of the emails that will be sent to users. Remember that the double brackets curly braces indicate a variable value. For example, \'name\' represents the user\'s name.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
@@ -189,5 +213,6 @@ export default {
     'DEPARTMENTS_UPDATED': 'Departments have been updated successfully.',
     'FAILED_EDIT_STAFF': 'An error occurred while trying to edit staff member.',
     'EMAIL_BANNED_SUCCESSFULLY': 'Email has been banned successfully',
-    'WILL_DELETE_STAFF': 'This staff member will be deleted and all its tickets will be unassigned.'
+    'WILL_DELETE_STAFF': 'This staff member will be deleted and all its tickets will be unassigned.',
+    'WILL_RECOVER_EMAIL_TEMPLATE': 'This email template will be recover to it\'s default value on this language.'
 };
