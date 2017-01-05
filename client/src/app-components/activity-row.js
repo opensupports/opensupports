@@ -34,7 +34,7 @@ class ActivityRow extends React.Component {
                         {this.props.author.name}
                     </Link>
                 </span>
-                <span className="activity-row__message">{i18n('ACTIVITY_' + this.props.type)}</span>
+                <span className="activity-row__message"> {i18n('ACTIVITY_' + this.props.type)} </span>
                 <span>
                     <Link className="activity-row__ticket-link" to={'/admin/panel/tickets/view-ticket/' + this.props.ticketNumber}>
                         #{this.props.ticketNumber}

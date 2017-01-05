@@ -1060,8 +1060,16 @@ module.exports = [
     },
     {
         path: '/staff/last-events',
-        time: 30,
-        response: function() {
+        time: 430,
+        response: function(data) {
+
+            if(data.page > 5) {
+                return {
+                    status: 'success',
+                    data: []
+                };
+            }
+
             return {
                 status: 'success',
                 data: [

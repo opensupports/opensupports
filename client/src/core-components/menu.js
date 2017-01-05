@@ -11,7 +11,7 @@ class Menu extends React.Component {
         id: React.PropTypes.string,
         itemsRole: React.PropTypes.string,
         header: React.PropTypes.string,
-        type: React.PropTypes.oneOf(['primary', 'secondary', 'navigation', 'horizontal', 'horizontal-list']),
+        type: React.PropTypes.oneOf(['primary', 'secondary', 'navigation', 'horizontal', 'horizontal-list', 'horizontal-list-bright']),
         items: React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number, React.PropTypes.node]),
             icon: React.PropTypes.string
@@ -86,7 +86,8 @@ class Menu extends React.Component {
             'menu_secondary': (this.props.type === 'secondary'),
             'menu_navigation': (this.props.type === 'navigation'),
             'menu_horizontal': (this.props.type === 'horizontal'),
-            'menu_horizontal-list': (this.props.type === 'horizontal-list')
+            'menu_horizontal-list': (this.props.type === 'horizontal-list'),
+            'menu_horizontal-list-bright': (this.props.type === 'horizontal-list-bright')
         };
 
         classes[this.props.className] = true;
