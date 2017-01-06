@@ -75,7 +75,7 @@ describe '/ticket/comment/' do
         (ticket['unread_staff']).should.equal('1')
 
         lastLog = $database.getLastRow('log')
-        (lastLog['type']).should.equal('COMMENT_TICKET')
+        (lastLog['type']).should.equal('COMMENT')
     end
 
     it 'should fail if user is not the author nor owner' do

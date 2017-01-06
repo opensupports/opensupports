@@ -21,6 +21,6 @@ describe '/ticket/change-department' do
         (ticket['department_id']).should.equal('2')
 
         lastLog = $database.getLastRow('log')
-        (lastLog['type']).should.equal('CHANGE_DEPARTMENT')
+        (lastLog['type']).should.equal('DEPARTMENT_CHANGED')
     end
 end
