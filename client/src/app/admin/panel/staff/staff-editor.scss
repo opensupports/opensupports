@@ -139,4 +139,21 @@
         float: left;
         margin-top: 11px;
     }
+
+    &__level-info {
+        width: 360px;
+        font-size: $font-size--sm;
+
+        &-box {
+            margin-top: 5px;
+        }
+
+        &-title {
+            color: $secondary-blue;
+        }
+
+        &-description {
+            color: $dark-grey;
+        }
+    }
 }

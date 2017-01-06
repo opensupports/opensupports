@@ -8,4 +8,9 @@
     &__item {
         margin: 10px 0;
     }
+
+    &_error {
+        border: 1px solid $primary-red;
+        padding-left: 7px;
+    }
 }

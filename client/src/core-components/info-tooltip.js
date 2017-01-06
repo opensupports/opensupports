@@ -8,7 +8,7 @@ import Tooltip from 'core-components/tooltip';
 class InfoTooltip extends React.Component {
     static propTypes = {
         type: React.PropTypes.oneOf(['default', 'warning']),
-        text: React.PropTypes.string.isRequired
+        text: React.PropTypes.node.isRequired
     };
 
     static defaultProps = {
@@ -31,6 +31,7 @@ class InfoTooltip extends React.Component {
 
     renderText() {
         let message = (this.props.type === 'default') ? i18n('INFO') : i18n('WARNING');
+
         return (
             <div className="info-tooltip__text">
                 <div className="info-tooltip__text-title">
@@ -46,6 +47,8 @@ class InfoTooltip extends React.Component {
             'info-tooltip': true,
             'info-tooltip_warning': (this.props.type === 'warning')
         };
+
+        classes[this.props.className] = (this.props.className);
 
         return classNames(classes);
     }

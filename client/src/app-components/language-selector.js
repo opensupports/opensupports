@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import classNames from 'classnames';
 
 import languageList from 'data/language-list';
+import i18n from 'lib-app/i18n';
 import DropDown from 'core-components/drop-down';
 
 const languageCodes = Object.keys(languageList);
@@ -10,13 +11,15 @@ const languageCodes = Object.keys(languageList);
 class LanguageSelector extends React.Component {
     static propTypes = {
         value: React.PropTypes.oneOf(languageCodes),
-        type: React.PropTypes.oneOf(['allowed', 'supported']),
+        type: React.PropTypes.oneOf(['allowed', 'supported', 'custom']),
+        customList: React.PropTypes.array,
         allowedLanguages: React.PropTypes.array,
         supportedLanguages: React.PropTypes.array
     };
 
     static defaultProps = {
         type: 'allowed',
+        customList: ['en'],
         allowedLanguages: languageCodes,
         supportedLanguages: languageCodes
     };
@@ -75,7 +78,14 @@ class LanguageSelector extends React.Component {
     }
 
     getLanguageList() {
-        return (this.props.type === 'supported') ? this.props.supportedLanguages : this.props.allowedLanguages;
+        switch(this.props.type) {
+            case 'supported':
+                return this.props.supportedLanguages;
+            case 'allowed':
+                return this.props.supportedLanguages;
+            case 'custom':
+                return this.props.customList;
+        }
     }
 }
 

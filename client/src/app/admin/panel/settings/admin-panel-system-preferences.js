@@ -1,5 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
+
+import API from 'lib-app/api-call';
+import i18n from 'lib-app/i18n';
+import LanguageSelector from 'app-components/language-selector';
+import ToggleButton from 'app-components/toggle-button';
 import languageList from 'data/language-list';
 
 import Form from 'core-components/form';
@@ -8,11 +13,9 @@ import Header from 'core-components/header';
 import SubmitButton from 'core-components/submit-button';
 import Button from 'core-components/button';
 import Message from 'core-components/message';
+import InfoTooltip from 'core-components/info-tooltip';
 
-import API from 'lib-app/api-call';
-import i18n from 'lib-app/i18n';
-import LanguageSelector from 'app-components/language-selector';
-import ToggleButton from 'app-components/toggle-button';
+const languageKeys = Object.keys(languageList);
 
 class AdminPanelSystemPreferences extends React.Component {
 
@@ -20,7 +23,7 @@ class AdminPanelSystemPreferences extends React.Component {
         loading: true,
         message: null,
         values: {
-            'maintenance': false
+            maintenance: false
         }
     };
 
@@ -31,12 +34,12 @@ class AdminPanelSystemPreferences extends React.Component {
     render() {
         return (
             <div className="admin-panel-system-preferences">
-                <Header title={i18n('SYSTEM_PREFERENCES')} description="Here you can adjust your system preferences :)"/>
-                <Form values={this.state.values} onChange={values => this.setState({values, message: null})} onSubmit={this.onSubmit.bind(this)} loading={this.state.loading}>
+                <Header title={i18n('SYSTEM_PREFERENCES')} description={i18n('SYSTEM_PREFERENCES_DESCRIPTION')}/>
+                <Form values={this.state.values} onChange={this.onFormChange.bind(this)} onSubmit={this.onSubmit.bind(this)} loading={this.state.loading}>
                     <div className="row">
                         <div className="col-md-12">
                             <div className="admin-panel-system-preferences__maintenance">
-                                <span>Maintenance Mode</span>
+                                <span>{i18n('MAINTENANCE_MODE')} <InfoTooltip text={i18n('MAINTENANCE_MODE_INFO')} /></span>
                                 <FormField className="admin-panel-system-preferences__maintenance-field" name="maintenance-mode" decorator={ToggleButton}/>
                             </div>
                         </div>
@@ -48,11 +51,11 @@ class AdminPanelSystemPreferences extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-md-6">
-                            <FormField label={i18n('SUPPORT_CENTER_URL')} fieldProps={{size: 'large'}} name="url"/>
-                            <FormField label={i18n('SUPPORT_CENTER_LAYOUT')} fieldProps={{size: 'large', items: [{content: i18n('BOXED')}, {content: i18n('FULL_WIDTH')}]}} field="select" name="layout"/>
+                            <FormField label={i18n('SUPPORT_CENTER_URL')} fieldProps={{size: 'large'}} name="url" validation="URL" required/>
+                            <FormField label={i18n('SUPPORT_CENTER_LAYOUT')} fieldProps={{size: 'large', items: [{content: i18n('BOXED')}, {content: i18n('FULL_WIDTH')}]}} field="select" name="layout" />
                         </div>
                         <div className="col-md-6">
-                            <FormField label={i18n('SUPPORT_CENTER_TITLE')} fieldProps={{size: 'large'}} name="title"/>
+                            <FormField label={i18n('SUPPORT_CENTER_TITLE')} fieldProps={{size: 'large'}} name="title" validation="TITLE" required/>
                             <FormField label={i18n('DEFAULT_TIMEZONE')} fieldProps={{size: 'large'}} name="time-zone"/>
                         </div>
                     </div>
@@ -85,16 +88,20 @@ class AdminPanelSystemPreferences extends React.Component {
                         <div className="col-md-6">
                             <div className="row admin-panel-system-preferences__languages">
                                 <div className="col-md-6 admin-panel-system-preferences__languages-allowed">
-                                    <div>{i18n('ALLOWED_LANGUAGES')}</div>
-                                    <FormField name="allowedLanguages" field="checkbox-group" fieldProps={{items: this.getLanguageList()}} />
+                                    <div>{i18n('ALLOWED_LANGUAGES')} <InfoTooltip text={i18n('ALLOWED_LANGUAGES_INFO')} /></div>
+                                    <FormField name="allowedLanguages" field="checkbox-group" fieldProps={{items: this.getLanguageList()}} validation="LIST" required/>
                                 </div>
                                 <div className="col-md-6 admin-panel-system-preferences__languages-supported">
-                                    <div>{i18n('SUPPORTED_LANGUAGES')}</div>
-                                    <FormField name="supportedLanguages" field="checkbox-group" fieldProps={{items: this.getLanguageList()}} />
+                                    <div>{i18n('SUPPORTED_LANGUAGES')} <InfoTooltip text={i18n('SUPPORTED_LANGUAGES_INFO')} /></div>
+                                    <FormField name="supportedLanguages" field="checkbox-group" fieldProps={{items: this.getLanguageList()}} validation="LIST" required/>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
+                            <FormField className="admin-panel-system-preferences__default-language-field" name="language" label={i18n('DEFAULT_LANGUAGE')} decorator={LanguageSelector} fieldProps={{
+                                type: 'custom',
+                                customList: (this.state.values.supportedLanguages && this.state.values.supportedLanguages.length) ? this.state.values.supportedLanguages.map(index => languageKeys[index]) : undefined
+                            }} />
                             <FormField label={i18n('RECAPTCHA_PUBLIC_KEY')} fieldProps={{size: 'large'}} name="reCaptchaKey"/>
                             <FormField label={i18n('RECAPTCHA_PRIVATE_KEY')} fieldProps={{size: 'large'}} name="reCaptchaPrivate"/>
                             <div className="admin-panel-system-preferences__file-attachments">
@@ -105,7 +112,6 @@ class AdminPanelSystemPreferences extends React.Component {
                                 <span>{i18n('MAX_SIZE_KB')}</span>
                                 <FormField className="admin-panel-system-preferences__max-size-field" fieldProps={{size: 'small'}} name="max-size"/>
                             </div>
-                            <FormField className="admin-panel-system-preferences__default-language-field" name="language" label={i18n('DEFAULT_LANGUAGE')} decorator={LanguageSelector} />
                         </div>
                     </div>
                     <div className="row">
@@ -138,8 +144,17 @@ class AdminPanelSystemPreferences extends React.Component {
         }
     }
 
+    onFormChange(form) {
+        let values = _.clone(form);
+
+        _.extend(values, {
+            supportedLanguages: _.filter(values.supportedLanguages, (language) => _.includes(values.allowedLanguages, language))
+        });
+
+        this.setState({values, message: null});
+    }
+
     onSubmit(form) {
-        let fullList = Object.keys(languageList);
         this.setState({loading: true});
 
         API.call({
@@ -160,8 +175,8 @@ class AdminPanelSystemPreferences extends React.Component {
                 'maintenance-mode': form['maintenance-mode'],
                 'allow-attachments': form['allow-attachments'],
                 'max-size': form['max-size'],
-                'allowedLanguages': JSON.stringify(form.allowedLanguages.map(index => fullList[index])),
-                'supportedLanguages': JSON.stringify(form.supportedLanguages.map(index => fullList[index]))
+                'allowedLanguages': JSON.stringify(form.allowedLanguages.map(index => languageKeys[index])),
+                'supportedLanguages': JSON.stringify(form.supportedLanguages.map(index => languageKeys[index]))
             }
         }).then(this.onSubmitSuccess.bind(this)).catch(() => this.setState({loading: false, message: 'fail'}));
     }
@@ -188,8 +203,6 @@ class AdminPanelSystemPreferences extends React.Component {
     }
 
     onRecoverSettingsSuccess(result) {
-        let fullList = Object.keys(languageList);
-
         this.setState({
             loading: false,
             values: {
@@ -208,13 +221,13 @@ class AdminPanelSystemPreferences extends React.Component {
                 'maintenance-mode': result.data['maintenance-mode'],
                 'allow-attachments': result.data['allow-attachments'],
                 'max-size': result.data['max-size'],
-                'allowedLanguages': result.data.allowedLanguages.map(lang => (_.indexOf(fullList, lang))),
-                'supportedLanguages': result.data.supportedLanguages.map(lang => (_.indexOf(fullList, lang)))
+                'allowedLanguages': result.data.allowedLanguages.map(lang => (_.indexOf(languageKeys, lang))),
+                'supportedLanguages': result.data.supportedLanguages.map(lang => (_.indexOf(languageKeys, lang)))
             }
         });
     }
 
-    onRecoverSettingsFail(result) {
+    onRecoverSettingsFail() {
         this.setState({
             message: 'error'
         });

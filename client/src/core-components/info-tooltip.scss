@@ -1,7 +1,10 @@
 @import "../scss/vars";
 
 .info-tooltip {
+    display: inline-block;
+
     &__text {
+
         &-title {
             color: $secondary-blue;
             font-size: $font-size--md;
@@ -10,9 +13,11 @@
 
     &__icon {
         color: $secondary-blue;
+        font-size: $font-size--sm;
     }
 
     &_warning {
+
         .info-tooltip__icon {
             color: $primary-red;
         }

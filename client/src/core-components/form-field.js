@@ -8,6 +8,7 @@ import DropDown from 'core-components/drop-down';
 import Checkbox from 'core-components/checkbox';
 import CheckboxGroup from 'core-components/checkbox-group';
 import TextEditor from 'core-components/text-editor';
+import InfoTooltip from 'core-components/info-tooltip';
 
 class FormField extends React.Component {
     static contextTypes = {
@@ -21,6 +22,7 @@ class FormField extends React.Component {
         onBlur: React.PropTypes.func,
         required: React.PropTypes.bool,
         error: React.PropTypes.string,
+        infoMessage: React.PropTypes.node,
         value: React.PropTypes.any,
         field: React.PropTypes.oneOf(['input', 'textarea', 'select', 'checkbox', 'checkbox-group']),
         fieldProps: React.PropTypes.object
@@ -51,7 +53,7 @@ class FormField extends React.Component {
     render() {
         const Wrapper = (_.includes(this.getDivTypes(), this.props.field)) ? 'div' : 'label';
         const fieldContent = [
-            <span className="form-field__label" key="label">{this.props.label}</span>,
+            this.renderLabel(),
             this.renderField(),
             this.renderError()
         ];
@@ -59,11 +61,21 @@ class FormField extends React.Component {
         if (this.props.field === 'checkbox') {
             fieldContent.swap(0, 1);
         }
+
         return (
             <Wrapper className={this.getClass()}>
                 {fieldContent}
             </Wrapper>
         );
+    }
+
+    renderLabel() {
+        return (
+            <span className="form-field__label" key="label">
+                {this.props.label}
+                {(this.props.infoMessage) ? <InfoTooltip text={this.props.infoMessage} className="form-field__info" /> : null}
+            </span>
+        )
     }
 
     renderField() {
