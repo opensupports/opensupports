@@ -45,8 +45,9 @@ class AdminPanelActivity extends React.Component {
     getMenuProps() {
         return {
             className: 'admin-panel-activity__menu',
-            onItemClick: this.onMenuItemClick.bind(this),
             type: 'horizontal-list-bright',
+            onItemClick: this.onMenuItemClick.bind(this),
+            tabbable: true,
             items: [
                 {
                     content: i18n('MY_NOTIFICATIONS'),
@@ -57,26 +58,16 @@ class AdminPanelActivity extends React.Component {
                     icon: ''
                 }
             ]
-        }
+        };
     }
 
     renderList() {
-        if (this.state.mode === 'staff') {
-            return (
-                <div>
-                    {this.state.activities.map(this.renderRow.bind(this))}
-                    {(!this.state.limit) ? this.renderButton() : null}
-                </div>
-            );
-        }
-        else {
-            return (
-                <div>
-                    {this.state.activities.map(this.renderRow.bind(this))}
-                    {(!this.state.limit) ? this.renderButton() : null}
-                </div>
-            );
-        }
+        return (
+            <div>
+                {this.state.activities.map(this.renderRow.bind(this))}
+                {(!this.state.limit) ? this.renderButton() : null}
+            </div>
+        );
     }
 
     renderButton() {
@@ -89,7 +80,7 @@ class AdminPanelActivity extends React.Component {
 
     renderRow(row, index) {
         return (
-            <ActivityRow key={index} {...row} mode={this.state.mode} />
+            <ActivityRow key={index} mode={this.state.mode} {...row} />
         );
     }
 

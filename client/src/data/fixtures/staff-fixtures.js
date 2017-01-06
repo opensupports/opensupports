@@ -1060,7 +1060,7 @@ module.exports = [
     },
     {
         path: '/staff/last-events',
-        time: 30,
+        time: 300,
         response: function(data) {
 
             if(data.page > 5) {

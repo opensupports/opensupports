@@ -159,7 +159,7 @@ module.exports = [
     },
     {
         path: '/system/get-logs',
-        time: 30,
+        time: 300,
         response: function() {
             return {
                 "status": "success",
