@@ -132,7 +132,8 @@ $transition: background-color 0.3s ease, color 0.3s ease;
         }
     }
 
-    &_horizontal-list {
+    &_horizontal-list,
+    &_horizontal-list-bright {
         text-align: left;
         background-color: $secondary-blue;
         min-height: 45px;
@@ -164,6 +165,32 @@ $transition: background-color 0.3s ease, color 0.3s ease;
             color: $grey;
             outline: none;
         }
+
+        .menu__list-item_selected,
+        .menu__list-item_selected:hover {
+            transition: $transition;
+            padding: 2px 13px;
+            border-radius: 30px;
+            background-color: $primary-blue;
+            color: white;
+        }
+    }
+
+    &_horizontal-list-bright {
+        background-color: transparent;
+
+        .menu__list-item {
+            transition: none;
+            background-color: transparent;
+            color: black;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 11px;
+            margin-bottom: 10px;
+            margin-left: 20px;
+            padding: 2px 13px;
+        }
+
 
         .menu__list-item_selected,
         .menu__list-item_selected:hover {

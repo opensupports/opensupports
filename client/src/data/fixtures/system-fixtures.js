@@ -156,5 +156,106 @@ module.exports = [
                 ]
             };
         }
+    },
+    {
+        path: '/system/get-logs',
+        time: 300,
+        response: function() {
+            return {
+                "status": "success",
+                "data": [
+                    {
+                        "type": "EDIT_SETTINGS",
+                        "to": null,
+                        "author": {
+                            "name": "Emilia Clarke",
+                            "id": "1",
+                            "staff": true
+                        }
+                    },
+                    {
+                        "type": "SIGNUP",
+                        "to": null,
+                        "author": {
+                            "name": "Steve Jobs",
+                            "id": "1",
+                            "staff": false
+                        }
+                    },
+                    {
+                        "type": "SIGNUP",
+                        "to": null,
+                        "author": {
+                            "name": "steve jobs",
+                            "id": "2",
+                            "staff": false
+                        }
+                    },
+                    {
+                        "type": "SIGNUP",
+                        "to": null,
+                        "author": {
+                            "name": "steve jobs",
+                            "id": "3",
+                            "staff": false
+                        }
+                    },
+                    {
+                        "type": "SIGNUP",
+                        "to": null,
+                        "author": {
+                            "name": "Creator",
+                            "id": "5",
+                            "staff": false
+                        }
+                    },
+                    {
+                        "type": "CREATE_TICKET",
+                        "to": "739228",
+                        "author": {
+                            "name": "Creator",
+                            "id": "5",
+                            "staff": false
+                        }
+                    },
+                    {
+                        "type": "CREATE_TICKET",
+                        "to": "915839",
+                        "author": {
+                            "name": "Creator",
+                            "id": "5",
+                            "staff": false
+                        }
+                    },
+                    {
+                        "type": "CREATE_TICKET",
+                        "to": "192450",
+                        "author": {
+                            "name": "Creator",
+                            "id": "5",
+                            "staff": false
+                        }
+                    },
+                    {
+                        "type": "CREATE_TICKET",
+                        "to": "369061",
+                        "author": {
+                            "name": "Creator",
+                            "id": "5",
+                            "staff": false
+                        }
+                    },
+                    {
+                        "type": "SIGNUP",
+                        "to": null,
+                        "author": {
+                            "name": "Commenter",
+                            "id": "6",
+                            "staff": false
+                        }
+                    }
+                ]
+            };
+        }
     }
 ];

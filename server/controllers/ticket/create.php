@@ -43,7 +43,7 @@ class CreateController extends Controller {
 
         $this->storeTicket();
 
-        Log::createLog('CREATE_TICKET', $this->title);
+        Log::createLog('CREATE_TICKET', $this->ticketNumber);
         Response::respondSuccess([
             'ticketNumber' => $this->ticketNumber
         ]);

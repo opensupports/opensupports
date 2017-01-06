@@ -44,7 +44,7 @@ class ChangeDepartmentController extends Controller {
         $ticket->unread = true;
         $ticket->store();
 
-        Log::createLog('CHANGE_DEPARTMENT', $department);
+        Log::createLog('DEPARTMENT_CHANGED', $ticket->ticketNumber);
 
         Response::respondSuccess();
     }

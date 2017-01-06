@@ -17,7 +17,8 @@ class Log extends DataStore {
         if($author === null) {
             $author = Controller::getLoggedUser();    
         } 
-        $log =  new Log();
+        
+        $log = new Log();
 
         $log->setProperties(array(
             'type' => $type,
@@ -34,10 +35,16 @@ class Log extends DataStore {
     }
 
     public function toArray() {
+        $author = ($this->authorUser instanceof User) ? $this->authorUser : $this->authorStaff;
+        
         return [
             'type' => $this->type,
             'to' => $this->to,
-            'author' => ($this->authorUser instanceof User) ? $this->authorUser->toArray() : $this->authorStaff->toArray()
+            'author' => [
+                'name' => $author->name,
+                'id' => $author->id,
+                'staff' => $author instanceof Staff
+            ]
         ];
     }
 }

@@ -67,6 +67,7 @@ class Ticketevent extends DataStore {
             'ticketNumber' => $this->ticket->ticketNumber,
             'author' => [
                 'name' => $user->name,
+                'staff' => $user instanceOf Staff,
                 'id' => $user->id
             ]
         ];

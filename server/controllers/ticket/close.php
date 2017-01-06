@@ -33,7 +33,7 @@ class CloseController extends Controller {
 
         $this->ticket->store();
         
-        Log::createLog('CLOSE_TICKET', $this->ticket);
+        Log::createLog('CLOSE', $this->ticket->ticketNumber);
         
         Response::respondSuccess();
     }

@@ -38,7 +38,7 @@ class ChangePriorityController extends Controller {
             $ticket->addEvent($event);
             $ticket->store();
 
-            Log::createLog('CHANGE_PRIORITY', $priority);
+            Log::createLog('PRIORITY_CHANGED', $ticket->ticketNumber);
             Response::respondSuccess();
         } else {
             Response::respondError(ERRORS::NO_PERMISSION);
