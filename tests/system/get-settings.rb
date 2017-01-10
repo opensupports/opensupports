@@ -11,7 +11,7 @@ describe '/system/get-settings' do
         (result['data']['allowedLanguages'][1]).should.equal('es')
         (result['data']['allowedLanguages'][2]).should.equal('de')
         (result['data']['allowedLanguages'][3]).should.equal('fr')
-        (result['data']['allowedLanguages'][4]).should.equal('pr')
+        (result['data']['allowedLanguages'][4]).should.equal('pt')
         (result['data']['allowedLanguages'][5]).should.equal('jp')
         (result['data']['allowedLanguages'][6]).should.equal('ru')
         (result['data']['allowedLanguages'][7]).should.equal('cn')

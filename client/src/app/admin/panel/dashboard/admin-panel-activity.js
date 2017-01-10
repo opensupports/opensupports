@@ -86,7 +86,7 @@ class AdminPanelActivity extends React.Component {
 
     onMenuItemClick(index) {
         this.setState({
-            page: 0,
+            page: 1,
             mode: (index === 0) ? 'staff' : 'system',
             activities: []
         }, this.retrieveNextPage.bind(this));

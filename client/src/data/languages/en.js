@@ -237,6 +237,7 @@ export default {
     'ERROR_LIST': 'Select at least one',
     'ERROR_URL': 'Invalid URL',
     'UNVERIFIED_EMAIL': 'Email is not verified yet',
+    'ERROR_UPDATING_SETTINGS': 'An error occurred while trying to update settings',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',

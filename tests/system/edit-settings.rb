@@ -6,19 +6,19 @@ describe'system/edit-settings' do
         result= request('/system/edit-settings', {
             "csrf_userid" => $csrf_userid,
             "csrf_token" => $csrf_token,
-            "maintenance-mode" => 1,
+            "maintenance-mode" => false,
             "time-zone" => -3,
             "layout" => 'full-width',
             "allow-attachments" => 1,
             "max-size" => 2,
-            "language" => 'es',
+            "language" => 'en',
             "no-reply-email" => 'testemail@hotmail.com'
         })
 
         (result['status']).should.equal('success')
 
         row = $database.getRow('setting', 'maintenance-mode', 'name')
-        (row['value']).should.equal('1')
+        (row['value']).should.equal('0')
 
         row = $database.getRow('setting', 'time-zone', 'name')
         (row['value']).should.equal('-3')
@@ -30,7 +30,7 @@ describe'system/edit-settings' do
         (row['value']).should.equal('2')
 
         row = $database.getRow('setting', 'language', 'name')
-        (row['value']).should.equal('es')
+        (row['value']).should.equal('en')
 
         row = $database.getRow('setting', 'no-reply-email', 'name')
         (row['value']).should.equal('testemail@hotmail.com')
@@ -44,8 +44,8 @@ describe'system/edit-settings' do
         result= request('/system/edit-settings', {
             "csrf_userid" => $csrf_userid,
             "csrf_token" => $csrf_token,
-            "supportedLanguages" => '["en", "pr", "jp", "ru"]',
-            "allowedLanguages" => '["en","pr", "jp", "ru", "de"]'
+            "supportedLanguages" => '["en", "pt", "jp", "ru"]',
+            "allowedLanguages" => '["en","pt", "jp", "ru", "de"]'
         })
 
         (result['status']).should.equal('success')
@@ -53,7 +53,7 @@ describe'system/edit-settings' do
         row = $database.getRow('language', 'en', 'code')
         (row['supported']).should.equal('1')
 
-        row = $database.getRow('language', 'pr', 'code')
+        row = $database.getRow('language', 'pt', 'code')
         (row['supported']).should.equal('1')
 
         row = $database.getRow('language', 'jp', 'code')
@@ -65,7 +65,7 @@ describe'system/edit-settings' do
         row = $database.getRow('language', 'en', 'code')
         (row['allowed']).should.equal('1')
 
-        row = $database.getRow('language', 'pr', 'code')
+        row = $database.getRow('language', 'pt', 'code')
         (row['allowed']).should.equal('1')
 
         row = $database.getRow('language', 'jp', 'code')

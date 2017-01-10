@@ -11,7 +11,7 @@ class MainVerifyTokenPage extends React.Component {
 
     componentDidMount() {
         API.call({
-            path: '/user/verify-token',
+            path: '/user/verify',
             data: {
                 token: this.props.params.token,
                 email: this.props.params.email
