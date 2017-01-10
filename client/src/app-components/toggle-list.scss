@@ -5,9 +5,10 @@
     &__item {
         border: 1px $light-grey solid;
         border-left: none;
-        width: 120px;
+        width: 180px;
         height: 120px;
         display: inline-block;
+        transition: background-color 0.4s ease;
     }
 
     &__selected {

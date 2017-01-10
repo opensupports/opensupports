@@ -6,7 +6,8 @@ class ToggleList extends React.Component {
     static propTypes = {
         items: React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.node
-        }))
+        })),
+        onChange: React.PropTypes.func
     };
 
     state = {
@@ -42,10 +43,21 @@ class ToggleList extends React.Component {
 
     selectItem(index) {
         let actual = _.clone(this.state.selected);
-        (_.includes(this.state.selected, index)) ? (_.remove(actual, t => t == index)) : (actual.push(index));
+
+        _.includes(this.state.selected, index) ? _.remove(actual, t => t == index) : actual.push(index);
+
+        console.log(actual);
         this.setState({
             selected: actual
         });
+
+        if (this.props.onChange) {
+            this.props.onChange({
+                target: {
+                    value: actual
+                }
+            });
+        }
     }
 }
 
