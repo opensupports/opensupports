@@ -9,7 +9,8 @@ class SessionReducer extends Reducer {
             initDone: false,
             logged: false,
             pending: false,
-            failed: false
+            failed: false,
+            verify: null
         };
     }
 
@@ -19,6 +20,7 @@ class SessionReducer extends Reducer {
             'LOGIN_FULFILLED': this.onLoginCompleted.bind(this),
             'LOGIN_REJECTED': this.onLoginFailed,
             'LOGOUT_FULFILLED': this.onLogout,
+            'VERIFY': this.onVerify,
             'USER_DATA_FULFILLED': this.onUserDataRetrieved,
             'CHECK_SESSION_REJECTED': (state) => { return _.extend({}, state, {initDone: true})},
             'SESSION_CHECKED': this.onSessionChecked,
@@ -46,8 +48,9 @@ class SessionReducer extends Reducer {
         });
     }
 
-    onLoginFailed(state) {
+    onLoginFailed(state, payload) {
         return _.extend({}, state, {
+            failMessage: payload.message,
             logged: false,
             pending: false,
             failed: true
@@ -125,6 +128,12 @@ class SessionReducer extends Reducer {
             userLevel: userData.level,
             userDepartments: userData.departments,
             userTickets: userData.tickets
+        });
+    }
+
+    onVerify(state, payload) {
+        return _.extend({}, state, {
+            verify: (payload) ? 'success' : 'failed'
         });
     }
 }

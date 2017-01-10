@@ -21,7 +21,7 @@ module.exports = [
             } else {
                 response = {
                     status: 'fail',
-                    message: 'Invalid Credientals'
+                    message: 'INVALID_CREDENTIALS'
                 };
             }
 
@@ -86,6 +86,16 @@ module.exports = [
                     data: {}
                 };
             }
+        }
+    },
+    {
+        path: '/user/verify-token',
+        time: 200,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
         }
     },
     {
