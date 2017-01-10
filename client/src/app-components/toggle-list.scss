@@ -1,0 +1,20 @@
+@import "../scss/vars";
+
+.toggle-list {
+
+    &__item {
+        border: 1px $light-grey solid;
+        border-left: none;
+        width: 120px;
+        height: 120px;
+        display: inline-block;
+    }
+
+    &__selected {
+        background-color: $light-grey;
+    }
+
+    &__first-item {
+        border: 1px $light-grey solid;
+    }
+}
