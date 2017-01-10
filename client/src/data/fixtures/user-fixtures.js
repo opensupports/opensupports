@@ -155,6 +155,7 @@ module.exports = [
                 data: {
                     name: 'Kurt Gödel',
                     email: 'kurt@currycurrylady.hs',
+                    verified: false,
                     tickets: _.times(13).map(() => {
                         return {
                             ticketNumber: '118551',
