@@ -1,6 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
+import store from 'app/store';
 
+import ConfigActions from 'actions/config-actions';
 import API from 'lib-app/api-call';
 import i18n from 'lib-app/i18n';
 import LanguageSelector from 'app-components/language-selector';
@@ -171,7 +173,7 @@ class AdminPanelSystemPreferences extends React.Component {
                 'smtp-host': form['smtp-host'],
                 'smtp-port': form['smtp-port'],
                 'smtp-user': form['smtp-user'],
-                'smtp-pass': form['smtp-password'],
+                'smtp-pass': form['smtp-pass'],
                 'maintenance-mode': form['maintenance-mode'],
                 'allow-attachments': form['allow-attachments'],
                 'max-size': form['max-size'],
@@ -225,6 +227,8 @@ class AdminPanelSystemPreferences extends React.Component {
                 'supportedLanguages': result.data.supportedLanguages.map(lang => (_.indexOf(languageKeys, lang)))
             }
         });
+
+        store.dispatch(ConfigActions.updateData());
     }
 
     onRecoverSettingsFail() {

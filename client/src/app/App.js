@@ -60,11 +60,11 @@ class App extends React.Component {
             loggedOutStaff: _.includes(props.location.pathname, '/admin/panel') && !props.session.logged
         };
         
-        if(props.config['maintenance-mode'] && !_.includes(props.location.pathname, '/admin') && !_.includes(props.location.pathname, '/maintenance')) {
+        if(props.config['maintenance-mode'] === '1' && !_.includes(props.location.pathname, '/admin') && !_.includes(props.location.pathname, '/maintenance')) {
             browserHistory.push('/maintenance');
         }
 
-        if(!props.config['maintenance-mode'] && _.includes(props.location.pathname, '/maintenance')) {
+        if(props.config['maintenance-mode'] === '0' && _.includes(props.location.pathname, '/maintenance')) {
             browserHistory.push('/');
         }
 

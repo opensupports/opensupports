@@ -26,12 +26,12 @@ class GetSettingsController extends Controller {
                 'title' => Setting::getSetting('title')->getValue(),
                 'no-reply-email' => Setting::getSetting('no-reply-email')->getValue(),
                 'smtp-port' => Setting::getSetting('smtp-port')->getValue(),
-                'smtp-host' => Setting::getSetting('smtp-port')->getValue(),
-                'smtp-user' => Setting::getSetting('smtp-port')->getValue(),
+                'smtp-host' => Setting::getSetting('smtp-host')->getValue(),
+                'smtp-user' => Setting::getSetting('smtp-user')->getValue(),
                 'registration' => Setting::getSetting('registration')->getValue(),
                 'departments' => Department::getDepartmentNames(),
                 'supportedLanguages' => Language::getSupportedLanguages(),
-                'allowedLanguages' => Language::getAllowedLanguages(),
+                'allowedLanguages' => Language::getAllowedLanguages()
             ];
         } else {
             $settingsList = [

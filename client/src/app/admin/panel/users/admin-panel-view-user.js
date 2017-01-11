@@ -11,12 +11,14 @@ import AreYouSure from 'app-components/are-you-sure';
 import Header from 'core-components/header';
 import Button from 'core-components/button';
 import Message from 'core-components/message';
+import InfoTooltip from 'core-components/info-tooltip';
 
 class AdminPanelViewUser extends React.Component {
 
     state = {
         name: '',
         email: '',
+        verified: true,
         tickets: [],
         invalid: false,
         loading: true
@@ -64,6 +66,7 @@ class AdminPanelViewUser extends React.Component {
                         {i18n('EMAIL')}
                         <div className="admin-panel-view-user__info-box">
                             {this.state.email}
+                            {(!this.state.verified) ? this.renderNotVerified() : null}
                         </div>
                     </div>
                     <div className="admin-panel-view-user__delete-button">
@@ -76,6 +79,12 @@ class AdminPanelViewUser extends React.Component {
                     <TicketList {...this.getTicketListProps()}/>
                 </div>
             </div>
+        );
+    }
+
+    renderNotVerified() {
+        return (
+            <InfoTooltip className="admin-panel-view-user__unverified" type="warning" text={i18n('UNVERIFIED_EMAIL')} />
         );
     }
 
@@ -93,6 +102,7 @@ class AdminPanelViewUser extends React.Component {
         this.setState({
             name: result.data.name,
             email: result.data.email,
+            verified: result.data.verified,
             tickets: result.data.tickets,
             loading: false
         });
