@@ -149,7 +149,7 @@ class FormField extends React.Component {
     onChange(nativeEvent) {
         let event = nativeEvent;
 
-        if (this.props.field === 'checkbox') {
+        if (this.props.field === 'checkbox' && !this.props.decorator) {
             event = {
                 target: {
                     value: event.target.checked
@@ -157,7 +157,7 @@ class FormField extends React.Component {
             };
         }
 
-        if (this.props.field === 'select') {
+        if (this.props.field === 'select' && !this.props.decorator) {
             event = {
                 target: {
                     value: event.index

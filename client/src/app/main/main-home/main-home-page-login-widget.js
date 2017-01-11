@@ -19,18 +19,14 @@ import Message          from 'core-components/message';
 
 class MainHomePageLoginWidget extends React.Component {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            sideToShow: 'front',
-            loginFormErrors: {},
-            recoverFormErrors: {},
-            recoverSent: false,
-            loadingLogin: false,
-            loadingRecover: false
-        };
-    }
+    state = {
+        sideToShow: 'front',
+        loginFormErrors: {},
+        recoverFormErrors: {},
+        recoverSent: false,
+        loadingLogin: false,
+        loadingRecover: false
+    };
 
     componentDidUpdate(prevProps) {
         if (!prevProps.session.failed && this.props.session.failed) {
@@ -126,7 +122,11 @@ class MainHomePageLoginWidget extends React.Component {
         let errors = _.extend({}, this.state.loginFormErrors);
 
         if (this.props.session.failed) {
-            errors.password = i18n('ERROR_PASSWORD');
+            if (this.props.session.failMessage === 'INVALID_CREDENTIALS') {
+                errors.password = i18n('ERROR_PASSWORD');
+            } else if (this.props.session.failMessage === 'UNVERIFIED_USER') {
+                errors.email = i18n('UNVERIFIED_EMAIL');
+            }
         }
 
         return errors;

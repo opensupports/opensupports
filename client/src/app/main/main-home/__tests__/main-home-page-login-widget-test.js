@@ -91,7 +91,8 @@ describe('Login/Recover Widget', function () {
             renderComponent({
                 session: {
                     pending: false,
-                    failed: true
+                    failed: true,
+                    failMessage: 'INVALID_CREDENTIALS'
                 }
             });
             expect(loginForm.props.errors).to.deep.equal({password: 'Invalid password'});

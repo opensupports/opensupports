@@ -29,6 +29,7 @@ class GetUserController extends Controller {
         Response::respondSuccess([
             'name' => $user->name,
             'email' => $user->email,
+            'verified' => !$user->verificationToken,
             'tickets' => $parsedTicketList
         ]);
     }

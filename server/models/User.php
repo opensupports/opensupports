@@ -34,7 +34,8 @@ class User extends DataStore {
         return [
             'email' => $this->email,
             'id' => $this->id,
-            'name' => $this->name
+            'name' => $this->name,
+            'verified' => !$this->verificationToken
         ];
     }
 }

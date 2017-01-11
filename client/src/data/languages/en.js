@@ -150,6 +150,8 @@ export default {
     'LOAD_MORE': 'Load More',
     'MY_NOTIFICATIONS': 'My notifications',
     'ALL_NOTIFICATIONS': 'All notifications',
+    'VERIFY_SUCCESS': 'User verified',
+    'VERIFY_FAILED': 'Could not verify',
 
     //ACTIVITIES
     'ACTIVITY_COMMENT': 'commented ticket',
@@ -209,6 +211,8 @@ export default {
     'MAINTENANCE_MODE_DESCRIPTION': 'The support system is in maintenance mode, thus unavailable at the moment. We will come back as soon as possible.',
     'EMAIL_TEMPLATES_DESCRIPTION': 'Here you can edit the templates of the emails that will be sent to users. Remember that the double brackets curly braces indicate a variable value. For example, \'name\' represents the user\'s name.',
     'SYSTEM_PREFERENCES_DESCRIPTION': 'Here you can edit the preferences of the system.',
+    'VERIFY_SUCCESS_DESCRIPTION': 'You user has been verified correctly. You can log in now.',
+    'VERIFY_FAILED_DESCRIPTION': 'The verification could not be done.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
@@ -232,6 +236,8 @@ export default {
     'ERROR_RETRIEVING_ARTICLES': 'An error occurred while trying to retrieve articles.',
     'ERROR_LIST': 'Select at least one',
     'ERROR_URL': 'Invalid URL',
+    'UNVERIFIED_EMAIL': 'Email is not verified yet',
+    'ERROR_UPDATING_SETTINGS': 'An error occurred while trying to update settings',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',

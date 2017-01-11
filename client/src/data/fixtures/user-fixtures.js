@@ -21,7 +21,7 @@ module.exports = [
             } else {
                 response = {
                     status: 'fail',
-                    message: 'Invalid Credientals'
+                    message: 'INVALID_CREDENTIALS'
                 };
             }
 
@@ -89,6 +89,16 @@ module.exports = [
         }
     },
     {
+        path: '/user/verify-token',
+        time: 200,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
         path: '/user/signup',
         time: 1000,
         response: function (data) {
@@ -145,6 +155,7 @@ module.exports = [
                 data: {
                     name: 'Kurt Gödel',
                     email: 'kurt@currycurrylady.hs',
+                    verified: false,
                     tickets: _.times(13).map(() => {
                         return {
                             ticketNumber: '118551',
