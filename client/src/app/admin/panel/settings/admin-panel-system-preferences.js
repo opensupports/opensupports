@@ -173,7 +173,7 @@ class AdminPanelSystemPreferences extends React.Component {
                 'smtp-host': form['smtp-host'],
                 'smtp-port': form['smtp-port'],
                 'smtp-user': form['smtp-user'],
-                'smtp-pass': form['smtp-password'],
+                'smtp-pass': form['smtp-pass'],
                 'maintenance-mode': form['maintenance-mode'],
                 'allow-attachments': form['allow-attachments'],
                 'max-size': form['max-size'],

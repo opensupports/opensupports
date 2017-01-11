@@ -18,7 +18,7 @@ class GetLogsController extends Controller {
 
     public function handler() {
         $page = Controller::request('page');
-        $logList = Log::find('ORDER BY id desc LIMIT ? OFFSET ?', [10, 10*($page-1)+1]);
+        $logList = Log::find('ORDER BY id desc LIMIT ? OFFSET ?', [10, 10*($page-1)]);
 
         Response::respondSuccess($logList->toArray());
     }
