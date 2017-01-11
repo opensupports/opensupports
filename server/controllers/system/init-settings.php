@@ -40,7 +40,8 @@ class InitSettingsController extends Controller {
             'allow-attachments' => 0,
             'max-size' => 0,
             'title' => 'Support Center',
-            'url' => 'http://www.opensupports.com/support'
+            'url' => 'http://www.opensupports.com/support',
+            'registration' => true 
         ]);
     }
 

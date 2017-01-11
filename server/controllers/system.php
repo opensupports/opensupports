@@ -9,6 +9,8 @@ require_once 'system/get-logs.php';
 require_once 'system/get-mail-templates.php';
 require_once 'system/edit-mail-template.php';
 require_once 'system/recover-mail-template.php';
+require_once 'system/disable-registration.php';
+require_once 'system/enable-registration.php';
 
 $systemControllerGroup = new ControllerGroup();
 $systemControllerGroup->setGroupPath('/system');
@@ -23,5 +25,7 @@ $systemControllerGroup->addController(new GetLogsController);
 $systemControllerGroup->addController(new GetMailTemplatesController);
 $systemControllerGroup->addController(new EditMailTemplateController);
 $systemControllerGroup->addController(new RecoverMailTemplateController);
+$systemControllerGroup->addController(new DisableRegistrationController);
+$systemControllerGroup->addController(new EnableRegistrationController);
 
 $systemControllerGroup->finalize();
