@@ -50,6 +50,7 @@ class SignUpController extends Controller {
             Response::respondError(ERRORS::ALREADY_BANNED);
             return;
         }
+
         if (!Setting::getSetting('registration')->value) {
             Response::respondError(ERRORS::NO_PERMISSION);
             return;

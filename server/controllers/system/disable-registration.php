@@ -9,6 +9,7 @@ class DisableRegistrationController extends Controller {
             'requestData' => []
         ];
     }
+    
     public function handler() {
         $password = Controller::request('password');
 
