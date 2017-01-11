@@ -1,5 +1,4 @@
 <?php
-use Respect\Validation\Validator as DataValidator;
 
 class EditSettingsController extends Controller {
     const PATH = '/edit-settings';

@@ -18,7 +18,8 @@ class Staff extends DataStore {
             'level',
             'sharedDepartmentList',
             'sharedTicketList',
-            'lastLogin'
+            'lastLogin',
+            'sharedStatList'
         ];
     }
 
