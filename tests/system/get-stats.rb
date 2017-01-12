@@ -71,180 +71,67 @@ describe'/system/get-stats' do
             $database.query("INSERT INTO ticketevent VALUES('', 'ASSIGN', NULL, " + yesterday + ", NULL, NULL, 1);")
         end
 
-        result= request('/system/get-stats', {
+        @result = request('/system/get-stats', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             period: 'week'
         })
 
-        (result['status']).should.equal('success')
+        def assertData(position, date, type, value)
+            (@result['data'][position]['date']).should.equal(date)
+            (@result['data'][position]['type']).should.equal(type)
+            (@result['data'][position]['value']).should.equal(value)
+        end
 
-        row = $database.getRow('stat', 65, 'id')
+        assertData(11, '20170109', 'CREATE_TICKET', '1')
+        assertData(10, '20170109', 'CLOSE', '2')
+        assertData(9, '20170109', 'SIGNUP', '6')
+        assertData(8, '20170109', 'COMMENT', '3')
 
-        (row['date']).should.equal('20170109')
-        (row['type']).should.equal('CREATE_TICKET')
-        (row['general']).should.equal('1')
-        (row['value']).should.equal('1')
 
-        row = $database.getRow('stat', 66, 'id')
+        assertData(7, '20170110', 'CREATE_TICKET', '3')
+        assertData(6, '20170110', 'CLOSE', '10')
+        assertData(5, '20170110', 'SIGNUP', '8')
+        assertData(4, '20170110', 'COMMENT', '3')
 
-        (row['date']).should.equal('20170109')
-        (row['type']).should.equal('CLOSE')
-        (row['general']).should.equal('1')
-        (row['value']).should.equal('2')
+        assertData(3, '20170111', 'CREATE_TICKET', '2')
+        assertData(2, '20170111', 'CLOSE', '5')
+        assertData(1, '20170111', 'SIGNUP', '1')
+        assertData(0, '20170111', 'COMMENT', '8')
 
-        row = $database.getRow('stat', 67, 'id')
 
-        (row['date']).should.equal('20170109')
-        (row['type']).should.equal('SIGNUP')
-        (row['general']).should.equal('1')
-        (row['value']).should.equal('6')
+        @result = request('/system/get-stats', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            period: 'week',
+            staffId: '1'
+        })
+        assertData(0, '20170111', 'CLOSE', '4')
+        assertData(1, '20170111', 'ASSIGN', '8')
+        assertData(2, '20170110', 'CLOSE', '11')
+        assertData(3, '20170110', 'ASSIGN', '3')
 
-        row = $database.getRow('stat', 68, 'id')
+        assertData(4, '20170109', 'CLOSE', '9')
+        assertData(5, '20170109', 'ASSIGN', '5')
+        assertData(6, '20170108', 'CLOSE', '0')
+        assertData(7, '20170108', 'ASSIGN', '0')
 
-        (row['date']).should.equal('20170109')
-        (row['type']).should.equal('COMMENT')
-        (row['general']).should.equal('1')
-        (row['value']).should.equal('3')
+        assertData(8, '20170107', 'CLOSE', '0')
+        assertData(9, '20170107', 'ASSIGN', '0')
+        assertData(10, '20170106', 'CLOSE', '0')
+        assertData(11, '20170106', 'ASSIGN', '0')
 
-        row = $database.getRow('stat', 69, 'id')
+        assertData(12, '20170105', 'CLOSE', '0')
+        assertData(13, '20170105', 'ASSIGN', '0')
+        assertData(14, '20170104', 'CLOSE', '0')
+        assertData(15, '20170104', 'ASSIGN', '0')
 
-        (row['date']).should.equal('20170109')
-        (row['type']).should.equal('ASSIGN')
-        (row['general']).should.equal('0')
-        (row['value']).should.equal('5')
+        assertData(16, '20170103', 'CLOSE', '0')
+        assertData(17, '20170103', 'ASSIGN', '0')
+        assertData(18, '20170102', 'CLOSE', '0')
+        assertData(19, '20170102', 'ASSIGN', '0')
 
-        row = $database.getRow('stat', 70, 'id')
-
-        (row['date']).should.equal('20170109')
-        (row['type']).should.equal('CLOSE')
-        (row['general']).should.equal('0')
-        (row['value']).should.equal('9')
-
-        row = $database.getRow('stat', 71, 'id')
-
-        (row['date']).should.equal('20170109')
-        (row['type']).should.equal('ASSIGN')
-        (row['general']).should.equal('0')
-        (row['value']).should.equal('0')
-
-        row = $database.getRow('stat', 72, 'id')
-
-        (row['date']).should.equal('20170109')
-        (row['type']).should.equal('CLOSE')
-        (row['general']).should.equal('0')
-        (row['value']).should.equal('0')
-
-        row = $database.getRow('stat', 73, 'id')
-
-        (row['date']).should.equal('20170110')
-        (row['type']).should.equal('CREATE_TICKET')
-        (row['general']).should.equal('1')
-        (row['value']).should.equal('3')
-
-        row = $database.getRow('stat', 74, 'id')
-
-        (row['date']).should.equal('20170110')
-        (row['type']).should.equal('CLOSE')
-        (row['general']).should.equal('1')
-        (row['value']).should.equal('10')
-
-        row = $database.getRow('stat', 75, 'id')
-
-        (row['date']).should.equal('20170110')
-        (row['type']).should.equal('SIGNUP')
-        (row['general']).should.equal('1')
-        (row['value']).should.equal('8')
-
-        row = $database.getRow('stat', 76, 'id')
-
-        (row['date']).should.equal('20170110')
-        (row['type']).should.equal('COMMENT')
-        (row['general']).should.equal('1')
-        (row['value']).should.equal('3')
-
-        row = $database.getRow('stat', 77, 'id')
-
-        (row['date']).should.equal('20170110')
-        (row['type']).should.equal('ASSIGN')
-        (row['general']).should.equal('0')
-        (row['value']).should.equal('3')
-
-        row = $database.getRow('stat', 78, 'id')
-
-        (row['date']).should.equal('20170110')
-        (row['type']).should.equal('CLOSE')
-        (row['general']).should.equal('0')
-        (row['value']).should.equal('11')
-
-        row = $database.getRow('stat', 79, 'id')
-
-        (row['date']).should.equal('20170110')
-        (row['type']).should.equal('ASSIGN')
-        (row['general']).should.equal('0')
-        (row['value']).should.equal('0')
-
-        row = $database.getRow('stat', 80, 'id')
-
-        (row['date']).should.equal('20170110')
-        (row['type']).should.equal('CLOSE')
-        (row['general']).should.equal('0')
-        (row['value']).should.equal('0')
-
-        row = $database.getRow('stat', 81, 'id')
-
-        (row['date']).should.equal('20170111')
-        (row['type']).should.equal('CREATE_TICKET')
-        (row['general']).should.equal('1')
-        (row['value']).should.equal('2')
-
-        row = $database.getRow('stat', 82, 'id')
-
-        (row['date']).should.equal('20170111')
-        (row['type']).should.equal('CLOSE')
-        (row['general']).should.equal('1')
-        (row['value']).should.equal('5')
-
-        row = $database.getRow('stat', 83, 'id')
-
-        (row['date']).should.equal('20170111')
-        (row['type']).should.equal('SIGNUP')
-        (row['general']).should.equal('1')
-        (row['value']).should.equal('1')
-
-        row = $database.getRow('stat', 84, 'id')
-
-        (row['date']).should.equal('20170111')
-        (row['type']).should.equal('COMMENT')
-        (row['general']).should.equal('1')
-        (row['value']).should.equal('8')
-
-        row = $database.getRow('stat', 85, 'id')
-
-        (row['date']).should.equal('20170111')
-        (row['type']).should.equal('ASSIGN')
-        (row['general']).should.equal('0')
-        (row['value']).should.equal('8')
-
-        row = $database.getRow('stat', 86, 'id')
-
-        (row['date']).should.equal('20170111')
-        (row['type']).should.equal('CLOSE')
-        (row['general']).should.equal('0')
-        (row['value']).should.equal('4')
-
-        row = $database.getRow('stat', 87, 'id')
-
-        (row['date']).should.equal('20170111')
-        (row['type']).should.equal('ASSIGN')
-        (row['general']).should.equal('0')
-        (row['value']).should.equal('0')
-
-        row = $database.getRow('stat', 88, 'id')
-
-        (row['date']).should.equal('20170111')
-        (row['type']).should.equal('CLOSE')
-        (row['general']).should.equal('0')
-        (row['value']).should.equal('0')
+        assertData(20, '20170101', 'CLOSE', '0')
+        assertData(21, '20170101', 'ASSIGN', '0')
     end
 end
