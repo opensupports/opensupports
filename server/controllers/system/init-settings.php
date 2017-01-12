@@ -40,7 +40,10 @@ class InitSettingsController extends Controller {
             'allow-attachments' => 0,
             'max-size' => 0,
             'title' => 'Support Center',
-            'url' => 'http://www.opensupports.com/support'
+            'url' => 'http://www.opensupports.com/support',
+            'ticket-gap' => Hashing::generateRandomPrime(100000, 999999),
+            'file-gap' => Hashing::generateRandomPrime(100000, 999999),
+            'file-first-number' => Hashing::generateRandomNumber(100000, 999999),
         ]);
     }
 
