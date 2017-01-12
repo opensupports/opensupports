@@ -35,12 +35,13 @@ class GetStatsController extends Controller {
 
     public function generationNewStats() {
         $lastStatDay = Setting::getSetting('last-stat-day');
-        $previousCurrentDate = floor(Date::getCurrentDate()/10000)-1;
+        $previousCurrentDate = floor(Date::getPreviousDate() / 10000);
+        $currentDate = floor(Date::getCurrentDate() / 10000);
 
         if($lastStatDay->value !== $previousCurrentDate) {
 
             $begin = new DateTime($lastStatDay->value);
-            $end = new DateTime($previousCurrentDate);
+            $end = new DateTime($currentDate);
 
             $interval = new DateInterval('P1D');
             $dateRange = new DatePeriod($begin, $interval ,$end);
@@ -80,7 +81,7 @@ class GetStatsController extends Controller {
                 }
             }
 
-            $lastStatDay->value = $previousCurrentDate;
+            $lastStatDay->value = $currentDate;
             $lastStatDay->store();
         }
     }
