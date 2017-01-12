@@ -41,7 +41,8 @@ class InitSettingsController extends Controller {
             'max-size' => 0,
             'title' => 'Support Center',
             'url' => 'http://www.opensupports.com/support',
-            'last-stat-day' => '20170101'//TODO: get current date
+            'registration' => true,
+            'last-stat-day' => '20170101' //TODO: get current date
         ]);
     }
 
