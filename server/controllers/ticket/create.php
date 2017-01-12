@@ -60,7 +60,7 @@ class CreateController extends Controller {
             'language' => $this->language,
             'author' => $author,
             'department' => $department,
-            'file' => '',
+            'file' => $this->uploadFile(),
             'date' => Date::getCurrentDate(),
             'unread' => false,
             'unreadStaff' => true,
@@ -74,5 +74,27 @@ class CreateController extends Controller {
         $ticket->store();
         
         $this->ticketNumber = $ticket->ticketNumber;
+    }
+    
+    private function uploadFile() {
+        if(!isset($_FILES['file'])) return '';
+        
+        $maxSize = Setting::getSetting('max-size')->getValue();
+        $fileGap = Setting::getSetting('file-gap')->getValue();
+        $fileFirst = Setting::getSetting('file-first-number')->getValue();
+        $fileQuantity = Setting::getSetting('file-quantity');
+        
+        $fileUploader = FileUploader::getInstance();
+        $fileUploader->setMaxSize($maxSize);
+        $fileUploader->setGeneratorValues($fileGap, $fileFirst, $fileQuantity->getValue());
+
+        if($fileUploader->upload($_FILES['file'])) {
+            $fileQuantity->value++;
+            $fileQuantity->store();
+
+            return $fileUploader->getFileName();
+        } else {
+            throw new Exception(ERRORS::INVALID_FILE);
+        }
     }
 }

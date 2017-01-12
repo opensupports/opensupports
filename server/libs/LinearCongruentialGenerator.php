@@ -21,7 +21,8 @@ class LinearCongruentialGenerator {
     }
     
     public function generate($offset) {
-        return ($this->first - $this->min + $offset * $this->gap) % ($this->max - $this->min + 1) + $this->min;
+        if($offset) return ($this->first - $this->min + $offset * $this->gap) % ($this->max - $this->min + 1) + $this->min;
+        else return $this->generateFirst();
     }
     
     public function generateFirst() {

@@ -4,6 +4,7 @@ class FileUploader extends FileManager {
     private $maxSize = 1024;
     private $linearCongruentialGenerator;
     private $linearCongruentialGeneratorOffset;
+    private $fileName;
 
     private static $instance = null;
 
@@ -18,18 +19,18 @@ class FileUploader extends FileManager {
     private function __construct() {}
 
     public function upload($file) {
-        $newFileName = $this->generateNewName($file['name']);
+        $this->setNewName($file['name']);
 
         if($file['size'] > (1024 * $this->maxSize)) {
             return false;
         }
         
-        move_uploaded_file($file['tmp_name'], $this->getLocalPath() . $newFileName);
+        move_uploaded_file($file['tmp_name'], $this->getLocalPath() . $this->getFileName());
 
         return true;
     }
 
-    private function generateNewName($fileName) {
+    private function setNewName($fileName) {
         $newName = $fileName;
         $newName = strtolower($newName);
         $newName = preg_replace('/\s+/', '_', $newName);
@@ -38,7 +39,7 @@ class FileUploader extends FileManager {
             $newName = $this->linearCongruentialGenerator->generate($this->linearCongruentialGeneratorOffset) . '_' . $newName;
         }
 
-        return $newName;
+        $this->fileName = $newName;
     }
 
     public function setGeneratorValues($gap, $first, $offset) {
@@ -51,6 +52,10 @@ class FileUploader extends FileManager {
     
     public function setMaxSize($maxSize) {
         $this->maxSize = $maxSize;
+    }
+    
+    public function getFileName() {
+        return $this->fileName;
     }
 
 }

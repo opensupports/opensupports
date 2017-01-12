@@ -38,12 +38,13 @@ class InitSettingsController extends Controller {
             'maintenance-mode' => 0,
             'layout' => 'boxed',
             'allow-attachments' => 0,
-            'max-size' => 0,
+            'max-size' => 1024,
             'title' => 'Support Center',
             'url' => 'http://www.opensupports.com/support',
             'ticket-gap' => Hashing::generateRandomPrime(100000, 999999),
             'file-gap' => Hashing::generateRandomPrime(100000, 999999),
             'file-first-number' => Hashing::generateRandomNumber(100000, 999999),
+            'file-quantity' => 0
         ]);
     }
 
