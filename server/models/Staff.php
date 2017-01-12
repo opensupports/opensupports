@@ -19,13 +19,14 @@ class Staff extends DataStore {
             'sharedDepartmentList',
             'sharedTicketList',
             'lastLogin',
-            'sharedStatList'
+            'ownStatList'
         ];
     }
 
     public function getDefaultProps() {
         return [
-            'level' => 1
+            'level' => 1,
+            'ownStatList' => new DataStoreList()
         ];
     }
 
