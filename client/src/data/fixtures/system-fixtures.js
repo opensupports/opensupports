@@ -158,6 +158,15 @@ module.exports = [
         }
     },
     {
+        path: '/system/get-stats',
+        time: 200,
+        response: function() {
+            return {
+                
+            };
+        }
+    },
+    {
         path: '/system/get-logs',
         time: 300,
         response: function() {

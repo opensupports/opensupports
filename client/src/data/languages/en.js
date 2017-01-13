@@ -150,6 +150,7 @@ export default {
     'LOAD_MORE': 'Load More',
     'MY_NOTIFICATIONS': 'My notifications',
     'ALL_NOTIFICATIONS': 'All notifications',
+    'TICKET_ACTIVITY': 'Ticket Activity',
 
     //ACTIVITIES
     'ACTIVITY_COMMENT': 'commented ticket',

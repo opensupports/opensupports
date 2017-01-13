@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const LineChart = require("react-chartjs").Line;
 const _ = require('lodash');
 const DocumentTitle = require('react-document-title');
 
@@ -16,8 +17,41 @@ const Menu = require('core-components/menu');
 const Tooltip = require('core-components/tooltip');
 const Table = require('core-components/table');
 const InfoTooltip = require('core-components/info-tooltip');
-const ToggleButton = require('app-components/toggle-button');
 
+function rand(min, max, num) {
+    var rtn = [];
+    while (rtn.length < num) {
+        rtn.push((Math.random() * (max - min)) + min);
+    }
+    return rtn;
+}
+
+let chartData = {
+    labels: ["January", "February", "March", "April", "", "May", "June", "July"],
+    datasets: [
+        {
+            label: "My First dataset",
+            fillColor: "rgba(0,0,0,0)",
+            strokeColor: "rgba(1,2,3,1)",
+            pointColor: "rgba(3,2,1,1)",
+            pointStrokeColor: "#333",
+            pointHighlightFill: "#999",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: rand(32, 100, 8)
+        },
+        {
+            label: "My Second dataset",
+            fillColor: "rgba(0,0,0,0)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: rand(32, 100, 8)
+        }
+    ]
+};
+let chartOptions = {};
 let dropDownItems = [{content: 'English'}, {content: 'Spanish'}, {content: 'German'}, {content: 'Portuguese'}, {content: 'Japanese'}];
 let secondaryMenuItems = [
     {content: 'My Tickets', icon: 'file-text'},
@@ -175,6 +209,12 @@ let DemoPage = React.createClass({
             title: 'InfoTooltip',
             render: (
                 <InfoTooltip type="warning" text="No staff member is assigned to this department." />
+            )
+        },
+        {
+            title: 'LineChart',
+            render: (
+                <LineChart data={chartData} options={chartOptions} width="600" height="250" />
             )
         }
 	],
