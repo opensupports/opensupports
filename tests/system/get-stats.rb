@@ -83,21 +83,44 @@ describe'/system/get-stats' do
             (@result['data'][position]['value']).should.equal(value)
         end
 
-        assertData(11, '20170109', 'CREATE_TICKET', '1')
-        assertData(10, '20170109', 'CLOSE', '2')
-        assertData(9, '20170109', 'SIGNUP', '6')
-        assertData(8, '20170109', 'COMMENT', '3')
+        d = Date.today.prev_day
+        yesterday = d.strftime("%Y%m%d")
+        d = Date.today.prev_day.prev_day
+        yesterday2 = d.strftime("%Y%m%d")
+        d = Date.today.prev_day.prev_day.prev_day
+        yesterday3 = d.strftime("%Y%m%d")
+        d = Date.today.prev_day.prev_day.prev_day.prev_day
+        yesterday4 = d.strftime("%Y%m%d")
+        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day
+        yesterday5 = d.strftime("%Y%m%d")
+        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day
+        yesterday6 = d.strftime("%Y%m%d")
+        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day
+        yesterday7 = d.strftime("%Y%m%d")
+        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day
+        yesterday8 = d.strftime("%Y%m%d")
+        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day
+        yesterday9 = d.strftime("%Y%m%d")
+        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day
+        yesterday10 = d.strftime("%Y%m%d")
+        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day
+        yesterday11 = d.strftime("%Y%m%d")
+
+        assertData(11, yesterday3, 'CREATE_TICKET', '1')
+        assertData(10, yesterday3, 'CLOSE', '2')
+        assertData(9, yesterday3, 'SIGNUP', '6')
+        assertData(8, yesterday3, 'COMMENT', '3')
 
 
-        assertData(7, '20170110', 'CREATE_TICKET', '3')
-        assertData(6, '20170110', 'CLOSE', '10')
-        assertData(5, '20170110', 'SIGNUP', '8')
-        assertData(4, '20170110', 'COMMENT', '3')
+        assertData(7, yesterday2, 'CREATE_TICKET', '3')
+        assertData(6, yesterday2, 'CLOSE', '10')
+        assertData(5, yesterday2, 'SIGNUP', '8')
+        assertData(4, yesterday2, 'COMMENT', '3')
 
-        assertData(3, '20170111', 'CREATE_TICKET', '2')
-        assertData(2, '20170111', 'CLOSE', '5')
-        assertData(1, '20170111', 'SIGNUP', '1')
-        assertData(0, '20170111', 'COMMENT', '8')
+        assertData(3, yesterday, 'CREATE_TICKET', '2')
+        assertData(2, yesterday, 'CLOSE', '5')
+        assertData(1, yesterday, 'SIGNUP', '1')
+        assertData(0, yesterday, 'COMMENT', '8')
 
 
         @result = request('/system/get-stats', {
@@ -106,32 +129,32 @@ describe'/system/get-stats' do
             period: 'week',
             staffId: '1'
         })
-        assertData(0, '20170111', 'CLOSE', '4')
-        assertData(1, '20170111', 'ASSIGN', '8')
-        assertData(2, '20170110', 'CLOSE', '11')
-        assertData(3, '20170110', 'ASSIGN', '3')
+        assertData(0, yesterday, 'CLOSE', '4')
+        assertData(1, yesterday, 'ASSIGN', '8')
+        assertData(2, yesterday2, 'CLOSE', '11')
+        assertData(3, yesterday2, 'ASSIGN', '3')
 
-        assertData(4, '20170109', 'CLOSE', '9')
-        assertData(5, '20170109', 'ASSIGN', '5')
-        assertData(6, '20170108', 'CLOSE', '0')
-        assertData(7, '20170108', 'ASSIGN', '0')
+        assertData(4, yesterday3, 'CLOSE', '9')
+        assertData(5, yesterday3, 'ASSIGN', '5')
+        assertData(6, yesterday4, 'CLOSE', '0')
+        assertData(7, yesterday4, 'ASSIGN', '0')
 
-        assertData(8, '20170107', 'CLOSE', '0')
-        assertData(9, '20170107', 'ASSIGN', '0')
-        assertData(10, '20170106', 'CLOSE', '0')
-        assertData(11, '20170106', 'ASSIGN', '0')
+        assertData(8, yesterday5, 'CLOSE', '0')
+        assertData(9, yesterday5, 'ASSIGN', '0')
+        assertData(10, yesterday6, 'CLOSE', '0')
+        assertData(11, yesterday6, 'ASSIGN', '0')
 
-        assertData(12, '20170105', 'CLOSE', '0')
-        assertData(13, '20170105', 'ASSIGN', '0')
-        assertData(14, '20170104', 'CLOSE', '0')
-        assertData(15, '20170104', 'ASSIGN', '0')
+        assertData(12, yesterday7, 'CLOSE', '0')
+        assertData(13, yesterday7, 'ASSIGN', '0')
+        assertData(14, yesterday8, 'CLOSE', '0')
+        assertData(15, yesterday8, 'ASSIGN', '0')
 
-        assertData(16, '20170103', 'CLOSE', '0')
-        assertData(17, '20170103', 'ASSIGN', '0')
-        assertData(18, '20170102', 'CLOSE', '0')
-        assertData(19, '20170102', 'ASSIGN', '0')
+        assertData(16, yesterday9, 'CLOSE', '0')
+        assertData(17, yesterday9, 'ASSIGN', '0')
+        assertData(18, yesterday10, 'CLOSE', '0')
+        assertData(19, yesterday10, 'ASSIGN', '0')
 
-        assertData(20, '20170101', 'CLOSE', '0')
-        assertData(21, '20170101', 'ASSIGN', '0')
+        assertData(20, yesterday11, 'CLOSE', '0')
+        assertData(21, yesterday11, 'ASSIGN', '0')
     end
 end
