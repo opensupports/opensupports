@@ -6,13 +6,13 @@ class APIKey extends DataStore {
     public static function getProps() {
         return [
             'name',
-            'key'
+            'token'
         ];
     }
     public function toArray() {
         return [
             'name' => $this->name,
-            'key' => $this->key
+            'token' => $this->token
         ];
     }
 }
