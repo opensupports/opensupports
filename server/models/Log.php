@@ -9,7 +9,8 @@ class Log extends DataStore {
             'type',
             'authorUser',
             'authorStaff',
-            'to'
+            'to',
+            'date'
         ];
     }
 
@@ -22,7 +23,8 @@ class Log extends DataStore {
 
         $log->setProperties(array(
             'type' => $type,
-            'to' => $to
+            'to' => $to,
+            'date' => Date::getCurrentDate()
         ));
 
         if($author instanceof User) {
@@ -44,7 +46,8 @@ class Log extends DataStore {
                 'name' => $author->name,
                 'id' => $author->id,
                 'staff' => $author instanceof Staff
-            ]
+            ],
+            'date' => $this->date 
         ];
     }
 }

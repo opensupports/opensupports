@@ -51,6 +51,11 @@ class SignUpController extends Controller {
             return;
         }
 
+        if (!Setting::getSetting('registration')->value) {
+            Response::respondError(ERRORS::NO_PERMISSION);
+            return;
+        }
+
         $userId = $this->createNewUserAndRetrieveId();
         $this->sendRegistrationMail();
 

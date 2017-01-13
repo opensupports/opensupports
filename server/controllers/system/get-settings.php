@@ -28,6 +28,7 @@ class GetSettingsController extends Controller {
                 'smtp-port' => Setting::getSetting('smtp-port')->getValue(),
                 'smtp-host' => Setting::getSetting('smtp-host')->getValue(),
                 'smtp-user' => Setting::getSetting('smtp-user')->getValue(),
+                'registration' => Setting::getSetting('registration')->getValue(),
                 'departments' => Department::getDepartmentNames(),
                 'supportedLanguages' => Language::getSupportedLanguages(),
                 'allowedLanguages' => Language::getAllowedLanguages()
@@ -42,6 +43,7 @@ class GetSettingsController extends Controller {
                 'allow-attachments' => Setting::getSetting('allow-attachments')->getValue(),
                 'max-size' => Setting::getSetting('max-size')->getValue(),
                 'title' => Setting::getSetting('title')->getValue(),
+                'registration' => Setting::getSetting('registration')->getValue(),
                 'departments' => Department::getDepartmentNames(),
                 'supportedLanguages' => Language::getSupportedLanguages(),
                 'allowedLanguages' => Language::getAllowedLanguages()
