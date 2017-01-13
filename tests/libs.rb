@@ -29,6 +29,10 @@ class Database
 
         return queryResponse.fetch_hash
     end
+
+    def query(query_string)
+        return @connection.query(query_string);
+    end
 end
 
 $database = Database.new
