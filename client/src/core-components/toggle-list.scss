@@ -1,0 +1,21 @@
+@import "../scss/vars";
+
+.toggle-list {
+
+    &__item {
+        border: 1px $light-grey solid;
+        border-left: none;
+        width: 180px;
+        height: 120px;
+        display: inline-block;
+        transition: background-color 0.4s ease;
+    }
+
+    &__selected {
+        background-color: $light-grey;
+    }
+
+    &__first-item {
+        border: 1px $light-grey solid;
+    }
+}
