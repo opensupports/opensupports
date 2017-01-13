@@ -28,6 +28,7 @@ class GetUsersController extends Controller {
             $userListArray[] = [
                 'id' => $user->id,
                 'name' => $user->name,
+                'verified' => !$user->verificationToken,
                 'tickets' => $user->tickets,
                 'email' => $user->email,
                 'signupDate' => $user->signupDate

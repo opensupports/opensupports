@@ -44,6 +44,7 @@ class MainLayoutHeader extends React.Component {
         return {
             className: 'main-layout-header__languages',
             value: this.props.config.language,
+            type: 'allowed',
             onChange: this.changeLanguage.bind(this)
         };
     }

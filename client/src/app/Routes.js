@@ -10,6 +10,7 @@ import DemoPage from 'app/demo/components-demo-page';
 import MainLayout from 'app/main/main-layout';
 import MainHomePage from 'app/main/main-home/main-home-page';
 import MainSignUpPage from 'app/main/main-signup/main-signup-page';
+import MainVerifyTokenPage from 'app/main/main-verify-token-page';
 import MainRecoverPasswordPage from 'app/main/main-recover-password/main-recover-password-page';
 import MainMaintenancePage from 'app/main/main-maintenance-page';
 
@@ -59,6 +60,7 @@ export default (
             <Route path='/' component={MainLayout}>
                 <IndexRoute component={MainHomePage} />
                 <Route path='signup' component={MainSignUpPage}/>
+                <Route path='verify-token/:email/:token' component={MainVerifyTokenPage}/>
                 <Route path='recover-password' component={MainRecoverPasswordPage}/>
                 <Route path='maintenance' component={MainMaintenancePage}/>
                 <Route path='dashboard' component={DashboardLayout}>

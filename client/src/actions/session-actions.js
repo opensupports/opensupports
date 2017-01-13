@@ -71,6 +71,13 @@ export default {
         }
     },
 
+    verify(value) {
+        return {
+            type: 'VERIFY',
+            payload: value
+        };
+    },
+
     initSession() {
         return {
             type: 'CHECK_SESSION',

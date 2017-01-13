@@ -27,7 +27,7 @@ class LastEventsStaffController extends Controller {
         $query = substr($query,0,-3);
         $query .= ') ORDER BY id desc LIMIT ? OFFSET ?' ;
 
-        $eventList = Ticketevent::find($query, [10, 10*($page-1)+1]);
+        $eventList = Ticketevent::find($query, [10, 10*($page-1)]);
 
         Response::respondSuccess($eventList->toArray());
     }

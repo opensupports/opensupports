@@ -33,6 +33,7 @@ class CreateTicketForm extends React.Component {
         form: {
             title: '',
             content: RichTextEditor.createEmptyValue(),
+            departmentIndex: 0,
             language: 'en'
         }
     };
