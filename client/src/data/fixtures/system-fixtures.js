@@ -162,7 +162,177 @@ module.exports = [
         time: 200,
         response: function() {
             return {
-                
+                status: "success",
+                data: [
+                    {
+                        "date": "20170112",
+                        "type": "COMMENT",
+                        "general": "1",
+                        "value": "8"
+                    },
+                    {
+                        "date": "20170112",
+                        "type": "SIGNUP",
+                        "general": "1",
+                        "value": "1"
+                    },
+                    {
+                        "date": "20170112",
+                        "type": "CLOSE",
+                        "general": "1",
+                        "value": "5"
+                    },
+                    {
+                        "date": "20170112",
+                        "type": "CREATE_TICKET",
+                        "general": "1",
+                        "value": "2"
+                    },
+                    {
+                        "date": "20170111",
+                        "type": "COMMENT",
+                        "general": "1",
+                        "value": "3"
+                    },
+                    {
+                        "date": "20170111",
+                        "type": "SIGNUP",
+                        "general": "1",
+                        "value": "8"
+                    },
+                    {
+                        "date": "20170111",
+                        "type": "CLOSE",
+                        "general": "1",
+                        "value": "10"
+                    },
+                    {
+                        "date": "20170111",
+                        "type": "CREATE_TICKET",
+                        "general": "1",
+                        "value": "3"
+                    },
+                    {
+                        "date": "20170110",
+                        "type": "COMMENT",
+                        "general": "1",
+                        "value": "3"
+                    },
+                    {
+                        "date": "20170110",
+                        "type": "SIGNUP",
+                        "general": "1",
+                        "value": "6"
+                    },
+                    {
+                        "date": "20170110",
+                        "type": "CLOSE",
+                        "general": "1",
+                        "value": "2"
+                    },
+                    {
+                        "date": "20170110",
+                        "type": "CREATE_TICKET",
+                        "general": "1",
+                        "value": "1"
+                    },
+                    {
+                        "date": "20170109",
+                        "type": "COMMENT",
+                        "general": "1",
+                        "value": "0"
+                    },
+                    {
+                        "date": "20170109",
+                        "type": "SIGNUP",
+                        "general": "1",
+                        "value": "0"
+                    },
+                    {
+                        "date": "20170109",
+                        "type": "CLOSE",
+                        "general": "1",
+                        "value": "0"
+                    },
+                    {
+                        "date": "20170109",
+                        "type": "CREATE_TICKET",
+                        "general": "1",
+                        "value": "0"
+                    },
+                    {
+                        "date": "20170108",
+                        "type": "COMMENT",
+                        "general": "1",
+                        "value": "0"
+                    },
+                    {
+                        "date": "20170108",
+                        "type": "SIGNUP",
+                        "general": "1",
+                        "value": "0"
+                    },
+                    {
+                        "date": "20170108",
+                        "type": "CLOSE",
+                        "general": "1",
+                        "value": "0"
+                    },
+                    {
+                        "date": "20170108",
+                        "type": "CREATE_TICKET",
+                        "general": "1",
+                        "value": "0"
+                    },
+                    {
+                        "date": "20170107",
+                        "type": "COMMENT",
+                        "general": "1",
+                        "value": "0"
+                    },
+                    {
+                        "date": "20170107",
+                        "type": "SIGNUP",
+                        "general": "1",
+                        "value": "0"
+                    },
+                    {
+                        "date": "20170107",
+                        "type": "CLOSE",
+                        "general": "1",
+                        "value": "0"
+                    },
+                    {
+                        "date": "20170107",
+                        "type": "CREATE_TICKET",
+                        "general": "1",
+                        "value": "0"
+                    },
+                    {
+                        "date": "20170106",
+                        "type": "COMMENT",
+                        "general": "1",
+                        "value": "0"
+                    },
+                    {
+                        "date": "20170106",
+                        "type": "SIGNUP",
+                        "general": "1",
+                        "value": "0"
+                    },
+                    {
+                        "date": "20170106",
+                        "type": "CLOSE",
+                        "general": "1",
+                        "value": "0"
+                    },
+                    {
+                        "date": "20170106",
+                        "type": "CREATE_TICKET",
+                        "general": "1",
+                        "value": "0"
+                    }
+                ]
             };
         }
     },
