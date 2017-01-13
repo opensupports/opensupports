@@ -11,7 +11,7 @@ class ToggleList extends React.Component {
     };
 
     state = {
-        selected: [1, 3]
+        selected: []
     };
     
     render() {
@@ -35,26 +35,25 @@ class ToggleList extends React.Component {
         let classes = {
             'toggle-list__item': true,
             'toggle-list__first-item': (index === 0),
-            'toggle-list__selected': (_.includes(this.state.selected, index))
+            'toggle-list__selected': _.includes(this.state.selected, index)
         };
 
         return classNames(classes);
     }
 
     selectItem(index) {
-        let actual = _.clone(this.state.selected);
+        let newSelected = _.clone(this.state.selected);
 
-        _.includes(this.state.selected, index) ? _.remove(actual, t => t == index) : actual.push(index);
+        _.includes(this.state.selected, index) ? _.remove(newSelected, _index => _index == index) : newSelected.push(index);
 
-        console.log(actual);
         this.setState({
-            selected: actual
+            selected: newSelected
         });
 
         if (this.props.onChange) {
             this.props.onChange({
                 target: {
-                    value: actual
+                    value: newSelected
                 }
             });
         }
