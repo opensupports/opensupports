@@ -1,6 +1,8 @@
 import React from 'react';
 import {Line} from 'react-chartjs-2';
 
+import i18n from 'lib-app/i18n';
+
 class StatsChart extends React.Component {
 
     static propTypes = {
@@ -8,6 +10,7 @@ class StatsChart extends React.Component {
             name: React.PropTypes.string,
             values: React.PropTypes.arrayOf(React.PropTypes.shape({
                 date: React.PropTypes.string,
+                show: React.PropTypes.bool,
                 value: React.PropTypes.number
             }))
         })),
@@ -17,7 +20,7 @@ class StatsChart extends React.Component {
     render() {
         return (
             <div>
-                <Line data={this.getChartData()} options={this.getChartOptions()} width="800" height="400" />
+                <Line data={this.getChartData()} options={this.getChartOptions()} width={800} height={400} />
             </div>
         );
     }
@@ -31,9 +34,48 @@ class StatsChart extends React.Component {
     }
 
     getChartData() {
-        let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        let labels = this.getLabels();
 
+        let color = {
+            'CREATE_TICKET': 'rgba(150, 20, 20, 0.8)',
+            'CLOSE': 'rgba(20, 150, 20, 0.8)',
+            'SIGNUP': 'rgba(20, 20, 150, 0.8)',
+            'COMMENT': 'rgba(150, 150, 20, 0.8)'
+        };
+
+        let datasets = [];
+
+        for (let i = 0; i < this.props.strokes.length; i++) {
+            let stroke = this.props.strokes[i];
+            console.log(color[stroke.name]);
+
+            let dataset = {
+                label: i18n('CHART_' + stroke.name),
+                data: stroke.values.map((val) => val.value),
+                fill: false,
+                borderWidth: 4,
+                borderColor: color[stroke.name],
+                pointBorderColor: color[stroke.name],
+                pointRadius: 0,
+                lineTension: 0.2,
+                pointHoverBackgroundColor: color[stroke.name],
+                hitRadius: this.hitRadius(),
+                showLine: stroke.show
+            };
+
+            datasets.push(dataset);
+        }
+
+        return {
+            labels: labels,
+            datasets: datasets
+        };
+    }
+
+    getLabels() {
+        let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         let labels = [];
+
         for (let i = 0; i < this.props.display; i++) {
             if(i % 2 == 0 && this.props.display > 20){
                 labels.push('');
@@ -44,44 +86,7 @@ class StatsChart extends React.Component {
             labels.push( firstList.values[i].date.slice(6, 8) + ' ' +  months[idx]);
         }
 
-        let color = {
-            'CREATE_TICKET': 'rgba(150, 20, 20)',
-            'CLOSE': 'rgba(20, 150, 20)',
-            'SIGNUP': 'rgba(20, 20, 150)',
-            'COMMENT': 'rgba(150, 150, 20)'
-        };
-
-        let datasets = [];
-
-        for (let i = 0; i < this.props.strokes.length; i++) {
-            let stroke = this.props.strokes[i];
-
-            let dataset = {};
-            dataset.label = stroke.name;
-            dataset.data = [];
-            dataset.fill = false;
-
-            console.log('FUCK THIS PITCH BEF ' + stroke.values.length);
-            for (let j = 0; j < stroke.values.length; j++) {
-                console.log('OH YEAH: ' + stroke.values[j].value);
-                dataset.data.push(stroke.values[j].value);
-                console.log('OH YEAH x2');
-            }
-            console.log('FUCK THIS PITCH AFT');
-
-            dataset.borderWidth = 4;
-            dataset.borderColor = color[stroke.name];
-            dataset.pointRadius = 0;
-            dataset.lineTension = 0.2;
-            dataset.hitRadius = this.hitRadius();
-
-            datasets.push(dataset);
-        }
-
-        return {
-            labels: labels,
-            datasets: datasets
-        };
+        return labels;
     }
 
     hitRadius(name) {

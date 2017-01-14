@@ -154,6 +154,11 @@ export default {
     'VERIFY_FAILED': 'Could not verify',
     'TICKET_ACTIVITY': 'Ticket Activity',
 
+    'CHART_CREATE_TICKET': 'Tickets created',
+    'CHART_CLOSE': 'Tickets closed',
+    'CHART_SIGNUP': 'Signups',
+    'CHART_COMMENT': 'Replies',
+
     //ACTIVITIES
     'ACTIVITY_COMMENT': 'commented ticket',
     'ACTIVITY_ASSIGN': 'assigned ticket',

@@ -32,7 +32,6 @@ let chartData = {
         {
             label: "My Second dataset",
             fill: false,
-            strokeColor: "rgba(151,187,205,1)",
             pointColor: "rgba(151,187,205,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
@@ -44,7 +43,6 @@ let chartData = {
         {
             label: "My Second dataset",
             fill: false,
-            strokeColor: "rgba(151,187,205,1)",
             pointColor: "rgba(151,187,205,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",

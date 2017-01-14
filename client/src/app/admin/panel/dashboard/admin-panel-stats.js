@@ -47,6 +47,7 @@ class AdminPanelStats extends React.Component {
             strokes: [
                 {
                     name: 'CREATE_TICKET',
+                    show: true,
                     values: [
                         {
                             date: "20160420",
@@ -80,6 +81,7 @@ class AdminPanelStats extends React.Component {
                 },
                 {
                     name: 'CLOSE',
+                    show: true,
                     values: [
                         {
                             date: "20160420",
@@ -113,6 +115,7 @@ class AdminPanelStats extends React.Component {
                 },
                 {
                     name: 'SIGNUP',
+                    show: true,
                     values: [
                         {
                             date: "20160420",
