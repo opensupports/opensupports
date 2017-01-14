@@ -1,7 +1,7 @@
 'use strict';
 
 const React = require('react');
-const LineChart = require("react-chartjs").Line;
+const LineChart = require("react-chartjs-2").Line;
 const _ = require('lodash');
 const DocumentTitle = require('react-document-title');
 
@@ -27,27 +27,30 @@ function rand(min, max, num) {
 }
 
 let chartData = {
-    labels: ["January", "February", "March", "April", "", "May", "June", "July"],
+    labels: ["January", "February", "March", "April", "May", "June"],
     datasets: [
         {
-            label: "My First dataset",
-            fillColor: "rgba(0,0,0,0)",
-            strokeColor: "rgba(1,2,3,1)",
-            pointColor: "rgba(3,2,1,1)",
-            pointStrokeColor: "#333",
-            pointHighlightFill: "#999",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: rand(32, 100, 8)
-        },
-        {
             label: "My Second dataset",
-            fillColor: "rgba(0,0,0,0)",
+            fill: false,
             strokeColor: "rgba(151,187,205,1)",
             pointColor: "rgba(151,187,205,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
-            data: rand(32, 100, 8)
+            borderWidth: 3,
+            data: rand(32, 100, 6),
+            pointRadius: 0
+        },
+        {
+            label: "My Second dataset",
+            fill: false,
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            borderWidth: 3,
+            data: rand(32, 100, 6)
         }
     ]
 };

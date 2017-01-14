@@ -46,40 +46,40 @@ class AdminPanelStats extends React.Component {
             display: 7,
             strokes: [
                 {
-                    name: 'new-tickets',
+                    name: 'CREATE_TICKET',
                     values: [
                         {
                             date: "20160420",
-                            value: 17
+                            value: 71
                         },
                         {
                             date: "20160421",
-                           value: 15
+                            value: 21
                         },
                         {
                             date: "20160422",
-                            value: 12
+                            value: 4
                         },
                         {
                             date: "20160423",
-                            value: 19
+                            value: 9
                         },
                         {
                             date: "20160424",
-                            value: 14
+                            value: 12
                         },
                         {
                             date: "20160425",
-                            value: 13
+                            value: 14
                         },
                         {
                             date: "20160426",
-                            value: 19
+                            value: 22
                         }
                     ]
                 },
                 {
-                    name: 'closed-tickets',
+                    name: 'CLOSE',
                     values: [
                         {
                             date: "20160420",
@@ -108,6 +108,39 @@ class AdminPanelStats extends React.Component {
                         {
                             date: "20160426",
                             value: 23
+                        }
+                    ]
+                },
+                {
+                    name: 'SIGNUP',
+                    values: [
+                        {
+                            date: "20160420",
+                            value: 3
+                        },
+                        {
+                            date: "20160421",
+                            value: 5
+                        },
+                        {
+                            date: "20160422",
+                            value: 3
+                        },
+                        {
+                            date: "20160423",
+                            value: 4
+                        },
+                        {
+                            date: "20160424",
+                            value: 5
+                        },
+                        {
+                            date: "20160425",
+                            value: 5
+                        },
+                        {
+                            date: "20160426",
+                            value: 6
                         }
                     ]
                 }

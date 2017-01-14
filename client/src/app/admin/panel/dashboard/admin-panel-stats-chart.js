@@ -1,5 +1,5 @@
 import React from 'react';
-import {Line} from 'react-chartjs';
+import {Line} from 'react-chartjs-2';
 
 class StatsChart extends React.Component {
 
@@ -7,7 +7,7 @@ class StatsChart extends React.Component {
         strokes: React.PropTypes.arrayOf(React.PropTypes.shape({
             name: React.PropTypes.string,
             values: React.PropTypes.arrayOf(React.PropTypes.shape({
-                date: React.PropTypes.number,
+                date: React.PropTypes.string,
                 value: React.PropTypes.number
             }))
         })),
@@ -22,10 +22,10 @@ class StatsChart extends React.Component {
         );
     }
 
-    shouldBeDeleted(min, max, num) {
+    shouldBeDeleted(min, max, num, type) {
         var rtn = [];
         while (rtn.length < num) {
-            rtn.push((Math.random() * (max - min)) + min + ((Math.random() > 0.95) ? 1 : 0));
+            rtn.push(Math.floor((Math.random() * (max - min)) + min + ((Math.random() > 0.1) ? type * 3 : 0)));
         }
         return rtn;
     }
@@ -33,44 +33,70 @@ class StatsChart extends React.Component {
     getChartData() {
         let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-        let labels = [], i;
-        for (i = 0; i < this.props.display; i++) {
-            console.log(this.props.strokes[0].values[i].date);
-            let idx = this.props.strokes[0].values[i].date.slice(4, 6) - 1;
-            labels.push( this.props.strokes[0].values[i].date.slice(6, 8) + ' ' +  months[idx]);
+        let labels = [];
+        for (let i = 0; i < this.props.display; i++) {
+            if(i % 2 == 0 && this.props.display > 20){
+                labels.push('');
+                continue;
+            }
+            let firstList = this.props.strokes[0];
+            let idx = firstList.values[i].date.slice(4, 6) - 1;
+            labels.push( firstList.values[i].date.slice(6, 8) + ' ' +  months[idx]);
         }
-        console.log(labels);
+
+        let color = {
+            'CREATE_TICKET': 'rgba(150, 20, 20)',
+            'CLOSE': 'rgba(20, 150, 20)',
+            'SIGNUP': 'rgba(20, 20, 150)',
+            'COMMENT': 'rgba(150, 150, 20)'
+        };
+
+        let datasets = [];
+
+        for (let i = 0; i < this.props.strokes.length; i++) {
+            let stroke = this.props.strokes[i];
+
+            let dataset = {};
+            dataset.label = stroke.name;
+            dataset.data = [];
+            dataset.fill = false;
+
+            console.log('FUCK THIS PITCH BEF ' + stroke.values.length);
+            for (let j = 0; j < stroke.values.length; j++) {
+                console.log('OH YEAH: ' + stroke.values[j].value);
+                dataset.data.push(stroke.values[j].value);
+                console.log('OH YEAH x2');
+            }
+            console.log('FUCK THIS PITCH AFT');
+
+            dataset.borderWidth = 4;
+            dataset.borderColor = color[stroke.name];
+            dataset.pointRadius = 0;
+            dataset.lineTension = 0.2;
+            dataset.hitRadius = this.hitRadius();
+
+            datasets.push(dataset);
+        }
 
         return {
             labels: labels,
-            datasets: [
-                {
-                    label: "My First dataset",
-                    fillColor: "rgba(0,0,0,0)",
-                    strokeColor: "rgba(1,2,3,1)",
-                    pointColor: "rgba(3,2,1,1)",
-                    pointStrokeColor: "#333",
-                    pointHighlightFill: "#999",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: this.shouldBeDeleted(32, 36, 365)
-                },
-                {
-                    label: "My Second dataset",
-                    fillColor: "rgba(0,0,0,0)",
-                    strokeColor: "rgba(151,187,205,1)",
-                    pointColor: "rgba(151,187,205,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(151,187,205,1)",
-                    data: this.shouldBeDeleted(32, 36, 365)
-                }
-            ]
+            datasets: datasets
         };
+    }
+
+    hitRadius(name) {
+        /// SHOULD AJUSTAR THIS VALUES
+        if (this.props.display === 7) return 20;
+        if (this.props.display === 30) return 15;
+        if (this.props.display === 90) return 10;
+        return 3;
     }
 
     getChartOptions() {
         return {
-
+            legend: {
+                display: false
+            }
         };
     }
 
