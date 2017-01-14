@@ -160,10 +160,52 @@ module.exports = [
     {
         path: '/system/get-stats',
         time: 200,
-        response: function() {
+        response: function(_data) {
+            let ID = {
+                'WEEK': 7,
+                'MONTH': 30,
+                'QUARTER': 90,
+                'YEAR': 365
+            };
+
+            let k = ID[_data.period];
+            let DATA = [];
+
+            for (let i = 0; i < k; i++) {
+                DATA.push({
+                    date: '201701' + (i + 10) % 100,
+                    type: 'COMMENT',
+                    general: 1,
+                    value: (4 + i + Math.floor(Math.random() * 2)).toString()
+                });
+                DATA.push({
+                    date: '201701' + (i + 10) % 100,
+                    type: 'SIGNUP',
+                    general: 1,
+                    value: (9 + i + Math.floor(Math.random() * (i / 15))).toString()
+                });
+                DATA.push({
+                    date: '201701' + (i + 10) % 100,
+                    type: 'CLOSE',
+                    general: 1,
+                    value: (8 + i + Math.floor(Math.random() * i)).toString()
+                });
+                DATA.push({
+                    date: '201701' + (i + 10) % 100,
+                    type: 'CREATE_TICKET',
+                    general: 1,
+                    value: (10 + Math.floor(Math.random() * 4)).toString()
+                });
+            }
+
+            console.log('DATA:');
+            console.log(DATA);
+            console.log(k);
+
             return {
                 status: "success",
-                data: [
+                data: DATA
+                /*data: [
                     {
                         "date": "20170112",
                         "type": "COMMENT",
@@ -332,7 +374,7 @@ module.exports = [
                         "general": "1",
                         "value": "5"
                     }
-                ]
+                ]*/
             };
         }
     },

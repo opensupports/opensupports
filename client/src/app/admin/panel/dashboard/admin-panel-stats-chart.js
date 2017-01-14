@@ -44,7 +44,7 @@ class StatsChart extends React.Component {
                 label: i18n('CHART_' + stroke.name),
                 data: stroke.values.map((val) => val.value),
                 fill: false,
-                borderWidth: 4,
+                borderWidth: 4, // ESTO PODRIA CAMBIAR DEPENDIENDO DEL PERIOD, MIENTRA MAS HALLA, DEBERIA SER MAS FINO
                 borderColor: color[stroke.name],
                 pointBorderColor: color[stroke.name],
                 pointRadius: 0,
@@ -80,7 +80,7 @@ class StatsChart extends React.Component {
         if (this.props.period === 7) return 20;
         if (this.props.period === 30) return 15;
         if (this.props.period === 90) return 10;
-        return 3;
+        return 1;
     }
 
     getChartOptions() {

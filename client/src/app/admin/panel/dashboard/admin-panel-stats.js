@@ -45,7 +45,7 @@ class AdminPanelStats extends React.Component {
     };
 
     componentDidMount() {
-        this.retrieve();
+        this.retrieve(7);
     }
 
     render() {
@@ -90,8 +90,13 @@ class AdminPanelStats extends React.Component {
                             <div>{i18n('CHART_COMMENT')}</div>
                         </div>
                 }
-            ]
+            ],
+            onChange: this.onToggleListChange.bind(this)
         };
+    }
+
+    onToggleListChange(data) {
+
     }
 
     getDropDownProps() {
@@ -113,133 +118,58 @@ class AdminPanelStats extends React.Component {
                     content: 'Last 365 days',
                     icon: ''
                 }
-            ]
+            ],
+            onChange: this.onDropDownChange.bind(this)
         }
+    }
+
+    onDropDownChange(event) {
+        console.log('DROP DOWN HAS CHANGED');
+        let val = [7, 30, 90, 365];
+
+        this.retrieve(val[event.index]);
     }
 
     getStatsChartProps() {
-
-        console.log('This is the shit');
-        console.log(this.state.strokes);
-
         return {
             period: this.state.period,
             strokes: this.state.strokes
-            /*strokes: [
-                {
-                    name: 'COMMENT',
-                    show: true,
-                    values: [
-                        {
-                            date: "20160420",
-                            value: 17
-                        },
-                        {
-                            date: "20160421",
-                            value: 15
-                        },
-                        {
-                            date: "20160422",
-                            value: 12
-                        },
-                        {
-                            date: "20160423",
-                            value: 9
-                        },
-                        {
-                            date: "20160424",
-                            value: 10
-                        },
-                        {
-                            date: "20160425",
-                            value: 7
-                        },
-                        {
-                            date: "20160426",
-                            value: 5
-                        }
-                    ]
-                },
-                {
-                    name: 'SIGNUP',
-                    show: true,
-                    values: [
-                        {
-                            date: "20160420",
-                            value: 3
-                        },
-                        {
-                            date: "20160421",
-                            value: 5
-                        },
-                        {
-                            date: "20160422",
-                            value: 3
-                        },
-                        {
-                            date: "20160423",
-                            value: 4
-                        },
-                        {
-                            date: "20160424",
-                            value: 5
-                        },
-                        {
-                            date: "20160425",
-                            value: 5
-                        },
-                        {
-                            date: "20160426",
-                            value: 6
-                        }
-                    ]
-                },
-                {
-                    name: 'CLOSE',
-                    show: true,
-                    values: [
-                        {
-                            date: "20160420",
-                            value: 4
-                        },
-                        {
-                            date: "20160421",
-                            value: 7
-                        },
-                        {
-                            date: "20160422",
-                            value: 4
-                        },
-                        {
-                            date: "20160423",
-                            value: 7
-                        },
-                        {
-                            date: "20160424",
-                            value: 9
-                        },
-                        {
-                            date: "20160425",
-                            value: 11
-                        },
-                        {
-                            date: "20160426",
-                            value: 13
-                        }
-                    ]
-                }
-            ]*/
         }
     }
 
-    retrieve() {
+    retrieve(period) {
+        console.log('THIS SHOULD NOT BE DISPLAYED');
+
+        let periodName;
+        switch (period) {
+            case 30:
+                periodName = 'MONTH';
+                break;
+            case 90:
+                periodName = 'QUARTER';
+                break;
+            case 365:
+                periodName = 'YEAR';
+                break;
+            default:
+                periodName = 'WEEK';
+        }
+
+        console.log('--------------------------------------------period: ' + this.state.period);
+        console.log('--------------------------------------------PERIOD NAME: ' + periodName);
+
         API.call({
             path: '/system/get-stats',
-            data: {}
-        }).then(this.onRetrieveSuccess.bind(this));
+            data: {
+                period: periodName
+            }
+        }).then(this.onRetrieveSuccess.bind(this, period));
     }
 
-    onRetrieveSuccess(result) {
+    onRetrieveSuccess(period, result) {
+
+        console.log('This is the shit you SHOULD look at!');
+        console.log(result);
 
         let newState = {
             'CLOSE': 0,
@@ -287,7 +217,7 @@ class AdminPanelStats extends React.Component {
             });
         }
 
-        this.setState({stats: newState, strokes: newStrokes, period: 7});
+        this.setState({stats: newState, strokes: newStrokes, period: period});
     }
 }
 
