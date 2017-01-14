@@ -8,13 +8,13 @@ class StatsChart extends React.Component {
     static propTypes = {
         strokes: React.PropTypes.arrayOf(React.PropTypes.shape({
             name: React.PropTypes.string,
+            show: React.PropTypes.bool,
             values: React.PropTypes.arrayOf(React.PropTypes.shape({
                 date: React.PropTypes.string,
-                show: React.PropTypes.bool,
                 value: React.PropTypes.number
             }))
         })),
-        display: React.PropTypes.number
+        period: React.PropTypes.number
     };
 
     render() {
@@ -56,7 +56,7 @@ class StatsChart extends React.Component {
 
             datasets.push(dataset);
         }
-
+        
         return {
             labels: labels,
             datasets: datasets
@@ -67,7 +67,7 @@ class StatsChart extends React.Component {
         let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         let labels = [];
 
-        for (let i = 0; i < this.props.display; i++) {
+        for (let i = 0; i < this.props.period; i++) {
             let firstList = this.props.strokes[0];
             let idx = firstList.values[i].date.slice(4, 6) - 1;
             labels.push( firstList.values[i].date.slice(6, 8) + ' ' +  months[idx]);
@@ -77,9 +77,9 @@ class StatsChart extends React.Component {
     }
 
     hitRadius() {
-        if (this.props.display === 7) return 20;
-        if (this.props.display === 30) return 15;
-        if (this.props.display === 90) return 10;
+        if (this.props.period === 7) return 20;
+        if (this.props.period === 30) return 15;
+        if (this.props.period === 90) return 10;
         return 3;
     }
 

@@ -246,55 +246,55 @@ module.exports = [
                         "date": "20170109",
                         "type": "SIGNUP",
                         "general": "1",
-                        "value": "0"
+                        "value": "7"
                     },
                     {
                         "date": "20170109",
                         "type": "CLOSE",
                         "general": "1",
-                        "value": "0"
+                        "value": "4"
                     },
                     {
                         "date": "20170109",
                         "type": "CREATE_TICKET",
                         "general": "1",
-                        "value": "0"
+                        "value": "9"
                     },
                     {
                         "date": "20170108",
                         "type": "COMMENT",
                         "general": "1",
-                        "value": "0"
+                        "value": "8"
                     },
                     {
                         "date": "20170108",
                         "type": "SIGNUP",
                         "general": "1",
-                        "value": "0"
+                        "value": "4"
                     },
                     {
                         "date": "20170108",
                         "type": "CLOSE",
                         "general": "1",
-                        "value": "0"
+                        "value": "5"
                     },
                     {
                         "date": "20170108",
                         "type": "CREATE_TICKET",
                         "general": "1",
-                        "value": "0"
+                        "value": "6"
                     },
                     {
                         "date": "20170107",
                         "type": "COMMENT",
                         "general": "1",
-                        "value": "0"
+                        "value": "4"
                     },
                     {
                         "date": "20170107",
                         "type": "SIGNUP",
                         "general": "1",
-                        "value": "0"
+                        "value": "1"
                     },
                     {
                         "date": "20170107",
@@ -306,31 +306,31 @@ module.exports = [
                         "date": "20170107",
                         "type": "CREATE_TICKET",
                         "general": "1",
-                        "value": "0"
+                        "value": "2"
                     },
                     {
                         "date": "20170106",
                         "type": "COMMENT",
                         "general": "1",
-                        "value": "0"
+                        "value": "7"
                     },
                     {
                         "date": "20170106",
                         "type": "SIGNUP",
                         "general": "1",
-                        "value": "0"
+                        "value": "4"
                     },
                     {
                         "date": "20170106",
                         "type": "CLOSE",
                         "general": "1",
-                        "value": "0"
+                        "value": "5"
                     },
                     {
                         "date": "20170106",
                         "type": "CREATE_TICKET",
                         "general": "1",
-                        "value": "0"
+                        "value": "5"
                     }
                 ]
             };

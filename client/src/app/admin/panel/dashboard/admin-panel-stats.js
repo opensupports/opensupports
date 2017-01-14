@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -17,7 +18,30 @@ class AdminPanelStats extends React.Component {
             'CREATE_TICKET': 0,
             'SIGNUP': 0,
             'COMMENT': 0
-        }
+        },
+        strokes: [
+            {
+                name: 'CLOSE',
+                show: true,
+                values: []
+            },
+            {
+                name: 'CREATE_TICKET',
+                show: true,
+                values: []
+            },
+            {
+                name: 'SIGNUP',
+                show: true,
+                values: []
+            },
+            {
+                name: 'COMMENT',
+                show: true,
+                values: []
+            }
+        ],
+        period: 0
     };
 
     componentDidMount() {
@@ -36,7 +60,6 @@ class AdminPanelStats extends React.Component {
     }
 
     getToggleListProps() {
-        console.log('LALA: ' + this.state.stats);
         return {
             items: [
                 {
@@ -95,9 +118,14 @@ class AdminPanelStats extends React.Component {
     }
 
     getStatsChartProps() {
+
+        console.log('This is the shit');
+        console.log(this.state.strokes);
+
         return {
-            display: 7,
-            strokes: [
+            period: this.state.period,
+            strokes: this.state.strokes
+            /*strokes: [
                 {
                     name: 'COMMENT',
                     show: true,
@@ -200,7 +228,7 @@ class AdminPanelStats extends React.Component {
                         }
                     ]
                 }
-            ]
+            ]*/
         }
     }
 
@@ -212,16 +240,54 @@ class AdminPanelStats extends React.Component {
     }
 
     onRetrieveSuccess(result) {
+
         let newState = {
             'CLOSE': 0,
             'CREATE_TICKET': 0,
             'SIGNUP': 0,
             'COMMENT': 0
         };
+
+        let ID = {
+            'CLOSE': 0,
+            'CREATE_TICKET': 1,
+            'SIGNUP': 2,
+            'COMMENT': 3
+        };
+
+        let newStrokes = [
+            {
+                name: 'CLOSE',
+                show: true,
+                values: []
+            },
+            {
+                name: 'CREATE_TICKET',
+                show: true,
+                values: []
+            },
+            {
+                name: 'SIGNUP',
+                show: true,
+                values: []
+            },
+            {
+                name: 'COMMENT',
+                show: true,
+                values: []
+            }
+        ];
+
         for (let i = 0; i < result.data.length; i++) {
             newState[result.data[i].type] += result.data[i].value * 1;
+
+            newStrokes[ ID[result.data[i].type] ].values.push({
+                date: result.data[i].date,
+                value: result.data[i].value * 1
+            });
         }
-        this.setState({stats: newState});
+
+        this.setState({stats: newState, strokes: newStrokes, period: 7});
     }
 }
 
