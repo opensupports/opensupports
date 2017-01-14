@@ -37,6 +37,7 @@ class SignUpController extends Controller {
 
     public function handler() {
         $this->storeRequestData();
+        $apiKey = APIKey::getDataStore(Controller::request('apiKey'), 'token');
 
         $existentUser = User::getUser($this->userEmail, 'email');
 
@@ -51,7 +52,7 @@ class SignUpController extends Controller {
             return;
         }
 
-        if (!Setting::getSetting('registration')->value) {
+        if (!Setting::getSetting('registration')->value && $apiKey->isNull() ) {
             Response::respondError(ERRORS::NO_PERMISSION);
             return;
         }
