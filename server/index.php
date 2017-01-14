@@ -19,6 +19,8 @@ include_once 'libs/MailSender.php';
 include_once 'libs/Date.php';
 include_once 'libs/DataStoreList.php';
 
+Controller::init();
+
 // LOAD DATA
 spl_autoload_register(function ($class) {
     $classPath = "data/{$class}.php";
