@@ -1,5 +1,9 @@
 .create-ticket-form {
 
+    &__file {
+        text-align: left;
+    }
+
     &__message {
         margin-top: 20px;
     }
