@@ -25,14 +25,6 @@ class StatsChart extends React.Component {
         );
     }
 
-    shouldBeDeleted(min, max, num, type) {
-        var rtn = [];
-        while (rtn.length < num) {
-            rtn.push(Math.floor((Math.random() * (max - min)) + min + ((Math.random() > 0.1) ? type * 3 : 0)));
-        }
-        return rtn;
-    }
-
     getChartData() {
         let labels = this.getLabels();
 
@@ -47,7 +39,6 @@ class StatsChart extends React.Component {
 
         for (let i = 0; i < this.props.strokes.length; i++) {
             let stroke = this.props.strokes[i];
-            console.log(color[stroke.name]);
 
             let dataset = {
                 label: i18n('CHART_' + stroke.name),
@@ -77,10 +68,6 @@ class StatsChart extends React.Component {
         let labels = [];
 
         for (let i = 0; i < this.props.display; i++) {
-            if(i % 2 == 0 && this.props.display > 20){
-                labels.push('');
-                continue;
-            }
             let firstList = this.props.strokes[0];
             let idx = firstList.values[i].date.slice(4, 6) - 1;
             labels.push( firstList.values[i].date.slice(6, 8) + ' ' +  months[idx]);
@@ -89,8 +76,7 @@ class StatsChart extends React.Component {
         return labels;
     }
 
-    hitRadius(name) {
-        /// SHOULD AJUSTAR THIS VALUES
+    hitRadius() {
         if (this.props.display === 7) return 20;
         if (this.props.display === 30) return 15;
         if (this.props.display === 90) return 10;

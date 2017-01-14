@@ -4,6 +4,8 @@ import i18n from 'lib-app/i18n';
 
 import Header from 'core-components/header';
 import DropDown from 'core-components/drop-down';
+import ToggleList from 'core-components/toggle-list';
+
 import StatsChart from 'app/admin/panel/dashboard/admin-panel-stats-chart';
 
 class AdminPanelStats extends React.Component {
@@ -13,9 +15,29 @@ class AdminPanelStats extends React.Component {
             <div>
                 <Header title={i18n('TICKET_ACTIVITY')}/>
                 <DropDown {...this.getDropDownProps()}/>
+                <ToggleList {...this.getToggleListProps()} />
                 <StatsChart {...this.getStatsChartProps()} />
             </div>
         );
+    }
+
+    getToggleListProps() {
+        return {
+            items: [
+                {
+                    content: <div></div>
+                },
+                {
+                    content: <div></div>
+                },
+                {
+                    content: <div></div>
+                },
+                {
+                    content: <div></div>
+                }
+            ]
+        };
     }
 
     getDropDownProps() {
@@ -51,15 +73,15 @@ class AdminPanelStats extends React.Component {
                     values: [
                         {
                             date: "20160420",
-                            value: 71
+                            value: 17
                         },
                         {
                             date: "20160421",
-                            value: 21
+                            value: 15
                         },
                         {
                             date: "20160422",
-                            value: 4
+                            value: 12
                         },
                         {
                             date: "20160423",
@@ -67,49 +89,15 @@ class AdminPanelStats extends React.Component {
                         },
                         {
                             date: "20160424",
-                            value: 12
+                            value: 10
                         },
                         {
                             date: "20160425",
-                            value: 14
+                            value: 7
                         },
                         {
                             date: "20160426",
-                            value: 22
-                        }
-                    ]
-                },
-                {
-                    name: 'CLOSE',
-                    show: true,
-                    values: [
-                        {
-                            date: "20160420",
-                            value: 20
-                        },
-                        {
-                            date: "20160421",
-                            value: 15
-                        },
-                        {
-                            date: "20160422",
-                            value: 13
-                        },
-                        {
-                            date: "20160423",
-                            value: 15
-                        },
-                        {
-                            date: "20160424",
-                            value: 12
-                        },
-                        {
-                            date: "20160425",
-                            value: 19
-                        },
-                        {
-                            date: "20160426",
-                            value: 23
+                            value: 5
                         }
                     ]
                 },
@@ -144,6 +132,40 @@ class AdminPanelStats extends React.Component {
                         {
                             date: "20160426",
                             value: 6
+                        }
+                    ]
+                },
+                {
+                    name: 'CLOSE',
+                    show: true,
+                    values: [
+                        {
+                            date: "20160420",
+                            value: 4
+                        },
+                        {
+                            date: "20160421",
+                            value: 7
+                        },
+                        {
+                            date: "20160422",
+                            value: 4
+                        },
+                        {
+                            date: "20160423",
+                            value: 7
+                        },
+                        {
+                            date: "20160424",
+                            value: 9
+                        },
+                        {
+                            date: "20160425",
+                            value: 11
+                        },
+                        {
+                            date: "20160426",
+                            value: 13
                         }
                     ]
                 }
