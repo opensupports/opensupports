@@ -44,7 +44,7 @@ class StatsChart extends React.Component {
                 label: i18n('CHART_' + stroke.name),
                 data: stroke.values.map((val) => val.value),
                 fill: false,
-                borderWidth: 4, // ESTO PODRIA CAMBIAR DEPENDIENDO DEL PERIOD, MIENTRA MAS HALLA, DEBERIA SER MAS FINO
+                borderWidth: this.getBorderWidth(),
                 borderColor: color[stroke.name],
                 pointBorderColor: color[stroke.name],
                 pointRadius: 0,
@@ -63,6 +63,10 @@ class StatsChart extends React.Component {
         };
     }
 
+    getBorderWidth() {
+        return (this.props.period <= 90) ? 4 : 2;
+    }
+
     getLabels() {
         let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         let labels = [];
@@ -77,9 +81,9 @@ class StatsChart extends React.Component {
     }
 
     hitRadius() {
-        if (this.props.period === 7) return 20;
-        if (this.props.period === 30) return 15;
-        if (this.props.period === 90) return 10;
+        if (this.props.period <= 7) return 20;
+        if (this.props.period <= 30) return 15;
+        if (this.props.period <= 90) return 10;
         return 1;
     }
 

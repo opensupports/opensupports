@@ -208,6 +208,8 @@ class AdminPanelStats extends React.Component {
             }
         ];
 
+        let realPeriod = result.data.length / 4;
+
         for (let i = 0; i < result.data.length; i++) {
             newState[result.data[i].type] += result.data[i].value * 1;
 
@@ -217,7 +219,7 @@ class AdminPanelStats extends React.Component {
             });
         }
 
-        this.setState({stats: newState, strokes: newStrokes, period: period});
+        this.setState({stats: newState, strokes: newStrokes, period: realPeriod});
     }
 }
 
