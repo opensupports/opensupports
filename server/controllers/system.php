@@ -15,6 +15,7 @@ require_once 'system/enable-registration.php';
 require_once 'system/add-api-key.php';
 require_once 'system/delete-api-key.php';
 require_once 'system/get-all-keys.php';
+require_once 'system/delete-all-users.php';
 
 $systemControllerGroup = new ControllerGroup();
 $systemControllerGroup->setGroupPath('/system');
@@ -35,5 +36,6 @@ $systemControllerGroup->addController(new GetStatsController);
 $systemControllerGroup->addController(new AddAPIKeyController);
 $systemControllerGroup->addController(new DeleteAPIKeyController);
 $systemControllerGroup->addController(new GetAllKeyController);
+$systemControllerGroup->addController(new DeleteAllUsersController);
 
 $systemControllerGroup->finalize();
