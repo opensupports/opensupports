@@ -29,10 +29,10 @@ class StatsChart extends React.Component {
         let labels = this.getLabels();
 
         let color = {
-            'CREATE_TICKET': 'rgba(150, 20, 20, 0.8)',
-            'CLOSE': 'rgba(20, 150, 20, 0.8)',
+            'CLOSE': 'rgba(150, 20, 20, 0.8)',
+            'CREATE_TICKET': 'rgba(20, 150, 20, 0.8)',
             'SIGNUP': 'rgba(20, 20, 150, 0.8)',
-            'COMMENT': 'rgba(150, 150, 20, 0.8)'
+            'COMMENT': 'rgba(20, 200, 200, 0.8)'
         };
 
         let datasets = [];

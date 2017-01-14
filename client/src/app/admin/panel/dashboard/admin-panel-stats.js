@@ -1,6 +1,7 @@
 import React from 'react';
 
 import i18n from 'lib-app/i18n';
+import API from 'lib-app/api-call';
 
 import Header from 'core-components/header';
 import DropDown from 'core-components/drop-down';
@@ -9,6 +10,19 @@ import ToggleList from 'core-components/toggle-list';
 import StatsChart from 'app/admin/panel/dashboard/admin-panel-stats-chart';
 
 class AdminPanelStats extends React.Component {
+
+    state = {
+        stats: {
+            'CLOSE': 0,
+            'CREATE_TICKET': 0,
+            'SIGNUP': 0,
+            'COMMENT': 0
+        }
+    };
+
+    componentDidMount() {
+        this.retrieve();
+    }
 
     render() {
         return (
@@ -22,19 +36,36 @@ class AdminPanelStats extends React.Component {
     }
 
     getToggleListProps() {
+        console.log('LALA: ' + this.state.stats);
         return {
             items: [
                 {
-                    content: <div></div>
+                    content:
+                        <div>
+                            {this.state.stats['CREATE_TICKET']}
+                            <div>{i18n('CHART_CREATE_TICKET')}</div>
+                        </div>
                 },
                 {
-                    content: <div></div>
+                    content:
+                        <div>
+                            {this.state.stats['CLOSE']}
+                            <div>{i18n('CHART_CLOSE')}</div>
+                        </div>
                 },
                 {
-                    content: <div></div>
+                    content:
+                        <div>
+                            {this.state.stats['SIGNUP']}
+                            <div>{i18n('CHART_SIGNUP')}</div>
+                        </div>
                 },
                 {
-                    content: <div></div>
+                    content:
+                        <div>
+                            {this.state.stats['COMMENT']}
+                            <div>{i18n('CHART_COMMENT')}</div>
+                        </div>
                 }
             ]
         };
@@ -68,7 +99,7 @@ class AdminPanelStats extends React.Component {
             display: 7,
             strokes: [
                 {
-                    name: 'CREATE_TICKET',
+                    name: 'COMMENT',
                     show: true,
                     values: [
                         {
@@ -171,6 +202,26 @@ class AdminPanelStats extends React.Component {
                 }
             ]
         }
+    }
+
+    retrieve() {
+        API.call({
+            path: '/system/get-stats',
+            data: {}
+        }).then(this.onRetrieveSuccess.bind(this));
+    }
+
+    onRetrieveSuccess(result) {
+        let newState = {
+            'CLOSE': 0,
+            'CREATE_TICKET': 0,
+            'SIGNUP': 0,
+            'COMMENT': 0
+        };
+        for (let i = 0; i < result.data.length; i++) {
+            newState[result.data[i].type] += result.data[i].value * 1;
+        }
+        this.setState({stats: newState});
     }
 }
 
