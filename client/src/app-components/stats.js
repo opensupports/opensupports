@@ -146,9 +146,6 @@ class Stats extends React.Component {
         API.call({
             path: '/system/get-stats',
             data: this.getApiCallData(periodName)
-            /*data: {
-                period: periodName
-            }*/
         }).then(this.onRetrieveSuccess.bind(this, period));
     }
 
