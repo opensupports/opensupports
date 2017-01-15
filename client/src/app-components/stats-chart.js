@@ -31,7 +31,8 @@ class StatsChart extends React.Component {
             'CLOSE': 'rgba(150, 20, 20, 0.8)',
             'CREATE_TICKET': 'rgba(20, 150, 20, 0.8)',
             'SIGNUP': 'rgba(20, 20, 150, 0.8)',
-            'COMMENT': 'rgba(20, 200, 200, 0.8)'
+            'COMMENT': 'rgba(20, 200, 200, 0.8)',
+            'ASSIGN': 'rgba(200, 200, 20, 0.8)'
         };
 
         let datasets = [];

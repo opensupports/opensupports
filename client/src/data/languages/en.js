@@ -159,6 +159,7 @@ export default {
     'CHART_CLOSE': 'Tickets closed',
     'CHART_SIGNUP': 'Signups',
     'CHART_COMMENT': 'Replies',
+    'CHART_ASSIGN': 'Assigned',
 
     //ACTIVITIES
     'ACTIVITY_COMMENT': 'commented ticket',

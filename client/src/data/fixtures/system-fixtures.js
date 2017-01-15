@@ -161,6 +161,8 @@ module.exports = [
         path: '/system/get-stats',
         time: 200,
         response: function(_data) {
+            let generalVal = _data.staffId;
+
             let ID = {
                 'WEEK': 7,
                 'MONTH': 30,
@@ -172,30 +174,46 @@ module.exports = [
             let DATA = [];
 
             for (let i = 0; i < k; i++) {
-                DATA.push({
-                    date: '201701' + (i + 10) % 100,
-                    type: 'COMMENT',
-                    general: 1,
-                    value: (Math.floor(Math.random() * i)).toString()
-                });
-                DATA.push({
-                    date: '201701' + (i + 10) % 100,
-                    type: 'SIGNUP',
-                    general: 1,
-                    value: (Math.floor(Math.random() * (i - 180) * (i - 185) / (1.027**i) )).toString()
-                });
-                DATA.push({
-                    date: '201701' + (i + 10) % 100,
-                    type: 'CLOSE',
-                    general: 1,
-                    value: (Math.floor(Math.random() * i * i * i / 365 / 365)).toString()
-                });
-                DATA.push({
-                    date: '201701' + (i + 10) % 100,
-                    type: 'CREATE_TICKET',
-                    general: 1,
-                    value: (Math.floor(Math.random()*Math.random()*Math.random()*Math.random()*Math.random()*1.027**i)).toString()
-                });
+                if(generalVal){
+                    DATA.push({
+                        date: '201701' + (i + 10) % 100,
+                        type: 'ASSIGN',
+                        general: generalVal,
+                        value: (Math.floor((Math.random() + 17) * i)).toString()
+                    });
+                    DATA.push({
+                        date: '201701' + (i + 10) % 100,
+                        type: 'CLOSE',
+                        general: generalVal,
+                        value: (Math.floor((Math.random() + 12) * i )).toString()
+                    });
+                }
+                else {
+                    DATA.push({
+                        date: '201701' + (i + 10) % 100,
+                        type: 'COMMENT',
+                        general: generalVal,
+                        value: (Math.floor((Math.random() + 5) * i)).toString()
+                    });
+                    DATA.push({
+                        date: '201701' + (i + 10) % 100,
+                        type: 'SIGNUP',
+                        general: generalVal,
+                        value: (Math.floor(Math.random() * (i - 180) * (i - 185) / 400)).toString()
+                    });
+                    DATA.push({
+                        date: '201701' + (i + 10) % 100,
+                        type: 'CLOSE',
+                        general: generalVal,
+                        value: (Math.floor((Math.random() + 12) * i )).toString()
+                    });
+                    DATA.push({
+                        date: '201701' + (i + 10) % 100,
+                        type: 'CREATE_TICKET',
+                        general: generalVal,
+                        value: (Math.floor((Math.random() + 7) * i)).toString()
+                    });
+                }
             }
 
             console.log('DATA:');
