@@ -12,6 +12,10 @@ require_once 'system/recover-mail-template.php';
 require_once 'system/get-stats.php';
 require_once 'system/disable-registration.php';
 require_once 'system/enable-registration.php';
+require_once 'system/add-api-key.php';
+require_once 'system/delete-api-key.php';
+require_once 'system/get-all-keys.php';
+require_once 'system/delete-all-users.php';
 require_once 'system/backup-database.php';
 require_once 'system/download.php';
 
@@ -31,6 +35,10 @@ $systemControllerGroup->addController(new RecoverMailTemplateController);
 $systemControllerGroup->addController(new DisableRegistrationController);
 $systemControllerGroup->addController(new EnableRegistrationController);
 $systemControllerGroup->addController(new GetStatsController);
+$systemControllerGroup->addController(new AddAPIKeyController);
+$systemControllerGroup->addController(new DeleteAPIKeyController);
+$systemControllerGroup->addController(new GetAllKeyController);
+$systemControllerGroup->addController(new DeleteAllUsersController);
 $systemControllerGroup->addController(new BackupDatabaseController);
 $systemControllerGroup->addController(new DownloadController);
 
