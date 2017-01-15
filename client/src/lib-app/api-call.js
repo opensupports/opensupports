@@ -12,13 +12,13 @@ function processData (data) {
 }
 
 module.exports = {
-    call: function ({path, data}) {
+    call: function ({path, data, plain}) {
         return new Promise(function (resolve, reject) {
             APIUtils.post(root + path, processData(data))
                 .then(function (result) {
                     console.log(result);
 
-                    if (result.status === 'success') {
+                    if (plain || result.status === 'success') {
                         resolve(result);
                     } else if (reject) {
                         reject(result);
