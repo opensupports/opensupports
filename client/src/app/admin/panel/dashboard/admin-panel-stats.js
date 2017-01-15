@@ -61,7 +61,16 @@ class AdminPanelStats extends React.Component {
             values: this.state.showed,
             className: 'admin-panel-stats__toggle-list',
             onChange: this.onToggleListChange.bind(this),
-            items: [
+            items: ['CREATE_TICKET', 'CLOSE', 'SIGNUP', 'COMMENT'].map((name) => {
+                return {
+                    content:
+                        <div className={'admin-panel-stats__toggle-list-item'}>
+                            <div className={'admin-panel-stats__toggle-list-item-value'}>{this.state.stats[name]}</div>
+                            <div className={'admin-panel-stats__toggle-list-item-name'}>{i18n('CHART_' + name)}</div>
+                        </div>
+                }
+            })
+            /*sitems: [
                 {
                     content:
                         <div>
@@ -90,7 +99,7 @@ class AdminPanelStats extends React.Component {
                             <div>{i18n('CHART_COMMENT')}</div>
                         </div>
                 }
-            ]
+            ]*/
         };
     }
 

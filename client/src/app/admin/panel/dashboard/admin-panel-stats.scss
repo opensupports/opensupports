@@ -1,3 +1,5 @@
+@import "../../../../scss/vars";
+
 .admin-panel-stats {
 
     &__dropdown {
@@ -7,5 +9,19 @@
 
     &__toggle-list {
         margin-bottom: 20px;
+
+        &-item {
+
+            &-value {
+                font-size: $font-size--lg;
+                line-height: 80px;
+            }
+
+            &-name {
+                font-size: $font-size--md;
+                line-height: 20px;
+            }
+        }
     }
+
 }
