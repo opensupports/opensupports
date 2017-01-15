@@ -8,14 +8,19 @@
         width: 180px;
         height: 120px;
         display: inline-block;
-        transition: background-color 0.4s ease;
+        transition: box-shadow 0.2s ease-in-out;
     }
 
     &__selected {
-        background-color: $light-grey;
+        box-shadow: inset 0 -5px 40px 10px rgba(0, 0, 0, 0.05);
     }
 
     &__first-item {
         border: 1px $light-grey solid;
+        border-radius: 4px 0 0 4px;
+    }
+
+    &__last-item {
+        border-radius: 0 4px 4px 0;
     }
 }

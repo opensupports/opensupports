@@ -44,6 +44,7 @@ class ToggleList extends React.Component {
         let classes = {
             'toggle-list__item': true,
             'toggle-list__first-item': (index === 0),
+            'toggle-list__last-item': (index === this.props.items.length - 1),
             'toggle-list__selected': _.includes(this.getSelectedList(), index)
         };
 
