@@ -7,7 +7,8 @@ class ToggleList extends React.Component {
         items: React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.node
         })),
-        onChange: React.PropTypes.func
+        onChange: React.PropTypes.func,
+        type: React.PropTypes.oneOf(['default', 'small'])
     };
 
     state = {
@@ -25,6 +26,7 @@ class ToggleList extends React.Component {
     getClass() {
         let classes = {
             'toggle-list': true,
+            'toggle-list_small': this.props.type == 'small',
             [this.props.className]: (this.props.className)
         };
 

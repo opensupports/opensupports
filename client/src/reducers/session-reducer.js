@@ -44,7 +44,8 @@ class SessionReducer extends Reducer {
             logged: true,
             pending: false,
             failed: false,
-            staff: payload.data.staff
+            staff: payload.data.staff,
+            userId: payload.data.userId
         });
     }
 
@@ -75,7 +76,8 @@ class SessionReducer extends Reducer {
             initDone: true,
             logged: true,
             pending: false,
-            failed: false
+            failed: false,
+            userId: payload.data.userId
         });
     }
 

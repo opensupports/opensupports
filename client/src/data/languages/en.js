@@ -153,6 +153,7 @@ export default {
     'VERIFY_SUCCESS': 'User verified',
     'VERIFY_FAILED': 'Could not verify',
     'TICKET_ACTIVITY': 'Ticket Activity',
+    'ACTIVITY': 'Activity',
 
 
     'CHART_CREATE_TICKET': 'Tickets created',

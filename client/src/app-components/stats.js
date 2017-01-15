@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -44,7 +45,7 @@ class Stats extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className={this.getClass()}>
                 <DropDown {...this.getDropDownProps()}/>
                 <ToggleList {...this.getToggleListProps()} />
                 <StatsChart {...this.getStatsChartProps()} />
@@ -52,17 +53,27 @@ class Stats extends React.Component {
         );
     }
 
+    getClass() {
+        let classes = {
+            'stats': true,
+            'stats_staff': this.props.type === 'staff'
+        };
+        
+        return classNames(classes);
+    }
+
     getToggleListProps() {
         return {
             values: this.state.showed,
-            className: this.getClassPrefix() + '__toggle-list',
+            className: 'stats__toggle-list',
             onChange: this.onToggleListChange.bind(this),
+            type: this.props.type === 'general' ? 'default' : 'small',
             items: this.getStrokes().map((name) => {
                 return {
                     content:
-                        <div className={this.getClassPrefix() + '__toggle-list-item'}>
-                            <div className={this.getClassPrefix() + '__toggle-list-item-value'}>{this.state.stats[name]}</div>
-                            <div className={this.getClassPrefix() + '__toggle-list-item-name'}>{i18n('CHART_' + name)}</div>
+                        <div className="stats__toggle-list-item">
+                            <div className="stats__toggle-list-item-value">{this.state.stats[name]}</div>
+                            <div className="stats__toggle-list-item-name">{i18n('CHART_' + name)}</div>
                         </div>
                 }
             })
@@ -96,7 +107,7 @@ class Stats extends React.Component {
                 }
             ],
             onChange: this.onDropDownChange.bind(this),
-            className: this.getClassPrefix() + '__dropdown'
+            className: 'stats__dropdown'
         }
     }
 
@@ -191,10 +202,6 @@ class Stats extends React.Component {
             'ASSIGN': 0,
             'CLOSE': 0
         };
-    }
-
-    getClassPrefix() {
-        return this.props.type === 'general' ? 'admin-panel-stats' : 'ANOTHER_ONE'; /// IMPORTANTE...
     }
 
     getApiCallData(periodName) {

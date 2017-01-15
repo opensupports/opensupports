@@ -1,0 +1,53 @@
+@import '../scss/vars';
+
+.stats {
+
+    &__dropdown {
+        margin-left: auto;
+        margin-bottom: 20px;
+    }
+
+    &__toggle-list {
+        margin-bottom: 20px;
+
+        &-item {
+
+            &-value {
+                font-size: $font-size--lg;
+                line-height: 80px;
+            }
+
+            &-name {
+                font-size: $font-size--md;
+                line-height: 20px;
+            }
+        }
+    }
+
+    &_staff {
+        .stats__dropdown {
+            margin-left: auto;
+            margin-bottom: 20px;
+            float: left;
+        }
+
+        .stats__toggle-list {
+            margin-bottom: 20px;
+            float: right;
+
+            &-item {
+
+                &-value {
+                    font-size: $font-size--md;
+                    line-height: 40px;
+                }
+
+                &-name {
+                    font-size: $font-size--sm;
+                    line-height: 20px;
+                }
+            }
+        }
+    }
+
+}

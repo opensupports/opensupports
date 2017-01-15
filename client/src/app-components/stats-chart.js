@@ -64,7 +64,7 @@ class StatsChart extends React.Component {
     }
 
     getBorderWidth() {
-        return (this.props.period <= 90) ? 4 : 2;
+        return (this.props.period <= 90) ? 3 : 2;
     }
 
     getLabels() {
