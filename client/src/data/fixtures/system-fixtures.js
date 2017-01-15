@@ -176,25 +176,25 @@ module.exports = [
                     date: '201701' + (i + 10) % 100,
                     type: 'COMMENT',
                     general: 1,
-                    value: (4 + i + Math.floor(Math.random() * 2)).toString()
+                    value: (Math.floor(Math.random() * i)).toString()
                 });
                 DATA.push({
                     date: '201701' + (i + 10) % 100,
                     type: 'SIGNUP',
                     general: 1,
-                    value: (9 + i + Math.floor(Math.random() * (i * 15))).toString()
+                    value: (Math.floor(Math.random() * i * i / 365)).toString()
                 });
                 DATA.push({
                     date: '201701' + (i + 10) % 100,
                     type: 'CLOSE',
                     general: 1,
-                    value: (8 + i + Math.floor(Math.random() * i * i * i * i)).toString()
+                    value: (Math.floor(Math.random() * i * i * i / 365 / 365)).toString()
                 });
                 DATA.push({
                     date: '201701' + (i + 10) % 100,
                     type: 'CREATE_TICKET',
                     general: 1,
-                    value: (10 + Math.floor(Math.random() * 4)).toString()
+                    value: (Math.floor(Math.random()*Math.random()*Math.random()*Math.random()*Math.random()*1.05**i)).toString()
                 });
             }
 

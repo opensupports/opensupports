@@ -16,10 +16,19 @@ class ToggleList extends React.Component {
     
     render() {
         return (
-            <div className="toggle-list">
+            <div className={this.getClass()}>
                 {this.props.items.map(this.renderItem.bind(this))}
             </div>
         );
+    }
+
+    getClass() {
+        let classes = {
+            'toggle-list': true,
+            [this.props.className]: (this.props.className)
+        };
+
+        return classNames(classes);
     }
 
     renderItem(obj, index) {

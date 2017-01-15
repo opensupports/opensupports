@@ -47,7 +47,7 @@ class AdminPanelStats extends React.Component {
 
     render() {
         return (
-            <div>
+            <div class="admin-panel-stats">
                 <Header title={i18n('TICKET_ACTIVITY')}/>
                 <DropDown {...this.getDropDownProps()}/>
                 <ToggleList {...this.getToggleListProps()} />
@@ -59,6 +59,8 @@ class AdminPanelStats extends React.Component {
     getToggleListProps() {
         return {
             values: this.state.showed,
+            className: 'admin-panel-stats__toggle-list',
+            onChange: this.onToggleListChange.bind(this),
             items: [
                 {
                     content:
@@ -88,8 +90,7 @@ class AdminPanelStats extends React.Component {
                             <div>{i18n('CHART_COMMENT')}</div>
                         </div>
                 }
-            ],
-            onChange: this.onToggleListChange.bind(this)
+            ]
         };
     }
 
@@ -119,7 +120,8 @@ class AdminPanelStats extends React.Component {
                     icon: ''
                 }
             ],
-            onChange: this.onDropDownChange.bind(this)
+            onChange: this.onDropDownChange.bind(this),
+            className: 'admin-panel-stats__dropdown'
         }
     }
 
