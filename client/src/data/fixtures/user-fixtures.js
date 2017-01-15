@@ -166,7 +166,7 @@ module.exports = [
                                 name: 'Sales Support'
                             },
                             date: '201504090001',
-                            file: 'http://www.opensupports.com/some_file.zip',
+                            file: 'some_file.txt',
                             language: 'en',
                             unread: false,
                             closed: false,
@@ -385,7 +385,7 @@ module.exports = [
                                 name: 'Technical Issues'
                             },
                             date: '201604161427',
-                            file: 'http://www.opensupports.com/some_file.zip',
+                            file: 'some_file.txt',
                             language: 'en',
                             unread: true,
                             closed: false,
@@ -504,7 +504,7 @@ module.exports = [
                                 name: 'Sales Support'
                             },
                             date: '201604150849',
-                            file: 'http://www.opensupports.com/some_file.zip',
+                            file: 'some_file.txt',
                             language: 'en',
                             unread: false,
                             closed: false,
@@ -607,7 +607,7 @@ module.exports = [
                                 name: 'Sales Support'
                             },
                             date: '201504091032',
-                            file: 'http://www.opensupports.com/some_file.zip',
+                            file: 'some_file.txt',
                             language: 'en',
                             unread: false,
                             closed: false,

@@ -10,7 +10,7 @@ class DownloadController extends Controller {
             'permission' => 'user',
             'requestData' => [
                 'file' => [
-                    'validation' => DataValidator::alnum('_.')->noWhitespace(),
+                    'validation' => DataValidator::alnum('_.-')->noWhitespace(),
                     'error' => ERRORS::INVALID_FILE
                 ]
             ]
