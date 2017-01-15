@@ -50,7 +50,7 @@ class CommentController extends Controller {
         $comment = Ticketevent::getEvent(Ticketevent::COMMENT);
         $comment->setProperties(array(
             'content' => $this->content,
-            'file' => $this->uploadFile(),
+            'file' => $this->uploadFile()->getFileName(),
             'date' => Date::getCurrentDate()
         ));
 

@@ -88,7 +88,7 @@ abstract class Controller {
             $fileQuantity->value++;
             $fileQuantity->store();
 
-            return $fileUploader->getFileName();
+            return $fileUploader;
         } else {
             throw new Exception(ERRORS::INVALID_FILE);
         }

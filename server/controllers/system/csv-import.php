@@ -11,7 +11,9 @@ class CSVImportController extends Controller {
     }
 
     public function handler() {
-        $file = fopen("Hoja1.csv","r");
+        $fileUploader = $this->uploadFile();
+
+        $file = fopen($fileUploader->getFullFilePath(),'r');
         $errors = [];
 
         while(!feof($file)) {
@@ -41,6 +43,9 @@ class CSVImportController extends Controller {
         }
 
         fclose($file);
+        
+        unlink($fileUploader->getFullFilePath());
+        
         Response::respondSuccess($errors);
     }
 }
