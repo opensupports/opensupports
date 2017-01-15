@@ -14,33 +14,30 @@ class AdminPanelStats extends React.Component {
 
     state = {
         stats: {
-            'CLOSE': 0,
             'CREATE_TICKET': 0,
+            'CLOSE': 0,
             'SIGNUP': 0,
             'COMMENT': 0
         },
         strokes: [
             {
-                name: 'CLOSE',
-                show: true,
+                name: 'CREATE_TICKET',
                 values: []
             },
             {
-                name: 'CREATE_TICKET',
-                show: true,
+                name: 'CLOSE',
                 values: []
             },
             {
                 name: 'SIGNUP',
-                show: true,
                 values: []
             },
             {
                 name: 'COMMENT',
-                show: true,
                 values: []
             }
         ],
+        showed: [0],
         period: 0
     };
 
@@ -61,6 +58,7 @@ class AdminPanelStats extends React.Component {
 
     getToggleListProps() {
         return {
+            values: this.state.showed,
             items: [
                 {
                     content:
@@ -95,8 +93,10 @@ class AdminPanelStats extends React.Component {
         };
     }
 
-    onToggleListChange(data) {
-
+    onToggleListChange(event) {
+        this.setState({
+            showed: event.target.value
+        });
     }
 
     getDropDownProps() {
@@ -124,22 +124,23 @@ class AdminPanelStats extends React.Component {
     }
 
     onDropDownChange(event) {
-        console.log('DROP DOWN HAS CHANGED');
         let val = [7, 30, 90, 365];
 
         this.retrieve(val[event.index]);
     }
 
     getStatsChartProps() {
+        let showed = this.getShowedArray();
+
         return {
             period: this.state.period,
-            strokes: this.state.strokes
-        }
+            strokes: _.filter(this.state.strokes, (s, i) => showed[i])
+            //strokes: this.state.strokes,
+            //showed:  this.getShowedArray()
+        };
     }
 
     retrieve(period) {
-        console.log('THIS SHOULD NOT BE DISPLAYED');
-
         let periodName;
         switch (period) {
             case 30:
@@ -155,9 +156,6 @@ class AdminPanelStats extends React.Component {
                 periodName = 'WEEK';
         }
 
-        console.log('--------------------------------------------period: ' + this.state.period);
-        console.log('--------------------------------------------PERIOD NAME: ' + periodName);
-
         API.call({
             path: '/system/get-stats',
             data: {
@@ -168,42 +166,35 @@ class AdminPanelStats extends React.Component {
 
     onRetrieveSuccess(period, result) {
 
-        console.log('This is the shit you SHOULD look at!');
-        console.log(result);
-
         let newState = {
-            'CLOSE': 0,
             'CREATE_TICKET': 0,
+            'CLOSE': 0,
             'SIGNUP': 0,
             'COMMENT': 0
         };
 
         let ID = {
-            'CLOSE': 0,
-            'CREATE_TICKET': 1,
+            'CREATE_TICKET': 0,
+            'CLOSE': 1,
             'SIGNUP': 2,
             'COMMENT': 3
         };
 
         let newStrokes = [
             {
-                name: 'CLOSE',
-                show: true,
+                name: 'CREATE_TICKET',
                 values: []
             },
             {
-                name: 'CREATE_TICKET',
-                show: true,
+                name: 'CLOSE',
                 values: []
             },
             {
                 name: 'SIGNUP',
-                show: true,
                 values: []
             },
             {
                 name: 'COMMENT',
-                show: true,
                 values: []
             }
         ];
@@ -220,6 +211,16 @@ class AdminPanelStats extends React.Component {
         }
 
         this.setState({stats: newState, strokes: newStrokes, period: realPeriod});
+    }
+
+    getShowedArray() {
+        let showed = [false, false, false, false];
+
+        for (let i = 0; i < showed.length; i++) {
+            showed[this.state.showed[i]] = true;
+        }
+
+        return showed;
     }
 }
 

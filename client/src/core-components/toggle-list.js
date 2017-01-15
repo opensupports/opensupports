@@ -35,16 +35,16 @@ class ToggleList extends React.Component {
         let classes = {
             'toggle-list__item': true,
             'toggle-list__first-item': (index === 0),
-            'toggle-list__selected': _.includes(this.state.selected, index)
+            'toggle-list__selected': _.includes(this.getSelectedList(), index)
         };
 
         return classNames(classes);
     }
 
     selectItem(index) {
-        let newSelected = _.clone(this.state.selected);
+        let newSelected = _.clone(this.getSelectedList());
 
-        _.includes(this.state.selected, index) ? _.remove(newSelected, _index => _index == index) : newSelected.push(index);
+        _.includes(this.getSelectedList(), index) ? _.remove(newSelected, _index => _index == index) : newSelected.push(index);
 
         this.setState({
             selected: newSelected
@@ -57,6 +57,10 @@ class ToggleList extends React.Component {
                 }
             });
         }
+    }
+
+    getSelectedList() {
+        return (this.props.values === undefined) ? this.state.selected : this.props.values;
     }
 }
 

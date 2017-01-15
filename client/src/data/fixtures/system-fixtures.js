@@ -182,13 +182,13 @@ module.exports = [
                     date: '201701' + (i + 10) % 100,
                     type: 'SIGNUP',
                     general: 1,
-                    value: (9 + i + Math.floor(Math.random() * (i / 15))).toString()
+                    value: (9 + i + Math.floor(Math.random() * (i * 15))).toString()
                 });
                 DATA.push({
                     date: '201701' + (i + 10) % 100,
                     type: 'CLOSE',
                     general: 1,
-                    value: (8 + i + Math.floor(Math.random() * i)).toString()
+                    value: (8 + i + Math.floor(Math.random() * i * i * i * i)).toString()
                 });
                 DATA.push({
                     date: '201701' + (i + 10) % 100,

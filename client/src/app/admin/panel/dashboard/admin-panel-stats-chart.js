@@ -8,19 +8,19 @@ class StatsChart extends React.Component {
     static propTypes = {
         strokes: React.PropTypes.arrayOf(React.PropTypes.shape({
             name: React.PropTypes.string,
-            show: React.PropTypes.bool,
             values: React.PropTypes.arrayOf(React.PropTypes.shape({
                 date: React.PropTypes.string,
                 value: React.PropTypes.number
             }))
         })),
+        //showed: React.PropTypes.arrayOf(React.PropTypes.bool),
         period: React.PropTypes.number
     };
 
     render() {
         return (
             <div>
-                <Line data={this.getChartData()} options={this.getChartOptions()} width={800} height={400} />
+                <Line data={this.getChartData()} options={this.getChartOptions()} width={800} height={400} redraw/>
             </div>
         );
     }
@@ -48,10 +48,10 @@ class StatsChart extends React.Component {
                 borderColor: color[stroke.name],
                 pointBorderColor: color[stroke.name],
                 pointRadius: 0,
+                pointHoverRadius: 3,
                 lineTension: 0.2,
                 pointHoverBackgroundColor: color[stroke.name],
-                hitRadius: this.hitRadius(),
-                showLine: stroke.show
+                hitRadius: this.hitRadius(i)
             };
 
             datasets.push(dataset);
@@ -72,6 +72,10 @@ class StatsChart extends React.Component {
         let labels = [];
 
         for (let i = 0; i < this.props.period; i++) {
+            if (!this.props.strokes.length){
+                labels.push('');
+                continue;
+            }
             let firstList = this.props.strokes[0];
             let idx = firstList.values[i].date.slice(4, 6) - 1;
             labels.push( firstList.values[i].date.slice(6, 8) + ' ' +  months[idx]);
@@ -80,11 +84,12 @@ class StatsChart extends React.Component {
         return labels;
     }
 
-    hitRadius() {
+    hitRadius(index) {
+        //if (!this.props.showed[index]) return 0;
         if (this.props.period <= 7) return 20;
         if (this.props.period <= 30) return 15;
         if (this.props.period <= 90) return 10;
-        return 1;
+        return 3;
     }
 
     getChartOptions() {
