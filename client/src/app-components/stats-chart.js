@@ -13,7 +13,6 @@ class StatsChart extends React.Component {
                 value: React.PropTypes.number
             }))
         })),
-        //showed: React.PropTypes.arrayOf(React.PropTypes.bool),
         period: React.PropTypes.number
     };
 
@@ -85,7 +84,6 @@ class StatsChart extends React.Component {
     }
 
     hitRadius(index) {
-        //if (!this.props.showed[index]) return 0;
         if (this.props.period <= 7) return 20;
         if (this.props.period <= 30) return 15;
         if (this.props.period <= 90) return 10;

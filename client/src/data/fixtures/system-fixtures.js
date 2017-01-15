@@ -182,7 +182,7 @@ module.exports = [
                     date: '201701' + (i + 10) % 100,
                     type: 'SIGNUP',
                     general: 1,
-                    value: (Math.floor(Math.random() * i * i / 365)).toString()
+                    value: (Math.floor(Math.random() * (i - 180) * (i - 185) / (1.027**i) )).toString()
                 });
                 DATA.push({
                     date: '201701' + (i + 10) % 100,
@@ -194,7 +194,7 @@ module.exports = [
                     date: '201701' + (i + 10) % 100,
                     type: 'CREATE_TICKET',
                     general: 1,
-                    value: (Math.floor(Math.random()*Math.random()*Math.random()*Math.random()*Math.random()*1.05**i)).toString()
+                    value: (Math.floor(Math.random()*Math.random()*Math.random()*Math.random()*Math.random()*1.027**i)).toString()
                 });
             }
 
@@ -205,176 +205,6 @@ module.exports = [
             return {
                 status: "success",
                 data: DATA
-                /*data: [
-                    {
-                        "date": "20170112",
-                        "type": "COMMENT",
-                        "general": "1",
-                        "value": "8"
-                    },
-                    {
-                        "date": "20170112",
-                        "type": "SIGNUP",
-                        "general": "1",
-                        "value": "1"
-                    },
-                    {
-                        "date": "20170112",
-                        "type": "CLOSE",
-                        "general": "1",
-                        "value": "5"
-                    },
-                    {
-                        "date": "20170112",
-                        "type": "CREATE_TICKET",
-                        "general": "1",
-                        "value": "2"
-                    },
-                    {
-                        "date": "20170111",
-                        "type": "COMMENT",
-                        "general": "1",
-                        "value": "3"
-                    },
-                    {
-                        "date": "20170111",
-                        "type": "SIGNUP",
-                        "general": "1",
-                        "value": "8"
-                    },
-                    {
-                        "date": "20170111",
-                        "type": "CLOSE",
-                        "general": "1",
-                        "value": "10"
-                    },
-                    {
-                        "date": "20170111",
-                        "type": "CREATE_TICKET",
-                        "general": "1",
-                        "value": "3"
-                    },
-                    {
-                        "date": "20170110",
-                        "type": "COMMENT",
-                        "general": "1",
-                        "value": "3"
-                    },
-                    {
-                        "date": "20170110",
-                        "type": "SIGNUP",
-                        "general": "1",
-                        "value": "6"
-                    },
-                    {
-                        "date": "20170110",
-                        "type": "CLOSE",
-                        "general": "1",
-                        "value": "2"
-                    },
-                    {
-                        "date": "20170110",
-                        "type": "CREATE_TICKET",
-                        "general": "1",
-                        "value": "1"
-                    },
-                    {
-                        "date": "20170109",
-                        "type": "COMMENT",
-                        "general": "1",
-                        "value": "0"
-                    },
-                    {
-                        "date": "20170109",
-                        "type": "SIGNUP",
-                        "general": "1",
-                        "value": "7"
-                    },
-                    {
-                        "date": "20170109",
-                        "type": "CLOSE",
-                        "general": "1",
-                        "value": "4"
-                    },
-                    {
-                        "date": "20170109",
-                        "type": "CREATE_TICKET",
-                        "general": "1",
-                        "value": "9"
-                    },
-                    {
-                        "date": "20170108",
-                        "type": "COMMENT",
-                        "general": "1",
-                        "value": "8"
-                    },
-                    {
-                        "date": "20170108",
-                        "type": "SIGNUP",
-                        "general": "1",
-                        "value": "4"
-                    },
-                    {
-                        "date": "20170108",
-                        "type": "CLOSE",
-                        "general": "1",
-                        "value": "5"
-                    },
-                    {
-                        "date": "20170108",
-                        "type": "CREATE_TICKET",
-                        "general": "1",
-                        "value": "6"
-                    },
-                    {
-                        "date": "20170107",
-                        "type": "COMMENT",
-                        "general": "1",
-                        "value": "4"
-                    },
-                    {
-                        "date": "20170107",
-                        "type": "SIGNUP",
-                        "general": "1",
-                        "value": "1"
-                    },
-                    {
-                        "date": "20170107",
-                        "type": "CLOSE",
-                        "general": "1",
-                        "value": "0"
-                    },
-                    {
-                        "date": "20170107",
-                        "type": "CREATE_TICKET",
-                        "general": "1",
-                        "value": "2"
-                    },
-                    {
-                        "date": "20170106",
-                        "type": "COMMENT",
-                        "general": "1",
-                        "value": "7"
-                    },
-                    {
-                        "date": "20170106",
-                        "type": "SIGNUP",
-                        "general": "1",
-                        "value": "4"
-                    },
-                    {
-                        "date": "20170106",
-                        "type": "CLOSE",
-                        "general": "1",
-                        "value": "5"
-                    },
-                    {
-                        "date": "20170106",
-                        "type": "CREATE_TICKET",
-                        "general": "1",
-                        "value": "5"
-                    }
-                ]*/
             };
         }
     },
