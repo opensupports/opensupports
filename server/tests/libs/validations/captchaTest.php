@@ -2,6 +2,8 @@
 include_once 'tests/__lib__/Mock.php';
 include_once 'tests/__mocks__/RespectMock.php';
 include_once 'tests/__mocks__/SettingMock.php';
+include_once 'tests/__mocks__/APIKeyMock.php';
+include_once 'tests/__mocks__/ControllerMock.php';
 include_once 'tests/__mocks__/ReCaptchaMock.php';
 
 include_once 'libs/validations/captcha.php';
@@ -10,6 +12,8 @@ class CaptchaValidationTest extends PHPUnit_Framework_TestCase {
 
     protected function setUp() {
         Setting::initStubs();
+        Controller::initStubs();
+        APIKey::initStubs();
         \ReCaptcha\ReCaptcha::initVerify();
 
         $_SERVER['REMOTE_ADDR'] = 'MOCK_REMOTE';

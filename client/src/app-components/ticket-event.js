@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import i18n from 'lib-app/i18n';
+import API from 'lib-app/api-call';
 
 import DateTransformer from 'lib-core/date-transformer';
 import Icon from 'core-components/icon';
@@ -161,7 +162,7 @@ class TicketEvent extends React.Component {
         }
 
         return (
-            <div className="ticket-viewer__file">
+            <div className="ticket-event__file">
                 {node}
             </div>
         )
@@ -222,8 +223,25 @@ class TicketEvent extends React.Component {
         const fileName = filePath.replace(/^.*[\\\/]/, '');
 
         return (
-            <a href={filePath} target="_blank">{fileName}</a>
+            <span onClick={this.onFileClick.bind(this, filePath)}>{fileName}</span>
         )
+    }
+
+    onFileClick(filePath) {
+        API.call({
+            path: '/system/download',
+            plain: true,
+            data: {
+                file: filePath
+            }
+        }).then((result) => {
+            let contentType = 'application/octet-stream';
+            let link = document.createElement('a');
+            let blob = new Blob([result], {'type': contentType});
+            link.href = window.URL.createObjectURL(blob);
+            link.download = filePath;
+            link.click();
+        });
     }
 }
 

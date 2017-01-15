@@ -9,7 +9,8 @@ const APIUtils = {
                 url: path,
                 method: method,
                 data: data,
-                dataType: 'json'
+                processData: false,
+                contentType: false
             })
             .done(resolve)
             .fail((jqXHR, textStatus) => {

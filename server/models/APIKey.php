@@ -9,6 +9,7 @@ class APIKey extends DataStore {
             'token'
         ];
     }
+
     public function toArray() {
         return [
             'name' => $this->name,

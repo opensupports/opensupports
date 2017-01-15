@@ -1,5 +1,12 @@
 $agent = Mechanize.new
 
+def plainRequest(path, data = {})
+    uri = 'http://localhost:8080' + path
+    response = $agent.post(uri, data)
+
+    return response
+end
+
 def request(path, data = {})
     uri = 'http://localhost:8080' + path
     response = $agent.post(uri, data)

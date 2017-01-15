@@ -147,13 +147,15 @@ describe '/ticket/create' do
             csrf_token: $csrf_token
         })
 
+        ticket_number_gap = $database.getRow('setting', 'ticket-gap', 'name')['value'].to_i
+
         ticket0 = $database.getRow('ticket','Winter is coming','title')['ticket_number'].to_i
         ticket1 = $database.getRow('ticket','Winter is coming1','title')['ticket_number'].to_i
         ticket2 = $database.getRow('ticket','Winter is coming2','title')['ticket_number'].to_i
         ticket3 = $database.getRow('ticket','Winter is coming3','title')['ticket_number'].to_i
 
-        (ticket1).should.equal((ticket0 - 100000 + 1 * 176611) % 900000 + 100000)
-        (ticket2).should.equal((ticket0 - 100000 + 2 * 176611) % 900000 + 100000)
-        (ticket3).should.equal((ticket0 - 100000 + 3 * 176611) % 900000 + 100000)
+        (ticket1).should.equal((ticket0 - 100000 + 1 * ticket_number_gap) % 900000 + 100000)
+        (ticket2).should.equal((ticket0 - 100000 + 2 * ticket_number_gap) % 900000 + 100000)
+        (ticket3).should.equal((ticket0 - 100000 + 3 * ticket_number_gap) % 900000 + 100000)
     end
 end

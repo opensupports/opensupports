@@ -1,0 +1,31 @@
+@import "../scss/vars";
+
+.file-uploader {
+
+    &__input {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    &__custom {
+        display: inline-block;
+        cursor: pointer;
+        color: white;
+        background-color: $primary-red;
+        line-height: 35px;
+        padding: 0 15px;
+    }
+
+    &__icon {
+        margin-right: 15px;
+    }
+
+    &__value {
+        margin-left: 10px;
+        color: $dark-grey;
+    }
+}

@@ -9,6 +9,7 @@ import Checkbox from 'core-components/checkbox';
 import CheckboxGroup from 'core-components/checkbox-group';
 import TextEditor from 'core-components/text-editor';
 import InfoTooltip from 'core-components/info-tooltip';
+import FileUploader from 'core-components/file-uploader';
 
 class FormField extends React.Component {
     static contextTypes = {
@@ -24,7 +25,7 @@ class FormField extends React.Component {
         error: React.PropTypes.string,
         infoMessage: React.PropTypes.node,
         value: React.PropTypes.any,
-        field: React.PropTypes.oneOf(['input', 'textarea', 'select', 'checkbox', 'checkbox-group']),
+        field: React.PropTypes.oneOf(['input', 'textarea', 'select', 'checkbox', 'checkbox-group', 'file']),
         fieldProps: React.PropTypes.object
     };
     
@@ -84,7 +85,8 @@ class FormField extends React.Component {
             'textarea': TextEditor,
             'select': DropDown,
             'checkbox': Checkbox,
-            'checkbox-group': CheckboxGroup
+            'checkbox-group': CheckboxGroup,
+            'file': FileUploader
         }[this.props.field];
 
         if(this.props.decorator) {
@@ -142,7 +144,8 @@ class FormField extends React.Component {
     getDivTypes() {
         return [
             'textarea',
-            'checkbox-group'
+            'checkbox-group',
+            'file'
         ];
     }
 

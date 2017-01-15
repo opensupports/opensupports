@@ -18,6 +18,10 @@ include_once 'libs/Hashing.php';
 include_once 'libs/MailSender.php';
 include_once 'libs/Date.php';
 include_once 'libs/DataStoreList.php';
+include_once 'libs/LinearCongruentialGenerator.php';
+include_once 'libs/FileManager.php';
+include_once 'libs/FileDownloader.php';
+include_once 'libs/FileUploader.php';
 
 Controller::init();
 
