@@ -88,24 +88,12 @@ class Stats extends React.Component {
 
     getDropDownProps() {
         return {
-            items: [
-                {
-                    content: 'Last 7 days',
+            items: ['Last 7 days', 'Last 30 days', 'Last 90 days', 'Last 365 days'].map((name) => {
+                return {
+                    content: name,
                     icon: ''
-                },
-                {
-                    content: 'Last 30 days',
-                    icon: ''
-                },
-                {
-                    content: 'Last 90 days',
-                    icon: ''
-                },
-                {
-                    content: 'Last 365 days',
-                    icon: ''
-                }
-            ],
+                };
+            }),
             onChange: this.onDropDownChange.bind(this),
             className: 'stats__dropdown'
         }
