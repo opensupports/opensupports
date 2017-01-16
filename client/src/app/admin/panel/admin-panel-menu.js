@@ -209,11 +209,6 @@ class AdminPanelMenu extends React.Component {
                         name: i18n('EMAIL_TEMPLATES'),
                         path: '/admin/panel/settings/email-templates',
                         level: 3
-                    },
-                    {
-                        name: i18n('FILTERS_CUSTOM_FIELDS'),
-                        path: '/admin/panel/settings/custom-fields',
-                        level: 3
                     }
                 ])
             }
