@@ -16,6 +16,7 @@ require_once 'system/enabled-user-system.php';
 require_once 'system/add-api-key.php';
 require_once 'system/delete-api-key.php';
 require_once 'system/get-all-keys.php';
+require_once 'system/get-stats.php';
 require_once 'system/delete-all-users.php';
 require_once 'system/backup-database.php';
 require_once 'system/download.php';

@@ -42,8 +42,7 @@ class InitSettingsController extends Controller {
             'title' => 'Support Center',
             'url' => 'http://www.opensupports.com/support',
             'registration' => true,
-            'user-system-enabled' => true
-            'registration' => true,
+            'user-system-enabled' => true,
             'last-stat-day' => '20170101', //TODO: get current date
             'ticket-gap' => Hashing::generateRandomPrime(100000, 999999),
             'file-gap' => Hashing::generateRandomPrime(100000, 999999),
