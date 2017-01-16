@@ -20,6 +20,7 @@ module.exports = [
                         'smtp-user': 'Wesa',
                         'maintenance-mode': false,
                         'allow-attachments': true,
+                        'registration': false,
                         'max-size': 500,
                         'departments': [
                             {id: 1, name: 'Sales Support', owners: 2},
