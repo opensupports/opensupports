@@ -41,7 +41,8 @@ class InitSettingsController extends Controller {
             'max-size' => 0,
             'title' => 'Support Center',
             'url' => 'http://www.opensupports.com/support',
-            'registration' => true 
+            'registration' => true,
+            'user-system-enabled' => true
         ]);
     }
 

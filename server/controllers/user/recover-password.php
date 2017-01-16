@@ -27,6 +27,10 @@ class RecoverPasswordController extends Controller {
     }
 
     public function handler() {
+        if(!Controller::isUserSystemEnabled()) {
+            throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
+        }
+        
         $this->requestData();
         $this->changePassword();
     }

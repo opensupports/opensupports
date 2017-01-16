@@ -46,7 +46,8 @@ class GetSettingsController extends Controller {
                 'registration' => Setting::getSetting('registration')->getValue(),
                 'departments' => Department::getDepartmentNames(),
                 'supportedLanguages' => Language::getSupportedLanguages(),
-                'allowedLanguages' => Language::getAllowedLanguages()
+                'allowedLanguages' => Language::getAllowedLanguages(),
+                'user-system-enabled' => Setting::getSetting('user-system-enabled')->getValue()
             ];
         }
 

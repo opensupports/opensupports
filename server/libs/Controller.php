@@ -60,4 +60,8 @@ abstract class Controller {
     public static function getAppInstance() {
         return \Slim\Slim::getInstance();
     }
+    
+    public static function isUserSystemEnabled() {
+        return Setting::getSetting('user-system-enabled')->getValue();
+    }
 }
