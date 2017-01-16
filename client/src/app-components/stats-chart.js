@@ -35,12 +35,9 @@ class StatsChart extends React.Component {
             'ASSIGN': 'rgba(20, 150, 20, 0.6)'
         };
 
-        let datasets = [];
-
-        for (let i = 0; i < this.props.strokes.length; i++) {
-            let stroke = this.props.strokes[i];
-
-            let dataset = {
+        let strokes = this.props.strokes.slice();
+        let datasets = strokes.map((stroke, index) => {
+            return {
                 label: i18n('CHART_' + stroke.name),
                 data: stroke.values.map((val) => val.value),
                 fill: false,
@@ -51,12 +48,10 @@ class StatsChart extends React.Component {
                 pointHoverRadius: 3,
                 lineTension: 0.2,
                 pointHoverBackgroundColor: color[stroke.name],
-                hitRadius: this.hitRadius(i)
-            };
+                hitRadius: this.hitRadius(index)
+            }
+        });
 
-            datasets.push(dataset);
-        }
-        
         return {
             labels: labels,
             datasets: datasets
