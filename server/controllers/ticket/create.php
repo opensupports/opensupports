@@ -74,7 +74,7 @@ class CreateController extends Controller {
             'language' => $this->language,
             'author' => $author,
             'department' => $department,
-            'file' => '',
+            'file' => $this->uploadFile(),
             'date' => Date::getCurrentDate(),
             'unread' => false,
             'unreadStaff' => true,

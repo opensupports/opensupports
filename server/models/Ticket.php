@@ -48,17 +48,16 @@ class Ticket extends DataStore {
     }
 
     public function generateUniqueTicketNumber() {
+        $linearCongruentialGenerator = new LinearCongruentialGenerator();
         $ticketQuantity = Ticket::count();
-        $minValue = 100000;
-        $maxValue = 999999;
-
+        
         if ($ticketQuantity === 0) {
-            $ticketNumber = Hashing::getRandomTicketNumber($minValue, $maxValue);
+            $ticketNumber = $linearCongruentialGenerator->generateFirst();
         } else {
-            $firstTicketNumber = Ticket::getTicket(1)->ticketNumber;
-            $gap = 176611; //TODO: USE RANDOM PRIME INSTEAD
-
-            $ticketNumber = ($firstTicketNumber - $minValue + $ticketQuantity * $gap) % ($maxValue - $minValue + 1) + $minValue;
+            $linearCongruentialGenerator->setGap(Setting::getSetting('ticket-gap')->value);
+            $linearCongruentialGenerator->setFirst(Ticket::getTicket(1)->ticketNumber);
+            
+            $ticketNumber = $linearCongruentialGenerator->generate($ticketQuantity);
         }
 
         return $ticketNumber;

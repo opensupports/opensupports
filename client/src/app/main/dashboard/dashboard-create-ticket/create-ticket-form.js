@@ -56,6 +56,9 @@ class CreateTicketForm extends React.Component {
                         }}/>
                     </div>
                     <FormField label={i18n('CONTENT')} name="content" validation="TEXT_AREA" required field="textarea" />
+                    <div className="create-ticket-form__file">
+                        <FormField name="file" field="file" />
+                    </div>
                     {(!this.props.userLogged) ? this.renderCaptcha() : null}
                     <SubmitButton>Create Ticket</SubmitButton>
                 </Form>

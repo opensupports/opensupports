@@ -111,6 +111,14 @@ module.exports = [
         }
     },
     {
+        path: '/system/download',
+        time: 100,
+        contentType: 'application/octet-stream',
+        response: function () {
+            return 'text content';
+        }
+    },
+    {
         path: '/system/get-mail-templates',
         time: 100,
         response: function () {

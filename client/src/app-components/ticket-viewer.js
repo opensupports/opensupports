@@ -190,6 +190,7 @@ class TicketViewer extends React.Component {
                 <div className="ticket-viewer__response-field row">
                     <Form {...this.getCommentFormProps()}>
                         <FormField name="content" validation="TEXT_AREA" required field="textarea" />
+                        <FormField name="file" field="file"/>
                         <SubmitButton>{i18n('RESPOND_TICKET')}</SubmitButton>
                     </Form>
                 </div>
@@ -234,10 +235,12 @@ class TicketViewer extends React.Component {
             loading: this.state.loading,
             onChange: (formState) => {this.setState({
                 commentValue: formState.content,
+                commentFile: formState.file,
                 commentEdited: true
             })},
             values: {
-                'content': this.state.commentValue
+                'content': this.state.commentValue,
+                'file': this.state.commentFile
             }
         };
     }

@@ -36,7 +36,7 @@ class Ticketevent extends DataStore {
         return $ticketEvent;
     }
 
-    public function getProps() {
+    public static function getProps() {
         return [
             'type',
             'content',

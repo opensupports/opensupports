@@ -5,6 +5,7 @@ class User extends \Mock {
     public static function initStubs() {
         parent::setStatics(array(
             'authenticate' => parent::stub()->returns(self::getUserInstanceMock()),
+            'getDataStore' => parent::stub()->returns(self::getUserInstanceMock())
         ));
     }
     
@@ -18,6 +19,7 @@ class User extends \Mock {
         $mockUserInstance->id = 'MOCK_ID';
         $mockUserInstance->email = 'MOCK_EMAIL';
         $mockUserInstance->password = 'MOCK_PASSWORD';
+        $mockUserInstance->verificationToken = null;
 
         return $mockUserInstance;
     }

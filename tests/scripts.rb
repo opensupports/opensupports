@@ -44,4 +44,12 @@ class Scripts
 
         result['data']
     end
+
+    def self.createAPIKey(name)
+        result = request('/system/add-api-key', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: name
+        })
+    end
 end

@@ -91,6 +91,14 @@
         }
     }
 
+    &__file {
+        background-color: $very-light-grey;
+        cursor: pointer;
+        text-align: right;
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+
     &_staff {
         .ticket-event__icon {
             background-color: $primary-blue;
