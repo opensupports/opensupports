@@ -152,6 +152,8 @@ export default {
     'ALL_NOTIFICATIONS': 'All notifications',
     'VERIFY_SUCCESS': 'User verified',
     'VERIFY_FAILED': 'Could not verify',
+    'USER_SYSTEM_ENABLED': 'Use user system for customers',
+    'REGISTRATION': 'Enable user registration',
 
     //ACTIVITIES
     'ACTIVITY_COMMENT': 'commented ticket',
@@ -213,6 +215,7 @@ export default {
     'SYSTEM_PREFERENCES_DESCRIPTION': 'Here you can edit the preferences of the system.',
     'VERIFY_SUCCESS_DESCRIPTION': 'You user has been verified correctly. You can log in now.',
     'VERIFY_FAILED_DESCRIPTION': 'The verification could not be done.',
+    'ADVANCED_SETTINGS_DESCRIPTION': 'Advanced settings description should go here!',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',

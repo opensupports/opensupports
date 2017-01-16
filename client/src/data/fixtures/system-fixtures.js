@@ -1,7 +1,7 @@
 module.exports = [
     {
         path: '/system/get-settings',
-        time: 1000,
+        time: 850,
         response: function (params) {
             if(params && params.allSettings) {
                 return {
@@ -27,7 +27,9 @@ module.exports = [
                             {id: 3, name: 'System and Administration', owners: 0}
                         ],
                         'allowedLanguages': ['en', 'es', 'de', 'fr', 'pt', 'jp', 'ru', 'cn', 'in', 'tr'],
-                        'supportedLanguages': ['en', 'es', 'de']
+                        'supportedLanguages': ['en', 'es', 'de'],
+                        'registration': true,
+                        'user-system-enabled': true
                     }
                 };
 
@@ -44,7 +46,9 @@ module.exports = [
                             {id: 3, name: 'System and Administration', owners: 0}
                         ],
                         'allowedLanguages': ['en', 'es', 'de', 'fr', 'pt', 'jp', 'ru', 'cn', 'in', 'tr'],
-                        'supportedLanguages': ['en', 'es', 'de']
+                        'supportedLanguages': ['en', 'es', 'de'],
+                        'registration': true,
+                        'user-system-enabled': true
                     }
                 };
             }
