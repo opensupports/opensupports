@@ -201,8 +201,8 @@ class AdminPanelMenu extends React.Component {
                         level: 3
                     },
                     {
-                        name: i18n('USER_SYSTEM'),
-                        path: '/admin/panel/settings/user-system',
+                        name: i18n('ADVANCED_SETTINGS'),
+                        path: '/admin/panel/settings/advanced-settings',
                         level: 3
                     },
                     {

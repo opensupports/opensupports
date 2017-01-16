@@ -48,7 +48,7 @@ export default {
     'STAFF_MEMBERS': 'Staff Members',
     'DEPARTMENTS': 'Departments',
     'SYSTEM_PREFERENCES': 'System Preferences',
-    'USER_SYSTEM': 'User System',
+    'ADVANCED_SETTINGS': 'Advanced Settings',
     'EMAIL_TEMPLATES': 'Email Templates',
     'FILTERS_CUSTOM_FIELDS': 'Filters and Custom Fields',
     'PRIORITY': 'Priority',
