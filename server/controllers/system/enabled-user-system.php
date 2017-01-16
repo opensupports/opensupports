@@ -33,28 +33,7 @@ class EnabledUserSystemController extends Controller {
             $userRow = User::getDataStore($ticket->authorEmail, 'email');
 
             if($userRow->isNull()) {
-                $userInstance = new User();
-
-                $password = Hashing::generateRandomToken();
-
-                $userInstance->setProperties([
-                    'name' => $ticket->authorName,
-                    'signupDate' => Date::getCurrentDate(),
-                    'tickets' => 1,
-                    'email' => $ticket->authorEmail,
-                    'password' => Hashing::hashPassword($password),
-                    'verificationToken' => null
-                ]);
-
-                $userInstance->store();
-
-                $mailSender = new MailSender();
-                $mailSender->setTemplate(MailTemplate::USER_SYSTEM_ENABLED, [
-                    'to' => $ticket->authorEmail,
-                    'name' => $ticket->authorName,
-                    'password' => $password
-                ]);
-                $mailSender->send();
+                $this->createUser($ticket->authorEmail,$ticket->authorName);
 
             } else {
                 $userRow->tickets = $userRow->tickets + 1;
@@ -70,5 +49,30 @@ class EnabledUserSystemController extends Controller {
         }
 
         Response::respondSuccess();
+    }
+    public function createUser($email,$name) {
+        $userInstance = new User();
+
+        $password = Hashing::generateRandomToken();
+
+        $userInstance->setProperties([
+            'name' => $name,
+            'signupDate' => Date::getCurrentDate(),
+            'tickets' => 1,
+            'email' => $email,
+            'password' => Hashing::hashPassword($password),
+            'verificationToken' => null
+        ]);
+
+        $userInstance->store();
+
+        $mailSender = new MailSender();
+        $mailSender->setTemplate(MailTemplate::USER_SYSTEM_ENABLED, [
+            'to' => $email,
+            'name' => $name,
+            'password' => $password
+        ]);
+        $mailSender->send();
+
     }
 }

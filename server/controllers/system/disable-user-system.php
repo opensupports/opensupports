@@ -52,6 +52,7 @@ class DisableUserSystemController extends Controller {
             
             $user->delete();
         }
+        
         Response::respondSuccess();
     }
 }
