@@ -154,6 +154,10 @@ export default {
     'VERIFY_FAILED': 'Could not verify',
     'USER_SYSTEM_ENABLED': 'Use user system for customers',
     'REGISTRATION': 'Enable user registration',
+    'INCLUDE_USERS_VIA_CSV': 'Include users via CSV file',
+    'INCLUDE_DATABASE_VIA_SQL': 'Include database via SQL file',
+    'BACKUP_DATABASE': 'Backup database',
+    'DELETE_ALL_USERS': 'Delete all users',
 
     //ACTIVITIES
     'ACTIVITY_COMMENT': 'commented ticket',

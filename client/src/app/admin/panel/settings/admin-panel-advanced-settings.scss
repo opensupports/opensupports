@@ -1,3 +1,18 @@
 .admin-panel-system-settings {
+    &__user-system-enabled {
 
+    }
+
+    &__registration {
+
+    }
+
+    &__toggle-button {
+        display: inline-block;
+        margin-left: 20px;
+    }
+
+    &__text {
+        margin-bottom: 20px;
+    }
 }
