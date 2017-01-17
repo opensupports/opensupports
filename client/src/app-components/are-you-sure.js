@@ -2,21 +2,27 @@ import React from 'react';
 
 import i18n from 'lib-app/i18n';
 import Button from 'core-components/button';
+import Input from 'core-components/input';
 import ModalContainer from 'app-components/modal-container';
 
 class AreYouSure extends React.Component {
     static propTypes = {
         description: React.PropTypes.node,
-        onYes: React.PropTypes.func
+        onYes: React.PropTypes.func,
+        type: React.PropTypes.string
     };
 
     static contextTypes = {
         closeModal: React.PropTypes.func
     };
-    
-    static openModal(description, onYes) {
+
+    state = {
+        password: ''
+    };
+
+    static openModal(description, onYes, type) {
         ModalContainer.openModal(
-            <AreYouSure description={description} onYes={onYes} />
+            <AreYouSure description={description} onYes={onYes} type={type}/>
         );
     }
 
@@ -33,6 +39,7 @@ class AreYouSure extends React.Component {
                 <div className="are-you-sure__description" id="are-you-sure__description">
                     {this.props.description}
                 </div>
+                {this.props.type === 'secure' ? this.renderPassword() : null}
                 <div className="are-you-sure__buttons">
                     <div className="are-you-sure__yes-button">
                         <Button type="secondary" size="small" onClick={this.onYes.bind(this)} ref="yesButton" tabIndex="2">
@@ -40,7 +47,7 @@ class AreYouSure extends React.Component {
                         </Button>
                     </div>
                     <div className="are-you-sure__no-button">
-                        <Button type="link" size="auto" onClick={this.onNo.bind(this)}  tabIndex="2">
+                        <Button type="link" size="auto" onClick={this.onNo.bind(this)} tabIndex="2">
                             {i18n('CANCEL')}
                         </Button>
                     </div>
@@ -49,11 +56,31 @@ class AreYouSure extends React.Component {
         );
     }
 
-    onYes() {
-        this.closeModal();
+    renderPassword() {
+        return (
+            <Input className="are-you-sure__password" password placeholder="password" name="password" value={this.state.password} onChange={this.onPasswordChange.bind(this)} onKeyDown={this.onInputKeyDown.bind(this)}/>
+        );
+    }
 
-        if (this.props.onYes) {
-            this.props.onYes();
+    onPasswordChange(event) {
+        this.setState({
+            password: event.target.value
+        });
+    }
+
+    onInputKeyDown(event) {
+        if (event.keyCode == 13) {
+            this.onYes();
+        }
+    }
+
+    onYes() {
+        if (this.state.password){
+            this.closeModal();
+
+            if (this.props.onYes) {
+                this.props.onYes();
+            }
         }
     }
 

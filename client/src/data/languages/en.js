@@ -158,6 +158,7 @@ export default {
     'INCLUDE_DATABASE_VIA_SQL': 'Include database via SQL file',
     'BACKUP_DATABASE': 'Backup database',
     'DELETE_ALL_USERS': 'Delete all users',
+    'PLEASE_CONFIRM_PASSWORD': 'Please confirm your password to make these changes',
 
     //ACTIVITIES
     'ACTIVITY_COMMENT': 'commented ticket',
