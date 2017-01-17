@@ -93,7 +93,6 @@ class StatsChart extends React.Component {
             }
         };
     }
-
 }
 
 

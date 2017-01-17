@@ -149,14 +149,14 @@ class Stats extends React.Component {
 
         let realPeriod = result.data.length / this.getStrokes().length;
 
-        for (let i = 0; i < result.data.length; i++) {
-            newStats[result.data[i].type] += result.data[i].value * 1;
+        result.data.map((item) => {
+            newStats[item.type] += item.value * 1;
 
-            newStrokes[ ID[result.data[i].type] ].values.push({
-                date: result.data[i].date,
-                value: result.data[i].value * 1
+            newStrokes[ ID[item.type] ].values.push({
+                date: item.date,
+                value: item.value * 1
             });
-        }
+        });
 
         this.setState({stats: newStats, strokes: newStrokes, period: realPeriod});
     }
