@@ -61,10 +61,12 @@ class CommentController extends Controller {
     }
 
     private function storeComment() {
+        $fileUploader = $this->uploadFile();
+
         $comment = Ticketevent::getEvent(Ticketevent::COMMENT);
         $comment->setProperties(array(
             'content' => $this->content,
-            'file' => $this->uploadFile(),
+            'file' => ($fileUploader instanceof FileUploader) ? $fileUploader->getFileName() : null,
             'date' => Date::getCurrentDate()
         ));
 

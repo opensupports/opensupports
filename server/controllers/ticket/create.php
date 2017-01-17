@@ -67,6 +67,8 @@ class CreateController extends Controller {
         $department = Department::getDataStore($this->departmentId);
         $author = Controller::getLoggedUser();
 
+        $fileUploader = $this->uploadFile();
+
         $ticket = new Ticket();
         $ticket->setProperties(array(
             'title' => $this->title,
@@ -74,7 +76,7 @@ class CreateController extends Controller {
             'language' => $this->language,
             'author' => $author,
             'department' => $department,
-            'file' => $this->uploadFile(),
+            'file' => ($fileUploader instanceof FileUploader) ? $fileUploader->getFileName() : null,
             'date' => Date::getCurrentDate(),
             'unread' => false,
             'unreadStaff' => true,

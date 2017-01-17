@@ -10,9 +10,14 @@ class SignUpController extends Controller {
     private $userName;
     private $userPassword;
     private $verificationToken;
+    private $csvImported;
+    
+    public function __construct($csvImported = false) {
+        $this->csvImported = $csvImported;
+    }
 
     public function validations() {
-        return [
+        $validations = [
             'permission' => 'any',
             'requestData' => [
                 'name' => [
@@ -26,13 +31,18 @@ class SignUpController extends Controller {
                 'password' => [
                     'validation' => DataValidator::length(5, 200),
                     'error' => ERRORS::INVALID_PASSWORD
-                ],
-                'captcha' => [
-                    'validation' => DataValidator::captcha(),
-                    'error' => ERRORS::INVALID_CAPTCHA
                 ]
             ]
         ];
+        
+        if(!$this->csvImported) {
+            $validations['requestData']['captcha'] = [
+                'validation' => DataValidator::captcha(),
+                'error' => ERRORS::INVALID_CAPTCHA
+            ];
+        }
+        
+        return $validations;
     }
 
     public function handler() {
@@ -46,19 +56,16 @@ class SignUpController extends Controller {
         $existentUser = User::getUser($this->userEmail, 'email');
 
         if (!$existentUser->isNull()) {
-            Response::respondError(ERRORS::USER_EXISTS);
-            return;
+            throw new Exception(ERRORS::USER_EXISTS);
         }
         $banRow = Ban::getDataStore($this->userEmail,'email');
 
         if (!$banRow->isNull()) {
-            Response::respondError(ERRORS::ALREADY_BANNED);
-            return;
+            throw new Exception(ERRORS::ALREADY_BANNED);
         }
 
-        if (!Setting::getSetting('registration')->value && $apiKey->isNull() ) {
-            Response::respondError(ERRORS::NO_PERMISSION);
-            return;
+        if (!Setting::getSetting('registration')->value && $apiKey->isNull() && !$this->csvImported) {
+            throw new Exception(ERRORS::NO_PERMISSION);
         }
 
         $userId = $this->createNewUserAndRetrieveId();
