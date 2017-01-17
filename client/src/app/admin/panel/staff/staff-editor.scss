@@ -156,4 +156,13 @@
             color: $dark-grey;
         }
     }
+
+    &__activity {
+
+        &-title {
+            margin-bottom: 10px;
+            text-align: left;
+        }
+    }
+
 }
