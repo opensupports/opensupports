@@ -73,6 +73,7 @@ export default {
     'ASSIGN_TO_ME': 'Assign to me',
     'UN_ASSIGN': 'Unassign',
     'VIEW_TICKET': 'View Ticket',
+    'VIEW_TICKET_DESCRIPTION': 'Check the status of your ticket using your ticket number and email.',
     'SELECT_CUSTOM_RESPONSE': 'Select a custom response...',
     'WARNING': 'Warning',
     'INFO': 'Information',
@@ -152,6 +153,7 @@ export default {
     'ALL_NOTIFICATIONS': 'All notifications',
     'VERIFY_SUCCESS': 'User verified',
     'VERIFY_FAILED': 'Could not verify',
+    'CHECK_TICKET': 'Check Ticket',
 
     //ACTIVITIES
     'ACTIVITY_COMMENT': 'commented ticket',

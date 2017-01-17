@@ -12,7 +12,7 @@ class MainLayoutHeader extends React.Component {
     render() {
         return (
             <div className="main-layout-header">
-                {this.renderAccessLinks()}
+                {(this.props.config['user-system-enabled']) ? this.renderAccessLinks() : null}
                 <LanguageSelector {...this.getLanguageSelectorProps()} />
             </div>
         );
