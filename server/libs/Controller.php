@@ -93,4 +93,8 @@ abstract class Controller {
             throw new Exception(ERRORS::INVALID_FILE);
         }
     }
+    
+    public static function isUserSystemEnabled() {
+        return Setting::getSetting('user-system-enabled')->getValue();
+    }
 }

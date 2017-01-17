@@ -9,7 +9,7 @@ class CommentController extends Controller {
     private $content;
 
     public function validations() {
-        return [
+        $validations = [
             'permission' => 'user',
             'requestData' => [
                 'content' => [
@@ -22,13 +22,23 @@ class CommentController extends Controller {
                 ]
             ]
         ];
+        
+        if(!Controller::isUserSystemEnabled()) {
+            $validations['permission'] = 'any';
+            $validations['requestData']['email'] = [
+                'validation' => DataValidator::email(),
+                'error' => ERRORS::INVALID_EMAIL
+            ];
+        }
+        
+        return $validations;
     }
 
     public function handler() {
         $session = Session::getInstance();
         $this->requestData();
 
-        if ($session->isLoggedWithId($this->ticket->author->id) || Controller::isStaffLogged()) {
+        if (!Controller::isUserSystemEnabled() || $session->isLoggedWithId($this->ticket->author->id) || Controller::isStaffLogged()) {
             $this->storeComment();
             
             Log::createLog('COMMENT', $this->ticket->ticketNumber);
@@ -41,9 +51,13 @@ class CommentController extends Controller {
 
     private function requestData() {
         $ticketNumber = Controller::request('ticketNumber');
-
+        $email = Controller::request('email');
         $this->ticket = Ticket::getByTicketNumber($ticketNumber);
         $this->content = Controller::request('content');
+        
+        if(!Controller::isUserSystemEnabled() && $this->ticket->authorEmail !== $email && !Controller::isStaffLogged()) {
+            throw new Exception(ERRORS::NO_PERMISSION);
+        }
     }
 
     private function storeComment() {
@@ -59,7 +73,7 @@ class CommentController extends Controller {
         if(Controller::isStaffLogged()) {
             $this->ticket->unread = true;
             $comment->authorStaff = Controller::getLoggedUser();
-        } else {
+        } else if(Controller::isUserSystemEnabled()) {
             $this->ticket->unreadStaff = true;
             $comment->authorUser = Controller::getLoggedUser();
         }

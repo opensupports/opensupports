@@ -10,9 +10,11 @@ class CreateController extends Controller {
     private $departmentId;
     private $language;
     private $ticketNumber;
+    private $email;
+    private $name;
 
     public function validations() {
-        return [
+        $validations = [
             'permission' => 'user',
             'requestData' => [
                 'title' => [
@@ -33,6 +35,16 @@ class CreateController extends Controller {
                 ]
             ]
         ];
+        
+        if(!Controller::isUserSystemEnabled()) {
+            $validations['permission'] = 'any';
+            $validations['requestData']['captcha'] = [
+                'validation' => DataValidator::captcha(),
+                'error' => ERRORS::INVALID_CAPTCHA
+            ];
+        }
+        
+        return $validations;
     }
 
     public function handler() {
@@ -40,6 +52,8 @@ class CreateController extends Controller {
         $this->content = Controller::request('content');
         $this->departmentId = Controller::request('departmentId');
         $this->language = Controller::request('language');
+        $this->email = Controller::request('email');
+        $this->name = Controller::request('name');
 
         $this->storeTicket();
 
@@ -67,12 +81,17 @@ class CreateController extends Controller {
             'unread' => false,
             'unreadStaff' => true,
             'closed' => false,
+            'authorName' => $this->name,
+            'authorEmail' => $this->email
         ));
         
-        $author->sharedTicketList->add($ticket);
-        $author->tickets++;
+        if(Controller::isUserSystemEnabled()) {
+            $author->sharedTicketList->add($ticket);
+            $author->tickets++;
+
+            $author->store();    
+        }
         
-        $author->store();
         $ticket->store();
         
         $this->ticketNumber = $ticket->ticketNumber;

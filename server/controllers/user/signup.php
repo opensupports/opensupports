@@ -46,6 +46,10 @@ class SignUpController extends Controller {
     }
 
     public function handler() {
+        if(!Controller::isUserSystemEnabled()) {
+            throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
+        }
+        
         $this->storeRequestData();
         $apiKey = APIKey::getDataStore(Controller::request('apiKey'), 'token');
 
