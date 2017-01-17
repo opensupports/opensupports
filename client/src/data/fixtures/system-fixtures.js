@@ -216,10 +216,6 @@ module.exports = [
                 }
             }
 
-            console.log('DATA:');
-            console.log(DATA);
-            console.log(k);
-
             return {
                 status: "success",
                 data: DATA
