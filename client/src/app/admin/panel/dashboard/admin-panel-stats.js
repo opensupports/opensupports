@@ -9,7 +9,7 @@ class AdminPanelStats extends React.Component {
     render() {
         return (
             <div class="admin-panel-stats">
-                <Header title={i18n('TICKET_ACTIVITY')} description={i18n('TICKET_ACTIVITY_DESCRIPTION')}/>
+                <Header title={i18n('STATISTICS')} description={i18n('STATISTICS_DESCRIPTION')}/>
                 <Stats type="general"/>
             </div>
         );

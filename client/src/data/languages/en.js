@@ -36,7 +36,7 @@ export default {
     'DASHBOARD': 'Dashboard',
     'USERS': 'Users',
     'SETTINGS': 'Settings',
-    'TICKET_STATS': 'Ticket Stats',
+    'STATISTICS': 'Statistics',
     'LAST_ACTIVITY': 'Last Activity',
     'MY_TICKETS': 'My Tickets',
     'NEW_TICKETS': 'New Tickets',
@@ -152,7 +152,7 @@ export default {
     'ALL_NOTIFICATIONS': 'All notifications',
     'VERIFY_SUCCESS': 'User verified',
     'VERIFY_FAILED': 'Could not verify',
-    'TICKET_ACTIVITY': 'Ticket Activity',
+    'STATISTICS': 'Statistics',
     'ACTIVITY': 'Activity',
 
 
@@ -211,7 +211,7 @@ export default {
     'ADD_ARTICLE_DESCRIPTION': 'Here you can add an article that will be available for every user. It will be added inside the category {category}.',
     'LIST_ARTICLES_DESCRIPTION': 'This is a list of articles that includes information about our services.',
     'ADD_TOPIC_DESCRIPTION': 'Here you can add a topic that works as a category for articles.',
-    'DELETE_ARTICLE_DESCRIPTION': 'You\'re going to delete this article for ever.',
+    'DELETE_ARTICLE_DESCRIPTION': 'You\'re going to delete this article forever.',
     'STAFF_MEMBERS_DESCRIPTION': 'Here you can see who are your staff members.',
     'ADD_STAFF_DESCRIPTION': 'Here you can add staff members to your teams.',
     'EDIT_STAFF_DESCRIPTION': 'Here you can edit information about a staff member.',
@@ -222,7 +222,7 @@ export default {
     'SYSTEM_PREFERENCES_DESCRIPTION': 'Here you can edit the preferences of the system.',
     'VERIFY_SUCCESS_DESCRIPTION': 'You user has been verified correctly. You can log in now.',
     'VERIFY_FAILED_DESCRIPTION': 'The verification could not be done.',
-    'TICKET_ACTIVITY_DESCRIPTION': 'Here you can view ',
+    'STATISTICS_DESCRIPTION': 'Here you can view statistics related to tickets and signups.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',

@@ -66,14 +66,15 @@ class StatsChart extends React.Component {
         let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         let labels = [];
 
-        for (let i = 0; i < this.props.period; i++) {
-            if (!this.props.strokes.length){
-                labels.push('');
-                continue;
-            }
-            let firstList = this.props.strokes[0];
-            let idx = firstList.values[i].date.slice(4, 6) - 1;
-            labels.push( firstList.values[i].date.slice(6, 8) + ' ' +  months[idx]);
+        if (!this.props.strokes.length) {
+            labels = Array.from('x'.repeat(this.props.period));
+        }
+        else {
+            labels = this.props.strokes[0].values.map((item) => {
+                let idx = item.date.slice(4, 6) - 1;
+
+                return item.date.slice(6, 8) + ' ' +  months[idx];
+            });
         }
 
         return labels;
