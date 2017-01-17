@@ -119,6 +119,7 @@ class SessionReducer extends Reducer {
     
     onSessionChecked(state) {
         let userData = sessionStore.getUserData();
+        let userId = sessionStore.getSessionData().userId;
         
         return _.extend({}, state, {
             initDone: true, 
@@ -129,7 +130,8 @@ class SessionReducer extends Reducer {
             userProfilePic: userData.profilePic,
             userLevel: userData.level,
             userDepartments: userData.departments,
-            userTickets: userData.tickets
+            userTickets: userData.tickets,
+            userId: userId
         });
     }
 

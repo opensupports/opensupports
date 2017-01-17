@@ -222,6 +222,7 @@ export default {
     'SYSTEM_PREFERENCES_DESCRIPTION': 'Here you can edit the preferences of the system.',
     'VERIFY_SUCCESS_DESCRIPTION': 'You user has been verified correctly. You can log in now.',
     'VERIFY_FAILED_DESCRIPTION': 'The verification could not be done.',
+    'TICKET_ACTIVITY_DESCRIPTION': 'Here you can view ',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
