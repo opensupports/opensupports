@@ -44,19 +44,19 @@ class AdminPanelAdvancedSettings extends React.Component {
                     <div className="col-md-12">
                         <div className="col-md-3">
                             <div className="admin-panel-system-settings__text">{i18n('INCLUDE_USERS_VIA_CSV')}</div>
-                            <FileUploader text="Upload"/>
+                            <FileUploader className="admin-panel-system-settings__button"  text="Upload"/>
                         </div>
                         <div className="col-md-3">
                             <div className="admin-panel-system-settings__text">{i18n('INCLUDE_DATABASE_VIA_SQL')}</div>
-                            <FileUploader text="Upload"/>
+                            <FileUploader className="admin-panel-system-settings__button"  text="Upload"/>
                         </div>
                         <div className="col-md-3">
                             <div className="admin-panel-system-settings__text">{i18n('BACKUP_DATABASE')}</div>
-                            <Button type="secondary" size="medium">Download</Button>
+                            <Button className="admin-panel-system-settings__button"  type="secondary" size="medium">Download</Button>
                         </div>
                         <div className="col-md-3">
                             <div className="admin-panel-system-settings__text">{i18n('DELETE_ALL_USERS')}</div>
-                            <Button size="medium">Delete</Button>
+                            <Button className="admin-panel-system-settings__button" size="medium">Delete</Button>
                         </div>
                     </div>
                     <div className="col-md-12">
