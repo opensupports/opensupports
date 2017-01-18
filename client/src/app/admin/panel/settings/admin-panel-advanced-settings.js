@@ -7,6 +7,7 @@ import i18n from 'lib-app/i18n';
 import ToggleButton from 'app-components/toggle-button';
 import AreYouSure from 'app-components/are-you-sure';
 
+import Message from 'core-components/message';
 import Button from 'core-components/button';
 import FileUploader from 'core-components/file-uploader';
 import Header from 'core-components/header';
@@ -16,6 +17,10 @@ class AdminPanelAdvancedSettings extends React.Component {
 
     state = {
         loading: true,
+        messageType: '',
+        messageContent: '',
+        keyName: '',
+        keyCode: '',
         values: {
             apikeys: []
         }
@@ -29,18 +34,19 @@ class AdminPanelAdvancedSettings extends React.Component {
         return (
             <div className="admin-panel-system-settings">
                 <Header title={i18n('ADVANCED_SETTINGS')} description={i18n('ADVANCED_SETTINGS_DESCRIPTION')}/>
+                {(this.state.messageType) ? this.renderMessage() : null}
                 <div className="row">
                     <div className="col-md-12">
                         <div className="col-md-6">
                             <div className="admin-panel-system-settings__user-system-enabled">
                                 <span className="admin-panel-system-settings__text">{i18n('USER_SYSTEM_ENABLED')}</span>
-                                <ToggleButton className="admin-panel-system-settings__toggle-button" value={this.props.config['user-system-enabled']} onChange={this.onToggleButtonChange.bind(this)}/>
+                                <ToggleButton className="admin-panel-system-settings__toggle-button" value={this.props.config['user-system-enabled']} onChange={this.onToggleButtonUserSystemChange.bind(this)}/>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="admin-panel-system-settings__registration">
                                 <span className="admin-panel-system-settings__text">{i18n('REGISTRATION')}</span>
-                                <ToggleButton className="admin-panel-system-settings__toggle-button" value={this.props.config['registration']} onChange={this.onToggleButtonChange.bind(this)}/>
+                                <ToggleButton className="admin-panel-system-settings__toggle-button" value={this.props.config['registration']} onChange={this.onToggleButtonRegistrationChange.bind(this)}/>
                             </div>
                         </div>
                     </div>
@@ -50,19 +56,19 @@ class AdminPanelAdvancedSettings extends React.Component {
                     <div className="col-md-12">
                         <div className="col-md-3">
                             <div className="admin-panel-system-settings__text">{i18n('INCLUDE_USERS_VIA_CSV')}</div>
-                            <FileUploader className="admin-panel-system-settings__button"  text="Upload"/>
+                            <FileUploader className="admin-panel-system-settings__button" text="Upload" onChange={this.onImportCSV.bind(this)}/>
                         </div>
                         <div className="col-md-3">
                             <div className="admin-panel-system-settings__text">{i18n('INCLUDE_DATABASE_VIA_SQL')}</div>
-                            <FileUploader className="admin-panel-system-settings__button"  text="Upload"/>
+                            <FileUploader className="admin-panel-system-settings__button" text="Upload" onChange={this.onImportSQL.bind(this)}/>
                         </div>
                         <div className="col-md-3">
                             <div className="admin-panel-system-settings__text">{i18n('BACKUP_DATABASE')}</div>
-                            <Button className="admin-panel-system-settings__button"  type="secondary" size="medium">Download</Button>
+                            <Button className="admin-panel-system-settings__button" type="secondary" size="medium" onClick={this.onBackupDatabase.bind(this)}>Download</Button>
                         </div>
                         <div className="col-md-3">
                             <div className="admin-panel-system-settings__text">{i18n('DELETE_ALL_USERS')}</div>
-                            <Button className="admin-panel-system-settings__button" size="medium">Delete</Button>
+                            <Button className="admin-panel-system-settings__button" size="medium" onClick={this.onDeleteAllUsers.bind(this)}>Delete</Button>
                         </div>
                     </div>
                     <div className="col-md-12">
@@ -83,6 +89,12 @@ class AdminPanelAdvancedSettings extends React.Component {
                     </div>
                 </div>
             </div>
+        );
+    }
+
+    renderMessage() {
+        return (
+            <Message type={this.state.messageType}>{this.state.messageContent}</Message>
         );
     }
 
@@ -114,10 +126,102 @@ class AdminPanelAdvancedSettings extends React.Component {
         });
     }
 
-    onToggleButtonChange() {
-        AreYouSure.openModal(<div>{i18n('PLEASE_CONFIRM_PASSWORD')}</div>, (a) => a, 'secure');
+    onToggleButtonUserSystemChange() {
+        AreYouSure.openModal(<div>{i18n('PLEASE_CONFIRM_PASSWORD')}</div>, this.onAreYouSureUserSystemOk.bind(this), 'secure');
     }
 
+    onToggleButtonRegistrationChange() {
+        AreYouSure.openModal(<div>{i18n('PLEASE_CONFIRM_PASSWORD')}</div>, this.onAreYouSureRegistrationOk.bind(this), 'secure');
+    }
+
+    onAreYouSureUserSystemOk(password) {
+        API.call({
+            path: this.props.config['user-system-enabled'] ? '/system/disable-user-system' : '/system/enable-user-system',
+            data: {
+                password: password
+            }
+        }).then(() => {
+            this.setState({
+                messageType: 'success',
+                messageContent: this.props.config['user-system-enabled'] ? i18n('USER_SYSTEM_DISABLE_DESCRIPTION') : i18n('USER_SYSTEM_ENABLE_DESCRIPTION')
+            });
+            this.props.dispatch(ConfigActions.updateData());
+        }).catch(() => this.setState({messageType: 'fail', messageContent: i18n('ERROR_UPDATING_SETTINGS')}));
+    }
+
+    onAreYouSureRegistrationOk(password) {
+        API.call({
+            path: this.props.config['user-system-enabled'] ? '/system/disable-registration' : '/system/enable-registration',
+            data: {
+                password: password
+            }
+        }).then(() => {
+            this.setState({
+                messageType: 'success',
+                messageContent: this.props.config['user-system-enabled'] ? i18n('REGISTRATION_DISABLE_DESCRIPTION') : i18n('REGISTRATION_ENABLE_DESCRIPTION')
+            });
+            this.props.dispatch(ConfigActions.updateData());
+        }).catch(() => this.setState({messageType: 'fail', messageContent: i18n('ERROR_UPDATING_SETTINGS')}));
+    }
+
+    onImportCSV(event) {
+        AreYouSure.openModal(<div>{i18n('PLEASE_CONFIRM_PASSWORD')}</div>, this.onAreYouSureCSVOk.bind(this, event.target.value), 'secure');
+    }
+
+    onImportSQL(event) {
+        AreYouSure.openModal(<div>{i18n('PLEASE_CONFIRM_PASSWORD')}</div>, this.onAreYouSureSQLOk.bind(this, event.target.value), 'secure');
+    }
+
+    onAreYouSureCSVOk(file, password) {
+        API.call({
+           path: '/system/import-csv',
+           data: {
+               file: file,
+               password: password
+           }
+        }).then(() => this.setState({messageType: 'success', messageContent: i18n('SUCCESS_IMPORTING_CSV_DESCRIPTION')}
+        )).catch(() => this.setState({messageType: 'fail', messageContent: i18n('ERROR_IMPORTING_CSV_DESCRIPTION')}));
+    }
+
+    onAreYouSureSQLOk(file, password) {
+        API.call({
+            path: '/system/import-sql',
+            data: {
+                file: file,
+                password: password
+            }
+        }).then(() => this.setState({messageType: 'success', messageContent: i18n('SUCCESS_IMPORTING_SQL_DESCRIPTION')}
+        )).catch(() => this.setState({messageType: 'fail', messageContent: i18n('ERROR_IMPORTING_SQL_DESCRIPTION')}));
+    }
+
+    onBackupDatabase() {
+        API.call({
+            path: '/system/backup-database',
+            plain: true,
+            data: {}
+        }).then((result) => {
+            let contentType = 'application/octet-stream';
+            let link = document.createElement('a');
+            let blob = new Blob([result], {'type': contentType});
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'backup.sql';
+            link.click();
+        });
+    }
+
+    onDeleteAllUsers() {
+        AreYouSure.openModal(<div>{i18n('PLEASE_CONFIRM_PASSWORD')}</div>, this.onAreYouSureDeleteAllUsersOk.bind(this), 'secure');
+    }
+
+    onAreYouSureDeleteAllUsersOk(password) {
+        API.call({
+            path: '/system/delete-all-users',
+            data: {
+                password: password
+            }
+        }).then(() => this.setState({messageType: 'success', messageContent: i18n('SUCCESS_DELETING_ALL_USERS')}
+        )).catch(() => this.setState({messageType: 'fail', messageContent: i18n('ERROR_DELETING_ALL_USERS')}));
+    }
 }
 
 

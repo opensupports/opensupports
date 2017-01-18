@@ -9,7 +9,11 @@ class AreYouSure extends React.Component {
     static propTypes = {
         description: React.PropTypes.node,
         onYes: React.PropTypes.func,
-        type: React.PropTypes.string
+        type: React.PropTypes.oneOf(['default', 'secure'])
+    };
+
+    static defaultProps = {
+        type: 'default'
     };
 
     static contextTypes = {
@@ -39,7 +43,7 @@ class AreYouSure extends React.Component {
                 <div className="are-you-sure__description" id="are-you-sure__description">
                     {this.props.description}
                 </div>
-                {this.props.type === 'secure' ? this.renderPassword() : null}
+                {(this.props.type === 'secure') ? this.renderPassword() : null}
                 <div className="are-you-sure__buttons">
                     <div className="are-you-sure__yes-button">
                         <Button type="secondary" size="small" onClick={this.onYes.bind(this)} ref="yesButton" tabIndex="2">
@@ -75,11 +79,11 @@ class AreYouSure extends React.Component {
     }
 
     onYes() {
-        if (this.state.password){
+        if (this.props.type === 'default' || this.state.password){
             this.closeModal();
 
             if (this.props.onYes) {
-                this.props.onYes();
+                this.props.onYes(this.state.password);
             }
         }
     }

@@ -123,6 +123,24 @@ module.exports = [
         }
     },
     {
+        path: '/system/delete-all-users',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/system/backup-database',
+        time: 100,
+        contentType: 'application/octet-stream',
+        response: function () {
+            return 'text content';
+        }
+    },
+    {
         path: '/system/get-mail-templates',
         time: 100,
         response: function () {
@@ -170,11 +188,51 @@ module.exports = [
         }
     },
     {
+        path: '/system/enable-user-system',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            }
+        }
+    },
+    {
+        path: '/system/disable-user-system',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            }
+        }
+    },
+    {
+        path: '/system/enable-registration',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            }
+        }
+    },
+    {
+        path: '/system/disable-registration',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            }
+        }
+    },
+    {
         path: '/system/get-all-keys',
         time: 300,
         response: function () {
             return {
-                status: "success",
+                status: 'success',
                 data: [
                     {
                         name: 'Game System Registration',
