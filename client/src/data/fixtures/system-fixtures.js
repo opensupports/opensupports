@@ -170,12 +170,35 @@ module.exports = [
         }
     },
     {
+        path: '/system/get-all-keys',
+        time: 300,
+        response: function () {
+            return {
+                status: "success",
+                data: [
+                    {
+                        name: 'Game System Registration',
+                        token: '9as8da9s51c6a51c51a9s1c9asdf1'
+                    },
+                    {
+                        name: 'PHPbb forum',
+                        token: 'apires1qe65fq65e1f6a5e1f6afaef2'
+                    },
+                    {
+                        name: 'How do you turn this on?',
+                        token: 'das65d4as651age16wq6ofqwwcemcw'
+                    }
+                ]
+            }
+        }
+    },
+    {
         path: '/system/get-logs',
         time: 300,
-        response: function() {
+        response: function () {
             return {
-                "status": "success",
-                "data": [
+                status: "success",
+                data: [
                     {
                         "type": "EDIT_SETTINGS",
                         "to": null,

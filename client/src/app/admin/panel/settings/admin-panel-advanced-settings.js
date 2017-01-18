@@ -2,6 +2,7 @@ import React from 'react';
 import {connect}  from 'react-redux';
 
 import ConfigActions from 'actions/config-actions';
+import API from 'lib-app/api-call';
 import i18n from 'lib-app/i18n';
 import ToggleButton from 'app-components/toggle-button';
 import AreYouSure from 'app-components/are-you-sure';
@@ -9,15 +10,20 @@ import AreYouSure from 'app-components/are-you-sure';
 import Button from 'core-components/button';
 import FileUploader from 'core-components/file-uploader';
 import Header from 'core-components/header';
+import Listing from 'core-components/listing';
 
 class AdminPanelAdvancedSettings extends React.Component {
 
     state = {
         loading: true,
         values: {
-
+            apikeys: []
         }
     };
+
+    componentDidMount() {
+        this.getAllKeys();
+    }
 
     render() {
         return (
@@ -62,9 +68,50 @@ class AdminPanelAdvancedSettings extends React.Component {
                     <div className="col-md-12">
                         <span className="separator" />
                     </div>
+                    <div className="col-md-12 admin-panel-system-settings__api-keys">
+                        <div className="col-md-12 admin-panel-system-settings__api-keys-title">{i18n('REGISTRATION_API_KEYS')}</div>
+                        <div className="col-md-4">
+                            <Listing {...this.getListingProps()} />
+                        </div>
+                        <div className="col-md-8">
+                            <div className="admin-panel-system-settings__api-keys-subtitle">{i18n('NAME_OF_KEY')}</div>
+                            <div></div>
+                            <div className="admin-panel-system-settings__api-keys-subtitle">{i18n('KEY')}</div>
+                            <div></div>
+                            <Button className="admin-panel-system-settings__api-keys-button" size="medium">{i18n('DELETE')}</Button>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
+    }
+
+    getListingProps() {
+        return {
+            title: i18n('REGISTRATION_API_KEYS'),
+            enableAddNew: true,
+            items: this.state.values.apikeys.map((item) => {
+                return {
+                    content: item.name,
+                    icon: ''
+                };
+            })
+        }
+    }
+
+    getAllKeys() {
+        API.call({
+            path: '/system/get-all-keys',
+            data: {}
+        }).then(this.onRetrieveSuccess.bind(this));
+    }
+
+    onRetrieveSuccess(result) {
+        this.setState({
+            values: {
+                apikeys: result.data
+            }
+        });
     }
 
     onToggleButtonChange() {

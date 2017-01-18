@@ -1,3 +1,5 @@
+@import "../../../../scss/vars";
+
 .admin-panel-system-settings {
     &__user-system-enabled {
 
@@ -21,5 +23,27 @@
 
     &__button {
         margin-bottom: 30px;
+        width: 150px;
+    }
+
+    &__api-keys {
+        text-align: left;
+
+        &-title {
+            font-size: $font-size--bg;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        &-subtitle {
+            font-size: $font-size--md;
+            margin-bottom: 5px;
+        }
+
+        &-button {
+            margin-left: 20px;
+            margin-right: 20px;
+            width: 150px;
+        }
     }
 }
