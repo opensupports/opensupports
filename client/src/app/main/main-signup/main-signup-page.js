@@ -63,7 +63,7 @@ class MainSignUpPageWidget extends React.Component {
         return {
             loading: this.state.loading,
             className: 'signup-widget__form',
-            onSubmit: this.onLoginFormSubmit.bind(this)
+            onSubmit: this.onSignupFormSubmit.bind(this)
         };
     }
 
@@ -77,7 +77,7 @@ class MainSignUpPageWidget extends React.Component {
         };
     }
 
-    onLoginFormSubmit(formState) {
+    onSignupFormSubmit(formState) {
         const captcha = this.refs.captcha.getWrappedInstance();
 
         if (!captcha.getValue()) {

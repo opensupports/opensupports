@@ -13,6 +13,7 @@ import MainSignUpPage from 'app/main/main-signup/main-signup-page';
 import MainVerifyTokenPage from 'app/main/main-verify-token-page';
 import MainRecoverPasswordPage from 'app/main/main-recover-password/main-recover-password-page';
 import MainMaintenancePage from 'app/main/main-maintenance-page';
+import MainCheckTicketPage from 'app/main/main-check-ticket-page';
 
 import DashboardLayout from 'app/main/dashboard/dashboard-layout';
 import DashboardListTicketsPage from 'app/main/dashboard/dashboard-list-tickets/dashboard-list-tickets-page';
@@ -63,6 +64,12 @@ export default (
                 <Route path='verify-token/:email/:token' component={MainVerifyTokenPage}/>
                 <Route path='recover-password' component={MainRecoverPasswordPage}/>
                 <Route path='maintenance' component={MainMaintenancePage}/>
+
+                <Route path='create-ticket' component={DashboardCreateTicketPage}/>
+                <Route path='check-ticket' component={MainCheckTicketPage}/>
+                <Route path='ticket/:ticketNumber/:email' component={DashboardTicketPage}/>
+                <Route path='articles' component={DashboardListArticlesPage}/>
+
                 <Route path='dashboard' component={DashboardLayout}>
                     <IndexRoute component={DashboardListTicketsPage} />
                     <Route path='articles' component={DashboardListArticlesPage}/>

@@ -10,6 +10,7 @@ import SessionStore       from 'lib-app/session-store';
 import store              from 'app/store';
 import SessionActions     from 'actions/session-actions';
 import LanguageSelector   from 'app-components/language-selector';
+import Captcha            from 'app/main/captcha';
 
 import Header             from 'core-components/header';
 import Form               from 'core-components/form';
@@ -34,6 +35,8 @@ class CreateTicketForm extends React.Component {
             title: '',
             content: RichTextEditor.createEmptyValue(),
             departmentIndex: 0,
+            email: '',
+            name: '',
             language: 'en'
         }
     };
@@ -79,7 +82,7 @@ class CreateTicketForm extends React.Component {
     renderCaptcha() {
         return (
             <div className="create-ticket-form__captcha">
-                <Captcha />
+                <Captcha ref="captcha"/>
             </div>
         );
     }
@@ -105,16 +108,23 @@ class CreateTicketForm extends React.Component {
     }
 
     onSubmit(formState) {
-        this.setState({
-            loading: true
-        });
+        let captcha = this.refs.captcha && this.refs.captcha.getWrappedInstance();
 
-        API.call({
-            path: '/ticket/create',
-            data: _.extend({}, formState, {
-                departmentId: SessionStore.getDepartments()[formState.departmentIndex].id
-            })
-        }).then(this.onTicketSuccess.bind(this)).catch(this.onTicketFail.bind(this));
+        if (captcha && !captcha.getValue()) {
+            captcha.focus();
+        } else {
+            this.setState({
+                loading: true
+            });
+
+            API.call({
+                path: '/ticket/create',
+                data: _.extend({}, formState, {
+                    captcha: captcha && captcha.getValue(),
+                    departmentId: SessionStore.getDepartments()[formState.departmentIndex].id
+                })
+            }).then(this.onTicketSuccess.bind(this)).catch(this.onTicketFail.bind(this));
+        }
     }
 
     onTicketSuccess() {
@@ -123,9 +133,10 @@ class CreateTicketForm extends React.Component {
             message: 'success'
         });
 
-        store.dispatch(SessionActions.getUserData());
-
-        setTimeout(() => {browserHistory.push('/dashboard')}, 2000);
+        if(this.props.userLogged) {
+            store.dispatch(SessionActions.getUserData());
+            setTimeout(() => {browserHistory.push('/dashboard')}, 2000);
+        }
     }
 
     onTicketFail() {
