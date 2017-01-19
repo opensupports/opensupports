@@ -2,7 +2,7 @@ import React              from 'react';
 import _                  from 'lodash';
 import ReCAPTCHA          from 'react-google-recaptcha';
 import { browserHistory } from 'react-router';
-import RichTextEditor from 'react-rte-browserify';
+import RichTextEditor     from 'react-rte-browserify';
 
 import i18n               from 'lib-app/i18n';
 import API                from 'lib-app/api-call';
@@ -123,11 +123,11 @@ class CreateTicketForm extends React.Component {
                     captcha: captcha && captcha.getValue(),
                     departmentId: SessionStore.getDepartments()[formState.departmentIndex].id
                 })
-            }).then(this.onTicketSuccess.bind(this)).catch(this.onTicketFail.bind(this));
+            }).then(this.onTicketSuccess.bind(this, formState.email)).catch(this.onTicketFail.bind(this));
         }
     }
 
-    onTicketSuccess() {
+    onTicketSuccess(email, result) {
         this.setState({
             loading: false,
             message: 'success'
@@ -136,6 +136,8 @@ class CreateTicketForm extends React.Component {
         if(this.props.userLogged) {
             store.dispatch(SessionActions.getUserData());
             setTimeout(() => {browserHistory.push('/dashboard')}, 2000);
+        } else {
+            setTimeout(() => {browserHistory.push('/check-ticket/' + email + '/' + result.data.ticketNumber)}, 2000);
         }
     }
 

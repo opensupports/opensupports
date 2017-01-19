@@ -66,8 +66,8 @@ export default (
                 <Route path='maintenance' component={MainMaintenancePage}/>
 
                 <Route path='create-ticket' component={DashboardCreateTicketPage}/>
-                <Route path='check-ticket' component={MainCheckTicketPage}/>
-                <Route path='ticket/:ticketNumber/:email' component={DashboardTicketPage}/>
+                <Route path='check-ticket(/:ticketNumber/:email)' component={MainCheckTicketPage}/>
+                <Route path='ticket/:email/:ticketNumber' component={DashboardTicketPage}/>
                 <Route path='articles' component={DashboardListArticlesPage}/>
 
                 <Route path='dashboard' component={DashboardLayout}>
