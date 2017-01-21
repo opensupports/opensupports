@@ -154,10 +154,10 @@ export default {
     'VERIFY_SUCCESS': 'User verified',
     'VERIFY_FAILED': 'Could not verify',
     'CHECK_TICKET': 'Check Ticket',
-    'STATISTICS': 'Statistics',
     'ACTIVITY': 'Activity',
-
-
+    'HOME': 'Home',
+    'TICKET_NUMBER': 'Ticket number',
+    
     'CHART_CREATE_TICKET': 'Tickets created',
     'CHART_CLOSE': 'Tickets closed',
     'CHART_SIGNUP': 'Signups',

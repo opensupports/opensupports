@@ -27,7 +27,7 @@ class MainCheckTicketPage extends React.Component {
         return (
             <div className="main-check-ticket-page">
                 <Widget>
-                    <Header title={i18n('CHECK_TICKET')} description={i18n('CHECK_TICKET_DESCRIPTION')} />
+                    <Header title={i18n('CHECK_TICKET')} description={i18n('VIEW_TICKET_DESCRIPTION')} />
                     <Form {...this.getFormProps()}>
                         <div className="main-check-ticket-page__inputs">
                             <div className="main-check-ticket-page__input">

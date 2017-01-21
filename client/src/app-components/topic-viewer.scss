@@ -2,10 +2,11 @@
 
 .topic-viewer {
     text-align: left;
+    margin: 35px 0;
 
     &__header {
         cursor: default;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
         font-size: $font-size--bg;
 
         &:hover {

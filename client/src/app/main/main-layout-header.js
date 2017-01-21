@@ -12,7 +12,7 @@ class MainLayoutHeader extends React.Component {
     render() {
         return (
             <div className="main-layout-header">
-                {(this.props.config['user-system-enabled']) ? this.renderAccessLinks() : null}
+                {(this.props.config['user-system-enabled']) ? this.renderAccessLinks() : this.renderHomeLink()}
                 <LanguageSelector {...this.getLanguageSelectorProps()} />
             </div>
         );
@@ -38,6 +38,14 @@ class MainLayoutHeader extends React.Component {
         }
 
         return result;
+    }
+
+    renderHomeLink() {
+        return (
+            <div className="main-layout-header__login-links">
+                <Button type="clean" route={{to:'/'}}>{i18n('HOME')}</Button>
+            </div>
+        );
     }
 
     getLanguageSelectorProps() {
