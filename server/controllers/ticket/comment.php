@@ -25,9 +25,15 @@ class CommentController extends Controller {
         
         if(!Controller::isUserSystemEnabled()) {
             $validations['permission'] = 'any';
-            $validations['requestData']['email'] = [
-                'validation' => DataValidator::email(),
-                'error' => ERRORS::INVALID_EMAIL
+            $session = Session::getInstance();
+
+            $validations['requestData']['csrf_token'] = [
+                'validation' => DataValidator::equals($session->getToken()),
+                'error' => ERRORS::NO_PERMISSION
+            ];
+            $validations['requestData']['ticketNumber'] = [
+                'validation' => DataValidator::equals($session->getTicketNumber()),
+                'error' => ERRORS::INVALID_TICKET
             ];
         }
         
