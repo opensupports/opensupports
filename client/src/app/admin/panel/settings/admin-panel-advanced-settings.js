@@ -39,13 +39,13 @@ class AdminPanelAdvancedSettings extends React.Component {
                     <div className="col-md-12">
                         <div className="col-md-6">
                             <div className="admin-panel-system-settings__user-system-enabled">
-                                <span className="admin-panel-system-settings__text">{i18n('USER_SYSTEM_ENABLED')}</span>
+                                <span className="admin-panel-system-settings__text">{i18n('ENABLE_USER_SYSTEM')}</span>
                                 <ToggleButton className="admin-panel-system-settings__toggle-button" value={this.props.config['user-system-enabled']} onChange={this.onToggleButtonUserSystemChange.bind(this)}/>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="admin-panel-system-settings__registration">
-                                <span className="admin-panel-system-settings__text">{i18n('REGISTRATION')}</span>
+                                <span className="admin-panel-system-settings__text">{i18n('ENABLE_USER_REGISTRATION')}</span>
                                 <ToggleButton className="admin-panel-system-settings__toggle-button" value={this.props.config['registration']} onChange={this.onToggleButtonRegistrationChange.bind(this)}/>
                             </div>
                         </div>
@@ -127,11 +127,11 @@ class AdminPanelAdvancedSettings extends React.Component {
     }
 
     onToggleButtonUserSystemChange() {
-        AreYouSure.openModal(<div>{i18n('PLEASE_CONFIRM_PASSWORD')}</div>, this.onAreYouSureUserSystemOk.bind(this), 'secure');
+        AreYouSure.openModal(null, this.onAreYouSureUserSystemOk.bind(this), 'secure');
     }
 
     onToggleButtonRegistrationChange() {
-        AreYouSure.openModal(<div>{i18n('PLEASE_CONFIRM_PASSWORD')}</div>, this.onAreYouSureRegistrationOk.bind(this), 'secure');
+        AreYouSure.openModal(null, this.onAreYouSureRegistrationOk.bind(this), 'secure');
     }
 
     onAreYouSureUserSystemOk(password) {
@@ -143,10 +143,10 @@ class AdminPanelAdvancedSettings extends React.Component {
         }).then(() => {
             this.setState({
                 messageType: 'success',
-                messageContent: this.props.config['user-system-enabled'] ? i18n('USER_SYSTEM_DISABLE_DESCRIPTION') : i18n('USER_SYSTEM_ENABLE_DESCRIPTION')
+                messageContent: this.props.config['user-system-enabled'] ? i18n('USER_SYSTEM_DISABLED') : i18n('USER_SYSTEM_ENABLED')
             });
             this.props.dispatch(ConfigActions.updateData());
-        }).catch(() => this.setState({messageType: 'fail', messageContent: i18n('ERROR_UPDATING_SETTINGS')}));
+        }).catch(() => this.setState({messageType: 'error', messageContent: i18n('ERROR_UPDATING_SETTINGS')}));
     }
 
     onAreYouSureRegistrationOk(password) {
@@ -158,18 +158,18 @@ class AdminPanelAdvancedSettings extends React.Component {
         }).then(() => {
             this.setState({
                 messageType: 'success',
-                messageContent: this.props.config['user-system-enabled'] ? i18n('REGISTRATION_DISABLE_DESCRIPTION') : i18n('REGISTRATION_ENABLE_DESCRIPTION')
+                messageContent: this.props.config['registration'] ? i18n('REGISTRATION_DISABLED') : i18n('REGISTRATION_ENABLED')
             });
             this.props.dispatch(ConfigActions.updateData());
-        }).catch(() => this.setState({messageType: 'fail', messageContent: i18n('ERROR_UPDATING_SETTINGS')}));
+        }).catch(() => this.setState({messageType: 'error', messageContent: i18n('ERROR_UPDATING_SETTINGS')}));
     }
 
     onImportCSV(event) {
-        AreYouSure.openModal(<div>{i18n('PLEASE_CONFIRM_PASSWORD')}</div>, this.onAreYouSureCSVOk.bind(this, event.target.value), 'secure');
+        AreYouSure.openModal(null, this.onAreYouSureCSVOk.bind(this, event.target.value), 'secure');
     }
 
     onImportSQL(event) {
-        AreYouSure.openModal(<div>{i18n('PLEASE_CONFIRM_PASSWORD')}</div>, this.onAreYouSureSQLOk.bind(this, event.target.value), 'secure');
+        AreYouSure.openModal(null, this.onAreYouSureSQLOk.bind(this, event.target.value), 'secure');
     }
 
     onAreYouSureCSVOk(file, password) {
@@ -180,7 +180,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                password: password
            }
         }).then(() => this.setState({messageType: 'success', messageContent: i18n('SUCCESS_IMPORTING_CSV_DESCRIPTION')}
-        )).catch(() => this.setState({messageType: 'fail', messageContent: i18n('ERROR_IMPORTING_CSV_DESCRIPTION')}));
+        )).catch(() => this.setState({messageType: 'error', messageContent: i18n('ERROR_IMPORTING_CSV_DESCRIPTION')}));
     }
 
     onAreYouSureSQLOk(file, password) {
@@ -191,7 +191,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                 password: password
             }
         }).then(() => this.setState({messageType: 'success', messageContent: i18n('SUCCESS_IMPORTING_SQL_DESCRIPTION')}
-        )).catch(() => this.setState({messageType: 'fail', messageContent: i18n('ERROR_IMPORTING_SQL_DESCRIPTION')}));
+        )).catch(() => this.setState({messageType: 'error', messageContent: i18n('ERROR_IMPORTING_SQL_DESCRIPTION')}));
     }
 
     onBackupDatabase() {
@@ -210,7 +210,7 @@ class AdminPanelAdvancedSettings extends React.Component {
     }
 
     onDeleteAllUsers() {
-        AreYouSure.openModal(<div>{i18n('PLEASE_CONFIRM_PASSWORD')}</div>, this.onAreYouSureDeleteAllUsersOk.bind(this), 'secure');
+        AreYouSure.openModal(null, this.onAreYouSureDeleteAllUsersOk.bind(this), 'secure');
     }
 
     onAreYouSureDeleteAllUsersOk(password) {
@@ -220,7 +220,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                 password: password
             }
         }).then(() => this.setState({messageType: 'success', messageContent: i18n('SUCCESS_DELETING_ALL_USERS')}
-        )).catch(() => this.setState({messageType: 'fail', messageContent: i18n('ERROR_DELETING_ALL_USERS')}));
+        )).catch(() => this.setState({messageType: 'error', messageContent: i18n('ERROR_DELETING_ALL_USERS')}));
     }
 }
 

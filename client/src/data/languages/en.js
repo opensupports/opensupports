@@ -152,8 +152,8 @@ export default {
     'ALL_NOTIFICATIONS': 'All notifications',
     'VERIFY_SUCCESS': 'User verified',
     'VERIFY_FAILED': 'Could not verify',
-    'USER_SYSTEM_ENABLED': 'Use user system for customers',
-    'REGISTRATION': 'Enable user registration',
+    'ENABLE_USER_SYSTEM': 'Use user system for customers',
+    'ENABLE_USER_REGISTRATION': 'Enable user registration',
     'INCLUDE_USERS_VIA_CSV': 'Include users via CSV file',
     'INCLUDE_DATABASE_VIA_SQL': 'Include database via SQL file',
     'BACKUP_DATABASE': 'Backup database',
@@ -223,7 +223,11 @@ export default {
     'SYSTEM_PREFERENCES_DESCRIPTION': 'Here you can edit the preferences of the system.',
     'VERIFY_SUCCESS_DESCRIPTION': 'You user has been verified correctly. You can log in now.',
     'VERIFY_FAILED_DESCRIPTION': 'The verification could not be done.',
-    'ADVANCED_SETTINGS_DESCRIPTION': 'Advanced settings description should go here!',
+    'ADVANCED_SETTINGS_DESCRIPTION': 'Here you can change the advanced settings of your system. Please be careful, the changes you make can not be reversed.',
+    'USER_SYSTEM_DISABLED': 'User system has been disabled',
+    'USER_SYSTEM_ENABLED': 'User system has been enabled',
+    'REGISTRATION_DISABLED': 'Registration has been disabled',
+    'REGISTRATION_ENABLED': 'Registration has been enabled',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',

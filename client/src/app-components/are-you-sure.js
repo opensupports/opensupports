@@ -41,7 +41,7 @@ class AreYouSure extends React.Component {
                     {i18n('ARE_YOU_SURE')}
                 </div>
                 <div className="are-you-sure__description" id="are-you-sure__description">
-                    {this.props.description}
+                    {this.props.description || (this.props.type === 'secure' && i18n('PLEASE_CONFIRM_PASSWORD'))}
                 </div>
                 {(this.props.type === 'secure') ? this.renderPassword() : null}
                 <div className="are-you-sure__buttons">

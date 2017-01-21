@@ -141,6 +141,26 @@ module.exports = [
         }
     },
     {
+        path: '/system/import-csv',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/system/import-sql',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
         path: '/system/get-mail-templates',
         time: 100,
         response: function () {
