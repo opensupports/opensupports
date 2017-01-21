@@ -19,6 +19,7 @@ module.exports = [
                         'smtp-port': '7070',
                         'smtp-user': 'Wesa',
                         'maintenance-mode': false,
+                        'user-system-enabled': true,
                         'allow-attachments': true,
                         'registration': true,
                         'max-size': 500,
@@ -41,7 +42,8 @@ module.exports = [
                         'layout': 'Boxed',
                         'reCaptchaKey': '6LfM5CYTAAAAAGLz6ctpf-hchX2_l0Ge-Bn-n8wS',
                         'maintenance-mode': false,
-                        'user-system-enabled': false,
+                        'user-system-enabled': true,
+                        'registration': true,
                         'departments': [
                             {id: 1, name: 'Sales Support', owners: 2},
                             {id: 2, name: 'Technical Issues', owners: 5},

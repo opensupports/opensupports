@@ -42,12 +42,12 @@ class DashboardArticlePage extends React.Component {
 
         return (
             <div className={this.getClass()}>
-                <Widget>
+                <Wrapper>
                     <div className="dashboard-article-page__breadcrumb">
                         <BreadCrumb items={this.getBreadCrumbItems()}/>
                     </div>
                     {(this.props.loading) ? <Loading /> : this.renderContent()}
-                </Widget>
+                </Wrapper>
             </div>
         );
     }
