@@ -88,7 +88,7 @@ class MainCheckTicketPage extends React.Component {
 
     onTicketGetSuccess(result) {
         SessionStore.setItem('token', result.data.token);
-        setTimeout(() => {browserHistory.push('/view-ticket/' + this.state.form.email + '/' + this.state.form.ticketNumber)}, 2000);
+        setTimeout(() => {browserHistory.push('/view-ticket/' + this.state.form.ticketNumber)}, 2000);
     }
 }
 
