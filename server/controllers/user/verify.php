@@ -17,6 +17,10 @@ class VerifyController extends Controller{
     }
 
     public function handler() {
+        if(!Controller::isUserSystemEnabled()) {
+            throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
+        }
+        
         $email = Controller::request('email');
         $token = Controller::request('token');
 

@@ -99,7 +99,7 @@ class AdminPanelMenu extends React.Component {
                 level: 1,
                 items: this.getItemsByFilteredByLevel([
                     {
-                        name: i18n('TICKET_STATS'),
+                        name: i18n('STATISTICS'),
                         path: '/admin/panel/stats',
                         level: 1
                     },

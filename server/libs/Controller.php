@@ -3,6 +3,7 @@ require_once 'libs/Validator.php';
 require_once 'models/Session.php';
 
 abstract class Controller {
+    private static $dataRequester;
 
     /**
      * Instance-related stuff
@@ -28,10 +29,20 @@ abstract class Controller {
         $validator->validate($this->validations());
     }
 
-    public static function request($key) {
-        $app = self::getAppInstance();
+    public static function init() {
+        self::$dataRequester = function ($key) {
+            $app = self::getAppInstance();
 
-        return $app->request()->post($key);
+            return $app->request()->post($key);
+        };
+    }
+
+    public static function setDataRequester($dataRequester) {
+        self::$dataRequester = $dataRequester;
+    }
+
+    public static function request($key) {
+        return call_user_func(self::$dataRequester, $key);
     }
     
     public static function getLoggedUser() {
@@ -77,9 +88,13 @@ abstract class Controller {
             $fileQuantity->value++;
             $fileQuantity->store();
 
-            return $fileUploader->getFileName();
+            return $fileUploader;
         } else {
             throw new Exception(ERRORS::INVALID_FILE);
         }
+    }
+    
+    public static function isUserSystemEnabled() {
+        return Setting::getSetting('user-system-enabled')->getValue();
     }
 }

@@ -36,7 +36,7 @@ export default {
     'DASHBOARD': 'Dashboard',
     'USERS': 'Users',
     'SETTINGS': 'Settings',
-    'TICKET_STATS': 'Ticket Stats',
+    'STATISTICS': 'Statistics',
     'LAST_ACTIVITY': 'Last Activity',
     'MY_TICKETS': 'My Tickets',
     'NEW_TICKETS': 'New Tickets',
@@ -154,6 +154,15 @@ export default {
     'VERIFY_SUCCESS': 'User verified',
     'VERIFY_FAILED': 'Could not verify',
     'CHECK_TICKET': 'Check Ticket',
+    'STATISTICS': 'Statistics',
+    'ACTIVITY': 'Activity',
+
+
+    'CHART_CREATE_TICKET': 'Tickets created',
+    'CHART_CLOSE': 'Tickets closed',
+    'CHART_SIGNUP': 'Signups',
+    'CHART_COMMENT': 'Replies',
+    'CHART_ASSIGN': 'Assigned',
 
     //ACTIVITIES
     'ACTIVITY_COMMENT': 'commented ticket',
@@ -188,7 +197,7 @@ export default {
     'TICKET_LIST_DESCRIPTION': 'Here you can find a list of all tickets you have sent to our support team.',
     'TICKETS_DESCRIPTION': 'Send ticket through our support center and get response of your doubts, suggestions and issues.',
     'ARTICLES_DESCRIPTION': 'Take a look to our articles about common issues, guides and documentation.',
-    'ACCOUNT_DESCRIPTION': 'All your tickets are stored in your accounts\'s profile. Keep track off all your tickets you send to our staff team.',
+    'ACCOUNT_DESCRIPTION': 'All your tickets are stored in your account\'s profile. Keep track of all your tickets you send to our staff team.',
     'SUPPORT_CENTER_DESCRIPTION': 'Welcome to our support center. You can contact us through a tickets system. Your tickets will be answered by our staff.',
     'CUSTOM_RESPONSES_DESCRIPTION': 'Custom responses are automated responses for common problems',
     'MY_TICKETS_DESCRIPTION': 'Here you can view the tickets you are responsible for.',
@@ -204,7 +213,7 @@ export default {
     'ADD_ARTICLE_DESCRIPTION': 'Here you can add an article that will be available for every user. It will be added inside the category {category}.',
     'LIST_ARTICLES_DESCRIPTION': 'This is a list of articles that includes information about our services.',
     'ADD_TOPIC_DESCRIPTION': 'Here you can add a topic that works as a category for articles.',
-    'DELETE_ARTICLE_DESCRIPTION': 'You\'re going to delete this article for ever.',
+    'DELETE_ARTICLE_DESCRIPTION': 'You\'re going to delete this article forever.',
     'STAFF_MEMBERS_DESCRIPTION': 'Here you can see who are your staff members.',
     'ADD_STAFF_DESCRIPTION': 'Here you can add staff members to your teams.',
     'EDIT_STAFF_DESCRIPTION': 'Here you can edit information about a staff member.',
@@ -215,6 +224,7 @@ export default {
     'SYSTEM_PREFERENCES_DESCRIPTION': 'Here you can edit the preferences of the system.',
     'VERIFY_SUCCESS_DESCRIPTION': 'You user has been verified correctly. You can log in now.',
     'VERIFY_FAILED_DESCRIPTION': 'The verification could not be done.',
+    'STATISTICS_DESCRIPTION': 'Here you can view statistics related to tickets and signups.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',

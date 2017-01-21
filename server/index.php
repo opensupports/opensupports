@@ -23,6 +23,8 @@ include_once 'libs/FileManager.php';
 include_once 'libs/FileDownloader.php';
 include_once 'libs/FileUploader.php';
 
+Controller::init();
+
 // LOAD DATA
 spl_autoload_register(function ($class) {
     $classPath = "data/{$class}.php";
