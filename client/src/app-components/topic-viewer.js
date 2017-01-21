@@ -105,7 +105,7 @@ class TopicViewer extends React.Component {
                 <Link {...this.getArticleLinkProps(article, index)}>
                     {article.title}
                 </Link>
-                <Icon className="topic-viewer__grab-icon" name="arrows" ref={'grab-' + index}/>
+                {(this.props.editable) ? <Icon className="topic-viewer__grab-icon" name="arrows" ref={'grab-' + index}/> : null}
             </li>
         );
     }

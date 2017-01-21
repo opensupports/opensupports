@@ -61,7 +61,7 @@ class MainHomePagePortal extends React.Component {
             icon: 'book',
             color: 'blue',
             buttonText: (this.props.type === 'complete') ? i18n('VIEW_ARTICLES') : null,
-            onButtonClick: () => browserHistory.push('/view-articles')
+            onButtonClick: () => browserHistory.push('/articles')
         };
     }
 

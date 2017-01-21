@@ -70,6 +70,7 @@ export default (
                 <Route path='check-ticket(/:ticketNumber/:email)' component={MainCheckTicketPage}/>
                 <Route path='view-ticket/:ticketNumber' component={MainViewTicketPage}/>
                 <Route path='articles' component={DashboardListArticlesPage}/>
+                <Route path='article/:articleId' component={DashboardArticlePage}/>
 
                 <Route path='dashboard' component={DashboardLayout}>
                     <IndexRoute component={DashboardListTicketsPage} />
