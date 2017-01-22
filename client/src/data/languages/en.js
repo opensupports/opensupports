@@ -162,6 +162,8 @@ export default {
     'REGISTRATION_API_KEYS': 'Registration API keys',
     'NAME_OF_KEY': 'Name of key',
     'KEY': 'Key',
+    'ADD_API_KEY': 'Add API Key',
+    'NO_KEY_SELECTED': 'No Key selected',
 
     //ACTIVITIES
     'ACTIVITY_COMMENT': 'commented ticket',
@@ -228,6 +230,7 @@ export default {
     'USER_SYSTEM_ENABLED': 'User system has been enabled',
     'REGISTRATION_DISABLED': 'Registration has been disabled',
     'REGISTRATION_ENABLED': 'Registration has been enabled',
+    'ADD_API_KEY_DESCRIPTION': 'Insert the name and a registration api key be generated.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',

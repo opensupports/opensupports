@@ -1,6 +1,6 @@
 @import "../../../../scss/vars";
 
-.admin-panel-system-settings {
+.admin-panel-advanced-settings {
     &__user-system-enabled {
 
     }
@@ -27,11 +27,14 @@
     }
 
     &__api-keys {
-        text-align: left;
 
         &-title {
             font-size: $font-size--bg;
             margin-bottom: 20px;
+            text-align: left;
+        }
+
+        &-info {
             text-align: left;
         }
 
@@ -40,10 +43,22 @@
             margin-bottom: 5px;
         }
 
-        &-button {
-            margin-left: 20px;
-            margin-right: 20px;
-            width: 150px;
+        &-data {
+            background-color: $light-grey;
+            border-radius: 4px;
+            width: 300px;
+            margin: 10px 0;
+            text-align: center;
+            padding: 5px 0;
+        }
+
+        &-modal {
+            min-width: 500px;
+        }
+
+        &-none {
+            color: $dark-grey;
+            font-size: $font-size--md;
         }
     }
 }

@@ -248,7 +248,27 @@ module.exports = [
         }
     },
     {
-        path: '/system/get-all-keys',
+        path: '/system/add-api-key',
+        time: 300,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/system/delete-api-key',
+        time: 300,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/system/get-api-keys',
         time: 300,
         response: function () {
             return {
