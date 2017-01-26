@@ -31,6 +31,10 @@
     &_secondary {
         background-color: $primary-green;
 
+        &:focus, &:hover {
+            background-color: lighten($primary-green, 5%);
+            outline: none;
+        }
 
         &.button_disabled,
         &.button_disabled:hover {
@@ -40,6 +44,11 @@
 
     &_tertiary {
         background-color: $secondary-blue;
+
+        &:focus, &:hover {
+            background-color: lighten($secondary-blue, 5%);
+            outline: none;
+        }
 
         &.button_disabled,
         &.button_disabled:hover {
@@ -91,6 +100,28 @@
         &:focus, &:hover {
             outline: none;
             text-decoration: underline;
+        }
+    }
+
+    &_inverted {
+        background-color: white;
+
+        &:focus, &:hover {
+            background-color: white;
+            opacity: 0.9;
+            outline: none;
+        }
+
+        &.button_primary {
+            color: $primary-red;
+        }
+
+        &.button_secondary {
+            color: $primary-green;
+        }
+
+        &.button_tertiary {
+            color: $secondary-blue;
         }
     }
 }

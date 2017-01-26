@@ -1,0 +1,24 @@
+.main-check-ticket-page {
+    padding: 0 15px;
+
+    &__form {
+        margin: 0 auto;
+        max-width: 790px;
+    }
+
+    &__inputs {
+        display: inline-block;
+        margin: 0 auto;
+    }
+
+    &__input {
+        display: inline-block;
+        margin: 0 20px;
+    }
+
+    &__captcha {
+        margin: 20px auto 20px;
+        height: 78px;
+        width: 304px;
+    }
+}

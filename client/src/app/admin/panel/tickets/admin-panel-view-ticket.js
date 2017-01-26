@@ -12,6 +12,16 @@ import Header from 'core-components/header';
 
 class AdminPanelViewTicket extends React.Component {
 
+    static propTypes = {
+        avoidSeen: React.PropTypes.bool,
+        assignmentAllowed: React.PropTypes.bool
+    };
+
+    static defaultProps = {
+        avoidSeen: false,
+        assignmentAllowed: true
+    };
+
     state = {
         loading: true,
         ticket: {}
@@ -62,7 +72,7 @@ class AdminPanelViewTicket extends React.Component {
         return {
             ticket: this.state.ticket,
             onChange: this.retrieveTicket.bind(this),
-            assignmentAllowed: true,
+            assignmentAllowed: this.props.assignmentAllowed,
             customResponses: this.props.customResponses,
             editable: this.state.ticket.owner && this.state.ticket.owner.id == SessionStore.getSessionData().userId
         };
@@ -83,7 +93,7 @@ class AdminPanelViewTicket extends React.Component {
             ticket: result.data
         });
 
-        if(result.data.unreadStaff) {
+        if(!this.props.avoidSeen && result.data.unreadStaff) {
             API.call({
                 path: '/ticket/seen',
                 data: {

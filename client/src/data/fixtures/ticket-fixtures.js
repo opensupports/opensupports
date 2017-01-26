@@ -110,10 +110,12 @@ module.exports = [
                     closed: false,
                     priority: 'medium',
                     author: {
+                        id: 3,
                         name: 'Haskell Curry',
                         email: 'haskell@lambda.com'
                     },
                     owner: {
+                        id: 1,
                         name: 'Steve Jobs'
                     },
                     events: [

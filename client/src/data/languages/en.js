@@ -73,6 +73,7 @@ export default {
     'ASSIGN_TO_ME': 'Assign to me',
     'UN_ASSIGN': 'Unassign',
     'VIEW_TICKET': 'View Ticket',
+    'VIEW_TICKET_DESCRIPTION': 'Check the status of your ticket using your ticket number and email.',
     'SELECT_CUSTOM_RESPONSE': 'Select a custom response...',
     'WARNING': 'Warning',
     'INFO': 'Information',
@@ -152,10 +153,11 @@ export default {
     'ALL_NOTIFICATIONS': 'All notifications',
     'VERIFY_SUCCESS': 'User verified',
     'VERIFY_FAILED': 'Could not verify',
-    'STATISTICS': 'Statistics',
+    'CHECK_TICKET': 'Check Ticket',
     'ACTIVITY': 'Activity',
-
-
+    'HOME': 'Home',
+    'TICKET_NUMBER': 'Ticket number',
+    
     'CHART_CREATE_TICKET': 'Tickets created',
     'CHART_CLOSE': 'Tickets closed',
     'CHART_SIGNUP': 'Signups',

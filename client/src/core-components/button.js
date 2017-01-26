@@ -17,6 +17,7 @@ class Button extends React.Component {
 
     static propTypes = {
         children: React.PropTypes.node,
+        inverted: React.PropTypes.bool,
         size: React.PropTypes.oneOf([
             'extra-small',
             'small',
@@ -70,7 +71,8 @@ class Button extends React.Component {
         let classes = {
             'button': true,
             'button_disabled': this.props.disabled,
-            
+            'button_inverted': this.props.inverted,
+
             'button_primary': (this.props.type === 'primary'),
             'button_secondary': (this.props.type === 'secondary'),
             'button_tertiary': (this.props.type === 'tertiary'),
