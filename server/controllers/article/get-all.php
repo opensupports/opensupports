@@ -7,7 +7,7 @@ class GetAllArticlesController extends Controller {
 
     public function validations() {
         return [
-            'permission' => 'user',
+            'permission' => (Controller::isUserSystemEnabled()) ? 'user' : 'any',
             'requestData' => []
         ];
     }

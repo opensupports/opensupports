@@ -20,7 +20,9 @@ class Ticket extends DataStore {
             'owner',
             'ownTicketeventList',
             'unreadStaff',
-            'language'
+            'language',
+            'authorEmail',
+            'authorName'
         );
     }
 
@@ -79,7 +81,9 @@ class Ticket extends DataStore {
             'priority' => $this->priority,
             'author' => $this->authorToArray(),
             'owner' => $this->ownerToArray(),
-            'events' => $this->eventsToArray()
+            'events' => $this->eventsToArray(),
+            'authorEmail' => $this->authorEmail,
+            'authorName' => $this->authorName
         ];
     }
 

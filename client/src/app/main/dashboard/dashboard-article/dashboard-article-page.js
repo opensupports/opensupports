@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import classNames from 'classnames';
 import {connect}  from 'react-redux';
 
 import ArticlesActions from 'actions/articles-actions';
@@ -10,6 +11,7 @@ import DateTransformer from 'lib-core/date-transformer';
 import Header from 'core-components/header';
 import Loading from 'core-components/loading';
 import BreadCrumb from 'core-components/breadcrumb';
+import Widget from 'core-components/widget';
 
 class DashboardArticlePage extends React.Component {
 
@@ -32,12 +34,20 @@ class DashboardArticlePage extends React.Component {
     }
 
     render() {
+        let Wrapper = 'div';
+
+        if(_.startsWith(this.props.location.pathname, '/article/')) {
+            Wrapper = Widget;
+        }
+
         return (
-            <div className="dashboard-article-page">
-                <div className="dashboard-article-page__breadcrumb">
-                    <BreadCrumb items={this.getBreadCrumbItems()}/>
-                </div>
-                {(this.props.loading) ? <Loading /> : this.renderContent()}
+            <div className={this.getClass()}>
+                <Wrapper>
+                    <div className="dashboard-article-page__breadcrumb">
+                        <BreadCrumb items={this.getBreadCrumbItems()}/>
+                    </div>
+                    {(this.props.loading) ? <Loading /> : this.renderContent()}
+                </Wrapper>
             </div>
         );
     }
@@ -61,6 +71,15 @@ class DashboardArticlePage extends React.Component {
                 </div>
             </div>
         );
+    }
+    
+    getClass() {
+        let classes = {
+            'dashboard-article-page': true,
+            'dashboard-article-page_wrapped': _.startsWith(this.props.location.pathname, '/article/')
+        };
+        
+        return classNames(classes);
     }
 
     findArticle() {
@@ -91,11 +110,11 @@ class DashboardArticlePage extends React.Component {
         let article = this.findArticle();
         let topic = this.findTopic();
         let items = [
-            {content: i18n('ARTICLES'), url: '/dashboard/articles'}
+            {content: i18n('ARTICLES'), url: (_.startsWith(this.props.location.pathname, '/article/')) ? '/articles' : '/dashboard/articles'}
         ];
 
         if(topic && topic.name) {
-            items.push({content: topic.name, url: '/dashboard/articles'});
+            items.push({content: topic.name, url: (_.startsWith(this.props.location.pathname, '/article/')) ? '/articles' : '/dashboard/articles'});
         }
 
         if(article && article.title) {

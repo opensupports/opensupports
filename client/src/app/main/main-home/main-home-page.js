@@ -1,6 +1,6 @@
 import React from 'react';
+import {connect} from 'react-redux'
 
-import {connect}        from 'react-redux'
 import i18n from 'lib-app/i18n';
 
 import MainHomePageLoginWidget from 'app/main/main-home/main-home-page-login-widget';
@@ -13,11 +13,9 @@ class MainHomePage extends React.Component {
         return (
             <div className="main-home-page">
                 {this.renderMessage()}
-                <div className="col-md-4">
-                    <MainHomePageLoginWidget />
-                </div>
-                <div className="col-md-8">
-                    <MainHomePagePortal />
+                {(this.props.config['user-system-enabled']) ? this.renderLoginWidget() : null}
+                <div className={(this.props.config['user-system-enabled']) ? 'col-md-8' : 'col-md-12'}>
+                    <MainHomePagePortal type={((this.props.config['user-system-enabled']) ? 'default' : 'complete')}/>
                 </div>
             </div>
         );
@@ -32,6 +30,14 @@ class MainHomePage extends React.Component {
             default:
                 return null;
         }
+    }
+
+    renderLoginWidget() {
+        return (
+            <div className="col-md-4">
+                <MainHomePageLoginWidget />
+            </div>
+        );
     }
 
     renderSuccess() {
@@ -53,6 +59,7 @@ class MainHomePage extends React.Component {
 
 export default connect((store) => {
     return {
-        session: store.session
+        session: store.session,
+        config: store.config
     };
 })(MainHomePage);

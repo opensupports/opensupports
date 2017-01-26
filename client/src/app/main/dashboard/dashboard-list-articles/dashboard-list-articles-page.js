@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import {connect}  from 'react-redux';
 import _ from 'lodash';
 import {Link} from 'react-router';
@@ -9,6 +10,7 @@ import ArticlesActions from 'actions/articles-actions';
 
 import Header from 'core-components/header';
 import SearchBox from 'core-components/search-box';
+import Widget from 'core-components/widget';
 
 class DashboardListArticlesPage extends React.Component {
 
@@ -22,18 +24,28 @@ class DashboardListArticlesPage extends React.Component {
     }
 
     render() {
+        let Wrapper = 'div';
+
+        if(this.props.location.pathname == '/articles') {
+            Wrapper = Widget;
+        }
+
         return (
-            <div className="dashboard-list-articles-page">
-                <Header title={i18n('LIST_ARTICLES')} description={i18n('LIST_ARTICLES_DESCRIPTION')}/>
-                <SearchBox className="dashboard-list-articles-page__search-box" onSearch={this.onSearch.bind(this)} searchOnType />
-                {(!this.state.showSearchResults) ? this.renderArticleList() : this.renderSearchResults()}
+            <div className={this.getClass()}>
+                <Wrapper>
+                    <Header title={i18n('LIST_ARTICLES')} description={i18n('LIST_ARTICLES_DESCRIPTION')}/>
+                    <SearchBox className="dashboard-list-articles-page__search-box" onSearch={this.onSearch.bind(this)} searchOnType />
+                    {(!this.state.showSearchResults) ? this.renderArticleList() : this.renderSearchResults()}
+                </Wrapper>
             </div>
         );
     }
 
     renderArticleList() {
+        let articlePath = (this.props.location.pathname == '/articles') ? '/article/' : '/dashboard/article/';
+        
         return (
-            <ArticlesList editable={false} articlePath="/dashboard/article/" retrieveOnMount={false}/>
+            <ArticlesList editable={false} articlePath={articlePath} retrieveOnMount={false}/>
         );
     }
 
@@ -53,12 +65,21 @@ class DashboardListArticlesPage extends React.Component {
         return (
             <div className="dashboard-list-articles-page__search-result">
                 <div className="dashboard-list-articles-page__search-result-title">
-                    <Link to={'/dashboard/article/' + item.id}>{item.title}</Link>
+                    <Link to={((this.props.location.pathname == '/articles') ? '/article/' : '/dashboard/article/') + item.id}>{item.title}</Link>
                 </div>
                 <div className="dashboard-list-articles-page__search-result-description">{content}</div>
                 <div className="dashboard-list-articles-page__search-result-topic">{item.topic}</div>
             </div>
         );
+    }
+
+    getClass() {
+        let classes = {
+            'dashboard-list-articles-page': true,
+            'dashboard-list-articles-page_wrapped': (this.props.location.pathname == '/articles')
+        };
+
+        return classNames(classes);
     }
 
     onSearch(query) {

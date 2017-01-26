@@ -29,6 +29,15 @@ class Session {
         $this->store('staff', $staff);
         $this->store('token', Hashing::generateRandomToken());
     }
+    
+    public function createTicketSession($ticketNumber) {
+        $this->store('ticketNumber', $ticketNumber);
+        $this->store('token', Hashing::generateRandomToken());
+    }
+    
+    public function getTicketNumber() {
+        return $this->getStoredData('ticketNumber');
+    }
 
     public function getToken() {
         return $this->getStoredData('token');
@@ -51,7 +60,7 @@ class Session {
                $token === $data['token'];
     }
 
-    private function store($key, $value) {
+    public function store($key, $value) {
         $_SESSION[$key] = $value;
     }
 

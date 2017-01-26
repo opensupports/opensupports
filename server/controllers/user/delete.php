@@ -20,6 +20,10 @@ class DeleteUserController extends Controller {
     }
 
     public function handler() {
+        if(!Controller::isUserSystemEnabled()) {
+            throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
+        }
+        
         $userId = Controller::request('userId');
         $user = User::getDataStore($userId);
 

@@ -5,6 +5,7 @@
     color: white;
     height: 260px;
     padding: 15px;
+    position: relative;
 
     &__title {
         font-variant: small-caps;
@@ -14,6 +15,13 @@
 
     &__description {
         font-size: $font-size--sm;
+    }
+
+    &__button {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 17px;
     }
 
     &_red {

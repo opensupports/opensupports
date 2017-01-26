@@ -21,6 +21,10 @@ class GetUsersController extends Controller {
     }
 
     public function handler() {
+        if(!Controller::isUserSystemEnabled()) {
+            throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
+        }
+        
         $userList = $this->getUserList();
         $userListArray = [];
 

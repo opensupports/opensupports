@@ -86,20 +86,24 @@ class App extends React.Component {
             browserHistory.push('/admin/panel');
         }
 
-        if (this.props.session.userLevel && !this.isPathAvailableForStaff()) {
+        if (props.session.userLevel && !this.isPathAvailableForStaff(props)) {
             browserHistory.push('/admin/panel');
+        }
+
+        if (!props.config.registration && _.includes(props.location.pathname, 'signup')) {
+            browserHistory.push('/');
         }
     }
 
-    isPathAvailableForStaff() {
-        let pathForLevel2 = _.findIndex(level2Paths, path => _.includes(this.props.location.pathname, path)) !== -1;
-        let pathForLevel3 = _.findIndex(level3Paths, path => _.includes(this.props.location.pathname, path)) !== -1;
+    isPathAvailableForStaff(props) {
+        let pathForLevel2 = _.findIndex(level2Paths, path => _.includes(props.location.pathname, path)) !== -1;
+        let pathForLevel3 = _.findIndex(level3Paths, path => _.includes(props.location.pathname, path)) !== -1;
 
-        if (this.props.session.userLevel === 1) {
+        if (props.session.userLevel === 1) {
             return !pathForLevel2 && !pathForLevel3;
         }
 
-        if (this.props.session.userLevel === 2) {
+        if (props.session.userLevel === 2) {
             return !pathForLevel3;
         }
 

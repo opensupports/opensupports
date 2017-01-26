@@ -7,7 +7,8 @@ class ToggleList extends React.Component {
         items: React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.node
         })),
-        onChange: React.PropTypes.func
+        onChange: React.PropTypes.func,
+        type: React.PropTypes.oneOf(['default', 'small'])
     };
 
     state = {
@@ -16,10 +17,20 @@ class ToggleList extends React.Component {
     
     render() {
         return (
-            <div className="toggle-list">
+            <div className={this.getClass()}>
                 {this.props.items.map(this.renderItem.bind(this))}
             </div>
         );
+    }
+
+    getClass() {
+        let classes = {
+            'toggle-list': true,
+            'toggle-list_small': this.props.type == 'small',
+            [this.props.className]: (this.props.className)
+        };
+
+        return classNames(classes);
     }
 
     renderItem(obj, index) {
@@ -35,16 +46,17 @@ class ToggleList extends React.Component {
         let classes = {
             'toggle-list__item': true,
             'toggle-list__first-item': (index === 0),
-            'toggle-list__selected': _.includes(this.state.selected, index)
+            'toggle-list__last-item': (index === this.props.items.length - 1),
+            'toggle-list__selected': _.includes(this.getSelectedList(), index)
         };
 
         return classNames(classes);
     }
 
     selectItem(index) {
-        let newSelected = _.clone(this.state.selected);
+        let newSelected = _.clone(this.getSelectedList());
 
-        _.includes(this.state.selected, index) ? _.remove(newSelected, _index => _index == index) : newSelected.push(index);
+        _.includes(this.getSelectedList(), index) ? _.remove(newSelected, _index => _index == index) : newSelected.push(index);
 
         this.setState({
             selected: newSelected
@@ -57,6 +69,10 @@ class ToggleList extends React.Component {
                 }
             });
         }
+    }
+
+    getSelectedList() {
+        return (this.props.values === undefined) ? this.state.selected : this.props.values;
     }
 }
 

@@ -11,7 +11,7 @@ module.exports = [
                         'reCaptchaKey': '6LfM5CYTAAAAAGLz6ctpf-hchX2_l0Ge-Bn-n8wS',
                         'reCaptchaPrivate': 'LALA',
                         'url': 'http://www.opensupports.com/support',
-                        'title': 'Very Cool',
+                        'title': 'OpenSupports Support Center',
                         'layout': 'Boxed',
                         'time-zone': 3,
                         'no-reply-email': 'shitr@post.com',
@@ -19,7 +19,9 @@ module.exports = [
                         'smtp-port': '7070',
                         'smtp-user': 'Wesa',
                         'maintenance-mode': false,
+                        'user-system-enabled': true,
                         'allow-attachments': true,
+                        'registration': true,
                         'max-size': 500,
                         'departments': [
                             {id: 1, name: 'Sales Support', owners: 2},
@@ -38,8 +40,12 @@ module.exports = [
                     status: 'success',
                     data: {
                         'language': 'en',
+                        'title': '',
+                        'layout': 'Boxed',
                         'reCaptchaKey': '6LfM5CYTAAAAAGLz6ctpf-hchX2_l0Ge-Bn-n8wS',
                         'maintenance-mode': false,
+                        'user-system-enabled': true,
+                        'registration': true,
                         'departments': [
                             {id: 1, name: 'Sales Support', owners: 2},
                             {id: 2, name: 'Technical Issues', owners: 5},
@@ -204,6 +210,71 @@ module.exports = [
                         body : 'Passwort wurde bearbeitet {{name}}'
                     }
                 ]
+            };
+        }
+    },
+    {
+        path: '/system/get-stats',
+        time: 200,
+        response: function(_data) {
+            let generalVal = _data.staffId;
+
+            let ID = {
+                'WEEK': 7,
+                'MONTH': 30,
+                'QUARTER': 90,
+                'YEAR': 365
+            };
+
+            let k = ID[_data.period];
+            let DATA = [];
+
+            for (let i = 0; i < k; i++) {
+                if(generalVal){
+                    DATA.push({
+                        date: '201701' + (i + 103) % 100,
+                        type: 'ASSIGN',
+                        general: generalVal,
+                        value: (Math.floor((Math.random() + 17) * i)).toString()
+                    });
+                    DATA.push({
+                        date: '201701' + (i + 109) % 100,
+                        type: 'CLOSE',
+                        general: generalVal,
+                        value: (Math.floor((Math.random() + 12) * i )).toString()
+                    });
+                }
+                else {
+                    DATA.push({
+                        date: '201701' + (i + 107) % 100,
+                        type: 'COMMENT',
+                        general: generalVal,
+                        value: (Math.floor((Math.random() + 5) * i)).toString()
+                    });
+                    DATA.push({
+                        date: '201701' + (i + 104) % 100,
+                        type: 'SIGNUP',
+                        general: generalVal,
+                        value: (Math.floor(Math.random() * (i - 180) * (i - 185) / 400)).toString()
+                    });
+                    DATA.push({
+                        date: '201701' + (i + 103) % 100,
+                        type: 'CLOSE',
+                        general: generalVal,
+                        value: (Math.floor((Math.random() + 12) * i )).toString()
+                    });
+                    DATA.push({
+                        date: '201701' + (i + 99) % 100,
+                        type: 'CREATE_TICKET',
+                        general: generalVal,
+                        value: (Math.floor((Math.random() + 7) * i)).toString()
+                    });
+                }
+            }
+
+            return {
+                status: "success",
+                data: DATA
             };
         }
     },
