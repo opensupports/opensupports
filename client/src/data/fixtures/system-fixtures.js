@@ -1,7 +1,7 @@
 module.exports = [
     {
         path: '/system/get-settings',
-        time: 1000,
+        time: 850,
         response: function (params) {
             if(params && params.allSettings) {
                 return {
@@ -29,7 +29,9 @@ module.exports = [
                             {id: 3, name: 'System and Administration', owners: 0}
                         ],
                         'allowedLanguages': ['en', 'es', 'de', 'fr', 'pt', 'jp', 'ru', 'cn', 'in', 'tr'],
-                        'supportedLanguages': ['en', 'es', 'de']
+                        'supportedLanguages': ['en', 'es', 'de'],
+                        'registration': true,
+                        'user-system-enabled': true
                     }
                 };
 
@@ -50,7 +52,9 @@ module.exports = [
                             {id: 3, name: 'System and Administration', owners: 0}
                         ],
                         'allowedLanguages': ['en', 'es', 'de', 'fr', 'pt', 'jp', 'ru', 'cn', 'in', 'tr'],
-                        'supportedLanguages': ['en', 'es', 'de']
+                        'supportedLanguages': ['en', 'es', 'de'],
+                        'registration': true,
+                        'user-system-enabled': true
                     }
                 };
             }
@@ -122,6 +126,44 @@ module.exports = [
         contentType: 'application/octet-stream',
         response: function () {
             return 'text content';
+        }
+    },
+    {
+        path: '/system/delete-all-users',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/system/backup-database',
+        time: 100,
+        contentType: 'application/octet-stream',
+        response: function () {
+            return 'text content';
+        }
+    },
+    {
+        path: '/system/import-csv',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/system/import-sql',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
         }
     },
     {
@@ -237,12 +279,95 @@ module.exports = [
         }
     },
     {
+        path: '/system/enable-user-system',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            }
+        }
+    },
+    {
+        path: '/system/disable-user-system',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            }
+        }
+    },
+    {
+        path: '/system/enable-registration',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            }
+        }
+    },
+    {
+        path: '/system/disable-registration',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            }
+        }
+    },
+    {
+        path: '/system/add-api-key',
+        time: 300,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/system/delete-api-key',
+        time: 300,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/system/get-api-keys',
+        time: 300,
+        response: function () {
+            return {
+                status: 'success',
+                data: [
+                    {
+                        name: 'Game System Registration',
+                        token: '9as8da9s51c6a51c51a9s1c9asdf1'
+                    },
+                    {
+                        name: 'PHPbb forum',
+                        token: 'apires1qe65fq65e1f6a5e1f6afaef2'
+                    },
+                    {
+                        name: 'How do you turn this on?',
+                        token: 'das65d4as651age16wq6ofqwwcemcw'
+                    }
+                ]
+            }
+        }
+    },
+    {
         path: '/system/get-logs',
         time: 300,
-        response: function() {
+        response: function () {
             return {
-                "status": "success",
-                "data": [
+                status: "success",
+                data: [
                     {
                         "type": "EDIT_SETTINGS",
                         "to": null,

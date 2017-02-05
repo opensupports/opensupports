@@ -1,5 +1,6 @@
 import React from 'react';
 
+import classNames from 'classnames';
 import i18n from 'lib-app/i18n';
 
 class ToggleButton extends React.Component {
@@ -12,11 +13,21 @@ class ToggleButton extends React.Component {
 
     render() {
         return (
-            <div className="toggle-button" onClick={this.onClick.bind(this)}>
+            <div className={this.getClass()} onClick={this.onClick.bind(this)}>
                 {this.props.value ? i18n('ON') : i18n('OFF')}
             </div>
         );
     }
+
+    getClass() {
+        let classes = {
+            'toggle-button': true,
+            [this.props.className]: (this.props.className)
+        };
+
+        return classNames(classes);
+    }
+
 
     onClick() {
         if (this.props.onChange) {

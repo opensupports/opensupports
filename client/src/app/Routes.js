@@ -50,9 +50,8 @@ import AdminPanelDepartments from 'app/admin/panel/staff/admin-panel-departments
 import AdminPanelViewStaff from 'app/admin/panel/staff/admin-panel-view-staff';
 
 import AdminPanelSystemPreferences from 'app/admin/panel/settings/admin-panel-system-preferences';
-import AdminPanelUserSystem from 'app/admin/panel/settings/admin-panel-user-system';
+import AdminPanelAdvancedSettings from 'app/admin/panel/settings/admin-panel-advanced-settings';
 import AdminPanelEmailTemplates from 'app/admin/panel/settings/admin-panel-email-templates';
-import AdminPanelCustomFields from 'app/admin/panel/settings/admin-panel-custom-fields';
 
 const history = syncHistoryWithStore(browserHistory, store);
 
@@ -123,9 +122,8 @@ export default (
                     <Route path="settings">
                         <IndexRedirect to="system-preferences" />
                         <Route path="system-preferences" component={AdminPanelSystemPreferences} />
-                        <Route path="user-system" component={AdminPanelUserSystem} />
+                        <Route path="advanced-settings" component={AdminPanelAdvancedSettings} />
                         <Route path="email-templates" component={AdminPanelEmailTemplates} />
-                        <Route path="custom-fields" component={AdminPanelCustomFields} />
                     </Route>
                 </Route>
             </Route>
