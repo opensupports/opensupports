@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class AddAPIKeyController extends Controller {
     const PATH = '/add-api-key';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

@@ -3,6 +3,7 @@ use Ifsnop\Mysqldump as IMysqldump;
 
 class BackupDatabaseController extends Controller {
     const PATH = '/backup-database';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

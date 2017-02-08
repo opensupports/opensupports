@@ -2,6 +2,7 @@
 
 class DisableUserSystemController extends Controller {
     const PATH = '/disable-user-system';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

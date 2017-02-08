@@ -4,6 +4,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class GetAllStaffController extends Controller {
     const PATH ='/get-all';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

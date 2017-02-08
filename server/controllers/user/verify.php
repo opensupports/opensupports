@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class VerifyController extends Controller{
     const PATH = '/verify';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

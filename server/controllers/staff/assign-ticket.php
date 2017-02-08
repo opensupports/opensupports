@@ -4,6 +4,8 @@ DataValidator::with('CustomValidations', true);
 
 class AssignStaffController extends Controller {
     const PATH = '/assign-ticket';
+    const METHOD = 'POST';
+
     private $ticket;
     private $user;
 

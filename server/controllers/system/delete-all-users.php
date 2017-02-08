@@ -3,6 +3,7 @@ use RedBeanPHP\Facade as RedBean;
 
 class DeleteAllUsersController extends Controller {
     const PATH = '/delete-all-users';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

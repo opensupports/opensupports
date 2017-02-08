@@ -2,6 +2,7 @@
 
 class DisableRegistrationController extends Controller {
     const PATH = '/disable-registration';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

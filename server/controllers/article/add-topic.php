@@ -4,6 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 class AddTopicController extends Controller {
     const PATH = '/add-topic';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

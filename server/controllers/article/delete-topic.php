@@ -4,6 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 class DeleteTopicController extends Controller {
     const PATH = '/delete-topic';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class GetAllKeyController extends Controller {
     const PATH = '/get-all-keys';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

@@ -2,6 +2,7 @@
 
 class CSVImportController extends Controller {
     const PATH = '/csv-import';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

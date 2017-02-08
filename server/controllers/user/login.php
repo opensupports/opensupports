@@ -2,6 +2,7 @@
 
 class LoginController extends Controller {
     const PATH = '/login';
+    const METHOD = 'POST';
 
     private $userInstance;
     private $rememberToken;
@@ -40,7 +41,7 @@ class LoginController extends Controller {
 
             Response::respondSuccess($this->getUserData());
         } else {
-            Response::respondError(ERRORS::INVALID_CREDENTIALS);
+            Response::respondError(Controller::request('email'));
         }
     }
 

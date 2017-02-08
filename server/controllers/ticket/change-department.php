@@ -4,6 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 class ChangeDepartmentController extends Controller {
     const PATH = '/change-department';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class EditStaffController extends Controller {
     const PATH = '/edit';
+    const METHOD = 'POST';
 
     private $staffInstance;
 

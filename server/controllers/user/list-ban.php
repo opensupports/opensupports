@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class ListBanUserController extends Controller {
     const PATH = '/list-ban';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

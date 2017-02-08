@@ -4,6 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 class TicketGetController extends Controller {
     const PATH = '/get';
+    const METHOD = 'POST';
 
     private $ticket;
 

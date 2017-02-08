@@ -4,6 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 class CloseController extends Controller {
     const PATH = '/close';
+    const METHOD = 'POST';
 
     private $ticket;
 

@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class EditMailTemplateController extends Controller {
     const PATH = '/edit-mail-template';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

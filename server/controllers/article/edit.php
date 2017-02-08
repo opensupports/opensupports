@@ -4,6 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 class EditArticleController extends Controller {
     const PATH = '/edit';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

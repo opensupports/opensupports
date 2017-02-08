@@ -2,6 +2,7 @@
 
 class InitSettingsController extends Controller {
     const PATH = '/init-settings';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

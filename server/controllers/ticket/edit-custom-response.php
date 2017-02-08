@@ -4,6 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 class EditCustomResponseController extends Controller {
     const PATH = '/edit-custom-response';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

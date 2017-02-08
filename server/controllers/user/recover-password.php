@@ -4,6 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 class RecoverPasswordController extends Controller {
     const PATH = '/recover-password';
+    const METHOD = 'POST';
 
     private $email;
     private $token;

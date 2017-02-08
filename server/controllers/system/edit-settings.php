@@ -2,6 +2,7 @@
 
 class EditSettingsController extends Controller {
     const PATH = '/edit-settings';
+    const METHOD = 'POST';
 
     public function validations() {
         return [
