@@ -57,6 +57,11 @@ class EditStaffController extends Controller {
             $this->staffInstance->sharedDepartmentList = $this->getDepartmentList();
         }
 
+        if(Controller::request('file')) {
+            $fileUploader = $this->uploadFile();
+            $this->staffInstance->profilePic = ($fileUploader instanceof FileUploader) ? $fileUploader->getFileName() : null;
+        }
+
         $this->staffInstance->store();
     }
 
