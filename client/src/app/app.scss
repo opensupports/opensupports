@@ -2,4 +2,50 @@
 
 .application {
     padding: $half-space;
+
+    &_full-width {
+        padding: 0;
+
+        .main-layout {
+            width: 100%;
+            max-width: none;
+
+            &-header {
+                border-radius: 0;
+                height: 40px;
+
+                &__login-links {
+                    padding-top: 8px;
+                    padding-left: 22px;
+                }
+
+                &__languages {
+                    top: 10px;
+                    left: -20px;
+                }
+            }
+
+            &-footer {
+                height: 40px;
+                //position: fixed;
+                //bottom: 0;
+
+                &--powered {
+                    padding-top: 9px;
+                }
+            }
+        }
+
+        .main-home-page {
+            width: 1100px;
+            margin: 0 auto;
+        }
+
+        .main-signup-page {
+
+            .signup-widget__captcha {
+                margin-left: 290px;
+            }
+        }
+    }
 }

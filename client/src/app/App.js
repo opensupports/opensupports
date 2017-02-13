@@ -45,7 +45,8 @@ class App extends React.Component {
     getClass() {
         let classes = {
             'application': true,
-            'application_modal-opened': (this.props.modal.opened)
+            'application_modal-opened': (this.props.modal.opened),
+            'application_full-width': (this.props.config.layout === 'full-width' && !_.includes(this.props.location.pathname, '/admin'))
         };
 
         return classNames(classes);
