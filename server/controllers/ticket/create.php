@@ -4,6 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 class CreateController extends Controller {
     const PATH = '/create';
+    const METHOD = 'POST';
 
     private $title;
     private $content;

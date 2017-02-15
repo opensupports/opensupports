@@ -17,7 +17,11 @@ class ControllerGroup {
 
         $app->group($this->groupPath, function () use ($app, $controllers) {
             foreach ($controllers as $controller) {
-                $app->post($controller::PATH, $controller->getHandler());
+                if($controller::METHOD === 'POST') {
+                    $app->post($controller::PATH, $controller->getHandler());
+                } else {
+                    $app->get($controller::PATH, $controller->getHandler());
+                }
             }
         });
     }

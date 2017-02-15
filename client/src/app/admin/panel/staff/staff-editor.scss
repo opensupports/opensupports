@@ -11,13 +11,41 @@
         border: 2px solid $grey;
         margin-bottom: 20px;
 
+        &__image-uploader {
+            opacity: 0;
+        }
+
         &-pic {
             height: 100%;
             position: absolute;
             left: 50%;
             transform: translate(-50%, 0);
 
+            &-background {
+                background-color: black;
+                opacity: 0;
+                transition: opacity 0.2s ease;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                z-index: 10;
+            }
+
+            &-icon {
+                position: absolute;
+                color: white;
+                opacity: 0;
+                transition: opacity 0.2s ease;
+                top: 70px;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 11;
+            }
+
             &-wrapper {
+                transition: opacity 0.2s ease;
+                background-color: $grey;
                 position: absolute;
                 top: 20px;
                 border: 4px solid $grey;
@@ -28,6 +56,26 @@
                 text-align: center;
                 left: 50%;
                 transform: translate(-50%, 0);
+                opacity: 1;
+
+                &_loading,
+                &:hover {
+                    cursor: pointer;
+
+                    .staff-editor__card-pic-background {
+                        opacity: 0.6;
+                    }
+
+                    .staff-editor__card-pic-icon {
+                        opacity: 0.8;
+                    }
+
+                    .staff-editor__card-pic-loading {
+                        position: absolute;
+                        top: 0;
+                        z-index: 11;
+                    }
+                }
             }
         }
 

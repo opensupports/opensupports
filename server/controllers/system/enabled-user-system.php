@@ -2,6 +2,7 @@
 
 class EnabledUserSystemController extends Controller {
     const PATH = '/enabled-user-system';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

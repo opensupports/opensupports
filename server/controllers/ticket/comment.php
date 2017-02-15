@@ -4,6 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 class CommentController extends Controller {
     const PATH = '/comment';
+    const METHOD = 'POST';
 
     private $ticket;
     private $content;

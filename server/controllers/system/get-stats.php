@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class GetStatsController extends Controller {
     const PATH = '/get-stats';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

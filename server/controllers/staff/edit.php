@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class EditStaffController extends Controller {
     const PATH = '/edit';
+    const METHOD = 'POST';
 
     private $staffInstance;
 
@@ -54,6 +55,11 @@ class EditStaffController extends Controller {
         
         if(Controller::request('departments') && Controller::isStaffLogged(3)) {
             $this->staffInstance->sharedDepartmentList = $this->getDepartmentList();
+        }
+
+        if(Controller::request('file')) {
+            $fileUploader = $this->uploadFile();
+            $this->staffInstance->profilePic = ($fileUploader instanceof FileUploader) ? $fileUploader->getFileName() : null;
         }
 
         $this->staffInstance->store();

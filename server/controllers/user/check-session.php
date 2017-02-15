@@ -2,6 +2,7 @@
 
 class CheckSessionController extends Controller {
     const PATH = '/check-session';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

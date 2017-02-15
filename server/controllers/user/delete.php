@@ -6,6 +6,7 @@ DataValidator::with('CustomValidations', true);
 
 class DeleteUserController extends Controller {
     const PATH = '/delete';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

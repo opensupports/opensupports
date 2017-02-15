@@ -4,6 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 class AddStaffController extends Controller {
     const PATH = '/add';
+    const METHOD = 'POST';
 
     private $name;
     private $email;

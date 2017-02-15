@@ -4,6 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 class DeleteCustomResponseController extends Controller {
     const PATH = '/delete-custom-response';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

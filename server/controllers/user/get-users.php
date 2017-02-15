@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class GetUsersController extends Controller {
     const PATH = '/get-users';
+    const METHOD = 'POST';
 
     public function validations() {
         return[

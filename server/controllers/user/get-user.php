@@ -4,7 +4,8 @@ DataValidator::with('CustomValidations', true);
 
 class GetUserByIdController extends Controller {
     const PATH = '/get-user';
-    
+    const METHOD = 'POST';
+
     public function validations() {
         return [
             'permission' => 'staff_1',

@@ -4,6 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 class DeleteArticleController extends Controller {
     const PATH = '/delete';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

@@ -2,6 +2,7 @@
 
 class GetSettingsController extends Controller {
     const PATH = '/get-settings';
+    const METHOD = 'POST';
 
     public function validations() {
         return [
