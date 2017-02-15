@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class EnableRegistrationController extends Controller {
     const PATH = '/enable-registration';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

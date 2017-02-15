@@ -4,6 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 class GetAllArticlesController extends Controller {
     const PATH = '/get-all';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

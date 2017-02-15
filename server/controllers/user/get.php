@@ -4,6 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 class GetUserController extends Controller {
     const PATH = '/get';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

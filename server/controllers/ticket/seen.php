@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class SeenController extends Controller {
     const PATH = '/seen';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

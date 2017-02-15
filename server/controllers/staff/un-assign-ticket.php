@@ -4,6 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 class UnAssignStaffController extends Controller {
     const PATH = '/un-assign-ticket';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

@@ -1,6 +1,7 @@
 <?php
 class LogoutController extends Controller {
     const PATH = '/logout';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

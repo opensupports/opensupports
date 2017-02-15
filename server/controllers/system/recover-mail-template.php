@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class RecoverMailTemplateController extends Controller {
     const PATH = '/recover-mail-template';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

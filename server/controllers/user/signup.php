@@ -5,7 +5,8 @@ DataValidator::with('CustomValidations', true);
 
 class SignUpController extends Controller {
     const PATH = '/signup';
-    
+    const METHOD = 'POST';
+
     private $userEmail;
     private $userName;
     private $userPassword;

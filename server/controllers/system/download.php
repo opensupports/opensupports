@@ -4,6 +4,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class DownloadController extends Controller {
     const PATH = '/download';
+    const METHOD = 'GET';
 
     public function validations() {
         return [

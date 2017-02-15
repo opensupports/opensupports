@@ -3,7 +3,8 @@ use Respect\Validation\Validator as DataValidator;
 
 class EditPassword extends Controller {
     const PATH = '/edit-password';
-    
+    const METHOD = 'POST';
+
     public function validations() {
         return [
             'permission' => 'user',

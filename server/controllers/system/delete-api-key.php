@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class DeleteAPIKeyController extends Controller {
     const PATH = '/delete-api-key';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

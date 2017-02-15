@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class AddDepartmentController extends Controller {
     const PATH = '/add-department';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

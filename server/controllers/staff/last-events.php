@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class LastEventsStaffController extends Controller {
     const PATH = '/last-events';
+    const METHOD = 'POST';
 
     public function validations() {
         return [
