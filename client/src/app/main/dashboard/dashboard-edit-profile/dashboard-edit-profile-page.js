@@ -24,19 +24,19 @@ class DashboardEditProfilePage extends React.Component {
     render() {
         return (
             <div className="edit-profile-page">
-                <Header title="Edit Profile" description="what ever" />
-                <div className="edit-profile-page__title">Edit Email</div>
+                <Header title={i18n('EDIT_PROFILE')} description={i18n('EDIT_PROFILE_VIEW_DESCRIPTION')} />
+                <div className="edit-profile-page__title">{i18n('EDIT_EMAIL')}</div>
                 <Form loading={this.state.loadingEmail} onSubmit={this.onSubmitEditEmail.bind(this)}>
                     <FormField name="newEmail" label="New Email" field="input" validation="EMAIL" fieldProps={{size:'large'}} required/>
-                    <SubmitButton>CHANGE EMAIL</SubmitButton>
+                    <SubmitButton>{i18n('CHANGE_EMAIL')}</SubmitButton>
                     {this.renderMessageEmail()}
                 </Form>
-                <div className="edit-profile-page__title">Edit password</div>
+                <div className="edit-profile-page__title">{i18n('EDIT_PASSWORD')}</div>
                 <Form loading={this.state.loadingPass} onSubmit={this.onSubmitEditPassword.bind(this)}>
-                    <FormField name="oldPassword" label="Old Password" field="input" validation="PASSWORD" fieldProps={{password:true, size:'large'}} required/>
-                    <FormField name="password" label="New Password" field="input" validation="PASSWORD" fieldProps={{password:true, size:'large'}} required/>
-                    <FormField name="repeatNewPassword" label="Repeat New Password" field="input" validation="REPEAT_PASSWORD" fieldProps={{password:true ,size:'large'}} required/>
-                    <SubmitButton>CHANGE PASSWORD</SubmitButton>
+                    <FormField name="oldPassword" label={i18n('OLD_PASSWORD')} field="input" validation="PASSWORD" fieldProps={{password:true, size:'large'}} required/>
+                    <FormField name="password" label={i18n('NEW_PASSWORD')} field="input" validation="PASSWORD" fieldProps={{password:true, size:'large'}} required/>
+                    <FormField name="repeatNewPassword" label={i18n('REPEAT_NEW_PASSWORD')} field="input" validation="REPEAT_PASSWORD" fieldProps={{password:true ,size:'large'}} required/>
+                    <SubmitButton>{i18n('CHANGE_PASSWORD')}</SubmitButton>
                     {this.renderMessagePass()}
                 </Form>
             </div>

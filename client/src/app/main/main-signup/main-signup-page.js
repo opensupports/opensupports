@@ -4,7 +4,6 @@ import _                  from 'lodash';
 
 import i18n               from 'lib-app/i18n';
 import API                from 'lib-app/api-call';
-import SessionStore       from 'lib-app/session-store';
 
 import Captcha            from 'app/main/captcha';
 import SubmitButton       from 'core-components/submit-button';
@@ -12,7 +11,7 @@ import Message            from 'core-components/message';
 import Form               from 'core-components/form';
 import FormField          from 'core-components/form-field';
 import Widget             from 'core-components/widget';
-
+import Header             from 'core-components/header';
 
 class MainSignUpPageWidget extends React.Component {
 
@@ -28,7 +27,8 @@ class MainSignUpPageWidget extends React.Component {
     render() {
         return (
             <div className="main-signup-page">
-                <Widget className="signup-widget col-md-6 col-md-offset-3" title="Register">
+                <Widget className="signup-widget col-md-6 col-md-offset-3">
+                    <Header title={i18n('SIGN_UP')} description={i18n('SIGN_UP_VIEW_DESCRIPTION')} />
                     <Form {...this.getFormProps()}>
                         <div className="signup-widget__inputs">
                             <FormField {...this.getInputProps()} label="Full Name" name="name" validation="NAME" required/>

@@ -1,5 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
+import classNames from 'classnames';
 
 import i18n from 'lib-app/i18n';
 
@@ -14,7 +15,7 @@ class MainHomePage extends React.Component {
             <div className="main-home-page">
                 {this.renderMessage()}
                 {(this.props.config['user-system-enabled']) ? this.renderLoginWidget() : null}
-                <div className={(this.props.config['user-system-enabled']) ? 'col-md-8' : 'col-md-12'}>
+                <div className={this.getPortalClass()}>
                     <MainHomePagePortal type={((this.props.config['user-system-enabled']) ? 'default' : 'complete')}/>
                 </div>
             </div>
@@ -34,7 +35,7 @@ class MainHomePage extends React.Component {
 
     renderLoginWidget() {
         return (
-            <div className="col-md-4">
+            <div className="col-md-4 main-home-page__login-widget">
                 <MainHomePageLoginWidget />
             </div>
         );
@@ -54,6 +55,16 @@ class MainHomePage extends React.Component {
                 {i18n('VERIFY_FAILED_DESCRIPTION')}
             </Message>
         );
+    }
+
+    getPortalClass() {
+        let classes = {
+            'main-home-page__portal-wrapper': true,
+            'col-md-8': (this.props.config['user-system-enabled'] && this.props.config['layout'] === 'boxed'),
+            'col-md-10 col-md-offset-1' : (!this.props.config['user-system-enabled'])
+        };
+
+        return classNames(classes);
     }
 }
 

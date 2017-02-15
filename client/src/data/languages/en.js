@@ -12,6 +12,7 @@ export default {
     'FORGOT_PASSWORD': 'Forgot your password?',
     'RECOVER_PASSWORD': 'Recover Password',
     'RECOVER_SENT': 'An email with recover instructions has been sent.',
+    'OLD_PASSWORD': 'Old password',
     'NEW_PASSWORD': 'New password',
     'REPEAT_NEW_PASSWORD': 'Repeat new password',
     'BACK_LOGIN_FORM': 'Back to login form',
@@ -82,6 +83,10 @@ export default {
     'UN_BAN': 'Disable ban',
     'BAN_NEW_EMAIL': 'Ban new email',
     'BAN_EMAIL': 'Ban email',
+    'EDIT_EMAIL': 'Edit email',
+    'EDIT_PASSWORD': 'Edit password',
+    'CHANGE_EMAIL': 'Change email',
+    'CHANGE_PASSWORD': 'Change password',
     'NAME': 'Name',
     'SIGNUP_DATE': 'Sign up date',
     'SEARCH_USERS': 'Search users...',
@@ -243,6 +248,8 @@ export default {
     'REGISTRATION_DISABLED': 'Registration has been disabled',
     'REGISTRATION_ENABLED': 'Registration has been enabled',
     'ADD_API_KEY_DESCRIPTION': 'Insert the name and a registration api key be generated.',
+    'SIGN_UP_VIEW_DESCRIPTION': 'Here you can create an account for our support center. It is required for send tickets and see documentation.',
+    'EDIT_PROFILE_VIEW_DESCRIPTION': 'Here you can edit your user by changing your email or your password.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',

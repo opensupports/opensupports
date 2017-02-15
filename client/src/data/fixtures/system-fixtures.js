@@ -11,8 +11,8 @@ module.exports = [
                         'reCaptchaKey': '6LfM5CYTAAAAAGLz6ctpf-hchX2_l0Ge-Bn-n8wS',
                         'reCaptchaPrivate': 'LALA',
                         'url': 'http://www.opensupports.com/support',
-                        'title': 'OpenSupports Support Center',
-                        'layout': 'full-width',
+                        'title': 'Support Center',
+                        'layout': 'boxed',
                         'time-zone': 3,
                         'no-reply-email': 'shitr@post.com',
                         'smtp-host': 'localhost',
@@ -38,8 +38,8 @@ module.exports = [
                     status: 'success',
                     data: {
                         'language': 'en',
-                        'title': '',
-                        'layout': 'full-width',
+                        'title': 'Support Center',
+                        'layout': 'boxed',
                         'reCaptchaKey': '6LfM5CYTAAAAAGLz6ctpf-hchX2_l0Ge-Bn-n8wS',
                         'maintenance-mode': false,
                         'departments': [

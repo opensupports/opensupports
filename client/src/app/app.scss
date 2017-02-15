@@ -25,10 +25,12 @@
                 }
             }
 
+            &--content {
+                position: relative;
+            }
+
             &-footer {
                 height: 40px;
-                //position: fixed;
-                //bottom: 0;
 
                 &--powered {
                     padding-top: 9px;
@@ -37,14 +39,122 @@
         }
 
         .main-home-page {
-            width: 1100px;
             margin: 0 auto;
+
+            .widget {
+                background-color: $very-light-grey;
+            }
         }
 
-        .main-signup-page {
+        .signup-widget {
+            background-color: $very-light-grey;
+        }
+        
+        .dashboard {
 
-            .signup-widget__captcha {
-                margin-left: 290px;
+            .widget {
+                background-color: transparent;
+            }
+
+            &__menu {
+                margin-left: -5px;
+                margin-top: -20px;
+                padding: 0;
+                background-color: $very-light-grey;
+                height: 100%;
+                position: absolute;
+
+                .menu__list {
+                    background-color: transparent;
+                    height: 100%;
+                    position: relative;
+                }
+
+                .menu__header {
+                    border-top-left-radius: 0;
+                    border-top-right-radius: 0;
+                    background-color: $secondary-blue;
+                    text-align: right;
+                }
+            }
+
+            &__content {
+                margin-top: -10px;
+            }
+
+            @media screen and (max-width: 992px) {
+
+                .dashboard__menu {
+                    position: static;
+                }
+            }
+        }
+
+        &__widget {
+            background-color: $very-light-grey;
+        }
+
+        @media screen and (max-width: 467px) {
+
+            .input {
+                width: 250px;
+            }
+        }
+
+        &.application_user-system {
+
+            .main-layout {
+                background-color: white;
+            }
+
+            .main-home-page {
+
+                &__login-widget {
+                    position: absolute;
+                }
+
+                &__portal-wrapper {
+                    margin-left: 360px;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                }
+
+                @media screen and (max-width: 992px) {
+                    .main-home-page {
+
+                        &__login-widget,
+                        &__portal-wrapper {
+                            float: none;
+                            width: initial;
+                            margin-left: 0;
+                            position: static;
+                        }
+                    }
+                }
+            }
+        }
+
+        @media screen and (max-width: 379px) {
+
+            .main-home-page {
+
+                .widget {
+                    min-width: 313px !important;
+                    width: initial !important;
+                }
+            }
+        }
+    }
+
+    &_user-system {
+        @media screen and (max-width: 379px) {
+
+            .main-home-page {
+
+                .widget {
+                    min-width: initial;
+                    width: 283px;
+                }
             }
         }
     }
