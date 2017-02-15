@@ -33,7 +33,13 @@ abstract class Controller {
         self::$dataRequester = function ($key) {
             $app = self::getAppInstance();
 
-            return $app->request()->post($key);
+            $value = $app->request()->post($key);
+
+            if(!$value) {
+                $value = $app->request()->get($key);
+            }
+
+            return $value;
         };
     }
 

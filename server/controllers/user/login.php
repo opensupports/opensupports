@@ -41,7 +41,7 @@ class LoginController extends Controller {
 
             Response::respondSuccess($this->getUserData());
         } else {
-            Response::respondError(Controller::request('email'));
+            Response::respondError(ERRORS::INVALID_CREDENTIALS);
         }
     }
 
