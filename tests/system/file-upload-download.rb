@@ -32,7 +32,7 @@ describe 'File Upload and Download' do
             'csrf_userid' => $csrf_userid,
             'csrf_token' => $csrf_token,
             'file' => ticket['file']
-        })
+        }, 'GET')
 
         (result.body).should.equal(file.read)
     end
@@ -47,7 +47,7 @@ describe 'File Upload and Download' do
             'csrf_userid' => $csrf_userid,
             'csrf_token' => $csrf_token,
             'file' => ticket['file']
-        })
+        }, 'GET')
 
         (result.body).should.equal('')
     end
@@ -66,7 +66,7 @@ describe 'File Upload and Download' do
             'csrf_userid' => $csrf_userid,
             'csrf_token' => $csrf_token,
             'file' => ticket['file']
-        })
+        }, 'GET')
 
         (result.body).should.equal(file.read)
     end

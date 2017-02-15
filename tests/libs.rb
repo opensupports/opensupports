@@ -1,10 +1,15 @@
 $agent = Mechanize.new
 
-def plainRequest(path, data = {})
+def plainRequest(path, data = {}, method = 'POST')
     uri = 'http://localhost:8080' + path
-    response = $agent.post(uri, data)
 
-    return response
+    if method == 'POST'
+        @response = $agent.post(uri, data)
+    else
+        @response = $agent.get(uri, data)
+    end
+
+    return @response
 end
 
 def request(path, data = {})
