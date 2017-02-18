@@ -39,6 +39,10 @@ class Session {
         return $this->getStoredData('ticketNumber');
     }
 
+    public function getUserId() {
+        return $this->getStoredData('userId');
+    }
+
     public function getToken() {
         return $this->getStoredData('token');
     }

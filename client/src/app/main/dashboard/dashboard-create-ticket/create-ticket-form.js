@@ -119,6 +119,7 @@ class CreateTicketForm extends React.Component {
 
             API.call({
                 path: '/ticket/create',
+                dataAsForm: true,
                 data: _.extend({}, formState, {
                     captcha: captcha && captcha.getValue(),
                     departmentId: SessionStore.getDepartments()[formState.departmentIndex].id

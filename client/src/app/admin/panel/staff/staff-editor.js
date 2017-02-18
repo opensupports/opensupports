@@ -73,7 +73,7 @@ class StaffEditor extends React.Component {
                             </div>
                             <label className={this.getPictureWrapperClass()}>
                                 <div className="staff-editor__card-pic-background"></div>
-                                <img className="staff-editor__card-pic" src={this.props.profilePic} />
+                                <img className="staff-editor__card-pic" src={(this.props.profilePic) ? API.getFileLink(this.props.profilePic) : (API.getURL() + '/images/logo.png')} />
                                 {(this.state.loadingPicture) ? <Loading className="staff-editor__card-pic-loading" size="large"/> : <Icon className="staff-editor__card-pic-icon" name="upload" size="4x"/>}
                                 <input className="staff-editor__image-uploader" type="file" multiple={false} accept="image/x-png,image/gif,image/jpeg" onChange={this.onProfilePicChange.bind(this)}/>
                             </label>
@@ -306,6 +306,7 @@ class StaffEditor extends React.Component {
 
         API.call({
             path: '/staff/edit',
+            dataAsForm: true,
             data: {
                 staffId: this.props.staffId,
                 file: event.target.files[0]

@@ -2,6 +2,10 @@
 
 .staff-editor {
 
+    &__image-uploader {
+        opacity: 0;
+    }
+
     &__card {
         background-color: $primary-red;
         position: relative;
@@ -10,10 +14,6 @@
         text-align: center;
         border: 2px solid $grey;
         margin-bottom: 20px;
-
-        &__image-uploader {
-            opacity: 0;
-        }
 
         &-pic {
             height: 100%;
@@ -45,7 +45,7 @@
 
             &-wrapper {
                 transition: opacity 0.2s ease;
-                background-color: $grey;
+                background-color: white;
                 position: absolute;
                 top: 20px;
                 border: 4px solid $grey;

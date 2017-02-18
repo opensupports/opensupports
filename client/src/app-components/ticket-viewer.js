@@ -323,6 +323,7 @@ class TicketViewer extends React.Component {
 
         API.call({
             path: '/ticket/comment',
+            dataAsForm: true,
             data: _.extend({
                 ticketNumber: this.props.ticket.ticketNumber
             }, formState)

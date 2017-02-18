@@ -3,6 +3,7 @@ import _ from 'lodash';
 import {connect}  from 'react-redux';
 
 import i18n from 'lib-app/i18n';
+import API from 'lib-app/api-call';
 import SessionActions from 'actions/session-actions';
 
 import Form from 'core-components/form';
@@ -16,7 +17,7 @@ class AdminLoginPage extends React.Component {
         return (
             <div className="admin-login-page">
                 <Widget className="admin-login-page__content">
-                    <div className="admin-login-page__image"><img width="100%" src="/images/logo.png" alt="OpenSupports Admin Panel"/></div>
+                    <div className="admin-login-page__image"><img width="100%" src={API.getURL() + '/images/logo.png'} alt="OpenSupports Admin Panel"/></div>
                     <div className="admin-login-page__login-form">
                         <Form onSubmit={this.onSubmit.bind(this)} loading={this.props.session.pending}>
                             <FormField name="email" label={i18n('EMAIL')} field="input" validation="EMAIL" fieldProps={{size:'large'}} required />

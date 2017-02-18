@@ -223,25 +223,8 @@ class TicketEvent extends React.Component {
         const fileName = filePath.replace(/^.*[\\\/]/, '');
 
         return (
-            <span onClick={this.onFileClick.bind(this, filePath)}>{fileName}</span>
+            <a href={API.getFileLink(filePath)}>{fileName}</a>
         )
-    }
-
-    onFileClick(filePath) {
-        API.call({
-            path: '/system/download',
-            plain: true,
-            data: {
-                file: filePath
-            }
-        }).then((result) => {
-            let contentType = 'application/octet-stream';
-            let link = document.createElement('a');
-            let blob = new Blob([result], {'type': contentType});
-            link.href = window.URL.createObjectURL(blob);
-            link.download = filePath;
-            link.click();
-        });
     }
 }
 

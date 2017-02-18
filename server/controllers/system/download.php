@@ -8,7 +8,7 @@ class DownloadController extends Controller {
 
     public function validations() {
         return [
-            'permission' => 'user',
+            'permission' => 'any',
             'requestData' => [
                 'file' => [
                     'validation' => DataValidator::alnum('_.-')->noWhitespace(),
@@ -20,23 +20,32 @@ class DownloadController extends Controller {
 
     public function handler() {
         $fileName = Controller::request('file');
+        $staffUser = Staff::getDataStore($fileName, 'profilePic');
 
-        $loggedUser = Controller::getLoggedUser();
-        $ticket = Ticket::getTicket($fileName, 'file');
+        if($staffUser->isNull()) {
+            $loggedUser = Controller::getLoggedUser();
 
-        if($ticket->isNull() || ($this->isNotAuthor($ticket, $loggedUser) && $this->isNotOwner($ticket, $loggedUser))) {
-            $ticketEvent = Ticketevent::getDataStore($fileName, 'file');
-
-            if($ticketEvent->isNull()) {
+            if($loggedUser->isNull()) {
                 print '';
                 return;
             }
 
-            $ticket = $ticketEvent->ticket;
+            $ticket = Ticket::getTicket($fileName, 'file');
 
-            if($this->isNotAuthor($ticket, $loggedUser) && $this->isNotOwner($ticket, $loggedUser)) {
-                print '';
-                return;
+            if($ticket->isNull() || ($this->isNotAuthor($ticket, $loggedUser) && $this->isNotOwner($ticket, $loggedUser))) {
+                $ticketEvent = Ticketevent::getDataStore($fileName, 'file');
+
+                if($ticketEvent->isNull()) {
+                    print '';
+                    return;
+                }
+
+                $ticket = $ticketEvent->ticket;
+
+                if($this->isNotAuthor($ticket, $loggedUser) && $this->isNotOwner($ticket, $loggedUser)) {
+                    print '';
+                    return;
+                }
             }
         }
 

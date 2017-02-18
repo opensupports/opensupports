@@ -3,15 +3,25 @@ const $ = require('jquery');
 
 const APIUtils = {
 
-    getPromise(path, method, data) {
+    getPromise(path, method, data, dataAsForm) {
         return (resolve, reject) => {
-            $.ajax({
+            let options = {
                 url: path,
                 method: method,
-                data: data,
-                processData: false,
-                contentType: false
-            })
+                data: data
+            };
+            
+            if(dataAsForm) {
+                options = {
+                    url: path,
+                    type: method,
+                    data: data,
+                    processData: false,
+                    contentType: false
+                };
+            }
+            
+            $.ajax(options)
             .done(resolve)
             .fail((jqXHR, textStatus) => {
                 reject(textStatus);
@@ -23,8 +33,8 @@ const APIUtils = {
         return new Promise(this.getPromise(path, 'GET'));
     },
 
-    post(path, data) {
-        return new Promise(this.getPromise(path, 'POST', data));
+    post(path, data, dataAsForm) {
+        return new Promise(this.getPromise(path, 'POST', data, dataAsForm));
     },
 
     patch(path, data) {

@@ -33,10 +33,10 @@ abstract class Controller {
         self::$dataRequester = function ($key) {
             $app = self::getAppInstance();
 
-            $value = $app->request()->post($key);
-
-            if(!$value) {
+            if (Controller::getAppInstance()->request()->isGet()) {
                 $value = $app->request()->get($key);
+            } else {
+                $value = $app->request()->post($key);
             }
 
             return $value;
@@ -55,9 +55,9 @@ abstract class Controller {
         $session = Session::getInstance();
 
         if ($session->isStaffLogged()) {
-            return Staff::getUser((int)self::request('csrf_userid'));
+            return Staff::getUser($session->getUserId());
         } else {
-            return User::getUser((int)self::request('csrf_userid'));
+            return User::getUser($session->getUserId());
         }
     }
 
