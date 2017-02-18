@@ -10,7 +10,7 @@ describe'/staff/add' do
             email: 'tyrion@opensupports.com',
             password: 'testpassword',
             level: 2,
-            profilePic: 'http://www.opensupports.com/profilepic.jpg',
+            profilePic: '',
             departments: '[1]'
         })
 
@@ -20,7 +20,7 @@ describe'/staff/add' do
 
         (row['name']).should.equal('Tyrion Lannister')
         (row['email']).should.equal('tyrion@opensupports.com')
-        (row['profile_pic']).should.equal('http://www.opensupports.com/profilepic.jpg')
+        (row['profile_pic']).should.equal('')
         (row['level']).should.equal('2')
 
         row = $database.getRow('department', 1, 'id')
@@ -38,7 +38,7 @@ describe'/staff/add' do
             email: 'tyrion@opensupports.com',
             password: 'testpassword',
             level: 2,
-            profilePic: 'http://www.opensupports.com/profilepic.jpg',
+            profilePic: '',
             departments: '[1]'
         })
 

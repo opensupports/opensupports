@@ -39,7 +39,7 @@ describe'/staff/edit' do
             password: 'starkpassword',
             email: 'arya@opensupports.com',
             level: 2,
-            profilePic: 'http://www.opensupports.com/profilepic.jpg',
+            profilePic: '',
             departments: '[1]'
         })
         request('/user/logout')

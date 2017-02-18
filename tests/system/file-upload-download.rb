@@ -71,4 +71,26 @@ describe 'File Upload and Download' do
         (result.body).should.equal(file.read)
     end
 
+    it 'should upload profile picture' do
+        file = File.new('../server/files/profile.jpg', 'w+')
+        file.puts('file content')
+        file.close
+
+        request('/staff/edit', {
+            'csrf_userid' => $csrf_userid,
+            'csrf_token' => $csrf_token,
+            'staffId' => $csrf_userid,
+            'file' => File.open( "../server/files/profile.jpg")
+        })
+
+        user = $database.getRow('staff', $csrf_userid)
+
+        result = plainRequest('/system/download', {
+            'csrf_userid' => $csrf_userid,
+            'csrf_token' => $csrf_token,
+            'file' => user['profile_pic']
+        }, 'GET')
+
+        (result.body).should.include('file content')
+    end
 end
