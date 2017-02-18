@@ -134,10 +134,10 @@ class Stats extends React.Component {
         API.call({
             path: '/system/get-stats',
             data: this.getApiCallData(periodName)
-        }).then(this.onRetrieveSuccess.bind(this, period));
+        }).then(this.onRetrieveSuccess.bind(this));
     }
 
-    onRetrieveSuccess(period, result) {
+    onRetrieveSuccess(result) {
         let newStats = this.getDefaultStats();
 
         let newStrokes = this.getStrokes().map((name) => {
@@ -149,7 +149,7 @@ class Stats extends React.Component {
 
         let realPeriod = result.data.length / this.getStrokes().length;
 
-        result.data.map((item) => {
+        result.data.reverse().map((item) => {
             newStats[item.type] += item.value * 1;
 
             newStrokes[ ID[item.type] ].values.push({

@@ -123,16 +123,16 @@ class GetStatsController extends Controller {
         $daysToRetrieve = 0;
 
         switch ($period) {
-            case 'week':
+            case 'WEEK':
                 $daysToRetrieve = 7;
                 break;
-            case 'month':
+            case 'MONTH':
                 $daysToRetrieve = 30;
                 break;
-            case 'quarter':
+            case 'QUARTER':
                 $daysToRetrieve = 90;
                 break;
-            case 'year':
+            case 'YEAR':
                 $daysToRetrieve = 365;
                 break;
         }

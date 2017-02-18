@@ -44,7 +44,7 @@ class InitSettingsController extends Controller {
             'url' => 'http://www.opensupports.com/support',
             'registration' => true,
             'user-system-enabled' => true,
-            'last-stat-day' => '20170101', //TODO: get current date
+            'last-stat-day' => date('YmdHi', strtotime(' -12 day ')), //TODO: get current date
             'ticket-gap' => Hashing::generateRandomPrime(100000, 999999),
             'file-gap' => Hashing::generateRandomPrime(100000, 999999),
             'file-first-number' => Hashing::generateRandomNumber(100000, 999999),
