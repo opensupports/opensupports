@@ -1,5 +1,7 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+import classNames from 'classnames';
+import {browserHistory} from 'react-router';
+import {connect} from 'react-redux';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -25,7 +27,7 @@ class MainCheckTicketPage extends React.Component {
 
     render() {
         return (
-            <div className="main-check-ticket-page">
+            <div className={this.getClass()}>
                 <Widget>
                     <Header title={i18n('CHECK_TICKET')} description={i18n('VIEW_TICKET_DESCRIPTION')} />
                     <Form {...this.getFormProps()}>
@@ -45,6 +47,15 @@ class MainCheckTicketPage extends React.Component {
                 </Widget>
             </div>
         );
+    }
+
+    getClass() {
+        let classes = {
+            'main-check-ticket-page': true,
+            'col-md-10 col-md-offset-1': (!this.props.config['user-system-enabled'])
+        };
+
+        return classNames(classes);
     }
 
     getFormProps() {
@@ -92,4 +103,8 @@ class MainCheckTicketPage extends React.Component {
     }
 }
 
-export default MainCheckTicketPage;
+export default connect((store) => {
+    return {
+        config: store.config
+    };
+})(MainCheckTicketPage);

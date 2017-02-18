@@ -213,7 +213,7 @@ class AdminPanelSystemPreferences extends React.Component {
                 'reCaptchaPrivate': result.data.reCaptchaPrivate,
                 'url': result.data['url'],
                 'title': result.data['title'],
-                'layout': result.data['layout'] == 'Full width' ? 1 : 0,
+                'layout': result.data['layout'] == 'full-width' ? 1 : 0,
                 'time-zone': result.data['time-zone'],
                 'no-reply-email': result.data['no-reply-email'],
                 'smtp-host': result.data['smtp-host'],

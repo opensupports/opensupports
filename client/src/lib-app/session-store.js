@@ -58,6 +58,10 @@ class SessionStore {
         this.setItem('departments', JSON.stringify(configs.departments));
         this.setItem('allowedLanguages', JSON.stringify(configs.allowedLanguages));
         this.setItem('supportedLanguages', JSON.stringify(configs.supportedLanguages));
+        this.setItem('layout', configs.layout);
+        this.setItem('title', configs.title);
+        this.setItem('registration', configs.registration);
+        this.setItem('user-system-enabled', configs['user-system-enabled']);
     }
 
     getConfigs() {
@@ -66,7 +70,11 @@ class SessionStore {
             reCaptchaKey: this.getItem('reCaptchaKey'),
             departments: this.getDepartments(),
             allowedLanguages: JSON.parse(this.getItem('allowedLanguages')),
-            supportedLanguages: JSON.parse(this.getItem('supportedLanguages'))
+            supportedLanguages: JSON.parse(this.getItem('supportedLanguages')),
+            layout: this.getItem('layout'),
+            registration: this.getItem('registration'),
+            title: this.getItem('title'),
+            ['user-system-enabled']: this.getItem('user-system-enabled')
         };
     }
 

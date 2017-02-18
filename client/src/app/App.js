@@ -3,6 +3,7 @@ import _                  from 'lodash';
 import classNames         from 'classnames';
 import { connect }        from 'react-redux'
 import { browserHistory } from 'react-router';
+import DocumentTitle      from 'react-document-title';
 
 import ModalContainer from 'app-components/modal-container';
 
@@ -33,19 +34,23 @@ class App extends React.Component {
 
     render() {
         return (
-          <div className={this.getClass()}>
-              <div className="application__content">
-                {React.cloneElement(this.props.children, {})}
-              </div>
-              <ModalContainer />
-          </div>
+            <DocumentTitle title={this.props.config.title}>
+                <div className={this.getClass()}>
+                    <div className="application__content">
+                        {React.cloneElement(this.props.children, {})}
+                    </div>
+                    <ModalContainer />
+                </div>
+            </DocumentTitle>
         );
     }
 
     getClass() {
         let classes = {
             'application': true,
-            'application_modal-opened': (this.props.modal.opened)
+            'application_modal-opened': (this.props.modal.opened),
+            'application_full-width': (this.props.config.layout === 'full-width' && !_.includes(this.props.location.pathname, '/admin')),
+            'application_user-system': (this.props.config['user-system-enabled'])
         };
 
         return classNames(classes);

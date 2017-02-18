@@ -76,7 +76,8 @@ class DashboardListArticlesPage extends React.Component {
     getClass() {
         let classes = {
             'dashboard-list-articles-page': true,
-            'dashboard-list-articles-page_wrapped': (this.props.location.pathname == '/articles')
+            'dashboard-list-articles-page_wrapped': (this.props.location.pathname == '/articles'),
+            'col-md-10 col-md-offset-1': (!this.props.config['user-system-enabled'])
         };
 
         return classNames(classes);
@@ -124,6 +125,7 @@ class DashboardListArticlesPage extends React.Component {
 
 export default connect((store) => {
     return {
+        config: store.config,
         topics: store.articles.topics,
         loading: store.articles.loading
     };

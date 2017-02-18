@@ -24,7 +24,7 @@ class DashboardMenu extends React.Component {
 
     getProps() {
         return {
-            header: 'Dashboard',
+            header: i18n('DASHBOARD'),
             items: this.getMenuItems(),
             selectedIndex: this.getSelectedIndex(),
             onItemClick: this.onItemClick.bind(this),
