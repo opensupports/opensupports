@@ -27,8 +27,6 @@ let renderApplication = function () {
     render(<Provider store={store}>{routes}</Provider>, document.getElementById('app'));
 };
 window.store = store;
-store.dispatch(ConfigActions.init());
-store.dispatch(SessionActions.initSession());
 
 let unsubscribe = store.subscribe(() => {
     console.log(store.getState());
@@ -38,3 +36,6 @@ let unsubscribe = store.subscribe(() => {
         renderApplication();
     }
 });
+
+store.dispatch(ConfigActions.init());
+store.dispatch(SessionActions.initSession());

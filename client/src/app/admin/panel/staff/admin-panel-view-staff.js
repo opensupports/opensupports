@@ -1,9 +1,11 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
+import {connect} from 'react-redux';
 import _ from 'lodash';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
+import SessionActions from 'actions/session-actions';
 
 import StaffEditor from 'app/admin/panel/staff/staff-editor';
 import Header from 'core-components/header';
@@ -17,12 +19,7 @@ class AdminPanelViewStaff extends React.Component {
     };
 
     componentDidMount() {
-        API.call({
-            path: '/staff/get',
-            data: {
-                staffId: this.props.params.staffId
-            }
-        }).then(this.onStaffRetrieved.bind(this));
+        this.retrieveStaff();
     }
 
     render() {
@@ -37,8 +34,18 @@ class AdminPanelViewStaff extends React.Component {
     getProps() {
         return _.extend({}, this.state.userData, {
             staffId: this.props.params.staffId * 1,
-            onDelete: this.onDelete.bind(this)
+            onDelete: this.onDelete.bind(this),
+            onChange: this.retrieveStaff.bind(this)
         });
+    }
+
+    retrieveStaff() {
+        API.call({
+            path: '/staff/get',
+            data: {
+                staffId: this.props.params.staffId
+            }
+        }).then(this.onStaffRetrieved.bind(this));
     }
 
     onStaffRetrieved(result) {
@@ -46,6 +53,10 @@ class AdminPanelViewStaff extends React.Component {
             loading: false,
             userData: result.data
         });
+
+        if(this.props.userId == this.props.params.staffId) {
+            this.props.dispatch(SessionActions.getUserData(null, null, true))
+        }
     }
 
     onDelete() {
@@ -53,4 +64,4 @@ class AdminPanelViewStaff extends React.Component {
     }
 }
 
-export default AdminPanelViewStaff;
+export default connect((store) => store.session)(AdminPanelViewStaff);

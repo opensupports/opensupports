@@ -26,10 +26,7 @@ class AdminPanelStaffMembers extends React.Component {
     };
 
     componentDidMount() {
-        API.call({
-            path: '/staff/get-all',
-            data: {}
-        }).then(this.onStaffRetrieved.bind(this));
+        this.retrieveStaffMembers();
     }
 
     render() {
@@ -48,7 +45,7 @@ class AdminPanelStaffMembers extends React.Component {
     }
 
     onAddNewStaff() {
-        ModalContainer.openModal(<AddStaffModal />);
+        ModalContainer.openModal(<AddStaffModal onSuccess={this.retrieveStaffMembers.bind(this)} />);
     }
 
     getDepartmentDropdownProps() {
@@ -78,6 +75,7 @@ class AdminPanelStaffMembers extends React.Component {
 
         return staffList.map(staff => {
             return _.extend({}, staff, {
+                profilePic: (staff.profilePic) ? API.getFileLink(staff.profilePic) : (API.getURL() + '/images/profile.png'),
                 name: (
                     <Link className="admin-panel-staff-members__link" to={'/admin/panel/staff/view-staff/' + staff.id}>
                         {staff.name}
@@ -97,6 +95,13 @@ class AdminPanelStaffMembers extends React.Component {
         });
 
         return departments;
+    }
+
+    retrieveStaffMembers() {
+        API.call({
+            path: '/staff/get-all',
+            data: {}
+        }).then(this.onStaffRetrieved.bind(this));
     }
 
     onStaffRetrieved(result) {

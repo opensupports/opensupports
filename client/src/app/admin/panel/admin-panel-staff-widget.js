@@ -25,7 +25,7 @@ class AdminPanelStaffWidget extends React.Component {
                     </div>
                 </div>
                 <div className="admin-panel-staff-widget__profile-pic-wrapper">
-                    <img className="admin-panel-staff-widget__profile-pic" src={(this.props.session.userProfilePic) ? API.getFileLink(this.props.session.userProfilePic) : (API.getURL() + '/images/logo.png')} />
+                    <img className="admin-panel-staff-widget__profile-pic" src={(this.props.session.userProfilePic) ? API.getFileLink(this.props.session.userProfilePic) : (API.getURL() + '/images/profile.png')} />
                 </div>
             </div>
         );

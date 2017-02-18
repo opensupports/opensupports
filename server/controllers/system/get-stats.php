@@ -10,7 +10,7 @@ class GetStatsController extends Controller {
             'permission' => 'staff_1',
             'requestData' => [
                 'period' => [
-                    'validation' => DataValidator::in(['week', 'month', 'quarter', 'year']),
+                    'validation' => DataValidator::in(['WEEK', 'MONTH', 'QUARTER', 'YEAR']),
                     'error' => ERRORS::INVALID_PERIOD
                 ]
             ]

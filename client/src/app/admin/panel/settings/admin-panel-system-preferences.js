@@ -167,7 +167,7 @@ class AdminPanelSystemPreferences extends React.Component {
                 'recaptcha-private': form.reCaptchaPrivate,
                 'url': form['url'],
                 'title': form['title'],
-                'layout': form['layout'] == 1 ? 'Full width' : 'Boxed',
+                'layout': form['layout'] ? 'full-width' : 'boxed',
                 'time-zone': form['time-zone'],
                 'no-reply-email': form['no-reply-email'],
                 'smtp-host': form['smtp-host'],
