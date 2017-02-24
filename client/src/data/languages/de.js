@@ -9,7 +9,7 @@ export default {
     'REPEAT_PASSWORD': 'Passwort wiederholen',
     'LOG_IN': 'Einloggen',
     'SIGN_UP': 'Anmelden',
-    'FORGOT_PASSWORD': 'Haben Sie Ihr Passwort vergessen?',
+    'FORGOT_PASSWORD': 'Passwort vergessen?',
     'RECOVER_PASSWORD': 'Passwort wiederherstellen',
     'RECOVER_SENT': 'Eine E-Mail mit Wiederherstellungsanweisungen wurde gesendet.',
     'NEW_PASSWORD': 'Neues Kennwort',
