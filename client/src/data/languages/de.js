@@ -14,7 +14,7 @@ export default {
     'RECOVER_SENT': 'Eine E-Mail mit Wiederherstellungs Anweisungen wurde gesendet.',
     'NEW_PASSWORD': 'Neues Passwort',
     'REPEAT_NEW_PASSWORD': 'Wiederhole das neue Passwort',
-    'BACK_LOGIN_FORM': 'Zurück zum Anmeldeformular',
+    'BACK_LOGIN_FORM': 'Zurück zum Einloggen Formular',
     'VIEW_ARTICLES': 'Artikel anzeigen',
     'EDIT_PROFILE': 'Profil bearbeiten',
     'CLOSE_SESSION': 'Sitzung beenden',
