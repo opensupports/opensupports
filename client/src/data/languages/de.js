@@ -12,7 +12,7 @@ export default {
     'FORGOT_PASSWORD': 'Passwort vergessen?',
     'RECOVER_PASSWORD': 'Passwort wiederherstellen',
     'RECOVER_SENT': 'Eine E-Mail mit Wiederherstellungs Anweisungen wurde gesendet.',
-    'NEW_PASSWORD': 'Neues Kennwort',
+    'NEW_PASSWORD': 'Neues Passwort',
     'REPEAT_NEW_PASSWORD': 'Wiederhole das neue Passwort',
     'BACK_LOGIN_FORM': 'Zurück zum Anmeldeformular',
     'VIEW_ARTICLES': 'Artikel anzeigen',
