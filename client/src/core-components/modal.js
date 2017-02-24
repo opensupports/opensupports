@@ -1,10 +1,12 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import {Motion, spring} from 'react-motion';
 
 class Modal extends React.Component {
     static propTypes = {
-        content: React.PropTypes.node
+        content: React.PropTypes.node,
+        noPadding: React.PropTypes.bool
     };
 
     render() {
@@ -30,12 +32,21 @@ class Modal extends React.Component {
 
     renderModal(animation) {
         return (
-            <div className="modal" style={{opacity: animation.fade}}>
+            <div className={this.getClass()} style={{opacity: animation.fade}}>
                 <div className="modal__content" style={{transform: 'scale(' + animation.scale + ')'}}>
                     {this.props.content}
                 </div>
             </div>
         )
+    }
+
+    getClass() {
+        let classes = {
+            'modal': true,
+            'modal_no-padding': this.props.noPadding
+        };
+
+        return classNames(classes);
     }
 }
 

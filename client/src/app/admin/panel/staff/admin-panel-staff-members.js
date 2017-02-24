@@ -68,9 +68,9 @@ class AdminPanelStaffMembers extends React.Component {
         if(!this.state.selectedDepartment) {
             staffList = this.state.staffList;
         } else {
-            staffList = _.filter(this.state.staffList, (o) => {
-                return _.findIndex(o.departments, {id: this.state.selectedDepartment}) !== -1;
-            })
+            staffList = _.filter(this.state.staffList, (staff) => {
+                return _.findIndex(staff.departments, {id: this.state.selectedDepartment}) !== -1;
+            });
         }
 
         return staffList.map(staff => {

@@ -31,6 +31,10 @@ class StaffEditor extends React.Component {
         onDelete: React.PropTypes.func
     };
 
+    static defaultProps = {
+        tickets: []
+    };
+
     state = {
         email: this.props.email,
         level: this.props.level - 1,

@@ -8,7 +8,7 @@ class AdminPanelStats extends React.Component {
 
     render() {
         return (
-            <div class="admin-panel-stats">
+            <div className="admin-panel-stats">
                 <Header title={i18n('STATISTICS')} description={i18n('STATISTICS_DESCRIPTION')}/>
                 <Stats type="general"/>
             </div>

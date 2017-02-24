@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import RichTextEditor from 'react-rte-browserify';
+import {connect}  from 'react-redux';
 
 import i18n  from 'lib-app/i18n';
 import API   from 'lib-app/api-call';
@@ -190,7 +191,7 @@ class TicketViewer extends React.Component {
                 <div className="ticket-viewer__response-field row">
                     <Form {...this.getCommentFormProps()}>
                         <FormField name="content" validation="TEXT_AREA" required field="textarea" />
-                        <FormField name="file" field="file"/>
+                        {(this.props.allowAttachments) ? <FormField name="file" field="file"/> : null}
                         <SubmitButton>{i18n('RESPOND_TICKET')}</SubmitButton>
                     </Form>
                 </div>
@@ -333,7 +334,9 @@ class TicketViewer extends React.Component {
     onCommentSuccess() {
         this.setState({
             loading: false,
-            commentError: false
+            commentValue: RichTextEditor.createEmptyValue(),
+            commentError: false,
+            commentEdited: false
         });
 
         this.onTicketModification();
@@ -353,4 +356,8 @@ class TicketViewer extends React.Component {
     }
 }
 
-export default TicketViewer;
+export default connect((store) => {
+    return {
+        allowAttachments: store.config['allow-attachments']
+    };
+})(TicketViewer);

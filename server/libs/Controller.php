@@ -79,7 +79,9 @@ abstract class Controller {
     }
     
     public function uploadFile() {
-        if(!isset($_FILES['file'])) return '';
+        $allowAttachments = Setting::getSetting('allow-attachments')->getValue();
+
+        if(!isset($_FILES['file']) || !$allowAttachments) return '';
 
         $maxSize = Setting::getSetting('max-size')->getValue();
         $fileGap = Setting::getSetting('file-gap')->getValue();

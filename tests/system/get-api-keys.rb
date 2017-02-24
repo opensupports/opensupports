@@ -1,15 +1,15 @@
-describe'system/get-all-keys' do
+describe'system/get-api-keys' do
         request('/user/logout')
         Scripts.login($staff[:email], $staff[:password], true)
 
-        it 'should get all  API keys' do
+        it 'should get all API keys' do
             Scripts.createAPIKey('namekey1')
             Scripts.createAPIKey('namekey2')
             Scripts.createAPIKey('namekey3')
             Scripts.createAPIKey('namekey4')
             Scripts.createAPIKey('namekey5')
             
-            result= request('/system/get-all-keys', {
+            result = request('/system/get-api-keys', {
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
             })

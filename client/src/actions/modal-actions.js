@@ -1,9 +1,9 @@
 
 export default {
-    openModal(content) {
+    openModal(config) {
         return {
             type: 'OPEN_MODAL',
-            payload: content
+            payload: config
         }
     },
 

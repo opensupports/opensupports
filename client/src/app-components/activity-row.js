@@ -68,7 +68,7 @@ class ActivityRow extends React.Component {
                     </Link>
                 </span>
                 <span className="activity-row__message"> {i18n('ACTIVITY_' + this.props.type)} </span>
-                {_.includes(ticketRelatedTypes, this.props.type) ? this.renderTicketNumber() : null}
+                {_.includes(ticketRelatedTypes, this.props.type) ? this.renderTicketNumber() : this.props.to}
                 <span className="separator" />
             </div>
         );

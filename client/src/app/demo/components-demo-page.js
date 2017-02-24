@@ -153,9 +153,7 @@ let DemoPage = React.createClass({
             title: 'ModalTrigger',
             render: (
                 <Button onClick={function () {
-                    ModalContainer.openModal(
-                        <AreYouSure description="I confirm I want to perform this action." onYes={()=> {alert('yes');}} />
-                    );
+                    AreYouSure.openModal('I confirm I want to perform this action.', ()=> {alert('yes');}, 'secure')
                 }}>
                     Open Modal
                 </Button>

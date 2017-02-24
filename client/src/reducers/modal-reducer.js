@@ -7,6 +7,7 @@ class ModalReducer extends Reducer {
     getInitialState() {
         return {
             opened: false,
+            noPadding: false,
             content: null
         };
     }
@@ -23,7 +24,8 @@ class ModalReducer extends Reducer {
 
         return _.extend({}, state, {
             opened: true,
-            content: payload
+            content: payload.content,
+            noPadding: payload.noPadding || false
         });
     }
 
@@ -32,7 +34,8 @@ class ModalReducer extends Reducer {
         
         return _.extend({}, state, {
             opened: false,
-            content: null
+            content: null,
+            noPadding: false
         });
     }
 }

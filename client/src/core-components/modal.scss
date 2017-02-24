@@ -18,4 +18,11 @@
         padding: 50px;
         box-shadow: 0 0 10px white;
     }
+
+    &_no-padding {
+
+        .modal__content {
+            padding: 0;
+        }
+    }
 }

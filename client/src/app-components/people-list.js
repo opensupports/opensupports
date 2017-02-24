@@ -13,7 +13,7 @@ class PeopleList extends React.Component {
             name: React.PropTypes.node,
             assignedTickets: React.PropTypes.number,
             closedTickets: React.PropTypes.number,
-            lastLogin: React.PropTypes.number
+            lastLogin: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string])
         })),
         pageSize: React.PropTypes.number,
         page: React.PropTypes.number,
