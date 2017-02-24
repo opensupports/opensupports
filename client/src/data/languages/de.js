@@ -1,9 +1,9 @@
 export default {
     'WELCOME': 'Herzlich Willkommen',
-    'TICKETS': 'Fahrkarten',
+    'TICKETS': 'Ticket',
     'ARTICLES': 'Artikel',
     'ACCOUNT': 'Konto',
-    'SUBMIT': 'einreichen',
+    'SUBMIT': 'Einreichen',
     'EMAIL': 'Email',
     'PASSWORD': 'Passwort',
     'REPEAT_PASSWORD': 'Passwort wiederholen',
