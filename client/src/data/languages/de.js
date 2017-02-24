@@ -11,7 +11,7 @@ export default {
     'SIGN_UP': 'Anmelden',
     'FORGOT_PASSWORD': 'Passwort vergessen?',
     'RECOVER_PASSWORD': 'Passwort wiederherstellen',
-    'RECOVER_SENT': 'Eine E-Mail mit Wiederherstellungsanweisungen wurde gesendet.',
+    'RECOVER_SENT': 'Eine E-Mail mit Wiederherstellungs Anweisungen wurde gesendet.',
     'NEW_PASSWORD': 'Neues Kennwort',
     'REPEAT_NEW_PASSWORD': 'Wiederhole das neue Passwort',
     'BACK_LOGIN_FORM': 'Zurück zum Anmeldeformular',
