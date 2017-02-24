@@ -1,5 +1,5 @@
 export default {
-    'WELCOME': 'Bem vinda',
+    'WELCOME': 'Bem-vindo',
     'TICKETS': 'Bilhetes',
     'ARTICLES': 'Artigos',
     'ACCOUNT': 'Conta',
