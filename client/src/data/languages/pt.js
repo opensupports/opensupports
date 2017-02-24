@@ -29,7 +29,7 @@ export default {
     'NO_ATTACHMENT': 'Nenhum anexo de arquivo',
     'STAFF': 'Funcionários',
     'CUSTOMER': 'Cliente',
-    'YES': 'sim',
+    'YES': 'SIM',
     'NO': 'Não',
     'CANCEL': 'Cancelar',
     'MY_ACCOUNT': 'Minha conta',
