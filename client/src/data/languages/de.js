@@ -1,5 +1,5 @@
 export default {
-    'WELCOME': 'Herzlich willkommen',
+    'WELCOME': 'Herzlich Willkommen',
     'TICKETS': 'Fahrkarten',
     'ARTICLES': 'Artikel',
     'ACCOUNT': 'Konto',
