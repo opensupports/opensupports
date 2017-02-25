@@ -4,20 +4,36 @@ import sessionStore from 'lib-app/session-store';
 import store from 'app/store';
 
 export default {
+
     login(loginData) {
         return {
             type: 'LOGIN',
-            payload: API.call({
-                path: '/user/login',
-                data: loginData
-            }).then((result) => {
-                store.dispatch(this.getUserData(result.data.userId, result.data.token, result.data.staff));
-                
-                if(result.data.staff) {
-                    store.dispatch(AdminDataActions.retrieveCustomResponses());
-                }
+            payload: new Promise((resolve, reject) => {
+                let loginCall = () => {
+                    API.call({
+                        path: '/user/login',
+                        data: loginData
+                    }).then((result) => {
+                        store.dispatch(this.getUserData(result.data.userId, result.data.token, result.data.staff));
 
-                return result;
+                        if(result.data.staff) {
+                            store.dispatch(AdminDataActions.retrieveCustomResponses());
+                        }
+
+                        resolve(result);
+                    }).catch((result) => {
+                        if(result.message === 'SESSION_EXISTS') {
+                            API.call({
+                                path: '/user/logout',
+                                data: {}
+                            }).then(loginCall);
+                        } else {
+                            reject(result);
+                        }
+                    })
+                };
+
+                loginCall();
             })
         };
     },
@@ -93,7 +109,7 @@ export default {
                     } else {
                         store.dispatch(this.autoLogin());
                     }
-                } else {
+                } else if(sessionStore.isLoggedIn()) {
                     store.dispatch({
                         type: 'SESSION_CHECKED'
                     });

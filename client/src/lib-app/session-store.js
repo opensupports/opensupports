@@ -74,10 +74,10 @@ class SessionStore {
             supportedLanguages: JSON.parse(this.getItem('supportedLanguages')),
             layout: this.getItem('layout'),
             title: this.getItem('title'),
-            registration: !!(this.getItem('registration') * 1),
-            'user-system-enabled': !!(this.getItem('user-system-enabled') * 1),
-            'allow-attachments': !!(this.getItem('allow-attachments') * 1),
-            'maintenance-mode': !!(this.getItem('maintenance-mode') * 1)
+            registration: (this.getItem('registration') * 1),
+            'user-system-enabled': (this.getItem('user-system-enabled') * 1),
+            'allow-attachments': (this.getItem('allow-attachments') * 1),
+            'maintenance-mode': (this.getItem('maintenance-mode') * 1)
         };
     }
 
