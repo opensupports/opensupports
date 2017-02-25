@@ -97,23 +97,31 @@ export default {
     initSession() {
         return {
             type: 'CHECK_SESSION',
-            payload: API.call({
-                path: '/user/check-session',
-                data: {}
-            }).then((result) => {
-                if (!result.data.sessionActive) {
-                    if (sessionStore.isRememberDataExpired()) {
+            payload: new Promise((resolve, reject) => {
+                API.call({
+                    path: '/user/check-session',
+                    data: {}
+                }).then((result) => {
+                    if (!result.data.sessionActive) {
+                        if (sessionStore.isRememberDataExpired()) {
+                            store.dispatch({
+                                type: 'LOGOUT_FULFILLED'
+                            });
+                        } else {
+                            store.dispatch(this.autoLogin());
+                        }
+
+                        resolve(result);
+                    } else if(sessionStore.isLoggedIn()) {
                         store.dispatch({
-                            type: 'LOGOUT_FULFILLED'
+                            type: 'SESSION_CHECKED'
                         });
+
+                        resolve(result);
                     } else {
-                        store.dispatch(this.autoLogin());
+                        reject(result);
                     }
-                } else if(sessionStore.isLoggedIn()) {
-                    store.dispatch({
-                        type: 'SESSION_CHECKED'
-                    });
-                }
+                });
             })
         }
     }
