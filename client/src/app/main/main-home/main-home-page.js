@@ -1,6 +1,7 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import classNames from 'classnames';
 
-import {connect}        from 'react-redux'
 import i18n from 'lib-app/i18n';
 
 import MainHomePageLoginWidget from 'app/main/main-home/main-home-page-login-widget';
@@ -13,11 +14,9 @@ class MainHomePage extends React.Component {
         return (
             <div className="main-home-page">
                 {this.renderMessage()}
-                <div className="col-md-4">
-                    <MainHomePageLoginWidget />
-                </div>
-                <div className="col-md-8">
-                    <MainHomePagePortal />
+                {(this.props.config['user-system-enabled']) ? this.renderLoginWidget() : null}
+                <div className={this.getPortalClass()}>
+                    <MainHomePagePortal type={((this.props.config['user-system-enabled']) ? 'default' : 'complete')}/>
                 </div>
             </div>
         );
@@ -32,6 +31,14 @@ class MainHomePage extends React.Component {
             default:
                 return null;
         }
+    }
+
+    renderLoginWidget() {
+        return (
+            <div className="col-md-4 main-home-page__login-widget">
+                <MainHomePageLoginWidget />
+            </div>
+        );
     }
 
     renderSuccess() {
@@ -49,10 +56,21 @@ class MainHomePage extends React.Component {
             </Message>
         );
     }
+
+    getPortalClass() {
+        let classes = {
+            'main-home-page__portal-wrapper': true,
+            'col-md-8': (this.props.config['user-system-enabled'] && this.props.config['layout'] === 'boxed'),
+            'col-md-10 col-md-offset-1' : (!this.props.config['user-system-enabled'])
+        };
+
+        return classNames(classes);
+    }
 }
 
 export default connect((store) => {
     return {
-        session: store.session
+        session: store.session,
+        config: store.config
     };
 })(MainHomePage);

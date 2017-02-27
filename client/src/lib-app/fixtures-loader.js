@@ -24,7 +24,7 @@ fixtures.add(require('data/fixtures/article-fixtures'));
 
 _.each(fixtures.getAll(), function (fixture) {
     mockjax({
-        contentType: 'application/json',
+        contentType: fixture.contentType || 'application/json',
         url: 'http://localhost:3000/api' + fixture.path,
         responseTime: fixture.time || 500,
         response: function (settings) {

@@ -2,7 +2,7 @@ import React              from 'react';
 import _                  from 'lodash';
 import ReCAPTCHA          from 'react-google-recaptcha';
 import { browserHistory } from 'react-router';
-import RichTextEditor from 'react-rte-browserify';
+import RichTextEditor     from 'react-rte-browserify';
 
 import i18n               from 'lib-app/i18n';
 import API                from 'lib-app/api-call';
@@ -10,6 +10,7 @@ import SessionStore       from 'lib-app/session-store';
 import store              from 'app/store';
 import SessionActions     from 'actions/session-actions';
 import LanguageSelector   from 'app-components/language-selector';
+import Captcha            from 'app/main/captcha';
 
 import Header             from 'core-components/header';
 import Form               from 'core-components/form';
@@ -34,6 +35,8 @@ class CreateTicketForm extends React.Component {
             title: '',
             content: RichTextEditor.createEmptyValue(),
             departmentIndex: 0,
+            email: '',
+            name: '',
             language: 'en'
         }
     };
@@ -56,6 +59,9 @@ class CreateTicketForm extends React.Component {
                         }}/>
                     </div>
                     <FormField label={i18n('CONTENT')} name="content" validation="TEXT_AREA" required field="textarea" />
+                    <div className="create-ticket-form__file">
+                        <FormField name="file" field="file" />
+                    </div>
                     {(!this.props.userLogged) ? this.renderCaptcha() : null}
                     <SubmitButton>Create Ticket</SubmitButton>
                 </Form>
@@ -76,7 +82,7 @@ class CreateTicketForm extends React.Component {
     renderCaptcha() {
         return (
             <div className="create-ticket-form__captcha">
-                <Captcha />
+                <Captcha ref="captcha"/>
             </div>
         );
     }
@@ -102,27 +108,38 @@ class CreateTicketForm extends React.Component {
     }
 
     onSubmit(formState) {
-        this.setState({
-            loading: true
-        });
+        let captcha = this.refs.captcha && this.refs.captcha.getWrappedInstance();
 
-        API.call({
-            path: '/ticket/create',
-            data: _.extend({}, formState, {
-                departmentId: SessionStore.getDepartments()[formState.departmentIndex].id
-            })
-        }).then(this.onTicketSuccess.bind(this)).catch(this.onTicketFail.bind(this));
+        if (captcha && !captcha.getValue()) {
+            captcha.focus();
+        } else {
+            this.setState({
+                loading: true
+            });
+
+            API.call({
+                path: '/ticket/create',
+                dataAsForm: true,
+                data: _.extend({}, formState, {
+                    captcha: captcha && captcha.getValue(),
+                    departmentId: SessionStore.getDepartments()[formState.departmentIndex].id
+                })
+            }).then(this.onTicketSuccess.bind(this, formState.email)).catch(this.onTicketFail.bind(this));
+        }
     }
 
-    onTicketSuccess() {
+    onTicketSuccess(email, result) {
         this.setState({
             loading: false,
             message: 'success'
         });
 
-        store.dispatch(SessionActions.getUserData());
-
-        setTimeout(() => {browserHistory.push('/dashboard')}, 2000);
+        if(this.props.userLogged) {
+            store.dispatch(SessionActions.getUserData());
+            setTimeout(() => {browserHistory.push('/dashboard')}, 2000);
+        } else {
+            setTimeout(() => {browserHistory.push('/check-ticket/' + email + '/' + result.data.ticketNumber)}, 2000);
+        }
     }
 
     onTicketFail() {

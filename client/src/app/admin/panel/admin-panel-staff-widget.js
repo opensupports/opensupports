@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import {connect}  from 'react-redux';
 
 import i18n from 'lib-app/i18n';
+import API from 'lib-app/api-call';
 import Button from 'core-components/button';
 import SessionActions from 'actions/session-actions';
 
@@ -24,7 +25,7 @@ class AdminPanelStaffWidget extends React.Component {
                     </div>
                 </div>
                 <div className="admin-panel-staff-widget__profile-pic-wrapper">
-                    <img className="admin-panel-staff-widget__profile-pic" src={this.props.session.userProfilePic} />
+                    <img className="admin-panel-staff-widget__profile-pic" src={(this.props.session.userProfilePic) ? API.getFileLink(this.props.session.userProfilePic) : (API.getURL() + '/images/logo.png')} />
                 </div>
             </div>
         );

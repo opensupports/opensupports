@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class GetMailTemplatesController extends Controller {
     const PATH = '/get-mail-templates';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

@@ -1,4 +1,6 @@
 import React from 'react';
+import _ from 'lodash';
+import {TransitionMotion, spring} from 'react-motion';
 
 import API from 'lib-app/api-call';
 import i18n from 'lib-app/i18n';
@@ -64,8 +66,26 @@ class AdminPanelActivity extends React.Component {
     renderList() {
         return (
             <div>
-                {this.state.activities.map(this.renderRow.bind(this))}
+                <TransitionMotion styles={this.getStyles()} willEnter={this.getEnterStyle.bind(this)}>
+                    {this.renderActivityList.bind(this)}
+                </TransitionMotion>
                 {(!this.state.limit) ? this.renderButton() : null}
+            </div>
+        );
+    }
+
+    renderActivityList(styles) {
+        return (
+            <div>
+                {styles.map(this.renderAnimatedItem.bind(this))}
+            </div>
+        );
+    }
+
+    renderAnimatedItem(config, index) {
+        return (
+            <div style={config.style} key={config.key}>
+                {this.renderRow(config.data, index)}
             </div>
         );
     }
@@ -82,6 +102,21 @@ class AdminPanelActivity extends React.Component {
         return (
             <ActivityRow key={index} mode={this.state.mode} {...row} />
         );
+    }
+
+    getStyles() {
+        return this.state.activities.map((item, index) => ({
+            key: index + '',
+            data: item,
+            style: {marginTop: spring(0), opacity: spring(1)}
+        }));
+    }
+
+    getEnterStyle() {
+        return {
+            marginTop: -20,
+            opacity: 0
+        };
     }
 
     onMenuItemClick(index) {

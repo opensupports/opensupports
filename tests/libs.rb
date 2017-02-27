@@ -1,5 +1,17 @@
 $agent = Mechanize.new
 
+def plainRequest(path, data = {}, method = 'POST')
+    uri = 'http://localhost:8080' + path
+
+    if method == 'POST'
+        @response = $agent.post(uri, data)
+    else
+        @response = $agent.get(uri, data)
+    end
+
+    return @response
+end
+
 def request(path, data = {})
     uri = 'http://localhost:8080' + path
     response = $agent.post(uri, data)
@@ -28,6 +40,10 @@ class Database
         queryResponse = @connection.query("select * from #{table} order by id desc limit 1")
 
         return queryResponse.fetch_hash
+    end
+
+    def query(query_string)
+        return @connection.query(query_string);
     end
 end
 

@@ -3,6 +3,7 @@ require_once 'libs/Validator.php';
 require_once 'models/Session.php';
 
 abstract class Controller {
+    private static $dataRequester;
 
     /**
      * Instance-related stuff
@@ -28,19 +29,35 @@ abstract class Controller {
         $validator->validate($this->validations());
     }
 
-    public static function request($key) {
-        $app = self::getAppInstance();
+    public static function init() {
+        self::$dataRequester = function ($key) {
+            $app = self::getAppInstance();
 
-        return $app->request()->post($key);
+            if (Controller::getAppInstance()->request()->isGet()) {
+                $value = $app->request()->get($key);
+            } else {
+                $value = $app->request()->post($key);
+            }
+
+            return $value;
+        };
+    }
+
+    public static function setDataRequester($dataRequester) {
+        self::$dataRequester = $dataRequester;
+    }
+
+    public static function request($key) {
+        return call_user_func(self::$dataRequester, $key);
     }
     
     public static function getLoggedUser() {
         $session = Session::getInstance();
 
         if ($session->isStaffLogged()) {
-            return Staff::getUser((int)self::request('csrf_userid'));
+            return Staff::getUser($session->getUserId());
         } else {
-            return User::getUser((int)self::request('csrf_userid'));
+            return User::getUser($session->getUserId());
         }
     }
 
@@ -59,5 +76,31 @@ abstract class Controller {
 
     public static function getAppInstance() {
         return \Slim\Slim::getInstance();
+    }
+    
+    public function uploadFile() {
+        if(!isset($_FILES['file'])) return '';
+
+        $maxSize = Setting::getSetting('max-size')->getValue();
+        $fileGap = Setting::getSetting('file-gap')->getValue();
+        $fileFirst = Setting::getSetting('file-first-number')->getValue();
+        $fileQuantity = Setting::getSetting('file-quantity');
+
+        $fileUploader = FileUploader::getInstance();
+        $fileUploader->setMaxSize($maxSize);
+        $fileUploader->setGeneratorValues($fileGap, $fileFirst, $fileQuantity->getValue());
+
+        if($fileUploader->upload($_FILES['file'])) {
+            $fileQuantity->value++;
+            $fileQuantity->store();
+
+            return $fileUploader;
+        } else {
+            throw new Exception(ERRORS::INVALID_FILE);
+        }
+    }
+    
+    public static function isUserSystemEnabled() {
+        return Setting::getSetting('user-system-enabled')->getValue();
     }
 }

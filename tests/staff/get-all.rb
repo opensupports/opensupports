@@ -12,7 +12,7 @@ describe'/staff/get-all' do
 
         (result['data'][0]['name']).should.equal('Emilia Clarke')
         (result['data'][0]['email']).should.equal('staff@opensupports.com')
-        (result['data'][0]['profilePic']).should.equal('http://www.opensupports.com/profilepic.jpg')
+        (result['data'][0]['profilePic']).should.equal('')
         (result['data'][0]['level']).should.equal('3')
         (result['data'][0]['departments'][0]['id']).should.equal('1')
         (result['data'][0]['departments'][0]['name']).should.equal('Tech Support')
@@ -25,7 +25,7 @@ describe'/staff/get-all' do
 
         (result['data'][1]['name']).should.equal('Arya Stark')
         (result['data'][1]['email']).should.equal('newwstaff@opensupports.com')
-        (result['data'][1]['profilePic']).should.equal('http://www.opensupports.com/profilepic.jpg')
+        (result['data'][1]['profilePic']).should.equal('')
         (result['data'][1]['level']).should.equal('2')
         (result['data'][1]['departments'][0]['id']).should.equal('1')
         (result['data'][1]['departments'][0]['name']).should.equal('Tech Support')

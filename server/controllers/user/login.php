@@ -2,6 +2,7 @@
 
 class LoginController extends Controller {
     const PATH = '/login';
+    const METHOD = 'POST';
 
     private $userInstance;
     private $rememberToken;
@@ -14,9 +15,12 @@ class LoginController extends Controller {
     }
 
     public function handler() {
+        if(!Controller::isUserSystemEnabled() && !Controller::request('staff')) {
+            throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
+        }
+        
         if ($this->isAlreadyLoggedIn()) {
-            Response::respondError(ERRORS::SESSION_EXISTS);
-            return;
+            throw new Exception(ERRORS::SESSION_EXISTS);
         }
 
         if ($this->checkInputCredentials() || $this->checkRememberToken()) {

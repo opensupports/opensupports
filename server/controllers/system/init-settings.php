@@ -2,6 +2,7 @@
 
 class InitSettingsController extends Controller {
     const PATH = '/init-settings';
+    const METHOD = 'POST';
 
     public function validations() {
         return [
@@ -38,10 +39,16 @@ class InitSettingsController extends Controller {
             'maintenance-mode' => 0,
             'layout' => 'boxed',
             'allow-attachments' => 0,
-            'max-size' => 0,
+            'max-size' => 1024,
             'title' => 'Support Center',
             'url' => 'http://www.opensupports.com/support',
-            'registration' => true 
+            'registration' => true,
+            'user-system-enabled' => true,
+            'last-stat-day' => '20170101', //TODO: get current date
+            'ticket-gap' => Hashing::generateRandomPrime(100000, 999999),
+            'file-gap' => Hashing::generateRandomPrime(100000, 999999),
+            'file-first-number' => Hashing::generateRandomNumber(100000, 999999),
+            'file-quantity' => 0
         ]);
     }
 
@@ -109,7 +116,7 @@ class InitSettingsController extends Controller {
             'name' => 'Emilia Clarke',
             'email' => 'staff@opensupports.com',
             'password' => Hashing::hashPassword('staff'),
-            'profilePic' => 'http://www.opensupports.com/profilepic.jpg',
+            'profilePic' => '',
             'level' => 3,
             'sharedDepartmentList' => Department::getAll(),
             'sharedTicketList' => []

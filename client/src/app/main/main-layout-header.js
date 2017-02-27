@@ -1,5 +1,5 @@
 import React              from 'react';
-import { connect }        from 'react-redux'
+import {connect}          from 'react-redux';
 
 import i18n               from 'lib-app/i18n';
 import ConfigActions      from 'actions/config-actions';
@@ -12,7 +12,7 @@ class MainLayoutHeader extends React.Component {
     render() {
         return (
             <div className="main-layout-header">
-                {this.renderAccessLinks()}
+                {(this.props.config['user-system-enabled']) ? this.renderAccessLinks() : this.renderHomeLink()}
                 <LanguageSelector {...this.getLanguageSelectorProps()} />
             </div>
         );
@@ -32,12 +32,20 @@ class MainLayoutHeader extends React.Component {
             result = (
                 <div className="main-layout-header__login-links">
                     <Button type="clean" route={{to:'/'}}>{i18n('LOG_IN')}</Button>
-                    <Button type="clean" route={{to:'/signup'}}>{i18n('SIGN_UP')}</Button>
+                    {(this.props.config['registration']) ? <Button type="clean" route={{to:'/signup'}}>{i18n('SIGN_UP')}</Button> : null}
                 </div>
             );
         }
 
         return result;
+    }
+
+    renderHomeLink() {
+        return (
+            <div className="main-layout-header__login-links">
+                <Button type="clean" route={{to:'/'}}>{i18n('HOME')}</Button>
+            </div>
+        );
     }
 
     getLanguageSelectorProps() {

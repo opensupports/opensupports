@@ -4,7 +4,8 @@ DataValidator::with('CustomValidations', true);
 
 class DeleteDepartmentController extends Controller {
     const PATH = '/delete-department';
-    
+    const METHOD = 'POST';
+
     private $departmentId;
     private $transferDepartmentId;
 

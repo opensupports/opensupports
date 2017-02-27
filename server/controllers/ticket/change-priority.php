@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class ChangePriorityController extends Controller {
     const PATH = '/change-priority';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

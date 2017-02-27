@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class UnBanUserController extends Controller {
     const PATH = '/un-ban';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

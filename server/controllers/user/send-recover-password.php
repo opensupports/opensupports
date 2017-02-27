@@ -4,6 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 class SendRecoverPasswordController extends Controller {
     const PATH = '/send-recover-password';
+    const METHOD = 'POST';
 
     private $token;
     private $user;
@@ -21,6 +22,10 @@ class SendRecoverPasswordController extends Controller {
     }
 
     public function handler() {
+        if(!Controller::isUserSystemEnabled()) {
+            throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
+        }
+        
         $email = Controller::request('email');
         $this->user = User::getUser($email,'email');
         

@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import i18n from 'lib-app/i18n';
+import API from 'lib-app/api-call';
 
 import DateTransformer from 'lib-core/date-transformer';
 import Icon from 'core-components/icon';
@@ -161,7 +162,7 @@ class TicketEvent extends React.Component {
         }
 
         return (
-            <div className="ticket-viewer__file">
+            <div className="ticket-event__file">
                 {node}
             </div>
         )
@@ -222,7 +223,7 @@ class TicketEvent extends React.Component {
         const fileName = filePath.replace(/^.*[\\\/]/, '');
 
         return (
-            <a href={filePath} target="_blank">{fileName}</a>
+            <a href={API.getFileLink(filePath)}>{fileName}</a>
         )
     }
 }

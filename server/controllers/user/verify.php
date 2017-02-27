@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class VerifyController extends Controller{
     const PATH = '/verify';
+    const METHOD = 'POST';
 
     public function validations() {
         return [
@@ -17,6 +18,10 @@ class VerifyController extends Controller{
     }
 
     public function handler() {
+        if(!Controller::isUserSystemEnabled()) {
+            throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
+        }
+        
         $email = Controller::request('email');
         $token = Controller::request('token');
 

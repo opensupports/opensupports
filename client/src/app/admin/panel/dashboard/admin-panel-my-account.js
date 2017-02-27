@@ -23,6 +23,7 @@ class AdminPanelMyAccount extends React.Component {
     getEditorProps() {
         return {
             myAccount: true,
+            staffId: this.props.userId,
             name: this.props.userName,
             email: this.props.userEmail,
             profilePic: this.props.userProfilePic,

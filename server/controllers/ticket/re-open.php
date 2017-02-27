@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class ReOpenController extends Controller {
     const PATH = '/re-open';
+    const METHOD = 'POST';
 
     private $ticket;
 

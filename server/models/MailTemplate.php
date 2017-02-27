@@ -8,6 +8,8 @@ class MailTemplate extends DataStore {
     const USER_PASSWORD = 'USER_PASSWORD';
     const PASSWORD_FORGOT = 'PASSWORD_FORGOT';
     const PASSWORD_RECOVERED = 'PASSWORD_RECOVERED';
+    const USER_SYSTEM_DISABLED = 'USER_SYSTEM_DISABLED';
+    const USER_SYSTEM_ENABLED = 'USER_SYSTEM_ENABLED';
     
     public static function getTemplate($type) {
         $globalLanguage = Setting::getSetting('language')->value;

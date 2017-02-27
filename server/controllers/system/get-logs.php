@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class GetLogsController extends Controller {
     const PATH = '/get-logs';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

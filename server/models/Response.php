@@ -9,8 +9,9 @@ class Response {
         );
 
         $app = \Slim\Slim::getInstance();
-        $app->response()->setBody(json_encode($response));
-        $app->response()->finalize();
+        $app->response->headers->set('Content-Type', 'application/json');
+        $app->response->setBody(json_encode($response));
+        $app->response->finalize();
     }
 
     public static function respondSuccess($data = null) {
@@ -20,7 +21,8 @@ class Response {
         );
 
         $app = \Slim\Slim::getInstance();
-        $app->response()->setBody(json_encode($response));
-        $app->response()->finalize();
+        $app->response->headers->set('Content-Type', 'application/json');
+        $app->response->setBody(json_encode($response));
+        $app->response->finalize();
     }
 }

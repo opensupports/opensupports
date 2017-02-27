@@ -4,6 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 class RecoverPasswordController extends Controller {
     const PATH = '/recover-password';
+    const METHOD = 'POST';
 
     private $email;
     private $token;
@@ -27,6 +28,10 @@ class RecoverPasswordController extends Controller {
     }
 
     public function handler() {
+        if(!Controller::isUserSystemEnabled()) {
+            throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
+        }
+        
         $this->requestData();
         $this->changePassword();
     }

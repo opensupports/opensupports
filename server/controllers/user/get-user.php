@@ -4,7 +4,8 @@ DataValidator::with('CustomValidations', true);
 
 class GetUserByIdController extends Controller {
     const PATH = '/get-user';
-    
+    const METHOD = 'POST';
+
     public function validations() {
         return [
             'permission' => 'staff_1',
@@ -18,6 +19,11 @@ class GetUserByIdController extends Controller {
     }
 
     public function handler() {
+        
+        if(!Controller::isUserSystemEnabled()) {
+            throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
+        }
+        
         $userId = Controller::request('userId');
         $user = User::getDataStore($userId);
         $staff = Controller::getLoggedUser();

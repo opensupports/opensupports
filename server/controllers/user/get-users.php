@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class GetUsersController extends Controller {
     const PATH = '/get-users';
+    const METHOD = 'POST';
 
     public function validations() {
         return[
@@ -21,6 +22,10 @@ class GetUsersController extends Controller {
     }
 
     public function handler() {
+        if(!Controller::isUserSystemEnabled()) {
+            throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
+        }
+        
         $userList = $this->getUserList();
         $userListArray = [];
 

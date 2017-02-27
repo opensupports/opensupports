@@ -6,6 +6,7 @@ DataValidator::with('CustomValidations', true);
 
 class DeleteUserController extends Controller {
     const PATH = '/delete';
+    const METHOD = 'POST';
 
     public function validations() {
         return [
@@ -20,6 +21,10 @@ class DeleteUserController extends Controller {
     }
 
     public function handler() {
+        if(!Controller::isUserSystemEnabled()) {
+            throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
+        }
+        
         $userId = Controller::request('userId');
         $user = User::getDataStore($userId);
 

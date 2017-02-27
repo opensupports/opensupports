@@ -1,17 +1,21 @@
 import React from 'react';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
 import SessionStore from 'lib-app/session-store';
 import TicketList from 'app-components/ticket-list';
 import AreYouSure from 'app-components/are-you-sure';
+import Stats from 'app-components/stats';
 
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
 import Message from 'core-components/message';
 import Button from 'core-components/button';
+import Icon from 'core-components/icon';
+import Loading from 'core-components/loading';
 
 class StaffEditor extends React.Component {
     static propTypes = {
@@ -31,6 +35,7 @@ class StaffEditor extends React.Component {
         email: this.props.email,
         level: this.props.level - 1,
         message: null,
+        loadingPicture: false,
         departments: this.getUserDepartments()
     };
     
@@ -66,9 +71,12 @@ class StaffEditor extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="staff-editor__card-pic-wrapper">
-                                <img className="staff-editor__card-pic" src={this.props.profilePic} />
-                            </div>
+                            <label className={this.getPictureWrapperClass()}>
+                                <div className="staff-editor__card-pic-background"></div>
+                                <img className="staff-editor__card-pic" src={(this.props.profilePic) ? API.getFileLink(this.props.profilePic) : (API.getURL() + '/images/logo.png')} />
+                                {(this.state.loadingPicture) ? <Loading className="staff-editor__card-pic-loading" size="large"/> : <Icon className="staff-editor__card-pic-icon" name="upload" size="4x"/>}
+                                <input className="staff-editor__image-uploader" type="file" multiple={false} accept="image/x-png,image/gif,image/jpeg" onChange={this.onProfilePicChange.bind(this)}/>
+                            </label>
                         </div>
                     </div>
                     <div className="col-md-8">
@@ -97,7 +105,8 @@ class StaffEditor extends React.Component {
                     </div>
                     <div className="col-md-8">
                         <div className="staff-editor__activity">
-                            ACTIVITY
+                            <div className="staff-editor__activity-title">{i18n('ACTIVITY')}</div>
+                            <Stats staffId={this.props.staffId} type="staff"/>
                         </div>
                     </div>
                 </div>
@@ -193,6 +202,15 @@ class StaffEditor extends React.Component {
         );
     }
 
+    getPictureWrapperClass() {
+        let classes = {
+            'staff-editor__card-pic-wrapper': true,
+            'staff-editor__card-pic-wrapper_loading': this.state.loadingPicture
+        };
+
+        return classNames(classes);
+    }
+
     getTicketListProps() {
         return {
             type: 'secondary',
@@ -278,6 +296,32 @@ class StaffEditor extends React.Component {
         }).then(this.props.onDelete).catch(() => {
             window.scrollTo(0,0);
             this.setState({message: 'FAIL'});
+        });
+    }
+
+    onProfilePicChange(event) {
+        this.setState({
+            loadingPicture: true
+        });
+
+        API.call({
+            path: '/staff/edit',
+            dataAsForm: true,
+            data: {
+                staffId: this.props.staffId,
+                file: event.target.files[0]
+            }
+        }).then(() => {
+            this.setState({
+                loadingPicture: false
+            });
+
+            if(this.props.onChange) {
+                this.props.onChange();
+            }
+        }).catch(() => {
+            window.scrollTo(0,0);
+            this.setState({message: 'FAIL', loadingPicture: false});
         });
     }
 }

@@ -3,6 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 class GetTicketStaffController extends Controller {
     const PATH = '/get-tickets';
+    const METHOD = 'POST';
 
     public function validations() {
         return [

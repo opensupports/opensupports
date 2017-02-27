@@ -1,12 +1,15 @@
 @import '../../../../scss/vars';
 
 .edit-profile-page {
+
     &__title {
         color: $dark-grey;
         font-size: 20px;
         text-align: left;
+        margin-bottom: 20px;
     }
-    &__message{
+
+    &__message {
         margin-top: 20px;
         margin-bottom: 20px;
     }
