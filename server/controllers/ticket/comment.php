@@ -60,7 +60,7 @@ class CommentController extends Controller {
         $ticketNumber = Controller::request('ticketNumber');
         $email = Controller::request('email');
         $this->ticket = Ticket::getByTicketNumber($ticketNumber);
-        $this->content = Controller::request('content');
+        $this->content = Controller::request('content', true);
         
         if(!Controller::isUserSystemEnabled() && $this->ticket->authorEmail !== $email && !Controller::isStaffLogged()) {
             throw new Exception(ERRORS::NO_PERMISSION);

@@ -22,7 +22,7 @@ class EditCustomResponseController extends Controller {
         $customResponse = CustomResponse::getDataStore(Controller::request('id'));
 
         if (Controller::request('content')) {
-            $customResponse->content = Controller::request('content');
+            $customResponse->content = Controller::request('content', true);
         }
 
         if (Controller::request('language')) {

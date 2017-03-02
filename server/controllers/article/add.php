@@ -30,7 +30,7 @@ class AddArticleController extends Controller {
         $article = new Article();
         $article->setProperties([
             'title' => Controller::request('title'),
-            'content' => Controller::request('content'),
+            'content' => Controller::request('content', true),
             'lastEdited' => Date::getCurrentDate(),
             'position' => Controller::request('position') || 1
         ]);

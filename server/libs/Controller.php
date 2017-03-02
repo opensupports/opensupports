@@ -47,8 +47,16 @@ abstract class Controller {
         self::$dataRequester = $dataRequester;
     }
 
-    public static function request($key) {
-        return call_user_func(self::$dataRequester, $key);
+    public static function request($key, $secure = false) {
+        $result = call_user_func(self::$dataRequester, $key);
+        
+        if($secure) {
+            $config = HTMLPurifier_Config::createDefault();
+            $purifier = new HTMLPurifier($config);
+            return $purifier->purify($result);
+        } else {
+            return $result;
+        }
     }
     
     public static function getLoggedUser() {

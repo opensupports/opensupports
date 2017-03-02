@@ -41,15 +41,6 @@ describe '/user/signup' do
 
         (result['status']).should.equal('fail')
         (result['message']).should.equal('INVALID_NAME')
-
-        result = request('/user/signup', {
-            name: 'tyri0n',
-            email: 'tyrion@outlook.com',
-            password: 'Lannister'
-        })
-
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_NAME')
     end
 
     it 'should fail if email is invalid' do
