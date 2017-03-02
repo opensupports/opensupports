@@ -1,12 +1,12 @@
 import React from 'react';
 import _ from 'lodash';
 import classNames from 'classnames';
-import RichTextEditor from 'react-rte-browserify';
 
 import {reactDFS, renderChildrenWithProps} from 'lib-core/react-dfs';
 import ValidationFactory from 'lib-app/validations/validations-factory';
 
 import FormField from 'core-components/form-field';
+import TextEditor from 'core-components/text-editor';
 
 class Form extends React.Component {
 
@@ -161,8 +161,8 @@ class Form extends React.Component {
         event.preventDefault();
 
         const form = _.mapValues(this.getFormValue(), (field) => {
-            if (field instanceof RichTextEditor.EditorValue) {
-                return field.toString('html');
+            if (TextEditor.isEditorState(field)) {
+                return TextEditor.getHTMLFromEditorState(field);
             } else {
                 return field;
             }

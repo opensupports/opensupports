@@ -40,7 +40,7 @@ module.exports = [
                 status: 'success',
                 data: [
                     {id: 1, name: 'Common issue #1', language: 'en', content: 'some content 1'},
-                    {id: 2, name: 'Common issue #2', language: 'en', content: 'some content 2'},
+                    {id: 2, name: 'Common issue #2', language: 'en', content: 'some <strong>content</strong> 2'},
                     {id: 3, name: 'Common issue #3', language: 'en', content: 'some content 3'},
                     {id: 4, name: 'H�ufiges Problem #1', language: 'de', content: 'einige Inhalte 1'},
                     {id: 5, name: 'H�ufiges Problem #2', language: 'de', content: 'einige Inhalte 2'}

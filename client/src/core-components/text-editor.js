@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import RichTextEditor from 'react-rte-browserify';
+import {Editor} from 'react-draft-wysiwyg';
+import {EditorState, ContentState, convertFromHTML} from 'draft-js';
+import {stateToHTML} from 'draft-js-export-html';
 
 class TextEditor extends React.Component {
     static propTypes = {
@@ -8,16 +10,38 @@ class TextEditor extends React.Component {
         onChange: React.PropTypes.func,
         value: React.PropTypes.object
     };
+    
+    static createEmpty() {
+        return EditorState.createEmpty()
+    }
+    
+    static getEditorStateFromHTML(htmlString) {
+        const blocksFromHTML = convertFromHTML(htmlString);
+        const state = ContentState.createFromBlockArray(
+            blocksFromHTML.contentBlocks,
+            blocksFromHTML.entityMap
+        );
+
+        return EditorState.createWithContent(state);
+    }
+
+    static getHTMLFromEditorState(editorState) {
+        return stateToHTML(editorState.getCurrentContent());
+    }
+    
+    static isEditorState(editorState) {
+        return editorState && editorState.getCurrentContent;
+    }
 
     state = {
-        value: RichTextEditor.createEmptyValue(),
+        value: EditorState.createEmpty(),
         focused: false
     };
 
     render() {
         return (
             <div className={this.getClass()}>
-                <RichTextEditor {...this.getEditorProps()} />
+                <Editor {...this.getEditorProps()} />
             </div>
         );
     }
@@ -36,12 +60,36 @@ class TextEditor extends React.Component {
 
     getEditorProps() {
         return {
-            className: 'text-editor__editor',
-            value: this.props.value || this.state.value,
+            wrapperClassName: 'text-editor__editor',
+            editorState: this.props.value || this.state.value,
             ref: 'editor',
-            onChange: this.onEditorChange.bind(this),
+            toolbar: this.getToolbarOptions(),
+            onEditorStateChange: this.onEditorChange.bind(this),
             onFocus: this.onEditorFocus.bind(this),
             onBlur: this.onBlur.bind(this)
+        };
+    }
+
+    getToolbarOptions() {
+        return {
+            options: ['inline', 'blockType', 'list', 'link', 'image'],
+            inline: {
+                inDropdown: false,
+                options: ['bold', 'italic', 'underline', 'strikethrough', 'monospace']
+            },
+            blockType: {
+                inDropdown: true,
+                options: [ 'Normal', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'Blockquote']
+            },
+            list: {
+                inDropdown: false,
+                options: ['unordered', 'ordered']
+            },
+            image: {
+                urlEnabled: true,
+                uploadEnabled: false,
+                alignmentEnabled: false
+            }
         };
     }
 
@@ -71,7 +119,7 @@ class TextEditor extends React.Component {
 
     focus() {
         if (this.refs.editor) {
-            this.refs.editor._focus();
+            this.refs.editor.focusEditor();
         }
     }
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
 import {connect}  from 'react-redux';
-import RichTextEditor from 'react-rte-browserify';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -18,6 +17,7 @@ import Loading from 'core-components/loading';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
+import TextEditor from 'core-components/text-editor';
 
 class AdminPanelCustomResponses extends React.Component {
     static defaultProps = {
@@ -31,7 +31,7 @@ class AdminPanelCustomResponses extends React.Component {
         errors: {},
         form: {
             title: '',
-            content: RichTextEditor.createEmptyValue(),
+            content: TextEditor.createEmpty(),
             language: 'en'
         }
     };
@@ -203,7 +203,7 @@ class AdminPanelCustomResponses extends React.Component {
         let form = _.clone(this.state.form);
 
         form.title = (this.props.items[index] && this.props.items[index].name) || '';
-        form.content = RichTextEditor.createValueFromString((this.props.items[index] && this.props.items[index].content) || '', 'html');
+        form.content = TextEditor.getEditorStateFromHTML((this.props.items[index] && this.props.items[index].content) || '');
         form.language = (this.props.items[index] && this.props.items[index].language) || 'en';
 
         this.setState({

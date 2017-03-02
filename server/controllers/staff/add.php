@@ -19,7 +19,7 @@ class AddStaffController extends Controller {
             'permission' => 'staff_3',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::length(2, 55)->alpha(),
+                    'validation' => DataValidator::length(2, 55),
                     'error' => ERRORS::INVALID_NAME
                 ],
                 'email' => [

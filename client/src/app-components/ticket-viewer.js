@@ -1,6 +1,5 @@
 import React from 'react';
 import _ from 'lodash';
-import RichTextEditor from 'react-rte-browserify';
 import {connect}  from 'react-redux';
 
 import i18n  from 'lib-app/i18n';
@@ -17,6 +16,7 @@ import DropDown           from 'core-components/drop-down';
 import Button             from 'core-components/button';
 import Message            from 'core-components/message';
 import Icon               from 'core-components/icon';
+import TextEditor         from 'core-components/text-editor';
 
 class TicketViewer extends React.Component {
     static propTypes = {
@@ -38,7 +38,7 @@ class TicketViewer extends React.Component {
 
     state = {
         loading: false,
-        commentValue: RichTextEditor.createEmptyValue(),
+        commentValue: TextEditor.createEmpty(),
         commentEdited: false
     };
 
@@ -305,7 +305,7 @@ class TicketViewer extends React.Component {
     onCustomResponsesChanged({index}) {
         let replaceContentWithCustomResponse = () => {
             this.setState({
-                commentValue: RichTextEditor.createValueFromString(this.props.customResponses[index-1].content || '', 'html'),
+                commentValue: TextEditor.getEditorStateFromHTML(this.props.customResponses[index-1].content || ''),
                 commentEdited: false
             });
         };
@@ -334,7 +334,7 @@ class TicketViewer extends React.Component {
     onCommentSuccess() {
         this.setState({
             loading: false,
-            commentValue: RichTextEditor.createEmptyValue(),
+            commentValue: TextEditor.createEmpty(),
             commentError: false,
             commentEdited: false
         });

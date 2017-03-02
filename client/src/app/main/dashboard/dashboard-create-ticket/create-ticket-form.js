@@ -1,8 +1,8 @@
 import React              from 'react';
 import _                  from 'lodash';
-import ReCAPTCHA          from 'react-google-recaptcha';
 import { browserHistory } from 'react-router';
-import RichTextEditor     from 'react-rte-browserify';
+import {EditorState, convertToRaw} from 'draft-js';
+import { mdToDraftjs, draftjsToMd } from 'draftjs-md-converter';
 
 import i18n               from 'lib-app/i18n';
 import API                from 'lib-app/api-call';
@@ -33,7 +33,7 @@ class CreateTicketForm extends React.Component {
         message: null,
         form: {
             title: '',
-            content: RichTextEditor.createEmptyValue(),
+            content: EditorState.createEmpty(),
             departmentIndex: 0,
             email: '',
             name: '',

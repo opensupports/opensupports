@@ -1,15 +1,13 @@
 const Input = ReactMock();
 const Checkbox = ReactMock();
 const DropDown = ReactMock();
-const TextEditor = ReactMock();
-
-const RichTextEditor = require('react-rte-browserify');
+const TextEditorMock = require('core-components/__mocks__/text-editor-mock');
 
 const FormField = requireUnit('core-components/form-field', {
     'core-components/input': Input,
     'core-components/checkbox': Checkbox,
     'core-components/drop-down': DropDown,
-    'core-components/text-editor': TextEditor
+    'core-components/text-editor': TextEditorMock
 });
 
 
@@ -21,7 +19,7 @@ describe('FormField component', function () {
             'input': Input,
             'checkbox': Checkbox,
             'select': DropDown,
-            'textarea': TextEditor
+            'textarea': TextEditorMock
         };
         
         component = reRenderIntoDocument(
@@ -32,10 +30,9 @@ describe('FormField component', function () {
     
     describe('when calling static getDefaultValue', function () {
         it('should return correct values', function () {
-            expect(FormField.getDefaultValue('input')).to.equal('');
             expect(FormField.getDefaultValue('checkbox')).to.equal(false);
             expect(FormField.getDefaultValue('select')).to.equal(0);
-            expect(FormField.getDefaultValue('textarea') instanceof RichTextEditor.EditorValue).to.equal(true);
+            expect(FormField.getDefaultValue('textarea')).to.equal(TextEditorMock.createEmpty());
         });
     });
 
@@ -415,7 +412,7 @@ describe('FormField component', function () {
                 errored: true,
                 name: 'MOCK_NAME',
                 onBlur: component.props.onBlur,
-                required: true,
+                required: true
             });
             expect(innerField.props.value).to.deep.equal({value: 'VALUE_MOCk'});
         });

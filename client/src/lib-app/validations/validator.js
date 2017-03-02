@@ -1,4 +1,4 @@
-import RichTextEditor from 'react-rte-browserify';
+import TextEditor from 'core-components/text-editor';
 
 import i18n from 'lib-app/i18n';
 
@@ -20,8 +20,8 @@ class Validator {
     }
 
     validate(value, form) {
-        if (value instanceof RichTextEditor.EditorValue) {
-            value = value.getEditorState().getPlainText()
+        if (TextEditor.isEditorState(value)) {
+            value = value.getPlainText();
         }
 
         if (value.length === 0) return this.getError('ERROR_EMPTY');
