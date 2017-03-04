@@ -55,4 +55,6 @@ foreach (glob('controllers/*.php') as $controller) {
     include_once $controller;
 }
 
+Date::setTimeZone();
+
 $app->run();
