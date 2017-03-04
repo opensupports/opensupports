@@ -238,14 +238,14 @@ class AdminPanelAdvancedSettings extends React.Component {
         .then((result) => this.setState({
             messageType: 'success', 
             messageTitle: i18n('SUCCESS_IMPORTING_CSV_DESCRIPTION'),
-            messageContent: (
+            messageContent: (result.data.length) ? (
                 <div>
                     {i18n('ERRORS_FOUND')}
                     <ul>
                         {result.data.map((error) => <li>{error}</li>)}
                     </ul>
                 </div>
-            )
+            ) : null
         }))
         .catch(() => this.setState({messageType: 'error', messageTitle: null, messageContent: i18n('INVALID_FILE')}));
     }
