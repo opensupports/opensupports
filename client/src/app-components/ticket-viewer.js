@@ -179,7 +179,7 @@ class TicketViewer extends React.Component {
 
     renderTicketEvent(options, index) {
         return (
-            <TicketEvent {...options} author={(options.author.length) ? options.author : this.props.ticket.author} key={index} />
+            <TicketEvent {...options} author={(!_.isEmpty(options.author)) ? options.author : this.props.ticket.author} key={index} />
         );
     }
 

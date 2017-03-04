@@ -12,7 +12,7 @@ require_once 'system/recover-mail-template.php';
 require_once 'system/disable-registration.php';
 require_once 'system/enable-registration.php';
 require_once 'system/disable-user-system.php';
-require_once 'system/enabled-user-system.php';
+require_once 'system/enable-user-system.php';
 require_once 'system/add-api-key.php';
 require_once 'system/delete-api-key.php';
 require_once 'system/get-api-keys.php';
@@ -46,6 +46,6 @@ $systemControllerGroup->addController(new BackupDatabaseController);
 $systemControllerGroup->addController(new DownloadController);
 $systemControllerGroup->addController(new CSVImportController);
 $systemControllerGroup->addController(new DisableUserSystemController);
-$systemControllerGroup->addController(new EnabledUserSystemController);
+$systemControllerGroup->addController(new EnableUserSystemController);
 
 $systemControllerGroup->finalize();

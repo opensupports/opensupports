@@ -1,7 +1,7 @@
 <?php
 
-class EnabledUserSystemController extends Controller {
-    const PATH = '/enabled-user-system';
+class EnableUserSystemController extends Controller {
+    const PATH = '/enable-user-system';
     const METHOD = 'POST';
 
     public function validations() {
@@ -31,19 +31,17 @@ class EnabledUserSystemController extends Controller {
 
         foreach($ticketList as $ticket) {
 
-            $userRow = User::getDataStore($ticket->authorEmail, 'email');
+            $userInstance = User::getDataStore($ticket->authorEmail, 'email');
 
-            if($userRow->isNull()) {
-                $this->createUser($ticket->authorEmail,$ticket->authorName);
-
-            } else {
-                $userRow->tickets = $userRow->tickets + 1;
-                $userRow->sharedTicketList->add($ticket);
-                $userRow->store();
+            if($userInstance->isNull()) {
+                $userInstance = $this->createUser($ticket->authorEmail, $ticket->authorName);
             }
 
-            $actualUserRow = User::getDataStore($ticket->authorEmail,'email');
-            $ticket->author = $actualUserRow;
+            $userInstance->tickets = $userInstance->tickets + 1;
+            $userInstance->sharedTicketList->add($ticket);
+            $userInstance->store();
+
+            $ticket->author = $userInstance;
             $ticket->authorName = null;
             $ticket->authorEmail = null;
             $ticket->store();
@@ -75,5 +73,6 @@ class EnabledUserSystemController extends Controller {
         ]);
         $mailSender->send();
 
+        return $userInstance;
     }
 }

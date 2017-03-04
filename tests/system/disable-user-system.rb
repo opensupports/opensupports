@@ -55,8 +55,8 @@ describe'system/disable-user-system' do
             (result['message']).should.equal('SYSTEM_USER_IS_ALREADY_DISABLED')
         end
 
-        it 'should enabled the user system' do
-            result = request('/system/enabled-user-system', {
+        it 'should enable the user system' do
+            result = request('/system/enable-user-system', {
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
                 password:$staff[:password]
@@ -73,8 +73,8 @@ describe'system/disable-user-system' do
 
         end
 
-        it 'should not enabled the user system' do
-            result = request('/system/enabled-user-system', {
+        it 'should not enable the user system' do
+            result = request('/system/enable-user-system', {
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
                 password:$staff[:password]

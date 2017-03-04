@@ -2,7 +2,6 @@ import React              from 'react';
 import _                  from 'lodash';
 import { browserHistory } from 'react-router';
 import {EditorState, convertToRaw} from 'draft-js';
-import { mdToDraftjs, draftjsToMd } from 'draftjs-md-converter';
 
 import i18n               from 'lib-app/i18n';
 import API                from 'lib-app/api-call';
@@ -138,7 +137,7 @@ class CreateTicketForm extends React.Component {
             store.dispatch(SessionActions.getUserData());
             setTimeout(() => {browserHistory.push('/dashboard')}, 2000);
         } else {
-            setTimeout(() => {browserHistory.push('/check-ticket/' + email + '/' + result.data.ticketNumber)}, 2000);
+            setTimeout(() => {browserHistory.push('/check-ticket/' + result.data.ticketNumber + '/' + email)}, 1000);
         }
     }
 
