@@ -37,6 +37,10 @@ class ConfigReducer extends Reducer {
 
         return _.extend({}, state, payload.data, {
             language: currentLanguage || payload.language,
+            registration: !!(payload.data.registration * 1),
+            'user-system-enabled': !!(payload.data['user-system-enabled']* 1),
+            'allow-attachments': !!(payload.data['allow-attachments']* 1),
+            'maintenance-mode': !!(payload.data['maintenance-mode']* 1),
             initDone: true
         });
     }

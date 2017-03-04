@@ -1,5 +1,4 @@
 import Validator from 'lib-app/validations/validator';
-import AlphaNumericValidator from 'lib-app/validations/alphanumeric-validator';
 import EmailValidator from 'lib-app/validations/email-validator';
 import RepeatPasswordValidator from 'lib-app/validations/repeat-password-validator';
 import LengthValidator from 'lib-app/validations/length-validator';
@@ -7,8 +6,8 @@ import ListValidator from 'lib-app/validations/list-validator';
 
 let validators = {
     'DEFAULT': new Validator(),
-    'NAME': new AlphaNumericValidator('ERROR_NAME', new LengthValidator(2, 'ERROR_NAME')),
-    'TITLE': new AlphaNumericValidator('ERROR_TITLE', new LengthValidator(2, 'ERROR_TITLE')),
+    'NAME': new LengthValidator(2, 'ERROR_NAME'),
+    'TITLE': new LengthValidator(2, 'ERROR_TITLE'),
     'EMAIL': new EmailValidator(),
     'TEXT_AREA': new LengthValidator(10, 'ERROR_CONTENT_SHORT'),
     'PASSWORD': new LengthValidator(6, 'ERROR_PASSWORD'),

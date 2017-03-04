@@ -52,5 +52,13 @@ describe '/user/edit-password' do
             csrf_token: $csrf_token
         })
         (result['status']).should.equal('success')
+
+        request('/user/logout')
+
+        result = request('/user/login',{
+            email: 'steve@jobs.com',
+            password: 'newpassword'
+        })
+        (result['status']).should.equal('success')
     end
 end

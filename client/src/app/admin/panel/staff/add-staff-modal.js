@@ -17,6 +17,10 @@ class AddStaffModal extends React.Component {
         closeModal: React.PropTypes.func
     };
 
+    static propTypes = {
+        onSuccess: React.PropTypes.func
+    };
+
     state = {
         loading: false,
         errors: {},
@@ -78,7 +82,13 @@ class AddStaffModal extends React.Component {
                 level: form.level + 1,
                 departments: JSON.stringify(departments)
             }
-        }).then(this.context.closeModal).catch((result) => {
+        }).then(() => {
+            this.context.closeModal();
+
+            if(this.props.onSuccess) {
+                this.props.onSuccess();
+            }
+        }).catch((result) => {
             this.setState({
                 loading: false,
                 error: result.message

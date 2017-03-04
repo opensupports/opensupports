@@ -102,6 +102,7 @@ describe('Session Actions,', function () {
             });
             APICallMock.call.reset();
             storeMock.dispatch.reset();
+            sessionStoreMock.isLoggedIn.returns(true)
         });
 
         after(function () {
@@ -114,7 +115,7 @@ describe('Session Actions,', function () {
              }));
         });
 
-        it('should return CHECK_SESSION and dispatch SESSION_ACTIVE if session is active', function () {
+        it('should return CHECK_SESSION and dispatch SESSION_CHECKED if session is active', function () {
             APICallMock.call.returns({
                 then: function (resolve) {
                     resolve({

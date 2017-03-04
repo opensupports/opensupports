@@ -9,6 +9,7 @@ import AreYouSure from 'app-components/are-you-sure';
 import ModalContainer from 'app-components/modal-container';
 
 import Message from 'core-components/message';
+import InfoTooltip from 'core-components/info-tooltip';
 import Button from 'core-components/button';
 import FileUploader from 'core-components/file-uploader';
 import Header from 'core-components/header';
@@ -21,6 +22,7 @@ class AdminPanelAdvancedSettings extends React.Component {
 
     state = {
         loading: true,
+        messageTitle: null,
         messageType: '',
         messageContent: '',
         keyName: '',
@@ -42,7 +44,9 @@ class AdminPanelAdvancedSettings extends React.Component {
                     <div className="col-md-12">
                         <div className="col-md-6">
                             <div className="admin-panel-advanced-settings__user-system-enabled">
-                                <span className="admin-panel-advanced-settings__text">{i18n('ENABLE_USER_SYSTEM')}</span>
+                                <span className="admin-panel-advanced-settings__text">
+                                    {i18n('ENABLE_USER_SYSTEM')} <InfoTooltip text={i18n('ENABLE_USER_SYSTEM_DESCRIPTION')} />
+                                </span>
                                 <ToggleButton className="admin-panel-advanced-settings__toggle-button" value={this.props.config['user-system-enabled']} onChange={this.onToggleButtonUserSystemChange.bind(this)}/>
                             </div>
                         </div>
@@ -57,19 +61,17 @@ class AdminPanelAdvancedSettings extends React.Component {
                         <span className="separator" />
                     </div>
                     <div className="col-md-12">
-                        <div className="col-md-3">
-                            <div className="admin-panel-advanced-settings__text">{i18n('INCLUDE_USERS_VIA_CSV')}</div>
+                        <div className="col-md-4">
+                            <div className="admin-panel-advanced-settings__text">
+                                {i18n('INCLUDE_USERS_VIA_CSV')} <InfoTooltip text={i18n('CSV_DESCRIPTION')} />
+                            </div>
                             <FileUploader className="admin-panel-advanced-settings__button" text="Upload" onChange={this.onImportCSV.bind(this)}/>
                         </div>
-                        <div className="col-md-3">
-                            <div className="admin-panel-advanced-settings__text">{i18n('INCLUDE_DATABASE_VIA_SQL')}</div>
-                            <FileUploader className="admin-panel-advanced-settings__button" text="Upload" onChange={this.onImportSQL.bind(this)}/>
-                        </div>
-                        <div className="col-md-3">
+                        <div className="col-md-4">
                             <div className="admin-panel-advanced-settings__text">{i18n('BACKUP_DATABASE')}</div>
                             <Button className="admin-panel-advanced-settings__button" type="secondary" size="medium" onClick={this.onBackupDatabase.bind(this)}>Download</Button>
                         </div>
-                        <div className="col-md-3">
+                        <div className="col-md-4">
                             <div className="admin-panel-advanced-settings__text">{i18n('DELETE_ALL_USERS')}</div>
                             <Button className="admin-panel-advanced-settings__button" size="medium" onClick={this.onDeleteAllUsers.bind(this)}>Delete</Button>
                         </div>
@@ -93,7 +95,7 @@ class AdminPanelAdvancedSettings extends React.Component {
 
     renderMessage() {
         return (
-            <Message type={this.state.messageType}>{this.state.messageContent}</Message>
+            <Message type={this.state.messageType} title={this.state.messageTitle}>{this.state.messageContent}</Message>
         );
     }
 
@@ -197,10 +199,11 @@ class AdminPanelAdvancedSettings extends React.Component {
         }).then(() => {
             this.setState({
                 messageType: 'success',
+                messageTitle: null,
                 messageContent: this.props.config['user-system-enabled'] ? i18n('USER_SYSTEM_DISABLED') : i18n('USER_SYSTEM_ENABLED')
             });
             this.props.dispatch(ConfigActions.updateData());
-        }).catch(() => this.setState({messageType: 'error', messageContent: i18n('ERROR_UPDATING_SETTINGS')}));
+        }).catch(() => this.setState({messageType: 'error', messageTitle: null, messageContent: i18n('ERROR_UPDATING_SETTINGS')}));
     }
 
     onAreYouSureRegistrationOk(password) {
@@ -212,42 +215,39 @@ class AdminPanelAdvancedSettings extends React.Component {
         }).then(() => {
             this.setState({
                 messageType: 'success',
+                messageTitle: null,
                 messageContent: this.props.config['registration'] ? i18n('REGISTRATION_DISABLED') : i18n('REGISTRATION_ENABLED')
             });
             this.props.dispatch(ConfigActions.updateData());
-        }).catch(() => this.setState({messageType: 'error', messageContent: i18n('ERROR_UPDATING_SETTINGS')}));
+        }).catch(() => this.setState({messageType: 'error', messageTitle: null, messageContent: i18n('ERROR_UPDATING_SETTINGS')}));
     }
 
     onImportCSV(event) {
         AreYouSure.openModal(null, this.onAreYouSureCSVOk.bind(this, event.target.value), 'secure');
     }
 
-    onImportSQL(event) {
-        AreYouSure.openModal(null, this.onAreYouSureSQLOk.bind(this, event.target.value), 'secure');
-    }
-
     onAreYouSureCSVOk(file, password) {
         API.call({
-           path: '/system/import-csv',
-           data: {
-               file: file,
-               password: password
-           }
-        })
-        .then(() => this.setState({messageType: 'success', messageContent: i18n('SUCCESS_IMPORTING_CSV_DESCRIPTION')}))
-        .catch(() => this.setState({messageType: 'error', messageContent: i18n('ERROR_IMPORTING_CSV_DESCRIPTION')}));
-    }
-
-    onAreYouSureSQLOk(file, password) {
-        API.call({
-            path: '/system/import-sql',
+            path: '/system/csv-import',
+            dataAsForm: true,
             data: {
                 file: file,
                 password: password
             }
         })
-        .then(() => this.setState({messageType: 'success', messageContent: i18n('SUCCESS_IMPORTING_SQL_DESCRIPTION')}))
-        .catch(() => this.setState({messageType: 'error', messageContent: i18n('ERROR_IMPORTING_SQL_DESCRIPTION')}));
+        .then((result) => this.setState({
+            messageType: 'success', 
+            messageTitle: i18n('SUCCESS_IMPORTING_CSV_DESCRIPTION'),
+            messageContent: (result.data.length) ? (
+                <div>
+                    {i18n('ERRORS_FOUND')}
+                    <ul>
+                        {result.data.map((error) => <li>{error}</li>)}
+                    </ul>
+                </div>
+            ) : null
+        }))
+        .catch(() => this.setState({messageType: 'error', messageTitle: null, messageContent: i18n('INVALID_FILE')}));
     }
 
     onBackupDatabase() {
@@ -275,8 +275,8 @@ class AdminPanelAdvancedSettings extends React.Component {
             data: {
                 password: password
             }
-        }).then(() => this.setState({messageType: 'success', messageContent: i18n('SUCCESS_DELETING_ALL_USERS')}
-        )).catch(() => this.setState({messageType: 'error', messageContent: i18n('ERROR_DELETING_ALL_USERS')}));
+        }).then(() => this.setState({messageType: 'success', messageTitle: null, messageContent: i18n('SUCCESS_DELETING_ALL_USERS')}
+        )).catch(() => this.setState({messageType: 'error', messageTitle: null, messageContent: i18n('ERROR_DELETING_ALL_USERS')}));
     }
 }
 

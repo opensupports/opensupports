@@ -47,8 +47,16 @@ abstract class Controller {
         self::$dataRequester = $dataRequester;
     }
 
-    public static function request($key) {
-        return call_user_func(self::$dataRequester, $key);
+    public static function request($key, $secure = false) {
+        $result = call_user_func(self::$dataRequester, $key);
+        
+        if($secure) {
+            $config = HTMLPurifier_Config::createDefault();
+            $purifier = new HTMLPurifier($config);
+            return $purifier->purify($result);
+        } else {
+            return $result;
+        }
     }
     
     public static function getLoggedUser() {
@@ -78,8 +86,10 @@ abstract class Controller {
         return \Slim\Slim::getInstance();
     }
     
-    public function uploadFile() {
-        if(!isset($_FILES['file'])) return '';
+    public function uploadFile($forceUpload = false) {
+        $allowAttachments = Setting::getSetting('allow-attachments')->getValue();
+
+        if(!isset($_FILES['file']) || (!$allowAttachments && !$forceUpload)) return '';
 
         $maxSize = Setting::getSetting('max-size')->getValue();
         $fileGap = Setting::getSetting('file-gap')->getValue();

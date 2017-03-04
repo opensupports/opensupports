@@ -10,7 +10,7 @@ class Scripts
             raise response['message']
         end
         userRow = $database.getRow('user', email, 'email')
-        response = request('/user/verify', {
+        request('/user/verify', {
                 :email => email,
                 :token => userRow['verification_token']
         })
@@ -32,9 +32,9 @@ class Scripts
         response['data']
     end
 
-    def self.createTicket()
+    def self.createTicket(title = 'Winter is coming')
         result = request('/ticket/create', {
-            title: 'Winter is coming',
+            title: title,
             content: 'The north remembers',
             departmentId: 1,
             language: 'en',
@@ -46,7 +46,7 @@ class Scripts
     end
 
     def self.createAPIKey(name)
-        result = request('/system/add-api-key', {
+        request('/system/add-api-key', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             name: name

@@ -32,7 +32,7 @@ class MainLayoutHeader extends React.Component {
             result = (
                 <div className="main-layout-header__login-links">
                     <Button type="clean" route={{to:'/'}}>{i18n('LOG_IN')}</Button>
-                    {(this.props.config['registration']) ? <Button type="clean" route={{to:'/signup'}}>{i18n('SIGN_UP')}</Button> : null}
+                    {(!!(this.props.config['registration'] * 1)) ? <Button type="clean" route={{to:'/signup'}}>{i18n('SIGN_UP')}</Button> : null}
                 </div>
             );
         }

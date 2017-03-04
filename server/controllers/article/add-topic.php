@@ -26,8 +26,6 @@ class AddTopicController extends Controller {
             'iconColor' => Controller::request('iconColor')
         ]);
 
-        $staff = Controller::getLoggedUser();
-
         Log::createLog('ADD_TOPIC', $topic->name);
 
         Response::respondSuccess([

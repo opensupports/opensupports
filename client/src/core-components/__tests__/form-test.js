@@ -1,12 +1,13 @@
 // MOCKS
 const ValidationFactoryMock = require('lib-app/__mocks__/validations/validation-factory-mock');
+const TextEditorMock = require('core-components/__mocks__/text-editor-mock');
 const FormField = ReactMock();
-const RichTextEditor = require('react-rte-browserify');
 
 // COMPONENT
 const Form = requireUnit('core-components/form', {
     'lib-app/validations/validations-factory': ValidationFactoryMock,
-    'core-components/form-field': FormField
+    'core-components/form-field': FormField,
+    'core-components/text-editor': TextEditorMock
 });
 
 describe('Form component', function () {
@@ -186,12 +187,11 @@ describe('Form component', function () {
             expect(form.props.onSubmit).to.not.have.been.called;
         });
 
-        it('should tranform RichTextEditor value to HTML', function () {
-            form.state.form.first = RichTextEditor.createEmptyValue();
-            form.state.form.first.toString = stub().returns('HTML_CODE');
+        it('should transform TextEdit value to HTML', function () {
+            form.state.form.first = TextEditorMock.createEmpty();
 
             TestUtils.Simulate.submit(ReactDOM.findDOMNode(form));
-            expect(form.state.form.first.toString).to.have.been.called;
+            expect(TextEditorMock.getHTMLFromEditorState).to.have.been.calledWith(form.state.form.first);
             expect(form.props.onSubmit).to.have.been.calledWith({
                 first: 'HTML_CODE',
                 second: 'value2',

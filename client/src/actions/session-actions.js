@@ -4,20 +4,36 @@ import sessionStore from 'lib-app/session-store';
 import store from 'app/store';
 
 export default {
+
     login(loginData) {
         return {
             type: 'LOGIN',
-            payload: API.call({
-                path: '/user/login',
-                data: loginData
-            }).then((result) => {
-                store.dispatch(this.getUserData(result.data.userId, result.data.token, result.data.staff));
-                
-                if(result.data.staff) {
-                    store.dispatch(AdminDataActions.retrieveCustomResponses());
-                }
+            payload: new Promise((resolve, reject) => {
+                let loginCall = () => {
+                    API.call({
+                        path: '/user/login',
+                        data: loginData
+                    }).then((result) => {
+                        store.dispatch(this.getUserData(result.data.userId, result.data.token, result.data.staff));
 
-                return result;
+                        if(result.data.staff) {
+                            store.dispatch(AdminDataActions.retrieveCustomResponses());
+                        }
+
+                        resolve(result);
+                    }).catch((result) => {
+                        if(result.message === 'SESSION_EXISTS') {
+                            API.call({
+                                path: '/user/logout',
+                                data: {}
+                            }).then(loginCall);
+                        } else {
+                            reject(result);
+                        }
+                    })
+                };
+
+                loginCall();
             })
         };
     },
@@ -81,23 +97,31 @@ export default {
     initSession() {
         return {
             type: 'CHECK_SESSION',
-            payload: API.call({
-                path: '/user/check-session',
-                data: {}
-            }).then((result) => {
-                if (!result.data.sessionActive) {
-                    if (sessionStore.isRememberDataExpired()) {
+            payload: new Promise((resolve, reject) => {
+                API.call({
+                    path: '/user/check-session',
+                    data: {}
+                }).then((result) => {
+                    if (!result.data.sessionActive) {
+                        if (sessionStore.isRememberDataExpired()) {
+                            store.dispatch({
+                                type: 'LOGOUT_FULFILLED'
+                            });
+                        } else {
+                            store.dispatch(this.autoLogin());
+                        }
+
+                        resolve(result);
+                    } else if(sessionStore.isLoggedIn()) {
                         store.dispatch({
-                            type: 'LOGOUT_FULFILLED'
+                            type: 'SESSION_CHECKED'
                         });
+
+                        resolve(result);
                     } else {
-                        store.dispatch(this.autoLogin());
+                        reject(result);
                     }
-                } else {
-                    store.dispatch({
-                        type: 'SESSION_CHECKED'
-                    });
-                }
+                });
             })
         }
     }

@@ -29,7 +29,7 @@ class Ticket extends DataStore {
     public static function getTicket($value, $property = 'id') {
         return parent::getDataStore($value, $property);
     }
-    
+
     public static function getByTicketNumber($value) {
         return Ticket::getTicket($value, 'ticketNumber');
     }
@@ -50,19 +50,19 @@ class Ticket extends DataStore {
     public function generateUniqueTicketNumber() {
         $linearCongruentialGenerator = new LinearCongruentialGenerator();
         $ticketQuantity = Ticket::count();
-        
+
         if ($ticketQuantity === 0) {
             $ticketNumber = $linearCongruentialGenerator->generateFirst();
         } else {
             $linearCongruentialGenerator->setGap(Setting::getSetting('ticket-gap')->value);
             $linearCongruentialGenerator->setFirst(Ticket::getTicket(1)->ticketNumber);
-            
+
             $ticketNumber = $linearCongruentialGenerator->generate($ticketQuantity);
         }
 
         return $ticketNumber;
     }
-    
+
     public function toArray() {
         return [
             'ticketNumber' => $this->ticketNumber,
@@ -81,9 +81,7 @@ class Ticket extends DataStore {
             'priority' => $this->priority,
             'author' => $this->authorToArray(),
             'owner' => $this->ownerToArray(),
-            'events' => $this->eventsToArray(),
-            'authorEmail' => $this->authorEmail,
-            'authorName' => $this->authorName
+            'events' => $this->eventsToArray()
         ];
     }
 
@@ -97,7 +95,10 @@ class Ticket extends DataStore {
                 'email' => $author->email
             ];
         } else {
-            return [];
+            return [
+                'name' => $this->authorName,
+                'email' => $this->authorEmail
+            ];
         }
     }
 
@@ -143,7 +144,7 @@ class Ticket extends DataStore {
 
         return $events;
     }
-    
+
     public function addEvent(Ticketevent $event) {
         $this->ownTicketeventList->add($event);
     }

@@ -10,7 +10,7 @@ class SearchTicketStaffController extends Controller {
             'permission' => 'staff_1',
             'requestData' => [
                 'query' => [
-                    'validation' => DataValidator::alpha(),
+                    'validation' => DataValidator::length(1),
                     'error' => ERRORS::INVALID_QUERY
                 ],
                 'page' => [

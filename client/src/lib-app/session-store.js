@@ -23,7 +23,7 @@ class SessionStore {
     }
 
     isLoggedIn() {
-        return !!this.getItem('token');
+        return !!this.getItem('userId');
     }
 
     closeSession() {
@@ -62,6 +62,7 @@ class SessionStore {
         this.setItem('title', configs.title);
         this.setItem('registration', configs.registration);
         this.setItem('user-system-enabled', configs['user-system-enabled']);
+        this.setItem('allow-attachments', configs['allow-attachments']);
     }
 
     getConfigs() {
@@ -72,9 +73,11 @@ class SessionStore {
             allowedLanguages: JSON.parse(this.getItem('allowedLanguages')),
             supportedLanguages: JSON.parse(this.getItem('supportedLanguages')),
             layout: this.getItem('layout'),
-            registration: this.getItem('registration'),
             title: this.getItem('title'),
-            ['user-system-enabled']: this.getItem('user-system-enabled')
+            registration: (this.getItem('registration') * 1),
+            'user-system-enabled': (this.getItem('user-system-enabled') * 1),
+            'allow-attachments': (this.getItem('allow-attachments') * 1),
+            'maintenance-mode': (this.getItem('maintenance-mode') * 1)
         };
     }
 

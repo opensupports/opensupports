@@ -45,6 +45,10 @@ class DataStoreList implements IteratorAggregate {
         return $includes;
     }
 
+    public function isEmpty() {
+        return empty($this->list);
+    }
+
     public function toBeanList() {
         $beanList = [];
         

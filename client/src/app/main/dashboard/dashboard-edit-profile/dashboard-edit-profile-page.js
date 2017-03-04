@@ -3,7 +3,6 @@ import React from 'react';
 import API from 'lib-app/api-call';
 import i18n from 'lib-app/i18n';
 
-import ModalContainer from 'app-components/modal-container';
 import AreYouSure from 'app-components/are-you-sure';
 
 import Header from 'core-components/header';
@@ -64,11 +63,11 @@ class DashboardEditProfilePage extends React.Component {
         }
     }
     onSubmitEditEmail(formState) {
-        ModalContainer.openModal(<AreYouSure onYes={this.callEditEmailAPI.bind(this, formState)}/>);
+        AreYouSure.openModal(i18n('EMAIL_WILL_CHANGE'), this.callEditEmailAPI.bind(this, formState));
     }
     
     onSubmitEditPassword(formState) {
-        ModalContainer.openModal(<AreYouSure onYes={this.callEditPassAPI.bind(this, formState)}/>);
+        AreYouSure.openModal(i18n('PASSWORD_WILL_CHANGE'), this.callEditPassAPI.bind(this, formState));
     }
 
     callEditEmailAPI(formState){

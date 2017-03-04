@@ -2,7 +2,6 @@ import React from 'react';
 import _ from 'lodash';
 import {connect}  from 'react-redux';
 import {browserHistory} from 'react-router';
-import RichTextEditor from 'react-rte-browserify';
 
 import ArticlesActions from 'actions/articles-actions';
 import SessionStore from 'lib-app/session-store';
@@ -17,6 +16,7 @@ import Button from 'core-components/button';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
+import TextEditor from 'core-components/text-editor';
 
 class AdminPanelViewArticle extends React.Component {
 
@@ -117,7 +117,7 @@ class AdminPanelViewArticle extends React.Component {
             editable: true,
             form: {
                 title: article.title,
-                content: RichTextEditor.createValueFromString(article.content, 'html')
+                content: TextEditor.getEditorStateFromHTML(article.content)
             }
         });
     }

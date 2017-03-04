@@ -33,7 +33,7 @@ class EditArticleController extends Controller {
         }
 
         if(Controller::request('content')) {
-            $article->content = Controller::request('content');
+            $article->content = Controller::request('content', true);
         }
 
         if(Controller::request('title')) {

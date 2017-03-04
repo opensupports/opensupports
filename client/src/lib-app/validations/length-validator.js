@@ -1,4 +1,4 @@
-import RichTextEditor from 'react-rte-browserify';
+import TextEditor from 'core-components/text-editor';
 
 import Validator from 'lib-app/validations/validator';
 
@@ -11,8 +11,8 @@ class LengthValidator extends Validator {
     }
 
     validate(value = '', form = {}) {
-        if (value instanceof RichTextEditor.EditorValue) {
-            value = value.getEditorState().getCurrentContent().getPlainText();
+        if (TextEditor.isEditorState(value)) {
+            value = value.getCurrentContent().getPlainText();
         }
 
         if (value.length < this.minlength) return this.getError(this.errorKey);

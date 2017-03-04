@@ -24,19 +24,16 @@ class LoginController extends Controller {
         }
 
         if ($this->checkInputCredentials() || $this->checkRememberToken()) {
+            if($this->userInstance->verificationToken !== null) {
+                Response::respondError(ERRORS::UNVERIFIED_USER);
+                return;
+            }
+
             $this->createUserSession();
             $this->createSessionCookie();
             if(Controller::request('staff')) {
                 $this->userInstance->lastLogin = Date::getCurrentDate();
                 $this->userInstance->store();
-            }
-
-            $email =  Controller::request('email');
-            $userRow = User::getDataStore($email, 'email');
-
-            if($userRow->verificationToken !== null) {
-                Response::respondError(ERRORS::UNVERIFIED_USER);
-                return;
             }
 
             Response::respondSuccess($this->getUserData());

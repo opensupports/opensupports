@@ -1,5 +1,4 @@
 import React from 'react';
-import RichTextEditor from 'react-rte-browserify';
 import classNames from 'classnames';
 import _ from 'lodash';
 
@@ -44,7 +43,7 @@ class FormField extends React.Component {
             return [];
         }
         else if (field === 'textarea') {
-             return RichTextEditor.createEmptyValue();
+             return TextEditor.createEmpty();
         }
         else if (field === 'select') {
             return 0;

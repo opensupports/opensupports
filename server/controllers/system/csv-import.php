@@ -12,7 +12,7 @@ class CSVImportController extends Controller {
     }
 
     public function handler() {
-        $fileUploader = $this->uploadFile();
+        $fileUploader = $this->uploadFile(true);
 
         if(!$fileUploader instanceof FileUploader) {
             throw new Exception(ERRORS::INVALID_FILE);

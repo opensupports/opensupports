@@ -9,7 +9,6 @@ describe'system/disable-user-system' do
                 password:$staff[:password]
             })
 
-            puts result['message']
             (result['status']).should.equal('success')
 
             row = $database.getRow('setting', 'user-system-enabled', 'name')
@@ -20,7 +19,7 @@ describe'system/disable-user-system' do
 
             numberOftickets= $database.query("SELECT * FROM ticket WHERE author_id IS NULL AND author_email IS NOT NULL AND author_name IS NOT NULL")
 
-            (numberOftickets.num_rows).should.equal(35)
+            (numberOftickets.num_rows).should.equal(36)
 
             request('/user/logout')
 
@@ -56,14 +55,13 @@ describe'system/disable-user-system' do
             (result['message']).should.equal('SYSTEM_USER_IS_ALREADY_DISABLED')
         end
 
-        it 'should enabled the user system' do
-            result = request('/system/enabled-user-system', {
+        it 'should enable the user system' do
+            result = request('/system/enable-user-system', {
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
                 password:$staff[:password]
             })
 
-            puts result['message']
             (result['status']).should.equal('success')
 
             row = $database.getRow('setting', 'user-system-enabled', 'name')
@@ -71,12 +69,12 @@ describe'system/disable-user-system' do
 
             numberOftickets= $database.query("SELECT * FROM ticket WHERE author_email IS NULL AND author_name IS NULL AND author_id IS NOT NULL"  )
 
-            (numberOftickets.num_rows).should.equal(35)
+            (numberOftickets.num_rows).should.equal(36)
 
         end
 
-        it 'should not enabled the user system' do
-            result = request('/system/enabled-user-system', {
+        it 'should not enable the user system' do
+            result = request('/system/enable-user-system', {
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
                 password:$staff[:password]

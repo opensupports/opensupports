@@ -74,7 +74,7 @@ describe'/system/get-stats' do
         @result = request('/system/get-stats', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
-            period: 'week'
+            period: 'WEEK'
         })
 
         def assertData(position, date, type, value)
@@ -126,7 +126,7 @@ describe'/system/get-stats' do
         @result = request('/system/get-stats', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
-            period: 'week',
+            period: 'WEEK',
             staffId: '1'
         })
         assertData(0, yesterday, 'CLOSE', '4')

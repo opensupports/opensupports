@@ -151,8 +151,8 @@ class AdminPanelListUsers extends React.Component {
 
     onUsersRetrieved(result) {
         this.setState({
-            page: result.data.page,
-            pages: result.data.pages,
+            page: result.data.page * 1,
+            pages: result.data.pages * 1,
             users: result.data.users,
             orderBy: result.data.orderBy,
             desc: (result.data.desc === '1'),

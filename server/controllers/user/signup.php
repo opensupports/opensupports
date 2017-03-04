@@ -22,7 +22,7 @@ class SignUpController extends Controller {
             'permission' => 'any',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::length(2, 55)->alpha(),
+                    'validation' => DataValidator::length(2, 55),
                     'error' => ERRORS::INVALID_NAME
                 ],
                 'email' => [

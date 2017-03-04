@@ -1,25 +1,30 @@
 @import "../scss/vars";
 
 .are-you-sure {
-    width: 400px;
-    text-align: center;
+    width: 800px;
+    text-align: left;
 
     &__header {
-        color: $primary-red;
-        font-size: $font-size--xl;
+        background-color: $secondary-blue;
+        border-top-right-radius: 4px;
+        border-top-left-radius: 4px;
+        color: white;
+        font-size: $font-size--lg;
         font-weight: bold;
-        margin-bottom: 20px;
-
+        margin-bottom: 10px;
+        padding: 10px;
     }
 
     &__description {
         color: $dark-grey;
         font-size: $font-size--md;
-        margin-bottom: 50px;
+        padding: 14px 5% 0;
     }
 
     &__buttons {
-        margin: 0 auto;
+        margin-top: 10px;
+        padding-bottom: 10px;
+        text-align: right;
     }
 
     &__yes-button,
@@ -30,7 +35,25 @@
 
     &__password {
         margin: 0 auto;
-        margin-top: -30px;
-        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    &__close-icon {
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: white;
+    }
+
+    .separator {
+        width: 90%;
+        margin: 30px auto;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .are-you-sure {
+        width: auto;
     }
 }

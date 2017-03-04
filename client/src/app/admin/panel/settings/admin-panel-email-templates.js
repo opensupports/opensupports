@@ -1,6 +1,5 @@
 import React from 'react';
 import _ from 'lodash';
-import RichTextEditor from 'react-rte-browserify';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -15,6 +14,7 @@ import Loading from 'core-components/loading';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
+import TextEditor from 'core-components/text-editor';
 
 class AdminPanelEmailTemplates extends React.Component {
 
@@ -28,7 +28,7 @@ class AdminPanelEmailTemplates extends React.Component {
         language: 'en',
         form: {
             title: '',
-            content: RichTextEditor.createEmptyValue()
+            content: TextEditor.createEmpty()
         }
     };
 
@@ -182,7 +182,7 @@ class AdminPanelEmailTemplates extends React.Component {
         language = language || this.state.language;
 
         form.title = (items[index] && items[index][language].subject) || '';
-        form.content = RichTextEditor.createValueFromString((items[index] && items[index][language].body) || '', 'html');
+        form.content = TextEditor.getEditorStateFromHTML((items[index] && items[index][language].body) || '');
 
         this.setState({
             selectedIndex: index,

@@ -1,8 +1,8 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
-class GetAllKeyController extends Controller {
-    const PATH = '/get-all-keys';
+class GetAPIKeysController extends Controller {
+    const PATH = '/get-api-keys';
     const METHOD = 'POST';
 
     public function validations() {

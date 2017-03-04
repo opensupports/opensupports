@@ -63,6 +63,7 @@ class Button extends React.Component {
         delete props.route;
         delete props.iconName;
         delete props.type;
+        delete props.inverted;
 
         return props;
     }

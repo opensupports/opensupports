@@ -30,6 +30,11 @@ class DeleteUserController extends Controller {
 
         Log::createLog('DELETE_USER', $user->name);
         RedBean::exec('DELETE FROM log WHERE author_user_id = ?', [$userId]);
+        
+        foreach($user->sharedTicketList as $ticket) {
+            $ticket->delete();
+        }
+
         $user->delete();
 
         Response::respondSuccess();

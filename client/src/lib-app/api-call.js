@@ -29,6 +29,7 @@ function processData (data, dataAsForm = false) {
 
 module.exports = {
     call: function ({path, data, plain, dataAsForm}) {
+        console.log('request ' + path, data);
         return new Promise(function (resolve, reject) {
             APIUtils.post(apiUrl + path, processData(data, dataAsForm), dataAsForm)
                 .then(function (result) {

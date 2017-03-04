@@ -1,4 +1,5 @@
 <?php
+use RedBeanPHP\Facade as RedBean;
 use Respect\Validation\Validator as DataValidator;
 
 class GetNewTicketsStaffController extends Controller {
@@ -18,10 +19,16 @@ class GetNewTicketsStaffController extends Controller {
             $query .= 'department_id=' . $department->id . ' OR ';
         }
         $query = substr($query,0,-3);
-        $query .= ') AND owner_id IS NULL';
-        
+        $ownerExists = RedBean::exec('SHOW COLUMNS FROM ticket LIKE \'owner_id\'');
+
+        if($ownerExists != 0) {
+            $query .= ') AND owner_id IS NULL';
+        } else {
+            $query .= ')';
+        }
+
         $ticketList = Ticket::find($query);
-        
+
         Response::respondSuccess($ticketList->toArray());
     }
 }

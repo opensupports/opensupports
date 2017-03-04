@@ -26,7 +26,6 @@ class AdminDataReducer extends Reducer {
     getTypeHandlers() {
         return {
             'CUSTOM_RESPONSES_FULFILLED': this.onCustomResponses,
-            'SESSION_CHECKED': this.onSessionChecked,
 
             'MY_TICKETS_FULFILLED': this.onMyTicketsRetrieved,
             'MY_TICKETS_REJECTED': this.onMyTicketsRejected,
@@ -47,15 +46,6 @@ class AdminDataReducer extends Reducer {
 
         return _.extend({}, state, {
             customResponses: payload.data,
-            customResponsesLoaded: true
-        });
-    }
-
-    onSessionChecked(state) {
-        const customResponses = sessionStore.getItem('customResponses');
-
-        return _.extend({}, state, {
-            customResponses: JSON.parse(customResponses),
             customResponsesLoaded: true
         });
     }
