@@ -86,10 +86,10 @@ abstract class Controller {
         return \Slim\Slim::getInstance();
     }
     
-    public function uploadFile() {
+    public function uploadFile($forceUpload = false) {
         $allowAttachments = Setting::getSetting('allow-attachments')->getValue();
 
-        if(!isset($_FILES['file']) || !$allowAttachments) return '';
+        if(!isset($_FILES['file']) || (!$allowAttachments && !$forceUpload)) return '';
 
         $maxSize = Setting::getSetting('max-size')->getValue();
         $fileGap = Setting::getSetting('file-gap')->getValue();

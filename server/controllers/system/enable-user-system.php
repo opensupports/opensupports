@@ -57,7 +57,7 @@ class EnableUserSystemController extends Controller {
         $userInstance->setProperties([
             'name' => $name,
             'signupDate' => Date::getCurrentDate(),
-            'tickets' => 1,
+            'tickets' => 0,
             'email' => $email,
             'password' => Hashing::hashPassword($password),
             'verificationToken' => null

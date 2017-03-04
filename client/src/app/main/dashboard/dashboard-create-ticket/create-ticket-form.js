@@ -1,6 +1,7 @@
 import React              from 'react';
 import _                  from 'lodash';
 import { browserHistory } from 'react-router';
+import {connect} from 'react-redux';
 import {EditorState, convertToRaw} from 'draft-js';
 
 import i18n               from 'lib-app/i18n';
@@ -58,11 +59,9 @@ class CreateTicketForm extends React.Component {
                         }}/>
                     </div>
                     <FormField label={i18n('CONTENT')} name="content" validation="TEXT_AREA" required field="textarea" />
-                    <div className="create-ticket-form__file">
-                        <FormField name="file" field="file" />
-                    </div>
+                    {(this.props.allowAttachments) ? this.renderFileUpload() : null}
                     {(!this.props.userLogged) ? this.renderCaptcha() : null}
-                    <SubmitButton>Create Ticket</SubmitButton>
+                    <SubmitButton>{i18n('CREATE_TICKET')}</SubmitButton>
                 </Form>
                 {this.renderMessage()}
             </div>
@@ -74,6 +73,14 @@ class CreateTicketForm extends React.Component {
             <div className="row">
                 <FormField className="col-md-6" label="Email" name="email" validation="EMAIL" required field="input" fieldProps={{size: 'large'}}/>
                 <FormField className="col-md-6" label="Full Name" name="name" validation="NAME" required field="input" fieldProps={{size: 'large'}}/>
+            </div>
+        );
+    }
+
+    renderFileUpload() {
+        return (
+            <div className="create-ticket-form__file">
+                <FormField name="file" field="file" />
             </div>
         );
     }
@@ -149,4 +156,9 @@ class CreateTicketForm extends React.Component {
     }
 }
 
-export default CreateTicketForm;
+export default connect((store) => {
+    return {
+        allowAttachments: store.config['allow-attachments']
+    };
+})(CreateTicketForm);
+

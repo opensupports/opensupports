@@ -161,7 +161,6 @@ export default {
     'ENABLE_USER_SYSTEM': 'Use user system for customers',
     'ENABLE_USER_REGISTRATION': 'Enable user registration',
     'INCLUDE_USERS_VIA_CSV': 'Include users via CSV file',
-    'INCLUDE_DATABASE_VIA_SQL': 'Include database via SQL file',
     'BACKUP_DATABASE': 'Backup database',
     'DELETE_ALL_USERS': 'Delete all users',
     'PLEASE_CONFIRM_PASSWORD': 'Please confirm your password to make these changes',
@@ -250,6 +249,8 @@ export default {
     'ADD_API_KEY_DESCRIPTION': 'Insert the name and a registration api key be generated.',
     'SIGN_UP_VIEW_DESCRIPTION': 'Here you can create an account for our support center. It is required for send tickets and see documentation.',
     'EDIT_PROFILE_VIEW_DESCRIPTION': 'Here you can edit your user by changing your email or your password.',
+    'ENABLE_USER_SYSTEM_DESCRIPTION': 'Enable/disable the use of an user system. If you disable it, all users will be deleted but the tickets will be kept. If you enable it, the users of existent tickets will be created.',
+    'CSV_DESCRIPTION': 'The CSV file must have 3 columns: email, password, name. There is no limit in row count. It will be created one user per row in the file.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
@@ -276,6 +277,8 @@ export default {
     'UNVERIFIED_EMAIL': 'Email is not verified yet',
     'ERROR_UPDATING_SETTINGS': 'An error occurred while trying to update settings',
     'INVALID_EMAIL_OR_TICKET_NUMBER': 'Invalid email or ticket number',
+    'INVALID_FILE': 'Invalid file',
+    'ERRORS_FOUND': 'Errors found',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',
@@ -297,5 +300,7 @@ export default {
     'FAILED_EDIT_STAFF': 'An error occurred while trying to edit staff member.',
     'EMAIL_BANNED_SUCCESSFULLY': 'Email has been banned successfully',
     'WILL_DELETE_STAFF': 'This staff member will be deleted and all its tickets will be unassigned.',
-    'WILL_RECOVER_EMAIL_TEMPLATE': 'This email template will be recover to it\'s default value on this language.'
+    'WILL_RECOVER_EMAIL_TEMPLATE': 'This email template will be recover to it\'s default value on this language.',
+    'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'CSV File has been imported successfully',
+    'SUCCESS_DELETING_ALL_USERS': 'Users have beend deleted successfully'
 };
