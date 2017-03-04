@@ -1,13 +1,13 @@
-import englishLanguage from 'data/languages/en';
-import spanishLanguage from 'data/languages/en';
-import germanLanguage  from 'data/languages/en';
-import frenchLanguage  from 'data/languages/en';
-import portugueseLanguage from 'data/languages/en';
-import japaneseLanguage from 'data/languages/en';
-import russianLanguage from 'data/languages/en';
-import chineseLanguage from 'data/languages/en';
-import turkishLanguage from 'data/languages/en';
-import indianLanguage  from 'data/languages/en';
+import chineseLanguage    from 'data/languages/cn';
+import germanLanguage     from 'data/languages/de';
+import englishLanguage    from 'data/languages/en';
+import spanishLanguage    from 'data/languages/es';
+import frenchLanguage     from 'data/languages/fr';
+import indianLanguage     from 'data/languages/in';
+import japaneseLanguage   from 'data/languages/jp';
+import portugueseLanguage from 'data/languages/pt';
+import russianLanguage    from 'data/languages/ru';
+import turkishLanguage    from 'data/languages/tr';
 
 export default {
     'en': {

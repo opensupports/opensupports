@@ -218,7 +218,7 @@ export default {
     'MY_ACCOUNT_DESCRIPTION': 'Burada sizin hakkınızdaki bilgileri düzenleyebilirsiniz.',
     'DEPARTMENTS_DESCRIPTION': 'Bir bölüm, biletleri gidebilecek bir gruptur. Biletleri kategorize etmek için kullanılırlar. Onları diğer çalışanlara atayabilirsiniz.',
     'MAINTENANCE_MODE_DESCRIPTION': 'Destek sistemi bakım modundadır, bu nedenle şu an kullanılamamaktadır. Mümkün olduğunca çabuk döneceğiz.',
-    'EMAIL_TEMPLATES_DESCRIPTION': ' Burada, kullanıcılara gönderilecek e-postaların şablonlarını düzenleyebilirsiniz. Çift parantez kaşlı parantezlerin değişken bir değeri gösterdiğini unutmayın. Örneğin, 'ad' kullanıcının adını belirtir.',
+    'EMAIL_TEMPLATES_DESCRIPTION': ' Burada, kullanıcılara gönderilecek e-postaların şablonlarını düzenleyebilirsiniz. Çift parantez kaşlı parantezlerin değişken bir değeri gösterdiğini unutmayın. Örneğin, \'ad\' kullanıcının adını belirtir.',
     'SYSTEM_PREFERENCES_DESCRIPTION': 'Burada sistem tercihlerini düzenleyebilirsiniz.',
     'VERIFY_SUCCESS_DESCRIPTION': 'Kullanıcı doğrulanmış. Şimdi giriş yapabilirsin.',
     'VERIFY_FAILED_DESCRIPTION': 'Doğrulama yapılamadı.',
