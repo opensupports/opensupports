@@ -14,6 +14,7 @@ class AdminPanelViewTicket extends React.Component {
 
     static propTypes = {
         avoidSeen: React.PropTypes.bool,
+        onRetrieveFail: React.PropTypes.func,
         assignmentAllowed: React.PropTypes.bool
     };
 
@@ -108,6 +109,10 @@ class AdminPanelViewTicket extends React.Component {
             loading: false,
             ticket: {}
         });
+        
+        if(this.props.onRetrieveFail) {
+            this.props.onRetrieveFail();
+        }
     }
 }
 

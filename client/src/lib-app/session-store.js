@@ -23,7 +23,7 @@ class SessionStore {
     }
 
     isLoggedIn() {
-        return !!this.getItem('token');
+        return !!this.getItem('userId');
     }
 
     closeSession() {

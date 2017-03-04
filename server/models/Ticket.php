@@ -81,9 +81,7 @@ class Ticket extends DataStore {
             'priority' => $this->priority,
             'author' => $this->authorToArray(),
             'owner' => $this->ownerToArray(),
-            'events' => $this->eventsToArray(),
-            'authorEmail' => $this->authorEmail,
-            'authorName' => $this->authorName
+            'events' => $this->eventsToArray()
         ];
     }
 
@@ -97,7 +95,10 @@ class Ticket extends DataStore {
                 'email' => $author->email
             ];
         } else {
-            return [];
+            return [
+                'name' => $this->authorName,
+                'email' => $this->authorEmail
+            ];
         }
     }
 

@@ -81,7 +81,7 @@ class MainCheckTicketPage extends React.Component {
             });
 
             API.call({
-                path: '/ticket/get',
+                path: '/ticket/check',
                 data: {
                     captcha: captcha && captcha.getValue(),
                     ticketNumber: form.ticketNumber,

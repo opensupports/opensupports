@@ -179,7 +179,7 @@ class TicketViewer extends React.Component {
 
     renderTicketEvent(options, index) {
         return (
-            <TicketEvent {...options} key={index} />
+            <TicketEvent {...options} author={(options.author.length) ? options.author : this.props.ticket.author} key={index} />
         );
     }
 
@@ -358,6 +358,7 @@ class TicketViewer extends React.Component {
 
 export default connect((store) => {
     return {
-        allowAttachments: store.config['allow-attachments']
+        allowAttachments: store.config['allow-attachments'],
+        userSystemEnabled: store.config['user-system-enabled']
     };
 })(TicketViewer);
