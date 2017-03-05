@@ -5,13 +5,8 @@ module.exports = {
   'serverport': 3000,
 
   'scripts': {
-    'src': './src/**/*.js',
+    'src': './src/*.js',
     'dest': './build/js/'
-  },
-
-  'phpserver': {
-    'base': './src/server/',
-    'port': 8000
   },
 
   'images': {
@@ -20,7 +15,7 @@ module.exports = {
   },
 
   'styles': {
-    'src': './src/**/*.scss',
+    'src': './src/*.scss',
     'dest': './build/css/'
   },
 
