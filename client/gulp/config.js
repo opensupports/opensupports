@@ -16,6 +16,7 @@ module.exports = {
 
   'styles': {
     'src': './src/*.scss',
+    'watch': './src/**/*.scss',
     'dest': './build/css/'
   },
 

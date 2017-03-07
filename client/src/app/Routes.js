@@ -53,6 +53,15 @@ import AdminPanelSystemPreferences from 'app/admin/panel/settings/admin-panel-sy
 import AdminPanelAdvancedSettings from 'app/admin/panel/settings/admin-panel-advanced-settings';
 import AdminPanelEmailTemplates from 'app/admin/panel/settings/admin-panel-email-templates';
 
+// INSTALLATION
+import InstallLayout from 'app/install/install-layout';
+import InstallStep1Language from 'app/install/install-step-1-language';
+import InstallStep2Requirements from 'app/install/install-step-2-requirements';
+import InstallStep3Settings from 'app/install/install-step-3-settings';
+import InstallStep4Administrator from 'app/install/install-step-4-administrator';
+import InstallStep5Install from 'app/install/install-step-5-install';
+import InstallStep6Completed from 'app/install/install-step-6-completed';
+
 const history = syncHistoryWithStore(browserHistory, store);
 
 export default (
@@ -81,6 +90,15 @@ export default (
                     <Route path='article/:articleId' component={DashboardArticlePage}/>
                     <Route path='ticket/:ticketNumber' component={DashboardTicketPage}/>
                 </Route>
+            </Route>
+            <Route path="install" component={InstallLayout}>
+                <IndexRedirect to="step-1" />
+                <Route path="step-1" component={InstallStep1Language}/>
+                <Route path="step-2" component={InstallStep2Requirements} />
+                <Route path="step-3" component={InstallStep3Settings} />
+                <Route path="step-4" component={InstallStep4Administrator} />
+                <Route path="step-4" component={InstallStep5Install} />
+                <Route path="step-4" component={InstallStep6Completed} />
             </Route>
             <Route path="admin">
                 <IndexRoute component={AdminLoginPage} />

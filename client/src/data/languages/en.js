@@ -208,6 +208,14 @@ export default {
     'ACTIVITY_DELETE_USER': 'deleted user',
     'ACTIVITY_UN_BAN_USER': 'banned user',
 
+    'SERVER_REQUIREMENTS': 'Server requirements',
+    'SETTINGS_SETUP': 'Settings setup',
+    'ADMIN_SETUP': 'Admin setup',
+    'INSTALL': 'Install',
+    'COMPLETED': 'Completed',
+    'INSTALL_HEADER_TITLE': 'OpenSupports Installation Wizard',
+    'INSTALL_HEADER_DESCRIPTION': 'This wizard will help you to configure and install OpenSupports on your website',
+
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
     'TICKET_LIST_DESCRIPTION': 'Here you can find a list of all tickets you have sent to our support team.',
