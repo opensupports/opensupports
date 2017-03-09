@@ -63,7 +63,38 @@ module.exports = [
             return {
                 status: 'success',
                 data: {}
-            }
+            };
+        }
+    },
+    {
+        path: '/system/check-requirements',
+        time: 50,
+        response: function () {
+            return {
+                status: 'success',
+                data: {
+                    phpVersion: {
+                        name: 'PHP Version',
+                        value: 5.6,
+                        ok: true
+                    },
+                    PDO: {
+                        name: 'PDO Module',
+                        value: 'Available',
+                        ok: true
+                    },
+                    files: {
+                        name: 'Folder: /api/files',
+                        value: 'Writable',
+                        ok: true
+                    },
+                    configFile: {
+                        name: 'File: /api/config.php',
+                        value: 'No writable',
+                        ok: false
+                    }
+                }
+            };
         }
     },
     {

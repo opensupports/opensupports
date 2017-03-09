@@ -173,7 +173,8 @@ export default {
     'ACTIVITY': 'Activity',
     'HOME': 'Home',
     'TICKET_NUMBER': 'Ticket number',
-    
+    'NEXT': 'Next',
+
     'CHART_CREATE_TICKET': 'Tickets created',
     'CHART_CLOSE': 'Tickets closed',
     'CHART_SIGNUP': 'Signups',
@@ -215,6 +216,18 @@ export default {
     'COMPLETED': 'Completed',
     'INSTALL_HEADER_TITLE': 'OpenSupports Installation Wizard',
     'INSTALL_HEADER_DESCRIPTION': 'This wizard will help you to configure and install OpenSupports on your website',
+    'SELECT_LANGUAGE': 'Select language',
+    'REQUIREMENT': 'Requirement',
+    'VALUE': 'Value',
+    'REFRESH': 'Refresh',
+
+    'STEP_TITLE': 'Step {current} of {total} - {title}',
+    'STEP_1_DESCRIPTION': 'Select your preferred language for the installation wizard.',
+    'STEP_2_DESCRIPTION': 'Here are listed the requirements for running OpenSupports. Please make sure that all requirements are satisfied.',
+    'STEP_3_DESCRIPTION': 'Select your preferred language for the installation wizard.',
+    'STEP_4_DESCRIPTION': 'Select your preferred language for the installation wizard.',
+    'STEP_5_DESCRIPTION': 'Select your preferred language for the installation wizard.',
+    'STEP_6_DESCRIPTION': 'Select your preferred language for the installation wizard.',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',

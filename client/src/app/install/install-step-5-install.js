@@ -1,6 +1,6 @@
 import React from 'react';
 
-class InstallStep4Install extends React.Component {
+class InstallStep5Install extends React.Component {
 
     render() {
         return (
@@ -11,4 +11,4 @@ class InstallStep4Install extends React.Component {
     }
 }
 
-export default InstallStep4Install;
+export default InstallStep5Install;

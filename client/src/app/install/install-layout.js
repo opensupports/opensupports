@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import _ from 'lodash';
 
 import i18n from 'lib-app/i18n';
 
@@ -73,7 +74,21 @@ class InstallLayout extends React.Component {
     }
 
     getCurrentStep() {
-        return 2;
+        const pathname = this.props.location.pathname;
+
+        if(_.includes(pathname, 'step-1')) {
+            return 0;
+        } else if(_.includes(pathname, 'step-2')) {
+            return 1;
+        } else if(_.includes(pathname, 'step-3')) {
+            return 2;
+        } else if(_.includes(pathname, 'step-4')) {
+            return 3;
+        } else if(_.includes(pathname, 'step-5')) {
+            return 4;
+        } else if(_.includes(pathname, 'step-6')) {
+            return 5;
+        }
     }
 }
 

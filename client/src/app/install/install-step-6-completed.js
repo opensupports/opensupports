@@ -1,6 +1,6 @@
 import React from 'react';
 
-class InstallStep4Completed extends React.Component {
+class InstallStep6Completed extends React.Component {
 
     render() {
         return (
@@ -11,4 +11,4 @@ class InstallStep4Completed extends React.Component {
     }
 }
 
-export default InstallStep4Completed;
+export default InstallStep6Completed;

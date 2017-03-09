@@ -97,8 +97,8 @@ export default (
                 <Route path="step-2" component={InstallStep2Requirements} />
                 <Route path="step-3" component={InstallStep3Settings} />
                 <Route path="step-4" component={InstallStep4Administrator} />
-                <Route path="step-4" component={InstallStep5Install} />
-                <Route path="step-4" component={InstallStep6Completed} />
+                <Route path="step-5" component={InstallStep5Install} />
+                <Route path="step-6" component={InstallStep6Completed} />
             </Route>
             <Route path="admin">
                 <IndexRoute component={AdminLoginPage} />

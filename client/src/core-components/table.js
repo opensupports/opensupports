@@ -146,6 +146,8 @@ class Table extends React.Component {
             'table__row-highlighted': row.highlighted
         };
         
+        classes[row.className] = (row.className);
+        
         return classNames(classes);
     }
 

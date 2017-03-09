@@ -1,0 +1,51 @@
+@import "../../scss/vars";
+
+.install-step-2 {
+
+    &__refresh {
+        margin: 15px 0;
+
+        &-button {
+            width: 120px;
+            position: relative;
+            text-align: right;
+        }
+
+        &-icon {
+            position: absolute;
+            left: 8px;
+            top: 8px;
+        }
+    }
+
+    &__requirement-list {
+        margin-bottom: 20px;
+    }
+
+    &__requirement {
+        color: $secondary-blue;
+
+        &-value {
+            width: 200px;
+        }
+
+        &-assert {
+            color: $primary-green;
+            float: right;
+            margin-top: 3px;
+        }
+
+        &_error {
+            color: $secondary-red;
+            background-color: #ffdfe0 !important;
+
+            .install-step-2__requirement-assert {
+                color: $secondary-red;
+            }
+        }
+    }
+
+    &__next {
+
+    }
+}
