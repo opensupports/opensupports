@@ -1,8 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import _ from 'lodash';
+import {browserHistory} from 'react-router';
 
 import i18n from 'lib-app/i18n';
+import API from 'lib-app/api-call';
 
 import Widget from 'core-components/widget';
 import Icon from 'core-components/icon';
@@ -17,6 +19,17 @@ const steps = [
 ];
 
 class InstallLayout extends React.Component {
+
+    componentDidMount() {
+        API.call({
+            path: '/system/installation-step',
+            data: {}
+        }).then((result) => {
+            if(result.data != this.getCurrentStep()) {
+                browserHistory.push('/install/step-' + (result.data + 1));
+            }
+        });
+    }
 
     render() {
         return (
@@ -64,7 +77,7 @@ class InstallLayout extends React.Component {
         }
 
         return (
-            <li className={classNames(classes)}>
+            <li className={classNames(classes)} key={index}>
                 <Icon name={icon} size="sm" className="install-layout__step-icon"/>
                 <span className="install-layout__step-text">
                     {index+1}. {i18n(key)}
