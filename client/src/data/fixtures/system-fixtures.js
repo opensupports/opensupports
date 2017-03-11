@@ -57,6 +57,37 @@ module.exports = [
         }
     },
     {
+        path: '/system/init-settings',
+        time: 50,
+        response: function() {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/system/init-database',
+        time: 50,
+        response: function() {
+            return {
+                status: 'success',
+                message: 'ERROR_SERVER',
+                data: {}
+            };
+        }
+    },
+    {
+        path: '/system/init-admin',
+        time: 50,
+        response: function() {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
         path: '/system/edit-settings',
         time: 50,
         response: function() {
@@ -90,8 +121,8 @@ module.exports = [
                     },
                     configFile: {
                         name: 'File: /api/config.php',
-                        value: 'No writable',
-                        ok: false
+                        value: 'Writable',
+                        ok: true
                     }
                 }
             };

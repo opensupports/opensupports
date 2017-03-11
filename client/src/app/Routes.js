@@ -57,9 +57,9 @@ import AdminPanelEmailTemplates from 'app/admin/panel/settings/admin-panel-email
 import InstallLayout from 'app/install/install-layout';
 import InstallStep1Language from 'app/install/install-step-1-language';
 import InstallStep2Requirements from 'app/install/install-step-2-requirements';
-import InstallStep3Settings from 'app/install/install-step-3-settings';
-import InstallStep4Administrator from 'app/install/install-step-4-administrator';
-import InstallStep5Install from 'app/install/install-step-5-install';
+import InstallStep3Database from 'app/install/install-step-3-database';
+import InstallStep4UserSystem from 'app/install/install-step-4-user-system';
+import InstallStep5Admin from 'app/install/install-step-5-admin';
 import InstallStep6Completed from 'app/install/install-step-6-completed';
 
 const history = syncHistoryWithStore(browserHistory, store);
@@ -95,9 +95,9 @@ export default (
                 <IndexRedirect to="step-1" />
                 <Route path="step-1" component={InstallStep1Language}/>
                 <Route path="step-2" component={InstallStep2Requirements} />
-                <Route path="step-3" component={InstallStep3Settings} />
-                <Route path="step-4" component={InstallStep4Administrator} />
-                <Route path="step-5" component={InstallStep5Install} />
+                <Route path="step-3" component={InstallStep3Database} />
+                <Route path="step-4" component={InstallStep4UserSystem} />
+                <Route path="step-5" component={InstallStep5Admin} />
                 <Route path="step-6" component={InstallStep6Completed} />
             </Route>
             <Route path="admin">

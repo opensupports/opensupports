@@ -1,0 +1,18 @@
+@import "../../scss/vars";
+
+.install-step-3 {
+
+    &__message {
+        margin-bottom: 20px;
+    }
+
+    &__previous {
+        float: left;
+    }
+
+    &__next {
+        float: left;
+        position: absolute;
+        margin-left: 286px;
+    }
+}

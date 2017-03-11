@@ -10,9 +10,9 @@ import Icon from 'core-components/icon';
 const steps = [
     'LANGUAGE',
     'SERVER_REQUIREMENTS',
-    'SETTINGS_SETUP',
+    'DATABASE_CONFIGURATION',
+    'USER_SYSTEM',
     'ADMIN_SETUP',
-    'INSTALL',
     'COMPLETED'
 ];
 
