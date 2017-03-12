@@ -207,7 +207,7 @@ export default {
     'ACTIVITY_EDIT_CUSTOM_RESPONSE': 'edited custom response',
     'ACTIVITY_BAN_USER': 'banned user',
     'ACTIVITY_DELETE_USER': 'deleted user',
-    'ACTIVITY_UN_BAN_USER': 'banned user',
+    'ACTIVITY_UN_BAN_USER': 'unbanned user',
 
     'SERVER_REQUIREMENTS': 'Server requirements',
     'DATABASE_CONFIGURATION': 'Database configuration',
