@@ -2,9 +2,6 @@ const _ = require('lodash');
 const APIUtils = require('lib-core/APIUtils');
 const SessionStore = require('lib-app/session-store');
 
-const url = 'http://localhost:3000';
-const apiUrl = 'http://localhost:3000/api';
-
 function processData (data, dataAsForm = false) {
     let newData;
     
@@ -31,7 +28,7 @@ module.exports = {
     call: function ({path, data, plain, dataAsForm}) {
         console.log('request ' + path, data);
         return new Promise(function (resolve, reject) {
-            APIUtils.post(apiUrl + path, processData(data, dataAsForm), dataAsForm)
+            APIUtils.post(apiRoot + path, processData(data, dataAsForm), dataAsForm)
                 .then(function (result) {
                     console.log(result);
 
@@ -53,14 +50,14 @@ module.exports = {
     },
     
     getFileLink(filePath) {
-        return apiUrl + '/system/download?file=' + filePath;
+        return apiRoot + '/system/download?file=' + filePath;
     },
     
     getAPIUrl() {
-        return apiUrl;
+        return apiRoot;
     },
     
     getURL() {
-        return url;
+        return root;
     }
 };

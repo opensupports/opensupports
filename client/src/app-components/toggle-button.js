@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import i18n from 'lib-app/i18n';
 
 class ToggleButton extends React.Component {
-
     
     static propTypes = {
         value: React.PropTypes.bool,
@@ -22,6 +21,7 @@ class ToggleButton extends React.Component {
     getClass() {
         let classes = {
             'toggle-button': true,
+            'toggle-button_disabled': (this.props.disabled),
             [this.props.className]: (this.props.className)
         };
 
@@ -30,7 +30,7 @@ class ToggleButton extends React.Component {
 
 
     onClick() {
-        if (this.props.onChange) {
+        if (this.props.onChange && !this.props.disabled) {
             this.props.onChange({
                 target: {
                     value: !this.props.value

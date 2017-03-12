@@ -29,7 +29,8 @@ class FormField extends React.Component {
     };
     
     static defaultProps = {
-        field: 'input'
+        field: 'input',
+        fieldProps: {}
     };
 
     static getDefaultValue(field) {
@@ -120,7 +121,7 @@ class FormField extends React.Component {
     
     getFieldProps() {
         let props = _.extend({}, this.props.fieldProps, {
-            disabled: this.context.loading,
+            disabled: this.isDisabled(),
             errored: !!this.props.error,
             name: this.props.name,
             placeholder: this.props.placeholder,
@@ -170,6 +171,12 @@ class FormField extends React.Component {
         if (this.props.onChange) {
             this.props.onChange(event)
         }
+    }
+    
+    isDisabled() {
+        const fieldProps = this.props.fieldProps;
+
+        return (fieldProps.disabled === undefined) ? this.context.loading : fieldProps.disabled;
     }
 
     focus() {

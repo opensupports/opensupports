@@ -1,0 +1,13 @@
+@import "../../scss/vars";
+
+.install-step-1 {
+
+    &__label {
+        font-size: $font-size--md;
+        margin-bottom: 20px;
+    }
+
+    &__button {
+        margin-top: 20px;
+    }
+}

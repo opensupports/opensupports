@@ -67,3 +67,9 @@ gulp.task('browserify', function() {
   return buildScript('index.js', !global.isProd);
 
 });
+
+gulp.task('config', function() {
+
+  return gulp.src(config.sourceDir + 'config.js')
+      .pipe(gulp.dest(config.scripts.dest))
+});

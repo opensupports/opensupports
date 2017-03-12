@@ -1,0 +1,75 @@
+@import "../../scss/vars";
+
+.install-layout {
+    margin: 0 auto;
+    width: 900px;
+    min-height: 0;
+
+    @media screen and (max-width: 900px) {
+        width: 100%;
+    }
+
+    &__header {
+        text-align: left;
+
+        &-logo {
+            display: inline-block;
+            max-width: 300px;
+        }
+
+        &-text {
+            display: inline-block;
+            margin-left: 20px;
+        }
+
+        &-title {
+            text-align: left;
+            font-weight: bold;
+            font-size: $font-size--md;
+            color: $primary-black;
+        }
+
+        &-description {
+            text-align: left;
+            color: $dark-grey;
+        }
+    }
+
+    &__body {
+        margin-top: 20px;
+        text-align: left;
+    }
+
+    &__steps {
+        padding: 0;
+        list-style-type: none;
+        border-right: 1px solid $primary-blue;
+    }
+
+    &__step {
+        color: $primary-black;
+
+        &-icon {
+            color: $primary-blue;
+            margin-right: 10px;
+        }
+
+        &_current {
+
+            .install-layout__step-icon {
+                color: $secondary-blue;
+            }
+        }
+
+        &_previous {
+
+            .install-layout__step-icon {
+                color: $primary-green;
+            }
+        }
+    }
+
+    &__content {
+        min-height: 130px;
+    }
+}
