@@ -35,7 +35,7 @@ class InitAdminController extends Controller {
         $staff->setProperties([
             'name' => Controller::request('name'),
             'email' => Controller::request('email'),
-            'password' => Controller::request('password'),
+            'password' => Hashing::hashPassword(Controller::request('password')),
             'profilePic' => '',
             'level' => 3,
             'sharedDepartmentList' => Department::getAll(),
