@@ -26,6 +26,7 @@ class MailSender {
         $mailer->addAddress($this->mailOptions['to']);
         $mailer->Subject = $this->mailOptions['subject'];
         $mailer->Body = $this->mailOptions['body'];
+        $mailer->isHTML(true);
 
         $mailer->isSMTP();
         $mailer->SMTPAuth = true;
