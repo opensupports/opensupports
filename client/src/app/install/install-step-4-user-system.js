@@ -1,5 +1,6 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
+import { connect } from 'react-redux'
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -54,6 +55,7 @@ class InstallStep4UserSystem extends React.Component {
         API.call({
             path: '/system/init-settings',
             data: {
+                'language': this.props.language,
                 'user-system-enabled': form['user-system-enabled'],
                 'registration': form['registration']
             }
@@ -65,4 +67,9 @@ class InstallStep4UserSystem extends React.Component {
     }
 }
 
-export default InstallStep4UserSystem;
+
+export default connect((store) => {
+    return {
+        language: store.config.language
+    };
+})(InstallStep4UserSystem);

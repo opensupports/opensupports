@@ -6,7 +6,7 @@ use Respect\Validation\Rules\AbstractRule;
 
 class ValidLanguage extends AbstractRule {
 
-    public function validate($ticketNumber) {
-        return in_array($ticketNumber, \Language::LANGUAGES);
+    public function validate($language) {
+        return in_array($language, \Language::LANGUAGES);
     }
 }
