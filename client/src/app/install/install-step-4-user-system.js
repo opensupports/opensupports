@@ -56,8 +56,8 @@ class InstallStep4UserSystem extends React.Component {
             path: '/system/init-settings',
             data: {
                 'language': this.props.language,
-                'user-system-enabled': form['user-system-enabled'],
-                'registration': form['registration']
+                'user-system-enabled': form['user-system-enabled'] * 1,
+                'registration': form['registration'] * 1
             }
         }).then(() => browserHistory.push('/install/step-5'));
     }
