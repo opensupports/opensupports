@@ -98,6 +98,10 @@ class App extends React.Component {
         if (!props.config.registration && _.includes(props.location.pathname, 'signup')) {
             browserHistory.push('/');
         }
+
+        if(!props.config['user-system-enabled'] && _.includes(props.location.pathname, '/check-ticket')) {
+            browserHistory.push('/');
+        }
     }
 
     isPathAvailableForStaff(props) {

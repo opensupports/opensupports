@@ -62,6 +62,36 @@ class InitialMails {
                     'subject' => 'Cuenta creada - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-system-enabled-es.html')
                 ]
+            ],
+            'TICKET_CREATED' => [
+                'en' => [
+                    'subject' => '#{{ticketNumber}} Ticket created - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-created-en.html')
+                ],
+                'es' => [
+                    'subject' => '#{{ticketNumber}} Ticket creado - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-created-es.html')
+                ]
+            ],
+            'TICKET_RESPONDED' => [
+                'en' => [
+                    'subject' => '#{{ticketNumber}} New response - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-responded-en.html')
+                ],
+                'es' => [
+                    'subject' => '#{{ticketNumber}} Nueva respuesta - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-responded-es.html')
+                ]
+            ],
+            'TICKET_CLOSED' => [
+                'en' => [
+                    'subject' => '#{{ticketNumber}} Ticket closed - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-closed-en.html')
+                ],
+                'es' => [
+                    'subject' => '#{{ticketNumber}} Ticket cerrado - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-closed-es.html')
+                ]
             ]
         ];
     }

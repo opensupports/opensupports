@@ -13,7 +13,7 @@ describe'/system/disable-registration' do
 
         row = $database.getRow('setting', 'registration', 'name')
 
-        (row['value']).should.equal('true')
+        (row['value']).should.equal('1')
     end
 
     it 'should disable registration' do

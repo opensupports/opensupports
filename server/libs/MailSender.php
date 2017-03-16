@@ -19,7 +19,7 @@ class MailSender {
         
         $this->mailOptions = array_merge($this->mailOptions, $compiledMailContent);
     }
-
+    
     public function send() {
         $mailer = new PHPMailer();
 
