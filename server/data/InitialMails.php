@@ -13,63 +13,53 @@ class InitialMails {
                     'body' => file_get_contents('data/mail-templates/user-signup-es.html')
                 ]
             ],
-            'USER_EDIT_PASSWORD' => [
+            'USER_PASSWORD' => [
                 'en' => [
                     'subject' => 'Password edited - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-edit-password-en.html')
                 ],
                 'es' => [
-                    'subject' => 'Contraseña a sido cambiada - OpenSupports',
+                    'subject' => 'Contraseña a cambiado - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-edit-password-es.html')
                 ]
             ],
-            'USER_EDIT_EMAIL' => [
+            'USER_EMAIL' => [
                 'en' => [
                     'subject' => 'Email edited - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-edit-email-en.html')
                 ],
                 'es' => [
-                    'subject' => 'Tu correo electronico a sido cambiada - OpenSupports',
+                    'subject' => 'Email a cambiado - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-edit-email-es.html')
                 ]
             ],
             'PASSWORD_FORGOT' => [
                 'en' => [
-                    'subject' => 'forgotten password - OpenSupports',
+                    'subject' => 'Recover password - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-password-forgot-en.html')
                 ],
                 'es' => [
-                    'subject' => 'Contraseña olvidada - OpenSupports',
+                    'subject' => 'Recuperar password - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-password-forgot-es.html')
-                ]
-            ],
-            'PASSWORD_RECOVERED' => [
-                'en' => [
-                    'subject' => 'Recover Password - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-recovered-password-en.html')
-                ],
-                'es' => [
-                    'subject' => 'Recuperación de contraseña - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-recovered-password-es.html')
                 ]
             ],
             'USER_SYSTEM_DISABLED' => [
                 'en' => [
-                    'subject' => 'Account has been deleted - OpenSupports',
+                    'subject' => 'Access system changed - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-system-disabled-en.html')
                 ],
                 'es' => [
-                    'subject' => 'cuanta borrada - OpenSupports',
+                    'subject' => 'Sistema de acceso cambiado - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-system-disabled-es.html')
                 ]
             ],
             'USER_SYSTEM_ENABLED' => [
                 'en' => [
-                    'subject' => 'account has been created - OpenSupports',
+                    'subject' => 'Account created - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-system-enabled-en.html')
                 ],
                 'es' => [
-                    'subject' => 'se te ha creado una cuenta  - OpenSupports',
+                    'subject' => 'Cuenta creada - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-system-enabled-es.html')
                 ]
             ]

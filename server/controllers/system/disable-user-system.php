@@ -30,14 +30,14 @@ class DisableUserSystemController extends Controller {
         $userList = User::getAll();
 
         foreach($userList as $user) {
-            $ticketNumberList = [];
+            $ticketNumberList = '';
             
             foreach($user->sharedTicketList as $ticket) {
                 $ticket->authorEmail = $user->email;
                 $ticket->authorName = $user->name;
                 $ticket->author = null;
                 
-                $ticketNumberList[] = $ticket->ticketNumber;
+                $ticketNumberList .= $ticket->ticketNumber . ' - ' . $ticket->title . '<br />';
                 $ticket->store();
             }
 
@@ -46,7 +46,7 @@ class DisableUserSystemController extends Controller {
             $mailSender->setTemplate(MailTemplate::USER_SYSTEM_DISABLED, [
                 'to' => $user->email,
                 'name' => $user->name,
-                'tickets' => json_encode($ticketNumberList)
+                'tickets' => $ticketNumberList
             ]);
 
             $mailSender->send();
