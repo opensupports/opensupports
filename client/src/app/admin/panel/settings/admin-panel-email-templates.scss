@@ -1,5 +1,10 @@
 .admin-panel-email-templates {
 
+    &__text-area {
+        width: 100%;
+        height: 157px;
+    }
+
     &__save-button {
         display: inline-block;
         float: left;
