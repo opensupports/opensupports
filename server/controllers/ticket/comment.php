@@ -54,7 +54,10 @@ class CommentController extends Controller {
 
         if ((!Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) || $session->isLoggedWithId(($this->ticket->author) ? $this->ticket->author->id : 0) || (Controller::isStaffLogged() && $session->isLoggedWithId(($this->ticket->owner) ? $this->ticket->owner->id : 0))) {
             $this->storeComment();
-            $this->sendMail();
+
+            if(Controller::isStaffLogged()) {
+                $this->sendMail();
+            }
 
             Log::createLog('COMMENT', $this->ticket->ticketNumber);
             
