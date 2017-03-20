@@ -257,5 +257,20 @@ export default {
     'FAILED_EDIT_STAFF': 'An error occurred while trying to edit staff member.',
     'EMAIL_BANNED_SUCCESSFULLY': 'Email has been banned successfully',
     'WILL_DELETE_STAFF': 'This staff member will be deleted and all its tickets will be unassigned.',
-    'WILL_RECOVER_EMAIL_TEMPLATE': 'This email template will be recover to it\'s default value on this language.'
+    'WILL_RECOVER_EMAIL_TEMPLATE': 'This email template will be recover to it\'s default value on this language.',
+
+    'LAST_7_DAYS': 'Últimos 7 dias',
+    'LAST_30_DAYS': 'Últimos 30 dias',
+    'LAST_90_DAYS': 'Últimos 90 dias',
+    'LAST_365_DAYS': 'Últimos 365 dias',
+
+    'ACTIVITY_COMMENT_THIS': 'comentó este ticket',
+    'ACTIVITY_ASSIGN_THIS': 'se asignó este ticket',
+    'ACTIVITY_UN_ASSIGN_THIS': 'se desasignó este ticket',
+    'ACTIVITY_CLOSE_THIS': 'cerró este ticket',
+    'ACTIVITY_CREATE_TICKET_THIS': 'creó este ticket',
+    'ACTIVITY_RE_OPEN_THIS': 'reabrió este ticket',
+    'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'cambió el departamento de este ticket a ',
+    'ACTIVITY_PRIORITY_CHANGED_THIS': 'cambió la prioridad de este ticket a ',
+    'DATE_PREFIX': 'en'
 };

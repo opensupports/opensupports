@@ -334,5 +334,20 @@ export default {
     'WILL_DELETE_STAFF': 'This staff member will be deleted and all its tickets will be unassigned.',
     'WILL_RECOVER_EMAIL_TEMPLATE': 'This email template will be recover to it\'s default value on this language.',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'CSV File has been imported successfully',
-    'SUCCESS_DELETING_ALL_USERS': 'Users have beend deleted successfully'
+    'SUCCESS_DELETING_ALL_USERS': 'Users have beend deleted successfully',
+
+    'LAST_7_DAYS': 'Last 7 days',
+    'LAST_30_DAYS': 'Last 30 days',
+    'LAST_90_DAYS': 'Last 90 days',
+    'LAST_365_DAYS': 'Last 365 days',
+
+    'ACTIVITY_COMMENT_THIS': 'commented this ticket',
+    'ACTIVITY_ASSIGN_THIS': 'assigned this ticket',
+    'ACTIVITY_UN_ASSIGN_THIS': 'unassigned this ticket',
+    'ACTIVITY_CLOSE_THIS': 'closed this ticket',
+    'ACTIVITY_CREATE_TICKET_THIS': 'created this ticket',
+    'ACTIVITY_RE_OPEN_THIS': 'reopened this ticket',
+    'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'changed department of this ticket to ',
+    'ACTIVITY_PRIORITY_CHANGED_THIS': 'changed priority of this ticket to',
+    'DATE_PREFIX': 'on'
 };

@@ -90,9 +90,9 @@ class Stats extends React.Component {
 
     getDropDownProps() {
         return {
-            items: ['Last 7 days', 'Last 30 days', 'Last 90 days', 'Last 365 days'].map((name) => {
+            items: ['LAST_7_DAYS', 'LAST_30_DAYS', 'LAST_90_DAYS', 'LAST_365_DAYS'].map((name) => {
                 return {
-                    content: name,
+                    content: i18n(name),
                     icon: ''
                 };
             }),
