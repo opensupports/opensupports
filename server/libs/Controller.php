@@ -17,7 +17,7 @@ abstract class Controller {
                 $this->validate();
                 $this->handler();
             } catch (\Exception $exception) {
-                Response::respondError($exception->getMessage() . ' on line ' . $exception->getFile() . ':' . $exception->getLine());
+                Response::respondError($exception->getMessage());
                 return;
             }
         };
