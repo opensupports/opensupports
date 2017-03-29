@@ -62,9 +62,15 @@ class AdminPanelDepartments extends React.Component {
                 <div className="admin-panel-departments__discard-button">
                     <Button onClick={this.onDiscardChangesClick.bind(this)} size="medium">{i18n('DISCARD_CHANGES')}</Button>
                 </div>
-                <div className="admin-panel-departments__delete-button">
-                    <Button onClick={this.onDeleteClick.bind(this)} size="medium">{i18n('DELETE')}</Button>
-                </div>
+                {this.props.departments.length > 1 ? this.renderDeleteButton() : null}
+            </div>
+        );
+    }
+
+    renderDeleteButton() {
+        return (
+            <div className="admin-panel-departments__delete-button">
+                <Button onClick={this.onDeleteClick.bind(this)} size="medium">{i18n('DELETE')}</Button>
             </div>
         );
     }

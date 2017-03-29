@@ -14,6 +14,8 @@ class CheckRequirementsController extends Controller {
     }
 
     public function handler() {
+        $configWritable = !!fopen('config.php', 'w+');
+
         Response::respondSuccess([
             'phpVersion' => [
                 'name' => 'PHP Version',
@@ -32,8 +34,8 @@ class CheckRequirementsController extends Controller {
             ],
             'files' => [
                 'name' => 'Folder: /api/files',
-                'value' => is_writable('files/') ? 'Writable' : 'Not writable',
-                'ok' => is_writable('files/')
+                'value' => $configWritable ? 'Writable' : 'Not writable',
+                'ok' => $configWritable
             ]
         ]);
     }

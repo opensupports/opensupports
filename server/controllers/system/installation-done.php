@@ -5,6 +5,10 @@ class InstallationDoneController extends Controller {
     const PATH = '/installation-done';
     const METHOD = 'POST';
 
+    public static function isInstallationDone() {
+        return RedBean::testConnection() && !Setting::isTableEmpty() && !Staff::isTableEmpty();
+    }
+    
     public function validations() {
         return [
             'permission' => 'any',
@@ -13,7 +17,7 @@ class InstallationDoneController extends Controller {
     }
 
     public function handler() {
-        if(RedBean::testConnection() && !Setting::isTableEmpty() && !Staff::isTableEmpty()) {
+        if(InstallationDoneController::isInstallationDone()) {
             Response::respondSuccess(1);
         } else {
             Response::respondSuccess(0);

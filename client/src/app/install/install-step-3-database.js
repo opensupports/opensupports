@@ -26,9 +26,9 @@ class InstallStep3Database extends React.Component {
                 {this.renderMessage()}
                 <Form loading={this.state.loading} onSubmit={this.onSubmit.bind(this)}>
                     <FormField name="dbHost" label={i18n('DATABASE_HOST')} fieldProps={{size: 'large'}} required/>
-                    <FormField name="dbName" label={i18n('DATABASE_NAME')} fieldProps={{size: 'large'}} required/>
+                    <FormField name="dbName" label={i18n('DATABASE_NAME')} fieldProps={{size: 'large'}} infoMessage={i18n('LEFT_EMPTY_DATABASE')}/>
                     <FormField name="dbUser" label={i18n('DATABASE_USER')} fieldProps={{size: 'large'}} required/>
-                    <FormField name="dbPassword" label={i18n('DATABASE_PASSWORD')} fieldProps={{size: 'large', password: true}} required/>
+                    <FormField name="dbPassword" label={i18n('DATABASE_PASSWORD')} fieldProps={{size: 'large', password: true}}/>
                     <div className="install-step-3__buttons">
                         <SubmitButton className="install-step-3__next" size="medium" type="secondary">{i18n('NEXT')}</SubmitButton>
                         <Button className="install-step-3__previous" size="medium" onClick={this.onPreviousClick.bind(this)}>{i18n('PREVIOUS')}</Button>

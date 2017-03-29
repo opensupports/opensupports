@@ -74,7 +74,7 @@ class App extends React.Component {
         }
 
         if (validations.languageChanged) {
-            browserHistory.push(props.location.pathname);
+            window.location.reload();
         }
 
         if (validations.loggedOut) {
@@ -99,7 +99,7 @@ class App extends React.Component {
             browserHistory.push('/');
         }
 
-        if(!props.config['user-system-enabled'] && _.includes(props.location.pathname, '/check-ticket')) {
+        if(props.config['user-system-enabled'] && _.includes(props.location.pathname, '/check-ticket')) {
             browserHistory.push('/');
         }
     }

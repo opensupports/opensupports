@@ -18,6 +18,13 @@ class GetAllTicketsStaffController extends Controller {
     }
     
     public function handler() {
+        if (Ticket::isTableEmpty()) {
+            Response::respondSuccess([
+                'tickets' => [],
+                'pages' => 0
+            ]);
+            return;
+        }
 
         Response::respondSuccess([
             'tickets' => $this->getTicketList()->toArray(),

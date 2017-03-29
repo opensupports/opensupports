@@ -349,5 +349,6 @@ export default {
     'ACTIVITY_RE_OPEN_THIS': 'reopened this ticket',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'changed department of this ticket to ',
     'ACTIVITY_PRIORITY_CHANGED_THIS': 'changed priority of this ticket to',
-    'DATE_PREFIX': 'on'
+    'DATE_PREFIX': 'on',
+    'LEFT_EMPTY_DATABASE': 'Left empty for automatic database creation'
 };

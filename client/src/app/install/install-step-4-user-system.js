@@ -15,6 +15,7 @@ import SubmitButton from 'core-components/submit-button';
 class InstallStep4UserSystem extends React.Component {
 
     state = {
+        loading: false,
         form: {
             'user-system-enabled': true,
             'registration': true
@@ -25,7 +26,7 @@ class InstallStep4UserSystem extends React.Component {
         return (
             <div className="install-step-4">
                 <Header title={i18n('STEP_TITLE', {title: i18n('USER_SYSTEM'), current: 4, total: 6})} description={i18n('STEP_4_DESCRIPTION')}/>
-                <Form onSubmit={this.onSubmit.bind(this)} values={this.state.form} onChange={this.onChange.bind(this)}>
+                <Form onSubmit={this.onSubmit.bind(this)} values={this.state.form} onChange={this.onChange.bind(this)} loading={this.state.loading}>
                     <FormField name="user-system-enabled" label={i18n('ENABLE_USER_SYSTEM')} decorator={ToggleButton}/>
                     <FormField name="registration" label={i18n('ENABLE_USER_REGISTRATION')} decorator={ToggleButton} fieldProps={{disabled: this.isDisabled()}}/>
                     <div className="install-step-4__buttons">
@@ -52,14 +53,18 @@ class InstallStep4UserSystem extends React.Component {
     }
 
     onSubmit(form) {
-        API.call({
+        this.setState({
+            loading: true
+        }, () => API.call({
             path: '/system/init-settings',
             data: {
                 'language': this.props.language,
                 'user-system-enabled': form['user-system-enabled'] * 1,
                 'registration': form['registration'] * 1
             }
-        }).then(() => browserHistory.push('/install/step-5'));
+        }).then(() => this.setState({
+            loading: false
+        }, () => browserHistory.push('/install/step-5'))));
     }
 
     isDisabled() {

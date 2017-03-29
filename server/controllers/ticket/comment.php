@@ -99,8 +99,8 @@ class CommentController extends Controller {
         $mailSender = new MailSender();
 
         $mailSender->setTemplate(MailTemplate::TICKET_RESPONDED, [
-            'to' => $this->ticket->author->email,
-            'name' => $this->ticket->author->name,
+            'to' => ($this->ticket->author) ? $this->ticket->author->email : $this->ticket->authorEmail,
+            'name' => ($this->ticket->author) ? $this->ticket->author->name : $this->ticket->authorName,
             'ticketNumber' => $this->ticket->ticketNumber,
             'title' => $this->ticket->title,
             'url' => Setting::getSetting('url')->getValue()

@@ -122,7 +122,7 @@ class AdminPanelEmailTemplates extends React.Component {
     getItems() {
         return this.state.items.map((item) => {
             return {
-                content: i18n(item.type)
+                content: item.type
             };
         });
     }

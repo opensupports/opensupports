@@ -8,7 +8,9 @@ class ConfigReducer extends Reducer {
     getInitialState() {
         return {
             language: sessionStore.getItem('language'),
-            initDone: false
+            initDone: false,
+            installedDone: false,
+            installed: false
         };
     }
 
@@ -16,6 +18,7 @@ class ConfigReducer extends Reducer {
         return {
             'CHANGE_LANGUAGE': this.onLanguageChange,
             'INIT_CONFIGS_FULFILLED': this.onInitConfigs,
+            'CHECK_INSTALLATION_FULFILLED': this.onInstallationChecked,
             'UPDATE_DATA_FULFILLED': this.onInitConfigs
         };
     }
@@ -42,6 +45,13 @@ class ConfigReducer extends Reducer {
             'allow-attachments': !!(payload.data['allow-attachments']* 1),
             'maintenance-mode': !!(payload.data['maintenance-mode']* 1),
             initDone: true
+        });
+    }
+
+    onInstallationChecked(state, payload) {
+        return _.extend({}, state, {
+            installedDone: true,
+            installed: payload.data
         });
     }
 }

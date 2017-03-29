@@ -57,13 +57,13 @@ class DashboardListArticlesPage extends React.Component {
         );
     }
 
-    renderSearchResultsItem(item) {
+    renderSearchResultsItem(item, index) {
         let content = this.stripHTML(item.content);
         content = content.substring(0, 100);
         content += '...';
 
         return (
-            <div className="dashboard-list-articles-page__search-result">
+            <div className="dashboard-list-articles-page__search-result" key={index}>
                 <div className="dashboard-list-articles-page__search-result-title">
                     <Link to={((this.props.location.pathname == '/articles') ? '/article/' : '/dashboard/article/') + item.id}>{item.title}</Link>
                 </div>
