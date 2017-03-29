@@ -25,13 +25,10 @@
     &__requirement {
         color: $secondary-blue;
 
-        &-value {
-            width: 200px;
-        }
-
         &-assert {
             color: $primary-green;
-            float: right;
+            float: left;
+            margin-right: 11px;
             margin-top: 3px;
         }
 
@@ -45,7 +42,13 @@
         }
     }
 
-    &__next {
+    &__previous {
+        float: left;
+    }
 
+    &__next {
+        float: left;
+        position: absolute;
+        margin-left: 103px;
     }
 }

@@ -39,9 +39,9 @@ class IconSelector extends React.Component {
         );
     }
 
-    renderTooltipIcon(name) {
+    renderTooltipIcon(name, index) {
         return (
-            <div className="icon-selector__tooltip-icon" onClick={this.onIconClick.bind(this, name)}>
+            <div className="icon-selector__tooltip-icon" onClick={this.onIconClick.bind(this, name)} key={index}>
                 <Icon name={name} />
             </div>
         );

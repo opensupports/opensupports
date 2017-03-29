@@ -37,5 +37,6 @@ let unsubscribe = store.subscribe(() => {
     }
 });
 
+store.dispatch(ConfigActions.checkInstallation());
 store.dispatch(ConfigActions.init());
 store.dispatch(SessionActions.initSession());

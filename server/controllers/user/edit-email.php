@@ -25,7 +25,7 @@ class EditEmail extends Controller{
         $user->store();
         
         $mailSender = new MailSender();
-        $mailSender->setTemplate('USER_EDIT_EMAIL', [
+        $mailSender->setTemplate('USER_EMAIL', [
             'to'=>$oldEmail,
             'newemail'=>$user->email,
             'name'=>$user->name

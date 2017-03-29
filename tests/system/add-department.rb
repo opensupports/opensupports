@@ -3,7 +3,7 @@ describe'system/add-department' do
         Scripts.login($staff[:email], $staff[:password], true)
 
         it 'should add department' do
-            result= request('/system/add-department', {
+            result = request('/system/add-department', {
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
                 name: 'new department'

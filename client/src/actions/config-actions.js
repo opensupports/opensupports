@@ -2,6 +2,16 @@ import API from 'lib-app/api-call';
 import sessionStore from 'lib-app/session-store';
 
 export default {
+    checkInstallation() {
+        return {
+            type: 'CHECK_INSTALLATION',
+            payload: API.call({
+                path: '/system/installation-done',
+                data: {}
+            })
+        };
+    },
+
     init() {
         if (sessionStore.isLoggedIn()) {
             return {

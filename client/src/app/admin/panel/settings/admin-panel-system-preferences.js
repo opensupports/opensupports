@@ -174,8 +174,8 @@ class AdminPanelSystemPreferences extends React.Component {
                 'smtp-port': form['smtp-port'],
                 'smtp-user': form['smtp-user'],
                 'smtp-pass': form['smtp-pass'],
-                'maintenance-mode': form['maintenance-mode'],
-                'allow-attachments': form['allow-attachments'],
+                'maintenance-mode': form['maintenance-mode'] * 1,
+                'allow-attachments': form['allow-attachments'] * 1,
                 'max-size': form['max-size'],
                 'allowedLanguages': JSON.stringify(form.allowedLanguages.map(index => languageKeys[index])),
                 'supportedLanguages': JSON.stringify(form.supportedLanguages.map(index => languageKeys[index]))

@@ -58,6 +58,10 @@ class CreateController extends Controller {
 
         $this->storeTicket();
 
+        if(!Controller::isUserSystemEnabled()) {
+            $this->sendMail();
+        }
+
         Log::createLog('CREATE_TICKET', $this->ticketNumber);
         Response::respondSuccess([
             'ticketNumber' => $this->ticketNumber
@@ -89,12 +93,29 @@ class CreateController extends Controller {
         if(Controller::isUserSystemEnabled()) {
             $author->sharedTicketList->add($ticket);
             $author->tickets++;
+            
+            $this->email = $author->email;
+            $this->name = $author->name;
 
-            $author->store();    
+            $author->store(); 
         }
         
         $ticket->store();
         
         $this->ticketNumber = $ticket->ticketNumber;
+    }
+
+    private function sendMail() {
+        $mailSender = new MailSender();
+
+        $mailSender->setTemplate(MailTemplate::TICKET_CREATED, [
+            'to' => $this->email,
+            'name' => $this->name,
+            'ticketNumber' => $this->ticketNumber,
+            'title' => $this->title,
+            'url' => Setting::getSetting('url')->getValue()
+        ]);
+
+        $mailSender->send();
     }
 }

@@ -332,7 +332,7 @@ module.exports = [
 
             return {
                 status: "success",
-                data: DATA
+                data: DATA.reverse()
             };
         }
     },

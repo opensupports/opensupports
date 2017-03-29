@@ -23,9 +23,10 @@ class DownloadController extends Controller {
         $staffUser = Staff::getDataStore($fileName, 'profilePic');
 
         if($staffUser->isNull()) {
+            $session = Session::getInstance();
             $loggedUser = Controller::getLoggedUser();
 
-            if($loggedUser->isNull()) {
+            if(!$session->sessionExists()) {
                 print '';
                 return;
             }
@@ -55,10 +56,22 @@ class DownloadController extends Controller {
     }
 
     private function isNotAuthor($ticket, $loggedUser) {
-        return Controller::isStaffLogged() || $ticket->author->id !== $loggedUser->id;
+        $session = Session::getInstance();
+
+        if($session->getTicketNumber()) {
+            return $session->getTicketNumber() !== $ticket->ticketNumber;
+        } else {
+            return Controller::getLoggedUser()->level >= 1 || $ticket->author->id !== $loggedUser->id;
+        }
     }
 
     private function isNotOwner($ticket, $loggedUser) {
-        return !Controller::isStaffLogged() || !$ticket->owner || $ticket->owner->id !== $loggedUser->id;
+        $session = Session::getInstance();
+
+        if($session->getTicketNumber()) {
+            return $session->getTicketNumber() !== $ticket->ticketNumber;
+        } else {
+            return !(Controller::getLoggedUser()->level >= 1) || !$ticket->owner || $ticket->owner->id !== $loggedUser->id;
+        }
     }
 }

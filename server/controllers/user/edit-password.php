@@ -27,7 +27,7 @@ class EditPassword extends Controller {
             $user->store();
 
             $mailSender = new MailSender();
-            $mailSender->setTemplate('USER_EDIT_PASSWORD', [
+            $mailSender->setTemplate('USER_PASSWORD', [
                 'to'=>$user->email,
                 'name'=>$user->name
             ]);

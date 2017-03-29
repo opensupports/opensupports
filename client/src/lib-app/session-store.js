@@ -69,7 +69,7 @@ class SessionStore {
         return {
             language: this.getItem('language'),
             reCaptchaKey: this.getItem('reCaptchaKey'),
-            departments: this.getDepartments(),
+            departments: this.getDepartments() || [],
             allowedLanguages: JSON.parse(this.getItem('allowedLanguages')),
             supportedLanguages: JSON.parse(this.getItem('supportedLanguages')),
             layout: this.getItem('layout'),
@@ -110,7 +110,7 @@ class SessionStore {
     }
 
     setItem(key, value) {
-        return this.storage.setItem(key, value);
+        return this.storage.setItem(key, (value !== undefined) ? value : '');
     }
 
     removeItem(key) {

@@ -54,7 +54,11 @@ class CommentController extends Controller {
 
         if ((!Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) || $session->isLoggedWithId(($this->ticket->author) ? $this->ticket->author->id : 0) || (Controller::isStaffLogged() && $session->isLoggedWithId(($this->ticket->owner) ? $this->ticket->owner->id : 0))) {
             $this->storeComment();
-            
+
+            if(Controller::isStaffLogged()) {
+                $this->sendMail();
+            }
+
             Log::createLog('COMMENT', $this->ticket->ticketNumber);
             
             Response::respondSuccess();
@@ -89,5 +93,19 @@ class CommentController extends Controller {
 
         $this->ticket->addEvent($comment);
         $this->ticket->store();
+    }
+
+    private function sendMail() {
+        $mailSender = new MailSender();
+
+        $mailSender->setTemplate(MailTemplate::TICKET_RESPONDED, [
+            'to' => ($this->ticket->author) ? $this->ticket->author->email : $this->ticket->authorEmail,
+            'name' => ($this->ticket->author) ? $this->ticket->author->name : $this->ticket->authorName,
+            'ticketNumber' => $this->ticket->ticketNumber,
+            'title' => $this->ticket->title,
+            'url' => Setting::getSetting('url')->getValue()
+        ]);
+
+        $mailSender->send();
     }
 }

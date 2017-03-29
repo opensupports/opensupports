@@ -36,19 +36,21 @@ class ToggleList extends React.Component {
     renderItem(obj, index) {
 
         return (
-            <div className={this.getItemClass(index)} onClick={this.selectItem.bind(this, index)} key={index}>
+            <div className={this.getItemClass(index, obj)} onClick={this.selectItem.bind(this, index)} key={index}>
                 {obj.content}
             </div>
         );
     }
 
-    getItemClass(index) {
+    getItemClass(index, obj) {
         let classes = {
             'toggle-list__item': true,
             'toggle-list__first-item': (index === 0),
             'toggle-list__last-item': (index === this.props.items.length - 1),
             'toggle-list__selected': _.includes(this.getSelectedList(), index)
         };
+
+        classes[obj.className] = (obj.className);
 
         return classNames(classes);
     }

@@ -267,6 +267,21 @@ export default {
     'FAILED_EDIT_STAFF': 'スタッフメンバーの編集中にエラーが発生しました。',
     'EMAIL_BANNED_SUCCESSFULLY': '電子メールが正常に禁止されました',
     'WILL_DELETE_STAFF': 'このスタッフメンバーは削除され、そのチケットはすべて割り当て解除されます。',
-    'WILL_RECOVER_EMAIL_TEMPLATE': 'この電子メールテンプレートは、この言語のデフォルト値にリカバリされます。'
+    'WILL_RECOVER_EMAIL_TEMPLATE': 'この電子メールテンプレートは、この言語のデフォルト値にリカバリされます。',
+
+    'LAST_7_DAYS': '過去7日間',
+    'LAST_30_DAYS': '過去30日間',
+    'LAST_90_DAYS': '過去90日間',
+    'LAST_365_DAYS': '過去365日間',
+
+    'ACTIVITY_COMMENT_THIS': 'はこのチケットにコメントしました',
+    'ACTIVITY_ASSIGN_THIS': 'がこのチケットを割り当てました',
+    'ACTIVITY_UN_ASSIGN_THIS': 'はこのチケットの割り当てを解除しました',
+    'ACTIVITY_CLOSE_THIS': 'がこのチケットを閉鎖しました',
+    'ACTIVITY_CREATE_TICKET_THIS': 'がこのチケットを作成しました',
+    'ACTIVITY_RE_OPEN_THIS': 'がこのチケットを再開しました',
+    'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'はこのチケットの部門を ',
+    'ACTIVITY_PRIORITY_CHANGED_THIS': 'がこのチケットの優先順位を',
+    'DATE_PREFIX': 'に'
 };
 

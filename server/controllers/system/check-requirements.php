@@ -1,0 +1,51 @@
+<?php
+
+class CheckRequirementsController extends Controller {
+    const PATH = '/check-requirements';
+    const METHOD = 'POST';
+
+    const requiredPHPVersion = '5.6';
+
+    public function validations() {
+        return [
+            'permission' => 'any',
+            'requestData' => []
+        ];
+    }
+
+    public function handler() {
+        $configWritable = !!fopen('config.php', 'w+');
+
+        Response::respondSuccess([
+            'phpVersion' => [
+                'name' => 'PHP Version',
+                'value' => phpversion(),
+                'ok' => $this->checkVersion()
+            ],
+            'PDO' => [
+                'name' => 'PDO Module',
+                'value' => class_exists('PDO') ? 'Available' : 'Not available',
+                'ok' => class_exists('PDO')
+            ],
+            'configFile' => [
+                'name' => 'File: /api/config.php',
+                'value' => is_writable('config.php') ? 'Writable' : 'Not writable',
+                'ok' => is_writable('config.php')
+            ],
+            'files' => [
+                'name' => 'Folder: /api/files',
+                'value' => $configWritable ? 'Writable' : 'Not writable',
+                'ok' => $configWritable
+            ]
+        ]);
+    }
+
+    private function checkVersion() {
+        $requiredVersion = explode('.', CheckRequirementsController::requiredPHPVersion);
+        $currentVersion = explode('.', phpversion());
+
+        if($currentVersion[0] > $requiredVersion[0]) return true;
+        else if($currentVersion[0] < $requiredVersion[0]) return false;
+        else return $currentVersion[1] >= $requiredVersion[1];
+    }
+}

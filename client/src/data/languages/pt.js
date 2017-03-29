@@ -267,5 +267,20 @@ export default {
     'FAILED_EDIT_STAFF': 'Ocorreu um erro ao tentar editar o membro da equipe.',
     'EMAIL_BANNED_SUCCESSFULLY': 'O e-mail foi banido com êxito',
     'WILL_DELETE_STAFF': 'Este membro da equipe será excluído e todos os seus bilhetes serão desatribuídos.',
-    'WILL_RECOVER_EMAIL_TEMPLATE': 'Este modelo de e-mail será recuperado para seu valor padrão neste idioma.'
+    'WILL_RECOVER_EMAIL_TEMPLATE': 'Este modelo de e-mail será recuperado para seu valor padrão neste idioma.',
+
+    'LAST_7_DAYS': 'Últimos 7 dias',
+    'LAST_30_DAYS': 'Últimos 30 dias',
+    'LAST_90_DAYS': 'Últimos 90 dias',
+    'LAST_365_DAYS': 'Últimos 365 dias',
+
+    'ACTIVITY_COMMENT_THIS': 'comentou este ticket',
+    'ACTIVITY_ASSIGN_THIS': 'atribuído este bilhete',
+    'ACTIVITY_UN_ASSIGN_THIS': 'não atribuído este bilhete',
+    'ACTIVITY_CLOSE_THIS': 'fechado este bilhete',
+    'ACTIVITY_CREATE_TICKET_THIS': 'criado este bilhete',
+    'ACTIVITY_RE_OPEN_THIS': 'reaberto este bilhete',
+    'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'departamento alterado deste bilhete para',
+    'ACTIVITY_PRIORITY_CHANGED_THIS': 'alterou a prioridade deste bilhete para',
+    'DATE_PREFIX': 'em'
 };

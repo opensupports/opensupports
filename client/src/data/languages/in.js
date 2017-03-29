@@ -267,5 +267,20 @@ export default {
     'FAILED_EDIT_STAFF': 'स्टाफ सदस्य को संपादित करने की कोशिश में एक त्रुटि हुई।',
     'EMAIL_BANNED_SUCCESSFULLY': 'ईमेल सफलतापूर्वक प्रतिबंधित कर दिया गया',
     'WILL_DELETE_STAFF': 'यह स्टाफ सदस्य को हटा दिया जाएगा और इसके सभी टिकट असाइन नहीं की गई होगी।',
-    'WILL_RECOVER_EMAIL_TEMPLATE': 'यह इस भाषा पर डिफ़ॉल्ट मान है करने के लिए इस ईमेल टेम्पलेट की वसूली की जाएगी।'
+    'WILL_RECOVER_EMAIL_TEMPLATE': 'यह इस भाषा पर डिफ़ॉल्ट मान है करने के लिए इस ईमेल टेम्पलेट की वसूली की जाएगी।',
+
+    'LAST_7_DAYS': 'पिछले 7 दिन',
+    'LAST_30_DAYS': 'अंतिम 30 दिन',
+    'LAST_90_DAYS': 'अंतिम 90 दिन',
+    'LAST_365_DAYS': 'पिछले 365 दिन',
+
+    'ACTIVITY_COMMENT_THIS': 'यह टिकट टिप्पणी की',
+    'ACTIVITY_ASSIGN_THIS': 'इस टिकट को सौंपा',
+    'ACTIVITY_UN_ASSIGN_THIS': 'इस टिकट को असाइन किया गया',
+    'ACTIVITY_CLOSE_THIS': 'इस टिकट को बंद कर दिया',
+    'ACTIVITY_CREATE_TICKET_THIS': 'यह टिकट बनाया',
+    'ACTIVITY_RE_OPEN_THIS': 'इस टिकट को फिर से खोल दिया',
+    'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'इस टिकट का विभाग बदल दिया गया',
+    'ACTIVITY_PRIORITY_CHANGED_THIS': 'इस टिकट की प्राथमिकता को बदल दिया',
+    'DATE_PREFIX': 'को'
 };
