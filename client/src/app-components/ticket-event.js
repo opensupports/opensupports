@@ -96,8 +96,8 @@ class TicketEvent extends React.Component {
         return (
             <div className="ticket-event__circled">
                 <span className="ticket-event__circled-author">{this.props.author.name}</span>
-                <span className="ticket-event__circled-text"> assigned this ticket</span>
-                <span className="ticket-event__circled-date"> on {DateTransformer.transformToString(this.props.date)}</span>
+                <span className="ticket-event__circled-text"> {i18n('ACTIVITY_ASSIGN_THIS')}</span>
+                <span className="ticket-event__circled-date"> {i18n('DATE_PREFIX')} {DateTransformer.transformToString(this.props.date)}</span>
             </div>
         )
     }
@@ -106,8 +106,8 @@ class TicketEvent extends React.Component {
         return (
             <div className="ticket-event__circled">
                 <span className="ticket-event__circled-author">{this.props.author.name}</span>
-                <span className="ticket-event__circled-text"> unassigned this ticket</span>
-                <span className="ticket-event__circled-date"> on {DateTransformer.transformToString(this.props.date)}</span>
+                <span className="ticket-event__circled-text"> {i18n('ACTIVITY_UN_ASSIGN_THIS')}</span>
+                <span className="ticket-event__circled-date"> {i18n('DATE_PREFIX')} {DateTransformer.transformToString(this.props.date)}</span>
             </div>
         )
     }
@@ -116,8 +116,8 @@ class TicketEvent extends React.Component {
         return (
             <div className="ticket-event__circled">
                 <span className="ticket-event__circled-author">{this.props.author.name}</span>
-                <span className="ticket-event__circled-text"> closed this ticket</span>
-                <span className="ticket-event__circled-date"> on {DateTransformer.transformToString(this.props.date)}</span>
+                <span className="ticket-event__circled-text"> {i18n('ACTIVITY_CLOSE_THIS')}</span>
+                <span className="ticket-event__circled-date"> {i18n('DATE_PREFIX')} {DateTransformer.transformToString(this.props.date)}</span>
             </div>
         )
     }
@@ -126,8 +126,8 @@ class TicketEvent extends React.Component {
         return (
             <div className="ticket-event__circled">
                 <span className="ticket-event__circled-author">{this.props.author.name}</span>
-                <span className="ticket-event__circled-text"> reopen this ticket</span>
-                <span className="ticket-event__circled-date"> on {DateTransformer.transformToString(this.props.date)}</span>
+                <span className="ticket-event__circled-text"> {i18n('ACTIVITY_RE_OPEN_THIS')}</span>
+                <span className="ticket-event__circled-date"> {i18n('DATE_PREFIX')} {DateTransformer.transformToString(this.props.date)}</span>
             </div>
         );
     }
@@ -136,9 +136,9 @@ class TicketEvent extends React.Component {
         return (
             <div className="ticket-event__circled">
                 <span className="ticket-event__circled-author">{this.props.author.name}</span>
-                <span className="ticket-event__circled-text"> change department to</span>
+                <span className="ticket-event__circled-text"> {i18n('ACTIVITY_DEPARTMENT_CHANGED_THIS')}</span>
                 <span className="ticket-event__circled-indication"> {this.props.content}</span>
-                <span className="ticket-event__circled-date"> on {DateTransformer.transformToString(this.props.date)}</span>
+                <span className="ticket-event__circled-date"> {i18n('DATE_PREFIX')} {DateTransformer.transformToString(this.props.date)}</span>
             </div>
         );
     }
@@ -147,9 +147,9 @@ class TicketEvent extends React.Component {
         return (
             <div className="ticket-event__circled">
                 <span className="ticket-event__circled-author">{this.props.author.name}</span>
-                <span className="ticket-event__circled-text"> change priority to</span>
+                <span className="ticket-event__circled-text"> {i18n('ACTIVITY_PRIORITY_CHANGED_THIS')}</span>
                 <span className="ticket-event__circled-indication"> {this.props.content}</span>
-                <span className="ticket-event__circled-date"> on {DateTransformer.transformToString(this.props.date)}</span>
+                <span className="ticket-event__circled-date"> {i18n('DATE_PREFIX')} {DateTransformer.transformToString(this.props.date)}</span>
             </div>
         );
     }

@@ -14,7 +14,6 @@ import Loading from 'core-components/loading';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
-import TextEditor from 'core-components/text-editor';
 
 class AdminPanelEmailTemplates extends React.Component {
 
@@ -28,7 +27,7 @@ class AdminPanelEmailTemplates extends React.Component {
         language: 'en',
         form: {
             title: '',
-            content: TextEditor.createEmpty()
+            content: ''
         }
     };
 
@@ -62,7 +61,7 @@ class AdminPanelEmailTemplates extends React.Component {
                                 <FormField label={i18n('TITLE')} name="title" validation="TITLE" required fieldProps={{size: 'large'}}/>
                             </div>
                         </div>
-                        <FormField label={i18n('CONTENT')} name="content" validation="TEXT_AREA" required field="textarea" />
+                        <FormField label={i18n('CONTENT')} name="content" validation="TEXT_AREA" required decorator={'textarea'} fieldProps={{className: 'admin-panel-email-templates__text-area'}} />
                         <div className="admin-panel-email-templates__actions">
                             <div className="admin-panel-email-templates__save-button">
                                 <SubmitButton type="secondary" size="small">{i18n('SAVE')}</SubmitButton>
@@ -123,7 +122,7 @@ class AdminPanelEmailTemplates extends React.Component {
     getItems() {
         return this.state.items.map((item) => {
             return {
-                content: i18n(item.type)
+                content: item.type
             };
         });
     }
@@ -182,7 +181,7 @@ class AdminPanelEmailTemplates extends React.Component {
         language = language || this.state.language;
 
         form.title = (items[index] && items[index][language].subject) || '';
-        form.content = TextEditor.getEditorStateFromHTML((items[index] && items[index][language].body) || '');
+        form.content = (items[index] && items[index][language].body) || '';
 
         this.setState({
             selectedIndex: index,

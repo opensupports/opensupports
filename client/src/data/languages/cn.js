@@ -334,6 +334,22 @@ export default {
     'WILL_DELETE_STAFF': '該工作人員將被刪除，其所有機票將被取消分配。',
     'WILL_RECOVER_EMAIL_TEMPLATE': '此電子郵件模板將恢復為該語言的默認值。',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'CSV文件已成功導入',
-    'SUCCESS_DELETING_ALL_USERS': '用戶已成功刪除'
+    'SUCCESS_DELETING_ALL_USERS': '用戶已成功刪除',
+    'WILL_RECOVER_EMAIL_TEMPLATE': '此電子郵件模板將恢復為該語言的默認值。',
+
+    'LAST_7_DAYS': '最近7天',
+    'LAST_30_DAYS': '最近30天',
+    'LAST_90_DAYS': '過去90天',
+    'LAST_365_DAYS':'過去365天',
+
+    'ACTIVITY_COMMENT_THIS': '評論了這張票',
+    'ACTIVITY_ASSIGN_THIS': '分配這張票',
+    'ACTIVITY_UN_ASSIGN_THIS': '取消分配此票',
+    'ACTIVITY_CLOSE_THIS': '關閉這張票',
+    'ACTIVITY_CREATE_TICKET_THIS': '創建了這張票',
+    'ACTIVITY_RE_OPEN_THIS': '重新打開這張票',
+    'ACTIVITY_DEPARTMENT_CHANGED_THIS': '改變這張票的部門 ',
+    'ACTIVITY_PRIORITY_CHANGED_THIS': '將此票的優先級更改為',
+    'DATE_PREFIX': '在'
 };
 

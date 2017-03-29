@@ -22,11 +22,11 @@ class InstallLayout extends React.Component {
 
     componentDidMount() {
         API.call({
-            path: '/system/installation-step',
+            path: '/system/installation-done',
             data: {}
         }).then((result) => {
-            if(result.data != this.getCurrentStep()) {
-                browserHistory.push('/install/step-' + (result.data + 1));
+            if(result.data == 1) {
+                browserHistory.push('/install/step-6');
             }
         });
     }

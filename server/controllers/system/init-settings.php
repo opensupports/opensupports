@@ -1,4 +1,6 @@
 <?php
+use Respect\Validation\Validator as DataValidator;
+DataValidator::with('CustomValidations', true);
 
 class InitSettingsController extends Controller {
     const PATH = '/init-settings';
@@ -7,7 +9,12 @@ class InitSettingsController extends Controller {
     public function validations() {
         return [
             'permission' => 'any',
-            'requestData' => []
+            'requestData' => [
+                'language' => [
+                    'validation' => DataValidator::validLanguage(),
+                    'error' => ERRORS::INVALID_LANGUAGE
+                ]
+            ]
         ];
     }
 
@@ -17,7 +24,6 @@ class InitSettingsController extends Controller {
             $this->storeMailTemplates();
             $this->storeLanguages();
             $this->storeMockedDepartments();
-            $this->createMockedStaff();
 
             Response::respondSuccess();
         } else {
@@ -27,7 +33,7 @@ class InitSettingsController extends Controller {
 
     private function storeGlobalSettings() {
         $this->storeSettings([
-            'language' => 'en',
+            'language' => Controller::request('language'),
             'recaptcha-public' => '',
             'recaptcha-private' => '',
             'no-reply-email' => 'noreply@opensupports.com',
@@ -41,13 +47,13 @@ class InitSettingsController extends Controller {
             'allow-attachments' => 0,
             'max-size' => 1024,
             'title' => 'Support Center',
-            'url' => 'http://www.opensupports.com/support',
-            'registration' => true,
-            'user-system-enabled' => true,
-            'last-stat-day' => date('YmdHi', strtotime(' -12 day ')), //TODO: get current date
-            'ticket-gap' => Hashing::generateRandomPrime(100000, 999999),
-            'file-gap' => Hashing::generateRandomPrime(100000, 999999),
-            'file-first-number' => Hashing::generateRandomNumber(100000, 999999),
+            'url' => 'http://dev3.opensupports.com',
+            'registration' => !!Controller::request('registration'),
+            'user-system-enabled' => !!Controller::request('user-system-enabled'),
+            'last-stat-day' => date('YmdHi', strtotime(' -12 day ')),
+            'ticket-gap' => Hashing::generateRandomPrime(1000000, 9999999),
+            'file-gap' => Hashing::generateRandomPrime(1000000, 9999999),
+            'file-first-number' => Hashing::generateRandomNumber(1000000, 9999999),
             'file-quantity' => 0
         ]);
     }
@@ -98,9 +104,7 @@ class InitSettingsController extends Controller {
 
     private function storeMockedDepartments() {
         $departments = [
-            'Tech Support',
-            'Suggestions',
-            'Sales and Subscriptions'
+            'Help and Support'
         ];
 
         foreach ($departments as $departmentName) {
@@ -108,23 +112,5 @@ class InitSettingsController extends Controller {
             $department->name = $departmentName;
             $department->store();
         }
-    }
-
-    private function createMockedStaff() {
-        $staff = new Staff();
-        $staff->setProperties([
-            'name' => 'Emilia Clarke',
-            'email' => 'staff@opensupports.com',
-            'password' => Hashing::hashPassword('staff'),
-            'profilePic' => '',
-            'level' => 3,
-            'sharedDepartmentList' => Department::getAll(),
-            'sharedTicketList' => []
-        ]);
-        foreach(Department::getAll() as $department) {
-            $department->owners++;
-            $department->store();
-        }
-        $staff->store();
     }
 }

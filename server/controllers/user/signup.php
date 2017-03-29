@@ -108,6 +108,7 @@ class SignUpController extends Controller {
         $mailSender->setTemplate(MailTemplate::USER_SIGNUP, [
             'to' => $this->userEmail,
             'name' => $this->userName,
+            'url' => Setting::getSetting('url')->getValue(),
             'verificationToken' => $this->verificationToken
         ]);
         

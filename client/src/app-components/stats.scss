@@ -23,6 +23,27 @@
                 line-height: 20px;
             }
         }
+
+        &_CREATE_TICKET.toggle-list__selected {
+            box-shadow: inset 0 -5px 0px 0px rgba(20, 150, 20, 0.6);
+        }
+
+        &_CLOSE.toggle-list__selected {
+            box-shadow: inset 0 -5px 0px 0px rgba(150, 20, 20, 0.6);
+        }
+
+        &_SIGNUP.toggle-list__selected {
+            box-shadow: inset 0 -5px 0px 0px rgba(20, 20, 150, 0.6);
+        }
+
+        &_COMMENT.toggle-list__selected {
+            box-shadow: inset 0 -5px 0px 0px rgba(20, 200, 200, 0.6);
+        }
+
+        &_ASSIGN.toggle-list__selected {
+            box-shadow: inset 0 -5px 0px 0px rgba(20, 150, 20, 0.6);
+        }
+
     }
 
     &_staff {

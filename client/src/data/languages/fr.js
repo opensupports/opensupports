@@ -334,5 +334,21 @@ export default {
     'WILL_DELETE_STAFF': 'Ce membre du personnel sera supprimé et tous ses billets seront non affectés.',
     'WILL_RECOVER_EMAIL_TEMPLATE': 'Ce modèle de courrier électronique récupérera sa valeur par défaut sur cette langue.',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'Le fichier CSV a été importé avec succès',
-    'SUCCESS_DELETING_ALL_USERS': 'Les utilisateurs ont été supprimés avec succès'
+    'SUCCESS_DELETING_ALL_USERS': 'Les utilisateurs ont été supprimés avec succès',
+    'WILL_RECOVER_EMAIL_TEMPLATE': 'Ce modèle de courrier électronique récupérera sa valeur par défaut sur cette langue.',
+
+    'LAST_7_DAYS': 'Les 7 derniers jours',
+    'LAST_30_DAYS': 'Les 30 derniers jours',
+    'LAST_90_DAYS': 'Les 90 derniers jours',
+    'LAST_365_DAYS': 'Les 365 derniers jours',
+
+    'ACTIVITY_COMMENT_THIS': 'commenté ce ticket',
+    'ACTIVITY_ASSIGN_THIS': 'assigné ce ticket',
+    'ACTIVITY_UN_ASSIGN_THIS': 'non affecté ce ticket',
+    'ACTIVITY_CLOSE_THIS': 'fermé ce ticket',
+    'ACTIVITY_CREATE_TICKET_THIS': 'créé ce ticket',
+    'ACTIVITY_RE_OPEN_THIS': 'rouvert ce ticket',
+    'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'changement de département de ce ticket vers',
+    'ACTIVITY_PRIORITY_CHANGED_THIS': 'priorité changée de ce ticket vers',
+    'DATE_PREFIX': 'le'
 };

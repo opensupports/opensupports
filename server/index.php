@@ -1,11 +1,14 @@
 <?php
-require_once 'config.php';
+@include 'config.php';
 require_once 'vendor/autoload.php';
 
 // REDBEAN CONFIGURATION
 use RedBeanPHP\Facade as RedBean;
-RedBean::setup('mysql:host='. $mysql_host .';dbname=' . $mysql_database, $mysql_user, $mysql_password);
-RedBean::setAutoResolve(true);
+
+if(defined('MYSQL_HOST') && defined('MYSQL_DATABASE') && defined('MYSQL_USER') && defined('MYSQL_PASSWORD')) {
+    RedBean::setup('mysql:host='. MYSQL_HOST .';dbname=' . MYSQL_DATABASE , MYSQL_USER, MYSQL_PASSWORD);
+    RedBean::setAutoResolve(true);
+}
 
 // SLIM FRAMEWORK
 \Slim\Slim::registerAutoLoader();

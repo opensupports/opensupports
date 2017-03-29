@@ -334,5 +334,21 @@ export default {
     'WILL_DELETE_STAFF': 'Dieser Mitarbeiter wird gelöscht und alle Karten werden nicht zugeordnet.',
     'WILL_RECOVER_EMAIL_TEMPLATE': 'Diese E-Mail-Vorlage wird auf ihren Standardwert zurückgesetzt.',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'CSV-Datei wurde erfolgreich importiert',
-    'SUCCESS_DELETING_ALL_USERS': 'Benutzer wurden erfolgreich gelöscht'
+    'SUCCESS_DELETING_ALL_USERS': 'Benutzer wurden erfolgreich gelöscht',
+    'WILL_RECOVER_EMAIL_TEMPLATE': 'Diese E-Mail-Vorlage wird auf ihren Standardwert zurückgesetzt.',
+
+    'LAST_7_DAYS': 'Letzte 7 Tage',
+    'LAST_30_DAYS': 'Letzte 30 Tage',
+    'LAST_90_DAYS': 'Letzte 90 Tage',
+    'LAST_365_DAYS': 'Letzte 365 Tage',
+
+    'ACTIVITY_COMMENT_THIS': 'hat dieses Ticket kommentiert',
+    'ACTIVITY_ASSIGN_THIS': 'hat dieses Ticket zugewiesen',
+    'ACTIVITY_UN_ASSIGN_THIS': 'hat nicht zugewiesen dieses Ticket',
+    "ACTIVITY_CLOSE_THIS": 'hat dieses Ticket geschlossen',
+    'ACTIVITY_CREATE_TICKET_THIS': 'hat erstellt dieses Ticket',
+    'ACTIVITY_RE_OPEN_THIS': 'hat wiedereröffnet dieses Ticket',
+    'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'hat geänderte Abteilung dieses Tickets zu',
+    'ACTIVITY_PRIORITY_CHANGED_THIS': 'hat die Priorität dieses Tickets geändert',
+    'DATE_PREFIX': 'am'
 };

@@ -33,7 +33,8 @@ class CloseController extends Controller {
         $this->ticket->closed = true;
 
         $this->ticket->store();
-        
+
+        $this->sendMail();
         Log::createLog('CLOSE', $this->ticket->ticketNumber);
         
         Response::respondSuccess();
@@ -67,5 +68,19 @@ class CloseController extends Controller {
         }
 
         $this->ticket->addEvent($event);
+    }
+
+    private function sendMail() {
+        $mailSender = new MailSender();
+
+        $mailSender->setTemplate(MailTemplate::TICKET_CLOSED, [
+            'to' => $this->ticket->author->email,
+            'name' => $this->ticket->author->name,
+            'ticketNumber' => $this->ticket->ticketNumber,
+            'title' => $this->ticket->title,
+            'url' => Setting::getSetting('url')->getValue()
+        ]);
+
+        $mailSender->send();
     }
 }

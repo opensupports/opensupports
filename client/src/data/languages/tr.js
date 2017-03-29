@@ -334,5 +334,21 @@ export default {
     'WILL_DELETE_STAFF': 'Bu eleman silinecek ve tüm biletleri görevsiz bırakılacaktır.',
     'WILL_RECOVER_EMAIL_TEMPLATE': 'Bu e-posta şablonu, bu dildeki varsayılan değere kadar düzelir.',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'CSV Dosyası başarıyla içe aktarıldı',
-    'SUCCESS_DELETING_ALL_USERS': 'Kullanıcılar başarılı bir şekilde silindi'
+    'SUCCESS_DELETING_ALL_USERS': 'Kullanıcılar başarılı bir şekilde silindi',
+    'WILL_RECOVER_EMAIL_TEMPLATE': 'Bu e-posta şablonu, bu dildeki varsayılan değere kadar düzelir.',
+
+    'LAST_7_DAYS': 'Son 7 gün',
+    'LAST_30_DAYS': 'Son 30 gün',
+    'LAST_90_DAYS': 'Son 90 gün',
+    'LAST_365_DAYS': 'Son 365 gün',
+
+    'ACTIVITY_COMMENT_THIS': 'bu bileti yorumladı',
+    'ACTIVITY_ASSIGN_THIS': 'bu bileti atadı',
+    'ACTIVITY_UN_ASSIGN_THIS': 'bu biletin atanmamış',
+    'ACTIVITY_CLOSE_THIS': 'bu bilet kapatıldı',
+    'ACTIVITY_CREATE_TICKET_THIS': 'bu bilet oluşturuldu',
+    'ACTIVITY_RE_OPEN_THIS': 'bu bilet yeniden açıldı',
+    'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'bu biletin bölümünü değiştir',
+    'ACTIVITY_PRIORITY_CHANGED_THIS': 'bu biletin önceliğini değiştirildi',
+    'DATE_PREFIX': 'tarihinde'
 };

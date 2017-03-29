@@ -5,7 +5,8 @@ class MailSender {
     
     public function __construct() {
         $this->mailOptions['from'] = Setting::getSetting('no-reply-email')->value;
-        
+        $this->mailOptions['fromName'] = 'OpenSupports';
+
         $this->mailOptions['smtp-host'] = Setting::getSetting('smtp-host')->value;
         $this->mailOptions['smtp-port'] = Setting::getSetting('smtp-port')->value;
         $this->mailOptions['smtp-user'] = Setting::getSetting('smtp-user')->value;
@@ -18,14 +19,16 @@ class MailSender {
         
         $this->mailOptions = array_merge($this->mailOptions, $compiledMailContent);
     }
-
+    
     public function send() {
         $mailer = new PHPMailer();
 
         $mailer->From = $this->mailOptions['from'];
+        $mailer->FromName = $this->mailOptions['fromName'];
         $mailer->addAddress($this->mailOptions['to']);
         $mailer->Subject = $this->mailOptions['subject'];
         $mailer->Body = $this->mailOptions['body'];
+        $mailer->isHTML(true);
 
         $mailer->isSMTP();
         $mailer->SMTPAuth = true;

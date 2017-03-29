@@ -70,11 +70,13 @@ class Stats extends React.Component {
             type: this.props.type === 'general' ? 'default' : 'small',
             items: this.getStrokes().map((name) => {
                 return {
-                    content:
+                    className: 'stats__toggle-list_' + name,
+                    content: (
                         <div className="stats__toggle-list-item">
                             <div className="stats__toggle-list-item-value">{this.state.stats[name]}</div>
                             <div className="stats__toggle-list-item-name">{i18n('CHART_' + name)}</div>
                         </div>
+                    )
                 }
             })
         };
@@ -88,9 +90,9 @@ class Stats extends React.Component {
 
     getDropDownProps() {
         return {
-            items: ['Last 7 days', 'Last 30 days', 'Last 90 days', 'Last 365 days'].map((name) => {
+            items: ['LAST_7_DAYS', 'LAST_30_DAYS', 'LAST_90_DAYS', 'LAST_365_DAYS'].map((name) => {
                 return {
-                    content: name,
+                    content: i18n(name),
                     icon: ''
                 };
             }),

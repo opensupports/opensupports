@@ -13,6 +13,11 @@ class GetNewTicketsStaffController extends Controller {
         ];
     }
     public function handler() {
+        if (Ticket::isTableEmpty()) {
+            Response::respondSuccess([]);
+            return;
+        }
+
         $user = Controller::getLoggedUser();
         $query = ' (';
         foreach ($user->sharedDepartmentList as $department) {

@@ -1,5 +1,9 @@
 <?php
+require_once 'system/check-requirements.php';
+require_once 'system/init-database.php';
 require_once 'system/init-settings.php';
+require_once 'system/init-admin.php';
+require_once 'system/installation-done.php';
 require_once 'system/get-settings.php';
 require_once 'system/edit-settings.php';
 require_once 'system/add-department.php';
@@ -25,7 +29,11 @@ require_once 'system/download.php';
 $systemControllerGroup = new ControllerGroup();
 $systemControllerGroup->setGroupPath('/system');
 
+$systemControllerGroup->addController(new CheckRequirementsController);
+$systemControllerGroup->addController(new InitDatabaseController);
 $systemControllerGroup->addController(new InitSettingsController);
+$systemControllerGroup->addController(new InitAdminController);
+$systemControllerGroup->addController(new InstallationDoneController);
 $systemControllerGroup->addController(new GetSettingsController);
 $systemControllerGroup->addController(new EditSettingsController);
 $systemControllerGroup->addController(new AddDepartmentController);
