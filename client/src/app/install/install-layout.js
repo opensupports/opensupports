@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import _ from 'lodash';
 import {browserHistory} from 'react-router';
+import DocumentTitle from 'react-document-title';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -33,32 +34,34 @@ class InstallLayout extends React.Component {
 
     render() {
         return (
-            <Widget className="install-layout">
-                <div className="install-layout__header">
-                    <div className="install-layout__header-logo">
-                        <img width="100%" src="../../images/logo.png" alt="OpenSupports Installation"/>
-                    </div>
-                    <div className="install-layout__header-text">
-                        <div className="install-layout__header-title">
-                            {i18n('INSTALL_HEADER_TITLE')}
+            <DocumentTitle title="OpenSupports Installation">
+                <Widget className="install-layout">
+                    <div className="install-layout__header">
+                        <div className="install-layout__header-logo">
+                            <img width="100%" src="../../images/logo.png" alt="OpenSupports Installation"/>
                         </div>
-                        <div className="install-layout__header-description">
-                            {i18n('INSTALL_HEADER_DESCRIPTION')}
+                        <div className="install-layout__header-text">
+                            <div className="install-layout__header-title">
+                                {i18n('INSTALL_HEADER_TITLE')}
+                            </div>
+                            <div className="install-layout__header-description">
+                                {i18n('INSTALL_HEADER_DESCRIPTION')}
+                            </div>
                         </div>
                     </div>
-                </div>
-                <span className="separator"/>
-                <div className="install-layout__body row">
-                    <div className="col-md-3">
-                        <ul className="install-layout__steps">
-                            {steps.map(this.renderStep.bind(this))}
-                        </ul>
+                    <span className="separator"/>
+                    <div className="install-layout__body row">
+                        <div className="col-md-3">
+                            <ul className="install-layout__steps">
+                                {steps.map(this.renderStep.bind(this))}
+                            </ul>
+                        </div>
+                        <div className="install-layout__content col-md-9">
+                            {this.props.children}
+                        </div>
                     </div>
-                    <div className="install-layout__content col-md-9">
-                        {this.props.children}
-                    </div>
-                </div>
-            </Widget>
+                </Widget>
+            </DocumentTitle>
         );
     }
 

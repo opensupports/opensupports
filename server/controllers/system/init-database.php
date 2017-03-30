@@ -14,7 +14,7 @@ class InitDatabaseController extends Controller {
     }
 
     public function handler() {
-        if(InstallationDoneController::isInstallationDone()) {
+        if(defined('MYSQL_HOST')) {
             throw new Exception(ERRORS::INIT_SETTINGS_DONE);
         }
 

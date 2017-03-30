@@ -102,6 +102,14 @@ class App extends React.Component {
         if(props.config['user-system-enabled'] && _.includes(props.location.pathname, '/check-ticket')) {
             browserHistory.push('/');
         }
+
+        if(props.config.installedDone && !props.config.installed && !_.includes(props.location.pathname, '/install')) {
+            browserHistory.push('/install');
+        }
+
+        if(props.config.installedDone && props.config.installed && _.includes(props.location.pathname, '/install')) {
+            browserHistory.push('/');
+        }
     }
 
     isPathAvailableForStaff(props) {

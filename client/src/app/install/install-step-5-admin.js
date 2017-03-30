@@ -30,7 +30,6 @@ class InstallStep5Admin extends React.Component {
                     <FormField name="password" validation="PASSWORD" label={i18n('ADMIN_PASSWORD')} infoMessage={i18n('ADMIN_PASSWORD_DESCRIPTION')} fieldProps={{size: 'large', autoComplete: 'off'}} required/>
                     <div className="install-step-5__buttons">
                         <SubmitButton className="install-step-5__next" size="medium" type="secondary">{i18n('NEXT')}</SubmitButton>
-                        <Button className="install-step-5__previous" size="medium" onClick={this.onPreviousClick.bind(this)}>{i18n('PREVIOUS')}</Button>
                     </div>
                 </Form>
             </div>
@@ -49,11 +48,6 @@ class InstallStep5Admin extends React.Component {
         }
 
         return message;
-    }
-    
-    onPreviousClick(event) {
-        event.preventDefault();
-        browserHistory.push('/install/step-4');
     }
 
     onSubmit(form) {
