@@ -31,15 +31,15 @@ class MainSignUpPageWidget extends React.Component {
                     <Header title={i18n('SIGN_UP')} description={i18n('SIGN_UP_VIEW_DESCRIPTION')} />
                     <Form {...this.getFormProps()}>
                         <div className="signup-widget__inputs">
-                            <FormField {...this.getInputProps()} label="Full Name" name="name" validation="NAME" required/>
-                            <FormField {...this.getInputProps()} label="Email Address" name="email" validation="EMAIL" required/>
-                            <FormField {...this.getInputProps(true)} label="Password" name="password" validation="PASSWORD" required/>
-                            <FormField {...this.getInputProps(true)} label="Repeat Password" name="repeated-password" validation="REPEAT_PASSWORD" required/>
+                            <FormField {...this.getInputProps()} label={i18n('FULL_NAME')} name="name" validation="NAME" required/>
+                            <FormField {...this.getInputProps()} label={i18n('EMAIL')} name="email" validation="EMAIL" required/>
+                            <FormField {...this.getInputProps(true)} label={i18n('PASSWORD')} name="password" validation="PASSWORD" required/>
+                            <FormField {...this.getInputProps(true)} label={i18n('REPEAT_PASSWORD')} name="repeated-password" validation="REPEAT_PASSWORD" required/>
                         </div>
                         <div className="signup-widget__captcha">
                             <Captcha ref="captcha"/>
                         </div>
-                        <SubmitButton type="primary">SIGN UP</SubmitButton>
+                        <SubmitButton type="primary">{i18n('SIGN_UP')}</SubmitButton>
                     </Form>
 
                     {this.renderMessage()}

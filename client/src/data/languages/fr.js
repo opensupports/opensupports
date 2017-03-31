@@ -12,6 +12,8 @@ export default {
     'FORGOT_PASSWORD': 'Mot de passe oublié?',
     'RECOVER_PASSWORD': 'Récupérer mot de passe',
     'RECOVER_SENT': 'Un e-mail contenant les instructions de récupération a été envoyé.',
+    'NEW_EMAIL': 'Nouveau courriel',
+    'FULL_NAME': 'Nom complet',
     'OLD_PASSWORD': 'Ancien mot de passe',
     'NEW_PASSWORD': 'Nouveau mot de passe',
     'REPEAT_NEW_PASSWORD': 'Répété le nouveau mot de passe',
@@ -335,7 +337,6 @@ export default {
     'WILL_RECOVER_EMAIL_TEMPLATE': 'Ce modèle de courrier électronique récupérera sa valeur par défaut sur cette langue.',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'Le fichier CSV a été importé avec succès',
     'SUCCESS_DELETING_ALL_USERS': 'Les utilisateurs ont été supprimés avec succès',
-    'WILL_RECOVER_EMAIL_TEMPLATE': 'Ce modèle de courrier électronique récupérera sa valeur par défaut sur cette langue.',
 
     'LAST_7_DAYS': 'Les 7 derniers jours',
     'LAST_30_DAYS': 'Les 30 derniers jours',
@@ -350,5 +351,9 @@ export default {
     'ACTIVITY_RE_OPEN_THIS': 'rouvert ce ticket',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'changement de département de ce ticket vers',
     'ACTIVITY_PRIORITY_CHANGED_THIS': 'priorité changée de ce ticket vers',
-    'DATE_PREFIX': 'le'
+    'DATE_PREFIX': 'le',
+    'LEFT_EMPTY_DATABASE': 'Gauche vide pour la création automatique de la base de données',
+    'REMEMBER_ME': 'Rappelles toi',
+    'EMAIL_LOWERCASE': 'email',
+    'PASSWORD_LOWERCASE': 'mot de passe'
 };

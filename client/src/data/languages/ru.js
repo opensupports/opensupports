@@ -4,7 +4,7 @@ export default {
     'ARTICLES': 'Статьи',
     'ACCOUNT': 'счет',
     'SUBMIT': 'Отправить',
-    'EMAIL': 'электронная почта',
+    'EMAIL': 'Эл. адрес',
     'PASSWORD': 'пароль',
     'REPEAT_PASSWORD': 'Повторите пароль',
     'LOG_IN': 'Авторизоваться',
@@ -12,6 +12,8 @@ export default {
     'FORGOT_PASSWORD': 'Забыли пароль?',
     'RECOVER_PASSWORD': 'Восстановить пароль',
     'RECOVER_SENT': 'Электронное письмо с инструкциями восстановления был отправлен.',
+    'NEW_EMAIL': 'Новый E-mail',
+    'FULL_NAME': 'Полное имя',
     'OLD_PASSWORD': 'Старый пароль',
     'NEW_PASSWORD': 'Новый пароль',
     'REPEAT_NEW_PASSWORD': 'повторите новый пароль',
@@ -335,7 +337,6 @@ export default {
     'WILL_RECOVER_EMAIL_TEMPLATE': 'Этот шаблон электронной почты будет восстанавливаться, чтобы это значение по умолчанию на этом языке.',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'Файл CSV успешно установлен',
     'SUCCESS_DELETING_ALL_USERS': 'Пользователи удалили beend',
-    'WILL_RECOVER_EMAIL_TEMPLATE': 'Этот шаблон электронной почты будет восстанавливаться, чтобы это значение по умолчанию на этом языке.',
 
     'LAST_7_DAYS': 'Последние 7 дней',
     'LAST_30_DAYS': 'Последние 30 дней',
@@ -350,5 +351,9 @@ export default {
     'ACTIVITY_RE_OPEN_THIS': 'снова открыт этот билет',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'изменен отдел этого билета на',
     'ACTIVITY_PRIORITY_CHANGED_THIS': 'изменил приоритет этого билета на',
-    'DATE_PREFIX': ''
+    'DATE_PREFIX': '',
+    'LEFT_EMPTY_DATABASE': 'Пусто для автоматического создания базы данных',
+    'REMEMBER_ME': 'Запомнить',
+    'EMAIL_LOWERCASE': 'Эл. адрес',
+    'PASSWORD_LOWERCASE': 'пароль'
 };

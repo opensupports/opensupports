@@ -12,6 +12,8 @@ export default {
     'FORGOT_PASSWORD': 'Parolanızı mı unuttunuz?',
     'RECOVER_PASSWORD': 'Şifre kurtarma',
     'RECOVER_SENT': 'Kurtarma talimatlarını içeren bir e-posta gönderildi.',
+    'NEW_EMAIL': 'Yeni e-posta',
+    'FULL_NAME': 'Ad Soyad',
     'OLD_PASSWORD': 'Eski şifre',
     'NEW_PASSWORD': 'Yeni Şifre',
     'REPEAT_NEW_PASSWORD': 'Yeni şifreyi tekrar girin',
@@ -335,7 +337,6 @@ export default {
     'WILL_RECOVER_EMAIL_TEMPLATE': 'Bu e-posta şablonu, bu dildeki varsayılan değere kadar düzelir.',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'CSV Dosyası başarıyla içe aktarıldı',
     'SUCCESS_DELETING_ALL_USERS': 'Kullanıcılar başarılı bir şekilde silindi',
-    'WILL_RECOVER_EMAIL_TEMPLATE': 'Bu e-posta şablonu, bu dildeki varsayılan değere kadar düzelir.',
 
     'LAST_7_DAYS': 'Son 7 gün',
     'LAST_30_DAYS': 'Son 30 gün',
@@ -350,5 +351,9 @@ export default {
     'ACTIVITY_RE_OPEN_THIS': 'bu bilet yeniden açıldı',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'bu biletin bölümünü değiştir',
     'ACTIVITY_PRIORITY_CHANGED_THIS': 'bu biletin önceliğini değiştirildi',
-    'DATE_PREFIX': 'tarihinde'
+    'DATE_PREFIX': 'tarihinde',
+    'LEFT_EMPTY_DATABASE': 'Otomatik veritabanı oluşturulması için boş bırakıldı',
+    'REMEMBER_ME': 'Hatırlamak',
+    'EMAIL_LOWERCASE': 'e-posta',
+    'PASSWORD_LOWERCASE': 'parola'
 };

@@ -12,6 +12,8 @@ export default {
     'FORGOT_PASSWORD': 'Esqueceu sua senha?',
     'RECOVER_PASSWORD': 'Recuperar Senha',
     'RECOVER_SENT': 'Um e-mail com instruções de recuperação foi enviado.',
+    'NEW_EMAIL': 'Novo Email',
+    'FULL_NAME': 'Nome completo',
     'OLD_PASSWORD': 'Senha Antiga',
     'NEW_PASSWORD': 'Nova senha',
     'REPEAT_NEW_PASSWORD': 'Repita a nova senha',
@@ -335,7 +337,6 @@ export default {
     'WILL_RECOVER_EMAIL_TEMPLATE': 'Este modelo de e-mail será recuperado para seu valor padrão neste idioma.',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'O arquivo CSV foi importado com êxito',
     'SUCCESS_DELETING_ALL_USERS': 'Os usuários foram excluídos com êxito',
-    'WILL_RECOVER_EMAIL_TEMPLATE': 'Este modelo de e-mail será recuperado para seu valor padrão neste idioma.',
 
     'LAST_7_DAYS': 'Últimos 7 dias',
     'LAST_30_DAYS': 'Últimos 30 dias',
@@ -350,5 +351,9 @@ export default {
     'ACTIVITY_RE_OPEN_THIS': 'reaberto este bilhete',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'departamento alterado deste bilhete para',
     'ACTIVITY_PRIORITY_CHANGED_THIS': 'alterou a prioridade deste bilhete para',
-    'DATE_PREFIX': 'em'
+    'DATE_PREFIX': 'em',
+    'LEFT_EMPTY_DATABASE': 'Esquerda vazia para criação automática de banco de dados',
+    'REMEMBER_ME': 'Lembrar',
+    'EMAIL_LOWERCASE': 'email',
+    'PASSWORD_LOWERCASE': 'senha'
 };

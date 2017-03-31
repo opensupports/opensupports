@@ -45,15 +45,15 @@ class MainHomePageLoginWidget extends React.Component {
 
     renderLogin() {
         return (
-            <Widget className="main-home-page__widget" title="Login" ref="loginWidget">
+            <Widget className="main-home-page__widget" title={i18n('LOG_IN')} ref="loginWidget">
                 <Form {...this.getLoginFormProps()}>
                     <div className="login-widget__inputs">
-                        <FormField placeholder="email" name="email" className="login-widget__input" validation="EMAIL" required/>
-                        <FormField placeholder="password" name="password" className="login-widget__input" required fieldProps={{password: true}}/>
-                        <FormField name="remember" label="Remember Me" className="login-widget__input" field="checkbox"/>
+                        <FormField placeholder={i18n('EMAIL_LOWERCASE')} name="email" className="login-widget__input" validation="EMAIL" required/>
+                        <FormField placeholder={i18n('PASSWORD_LOWERCASE')} name="password" className="login-widget__input" required fieldProps={{password: true}}/>
+                        <FormField name="remember" label={i18n('REMEMBER_ME')} className="login-widget__input" field="checkbox"/>
                     </div>
                     <div className="login-widget__submit-button">
-                        <SubmitButton type="primary">LOG IN</SubmitButton>
+                        <SubmitButton type="primary">{i18n('LOG_IN')}</SubmitButton>
                     </div>
                 </Form>
                 <Button className="login-widget__forgot-password" type="link" onClick={this.onForgotPasswordClick.bind(this)} onMouseDown={(event) => {event.preventDefault()}}>

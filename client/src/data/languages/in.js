@@ -12,6 +12,8 @@ export default {
     'FORGOT_PASSWORD': 'अपना पासवर्ड भूल गए?',
     'RECOVER_PASSWORD': 'पासवर्ड की वसूली',
     'RECOVER_SENT': 'एक ईमेल निर्देश की वसूली के साथ भेजा गया है।',
+    'NEW_EMAIL': 'नई ईमेल',
+    'FULL_NAME': 'पूरा नाम',
     'OLD_PASSWORD': 'पुराना पासवर्ड',
     'NEW_PASSWORD': 'नया पासवर्ड',
     'REPEAT_NEW_PASSWORD': 'दोहराएँ नया पासवर्ड',
@@ -335,7 +337,6 @@ export default {
     'WILL_RECOVER_EMAIL_TEMPLATE': 'यह इस भाषा पर डिफ़ॉल्ट मान है करने के लिए इस ईमेल टेम्पलेट की वसूली की जाएगी।',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'सीएसवी फ़ाइल को सफलतापूर्वक आयात किया गया है',
     'SUCCESS_DELETING_ALL_USERS': 'उपयोगकर्ताओं को सफलतापूर्वक हटा दिया गया है',
-    'WILL_RECOVER_EMAIL_TEMPLATE': 'यह इस भाषा पर डिफ़ॉल्ट मान है करने के लिए इस ईमेल टेम्पलेट की वसूली की जाएगी।',
 
     'LAST_7_DAYS': 'पिछले 7 दिन',
     'LAST_30_DAYS': 'अंतिम 30 दिन',
@@ -350,5 +351,9 @@ export default {
     'ACTIVITY_RE_OPEN_THIS': 'इस टिकट को फिर से खोल दिया',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'इस टिकट का विभाग बदल दिया गया',
     'ACTIVITY_PRIORITY_CHANGED_THIS': 'इस टिकट की प्राथमिकता को बदल दिया',
-    'DATE_PREFIX': 'को'
+    'DATE_PREFIX': 'को',
+    'LEFT_EMPTY_DATABASE': 'स्वचालित डेटाबेस निर्माण के लिए खाली छोड़ दिया',
+    'REMEMBER_ME': 'मुझे याद रखना',
+    'EMAIL_LOWERCASE': 'ईमेल',
+    'PASSWORD_LOWERCASE': 'पासवर्ड'
 };

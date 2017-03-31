@@ -12,6 +12,8 @@ export default {
     'FORGOT_PASSWORD': 'Forgot your password?',
     'RECOVER_PASSWORD': 'Recover Password',
     'RECOVER_SENT': 'An email with recover instructions has been sent.',
+    'NEW_EMAIL': 'New email',
+    'FULL_NAME': 'Full name',
     'OLD_PASSWORD': 'Old password',
     'NEW_PASSWORD': 'New password',
     'REPEAT_NEW_PASSWORD': 'Repeat new password',
@@ -278,7 +280,7 @@ export default {
     'USER_SYSTEM_ENABLED': 'User system has been enabled',
     'REGISTRATION_DISABLED': 'Registration has been disabled',
     'REGISTRATION_ENABLED': 'Registration has been enabled',
-    'ADD_API_KEY_DESCRIPTION': 'Insert the name and a registration api key be generated.',
+    'ADD_API_KEY_DESCRIPTION': 'Insert the name and a registration api key will be generated.',
     'SIGN_UP_VIEW_DESCRIPTION': 'Here you can create an account for our support center. It is required for send tickets and see documentation.',
     'EDIT_PROFILE_VIEW_DESCRIPTION': 'Here you can edit your user by changing your email or your password.',
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Enable/disable the use of an user system. If you disable it, all users will be deleted but the tickets will be kept. If you enable it, the users of existent tickets will be created.',
@@ -350,5 +352,8 @@ export default {
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'changed department of this ticket to ',
     'ACTIVITY_PRIORITY_CHANGED_THIS': 'changed priority of this ticket to',
     'DATE_PREFIX': 'on',
-    'LEFT_EMPTY_DATABASE': 'Left empty for automatic database creation'
+    'LEFT_EMPTY_DATABASE': 'Left empty for automatic database creation',
+    'REMEMBER_ME': 'Remember me',
+    'EMAIL_LOWERCASE': 'email',
+    'PASSWORD_LOWERCASE': 'password'
 };

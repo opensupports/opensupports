@@ -12,6 +12,8 @@ export default {
     'FORGOT_PASSWORD': 'Passwort vergessen?',
     'RECOVER_PASSWORD': 'Passwort wiederherstellen',
     'RECOVER_SENT': 'Eine E-Mail mit Wiederherstellungs Anweisungen wurde gesendet.',
+    'NEW_EMAIL': 'नई ईमेल',
+    'FULL_NAME': 'पूरा नाम',
     'OLD_PASSWORD': 'Altes Passwort',
     'NEW_PASSWORD': 'Neues Passwort',
     'REPEAT_NEW_PASSWORD': 'Wiederhole das neue Passwort',
@@ -335,7 +337,6 @@ export default {
     'WILL_RECOVER_EMAIL_TEMPLATE': 'Diese E-Mail-Vorlage wird auf ihren Standardwert zurückgesetzt.',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'CSV-Datei wurde erfolgreich importiert',
     'SUCCESS_DELETING_ALL_USERS': 'Benutzer wurden erfolgreich gelöscht',
-    'WILL_RECOVER_EMAIL_TEMPLATE': 'Diese E-Mail-Vorlage wird auf ihren Standardwert zurückgesetzt.',
 
     'LAST_7_DAYS': 'Letzte 7 Tage',
     'LAST_30_DAYS': 'Letzte 30 Tage',
@@ -350,5 +351,9 @@ export default {
     'ACTIVITY_RE_OPEN_THIS': 'hat wiedereröffnet dieses Ticket',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'hat geänderte Abteilung dieses Tickets zu',
     'ACTIVITY_PRIORITY_CHANGED_THIS': 'hat die Priorität dieses Tickets geändert',
-    'DATE_PREFIX': 'am'
+    'DATE_PREFIX': 'am',
+    'LEFT_EMPTY_DATABASE': 'Leer leer für die automatische Datenbankerstellung',
+    'REMEMBER_ME': 'Merken',
+    'EMAIL_LOWERCASE': 'Email',
+    'PASSWORD_LOWERCASE': 'Passwort'
 };

@@ -12,6 +12,8 @@ export default {
     'FORGOT_PASSWORD': 'パスワードをお忘れですか？',
     'RECOVER_PASSWORD': 'パスワードを回復',
     'RECOVER_SENT': 'リカバリ指示のメールが送信されました',
+    'NEW_EMAIL': '新しいメール',
+    'FULL_NAME': 'フルネーム',
     'OLD_PASSWORD': '以前のパスワード',
     'NEW_PASSWORD': '新しいパスワード',
     'REPEAT_NEW_PASSWORD': '新しいパスワードを繰り返し',
@@ -335,7 +337,6 @@ export default {
     'WILL_RECOVER_EMAIL_TEMPLATE': 'この電子メールテンプレートは、この言語のデフォルト値にリカバリされます。',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'CSVファイルを正常にインポートしました',
     'SUCCESS_DELETING_ALL_USERS': 'ユーザーは正常に削除されました',
-    'WILL_RECOVER_EMAIL_TEMPLATE': 'この電子メールテンプレートは、この言語のデフォルト値にリカバリされます。',
 
     'LAST_7_DAYS': '過去7日間',
     'LAST_30_DAYS': '過去30日間',
@@ -350,6 +351,10 @@ export default {
     'ACTIVITY_RE_OPEN_THIS': 'がこのチケットを再開しました',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'はこのチケットの部門を ',
     'ACTIVITY_PRIORITY_CHANGED_THIS': 'がこのチケットの優先順位を',
-    'DATE_PREFIX': 'に'
+    'DATE_PREFIX': 'に',
+    'LEFT_EMPTY_DATABASE': '自動データベース作成のために空のままにする',
+    'REMEMBER_ME': '覚えている',
+    'EMAIL_LOWERCASE': 'Eメール',
+    'PASSWORD_LOWERCASE': 'パスワード'
 };
 

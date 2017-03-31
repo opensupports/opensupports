@@ -103,7 +103,7 @@ class StaffEditor extends React.Component {
                 <div className="row">
                     <div className="col-md-4">
                         <div className="staff-editor__departments">
-                            <div className="staff-editor__departments-title">{i18n('Departments')}</div>
+                            <div className="staff-editor__departments-title">{i18n('DEPARTMENTS')}</div>
                             {(!this.props.myAccount) ? this.renderDepartmentsForm() : this.renderDepartmentsInfo()}
                         </div>
                     </div>

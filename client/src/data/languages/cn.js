@@ -12,6 +12,8 @@ export default {
     'FORGOT_PASSWORD': '忘記密碼了嗎？',
     'RECOVER_PASSWORD': '恢復密碼',
     'RECOVER_SENT': '已發送包含恢復說明的電子郵件。',
+    'NEW_EMAIL': '新邮件',
+    'FULL_NAME': '全名',
     'OLD_PASSWORD': '舊密碼',
     'NEW_PASSWORD': '新密碼',
     'REPEAT_NEW_PASSWORD': '重複新密碼',
@@ -335,7 +337,6 @@ export default {
     'WILL_RECOVER_EMAIL_TEMPLATE': '此電子郵件模板將恢復為該語言的默認值。',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'CSV文件已成功導入',
     'SUCCESS_DELETING_ALL_USERS': '用戶已成功刪除',
-    'WILL_RECOVER_EMAIL_TEMPLATE': '此電子郵件模板將恢復為該語言的默認值。',
 
     'LAST_7_DAYS': '最近7天',
     'LAST_30_DAYS': '最近30天',
@@ -350,6 +351,10 @@ export default {
     'ACTIVITY_RE_OPEN_THIS': '重新打開這張票',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': '改變這張票的部門 ',
     'ACTIVITY_PRIORITY_CHANGED_THIS': '將此票的優先級更改為',
-    'DATE_PREFIX': '在'
+    'DATE_PREFIX': '在',
+    'LEFT_EMPTY_DATABASE': '留空为自动创建数据库',
+    'REMEMBER_ME': '记住我',
+    'EMAIL_LOWERCASE': '电子邮件',
+    'PASSWORD_LOWERCASE': '密码'
 };
 

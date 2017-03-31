@@ -26,7 +26,7 @@ class DashboardEditProfilePage extends React.Component {
                 <Header title={i18n('EDIT_PROFILE')} description={i18n('EDIT_PROFILE_VIEW_DESCRIPTION')} />
                 <div className="edit-profile-page__title">{i18n('EDIT_EMAIL')}</div>
                 <Form loading={this.state.loadingEmail} onSubmit={this.onSubmitEditEmail.bind(this)}>
-                    <FormField name="newEmail" label="New Email" field="input" validation="EMAIL" fieldProps={{size:'large'}} required/>
+                    <FormField name="newEmail" label={i18n('NEW_EMAIL')} field="input" validation="EMAIL" fieldProps={{size:'large'}} required/>
                     <SubmitButton>{i18n('CHANGE_EMAIL')}</SubmitButton>
                     {this.renderMessageEmail()}
                 </Form>
