@@ -21,17 +21,6 @@ const steps = [
 
 class InstallLayout extends React.Component {
 
-    componentDidMount() {
-        API.call({
-            path: '/system/installation-done',
-            data: {}
-        }).then((result) => {
-            if(result.data == 1) {
-                browserHistory.push('/install/step-6');
-            }
-        });
-    }
-
     render() {
         return (
             <DocumentTitle title="OpenSupports Installation">

@@ -38,7 +38,7 @@
     "gulp-sass-bulk-import": "^0.3.2",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-streamify": "0.0.5",
-    "gulp-uglify": "^1.2.0",
+    "gulp-uglify": "^2.1.2",
     "gulp-util": "^3.0.6",
     "humps": "^0.6.0",
     "jquery-mockjax": "^2.1.0",

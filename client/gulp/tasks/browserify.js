@@ -30,7 +30,7 @@ function buildScript(file, watch) {
     },
     cache: {},
     packageCache: {},
-    fullPaths: true
+    fullPaths: false
   });
 
   if ( watch ) {
