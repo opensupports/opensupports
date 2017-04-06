@@ -1,4 +1,7 @@
-language: php
+language: php ruby
+
+rvm:
+  - 2.2
 
 php:
   - '5.6'
