@@ -1,0 +1,20 @@
+before_install:
+- nvm install 4.4.7
+- npm install -g npm@2.15.8
+- npm install -g mocha
+- cd client
+- npm install
+- ulimit -u 10240
+- cd ../server
+- phpenv local 5.6
+- composer install
+- cd ../tests
+- bundle install
+- gem install bacon
+- cd ../server
+- nohup bash -c "php -S localhost:8080 2>&1 &" && sleep 1; cat nohup.out
+- cd ..
+
+script:
+- cd client
+- npm test
