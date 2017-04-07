@@ -1,7 +1,18 @@
-OpenSupports v4.0
+![OpenSupports](http://www.opensupports.com/logo.png)
 
-[![Build Status](https://codeship.com/projects/3faec3f0-908d-0133-1dce-661fcf0def08/status?branch=master)](https://codeship.com/projects/124436/)
+[![Build Status](https://travis-ci.org/opensupports/opensupports.svg?branch=master)](https://travis-ci.org/opensupports/opensupports)
 ============
+
+## About
+OpenSupports is an open source tickt system.
+Please, visit our website for more information: [http://www.opensupports.com/](http://www.opensupports.com/)
+
+## Requirements
+* PHP 5.6+
+* MySQL 4.1+
+
+## Development
+Here is a guide of how to set up the development environment in OpenSupports
 
 ### Getting up and running FRONT-END (client folder)
 0. update `sudo apt-get update`
@@ -25,10 +36,9 @@ Now that `gulp dev` is running, the server is up as well and serving files from 
 
 ##### Production Task
 
-Just as there is the `gulp dev` task for development, there is also a `gulp prod` task for putting your project into a production-ready state. This will run each of the tasks, while also adding the image minification task discussed above. There is also an empty `gulp deploy` task that is included when running the production task. This deploy task can be fleshed out to automatically push your production-ready site to your hosting setup.
+Just as there is the `gulp dev` task for development, there is also a `gulp prod` task for putting the project into a production-ready state. This will run each of the tasks, while also adding the image minification task discussed above.
 
-**Reminder:** When running the production task, gulp will not fire up the express server and serve your index.html. This task is designed to be run before the `deploy` step that may copy the files from `/build` to a production web server.
-
+**Reminder:** Notice there is `index.html` and `index.php`. The firstone searches the backend server where `config.js` say it, the second one uses `/api` to find the server. If you want to run OpenSupports in a single server, then use `index.php`.
 
 #### Frontend Unit Testing
 1. Do the steps described before
