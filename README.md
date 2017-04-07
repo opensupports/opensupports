@@ -2,8 +2,6 @@
 
 [![Build Status](https://travis-ci.org/opensupports/opensupports.svg?branch=master)](https://travis-ci.org/opensupports/opensupports)
 ============
-
-## About
 OpenSupports is an open source tickt system.
 Please, visit our website for more information: [http://www.opensupports.com/](http://www.opensupports.com/)
 
