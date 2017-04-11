@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import API from 'lib-app/api-call';
+
 class Icon extends React.Component {
 
     static propTypes = {
@@ -25,7 +27,7 @@ class Icon extends React.Component {
 
     renderFlag() {
         return (
-            <img className={this.props.className} src={`/images/icons/${this.props.name}.png`} aria-hidden="true" />
+            <img className={this.props.className} src={`${API.getURL()}/images/icons/${this.props.name}.png`} aria-hidden="true" />
         );
     }
 

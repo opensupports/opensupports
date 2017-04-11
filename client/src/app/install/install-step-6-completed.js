@@ -1,6 +1,7 @@
 import React from 'react';
-import {browserHistory} from 'react-router';
 
+import store from 'app/store';
+import ConfigActions from 'actions/config-actions';
 import i18n from 'lib-app/i18n';
 
 import Header from 'core-components/header';
@@ -9,7 +10,9 @@ import Message from 'core-components/message';
 class InstallStep6Completed extends React.Component {
 
     componentDidMount() {
-        setTimeout(() => browserHistory.push('/admin'), 5000);
+        setTimeout(() => {
+            store.dispatch(ConfigActions.checkInstallation());
+        }, 5000);
     }
 
     render() {

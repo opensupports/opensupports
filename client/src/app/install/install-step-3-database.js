@@ -1,6 +1,6 @@
 import React from 'react';
-import {browserHistory} from 'react-router';
 
+import history from 'lib-app/history';
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
 
@@ -54,7 +54,7 @@ class InstallStep3Database extends React.Component {
 
     onPreviousClick(event) {
         event.preventDefault();
-        browserHistory.push('/install/step-2');
+        history.push('/install/step-2');
     }
 
     onSubmit(form) {
@@ -65,7 +65,7 @@ class InstallStep3Database extends React.Component {
                 path: '/system/init-database',
                 data: form
             })
-                .then(() => browserHistory.push('/install/step-4'))
+                .then(() => history.push('/install/step-4'))
                 .catch(({message}) => this.setState({
                     loading: false,
                     error: true,

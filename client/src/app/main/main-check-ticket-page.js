@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import {browserHistory} from 'react-router';
 import {connect} from 'react-redux';
 
+import history from 'lib-app/history';
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
 import SessionStore from 'lib-app/session-store';
@@ -99,7 +99,7 @@ class MainCheckTicketPage extends React.Component {
 
     onTicketGetSuccess(result) {
         SessionStore.setItem('token', result.data.token);
-        setTimeout(() => {browserHistory.push('/view-ticket/' + this.state.form.ticketNumber)}, 2000);
+        setTimeout(() => {history.push('/view-ticket/' + this.state.form.ticketNumber)}, 2000);
     }
 }
 

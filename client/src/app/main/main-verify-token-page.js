@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect}        from 'react-redux'
-import {browserHistory} from 'react-router';
 
 import SessionActions from 'actions/session-actions'
+import history from 'lib-app/history';
 import API from 'lib-app/api-call';
 
 import Message from 'core-components/message';
@@ -18,10 +18,10 @@ class MainVerifyTokenPage extends React.Component {
             }
         }).then(() => {
             this.props.dispatch(SessionActions.verify(true));
-            browserHistory.push('/');
+            history.push('/');
         }).catch(() => {
             this.props.dispatch(SessionActions.verify(false));
-            browserHistory.push('/');
+            history.push('/');
         });
     }
 

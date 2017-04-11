@@ -1,11 +1,9 @@
 import React from 'react';
-import {Router, Route, IndexRoute, IndexRedirect, browserHistory} from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
-
-import store from 'app/store';
+import {Router, Route, IndexRoute, IndexRedirect} from 'react-router';
 
 import App from 'app/App';
 import DemoPage from 'app/demo/components-demo-page';
+import history from 'lib-app/history';
 
 import MainLayout from 'app/main/main-layout';
 import MainHomePage from 'app/main/main-home/main-home-page';
@@ -61,8 +59,6 @@ import InstallStep3Database from 'app/install/install-step-3-database';
 import InstallStep4UserSystem from 'app/install/install-step-4-user-system';
 import InstallStep5Admin from 'app/install/install-step-5-admin';
 import InstallStep6Completed from 'app/install/install-step-6-completed';
-
-const history = syncHistoryWithStore(browserHistory, store);
 
 export default (
     <Router history={history}>
@@ -146,7 +142,7 @@ export default (
                 </Route>
             </Route>
 
-            <Route name='Demo' path='demo' component={DemoPage} />
+            <Route name='Demo' path='components-demo' component={DemoPage} />
         </Route>
     </Router>
 );

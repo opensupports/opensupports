@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {browserHistory} from 'react-router';
 
+import history from 'lib-app/history';
 import i18n from 'lib-app/i18n';
 import ConfigActions from 'actions/config-actions';
 
@@ -17,7 +17,7 @@ class InstallStep1Language extends React.Component {
                 <Header title={i18n('STEP_TITLE', {title: i18n('SELECT_LANGUAGE'), current: 1, total: 6})} description={i18n('STEP_1_DESCRIPTION')}/>
                 <LanguageSelector {...this.getLanguageSelectorProps()} />
                 <div className="install-step-1__button">
-                    <Button size="medium" type="secondary" onClick={() => browserHistory.push('/install/step-2')}>
+                    <Button size="medium" type="secondary" onClick={() => history.push('/install/step-2')}>
                         {i18n('NEXT')}
                     </Button>
                 </div>

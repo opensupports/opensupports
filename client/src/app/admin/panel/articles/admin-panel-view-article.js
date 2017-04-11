@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import {connect}  from 'react-redux';
-import {browserHistory} from 'react-router';
+import history from 'lib-app/history';
 
 import ArticlesActions from 'actions/articles-actions';
 import SessionStore from 'lib-app/session-store';
@@ -156,7 +156,7 @@ class AdminPanelViewArticle extends React.Component {
             data: {
                 articleId: article.id
             }
-        }).then(() => browserHistory.push('/admin/panel/articles/list-articles'));
+        }).then(() => history.push('/admin/panel/articles/list-articles'));
     }
 }
 

@@ -1,10 +1,9 @@
 import React from 'react';
-import {browserHistory} from 'react-router';
 
+import history from 'lib-app/history';
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
 
-import Button from 'core-components/button';
 import Header from 'core-components/header';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
@@ -58,7 +57,7 @@ class InstallStep5Admin extends React.Component {
                 path: '/system/init-admin',
                 data: form
             })
-                .then(() => browserHistory.push('/install/step-6'))
+                .then(() => history.push('/install/step-6'))
                 .catch(({message}) => this.setState({
                     loading: false,
                     error: true,

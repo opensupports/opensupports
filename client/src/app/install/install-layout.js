@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import _ from 'lodash';
-import {browserHistory} from 'react-router';
 import DocumentTitle from 'react-document-title';
 
 import i18n from 'lib-app/i18n';
@@ -27,7 +26,7 @@ class InstallLayout extends React.Component {
                 <Widget className="install-layout">
                     <div className="install-layout__header">
                         <div className="install-layout__header-logo">
-                            <img width="100%" src="../../images/logo.png" alt="OpenSupports Installation"/>
+                            <img width="100%" src={API.getURL() + '/images/logo.png'} alt="OpenSupports Installation"/>
                         </div>
                         <div className="install-layout__header-text">
                             <div className="install-layout__header-title">

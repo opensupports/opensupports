@@ -1,9 +1,9 @@
 import React              from 'react';
 import _                  from 'lodash';
-import { browserHistory } from 'react-router';
 import {connect} from 'react-redux';
 import {EditorState, convertToRaw} from 'draft-js';
 
+import history            from 'lib-app/history';
 import i18n               from 'lib-app/i18n';
 import API                from 'lib-app/api-call';
 import SessionStore       from 'lib-app/session-store';
@@ -142,9 +142,9 @@ class CreateTicketForm extends React.Component {
 
         if(this.props.userLogged) {
             store.dispatch(SessionActions.getUserData());
-            setTimeout(() => {browserHistory.push('/dashboard')}, 2000);
+            setTimeout(() => {history.push('/dashboard')}, 2000);
         } else {
-            setTimeout(() => {browserHistory.push('/check-ticket/' + result.data.ticketNumber + '/' + email)}, 1000);
+            setTimeout(() => {history.push('/check-ticket/' + result.data.ticketNumber + '/' + email)}, 1000);
         }
     }
 
