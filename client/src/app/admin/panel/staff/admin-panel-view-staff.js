@@ -1,5 +1,5 @@
 import React from 'react';
-import {browserHistory} from 'react-router';
+import history from 'lib-app/history';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 
@@ -60,7 +60,7 @@ class AdminPanelViewStaff extends React.Component {
     }
 
     onDelete() {
-        browserHistory.push('/admin/panel/staff/staff-members');
+        history.push('/admin/panel/staff/staff-members');
     }
 }
 

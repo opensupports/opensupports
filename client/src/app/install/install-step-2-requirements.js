@@ -1,8 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 import classNames from 'classnames';
-import {browserHistory} from 'react-router';
 
+import history from 'lib-app/history';
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
 
@@ -39,7 +39,7 @@ class InstallStep2Requirements extends React.Component {
                 <Table {...this.getTableProps()} />
                 <div className="install-step-2__buttons">
                     <div className="install-step-2__next">
-                        <Button disabled={!this.isAllOk()} size="medium" type="secondary" onClick={() => browserHistory.push('/install/step-3')}>
+                        <Button disabled={!this.isAllOk()} size="medium" type="secondary" onClick={() => history.push('/install/step-3')}>
                             {i18n('NEXT')}
                         </Button>
                     </div>
@@ -90,7 +90,7 @@ class InstallStep2Requirements extends React.Component {
 
     onPreviousClick(event) {
         event.preventDefault();
-        browserHistory.push('/install/step-1');
+        history.push('/install/step-1');
     }
 
     isAllOk() {

@@ -1,7 +1,7 @@
 import React from 'react';
-import {browserHistory} from 'react-router';
 import {connect} from 'react-redux';
 
+import history from 'lib-app/history';
 import AdminPanelViewTicket from 'app/admin/panel/tickets/admin-panel-view-ticket'
 
 import Widget from 'core-components/widget';
@@ -20,7 +20,7 @@ class MainViewTicketPage extends React.Component {
 
     onRetrieveFail() {
         if (!this.props.config['user-system-enabled']) {
-            setTimeout(() => {browserHistory.push('/check-ticket')}, 2000);
+            setTimeout(() => {history.push('/check-ticket')}, 2000);
         }
     }
 }

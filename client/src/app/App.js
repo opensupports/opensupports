@@ -2,9 +2,9 @@ import React              from 'react';
 import _                  from 'lodash';
 import classNames         from 'classnames';
 import { connect }        from 'react-redux'
-import { browserHistory } from 'react-router';
 import DocumentTitle      from 'react-document-title';
 
+import history from 'lib-app/history';
 import ModalContainer from 'app-components/modal-container';
 
 const level2Paths = [
@@ -66,11 +66,11 @@ class App extends React.Component {
         };
         
         if(props.config['maintenance-mode'] === '1' && !_.includes(props.location.pathname, '/admin') && !_.includes(props.location.pathname, '/maintenance')) {
-            browserHistory.push('/maintenance');
+            history.push('/maintenance');
         }
 
         if(props.config['maintenance-mode'] === '0' && _.includes(props.location.pathname, '/maintenance')) {
-            browserHistory.push('/');
+            history.push('/');
         }
 
         if (validations.languageChanged) {
@@ -78,37 +78,41 @@ class App extends React.Component {
         }
 
         if (validations.loggedOut) {
-            browserHistory.push('/');
+            history.push('/');
         }
 
         if (validations.loggedOutStaff) {
-            browserHistory.push('/admin');
+            history.push('/admin');
         }
 
         if (validations.loggedIn && !props.session.staff) {
-            browserHistory.push('/dashboard');
+            history.push('/dashboard');
         } else if(validations.loggedInStaff) {
-            browserHistory.push('/admin/panel');
+            history.push('/admin/panel');
         }
 
         if (props.session.userLevel && !this.isPathAvailableForStaff(props)) {
-            browserHistory.push('/admin/panel');
+            history.push('/admin/panel');
         }
 
         if (!props.config.registration && _.includes(props.location.pathname, 'signup')) {
-            browserHistory.push('/');
+            history.push('/');
         }
 
         if(props.config['user-system-enabled'] && _.includes(props.location.pathname, '/check-ticket')) {
-            browserHistory.push('/');
+            history.push('/');
         }
 
         if(props.config.installedDone && !props.config.installed && !_.includes(props.location.pathname, '/install')) {
-            browserHistory.push('/install');
+            history.push('/install');
         }
 
         if(props.config.installedDone && props.config.installed && _.includes(props.location.pathname, '/install')) {
-            browserHistory.push('/');
+            history.push('/');
+        }
+
+        if(isProd && _.includes(props.location.pathname, '/components-demo')) {
+            history.push('/');
         }
     }
 

@@ -24,6 +24,9 @@ function buildScript(file, watch) {
     entries: [config.sourceDir + file],
     debug: !global.isProd,
     insertGlobalVars: {
+      isProd: function () {
+        return (global.isProd) ? "'enabled'" : "'disabled'";
+      },
       noFixtures: function() {
         return (util.env['api']) ? "'enabled'" : "'disabled'";
       }

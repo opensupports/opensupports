@@ -1,3 +1,7 @@
+<?php
+    $url = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+    $path = dirname($_SERVER['PHP_SELF']);
+?>
 <!doctype html>
 <html class="no-js" lang="">
     <head>
@@ -8,16 +12,17 @@
     
         <title>OpenSupports</title>
     
-        <link rel="stylesheet" href="/css/main.css">
-        <link rel="icon" type="image/x-icon" href="/images/icon.png">
+        <link rel="stylesheet" href="<?=$url ?>/css/main.css">
+        <link rel="icon" type="image/x-icon" href="<?=$url ?>/images/icon.png">
     </head>
     <body>
         <div id="app"></div>
         
         <script>
-            root = "<?php echo ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']); ?>";
-            apiRoot = "<?php echo ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']); ?>" + 'api';
+            root = "<?=$url ?>";
+            apiRoot = '<?=$url ?>/api';
+            globalIndexPath = "<?=$path ?>";
         </script>
-        <script src="/js/main.js"></script>
+        <script src="<?=$url ?>/js/main.js"></script>
     </body>
 </html>

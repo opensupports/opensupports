@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import {browserHistory} from 'react-router';
 import {connect} from 'react-redux'
 
+import history from 'lib-app/history';
 import Widget from 'core-components/widget';
 import Card from 'core-components/card';
 import i18n from 'lib-app/i18n';
@@ -41,7 +41,7 @@ class MainHomePagePortal extends React.Component {
             icon: 'ticket',
             color: 'red',
             buttonText: (this.props.type === 'complete') ? i18n('CREATE_TICKET') : null,
-            onButtonClick: () => browserHistory.push('/create-ticket')
+            onButtonClick: () => history.push('/create-ticket')
         };
     }
 
@@ -61,7 +61,7 @@ class MainHomePagePortal extends React.Component {
             icon: 'book',
             color: 'blue',
             buttonText: (this.props.type === 'complete') ? i18n('VIEW_ARTICLES') : null,
-            onButtonClick: () => browserHistory.push('/articles')
+            onButtonClick: () => history.push('/articles')
         };
     }
 
@@ -72,7 +72,7 @@ class MainHomePagePortal extends React.Component {
             icon: 'check-square-o',
             color: 'green',
             buttonText: (this.props.type === 'complete') ? i18n('CHECK_TICKET') : null,
-            onButtonClick: () => browserHistory.push('/check-ticket')
+            onButtonClick: () => history.push('/check-ticket')
         };
     }
 }

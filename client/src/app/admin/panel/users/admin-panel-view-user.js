@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect}  from 'react-redux';
-import {browserHistory} from 'react-router';
+import history from 'lib-app/history';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -124,7 +124,7 @@ class AdminPanelViewUser extends React.Component {
                 data: {
                     email: this.state.email
                 }
-            }).then(() => browserHistory.push('/admin/panel/users/list-users'));
+            }).then(() => history.push('/admin/panel/users/list-users'));
         });
     }
 }

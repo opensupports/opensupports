@@ -1,7 +1,7 @@
 import React from 'react';
-import {browserHistory} from 'react-router';
 import { connect } from 'react-redux'
 
+import history from 'lib-app/history';
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
 
@@ -49,7 +49,7 @@ class InstallStep4UserSystem extends React.Component {
 
     onPreviousClick(event) {
         event.preventDefault();
-        browserHistory.push('/install/step-3');
+        history.push('/install/step-3');
     }
 
     onSubmit(form) {
@@ -64,7 +64,7 @@ class InstallStep4UserSystem extends React.Component {
             }
         }).then(() => this.setState({
             loading: false
-        }, () => browserHistory.push('/install/step-5'))));
+        }, () => history.push('/install/step-5'))));
     }
 
     isDisabled() {

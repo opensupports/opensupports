@@ -14,7 +14,7 @@ Array.prototype.swap = function (x,y) {
     return this;
 };
 
-if ( process.env.NODE_ENV !== 'production' ) {
+if (isProd === 'disabled') {
     // Enable React devtools
     window.React = React;
 }
