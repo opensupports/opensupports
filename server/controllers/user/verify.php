@@ -1,6 +1,27 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /user/verify verify the email of a new user.
+ *
+ * @apiName verify
+ *
+ * @apiGroup User
+ *
+ * @apiDescription This path verify the email of a new user.
+ *
+ * @apiPermission any
+ *
+ * @apiParam {string} email  the email of the user.
+ *
+ * @apiParam {string} token the key of validation the user.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class VerifyController extends Controller{
     const PATH = '/verify';
     const METHOD = 'POST';

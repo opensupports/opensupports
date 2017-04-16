@@ -1,4 +1,18 @@
 <?php
+/**
+ * @api {post} /user/logout log out the current user.
+ *
+ * @apiName log out 
+ *
+ * @apiGroup User
+ *
+ * @apiDescription This path log out the current user.
+ *
+ * @apiPermission Any
+ *
+ * @apiSuccess {Object} data
+ *
+ */
 class LogoutController extends Controller {
     const PATH = '/logout';
     const METHOD = 'POST';

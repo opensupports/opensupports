@@ -2,6 +2,23 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
+/**
+ * @api {post} /user/get Give back the information of yourself.
+ *
+ * @apiName get
+ *
+ * @apiGroup User
+ *
+ * @apiDescription This path give back the information of a user.
+ *
+ * @apiPermission User
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class GetUserController extends Controller {
     const PATH = '/get';
     const METHOD = 'POST';

@@ -1,5 +1,22 @@
 <?php
 
+/**
+ * @api {post} /user/check-session check if session exist or not
+ *
+ * @apiName check-session
+ *
+ * @apiGroup User
+ *
+ * @apiDescription This path give back a object that says if a session exist or not.
+ *
+ * @apiPermission Any
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class CheckSessionController extends Controller {
     const PATH = '/check-session';
     const METHOD = 'POST';

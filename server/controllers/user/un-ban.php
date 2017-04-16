@@ -1,6 +1,25 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /user/un-ban take a user out of banned list.
+ *
+ * @apiName un ban
+ *
+ * @apiGroup User
+ *
+ * @apiDescription This path take a user out of banned list.
+ *
+ * @apiPermission Staff level 1
+ *
+ * @apiParam {string} email  the email of the user who was banned.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class UnBanUserController extends Controller {
     const PATH = '/un-ban';
     const METHOD = 'POST';
