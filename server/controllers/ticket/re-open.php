@@ -1,6 +1,25 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /ticket/re-open Re open a closed ticket.
+ *
+ * @apiName Re open
+ *
+ * @apiGroup Ticket
+ *
+ * @apiDescription This path re open a closed ticket.
+ *
+ * @apiPermission user
+ *
+ * @apiParam {string} ticketNumber Number of the ticket to be reopened.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class ReOpenController extends Controller {
     const PATH = '/re-open';
     const METHOD = 'POST';

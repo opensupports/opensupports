@@ -2,6 +2,35 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
+/**
+ * @api {post} /ticket/create Create a new ticket.
+ *
+ * @apiName Create
+ *
+ * @apiGroup Ticket
+ *
+ * @apiDescription This path create a new ticket.
+ *
+ * @apiPermission user
+ *
+ * @apiParam {string} title Title of the ticket.
+ *
+ * @apiParam {string} content Content of the ticket.
+ *
+ * @apiParam {number} departmentId The id of the department of the current ticket.
+ *
+ * @apiParam {string} language The language of the ticket.
+ *
+ * @apiParam {string} email The email of the user who created the ticket.
+ *
+ * @apiParam {string} name The Name of the author of the ticket.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class CreateController extends Controller {
     const PATH = '/create';
     const METHOD = 'POST';

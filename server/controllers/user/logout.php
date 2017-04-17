@@ -1,6 +1,6 @@
 <?php
 /**
- * @api {post} /user/logout log out the current user.
+ * @api {post} /user/logout Log out the current user.
  *
  * @apiName log out 
  *

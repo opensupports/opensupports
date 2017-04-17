@@ -2,7 +2,7 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /user/ban Bans email users
+ * @api {post} /user/ban Bans email users.
  *
  * @apiName BanUser
  *
@@ -12,7 +12,7 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiPermission Staff Level 1
  * 
- * @apiParam {String} email email of user to ban.
+ * @apiParam {String} email Email of user to ban.
  *
  * @apiError {String} message
  *

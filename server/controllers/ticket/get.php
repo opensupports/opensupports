@@ -2,6 +2,27 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
+/**
+ * @api {post} /ticket/get give back information about a ticket.
+ *
+ * @apiName Get
+ *
+ * @apiGroup Ticket
+ *
+ * @apiDescription This path give back information about a ticket.
+ *
+ * @apiPermission any
+ *
+ * @apiParam {number} ticketNumber The number of the ticket.
+ *
+ * @apiParam {string} csrf_token Token of the session.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class TicketGetController extends Controller {
     const PATH = '/get';
     const METHOD = 'POST';

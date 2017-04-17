@@ -12,7 +12,7 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiPermission User
  *
- * @apiParam {string} newEmail the new email that the user wants to change
+ * @apiParam {string} newEmail The new email that the user wants to change.
  *
  * @apiError {String} message
  *

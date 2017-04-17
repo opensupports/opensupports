@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @api {post} /user/check-session check if session exist or not
+ * @api {post} /user/check-session Check if session exist or not.
  *
- * @apiName check-session
+ * @apiName check session
  *
  * @apiGroup User
  *

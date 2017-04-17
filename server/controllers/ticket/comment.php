@@ -2,6 +2,29 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
+/**
+ * @api {post} /ticket/comment Comment a ticket.
+ *
+ * @apiName Comment
+ *
+ * @apiGroup Ticket
+ *
+ * @apiDescription This path comment a ticket.
+ *
+ * @apiPermission user
+ *
+ * @apiParam {string} content Content of the comment.
+ *
+ * @apiParam {number} ticketNumber The number of the ticket to comment.
+ *
+ * @apiParam {string} csrf_token Token of the session.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class CommentController extends Controller {
     const PATH = '/comment';
     const METHOD = 'POST';

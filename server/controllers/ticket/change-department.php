@@ -2,6 +2,27 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
+/**
+ * @api {post} /ticket/change-department Change the department of a ticket.
+ *
+ * @apiName Change department
+ *
+ * @apiGroup Ticket
+ *
+ * @apiDescription This path change the department of a ticket.
+ *
+ * @apiPermission Staff Level 1
+ *
+ * @apiParam {number} ticketNumber The number of a ticket.
+ *
+ * @apiParam {number} departmentId The id of the new department of the ticket.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class ChangeDepartmentController extends Controller {
     const PATH = '/change-department';
     const METHOD = 'POST';

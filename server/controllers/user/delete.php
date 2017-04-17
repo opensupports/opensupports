@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 use RedBeanPHP\Facade as RedBean;
 
 /**
- * @api {post} /user/delete Delete a user
+ * @api {post} /user/delete Delete a user.
  *
  * @apiName delete
  *
@@ -13,7 +13,7 @@ use RedBeanPHP\Facade as RedBean;
  *
  * @apiPermission Staff level 1
  *
- * @apiParam {number} userId the id of the user to delete
+ * @apiParam {number} userId The id of the user to delete.
  *
  * @apiError {String} message
  *

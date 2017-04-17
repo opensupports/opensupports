@@ -9,11 +9,11 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiGroup User
  *
- * @apiDescription This path send a token to the email of the user to change his password
+ * @apiDescription This path send a token to the email of the user to change his password.
  *
  * @apiPermission Any
  *
- * @apiParam {string} email  the email of the user who forgot the password.
+ * @apiParam {string} email  The email of the user who forgot the password.
  *
  * @apiError {String} message
  *

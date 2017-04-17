@@ -2,6 +2,29 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
+/**
+ * @api {post} /ticket/add-custom-response Add new responses.
+ *
+ * @apiName Add custom response
+ *
+ * @apiGroup Ticket
+ *
+ * @apiDescription This path allows create new responses to tickets.
+ *
+ * @apiPermission Staff Level 2
+ *
+ * @apiParam {String} name Name of the response.
+ *
+ * @apiParam {String} content Content of the response.
+ *
+ * @apiParam {String} language Language of the response.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class AddCustomResponseController extends Controller {
     const PATH = '/add-custom-response';
     const METHOD = 'POST';

@@ -2,7 +2,7 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /user/un-ban take a user out of banned list.
+ * @api {post} /user/un-ban Take a user out of banned list.
  *
  * @apiName un ban
  *
@@ -12,7 +12,7 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiPermission Staff level 1
  *
- * @apiParam {string} email  the email of the user who was banned.
+ * @apiParam {string} email  The email of the user who was banned.
  *
  * @apiError {String} message
  *

@@ -12,7 +12,7 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiPermission Staff level 1
  *
- * @apiParam {number} page number of pages of users.
+ * @apiParam {number} page Number of pages of users.
  *
  * @apiParam {string} orderBy Parameter to order the users by tickets or id.
  *

@@ -2,7 +2,7 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /user/verify verify the email of a new user.
+ * @api {post} /user/verify Verify the email of a new user.
  *
  * @apiName verify
  *
@@ -12,9 +12,9 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiPermission any
  *
- * @apiParam {string} email  the email of the user.
+ * @apiParam {string} email  The email of the user.
  *
- * @apiParam {string} token the key of validation the user.
+ * @apiParam {string} token The key of validation the user.
  *
  * @apiError {String} message
  *

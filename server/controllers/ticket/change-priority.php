@@ -1,6 +1,27 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /ticket/change-priority Change the priority of a ticket.
+ *
+ * @apiName Change priority
+ *
+ * @apiGroup Ticket
+ *
+ * @apiDescription This path change the priority of a ticket.
+ *
+ * @apiPermission Staff Level 1
+ *
+ * @apiParam {number} ticketNumber The number of a ticket.
+ *
+ * @apiParam {string} priority The new priority of the ticket.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class ChangePriorityController extends Controller {
     const PATH = '/change-priority';
     const METHOD = 'POST';

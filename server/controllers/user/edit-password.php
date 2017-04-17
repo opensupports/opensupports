@@ -12,9 +12,9 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiPermission User
  *
- * @apiParam {string} newPassword the new password that the user wants to change.
+ * @apiParam {string} newPassword The new password that the user wants to change.
  *
- * @apiParam {string} oldPassword the actual password of the user.
+ * @apiParam {string} oldPassword The actual password of the user.
  *
  * @apiError {String} message
  *
