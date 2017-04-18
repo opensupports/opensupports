@@ -2,6 +2,33 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
+/**
+ * @api {post} /article/edit Edit a article.
+ *
+ * @apiName Edit a article
+ *
+ * @apiGroup article
+ *
+ * @apiDescription This path edits a article.
+ *
+ * @apiPermission Staff level 2
+ *
+ * @apiParam {number} articleId Id of the article.
+ *
+ * @apiParam {number} topicId Id of the topic of the article.
+ * 
+ * @apiParam {string} content The new content of the article.
+ * 
+ * @apiParam {string} title The new title of the article.
+ * 
+ * @apiParam {number} position The new position of the article.
+ * 
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class EditArticleController extends Controller {
     const PATH = '/edit';
     const METHOD = 'POST';

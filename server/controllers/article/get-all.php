@@ -2,6 +2,21 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
+/**
+ * @api {post} /article/get-all Get all articles.
+ *
+ * @apiName Get all
+ *
+ * @apiGroup article
+ *
+ * @apiDescription This path give back all the articles.
+ *
+ * @apiPermission any
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class GetAllArticlesController extends Controller {
     const PATH = '/get-all';
     const METHOD = 'POST';

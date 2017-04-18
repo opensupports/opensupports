@@ -2,6 +2,31 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
+/**
+ * @api {post} /article/add Add a article.
+ *
+ * @apiName Add
+ *
+ * @apiGroup article
+ *
+ * @apiDescription This path adds a new article.
+ *
+ * @apiPermission Staff level 2
+ *
+ * @apiParam {String} title Title of the new article.
+ *
+ * @apiParam {string} content Content of the new article.
+ *
+ * @apiParam {number} position Position of the new article.
+ *
+ * @apiParam {number} topicId Id of the articles's topic.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class AddArticleController extends Controller {
     const PATH = '/add';
     const METHOD = 'POST';

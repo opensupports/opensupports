@@ -2,6 +2,29 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
+/**
+ * @api {post} /article/add-topic Add a new topic.
+ *
+ * @apiName Add topic
+ *
+ * @apiGroup article
+ *
+ * @apiDescription This path adds a new topic.
+ *
+ * @apiPermission Staff level 2
+ *
+ * @apiParam {String} name Name of the new topic.
+ *
+ * @apiParam {string} icon Icon of the new topic.
+ *
+ * @apiParam {string} iconColor Icon's color of the new topic.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class AddTopicController extends Controller {
     const PATH = '/add-topic';
     const METHOD = 'POST';
