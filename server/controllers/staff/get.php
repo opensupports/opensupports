@@ -2,6 +2,25 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
+/**
+ * @api {post} /staff/get  Get information about a staff member.
+ *
+ * @apiName Get
+ *
+ * @apiGroup staff
+ *
+ * @apiDescription This path give back information about a staff member .
+ *
+ * @apiPermission Staff level 1
+ *
+ * @apiParam {number} staffId The id of the staff member searched.
+ * 
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class GetStaffController extends Controller {
     const PATH = '/get';
     const METHOD = 'POST';

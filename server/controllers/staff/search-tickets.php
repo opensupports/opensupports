@@ -1,6 +1,27 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /staff/search-tickets  Search some tickets.
+ *
+ * @apiName Search tickets
+ *
+ * @apiGroup staff
+ *
+ * @apiDescription This path search some tickets.
+ *
+ * @apiPermission Staff level 1
+ *
+ * @apiParam {String} query key to search.
+ *
+ * @apiParam {number} page The number of page.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class SearchTicketStaffController extends Controller {
     const PATH = '/search-tickets';
     const METHOD = 'POST';

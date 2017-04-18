@@ -2,6 +2,35 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
+/**
+ * @api {post} /staff/add  Add a new staff member.
+ *
+ * @apiName Add
+ *
+ * @apiGroup staff
+ *
+ * @apiDescription This path add a new staff member.
+ *
+ * @apiPermission Staff level 3
+ *
+ * @apiParam {String} name The name of the new staff member.
+ * 
+ * @apiParam {String} email The email of the new staff member.
+ * 
+ * @apiParam {String} password The password of the new staff member.
+ * 
+ * @apiParam {number} level The level of the new staff member.
+ *
+ * @apiParam {string} profilePic The profile pic of the new staff member.
+ *
+ * @apiParam {string} departments The departments that will have assigned the new staff member.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class AddStaffController extends Controller {
     const PATH = '/add';
     const METHOD = 'POST';

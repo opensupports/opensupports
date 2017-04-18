@@ -1,6 +1,25 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /staff/get-all-tickets  Give back all tickets.
+ *
+ * @apiName Get all tickets
+ *
+ * @apiGroup staff
+ *
+ * @apiDescription This path give back all tickets created.
+ *
+ * @apiPermission Staff level 1
+ *
+ * @apiParam {number} page The page's number that it's looking for.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class GetAllTicketsStaffController extends Controller {
     const PATH = '/get-all-tickets';
     const METHOD = 'POST';

@@ -2,6 +2,21 @@
 use RedBeanPHP\Facade as RedBean;
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /staff/get-new-tickets  Get new tickets.
+ *
+ * @apiName Get new tickets
+ *
+ * @apiGroup staff
+ *
+ * @apiDescription This path give back new tickets.
+ *
+ * @apiPermission Staff level 1
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class GetNewTicketsStaffController extends Controller {
     const PATH = '/get-new-tickets';
     const METHOD = 'POST';
