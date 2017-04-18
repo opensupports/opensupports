@@ -1,6 +1,27 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /system/get-stats Get stats.
+ *
+ * @apiName Get stats
+ *
+ * @apiGroup system
+ *
+ * @apiDescription This path give back stats.
+ *
+ * @apiPermission Staff level 1
+ *
+ * @apiParam {String} period Period of search.
+ * 
+ * @apiParam {number} staffId Id of the current staff.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class GetStatsController extends Controller {
     const PATH = '/get-stats';
     const METHOD = 'POST';

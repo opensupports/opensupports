@@ -1,5 +1,24 @@
 <?php
 
+/**
+ * @api {post} /system/disable-user-system Disable the user system.
+ *
+ * @apiName Disable user system
+ *
+ * @apiGroup system
+ *
+ * @apiDescription This path disable the user system.
+ *
+ * @apiPermission Staff level 3
+ *
+ * @apiParam {string} password The password of the current staff.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class DisableUserSystemController extends Controller {
     const PATH = '/disable-user-system';
     const METHOD = 'POST';

@@ -1,5 +1,20 @@
 <?php
 
+/**
+ * @api {post} /system/check-requirements Checks and give back the current requirements.
+ *
+ * @apiName Check requirements
+ *
+ * @apiGroup system
+ *
+ * @apiDescription This path checks and give back the current requirements.
+ *
+ * @apiPermission any
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class CheckRequirementsController extends Controller {
     const PATH = '/check-requirements';
     const METHOD = 'POST';

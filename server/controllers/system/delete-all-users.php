@@ -1,6 +1,23 @@
 <?php
 use RedBeanPHP\Facade as RedBean;
 
+/**
+ * @api {post} /system/delete-all-users Delete all users in database.
+ *
+ * @apiName Delete all users
+ *
+ * @apiGroup system
+ *
+ * @apiDescription This path delete all users in database.
+ *
+ * @apiPermission Staff level 3
+ *
+ * @apiParam {string} password The password of the current staff.
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class DeleteAllUsersController extends Controller {
     const PATH = '/delete-all-users';
     const METHOD = 'POST';

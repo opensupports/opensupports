@@ -1,6 +1,27 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /system/recover-mail-template Recover mail template.
+ *
+ * @apiName Recover mail template
+ *
+ * @apiGroup system
+ *
+ * @apiDescription This path recover olds mail templates.
+ *
+ * @apiPermission Staff level 3
+ *
+ * @apiParam {String} templateType type of the template.
+ *
+ * @apiParam {string} language language of the template.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class RecoverMailTemplateController extends Controller {
     const PATH = '/recover-mail-template';
     const METHOD = 'POST';

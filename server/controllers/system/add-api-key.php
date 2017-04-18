@@ -1,6 +1,25 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /system/add-api-key Create a new api-key.
+ *
+ * @apiName Add api-key
+ *
+ * @apiGroup system
+ *
+ * @apiDescription This path create a new api-key.
+ *
+ * @apiPermission Staff level 3
+ *
+ * @apiParam {string} name Number of the new api-key.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class AddAPIKeyController extends Controller {
     const PATH = '/add-api-key';
     const METHOD = 'POST';

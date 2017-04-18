@@ -1,6 +1,25 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /system/delete-api-key Delete a api-key.
+ *
+ * @apiName Delete api-key
+ *
+ * @apiGroup system
+ *
+ * @apiDescription This path delete a api-key.
+ *
+ * @apiPermission Staff level 3
+ *
+ * @apiParam {string} name Name of the api-key to delete.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class DeleteAPIKeyController extends Controller {
     const PATH = '/delete-api-key';
     const METHOD = 'POST';

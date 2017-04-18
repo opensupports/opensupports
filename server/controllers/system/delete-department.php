@@ -2,6 +2,27 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
+/**
+ * @api {post} /system/delete-department Delete a department.
+ *
+ * @apiName Delete department
+ *
+ * @apiGroup system
+ *
+ * @apiDescription This path delete a department.
+ *
+ * @apiPermission Staff level 3
+ *
+ * @apiParam {number} departmentId Id of the department to delete.
+ *
+ * @apiParam {number} transferDepartmentId Id of the department where the tickets will be transfer to.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class DeleteDepartmentController extends Controller {
     const PATH = '/delete-department';
     const METHOD = 'POST';

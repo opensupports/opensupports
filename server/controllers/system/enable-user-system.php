@@ -1,5 +1,24 @@
 <?php
 
+/**
+ * @api {post} /system/enable-user-system Enable user system.
+ *
+ * @apiName Enable user system
+ *
+ * @apiGroup system
+ *
+ * @apiDescription This path enable the user system.
+ *
+ * @apiPermission Staff level 3
+ *
+ * @apiParam {string} password The password of the current staff.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class EnableUserSystemController extends Controller {
     const PATH = '/enable-user-system';
     const METHOD = 'POST';

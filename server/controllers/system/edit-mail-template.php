@@ -1,6 +1,31 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /system/edit-mail-template Edit a mail template.
+ *
+ * @apiName Edit mail template
+ *
+ * @apiGroup system
+ *
+ * @apiDescription This path edit a mail template.
+ *
+ * @apiPermission Staff level 3
+ *
+ * @apiParam {string} templateType The new type of the template.
+ *
+ * @apiParam {string} language The new language of the template.
+ *
+ * @apiParam {string} subject The new subject of the template.
+ *
+ * @apiParam {string} body The new content of the template.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class EditMailTemplateController extends Controller {
     const PATH = '/edit-mail-template';
     const METHOD = 'POST';

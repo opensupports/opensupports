@@ -1,5 +1,22 @@
 <?php
 
+/**
+ * @api {post} /system/get-settings Get settings.
+ *
+ * @apiName Get settings
+ *
+ * @apiGroup system
+ *
+ * @apiDescription This path returns one or more settings.
+ *
+ * @apiPermission any
+ *
+ * @apiParam {bool} allSettings A bool that means if you want a regular settings list or a complety settings list.
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class GetSettingsController extends Controller {
     const PATH = '/get-settings';
     const METHOD = 'POST';

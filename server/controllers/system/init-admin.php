@@ -2,6 +2,29 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
+/**
+ * @api {post} /system/init-admin Create the main administrator account.
+ *
+ * @apiName Init admin
+ *
+ * @apiGroup system
+ *
+ * @apiDescription This path create the main administrator account.
+ *
+ * @apiPermission any
+ *
+ * @apiParam {String} name Name of the administrator.
+ *
+ * @apiParam {string} email Email of the administrator.
+ * 
+ * @apiParam {string} password Password of the administrator.
+ *
+ * @apiError {String} message
+ *
+ * @apiSuccess {Object} data
+ *
+ */
+
 class InitAdminController extends Controller {
     const PATH = '/init-admin';
     const METHOD = 'POST';
