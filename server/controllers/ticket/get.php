@@ -19,7 +19,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TICKET
  *
- * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)} events The requested event(s).
+ * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)} data Information about the requested ticket.
  */
 
 

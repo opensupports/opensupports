@@ -22,7 +22,7 @@
  * @apiParam {Number}  owner.id Avatar-Image.
  * @apiParam {String}  owner.name Avatar-Image.
  * @apiParam {String}  owner.email Avatar-Image.
- * @apiParam {[TicketEvent](#api-Data_Structures-ObjectTicketevent)[]} events The requested event(s).
+ * @apiParam {[TicketEvent](#api-Data_Structures-ObjectTicketevent)[]} events Events related to the ticket.
  */
 use RedBeanPHP\Facade as RedBean;
 
