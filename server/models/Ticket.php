@@ -1,4 +1,29 @@
 <?php
+/**
+ * @api {OBJECT} Ticket Ticket
+ * @apiGroup Data Structures
+ * @apiParam {Number}  ticketNumber Users age.
+ * @apiParam {String}  title Avatar-Image.
+ * @apiParam {String}  content Avatar-Image.
+ * @apiParam {Object}  department Avatar-Image.
+ * @apiParam {Number}  department.id Avatar-Image.
+ * @apiParam {String}  department.name Avatar-Image.
+ * @apiParam {String}  file Avatar-Image.
+ * @apiParam {String}  language Avatar-Image.
+ * @apiParam {Boolean}  unread Avatar-Image.
+ * @apiParam {Boolean}  unreadStaff Avatar-Image.
+ * @apiParam {Boolean}  closed Avatar-Image.
+ * @apiParam {String}  priority Avatar-Image.
+ * @apiParam {Object}  author Avatar-Image.
+ * @apiParam {Number}  author.id Avatar-Image.
+ * @apiParam {String}  author.name Avatar-Image.
+ * @apiParam {String}  author.email Avatar-Image.
+ * @apiParam {Object}  owner Avatar-Image.
+ * @apiParam {Number}  owner.id Avatar-Image.
+ * @apiParam {String}  owner.name Avatar-Image.
+ * @apiParam {String}  owner.email Avatar-Image.
+ * @apiParam {[TicketEvent](#api-Data_Structures-ObjectTicketevent)[]} events The requested event(s).
+ */
 use RedBeanPHP\Facade as RedBean;
 
 class Ticket extends DataStore {

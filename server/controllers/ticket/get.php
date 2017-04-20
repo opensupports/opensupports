@@ -1,27 +1,27 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
-
 /**
- * @api {post} /ticket/get give back information about a ticket.
+ * @api {post} /ticket/get Retrieve Ticket information.
  *
- * @apiName Get
+ * @apiName GetTicket
  *
  * @apiGroup Ticket
  *
- * @apiDescription This path give back information about a ticket.
+ * @apiDescription This path gives back information about a ticket.
  *
  * @apiPermission any
  *
  * @apiParam {number} ticketNumber The number of the ticket.
  *
- * @apiParam {string} csrf_token Token of the session.
+ * @apiParam {string} csrf_token Token of the current session.
  *
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_TICKET
  *
- * @apiSuccess {Object} data
- *
+ * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)} events The requested event(s).
  */
+
 
 class TicketGetController extends Controller {
     const PATH = '/get';

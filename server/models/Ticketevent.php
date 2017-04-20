@@ -1,4 +1,18 @@
 <?php
+/**
+ * @api {OBJECT} TicketEvent TicketEvent
+ * @apiGroup Data Structures
+ * @apiParam {String}  type Avatar-Image.
+ * @apiParam {String}  content Avatar-Image.
+ * @apiParam {Object}  author Avatar-Image.
+ * @apiParam {Number}  author.id Avatar-Image.
+ * @apiParam {String}  author.name Avatar-Image.
+ * @apiParam {String}  author.email Avatar-Image.
+ * @apiParam {String}  author.profilePic Avatar-Image.
+ * @apiParam {Boolean}  author.staff Avatar-Image.
+ * @apiParam {String}  date Avatar-Image.
+ * @apiParam {String}  file Avatar-Image.
+ */
 
 class Ticketevent extends DataStore {
     const TABLE = 'ticketevent';
