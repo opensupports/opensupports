@@ -198,7 +198,7 @@ class StaffEditor extends React.Component {
                     <div className="staff-editor__delete-title">
                         {i18n('DELETE_STAFF_MEMBER')}
                     </div>
-                    <Button onClick={AreYouSure.openModal.bind(this, i18n('WILL_DELETE_STAFF'), this.onDeleteClick.bind(this))}>
+                    <Button onClick={() => AreYouSure.openModal(i18n('WILL_DELETE_STAFF'), this.onDeleteClick.bind(this))}>
                         {i18n('DELETE_STAFF_MEMBER')}
                     </Button>
                 </div>

@@ -136,7 +136,7 @@
         position: absolute;
         bottom: 0;
         right: 0;
-        width: 180px;
+        min-width: 180px;
     }
 
     &__update-email,
