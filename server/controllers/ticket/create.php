@@ -13,19 +13,19 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiPermission user
  *
- * @apiParam {string} title Title of the ticket.
+ * @apiParam {String} title Title of the ticket.
+ * @apiParam {String} content Content of the ticket.
+ * @apiParam {Number} departmentId The id of the department of the current ticket.
+ * @apiParam {String} language The language of the ticket.
+ * @apiParam {String} email The email of the user who created the ticket.
+ * @apiParam {String} name The Name of the author of the ticket.
  *
- * @apiParam {string} content Content of the ticket.
- *
- * @apiParam {number} departmentId The id of the department of the current ticket.
- *
- * @apiParam {string} language The language of the ticket.
- *
- * @apiParam {string} email The email of the user who created the ticket.
- *
- * @apiParam {string} name The Name of the author of the ticket.
- *
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_TITLE
+ * @apiUse INVALID_CONTENT
+ * @apiUse INVALID_DEPARTMENT
+ * @apiUse INVALID_LANGUAGE
+ * @apiUse INVALID_CAPTCHA
  *
  * @apiSuccess {Object} data
  *

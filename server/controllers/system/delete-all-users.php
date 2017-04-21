@@ -12,9 +12,12 @@ use RedBeanPHP\Facade as RedBean;
  *
  * @apiPermission Staff level 3
  *
- * @apiParam {string} password The password of the current staff.
+ * @apiParam {String} password The password of the current staff.
  *
- * @apiSuccess {Object} data
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_PASSWORD
+ * 
+ * @apiSuccess {Object} data Empty object
  *
  */
 

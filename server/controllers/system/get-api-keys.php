@@ -2,16 +2,18 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /system/get-api-keys Get api keys.
+ * @api {post} /system/get-api-keys Retrieve api keys.
  *
  * @apiName Get api keys
  *
  * @apiGroup system
  *
- * @apiDescription This path give back the all api keys.
+ * @apiDescription This path retrieves the all api keys.
  *
  * @apiPermission Staff level 3
  *
+ * @apiUse NO_PERMISSION
+ * 
  * @apiSuccess {Object} data
  *
  */

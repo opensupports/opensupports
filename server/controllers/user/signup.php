@@ -4,9 +4,9 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /user/signup Sign up a new user
+ * @api {post} /user/signup Sign up a new user.
  *
- * @apiName sign up
+ * @apiName Sign up
  *
  * @apiGroup User
  *
@@ -14,15 +14,19 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiPermission Any
  *
- * @apiParam {string} name  The name of the new user.
+ * @apiParam {String} name  The name of the new user.
+ * @apiParam {String} email  The email of the new user.
+ * @apiParam {String} password  The password of the new user.
+ * @apiParam {String} apyKey  Key to sign up  a user if the user system is disabled.
  *
- * @apiParam {string} email  The email of the new user.
- *
- * @apiParam {string} password  The password of the new user.
- *
- * @apiParam {string} apyKey  Key to sign up  a user if the user system is disabled.
- *
- * @apiError {String} message
+ * @apiUse INVALID_NAME
+ * @apiUse INVALID_EMAIL
+ * @apiUse INVALID_PASSWORD
+ * @apiUse INVALID_CAPTCHA
+ * @apiUse USER_SYSTEM_DISABLED
+ * @apiUse USER_EXISTS
+ * @apiUse ALREADY_BANNED
+ * @apiUse NO_PERMISSION
  *
  * @apiSuccess {Object} data
  *

@@ -14,12 +14,11 @@ DataValidator::with('CustomValidations', true);
  * @apiPermission Staff level 2
  *
  * @apiParam {String} name Name of the new topic.
+ * @apiParam {String} icon Icon of the new topic.
+ * @apiParam {String} iconColor Icon's color of the new topic.
  *
- * @apiParam {string} icon Icon of the new topic.
- *
- * @apiParam {string} iconColor Icon's color of the new topic.
- *
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_NAME
  *
  * @apiSuccess {Object} data
  *

@@ -13,11 +13,14 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiPermission Staff level 1
  *
- * @apiParam {number} ticketNumber The number of the ticket to assign.
+ * @apiParam {Number} ticketNumber The number of the ticket to assign.
  *
- * @apiError {string} message
- *
- * @apiSuccess {Object} data
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_TICKET
+ * @apiUse TICKET_ALREADY_ASSIGNED
+ * @apiUse INVALID_DEPARTMENT
+ * 
+ * @apiSuccess {Object} data Empty object
  *
  */
 

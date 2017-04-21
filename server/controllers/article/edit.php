@@ -13,19 +13,16 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiPermission Staff level 2
  *
- * @apiParam {number} articleId Id of the article.
+ * @apiParam {Number} articleId Id of the article.
+ * @apiParam {Number} topicId Id of the topic of the article.
+ * @apiParam {String} content The new content of the article.
+ * @apiParam {String} title The new title of the article.
+ * @apiParam {Number} position The new position of the article.
+ * 
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_TOPIC
  *
- * @apiParam {number} topicId Id of the topic of the article.
- * 
- * @apiParam {string} content The new content of the article.
- * 
- * @apiParam {string} title The new title of the article.
- * 
- * @apiParam {number} position The new position of the article.
- * 
- * @apiError {String} message
- *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object
  *
  */
 

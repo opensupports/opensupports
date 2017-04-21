@@ -4,7 +4,7 @@ use Respect\Validation\Validator as DataValidator;
 /**
  * @api {post} /user/edit-email Edit email of an user.
  *
- * @apiName edit-email
+ * @apiName Edit-email
  *
  * @apiGroup User
  *
@@ -12,11 +12,12 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiPermission User
  *
- * @apiParam {string} newEmail The new email that the user wants to change.
+ * @apiParam {String} newEmail The new email that the user wants to change.
  *
- * @apiError {String} message
- *
- * @apiSuccess {Object} data
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_EMAIL
+ * 
+ * @apiSuccess {Object} data Empty object
  *
  */
 

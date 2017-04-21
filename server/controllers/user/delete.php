@@ -5,7 +5,7 @@ use RedBeanPHP\Facade as RedBean;
 /**
  * @api {post} /user/delete Delete a user.
  *
- * @apiName delete
+ * @apiName Delete
  *
  * @apiGroup User
  *
@@ -13,9 +13,11 @@ use RedBeanPHP\Facade as RedBean;
  *
  * @apiPermission Staff level 1
  *
- * @apiParam {number} userId The id of the user to delete.
+ * @apiParam {Number} userId The id of the user to delete.
  *
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_USER
+ * @apiUse USER_SYSTEM_DISABLED
  *
  * @apiSuccess {Object} data
  *

@@ -13,15 +13,15 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiPermission user
  *
- * @apiParam {string} content Content of the comment.
+ * @apiParam {String} content Content of the comment.
+ * @apiParam {Number} ticketNumber The number of the ticket to comment.
+ * @apiParam {String} csrf_token Token of the session.
  *
- * @apiParam {number} ticketNumber The number of the ticket to comment.
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_CONTENT
+ * @apiUse INVALID_TICKET
  *
- * @apiParam {string} csrf_token Token of the session.
- *
- * @apiError {String} message
- *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object 
  *
  */
 

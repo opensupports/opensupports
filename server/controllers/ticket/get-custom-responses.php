@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /ticket/get-custom-responses give back customs responses.
+ * @api {post} /ticket/get-custom-responses Retrieve customs responses.
  *
  * @apiName Get custom responses
  *
@@ -13,9 +13,10 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiPermission Staff level 1
  *
+ * @apiUse NO_PERMISSION
+ * 
  * @apiSuccess {[CustomResponse](#api-Data_Structures-ObjectCustomresponse)[]} data List of custom responses.
  *
- * @apiUse NO_PERMISSION
  */
 
 class GetCustomResponsesController extends Controller {

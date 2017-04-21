@@ -12,17 +12,18 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiPermission Staff level 3
  *
- * @apiParam {string} templateType The new type of the template.
+ * @apiParam {String} templateType The new type of the template.
+ * @apiParam {String} language The new language of the template.
+ * @apiParam {String} subject The new subject of the template.
+ * @apiParam {String} body The new content of the template.
  *
- * @apiParam {string} language The new language of the template.
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_TEMPLATE
+ * @apiUse INVALID_LANGUAGE
+ * @apiUse INVALID_SUBJECT
+ * @apiUse INVALID_BODY
  *
- * @apiParam {string} subject The new subject of the template.
- *
- * @apiParam {string} body The new content of the template.
- *
- * @apiError {String} message
- *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object 
  *
  */
 

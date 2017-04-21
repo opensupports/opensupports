@@ -3,7 +3,7 @@
 /**
  * @api {post} /user/login Login a user.
  *
- * @apiName login
+ * @apiName Login
  *
  * @apiGroup User
  *
@@ -11,19 +11,17 @@
  *
  * @apiPermission Any
  *
- * @apiParam {bool} staff A bool that say if it want to login a staff or a normal user.
+ * @apiParam {Boolean} staff A bool that say if it want to login a staff or a normal user.
+ * @apiParam {String} email The email of the user to login.
+ * @apiParam {String} password The password of the user to login.
+ * @apiParam {Boolean} remember A bool that say if the session wants to be remembered.
+ * @apiParam {Number} userId The id of the user to login.
+ * @apiParam {String} rememberToken Token to login automatically.
  *
- * @apiParam {string} email The email of the user to login.
- *
- * @apiParam {string} password The password of the user to login.
- *
- * @apiParam {bool} remember A bool that say if the session wants to be remembered.
- *
- * @apiParam {number} userId The id of the user to login.
- *
- * @apiParam {string} rememberToken Token to login automatically.
- *
- * @apiError {String} message
+ * @apiUse USER_SYSTEM_DISABLED
+ * @apiUse SESSION_EXISTS
+ * @apiUse UNVERIFIED_USER
+ * @apiUse INVALID_CREDENTIALS
  *
  * @apiSuccess {Object} data
  *

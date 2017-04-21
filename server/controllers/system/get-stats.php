@@ -2,21 +2,21 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /system/get-stats Get stats.
+ * @api {post} /system/get-stats Retrieve stats.
  *
  * @apiName Get stats
  *
  * @apiGroup system
  *
- * @apiDescription This path give back stats.
+ * @apiDescription This path retrieves stats.
  *
  * @apiPermission Staff level 1
  *
  * @apiParam {String} period Period of search.
- * 
- * @apiParam {number} staffId Id of the current staff.
- *
- * @apiError {String} message
+ * @apiParam {Number} staffId Id of the current staff.
+
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_PERIOD
  *
  * @apiSuccess {Object} data
  *

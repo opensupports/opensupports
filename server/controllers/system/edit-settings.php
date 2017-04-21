@@ -11,15 +11,13 @@
  *
  * @apiPermission Staff level 3
  *
- * @apiParam {string} allowedLanguages The list of languages allowed.
+ * @apiParam {String} allowedLanguages The list of languages allowed.
+ * @apiParam {String} supportedLanguages The list of languages supported.
+ * @apiParam {String} settings A list this content format: language, recaptcha-public, recaptcha-private, no-reply-email, smtp-host, smtp-port, smtp-user, smtp-pass, time-zone, maintenance-mode, layout, allow-attachments, max-size, title, url.
  *
- * @apiParam {string} supportedLanguages The list of languages supported.
+ * @apiUse NO_PERMISSION
  *
- * @apiParam {string} settings A list this content format: language, recaptcha-public, recaptcha-private, no-reply-email, smtp-host, smtp-port, smtp-user, smtp-pass, time-zone, maintenance-mode, layout, allow-attachments, max-size, title, url.
- *
- * @apiError {String} message
- *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object
  *
  */
 

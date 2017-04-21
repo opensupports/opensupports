@@ -12,7 +12,7 @@ use Ifsnop\Mysqldump as IMysqldump;
  *
  * @apiPermission Staff level 3
  *
- * @apiSuccess {Object} data
+ * @apiUse NO_PERMISSION
  *
  */
 

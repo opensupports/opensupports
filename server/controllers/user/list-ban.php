@@ -2,16 +2,18 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /user/list-ban Give back the list of banned users.
+ * @api {post} /user/list-ban Retrieve the list of banned users.
  *
- * @apiName list-ban
+ * @apiName List-ban
  *
  * @apiGroup User
  *
- * @apiDescription This path give back the list of banned users.
+ * @apiDescription This path retrieves the list of banned users.
  *
  * @apiPermission Staff level 1
  *
+ * @apiUse NO_PERMISSION
+ * 
  * @apiSuccess {Object} data
  *
  */

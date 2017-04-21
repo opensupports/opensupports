@@ -3,16 +3,18 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /article/get-all Get all articles.
+ * @api {post} /article/get-all Retrieve all articles.
  *
  * @apiName Get all
  *
  * @apiGroup article
  *
- * @apiDescription This path give back all the articles.
+ * @apiDescription This path retrieves all the articles.
  *
- * @apiPermission any
+ * @apiPermission any or user
  *
+ * @apiUse NO_PERMISSION
+ * 
  * @apiSuccess {Object} data
  *
  */

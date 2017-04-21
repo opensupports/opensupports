@@ -12,11 +12,12 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiPermission Staff level 3
  *
- * @apiParam {string} name Name of the api-key to delete.
+ * @apiParam {String} name Name of the api-key to delete.
  *
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_NAME
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object
  *
  */
 

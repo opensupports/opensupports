@@ -3,9 +3,9 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /user/send-recover-password send a token to the email of the user to change his password
+ * @api {post} /user/send-recover-password Send a token to the email of the user to change his password
  *
- * @apiName send recover password
+ * @apiName Send recover password
  *
  * @apiGroup User
  *
@@ -13,11 +13,13 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiPermission Any
  *
- * @apiParam {string} email  The email of the user who forgot the password.
+ * @apiParam {String} email  The email of the user who forgot the password.
  *
- * @apiError {String} message
+ * @apiUse INVALID_EMAIL
+ * @apiUse USER_SYSTEM_DISABLED
+ * @apiUse INVALID_EMAIL
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object.
  *
  */
 

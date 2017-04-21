@@ -3,16 +3,18 @@ use RedBeanPHP\Facade as RedBean;
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /staff/get-new-tickets  Get new tickets.
+ * @api {post} /staff/get-new-tickets Retrieve new tickets.
  *
  * @apiName Get new tickets
  *
  * @apiGroup staff
  *
- * @apiDescription This path give back new tickets.
+ * @apiDescription This path retrieves new tickets.
  *
  * @apiPermission Staff level 1
  *
+ * @apiUse NO_PERMISSION
+ * 
  * @apiSuccess {Object} data
  *
  */

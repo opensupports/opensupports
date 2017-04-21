@@ -12,11 +12,12 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiPermission user
  *
- * @apiParam {string} ticketNumber Number of the ticket to be reopened.
+ * @apiParam {String} ticketNumber Number of the ticket to be reopened.
  *
- * @apiError {String} message
- *
- * @apiSuccess {Object} data
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_TICKET
+ * 
+ * @apiSuccess {Object} data Empty object
  *
  */
 

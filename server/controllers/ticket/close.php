@@ -13,11 +13,12 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiPermission user
  *
- * @apiParam {number} ticketNumber The number of a ticket.
+ * @apiParam {Number} ticketNumber The number of a ticket.
  *
- * @apiError {String} message
- *
- * @apiSuccess {Object} data
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_TICKET
+ * 
+ * @apiSuccess {Object} data Empty object
  *
  */
 

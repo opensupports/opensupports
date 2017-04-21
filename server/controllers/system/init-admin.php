@@ -14,14 +14,15 @@ DataValidator::with('CustomValidations', true);
  * @apiPermission any
  *
  * @apiParam {String} name Name of the administrator.
+ * @apiParam {String} email Email of the administrator.
+ * @apiParam {String} password Password of the administrator.
  *
- * @apiParam {string} email Email of the administrator.
- * 
- * @apiParam {string} password Password of the administrator.
+ * @apiUse INVALID_NAME
+ * @apiUse INVALID_EMAIL
+ * @apiUse INVALID_PASSWORD
+ * @apiUse INIT_SETTINGS_DONE
  *
- * @apiError {String} message
- *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object
  *
  */
 

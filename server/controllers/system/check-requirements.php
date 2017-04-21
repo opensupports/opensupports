@@ -1,13 +1,13 @@
 <?php
 
 /**
- * @api {post} /system/check-requirements Checks and give back the current requirements.
+ * @api {post} /system/check-requirements Checks and retrieves the current requirements.
  *
  * @apiName Check requirements
  *
  * @apiGroup system
  *
- * @apiDescription This path checks and give back the current requirements.
+ * @apiDescription This path checks and retrieves the current requirements.
  *
  * @apiPermission any
  *

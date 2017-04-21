@@ -3,15 +3,13 @@
 /**
  * @api {post} /user/check-session Check if session exist or not.
  *
- * @apiName check session
+ * @apiName Check session
  *
  * @apiGroup User
  *
  * @apiDescription This path give back a object that says if a session exist or not.
  *
  * @apiPermission Any
- *
- * @apiError {String} message
  *
  * @apiSuccess {Object} data
  *

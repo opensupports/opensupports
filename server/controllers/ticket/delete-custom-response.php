@@ -13,11 +13,12 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiPermission user
  *
- * @apiParam {number} id Id of the custom response to delete.
+ * @apiParam {Number} id Id of the custom response to delete.
  *
- * @apiError {String} message
- *
- * @apiSuccess {Object} data
+ * @apiUse NO_PERMISSION
+ * @apiUse NO_PERMISSION
+ * 
+ * @apiSuccess {Object} data Empty object
  *
  */
 

@@ -11,11 +11,12 @@
  *
  * @apiPermission Staff level 3
  *
- * @apiParam {string} password The password of the current staff.
+ * @apiParam {String} password The password of the current staff.
  *
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_PASSWORD
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object
  *
  */
 

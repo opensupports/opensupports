@@ -3,19 +3,19 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /staff/get  Get information about a staff member.
+ * @api {post} /staff/get  Retrieve information about a staff member.
  *
  * @apiName Get
  *
  * @apiGroup staff
  *
- * @apiDescription This path give back information about a staff member .
+ * @apiDescription This path retrieves information about a staff member .
  *
  * @apiPermission Staff level 1
  *
- * @apiParam {number} staffId The id of the staff member searched.
+ * @apiParam {Number} staffId The id of the staff member searched.
  * 
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
  *
  * @apiSuccess {Object} data
  *

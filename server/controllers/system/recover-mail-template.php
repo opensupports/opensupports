@@ -13,12 +13,13 @@ use Respect\Validation\Validator as DataValidator;
  * @apiPermission Staff level 3
  *
  * @apiParam {String} templateType type of the template.
+ * @apiParam {String} language language of the template.
  *
- * @apiParam {string} language language of the template.
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_TEMPLATE
+ * @apiUse INVALID_LANGUAGE
  *
- * @apiError {String} message
- *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object
  *
  */
 

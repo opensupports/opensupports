@@ -14,11 +14,10 @@ DataValidator::with('CustomValidations', true);
  * @apiPermission Staff Level 2
  *
  * @apiParam {String} name Name of the response.
- *
  * @apiParam {String} content Content of the response.
- *
  * @apiParam {String} language Language of the response.
  *
+ * @apiUse NO_PERMISSION
  * @apiUse INVALID_NAME
  * @apiUse INVALID_CONTENT
  * @apiUse INVALID_LANGUAGE

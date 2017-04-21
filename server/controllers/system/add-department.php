@@ -12,9 +12,10 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiPermission Staff level 3
  *
- * @apiParam {string} name Number of the new department.
+ * @apiParam {String} name Name of the new department.
  *
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_NAME
  *
  * @apiSuccess {Object} data
  *

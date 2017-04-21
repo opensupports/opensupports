@@ -2,19 +2,20 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /system/get-logs Get logs.
+ * @api {post} /system/get-logs retrieve logs.
  *
  * @apiName Get logs
  *
  * @apiGroup system
  *
- * @apiDescription This path give back the all logs.
+ * @apiDescription This path retrieves the all logs.
  *
  * @apiPermission Staff level 1
  *
- * @apiParam {number} page The page of logs.
+ * @apiParam {Number} page The page of logs.
  *
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_PAGE
  *
  * @apiSuccess {Object} data
  *

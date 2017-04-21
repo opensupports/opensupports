@@ -2,19 +2,20 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /staff/last-events  Give back the last events.
+ * @api {post} /staff/last-events Retrieve the last events.
  *
  * @apiName Last events
  *
  * @apiGroup staff
  *
- * @apiDescription This path give back the last events.
+ * @apiDescription This path retrieves the last events.
  *
  * @apiPermission Staff level 1
  *
- * @apiParam {number} page The page's number of the list.
+ * @apiParam {Number} page The page's number of the list.
  * 
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_PAGE
  * 
  * @apiSuccess {Object} data
  *

@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /staff/un-assign-ticket  Un-assign a ticket.
+ * @api {post} /staff/un-assign-ticket Un-assign a ticket.
  *
  * @apiName Un-assign ticket
  *
@@ -13,11 +13,12 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiPermission Staff level 1
  *
- * @apiParam {number} ticketNumber Ticket number to un-assign.
+ * @apiParam {Number} ticketNumber Ticket number to un-assign.
  *
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_TICKET
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object
  *
  */
 

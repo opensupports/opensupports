@@ -2,7 +2,7 @@
 /**
  * @api {post} /user/logout Log out the current user.
  *
- * @apiName log out 
+ * @apiName Log out 
  *
  * @apiGroup User
  *
@@ -10,7 +10,7 @@
  *
  * @apiPermission Any
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object
  *
  */
 class LogoutController extends Controller {

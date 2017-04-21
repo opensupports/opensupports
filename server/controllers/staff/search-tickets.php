@@ -2,7 +2,7 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /staff/search-tickets  Search some tickets.
+ * @api {post} /staff/search-tickets Search some tickets.
  *
  * @apiName Search tickets
  *
@@ -12,11 +12,12 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiPermission Staff level 1
  *
- * @apiParam {String} query key to search.
+ * @apiParam {String} query Key to search.
+ * @apiParam {Number} page The number of page.
  *
- * @apiParam {number} page The number of page.
- *
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_QUERY
+ * @apiUse INVALID_PAGE
  *
  * @apiSuccess {Object} data
  *

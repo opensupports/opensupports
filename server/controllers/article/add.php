@@ -14,14 +14,14 @@ DataValidator::with('CustomValidations', true);
  * @apiPermission Staff level 2
  *
  * @apiParam {String} title Title of the new article.
+ * @apiParam {String} content Content of the new article.
+ * @apiParam {Number} position Position of the new article.
+ * @apiParam {Number} topicId Id of the articles's topic.
  *
- * @apiParam {string} content Content of the new article.
- *
- * @apiParam {number} position Position of the new article.
- *
- * @apiParam {number} topicId Id of the articles's topic.
- *
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_NAME
+ * @apiUse INVALID_CONTENT
+ * @apiUse INVALID_TOPIC
  *
  * @apiSuccess {Object} data
  *

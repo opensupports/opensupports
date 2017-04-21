@@ -13,13 +13,15 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiPermission Staff level 3
  *
- * @apiParam {string} name The new name of the department.
+ * @apiParam {String} name The new name of the department.
  *
- * @apiParam {number} departmentId The Id of the department.
+ * @apiParam {Number} departmentId The Id of the department.
  *
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_NAME
+ * @apiUse INVALID_DEPARTMENT
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object
  *
  */
 

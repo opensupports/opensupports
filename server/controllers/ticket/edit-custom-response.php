@@ -13,17 +13,15 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiPermission Staff level 2
  *
- * @apiParam {number} id Id of the custom response to edit.
+ * @apiParam {Number} id Id of the custom response to edit.
+ * @apiParam {String} content The new content of the custom response.
+ * @apiParam {String} language The new language of the custom response.
+ * @apiParam {String} name The new name of the custom response.
  *
- * @apiParam {string} content The new content of the custom response.
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_NAME
  *
- * @apiParam {string} language The new language of the custom response.
- *
- * @apiParam {string} name The new name of the custom response.
- *
- * @apiError {String} message
- *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object
  *
  */
 

@@ -13,11 +13,12 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiPermission Staff level 2
  *
- * @apiParam {number} topicId Id of the topic.
+ * @apiParam {Number} topicId Id of the topic.
  *
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_TOPIC
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object
  *
  */
 

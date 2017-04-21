@@ -12,13 +12,14 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiPermission Staff Level 1
  *
- * @apiParam {number} ticketNumber The number of a ticket.
+ * @apiParam {Number} ticketNumber The number of a ticket.
+ * @apiParam {String} priority The new priority of the ticket.
  *
- * @apiParam {string} priority The new priority of the ticket.
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_TICKET
+ * @apiUse INVALID_PRIORITY 
  *
- * @apiError {String} message
- *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object 
  *
  */
 

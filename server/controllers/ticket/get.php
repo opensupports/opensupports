@@ -8,18 +8,18 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiGroup Ticket
  *
- * @apiDescription This path gives back information about a ticket.
+ * @apiDescription This path retrieves information about a ticket.
  *
  * @apiPermission any
  *
- * @apiParam {number} ticketNumber The number of the ticket.
+ * @apiParam {Number} ticketNumber The number of the ticket.
+ * @apiParam {String} csrf_token Token of the current session.
  *
- * @apiParam {string} csrf_token Token of the current session.
- *
- * @apiUse NO_PERMISSION
  * @apiUse INVALID_TICKET
- *
+ * @apiUse NO_PERMISSION
+ * 
  * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)} data Information about the requested ticket.
+ * 
  */
 
 

@@ -13,11 +13,12 @@ use RedBeanPHP\Facade as RedBean;
  *
  * @apiPermission Staff level 3
  *
- * @apiParam {number} staffId The id of the staff member.
+ * @apiParam {Number} staffId The id of the staff member.
  *
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_STAFF
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object
  *
  */
 

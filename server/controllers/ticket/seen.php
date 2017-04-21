@@ -12,9 +12,10 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiPermission user
  *
- * @apiParam {string} ticketNumber Number of the ticket.
+ * @apiParam {String} ticketNumber Number of the ticket.
  *
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_TICKET
  *
  * @apiSuccess {Object} data
  *

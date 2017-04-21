@@ -13,13 +13,14 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiPermission Staff level 3
  *
- * @apiParam {number} departmentId Id of the department to delete.
+ * @apiParam {Number} departmentId Id of the department to delete.
+ * @apiParam {Number} transferDepartmentId Id of the department where the tickets will be transfer to.
  *
- * @apiParam {number} transferDepartmentId Id of the department where the tickets will be transfer to.
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_DEPARTMENT
+ * @apiUse SAME_DEPARTMENT
  *
- * @apiError {String} message
- *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object
  *
  */
 

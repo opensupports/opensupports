@@ -12,9 +12,11 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiPermission Staff level 3
  *
- * @apiParam {string} name Number of the new api-key.
+ * @apiParam {String} name Name of the new api-key.
  *
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_NAME
+ * @apiUse NAME_ALREADY_USED
  *
  * @apiSuccess {Object} data
  *

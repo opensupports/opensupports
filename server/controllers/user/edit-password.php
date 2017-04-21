@@ -4,7 +4,7 @@ use Respect\Validation\Validator as DataValidator;
 /**
  * @api {post} /user/edit-password Edit password of an user.
  *
- * @apiName edit-password
+ * @apiName Edit-password
  *
  * @apiGroup User
  *
@@ -12,13 +12,14 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiPermission User
  *
- * @apiParam {string} newPassword The new password that the user wants to change.
+ * @apiParam {String} newPassword The new password that the user wants to change.
+ * @apiParam {String} oldPassword The actual password of the user.
  *
- * @apiParam {string} oldPassword The actual password of the user.
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_PASSWORD
+ * @apiUse INVALID_OLD_PASSWORD
  *
- * @apiError {String} message
- *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object
  *
  */
 

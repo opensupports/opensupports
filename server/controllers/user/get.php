@@ -3,17 +3,18 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /user/get Give back the information of yourself.
+ * @api {post} /user/get Retrieve the information of yourself.
  *
- * @apiName get
+ * @apiName Get
  *
  * @apiGroup User
  *
- * @apiDescription This path give back the information of a user.
+ * @apiDescription This path retrieve the information of a user.
  *
  * @apiPermission User
  *
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_CREDENTIALS
  *
  * @apiSuccess {Object} data
  *

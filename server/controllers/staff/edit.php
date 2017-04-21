@@ -2,7 +2,7 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /staff/edit  Edit a staff member.
+ * @api {post} /staff/edit Edit a staff member.
  *
  * @apiName Edit
  *
@@ -12,19 +12,16 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiPermission Staff level 1
  *
- * @apiParam {number} staffId Id of the staff.
- * 
+ * @apiParam {Number} staffId Id of the staff.
  * @apiParam {String} departments The name of the departments to change.
- * 
  * @apiParam {String} email The new email of the staff member.
- * 
  * @apiParam {String} password The new password of the staff member.
- * 
- * @apiParam {number} level The new level of the staff member.
+ * @apiParam {Number} level The new level of the staff member.
  *
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_STAFF
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object 
  *
  */
 

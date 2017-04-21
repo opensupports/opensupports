@@ -14,7 +14,9 @@ use Respect\Validation\Validator as DataValidator;
  * 
  * @apiParam {String} email Email of user to ban.
  *
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_EMAIL
+ * @apiUse ALREADY_BANNED
  *
  * @apiSuccess {Object} data
  *

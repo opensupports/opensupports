@@ -1,4 +1,13 @@
 <?php
+/**
+ * @api {OBJECT} Topic Topic
+ * @apiGroup Data Structures
+ * @apiParam {Number} id Id of the topic.
+ * @apiParam {String} name Name of the topic.
+ * @apiParam {String} icon Icon of the topic.
+ * @apiParam {String} iconColor Icon's color of the topic.
+ * @apiParam {Object} articles Articles of the Topic.
+ */
 
 class Topic extends DataStore {
     const TABLE = 'topic';

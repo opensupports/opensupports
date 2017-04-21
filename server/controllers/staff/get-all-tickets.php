@@ -2,19 +2,20 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /staff/get-all-tickets  Give back all tickets.
+ * @api {post} /staff/get-all-tickets Retrieve all tickets.
  *
  * @apiName Get all tickets
  *
  * @apiGroup staff
  *
- * @apiDescription This path give back all tickets created.
+ * @apiDescription This path retrieves all tickets created.
  *
  * @apiPermission Staff level 1
  *
- * @apiParam {number} page The page's number that it's looking for.
+ * @apiParam {Number} page The page's number that it's looking for.
  *
- * @apiError {String} message
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_PAGE
  *
  * @apiSuccess {Object} data
  *
