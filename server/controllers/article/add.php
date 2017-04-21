@@ -11,7 +11,7 @@ class AddArticleController extends Controller {
             'permission' => 'staff_2',
             'requestData' => [
                 'title' => [
-                    'validation' => DataValidator::length(3, 40),
+                    'validation' => DataValidator::length(3, 100),
                     'error' => ERRORS::INVALID_NAME
                 ],
                 'content' => [

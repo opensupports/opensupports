@@ -151,10 +151,10 @@ class TicketViewer extends React.Component {
                         {i18n(priorities[this.props.ticket.priority || 'low'])}
                     </div>
                     <div className="col-md-4">
-                        {(ticket.owner) ? ticket.owner.name : i18n('NONE')}
+                        {this.renderOwnerNode()}
                     </div>
                     <div className="col-md-4">
-                        {this.renderOwnerNode()}
+                        {i18n((this.props.ticket.closed) ? 'CLOSED' : 'OPENED')}
                     </div>
                 </div>
             </div>
@@ -171,7 +171,7 @@ class TicketViewer extends React.Component {
                 </Button>
             );
         } else {
-            ownerNode  = i18n((this.props.ticket.closed) ? 'CLOSED' : 'OPENED');
+            ownerNode = (this.props.ticket.owner) ? this.props.ticket.owner.name : i18n('NONE')
         }
 
         return ownerNode;

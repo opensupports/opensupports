@@ -65,7 +65,8 @@ class RecoverPasswordController extends Controller {
 
         $mailSender->setTemplate(MailTemplate::USER_PASSWORD, [
             'to' => $this->user->email,
-            'name' => $this->user->name,
+            'url' => Setting::getSetting('url')->getValue(),
+            'name' => $this->user->name
         ]);
 
         $mailSender->send();
