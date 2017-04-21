@@ -72,7 +72,7 @@ class TopicViewer extends React.Component {
 
     renderDeleteButton() {
         return (
-            <span onClick={AreYouSure.openModal.bind(this, i18n('DELETE_TOPIC_DESCRIPTION'), this.onDeleteClick.bind(this))}>
+            <span onClick={() => AreYouSure.openModal(i18n('DELETE_TOPIC_DESCRIPTION'), this.onDeleteClick.bind(this))}>
                 <Icon className="topic-viewer__edit-icon" name="trash" />
             </span>
         );

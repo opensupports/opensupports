@@ -3,8 +3,8 @@
 .main-layout-header {
     background-color: $primary-blue;
     border-radius: 4px 4px 0 0;
-    height: 32px;
     width: 100%;
+    position: relative;
 
     &__user-name {
         color: $primary-red;
@@ -19,9 +19,16 @@
     }
 
     &__languages {
+        display: inline-block;
         float: right;
         position: relative;
         top: 5px;
-        left: -6px;
+        margin: 0 6px;
+    }
+
+    @media screen and (max-width: 500px) {
+        .main-layout-header__languages {
+            float: none;
+        }
     }
 }

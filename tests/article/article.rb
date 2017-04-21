@@ -83,6 +83,9 @@ describe 'Article path' do
         })
         (result['status']).should.equal('success')
 
+        article = $database.getRow('article', @article_id)
+        (article).should.equal(nil)
+
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('DELETE_ARTICLE')
     end

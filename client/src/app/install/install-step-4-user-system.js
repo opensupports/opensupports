@@ -64,7 +64,9 @@ class InstallStep4UserSystem extends React.Component {
             }
         }).then(() => this.setState({
             loading: false
-        }, () => history.push('/install/step-5'))));
+        }, () => history.push('/install/step-5'))).catch(() => this.setState({
+            loading: false
+        })));
     }
 
     isDisabled() {

@@ -10,9 +10,11 @@ import Message from 'core-components/message';
 class InstallStep6Completed extends React.Component {
 
     componentDidMount() {
+        store.dispatch(ConfigActions.init());
+
         setTimeout(() => {
             store.dispatch(ConfigActions.checkInstallation());
-        }, 5000);
+        }, 3000);
     }
 
     render() {

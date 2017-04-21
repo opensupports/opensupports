@@ -48,6 +48,9 @@ describe 'Topic paths' do
 
         (result['status']).should.equal('success')
 
+        topic = $database.getRow('topic', 1)
+        (topic).should.equal(nil)
+
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('DELETE_TOPIC')
     end

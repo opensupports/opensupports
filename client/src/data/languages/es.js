@@ -66,7 +66,7 @@ export default {
     'DELETE': 'Borrar',
     'LANGUAGE': 'Idioma',
     'OWNER': 'Propietario',
-    'OWNED': 'Propiedad',
+    'OWNED': 'Asignado',
     'STATUS': 'Estado',
     'NONE': 'Ninguno',
     'OPENED': 'Abierto',
