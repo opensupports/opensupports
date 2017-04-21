@@ -1,4 +1,10 @@
 <?php
+/**
+ * @api {OBJECT} APIKey APIKey
+ * @apiGroup Data Structures
+ * @apiParam {String} name Name of the APIKey.
+ * @apiParam {String} token Token of the APIKey.
+ */
 
 class APIKey extends DataStore {
     const TABLE  = 'apikey';

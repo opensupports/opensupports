@@ -2,16 +2,16 @@
 /**
  * @api {OBJECT} TicketEvent TicketEvent
  * @apiGroup Data Structures
- * @apiParam {String}  type Avatar-Image.
- * @apiParam {String}  content Avatar-Image.
- * @apiParam {Object}  author Avatar-Image.
- * @apiParam {Number}  author.id Avatar-Image.
- * @apiParam {String}  author.name Avatar-Image.
- * @apiParam {String}  author.email Avatar-Image.
- * @apiParam {String}  author.profilePic Avatar-Image.
- * @apiParam {Boolean}  author.staff Avatar-Image.
- * @apiParam {String}  date Avatar-Image.
- * @apiParam {String}  file Avatar-Image.
+ * @apiParam {String}  type The type of the ticket event.
+ * @apiParam {String}  content The content of the ticket event.
+ * @apiParam {Object}  author The author of the ticket event.
+ * @apiParam {Number}  author.id The author's id of the ticket event.
+ * @apiParam {String}  author.name The author's name of the ticket event.
+ * @apiParam {String}  author.email The author's email of the ticket event.
+ * @apiParam {String}  author.profilePic The author's profilePic of the ticket event.
+ * @apiParam {Boolean}  author.staff The boolean to know if the author is staff or not.
+ * @apiParam {String}  date The date of the ticket event.
+ * @apiParam {String}  file The file of the ticket event.
  */
 
 class Ticketevent extends DataStore {

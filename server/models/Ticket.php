@@ -2,26 +2,26 @@
 /**
  * @api {OBJECT} Ticket Ticket
  * @apiGroup Data Structures
- * @apiParam {Number}  ticketNumber Users age.
- * @apiParam {String}  title Avatar-Image.
- * @apiParam {String}  content Avatar-Image.
- * @apiParam {Object}  department Avatar-Image.
- * @apiParam {Number}  department.id Avatar-Image.
- * @apiParam {String}  department.name Avatar-Image.
- * @apiParam {String}  file Avatar-Image.
- * @apiParam {String}  language Avatar-Image.
- * @apiParam {Boolean}  unread Avatar-Image.
- * @apiParam {Boolean}  unreadStaff Avatar-Image.
- * @apiParam {Boolean}  closed Avatar-Image.
- * @apiParam {String}  priority Avatar-Image.
- * @apiParam {Object}  author Avatar-Image.
- * @apiParam {Number}  author.id Avatar-Image.
- * @apiParam {String}  author.name Avatar-Image.
- * @apiParam {String}  author.email Avatar-Image.
- * @apiParam {Object}  owner Avatar-Image.
- * @apiParam {Number}  owner.id Avatar-Image.
- * @apiParam {String}  owner.name Avatar-Image.
- * @apiParam {String}  owner.email Avatar-Image.
+ * @apiParam {Number}  ticketNumber The number of the ticket.
+ * @apiParam {String}  title The title of the ticket.
+ * @apiParam {String}  content The content of the ticket.
+ * @apiParam {Object}  department The department of the ticket.
+ * @apiParam {Number}  department.id The id of the department of the ticket.
+ * @apiParam {String}  department.name The department's name of the ticket.
+ * @apiParam {String}  file The file of the ticket.
+ * @apiParam {String}  language The language of the ticket.
+ * @apiParam {Boolean}  unread The boolean to know if the user already readed or not.
+ * @apiParam {Boolean}  unreadStaff The boolean to know if the staff already readed or not.
+ * @apiParam {Boolean}  closed The boolean to know if the ticket is already closed or not.
+ * @apiParam {String}  priority The priority of the ticket.
+ * @apiParam {Object}  author The author of the ticket.
+ * @apiParam {Number}  author.id The id of the author of the ticket.
+ * @apiParam {String}  author.name The author's name of the ticket.
+ * @apiParam {String}  author.email The author's email of the ticket.
+ * @apiParam {Object}  owner The owner of the ticket.
+ * @apiParam {Number}  owner.id The owner's id of the ticket.
+ * @apiParam {String}  owner.name The owner's name of the ticket.
+ * @apiParam {String}  owner.email The owner's email of the ticket.
  * @apiParam {[TicketEvent](#api-Data_Structures-ObjectTicketevent)[]} events Events related to the ticket.
  */
 use RedBeanPHP\Facade as RedBean;

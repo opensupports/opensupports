@@ -1,5 +1,16 @@
 <?php
 use RedBeanPHP\Facade as RedBean;
+/**
+ * @api {OBJECT} Log Log
+ * @apiGroup Data Structures
+ * @apiParam {String} type The type of the log.
+ * @apiParam {String} to Destinatary of the log.
+ * @apiParam {Object} author Author of the log.
+ * @apiParam {String} author.name Name of the author.
+ * @apiParam {Number} author.id Id of the author.
+ * @apiParam {Boolean} author.staff Kind of author.
+ * @apiParam {String} date Date of creation of the log.
+ */
 
 class Log extends DataStore {
     const TABLE = 'log';

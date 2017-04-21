@@ -1,4 +1,16 @@
 <?php
+/**
+ * @api {OBJECT} Staff Staff
+ * @apiGroup Data Structures
+ * @apiParam {Number} id The type of the mail template.
+ * @apiParam {String} name The subject of the mail template.
+ * @apiParam {String} email The language of the mail template.
+ * @apiParam {String} profilePic The body of the mail template.
+ * @apiParam {Number} level The language of the mail template.
+ * @apiParam {Object} departments The department of the staff.
+ * @apiParam {Object} tickets The tickets of the staff.
+ * @apiParam {Number} lastLogin The last login of the staff.
+ */
 
 class Staff extends DataStore {
     const TABLE = 'staff';

@@ -13,8 +13,9 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiPermission Staff level 1
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {[CustomResponse](#api-Data_Structures-ObjectCustomresponse)[]} data List of custom responses.
  *
+ * @apiUse NO_PERMISSION
  */
 
 class GetCustomResponsesController extends Controller {

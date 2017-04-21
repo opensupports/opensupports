@@ -1,4 +1,13 @@
 <?php
+/**
+ * @api {OBJECT} Article Article
+ * @apiGroup Data Structures
+ * @apiParam {Number} id Id of the article.
+ * @apiParam {String} title Title of the article.
+ * @apiParam {String} content Content of the article.
+ * @apiParam {Number} lastEdited Last edit of the article.
+ * @apiParam {Number} position Position of the article.
+ */
 
 class Article extends DataStore {
     const TABLE  = 'article';
