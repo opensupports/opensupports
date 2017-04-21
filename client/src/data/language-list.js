@@ -47,7 +47,7 @@ export default {
         data: turkishLanguage
     },
     'in': {
-        name: 'Indian',
+        name: 'Hindi',
         data: indianLanguage
     }
 };

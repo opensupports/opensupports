@@ -2,6 +2,7 @@
 
 .input {
     display: block;
+    max-width: 100%;
 
     &__text {
         border: 1px solid $grey;
@@ -20,7 +21,7 @@
     }
 
     &_auto {
-        width: 100%;
+        max-width: 100%;
     }
 
     &_small {

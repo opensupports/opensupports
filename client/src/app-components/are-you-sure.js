@@ -27,7 +27,7 @@ class AreYouSure extends React.Component {
         password: ''
     };
 
-    static openModal(description, onYes, type) {
+    static openModal(description, onYes, type = 'default') {
         ModalContainer.openModal(
             <AreYouSure description={description} onYes={onYes} type={type}/>,
             true

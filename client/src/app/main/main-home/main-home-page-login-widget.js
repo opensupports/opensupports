@@ -68,7 +68,7 @@ class MainHomePageLoginWidget extends React.Component {
             <Widget className="main-home-page__widget login-widget_password" title={i18n('RECOVER_PASSWORD')} ref="recoverWidget">
                 <Form {...this.getRecoverFormProps()}>
                     <div className="login-widget__inputs">
-                        <FormField placeholder="email" name="email" className="login-widget__input" validation="EMAIL" required/>
+                        <FormField placeholder={i18n('EMAIL_LOWERCASE')} name="email" className="login-widget__input" validation="EMAIL" required/>
                     </div>
                     <div className="login-widget__submit-button">
                         <SubmitButton type="primary">{i18n('RECOVER_PASSWORD')}</SubmitButton>
