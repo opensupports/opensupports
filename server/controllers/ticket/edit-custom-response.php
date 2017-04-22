@@ -2,6 +2,29 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
+/**
+ * @api {post} /ticket/edit-custom-response Edit a custom response.
+ *
+ * @apiName Edit custom response
+ *
+ * @apiGroup Ticket
+ *
+ * @apiDescription This path edit a custom response.
+ *
+ * @apiPermission Staff level 2
+ *
+ * @apiParam {Number} id Id of the custom response to edit.
+ * @apiParam {String} content The new content of the custom response.
+ * @apiParam {String} language The new language of the custom response.
+ * @apiParam {String} name The new name of the custom response.
+ *
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_NAME
+ *
+ * @apiSuccess {Object} data Empty object
+ *
+ */
+
 class EditCustomResponseController extends Controller {
     const PATH = '/edit-custom-response';
     const METHOD = 'POST';

@@ -2,6 +2,23 @@
 use RedBeanPHP\Facade as RedBean;
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /staff/get-new-tickets Retrieve new tickets.
+ *
+ * @apiName Get new tickets
+ *
+ * @apiGroup staff
+ *
+ * @apiDescription This path retrieves new tickets.
+ *
+ * @apiPermission Staff level 1
+ *
+ * @apiUse NO_PERMISSION
+ * 
+ * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data Array of new tickets
+ *
+ */
+
 class GetNewTicketsStaffController extends Controller {
     const PATH = '/get-new-tickets';
     const METHOD = 'POST';

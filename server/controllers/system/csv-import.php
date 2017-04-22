@@ -1,5 +1,25 @@
 <?php
 
+/**
+ * @api {post} /system/csv-import Receives a csv file with a list of users to signup .
+ *
+ * @apiName CSV import
+ *
+ * @apiGroup system
+ *
+ * @apiDescription This path receives a csv file with a list of users to signup.
+ *
+ * @apiPermission Staff level 3
+ *
+ * @apiParam {String} file A csv file with this content format: email,password, name.
+ *
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_FILE
+ * 
+ * @apiSuccess {String[]} data Array of errors found
+ *
+ */
+
 class CSVImportController extends Controller {
     const PATH = '/csv-import';
     const METHOD = 'POST';

@@ -1,6 +1,36 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /user/get-users Retrieve the information of a list of users.
+ *
+ * @apiName Get-users
+ *
+ * @apiGroup User
+ *
+ * @apiDescription This path retrieves information about a list of users.
+ *
+ * @apiPermission Staff level 1
+ *
+ * @apiParam {Number} page Number of pages of users.
+ * @apiParam {String} orderBy Parameter to order the users by tickets or id.
+ * @apiParam {Boolean} desc  Parameter to order the user ascending or descending way.
+ * @apiParam {String} search Key to find some specific users.
+ *
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_PAGE
+ * @apiUse INVALID_ORDER
+ * @apiUse USER_SYSTEM_DISABLED
+ *
+ * @apiSuccess {Object} data
+ * @apiSuccess {[User](#api-Data_Structures-ObjectUser)[]} data.users Array of users found
+ * @apiSuccess {Number} data.pages Number of pages found
+ * @apiSuccess {Number} data.page Number of the page
+ * @apiSuccess {String} data.orderBy Indicates if it's ordered by id or quantity of tickets
+ * @apiSuccess {Boolean} data.desc Indicates if it's ordered in decreasing order
+ * @apiSuccess {String} data.search Query of the search
+ */
+
 class GetUsersController extends Controller {
     const PATH = '/get-users';
     const METHOD = 'POST';

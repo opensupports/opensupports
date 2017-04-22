@@ -1,6 +1,27 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /ticket/seen See if a ticket was or not seen.
+ *
+ * @apiName Seen
+ *
+ * @apiGroup Ticket
+ *
+ * @apiDescription This path see if a ticket was or not seen.
+ *
+ * @apiPermission user
+ *
+ * @apiParam {String} ticketNumber Number of the ticket.
+ *
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_TICKET
+ *
+ * @apiSuccess {Object} data Empty object
+ *
+ */
+
+
 class SeenController extends Controller {
     const PATH = '/seen';
     const METHOD = 'POST';

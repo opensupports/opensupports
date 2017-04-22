@@ -1,4 +1,177 @@
 <?php
+/**
+ * @apiDefine INVALID_CREDENTIALS
+ * @apiError {String} INVALID_CREDENTIALS Login credentials does not match.
+ */
+/**
+ * @apiDefine SESSION_EXISTS
+ * @apiError {String} SESSION_EXISTS The session already exists.
+ */
+/**
+ * @apiDefine USER_EXISTS
+ * @apiError {String} USER_EXISTS The user already exists.
+ */
+/**
+ * @apiDefine NO_PERMISSION
+ * @apiError {String} NO_PERMISSION You have no permission to perform this operation.
+ */
+/**
+ * @apiDefine INVALID_TITLE
+ * @apiError {String} INVALID_TITLE The title is invalid, probably too short.
+ */
+/**
+ * @apiDefine INVALID_CONTENT
+ * @apiError {String} INVALID_CONTENT The content is invalid, probably to short.
+ */
+/**
+ * @apiDefine INVALID_EMAIL
+ * @apiError {String} INVALID_EMAIL The email is invalid or already exists.
+ */
+/**
+ * @apiDefine INVALID_PASSWORD
+ * @apiError {String} INVALID_PASSWORD The password is invalid, probably too short.
+ */
+/**
+ * @apiDefine INVALID_NAME
+ * @apiError {String} INVALID_NAME The name is invalid, probably too short.
+ */
+/**
+ * @apiDefine INVALID_SETTING
+ * @apiError {String} INVALID_SETTING The setting are invalid.
+ */
+/**
+ * @apiDefine INVALID_DEPARTMENT
+ * @apiError {String} INVALID_DEPARTMENT The dapartment is invalid, probably too short.
+ */
+/**
+ * @apiDefine INVALID_TICKET
+ * @apiError {String} INVALID_TICKET The ticket is invalid.
+ */
+/**
+ * @apiDefine INIT_SETTINGS_DONE
+ * @apiError {String} INIT_SETTINGS_DONE The init settings are already done.
+ */
+/**
+ * @apiDefine INVALID_OLD_PASSWORD
+ * @apiError {String} INVALID_OLD_PASSWORD The old password is invalid.
+ */
+/**
+ * @apiDefine INVALID_CAPTCHA
+ * @apiError {String} INVALID_CAPTCHA The captcha is invalid.
+ */
+/**
+ * @apiDefine INVALID_TICKET_EVENT
+ * @apiError {String} INVALID_TICKET_EVENT The ticket event is invalid.
+ */
+/**
+ * @apiDefine INVALID_LANGUAGE
+ * @apiError {String} INVALID_LANGUAGE The language is invalid.
+ */
+/**
+ * @apiDefine TICKET_ALREADY_ASSIGNED
+ * @apiError {String} TICKET_ALREADY_ASSIGNED The ticket is already assigned.
+ */
+/**
+ * @apiDefine INVALID_PRIORITY
+ * @apiError {String} INVALID_PRIORITY The priority is invalid.
+ */
+/**
+ * @apiDefine INVALID_PAGE
+ * @apiError {String} INVALID_PAGE The page is invalid.
+ */
+/**
+ * @apiDefine INVALID_QUERY
+ * @apiError {String} INVALID_QUERY The query is invalid.
+ */
+/**
+ * @apiDefine INVALID_TOPIC
+ * @apiError {String} INVALID_TOPIC The topic is invalid.
+ */
+/**
+ * @apiDefine INVALID_SEARCH
+ * @apiError {String} INVALID_SEARCH The search is invalid.
+ */
+/**
+ * @apiDefine INVALID_ORDER
+ * @apiError {String} INVALID_ORDER The order is invalid.
+ */
+/**
+ * @apiDefine INVALID_USER
+ * @apiError {String} INVALID_USER The user is invalid.
+ */
+/**
+ * @apiDefine ALREADY_BANNED
+ * @apiError {String} ALREADY_BANNED It's already banned.
+ */
+/**
+ * @apiDefine INVALID_LEVEL
+ * @apiError {String} INVALID_LEVEL The level is invalid.
+ */
+/**
+ * @apiDefine ALREADY_A_STAFF
+ * @apiError {String} ALREADY_A_STAFF It's already a staff.
+ */
+/**
+ * @apiDefine INVALID_STAFF
+ * @apiError {String} INVALID_STAFF The staff is invalid.
+ */
+/**
+ * @apiDefine SAME_DEPARTMENT
+ * @apiError {String} SAME_DEPARTMENT It's the same department.
+ */
+/**
+ * @apiDefine INVALID_TOKEN
+ * @apiError {String} INVALID_TOKEN The token is invalid.
+ */
+/**
+ * @apiDefine UNVERIFIED_USER
+ * @apiError {String} UNVERIFIED_USER The user is not verified.
+ */
+/**
+ * @apiDefine INVALID_TEMPLATE
+ * @apiError {String} INVALID_TEMPLATE The template is invalid.
+ */
+/**
+ * @apiDefine INVALID_SUBJECT
+ * @apiError {String} INVALID_SUBJECT The subject is invalid.
+ */
+/**
+ * @apiDefine INVALID_BODY
+ * @apiError {String} INVALID_BODY The body is invalid.
+ */
+/**
+ * @apiDefine USER_SYSTEM_DISABLED
+ * @apiError {String} USER_SYSTEM_DISABLED The user system is disabled.
+ */
+/**
+ * @apiDefine SYSTEM_USER_IS_ALREADY_DISABLED
+ * @apiError {String} SYSTEM_USER_IS_ALREADY_DISABLED The system user is already disabled.
+ */
+/**
+ * @apiDefine SYSTEM_USER_IS_ALREADY_ENABLED
+ * @apiError {String} SYSTEM_USER_IS_ALREADY_ENABLED The system user is already enabled.
+ */
+/**
+ * @apiDefine INVALID_PERIOD
+ * @apiError {String} INVALID_PERIOD The period is invalid.
+ */
+/**
+ * @apiDefine NAME_ALREADY_USED
+ * @apiError {String} NAME_ALREADY_USED The name is already used.
+ */
+/**
+ * @apiDefine INVALID_FILE
+ * @apiError {String} INVALID_FILE The file is invalid.
+ */
+/**
+ * @apiDefine DATABASE_CONNECTION
+ * @apiError {String} DATABASE_CONNECTION It's a database connection error.
+ */
+/**
+ * @apiDefine DATABASE_CREATION
+ * @apiError {String} DATABASE_CREATION It's a database creation error.
+ */
+
 class ERRORS {
     const INVALID_CREDENTIALS = 'INVALID_CREDENTIALS';
     const SESSION_EXISTS = 'SESSION_EXISTS';

@@ -1,5 +1,25 @@
 <?php
 
+/**
+ * @api {post} /system/disable-registration Disable the registration.
+ *
+ * @apiName Disable registration
+ *
+ * @apiGroup system
+ *
+ * @apiDescription This path disable the registration.
+ *
+ * @apiPermission Staff level 3
+ *
+ * @apiParam {String} password The password of the current staff.
+ *
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_PASSWORD
+ *
+ * @apiSuccess {Object} data Empty object
+ *
+ */
+
 class DisableRegistrationController extends Controller {
     const PATH = '/disable-registration';
     const METHOD = 'POST';

@@ -1,6 +1,26 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /user/edit-email Edit email of an user.
+ *
+ * @apiName Edit-email
+ *
+ * @apiGroup User
+ *
+ * @apiDescription This path change the email of a user.
+ *
+ * @apiPermission User
+ *
+ * @apiParam {String} newEmail The new email that the user wants to change.
+ *
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_EMAIL
+ * 
+ * @apiSuccess {Object} data Empty object
+ *
+ */
+
 class EditEmail extends Controller{
     const PATH = '/edit-email';
     const METHOD = 'POST';

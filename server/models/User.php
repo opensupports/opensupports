@@ -1,6 +1,15 @@
 <?php
 use RedBeanPHP\Facade as RedBean;
 
+/**
+ * @api {OBJECT} User User
+ * @apiGroup Data Structures
+ * @apiParam {String} email The email of the user.
+ * @apiParam {Number} id The id of the user.
+ * @apiParam {String} name The name of the user.
+ * @apiParam {Boolean} verified A boolean to know if the user is already verified or not.
+ */
+
 class User extends DataStore {
     const TABLE = 'user';
 
