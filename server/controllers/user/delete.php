@@ -2,6 +2,27 @@
 use Respect\Validation\Validator as DataValidator;
 use RedBeanPHP\Facade as RedBean;
 
+/**
+ * @api {post} /user/delete Delete a user.
+ *
+ * @apiName Delete
+ *
+ * @apiGroup User
+ *
+ * @apiDescription This path receive a user id and delete its user.
+ *
+ * @apiPermission Staff level 1
+ *
+ * @apiParam {Number} userId The id of the user to delete.
+ *
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_USER
+ * @apiUse USER_SYSTEM_DISABLED
+ *
+ * @apiSuccess {Object} data Empty object
+ *
+ */
+
 DataValidator::with('CustomValidations', true);
 
 class DeleteUserController extends Controller {

@@ -1,6 +1,15 @@
 <?php
 use RedBeanPHP\Facade as RedBean;
 
+/**
+ * @api {OBJECT} MailTemplate MailTemplate
+ * @apiGroup Data Structures
+ * @apiParam {String} type The type of the mail template.
+ * @apiParam {String} subject The subject of the mail template.
+ * @apiParam {string} language The language of the mail template.
+ * @apiParam {String} body The body of the mail template.
+ */
+
 class MailTemplate extends DataStore {
     const TABLE = 'mailtemplate';
     

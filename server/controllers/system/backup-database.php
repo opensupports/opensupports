@@ -1,6 +1,23 @@
 <?php
 use Ifsnop\Mysqldump as IMysqldump;
 
+/**
+ * @api {post} /system/backup-database Do a backup of the database.
+ *
+ * @apiName Backup database
+ *
+ * @apiGroup system
+ *
+ * @apiDescription This path do a backup of the database.
+ *
+ * @apiPermission Staff level 3
+ *
+ * @apiUse NO_PERMISSION
+ * 
+ * @apiSuccess {File} file File of the backup
+ *
+ */
+
 class BackupDatabaseController extends Controller {
     const PATH = '/backup-database';
     const METHOD = 'POST';

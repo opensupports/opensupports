@@ -1,6 +1,26 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /system/enable-registration Enable the registration.
+ *
+ * @apiName Enable registration 
+ *
+ * @apiGroup system
+ *
+ * @apiDescription This path enable the registration.
+ *
+ * @apiPermission Staff level 3
+ *
+ * @apiParam {String} password The password of the current staff.
+ *
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_PASSWORD
+ *
+ * @apiSuccess {Object} data Empty object
+ *
+ */
+
 class EnableRegistrationController extends Controller {
     const PATH = '/enable-registration';
     const METHOD = 'POST';

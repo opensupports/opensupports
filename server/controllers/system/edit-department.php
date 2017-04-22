@@ -2,6 +2,28 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
+/**
+ * @api {post} /system/edit-department Edit a department.
+ *
+ * @apiName Edit department
+ *
+ * @apiGroup system
+ *
+ * @apiDescription This path edit a department created.
+ *
+ * @apiPermission Staff level 3
+ *
+ * @apiParam {String} name The new name of the department.
+ *
+ * @apiParam {Number} departmentId The Id of the department.
+ *
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_NAME
+ * @apiUse INVALID_DEPARTMENT
+ *
+ * @apiSuccess {Object} data Empty object
+ *
+ */
 
 class EditDepartmentController extends Controller {
     const PATH = '/edit-department';

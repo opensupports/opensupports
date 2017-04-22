@@ -1,6 +1,23 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /user/list-ban Retrieve the list of banned users.
+ *
+ * @apiName List-ban
+ *
+ * @apiGroup User
+ *
+ * @apiDescription This path retrieves the list of banned users.
+ *
+ * @apiPermission Staff level 1
+ *
+ * @apiUse NO_PERMISSION
+ * 
+ * @apiSuccess {[Ban](#api-Data_Structures-ObjectBan)[]} data Array of emails banned
+ *
+ */
+
 class ListBanUserController extends Controller {
     const PATH = '/list-ban';
     const METHOD = 'POST';

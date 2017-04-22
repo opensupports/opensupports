@@ -1,5 +1,26 @@
 <?php
 
+/**
+ * @api {post} /system/edit-settings Edit the settings of the system.
+ *
+ * @apiName Edit settings
+ *
+ * @apiGroup system
+ *
+ * @apiDescription This path edit the settings of the system.
+ *
+ * @apiPermission Staff level 3
+ *
+ * @apiParam {String} allowedLanguages The list of languages allowed.
+ * @apiParam {String} supportedLanguages The list of languages supported.
+ * @apiParam {String} settings A list this content format: language, recaptcha-public, recaptcha-private, no-reply-email, smtp-host, smtp-port, smtp-user, smtp-pass, time-zone, maintenance-mode, layout, allow-attachments, max-size, title, url.
+ *
+ * @apiUse NO_PERMISSION
+ *
+ * @apiSuccess {Object} data Empty object
+ *
+ */
+
 class EditSettingsController extends Controller {
     const PATH = '/edit-settings';
     const METHOD = 'POST';

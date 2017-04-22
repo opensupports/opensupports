@@ -2,6 +2,26 @@
 use Respect\Validation\Validator as DataValidator;
 use RedBeanPHP\Facade as RedBean;
 
+/**
+ * @api {post} /staff/delete  Delete a staff member.
+ *
+ * @apiName Delete
+ *
+ * @apiGroup staff
+ *
+ * @apiDescription This path deletes a staff member.
+ *
+ * @apiPermission Staff level 3
+ *
+ * @apiParam {Number} staffId The id of the staff member.
+ *
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_STAFF
+ *
+ * @apiSuccess {Object} data Empty object
+ *
+ */
+
 DataValidator::with('CustomValidations', true);
 
 class DeleteStaffController extends Controller {

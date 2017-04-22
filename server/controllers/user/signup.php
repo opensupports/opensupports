@@ -3,6 +3,37 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
+/**
+ * @api {post} /user/signup Sign up a new user.
+ *
+ * @apiName Sign up
+ *
+ * @apiGroup User
+ *
+ * @apiDescription This path sign up a user on the system.
+ *
+ * @apiPermission Any
+ *
+ * @apiParam {String} name  The name of the new user.
+ * @apiParam {String} email  The email of the new user.
+ * @apiParam {String} password  The password of the new user.
+ * @apiParam {String} apyKey  Key to sign up  a user if the user system is disabled.
+ *
+ * @apiUse INVALID_NAME
+ * @apiUse INVALID_EMAIL
+ * @apiUse INVALID_PASSWORD
+ * @apiUse INVALID_CAPTCHA
+ * @apiUse USER_SYSTEM_DISABLED
+ * @apiUse USER_EXISTS
+ * @apiUse ALREADY_BANNED
+ * @apiUse NO_PERMISSION
+ *
+ * @apiSuccess {Object} data Information about created user
+ * @apiSuccess {Number} data.userId Id of the new user
+ * @apiSuccess {String} data.userEmail Email of the new user
+ *
+ */
+
 class SignUpController extends Controller {
     const PATH = '/signup';
     const METHOD = 'POST';

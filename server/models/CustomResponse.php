@@ -1,4 +1,12 @@
 <?php
+/**
+ * @api {OBJECT} CustomResponse CustomResponse
+ * @apiGroup Data Structures
+ * @apiParam {Number} id Id of the custom response.
+ * @apiParam {String} content Content of the custom response.
+ * @apiParam {String} name Name of the custom response.
+ * @apiParam {String} language Language of the custom response.
+ */
 
 class CustomResponse extends DataStore {
     const TABLE = 'customresponse';

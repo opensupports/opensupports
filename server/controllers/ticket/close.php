@@ -2,6 +2,26 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
+/**
+ * @api {post} /ticket/close Close a ticket.
+ *
+ * @apiName Close
+ *
+ * @apiGroup Ticket
+ *
+ * @apiDescription This path close a ticket.
+ *
+ * @apiPermission user
+ *
+ * @apiParam {Number} ticketNumber The number of a ticket.
+ *
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_TICKET
+ * 
+ * @apiSuccess {Object} data Empty object
+ *
+ */
+
 class CloseController extends Controller {
     const PATH = '/close';
     const METHOD = 'POST';

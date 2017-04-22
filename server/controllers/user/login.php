@@ -1,5 +1,37 @@
 <?php
 
+/**
+ * @api {post} /user/login Login a user.
+ *
+ * @apiName Login
+ *
+ * @apiGroup User
+ *
+ * @apiDescription This path login a user.
+ *
+ * @apiPermission Any
+ *
+ * @apiParam {Boolean} staff A bool that say if it want to login a staff or a normal user.
+ * @apiParam {String} email The email of the user to login.
+ * @apiParam {String} password The password of the user to login.
+ * @apiParam {Boolean} remember A bool that say if the session wants to be remembered.
+ * @apiParam {Number} userId The id of the user to login.
+ * @apiParam {String} rememberToken Token to login automatically.
+ *
+ * @apiUse USER_SYSTEM_DISABLED
+ * @apiUse SESSION_EXISTS
+ * @apiUse UNVERIFIED_USER
+ * @apiUse INVALID_CREDENTIALS
+ *
+ * @apiSuccess {Object} data Information about the session
+ * @apiSuccess {Number} data.userId Id of the user 
+ * @apiSuccess {String} data.userEmail Email of the user
+ * @apiSuccess {Boolean} data.staff Indicates if the user is staff or not
+ * @apiSuccess {String} data.token Token of the session, used to verify the session when making other requests 
+ * @apiSuccess {String} data.rememberToken Token of the remember session for automatic login  
+ *
+ */
+
 class LoginController extends Controller {
     const PATH = '/login';
     const METHOD = 'POST';

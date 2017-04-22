@@ -1,6 +1,22 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /staff/get-all  Retrieve information about all the staff members.
+ *
+ * @apiName Get all
+ *
+ * @apiGroup staff
+ *
+ * @apiDescription This path retrieves information about all the staff member.
+ *
+ * @apiPermission Staff level 3
+ * 
+ * @apiUse NO_PERMISSION
+ *
+ * @apiSuccess {[Staff](#api-Data_Structures-ObjectStaff)[]} data Array of staff members.
+ *
+ */
 
 class GetAllStaffController extends Controller {
     const PATH ='/get-all';

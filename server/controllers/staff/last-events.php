@@ -1,6 +1,26 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /staff/last-events Retrieve the last events.
+ *
+ * @apiName Last events
+ *
+ * @apiGroup staff
+ *
+ * @apiDescription This path retrieves the last events.
+ *
+ * @apiPermission Staff level 1
+ *
+ * @apiParam {Number} page The page's number of the list.
+ * 
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_PAGE
+ * 
+ * @apiSuccess {[TicketEvent](#api-Data_Structures-ObjectTicketevent)[]} data Array of last events
+ *
+ */
+
 class LastEventsStaffController extends Controller {
     const PATH = '/last-events';
     const METHOD = 'POST';

@@ -1,6 +1,30 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {post} /staff/edit Edit a staff member.
+ *
+ * @apiName Edit
+ *
+ * @apiGroup staff
+ *
+ * @apiDescription This path edits a staff member .
+ *
+ * @apiPermission Staff level 1
+ *
+ * @apiParam {Number} staffId Id of the staff.
+ * @apiParam {String} departments The name of the departments to change.
+ * @apiParam {String} email The new email of the staff member.
+ * @apiParam {String} password The new password of the staff member.
+ * @apiParam {Number} level The new level of the staff member.
+ *
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_STAFF
+ *
+ * @apiSuccess {Object} data Empty object 
+ *
+ */
+
 class EditStaffController extends Controller {
     const PATH = '/edit';
     const METHOD = 'POST';
