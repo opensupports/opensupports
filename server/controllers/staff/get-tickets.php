@@ -14,7 +14,7 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiUse NO_PERMISSION
  * 
- * @apiSuccess {Object} data
+ * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data Array of tickets assigned to the staff
  *
  */
 

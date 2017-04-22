@@ -23,7 +23,12 @@ use Respect\Validation\Validator as DataValidator;
  * @apiUse USER_SYSTEM_DISABLED
  *
  * @apiSuccess {Object} data
- *
+ * @apiSuccess {[User](#api-Data_Structures-ObjectUser)[]} data.users Array of users found
+ * @apiSuccess {Number} data.pages Number of pages found
+ * @apiSuccess {Number} data.page Number of the page
+ * @apiSuccess {String} data.orderBy Indicates if it's ordered by id or quantity of tickets
+ * @apiSuccess {Boolean} data.desc Indicates if it's ordered in decreasing order
+ * @apiSuccess {String} data.search Query of the search
  */
 
 class GetUsersController extends Controller {

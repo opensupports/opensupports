@@ -14,8 +14,9 @@
  * @apiParam {String} file A csv file with this content format: email,password, name.
  *
  * @apiUse NO_PERMISSION
+ * @apiUse INVALID_FILE
  * 
- * @apiSuccess {Object} data
+ * @apiSuccess {String[]} data Array of errors found
  *
  */
 

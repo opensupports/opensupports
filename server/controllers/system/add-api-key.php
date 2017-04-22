@@ -18,7 +18,7 @@ use Respect\Validation\Validator as DataValidator;
  * @apiUse INVALID_NAME
  * @apiUse NAME_ALREADY_USED
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {String} data Token of the api key
  *
  */
 

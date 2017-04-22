@@ -19,7 +19,9 @@ use Respect\Validation\Validator as DataValidator;
  * @apiUse INVALID_QUERY
  * @apiUse INVALID_PAGE
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Information about tickets
+ * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data.tickets Array of tickets found
+ * @apiSuccess {Number} data.pages Number of the page
  *
  */
 

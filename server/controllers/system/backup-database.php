@@ -13,6 +13,8 @@ use Ifsnop\Mysqldump as IMysqldump;
  * @apiPermission Staff level 3
  *
  * @apiUse NO_PERMISSION
+ * 
+ * @apiSuccess {File} file File of the backup
  *
  */
 

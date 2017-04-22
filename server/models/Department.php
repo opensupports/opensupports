@@ -6,7 +6,7 @@ use RedBeanPHP\Facade as RedBean;
  * @apiGroup Data Structures
  * @apiParam {Number} id Id of the custom response.
  * @apiParam {String} name Name of the custom response.
- * @apiParam {String} owners Owners of the department.
+ * @apiParam {[Staff](#api-Data_Structures-ObjectStaff)[]} owners Owners of the department.
  */
 
 class Department extends DataStore {

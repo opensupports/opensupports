@@ -27,7 +27,8 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_LANGUAGE
  * @apiUse INVALID_CAPTCHA
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Information of the new ticket
+ * @apiSuccess {Number} data.ticketNumber Number of the new ticket
  *
  */
 

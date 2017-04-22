@@ -14,7 +14,7 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiUse NO_PERMISSION
  * 
- * @apiSuccess {Object} data
+ * @apiSuccess {[MailTemplate](#api-Data_Structures-ObjectMailtemplate)[]} data Array of mail templates
  *
  */
 

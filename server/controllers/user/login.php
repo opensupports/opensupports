@@ -23,7 +23,12 @@
  * @apiUse UNVERIFIED_USER
  * @apiUse INVALID_CREDENTIALS
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Information about the session
+ * @apiSuccess {Number} data.userId Id of the user 
+ * @apiSuccess {String} data.userEmail Email of the user
+ * @apiSuccess {Boolean} data.staff Indicates if the user is staff or not
+ * @apiSuccess {String} data.token Token of the session, used to verify the session when making other requests 
+ * @apiSuccess {String} data.rememberToken Token of the remember session for automatic login  
  *
  */
 

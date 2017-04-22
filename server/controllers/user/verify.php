@@ -19,7 +19,7 @@ use Respect\Validation\Validator as DataValidator;
  * @apiUse USER_SYSTEM_DISABLED
  * @apiUse INVALID_TOKEN
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object
  *
  */
 

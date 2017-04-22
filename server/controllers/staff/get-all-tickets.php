@@ -17,7 +17,9 @@ use Respect\Validation\Validator as DataValidator;
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_PAGE
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Information about a tickets and quantity of pages
+ * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data.tickets Array of tickets of the current page
+ * @apiSuccess {Number} data.pages Quantity of pages
  *
  */
 

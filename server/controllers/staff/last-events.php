@@ -17,7 +17,7 @@ use Respect\Validation\Validator as DataValidator;
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_PAGE
  * 
- * @apiSuccess {Object} data
+ * @apiSuccess {[TicketEvent](#api-Data_Structures-ObjectTicketevent)[]} data Array of last events
  *
  */
 

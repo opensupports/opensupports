@@ -28,7 +28,9 @@ DataValidator::with('CustomValidations', true);
  * @apiUse ALREADY_BANNED
  * @apiUse NO_PERMISSION
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Information about created user
+ * @apiSuccess {Number} data.userId Id of the new user
+ * @apiSuccess {String} data.userEmail Email of the new user
  *
  */
 

@@ -7,11 +7,12 @@
  *
  * @apiGroup User
  *
- * @apiDescription This path give back a object that says if a session exist or not.
+ * @apiDescription This path retrieves a object that says if a session exist or not.
  *
  * @apiPermission Any
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Information about the session
+ * @apiSuccess {Boolean} data.sessionActive Indicate if the session is activated 
  *
  */
 

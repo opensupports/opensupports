@@ -13,7 +13,7 @@
  *
  * @apiParam {Boolean} allSettings A bool that means if you want a regular settings list or a complety settings list.
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Contains the information about the settings
  *
  */
 

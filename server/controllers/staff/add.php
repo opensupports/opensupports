@@ -27,7 +27,8 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_LEVEL
  * @apiUse ALREADY_A_STAFF
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Staff info object
+ * @apiSuccess {Number} data.id Staff id
  *
  */
 

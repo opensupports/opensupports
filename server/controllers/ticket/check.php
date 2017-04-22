@@ -22,7 +22,9 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_CAPTCHA 
  * @apiUse NO_PERMISSION
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Data for the ticket session
+ * @apiSuccess {String} data.token Token of the ticket session
+ * @apiSuccess {Number} data.ticketNumber Number of the ticket 
  *
  */
 

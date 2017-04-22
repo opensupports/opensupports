@@ -18,7 +18,7 @@ use Respect\Validation\Validator as DataValidator;
  * @apiUse INVALID_EMAIL
  * @apiUse ALREADY_BANNED
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object
  *
  */
 class BanUserController extends Controller {

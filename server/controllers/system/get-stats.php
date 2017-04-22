@@ -18,7 +18,7 @@ use Respect\Validation\Validator as DataValidator;
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_PERIOD
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {[StatList](#api-Data_Structures-ObjectStatlist)[]} data Array of the stats
  *
  */
 

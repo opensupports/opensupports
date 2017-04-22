@@ -20,7 +20,8 @@ DataValidator::with('CustomValidations', true);
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_NAME
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Topic info
+ * @apiSuccess {Number} data.topicId Topic id
  *
  */
 

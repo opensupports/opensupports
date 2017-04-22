@@ -16,7 +16,12 @@ DataValidator::with('CustomValidations', true);
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_CREDENTIALS
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Information about a user
+ * @apiSuccess {String} data.name Name of the user 
+ * @apiSuccess {String} data.email Email of the user
+ * @apiSuccess {Boolean} data.verified Indicates if the user is verified
+ * @apiSuccess {Object} data Information about a user
+ * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data.tickets Array of tickets of the user
  *
  */
 

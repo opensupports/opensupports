@@ -15,8 +15,7 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiUse NO_PERMISSION
  * 
- * @apiSuccess {Object} data
- *
+ * @apiSuccess {[Topic](#api-Data_Structures-ObjectTopic)[]} data Array of topics.
  */
 
 class GetAllArticlesController extends Controller {

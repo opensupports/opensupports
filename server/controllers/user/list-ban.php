@@ -14,7 +14,7 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiUse NO_PERMISSION
  * 
- * @apiSuccess {Object} data
+ * @apiSuccess {[Ban](#api-Data_Structures-ObjectBan)[]} data Array of emails banned
  *
  */
 

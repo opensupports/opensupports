@@ -6,7 +6,7 @@
  * @apiParam {String} name Name of the topic.
  * @apiParam {String} icon Icon of the topic.
  * @apiParam {String} iconColor Icon's color of the topic.
- * @apiParam {Object} articles Articles of the Topic.
+ * @apiParam {[Article](#api-Data_Structures-ObjectArticle)[]} articles Articles of the Topic.
  */
 
 class Topic extends DataStore {

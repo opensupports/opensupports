@@ -17,7 +17,7 @@ use Respect\Validation\Validator as DataValidator;
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_PAGE
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {[Log](#api-Data_Structures-ObjectLog)[]} data Array of last logs
  *
  */
 

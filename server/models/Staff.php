@@ -7,8 +7,8 @@
  * @apiParam {String} email The language of the mail template.
  * @apiParam {String} profilePic The body of the mail template.
  * @apiParam {Number} level The language of the mail template.
- * @apiParam {Object} departments The department of the staff.
- * @apiParam {Object} tickets The tickets of the staff.
+ * @apiParam {Object[]} departments The departments of the staff.
+ * @apiParam {[Ticket](#api-Data_Structures-ObjectTicket)[]} tickets The tickets of the staff.
  * @apiParam {Number} lastLogin The last login of the staff.
  */
 

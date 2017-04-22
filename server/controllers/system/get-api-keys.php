@@ -14,7 +14,7 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiUse NO_PERMISSION
  * 
- * @apiSuccess {Object} data
+ * @apiSuccess {[APIKey](#api-Data_Structures-ObjectApikey)[]} data Array of api keys
  *
  */
 

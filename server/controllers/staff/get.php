@@ -17,7 +17,14 @@ DataValidator::with('CustomValidations', true);
  * 
  * @apiUse NO_PERMISSION
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Information about a staff member
+ * @apiSuccess {String} data.name Staff id
+ * @apiSuccess {String} data.email Staff id
+ * @apiSuccess {String} data.profilePic Staff id
+ * @apiSuccess {Number} data.level Staff id
+ * @apiSuccess {Boolean} data.staff Staff id
+ * @apiSuccess {[Department](#api-Data_Structures-ObjectDepartment)[]} data.departments Array of departments that has assigned.
+ * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data.tickets Array of tickets that has assigned.
  *
  */
 

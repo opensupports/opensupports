@@ -19,7 +19,7 @@ use RedBeanPHP\Facade as RedBean;
  * @apiUse INVALID_USER
  * @apiUse USER_SYSTEM_DISABLED
  *
- * @apiSuccess {Object} data
+ * @apiSuccess {Object} data Empty object
  *
  */
 

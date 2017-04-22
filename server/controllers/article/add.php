@@ -23,8 +23,8 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_CONTENT
  * @apiUse INVALID_TOPIC
  *
- * @apiSuccess {Object} data
- *
+ * @apiSuccess {Object} data Article info
+ * @apiSuccess {Number} data.articleId Article id
  */
 
 class AddArticleController extends Controller {
