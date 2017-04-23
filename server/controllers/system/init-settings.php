@@ -47,7 +47,7 @@ class InitSettingsController extends Controller {
             'allow-attachments' => 0,
             'max-size' => 1024,
             'title' => 'Support Center',
-            'url' => 'http://dev3.opensupports.com',
+            'url' => 'http://' . $_SERVER['HTTP_HOST'],
             'registration' => !!Controller::request('registration'),
             'user-system-enabled' => !!Controller::request('user-system-enabled'),
             'last-stat-day' => date('YmdHi', strtotime(' -12 day ')),
