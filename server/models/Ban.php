@@ -1,8 +1,9 @@
 <?php
 /**
- * @api {OBJECT} Article Article
+ * @api {OBJECT} Ban Ban
+ * @apiVersion 4.0.0
  * @apiGroup Data Structures
- * @apiParam {Email} email Email of the user banned.
+ * @apiParam {Email} email The email address that is banned.
  */
 
 class Ban extends DataStore {

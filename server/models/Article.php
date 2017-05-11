@@ -1,6 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Article Article
+ * @apiVersion 4.0.0
  * @apiGroup Data Structures
  * @apiParam {Number} id Id of the article.
  * @apiParam {String} title Title of the article.
