@@ -1,17 +1,18 @@
 <?php
 
 /**
- * @api {post} /system/get-settings Retrieve settings.
+ * @api {post} /system/get-settings Get settings
+ * @apiVersion 4.0.0
  *
  * @apiName Get settings
  *
- * @apiGroup system
+ * @apiGroup System
  *
- * @apiDescription This path retrieves one or more settings.
+ * @apiDescription This path retrieves all the settings.
  *
  * @apiPermission any
  *
- * @apiParam {Boolean} allSettings A bool that means if you want a regular settings list or a complety settings list.
+ * @apiParam {Boolean} allSettings Indicates if you want the regular settings list or a complete settings list. Complete list only available for staff level3.
  *
  * @apiSuccess {Object} data Contains the information about the settings
  *

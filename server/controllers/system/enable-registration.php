@@ -2,15 +2,16 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /system/enable-registration Enable the registration.
+ * @api {post} /system/enable-registration Enable registration
+ * @apiVersion 4.0.0
  *
  * @apiName Enable registration 
  *
- * @apiGroup system
+ * @apiGroup System
  *
- * @apiDescription This path enable the registration.
+ * @apiDescription This path enables the registration.
  *
- * @apiPermission Staff level 3
+ * @apiPermission staff3
  *
  * @apiParam {String} password The password of the current staff.
  *

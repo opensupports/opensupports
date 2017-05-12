@@ -2,24 +2,25 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /staff/get-all-tickets Retrieve all tickets.
+ * @api {post} /staff/get-all-tickets Get all tickets
+ * @apiVersion 4.0.0
  *
  * @apiName Get all tickets
  *
- * @apiGroup staff
+ * @apiGroup Staff
  *
- * @apiDescription This path retrieves all tickets created.
+ * @apiDescription This path retrieves all tickets.
  *
- * @apiPermission Staff level 1
+ * @apiPermission staff1
  *
- * @apiParam {Number} page The page's number that it's looking for.
+ * @apiParam {Number} page The page number.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_PAGE
  *
- * @apiSuccess {Object} data Information about a tickets and quantity of pages
- * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data.tickets Array of tickets of the current page
- * @apiSuccess {Number} data.pages Quantity of pages
+ * @apiSuccess {Object} data Information about a tickets and quantity of pages.
+ * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data.tickets Array of tickets of the current page.
+ * @apiSuccess {Number} data.pages Quantity of pages.
  *
  */
 

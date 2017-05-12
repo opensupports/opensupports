@@ -3,20 +3,21 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /ticket/edit-custom-response Edit a custom response.
+ * @api {post} /ticket/edit-custom-response Edit custom response
+ * @apiVersion 4.0.0
  *
  * @apiName Edit custom response
  *
  * @apiGroup Ticket
  *
- * @apiDescription This path edit a custom response.
+ * @apiDescription This path edits a custom response.
  *
- * @apiPermission Staff level 2
+ * @apiPermission staff2
  *
  * @apiParam {Number} id Id of the custom response to edit.
- * @apiParam {String} content The new content of the custom response.
- * @apiParam {String} language The new language of the custom response.
- * @apiParam {String} name The new name of the custom response.
+ * @apiParam {String} content The new content of the custom response. It won't be changed if not defined.
+ * @apiParam {String} language The new language of the custom response. It won't be changed if not defined,
+ * @apiParam {String} name The new name of the custom response. It won't be changed if not defined.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_NAME

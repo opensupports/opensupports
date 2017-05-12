@@ -1,15 +1,16 @@
 <?php
 
 /**
- * @api {post} /system/disable-registration Disable the registration.
+ * @api {post} /system/disable-registration Disable registration
+ * @apiVersion 4.0.0
  *
  * @apiName Disable registration
  *
- * @apiGroup system
+ * @apiGroup System
  *
- * @apiDescription This path disable the registration.
+ * @apiDescription This path disables the registration.
  *
- * @apiPermission Staff level 3
+ * @apiPermission staff3
  *
  * @apiParam {String} password The password of the current staff.
  *

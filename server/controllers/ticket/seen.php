@@ -2,17 +2,18 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /ticket/seen See if a ticket was or not seen.
+ * @api {post} /ticket/seen See ticket
+ * @apiVersion 4.0.0
  *
- * @apiName Seen
+ * @apiName See ticket
  *
  * @apiGroup Ticket
  *
- * @apiDescription This path see if a ticket was or not seen.
+ * @apiDescription This path sets "unread" value to false, so it does not appear highlighted.
  *
  * @apiPermission user
  *
- * @apiParam {String} ticketNumber Number of the ticket.
+ * @apiParam {Number} ticketNumber Number of the ticket.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TICKET

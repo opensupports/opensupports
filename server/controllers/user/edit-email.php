@@ -2,15 +2,16 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /user/edit-email Edit email of an user.
+ * @api {post} /user/edit-email Edit email
+ * @apiVersion 4.0.0
  *
- * @apiName Edit-email
+ * @apiName Edit email
  *
  * @apiGroup User
  *
- * @apiDescription This path change the email of a user.
+ * @apiDescription This path changes the email of an user.
  *
- * @apiPermission User
+ * @apiPermission user
  *
  * @apiParam {String} newEmail The new email that the user wants to change.
  *

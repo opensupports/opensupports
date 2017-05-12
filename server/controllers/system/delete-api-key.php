@@ -2,17 +2,18 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /system/delete-api-key Delete a api-key.
+ * @api {post} /system/delete-api-key Delete APIKey
+ * @apiVersion 4.0.0
  *
- * @apiName Delete api-key
+ * @apiName Delete APIKey
  *
- * @apiGroup system
+ * @apiGroup System
  *
- * @apiDescription This path delete a api-key.
+ * @apiDescription This path deletes an APIKey.
  *
- * @apiPermission Staff level 3
+ * @apiPermission staff3
  *
- * @apiParam {String} name Name of the api-key to delete.
+ * @apiParam {String} name Name of the APIKey to delete.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_NAME

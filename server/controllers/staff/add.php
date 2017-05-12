@@ -3,22 +3,23 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /staff/add Add a new staff member.
+ * @api {post} /staff/add Add staff
+ * @apiVersion 4.0.0
  *
- * @apiName Add
+ * @apiName Add staff
  *
- * @apiGroup staff
+ * @apiGroup Staff
  *
- * @apiDescription This path add a new staff member.
+ * @apiDescription This path adds a new staff member.
  *
- * @apiPermission Staff level 3
+ * @apiPermission staff3
  *
  * @apiParam {String} name The name of the new staff member.
  * @apiParam {String} email The email of the new staff member.
  * @apiParam {String} password The password of the new staff member.
  * @apiParam {Number} level The level of the new staff member.
  * @apiParam {String} profilePic The profile pic of the new staff member.
- * @apiParam {String} departments The departments that will have assigned the new staff member.
+ * @apiParam {Number[]} departments The departments that will have assigned the new staff member.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_NAME

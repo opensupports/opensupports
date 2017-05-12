@@ -36,3 +36,5 @@ This request will return you the session data with an `userId` and a `token`. Yo
 **All the paths that have permission `user`, `staff1`, `staff2` or `staff3`, require *userId* and *token* to be passed as parameter**. You need to pass them as `csrf_userid` and `csrf_token` respectively.
 
 If you don't pass the userId and token, a `NO_PERMISSION` error will be returned.
+
+Additionally, if there is no users (only staff members), you can check a ticket you created by providing your email and the ticketNumber to the `/ticket/check` path. This path will return you a `token` and `ticketNumber` you will use to comment, retrieve, or do any other operations to the ticket.

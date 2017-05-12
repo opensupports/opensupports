@@ -3,15 +3,16 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /article/delete Delete a article.
+ * @api {post} /article/delete Delete article
+ * @apiVersion 4.0.0
  *
- * @apiName Delete
+ * @apiName Delete article
  *
- * @apiGroup article
+ * @apiGroup Article
  *
- * @apiDescription This path deletes a article.
+ * @apiDescription This path deletes an article.
  *
- * @apiPermission Staff level 2
+ * @apiPermission staff2
  *
  * @apiParam {Number} articleId Id of the article.
  *

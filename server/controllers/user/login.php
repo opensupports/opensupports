@@ -1,34 +1,35 @@
 <?php
 
 /**
- * @api {post} /user/login Login a user.
+ * @api {post} /user/login Login
+ * @apiVersion 4.0.0
  *
  * @apiName Login
  *
  * @apiGroup User
  *
- * @apiDescription This path login a user.
+ * @apiDescription This path logs in an user.
  *
- * @apiPermission Any
+ * @apiPermission any
  *
- * @apiParam {Boolean} staff A bool that say if it want to login a staff or a normal user.
- * @apiParam {String} email The email of the user to login.
- * @apiParam {String} password The password of the user to login.
- * @apiParam {Boolean} remember A bool that say if the session wants to be remembered.
+ * @apiParam {Boolean} staff Indicates if it wants to login a staff or a regular user.
+ * @apiParam {String} email The email of the user.
+ * @apiParam {String} password The password of the user.
+ * @apiParam {Boolean} remember Indicates if the session wants to be remembered.
  * @apiParam {Number} userId The id of the user to login.
- * @apiParam {String} rememberToken Token to login automatically.
+ * @apiParam {String} rememberToken Token to login automatically. It replaces the password.
  *
  * @apiUse USER_SYSTEM_DISABLED
  * @apiUse SESSION_EXISTS
  * @apiUse UNVERIFIED_USER
  * @apiUse INVALID_CREDENTIALS
  *
- * @apiSuccess {Object} data Information about the session
- * @apiSuccess {Number} data.userId Id of the user 
- * @apiSuccess {String} data.userEmail Email of the user
- * @apiSuccess {Boolean} data.staff Indicates if the user is staff or not
- * @apiSuccess {String} data.token Token of the session, used to verify the session when making other requests 
- * @apiSuccess {String} data.rememberToken Token of the remember session for automatic login  
+ * @apiSuccess {Object} data Information about the session.
+ * @apiSuccess {Number} data.userId Id of the user.
+ * @apiSuccess {String} data.userEmail Email of the user.
+ * @apiSuccess {Boolean} data.staff Indicates if the user is a staff.
+ * @apiSuccess {String} data.token Token of the session, used to verify the session when making other requests.
+ * @apiSuccess {String} data.rememberToken Token of the remember session for automatic login .
  *
  */
 

@@ -3,15 +3,16 @@ use Respect\Validation\Validator as DataValidator;
 use RedBeanPHP\Facade as RedBean;
 
 /**
- * @api {post} /staff/delete  Delete a staff member.
+ * @api {post} /staff/delete Delete staff
+ * @apiVersion 4.0.0
  *
- * @apiName Delete
+ * @apiName Delete staff
  *
- * @apiGroup staff
+ * @apiGroup Staff
  *
  * @apiDescription This path deletes a staff member.
  *
- * @apiPermission Staff level 3
+ * @apiPermission staff3
  *
  * @apiParam {Number} staffId The id of the staff member.
  *

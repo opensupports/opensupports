@@ -2,18 +2,18 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 /**
- * @api {post} /ticket/get Retrieve Ticket information.
+ * @api {post} /ticket/get Get ticket
+ * @apiVersion 4.0.0
  *
- * @apiName GetTicket
+ * @apiName Get ticket
  *
  * @apiGroup Ticket
  *
  * @apiDescription This path retrieves information about a ticket.
  *
- * @apiPermission any
+ * @apiPermission user
  *
  * @apiParam {Number} ticketNumber The number of the ticket.
- * @apiParam {String} csrf_token Token of the current session.
  *
  * @apiUse INVALID_TICKET
  * @apiUse NO_PERMISSION

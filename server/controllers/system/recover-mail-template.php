@@ -2,18 +2,19 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /system/recover-mail-template Recover mail template.
+ * @api {post} /system/recover-mail-template Recover mail template
+ * @apiVersion 4.0.0
  *
  * @apiName Recover mail template
  *
- * @apiGroup system
+ * @apiGroup System
  *
- * @apiDescription This path recover olds mail templates.
+ * @apiDescription This path recovers an mail template to its original content.
  *
- * @apiPermission Staff level 3
+ * @apiPermission staff3
  *
- * @apiParam {String} templateType type of the template.
- * @apiParam {String} language language of the template.
+ * @apiParam {String} templateType Type of the template.
+ * @apiParam {String} language Lenguage of the template.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TEMPLATE

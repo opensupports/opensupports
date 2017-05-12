@@ -2,15 +2,16 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /user/ban Bans email users.
+ * @api {post} /user/ban Ban email
+ * @apiVersion 4.0.0
  *
- * @apiName BanUser
+ * @apiName Ban email
  *
  * @apiGroup User
  *
- * @apiDescription This path takes an Email and bans it.
+ * @apiDescription This path takes an email and adds it to the ban list.
  *
- * @apiPermission Staff Level 1
+ * @apiPermission staff1
  * 
  * @apiParam {String} email Email of user to ban.
  *

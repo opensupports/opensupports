@@ -3,24 +3,25 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /user/get Retrieve the information of yourself.
+ * @api {post} /user/get Get my information
+ * @apiVersion 4.0.0
  *
- * @apiName Get
+ * @apiName Get my Information
  *
  * @apiGroup User
  *
- * @apiDescription This path retrieve the information of a user.
+ * @apiDescription This path retrieves information about the logged user.
  *
- * @apiPermission User
+ * @apiPermission user
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_CREDENTIALS
  *
- * @apiSuccess {Object} data Information about a user
+ * @apiSuccess {Object} data Information about an user
  * @apiSuccess {String} data.name Name of the user 
  * @apiSuccess {String} data.email Email of the user
  * @apiSuccess {Boolean} data.verified Indicates if the user is verified
- * @apiSuccess {Object} data Information about a user
+ * @apiSuccess {Object} data Information about an user
  * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data.tickets Array of tickets of the user
  *
  */

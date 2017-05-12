@@ -3,15 +3,16 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /article/add Add a article.
+ * @api {post} /article/add Add article
+ * @apiVersion 4.0.0
  *
- * @apiName Add
+ * @apiName Add article
  *
- * @apiGroup article
+ * @apiGroup Article
  *
  * @apiDescription This path adds a new article.
  *
- * @apiPermission Staff level 2
+ * @apiPermission staff2
  *
  * @apiParam {String} title Title of the new article.
  * @apiParam {String} content Content of the new article.

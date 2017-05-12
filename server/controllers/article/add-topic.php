@@ -3,15 +3,16 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /article/add-topic Add a new topic.
+ * @api {post} /article/add-topic Add topic
+ * @apiVersion 4.0.0
  *
  * @apiName Add topic
  *
- * @apiGroup article
+ * @apiGroup Article
  *
  * @apiDescription This path adds a new topic.
  *
- * @apiPermission Staff level 2
+ * @apiPermission staff2
  *
  * @apiParam {String} name Name of the new topic.
  * @apiParam {String} icon Icon of the new topic.

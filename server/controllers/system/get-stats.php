@@ -2,15 +2,16 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /system/get-stats Retrieve stats.
+ * @api {post} /system/get-stats Get stats
+ * @apiVersion 4.0.0
  *
  * @apiName Get stats
  *
- * @apiGroup system
+ * @apiGroup System
  *
- * @apiDescription This path retrieves stats.
+ * @apiDescription This path retrieves the last stats.
  *
- * @apiPermission Staff level 1
+ * @apiPermission staff1
  *
  * @apiParam {String} period Period of search.
  * @apiParam {Number} staffId Id of the current staff.

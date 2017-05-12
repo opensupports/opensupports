@@ -3,20 +3,21 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /article/edit-topic Edit a topic.
+ * @api {post} /article/edit-topic Edit topic
+ * @apiVersion 4.0.0
  *
  * @apiName Edit topic
  *
- * @apiGroup article
+ * @apiGroup Article
  *
  * @apiDescription This path edits a topic.
  *
- * @apiPermission Staff level 2
+ * @apiPermission staff2
  *
  * @apiParam {Number} topicId Id of the topic.
- * @apiParam {String} name The new name of the topic.
- * @apiParam {String} icon The new icon of the topic.
- * @apiParam {String} iconColor The new Icon's color of the topic.
+ * @apiParam {String} name The new name of the topic. Optional.
+ * @apiParam {String} icon The new icon of the topic. Optional.
+ * @apiParam {String} iconColor The new Icon's color of the topic. Optional.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TOPIC
