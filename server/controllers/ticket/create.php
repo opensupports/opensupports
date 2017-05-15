@@ -3,13 +3,14 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /ticket/create Create a new ticket.
+ * @api {post} /ticket/create Create ticket
+ * @apiVersion 4.0.0
  *
- * @apiName Create
+ * @apiName Create ticket
  *
  * @apiGroup Ticket
  *
- * @apiDescription This path create a new ticket.
+ * @apiDescription This path creates a new ticket.
  *
  * @apiPermission user
  *

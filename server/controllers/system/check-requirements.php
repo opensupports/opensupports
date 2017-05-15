@@ -1,13 +1,14 @@
 <?php
 
 /**
- * @api {post} /system/check-requirements Checks and retrieves the current requirements.
+ * @api {post} /system/check-requirements Checks requirements
+ * @apiVersion 4.0.0
  *
  * @apiName Check requirements
  *
- * @apiGroup system
+ * @apiGroup System
  *
- * @apiDescription This path checks and retrieves the current requirements.
+ * @apiDescription This path checks and retrieves the current requirements for the installation.
  *
  * @apiPermission any
  *

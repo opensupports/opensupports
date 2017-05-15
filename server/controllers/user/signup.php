@@ -4,20 +4,21 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /user/signup Sign up a new user.
+ * @api {post} /user/signup Sign up
+ * @apiVersion 4.0.0
  *
  * @apiName Sign up
  *
  * @apiGroup User
  *
- * @apiDescription This path sign up a user on the system.
+ * @apiDescription This path signs up an user on the system.
  *
- * @apiPermission Any
+ * @apiPermission any
  *
- * @apiParam {String} name  The name of the new user.
- * @apiParam {String} email  The email of the new user.
- * @apiParam {String} password  The password of the new user.
- * @apiParam {String} apyKey  Key to sign up  a user if the user system is disabled.
+ * @apiParam {String} name The name of the new user.
+ * @apiParam {String} email The email of the new user.
+ * @apiParam {String} password The password of the new user.
+ * @apiParam {String} apiKey APIKey to sign up an user if the user system is disabled.
  *
  * @apiUse INVALID_NAME
  * @apiUse INVALID_EMAIL

@@ -2,15 +2,16 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /staff/get-tickets Retrieve own tickets.
+ * @api {post} /staff/get-tickets Get tickets
+ * @apiVersion 4.0.0
  *
  * @apiName Get tickets
  *
- * @apiGroup staff
+ * @apiGroup Staff
  *
- * @apiDescription This path retrieves the tickets of current staff member.
+ * @apiDescription This path retrieves the tickets assigned to the current staff member.
  *
- * @apiPermission Staff level 1
+ * @apiPermission staff1
  *
  * @apiUse NO_PERMISSION
  * 

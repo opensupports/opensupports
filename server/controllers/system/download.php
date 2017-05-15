@@ -2,6 +2,25 @@
 use Ifsnop\Mysqldump as IMysqldump;
 use Respect\Validation\Validator as DataValidator;
 
+/**
+ * @api {get} /system/download Download file
+ * @apiVersion 4.0.0
+ *
+ * @apiName Download file
+ *
+ * @apiGroup System
+ *
+ * @apiDescription This path downloads a file.
+ *
+ * @apiPermission any
+ *
+ * @apiParam {String} file The filename to be downloaded.
+ *
+ *
+ * @apiSuccess {Object} file File content
+ *
+ */
+
 class DownloadController extends Controller {
     const PATH = '/download';
     const METHOD = 'GET';

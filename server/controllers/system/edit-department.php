@@ -3,18 +3,18 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /system/edit-department Edit a department.
+ * @api {post} /system/edit-department Edit department
+ * @apiVersion 4.0.0
  *
  * @apiName Edit department
  *
- * @apiGroup system
+ * @apiGroup System
  *
- * @apiDescription This path edit a department created.
+ * @apiDescription This path edits a department's name.
  *
- * @apiPermission Staff level 3
+ * @apiPermission staff3
  *
  * @apiParam {String} name The new name of the department.
- *
  * @apiParam {Number} departmentId The Id of the department.
  *
  * @apiUse NO_PERMISSION

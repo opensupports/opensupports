@@ -1,6 +1,22 @@
 <?php
 use RedBeanPHP\Facade as RedBean;
 
+/**
+ * @api {post} /system/installation-done Installation done
+ * @apiVersion 4.0.0
+ *
+ * @apiName Installation done
+ *
+ * @apiGroup System
+ *
+ * @apiDescription This path checks if the installation is already done.
+ *
+ * @apiPermission any
+ *
+ * @apiSuccess {Boolean} data Indicates if the installation is already done.
+ *
+ */
+
 class InstallationDoneController extends Controller {
     const PATH = '/installation-done';
     const METHOD = 'POST';

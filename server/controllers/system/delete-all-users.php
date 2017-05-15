@@ -2,15 +2,16 @@
 use RedBeanPHP\Facade as RedBean;
 
 /**
- * @api {post} /system/delete-all-users Delete all users in database.
+ * @api {post} /system/delete-all-users Delete all users
+ * @apiVersion 4.0.0
  *
  * @apiName Delete all users
  *
- * @apiGroup system
+ * @apiGroup System
  *
- * @apiDescription This path delete all users in database.
+ * @apiDescription This path deletes all users in database.
  *
- * @apiPermission Staff level 3
+ * @apiPermission staff3
  *
  * @apiParam {String} password The password of the current staff.
  *

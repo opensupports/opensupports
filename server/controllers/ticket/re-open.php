@@ -2,13 +2,14 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /ticket/re-open Re open a closed ticket.
+ * @api {post} /ticket/re-open Reopen ticket
+ * @apiVersion 4.0.0
  *
- * @apiName Re open
+ * @apiName Reopen ticket
  *
  * @apiGroup Ticket
  *
- * @apiDescription This path re open a closed ticket.
+ * @apiDescription This path reopens a closed ticket.
  *
  * @apiPermission user
  *

@@ -2,15 +2,16 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /system/add-department Create a new department.
+ * @api {post} /system/add-department Add department
+ * @apiVersion 4.0.0
  *
  * @apiName Add department
  *
- * @apiGroup system
+ * @apiGroup System
  *
  * @apiDescription This path create a new department.
  *
- * @apiPermission Staff level 3
+ * @apiPermission staff3
  *
  * @apiParam {String} name Name of the new department.
  *

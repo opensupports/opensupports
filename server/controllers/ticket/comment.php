@@ -3,19 +3,19 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /ticket/comment Comment a ticket.
- *
- * @apiName Comment
+ * @api {post} /ticket/comment Comment ticket
+ * @apiVersion 4.0.0
+ * 
+ * @apiName Comment ticket
  *
  * @apiGroup Ticket
  *
- * @apiDescription This path comment a ticket.
+ * @apiDescription This path comments a ticket.
  *
  * @apiPermission user
  *
  * @apiParam {String} content Content of the comment.
  * @apiParam {Number} ticketNumber The number of the ticket to comment.
- * @apiParam {String} csrf_token Token of the session.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_CONTENT

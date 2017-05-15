@@ -1,14 +1,15 @@
 <?php
 /**
- * @api {post} /user/logout Log out the current user.
+ * @api {post} /user/logout Log out
+ * @apiVersion 4.0.0
  *
  * @apiName Log out 
  *
  * @apiGroup User
  *
- * @apiDescription This path log out the current user.
+ * @apiDescription This path logs out the current user.
  *
- * @apiPermission Any
+ * @apiPermission any
  *
  * @apiSuccess {Object} data Empty object
  *

@@ -1,10 +1,11 @@
 <?php
 /**
  * @api {OBJECT} Stat Stat
+ * @apiVersion 4.0.0
  * @apiGroup Data Structures
- * @apiParam {Number} date The date of the stat.
- * @apiParam {String} type The type of the stat.
- * @apiParam {Boolean} general The general of the stat.
+ * @apiParam {Number} date The date of the stat as a number in format YYYYMMDD.
+ * @apiParam {String} type The type of the stat. It can be CREATE_TICKET, CLOSE, SIGNUP, COMMENT, ASSIGN or UNASSIGN
+ * @apiParam {Boolean} general Indicates if the stat is from the general system or from a particular ticket.
  * @apiParam {String} value The value of the stat.
  */
 

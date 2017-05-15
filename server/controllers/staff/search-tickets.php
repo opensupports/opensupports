@@ -2,18 +2,19 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /staff/search-tickets Search some tickets.
+ * @api {post} /staff/search-tickets Search tickets
+ * @apiVersion 4.0.0
  *
  * @apiName Search tickets
  *
- * @apiGroup staff
+ * @apiGroup Staff
  *
  * @apiDescription This path search some tickets.
  *
- * @apiPermission Staff level 1
+ * @apiPermission staff1
  *
- * @apiParam {String} query Key to search.
- * @apiParam {Number} page The number of page.
+ * @apiParam {String} query Query string to search.
+ * @apiParam {Number} page The page number.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_QUERY
@@ -21,7 +22,7 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiSuccess {Object} data Information about tickets
  * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data.tickets Array of tickets found
- * @apiSuccess {Number} data.pages Number of the page
+ * @apiSuccess {Number} data.pages Number of pages
  *
  */
 

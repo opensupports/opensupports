@@ -1,15 +1,16 @@
 <?php
 /**
  * @api {OBJECT} TicketEvent TicketEvent
+ * @apiVersion 4.0.0
  * @apiGroup Data Structures
- * @apiParam {String}  type The type of the ticket event.
+ * @apiParam {String}  type The type of the ticket event. It can be COMMENT, ASSIGN, UN_ASSIGN, CLOSE, RE_OPEN, DEPARTMENT_CHANGED or PRIORITY_CHANGED
  * @apiParam {String}  content The content of the ticket event.
  * @apiParam {Object}  author The author of the ticket event.
  * @apiParam {Number}  author.id The author's id of the ticket event.
  * @apiParam {String}  author.name The author's name of the ticket event.
  * @apiParam {String}  author.email The author's email of the ticket event.
  * @apiParam {String}  author.profilePic The author's profilePic of the ticket event.
- * @apiParam {Boolean}  author.staff The boolean to know if the author is staff or not.
+ * @apiParam {Boolean}  author.staff Indicates if the author is a staff.
  * @apiParam {String}  date The date of the ticket event.
  * @apiParam {String}  file The file of the ticket event.
  */

@@ -2,15 +2,16 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /system/get-mail-templates Retrieve mail templates.
+ * @api {post} /system/get-mail-templates Get mail templates
+ * @apiVersion 4.0.0
  *
  * @apiName Get mail templates
  *
- * @apiGroup system
+ * @apiGroup System
  *
- * @apiDescription This path retrieves the all mail templates.
+ * @apiDescription This path retrieves the all the mail templates.
  *
- * @apiPermission Staff level 3
+ * @apiPermission staff3
  *
  * @apiUse NO_PERMISSION
  * 
