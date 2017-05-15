@@ -1,4 +1,5 @@
 <?php
+use Aws\S3\S3Client;
 
 class FileUploader extends FileManager {
     private $maxSize = 1024;
@@ -25,7 +26,23 @@ class FileUploader extends FileManager {
             return false;
         }
         
-        move_uploaded_file($file['tmp_name'], $this->getLocalPath() . $this->getFileName());
+        /*move_uploaded_file($file['tmp_name'], $this->getLocalPath() . $this->getFileName());*/
+
+        $s3 = new S3Client([
+            'version' => 'latest',
+            'region'  => 'us-east-1',
+            'credentials' => [
+                'key'    => 'AKIAJXLALFXV6GTP5BWA',
+                'secret' => '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',
+            ]
+        ]);
+
+        $s3->putObject([
+            'Bucket' => 'os4test',
+            'Key'    => $this->getFileName(),
+            'Body'   => fopen($file['tmp_name'], 'r'),
+            'ACL'    => 'public-read'
+        ]);
 
         return true;
     }

@@ -1,4 +1,5 @@
 <?php
+use Aws\S3\S3Client;
 
 class FileDownloader extends FileManager {
 
@@ -17,6 +18,22 @@ class FileDownloader extends FileManager {
     public function download() {
         $fullFilePath = $this->getFullFilePath();
 
+        $s3 = new S3Client([
+            'version' => 'latest',
+            'region'  => 'us-east-1',
+            'credentials' => [
+                'key'    => 'AKIAJXLALFXV6GTP5BWA',
+                'secret' => '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',
+            ]
+        ]);
+
+        $s3->getObject([
+            'Bucket' => 'os4test',
+            'Key'    => $this->getFileName(),
+            'SaveAs' => $fullFilePath
+        ]);
+
+
         if(file_exists($fullFilePath) && is_file($fullFilePath)) {
             header('Cache-control: private');
             header('Content-Type: application/octet-stream');
@@ -27,6 +44,7 @@ class FileDownloader extends FileManager {
             $file = fopen($fullFilePath, 'r');
             print fread($file, filesize($fullFilePath));
             fclose($file);
+            unlink($fullFilePath);
 
             return true;
         } else {
