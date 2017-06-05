@@ -62,7 +62,7 @@ class DisableUserSystemController extends Controller {
                 $ticket->store();
             }
 
-            $mailSender = new MailSender();
+            $mailSender = MailSender::getInstance();
 
             $mailSender->setTemplate(MailTemplate::USER_SYSTEM_DISABLED, [
                 'to' => $user->email,

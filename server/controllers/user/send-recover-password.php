@@ -70,7 +70,7 @@ class SendRecoverPasswordController extends Controller {
     }
 
     public function sendEmail() {
-        $mailSender = new MailSender();
+        $mailSender = MailSender::getInstance();
 
         $mailSender->setTemplate(MailTemplate::PASSWORD_FORGOT, [
             'to' => $this->user->email,

@@ -136,7 +136,7 @@ class CreateController extends Controller {
     }
 
     private function sendMail() {
-        $mailSender = new MailSender();
+        $mailSender = MailSender::getInstance();
 
         $mailSender->setTemplate(MailTemplate::TICKET_CREATED, [
             'to' => $this->email,

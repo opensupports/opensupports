@@ -91,7 +91,7 @@ class CloseController extends Controller {
     }
 
     private function sendMail() {
-        $mailSender = new MailSender();
+        $mailSender = MailSender::getInstance();
 
         $mailSender->setTemplate(MailTemplate::TICKET_CLOSED, [
             'to' => $this->ticket->author->email,
