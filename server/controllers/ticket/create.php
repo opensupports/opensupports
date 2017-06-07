@@ -27,6 +27,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_DEPARTMENT
  * @apiUse INVALID_LANGUAGE
  * @apiUse INVALID_CAPTCHA
+ * @apiUse INVALID_EMAIL
  *
  * @apiSuccess {Object} data Information of the new ticket
  * @apiSuccess {Number} data.ticketNumber Number of the new ticket
@@ -73,6 +74,10 @@ class CreateController extends Controller {
             $validations['requestData']['captcha'] = [
                 'validation' => DataValidator::captcha(),
                 'error' => ERRORS::INVALID_CAPTCHA
+            ];
+            $validations['requestData']['email'] = [
+                'validation' => DataValidator::email(),
+                'error' => ERRORS::INVALID_EMAIL
             ];
         }
         
