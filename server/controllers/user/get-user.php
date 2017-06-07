@@ -3,15 +3,16 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /user/get-user Retrieve the information of an specific user.
+ * @api {post} /user/get-user Get user information
+ * @apiVersion 4.0.0
  *
- * @apiName Get-user
+ * @apiName Get user information
  *
  * @apiGroup User
  *
- * @apiDescription This path retrieves information about an specific user.
+ * @apiDescription This path retrieves information about a specific user.
  *
- * @apiPermission Staff level 1
+ * @apiPermission staff1
  *
  * @apiParam {String} userId The id of the user to find information of.
  *
@@ -19,7 +20,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_USER
  * @apiUse USER_SYSTEM_DISABLED
  *
- * @apiSuccess {Object} data Information about a user
+ * @apiSuccess {Object} data Information about an user
  * @apiSuccess {String} data.name Name of the user
  * @apiSuccess {String} data.email Email of the user
  * @apiSuccess {Number} data.signupDate Date of signup of the user

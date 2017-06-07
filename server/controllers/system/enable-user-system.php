@@ -1,15 +1,16 @@
 <?php
 
 /**
- * @api {post} /system/enable-user-system Enable user system.
+ * @api {post} /system/enable-user-system Enable user system
+ * @apiVersion 4.0.0
  *
  * @apiName Enable user system
  *
- * @apiGroup system
+ * @apiGroup System
  *
- * @apiDescription This path enable the user system.
+ * @apiDescription This path enables the user system.
  *
- * @apiPermission Staff level 3
+ * @apiPermission staff3
  *
  * @apiParam {String} password The password of the current staff.
  *

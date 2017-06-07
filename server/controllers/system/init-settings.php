@@ -2,6 +2,30 @@
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
+/**
+ * @api {post} /system/init-settings Init settings
+ * @apiVersion 4.0.0
+ *
+ * @apiName Init settings
+ *
+ * @apiGroup System
+ *
+ * @apiDescription This path sets the initial settings. It can only be used once during installation.
+ *
+ * @apiPermission any
+ *
+ * @apiParam {String} language Indicates the default language of the system.
+ * @apiParam {String} user-system-enabled Indicates if the user system should be enabled.
+ * @apiParam {String} registration Indicates if the registration should be enabled.
+ *
+ * @apiUse INVALID_LANGUAGE
+ * @apiUse INIT_SETTINGS_DONE
+ *
+ * @apiSuccess {Object} data Empty object
+ *
+ */
+
+
 class InitSettingsController extends Controller {
     const PATH = '/init-settings';
     const METHOD = 'POST';
@@ -47,7 +71,7 @@ class InitSettingsController extends Controller {
             'allow-attachments' => !!Controller::request('allow-attachments'),
             'max-size' => 1024,
             'title' => Controller::request('title') || 'Support Center',
-            'url' => Controller::request('url') || 'http://www.opensupports.com',
+            'url' => Controller::request('url') || ('http://' . $_SERVER['HTTP_HOST']),
             'registration' => !!Controller::request('registration'),
             'user-system-enabled' => !!Controller::request('user-system-enabled'),
             'last-stat-day' => date('YmdHi', strtotime(' -12 day ')),

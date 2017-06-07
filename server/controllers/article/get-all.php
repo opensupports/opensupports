@@ -3,11 +3,12 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /article/get-all Retrieve all articles.
+ * @api {post} /article/get-all Get all articles
+ * @apiVersion 4.0.0
  *
- * @apiName Get all
+ * @apiName Get all articles
  *
- * @apiGroup article
+ * @apiGroup Article
  *
  * @apiDescription This path retrieves all the articles.
  *

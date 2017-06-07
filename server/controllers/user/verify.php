@@ -2,18 +2,19 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /user/verify Verify the email of a new user.
+ * @api {post} /user/verify Verify email
+ * @apiVersion 4.0.0
  *
- * @apiName Verify
+ * @apiName Verify email
  *
  * @apiGroup User
  *
- * @apiDescription This path verify the email of a new user.
+ * @apiDescription This path verifies the email of a new user.
  *
  * @apiPermission any
  *
  * @apiParam {String} email  The email of the user.
- * @apiParam {String} token The key of validation the user.
+ * @apiParam {String} token The validation token sent by email to the user.
  *
  * @apiUse INVALID_EMAIL
  * @apiUse USER_SYSTEM_DISABLED

@@ -3,15 +3,16 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /ticket/add-custom-response Add new custom responses.
+ * @api {post} /ticket/add-custom-response Add custom responses
+ * @apiVersion 4.0.0
  *
  * @apiName Add a custom response
  *
  * @apiGroup Ticket
  *
- * @apiDescription This path allows create new custom responses for tickets.
+ * @apiDescription This path allows add new custom responses for tickets.
  *
- * @apiPermission Staff Level 2
+ * @apiPermission staff2
  *
  * @apiParam {String} name Name of the response.
  * @apiParam {String} content Content of the response.

@@ -3,13 +3,14 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /ticket/close Close a ticket.
+ * @api {post} /ticket/close Close ticket
+ * @apiVersion 4.0.0
  *
  * @apiName Close
  *
  * @apiGroup Ticket
  *
- * @apiDescription This path close a ticket.
+ * @apiDescription This path closes a ticket.
  *
  * @apiPermission user
  *

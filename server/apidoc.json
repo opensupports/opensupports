@@ -1,0 +1,10 @@
+{
+  "name": "OpenSupports API Documentation",
+  "version": "4.0.0",
+  "title": "OpenSupports API Documentation",
+  "description": "Backend API documentation for developers.",
+  "header": {
+    "title": "API Standards",
+    "filename": "API_STANDARD.md"
+  }
+}

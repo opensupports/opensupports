@@ -1,18 +1,19 @@
 <?php
 
 /**
- * @api {post} /user/check-session Check if session exist or not.
+ * @api {post} /user/check-session Check session
+ * @apiVersion 4.0.0
  *
  * @apiName Check session
  *
  * @apiGroup User
  *
- * @apiDescription This path retrieves a object that says if a session exist or not.
+ * @apiDescription This path checks if the session exists.
  *
- * @apiPermission Any
+ * @apiPermission any
  *
- * @apiSuccess {Object} data Information about the session
- * @apiSuccess {Boolean} data.sessionActive Indicate if the session is activated 
+ * @apiSuccess {Object} data Information about the session.
+ * @apiSuccess {Boolean} data.sessionActive Indicates if the session is active.
  *
  */
 

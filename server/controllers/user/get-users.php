@@ -2,20 +2,21 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /user/get-users Retrieve the information of a list of users.
+ * @api {post} /user/get-users Get users list
+ * @apiVersion 4.0.0
  *
- * @apiName Get-users
+ * @apiName Get users list
  *
  * @apiGroup User
  *
- * @apiDescription This path retrieves information about a list of users.
+ * @apiDescription This path retrieves the list of users by page.
  *
- * @apiPermission Staff level 1
+ * @apiPermission staff1
  *
  * @apiParam {Number} page Number of pages of users.
  * @apiParam {String} orderBy Parameter to order the users by tickets or id.
- * @apiParam {Boolean} desc  Parameter to order the user ascending or descending way.
- * @apiParam {String} search Key to find some specific users.
+ * @apiParam {Boolean} desc  Parameter to order the users in an ascending or descending way.
+ * @apiParam {String} search Text query to find users.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_PAGE

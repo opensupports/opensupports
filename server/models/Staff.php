@@ -1,15 +1,15 @@
 <?php
 /**
  * @api {OBJECT} Staff Staff
+ * @apiVersion 4.0.0
  * @apiGroup Data Structures
- * @apiParam {Number} id The type of the mail template.
- * @apiParam {String} name The subject of the mail template.
- * @apiParam {String} email The language of the mail template.
- * @apiParam {String} profilePic The body of the mail template.
- * @apiParam {Number} level The language of the mail template.
- * @apiParam {Object[]} departments The departments of the staff.
- * @apiParam {[Ticket](#api-Data_Structures-ObjectTicket)[]} tickets The tickets of the staff.
- * @apiParam {Number} lastLogin The last login of the staff.
+ * @apiParam {String} name Name of the staff member.
+ * @apiParam {String} email Email of the staff member.
+ * @apiParam {String} profilePic profilePic url of the staff member.
+ * @apiParam {Number} level Level of the staff member.
+ * @apiParam {Object[]} departments The departments the staff member has assigned.
+ * @apiParam {[Ticket](#api-Data_Structures-ObjectTicket)[]} tickets The tickets the staff member has assigned.
+ * @apiParam {Number} lastLogin The last login of the staff member.
  */
 
 class Staff extends DataStore {

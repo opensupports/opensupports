@@ -3,19 +3,20 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /user/recover-password Change the password of the user using a token sended from the email.
+ * @api {post} /user/recover-password Recover password
+ * @apiVersion 4.0.0
  *
  * @apiName Recover password
  *
  * @apiGroup User
  *
- * @apiDescription This path change the password of the user usign a token sended from the email.
+ * @apiDescription This path changes the password of the user using a token sent by the email.
  *
- * @apiPermission Any
+ * @apiPermission any
  *
  * @apiParam {String} email  The email of the user who forgot the password.
  * @apiParam {String} password The new password of the user.
- * @apiParam {String} token  The token that was sended to the email of the user.
+ * @apiParam {String} token  The token sent by email to the user.
  *
  * @apiUse INVALID_EMAIL
  * @apiUse INVALID_PASSWORD
