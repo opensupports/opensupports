@@ -13,16 +13,16 @@ describe'/system/get-stats' do
 
         #day 1
         for i in 0..5
-            $database.query("INSERT INTO log VALUES('', 'SIGNUP', NULL, " + yesterday3 + ", NULL, NULL);")
+            $database.query("INSERT INTO log VALUES('', 'SIGNUP', NULL, " + yesterday3 + ", NULL, NULL, NULL);")
         end
         for i in 0..0
-            $database.query("INSERT INTO log VALUES('', 'CREATE_TICKET', NULL, " + yesterday3 + ", NULL, NULL);")
+            $database.query("INSERT INTO log VALUES('', 'CREATE_TICKET', NULL, " + yesterday3 + ", NULL, NULL, NULL);")
         end
         for i in 0..1
-            $database.query("INSERT INTO log VALUES('', 'CLOSE', NULL, " + yesterday3 + ", NULL, NULL);")
+            $database.query("INSERT INTO log VALUES('', 'CLOSE', NULL, " + yesterday3 + ", NULL, NULL, NULL);")
         end
         for i in 0..2
-            $database.query("INSERT INTO log VALUES('', 'COMMENT', NULL, " + yesterday3 + ", NULL, NULL);")
+            $database.query("INSERT INTO log VALUES('', 'COMMENT', NULL, " + yesterday3 + ", NULL, NULL, NULL);")
         end
         for i in 0..8
             $database.query("INSERT INTO ticketevent VALUES('', 'CLOSE', NULL, NULL, " + yesterday3 + ", NULL, NULL, 1);")
@@ -33,16 +33,16 @@ describe'/system/get-stats' do
 
         #day 2
         for i in 0..7
-            $database.query("INSERT INTO log VALUES('', 'SIGNUP', NULL, " + yesterday2 + ", NULL, NULL);")
+            $database.query("INSERT INTO log VALUES('', 'SIGNUP', NULL, " + yesterday2 + ", NULL, NULL, NULL);")
         end
         for i in 0..2
-            $database.query("INSERT INTO log VALUES('', 'CREATE_TICKET', NULL, " + yesterday2 + ", NULL, NULL);")
+            $database.query("INSERT INTO log VALUES('', 'CREATE_TICKET', NULL, " + yesterday2 + ", NULL, NULL, NULL);")
         end
         for i in 0..9
-            $database.query("INSERT INTO log VALUES('', 'CLOSE', NULL, " + yesterday2 + ", NULL, NULL);")
+            $database.query("INSERT INTO log VALUES('', 'CLOSE', NULL, " + yesterday2 + ", NULL, NULL, NULL);")
         end
         for i in 0..2
-            $database.query("INSERT INTO log VALUES('', 'COMMENT', NULL, " + yesterday2 + ", NULL, NULL);")
+            $database.query("INSERT INTO log VALUES('', 'COMMENT', NULL, " + yesterday2 + ", NULL, NULL, NULL);")
         end
         for i in 0..10
             $database.query("INSERT INTO ticketevent VALUES('', 'CLOSE', NULL, NULL, " + yesterday2 + ", NULL, NULL, 1);")
@@ -53,16 +53,16 @@ describe'/system/get-stats' do
 
         #day 3
         for i in 0..0
-            $database.query("INSERT INTO log VALUES('', 'SIGNUP', NULL, " + yesterday + ", NULL, NULL);")
+            $database.query("INSERT INTO log VALUES('', 'SIGNUP', NULL, " + yesterday + ", NULL, NULL, NULL);")
         end
         for i in 0..1
-            $database.query("INSERT INTO log VALUES('', 'CREATE_TICKET', NULL, " + yesterday + ", NULL, NULL);")
+            $database.query("INSERT INTO log VALUES('', 'CREATE_TICKET', NULL, " + yesterday + ", NULL, NULL, NULL);")
         end
         for i in 0..4
-            $database.query("INSERT INTO log VALUES('', 'CLOSE', NULL, " + yesterday + ", NULL, NULL);")
+            $database.query("INSERT INTO log VALUES('', 'CLOSE', NULL, " + yesterday + ", NULL, NULL, NULL);")
         end
         for i in 0..7
-            $database.query("INSERT INTO log VALUES('', 'COMMENT', NULL, " + yesterday + ", NULL, NULL);")
+            $database.query("INSERT INTO log VALUES('', 'COMMENT', NULL, " + yesterday + ", NULL, NULL, NULL);")
         end
         for i in 0..3
             $database.query("INSERT INTO ticketevent VALUES('', 'CLOSE', NULL, NULL, " + yesterday + ", NULL, NULL, 1);")
