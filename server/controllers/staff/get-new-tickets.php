@@ -3,19 +3,20 @@ use RedBeanPHP\Facade as RedBean;
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /staff/get-new-tickets Retrieve new tickets.
+ * @api {post} /staff/get-new-tickets Get new tickets
+ * @apiVersion 4.0.0
  *
  * @apiName Get new tickets
  *
- * @apiGroup staff
+ * @apiGroup Staff
  *
- * @apiDescription This path retrieves new tickets.
+ * @apiDescription This path retrieves the new tickets of the departments the staff has assigned.
  *
- * @apiPermission Staff level 1
+ * @apiPermission staff1
  *
  * @apiUse NO_PERMISSION
  * 
- * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data Array of new tickets
+ * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data Array of new tickets.
  *
  */
 

@@ -41,6 +41,29 @@ describe'system/disable-user-system' do
             (result['message']).should.equal('USER_SYSTEM_DISABLED')
         end
 
+        it 'should create a ticket without user' do
+            request('/user/logout')
+            result = request('/ticket/create', {
+                title: 'test ticket without user',
+                content: 'The north remembers',
+                departmentId: 1,
+                language: 'en',
+            })
+
+            (result['status']).should.equal('fail')
+            (result['message']).should.equal('INVALID_EMAIL')
+
+            result = request('/ticket/create', {
+                title: 'test ticket without user',
+                content: 'The north remembers',
+                departmentId: 1,
+                language: 'en',
+                email: 'emailtest@opensupports.com'
+            })
+
+            (result['status']).should.equal('success')
+        end
+
         it 'should not disable the user system if it is already disabled 'do
             request('/user/logout')
             Scripts.login($staff[:email], $staff[:password], true)
@@ -69,7 +92,7 @@ describe'system/disable-user-system' do
 
             numberOftickets= $database.query("SELECT * FROM ticket WHERE author_email IS NULL AND author_name IS NULL AND author_id IS NOT NULL"  )
 
-            (numberOftickets.num_rows).should.equal(36)
+            (numberOftickets.num_rows).should.equal(37)
 
         end
 

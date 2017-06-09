@@ -3,13 +3,14 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /system/init-admin Create the main administrator account.
+ * @api {post} /system/init-admin Init admin
+ * @apiVersion 4.0.0
  *
  * @apiName Init admin
  *
- * @apiGroup system
+ * @apiGroup System
  *
- * @apiDescription This path create the main administrator account.
+ * @apiDescription This path creates the main administrator account. It can only be used once during installation
  *
  * @apiPermission any
  *

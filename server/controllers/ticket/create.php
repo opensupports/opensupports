@@ -3,13 +3,14 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /ticket/create Create a new ticket.
+ * @api {post} /ticket/create Create ticket
+ * @apiVersion 4.0.0
  *
- * @apiName Create
+ * @apiName Create ticket
  *
  * @apiGroup Ticket
  *
- * @apiDescription This path create a new ticket.
+ * @apiDescription This path creates a new ticket.
  *
  * @apiPermission user
  *
@@ -26,6 +27,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_DEPARTMENT
  * @apiUse INVALID_LANGUAGE
  * @apiUse INVALID_CAPTCHA
+ * @apiUse INVALID_EMAIL
  *
  * @apiSuccess {Object} data Information of the new ticket
  * @apiSuccess {Number} data.ticketNumber Number of the new ticket
@@ -72,6 +74,10 @@ class CreateController extends Controller {
             $validations['requestData']['captcha'] = [
                 'validation' => DataValidator::captcha(),
                 'error' => ERRORS::INVALID_CAPTCHA
+            ];
+            $validations['requestData']['email'] = [
+                'validation' => DataValidator::email(),
+                'error' => ERRORS::INVALID_EMAIL
             ];
         }
         

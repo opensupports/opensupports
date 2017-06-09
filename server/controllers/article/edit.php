@@ -3,21 +3,22 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /article/edit Edit a article.
+ * @api {post} /article/edit Edit article
+ * @apiVersion 4.0.0
  *
  * @apiName Edit a article
  *
- * @apiGroup article
+ * @apiGroup Article
  *
- * @apiDescription This path edits a article.
+ * @apiDescription This path edits an article.
  *
- * @apiPermission Staff level 2
+ * @apiPermission staff2
  *
  * @apiParam {Number} articleId Id of the article.
- * @apiParam {Number} topicId Id of the topic of the article.
- * @apiParam {String} content The new content of the article.
- * @apiParam {String} title The new title of the article.
- * @apiParam {Number} position The new position of the article.
+ * @apiParam {Number} topicId Id of the topic of the article. Optional.
+ * @apiParam {String} content The new content of the article. Optional.
+ * @apiParam {String} title The new title of the article. Optional.
+ * @apiParam {Number} position The new position of the article. Optional.
  * 
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TOPIC

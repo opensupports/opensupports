@@ -3,19 +3,19 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /ticket/delete-custom-response Delete a custom response.
+ * @api {post} /ticket/delete-custom-response Delete custom response
+ * @apiVersion 4.0.0
  *
  * @apiName Delete custom response
  *
  * @apiGroup Ticket
  *
- * @apiDescription This path delete a custom response.
+ * @apiDescription This path deletes a custom response.
  *
  * @apiPermission user
  *
  * @apiParam {Number} id Id of the custom response to delete.
  *
- * @apiUse NO_PERMISSION
  * @apiUse NO_PERMISSION
  * 
  * @apiSuccess {Object} data Empty object

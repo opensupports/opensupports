@@ -3,17 +3,18 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /ticket/change-department Change the department of a ticket.
+ * @api {post} /ticket/change-department Change department
+ * @apiVersion 4.0.0
  *
  * @apiName Change department
  *
  * @apiGroup Ticket
  *
- * @apiDescription This path change the department of a ticket.
+ * @apiDescription This path changes the department of a ticket.
  *
- * @apiPermission Staff Level 1
+ * @apiPermission staff1
  *
- * @apiParam {Number} ticketNumber The number of a ticket.
+ * @apiParam {Number} ticketNumber The number of the ticket.
  * @apiParam {Number} departmentId The id of the new department of the ticket.
  *
  * @apiUse NO_PERMISSION

@@ -1,6 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Ticket Ticket
+ * @apiVersion 4.0.0
  * @apiGroup Data Structures
  * @apiParam {Number}  ticketNumber The number of the ticket.
  * @apiParam {String}  title The title of the ticket.
@@ -8,12 +9,12 @@
  * @apiParam {Object}  department The department of the ticket.
  * @apiParam {Number}  department.id The id of the department of the ticket.
  * @apiParam {String}  department.name The department's name of the ticket.
- * @apiParam {String}  file The file of the ticket.
+ * @apiParam {String}  file The filename of the ticket if attached.
  * @apiParam {String}  language The language of the ticket.
- * @apiParam {Boolean}  unread The boolean to know if the user already readed or not.
- * @apiParam {Boolean}  unreadStaff The boolean to know if the staff already readed or not.
- * @apiParam {Boolean}  closed The boolean to know if the ticket is already closed or not.
- * @apiParam {String}  priority The priority of the ticket.
+ * @apiParam {Boolean}  unread Indicates if the user has already read the last comment.
+ * @apiParam {Boolean}  unreadStaff Indicates if the staff has already read the last comment.
+ * @apiParam {Boolean}  closed Indicates if the ticket is closed.
+ * @apiParam {String}  priority The priority of the ticket. It can be LOW, MEDIUM or HIGH.
  * @apiParam {Object}  author The author of the ticket.
  * @apiParam {Number}  author.id The id of the author of the ticket.
  * @apiParam {String}  author.name The author's name of the ticket.

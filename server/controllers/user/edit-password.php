@@ -2,15 +2,16 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /user/edit-password Edit password of an user.
+ * @api {post} /user/edit-password Edit password
+ * @apiVersion 4.0.0
  *
- * @apiName Edit-password
+ * @apiName Edit password
  *
  * @apiGroup User
  *
- * @apiDescription This path edit the password of a user.
+ * @apiDescription This path edits the password of an user.
  *
- * @apiPermission User
+ * @apiPermission user
  *
  * @apiParam {String} newPassword The new password that the user wants to change.
  * @apiParam {String} oldPassword The actual password of the user.

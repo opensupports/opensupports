@@ -2,15 +2,16 @@
 use Ifsnop\Mysqldump as IMysqldump;
 
 /**
- * @api {post} /system/backup-database Do a backup of the database.
+ * @api {post} /system/backup-database Backup database
+ * @apiVersion 4.0.0
  *
  * @apiName Backup database
  *
- * @apiGroup system
+ * @apiGroup System
  *
- * @apiDescription This path do a backup of the database.
+ * @apiDescription This path does a backup of the database.
  *
- * @apiPermission Staff level 3
+ * @apiPermission staff3
  *
  * @apiUse NO_PERMISSION
  * 

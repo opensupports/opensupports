@@ -3,11 +3,12 @@ use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {OBJECT} User User
+ * @apiVersion 4.0.0
  * @apiGroup Data Structures
  * @apiParam {String} email The email of the user.
  * @apiParam {Number} id The id of the user.
  * @apiParam {String} name The name of the user.
- * @apiParam {Boolean} verified A boolean to know if the user is already verified or not.
+ * @apiParam {Boolean} verified Indicates if the user has verified the email.
  */
 
 class User extends DataStore {

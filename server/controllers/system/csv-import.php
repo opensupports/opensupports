@@ -1,17 +1,18 @@
 <?php
 
 /**
- * @api {post} /system/csv-import Receives a csv file with a list of users to signup .
+ * @api {post} /system/csv-import CSV import
+ * @apiVersion 4.0.0
  *
  * @apiName CSV import
  *
- * @apiGroup system
+ * @apiGroup System
  *
  * @apiDescription This path receives a csv file with a list of users to signup.
  *
- * @apiPermission Staff level 3
+ * @apiPermission staff3
  *
- * @apiParam {String} file A csv file with this content format: email,password, name.
+ * @apiParam {String} file A csv file with this content format: email, password, name.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_FILE

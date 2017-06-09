@@ -2,15 +2,16 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /staff/get-all  Retrieve information about all the staff members.
+ * @api {post} /staff/get-all  Get all staffs
+ * @apiVersion 4.0.0
  *
- * @apiName Get all
+ * @apiName Get all staffs
  *
- * @apiGroup staff
+ * @apiGroup Staff
  *
  * @apiDescription This path retrieves information about all the staff member.
  *
- * @apiPermission Staff level 3
+ * @apiPermission staff3
  * 
  * @apiUse NO_PERMISSION
  *

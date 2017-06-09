@@ -2,15 +2,16 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /system/edit-mail-template Edit a mail template.
+ * @api {post} /system/edit-mail-template Edit mail template
+ * @apiVersion 4.0.0
  *
  * @apiName Edit mail template
  *
- * @apiGroup system
+ * @apiGroup System
  *
  * @apiDescription This path edit a mail template.
  *
- * @apiPermission Staff level 3
+ * @apiPermission staff3
  *
  * @apiParam {String} templateType The new type of the template.
  * @apiParam {String} language The new language of the template.

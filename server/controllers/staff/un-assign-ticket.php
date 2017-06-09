@@ -3,15 +3,16 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /staff/un-assign-ticket Un-assign a ticket.
+ * @api {post} /staff/un-assign-ticket Un-assign ticket
+ * @apiVersion 4.0.0
  *
  * @apiName Un-assign ticket
  *
- * @apiGroup staff
+ * @apiGroup Staff
  *
- * @apiDescription This path un assign a ticket of a staff member.
+ * @apiDescription This path un-assigns a ticket to the current staff member.
  *
- * @apiPermission Staff level 1
+ * @apiPermission staff1
  *
  * @apiParam {Number} ticketNumber Ticket number to un-assign.
  *

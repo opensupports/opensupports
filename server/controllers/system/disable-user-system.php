@@ -1,15 +1,16 @@
 <?php
 
 /**
- * @api {post} /system/disable-user-system Disable the user system.
+ * @api {post} /system/disable-user-system Disable user system
+ * @apiVersion 4.0.0
  *
  * @apiName Disable user system
  *
- * @apiGroup system
+ * @apiGroup System
  *
- * @apiDescription This path disable the user system.
+ * @apiDescription This path disables the user system.
  *
- * @apiPermission Staff level 3
+ * @apiPermission staff3
  *
  * @apiParam {String} password The password of the current staff.
  *

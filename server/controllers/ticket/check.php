@@ -3,13 +3,14 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /ticket/check Check if a ticket was or not readed.
+ * @api {post} /ticket/check Check ticket
+ * @apiVersion 4.0.0
  *
- * @apiName Check
+ * @apiName Check ticket
  *
  * @apiGroup Ticket
  *
- * @apiDescription This path check if a ticket was or not readed.
+ * @apiDescription This path logs you in to see a ticket, but only when there is no users.
  *
  * @apiPermission any
  *

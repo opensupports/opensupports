@@ -3,15 +3,16 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /staff/assign-ticket  Assign a ticket to a staff member.
+ * @api {post} /staff/assign-ticket Assign ticket
+ * @apiVersion 4.0.0
  *
  * @apiName Assign ticket
  *
- * @apiGroup staff
+ * @apiGroup Staff
  *
  * @apiDescription This path assigns a ticket to a staff member.
  *
- * @apiPermission Staff level 1
+ * @apiPermission staff1
  *
  * @apiParam {Number} ticketNumber The number of the ticket to assign.
  *

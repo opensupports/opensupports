@@ -2,15 +2,16 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /ticket/change-priority Change the priority of a ticket.
+ * @api {post} /ticket/change-priority Change priority
+ * @apiVersion 4.0.0
  *
  * @apiName Change priority
  *
  * @apiGroup Ticket
  *
- * @apiDescription This path change the priority of a ticket.
+ * @apiDescription This path changes the priority of a ticket.
  *
- * @apiPermission Staff Level 1
+ * @apiPermission staff1
  *
  * @apiParam {Number} ticketNumber The number of a ticket.
  * @apiParam {String} priority The new priority of the ticket.

@@ -2,23 +2,24 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /system/add-api-key Create a new api-key.
+ * @api {post} /system/add-api-key Add APIKey
+ * @apiVersion 4.0.0
  *
- * @apiName Add api-key
+ * @apiName Add APIKey
  *
- * @apiGroup system
+ * @apiGroup System
  *
- * @apiDescription This path create a new api-key.
+ * @apiDescription This path creates a new APIKey.
  *
- * @apiPermission Staff level 3
+ * @apiPermission staff3
  *
- * @apiParam {String} name Name of the new api-key.
+ * @apiParam {String} name Name of the new APIKey.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_NAME
  * @apiUse NAME_ALREADY_USED
  *
- * @apiSuccess {String} data Token of the api key
+ * @apiSuccess {String} data Token of the APIKey.
  *
  */
 
