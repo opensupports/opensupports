@@ -1,0 +1,15 @@
+@import "../../scss/vars";
+
+.install-step-5 {
+
+    &__previous {
+        margin-right: 20px;
+    }
+
+    &__next {
+        float: left;
+        position: absolute;
+        margin-left: 230px;
+        min-width: 70px;
+    }
+}

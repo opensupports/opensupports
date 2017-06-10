@@ -171,6 +171,10 @@
  * @apiDefine DATABASE_CREATION
  * @apiError {String} DATABASE_CREATION It's a database creation error.
  */
+/**
+ * @apiDefine SMTP_CONNECTION
+ * @apiError {String} SMTP_CONNECTION Could not connect with SMTP server.
+ */
 
 class ERRORS {
     const INVALID_CREDENTIALS = 'INVALID_CREDENTIALS';
@@ -216,4 +220,5 @@ class ERRORS {
     const INVALID_FILE = 'INVALID_FILE';
     const DATABASE_CONNECTION = 'DATABASE_CONNECTION';
     const DATABASE_CREATION = 'DATABASE_CREATION';
+    const SMTP_CONNECTION = 'SMTP_CONNECTION';
 }

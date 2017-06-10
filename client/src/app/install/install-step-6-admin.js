@@ -10,7 +10,7 @@ import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
 import Message from 'core-components/message';
 
-class InstallStep5Admin extends React.Component {
+class InstallStep6Admin extends React.Component {
 
     state = {
         loading: false,
@@ -20,14 +20,14 @@ class InstallStep5Admin extends React.Component {
 
     render() {
         return (
-            <div className="install-step-5">
-                <Header title={i18n('STEP_TITLE', {title: i18n('ADMIN_SETUP'), current: 5, total: 6})} description={i18n('STEP_5_DESCRIPTION')}/>
+            <div className="install-step-6">
+                <Header title={i18n('STEP_TITLE', {title: i18n('ADMIN_SETUP'), current: 6, total: 7})} description={i18n('STEP_6_DESCRIPTION')}/>
                 {this.renderMessage()}
                 <Form onSubmit={this.onSubmit.bind(this)}>
                     <FormField name="name" validation="NAME" label={i18n('ADMIN_NAME')} fieldProps={{size: 'large'}} required/>
                     <FormField name="email" validation="EMAIL" label={i18n('ADMIN_EMAIL')} fieldProps={{size: 'large'}} required/>
                     <FormField name="password" validation="PASSWORD" label={i18n('ADMIN_PASSWORD')} infoMessage={i18n('ADMIN_PASSWORD_DESCRIPTION')} fieldProps={{size: 'large', autoComplete: 'off'}} required/>
-                    <div className="install-step-5__buttons">
+                    <div className="install-step-6__buttons">
                         <SubmitButton className="install-step-5__next" size="medium" type="secondary">{i18n('NEXT')}</SubmitButton>
                     </div>
                 </Form>
@@ -40,7 +40,7 @@ class InstallStep5Admin extends React.Component {
 
         if(this.state.error) {
             message = (
-                <Message className="install-step-5_message" type="error">
+                <Message className="install-step-6_message" type="error">
                     {i18n('ERROR_UPDATING_SETTINGS')}: {this.state.errorMessage}
                 </Message>
             );
@@ -57,7 +57,7 @@ class InstallStep5Admin extends React.Component {
                 path: '/system/init-admin',
                 data: form
             })
-                .then(() => history.push('/install/step-6'))
+                .then(() => history.push('/install/step-7'))
                 .catch(({message}) => this.setState({
                     loading: false,
                     error: true,
@@ -67,4 +67,4 @@ class InstallStep5Admin extends React.Component {
     }
 }
 
-export default InstallStep5Admin;
+export default InstallStep6Admin;

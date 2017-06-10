@@ -1,4 +1,6 @@
 import React from 'react';
+import _ from 'lodash';
+import { connect } from 'react-redux'
 
 import history from 'lib-app/history';
 import i18n from 'lib-app/i18n';
@@ -15,7 +17,7 @@ class InstallStep5Settings extends React.Component {
 
     state = {
         loading: false,
-        smtpConnection: null, // ad a message
+        smtpConnection: null,
         form: {},
         onFormChange: (form) => this.setState({form}),
         error: false,
@@ -25,19 +27,20 @@ class InstallStep5Settings extends React.Component {
     render() {
         return (
             <div className="install-step-5">
-                <Header title={i18n('STEP_TITLE', {title: i18n('INITIAL_SETTINGS'), current: 5, total: 7})} description={i18n('STEP_4_DESCRIPTION')}/>
+                <Header title={i18n('STEP_TITLE', {title: i18n('INITIAL_SETTINGS'), current: 5, total: 7})} description={i18n('STEP_5_DESCRIPTION')}/>
                 {this.renderMessage()}
                 <Form loading={this.state.loading} onSubmit={this.onSubmit.bind(this)} value={this.state.form} onChange={this.onFormChange.bind(this)}>
                     <FormField name="title" label={i18n('TITLE')} fieldProps={{size: 'large'}} required/>
-                    <FormField name="allow-attachments" label={i18n('ALLOW_FILE_ATTACHMENTS')} fieldProps={{size: 'large'}} infoMessage={i18n('LEFT_EMPTY_DATABASE')}/>
-                    <FormField name="no-reply-email" label={i18n('NO_REPLY_EMAIL')} fieldProps={{size: 'large'}} required/>
-                    <FormField name="smtp-host" label={i18n('SMTP_SERVER')} fieldProps={{size: 'large'}} required/>
-                    <FormField name="smtp-port" label={i18n('SMTP_PORT')} fieldProps={{size: 'small'}} required/>
-                    <FormField name="smtp-user" label={i18n('SMTP_USER')} fieldProps={{size: 'large'}} required/>
+                    <FormField name="allow-attachments" label={i18n('ALLOW_FILE_ATTACHMENTS')} fieldProps={{size: 'large'}}/>
+                    <FormField name="no-reply-email" label={i18n('NO_REPLY_EMAIL')} fieldProps={{size: 'large'}}/>
+                    <FormField name="smtp-host" label={i18n('SMTP_SERVER')} fieldProps={{size: 'large'}}/>
+                    <FormField name="smtp-port" label={i18n('SMTP_PORT')} fieldProps={{size: 'small'}}/>
+                    <FormField name="smtp-user" label={i18n('SMTP_USER')} fieldProps={{size: 'large'}}/>
                     <FormField name="smtp-password" label={i18n('SMTP_PASSWORD')} fieldProps={{size: 'large', password: true}}/>
                     <Button className="install-step-5__test-connection" size="medium" onClick={this.onTestSMTPClick.bind(this)}>
                         {i18n('TEST_SMTP_CONNECTION')}
                     </Button>
+                    {this.renderMessageSMTP()}
                     <div className="install-step-5__buttons">
                         <SubmitButton className="install-step-5__next" size="medium" type="secondary">{i18n('NEXT')}</SubmitButton>
                         <Button className="install-step-5__previous" size="medium" onClick={this.onPreviousClick.bind(this)}>{i18n('PREVIOUS')}</Button>
@@ -56,6 +59,28 @@ class InstallStep5Settings extends React.Component {
                     {i18n('ERROR_UPDATING_SETTINGS')}: {this.state.errorMessage}
                 </Message>
             );
+        }
+
+        return message;
+    }
+
+    renderMessageSMTP() {
+        let message = null;
+
+        if(this.state.smtpConnection !== null) {
+            if(this.state.smtpConnection) {
+                message = (
+                    <Message className="install-step-5__message" type="success">
+                        {i18n('SMTP_CONNECTION_SUCCESS')}
+                    </Message>
+                );
+            } else {
+                message = (
+                    <Message className="install-step-5__message" type="error">
+                        {i18n('ERROR_SMTP_CONNECTION')}
+                    </Message>
+                );
+            }
         }
 
         return message;
@@ -82,7 +107,11 @@ class InstallStep5Settings extends React.Component {
         }, () => {
             API.call({
                 path: '/system/init-settings',
-                data: form // add step 4 to form
+                data: _.extend({}, form, {
+                    'language': this.props.language,
+                    'user-system-enabled': this.props['user-system-enabled'],
+                    'registration': this.props['registration']
+                })
             })
                 .then(() => history.push('/install/step-6'))
                 .catch(({message}) => this.setState({
@@ -94,4 +123,10 @@ class InstallStep5Settings extends React.Component {
     }
 }
 
-export default InstallStep5Settings;
+export default connect((store) => {
+    return {
+        'user-system-enabled': store.config['user-system-enabled'],
+        'registration': store.config['registration'],
+        language: store.config.language
+    };
+})(InstallStep5Settings);

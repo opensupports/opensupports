@@ -14,13 +14,23 @@ class MailSender {
     }
 
     private function __construct() {
-        $this->mailOptions['from'] = Setting::getSetting('no-reply-email')->value;
+        $this->setConnectionSettings(
+            Setting::getSetting('smtp-host')->getValue(),
+            Setting::getSetting('smtp-port')->getValue(),
+            Setting::getSetting('smtp-user')->getValue(),
+            Setting::getSetting('smtp-pass')->getValue(),
+            Setting::getSetting('no-reply-email')->getValue()
+        );
+    }
+
+    public function setConnectionSettings($host, $port, $user, $pass, $noReplyEmail) {
+        $this->mailOptions['from'] = $noReplyEmail;
         $this->mailOptions['fromName'] = 'OpenSupports';
 
-        $this->mailOptions['smtp-host'] = Setting::getSetting('smtp-host')->value;
-        $this->mailOptions['smtp-port'] = Setting::getSetting('smtp-port')->value;
-        $this->mailOptions['smtp-user'] = Setting::getSetting('smtp-user')->value;
-        $this->mailOptions['smtp-pass'] = Setting::getSetting('smtp-pass')->value;
+        $this->mailOptions['smtp-host'] = $host;
+        $this->mailOptions['smtp-port'] = $port;
+        $this->mailOptions['smtp-user'] = $user;
+        $this->mailOptions['smtp-pass'] = $pass;
     }
 
     public function setTemplate($type, $config) {

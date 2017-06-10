@@ -225,6 +225,16 @@ module.exports = [
         }
     },
     {
+        path: '/system/test-smtp',
+        time: 100,
+        response: function () {
+            return {
+                status: 'success',
+                data: {}
+            };
+        }
+    },
+    {
         path: '/system/get-mail-templates',
         time: 100,
         response: function () {

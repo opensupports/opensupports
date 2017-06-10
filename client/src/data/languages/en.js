@@ -239,8 +239,9 @@ export default {
     'STEP_2_DESCRIPTION': 'Here are listed the requirements for running OpenSupports. Please make sure that all requirements are satisfied.',
     'STEP_3_DESCRIPTION': 'Please fill the MySQL database configuration.',
     'STEP_4_DESCRIPTION': 'Please select your user system preferences.',
-    'STEP_5_DESCRIPTION': 'Please configure the administrator account.',
-    'STEP_6_DESCRIPTION': 'Installation is completed.',
+    'STEP_5_DESCRIPTION': 'Please select your system preferences.',
+    'STEP_6_DESCRIPTION': 'Please configure the administrator account.',
+    'STEP_7_DESCRIPTION': 'Installation is completed.',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',

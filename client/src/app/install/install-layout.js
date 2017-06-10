@@ -14,6 +14,7 @@ const steps = [
     'SERVER_REQUIREMENTS',
     'DATABASE_CONFIGURATION',
     'USER_SYSTEM',
+    'SYSTEM_SETTINGS',
     'ADMIN_SETUP',
     'COMPLETED'
 ];
