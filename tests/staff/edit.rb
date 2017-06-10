@@ -49,6 +49,7 @@ describe'/staff/edit' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             email: 'newwstaff@opensupports.com',
+            sendEmailOnNewTicket: '1'
         })
 
         (result['status']).should.equal('success')
@@ -57,6 +58,7 @@ describe'/staff/edit' do
 
         (row['email']).should.equal('newwstaff@opensupports.com')
         (row['level']).should.equal('2')
+        (row['send_email_on_new_ticket']).should.equal('1')
 
         row = $database.getRow('department', 1, 'id')
         (row['owners']).should.equal('3')
