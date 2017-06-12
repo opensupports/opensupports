@@ -19,7 +19,6 @@ class InstallStep5Settings extends React.Component {
         loading: false,
         smtpConnection: null,
         form: {},
-        onFormChange: (form) => this.setState({form}),
         error: false,
         errorMessage: ''
     };
@@ -27,14 +26,14 @@ class InstallStep5Settings extends React.Component {
     render() {
         return (
             <div className="install-step-5">
-                <Header title={i18n('STEP_TITLE', {title: i18n('INITIAL_SETTINGS'), current: 5, total: 7})} description={i18n('STEP_5_DESCRIPTION')}/>
+                <Header title={i18n('STEP_TITLE', {title: i18n('SYSTEM_SETTINGS'), current: 5, total: 7})} description={i18n('STEP_5_DESCRIPTION')}/>
                 {this.renderMessage()}
-                <Form loading={this.state.loading} onSubmit={this.onSubmit.bind(this)} value={this.state.form} onChange={this.onFormChange.bind(this)}>
+                <Form loading={this.state.loading} onSubmit={this.onSubmit.bind(this)} value={this.state.form} onChange={(form) => this.setState({form})}>
                     <FormField name="title" label={i18n('TITLE')} fieldProps={{size: 'large'}} required/>
                     <FormField name="allow-attachments" label={i18n('ALLOW_FILE_ATTACHMENTS')} fieldProps={{size: 'large'}}/>
-                    <FormField name="no-reply-email" label={i18n('NO_REPLY_EMAIL')} fieldProps={{size: 'large'}}/>
+                    <FormField name="no-reply-email" label={i18n('NOREPLY_EMAIL')} fieldProps={{size: 'large'}}/>
                     <FormField name="smtp-host" label={i18n('SMTP_SERVER')} fieldProps={{size: 'large'}}/>
-                    <FormField name="smtp-port" label={i18n('SMTP_PORT')} fieldProps={{size: 'small'}}/>
+                    <FormField name="smtp-port" label={i18n('PORT')} fieldProps={{size: 'small'}}/>
                     <FormField name="smtp-user" label={i18n('SMTP_USER')} fieldProps={{size: 'large'}}/>
                     <FormField name="smtp-password" label={i18n('SMTP_PASSWORD')} fieldProps={{size: 'large', password: true}}/>
                     <Button className="install-step-5__test-connection" size="medium" onClick={this.onTestSMTPClick.bind(this)}>
@@ -70,14 +69,14 @@ class InstallStep5Settings extends React.Component {
         if(this.state.smtpConnection !== null) {
             if(this.state.smtpConnection) {
                 message = (
-                    <Message className="install-step-5__message" type="success">
+                    <Message className="install-step-5__smtp-message" type="success">
                         {i18n('SMTP_CONNECTION_SUCCESS')}
                     </Message>
                 );
             } else {
                 message = (
-                    <Message className="install-step-5__message" type="error">
-                        {i18n('ERROR_SMTP_CONNECTION')}
+                    <Message className="install-step-5__smtp-message" type="error">
+                        {i18n('SMTP_CONNECTION_ERROR')}
                     </Message>
                 );
             }

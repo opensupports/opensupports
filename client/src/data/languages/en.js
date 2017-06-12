@@ -239,7 +239,7 @@ export default {
     'STEP_2_DESCRIPTION': 'Here are listed the requirements for running OpenSupports. Please make sure that all requirements are satisfied.',
     'STEP_3_DESCRIPTION': 'Please fill the MySQL database configuration.',
     'STEP_4_DESCRIPTION': 'Please select your user system preferences.',
-    'STEP_5_DESCRIPTION': 'Please select your system preferences.',
+    'STEP_5_DESCRIPTION': 'Please select your general system preferences.',
     'STEP_6_DESCRIPTION': 'Please configure the administrator account.',
     'STEP_7_DESCRIPTION': 'Installation is completed.',
 
@@ -356,5 +356,9 @@ export default {
     'LEFT_EMPTY_DATABASE': 'Left empty for automatic database creation',
     'REMEMBER_ME': 'Remember me',
     'EMAIL_LOWERCASE': 'email',
-    'PASSWORD_LOWERCASE': 'password'
+    'PASSWORD_LOWERCASE': 'password',
+    'SYSTEM_SETTINGS': 'System settings',
+    'TEST_SMTP_CONNECTION': 'Test SMTP connection',
+    'SMTP_CONNECTION_SUCCESS': 'SMTP credentials are valid.',
+    'SMTP_CONNECTION_ERROR': 'Can\'t connect to SMTP server.'
 };

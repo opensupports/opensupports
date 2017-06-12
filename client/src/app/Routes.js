@@ -57,7 +57,7 @@ import InstallStep1Language from 'app/install/install-step-1-language';
 import InstallStep2Requirements from 'app/install/install-step-2-requirements';
 import InstallStep3Database from 'app/install/install-step-3-database';
 import InstallStep4UserSystem from 'app/install/install-step-4-user-system';
-import InstallStep5Settings from 'app/install/install-step-5-user-system';
+import InstallStep5Settings from 'app/install/install-step-5-settings';
 import InstallStep6Admin from 'app/install/install-step-6-admin';
 import InstallStep7Completed from 'app/install/install-step-7-completed';
 
