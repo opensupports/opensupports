@@ -18,7 +18,7 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TICKET
- * 
+ *
  * @apiSuccess {Object} data Empty object
  *
  */
@@ -52,8 +52,7 @@ class CloseController extends Controller {
                     ],
                     'csrf_token' => [
                         'validation' => DataValidator::equals($session->getToken()),
-                        'error' => Controller::request('csrf_token') . ' != ' . $session->getToken()
-
+                    	'error' => ERRORS::INVALID_TOKEN
                     ]
                 ]
             ];
@@ -76,18 +75,17 @@ class CloseController extends Controller {
 
         $this->sendMail();
         Log::createLog('CLOSE', $this->ticket->ticketNumber);
-        
+
         Response::respondSuccess();
     }
 
     private function shouldDenyPermission() {
-        if(Controller::isUserSystemEnabled() || Controller::isStaffLogged()) {
-            $user = Controller::getLoggedUser();
-
-            return (!Controller::isStaffLogged() && $this->ticket->author->id !== $user->id) ||
-                   (Controller::isStaffLogged() && $this->ticket->owner && $this->ticket->owner->id !== $user->id);
+        if(Controller::isStaffLogged()) {
+        	return $this->ticket->owner && $this->ticket->owner->id !== Controller::getLoggedUser()->id;
+        } else if(Controller::isUserSystemEnabled()) {
+        	return $this->ticket->author->id !== Controller::getLoggedUser()->id;
         } else {
-            return $this->ticket->ticket_number != Session::getInstance()->getTicketNumber();
+        	return false;
         }
     }
 
