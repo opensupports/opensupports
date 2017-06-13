@@ -52,7 +52,7 @@ class ConfigReducer extends Reducer {
     onUserSystemSettingsChange(state, payload) {
         return _.extend({}, state, {
             'user-system-enabled': !!(payload['user-system-enabled'] * 1),
-            'allow-attachments': !!(payload['allow-attachments'] * 1)
+            'registration': !!(payload['registration'] * 1)
         });
     }
 

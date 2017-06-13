@@ -285,6 +285,7 @@ export default {
     'EDIT_PROFILE_VIEW_DESCRIPTION': 'Burada e-postanızı veya şifrenizi değiştirerek kullanıcıyı düzenleyebilirsiniz.',
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Bir kullanıcı sisteminin kullanımını etkinleştirir / devre dışı bırakır. Devre dışı bırakırsanız, tüm kullanıcılar silinir ancak biletler muhafaza edilir. Etkinleştirirseniz, mevcut biletler kullanıcıları oluşturulur.',
     'CSV_DESCRIPTION': 'CSV dosyasının 3 sütun olması gerekir: e-posta, şifre, ad. Satır sayısı sınırı yoktur. Dosya satır başına bir kullanıcı oluşturulur.',
+    'SMTP_SERVER_DESCRIPTION': 'SMTP sunucusunun yapılandırması, uygulamanın postalar göndermesine izin verir. Onu yapılandırmazsanız, OpenSupports tarafından hiçbir e-posta gönderilmeyecektir',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-posta veya şifre geçersiz',
@@ -355,5 +356,8 @@ export default {
     'LEFT_EMPTY_DATABASE': 'Otomatik veritabanı oluşturulması için boş bırakıldı',
     'REMEMBER_ME': 'Hatırlamak',
     'EMAIL_LOWERCASE': 'e-posta',
-    'PASSWORD_LOWERCASE': 'parola'
+    'PASSWORD_LOWERCASE': 'parola',
+    'TEST_SMTP_CONNECTION': 'SMTP bağlantısını test et',
+    'SMTP_CONNECTION_SUCCESS': 'SMTP kimlik bilgileri geçerlidir.',
+    'SMTP_CONNECTION_ERROR': 'SMTP sunucusuna bağlanılamıyor.'
 };
