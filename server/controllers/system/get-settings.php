@@ -52,7 +52,8 @@ class GetSettingsController extends Controller {
                     'registration' => Setting::getSetting('registration')->getValue(),
                     'departments' => Department::getDepartmentNames(),
                     'supportedLanguages' => Language::getSupportedLanguages(),
-                    'allowedLanguages' => Language::getAllowedLanguages()
+                    'allowedLanguages' => Language::getAllowedLanguages(),
+                    'store-prefix' => Setting::getSetting('store-prefix')
                 ];
             } else {
                 $settingsList = [
