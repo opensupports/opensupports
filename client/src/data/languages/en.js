@@ -239,8 +239,9 @@ export default {
     'STEP_2_DESCRIPTION': 'Here are listed the requirements for running OpenSupports. Please make sure that all requirements are satisfied.',
     'STEP_3_DESCRIPTION': 'Please fill the MySQL database configuration.',
     'STEP_4_DESCRIPTION': 'Please select your user system preferences.',
-    'STEP_5_DESCRIPTION': 'Please configure the administrator account.',
-    'STEP_6_DESCRIPTION': 'Installation is completed.',
+    'STEP_5_DESCRIPTION': 'Please select your general system preferences.',
+    'STEP_6_DESCRIPTION': 'Please configure the administrator account.',
+    'STEP_7_DESCRIPTION': 'Installation is completed.',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
@@ -285,6 +286,7 @@ export default {
     'EDIT_PROFILE_VIEW_DESCRIPTION': 'Here you can edit your user by changing your email or your password.',
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Enable/disable the use of an user system. If you disable it, all users will be deleted but the tickets will be kept. If you enable it, the users of existent tickets will be created.',
     'CSV_DESCRIPTION': 'The CSV file must have 3 columns: email, password, name. There is no limit in row count. It will be created one user per row in the file.',
+    'SMTP_SERVER_DESCRIPTION': 'The configuration of the SMTP server allows the application to send mails. If you do not configure it, no emails will be sent by OpenSupports.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
@@ -355,5 +357,9 @@ export default {
     'LEFT_EMPTY_DATABASE': 'Left empty for automatic database creation',
     'REMEMBER_ME': 'Remember me',
     'EMAIL_LOWERCASE': 'email',
-    'PASSWORD_LOWERCASE': 'password'
+    'PASSWORD_LOWERCASE': 'password',
+    'SYSTEM_SETTINGS': 'System settings',
+    'TEST_SMTP_CONNECTION': 'Test SMTP connection',
+    'SMTP_CONNECTION_SUCCESS': 'SMTP credentials are valid.',
+    'SMTP_CONNECTION_ERROR': 'Can\'t connect to SMTP server.'
 };

@@ -14,6 +14,7 @@ const steps = [
     'SERVER_REQUIREMENTS',
     'DATABASE_CONFIGURATION',
     'USER_SYSTEM',
+    'SYSTEM_SETTINGS',
     'ADMIN_SETUP',
     'COMPLETED'
 ];
@@ -92,6 +93,8 @@ class InstallLayout extends React.Component {
             return 4;
         } else if(_.includes(pathname, 'step-6')) {
             return 5;
+        } else if(_.includes(pathname, 'step-7')) {
+            return 6;
         }
     }
 }

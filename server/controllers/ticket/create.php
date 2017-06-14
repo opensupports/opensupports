@@ -149,7 +149,7 @@ class CreateController extends Controller {
     }
 
     private function sendMail() {
-        $mailSender = new MailSender();
+        $mailSender = MailSender::getInstance();
 
         $mailSender->setTemplate(MailTemplate::TICKET_CREATED, [
             'to' => $this->email,
@@ -163,7 +163,7 @@ class CreateController extends Controller {
     }
 
     private function sendMailStaff($email) {
-        $mailSender = new MailSender();
+        $mailSender = MailSender::getInstance();
 
         $mailSender->setTemplate(MailTemplate::TICKET_CREATED_STAFF, [
             'to' => $email,

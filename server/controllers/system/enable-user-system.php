@@ -87,7 +87,7 @@ class EnableUserSystemController extends Controller {
 
         $userInstance->store();
 
-        $mailSender = new MailSender();
+        $mailSender = MailSender::getInstance();
         $mailSender->setTemplate(MailTemplate::USER_SYSTEM_ENABLED, [
             'to' => $email,
             'name' => $name,
