@@ -380,7 +380,49 @@ class InitialMails {
                     'subject' => '#{{ticketNumber}} 票已关闭 - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/ticket-closed-cn.html')
                 ]
+            ],
+            'TICKET_CREATED_STAFF' => [
+            'en' => [
+                'subject' => '#{{ticketNumber}} Ticket created - OpenSupports',
+                'body' => file_get_contents('data/mail-templates/ticket-created-staff-en.html')
+            ],
+            'es' => [
+                'subject' => '#{{ticketNumber}} Ticket creado - OpenSupports',
+                'body' => file_get_contents('data/mail-templates/ticket-created-staff-es.html')
+            ],
+            'de' => [
+                'subject' => '#{{ticketNumber}} Ticket erstellt - OpenSupports',
+                'body' => file_get_contents('data/mail-templates/ticket-created-staff-de.html')
+            ],
+            'fr' => [
+                'subject' => '#{{ticketNumber}} Ticket créé - OpenSupports',
+                'body' => file_get_contents('data/mail-templates/ticket-created-staff-fr.html')
+            ],
+            'in' => [
+                'subject' => '#{{ticketNumber}} tiket dibuat - OpenSupports',
+                'body' => file_get_contents('data/mail-templates/ticket-created-staff-in.html')
+            ],
+            'jp' => [
+                'subject' => '#{{ticketNumber}} チケットが作成されました - OpenSupports',
+                'body' => file_get_contents('data/mail-templates/ticket-created-staff-jp.html')
+            ],
+            'pt' => [
+                'subject' => '#{{ticketNumber}} Ticket criado - OpenSupports',
+                'body' => file_get_contents('data/mail-templates/ticket-created-staff-pt.html')
+            ],
+            'ru' => [
+                'subject' => '#{{ticketNumber}} Создан билет - OpenSupports',
+                'body' => file_get_contents('data/mail-templates/ticket-created-staff-ru.html')
+            ],
+            'tr' => [
+                'subject' => '#{{ticketNumber}} Bilet oluşturuldu - OpenSupports',
+                'body' => file_get_contents('data/mail-templates/ticket-created-staff-tr.html')
+            ],
+            'cn' => [
+                'subject' => '#{{ticketNumber}} 已创建票证 - OpenSupports',
+                'body' => file_get_contents('data/mail-templates/ticket-created-staff-cn.html')
             ]
+        ]
         ];
     }
 }

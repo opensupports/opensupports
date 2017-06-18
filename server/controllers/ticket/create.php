@@ -97,6 +97,13 @@ class CreateController extends Controller {
         if(!Controller::isUserSystemEnabled()) {
             $this->sendMail();
         }
+        
+        $staffs = Staff::find('send_email_on_new_ticket = 1');
+        foreach ($staffs as $staff) {
+            if($staff->sharedDepartmentList->includesId(Controller::request('departmentId'))) {
+                $this->sendMailStaff($staff->email);
+            }
+        }
 
         Log::createLog('CREATE_TICKET', $this->ticketNumber);
         Response::respondSuccess([
@@ -150,6 +157,19 @@ class CreateController extends Controller {
             'ticketNumber' => $this->ticketNumber,
             'title' => $this->title,
             'url' => Setting::getSetting('url')->getValue()
+        ]);
+
+        $mailSender->send();
+    }
+
+    private function sendMailStaff($email) {
+        $mailSender = MailSender::getInstance();
+
+        $mailSender->setTemplate(MailTemplate::TICKET_CREATED_STAFF, [
+            'to' => $email,
+            'name' => $this->name,
+            'ticketNumber' => $this->ticketNumber,
+            'title' => $this->title
         ]);
 
         $mailSender->send();

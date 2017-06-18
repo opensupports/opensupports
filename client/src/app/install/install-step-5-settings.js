@@ -30,16 +30,19 @@ class InstallStep5Settings extends React.Component {
                 {this.renderMessage()}
                 <Form loading={this.state.loading} onSubmit={this.onSubmit.bind(this)} value={this.state.form} onChange={(form) => this.setState({form})}>
                     <FormField name="title" label={i18n('TITLE')} fieldProps={{size: 'large'}} required/>
-                    <FormField name="allow-attachments" label={i18n('ALLOW_FILE_ATTACHMENTS')} fieldProps={{size: 'large'}}/>
+                    <FormField className="install-step-5__attachments-field" name="allow-attachments" label={i18n('ALLOW_FILE_ATTACHMENTS')} field="checkbox" fieldProps={{size: 'large'}}/>
                     <FormField name="no-reply-email" label={i18n('NOREPLY_EMAIL')} fieldProps={{size: 'large'}}/>
-                    <FormField name="smtp-host" label={i18n('SMTP_SERVER')} fieldProps={{size: 'large'}}/>
-                    <FormField name="smtp-port" label={i18n('PORT')} fieldProps={{size: 'small'}}/>
-                    <FormField name="smtp-user" label={i18n('SMTP_USER')} fieldProps={{size: 'large'}}/>
-                    <FormField name="smtp-password" label={i18n('SMTP_PASSWORD')} fieldProps={{size: 'large', password: true}}/>
-                    <Button className="install-step-5__test-connection" size="medium" onClick={this.onTestSMTPClick.bind(this)}>
-                        {i18n('TEST_SMTP_CONNECTION')}
-                    </Button>
-                    {this.renderMessageSMTP()}
+                    <div className="install-step-5__smtp-block">
+                        <Header title={i18n('SMTP_SERVER')} description={i18n('SMTP_SERVER_DESCRIPTION')} />
+                        <FormField name="smtp-host" label={i18n('SMTP_SERVER')} fieldProps={{size: 'large'}}/>
+                        <FormField name="smtp-port" label={i18n('PORT')} fieldProps={{size: 'small'}}/>
+                        <FormField name="smtp-user" label={i18n('SMTP_USER')} fieldProps={{size: 'large'}}/>
+                        <FormField name="smtp-password" label={i18n('SMTP_PASSWORD')} fieldProps={{size: 'large', password: true}}/>
+                        <Button className="install-step-5__test-connection" size="medium" onClick={this.onTestSMTPClick.bind(this)}>
+                            {i18n('TEST_SMTP_CONNECTION')}
+                        </Button>
+                        {this.renderMessageSMTP()}
+                    </div>
                     <div className="install-step-5__buttons">
                         <SubmitButton className="install-step-5__next" size="medium" type="secondary">{i18n('NEXT')}</SubmitButton>
                         <Button className="install-step-5__previous" size="medium" onClick={this.onPreviousClick.bind(this)}>{i18n('PREVIOUS')}</Button>

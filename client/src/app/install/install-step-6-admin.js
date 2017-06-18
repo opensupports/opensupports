@@ -28,7 +28,7 @@ class InstallStep6Admin extends React.Component {
                     <FormField name="email" validation="EMAIL" label={i18n('ADMIN_EMAIL')} fieldProps={{size: 'large'}} required/>
                     <FormField name="password" validation="PASSWORD" label={i18n('ADMIN_PASSWORD')} infoMessage={i18n('ADMIN_PASSWORD_DESCRIPTION')} fieldProps={{size: 'large', autoComplete: 'off'}} required/>
                     <div className="install-step-6__buttons">
-                        <SubmitButton className="install-step-5__next" size="medium" type="secondary">{i18n('NEXT')}</SubmitButton>
+                        <SubmitButton className="install-step-6__next" size="medium" type="secondary">{i18n('NEXT')}</SubmitButton>
                     </div>
                 </Form>
             </div>

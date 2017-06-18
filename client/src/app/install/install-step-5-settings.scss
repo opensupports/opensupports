@@ -12,4 +12,23 @@
         margin-left: 230px;
         min-width: 70px;
     }
+
+    &__smtp-block {
+        text-align: center;
+        background-color: $very-light-grey;
+        padding: 30px;
+        margin-bottom: 30px;
+
+        .header__title {
+            font-size: $font-size--md;
+        }
+    }
+
+    &__attachments-field {
+        margin-bottom: 15px;
+    }
+
+    &__smtp-message {
+        margin-top: 30px;
+    }
 }

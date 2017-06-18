@@ -31,14 +31,16 @@ class Staff extends DataStore {
             'sharedDepartmentList',
             'sharedTicketList',
             'lastLogin',
-            'ownStatList'
+            'ownStatList',
+            'sendEmailOnNewTicket'
         ];
     }
 
     public function getDefaultProps() {
         return [
             'level' => 1,
-            'ownStatList' => new DataStoreList()
+            'ownStatList' => new DataStoreList(),
+            'sendEmailOnNewTicket' => 0 
         ];
     }
 
@@ -55,7 +57,8 @@ class Staff extends DataStore {
             'level' => $this->level,
             'departments' => $this->sharedDepartmentList->toArray(),
             'tickets' => $this->sharedTicketList->toArray(),
-            'lastLogin' => $this->lastLogin
+            'lastLogin' => $this->lastLogin ,
+            'sendEmailOnNewTicket' => $this->sendEmailOnNewTicket
         ];
     }
 }

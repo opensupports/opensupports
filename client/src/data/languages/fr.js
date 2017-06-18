@@ -285,6 +285,7 @@ export default {
     'EDIT_PROFILE_VIEW_DESCRIPTION': 'Ici, vous pouvez modifier votre utilisateur en changeant votre adresse e-mail ou votre mot de passe.',
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Activer / désactiver l\'utilisation d\'un système utilisateur. Si vous le désactivez, tous les utilisateurs seront supprimés, mais les tickets seront conservés. Si vous l\'activez, les utilisateurs des tickets existants seront créés.',
     'CSV_DESCRIPTION': 'Le fichier CSV doit comporter 3 colonnes: email, mot de passe, nom. Il n\'y a pas de limite dans le nombre de lignes. Il sera créé un utilisateur par ligne dans le fichier.',
+    'SMTP_SERVER_DESCRIPTION': 'La configuration du serveur SMTP permet à l\'application d\'envoyer des mails. Si vous ne le configurez pas, aucun service d\'email ne sera envoyé par OpenSupports.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-mail ou mot de passe invalide',
@@ -355,5 +356,8 @@ export default {
     'LEFT_EMPTY_DATABASE': 'Laisser vide pour la création automatique de la base de données',
     'REMEMBER_ME': 'Se souvenir de moi',
     'EMAIL_LOWERCASE': 'email',
-    'PASSWORD_LOWERCASE': 'mot de passe'
+    'PASSWORD_LOWERCASE': 'mot de passe',
+    'TEST_SMTP_CONNECTION': 'Test de connexion SMTP',
+    'SMTP_CONNECTION_SUCCESS': 'Les informations d\'identification SMTP sont valides.',
+    'SMTP_CONNECTION_ERROR': 'Ne peut pas se connecter au serveur SMTP.'
 };

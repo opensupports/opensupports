@@ -286,6 +286,7 @@ export default {
     'EDIT_PROFILE_VIEW_DESCRIPTION': 'Here you can edit your user by changing your email or your password.',
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Enable/disable the use of an user system. If you disable it, all users will be deleted but the tickets will be kept. If you enable it, the users of existent tickets will be created.',
     'CSV_DESCRIPTION': 'The CSV file must have 3 columns: email, password, name. There is no limit in row count. It will be created one user per row in the file.',
+    'SMTP_SERVER_DESCRIPTION': 'The configuration of the SMTP server allows the application to send mails. If you do not configure it, no emails will be sent by OpenSupports.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',

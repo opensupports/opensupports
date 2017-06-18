@@ -93,6 +93,8 @@ class InstallLayout extends React.Component {
             return 4;
         } else if(_.includes(pathname, 'step-6')) {
             return 5;
+        } else if(_.includes(pathname, 'step-7')) {
+            return 6;
         }
     }
 }

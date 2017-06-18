@@ -64,7 +64,8 @@ class InitAdminController extends Controller {
             'profilePic' => '',
             'level' => 3,
             'sharedDepartmentList' => Department::getAll(),
-            'sharedTicketList' => []
+            'sharedTicketList' => [],
+            'sendEmailOnNewTicket' => 1
         ]);
         
         foreach(Department::getAll() as $department) {
