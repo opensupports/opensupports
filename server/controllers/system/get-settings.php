@@ -53,7 +53,7 @@ class GetSettingsController extends Controller {
                     'departments' => Department::getDepartmentNames(),
                     'supportedLanguages' => Language::getSupportedLanguages(),
                     'allowedLanguages' => Language::getAllowedLanguages(),
-                    'store-prefix' => Setting::getSetting('store-prefix')
+                    'session-prefix' => Setting::getSetting('session-prefix')
                 ];
             } else {
                 $settingsList = [
@@ -70,7 +70,7 @@ class GetSettingsController extends Controller {
                     'supportedLanguages' => Language::getSupportedLanguages(),
                     'allowedLanguages' => Language::getAllowedLanguages(),
                     'user-system-enabled' => Setting::getSetting('user-system-enabled')->getValue() * 1,
-                    'store-prefix' => Setting::getSetting('store-prefix')
+                    'session-prefix' => Setting::getSetting('session-prefix')
                 ];
             }
         }

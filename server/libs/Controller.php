@@ -14,6 +14,7 @@ abstract class Controller {
     public function getHandler() {
         return function () {
             try {
+                Session::getInstance()->setSessionPrefix(Setting::getSetting('session-prefix')->getValue());
                 $this->validate();
                 $this->handler();
             } catch (\Exception $exception) {

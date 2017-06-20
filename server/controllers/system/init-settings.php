@@ -79,7 +79,7 @@ class InitSettingsController extends Controller {
             'file-gap' => Hashing::generateRandomPrime(1000000, 9999999),
             'file-first-number' => Hashing::generateRandomNumber(1000000, 9999999),
             'file-quantity' => 0,
-            'store-prefix' => 'opensupports-'.Hashing::generateRandomToken().'_'
+            'session-prefix' => 'opensupports-'.Hashing::generateRandomToken().'_'
         ]);
     }
 
