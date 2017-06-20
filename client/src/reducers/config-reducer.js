@@ -19,7 +19,8 @@ class ConfigReducer extends Reducer {
             'CHANGE_LANGUAGE': this.onLanguageChange,
             'INIT_CONFIGS_FULFILLED': this.onInitConfigs,
             'CHECK_INSTALLATION_FULFILLED': this.onInstallationChecked,
-            'UPDATE_DATA_FULFILLED': this.onInitConfigs
+            'UPDATE_DATA_FULFILLED': this.onInitConfigs,
+            'UPDATE_USER_SYSTEM_SETTINGS': this.onUserSystemSettingsChange
         };
     }
 
@@ -45,6 +46,13 @@ class ConfigReducer extends Reducer {
             'allow-attachments': !!(payload.data['allow-attachments']* 1),
             'maintenance-mode': !!(payload.data['maintenance-mode']* 1),
             initDone: true
+        });
+    }
+
+    onUserSystemSettingsChange(state, payload) {
+        return _.extend({}, state, {
+            'user-system-enabled': !!(payload['user-system-enabled'] * 1),
+            'registration': !!(payload['registration'] * 1)
         });
     }
 

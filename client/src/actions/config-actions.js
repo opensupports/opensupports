@@ -46,5 +46,12 @@ export default {
                 data: {}
             })
         };
+    },
+
+    updateUserSystemSettings(payload) {
+        return {
+            type: 'UPDATE_USER_SYSTEM_SETTINGS',
+            payload: payload
+        };
     }
 };

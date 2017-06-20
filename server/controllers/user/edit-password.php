@@ -49,7 +49,7 @@ class EditPassword extends Controller {
             $user->password = Hashing::hashPassword($newPassword);
             $user->store();
 
-            $mailSender = new MailSender();
+            $mailSender = MailSender::getInstance();
             $mailSender->setTemplate('USER_PASSWORD', [
                 'to'=>$user->email,
                 'name'=>$user->name

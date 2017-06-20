@@ -285,6 +285,7 @@ export default {
     'EDIT_PROFILE_VIEW_DESCRIPTION': 'ここでは、電子メールまたはパスワードを変更してユーザーを編集できます。',
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'ユーザシステムの使用を有効/無効にします。無効にすると、すべてのユーザーは削除されますが、チケットは保持されます。これを有効にすると、既存のチケットのユーザーが作成されます。',
     'CSV_DESCRIPTION': 'CSVファイルには、電子メール、パスワード、名前の3つの列が必要です。行数に制限はありません。ファイル内で行ごとに1人ずつ作成されます',
+    'SMTP_SERVER_DESCRIPTION': 'SMTPサーバーの設定により、アプリケーションはメールを送信できます。 これを設定しないと、OpenSupportsから電子メールは送信されません。',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': '電子メールまたはパスワードが無効です',
@@ -355,6 +356,9 @@ export default {
     'LEFT_EMPTY_DATABASE': '自動データベース作成のために空のままにする',
     'REMEMBER_ME': '覚えている',
     'EMAIL_LOWERCASE': 'Eメール',
-    'PASSWORD_LOWERCASE': 'パスワード'
+    'PASSWORD_LOWERCASE': 'パスワード',
+    'TEST_SMTP_CONNECTION': 'SMTP接続をテストする',
+    'SMTP_CONNECTION_SUCCESS': 'SMTP資格情報が有効です。',
+    'SMTP_CONNECTION_ERROR': 'SMTPサーバーに接続できません。'
 };
 

@@ -102,7 +102,10 @@ class SignUpController extends Controller {
         }
 
         $userId = $this->createNewUserAndRetrieveId();
-        $this->sendRegistrationMail();
+
+        if(MailSender::getInstance()->isConnected()) {
+            $this->sendRegistrationMail();
+        }
 
         Response::respondSuccess([
             'userId' => $userId,
@@ -128,14 +131,14 @@ class SignUpController extends Controller {
             'tickets' => 0,
             'email' => $this->userEmail,
             'password' => Hashing::hashPassword($this->userPassword),
-            'verificationToken' => $this->verificationToken
+            'verificationToken' => (MailSender::getInstance()->isConnected()) ? $this->verificationToken : null
         ]);
 
         return $userInstance->store();
     }
     
     public function sendRegistrationMail() {
-        $mailSender = new MailSender();
+        $mailSender = MailSender::getInstance();
         
         $mailSender->setTemplate(MailTemplate::USER_SIGNUP, [
             'to' => $this->userEmail,

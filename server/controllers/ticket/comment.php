@@ -120,7 +120,7 @@ class CommentController extends Controller {
     }
 
     private function sendMail() {
-        $mailSender = new MailSender();
+        $mailSender = MailSender::getInstance();
 
         $mailSender->setTemplate(MailTemplate::TICKET_RESPONDED, [
             'to' => ($this->ticket->author) ? $this->ticket->author->email : $this->ticket->authorEmail,

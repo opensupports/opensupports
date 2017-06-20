@@ -285,6 +285,7 @@ export default {
     'EDIT_PROFILE_VIEW_DESCRIPTION': 'Aquí puedes editar tu usuario cambiando tu correo electrónico o tu contraseña.',
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Habilitar/Deshabilitar el uso de un sistema de usuario. Si lo deshabilitas, todos los usuarios serán eliminados pero los tickets serán guardados. Si lo habilitas, se crearán los usuarios de los tickets existentes.',
     'CSV_DESCRIPTION': 'El archivo CSV debe tener 3 columnas: correo electrónico, contraseña, nombre. No hay límite en el recuento de filas. Se creará un usuario por fila en el archivo.',
+    'SMTP_SERVER_DESCRIPTION': 'La configuracion de SMTP permite que la applicacion mande emails. Si no es configurado, ningún mail sera enviado OpenSupports.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email o contraseña inválida',
@@ -355,5 +356,8 @@ export default {
     'LEFT_EMPTY_DATABASE': 'Dejar vacío para la creación automática de bases de datos',
     'REMEMBER_ME': 'Recordarme',
     'EMAIL_LOWERCASE': 'email',
-    'PASSWORD_LOWERCASE': 'contraseña'
+    'PASSWORD_LOWERCASE': 'contraseña',
+    'TEST_SMTP_CONNECTION': 'Probar conexion de SMTP',
+    'SMTP_CONNECTION_SUCCESS': 'La credenciales de SMTP son correctas.',
+    'SMTP_CONNECTION_ERROR': 'No es posible conectarse al servidor de SMTP.'
 };
