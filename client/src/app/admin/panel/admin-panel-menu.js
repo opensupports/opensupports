@@ -48,7 +48,7 @@ class AdminPanelMenu extends React.Component {
     getGroups() {
         return this.getRoutes().map((group) => {
             return {
-                content: group.groupName,
+                content: <span className="admin-panel-menu__item-text">{group.groupName}</span>,
                 icon: group.icon
             };
         });
