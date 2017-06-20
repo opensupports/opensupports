@@ -78,7 +78,8 @@ class InitSettingsController extends Controller {
             'ticket-gap' => Hashing::generateRandomPrime(1000000, 9999999),
             'file-gap' => Hashing::generateRandomPrime(1000000, 9999999),
             'file-first-number' => Hashing::generateRandomNumber(1000000, 9999999),
-            'file-quantity' => 0
+            'file-quantity' => 0,
+            'session-prefix' => 'opensupports-'.Hashing::generateRandomToken().'_'
         ]);
     }
 

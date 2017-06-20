@@ -52,7 +52,8 @@ class GetSettingsController extends Controller {
                     'registration' => Setting::getSetting('registration')->getValue(),
                     'departments' => Department::getDepartmentNames(),
                     'supportedLanguages' => Language::getSupportedLanguages(),
-                    'allowedLanguages' => Language::getAllowedLanguages()
+                    'allowedLanguages' => Language::getAllowedLanguages(),
+                    'session-prefix' => Setting::getSetting('session-prefix')
                 ];
             } else {
                 $settingsList = [
@@ -68,7 +69,8 @@ class GetSettingsController extends Controller {
                     'departments' => Department::getDepartmentNames(),
                     'supportedLanguages' => Language::getSupportedLanguages(),
                     'allowedLanguages' => Language::getAllowedLanguages(),
-                    'user-system-enabled' => Setting::getSetting('user-system-enabled')->getValue() * 1
+                    'user-system-enabled' => Setting::getSetting('user-system-enabled')->getValue() * 1,
+                    'session-prefix' => Setting::getSetting('session-prefix')
                 ];
             }
         }

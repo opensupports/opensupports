@@ -2,7 +2,8 @@
 
 class Session {
     static $instance = null;
-
+    private $sessionPrefix = '';
+    
     private function __construct() {
         $this->initSession();
     }
@@ -65,14 +66,14 @@ class Session {
     }
 
     public function store($key, $value) {
-        $_SESSION[$key] = $value;
+        $_SESSION[$this->sessionPrefix . $key] = $value;
     }
 
     private function getStoredData($key) {
         $storedValue = null;
 
-        if (array_key_exists($key, $_SESSION)) {
-            $storedValue = $_SESSION[$key];
+        if (array_key_exists($this->sessionPrefix . $key, $_SESSION)) {
+            $storedValue = $_SESSION[$this->sessionPrefix . $key];
         }
 
         return $storedValue;
@@ -80,5 +81,9 @@ class Session {
     
     public function isLoggedWithId($userId) {
         return ($this->getStoredData('userId') === $userId);
+    }
+
+    public function setSessionPrefix($prefix) {
+        $this->sessionPrefix = $prefix;
     }
 }
