@@ -19,26 +19,26 @@ describe('sessionStore library', function () {
 
     it('should get, set and remove items from LocalStorage', function () {
         sessionStore.getItem('SOME_KEY');
-        expect(LocalStorageMock.getItem).to.have.been.calledWith('SOME_KEY');
+        expect(LocalStorageMock.getItem).to.have.been.calledWith(root + '_SOME_KEY');
 
         sessionStore.setItem('SOME_KEY', 'SOME_VALUE');
-        expect(LocalStorageMock.setItem).to.have.been.calledWith('SOME_KEY', 'SOME_VALUE');
+        expect(LocalStorageMock.setItem).to.have.been.calledWith(root + '_SOME_KEY', 'SOME_VALUE');
 
         sessionStore.removeItem('SOME_KEY');
-        expect(LocalStorageMock.removeItem).to.have.been.calledWith('SOME_KEY');
+        expect(LocalStorageMock.removeItem).to.have.been.calledWith(root + '_SOME_KEY');
     });
 
     it('should create session correctly', function () {
         sessionStore.createSession(14, 'TOKEN');
 
-        expect(LocalStorageMock.setItem).to.have.been.calledWith('userId', 14);
-        expect(LocalStorageMock.setItem).to.have.been.calledWith('token', 'TOKEN');
+        expect(LocalStorageMock.setItem).to.have.been.calledWith(root + '_userId', 14);
+        expect(LocalStorageMock.setItem).to.have.been.calledWith(root + '_token', 'TOKEN');
     });
 
     it('should return session data', function () {
         LocalStorageMock.getItem = function (key) {
-            if (key === 'userId') return 'USER_ID';
-            if (key === 'token') return 'TOKEN';
+            if (key === root + '_userId') return 'USER_ID';
+            if (key === root + '_token') return 'TOKEN';
         };
         let sessionData = sessionStore.getSessionData();
 
@@ -59,8 +59,8 @@ describe('sessionStore library', function () {
     it('should clear session data if session is closed', function () {
         sessionStore.closeSession();
 
-        expect(LocalStorageMock.removeItem).to.have.been.calledWith('userId');
-        expect(LocalStorageMock.removeItem).to.have.been.calledWith('token');
+        expect(LocalStorageMock.removeItem).to.have.been.calledWith(root + '_userId');
+        expect(LocalStorageMock.removeItem).to.have.been.calledWith(root + '_token');
     });
 
     it('should store remember data', function () {
@@ -70,26 +70,26 @@ describe('sessionStore library', function () {
             expiration: 20160623
         });
 
-        expect(LocalStorageMock.setItem).to.have.been.calledWith('rememberData-token', 'SOME_TOKEN');
-        expect(LocalStorageMock.setItem).to.have.been.calledWith('rememberData-userId', 12);
-        expect(LocalStorageMock.setItem).to.have.been.calledWith('rememberData-expiration', 20160623);
+        expect(LocalStorageMock.setItem).to.have.been.calledWith(root + '_rememberData-token', 'SOME_TOKEN');
+        expect(LocalStorageMock.setItem).to.have.been.calledWith(root + '_rememberData-userId', 12);
+        expect(LocalStorageMock.setItem).to.have.been.calledWith(root + '_rememberData-expiration', 20160623);
     });
 
     it('should inform if remember expired', function () {
-        LocalStorageMock.getItem = (key) => (key === 'rememberData-expiration') ? 20160505 : null;
+        LocalStorageMock.getItem = (key) => (key === root + '_rememberData-expiration') ? 20160505 : null;
         date.getCurrentDate.returns(20160506);
         expect(sessionStore.isRememberDataExpired()).to.equal(true);
 
-        LocalStorageMock.getItem = (key) => (key === 'rememberData-expiration') ? 20160505 : null;
+        LocalStorageMock.getItem = (key) => (key === root + '_rememberData-expiration') ? 20160505 : null;
         date.getCurrentDate.returns(20160503);
         expect(sessionStore.isRememberDataExpired()).to.equal(false);
     });
 
     it('should return all remember data', function () {
         LocalStorageMock.getItem = function (key) {
-            if (key === 'rememberData-userId') return 'USER_ID';
-            if (key === 'rememberData-token') return 'TOKEN';
-            if (key === 'rememberData-expiration') return 'EXPIRATION';
+            if (key === root + '_rememberData-userId') return 'USER_ID';
+            if (key === root + '_rememberData-token') return 'TOKEN';
+            if (key === root + '_rememberData-expiration') return 'EXPIRATION';
         };
         let rememberData = sessionStore.getRememberData();
 
@@ -103,8 +103,8 @@ describe('sessionStore library', function () {
     it('should clear remember data', function () {
         sessionStore.clearRememberData();
 
-        expect(LocalStorageMock.removeItem).to.have.been.calledWith('rememberData-userId');
-        expect(LocalStorageMock.removeItem).to.have.been.calledWith('rememberData-token');
-        expect(LocalStorageMock.removeItem).to.have.been.calledWith('rememberData-expiration');
+        expect(LocalStorageMock.removeItem).to.have.been.calledWith(root + '_rememberData-userId');
+        expect(LocalStorageMock.removeItem).to.have.been.calledWith(root + '_rememberData-token');
+        expect(LocalStorageMock.removeItem).to.have.been.calledWith(root + '_rememberData-expiration');
     });
 });

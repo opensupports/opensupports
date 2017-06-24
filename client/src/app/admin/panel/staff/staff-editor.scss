@@ -141,8 +141,15 @@
 
     &__update-email,
     &__update-password,
-    &__update-level {
+    &__update-level,
+    &__update-email-setting {
         position: relative;
+    }
+
+    &__update-email-setting {
+        margin-top: 28px;
+        margin-bottom: 20px;
+        text-align: left;
     }
 
     &__departments {

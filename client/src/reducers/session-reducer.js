@@ -113,7 +113,8 @@ class SessionReducer extends Reducer {
             userProfilePic: userData.profilePic,
             userLevel: userData.level,
             userDepartments: userData.departments,
-            userTickets: userData.tickets
+            userTickets: userData.tickets,
+            userSendEmailOnNewTicket: userData.sendEmailOnNewTicket
         });
     }
     
@@ -131,7 +132,8 @@ class SessionReducer extends Reducer {
             userLevel: userData.level,
             userDepartments: userData.departments,
             userTickets: userData.tickets,
-            userId: userId
+            userId: userId,
+            userSendEmailOnNewTicket: userData.sendEmailOnNewTicket
         });
     }
 

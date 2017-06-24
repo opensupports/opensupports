@@ -176,6 +176,8 @@ export default {
     'HOME': 'ホーム',
     'TICKET_NUMBER': 'チケット番号',
     'NEXT': '次',
+    'SEND_EMAIL_ON_NEW_TICKET': 'メールを送信毎に新しいチケット',
+    'UPDATE': '更新',
     
     'CHART_CREATE_TICKET': '作成されたチケット',
     'CHART_CLOSE': 'チケットが閉じられました',

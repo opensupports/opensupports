@@ -29,6 +29,7 @@ class AdminPanelMyAccount extends React.Component {
             profilePic: this.props.userProfilePic,
             level: this.props.userLevel * 1,
             departments: this.props.userDepartments,
+            sendEmailOnNewTicket: this.props.userSendEmailOnNewTicket,
             onChange: () => this.props.dispatch(SessionActions.getUserData(null, null, true))
         };
     }

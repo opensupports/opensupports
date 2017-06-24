@@ -176,6 +176,8 @@ export default {
     'HOME': 'Ev',
     'TICKET_NUMBER': 'Bilet numarası',
     'NEXT': 'Sonraki',
+    'SEND_EMAIL_ON_NEW_TICKET': 'Yeni biletle e-posta gönder',
+    'UPDATE': 'Güncelleştirme',
     
     'CHART_CREATE_TICKET': 'Biletler oluşturuldu',
     'CHART_CLOSE': 'Biletler kapandı',
