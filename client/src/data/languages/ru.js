@@ -176,6 +176,8 @@ export default {
     'HOME': 'Главная',
     'TICKET_NUMBER': 'Номер билета',
     'NEXT': 'следующий',
+    'SEND_EMAIL_ON_NEW_TICKET': 'Отправить письмо на новый билет',
+    'UPDATE': 'Обновить',
 
     'CHART_CREATE_TICKET': 'Билеты создано',
     'CHART_CLOSE': ' Билеты закрыты',

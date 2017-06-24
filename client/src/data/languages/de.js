@@ -176,6 +176,8 @@ export default {
     'HOME': 'Zuhause',
     'TICKET_NUMBER': 'Ticketnummer',
     'NEXT': 'Nächster',
+    'SEND_EMAIL_ON_NEW_TICKET': 'Email für jedes neues Ticket',
+    'UPDATE': 'Aktualisierung',
 
     'CHART_CREATE_TICKET': 'Tickets erstellt',
     'CHART_CLOSE': 'Tickets geschlossen',
