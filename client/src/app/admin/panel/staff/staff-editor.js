@@ -27,6 +27,7 @@ class StaffEditor extends React.Component {
         level: React.PropTypes.number.isRequired,
         tickets: React.PropTypes.array.isRequired,
         departments: React.PropTypes.array.isRequired,
+        sendEmailOnNewTicket: React.PropTypes.bool,
         onChange: React.PropTypes.func,
         onDelete: React.PropTypes.func
     };
@@ -40,7 +41,8 @@ class StaffEditor extends React.Component {
         level: this.props.level - 1,
         message: null,
         loadingPicture: false,
-        departments: this.getUserDepartments()
+        departments: this.getUserDepartments(),
+        sendEmailOnNewTicket: this.props.sendEmailOnNewTicket
     };
     
     render() {
@@ -95,7 +97,7 @@ class StaffEditor extends React.Component {
                                 <FormField name="rpassword" validation="REPEAT_PASSWORD" required label={i18n('REPEAT_PASSWORD')} fieldProps={{size: 'large', password: true}}/>
                                 <SubmitButton size="medium" className="staff-editor__submit-button">{i18n('UPDATE_PASSWORD')}</SubmitButton>
                             </Form>
-                            {(!this.props.myAccount) ? this.renderLevelForm() : null}
+                            {(this.props.myAccount) ? this.renderSendEmailOnNewTicketForm() : this.renderLevelForm()}
                             <span className="separator staff-editor__separator" />
                         </div>
                     </div>
@@ -137,12 +139,27 @@ class StaffEditor extends React.Component {
             case 'DEPARTMENTS':
                 message = 'DEPARTMENTS_UPDATED';
                 break;
+            case 'EMAIL_SETTING':
+                message = 'EMAIL_SETTING_UPDATED';
+                break;
             case 'FAIL':
                 message = 'FAILED_EDIT_STAFF';
                 break;
         }
 
         return <Message className="staff-editor__message" type={messageType}>{i18n(message)}</Message>;
+    }
+
+    renderSendEmailOnNewTicketForm() {
+        return (
+            <div>
+                <span className="separator staff-editor__separator"/>
+                <Form className="staff-editor__update-email-setting" label={i18n('EMAIL_SETTING')} values={{sendEmailOnNewTicket: this.state.sendEmailOnNewTicket}} onChange={form => this.setState({sendEmailOnNewTicket: form.sendEmailOnNewTicket})} onSubmit={this.onSubmit.bind(this, 'EMAIL_SETTING')}>
+                    <FormField name="sendEmailOnNewTicket" label={i18n('SEND_EMAIL_ON_NEW_TICKET')} field="checkbox" fieldProps={{size: 'large'}} />
+                    <SubmitButton size="medium" className="staff-editor__submit-button">{i18n('UPDATE')}</SubmitButton>
+                </Form>
+            </div>
+        );
     }
 
     renderLevelForm() {
@@ -273,6 +290,7 @@ class StaffEditor extends React.Component {
             path: '/staff/edit',
             data: {
                 staffId: this.props.staffId,
+                sendEmailOnNewTicket: form.sendEmailOnNewTicket,
                 email: form.email,
                 password: form.password,
                 level: (form.level !== undefined) ? form.level + 1 : null,

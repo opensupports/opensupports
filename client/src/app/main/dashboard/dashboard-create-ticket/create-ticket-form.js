@@ -37,7 +37,7 @@ class CreateTicketForm extends React.Component {
             departmentIndex: 0,
             email: '',
             name: '',
-            language: 'en'
+            language: this.props.language
         }
     };
 
@@ -158,6 +158,7 @@ class CreateTicketForm extends React.Component {
 
 export default connect((store) => {
     return {
+        language: store.config.language,
         allowAttachments: store.config['allow-attachments']
     };
 })(CreateTicketForm);

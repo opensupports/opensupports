@@ -53,6 +53,7 @@ class SessionStore {
     }
 
     storeConfigs(configs) {
+        this.setItem('session-prefix', configs['session-prefix']);
         this.setItem('language', configs.language);
         this.setItem('reCaptchaKey', configs.reCaptchaKey);
         this.setItem('departments', JSON.stringify(configs.departments));
@@ -106,15 +107,15 @@ class SessionStore {
     }
 
     getItem(key) {
-        return this.storage.getItem(key);
+        return this.storage.getItem(root + '_' + key);
     }
 
     setItem(key, value) {
-        return this.storage.setItem(key, (value !== undefined) ? value : '');
+        return this.storage.setItem(root + '_' + key, (value !== undefined) ? value : '');
     }
 
     removeItem(key) {
-        this.storage.removeItem(key);
+        this.storage.removeItem(root + '_' + key);
     }
 }
 
