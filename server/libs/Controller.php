@@ -2,6 +2,8 @@
 require_once 'libs/Validator.php';
 require_once 'models/Session.php';
 
+use RedBeanPHP\Facade as RedBean;
+
 abstract class Controller {
     private static $dataRequester;
 
@@ -14,7 +16,9 @@ abstract class Controller {
     public function getHandler() {
         return function () {
             try {
-                Session::getInstance()->setSessionPrefix(Setting::getSetting('session-prefix')->getValue());
+                if(RedBean::testConnection() && !Setting::isTableEmpty()) {
+                    Session::getInstance()->setSessionPrefix(Setting::getSetting('session-prefix')->getValue());
+                }
                 $this->validate();
                 $this->handler();
             } catch (\Exception $exception) {
