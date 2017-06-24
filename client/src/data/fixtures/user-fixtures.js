@@ -156,6 +156,7 @@ module.exports = [
                     name: 'Kurt Gödel',
                     email: 'kurt@currycurrylady.hs',
                     verified: false,
+                    sendEmailOnNewTicket: true,
                     tickets: _.times(13).map(() => {
                         return {
                             ticketNumber: '118551',
@@ -375,6 +376,7 @@ module.exports = [
                 data: {
                     name: 'Haskell Curry',
                     email: 'haskell@lambda.com',
+                    sendEmailOnNewTicket: true,
                     tickets: [
                         {
                             ticketNumber: '445441',

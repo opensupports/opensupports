@@ -11,6 +11,7 @@ module.exports = [
                     name: 'Emilia Clarke',
                     email: 'staff@opensupports.com',
                     profilePic: '',
+                    sendEmailOnNewTicket: true,
                     level: 3,
                     staff: true,
                     departments: [
