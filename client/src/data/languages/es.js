@@ -250,7 +250,7 @@ export default {
     'TICKETS_DESCRIPTION': 'Envíe un ticket a través de nuestro centro de soporte y obtenga respuesta de sus dudas, sugerencias y problemas.',
     'ARTICLES_DESCRIPTION': 'Echa un vistazo a nuestros artículos sobre temas comunes, guías y documentación.',
     'ACCOUNT_DESCRIPTION': 'Todos sus tickets están almacenados en el perfil de su cuenta. Mantenga un registro de todos los tickets envíados a nuestro equipo de soporte.',
-    'SUPPORT_CENTER_DESCRIPTION': 'Bienvenido a nuestro centro de soporte. Puede ponerse en contacto con nosotros a través de un sistema de tickets. Sus tickets serán contestadps por nuestro personal.',
+    'SUPPORT_CENTER_DESCRIPTION': 'Bienvenido a nuestro centro de soporte. Puede ponerse en contacto con nosotros a través de un sistema de tickets. Sus tickets serán contestados por nuestro personal.',
     'CUSTOM_RESPONSES_DESCRIPTION': 'Las respuestas personalizadas son respuestas automatizadas para problemas comunes.',
     'MY_TICKETS_DESCRIPTION': 'Aquí puedes ver los tickets que tienes asignado.',
     'NEW_TICKETS_DESCRIPTION': 'Aquí puedes ver todos los tickets nuevos que no están asignados por nadie.',

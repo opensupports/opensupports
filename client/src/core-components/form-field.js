@@ -134,9 +134,9 @@ class FormField extends React.Component {
 
         if (this.props.field === 'select') {
             props.selectedIndex = this.props.value;
-        } else {
-            props.value = this.props.value;
         }
+
+        props.value = this.props.value;
 
         return props;
     }
