@@ -13,6 +13,7 @@ describe '/staff/get/' do
         (result['data']['staff']).should.equal(true)
         (result['data']['email']).should.equal('staff@opensupports.com')
         (result['data']['level']).should.equal('3')
+        (result['data']['sendEmailOnNewTicket']).should.equal('1')
     end
     it 'should return staff member data with staff Id' do
         result = request('/staff/get', {
@@ -26,5 +27,6 @@ describe '/staff/get/' do
         (result['data']['staff']).should.equal(true)
         (result['data']['email']).should.equal('tyrion@opensupports.com')
         (result['data']['level']).should.equal('2')
+        (result['data']['sendEmailOnNewTicket']).should.equal('0')
     end
 end

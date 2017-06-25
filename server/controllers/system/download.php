@@ -39,31 +39,31 @@ class DownloadController extends Controller {
 
     public function handler() {
         $fileName = Controller::request('file');
-        $staffUser = Staff::getDataStore($fileName, 'profilePic');
+        $isStaffProfilePic = !Staff::getDataStore($fileName, 'profilePic')->isNull();
 
-        if($staffUser->isNull()) {
+        if(!$isStaffProfilePic) {
             $session = Session::getInstance();
             $loggedUser = Controller::getLoggedUser();
 
             if(!$session->sessionExists()) {
-                print '';
+                Response::respond403();
                 return;
             }
 
             $ticket = Ticket::getTicket($fileName, 'file');
 
-            if($ticket->isNull() || ($this->isNotAuthor($ticket, $loggedUser) && $this->isNotOwner($ticket, $loggedUser))) {
+            if($ticket->isNull() || ($this->isNotAuthor($ticket, $loggedUser) && $this->isNotDepartmentOwner($ticket, $loggedUser))) {
                 $ticketEvent = Ticketevent::getDataStore($fileName, 'file');
 
                 if($ticketEvent->isNull()) {
-                    print '';
+                    Response::respond403();
                     return;
                 }
 
                 $ticket = $ticketEvent->ticket;
 
-                if($this->isNotAuthor($ticket, $loggedUser) && $this->isNotOwner($ticket, $loggedUser)) {
-                    print '';
+                if($this->isNotAuthor($ticket, $loggedUser) && $this->isNotDepartmentOwner($ticket, $loggedUser)) {
+                    Response::respond403();
                     return;
                 }
             }
@@ -80,17 +80,17 @@ class DownloadController extends Controller {
         if($session->getTicketNumber()) {
             return $session->getTicketNumber() !== $ticket->ticketNumber;
         } else {
-            return Controller::getLoggedUser()->level >= 1 || $ticket->author->id !== $loggedUser->id;
+            return $loggedUser->level >= 1 || $ticket->author->id !== $loggedUser->id;
         }
     }
 
-    private function isNotOwner($ticket, $loggedUser) {
+    private function isNotDepartmentOwner($ticket, $loggedUser) {
         $session = Session::getInstance();
 
         if($session->getTicketNumber()) {
             return $session->getTicketNumber() !== $ticket->ticketNumber;
         } else {
-            return !(Controller::getLoggedUser()->level >= 1) || !$ticket->owner || $ticket->owner->id !== $loggedUser->id;
+            return !($loggedUser->level >= 1) || !$loggedUser->sharedDepartmentList->includesId($ticket->department->id);
         }
     }
 }

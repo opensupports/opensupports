@@ -25,4 +25,10 @@ class Response {
         $app->response->setBody(json_encode($response));
         $app->response->finalize();
     }
+
+    public static function respond403() {
+        $app = \Slim\Slim::getInstance();
+        $app->response->setStatus(403);
+        $app->response->finalize();
+    }
 }

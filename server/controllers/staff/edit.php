@@ -75,7 +75,7 @@ class EditStaffController extends Controller {
             $this->staffInstance->password = Hashing::hashPassword(Controller::request('password'));
         }
         
-        if(Controller::request('level') && Controller::isStaffLogged(3) && Controller::request('staffId') !== Controller::getLoggedUser()->id) {
+        if(Controller::request('level') && Controller::isStaffLogged(3) && !$this->isModifyingCurrentStaff()) {
             $this->staffInstance->level = Controller::request('level');
         }
         
@@ -87,7 +87,7 @@ class EditStaffController extends Controller {
             $this->staffInstance->profilePic = ($fileUploader instanceof FileUploader) ? $fileUploader->getFileName() : null;
         }
         
-        if(Controller::request('sendEmailOnNewTicket') !== null && !Controller::request('staffId') ) {
+        if(Controller::request('sendEmailOnNewTicket') !== null && $this->isModifyingCurrentStaff()) {
             $this->staffInstance->sendEmailOnNewTicket = Controller::request('sendEmailOnNewTicket');
         }
 
@@ -140,5 +140,9 @@ class EditStaffController extends Controller {
                 $department2->store();
             }
         }
+    }
+
+    private function isModifyingCurrentStaff() {
+        return Controller::request('staffId') === Controller::getLoggedUser()->id;
     }
 }

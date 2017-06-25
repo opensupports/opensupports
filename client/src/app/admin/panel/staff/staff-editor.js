@@ -290,7 +290,7 @@ class StaffEditor extends React.Component {
             path: '/staff/edit',
             data: {
                 staffId: this.props.staffId,
-                sendEmailOnNewTicket: form.sendEmailOnNewTicket,
+                sendEmailOnNewTicket: form.sendEmailOnNewTicket * 1,
                 email: form.email,
                 password: form.password,
                 level: (form.level !== undefined) ? form.level + 1 : null,
