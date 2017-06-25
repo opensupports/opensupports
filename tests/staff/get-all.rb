@@ -23,13 +23,13 @@ describe'/staff/get-all' do
         (result['data'][0]['assignedTickets']).should.equal(3)
         (result['data'][0]['closedTickets']).should.equal(0)
 
-        (result['data'][1]['name']).should.equal('Arya Stark')
-        (result['data'][1]['email']).should.equal('newwstaff@opensupports.com')
-        (result['data'][1]['profilePic']).should.equal('')
-        (result['data'][1]['level']).should.equal('2')
-        (result['data'][1]['departments'][0]['id']).should.equal('1')
-        (result['data'][1]['departments'][0]['name']).should.equal('Help and Support')
-        (result['data'][1]['assignedTickets']).should.equal(0)
-        (result['data'][1]['closedTickets']).should.equal(0)
+        (result['data'][2]['name']).should.equal('Arya Stark')
+        (result['data'][2]['email']).should.equal('newwstaff@opensupports.com')
+        (result['data'][2]['profilePic']).should.equal('')
+        (result['data'][2]['level']).should.equal('2')
+        (result['data'][2]['departments'][0]['id']).should.equal('1')
+        (result['data'][2]['departments'][0]['name']).should.equal('Help and Support')
+        (result['data'][2]['assignedTickets']).should.equal(0)
+        (result['data'][2]['closedTickets']).should.equal(0)
     end
 end

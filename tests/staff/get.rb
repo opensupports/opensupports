@@ -18,7 +18,7 @@ describe '/staff/get/' do
         result = request('/staff/get', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
-            staffId:2
+            staffId: 3
         })
 
         (result['status']).should.equal('success')

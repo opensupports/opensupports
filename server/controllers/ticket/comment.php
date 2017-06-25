@@ -76,10 +76,12 @@ class CommentController extends Controller {
         $session = Session::getInstance();
         $this->requestData();
 
-        if ((!Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) || $session->isLoggedWithId(($this->ticket->author) ? $this->ticket->author->id : 0) || (Controller::isStaffLogged() && $session->isLoggedWithId(($this->ticket->owner) ? $this->ticket->owner->id : 0))) {
+        if ((!Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) ||
+            (!Controller::isStaffLogged() && $session->isLoggedWithId(($this->ticket->author) ? $this->ticket->author->id : 0)) ||
+            (Controller::isStaffLogged() && $session->isLoggedWithId(($this->ticket->owner) ? $this->ticket->owner->id : 0))) {
             $this->storeComment();
 
-            if(Controller::isStaffLogged()) {
+            if(Controller::isStaffLogged() || $this->ticket->owner) {
                 $this->sendMail();
             }
 
@@ -122,9 +124,17 @@ class CommentController extends Controller {
     private function sendMail() {
         $mailSender = MailSender::getInstance();
 
+        $email = ($this->ticket->author) ? $this->ticket->author->email : $this->ticket->authorEmail;
+        $name = ($this->ticket->author) ? $this->ticket->author->name : $this->ticket->authorName;
+
+        if(!Controller::isStaffLogged() && $this->ticket->owner) {
+            $email = $this->ticket->owner->email;
+            $name = $this->ticket->owner->name;
+        }
+
         $mailSender->setTemplate(MailTemplate::TICKET_RESPONDED, [
-            'to' => ($this->ticket->author) ? $this->ticket->author->email : $this->ticket->authorEmail,
-            'name' => ($this->ticket->author) ? $this->ticket->author->name : $this->ticket->authorName,
+            'to' => $email,
+            'name' => $name,
             'ticketNumber' => $this->ticket->ticketNumber,
             'title' => $this->ticket->title,
             'url' => Setting::getSetting('url')->getValue()
