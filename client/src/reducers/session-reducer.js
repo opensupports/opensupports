@@ -123,7 +123,7 @@ class SessionReducer extends Reducer {
         let userId = sessionStore.getSessionData().userId;
         
         return _.extend({}, state, {
-            initDone: true, 
+            initDone: true,
             logged: true,
             staff: userData.staff,
             userName: userData.name,

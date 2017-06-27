@@ -177,6 +177,7 @@ export default {
     'TICKET_NUMBER': '票號',
     'NEXT': '下一個',
     'SEND_EMAIL_ON_NEW_TICKET': '电子邮件为每个新票',
+    'STAFF_UPDATED': '工作人员已更新',
     'UPDATE': '更新',
 
     'CHART_CREATE_TICKET': '已創建門票',

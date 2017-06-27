@@ -177,6 +177,7 @@ export default {
     'TICKET_NUMBER': 'टिकट नंबर',
     'NEXT': 'आगामी',
     'SEND_EMAIL_ON_NEW_TICKET': 'एक ईमेल भेजने के लिए प्रत्येक नए टिकट',
+    'STAFF_UPDATED': 'स्टाफ सदस्य को अद्यतन किया गया है',
     'UPDATE': 'अद्यतन',
     
     'CHART_CREATE_TICKET': 'टिकट बनाया',

@@ -177,6 +177,7 @@ export default {
     'TICKET_NUMBER': 'Ticket number',
     'NEXT': 'Next',
     'SEND_EMAIL_ON_NEW_TICKET': 'Send email on new ticket',
+    'STAFF_UPDATED': 'Staff member updated',
     'UPDATE': 'Update',
 
     'CHART_CREATE_TICKET': 'Tickets created',

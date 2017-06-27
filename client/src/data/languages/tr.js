@@ -177,6 +177,7 @@ export default {
     'TICKET_NUMBER': 'Bilet numarası',
     'NEXT': 'Sonraki',
     'SEND_EMAIL_ON_NEW_TICKET': 'Yeni biletle e-posta gönder',
+    'STAFF_UPDATED': 'Çalışanlar güncellendi',
     'UPDATE': 'Güncelleştirme',
     
     'CHART_CREATE_TICKET': 'Biletler oluşturuldu',

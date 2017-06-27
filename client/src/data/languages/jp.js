@@ -177,6 +177,7 @@ export default {
     'TICKET_NUMBER': 'チケット番号',
     'NEXT': '次',
     'SEND_EMAIL_ON_NEW_TICKET': 'メールを送信毎に新しいチケット',
+    'STAFF_UPDATED': 'スタッフメンバーが更新されました',
     'UPDATE': '更新',
     
     'CHART_CREATE_TICKET': '作成されたチケット',
