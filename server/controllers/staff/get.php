@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /staff/get Get staff
- * @apiVersion 4.0.0
+ * @apiVersion 4.1.0
  *
  * @apiName Get staff
  *
@@ -19,13 +19,14 @@ DataValidator::with('CustomValidations', true);
  * @apiUse NO_PERMISSION
  *
  * @apiSuccess {Object} data Information about a staff member
- * @apiSuccess {String} data.name Staff id
- * @apiSuccess {String} data.email Staff id
- * @apiSuccess {String} data.profilePic Staff id
- * @apiSuccess {Number} data.level Staff id
- * @apiSuccess {Boolean} data.staff Staff id
+ * @apiSuccess {String} data.name Name of the staff member
+ * @apiSuccess {String} data.email Elmail of the staff member
+ * @apiSuccess {String} data.profilePic Profile pic filename of staff member
+ * @apiSuccess {Number} data.level Level of staff member
+ * @apiSuccess {Boolean} data.staff Indicates that it is a staff (always true)
  * @apiSuccess {[Department](#api-Data_Structures-ObjectDepartment)[]} data.departments Array of departments that has assigned.
  * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data.tickets Array of tickets that has assigned.
+ * @apiSuccess {Boolean} data.sendEmailOnNewTicket Indicates if this member receives a mail when a ticket is created.
  *
  */
 

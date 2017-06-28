@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/edit-mail-template Edit mail template
- * @apiVersion 4.0.0
+ * @apiVersion 4.1.0
  *
  * @apiName Edit mail template
  *

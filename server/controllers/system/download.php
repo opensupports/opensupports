@@ -4,7 +4,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {get} /system/download Download file
- * @apiVersion 4.0.0
+ * @apiVersion 4.1.0
  *
  * @apiName Download file
  *
@@ -16,6 +16,7 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiParam {String} file The filename to be downloaded.
  *
+ * @apiError 403 You have no permission to access the file.
  *
  * @apiSuccess {Object} file File content
  *

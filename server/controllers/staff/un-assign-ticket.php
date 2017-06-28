@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /staff/un-assign-ticket Un-assign ticket
- * @apiVersion 4.0.0
+ * @apiVersion 4.1.0
  *
  * @apiName Un-assign ticket
  *
