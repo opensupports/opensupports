@@ -242,7 +242,7 @@ export default {
     'STEP_2_DESCRIPTION': 'Here are listed the requirements for running OpenSupports. Please make sure that all requirements are satisfied.',
     'STEP_3_DESCRIPTION': 'Please fill the MySQL database configuration.',
     'STEP_4_DESCRIPTION': 'Please select your user system preferences.',
-    'STEP_5_DESCRIPTION': 'Please select your general system preferences.',
+    'STEP_5_DESCRIPTION': 'Please fill your general system preferences.',
     'STEP_6_DESCRIPTION': 'Please configure the administrator account.',
     'STEP_7_DESCRIPTION': 'Installation is completed.',
 
