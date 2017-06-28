@@ -110,6 +110,7 @@ class InstallStep5Settings extends React.Component {
             API.call({
                 path: '/system/init-settings',
                 data: _.extend({}, form, {
+                    'url': root,
                     'language': this.props.language,
                     'user-system-enabled': this.props['user-system-enabled'],
                     'registration': this.props['registration']
