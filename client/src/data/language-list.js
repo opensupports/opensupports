@@ -8,6 +8,7 @@ import japaneseLanguage   from 'data/languages/jp';
 import portugueseLanguage from 'data/languages/pt';
 import russianLanguage    from 'data/languages/ru';
 import turkishLanguage    from 'data/languages/tr';
+import italianLanguage    from 'data/languages/it';
 
 export default {
     'en': {
@@ -49,5 +50,9 @@ export default {
     'in': {
         name: 'Hindi',
         data: indianLanguage
+    },
+    'it': {
+        name: 'Italian',
+        data: italianLanguage
     }
 };
