@@ -361,7 +361,6 @@ export default {
     'REMEMBER_ME': 'Merken',
     'EMAIL_LOWERCASE': 'Email',
     'PASSWORD_LOWERCASE': 'Passwort',
-    'SYSTEM_SETTINGS': 'System settings',
     'TEST_SMTP_CONNECTION': 'SMTP-Verbindung testen',
     'SMTP_CONNECTION_SUCCESS': 'SMTP-Anmeldeinformationen sind gültig.',
     'SMTP_CONNECTION_ERROR': 'Kann keine Verbindung zum SMTP-Server herstellen.'

@@ -361,7 +361,6 @@ export default {
     'REMEMBER_ME': 'Remember me',
     'EMAIL_LOWERCASE': 'email',
     'PASSWORD_LOWERCASE': 'password',
-    'SYSTEM_SETTINGS': 'System settings',
     'TEST_SMTP_CONNECTION': 'Test SMTP connection',
     'SMTP_CONNECTION_SUCCESS': 'SMTP credentials are valid.',
     'SMTP_CONNECTION_ERROR': 'Can\'t connect to SMTP server.'
