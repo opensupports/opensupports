@@ -37,30 +37,12 @@ describe 'File Upload and Download' do
         (result.body).should.equal(file.read)
     end
 
-    it 'should not download if author is not logged' do
+    it 'should download if department owner is logged' do
         request('/user/logout')
         Scripts.login('staff@opensupports.com', 'staff', true)
 
         ticket = $database.getLastRow('ticket')
-
-        result = plainRequest('/system/download', {
-            'csrf_userid' => $csrf_userid,
-            'csrf_token' => $csrf_token,
-            'file' => ticket['file']
-        }, 'GET')
-
-        (result.body).should.equal('')
-    end
-
-    it 'should download if owner is logged' do
-        ticket = $database.getLastRow('ticket')
         file = File.open("../server/files/" + ticket['file'])
-
-        request('/staff/assign-ticket', {
-            'csrf_userid' => $csrf_userid,
-            'csrf_token' => $csrf_token,
-            'ticketNumber' => ticket['ticket_number']
-        })
 
         result = plainRequest('/system/download', {
             'csrf_userid' => $csrf_userid,

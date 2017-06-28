@@ -9,22 +9,22 @@ describe'/staff/edit' do
             email: 'LittleLannister@opensupports.com',
             level: 1,
             departments: '[1, 2]',
-            staffId: 2
+            staffId: 3
         })
 
         (result['status']).should.equal('success')
 
-        row = $database.getRow('staff', 2, 'id')
+        row = $database.getRow('staff', 3, 'id')
 
         (row['email']).should.equal('LittleLannister@opensupports.com')
         (row['level']).should.equal('1')
 
-        rows = $database.getRow('department_staff', 2, 'staff_id')
+        rows = $database.getRow('department_staff', 3, 'staff_id')
 
         (rows['department_id']).should.equal('1')
 
         row = $database.getRow('department', 1, 'id')
-        (row['owners']).should.equal('2')
+        (row['owners']).should.equal('3')
 
         row = $database.getRow('department', 2, 'id')
         (row['owners']).should.equal('2')
@@ -49,7 +49,7 @@ describe'/staff/edit' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             email: 'newwstaff@opensupports.com',
-            sendEmailOnNewTicket: '1'
+            sendEmailOnNewTicket: 1
         })
 
         (result['status']).should.equal('success')
@@ -61,7 +61,7 @@ describe'/staff/edit' do
         (row['send_email_on_new_ticket']).should.equal('1')
 
         row = $database.getRow('department', 1, 'id')
-        (row['owners']).should.equal('3')
+        (row['owners']).should.equal('4')
 
     end
 end

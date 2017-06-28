@@ -108,7 +108,7 @@ class App extends React.Component {
         }
 
         if(props.config.installedDone && props.config.installed && _.includes(props.location.pathname, '/install')) {
-            history.push('/');
+            history.push('/admin');
         }
 
         if(isProd && _.includes(props.location.pathname, '/components-demo')) {

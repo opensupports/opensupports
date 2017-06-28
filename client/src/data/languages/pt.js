@@ -177,6 +177,7 @@ export default {
     'TICKET_NUMBER': 'Número do bilhete',
     'NEXT': 'Próximo',
     'SEND_EMAIL_ON_NEW_TICKET': 'Enviar email para cada novo ticket',
+    'STAFF_UPDATED': 'Membro da equipe foi atualizado',
     'UPDATE': 'Actualizar',
 
     'CHART_CREATE_TICKET': 'Ingressos criados',
@@ -241,8 +242,9 @@ export default {
     'STEP_2_DESCRIPTION': 'Aqui estão listados os requisitos para executar o OpenSupports. Certifique-se de que todos os requisitos estão satisfeitos.',
     'STEP_3_DESCRIPTION': 'Preencha a configuração do banco de dados MySQL.',
     'STEP_4_DESCRIPTION': 'Selecione as preferências do sistema do usuário.',
-    'STEP_5_DESCRIPTION': 'Configure a conta de administrador.',
-    'STEP_6_DESCRIPTION': 'A instalação está concluída.',
+    'STEP_5_DESCRIPTION': 'Selecione as preferências gerais do sistema.',
+    'STEP_6_DESCRIPTION': 'Configure a conta de administrador.',
+    'STEP_7_DESCRIPTION': 'A instalação está concluída.',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'Este é um formulário para criar ingressos. Preencha o formulário e envie-nos seus problemas / dúvidas / sugestões. Nosso sistema de suporte responderá o mais rápido possível.',

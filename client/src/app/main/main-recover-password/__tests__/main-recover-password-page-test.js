@@ -59,7 +59,7 @@ describe('Recover Password form', function () {
         let message = TestUtils.scryRenderedComponentsWithType(component, Message)[0];
         expect(message).to.not.equal(null);
         expect(message.props.type).to.equal('error');
-        expect(message.props.children).to.equal('Invalid recover data');
+        expect(message.props.children).to.equal('INVALID_RECOVER');
     });
 
     it('should show message when recover success', function () {
@@ -69,6 +69,6 @@ describe('Recover Password form', function () {
         let message = TestUtils.scryRenderedComponentsWithType(component, Message)[0];
         expect(message).to.not.equal(null);
         expect(message.props.type).to.equal('success');
-        expect(message.props.children).to.equal('Password recovered successfully');
+        expect(message.props.children).to.equal('VALID_RECOVER');
     });
 });

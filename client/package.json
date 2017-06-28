@@ -1,13 +1,13 @@
 {
-  "name": "os4-react",
-  "version": "4.0.0",
-  "author": "Ivan Diaz <ivan@opensupports.com>",
-  "description": "OpenSupports version 4 with reactjs",
+  "name": "OpenSupports",
+  "version": "4.1.0",
+  "author": "Ivan Diaz <contact@opensupports.com>",
+  "description": "Open source ticket system made with PHP and ReactJS",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ivandiazwm/opensupports.git"
+    "url": "https://github.com/opensupports/opensupports"
   },
-  "private": true,
+  "private": false,
   "engines": {
     "node": "^0.12.x",
     "npm": "^2.1.x"

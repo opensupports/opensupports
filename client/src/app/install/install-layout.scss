@@ -12,14 +12,9 @@
     &__header {
         text-align: left;
 
-        &-logo {
-            display: inline-block;
-            max-width: 300px;
-        }
-
+        &-logo,
         &-text {
             display: inline-block;
-            margin-left: 20px;
         }
 
         &-title {

@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {post} /user/logout Log out
- * @apiVersion 4.0.0
+ * @apiVersion 4.1.0
  *
  * @apiName Log out 
  *

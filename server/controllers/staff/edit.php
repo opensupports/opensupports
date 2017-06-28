@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/edit Edit staff
- * @apiVersion 4.0.0
+ * @apiVersion 4.1.0
  *
  * @apiName Edit staff
  *
@@ -75,7 +75,7 @@ class EditStaffController extends Controller {
             $this->staffInstance->password = Hashing::hashPassword(Controller::request('password'));
         }
         
-        if(Controller::request('level') && Controller::isStaffLogged(3) && Controller::request('staffId') !== Controller::getLoggedUser()->id) {
+        if(Controller::request('level') && Controller::isStaffLogged(3) && !$this->isModifyingCurrentStaff()) {
             $this->staffInstance->level = Controller::request('level');
         }
         
@@ -87,8 +87,8 @@ class EditStaffController extends Controller {
             $this->staffInstance->profilePic = ($fileUploader instanceof FileUploader) ? $fileUploader->getFileName() : null;
         }
         
-        if(Controller::request('sendEmailOnNewTicket') !== null && !Controller::request('staffId') ) {
-            $this->staffInstance->sendEmailOnNewTicket = Controller::request('sendEmailOnNewTicket');
+        if(Controller::request('sendEmailOnNewTicket') !== null && $this->isModifyingCurrentStaff()) {
+            $this->staffInstance->sendEmailOnNewTicket = Controller::request('sendEmailOnNewTicket') * 1;
         }
 
         $this->staffInstance->store();
@@ -140,5 +140,9 @@ class EditStaffController extends Controller {
                 $department2->store();
             }
         }
+    }
+
+    private function isModifyingCurrentStaff() {
+        return !Controller::request('staffId') || Controller::request('staffId') === Controller::getLoggedUser()->id;
     }
 }

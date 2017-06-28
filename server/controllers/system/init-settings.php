@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /system/init-settings Init settings
- * @apiVersion 4.0.0
+ * @apiVersion 4.1.0
  *
  * @apiName Init settings
  *
@@ -17,6 +17,14 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} language Indicates the default language of the system.
  * @apiParam {String} user-system-enabled Indicates if the user system should be enabled.
  * @apiParam {String} registration Indicates if the registration should be enabled.
+ * @apiParam {String} no-reply-email Email from where automated emails will be sent.
+ * @apiParam {String} smtp-host SMTP Server address.
+ * @apiParam {String} smtp-port SMTP Server port.
+ * @apiParam {String} smtp-user SMTP Authentication User.
+ * @apiParam {String} smtp-pass SMTP Authentication Password.
+ * @apiParam {String} allow-attachments Indicates if files can be attached to tickets and comments.
+ * @apiParam {String} title Title of the support center
+ * @apiParam {String} url Url of the frontend client.
  *
  * @apiUse INVALID_LANGUAGE
  * @apiUse INIT_SETTINGS_DONE
@@ -115,12 +123,14 @@ class InitSettingsController extends Controller {
         }
     }
     private function storeLanguages() {
+        $defaultLanguage = Controller::request('language');
+        
         foreach(Language::LANGUAGES as $languageCode) {
             $language = new Language();
             $language->setProperties([
                 'code' => $languageCode,
                 'allowed' => 1,
-                'supported' => ($languageCode === 'en')
+                'supported' => ($languageCode === $defaultLanguage)
             ]);
 
             $language->store();

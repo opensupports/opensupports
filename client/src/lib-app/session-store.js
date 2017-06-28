@@ -4,10 +4,6 @@ import date from 'lib-app/date';
 class SessionStore {
     constructor() {
         this.storage = LocalStorage;
-
-        if (!this.getItem('language')) {
-            this.setItem('language', 'en');
-        }
     }
 
     createSession(userId, token) {

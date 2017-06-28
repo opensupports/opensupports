@@ -177,6 +177,7 @@ export default {
     'TICKET_NUMBER': 'Ticketnummer',
     'NEXT': 'Nächster',
     'SEND_EMAIL_ON_NEW_TICKET': 'Email für jedes neues Ticket',
+    'STAFF_UPDATED': 'Mitarbeiter wurde aktualisiert',
     'UPDATE': 'Aktualisierung',
 
     'CHART_CREATE_TICKET': 'Tickets erstellt',
@@ -241,8 +242,9 @@ export default {
     'STEP_2_DESCRIPTION': 'Hier sind die Voraussetzungen für das Ausführen von OpenSupports aufgelistet. Bitte stellen Sie sicher, dass alle Anforderungen erfüllt sind.',
     'STEP_3_DESCRIPTION': 'Bitte füllen Sie die MySQL-Datenbankkonfiguration aus.',
     'STEP_4_DESCRIPTION': 'Bitte wählen Sie Ihre Benutzer-Einstellungen.',
-    'STEP_5_DESCRIPTION': 'Bitte konfigurieren Sie das Administratorkonto.',
-    'STEP_6_DESCRIPTION': 'Die Installation ist abgeschlossen.',
+    'STEP_5_DESCRIPTION': 'Bitte wählen Sie Ihre allgemeinen Systemeinstellungen aus.',
+    'STEP_6_DESCRIPTION': 'Bitte konfigurieren Sie das Administratorkonto.',
+    'STEP_7_DESCRIPTION': 'Die Installation ist abgeschlossen.',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'Dies ist ein Formular für die Erstellung von Tickets. Füllen Sie das Formular aus und senden Sie uns Ihre Fragen / Anregungen. Unser Support-System wird so schnell wie möglich antworten.',
@@ -359,7 +361,6 @@ export default {
     'REMEMBER_ME': 'Merken',
     'EMAIL_LOWERCASE': 'Email',
     'PASSWORD_LOWERCASE': 'Passwort',
-    'SYSTEM_SETTINGS': 'System settings',
     'TEST_SMTP_CONNECTION': 'SMTP-Verbindung testen',
     'SMTP_CONNECTION_SUCCESS': 'SMTP-Anmeldeinformationen sind gültig.',
     'SMTP_CONNECTION_ERROR': 'Kann keine Verbindung zum SMTP-Server herstellen.'

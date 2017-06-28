@@ -114,7 +114,7 @@ class SessionReducer extends Reducer {
             userLevel: userData.level,
             userDepartments: userData.departments,
             userTickets: userData.tickets,
-            userSendEmailOnNewTicket: userData.sendEmailOnNewTicket
+            userSendEmailOnNewTicket: userData.sendEmailOnNewTicket * 1
         });
     }
     
@@ -123,7 +123,7 @@ class SessionReducer extends Reducer {
         let userId = sessionStore.getSessionData().userId;
         
         return _.extend({}, state, {
-            initDone: true, 
+            initDone: true,
             logged: true,
             staff: userData.staff,
             userName: userData.name,
@@ -133,7 +133,7 @@ class SessionReducer extends Reducer {
             userDepartments: userData.departments,
             userTickets: userData.tickets,
             userId: userId,
-            userSendEmailOnNewTicket: userData.sendEmailOnNewTicket
+            userSendEmailOnNewTicket: userData.sendEmailOnNewTicket * 1
         });
     }
 

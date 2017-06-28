@@ -26,7 +26,7 @@ class InstallStep5Settings extends React.Component {
     render() {
         return (
             <div className="install-step-5">
-                <Header title={i18n('STEP_TITLE', {title: i18n('SYSTEM_SETTINGS'), current: 5, total: 7})} description={i18n('STEP_5_DESCRIPTION')}/>
+                <Header title={i18n('STEP_TITLE', {title: i18n('SETTINGS'), current: 5, total: 7})} description={i18n('STEP_5_DESCRIPTION')}/>
                 {this.renderMessage()}
                 <Form loading={this.state.loading} onSubmit={this.onSubmit.bind(this)} value={this.state.form} onChange={(form) => this.setState({form})}>
                     <FormField name="title" label={i18n('TITLE')} fieldProps={{size: 'large'}} required/>
@@ -110,6 +110,7 @@ class InstallStep5Settings extends React.Component {
             API.call({
                 path: '/system/init-settings',
                 data: _.extend({}, form, {
+                    'url': root,
                     'language': this.props.language,
                     'user-system-enabled': this.props['user-system-enabled'],
                     'registration': this.props['registration']
