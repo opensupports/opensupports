@@ -115,12 +115,14 @@ class InitSettingsController extends Controller {
         }
     }
     private function storeLanguages() {
+        $defaultLanguage = Controller::request('language');
+        
         foreach(Language::LANGUAGES as $languageCode) {
             $language = new Language();
             $language->setProperties([
                 'code' => $languageCode,
                 'allowed' => 1,
-                'supported' => ($languageCode === 'en')
+                'supported' => ($languageCode === $defaultLanguage)
             ]);
 
             $language->store();
