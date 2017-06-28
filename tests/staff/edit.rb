@@ -49,7 +49,7 @@ describe'/staff/edit' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             email: 'newwstaff@opensupports.com',
-            sendEmailOnNewTicket: '1'
+            sendEmailOnNewTicket: 1
         })
 
         (result['status']).should.equal('success')

@@ -88,7 +88,7 @@ class EditStaffController extends Controller {
         }
         
         if(Controller::request('sendEmailOnNewTicket') !== null && $this->isModifyingCurrentStaff()) {
-            $this->staffInstance->sendEmailOnNewTicket = Controller::request('sendEmailOnNewTicket');
+            $this->staffInstance->sendEmailOnNewTicket = Controller::request('sendEmailOnNewTicket') * 1;
         }
 
         $this->staffInstance->store();
@@ -143,6 +143,6 @@ class EditStaffController extends Controller {
     }
 
     private function isModifyingCurrentStaff() {
-        return Controller::request('staffId') === Controller::getLoggedUser()->id;
+        return !Controller::request('staffId') || Controller::request('staffId') === Controller::getLoggedUser()->id;
     }
 }
