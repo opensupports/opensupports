@@ -7,7 +7,7 @@ INSERT INTO `language` (`id`, `code`, `allowed`, `supported`) VALUES
 
 ALTER TABLE staff
 ADD send_email_on_new_ticket int(11) NULL
-DEFAULT 0
+DEFAULT 0;
 
 INSERT INTO `setting` (`id`, `name`, `value`) VALUES
 ('', 'session-prefix', concat(
