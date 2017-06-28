@@ -14,11 +14,11 @@ export default {
                         path: '/user/login',
                         data: loginData
                     }).then((result) => {
-                        store.dispatch(this.getUserData(result.data.userId, result.data.token, result.data.staff));
-
-                        if(result.data.staff) {
-                            store.dispatch(AdminDataActions.retrieveCustomResponses());
-                        }
+                        store.dispatch(this.getUserData(result.data.userId, result.data.token, result.data.staff)).then(() => {
+                            if(result.data.staff) {
+                                store.dispatch(AdminDataActions.retrieveCustomResponses());
+                            }
+                        });
 
                         resolve(result);
                     }).catch((result) => {
