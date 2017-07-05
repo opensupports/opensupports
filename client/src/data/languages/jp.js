@@ -176,6 +176,9 @@ export default {
     'HOME': 'ホーム',
     'TICKET_NUMBER': 'チケット番号',
     'NEXT': '次',
+    'SEND_EMAIL_ON_NEW_TICKET': 'メールを送信毎に新しいチケット',
+    'STAFF_UPDATED': 'スタッフメンバーが更新されました',
+    'UPDATE': '更新',
     
     'CHART_CREATE_TICKET': '作成されたチケット',
     'CHART_CLOSE': 'チケットが閉じられました',
@@ -234,13 +237,14 @@ export default {
     'INSTALLATION_COMPLETED': 'インストールが完了しました。',
     'INSTALLATION_COMPLETED_DESCRIPTION': 'OpenSupportsのインストールが完了しました。管理パネルにリダイレクトしています...',
 
-    'STEP_TITLE': 'ステップ {current} of {total} - {title}',
+    'STEP_TITLE': 'ステップ {current} / {total} - {title}',
     'STEP_1_DESCRIPTION': 'インストールウィザードの優先言語を選択します。',
     'STEP_2_DESCRIPTION': 'ここにOpenSupportを実行するための要件が​​記載されています。すべての要件が満たされていることを確認してください。',
     'STEP_3_DESCRIPTION': 'MySQLデータベースの設定を記入してください。',
     'STEP_4_DESCRIPTION': 'あなたのユーザーシステムの設定を選択してください。',
-    'STEP_5_DESCRIPTION': '管理者アカウントを設定してください。',
-    'STEP_6_DESCRIPTION': 'インストールが完了しました。',
+    'STEP_5_DESCRIPTION': 'あなたの一般的なシステム環境設定を選択してください。',
+    'STEP_6_DESCRIPTION': '管理者アカウントを設定してください。',
+    'STEP_7_DESCRIPTION': 'インストールが完了しました。',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'これはチケットを作成するためのフォームです。 フォームに記入し、あなたに問題/疑問/提案をお送りください。私たちのサポートシステムは、できるだけ早くそれに答えるでしょう。',
@@ -285,6 +289,7 @@ export default {
     'EDIT_PROFILE_VIEW_DESCRIPTION': 'ここでは、電子メールまたはパスワードを変更してユーザーを編集できます。',
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'ユーザシステムの使用を有効/無効にします。無効にすると、すべてのユーザーは削除されますが、チケットは保持されます。これを有効にすると、既存のチケットのユーザーが作成されます。',
     'CSV_DESCRIPTION': 'CSVファイルには、電子メール、パスワード、名前の3つの列が必要です。行数に制限はありません。ファイル内で行ごとに1人ずつ作成されます',
+    'SMTP_SERVER_DESCRIPTION': 'SMTPサーバーの設定により、アプリケーションはメールを送信できます。 これを設定しないと、OpenSupportsから電子メールは送信されません。',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': '電子メールまたはパスワードが無効です',
@@ -355,6 +360,9 @@ export default {
     'LEFT_EMPTY_DATABASE': '自動データベース作成のために空のままにする',
     'REMEMBER_ME': '覚えている',
     'EMAIL_LOWERCASE': 'Eメール',
-    'PASSWORD_LOWERCASE': 'パスワード'
+    'PASSWORD_LOWERCASE': 'パスワード',
+    'TEST_SMTP_CONNECTION': 'SMTP接続をテストする',
+    'SMTP_CONNECTION_SUCCESS': 'SMTP資格情報が有効です。',
+    'SMTP_CONNECTION_ERROR': 'SMTPサーバーに接続できません。'
 };
 

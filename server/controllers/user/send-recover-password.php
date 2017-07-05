@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/send-recover-password Send password recovery
- * @apiVersion 4.0.0
+ * @apiVersion 4.1.0
  *
  * @apiName Send password recovery
  *
@@ -71,7 +71,7 @@ class SendRecoverPasswordController extends Controller {
     }
 
     public function sendEmail() {
-        $mailSender = new MailSender();
+        $mailSender = MailSender::getInstance();
 
         $mailSender->setTemplate(MailTemplate::PASSWORD_FORGOT, [
             'to' => $this->user->email,

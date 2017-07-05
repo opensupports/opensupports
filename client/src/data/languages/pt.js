@@ -176,6 +176,9 @@ export default {
     'HOME': 'Casa',
     'TICKET_NUMBER': 'Número do bilhete',
     'NEXT': 'Próximo',
+    'SEND_EMAIL_ON_NEW_TICKET': 'Enviar email para cada novo ticket',
+    'STAFF_UPDATED': 'Membro da equipe foi atualizado',
+    'UPDATE': 'Actualizar',
 
     'CHART_CREATE_TICKET': 'Ingressos criados',
     'CHART_CLOSE': 'Ingressos fechados',
@@ -239,8 +242,9 @@ export default {
     'STEP_2_DESCRIPTION': 'Aqui estão listados os requisitos para executar o OpenSupports. Certifique-se de que todos os requisitos estão satisfeitos.',
     'STEP_3_DESCRIPTION': 'Preencha a configuração do banco de dados MySQL.',
     'STEP_4_DESCRIPTION': 'Selecione as preferências do sistema do usuário.',
-    'STEP_5_DESCRIPTION': 'Configure a conta de administrador.',
-    'STEP_6_DESCRIPTION': 'A instalação está concluída.',
+    'STEP_5_DESCRIPTION': 'Selecione as preferências gerais do sistema.',
+    'STEP_6_DESCRIPTION': 'Configure a conta de administrador.',
+    'STEP_7_DESCRIPTION': 'A instalação está concluída.',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'Este é um formulário para criar ingressos. Preencha o formulário e envie-nos seus problemas / dúvidas / sugestões. Nosso sistema de suporte responderá o mais rápido possível.',
@@ -285,6 +289,7 @@ export default {
     'EDIT_PROFILE_VIEW_DESCRIPTION': 'Aqui você pode editar seu usuário alterando seu e-mail ou sua senha.',
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Ativar / desativar o uso de um sistema de usuário. Se você desativá-lo, todos os usuários serão excluídos, mas os ingressos serão mantidos. Se você ativá-lo, os usuários de tickets existentes serão criados.',
     'CSV_DESCRIPTION': 'O arquivo CSV deve ter 3 colunas: e-mail, senha, nome. Não há limite na contagem de linhas. Ele será criado um usuário por linha no arquivo.',
+    'SMTP_SERVER_DESCRIPTION': 'A configuração do servidor SMTP permite que o aplicativo envie e-mails. Se você não configurá-lo, nenhum e-mail será enviado pela OpenSupports.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-mail ou senha inválidos',
@@ -355,5 +360,8 @@ export default {
     'LEFT_EMPTY_DATABASE': 'Esquerda vazia para criação automática de banco de dados',
     'REMEMBER_ME': 'Lembrar',
     'EMAIL_LOWERCASE': 'email',
-    'PASSWORD_LOWERCASE': 'senha'
+    'PASSWORD_LOWERCASE': 'senha',
+    'TEST_SMTP_CONNECTION': 'Testar conexão SMTP',
+    'SMTP_CONNECTION_SUCCESS': 'As credenciais SMTP são válidas.',
+    'SMTP_CONNECTION_ERROR': 'Não pode se conectar ao servidor SMTP.'
 };

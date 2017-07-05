@@ -18,4 +18,8 @@ class NullDataStore extends DataStore {
     public function store() {
         return null;
     }
+
+    public function getValue() {
+        return null;
+    }
 }

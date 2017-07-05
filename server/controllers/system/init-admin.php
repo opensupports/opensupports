@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /system/init-admin Init admin
- * @apiVersion 4.0.0
+ * @apiVersion 4.1.0
  *
  * @apiName Init admin
  *
@@ -64,7 +64,8 @@ class InitAdminController extends Controller {
             'profilePic' => '',
             'level' => 3,
             'sharedDepartmentList' => Department::getAll(),
-            'sharedTicketList' => []
+            'sharedTicketList' => [],
+            'sendEmailOnNewTicket' => 1
         ]);
         
         foreach(Department::getAll() as $department) {

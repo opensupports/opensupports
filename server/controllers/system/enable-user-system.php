@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /system/enable-user-system Enable user system
- * @apiVersion 4.0.0
+ * @apiVersion 4.1.0
  *
  * @apiName Enable user system
  *
@@ -87,7 +87,7 @@ class EnableUserSystemController extends Controller {
 
         $userInstance->store();
 
-        $mailSender = new MailSender();
+        $mailSender = MailSender::getInstance();
         $mailSender->setTemplate(MailTemplate::USER_SYSTEM_ENABLED, [
             'to' => $email,
             'name' => $name,

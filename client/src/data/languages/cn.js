@@ -176,6 +176,9 @@ export default {
     'HOME': '家',
     'TICKET_NUMBER': '票號',
     'NEXT': '下一個',
+    'SEND_EMAIL_ON_NEW_TICKET': '电子邮件为每个新票',
+    'STAFF_UPDATED': '工作人员已更新',
+    'UPDATE': '更新',
 
     'CHART_CREATE_TICKET': '已創建門票',
     'CHART_CLOSE': '門票已關閉',
@@ -239,8 +242,9 @@ export default {
     'STEP_2_DESCRIPTION': '這裡列出了運行OpenSupports的要求。請確保滿足所有要求。',
     'STEP_3_DESCRIPTION': '請填寫MySQL數據庫配置。',
     'STEP_4_DESCRIPTION': '請選擇您的用戶系統首選項。',
-    'STEP_5_DESCRIPTION': '請配置管理員帳號。',
-    'STEP_6_DESCRIPTION': '安裝完成',
+    'STEP_5_DESCRIPTION': '请选择您的一般系统偏好。',
+    'STEP_6_DESCRIPTION': '請配置管理員帳號。',
+    'STEP_7_DESCRIPTION': '安裝完成',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': '這是一個用於創建票證的表單。填寫表格並將您的問題/疑問/建議發送給我們。我們的支持系統將盡快回答。',
@@ -285,6 +289,7 @@ export default {
     'EDIT_PROFILE_VIEW_DESCRIPTION': '在這裡，您可以通過更改電子郵件或密碼來修改用戶。',
     'ENABLE_USER_SYSTEM_DESCRIPTION': '啟用/禁用用戶系統的使用。如果你禁用它，所有的用戶將被刪除，但票將被保留。如果啟用，將創建現有票證的用戶。',
     'CSV_DESCRIPTION': 'CSV文件必須有3列：電子郵件，密碼，名稱。行數沒有限制。它將在文件中的每行中創建一個用戶。',
+    'SMTP_SERVER_DESCRIPTION': 'SMTP服务器允许应用程序发送邮件。 如果您没有配置，OpenSupports将不会发送任何电子邮件。',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': '電子郵件或密碼無效',
@@ -355,6 +360,10 @@ export default {
     'LEFT_EMPTY_DATABASE': '留空为自动创建数据库',
     'REMEMBER_ME': '记住我',
     'EMAIL_LOWERCASE': '电子邮件',
-    'PASSWORD_LOWERCASE': '密码'
+    'PASSWORD_LOWERCASE': '密码',
+    'SYSTEM_SETTINGS': '系统设置',
+    'TEST_SMTP_CONNECTION': '测试SMTP连接',
+    'SMTP_CONNECTION_SUCCESS': 'SMTP凭据有效',
+    'SMTP_CONNECTION_ERROR': '无法连接到SMTP服务器'
 };
 

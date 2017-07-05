@@ -176,6 +176,9 @@ export default {
     'HOME': 'Inicio',
     'TICKET_NUMBER': 'Número de Ticket',
     'NEXT': 'Siguiente',
+    'SEND_EMAIL_ON_NEW_TICKET': 'Enviar email por cada nuevo ticket',
+    'STAFF_UPDATED': 'Miembro de Staff actualizado',
+    'UPDATE': 'Actualizar',
 
     'CHART_CREATE_TICKET': 'Tickets creados',
     'CHART_CLOSE': 'Tickets cerrados',
@@ -239,8 +242,9 @@ export default {
     'STEP_2_DESCRIPTION': 'Aqui estan listados los requisitos para OpenSupports. Por favor, asegúrese de cumplir con todos los requisitos.',
     'STEP_3_DESCRIPTION': 'Por favor, complete la configuracion de la base de datos MySQL.',
     'STEP_4_DESCRIPTION': 'Por favor, seleccione sus preferencias de sistema de usuarios.',
-    'STEP_5_DESCRIPTION': 'Por favor, configure la cuenta de administrador.',
-    'STEP_6_DESCRIPTION': 'La instalación ha sido completada.',
+    'STEP_5_DESCRIPTION': 'Pro favor, seleccione sus preferencias generales del sistema.',
+    'STEP_6_DESCRIPTION': 'Por favor, configure la cuenta de administrador.',
+    'STEP_7_DESCRIPTION': 'La instalación ha sido completada.',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'Este es un formulario para crear tickets. Rellene el formulario y envíenos sus dudas. Nuestro sistema de soporte responderá lo antes posible.',
@@ -248,7 +252,7 @@ export default {
     'TICKETS_DESCRIPTION': 'Envíe un ticket a través de nuestro centro de soporte y obtenga respuesta de sus dudas, sugerencias y problemas.',
     'ARTICLES_DESCRIPTION': 'Echa un vistazo a nuestros artículos sobre temas comunes, guías y documentación.',
     'ACCOUNT_DESCRIPTION': 'Todos sus tickets están almacenados en el perfil de su cuenta. Mantenga un registro de todos los tickets envíados a nuestro equipo de soporte.',
-    'SUPPORT_CENTER_DESCRIPTION': 'Bienvenido a nuestro centro de soporte. Puede ponerse en contacto con nosotros a través de un sistema de tickets. Sus tickets serán contestadps por nuestro personal.',
+    'SUPPORT_CENTER_DESCRIPTION': 'Bienvenido a nuestro centro de soporte. Puede ponerse en contacto con nosotros a través de un sistema de tickets. Sus tickets serán contestados por nuestro personal.',
     'CUSTOM_RESPONSES_DESCRIPTION': 'Las respuestas personalizadas son respuestas automatizadas para problemas comunes.',
     'MY_TICKETS_DESCRIPTION': 'Aquí puedes ver los tickets que tienes asignado.',
     'NEW_TICKETS_DESCRIPTION': 'Aquí puedes ver todos los tickets nuevos que no están asignados por nadie.',
@@ -285,6 +289,7 @@ export default {
     'EDIT_PROFILE_VIEW_DESCRIPTION': 'Aquí puedes editar tu usuario cambiando tu correo electrónico o tu contraseña.',
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Habilitar/Deshabilitar el uso de un sistema de usuario. Si lo deshabilitas, todos los usuarios serán eliminados pero los tickets serán guardados. Si lo habilitas, se crearán los usuarios de los tickets existentes.',
     'CSV_DESCRIPTION': 'El archivo CSV debe tener 3 columnas: correo electrónico, contraseña, nombre. No hay límite en el recuento de filas. Se creará un usuario por fila en el archivo.',
+    'SMTP_SERVER_DESCRIPTION': 'La configuracion de SMTP permite que la applicacion mande emails. Si no es configurado, ningún mail sera enviado OpenSupports.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email o contraseña inválida',
@@ -355,5 +360,8 @@ export default {
     'LEFT_EMPTY_DATABASE': 'Dejar vacío para la creación automática de bases de datos',
     'REMEMBER_ME': 'Recordarme',
     'EMAIL_LOWERCASE': 'email',
-    'PASSWORD_LOWERCASE': 'contraseña'
+    'PASSWORD_LOWERCASE': 'contraseña',
+    'TEST_SMTP_CONNECTION': 'Probar conexion de SMTP',
+    'SMTP_CONNECTION_SUCCESS': 'La credenciales de SMTP son correctas.',
+    'SMTP_CONNECTION_ERROR': 'No es posible conectarse al servidor de SMTP.'
 };

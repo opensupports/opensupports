@@ -176,6 +176,9 @@ export default {
     'HOME': 'Ev',
     'TICKET_NUMBER': 'Bilet numarası',
     'NEXT': 'Sonraki',
+    'SEND_EMAIL_ON_NEW_TICKET': 'Yeni biletle e-posta gönder',
+    'STAFF_UPDATED': 'Çalışanlar güncellendi',
+    'UPDATE': 'Güncelleştirme',
     
     'CHART_CREATE_TICKET': 'Biletler oluşturuldu',
     'CHART_CLOSE': 'Biletler kapandı',
@@ -239,8 +242,9 @@ export default {
     'STEP_2_DESCRIPTION': 'Aşağıda, OpenSupports çalıştırma gereksinimleri listelenmiştir. Lütfen tüm gereksinimlerin karşılandığından emin olun.',
     'STEP_3_DESCRIPTION': 'Lütfen MySQL veritabanı yapılandırmasını doldurun.',
     'STEP_4_DESCRIPTION': 'Lütfen kullanıcı sistemi tercihlerinizi seçin.',
-    'STEP_5_DESCRIPTION': 'Lütfen yönetici hesabını yapılandırın.',
-    'STEP_6_DESCRIPTION': 'Kurulum tamamlandı.',
+    'STEP_5_DESCRIPTION': 'Lütfen genel sistem tercihlerinizi seçin.',
+    'STEP_6_DESCRIPTION': 'Lütfen yönetici hesabını yapılandırın.',
+    'STEP_7_DESCRIPTION': 'Kurulum tamamlandı.',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'Bu, bir bilet oluşturmak için kullanılan bir form. Formu doldurun ve bize sorunlarınızı / şüphelerinizi / önerileri gönderin. Destek sistemimiz mümkün olan en kısa zamanda cevaplayacaktır.',
@@ -285,6 +289,7 @@ export default {
     'EDIT_PROFILE_VIEW_DESCRIPTION': 'Burada e-postanızı veya şifrenizi değiştirerek kullanıcıyı düzenleyebilirsiniz.',
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Bir kullanıcı sisteminin kullanımını etkinleştirir / devre dışı bırakır. Devre dışı bırakırsanız, tüm kullanıcılar silinir ancak biletler muhafaza edilir. Etkinleştirirseniz, mevcut biletler kullanıcıları oluşturulur.',
     'CSV_DESCRIPTION': 'CSV dosyasının 3 sütun olması gerekir: e-posta, şifre, ad. Satır sayısı sınırı yoktur. Dosya satır başına bir kullanıcı oluşturulur.',
+    'SMTP_SERVER_DESCRIPTION': 'SMTP sunucusunun yapılandırması, uygulamanın postalar göndermesine izin verir. Onu yapılandırmazsanız, OpenSupports tarafından hiçbir e-posta gönderilmeyecektir',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-posta veya şifre geçersiz',
@@ -355,5 +360,8 @@ export default {
     'LEFT_EMPTY_DATABASE': 'Otomatik veritabanı oluşturulması için boş bırakıldı',
     'REMEMBER_ME': 'Hatırlamak',
     'EMAIL_LOWERCASE': 'e-posta',
-    'PASSWORD_LOWERCASE': 'parola'
+    'PASSWORD_LOWERCASE': 'parola',
+    'TEST_SMTP_CONNECTION': 'SMTP bağlantısını test et',
+    'SMTP_CONNECTION_SUCCESS': 'SMTP kimlik bilgileri geçerlidir.',
+    'SMTP_CONNECTION_ERROR': 'SMTP sunucusuna bağlanılamıyor.'
 };

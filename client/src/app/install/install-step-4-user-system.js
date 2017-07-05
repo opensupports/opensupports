@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import history from 'lib-app/history';
 import i18n from 'lib-app/i18n';
-import API from 'lib-app/api-call';
+import ConfigActions from 'actions/config-actions';
 
 import ToggleButton from 'app-components/toggle-button';
 import Button from 'core-components/button';
@@ -15,7 +15,6 @@ import SubmitButton from 'core-components/submit-button';
 class InstallStep4UserSystem extends React.Component {
 
     state = {
-        loading: false,
         form: {
             'user-system-enabled': true,
             'registration': true
@@ -25,8 +24,8 @@ class InstallStep4UserSystem extends React.Component {
     render() {
         return (
             <div className="install-step-4">
-                <Header title={i18n('STEP_TITLE', {title: i18n('USER_SYSTEM'), current: 4, total: 6})} description={i18n('STEP_4_DESCRIPTION')}/>
-                <Form onSubmit={this.onSubmit.bind(this)} values={this.state.form} onChange={this.onChange.bind(this)} loading={this.state.loading}>
+                <Header title={i18n('STEP_TITLE', {title: i18n('USER_SYSTEM'), current: 4, total: 7})} description={i18n('STEP_4_DESCRIPTION')}/>
+                <Form onSubmit={this.onSubmit.bind(this)} values={this.state.form} onChange={this.onChange.bind(this)}>
                     <FormField name="user-system-enabled" label={i18n('ENABLE_USER_SYSTEM')} decorator={ToggleButton}/>
                     <FormField name="registration" label={i18n('ENABLE_USER_REGISTRATION')} decorator={ToggleButton} fieldProps={{disabled: this.isDisabled()}}/>
                     <div className="install-step-4__buttons">
@@ -53,27 +52,18 @@ class InstallStep4UserSystem extends React.Component {
     }
 
     onSubmit(form) {
-        this.setState({
-            loading: true
-        }, () => API.call({
-            path: '/system/init-settings',
-            data: {
-                'language': this.props.language,
-                'user-system-enabled': form['user-system-enabled'] * 1,
-                'registration': form['registration'] * 1
-            }
-        }).then(() => this.setState({
-            loading: false
-        }, () => history.push('/install/step-5'))).catch(() => this.setState({
-            loading: false
-        })));
+        this.props.dispatch(ConfigActions.updateUserSystemSettings({
+            'user-system-enabled': form['user-system-enabled'] * 1,
+            'registration': form['registration'] * 1
+        }));
+        
+        history.push('/install/step-5');
     }
 
     isDisabled() {
         return !this.state.form['user-system-enabled'];
     }
 }
-
 
 export default connect((store) => {
     return {

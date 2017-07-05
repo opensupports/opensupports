@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/comment Comment ticket
- * @apiVersion 4.0.0
+ * @apiVersion 4.1.0
  * 
  * @apiName Comment ticket
  *
@@ -20,6 +20,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_CONTENT
  * @apiUse INVALID_TICKET
+ * @apiUse INVALID_TOKEN
  *
  * @apiSuccess {Object} data Empty object 
  *
@@ -63,7 +64,7 @@ class CommentController extends Controller {
                     ],
                     'csrf_token' => [
                         'validation' => DataValidator::equals($session->getToken()),
-                        'error' => Controller::request('csrf_token') . ' ' . $session->getToken()
+                        'error' => ERRORS::INVALID_TOKEN
 
                     ]
                 ]
@@ -75,10 +76,12 @@ class CommentController extends Controller {
         $session = Session::getInstance();
         $this->requestData();
 
-        if ((!Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) || $session->isLoggedWithId(($this->ticket->author) ? $this->ticket->author->id : 0) || (Controller::isStaffLogged() && $session->isLoggedWithId(($this->ticket->owner) ? $this->ticket->owner->id : 0))) {
+        if ((!Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) ||
+            (!Controller::isStaffLogged() && $session->isLoggedWithId(($this->ticket->author) ? $this->ticket->author->id : 0)) ||
+            (Controller::isStaffLogged() && $session->isLoggedWithId(($this->ticket->owner) ? $this->ticket->owner->id : 0))) {
             $this->storeComment();
 
-            if(Controller::isStaffLogged()) {
+            if(Controller::isStaffLogged() || $this->ticket->owner) {
                 $this->sendMail();
             }
 
@@ -119,11 +122,19 @@ class CommentController extends Controller {
     }
 
     private function sendMail() {
-        $mailSender = new MailSender();
+        $mailSender = MailSender::getInstance();
+
+        $email = ($this->ticket->author) ? $this->ticket->author->email : $this->ticket->authorEmail;
+        $name = ($this->ticket->author) ? $this->ticket->author->name : $this->ticket->authorName;
+
+        if(!Controller::isStaffLogged() && $this->ticket->owner) {
+            $email = $this->ticket->owner->email;
+            $name = $this->ticket->owner->name;
+        }
 
         $mailSender->setTemplate(MailTemplate::TICKET_RESPONDED, [
-            'to' => ($this->ticket->author) ? $this->ticket->author->email : $this->ticket->authorEmail,
-            'name' => ($this->ticket->author) ? $this->ticket->author->name : $this->ticket->authorName,
+            'to' => $email,
+            'name' => $name,
             'ticketNumber' => $this->ticket->ticketNumber,
             'title' => $this->ticket->title,
             'url' => Setting::getSetting('url')->getValue()

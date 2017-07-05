@@ -50,7 +50,7 @@ class FileUploader extends FileManager {
     private function setNewName($fileName) {
         $newName = $fileName;
         $newName = strtolower($newName);
-        $newName = preg_replace('/\s+/', '_', $newName);
+        $newName = preg_replace('/[^a-zA-Z0-9\d\.\-]/', '_', $newName);
 
         if ($this->linearCongruentialGenerator instanceof LinearCongruentialGenerator) {
             $newName = $this->linearCongruentialGenerator->generate($this->linearCongruentialGeneratorOffset) . '_' . $newName;

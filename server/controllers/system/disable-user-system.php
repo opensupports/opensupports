@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /system/disable-user-system Disable user system
- * @apiVersion 4.0.0
+ * @apiVersion 4.1.0
  *
  * @apiName Disable user system
  *
@@ -63,7 +63,7 @@ class DisableUserSystemController extends Controller {
                 $ticket->store();
             }
 
-            $mailSender = new MailSender();
+            $mailSender = MailSender::getInstance();
 
             $mailSender->setTemplate(MailTemplate::USER_SYSTEM_DISABLED, [
                 'to' => $user->email,

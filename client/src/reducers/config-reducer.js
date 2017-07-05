@@ -19,7 +19,8 @@ class ConfigReducer extends Reducer {
             'CHANGE_LANGUAGE': this.onLanguageChange,
             'INIT_CONFIGS_FULFILLED': this.onInitConfigs,
             'CHECK_INSTALLATION_FULFILLED': this.onInstallationChecked,
-            'UPDATE_DATA_FULFILLED': this.onInitConfigs
+            'UPDATE_DATA_FULFILLED': this.onInitConfigs,
+            'UPDATE_USER_SYSTEM_SETTINGS': this.onUserSystemSettingsChange
         };
     }
 
@@ -32,19 +33,30 @@ class ConfigReducer extends Reducer {
     }
 
     onInitConfigs(state, payload) {
-        const currentLanguage = sessionStore.getItem('language');
+        let currentLanguage = sessionStore.getItem('language');
+
+        if(payload.data.allowedLanguages && !_.includes(payload.data.allowedLanguages, currentLanguage)) {
+            currentLanguage = payload.data.language;
+        }
 
         sessionStore.storeConfigs(_.extend({}, payload.data, {
-            language: currentLanguage || payload.language
+            language: currentLanguage || payload.data.language
         }));
 
         return _.extend({}, state, payload.data, {
-            language: currentLanguage || payload.language,
+            language: currentLanguage || payload.data.language || 'en',
             registration: !!(payload.data.registration * 1),
             'user-system-enabled': !!(payload.data['user-system-enabled']* 1),
             'allow-attachments': !!(payload.data['allow-attachments']* 1),
             'maintenance-mode': !!(payload.data['maintenance-mode']* 1),
             initDone: true
+        });
+    }
+
+    onUserSystemSettingsChange(state, payload) {
+        return _.extend({}, state, {
+            'user-system-enabled': !!(payload['user-system-enabled'] * 1),
+            'registration': !!(payload['registration'] * 1)
         });
     }
 

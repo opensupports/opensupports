@@ -176,6 +176,9 @@ export default {
     'HOME': 'Accueil',
     'TICKET_NUMBER': 'Numéro de ticket',
     'NEXT': 'Suivant',
+    'SEND_EMAIL_ON_NEW_TICKET': 'Envoyer un e-mail pour chaque nouveau ticket',
+    'STAFF_UPDATED': 'Le membre du personnel a été mis à jour',
+    'UPDATE': 'Mettre à jour',
 
     'CHART_CREATE_TICKET': 'Tickets créés',
     'CHART_CLOSE': 'Tickets fermés',
@@ -239,8 +242,9 @@ export default {
     'STEP_2_DESCRIPTION': 'Voici les conditions requises pour exécuter OpenSupports. Assurez-vous que toutes les conditions requises soient satisfaites.',
     'STEP_3_DESCRIPTION': 'Veuillez remplir la configuration de la base de données MySQL.',
     'STEP_4_DESCRIPTION': 'Veuillez sélectionner les préférences de votre système utilisateur.',
-    'STEP_5_DESCRIPTION': 'Veuillez configurer le compte administrateur.',
-    'STEP_6_DESCRIPTION': 'L\'installation est terminée.',
+    'STEP_5_DESCRIPTION': 'Sélectionnez vos préférences générales du système.',
+    'STEP_6_DESCRIPTION': 'Veuillez configurer le compte administrateur.',
+    'STEP_7_DESCRIPTION': 'L\'installation est terminée.',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'Il s\'agit d\'un formulaire de création de tickets. Remplissez le formulaire et envoyez-nous vos questions / doutes / suggestions. Notre système de support répondra le plus rapidement possible.',
@@ -285,6 +289,7 @@ export default {
     'EDIT_PROFILE_VIEW_DESCRIPTION': 'Ici, vous pouvez modifier votre utilisateur en changeant votre adresse e-mail ou votre mot de passe.',
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Activer / désactiver l\'utilisation d\'un système utilisateur. Si vous le désactivez, tous les utilisateurs seront supprimés, mais les tickets seront conservés. Si vous l\'activez, les utilisateurs des tickets existants seront créés.',
     'CSV_DESCRIPTION': 'Le fichier CSV doit comporter 3 colonnes: email, mot de passe, nom. Il n\'y a pas de limite dans le nombre de lignes. Il sera créé un utilisateur par ligne dans le fichier.',
+    'SMTP_SERVER_DESCRIPTION': 'La configuration du serveur SMTP permet à l\'application d\'envoyer des mails. Si vous ne le configurez pas, aucun service d\'email ne sera envoyé par OpenSupports.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-mail ou mot de passe invalide',
@@ -355,5 +360,8 @@ export default {
     'LEFT_EMPTY_DATABASE': 'Laisser vide pour la création automatique de la base de données',
     'REMEMBER_ME': 'Se souvenir de moi',
     'EMAIL_LOWERCASE': 'email',
-    'PASSWORD_LOWERCASE': 'mot de passe'
+    'PASSWORD_LOWERCASE': 'mot de passe',
+    'TEST_SMTP_CONNECTION': 'Test de connexion SMTP',
+    'SMTP_CONNECTION_SUCCESS': 'Les informations d\'identification SMTP sont valides.',
+    'SMTP_CONNECTION_ERROR': 'Ne peut pas se connecter au serveur SMTP.'
 };

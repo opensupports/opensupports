@@ -2,15 +2,35 @@
 class MailSender {
 
     private $mailOptions = [];
-    
-    public function __construct() {
-        $this->mailOptions['from'] = Setting::getSetting('no-reply-email')->value;
+    private $mailerInstance;
+    private static $instance = NULL;
+
+    public static function getInstance() {
+        if(MailSender::$instance === NULL) {
+            MailSender::$instance = new MailSender();
+        }
+
+        return MailSender::$instance;
+    }
+
+    private function __construct() {
+        $this->setConnectionSettings(
+            Setting::getSetting('smtp-host')->getValue(),
+            Setting::getSetting('smtp-port')->getValue(),
+            Setting::getSetting('smtp-user')->getValue(),
+            Setting::getSetting('smtp-pass')->getValue(),
+            Setting::getSetting('no-reply-email')->getValue()
+        );
+    }
+
+    public function setConnectionSettings($host, $port, $user, $pass, $noReplyEmail) {
+        $this->mailOptions['from'] = $noReplyEmail;
         $this->mailOptions['fromName'] = 'OpenSupports';
 
-        $this->mailOptions['smtp-host'] = Setting::getSetting('smtp-host')->value;
-        $this->mailOptions['smtp-port'] = Setting::getSetting('smtp-port')->value;
-        $this->mailOptions['smtp-user'] = Setting::getSetting('smtp-user')->value;
-        $this->mailOptions['smtp-pass'] = Setting::getSetting('smtp-pass')->value;
+        $this->mailOptions['smtp-host'] = $host;
+        $this->mailOptions['smtp-port'] = $port;
+        $this->mailOptions['smtp-user'] = $user;
+        $this->mailOptions['smtp-pass'] = $pass;
     }
 
     public function setTemplate($type, $config) {
@@ -21,32 +41,51 @@ class MailSender {
     }
     
     public function send() {
-        $mailer = new PHPMailer();
+        $mailerInstance = $this->getMailerInstance();
 
-        $mailer->From = $this->mailOptions['from'];
-        $mailer->FromName = $this->mailOptions['fromName'];
-        $mailer->addAddress($this->mailOptions['to']);
-        $mailer->Subject = $this->mailOptions['subject'];
-        $mailer->Body = $this->mailOptions['body'];
-        $mailer->isHTML(true);
-
-        $mailer->isSMTP();
-        $mailer->SMTPAuth = true;
-        $mailer->Host = $this->mailOptions['smtp-host'];
-        $mailer->Port = $this->mailOptions['smtp-port'];
-        $mailer->Username = $this->mailOptions['smtp-user'];
-        $mailer->Password = $this->mailOptions['smtp-pass'];
-        $mailer->Timeout = 1000;
-        $mailer->SMTPOptions  = [
-            'ssl' => [
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true
-            ]
-        ];
-
-        if ($mailer->smtpConnect()) {
-            $mailer->send();
+        if( !array_key_exists('to', $this->mailOptions) ||
+            !array_key_exists('subject', $this->mailOptions) ||
+            !array_key_exists('body', $this->mailOptions) ) {
+            throw new Exception('Mail sending data not available');
         }
+
+        $mailerInstance->addAddress($this->mailOptions['to']);
+        $mailerInstance->Subject = $this->mailOptions['subject'];
+        $mailerInstance->Body = $this->mailOptions['body'];
+        $mailerInstance->isHTML(true);
+
+        if ($this->isConnected()) {
+            $mailerInstance->send();
+        }
+    }
+
+    public function isConnected() {
+        return $this->getMailerInstance()->smtpConnect();
+    }
+
+    private function getMailerInstance() {
+        if(!($this->mailerInstance instanceof PHPMailer)) {
+            $this->mailerInstance = new PHPMailer();
+
+            $this->mailerInstance->From = $this->mailOptions['from'];
+            $this->mailerInstance->FromName = $this->mailOptions['fromName'];
+
+            $this->mailerInstance->isSMTP();
+            $this->mailerInstance->SMTPAuth = true;
+            $this->mailerInstance->Host = $this->mailOptions['smtp-host'];
+            $this->mailerInstance->Port = $this->mailOptions['smtp-port'];
+            $this->mailerInstance->Username = $this->mailOptions['smtp-user'];
+            $this->mailerInstance->Password = $this->mailOptions['smtp-pass'];
+            $this->mailerInstance->Timeout = 1000;
+            $this->mailerInstance->SMTPOptions = [
+                'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                ]
+            ];
+        }
+
+        return $this->mailerInstance;
     }
 }

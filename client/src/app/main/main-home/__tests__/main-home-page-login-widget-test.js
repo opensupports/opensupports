@@ -95,7 +95,7 @@ describe('Login/Recover Widget', function () {
                     failMessage: 'INVALID_CREDENTIALS'
                 }
             });
-            expect(loginForm.props.errors).to.deep.equal({password: 'Invalid password'});
+            expect(loginForm.props.errors).to.deep.equal({password: 'ERROR_PASSWORD'});
             expect(loginForm.props.loading).to.equal(false);
         });
         
@@ -160,7 +160,7 @@ describe('Login/Recover Widget', function () {
             component.refs.recoverForm.refs.email.focus.reset();
 
             component.onRecoverPasswordFail();
-            expect(recoverForm.props.errors).to.deep.equal({email: 'Email does not exist'});
+            expect(recoverForm.props.errors).to.deep.equal({email: 'EMAIL_NOT_EXIST'});
             expect(recoverForm.props.loading).to.equal(false);
             expect(component.refs.recoverForm.refs.email.focus).to.have.been.called;
         });
@@ -175,7 +175,7 @@ describe('Login/Recover Widget', function () {
             expect(recoverForm.props.loading).to.equal(false);
             expect(message).to.not.equal(null);
             expect(message.props.type).to.equal('info');
-            expect(message.props.children).to.equal('An email with recover instructions has been sent.');
+            expect(message.props.children).to.equal('RECOVER_SENT');
         });
 
         it('should show front side if \'Back to login form\' link is clicked', function () {

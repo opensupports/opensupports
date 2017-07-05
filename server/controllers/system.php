@@ -25,6 +25,7 @@ require_once 'system/delete-all-users.php';
 require_once 'system/csv-import.php';
 require_once 'system/backup-database.php';
 require_once 'system/download.php';
+require_once 'system/test-smtp.php';
 
 $systemControllerGroup = new ControllerGroup();
 $systemControllerGroup->setGroupPath('/system');
@@ -55,5 +56,6 @@ $systemControllerGroup->addController(new DownloadController);
 $systemControllerGroup->addController(new CSVImportController);
 $systemControllerGroup->addController(new DisableUserSystemController);
 $systemControllerGroup->addController(new EnableUserSystemController);
+$systemControllerGroup->addController(new TestSMTPController);
 
 $systemControllerGroup->finalize();

@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 /**
  * @api {post} /ticket/get Get ticket
- * @apiVersion 4.0.0
+ * @apiVersion 4.1.0
  *
  * @apiName Get ticket
  *
@@ -16,6 +16,7 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {Number} ticketNumber The number of the ticket.
  *
  * @apiUse INVALID_TICKET
+ * @apiUse INVALID_TOKEN
  * @apiUse NO_PERMISSION
  * 
  * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)} data Information about the requested ticket.
@@ -52,7 +53,7 @@ class TicketGetController extends Controller {
                     ],
                     'csrf_token' => [
                         'validation' => DataValidator::equals($session->getToken()),
-                        'error' => $session->getToken() . ' != ' . Controller::request('csrf_token')
+                        'error' => ERRORS::INVALID_TOKEN
                     ]
                 ]
             ];

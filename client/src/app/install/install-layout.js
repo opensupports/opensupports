@@ -14,6 +14,7 @@ const steps = [
     'SERVER_REQUIREMENTS',
     'DATABASE_CONFIGURATION',
     'USER_SYSTEM',
+    'SETTINGS',
     'ADMIN_SETUP',
     'COMPLETED'
 ];
@@ -24,11 +25,11 @@ class InstallLayout extends React.Component {
         return (
             <DocumentTitle title="OpenSupports Installation">
                 <Widget className="install-layout">
-                    <div className="install-layout__header">
-                        <div className="install-layout__header-logo">
+                    <div className="install-layout__header row">
+                        <div className="install-layout__header-logo col-md-4">
                             <img width="100%" src={API.getURL() + '/images/logo.png'} alt="OpenSupports Installation"/>
                         </div>
-                        <div className="install-layout__header-text">
+                        <div className="install-layout__header-text  col-md-8">
                             <div className="install-layout__header-title">
                                 {i18n('INSTALL_HEADER_TITLE')}
                             </div>
@@ -92,6 +93,8 @@ class InstallLayout extends React.Component {
             return 4;
         } else if(_.includes(pathname, 'step-6')) {
             return 5;
+        } else if(_.includes(pathname, 'step-7')) {
+            return 6;
         }
     }
 }

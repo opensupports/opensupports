@@ -43,6 +43,10 @@ class InitialMails {
                 'cn' => [
                     'subject' => '注册 {{to}} - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-signup-cn.html')
+                ],
+                'it' => [
+                    'subject' => 'Sei iscritto {{to}} - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/user-signup-it.html')
                 ]
             ],
             'USER_PASSWORD' => [
@@ -85,6 +89,10 @@ class InitialMails {
                 'cn' => [
                     'subject' => '密码已编辑 - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-edit-password-cn.html')
+                ],
+                'it' => [
+                    'subject' => 'Password modificata - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/user-edit-password-it.html')
                 ]
             ],
             'USER_EMAIL' => [
@@ -127,6 +135,10 @@ class InitialMails {
                 'cn' => [
                     'subject' => '电子邮件已修改 - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-edit-email-cn.html')
+                ],
+                'it' => [
+                    'subject' => 'E-mail modificata - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/user-edit-email-it.html')
                 ]
             ],
             'PASSWORD_FORGOT' => [
@@ -169,6 +181,10 @@ class InitialMails {
                 'cn' => [
                     'subject' => '恢复密码 - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-password-forgot-cn.html')
+                ],
+                'it' => [
+                    'subject' => 'Recupera la password - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/user-password-forgot-it.html')
                 ]
             ],
             'USER_SYSTEM_DISABLED' => [
@@ -211,6 +227,10 @@ class InitialMails {
                 'cn' => [
                     'subject' => '访问系统更改 - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-system-disabled-cn.html')
+                ],
+                'it' => [
+                    'subject' => 'Il sistema di accesso è cambiato - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/user-system-disabled-it.html')
                 ]
             ],
             'USER_SYSTEM_ENABLED' => [
@@ -253,6 +273,10 @@ class InitialMails {
                 'cn' => [
                     'subject' => '帐户已创建 - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-system-enabled-cn.html')
+                ],
+                'it' => [
+                    'subject' => 'Account creato - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/user-system-enabled-it.html')
                 ]
             ],
             'TICKET_CREATED' => [
@@ -295,6 +319,10 @@ class InitialMails {
                 'cn' => [
                     'subject' => '#{{ticketNumber}} 已创建票证 - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/ticket-created-cn.html')
+                ],
+                'it' => [
+                    'subject' => '#{{ticketNumber}} ticket creato - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-created-it.html')
                 ]
             ],
             'TICKET_RESPONDED' => [
@@ -337,6 +365,10 @@ class InitialMails {
                 'cn' => [
                     'subject' => '#{{ticketNumber}} 新反应 - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/ticket-responded-cn.html')
+                ],
+                'it' => [
+                    'subject' => '#{{ticketNumber}} Ticket risposto - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-responded-it.html')
                 ]
             ],
             'TICKET_CLOSED' => [
@@ -379,6 +411,56 @@ class InitialMails {
                 'cn' => [
                     'subject' => '#{{ticketNumber}} 票已关闭 - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/ticket-closed-cn.html')
+                ],
+                'it' => [
+                    'subject' => '#{{ticketNumber}} Ticket chiuso - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-closed-it.html')
+                ]
+            ],
+            'TICKET_CREATED_STAFF' => [
+                'en' => [
+                    'subject' => '#{{ticketNumber}} Ticket created - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-en.html')
+                ],
+                'es' => [
+                    'subject' => '#{{ticketNumber}} Ticket creado - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-es.html')
+                ],
+                'de' => [
+                    'subject' => '#{{ticketNumber}} Ticket erstellt - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-de.html')
+                ],
+                'fr' => [
+                    'subject' => '#{{ticketNumber}} Ticket créé - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-fr.html')
+                ],
+                'in' => [
+                    'subject' => '#{{ticketNumber}} tiket dibuat - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-in.html')
+                ],
+                'jp' => [
+                    'subject' => '#{{ticketNumber}} チケットが作成されました - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-jp.html')
+                ],
+                'pt' => [
+                    'subject' => '#{{ticketNumber}} Ticket criado - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-pt.html')
+                ],
+                'ru' => [
+                    'subject' => '#{{ticketNumber}} Создан билет - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-ru.html')
+                ],
+                'tr' => [
+                    'subject' => '#{{ticketNumber}} Bilet oluşturuldu - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-tr.html')
+                ],
+                'cn' => [
+                    'subject' => '#{{ticketNumber}} 已创建票证 - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-cn.html')
+                ],
+                'it' => [
+                    'subject' => '#{{ticketNumber}} Ticket creato - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-it.html')
                 ]
             ]
         ];

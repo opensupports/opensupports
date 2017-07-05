@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /user/edit-password Edit password
- * @apiVersion 4.0.0
+ * @apiVersion 4.1.0
  *
  * @apiName Edit password
  *
@@ -49,7 +49,7 @@ class EditPassword extends Controller {
             $user->password = Hashing::hashPassword($newPassword);
             $user->store();
 
-            $mailSender = new MailSender();
+            $mailSender = MailSender::getInstance();
             $mailSender->setTemplate('USER_PASSWORD', [
                 'to'=>$user->email,
                 'name'=>$user->name

@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/create Create ticket
- * @apiVersion 4.0.0
+ * @apiVersion 4.1.0
  *
  * @apiName Create ticket
  *
@@ -27,6 +27,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_DEPARTMENT
  * @apiUse INVALID_LANGUAGE
  * @apiUse INVALID_CAPTCHA
+ * @apiUse INVALID_EMAIL
  *
  * @apiSuccess {Object} data Information of the new ticket
  * @apiSuccess {Number} data.ticketNumber Number of the new ticket
@@ -74,6 +75,10 @@ class CreateController extends Controller {
                 'validation' => DataValidator::captcha(),
                 'error' => ERRORS::INVALID_CAPTCHA
             ];
+            $validations['requestData']['email'] = [
+                'validation' => DataValidator::email(),
+                'error' => ERRORS::INVALID_EMAIL
+            ];
         }
         
         return $validations;
@@ -91,6 +96,13 @@ class CreateController extends Controller {
 
         if(!Controller::isUserSystemEnabled()) {
             $this->sendMail();
+        }
+        
+        $staffs = Staff::find('send_email_on_new_ticket = 1');
+        foreach ($staffs as $staff) {
+            if($staff->sharedDepartmentList->includesId(Controller::request('departmentId'))) {
+                $this->sendMailStaff($staff->email);
+            }
         }
 
         Log::createLog('CREATE_TICKET', $this->ticketNumber);
@@ -137,7 +149,7 @@ class CreateController extends Controller {
     }
 
     private function sendMail() {
-        $mailSender = new MailSender();
+        $mailSender = MailSender::getInstance();
 
         $mailSender->setTemplate(MailTemplate::TICKET_CREATED, [
             'to' => $this->email,
@@ -145,6 +157,19 @@ class CreateController extends Controller {
             'ticketNumber' => $this->ticketNumber,
             'title' => $this->title,
             'url' => Setting::getSetting('url')->getValue()
+        ]);
+
+        $mailSender->send();
+    }
+
+    private function sendMailStaff($email) {
+        $mailSender = MailSender::getInstance();
+
+        $mailSender->setTemplate(MailTemplate::TICKET_CREATED_STAFF, [
+            'to' => $email,
+            'name' => $this->name,
+            'ticketNumber' => $this->ticketNumber,
+            'title' => $this->title
         ]);
 
         $mailSender->send();

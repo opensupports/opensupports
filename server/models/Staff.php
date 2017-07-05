@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Staff Staff
- * @apiVersion 4.0.0
+ * @apiVersion 4.1.0
  * @apiGroup Data Structures
  * @apiParam {String} name Name of the staff member.
  * @apiParam {String} email Email of the staff member.
@@ -10,6 +10,7 @@
  * @apiParam {Object[]} departments The departments the staff member has assigned.
  * @apiParam {[Ticket](#api-Data_Structures-ObjectTicket)[]} tickets The tickets the staff member has assigned.
  * @apiParam {Number} lastLogin The last login of the staff member.
+ * @apiParam {Boolean} sendEmailOnNewTicket Indicates the staff member receives a mail when a ticket is created.
  */
 
 class Staff extends DataStore {
@@ -31,14 +32,16 @@ class Staff extends DataStore {
             'sharedDepartmentList',
             'sharedTicketList',
             'lastLogin',
-            'ownStatList'
+            'ownStatList',
+            'sendEmailOnNewTicket'
         ];
     }
 
     public function getDefaultProps() {
         return [
             'level' => 1,
-            'ownStatList' => new DataStoreList()
+            'ownStatList' => new DataStoreList(),
+            'sendEmailOnNewTicket' => 0 
         ];
     }
 
@@ -55,7 +58,8 @@ class Staff extends DataStore {
             'level' => $this->level,
             'departments' => $this->sharedDepartmentList->toArray(),
             'tickets' => $this->sharedTicketList->toArray(),
-            'lastLogin' => $this->lastLogin
+            'lastLogin' => $this->lastLogin ,
+            'sendEmailOnNewTicket' => $this->sendEmailOnNewTicket
         ];
     }
 }

@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/edit Edit staff
- * @apiVersion 4.0.0
+ * @apiVersion 4.1.0
  *
  * @apiName Edit staff
  *
@@ -18,6 +18,7 @@ use Respect\Validation\Validator as DataValidator;
  * @apiParam {String} email The new email of the staff member. Optional.
  * @apiParam {String} password The new password of the staff member. Optional.
  * @apiParam {Number} level The new level of the staff member. Optional.
+ * @apiParam {Boolean} sendEmailOnNewTicket Indicates if it receives an email when a new ticket is created.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_STAFF
@@ -74,7 +75,7 @@ class EditStaffController extends Controller {
             $this->staffInstance->password = Hashing::hashPassword(Controller::request('password'));
         }
         
-        if(Controller::request('level') && Controller::isStaffLogged(3) && Controller::request('staffId') !== Controller::getLoggedUser()->id) {
+        if(Controller::request('level') && Controller::isStaffLogged(3) && !$this->isModifyingCurrentStaff()) {
             $this->staffInstance->level = Controller::request('level');
         }
         
@@ -84,6 +85,10 @@ class EditStaffController extends Controller {
 
         if($fileUploader = $this->uploadFile(true)) {
             $this->staffInstance->profilePic = ($fileUploader instanceof FileUploader) ? $fileUploader->getFileName() : null;
+        }
+        
+        if(Controller::request('sendEmailOnNewTicket') !== null && $this->isModifyingCurrentStaff()) {
+            $this->staffInstance->sendEmailOnNewTicket = Controller::request('sendEmailOnNewTicket') * 1;
         }
 
         $this->staffInstance->store();
@@ -135,5 +140,9 @@ class EditStaffController extends Controller {
                 $department2->store();
             }
         }
+    }
+
+    private function isModifyingCurrentStaff() {
+        return !Controller::request('staffId') || Controller::request('staffId') === Controller::getLoggedUser()->id;
     }
 }

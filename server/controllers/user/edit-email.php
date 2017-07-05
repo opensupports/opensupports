@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /user/edit-email Edit email
- * @apiVersion 4.0.0
+ * @apiVersion 4.1.0
  *
  * @apiName Edit email
  *
@@ -45,7 +45,7 @@ class EditEmail extends Controller{
         $user->email = $newEmail;
         $user->store();
         
-        $mailSender = new MailSender();
+        $mailSender = MailSender::getInstance();
         $mailSender->setTemplate('USER_EMAIL', [
             'to'=>$oldEmail,
             'newemail'=>$user->email,

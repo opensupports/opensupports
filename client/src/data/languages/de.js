@@ -176,6 +176,9 @@ export default {
     'HOME': 'Zuhause',
     'TICKET_NUMBER': 'Ticketnummer',
     'NEXT': 'Nächster',
+    'SEND_EMAIL_ON_NEW_TICKET': 'Email für jedes neues Ticket',
+    'STAFF_UPDATED': 'Mitarbeiter wurde aktualisiert',
+    'UPDATE': 'Aktualisierung',
 
     'CHART_CREATE_TICKET': 'Tickets erstellt',
     'CHART_CLOSE': 'Tickets geschlossen',
@@ -239,8 +242,9 @@ export default {
     'STEP_2_DESCRIPTION': 'Hier sind die Voraussetzungen für das Ausführen von OpenSupports aufgelistet. Bitte stellen Sie sicher, dass alle Anforderungen erfüllt sind.',
     'STEP_3_DESCRIPTION': 'Bitte füllen Sie die MySQL-Datenbankkonfiguration aus.',
     'STEP_4_DESCRIPTION': 'Bitte wählen Sie Ihre Benutzer-Einstellungen.',
-    'STEP_5_DESCRIPTION': 'Bitte konfigurieren Sie das Administratorkonto.',
-    'STEP_6_DESCRIPTION': 'Die Installation ist abgeschlossen.',
+    'STEP_5_DESCRIPTION': 'Bitte wählen Sie Ihre allgemeinen Systemeinstellungen aus.',
+    'STEP_6_DESCRIPTION': 'Bitte konfigurieren Sie das Administratorkonto.',
+    'STEP_7_DESCRIPTION': 'Die Installation ist abgeschlossen.',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'Dies ist ein Formular für die Erstellung von Tickets. Füllen Sie das Formular aus und senden Sie uns Ihre Fragen / Anregungen. Unser Support-System wird so schnell wie möglich antworten.',
@@ -285,6 +289,7 @@ export default {
     'EDIT_PROFILE_VIEW_DESCRIPTION': 'Hier können Sie Ihren Benutzer bearbeiten, indem Sie Ihre E-Mail oder Ihr Passwort ändern.',
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Aktivieren / deaktivieren Sie die Verwendung eines Benutzersystems. Wenn du es deaktivierst, werden alle Benutzer gelöscht, aber die Tickets werden gehalten. Wenn Sie es aktivieren, werden die Benutzer der vorhandenen Tickets erstellt.',
     'CSV_DESCRIPTION': 'Die CSV-Datei muss 3 Spalten haben: E-Mail, Passwort, Name. Es gibt kein Limit in Zeilenzahl. Es wird ein Benutzer pro Zeile in der Datei erstellt.',
+    'SMTP_SERVER_DESCRIPTION': 'Die Konfiguration des SMTP-Servers ermöglicht es der Software, Mails zu senden. Wenn Sie es nicht konfigurieren, werden keine E-Mails von OpenSupports gesendet.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-Mail oder Passwort ungültig',
@@ -355,5 +360,8 @@ export default {
     'LEFT_EMPTY_DATABASE': 'Leer leer für die automatische Datenbankerstellung',
     'REMEMBER_ME': 'Merken',
     'EMAIL_LOWERCASE': 'Email',
-    'PASSWORD_LOWERCASE': 'Passwort'
+    'PASSWORD_LOWERCASE': 'Passwort',
+    'TEST_SMTP_CONNECTION': 'SMTP-Verbindung testen',
+    'SMTP_CONNECTION_SUCCESS': 'SMTP-Anmeldeinformationen sind gültig.',
+    'SMTP_CONNECTION_ERROR': 'Kann keine Verbindung zum SMTP-Server herstellen.'
 };
