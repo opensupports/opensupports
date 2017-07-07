@@ -1,4 +1,7 @@
 <?php
+    require_once 'api/Client.php';
+    $client = Client::getByHost();
+
     $path = rtrim(dirname($_SERVER['PHP_SELF']), '/');
     $url = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $path;
 ?>
@@ -20,8 +23,9 @@
         
         <script>
             root = "<?=$url ?>";
-            apiRoot = '<?=$url ?>/api';
-            globalIndexPath = "<?=$path ?>";
+            apiRoot = 'http://api.opensupports.com<?= $apiVersion; ?>';
+            globalIndexPath = "";
+            clientId = "<?= $client->getClientId(); ?>"
         </script>
         <script src="<?=$url ?>/js/main.js"></script>
     </body>

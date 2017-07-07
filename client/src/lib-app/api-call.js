@@ -14,10 +14,14 @@ function processData (data, dataAsForm = false) {
 
         newData.append('csrf_token', SessionStore.getSessionData().token);
         newData.append('csrf_userid', SessionStore.getSessionData().userId);
+        newData.append('session_id', SessionStore.getItem('session_id'));
+        newData.append('client_id', clientId);
     } else {
         newData = _.extend({
             csrf_token: SessionStore.getSessionData().token,
-            csrf_userid: SessionStore.getSessionData().userId
+            csrf_userid: SessionStore.getSessionData().userId,
+            session_id: SessionStore.getItem('session_id'),
+            client_id: clientId
         }, data)
     }
     
@@ -31,6 +35,10 @@ module.exports = {
             APIUtils.post(apiRoot + path, processData(data, dataAsForm), dataAsForm)
                 .then(function (result) {
                     console.log(result);
+
+                    if(!plain) {
+                        SessionStore.setItem('session_id', result.session_id);
+                    }
 
                     if (plain || result.status === 'success') {
                         resolve(result);

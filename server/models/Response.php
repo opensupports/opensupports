@@ -4,6 +4,7 @@ class Response {
     public static function respondError($errorMsg, $data = null) {
         $response = array(
             'status' => 'fail',
+            'session_id' => session_id(),
             'message' => $errorMsg,
             'data' => $data
         );
@@ -17,6 +18,7 @@ class Response {
     public static function respondSuccess($data = null) {
         $response = array(
             'status' => 'success',
+            'session_id' => session_id(),
             'data' => $data
         );
 

@@ -1,20 +1,13 @@
 <?php
-@include 'config.php';
+header('Access-Control-Allow-Origin: *');
 require_once 'vendor/autoload.php';
-
-// REDBEAN CONFIGURATION
-use RedBeanPHP\Facade as RedBean;
-
-if(defined('MYSQL_HOST') && defined('MYSQL_DATABASE') && defined('MYSQL_USER') && defined('MYSQL_PASSWORD')) {
-    RedBean::setup('mysql:host='. MYSQL_HOST .';dbname=' . MYSQL_DATABASE , MYSQL_USER, MYSQL_PASSWORD);
-    RedBean::setAutoResolve(true);
-}
 
 // SLIM FRAMEWORK
 \Slim\Slim::registerAutoLoader();
 $app = new \Slim\Slim();
 
 // LOAD LIBRARIES
+include_once 'libs/AWSClients.php';
 include_once 'libs/Controller.php';
 include_once 'libs/ControllerGroup.php';
 include_once 'libs/Hashing.php';
@@ -56,6 +49,16 @@ include_once 'libs/validations/validTicketNumber.php';
 // LOAD CONTROLLERS
 foreach (glob('controllers/*.php') as $controller) {
     include_once $controller;
+}
+
+require_once 'mysql_client_connect.php';
+
+// REDBEAN CONFIGURATION
+use RedBeanPHP\Facade as RedBean;
+
+if(defined('MYSQL_HOST') && defined('MYSQL_DATABASE') && defined('MYSQL_USER') && defined('MYSQL_PASSWORD')) {
+    RedBean::setup('mysql:host='. MYSQL_HOST .';dbname=' . MYSQL_DATABASE , MYSQL_USER, MYSQL_PASSWORD);
+    RedBean::setAutoResolve(true);
 }
 
 $app->run();

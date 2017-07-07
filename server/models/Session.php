@@ -1,5 +1,4 @@
 <?php
-
 class Session {
     static $instance = null;
     private $sessionPrefix = '';
@@ -9,7 +8,12 @@ class Session {
     }
 
     public function initSession() {
-        session_cache_limiter(false);
+        if(Controller::request('session_id')) {
+            session_id(Controller::request('session_id'));
+        }
+
+        AWSClients::registerSessionHandler();
+
         session_start();
     }
 
@@ -66,14 +70,14 @@ class Session {
     }
 
     public function store($key, $value) {
-        $_SESSION[$this->sessionPrefix . $key] = $value;
+        $_SESSION[$key] = $value;
     }
 
     private function getStoredData($key) {
         $storedValue = null;
 
-        if (array_key_exists($this->sessionPrefix . $key, $_SESSION)) {
-            $storedValue = $_SESSION[$this->sessionPrefix . $key];
+        if (array_key_exists($key, $_SESSION)) {
+            $storedValue = $_SESSION[$key];
         }
 
         return $storedValue;
