@@ -39,7 +39,7 @@ class FileUploader extends FileManager {
             $newName = $this->linearCongruentialGenerator->generate($this->linearCongruentialGeneratorOffset) . '_' . $newName;
         }
 
-        $this->fileName = $newName;;
+        $this->fileName = $newName;
     }
 
     public function setGeneratorValues($gap, $first, $offset) {
