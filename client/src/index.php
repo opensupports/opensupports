@@ -23,7 +23,8 @@
         
         <script>
             root = "<?=$url ?>";
-            apiRoot = 'https://api.opensupports.com<?= $apiVersion; ?>';
+            //Update when https is enabled with a load balancer
+            apiRoot = 'http://api.opensupports.com<?= $apiVersion; ?>';
             globalIndexPath = "";
             clientId = "<?= $client->getClientId(); ?>"
         </script>
