@@ -44,6 +44,7 @@
     "jquery-mockjax": "^2.1.0",
     "jsdom": "^8.4.1",
     "morgan": "^1.6.1",
+    "node-sass": "^4.5.3",
     "proxyquire": "^1.7.4",
     "react-addons-test-utils": "^15.0.1",
     "run-sequence": "^1.1.1",

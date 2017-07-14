@@ -9,15 +9,7 @@ class AWSClients {
         if(!AWSClients::$dynamoDbClient) {
             AWSClients::$dynamoDbClient = new DynamoDbClient([
                 'version' => 'latest',
-                'region'  => 'us-east-1',
-                /*'credentials' => [
-                    'key'    => getenv('AWS_KEY'),
-                    'secret' => getenv('AWS_PRIVATE'),
-                ]*/
-                'credentials' => [
-                    'key'    => 'AKIAJXLALFXV6GTP5BWA',
-                    'secret' => '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',
-                ]
+                'region'  => 'us-east-1'
             ]);
         }
         

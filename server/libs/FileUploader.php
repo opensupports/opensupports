@@ -30,11 +30,7 @@ class FileUploader extends FileManager {
 
         $s3 = new S3Client([
             'version' => 'latest',
-            'region'  => 'us-east-1',
-            'credentials' => [
-                'key'    => 'AKIAJXLALFXV6GTP5BWA',
-                'secret' => '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',
-            ]
+            'region'  => 'us-east-1'
         ]);
 
         $s3->putObject([

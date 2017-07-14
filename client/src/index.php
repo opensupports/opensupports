@@ -3,7 +3,7 @@
     $client = Client::getByHost();
 
     $path = rtrim(dirname($_SERVER['PHP_SELF']), '/');
-    $url = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $path;
+    $url = ((isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $path;
 ?>
 <!doctype html>
 <html class="no-js" lang="">
@@ -23,7 +23,7 @@
         
         <script>
             root = "<?=$url ?>";
-            apiRoot = 'http://api.opensupports.com<?= $apiVersion; ?>';
+            apiRoot = 'https://api.opensupports.com<?= $apiVersion; ?>';
             globalIndexPath = "";
             clientId = "<?= $client->getClientId(); ?>"
         </script>
