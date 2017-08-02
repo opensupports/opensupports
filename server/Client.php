@@ -44,7 +44,9 @@ class Client {
     public function getMySQLSettings() {
         return $this->clientMySQLSettings;
     }
-
+    public function getStaffLimit() {
+        return $this->getItem($this->getClientId().'_staff-limit')*1;
+    }
     private function getItem($key) {
         return AWSClients::getDynamoDbClientInstance()->getItem(array(
             'ConsistentRead' => true,

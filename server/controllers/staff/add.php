@@ -71,6 +71,9 @@ class AddStaffController extends Controller {
     }
 
     public function handler() {
+        global $client;
+        if ($client->getStaffLimit() <= Staff::count()) throw new Exception(ERRORS::STAFF_LIMIT);
+        
         $this->storeRequestData();
         $staff = new Staff();
 
