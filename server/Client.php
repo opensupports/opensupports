@@ -48,7 +48,7 @@ class Client {
         return $this->getItem($this->getClientId().'_staff-limit')*1;
     }
     private function getItem($key) {
-        return AWSClients::getDynamoDbClientInstance()->getItem(array(
+        $value = AWSClients::getDynamoDbClientInstance()->getItem(array(
             'ConsistentRead' => true,
             'TableName' => Client::TABLE,
             'Key' => [
@@ -56,6 +56,14 @@ class Client {
                     'S' => $key
                 ]
             ]
-        ))['Item']['value']['S'];
+        ))['Item']['value'];
+
+        if(array_key_exists('S', $value)) {
+            return $value['S'];
+        } else if(array_key_exists('N', $value)) {
+            return $value['N'];
+        } else {
+            return null;
+        }
     }
 }
