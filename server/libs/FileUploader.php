@@ -1,5 +1,4 @@
 <?php
-use Aws\S3\S3Client;
 
 class FileUploader extends FileManager {
     private $maxSize = 1024;

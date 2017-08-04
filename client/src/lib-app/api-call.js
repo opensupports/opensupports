@@ -58,7 +58,7 @@ module.exports = {
     },
     
     getFileLink(filePath) {
-        return apiRoot + '/system/download?file=' + filePath;
+        return `${apiRoot}/system/download?file=${filePath}&client_id=${clientId}&session_id=${SessionStore.getItem('session_id')}`;
     },
     
     getAPIUrl() {
