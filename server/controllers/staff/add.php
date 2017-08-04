@@ -71,9 +71,8 @@ class AddStaffController extends Controller {
     }
 
     public function handler() {
-        global $client;
-        if ($client->getStaffLimit() <= Staff::count()) throw new Exception(ERRORS::STAFF_LIMIT);
-        
+        $this->checkStaffLimitExceeded();
+
         $this->storeRequestData();
         $staff = new Staff();
 
@@ -123,6 +122,7 @@ class AddStaffController extends Controller {
 
         return $listDepartments;
     }
+
     public function addOwner() {
         $departmentIds = json_decode($this->departments);
 
@@ -130,6 +130,13 @@ class AddStaffController extends Controller {
             $departmentRow = Department::getDataStore($id);
             $departmentRow->owners++;
             $departmentRow->store();
+        }
+    }
+    
+    private function checkStaffLimitExceeded() {
+        if(Controller::isProductionEnv()) {
+            global $client;
+            if ($client->getStaffLimit() <= Staff::count()) throw new Exception(ERRORS::STAFF_LIMIT);
         }
     }
 }

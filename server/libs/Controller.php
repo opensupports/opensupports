@@ -87,6 +87,10 @@ abstract class Controller {
         return Controller::isUserLogged() && (Controller::getLoggedUser()->level >= $level);
     }
 
+    public static function isProductionEnv() {
+        return getenv('ENV') != 'test';
+    }
+
     public static function getAppInstance() {
         return \Slim\Slim::getInstance();
     }

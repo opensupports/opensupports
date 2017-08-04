@@ -44,9 +44,31 @@ class Client {
     public function getMySQLSettings() {
         return $this->clientMySQLSettings;
     }
+
     public function getStaffLimit() {
         return $this->getItem($this->getClientId().'_staff-limit')*1;
     }
+
+    public function uploadFile($fileName, $file) {
+        $s3Client = AWSClients::getS3ClientInstance();
+
+        $s3Client->putObject([
+            'Bucket' => 'os4test',
+            'Key'    => $this->getClientId() . '_' . $fileName,
+            'Body'   => fopen($file['tmp_name'], 'r'),
+            'ACL'    => 'private'
+        ]);
+    }
+
+    public function downloadFile($fileName, $filePath) {
+        $s3Client = AWSClients::getS3ClientInstance();
+        $s3Client->getObject([
+            'Bucket' => 'os4test',
+            'Key'    => $this->getClientId() . '_' . $fileName,
+            'SaveAs' => $filePath
+        ]);
+    }
+
     private function getItem($key) {
         $value = AWSClients::getDynamoDbClientInstance()->getItem(array(
             'ConsistentRead' => true,

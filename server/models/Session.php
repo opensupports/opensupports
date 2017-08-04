@@ -12,7 +12,9 @@ class Session {
             session_id(Controller::request('session_id'));
         }
 
-        AWSClients::registerSessionHandler();
+        if(Controller::isProductionEnv()) {
+            AWSClients::registerSessionHandler();
+        }
 
         session_start();
     }

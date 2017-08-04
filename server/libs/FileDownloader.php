@@ -18,17 +18,10 @@ class FileDownloader extends FileManager {
     public function download() {
         $fullFilePath = $this->getFullFilePath();
 
-        $s3 = new S3Client([
-            'version' => 'latest',
-            'region'  => 'us-east-1'
-        ]);
-
-        $s3->getObject([
-            'Bucket' => 'os4test',
-            'Key'    => $this->getFileName(),
-            'SaveAs' => $fullFilePath
-        ]);
-
+        if(Controller::isProductionEnv()) {
+            global $client;
+            $client->downloadFile($this->getFileName(), $fullFilePath);
+        }
 
         if(file_exists($fullFilePath) && is_file($fullFilePath)) {
             header('Cache-control: private');

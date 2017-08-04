@@ -51,7 +51,11 @@ foreach (glob('controllers/*.php') as $controller) {
     include_once $controller;
 }
 
-require_once 'mysql_client_connect.php';
+if(Controller::isProductionEnv()) {
+    require_once 'mysql_client_connect.php';
+} else {
+    require_once 'config.php';
+}
 
 // REDBEAN CONFIGURATION
 use RedBeanPHP\Facade as RedBean;

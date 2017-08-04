@@ -25,20 +25,13 @@ class FileUploader extends FileManager {
         if($file['size'] > (1024 * $this->maxSize)) {
             return false;
         }
-        
-        /*move_uploaded_file($file['tmp_name'], $this->getLocalPath() . $this->getFileName());*/
 
-        $s3 = new S3Client([
-            'version' => 'latest',
-            'region'  => 'us-east-1'
-        ]);
-
-        $s3->putObject([
-            'Bucket' => 'os4test',
-            'Key'    => $this->getFileName(),
-            'Body'   => fopen($file['tmp_name'], 'r'),
-            'ACL'    => 'public-read'
-        ]);
+        if(Controller::isProductionEnv()) {
+            global $client;
+            $client->uploadFile($this->getFileName(), $file);
+        } else {
+            move_uploaded_file($file['tmp_name'], $this->getLocalPath() . $this->getFileName());
+        }
 
         return true;
     }
