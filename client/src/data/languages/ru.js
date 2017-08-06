@@ -362,5 +362,7 @@ export default {
     'PASSWORD_LOWERCASE': 'пароль',
     'TEST_SMTP_CONNECTION': 'Тестирование SMTP-соединения',
     'SMTP_CONNECTION_SUCCESS': 'Учетные данные SMTP действительны.',
-    'SMTP_CONNECTION_ERROR': 'Не удается подключиться к SMTP-серверу.'
+    'SMTP_CONNECTION_ERROR': 'Не удается подключиться к SMTP-серверу.',
+    
+    'STAFF_LIMIT': 'Вы достигли предела допускаемых сотрудников. Обновите свой план или обратитесь в нашу службу поддержки.'
 };

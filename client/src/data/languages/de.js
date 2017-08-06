@@ -363,5 +363,7 @@ export default {
     'PASSWORD_LOWERCASE': 'Passwort',
     'TEST_SMTP_CONNECTION': 'SMTP-Verbindung testen',
     'SMTP_CONNECTION_SUCCESS': 'SMTP-Anmeldeinformationen sind gültig.',
-    'SMTP_CONNECTION_ERROR': 'Kann keine Verbindung zum SMTP-Server herstellen.'
+    'SMTP_CONNECTION_ERROR': 'Kann keine Verbindung zum SMTP-Server herstellen.',
+
+    'STAFF_LIMIT': 'Sie haben die Grenze der Mitarbeiter zugelassen. Bitte aktualisieren Sie Ihren Plan oder kontaktieren Sie unser Support-Team.'
 };

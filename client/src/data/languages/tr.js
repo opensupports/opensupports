@@ -363,5 +363,7 @@ export default {
     'PASSWORD_LOWERCASE': 'parola',
     'TEST_SMTP_CONNECTION': 'SMTP bağlantısını test et',
     'SMTP_CONNECTION_SUCCESS': 'SMTP kimlik bilgileri geçerlidir.',
-    'SMTP_CONNECTION_ERROR': 'SMTP sunucusuna bağlanılamıyor.'
+    'SMTP_CONNECTION_ERROR': 'SMTP sunucusuna bağlanılamıyor.',
+
+    'STAFF_LIMIT': 'İzin verilen personel sayısına ulaştınız. Lütfen planınızı güncelleyin veya destek ekibimizle iletişime geçin.'
 };

@@ -106,6 +106,8 @@ class AddStaffModal extends React.Component {
 
         if (this.state.error === 'ALREADY_A_STAFF') {
             errors.email = i18n('EMAIL_EXISTS');
+        } else if (this.state.error === 'STAFF_LIMIT') {
+            errors.email = i18n('STAFF_LIMIT');
         }
 
         return errors;

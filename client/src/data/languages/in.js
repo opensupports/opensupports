@@ -363,5 +363,7 @@ export default {
     'PASSWORD_LOWERCASE': 'पासवर्ड',
     'TEST_SMTP_CONNECTION': 'परीक्षण एसएमटीपी कनेक्शन',
     'SMTP_CONNECTION_SUCCESS': 'SMTP क्रेडेंशियल्स मान्य हं।',
-    'SMTP_CONNECTION_ERROR': 'एसएमटीपी सर्वर से कनेक्ट नहीं हो सकता'
+    'SMTP_CONNECTION_ERROR': 'एसएमटीपी सर्वर से कनेक्ट नहीं हो सकता',
+
+    'STAFF_LIMIT': 'आप कर्मचारियों की अनुमति की सीमा तक पहुंच गए हैं। कृपया अपनी योजना को अपडेट करें या हमारी सहायता टीम से संपर्क करें'
 };
