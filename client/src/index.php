@@ -4,6 +4,12 @@
 
     $path = rtrim(dirname($_SERVER['PHP_SELF']), '/');
     $url = ((isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $path;
+
+    if(!$client->getClientId()) {
+        http_response_code(404);
+        echo 'Client does not exist';
+        exit;
+    }
 ?>
 <!doctype html>
 <html class="no-js" lang="">

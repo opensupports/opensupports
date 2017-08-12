@@ -60,6 +60,13 @@ if(Controller::isProductionEnv()) {
 // REDBEAN CONFIGURATION
 use RedBeanPHP\Facade as RedBean;
 
+
+if(!$client->getClientVersion()) {
+    echo 'Client does not exist';
+    exit;
+}
+
+
 if(defined('MYSQL_HOST') && defined('MYSQL_DATABASE') && defined('MYSQL_USER') && defined('MYSQL_PASSWORD')) {
     RedBean::setup('mysql:host='. MYSQL_HOST .';dbname=' . MYSQL_DATABASE , MYSQL_USER, MYSQL_PASSWORD);
     RedBean::setAutoResolve(true);
