@@ -14,12 +14,14 @@ class MailSender {
     }
 
     private function __construct() {
+        $smtpValues = Setting::getSMTPValues();
+
         $this->setConnectionSettings(
-            Setting::getSetting('smtp-host')->getValue(),
-            Setting::getSetting('smtp-port')->getValue(),
-            Setting::getSetting('smtp-user')->getValue(),
-            Setting::getSetting('smtp-pass')->getValue(),
-            Setting::getSetting('no-reply-email')->getValue()
+            $smtpValues['smtp-host'],
+            $smtpValues['smtp-port'],
+            $smtpValues['smtp-user'],
+            $smtpValues['smtp-pass'],
+            $smtpValues['no-reply-email']
         );
     }
 

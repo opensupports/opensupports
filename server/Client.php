@@ -49,6 +49,17 @@ class Client {
         return $this->getItem($this->getClientId().'_staff-limit')*1;
     }
 
+    public function getHiddenSettings() {
+        return [
+            'recaptcha-public' => $this->getItem('recaptcha-public'),
+            'recaptcha-private' => $this->getItem('recaptcha-private'),
+            'smtp-host' => $this->getItem('smtp-host'),
+            'smtp-port' => $this->getItem('smtp-port'),
+            'smtp-user' => $this->getItem('smtp-user'),
+            'smtp-pass' => $this->getItem('smtp-pass')
+        ];
+    }
+
     public function uploadFile($fileName, $file) {
         $s3Client = AWSClients::getS3ClientInstance();
 
@@ -69,7 +80,7 @@ class Client {
         ]);
     }
 
-    private function getItem($key) {
+    public function getItem($key) {
         $value = AWSClients::getDynamoDbClientInstance()->getItem(array(
             'ConsistentRead' => true,
             'TableName' => Client::TABLE,
@@ -80,9 +91,9 @@ class Client {
             ]
         ))['Item']['value'];
 
-        if(array_key_exists('S', $value)) {
+        if($value && array_key_exists('S', $value)) {
             return $value['S'];
-        } else if(array_key_exists('N', $value)) {
+        } else if($value && array_key_exists('N', $value)) {
             return $value['N'];
         } else {
             return null;

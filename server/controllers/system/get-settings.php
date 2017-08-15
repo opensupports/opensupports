@@ -31,13 +31,15 @@ class GetSettingsController extends Controller {
 
     public function handler() {
         $settingsList = [];
+        $captchaValues = Setting::getCaptchaValues();
+        $smtpValues = Setting::getSMTPValues();
 
         if(InstallationDoneController::isInstallationDone()) {
             if(Controller::request('allSettings') && Controller::isStaffLogged(3)) {
                 $settingsList = [
                     'language' => Setting::getSetting('language')->getValue(),
-                    'reCaptchaKey' => Setting::getSetting('recaptcha-public')->getValue(),
-                    'reCaptchaPrivate' => Setting::getSetting('recaptcha-private')->getValue(),
+                    'reCaptchaKey' => ($captchaValues['isDefault']) ? 'DEFAULT' : $captchaValues['recaptcha-public'],
+                    'reCaptchaPrivate' => ($captchaValues['isDefault']) ? 'DEFAULT' : $captchaValues['recaptcha-private'],
                     'time-zone' => Setting::getSetting('time-zone')->getValue(),
                     'maintenance-mode' => Setting::getSetting('maintenance-mode')->getValue() * 1,
                     'layout' => Setting::getSetting('layout')->getValue(),
@@ -45,10 +47,10 @@ class GetSettingsController extends Controller {
                     'max-size' => Setting::getSetting('max-size')->getValue(),
                     'url' => Setting::getSetting('url')->getValue(),
                     'title' => Setting::getSetting('title')->getValue(),
-                    'no-reply-email' => Setting::getSetting('no-reply-email')->getValue(),
-                    'smtp-port' => Setting::getSetting('smtp-port')->getValue(),
-                    'smtp-host' => Setting::getSetting('smtp-host')->getValue(),
-                    'smtp-user' => Setting::getSetting('smtp-user')->getValue(),
+                    'smtp-host' => ($smtpValues['isDefault']) ? 'DEFAULT' : $smtpValues['smtp-host'],
+                    'smtp-port' => ($smtpValues['isDefault']) ? 'DEFAULT' : $smtpValues['smtp-port'],
+                    'smtp-user' => ($smtpValues['isDefault']) ? 'DEFAULT' : $smtpValues['smtp-user'],
+                    'no-reply-email' => ($smtpValues['isDefault']) ? 'DEFAULT' : $smtpValues['no-reply-email'],
                     'registration' => Setting::getSetting('registration')->getValue(),
                     'departments' => Department::getDepartmentNames(),
                     'supportedLanguages' => Language::getSupportedLanguages(),
@@ -57,8 +59,8 @@ class GetSettingsController extends Controller {
                 ];
             } else {
                 $settingsList = [
+                    'reCaptchaKey' => ($captchaValues['isDefault']) ? 'DEFAULT' : $captchaValues['recaptcha-public'],
                     'language' => Setting::getSetting('language')->getValue(),
-                    'reCaptchaKey' => Setting::getSetting('recaptcha-public')->getValue(),
                     'time-zone' => Setting::getSetting('time-zone')->getValue(),
                     'maintenance-mode' => Setting::getSetting('maintenance-mode')->getValue() * 1,
                     'layout' => Setting::getSetting('layout')->getValue(),

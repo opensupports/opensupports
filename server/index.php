@@ -61,7 +61,7 @@ if(Controller::isProductionEnv()) {
 use RedBeanPHP\Facade as RedBean;
 
 
-if(!$client->getClientVersion()) {
+if(Controller::isProductionEnv() && !$client->getClientVersion()) {
     echo 'Client does not exist';
     exit;
 }
