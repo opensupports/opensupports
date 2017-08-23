@@ -1,5 +1,5 @@
 <?php
-    require_once 'api/Client.php';
+    require_once 'api/4.1/Client.php';
     $client = Client::getByHost();
 
     $path = rtrim(dirname($_SERVER['PHP_SELF']), '/');
@@ -20,8 +20,8 @@
         <meta name="viewport" content="width=device-width">
     
         <title>OpenSupports</title>
-    
-        <link rel="stylesheet" href="<?=$url ?>/css/main.css">
+
+        <link rel="stylesheet" href="https://s3.amazonaws.com/opensupports/opensupports_<?=$client->getClientVersion(); ?>.css">
         <link rel="icon" type="image/x-icon" href="<?=$url ?>/images/icon.png">
     </head>
     <body>
@@ -30,10 +30,10 @@
         <script>
             root = "<?=$url ?>";
             //Update when https is enabled with a load balancer
-            apiRoot = 'http://api.opensupports.com<?= $apiVersion; ?>';
+            apiRoot = 'http://api.opensupports.com/<?= $client->getClientVersion(); ?>';
             globalIndexPath = "";
             clientId = "<?= $client->getClientId(); ?>"
         </script>
-        <script src="<?=$url ?>/js/main.js"></script>
+        <script src="https://s3.amazonaws.com/opensupports/opensupports_<?=$client->getClientVersion(); ?>.js"></script>
     </body>
 </html>
