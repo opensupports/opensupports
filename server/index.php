@@ -1,6 +1,7 @@
 <?php
 header('Access-Control-Allow-Origin: *');
 require_once 'vendor/autoload.php';
+require_once 'version.php';
 
 // SLIM FRAMEWORK
 \Slim\Slim::registerAutoLoader();
@@ -63,6 +64,11 @@ use RedBeanPHP\Facade as RedBean;
 
 if(Controller::isProductionEnv() && !$client->getClientVersion()) {
     echo 'Client does not exist';
+    exit;
+}
+
+if($client->getClientVersion() !== defined('API_VERSION')) {
+    echo 'Invalid api version';
     exit;
 }
 

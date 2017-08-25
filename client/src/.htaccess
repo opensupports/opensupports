@@ -10,6 +10,6 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} !^/?(api)/
 RewriteRule .* index.php [PT,L]
 
-RewriteCond %{HTTP_HOST} api.opensupports.com$
-RewriteCond %{REQUEST_URI} !^/api
-RewriteRule ^(.*)$ /api/$1 [L]
+#RewriteCond %{HTTP_HOST} api.opensupports.com$
+#RewriteCond %{REQUEST_URI} !^/api
+#RewriteRule ^(.*)$ /api/$1 [L]

@@ -59,7 +59,7 @@ class GetSettingsController extends Controller {
                 ];
             } else {
                 $settingsList = [
-                    'reCaptchaKey' => ($captchaValues['isDefault']) ? 'DEFAULT' : $captchaValues['recaptcha-public'],
+                    'reCaptchaKey' => ($captchaValues['recaptcha-public'] !== 'NONE') ? $captchaValues['recaptcha-public'] : '',
                     'language' => Setting::getSetting('language')->getValue(),
                     'time-zone' => Setting::getSetting('time-zone')->getValue(),
                     'maintenance-mode' => Setting::getSetting('maintenance-mode')->getValue() * 1,
