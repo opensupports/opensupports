@@ -179,6 +179,7 @@ export default {
     'SEND_EMAIL_ON_NEW_TICKET': 'Отправить письмо на новый билет',
     'STAFF_UPDATED': 'Сотрудник обновлен',
     'UPDATE': 'Обновить',
+    'NEVER': 'Никогда',
 
     'CHART_CREATE_TICKET': 'Билеты создано',
     'CHART_CLOSE': ' Билеты закрыты',
@@ -317,7 +318,7 @@ export default {
     'INVALID_EMAIL_OR_TICKET_NUMBER': 'Неправильный номер эл. Почты или номера билета.',
     'INVALID_FILE': 'неверный файл',
     'ERRORS_FOUND': 'Ошибки найдены',
-    
+
     //MESSAGES
     'SIGNUP_SUCCESS': 'Вы успешно зарегистрировались в нашей системе поддержки.',
     'TICKET_SENT': 'Билет был успешно создан.',

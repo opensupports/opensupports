@@ -179,6 +179,7 @@ export default {
     'SEND_EMAIL_ON_NEW_TICKET': 'Enviar email por cada nuevo ticket',
     'STAFF_UPDATED': 'Miembro de Staff actualizado',
     'UPDATE': 'Actualizar',
+    'NEVER': 'Nunca',
 
     'CHART_CREATE_TICKET': 'Tickets creados',
     'CHART_CLOSE': 'Tickets cerrados',
@@ -213,7 +214,7 @@ export default {
     'ACTIVITY_BAN_USER': 'bloqueó el usuario',
     'ACTIVITY_DELETE_USER': 'borró el usuario',
     'ACTIVITY_UN_BAN_USER': 'desbloqueó el usuario',
-    
+
     'SERVER_REQUIREMENTS': 'Requisitos del servidor',
     'DATABASE_CONFIGURATION': 'Configuracion de la base de datos',
     'ADMIN_SETUP': 'Admin setup',

@@ -1021,7 +1021,7 @@ module.exports = [
                         departments: [{id: 3, name: 'System and Administration'}],
                         assignedTickets: 1,
                         closedTickets: 1,
-                        lastLogin: 20120501330
+                        lastLogin: null
                     }
                 ]
             };

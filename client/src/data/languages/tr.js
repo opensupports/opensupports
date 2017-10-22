@@ -179,7 +179,8 @@ export default {
     'SEND_EMAIL_ON_NEW_TICKET': 'Yeni biletle e-posta gönder',
     'STAFF_UPDATED': 'Çalışanlar güncellendi',
     'UPDATE': 'Güncelleştirme',
-    
+    'NEVER': 'Asla',
+
     'CHART_CREATE_TICKET': 'Biletler oluşturuldu',
     'CHART_CLOSE': 'Biletler kapandı',
     'CHART_SIGNUP': 'Kayıtlar',
