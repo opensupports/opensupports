@@ -179,7 +179,8 @@ export default {
     'SEND_EMAIL_ON_NEW_TICKET': 'एक ईमेल भेजने के लिए प्रत्येक नए टिकट',
     'STAFF_UPDATED': 'स्टाफ सदस्य को अद्यतन किया गया है',
     'UPDATE': 'अद्यतन',
-    
+    'NEVER': 'कभी नहीँ',
+
     'CHART_CREATE_TICKET': 'टिकट बनाया',
     'CHART_CLOSE': 'टिकट बंद कर दिया',
     'CHART_SIGNUP': 'पंजीकरण',
@@ -213,7 +214,7 @@ export default {
     'ACTIVITY_BAN_USER': 'पर प्रतिबंध लगा दिया उपयोगकर्ता',
     'ACTIVITY_DELETE_USER': 'हटाया हुआ उपयोगकर्ता',
     'ACTIVITY_UN_BAN_USER': 'पर प्रतिबंध लगा दिया उपयोगकर्ता',
-    
+
     'SERVER_REQUIREMENTS': 'सर्वर आवश्यकताएं',
     'DATABASE_CONFIGURATION': 'डेटाबेस कॉन्फ़िगरेशन',
     'ADMIN_SETUP': 'व्यवस्थापक सेटअप',
@@ -318,7 +319,7 @@ export default {
     'INVALID_EMAIL_OR_TICKET_NUMBER': 'अमान्य ईमेल या टिकट नंबर',
     'INVALID_FILE': 'अवैध फाइल',
     'ERRORS_FOUND': 'त्रुटियां मिलीं',
-    
+
     //MESSAGES
     'SIGNUP_SUCCESS': 'आप हमारे समर्थन प्रणाली में सफलतापूर्वक दर्ज कर लिया है।',
     'TICKET_SENT': 'टिकट सफलतापूर्वक बनाया गया है।',

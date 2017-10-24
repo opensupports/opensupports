@@ -179,6 +179,7 @@ export default {
     'SEND_EMAIL_ON_NEW_TICKET': 'メールを送信毎に新しいチケット',
     'STAFF_UPDATED': 'スタッフメンバーが更新されました',
     'UPDATE': '更新',
+    'NEVER': '決して',
     
     'CHART_CREATE_TICKET': '作成されたチケット',
     'CHART_CLOSE': 'チケットが閉じられました',
@@ -213,7 +214,7 @@ export default {
     'ACTIVITY_BAN_USER': '禁止されたユーザー',
     'ACTIVITY_DELETE_USER': '削除されたユーザー',
     'ACTIVITY_UN_BAN_USER': '禁止されたユーザー',
-    
+
     'SERVER_REQUIREMENTS': 'サーバー要件',
     'DATABASE_CONFIGURATION': 'データベース構成',
     'ADMIN_SETUP': '管理者設定',
@@ -365,4 +366,3 @@ export default {
     'SMTP_CONNECTION_SUCCESS': 'SMTP資格情報が有効です。',
     'SMTP_CONNECTION_ERROR': 'SMTPサーバーに接続できません。'
 };
-

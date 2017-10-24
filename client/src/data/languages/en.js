@@ -179,6 +179,7 @@ export default {
     'SEND_EMAIL_ON_NEW_TICKET': 'Send email on new ticket',
     'STAFF_UPDATED': 'Staff member has been updated',
     'UPDATE': 'Update',
+    'NEVER': 'Never',
 
     'CHART_CREATE_TICKET': 'Tickets created',
     'CHART_CLOSE': 'Tickets closed',
