@@ -179,6 +179,7 @@ export default {
     'SEND_EMAIL_ON_NEW_TICKET': 'Envoyer un e-mail pour chaque nouveau ticket',
     'STAFF_UPDATED': 'Le membre du personnel a été mis à jour',
     'UPDATE': 'Mettre à jour',
+    'NEVER': 'Jamais',
 
     'CHART_CREATE_TICKET': 'Tickets créés',
     'CHART_CLOSE': 'Tickets fermés',

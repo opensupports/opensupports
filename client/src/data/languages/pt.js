@@ -179,6 +179,7 @@ export default {
     'SEND_EMAIL_ON_NEW_TICKET': 'Enviar email para cada novo ticket',
     'STAFF_UPDATED': 'Membro da equipe foi atualizado',
     'UPDATE': 'Actualizar',
+    'NEVER': 'Nunca',
 
     'CHART_CREATE_TICKET': 'Ingressos criados',
     'CHART_CLOSE': 'Ingressos fechados',
@@ -318,7 +319,7 @@ export default {
     'INVALID_EMAIL_OR_TICKET_NUMBER': 'Número de e-mail ou bilhete inválido',
     'INVALID_FILE': 'arquivo inválido',
     'ERRORS_FOUND': 'Erros encontrados',
-    
+
     //MESSAGES
     'SIGNUP_SUCCESS': 'Você se registrou com sucesso em nosso sistema de suporte.',
     'TICKET_SENT': 'O ticket foi criado com sucesso.',

@@ -1,6 +1,6 @@
 ![OpenSupports](http://www.opensupports.com/logo.png)
 
-[![Build Status](https://travis-ci.org/opensupports/opensupports.svg?branch=master)](https://travis-ci.org/opensupports/opensupports)
+[![Build Status](https://travis-ci.org/opensupports/opensupports.svg?branch=master)](https://travis-ci.org/opensupports/opensupports) v4.1.0
 
 OpenSupports is an open source ticket system built primarly with PHP and ReactJS.
 Please, visit our website for more information: [http://www.opensupports.com/](http://www.opensupports.com/)

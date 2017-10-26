@@ -179,6 +179,7 @@ export default {
     'SEND_EMAIL_ON_NEW_TICKET': '电子邮件为每个新票',
     'STAFF_UPDATED': '工作人员已更新',
     'UPDATE': '更新',
+    'NEVER': '从来没有',
 
     'CHART_CREATE_TICKET': '已創建門票',
     'CHART_CLOSE': '門票已關閉',
@@ -366,4 +367,3 @@ export default {
     'SMTP_CONNECTION_SUCCESS': 'SMTP凭据有效',
     'SMTP_CONNECTION_ERROR': '无法连接到SMTP服务器'
 };
-
