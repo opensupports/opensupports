@@ -67,7 +67,7 @@ if(Controller::isProductionEnv() && !$client->getClientVersion()) {
     exit;
 }
 
-if($client->getClientVersion() !== defined('API_VERSION')) {
+if($client->getClientVersion() !== API_VERSION) {
     echo 'Invalid api version';
     exit;
 }
