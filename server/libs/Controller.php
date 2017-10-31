@@ -27,10 +27,10 @@ abstract class Controller {
             }
         };
     }
-    
+
     public function validate() {
         $validator = new Validator();
-        
+
         $validator->validate($this->validations());
     }
 
@@ -54,7 +54,7 @@ abstract class Controller {
 
     public static function request($key, $secure = false) {
         $result = call_user_func(self::$dataRequester, $key);
-        
+
         if($secure) {
             $config = HTMLPurifier_Config::createDefault();
             $purifier = new HTMLPurifier($config);
@@ -63,7 +63,7 @@ abstract class Controller {
             return $result;
         }
     }
-    
+
     public static function getLoggedUser() {
         $session = Session::getInstance();
 
@@ -90,7 +90,7 @@ abstract class Controller {
     public static function getAppInstance() {
         return \Slim\Slim::getInstance();
     }
-    
+
     public function uploadFile($forceUpload = false) {
         $allowAttachments = Setting::getSetting('allow-attachments')->getValue();
 
@@ -114,7 +114,7 @@ abstract class Controller {
             throw new Exception(ERRORS::INVALID_FILE);
         }
     }
-    
+
     public static function isUserSystemEnabled() {
         return Setting::getSetting('user-system-enabled')->getValue();
     }
