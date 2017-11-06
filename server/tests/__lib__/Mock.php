@@ -44,8 +44,9 @@ class Stub {
 }
 
 class Mock {
+
     public static function stub() {
-        return new Stub;
+        return new Stub();
     }
 
     public static function setStatics($statics) {
@@ -55,7 +56,7 @@ class Mock {
     }
 
     public static function __callStatic($key, $arguments) {
-        if (static::$functionList[$key]) {
+        if (array_key_exists($key, static::$functionList)) {
             $function =  static::$functionList[$key];
 
             return call_user_func_array($function, $arguments);
@@ -87,9 +88,11 @@ class Mock {
     }
 
     public function __call($method, $arguments) {
-        if (isset($this->{$method}) && is_callable($this->{$method})) {
+        if ($this->{$method} && is_callable($this->$method)) {
             return call_user_func_array($this->{$method}, $arguments);
-        } else if (!self::__callStatic($method, $arguments)) {
+        } else if (array_key_exists($method, static::$functionList)) {
+            return self::__callStatic($method, $arguments);
+        } else {
             throw new Exception("Fatal error: Call to undefined method stdObject::{$method}()");
         }
     }

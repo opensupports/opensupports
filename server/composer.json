@@ -9,6 +9,6 @@
         "ezyang/htmlpurifier": "^4.8"
     },
     "require-dev": {
-      "phpunit/phpunit": "5.0.*"
+        "phpunit/phpunit": "^6.4.3"
     }
 }
