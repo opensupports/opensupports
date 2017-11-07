@@ -6,6 +6,7 @@ include_once 'tests/__mocks__/RedBeanMock.php';
 include_once 'models/DataStore.php';
 
 use RedBeanPHP\Facade as RedBean;
+use PHPUnit\Framework\TestCase;
 
 class DataStoreMock extends DataStore {
     const TABLE = 'MOCK_TABLE';
@@ -26,7 +27,7 @@ class DataStoreMock extends DataStore {
     }
 }
 
-class DataStoreTest extends PHPUnit_Framework_TestCase {
+class DataStoreTest extends TestCase {
 
     protected function setUp() {
         RedBean::initStubs();

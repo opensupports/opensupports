@@ -1,12 +1,20 @@
 <?php
 
-class Controller extends \Mock {
-    public static $functionList = array();
+class Controller {
+    public static $requestReturnMock = 'mockRequestValue';
+    public static $checkUserLoggedReturnMock = true;
+    public static $isUserSystemEnabledReturnMock = true;
 
-    public static function initStubs() {
-        parent::setStatics(array(
-            'request' => parent::stub()->returns('mockRequestValue'),
-            'checkUserLogged' => parent::stub()->returns(true)
-        ));
+    public static function request($value) {
+        if($value === 'staff') return false;
+        return static::$requestReturnMock;
+    }
+
+    public static function checkUserLogged() {
+        return static::$checkUserLoggedReturnMock;
+    }
+
+    public static function isUserSystemEnabled() {
+        return static::$isUserSystemEnabledReturnMock;
     }
 }

@@ -93,7 +93,7 @@ class InitSettingsController extends Controller {
 
     private function storeMailTemplates() {
         $mails = InitialMails::retrieve();
-        
+
         foreach ($mails as $mailType => $mailLanguages) {
             foreach ($mailLanguages as $mailLanguage => $mailContent) {
                 $mailTemplate = new MailTemplate();
@@ -124,7 +124,7 @@ class InitSettingsController extends Controller {
     }
     private function storeLanguages() {
         $defaultLanguage = Controller::request('language');
-        
+
         foreach(Language::LANGUAGES as $languageCode) {
             $language = new Language();
             $language->setProperties([
