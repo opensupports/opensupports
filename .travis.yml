@@ -3,10 +3,11 @@ language: php
 php:
   - '5.6'
   - '7.0'
+  - '7.1'
 
 services:
   - mysql
-    
+
 before_install:
 - rvm use 2.2 --install --binary --fuzzy
 - ruby --version
@@ -27,5 +28,7 @@ before_install:
 script:
 - cd client
 - npm test
+- cd ../server
+- ./run-tests.sh
 - cd ../tests
 - bacon init.rb

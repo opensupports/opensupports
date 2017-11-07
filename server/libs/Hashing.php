@@ -30,6 +30,8 @@ class Hashing {
         $sqrt = sqrt($number);
         $prime = true;
 
+        if($number <= 1) return false;
+
         for($i = 2; $i <= $sqrt; $i++) {
             if($number % $i === 0) {
                 $prime = false;
