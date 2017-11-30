@@ -16,7 +16,7 @@ class LinearCongruentialGeneratorTest extends TestCase {
             $linearCongruentialGenerator = new LinearCongruentialGenerator();
             $linearCongruentialGenerator->setRange($min, $max);
             $linearCongruentialGenerator->setGap(Hashing::generateRandomPrime($min, $max));
-            $linearCongruentialGenerator->setFirst($linearCongruentialGenerator->generateFirst());
+            $linearCongruentialGenerator->setFirst(Hashing::generateRandomNumber());
 
             $used = [];
 

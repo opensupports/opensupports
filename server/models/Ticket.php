@@ -78,10 +78,10 @@ class Ticket extends DataStore {
         $ticketQuantity = Ticket::count();
 
         if ($ticketQuantity === 0) {
-            $ticketNumber = $linearCongruentialGenerator->generateFirst();
+            $ticketNumber = Setting::getSetting('ticket-first-number');
         } else {
             $linearCongruentialGenerator->setGap(Setting::getSetting('ticket-gap')->value);
-            $linearCongruentialGenerator->setFirst(Ticket::getTicket(1)->ticketNumber);
+            $linearCongruentialGenerator->setFirst(Setting::getSetting('ticket-first-number')->value);
 
             $ticketNumber = $linearCongruentialGenerator->generate($ticketQuantity);
         }
