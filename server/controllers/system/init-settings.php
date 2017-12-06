@@ -83,10 +83,10 @@ class InitSettingsController extends Controller {
             'registration' => !!Controller::request('registration'),
             'user-system-enabled' => !!Controller::request('user-system-enabled'),
             'last-stat-day' => date('YmdHi', strtotime(' -12 day ')),
-            'ticket-gap' => Hashing::generateRandomPrime(1000000, 9999999),
-            'ticket-first-number' => Hashing::generateRandomNumber(1000000, 9999999),
-            'file-gap' => Hashing::generateRandomPrime(1000000, 9999999),
-            'file-first-number' => Hashing::generateRandomNumber(1000000, 9999999),
+            'ticket-gap' => Hashing::generateRandomPrime(100000, 999999),
+            'ticket-first-number' => Hashing::generateRandomNumber(100000, 999999),
+            'file-gap' => Hashing::generateRandomPrime(100000, 999999),
+            'file-first-number' => Hashing::generateRandomNumber(100000, 999999),
             'file-quantity' => 0,
             'session-prefix' => 'opensupports-'.Hashing::generateRandomToken().'_'
         ]);

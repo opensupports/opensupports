@@ -75,13 +75,14 @@ if($tickets = $mysql->query("SELECT * FROM ticket ORDER BY id ASC")) {
         $ticketString = '';
 
         foreach($emailTickets as $ticket) {
-            $ticketString += '<p>'
-            $ticketString += $ticket['old_number'];
-            $ticketString += '(old) => ';
-            $ticketString += $ticket['new_number'];
-            $ticketString += '(new) ';
-            $ticketString += $ticket['title'];
-            $ticketString += '</p>';
+            $ticketString .= '<p>';
+            $ticketString .= $ticket['old_number'];
+            $ticketString .= ' => ';
+            $ticketString .= $ticket['new_number'];
+            $ticketString .= ' ';
+            $ticketString .= htmlentities($ticket['title']);
+            $ticketString .= '</p>';
+            $ticketString .= PHP_EOL;
         }
 
         $mailSender->setMailContent([
@@ -93,5 +94,7 @@ if($tickets = $mysql->query("SELECT * FROM ticket ORDER BY id ASC")) {
                 'tickets' => $ticketString,
             ])
         ]);
+
+        $mailSender->send();
     }
 }

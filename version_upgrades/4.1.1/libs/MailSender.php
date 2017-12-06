@@ -1,4 +1,6 @@
 <?php
+require_once '../../server/vendor/autoload.php';
+
 class MailSender {
 
     private $mailOptions = [];
@@ -38,6 +40,7 @@ class MailSender {
             throw new Exception('Mail sending data not available');
         }
 
+        $mailerInstance->ClearAllRecipients();
         $mailerInstance->addAddress($this->mailOptions['to']);
         $mailerInstance->Subject = $this->mailOptions['subject'];
         $mailerInstance->Body = $this->mailOptions['body'];
