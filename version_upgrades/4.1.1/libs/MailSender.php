@@ -1,4 +1,6 @@
 <?php
+require_once '../../server/vendor/autoload.php';
+
 class MailSender {
 
     private $mailOptions = [];
@@ -13,15 +15,7 @@ class MailSender {
         return MailSender::$instance;
     }
 
-    private function __construct() {
-        $this->setConnectionSettings(
-            Setting::getSetting('smtp-host')->getValue(),
-            Setting::getSetting('smtp-port')->getValue(),
-            Setting::getSetting('smtp-user')->getValue(),
-            Setting::getSetting('smtp-pass')->getValue(),
-            Setting::getSetting('no-reply-email')->getValue()
-        );
-    }
+    private function __construct() {}
 
     public function setConnectionSettings($host, $port, $user, $pass, $noReplyEmail) {
         $this->mailOptions['from'] = $noReplyEmail;
@@ -33,11 +27,8 @@ class MailSender {
         $this->mailOptions['smtp-pass'] = $pass;
     }
 
-    public function setTemplate($type, $config) {
-        $mailTemplate = MailTemplate::getTemplate($type);
-        $compiledMailContent = $mailTemplate->compile($config);
-
-        $this->mailOptions = array_merge($this->mailOptions, $compiledMailContent);
+    public function setMailContent($mailContent) {
+        $this->mailOptions = array_merge($this->mailOptions, $mailContent);
     }
 
     public function send() {
