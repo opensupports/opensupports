@@ -21,7 +21,7 @@ Here is a guide of how to set up the development environment in OpenSupports.
     - `sudo apt-get install -y nodejs`
 4. Install npm: `sudo apt-get install npm`
 5. Install gulp: `sudo npm install -g gulp`
-6. Go to client: `cd os4-react/client`
+6. Go to client: `cd opensupports/client`
 7. Install dependencies: `npm install`
 8. Rebuild node-sass: `npm rebuild node-sass`
 9. Run: `gulp dev`
@@ -50,8 +50,8 @@ Just as there is a `gulp dev` task for development, there is also a `gulp prod` 
 2. [Install PHP 5.6](https://www.dev-metal.com/install-setup-php-5-6-ubuntu-14-04-lts/)
 3. [Create MySQL Database](#markdown-header-create-mysql-database)
 4. [Install composer](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-14-04)
-5. Go to the server folder: `cd os4-react/server`
-6. Run `composer install`
+5. Go to the server folder: `cd opensupports/server`
+6. Run: `composer install`
 7. Run the server with: `php -S localhost:8080`
 
 ##### Create MySQL Database
@@ -84,7 +84,7 @@ Just as there is a `gulp dev` task for development, there is also a `gulp prod` 
 1. Install Ruby: `sudo apt-get install ruby-full`
 2. Install MySQL dev dependencies: `sudo apt-get install libmysqlclient-dev libmysqlclient16 ruby-dev`
 3. Install bundle: `sudo gem install bundler`
-4. Go to tests folder: `cd os4-react/tests`
+4. Go to tests folder: `cd opensupports/tests`
 5. Install project dependencies: `sudo gem install bundler`
 Tests can run by using executing the `run-tests.sh` file.
 
