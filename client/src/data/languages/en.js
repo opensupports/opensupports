@@ -176,6 +176,10 @@ export default {
     'HOME': 'Home',
     'TICKET_NUMBER': 'Ticket number',
     'NEXT': 'Next',
+    'SEND_EMAIL_ON_NEW_TICKET': 'Send email on new ticket',
+    'STAFF_UPDATED': 'Staff member has been updated',
+    'UPDATE': 'Update',
+    'NEVER': 'Never',
 
     'CHART_CREATE_TICKET': 'Tickets created',
     'CHART_CLOSE': 'Tickets closed',
@@ -239,7 +243,7 @@ export default {
     'STEP_2_DESCRIPTION': 'Here are listed the requirements for running OpenSupports. Please make sure that all requirements are satisfied.',
     'STEP_3_DESCRIPTION': 'Please fill the MySQL database configuration.',
     'STEP_4_DESCRIPTION': 'Please select your user system preferences.',
-    'STEP_5_DESCRIPTION': 'Please select your general system preferences.',
+    'STEP_5_DESCRIPTION': 'Please fill your general system preferences.',
     'STEP_6_DESCRIPTION': 'Please configure the administrator account.',
     'STEP_7_DESCRIPTION': 'Installation is completed.',
 
@@ -358,7 +362,6 @@ export default {
     'REMEMBER_ME': 'Remember me',
     'EMAIL_LOWERCASE': 'email',
     'PASSWORD_LOWERCASE': 'password',
-    'SYSTEM_SETTINGS': 'System settings',
     'TEST_SMTP_CONNECTION': 'Test SMTP connection',
     'SMTP_CONNECTION_SUCCESS': 'SMTP credentials are valid.',
     'SMTP_CONNECTION_ERROR': 'Can\'t connect to SMTP server.'

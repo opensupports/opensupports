@@ -41,7 +41,7 @@ class TestSMTPController extends Controller {
             Controller::request('smtp-host'),
             Controller::request('smtp-port'),
             Controller::request('smtp-user'),
-            Controller::request('smtp-pass'),
+            Controller::request('smtp-password'),
             Controller::request('no-reply-email')
         );
         

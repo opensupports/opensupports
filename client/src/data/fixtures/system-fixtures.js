@@ -18,6 +18,7 @@ module.exports = [
                         'smtp-host': 'localhost',
                         'smtp-port': '7070',
                         'smtp-user': 'Wesa',
+                        'session-prefix': 'opensupports-z6ctpq2winvfhchX2_',
                         'maintenance-mode': false,
                         'allow-attachments': true,
                         'max-size': 500,

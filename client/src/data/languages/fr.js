@@ -176,6 +176,10 @@ export default {
     'HOME': 'Accueil',
     'TICKET_NUMBER': 'Numéro de ticket',
     'NEXT': 'Suivant',
+    'SEND_EMAIL_ON_NEW_TICKET': 'Envoyer un e-mail pour chaque nouveau ticket',
+    'STAFF_UPDATED': 'Le membre du personnel a été mis à jour',
+    'UPDATE': 'Mettre à jour',
+    'NEVER': 'Jamais',
 
     'CHART_CREATE_TICKET': 'Tickets créés',
     'CHART_CLOSE': 'Tickets fermés',
@@ -239,8 +243,9 @@ export default {
     'STEP_2_DESCRIPTION': 'Voici les conditions requises pour exécuter OpenSupports. Assurez-vous que toutes les conditions requises soient satisfaites.',
     'STEP_3_DESCRIPTION': 'Veuillez remplir la configuration de la base de données MySQL.',
     'STEP_4_DESCRIPTION': 'Veuillez sélectionner les préférences de votre système utilisateur.',
-    'STEP_5_DESCRIPTION': 'Veuillez configurer le compte administrateur.',
-    'STEP_6_DESCRIPTION': 'L\'installation est terminée.',
+    'STEP_5_DESCRIPTION': 'Sélectionnez vos préférences générales du système.',
+    'STEP_6_DESCRIPTION': 'Veuillez configurer le compte administrateur.',
+    'STEP_7_DESCRIPTION': 'L\'installation est terminée.',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'Il s\'agit d\'un formulaire de création de tickets. Remplissez le formulaire et envoyez-nous vos questions / doutes / suggestions. Notre système de support répondra le plus rapidement possible.',

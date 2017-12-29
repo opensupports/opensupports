@@ -176,7 +176,11 @@ export default {
     'HOME': 'Ev',
     'TICKET_NUMBER': 'Bilet numarası',
     'NEXT': 'Sonraki',
-    
+    'SEND_EMAIL_ON_NEW_TICKET': 'Yeni biletle e-posta gönder',
+    'STAFF_UPDATED': 'Çalışanlar güncellendi',
+    'UPDATE': 'Güncelleştirme',
+    'NEVER': 'Asla',
+
     'CHART_CREATE_TICKET': 'Biletler oluşturuldu',
     'CHART_CLOSE': 'Biletler kapandı',
     'CHART_SIGNUP': 'Kayıtlar',
@@ -239,8 +243,9 @@ export default {
     'STEP_2_DESCRIPTION': 'Aşağıda, OpenSupports çalıştırma gereksinimleri listelenmiştir. Lütfen tüm gereksinimlerin karşılandığından emin olun.',
     'STEP_3_DESCRIPTION': 'Lütfen MySQL veritabanı yapılandırmasını doldurun.',
     'STEP_4_DESCRIPTION': 'Lütfen kullanıcı sistemi tercihlerinizi seçin.',
-    'STEP_5_DESCRIPTION': 'Lütfen yönetici hesabını yapılandırın.',
-    'STEP_6_DESCRIPTION': 'Kurulum tamamlandı.',
+    'STEP_5_DESCRIPTION': 'Lütfen genel sistem tercihlerinizi seçin.',
+    'STEP_6_DESCRIPTION': 'Lütfen yönetici hesabını yapılandırın.',
+    'STEP_7_DESCRIPTION': 'Kurulum tamamlandı.',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'Bu, bir bilet oluşturmak için kullanılan bir form. Formu doldurun ve bize sorunlarınızı / şüphelerinizi / önerileri gönderin. Destek sistemimiz mümkün olan en kısa zamanda cevaplayacaktır.',

@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Ticket Ticket
- * @apiVersion 4.0.0
+ * @apiVersion 4.1.0
  * @apiGroup Data Structures
  * @apiParam {Number}  ticketNumber The number of the ticket.
  * @apiParam {String}  title The title of the ticket.
@@ -78,10 +78,10 @@ class Ticket extends DataStore {
         $ticketQuantity = Ticket::count();
 
         if ($ticketQuantity === 0) {
-            $ticketNumber = $linearCongruentialGenerator->generateFirst();
+            $ticketNumber = Setting::getSetting('ticket-first-number')->value;
         } else {
             $linearCongruentialGenerator->setGap(Setting::getSetting('ticket-gap')->value);
-            $linearCongruentialGenerator->setFirst(Ticket::getTicket(1)->ticketNumber);
+            $linearCongruentialGenerator->setFirst(Setting::getSetting('ticket-first-number')->value);
 
             $ticketNumber = $linearCongruentialGenerator->generate($ticketQuantity);
         }

@@ -176,6 +176,10 @@ export default {
     'HOME': 'Inicio',
     'TICKET_NUMBER': 'Número de Ticket',
     'NEXT': 'Siguiente',
+    'SEND_EMAIL_ON_NEW_TICKET': 'Enviar email por cada nuevo ticket',
+    'STAFF_UPDATED': 'Miembro de Staff actualizado',
+    'UPDATE': 'Actualizar',
+    'NEVER': 'Nunca',
 
     'CHART_CREATE_TICKET': 'Tickets creados',
     'CHART_CLOSE': 'Tickets cerrados',
@@ -210,7 +214,7 @@ export default {
     'ACTIVITY_BAN_USER': 'bloqueó el usuario',
     'ACTIVITY_DELETE_USER': 'borró el usuario',
     'ACTIVITY_UN_BAN_USER': 'desbloqueó el usuario',
-    
+
     'SERVER_REQUIREMENTS': 'Requisitos del servidor',
     'DATABASE_CONFIGURATION': 'Configuracion de la base de datos',
     'ADMIN_SETUP': 'Admin setup',
@@ -239,8 +243,9 @@ export default {
     'STEP_2_DESCRIPTION': 'Aqui estan listados los requisitos para OpenSupports. Por favor, asegúrese de cumplir con todos los requisitos.',
     'STEP_3_DESCRIPTION': 'Por favor, complete la configuracion de la base de datos MySQL.',
     'STEP_4_DESCRIPTION': 'Por favor, seleccione sus preferencias de sistema de usuarios.',
-    'STEP_5_DESCRIPTION': 'Por favor, configure la cuenta de administrador.',
-    'STEP_6_DESCRIPTION': 'La instalación ha sido completada.',
+    'STEP_5_DESCRIPTION': 'Pro favor, seleccione sus preferencias generales del sistema.',
+    'STEP_6_DESCRIPTION': 'Por favor, configure la cuenta de administrador.',
+    'STEP_7_DESCRIPTION': 'La instalación ha sido completada.',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'Este es un formulario para crear tickets. Rellene el formulario y envíenos sus dudas. Nuestro sistema de soporte responderá lo antes posible.',
@@ -248,7 +253,7 @@ export default {
     'TICKETS_DESCRIPTION': 'Envíe un ticket a través de nuestro centro de soporte y obtenga respuesta de sus dudas, sugerencias y problemas.',
     'ARTICLES_DESCRIPTION': 'Echa un vistazo a nuestros artículos sobre temas comunes, guías y documentación.',
     'ACCOUNT_DESCRIPTION': 'Todos sus tickets están almacenados en el perfil de su cuenta. Mantenga un registro de todos los tickets envíados a nuestro equipo de soporte.',
-    'SUPPORT_CENTER_DESCRIPTION': 'Bienvenido a nuestro centro de soporte. Puede ponerse en contacto con nosotros a través de un sistema de tickets. Sus tickets serán contestadps por nuestro personal.',
+    'SUPPORT_CENTER_DESCRIPTION': 'Bienvenido a nuestro centro de soporte. Puede ponerse en contacto con nosotros a través de un sistema de tickets. Sus tickets serán contestados por nuestro personal.',
     'CUSTOM_RESPONSES_DESCRIPTION': 'Las respuestas personalizadas son respuestas automatizadas para problemas comunes.',
     'MY_TICKETS_DESCRIPTION': 'Aquí puedes ver los tickets que tienes asignado.',
     'NEW_TICKETS_DESCRIPTION': 'Aquí puedes ver todos los tickets nuevos que no están asignados por nadie.',

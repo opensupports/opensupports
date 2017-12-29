@@ -176,6 +176,10 @@ export default {
     'HOME': '家',
     'TICKET_NUMBER': '票號',
     'NEXT': '下一個',
+    'SEND_EMAIL_ON_NEW_TICKET': '电子邮件为每个新票',
+    'STAFF_UPDATED': '工作人员已更新',
+    'UPDATE': '更新',
+    'NEVER': '从来没有',
 
     'CHART_CREATE_TICKET': '已創建門票',
     'CHART_CLOSE': '門票已關閉',
@@ -239,8 +243,9 @@ export default {
     'STEP_2_DESCRIPTION': '這裡列出了運行OpenSupports的要求。請確保滿足所有要求。',
     'STEP_3_DESCRIPTION': '請填寫MySQL數據庫配置。',
     'STEP_4_DESCRIPTION': '請選擇您的用戶系統首選項。',
-    'STEP_5_DESCRIPTION': '請配置管理員帳號。',
-    'STEP_6_DESCRIPTION': '安裝完成',
+    'STEP_5_DESCRIPTION': '请选择您的一般系统偏好。',
+    'STEP_6_DESCRIPTION': '請配置管理員帳號。',
+    'STEP_7_DESCRIPTION': '安裝完成',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': '這是一個用於創建票證的表單。填寫表格並將您的問題/疑問/建議發送給我們。我們的支持系統將盡快回答。',
@@ -362,4 +367,3 @@ export default {
     'SMTP_CONNECTION_SUCCESS': 'SMTP凭据有效',
     'SMTP_CONNECTION_ERROR': '无法连接到SMTP服务器'
 };
-

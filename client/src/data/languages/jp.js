@@ -176,6 +176,10 @@ export default {
     'HOME': 'ホーム',
     'TICKET_NUMBER': 'チケット番号',
     'NEXT': '次',
+    'SEND_EMAIL_ON_NEW_TICKET': 'メールを送信毎に新しいチケット',
+    'STAFF_UPDATED': 'スタッフメンバーが更新されました',
+    'UPDATE': '更新',
+    'NEVER': '決して',
     
     'CHART_CREATE_TICKET': '作成されたチケット',
     'CHART_CLOSE': 'チケットが閉じられました',
@@ -210,7 +214,7 @@ export default {
     'ACTIVITY_BAN_USER': '禁止されたユーザー',
     'ACTIVITY_DELETE_USER': '削除されたユーザー',
     'ACTIVITY_UN_BAN_USER': '禁止されたユーザー',
-    
+
     'SERVER_REQUIREMENTS': 'サーバー要件',
     'DATABASE_CONFIGURATION': 'データベース構成',
     'ADMIN_SETUP': '管理者設定',
@@ -234,13 +238,14 @@ export default {
     'INSTALLATION_COMPLETED': 'インストールが完了しました。',
     'INSTALLATION_COMPLETED_DESCRIPTION': 'OpenSupportsのインストールが完了しました。管理パネルにリダイレクトしています...',
 
-    'STEP_TITLE': 'ステップ {current} of {total} - {title}',
+    'STEP_TITLE': 'ステップ {current} / {total} - {title}',
     'STEP_1_DESCRIPTION': 'インストールウィザードの優先言語を選択します。',
     'STEP_2_DESCRIPTION': 'ここにOpenSupportを実行するための要件が​​記載されています。すべての要件が満たされていることを確認してください。',
     'STEP_3_DESCRIPTION': 'MySQLデータベースの設定を記入してください。',
     'STEP_4_DESCRIPTION': 'あなたのユーザーシステムの設定を選択してください。',
-    'STEP_5_DESCRIPTION': '管理者アカウントを設定してください。',
-    'STEP_6_DESCRIPTION': 'インストールが完了しました。',
+    'STEP_5_DESCRIPTION': 'あなたの一般的なシステム環境設定を選択してください。',
+    'STEP_6_DESCRIPTION': '管理者アカウントを設定してください。',
+    'STEP_7_DESCRIPTION': 'インストールが完了しました。',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'これはチケットを作成するためのフォームです。 フォームに記入し、あなたに問題/疑問/提案をお送りください。私たちのサポートシステムは、できるだけ早くそれに答えるでしょう。',
@@ -361,4 +366,3 @@ export default {
     'SMTP_CONNECTION_SUCCESS': 'SMTP資格情報が有効です。',
     'SMTP_CONNECTION_ERROR': 'SMTPサーバーに接続できません。'
 };
-

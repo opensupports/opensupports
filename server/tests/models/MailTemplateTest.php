@@ -6,8 +6,9 @@ include_once 'tests/__mocks__/RedBeanMock.php';
 include_once 'models/MailTemplate.php';
 
 use RedBeanPHP\Facade as RedBean;
+use PHPUnit\Framework\TestCase;
 
-class MailTemplateTest extends PHPUnit_Framework_TestCase {
+class MailTemplateTest extends TestCase {
 
     protected function setUp() {
         RedBean::initStubs();
@@ -20,7 +21,7 @@ class MailTemplateTest extends PHPUnit_Framework_TestCase {
 
     public function testGetTemplateShouldReturnSpecifiedTemplate() {
         $mailTemplate = MailTemplate::getTemplate(MailTemplate::USER_SIGNUP);
-        
+
         $this->assertEquals('TEST_TYPE', $mailTemplate->type);
         $this->assertTrue(Redbean::get('findOne')->hasBeenCalledWithArgs('mailtemplate', 'type = :type AND language = :language', array(
             ':type'  => 'USER_SIGNUP',

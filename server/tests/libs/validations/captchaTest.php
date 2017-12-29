@@ -8,11 +8,12 @@ include_once 'tests/__mocks__/ReCaptchaMock.php';
 
 include_once 'libs/validations/captcha.php';
 
-class CaptchaValidationTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class CaptchaValidationTest extends TestCase {
 
     protected function setUp() {
         Setting::initStubs();
-        Controller::initStubs();
         APIKey::initStubs();
         \ReCaptcha\ReCaptcha::initVerify();
 
@@ -28,7 +29,7 @@ class CaptchaValidationTest extends PHPUnit_Framework_TestCase {
         $response = $captchaValidation->validate('MOCK_RESPONSE');
         $this->assertFalse($response);
     }
-    
+
     public function testShouldPassCorrectValuesToCaptcha() {
         $captchaValidation = new \CustomValidations\Captcha();
         $captchaValidation->validate('MOCK_RESPONSE');

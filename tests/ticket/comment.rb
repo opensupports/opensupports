@@ -91,9 +91,30 @@ describe '/ticket/comment/' do
 
         (result['status']).should.equal('fail')
         (result['message']).should.equal('NO_PERMISSION')
+
+        request('/user/logout')
+        Scripts.login($staff[:email], $staff[:password], true)
+        request('/staff/add', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: 'Jorah mormont',
+            email: 'jorah@opensupports.com',
+            password: 'testpassword',
+            level: 2,
+            profilePic: '',
+            departments: '[1]'
+        })
+
+        request('/user/logout')
+        Scripts.login('jorah@opensupports.com', 'testpassword', true)
+        result = request('/ticket/comment', {
+            content: 'some comment content',
+            ticketNumber: @ticketNumber,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('NO_PERMISSION')
     end
-
-    #it 'should add comment if logged as ticket owner' do
-
-    #end
 end

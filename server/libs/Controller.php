@@ -2,6 +2,8 @@
 require_once 'libs/Validator.php';
 require_once 'models/Session.php';
 
+use RedBeanPHP\Facade as RedBean;
+
 abstract class Controller {
     private static $dataRequester;
 
@@ -14,7 +16,9 @@ abstract class Controller {
     public function getHandler() {
         return function () {
             try {
-                Session::getInstance()->setSessionPrefix(Setting::getSetting('session-prefix')->getValue());
+                if(RedBean::testConnection() && !Setting::isTableEmpty()) {
+                    Session::getInstance()->setSessionPrefix(Setting::getSetting('session-prefix')->getValue());
+                }
                 $this->validate();
                 $this->handler();
             } catch (\Exception $exception) {
@@ -23,10 +27,10 @@ abstract class Controller {
             }
         };
     }
-    
+
     public function validate() {
         $validator = new Validator();
-        
+
         $validator->validate($this->validations());
     }
 
@@ -50,7 +54,7 @@ abstract class Controller {
 
     public static function request($key, $secure = false) {
         $result = call_user_func(self::$dataRequester, $key);
-        
+
         if($secure) {
             $config = HTMLPurifier_Config::createDefault();
             $purifier = new HTMLPurifier($config);
@@ -59,7 +63,7 @@ abstract class Controller {
             return $result;
         }
     }
-    
+
     public static function getLoggedUser() {
         $session = Session::getInstance();
 
@@ -86,7 +90,7 @@ abstract class Controller {
     public static function getAppInstance() {
         return \Slim\Slim::getInstance();
     }
-    
+
     public function uploadFile($forceUpload = false) {
         $allowAttachments = Setting::getSetting('allow-attachments')->getValue();
 
@@ -110,7 +114,7 @@ abstract class Controller {
             throw new Exception(ERRORS::INVALID_FILE);
         }
     }
-    
+
     public static function isUserSystemEnabled() {
         return Setting::getSetting('user-system-enabled')->getValue();
     }

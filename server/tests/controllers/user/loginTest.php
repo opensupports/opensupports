@@ -6,18 +6,22 @@ include_once 'tests/__mocks__/ResponseMock.php';
 include_once 'tests/__mocks__/ControllerMock.php';
 include_once 'tests/__mocks__/SessionMock.php';
 include_once 'tests/__mocks__/UserMock.php';
+include_once 'tests/__mocks__/HashingMock.php';
+include_once 'tests/__mocks__/SessionCookieMock.php';
 include_once 'data/ERRORS.php';
 
 include_once 'controllers/user/login.php';
 
-class LoginControllerTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class LoginControllerTest extends TestCase {
     private $loginController;
 
     protected function setUp() {
         Session::initStubs();
-        Controller::initStubs();
         User::initStubs();
         Response::initStubs();
+        $_SERVER['REMOTE_ADDR'] = 'MOCK_REMOTE';
 
         $this->loginController = new LoginController();
     }
@@ -25,9 +29,9 @@ class LoginControllerTest extends PHPUnit_Framework_TestCase {
     public function testShouldRespondErrorIfAlreadyLoggedIn() {
         Session::mockInstanceFunction('sessionExists', \Mock::stub()->returns(true));
 
-        $this->loginController->handler();
+        $this->expectExceptionMessage(ERRORS::SESSION_EXISTS);
 
-        $this->assertTrue(Response::get('respondError')->hasBeenCalledWithArgs(ERRORS::SESSION_EXISTS));
+        $this->loginController->handler();
     }
 
     public function testShouldCreateSessionAndRespondSuccessIfCredentialsAreValid() {
@@ -35,11 +39,11 @@ class LoginControllerTest extends PHPUnit_Framework_TestCase {
 
         $this->loginController->handler();
 
-        $this->assertTrue(Session::getInstance()->createSession->hasBeenCalledWithArgs('MOCK_ID', null));
+        $this->assertTrue(!!Session::getInstance()->createSession->hasBeenCalledWithArgs('MOCK_ID', false));
         $this->assertTrue(Response::get('respondSuccess')->hasBeenCalledWithArgs(array(
             'userId' => 'MOCK_ID',
             'userEmail' => 'MOCK_EMAIL',
-            'staff' => null,
+            'staff' => false,
             'token' => 'TEST_TOKEN',
             'rememberToken' => null
         )));
@@ -50,8 +54,10 @@ class LoginControllerTest extends PHPUnit_Framework_TestCase {
             'authenticate' => \Mock::stub()->returns(new NullDataStore())
         ));
 
-        $this->loginController->handler();
+        Controller::$requestReturnMock = '';
 
-        $this->assertTrue(Response::get('respondError')->hasBeenCalledWithArgs(ERRORS::INVALID_CREDENTIALS));
+        $this->expectExceptionMessage(ERRORS::INVALID_CREDENTIALS);
+
+        $this->loginController->handler();
     }
 }

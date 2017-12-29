@@ -6,14 +6,35 @@
     height: 32px;
     width: 100%;
 
-    &--powered {
+    &__powered,
+    &__extra-links {
+        float: right;
+        padding-right: 20px;
         color: white;
         display: inline-block;
-        padding-top: 7px;
+        padding-top: 6px;
     }
 
-    &--os-link {
-        color: $secondary-red;
+    &__extra-link,
+    &__os-link {
+        color: $secondary-blue;
         text-decoration: none;
+
+        &:hover,
+        &:focus {
+            text-decoration: none;
+            color: black;
+        }
+    }
+
+    &__os-link {
+        color: $secondary-red;
+    }
+
+    &_admin-panel {
+        .main-layout-footer__powered {
+            float: left;
+            padding-left: 20px;
+        }
     }
 }
