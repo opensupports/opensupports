@@ -66,6 +66,9 @@ class ChangeDepartmentController extends Controller {
         $ticket->addEvent($event);
         $ticket->department = $department;
         $ticket->unread = true;
+        if(!Controller::getLoggedUser()->sharedDepartmentList->includesId($department->id)) {
+            $ticket->owner = null;
+        }
         $ticket->store();
 
         Log::createLog('DEPARTMENT_CHANGED', $ticket->ticketNumber);
