@@ -2,7 +2,7 @@ OpenSupports can work completely fine without a frontend. You could only use thi
 This documentation is intended for application developers who are looking to integrate OpenSupports with other applications.
 
 ## Request/Response Interface
-The API server is located in the `server/` folder of your OpenSupports' instance folder.
+The API server is located in the `api/` folder of your OpenSupports' instance folder.
 **All the requests must be done via POST method**, with the exception of the path `/system/download`.
 
 The response object has the following JSON structure:
