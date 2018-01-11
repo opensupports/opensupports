@@ -1,4 +1,17 @@
 describe '/system/init-settings' do
+    it 'should prevent initing database if already called' do
+      result = request('/system/init-database', {})
+      (result['status']).should.equal('fail')
+      (result['message']).should.equal('INIT_SETTINGS_DONE')
+
+      result = request('/system/check-requirements', {})
+      (result['status']).should.equal('success')
+
+      result = request('/system/init-database', {})
+      (result['status']).should.equal('fail')
+      (result['message']).should.equal('INIT_SETTINGS_DONE')
+    end
+
     it 'should initialize correctly' do
         result = request('/system/init-settings', {
             'user-system-enabled' => true,

@@ -30,7 +30,9 @@ class CheckRequirementsController extends Controller {
     }
 
     public function handler() {
-        $configWritable = !!fopen('config.php', 'w+');
+        if(InstallationDoneController::isInstallationDone()) {
+          throw new Exception(ERRORS::INIT_SETTINGS_DONE);
+        }
 
         Response::respondSuccess([
             'phpVersion' => [
@@ -50,8 +52,8 @@ class CheckRequirementsController extends Controller {
             ],
             'files' => [
                 'name' => 'Folder: /api/files',
-                'value' => $configWritable ? 'Writable' : 'Not writable',
-                'ok' => $configWritable
+                'value' => is_writable('files') ? 'Writable' : 'Not writable',
+                'ok' => is_writable('files')
             ]
         ]);
     }
