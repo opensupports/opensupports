@@ -2,5 +2,3 @@ server/composer.lock
 server/vendor
 .idea
 .jshintrc
-server/files/
-!server/files/.gitkeep
