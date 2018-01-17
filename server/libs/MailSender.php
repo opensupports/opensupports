@@ -70,6 +70,7 @@ class MailSender {
 
             $this->mailerInstance->From = $this->mailOptions['from'];
             $this->mailerInstance->FromName = $this->mailOptions['fromName'];
+            $this->mailerInstance->CharSet = 'UTF-8';
 
             $this->mailerInstance->isSMTP();
             $this->mailerInstance->SMTPAuth = true;
