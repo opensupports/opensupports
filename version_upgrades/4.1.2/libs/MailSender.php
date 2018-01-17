@@ -1,5 +1,5 @@
 <?php
-require_once '../../server/vendor/autoload.php';
+require_once '../../api/vendor/autoload.php';
 
 class MailSender {
 

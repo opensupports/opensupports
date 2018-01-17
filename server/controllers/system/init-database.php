@@ -48,9 +48,7 @@ class InitDatabaseController extends Controller {
         $dbUser = Controller::request('dbUser');
         $dbPass = Controller::request('dbPassword');
 
-        if(!defined('MYSQL_HOST')) {
-            RedBean::setup('mysql:host=' . $dbHost, $dbUser, $dbPass);
-        }
+        RedBean::setup('mysql:host=' . $dbHost, $dbUser, $dbPass);
 
         if($dbName) {
             RedBean::addDatabase($dbName, 'mysql:host='. $dbHost . ';dbname=' . $dbName, $dbUser, $dbPass);
