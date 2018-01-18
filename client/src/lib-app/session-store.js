@@ -60,6 +60,7 @@ class SessionStore {
         this.setItem('registration', configs.registration);
         this.setItem('user-system-enabled', configs['user-system-enabled']);
         this.setItem('allow-attachments', configs['allow-attachments']);
+        this.setItem('maintenance-mode', configs['maintenance-mode']);
     }
 
     getConfigs() {
