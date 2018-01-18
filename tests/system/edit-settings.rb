@@ -6,7 +6,7 @@ describe'system/edit-settings' do
         result= request('/system/edit-settings', {
             "csrf_userid" => $csrf_userid,
             "csrf_token" => $csrf_token,
-            "maintenance-mode" => false,
+            "maintenance-mode" => 0,
             "time-zone" => -3,
             "layout" => 'full-width',
             "allow-attachments" => 1,

@@ -53,7 +53,7 @@ class EditSettingsController extends Controller {
         ];
 
         foreach($settings as $setting) {
-            if(Controller::request($setting)) {
+            if(Controller::request($setting)!==null) {
                 $settingInstance = Setting::getSetting($setting);
                 $settingInstance->value = Controller::request($setting);
                 $settingInstance->store();
@@ -68,7 +68,7 @@ class EditSettingsController extends Controller {
 
         Response::respondSuccess();
     }
-    
+
     public function handleLanguages() {
         $allowed = json_decode(Controller::request('allowedLanguages'));
         $supported = json_decode(Controller::request('supportedLanguages'));
