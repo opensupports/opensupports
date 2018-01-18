@@ -68,7 +68,7 @@ class CreateController extends Controller {
                 ]
             ]
         ];
-        
+
         if(!Controller::isUserSystemEnabled()) {
             $validations['permission'] = 'any';
             $validations['requestData']['captcha'] = [
@@ -80,13 +80,13 @@ class CreateController extends Controller {
                 'error' => ERRORS::INVALID_EMAIL
             ];
         }
-        
+
         return $validations;
     }
 
     public function handler() {
-        $this->title = Controller::request('title');
-        $this->content = Controller::request('content', true);
+        $this->title = htmlentities(Controller::request('title'));
+        $this->content = htmlentities(Controller::request('content', true));
         $this->departmentId = Controller::request('departmentId');
         $this->language = Controller::request('language');
         $this->email = Controller::request('email');
@@ -97,7 +97,7 @@ class CreateController extends Controller {
         if(!Controller::isUserSystemEnabled()) {
             $this->sendMail();
         }
-        
+
         $staffs = Staff::find('send_email_on_new_ticket = 1');
         foreach ($staffs as $staff) {
             if($staff->sharedDepartmentList->includesId(Controller::request('departmentId'))) {
@@ -132,19 +132,19 @@ class CreateController extends Controller {
             'authorName' => $this->name,
             'authorEmail' => $this->email
         ));
-        
+
         if(Controller::isUserSystemEnabled()) {
             $author->sharedTicketList->add($ticket);
             $author->tickets++;
-            
+
             $this->email = $author->email;
             $this->name = $author->name;
 
-            $author->store(); 
+            $author->store();
         }
-        
+
         $ticket->store();
-        
+
         $this->ticketNumber = $ticket->ticketNumber;
     }
 
