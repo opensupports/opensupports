@@ -23,4 +23,4 @@ class ValidatorFactory {
     }
 }
 
-export default ValidatorFactory;
+export default ValidationFactory;
