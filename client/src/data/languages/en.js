@@ -358,7 +358,7 @@ export default {
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'changed department of this ticket to ',
     'ACTIVITY_PRIORITY_CHANGED_THIS': 'changed priority of this ticket to',
     'DATE_PREFIX': 'on',
-    'LEFT_EMPTY_DATABASE': 'Left empty for automatic database creation',
+    'LEFT_EMPTY_DATABASE': 'Leave empty for automatic database creation',
     'REMEMBER_ME': 'Remember me',
     'EMAIL_LOWERCASE': 'email',
     'PASSWORD_LOWERCASE': 'password',

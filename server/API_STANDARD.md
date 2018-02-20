@@ -37,4 +37,4 @@ This request will return you the session data with an `userId` and a `token`. Yo
 
 If you don't pass the userId and token, a `NO_PERMISSION` error will be returned.
 
-Additionally, if there is no users (only staff members), you can check a ticket you created by providing your email and the ticketNumber to the `/ticket/check` path. This path will return you a `token` and `ticketNumber` you will use to comment, retrieve, or do any other operations to the ticket.
+Additionally, if there are no users (only staff members), you can check a ticket you created by providing your email and the ticketNumber to the `/ticket/check` path. This path will return you a `token` and `ticketNumber` you will use to comment, retrieve, or do any other operations to the ticket.
