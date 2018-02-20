@@ -85,7 +85,7 @@ Just as there is a `gulp dev` task for development, there is also a `gulp prod` 
 2. Install MySQL dev dependencies: `sudo apt-get install libmysqlclient-dev libmysqlclient16 ruby-dev`
 3. Install bundle: `sudo gem install bundler`
 4. Go to tests folder: `cd opensupports/tests`
-5. Install project dependencies: `sudo gem install bundler`
+5. Install project dependencies: `bundle install`
 Tests can run by using executing the `run-tests.sh` file.
 
 ##### BACKEND FAKE SMTP SERVER
