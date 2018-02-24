@@ -351,7 +351,7 @@ export default {
 
     'ACTIVITY_COMMENT_THIS': 'heeft een bericht achtergelaten op dit incident',
     'ACTIVITY_ASSIGN_THIS': 'heeft dit incident toegewezen',
-    'ACTIVITY_UN_ASSIGN_THIS': 'heeft dit incident niet-toegewezen aan een medewerker',
+    'ACTIVITY_UN_ASSIGN_THIS': 'heeft de toewijzing van dit incident aan een medewerker verwijderd',
     'ACTIVITY_CLOSE_THIS': 'heeft dit incident gesloten',
     'ACTIVITY_CREATE_TICKET_THIS': 'heeft dit incident aangemaakt',
     'ACTIVITY_RE_OPEN_THIS': 'heeft dit incident heropend',
