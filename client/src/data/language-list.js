@@ -9,7 +9,7 @@ import portugueseLanguage from 'data/languages/pt';
 import russianLanguage    from 'data/languages/ru';
 import turkishLanguage    from 'data/languages/tr';
 import italianLanguage    from 'data/languages/it';
-import DutchLanguage      from 'data/languages/nl';
+import dutchLanguage      from 'data/languages/nl';
 
 export default {
     'en': {
