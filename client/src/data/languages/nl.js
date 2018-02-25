@@ -188,14 +188,14 @@ export default {
     'CHART_ASSIGN': 'Toegewezen',
 
     //ACTIVITIES
-    'ACTIVITY_COMMENT': 'Beantwoord incident',
-    'ACTIVITY_ASSIGN': 'Toegewezen incident',
-    'ACTIVITY_UN_ASSIGN': 'Niet-toegewezen incident',
-    'ACTIVITY_CLOSE': 'Gesloten incident',
-    'ACTIVITY_CREATE_TICKET': 'Aangemaakt incident',
-    'ACTIVITY_RE_OPEN': 'Heropen incident',
-    'ACTIVITY_DEPARTMENT_CHANGED': 'verander afdeling van incident',
-    'ACTIVITY_PRIORITY_CHANGED': 'Verander prioriteit van incident',
+    'ACTIVITY_COMMENT': 'heeft een incident beantwoord',
+    'ACTIVITY_ASSIGN': 'heeft een incident toegewezen',
+    'ACTIVITY_UN_ASSIGN': 'heeft een incident niet-toegewezen',
+    'ACTIVITY_CLOSE': 'heeft een incident gesloten',
+    'ACTIVITY_CREATE_TICKET': 'heeft een incident aangemaakt',
+    'ACTIVITY_RE_OPEN': 'heeft een incident heropend',
+    'ACTIVITY_DEPARTMENT_CHANGED': 'heeft de afdeling van incident veranderd',
+    'ACTIVITY_PRIORITY_CHANGED': 'heeft de prioriteit van incident veranderd',
 
     'ACTIVITY_EDIT_SETTINGS': 'bewerkte instellingen',
     'ACTIVITY_SIGNUP': 'ingeschreven',
@@ -248,11 +248,11 @@ export default {
     'STEP_7_DESCRIPTION': 'De installatie is voltooid.',
 
     //VIEW DESCRIPTIONS
-    'CREATE_TICKET_DESCRIPTION': 'Dit is een formulier voor het maken van incidenten. Vul het formulier in en stuur ons uw problemen / suggesties. Een medewerker zal het zo snel mogelijk beantwoorden.',
-    'TICKET_LIST_DESCRIPTION': 'Hier vindt u een lijst met alle incidenten die u naar onze medewerkers hebt gestuurd.',
-    'TICKETS_DESCRIPTION': 'Verzend een incident via ons ondersteuningscentrum en ontvang antwoord op uw suggesties en problemen.',
+    'CREATE_TICKET_DESCRIPTION': 'Dit is het formulier voor het maken van incidenten. Vul het formulier in en stuur ons uw problemen / suggesties. Een medewerker zal het zo snel mogelijk beantwoorden.',
+    'TICKET_LIST_DESCRIPTION': 'Hier vindt u een lijst met alle incidenten die u heeft aangemaakt.',
+    'TICKETS_DESCRIPTION': 'Maak een incident aan en ontvang antwoord op uw problemen en suggesties.',
     'ARTICLES_DESCRIPTION': 'Bekijk onze artikelen over veelvoorkomende problemen, handleidingen en documentatie.',
-    'ACCOUNT_DESCRIPTION': 'Al uw incidenten worden opgeslagen in het profiel van uw account. Blijf op de hoogte van al uw incidenten die u naar ons heeft gestuurd.',
+    'ACCOUNT_DESCRIPTION': 'Al uw incidenten worden opgeslagen in het profiel van uw account. Blijf op de hoogte van al uw incidenten die u heeft aangemaakt.',
     'SUPPORT_CENTER_DESCRIPTION': 'Welkom bij ons ondersteuningscentrum. U kunt contact met ons opnemen via een incidentensysteem. Uw incidenten worden door onze medewerkers beantwoord.',
     'CUSTOM_RESPONSES_DESCRIPTION': 'Aangepaste antwoorden zijn geautomatiseerde antwoorden voor veel voorkomende problemen',
     'MY_TICKETS_DESCRIPTION': 'Hier kunt u de incidenten bekijken waarvoor u verantwoordelijk bent.',
@@ -351,7 +351,7 @@ export default {
 
     'ACTIVITY_COMMENT_THIS': 'heeft een bericht achtergelaten op dit incident',
     'ACTIVITY_ASSIGN_THIS': 'heeft dit incident toegewezen',
-    'ACTIVITY_UN_ASSIGN_THIS': 'heeft de toewijzing van dit incident aan een medewerker verwijderd',
+    'ACTIVITY_UN_ASSIGN_THIS': 'heeft dit incident niet-toegewezen aan een medewerker',
     'ACTIVITY_CLOSE_THIS': 'heeft dit incident gesloten',
     'ACTIVITY_CREATE_TICKET_THIS': 'heeft dit incident aangemaakt',
     'ACTIVITY_RE_OPEN_THIS': 'heeft dit incident heropend',
