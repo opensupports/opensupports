@@ -1,7 +1,6 @@
 import React              from 'react';
 import _                  from 'lodash';
 import {connect} from 'react-redux';
-import {EditorState, convertToRaw} from 'draft-js';
 
 import history            from 'lib-app/history';
 import i18n               from 'lib-app/i18n';
@@ -13,6 +12,7 @@ import LanguageSelector   from 'app-components/language-selector';
 import Captcha            from 'app/main/captcha';
 
 import Header             from 'core-components/header';
+import TextEditor         from 'core-components/text-editor';
 import Form               from 'core-components/form';
 import FormField          from 'core-components/form-field';
 import SubmitButton       from 'core-components/submit-button';
@@ -33,7 +33,7 @@ class CreateTicketForm extends React.Component {
         message: null,
         form: {
             title: '',
-            content: EditorState.createEmpty(),
+            content: TextEditor.createEmpty(),
             departmentIndex: 0,
             email: '',
             name: '',
@@ -162,4 +162,3 @@ export default connect((store) => {
         allowAttachments: store.config['allow-attachments']
     };
 })(CreateTicketForm);
-

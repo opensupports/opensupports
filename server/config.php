@@ -12,4 +12,5 @@ $mysql_database   = ($env['MYSQL_DATABASE']) ? $env['MYSQL_DATABASE'] : 'develop
 define('MYSQL_HOST', $mysql_host);
 define('MYSQL_USER', $mysql_user);
 define('MYSQL_PASSWORD', $mysql_password);
-define('MYSQL_DATABASE', $mysql_database);
+define('MYSQL_DATABASE', $mysql_database); 
+

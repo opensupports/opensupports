@@ -3,19 +3,24 @@ import classNames from 'classnames';
 import {Editor} from 'react-draft-wysiwyg';
 import {EditorState, ContentState, convertFromHTML} from 'draft-js';
 import {stateToHTML} from 'draft-js-export-html';
+import {isIE} from 'lib-core/navigator';
 
 class TextEditor extends React.Component {
     static propTypes = {
         errored: React.PropTypes.bool,
         onChange: React.PropTypes.func,
-        value: React.PropTypes.object
+        value: React.PropTypes.oneOfType([
+            React.PropTypes.object, React.PropTypes.string
+        ])
     };
-    
+
     static createEmpty() {
-        return EditorState.createEmpty()
+        if(isIE()) return '';
+        return EditorState.createEmpty();
     }
-    
+
     static getEditorStateFromHTML(htmlString) {
+        if(isIE()) return htmlString;
         const blocksFromHTML = convertFromHTML(htmlString);
         const state = ContentState.createFromBlockArray(
             blocksFromHTML.contentBlocks,
@@ -26,23 +31,42 @@ class TextEditor extends React.Component {
     }
 
     static getHTMLFromEditorState(editorState) {
+        if(isIE()) return editorState;
         return stateToHTML(editorState.getCurrentContent());
     }
-    
+
     static isEditorState(editorState) {
+        if(isIE()) return typeof editorState === 'String';
         return editorState && editorState.getCurrentContent;
     }
 
     state = {
-        value: EditorState.createEmpty(),
+        value: TextEditor.createEmpty(),
         focused: false
     };
 
     render() {
         return (
             <div className={this.getClass()}>
-                <Editor {...this.getEditorProps()} />
+                {isIE() ? this.renderTextArea() : this.renderDraftJS()}
             </div>
+        );
+    }
+
+    renderDraftJS() {
+        return <Editor {...this.getEditorProps()} />;
+    }
+
+    renderTextArea() {
+        return (
+          <textarea
+              className="text-editor__editor"
+              onChange={this.onEditorChange.bind(this)}
+              onFocus={this.onEditorFocus.bind(this)}
+              onBlur={this.onBlur.bind(this)}
+              ref="editor"
+              value={this.props.value || this.state.value}
+          />
         );
     }
 
@@ -51,6 +75,7 @@ class TextEditor extends React.Component {
             'text-editor': true,
             'text-editor_errored': (this.props.errored),
             'text-editor_focused': (this.state.focused),
+            'text-editor_textarea': isIE(),
 
             [this.props.className]: (this.props.className)
         };
@@ -94,6 +119,7 @@ class TextEditor extends React.Component {
     }
 
     onEditorChange(value) {
+        if(isIE()) value = value.target.value;
         this.setState({value});
 
         if (this.props.onChange) {
@@ -119,7 +145,11 @@ class TextEditor extends React.Component {
 
     focus() {
         if (this.refs.editor) {
-            this.refs.editor.focusEditor();
+            if(isIE()) {
+              this.refs.editor.focus();
+            } else {
+              this.refs.editor.focusEditor();
+            }
         }
     }
 }
