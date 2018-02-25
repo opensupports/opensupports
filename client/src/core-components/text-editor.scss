@@ -28,4 +28,12 @@
             border: 1px solid $primary-red;
         }
     }
+
+    &_textarea {
+        .text-editor__editor {
+            height: 200px;
+            padding-left: 10px;
+            width: 100%;
+        }
+    }
 }

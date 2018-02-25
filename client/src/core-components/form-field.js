@@ -27,7 +27,7 @@ class FormField extends React.Component {
         field: React.PropTypes.oneOf(['input', 'textarea', 'select', 'checkbox', 'checkbox-group', 'file']),
         fieldProps: React.PropTypes.object
     };
-    
+
     static defaultProps = {
         field: 'input',
         fieldProps: {}
@@ -118,7 +118,7 @@ class FormField extends React.Component {
 
         return classNames(classes);
     }
-    
+
     getFieldProps() {
         let props = _.extend({}, this.props.fieldProps, {
             disabled: this.isDisabled(),
@@ -172,7 +172,7 @@ class FormField extends React.Component {
             this.props.onChange(event)
         }
     }
-    
+
     isDisabled() {
         const fieldProps = this.props.fieldProps;
 
