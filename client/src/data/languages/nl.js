@@ -28,7 +28,7 @@ export default {
     'AUTHOR': 'Auteur',
     'DATE': 'Datum',
     'RESPOND': 'Actie',
-    'RESPOND_TICKET': 'Reageer op incident',
+    'RESPOND_TICKET': 'Reageren',
     'NO_ATTACHMENT': 'Geen bijlage',
     'STAFF': 'Management',
     'CUSTOMER': 'Klant',
