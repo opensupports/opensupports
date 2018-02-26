@@ -106,7 +106,7 @@ export default {
     'DELETE_AND_BAN': 'Verwijder en blokkeer',
     'STAFF_LEVEL': 'Medewerkersniveau',
     'ASSIGNED': 'Toegewezen',
-    'ASSIGNED_TICKETS': '{tickets} Toegewezen incidenten',
+    'ASSIGNED_TICKETS': '{tickets} incident(en)',
     'CLOSED_TICKETS': '{tickets} Gesloten incidenten',
     'LAST_LOGIN': 'Laatste inlog',
     'ADD_NEW_STAFF': 'Voeg nieuwe medewerker toe',
