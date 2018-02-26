@@ -275,7 +275,7 @@ export default {
     'MY_ACCOUNT_DESCRIPTION': 'Hier kunt u informatie over u zelf bewerken.',
     'DEPARTMENTS_DESCRIPTION': 'Een afdeling is een groep waar de incidenten onder kunnen vallen. Ze worden gebruikt om de incidenten te categoriseren. U kunt deze toewijzen aan andere medewerkers.',
     'MAINTENANCE_MODE_DESCRIPTION': 'Het ondersteuningssysteem bevindt zich op dit moment in de onderhoudsmodus. Even geduld, we zijn snel bij u terug.',
-    'EMAIL_TEMPLATES_DESCRIPTION': 'Hier kunt u de sjablonen van de e-mails bewerken die naar gebruikers worden verzonden. Vergeet niet dat de accolades met dubbele accolades een variabele waarde aangeven. Bijvoorbeeld, \'naam\' staat voor de naam van de gebruiker.',
+    'EMAIL_TEMPLATES_DESCRIPTION': 'Hier kunt u de sjablonen van de e-mails bewerken die naar gebruikers worden verzonden. Vergeet niet dat de accolades met dubbele accolades een variabele waarde aangeven. Bijvoorbeeld, \'name\' staat voor de naam van de gebruiker.',
     'SYSTEM_PREFERENCES_DESCRIPTION': 'Hier kunt u de voorkeuren van het systeem bewerken.',
     'VERIFY_SUCCESS_DESCRIPTION': 'Uw account is correct geverifieerd. U kunt nu inloggen.',
     'VERIFY_FAILED_DESCRIPTION': 'De verificatie kon niet worden gedaan.',
