@@ -20,7 +20,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_TICKET
  * @apiUse TICKET_ALREADY_ASSIGNED
  * @apiUse INVALID_DEPARTMENT
- * 
+ *
  * @apiSuccess {Object} data Empty object
  *
  */

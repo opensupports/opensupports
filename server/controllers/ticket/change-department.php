@@ -66,10 +66,20 @@ class ChangeDepartmentController extends Controller {
         $ticket->addEvent($event);
         $ticket->department = $department;
         $ticket->unread = true;
-        if(!Controller::getLoggedUser()->sharedDepartmentList->includesId($department->id)) {
-            $ticket->owner = null;
-        }
         $ticket->store();
+
+        if(!Controller::getLoggedUser()->sharedDepartmentList->includesId($department->id)) {
+            Controller::setDataRequester(function ($key) use ($ticketNumber) {
+                if($key === 'ticketNumber') {
+                    return $ticketNumber;
+                }
+
+                return null;
+            });
+            $unAssignTicketController = new UnAssignStaffController();
+            $unAssignTicketController->validate();
+            $unAssignTicketController->handler();
+        }
 
         Log::createLog('DEPARTMENT_CHANGED', $ticket->ticketNumber);
 
