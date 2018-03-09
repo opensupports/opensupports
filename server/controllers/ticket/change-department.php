@@ -52,8 +52,8 @@ class ChangeDepartmentController extends Controller {
         $department = Department::getDataStore($departmentId);
         $user = Controller::getLoggedUser();
 
-        if($ticket->owner && $ticket->owner->id !== $user->id){
-            Response::respondError(ERRORS::NO_PERMISSION);
+        if($ticket->owner && $ticket->owner->id !== $user->id || $user->level === 1){
+            throw new Exception(ERRORS::NO_PERMISSION);
             return;
         }
 

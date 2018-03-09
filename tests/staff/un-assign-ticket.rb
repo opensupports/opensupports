@@ -28,15 +28,4 @@ describe '/staff/un-assign-ticket' do
         (staff_ticket).should.equal(nil)
     end
 
-    it 'should fail if ticket is not  yours' do
-        ticket = $database.getRow('ticket', 1 , 'id')
-        result = request('/staff/un-assign-ticket', {
-            ticketNumber: ticket['ticket_number'],
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token
-        })
-
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('NO_PERMISSION')
-    end
 end
