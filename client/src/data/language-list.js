@@ -9,6 +9,7 @@ import portugueseLanguage from 'data/languages/pt';
 import russianLanguage    from 'data/languages/ru';
 import turkishLanguage    from 'data/languages/tr';
 import italianLanguage    from 'data/languages/it';
+import polishLanguage     from 'data/languages/pl';
 
 export default {
     'en': {
@@ -54,5 +55,9 @@ export default {
     'it': {
         name: 'Italian',
         data: italianLanguage
+    },
+    'pl': {
+        name: 'Polish',
+        data: polishLanguage
     }
 };
