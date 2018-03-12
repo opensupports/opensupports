@@ -16,6 +16,26 @@ class Scripts
         })
     end
 
+    def self.createStaff(email, password, name, level='1')
+        departments = request('/system/get-settings', {
+          csrf_userid: $csrf_userid,
+          csrf_token: $csrf_token
+        })['departments']
+        departments = departments.collect  { |x| x.id }
+
+        response = request('/staff/add', {
+            :name => name,
+            :email => email,
+            :password => password,
+            :level => level,
+            :departments => departments.to_string
+        })
+
+        if response['status'] === 'fail'
+            raise response['message']
+        end
+    end
+
     def self.login(email = 'steve@jobs.com', password = 'custompassword', staff = false)
         request('/user/logout')
         response = request('/user/login', {
