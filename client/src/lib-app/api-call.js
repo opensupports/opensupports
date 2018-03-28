@@ -4,7 +4,7 @@ const SessionStore = require('lib-app/session-store');
 
 function processData (data, dataAsForm = false) {
     let newData;
-    
+
     if(dataAsForm) {
         newData = new FormData();
 
@@ -20,7 +20,7 @@ function processData (data, dataAsForm = false) {
             csrf_userid: SessionStore.getSessionData().userId
         }, data)
     }
-    
+
     return newData;
 }
 
@@ -48,15 +48,15 @@ module.exports = {
                 });
         });
     },
-    
+
     getFileLink(filePath) {
         return apiRoot + '/system/download?file=' + filePath;
     },
-    
+
     getAPIUrl() {
         return apiRoot;
     },
-    
+
     getURL() {
         return root;
     }
