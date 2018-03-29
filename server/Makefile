@@ -24,6 +24,7 @@ log:
 stop:
 	@docker stop opensupports-db && docker rm opensupports-db || true
 	@docker stop opensupports-myadmin && docker rm opensupports-myadmin || true
+	@docker stop opensupports-fakesmtp && docker rm opensupports-fakesmtp || true
 	@docker stop opensupports-srv
 
 db:
