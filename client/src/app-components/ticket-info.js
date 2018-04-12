@@ -18,8 +18,7 @@ class TicketInfo extends React.Component {
                         <Icon name={(this.props.ticket.language === 'en') ? 'us' : this.props.ticket.language}/>
                     </span>
                 </div>
-                <div className="ticket-info__description">
-                    {this.props.ticket.content}
+                <div className="ticket-info__description"  dangerouslySetInnerHTML={{__html: this.props.ticket.content}}>
                 </div>
 
                 <div className="ticket-info__author">
