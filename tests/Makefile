@@ -2,7 +2,7 @@ DB_HOST ?= `docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}
 
 install:
 	@apt-get install ruby-full
-	@apt-get install libmysqlclient-dev libmysqlclient16 ruby-dev
+	@apt-get install libmysqlclient-dev ruby-dev
 	@gem install bundler
 	@bundle install
 

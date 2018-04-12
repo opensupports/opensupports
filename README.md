@@ -58,7 +58,8 @@ Just as there is a `gulp dev` task for development, there is also a `gulp prod` 
 - `make test` run phpunit tests
 
 Server api runs on `http://localhost:8080/`
-Also, there's a php server running on `http://localhost:6060/`
+Also, there's a *phpmyadmin* instance running on `http://localhost:6060/`,
+you can access with the username `root` and empty password
 
 ##### BACKEND API RUBY TESTING
 
