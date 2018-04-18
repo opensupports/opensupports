@@ -52,14 +52,13 @@ class ChangeDepartmentController extends Controller {
         $department = Department::getDataStore($departmentId);
         $user = Controller::getLoggedUser();
 
-        if($ticket->owner && $ticket->owner->id !== $user->id || $user->level === 1){
+        if($ticket->owner && $ticket->owner->id !== $user->id && $user->level == 1){
             throw new Exception(ERRORS::NO_PERMISSION);
-            return;
         }
 
         $event = Ticketevent::getEvent(Ticketevent::DEPARTMENT_CHANGED);
         $event->setProperties(array(
-            'authorStaff' => Controller::getLoggedUser(),
+            'authorStaff' => $user,
             'content' => $department->name,
             'date' => Date::getCurrentDate()
         ));
@@ -68,14 +67,7 @@ class ChangeDepartmentController extends Controller {
         $ticket->unread = true;
         $ticket->store();
 
-        if(!Controller::getLoggedUser()->sharedDepartmentList->includesId($department->id)) {
-            Controller::setDataRequester(function ($key) use ($ticketNumber) {
-                if($key === 'ticketNumber') {
-                    return $ticketNumber;
-                }
-
-                return null;
-            });
+        if(!$user->sharedDepartmentList->includesId($department->id)) {
             $unAssignTicketController = new UnAssignStaffController();
             $unAssignTicketController->validate();
             $unAssignTicketController->handler();

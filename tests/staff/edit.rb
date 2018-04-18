@@ -42,26 +42,44 @@ describe'/staff/edit' do
             profilePic: '',
             departments: '[1]'
         })
-        request('/user/logout')
-        Scripts.login('arya@opensupports.com', 'starkpassword', true)
+
+        row = $database.getRow('staff', 'Arya Stark', 'name')
 
         result = request('/staff/edit', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
-            email: 'newwstaff@opensupports.com',
+            staffId: row['id'],
+            email: 'ayra2@opensupports.com',
+            departments: '[1, 2, 3]',
             sendEmailOnNewTicket: 1
         })
 
         (result['status']).should.equal('success')
 
-        row = $database.getRow('staff', $csrf_userid, 'id')
+        row = $database.getRow('staff', 'Arya Stark', 'name')
 
-        (row['email']).should.equal('newwstaff@opensupports.com')
+        (row['email']).should.equal('ayra2@opensupports.com')
         (row['level']).should.equal('2')
-        (row['send_email_on_new_ticket']).should.equal('1')
+        (row['send_email_on_new_ticket']).should.equal('0')
 
         row = $database.getRow('department', 1, 'id')
         (row['owners']).should.equal('4')
 
+        row = $database.getRow('department', 2, 'id')
+        (row['owners']).should.equal('3')
+
+        row = $database.getRow('department', 3, 'id')
+        (row['owners']).should.equal('2')
+
+        Scripts.logout()
+        Scripts.login('ayra2@opensupports.com', 'starkpassword', true)
+        result = request('/staff/edit', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            sendEmailOnNewTicket: 1
+        })
+        (result['status']).should.equal('success')
+        row = $database.getRow('staff', 'Arya Stark', 'name')
+        (row['send_email_on_new_ticket']).should.equal('1')
     end
 end

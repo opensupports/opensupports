@@ -43,10 +43,11 @@ class UnAssignStaffController extends Controller {
         $ticketNumber = Controller::request('ticketNumber');
         $user = Controller::getLoggedUser();
         $ticket = Ticket::getByTicketNumber($ticketNumber);
+        $owner = $ticket->owner;
 
-        if(($ticket->owner && $ticket->owner->id === $user->id) || $user->level !== 1) {
-            $user->sharedTicketList->remove($ticket);
-            $user->store();
+        if(($owner && $owner->id === $user->id) || $user->level > 1) {
+            $owner->sharedTicketList->remove($ticket);
+            $owner->store();
 
             $ticket->owner = null;
             $ticket->unread = true;
@@ -62,7 +63,6 @@ class UnAssignStaffController extends Controller {
             Response::respondSuccess();
         } else {
             throw new Exception(ERRORS::NO_PERMISSION);
-            return;
         }
     }
 }

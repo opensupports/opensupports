@@ -24,7 +24,7 @@ describe'/staff/get-all' do
         (result['data'][0]['closedTickets']).should.equal(0)
 
         (result['data'][2]['name']).should.equal('Arya Stark')
-        (result['data'][2]['email']).should.equal('newwstaff@opensupports.com')
+        (result['data'][2]['email']).should.equal('ayra2@opensupports.com')
         (result['data'][2]['profilePic']).should.equal('')
         (result['data'][2]['level']).should.equal('2')
         (result['data'][2]['departments'][0]['id']).should.equal('1')

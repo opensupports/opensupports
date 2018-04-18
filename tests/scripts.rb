@@ -52,6 +52,10 @@ class Scripts
         response['data']
     end
 
+    def self.logout()
+      request('/user/logout')
+    end
+
     def self.createTicket(title = 'Winter is coming')
         result = request('/ticket/create', {
             title: title,
