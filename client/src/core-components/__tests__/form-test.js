@@ -5,7 +5,7 @@ const FormField = ReactMock();
 
 // COMPONENT
 const Form = requireUnit('core-components/form', {
-    'lib-app/validations/validations-factory': ValidationFactoryMock,
+    'lib-app/validations/validator-factory': ValidationFactoryMock,
     'core-components/form-field': FormField,
     'core-components/text-editor': TextEditorMock
 });
