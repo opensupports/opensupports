@@ -27,7 +27,7 @@ class InstallStep3Database extends React.Component {
                 {this.renderMessage()}
                 <Form loading={this.state.loading} onSubmit={this.onSubmit.bind(this)}>
                     <FormField name="dbHost" label={i18n('DATABASE_HOST')} fieldProps={{size: 'large'}} required/>
-                    <FormField name="dbPort" label={i18n('DATABASE_PORT')} fieldProps={{size: 'large'}} infoMessage={i18n('DEFAULT_PORT')} required/>
+                    <FormField name="dbPort" label={i18n('DATABASE_PORT')} fieldProps={{size: 'large'}} infoMessage={i18n('DEFAULT_PORT')}/>
                     <FormField name="dbName" label={i18n('DATABASE_NAME')} fieldProps={{size: 'large'}} infoMessage={i18n('LEFT_EMPTY_DATABASE')}/>
                     <FormField name="dbUser" label={i18n('DATABASE_USER')} fieldProps={{size: 'large'}} required/>
                     <FormField name="dbPassword" label={i18n('DATABASE_PASSWORD')} fieldProps={{size: 'large', password: true}}/>

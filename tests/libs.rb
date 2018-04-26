@@ -21,10 +21,11 @@ end
 
 class Database
     def initialize()
-        mysqlHost = ENV['MYSQL_HOST'] || '127.0.0.1'
+        mysqlHost = ENV['MYSQL_HOST'] || 'localhost'
+        mysqlPort = ENV['MYSQL_PORT'] || '3306'
         mysqlUser = ENV['MYSQL_USER'] || 'root'
         mysqlPass = ENV['MYSQL_PASSWORD'] || ''
-        @connection = Mysql.new(mysqlHost, mysqlUser,  mysqlPass, 'development', 4040)
+        @connection = Mysql.new(mysqlHost, mysqlUser,  mysqlPass, 'development', mysqlPort.to_i)
     end
 
     def close()

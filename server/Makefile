@@ -3,7 +3,7 @@ yellow=`tput setaf 3`
 reset=`tput sgr0`
 
 build:
-	@docker pull mysql
+	@docker pull mysql:5.6
 	@docker pull phpmyadmin/phpmyadmin
 	@docker pull munkyboy/fakesmtp
 	@docker build -t opensupports-srv . || echo "A${red}An error occurred${reset}"
@@ -13,7 +13,7 @@ install:
 	@docker exec -it opensupports-db bash -c "mysql -u root -e \"CREATE DATABASE IF NOT EXISTS development;\" " || echo "${red}Please execute 'make run' first${reset}"
 
 run:
-	@docker run -d --name opensupports-db -p 4040:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -v $(PWD)/.dbdata/:/var/lib/mysql mysql
+	@docker run -d --name opensupports-db -p 4040:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -v $(PWD)/.dbdata/:/var/lib/mysql mysql:5.6
 	@docker run -d --name opensupports-myadmin --link opensupports-db:db -p 6060:80 phpmyadmin/phpmyadmin
 	@docker run -d --name opensupports-fakesmtp -p 7070:25 -v ${PWD}/.fakemail/:/var/mail munkyboy/fakesmtp
 	@docker run -d --name opensupports-srv --net=host --rm -e LOG_STDOUT=true -e LOG_STDERR=true -e LOG_LEVEL=debug -v ${PWD}:/var/www/html opensupports-srv
