@@ -14,7 +14,8 @@ use RedBeanPHP\Facade as RedBean;
  *
  * @apiPermission any
  *
- * @apiParam {String} dbHost Url of the database server.
+ * @apiParam {String} dbHost Location of the database server.
+ * @apiParam {String} dbPort Port of the database server.
  * @apiParam {String} dbName Name of the database. If not given, the system will try to create one.
  * @apiParam {String} dbUser User of the database server.
  * @apiParam {String} dbPassword Password of the database server.

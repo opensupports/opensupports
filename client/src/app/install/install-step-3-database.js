@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 import history from 'lib-app/history';
 import i18n from 'lib-app/i18n';
@@ -64,7 +65,7 @@ class InstallStep3Database extends React.Component {
         }, () => {
             API.call({
                 path: '/system/init-database',
-                data: form
+                data: _.extend({}, form, {dbPort: form.dbPort || 3306})
             })
                 .then(() => history.push('/install/step-4'))
                 .catch(({message}) => this.setState({
