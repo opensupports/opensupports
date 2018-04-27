@@ -43,26 +43,26 @@ class UnAssignStaffController extends Controller {
         $ticketNumber = Controller::request('ticketNumber');
         $user = Controller::getLoggedUser();
         $ticket = Ticket::getByTicketNumber($ticketNumber);
+        $owner = $ticket->owner;
 
-        if($ticket->owner && $ticket->owner->id == $user->id) {
-            $user->sharedTicketList->remove($ticket);
-            $user->store();
-            
+        if(($owner && $owner->id === $user->id) || $user->level > 1) {
+            $owner->sharedTicketList->remove($ticket);
+            $owner->store();
+
             $ticket->owner = null;
             $ticket->unread = true;
-            
+
             $event = Ticketevent::getEvent(Ticketevent::UN_ASSIGN);
             $event->setProperties(array(
                 'authorStaff' => $user,
                 'date' => Date::getCurrentDate()
             ));
-            
+
             $ticket->addEvent($event);
             $ticket->store();
             Response::respondSuccess();
         } else {
-            Response::respondError(ERRORS::NO_PERMISSION);
-            return;
+            throw new Exception(ERRORS::NO_PERMISSION);
         }
     }
 }

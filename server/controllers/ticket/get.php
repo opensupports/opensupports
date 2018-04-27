@@ -18,9 +18,9 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_TICKET
  * @apiUse INVALID_TOKEN
  * @apiUse NO_PERMISSION
- * 
+ *
  * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)} data Information about the requested ticket.
- * 
+ *
  */
 
 
@@ -78,6 +78,6 @@ class TicketGetController extends Controller {
         $user = Controller::getLoggedUser();
 
         return (!Controller::isStaffLogged() && (Controller::isUserSystemEnabled() && $this->ticket->author->id !== $user->id)) ||
-               (Controller::isStaffLogged() && (($this->ticket->owner && $this->ticket->owner->id !== $user->id) || !$user->sharedDepartmentList->includesId($this->ticket->department->id)));
+               (Controller::isStaffLogged() && (($this->ticket->owner && $this->ticket->owner->id !== $user->id) && !$user->sharedDepartmentList->includesId($this->ticket->department->id)));
     }
 }

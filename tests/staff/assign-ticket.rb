@@ -24,7 +24,7 @@ describe '/staff/assign-ticket' do
 
         (ticket['unread']).should.equal('1')
 
-        staff_ticket = $database.getRow('staff_ticket', 1 , 'id')
+        staff_ticket = $database.getRow('staff_ticket', 1 , 'ticket_id')
 
         (staff_ticket['staff_id']).should.equal('1')
 

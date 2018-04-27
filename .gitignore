@@ -1,6 +1,9 @@
-server/composer.lock
-server/vendor
 .idea
 .jshintrc
+tests/Gemfile.lock
+server/composer.lock
+server/vendor
 server/files/
 !server/files/.gitkeep
+server/.dbdata
+server/.fakemail

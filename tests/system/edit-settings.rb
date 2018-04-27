@@ -37,6 +37,20 @@ describe'system/edit-settings' do
 
         request('/user/logout')
     end
+    it 'should fail if supported languages are invalid' do
+        request('/user/logout')
+        Scripts.login($staff[:email], $staff[:password], true)
+
+        result= request('/system/edit-settings', {
+            "csrf_userid" => $csrf_userid,
+            "csrf_token" => $csrf_token,
+            "supportedLanguages" => '["en", "pt", "jp", "ru", "de"]',
+            "allowedLanguages" => '["en", "pt", "jp", "ru"]'
+        })
+
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('INVALID_SUPPORTED_LANGUAGES')
+    end
     it 'should change allowed and supported languages' do
         request('/user/logout')
         Scripts.login($staff[:email], $staff[:password], true)
@@ -45,7 +59,7 @@ describe'system/edit-settings' do
             "csrf_userid" => $csrf_userid,
             "csrf_token" => $csrf_token,
             "supportedLanguages" => '["en", "pt", "jp", "ru"]',
-            "allowedLanguages" => '["en","pt", "jp", "ru", "de"]'
+            "allowedLanguages" => '["en", "pt", "jp", "ru", "de"]'
         })
 
         (result['status']).should.equal('success')

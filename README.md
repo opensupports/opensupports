@@ -45,48 +45,29 @@ Just as there is a `gulp dev` task for development, there is also a `gulp prod` 
 3. Run `npm test` to run the tests.
 
 ### Getting up and running BACK-END (server folder)
+1. Install [Docker CE](https://docs.docker.com/install/)
+2. Go to the server folder: `cd opensupports/server`
+3. Run `make build` to build the images
+4. Run `make install` to install composer dependencies
 
-1. Clone this repo: `git clone https://github.com/opensupports/opensupports.git`
-2. [Install PHP 5.6](https://www.dev-metal.com/install-setup-php-5-6-ubuntu-14-04-lts/)
-3. [Create MySQL Database](#markdown-header-create-mysql-database)
-4. [Install composer](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-14-04)
-5. Go to the server folder: `cd opensupports/server`
-6. Run: `composer install`
-7. Run the server with: `php -S localhost:8080`
+- `make run` runs the backend and database
+- `make stop` stop backend and database server
+- `make log` show live server logs
+- `make db` access to mysql database console
+- `make sh` access to backend docker container bash
+- `make test` run phpunit tests
 
-##### Create MySQL Database
-
-1. Install mysql-server:
-
-    Ubuntu
-
-     `sudo apt-get install mysql-server`
-
-    Cent OS
-
-    `sudo yum install mysql-server`
-    `/etc/init.d/mysqld start`
-
-2. Access the MySQL shell:
-
-     `mysql -u root`
-
-3. Create a new database:
-
-    `CREATE DATABASE development;`
-
-4. Run the MySQL server:
-
-    `sudo /etc/init.d/mysql start`
+Server api runs on `http://localhost:8080/`
+Also, there's a *phpmyadmin* instance running on `http://localhost:6060/`,
+you can access with the username `root` and empty password
 
 ##### BACKEND API RUBY TESTING
 
-1. Install Ruby: `sudo apt-get install ruby-full`
-2. Install MySQL dev dependencies: `sudo apt-get install libmysqlclient-dev libmysqlclient16 ruby-dev`
-3. Install bundle: `sudo gem install bundler`
-4. Go to tests folder: `cd opensupports/tests`
-5. Install project dependencies: `bundle install`
-Tests can run by using executing the `run-tests.sh` file.
+1. Go to tests folder: `cd opensupports/tests`
+2. Run `make install` to install ruby and its the required dependencies
+
+- `make run` for running tests (database will be cleared)
+- `make clear` for clearing database
 
 ##### BACKEND FAKE SMTP SERVER
 If you're doing development, you can use a FakeSMTP server to see the mails that are being sent.

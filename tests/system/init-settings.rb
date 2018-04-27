@@ -25,9 +25,9 @@ describe '/system/init-settings' do
             'language' => 'en'
         })
 
-        lang = $database.getRow('setting', 'language', 'name')
-
         (result['status']).should.equal('success')
+
+        lang = $database.getRow('setting', 'language', 'name')
         (lang['value']).should.equal('en')
 
         result = request('/system/init-admin', {

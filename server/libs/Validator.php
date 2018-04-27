@@ -31,11 +31,11 @@ class Validator {
             $requestDataValue = Controller::request($requestDataKey);
             $requestDataValidator = $requestDataValidationConfig['validation'];
             $requestDataValidationErrorMessage = $requestDataValidationConfig['error'];
-            
+
             $this->validateData($requestDataValue, $requestDataValidator, $requestDataValidationErrorMessage);
         }
     }
-    
+
     private function validateData($value, DataValidator $dataValidator, $error) {
         if (!$dataValidator->validate($value)) {
             throw new ValidationException($error);

@@ -73,6 +73,10 @@ class EditSettingsController extends Controller {
         $allowed = json_decode(Controller::request('allowedLanguages'));
         $supported = json_decode(Controller::request('supportedLanguages'));
 
+        if (array_diff($supported, $allowed)) {
+            throw new Exception(ERRORS::INVALID_SUPPORTED_LANGUAGES);
+        }
+
         foreach(Language::LANGUAGES as $languageCode) {
             $language = Language::getDataStore($languageCode, 'code');
 

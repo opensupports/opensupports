@@ -14,7 +14,8 @@ use RedBeanPHP\Facade as RedBean;
  *
  * @apiPermission any
  *
- * @apiParam {String} dbHost Url of the database server.
+ * @apiParam {String} dbHost Location of the database server.
+ * @apiParam {String} dbPort Port of the database server.
  * @apiParam {String} dbName Name of the database. If not given, the system will try to create one.
  * @apiParam {String} dbUser User of the database server.
  * @apiParam {String} dbPassword Password of the database server.
@@ -44,14 +45,15 @@ class InitDatabaseController extends Controller {
         }
 
         $dbHost = Controller::request('dbHost');
+        $dbPort = Controller::request('dbPort');
         $dbName = Controller::request('dbName');
         $dbUser = Controller::request('dbUser');
         $dbPass = Controller::request('dbPassword');
 
-        RedBean::setup('mysql:host=' . $dbHost, $dbUser, $dbPass);
+        RedBean::setup("mysql:host=$dbHost;port=$dbPort", $dbUser, $dbPass);
 
         if($dbName) {
-            RedBean::addDatabase($dbName, 'mysql:host='. $dbHost . ';dbname=' . $dbName, $dbUser, $dbPass);
+            RedBean::addDatabase($dbName, "mysql:host=$dbHost;port=$dbPort;dbname=$dbName", $dbUser, $dbPass);
             RedBean::selectDatabase($dbName);
 
             if(!RedBean::testConnection()) {
@@ -60,7 +62,7 @@ class InitDatabaseController extends Controller {
         } else {
             $dbName = 'opensupports_' . Hashing::generateRandomNumber(100, 999);
             RedBean::exec('CREATE DATABASE ' . $dbName);
-            RedBean::addDatabase($dbName, 'mysql:host='. $dbHost . ';dbname=' . $dbName, $dbUser, $dbPass);
+            RedBean::addDatabase($dbName, "mysql:host=$dbHost;port=$dbPort;dbname=$dbName", $dbUser, $dbPass);
             RedBean::selectDatabase($dbName);
 
             if(!RedBean::testConnection()) {
@@ -71,6 +73,7 @@ class InitDatabaseController extends Controller {
         $configFile = fopen('config.php', 'w+') or die(ERRORS::INVALID_FILE);
         $content = '<?php' . PHP_EOL;
         $content .= 'define(\'MYSQL_HOST\', \'' . $dbHost . '\');' . PHP_EOL;
+        $content .= 'define(\'MYSQL_PORT\', \'' . $dbPort . '\');' . PHP_EOL;
         $content .= 'define(\'MYSQL_USER\', \'' . $dbUser . '\');' . PHP_EOL;
         $content .= 'define(\'MYSQL_PASSWORD\', \'' . $dbPass . '\');' . PHP_EOL;
         $content .= 'define(\'MYSQL_DATABASE\', \'' . $dbName . '\');' . PHP_EOL;
