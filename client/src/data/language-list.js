@@ -28,8 +28,12 @@ export default {
         data: frenchLanguage
     },
     'pt': {
-        name: 'Portuguese',
-        data: portugueseLanguage
+        name: 'European Portuguese',
+        data: europeanPortugueseLanguage
+    },
+    'pt-br': {
+        name: 'Brazilian Portuguese',
+        data: brazilianPortugueseLanguage
     },
     'jp': {
         name: 'Japanese',
