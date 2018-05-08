@@ -1,4 +1,5 @@
-<?php 
+<?php
+require_once 'data/TextsMails.php';
 
 class InitialMails {
     public static function retrieve() {
@@ -6,463 +7,598 @@ class InitialMails {
             'USER_SIGNUP' => [
                 'en' => [
                     'subject' => 'Signup {{to}} - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-signup-en.html')
+                    'body' => self::userSignup('en')
                 ],
                 'es' => [
                     'subject' => 'Registrado {{to}} - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-signup-es.html')
+                    'body' => self::userSignup('es')
                 ],
                 'de' => [
                     'subject' => 'Anmelden {{to}} - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-signup-de.html')
+                    'body' => self::userSignup('de')
                 ],
                 'fr' => [
                     'subject' => 'S\'inscrire {{to}} - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-signup-fr.html')
+                    'body' => self::userSignup('fr')
                 ],
                 'in' => [
                     'subject' => 'Daftar - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-signup-in.html')
+                    'body' => self::userSignup('in')
                 ],
                 'jp' => [
                     'subject' => 'サインアップ - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-signup-jp.html')
+                    'body' => self::userSignup('jp')
                 ],
                 'pt' => [
                     'subject' => 'Inscrever-se {{to}} - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-signup-pt.html')
+                    'body' => self::userSignup('pt')
                 ],
                 'ru' => [
                     'subject' => 'Зарегистрироваться {{to}} - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-signup-ru.html')
+                    'body' => self::userSignup('ru')
                 ],
                 'tr' => [
                     'subject' => 'kaydol {{to}} - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-signup-tr.html')
+                    'body' => self::userSignup('tr')
                 ],
                 'cn' => [
                     'subject' => '注册 {{to}} - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-signup-cn.html')
+                    'body' => self::userSignup('cn')
                 ],
                 'it' => [
                     'subject' => 'Sei iscritto {{to}} - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-signup-it.html')
+                    'body' => self::userSignup('it')
                 ]
             ],
             'USER_PASSWORD' => [
                 'en' => [
                     'subject' => 'Password edited - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-password-en.html')
+                    'body' => self::userEditPassword('en')
                 ],
                 'es' => [
                     'subject' => 'Contraseña a cambiado - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-password-es.html')
+                    'body' => self::userEditPassword('es')
                 ],
                 'de' => [
                     'subject' => 'Passwort bearbeitet - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-password-de.html')
+                    'body' => self::userEditPassword('de')
                 ],
                 'fr' => [
                     'subject' => 'Mot de passe modifié - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-password-fr.html')
+                    'body' => self::userEditPassword('fr')
                 ],
                 'in' => [
                     'subject' => 'sandi diedit - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-password-in.html')
+                    'body' => self::userEditPassword('in')
                 ],
                 'jp' => [
                     'subject' => 'パスワードの編集 - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-password-jp.html')
+                    'body' => self::userEditPassword('jp')
                 ],
                 'pt' => [
                     'subject' => 'Senha editada - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-password-pt.html')
+                    'body' => self::userEditPassword('pt')
                 ],
                 'ru' => [
                     'subject' => 'Пароль изменен - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-password-ru.html')
+                    'body' => self::userEditPassword('ru')
                 ],
                 'tr' => [
                     'subject' => 'Şifre düzenlendi - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-password-tr.html')
+                    'body' => self::userEditPassword('tr')
                 ],
                 'cn' => [
                     'subject' => '密码已编辑 - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-password-cn.html')
+                    'body' => self::userEditPassword('cn')
                 ],
                 'it' => [
                     'subject' => 'Password modificata - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-password-it.html')
+                    'body' => self::userEditPassword('it')
                 ]
             ],
             'USER_EMAIL' => [
                 'en' => [
                     'subject' => 'Email edited - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-email-en.html')
+                    'body' => self::userEditEmail('en')
                 ],
                 'es' => [
                     'subject' => 'Email a cambiado - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-email-es.html')
+                    'body' => self::userEditEmail('es')
                 ],
                 'de' => [
                     'subject' => 'E-Mail bearbeitet - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-email-de.html')
+                    'body' => self::userEditEmail('de')
                 ],
                 'fr' => [
                     'subject' => 'Courrier électronique - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-email-fr.html')
+                    'body' => self::userEditEmail('fr')
                 ],
                 'in' => [
                     'subject' => 'email diedit - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-email-in.html')
+                    'body' => self::userEditEmail('in')
                 ],
                 'jp' => [
                     'subject' => '電子メールを編集しました - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-email-jp.html')
+                    'body' => self::userEditEmail('jp')
                 ],
                 'pt' => [
                     'subject' => 'Email editado - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-email-pt.html')
+                    'body' => self::userEditEmail('pt')
                 ],
                 'ru' => [
                     'subject' => 'Сообщение изменено - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-email-ru.html')
+                    'body' => self::userEditEmail('ru')
                 ],
                 'tr' => [
                     'subject' => 'E-posta düzenlendi - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-email-tr.html')
+                    'body' => self::userEditEmail('tr')
                 ],
                 'cn' => [
                     'subject' => '电子邮件已修改 - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-email-cn.html')
+                    'body' => self::userEditEmail('cn')
                 ],
                 'it' => [
                     'subject' => 'E-mail modificata - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-edit-email-it.html')
+                    'body' => self::userEditEmail('it')
                 ]
             ],
             'PASSWORD_FORGOT' => [
                 'en' => [
                     'subject' => 'Recover password - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-password-forgot-en.html')
+                    'body' => self::userPasswordForgot('en')
                 ],
                 'es' => [
                     'subject' => 'Recuperar password - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-password-forgot-es.html')
+                    'body' => self::userPasswordForgot('es')
                 ],
                 'de' => [
                     'subject' => 'Passwort wiederherstellen - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-password-forgot-de.html')
+                    'body' => self::userPasswordForgot('de')
                 ],
                 'fr' => [
                     'subject' => 'Récupérer mot de passe - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-password-forgot-fr.html')
+                    'body' => self::userPasswordForgot('fr')
                 ],
                 'in' => [
                     'subject' => 'memulihkan password - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-password-forgot-in.html')
+                    'body' => self::userPasswordForgot('in')
                 ],
                 'jp' => [
                     'subject' => 'パスワードを回復 - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-password-forgot-jp.html')
+                    'body' => self::userPasswordForgot('jp')
                 ],
                 'pt' => [
                     'subject' => 'Recuperar senha - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-password-forgot-pt.html')
+                    'body' => self::userPasswordForgot('pt')
                 ],
                 'ru' => [
                     'subject' => 'Восстановить пароль - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-password-forgot-ru.html')
+                    'body' => self::userPasswordForgot('ru')
                 ],
                 'tr' => [
                     'subject' => 'Şifre kurtarma - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-password-forgot-tr.html')
+                    'body' => self::userPasswordForgot('tr')
                 ],
                 'cn' => [
                     'subject' => '恢复密码 - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-password-forgot-cn.html')
+                    'body' => self::userPasswordForgot('cn')
                 ],
                 'it' => [
                     'subject' => 'Recupera la password - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-password-forgot-it.html')
+                    'body' => self::userPasswordForgot('it')
                 ]
             ],
             'USER_SYSTEM_DISABLED' => [
                 'en' => [
                     'subject' => 'Access system changed - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-disabled-en.html')
+                    'body' => self::userSystemDisabled('en')
                 ],
                 'es' => [
                     'subject' => 'Sistema de acceso cambiado - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-disabled-es.html')
+                    'body' => self::userSystemDisabled('es')
                 ],
                 'de' => [
                     'subject' => 'Access system changed - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-disabled-de.html')
+                    'body' => self::userSystemDisabled('de')
                 ],
                 'fr' => [
                     'subject' => 'Système d\'accès modifié - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-disabled-fr.html')
+                    'body' => self::userSystemDisabled('fr')
                 ],
                 'in' => [
                     'subject' => 'sistem akses berubah - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-disabled-in.html')
+                    'body' => self::userSystemDisabled('in')
                 ],
                 'jp' => [
                     'subject' => 'アクセスシステムが変更されました - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-disabled-jp.html')
+                    'body' => self::userSystemDisabled('jp')
                 ],
                 'pt' => [
                     'subject' => 'Sistema de acesso alterado - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-disabled-pt.html')
+                    'body' => self::userSystemDisabled('pt')
                 ],
                 'ru' => [
                     'subject' => 'Система доступа изменена - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-disabled-ru.html')
+                    'body' => self::userSystemDisabled('ru')
                 ],
                 'tr' => [
                     'subject' => 'Erişim sistemi değiştirildi - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-disabled-tr.html')
+                    'body' => self::userSystemDisabled('tr')
                 ],
                 'cn' => [
                     'subject' => '访问系统更改 - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-disabled-cn.html')
+                    'body' => self::userSystemDisabled('cn')
                 ],
                 'it' => [
                     'subject' => 'Il sistema di accesso è cambiato - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-disabled-it.html')
+                    'body' => self::userSystemDisabled('it')
                 ]
             ],
             'USER_SYSTEM_ENABLED' => [
                 'en' => [
                     'subject' => 'Account created - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-enabled-en.html')
+                    'body' => self::userSystemEnabled('en')
                 ],
                 'es' => [
                     'subject' => 'Cuenta creada - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-enabled-es.html')
+                    'body' => self::userSystemEnabled('es')
                 ],
                 'de' => [
                     'subject' => 'Account erstellt - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-enabled-de.html')
+                    'body' => self::userSystemEnabled('de')
                 ],
                 'fr' => [
                     'subject' => 'Compte créé - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-enabled-fr.html')
+                    'body' => self::userSystemEnabled('fr')
                 ],
                 'in' => [
                     'subject' => 'Akun telah dibuat - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-enabled-in.html')
+                    'body' => self::userSystemEnabled('in')
                 ],
                 'jp' => [
                     'subject' => 'アカウントが作成されました - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-enabled-jp.html')
+                    'body' => self::userSystemEnabled('jp')
                 ],
                 'pt' => [
                     'subject' => 'Conta criada - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-enabled-pt.html')
+                    'body' => self::userSystemEnabled('pt')
                 ],
                 'ru' => [
                     'subject' => 'Аккаунт создан - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-enabled-ru.html')
+                    'body' => self::userSystemEnabled('ru')
                 ],
                 'tr' => [
                     'subject' => 'Hesap oluşturuldu - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-enabled-tr.html')
+                    'body' => self::userSystemEnabled('tr')
                 ],
                 'cn' => [
                     'subject' => '帐户已创建 - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-enabled-cn.html')
+                    'body' => self::userSystemEnabled('cn')
                 ],
                 'it' => [
                     'subject' => 'Account creato - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/user-system-enabled-it.html')
+                    'body' => self::userSystemEnabled('it')
                 ]
             ],
             'TICKET_CREATED' => [
                 'en' => [
                     'subject' => '#{{ticketNumber}} Ticket created - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-en.html')
+                    'body' => self::ticketCreated('en')
                 ],
                 'es' => [
                     'subject' => '#{{ticketNumber}} Ticket creado - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-es.html')
+                    'body' => self::ticketCreated('es')
                 ],
                 'de' => [
                     'subject' => '#{{ticketNumber}} Ticket erstellt - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-de.html')
+                    'body' => self::ticketCreated('de')
                 ],
                 'fr' => [
                     'subject' => '#{{ticketNumber}} Ticket créé - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-fr.html')
+                    'body' => self::ticketCreated('fr')
                 ],
                 'in' => [
                     'subject' => '#{{ticketNumber}} tiket dibuat - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-in.html')
+                    'body' => self::ticketCreated('in')
                 ],
                 'jp' => [
                     'subject' => '#{{ticketNumber}} チケットが作成されました - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-jp.html')
+                    'body' => self::ticketCreated('jp')
                 ],
                 'pt' => [
                     'subject' => '#{{ticketNumber}} Ticket criado - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-pt.html')
+                    'body' => self::ticketCreated('pt')
                 ],
                 'ru' => [
                     'subject' => '#{{ticketNumber}} Создан билет - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-ru.html')
+                    'body' => self::ticketCreated('ru')
                 ],
                 'tr' => [
                     'subject' => '#{{ticketNumber}} Bilet oluşturuldu - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-tr.html')
+                    'body' => self::ticketCreated('tr')
                 ],
                 'cn' => [
                     'subject' => '#{{ticketNumber}} 已创建票证 - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-cn.html')
+                    'body' => self::ticketCreated('cn')
                 ],
                 'it' => [
                     'subject' => '#{{ticketNumber}} ticket creato - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-it.html')
+                    'body' => self::ticketCreated('it')
                 ]
             ],
             'TICKET_RESPONDED' => [
                 'en' => [
                     'subject' => '#{{ticketNumber}} New response - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-responded-en.html')
+                    'body' => self::ticketResponded('en')
                 ],
                 'es' => [
                     'subject' => '#{{ticketNumber}} Nueva respuesta - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-responded-es.html')
+                    'body' => self::ticketResponded('es')
                 ],
                 'de' => [
                     'subject' => '#{{ticketNumber}} Neue Antwort - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-responded-de.html')
+                    'body' => self::ticketResponded('de')
                 ],
                 'fr' => [
                     'subject' => '#{{ticketNumber}} Nouvelle réponse - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-responded-fr.html')
+                    'body' => self::ticketResponded('fr')
                 ],
                 'in' => [
                     'subject' => '#{{ticketNumber}} tanggapan baru - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-responded-in.html')
+                    'body' => self::ticketResponded('in')
                 ],
                 'jp' => [
                     'subject' => '#{{ticketNumber}} 新しい応答 - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-responded-jp.html')
+                    'body' => self::ticketResponded('jp')
                 ],
                 'pt' => [
                     'subject' => '#{{ticketNumber}} Nova resposta - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-responded-pt.html')
+                    'body' => self::ticketResponded('pt')
                 ],
                 'ru' => [
                     'subject' => '#{{ticketNumber}} Новый ответ - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-responded-ru.html')
+                    'body' => self::ticketResponded('ru')
                 ],
                 'tr' => [
                     'subject' => '#{{ticketNumber}} Yeni yanıt - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-responded-tr.html')
+                    'body' => self::ticketResponded('tr')
                 ],
                 'cn' => [
                     'subject' => '#{{ticketNumber}} 新反应 - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-responded-cn.html')
+                    'body' => self::ticketResponded('cn')
                 ],
                 'it' => [
                     'subject' => '#{{ticketNumber}} Ticket risposto - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-responded-it.html')
+                    'body' => self::ticketResponded('it')
                 ]
             ],
             'TICKET_CLOSED' => [
                 'en' => [
                     'subject' => '#{{ticketNumber}} Ticket closed - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-closed-en.html')
+                    'body' => self::ticketClosed('en')
                 ],
                 'es' => [
                     'subject' => '#{{ticketNumber}} Ticket cerrado - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-closed-es.html')
+                    'body' => self::ticketClosed('es')
                 ],
                 'de' => [
                     'subject' => '#{{ticketNumber}} Ticket geschlossen - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-closed-de.html')
+                    'body' => self::ticketClosed('de')
                 ],
                 'fr' => [
                     'subject' => '#{{ticketNumber}} Billet fermé - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-closed-fr.html')
+                    'body' => self::ticketClosed('fr')
                 ],
                 'in' => [
                     'subject' => '#{{ticketNumber}} tiket ditutup - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-closed-in.html')
+                    'body' => self::ticketClosed('in')
                 ],
                 'jp' => [
                     'subject' => '#{{ticketNumber}} チケットが閉じられました - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-closed-jp.html')
+                    'body' => self::ticketClosed('jp')
                 ],
                 'pt' => [
                     'subject' => '#{{ticketNumber}} Bilhete fechado - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-closed-pt.html')
+                    'body' => self::ticketClosed('pt')
                 ],
                 'ru' => [
                     'subject' => '#{{ticketNumber}} Билет закрыт - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-closed-ru.html')
+                    'body' => self::ticketClosed('ru')
                 ],
                 'tr' => [
                     'subject' => '#{{ticketNumber}} Bilet kapalı - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-closed-tr.html')
+                    'body' => self::ticketClosed('tr')
                 ],
                 'cn' => [
                     'subject' => '#{{ticketNumber}} 票已关闭 - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-closed-cn.html')
+                    'body' => self::ticketClosed('cn')
                 ],
                 'it' => [
                     'subject' => '#{{ticketNumber}} Ticket chiuso - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-closed-it.html')
+                    'body' => self::ticketClosed('it')
                 ]
             ],
             'TICKET_CREATED_STAFF' => [
                 'en' => [
                     'subject' => '#{{ticketNumber}} Ticket created - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-en.html')
+                    'body' => self::ticketCreatedStaff('en')
                 ],
                 'es' => [
                     'subject' => '#{{ticketNumber}} Ticket creado - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-es.html')
+                    'body' => self::ticketCreatedStaff('es')
                 ],
                 'de' => [
                     'subject' => '#{{ticketNumber}} Ticket erstellt - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-de.html')
+                    'body' => self::ticketCreatedStaff('de')
                 ],
                 'fr' => [
                     'subject' => '#{{ticketNumber}} Ticket créé - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-fr.html')
+                    'body' => self::ticketCreatedStaff('fr')
                 ],
                 'in' => [
                     'subject' => '#{{ticketNumber}} tiket dibuat - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-in.html')
+                    'body' => self::ticketCreatedStaff('in')
                 ],
                 'jp' => [
                     'subject' => '#{{ticketNumber}} チケットが作成されました - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-jp.html')
+                    'body' => self::ticketCreatedStaff('jp')
                 ],
                 'pt' => [
                     'subject' => '#{{ticketNumber}} Ticket criado - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-pt.html')
+                    'body' => self::ticketCreatedStaff('pt')
                 ],
                 'ru' => [
                     'subject' => '#{{ticketNumber}} Создан билет - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-ru.html')
+                    'body' => self::ticketCreatedStaff('ru')
                 ],
                 'tr' => [
                     'subject' => '#{{ticketNumber}} Bilet oluşturuldu - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-tr.html')
+                    'body' => self::ticketCreatedStaff('tr')
                 ],
                 'cn' => [
                     'subject' => '#{{ticketNumber}} 已创建票证 - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-cn.html')
+                    'body' => self::ticketCreatedStaff('cn')
                 ],
                 'it' => [
                     'subject' => '#{{ticketNumber}} Ticket creato - OpenSupports',
-                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-it.html')
+                    'body' => self::ticketCreatedStaff('it')
                 ]
             ]
         ];
+    }
+
+    public static function ticketClosed($language){
+        global $mailTexts;
+        $list = $mailTexts['ticketClosedList'];
+
+        $ticketClosedMatches = [
+            '{{Ticket_Closed_Match_1}}',
+            '{{Ticket_Closed_Match_2}}',
+            '{{Ticket_Closed_Match_3}}'
+        ];
+
+        return str_replace($ticketClosedMatches, $list[$language], file_get_contents('data/mail-templates/ticket-closed.html'));
+    }
+
+    public static function ticketCreatedStaff($language){
+        global $mailTexts;
+        $list = $mailTexts['ticketCreatedStaffList'];
+
+        $ticketCreatedStaffMatches = [
+            '{{Ticket_Created_Staff_Match_1}}',
+            '{{Ticket_Created_Staff_Match_2}}',
+            '{{Ticket_Created_Staff_Match_3}}',
+            '{{Ticket_Created_Staff_Match_4}}'
+        ];
+
+        return str_replace($ticketCreatedStaffMatches, $list[$language], file_get_contents('data/mail-templates/ticket-created-staff.html'));
+    }
+
+    public static function ticketCreated($language){
+        global $mailTexts;
+        $list =  $mailTexts['ticketCreatedList'];
+
+        $ticketCreatedMatches = [
+            '{{Ticket_Created_Match_1}}',
+            '{{Ticket_Created_Match_2}}',
+            '{{Ticket_Created_Match_3}}',
+            '{{Ticket_Created_Match_4}}'
+        ];
+
+        return str_replace($ticketCreatedMatches, $list[$language], file_get_contents('data/mail-templates/ticket-created.html'));
+    }
+
+    public static function ticketResponded($language){
+        global $mailTexts;
+        $list = $mailTexts['ticketRespondedList'];
+
+        $ticketRespondedMatches = [
+            '{{Ticket_Responded_Match_1}}',
+            '{{Ticket_Responded_Match_2}}',
+            '{{Ticket_Responded_Match_3}}',
+            '{{Ticket_Responded_Match_4}}'
+        ];
+
+        return str_replace($ticketRespondedMatches, $list[$language], file_get_contents('data/mail-templates/ticket-responded.html'));
+    }
+
+    public static function userEditEmail($language){
+        global $mailTexts;
+        $list = $mailTexts['userEditEmailList'];
+
+        $userEditEmailMatches = [
+            '{{User_Edit_Email_Match_1}}',
+            '{{User_Edit_Email_Match_2}}',
+        ];
+
+        return str_replace($userEditEmailMatches, $list[$language], file_get_contents('data/mail-templates/user-edit-email.html'));
+    }
+
+    public static function userEditPassword($language){
+        global $mailTexts;
+        $list = $mailTexts['userEditPasswordList'];
+
+        $userEditPasswordMatches = [
+            '{{User_Edit_Password_Match_1}}',
+            '{{User_Edit_Password_Match_2}}',
+        ];
+
+        return str_replace($userEditPasswordMatches, $list[$language], file_get_contents('data/mail-templates/user-edit-password.html'));
+    }
+
+    public static function userPasswordForgot($language) {
+        global $mailTexts;
+        $list = $mailTexts['passwordForgotList'];
+
+        $passwordForgotMatches = [
+            '{{User_Password_Forgot_Match_1}}',
+            '{{User_Password_Forgot_Match_2}}',
+            '{{User_Password_Forgot_Match_3}}',
+            '{{User_Password_Forgot_Match_4}}'
+        ];
+
+        return str_replace($passwordForgotMatches, $list[$language], file_get_contents('data/mail-templates/user-password-forgot.html'));
+    }
+
+    public static function userSignup($language) {
+        global $mailTexts;
+        $list = $mailTexts['userSignupList'];
+
+        $userSignupMatches = [
+            '{{User_Signup_Match_1}}',
+            '{{User_Signup_Match_2}}',
+            '{{User_Signup_Match_3}}',
+            '{{User_Signup_Match_4}}'
+        ];
+
+        return str_replace($userSignupMatches, $list[$language], file_get_contents('data/mail-templates/user-signup.html'));
+    }
+
+    public static function userSystemDisabled($language) {
+        global $mailTexts;
+        $list = $mailTexts['userSystemDisabledList'];
+
+        $userSystemDisabledMatches = [
+            '{{User_System_Disabled_Match_1}}',
+            '{{User_System_Disabled_Match_2}}',
+            '{{User_System_Disabled_Match_3}}',
+            '{{User_System_Disabled_Match_4}}'
+        ];
+
+        return str_replace($userSystemDisabledMatches, $list[$language], file_get_contents('data/mail-templates/user-system-disabled.html'));
+    }
+
+    public static function userSystemEnabled($language) {
+        global $mailTexts;
+        $list = $mailTexts['userSystemEnabledlist'];
+
+        $userSystemEnabledMatches = [
+            '{{User_System_Enabled_Match_1}}',
+            '{{User_System_Enabled_Match_2}}',
+            '{{User_System_Enabled_Match_3}}',
+            '{{User_System_Enabled_Match_4}}'
+        ];
+
+        return str_replace($userSystemEnabledMatches, $list[$language], file_get_contents('data/mail-templates/user-system-enabled.html'));
     }
 }
