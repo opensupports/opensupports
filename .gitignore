@@ -7,3 +7,4 @@ server/files/
 !server/files/.gitkeep
 server/.dbdata
 server/.fakemail
+dist/
