@@ -61,6 +61,9 @@ Server api runs on `http://localhost:8080/`
 Also, there's a *phpmyadmin* instance running on `http://localhost:6060/`,
 you can access with the username `root` and empty password
 
+##### Building
+Once you've installed dependencies for frontend and backend, you can run `./build.sh` and it will generate a zip file inside `dist/` ready for distribution. You can use this file to install OpenSupports on a serving following the [installation instructions](https://github.com/opensupports/opensupports/wiki/Installation)
+
 ##### BACKEND API RUBY TESTING
 
 1. Go to tests folder: `cd opensupports/tests`
