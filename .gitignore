@@ -7,4 +7,5 @@ server/files/
 !server/files/.gitkeep
 server/.dbdata
 server/.fakemail
+server/apidoc
 dist/
