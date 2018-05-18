@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "app-module-path": "^1.0.3",
+    "axios": "^0.18.0",
     "chart.js": "^2.4.0",
     "classnames": "^2.2.5",
     "draft-js": "^0.10.0",
@@ -65,6 +66,7 @@
     "localStorage": "^1.0.3",
     "lodash": "^3.10.0",
     "messageformat": "^0.2.2",
+    "qs": "^6.5.2",
     "react": "^15.4.2",
     "react-chartjs-2": "^2.0.0",
     "react-document-title": "^1.0.2",
