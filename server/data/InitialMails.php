@@ -20,7 +20,7 @@ class InitialMails {
 
       $matches = [];
       foreach($texts as $key => $val) {
-          $matches[] = $templateCode . '_MATCH_' . ($key + 1);
+          $matches[] = '{{' . $templateCode . '_MATCH_' . ($key + 1) . '}}';
       }
 
       return str_replace($matches, $texts, file_get_contents($templateFilePaths[$templateCode]));
