@@ -17,11 +17,15 @@ class ArticleAddModal extends React.Component {
         position: React.PropTypes.number.isRequired
     };
 
+    state = {
+        loading: false
+    };
+
     render() {
         return (
             <div className="article-add-modal">
                 <Header title={i18n('ADD_ARTICLE')} description={i18n('ADD_ARTICLE_DESCRIPTION', {category: this.props.topicName})} />
-                <Form onSubmit={this.onAddNewArticleFormSubmit.bind(this)}>
+                <Form onSubmit={this.onAddNewArticleFormSubmit.bind(this)} loading={this.state.loading}>
                     <FormField name="title" label={i18n('TITLE')} field="input" fieldProps={{size: 'large'}} validation="TITLE" required/>
                     <FormField name="content" label={i18n('CONTENT')} field="textarea" validation="TEXT_AREA" required/>
                     <SubmitButton type="secondary">{i18n('ADD_ARTICLE')}</SubmitButton>
@@ -35,6 +39,10 @@ class ArticleAddModal extends React.Component {
     }
 
     onAddNewArticleFormSubmit(form) {
+        this.setState({
+          loading: true
+        });
+
         API.call({
             path: '/article/add',
             data: {
@@ -49,6 +57,10 @@ class ArticleAddModal extends React.Component {
             if(this.props.onChange) {
                 this.props.onChange();
             }
+        }).catch(() => {
+            this.setState({
+              loading: false
+            });
         });
     }
 }
