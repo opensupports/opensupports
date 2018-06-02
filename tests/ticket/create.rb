@@ -16,20 +16,6 @@ describe '/ticket/create' do
         (result['message']).should.equal('NO_PERMISSION')
 
     end
-
-    it 'should fail if title is too short' do
-        result = request('/ticket/create', {
-            title: 'GG',
-            departmentId: 1,
-            language: 'en',
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token
-        })
-
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_TITLE')
-    end
-
     it 'should fail if title is very long' do
         long_text = ''
         300.times {long_text << 'a'}

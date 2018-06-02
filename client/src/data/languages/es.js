@@ -298,7 +298,7 @@ export default {
     'ERROR_EMPTY': 'Valor inválido',
     'ERROR_PASSWORD': 'Contraseña Incorrecta',
     'ERROR_NAME': 'Nombre Incorrecto',
-    'ERROR_TITLE': 'Título Incorreceto',
+    'ERROR_TITLE': 'Título Incorrecto',
     'ERROR_EMAIL': 'Email inválido',
     'ERROR_CONTENT_SHORT': 'Contenido demasiado corto',
     'PASSWORD_NOT_MATCH': 'Las contraseñas no coinciden',
