@@ -5,7 +5,7 @@ DataValidator::with('CustomValidations', true);
 /**
  * @api {post} /ticket/comment Comment ticket
  * @apiVersion 4.1.0
- * 
+ *
  * @apiName Comment ticket
  *
  * @apiGroup Ticket
@@ -22,7 +22,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_TICKET
  * @apiUse INVALID_TOKEN
  *
- * @apiSuccess {Object} data Empty object 
+ * @apiSuccess {Object} data Empty object
  *
  */
 
@@ -86,7 +86,7 @@ class CommentController extends Controller {
             }
 
             Log::createLog('COMMENT', $this->ticket->ticketNumber);
-            
+
             Response::respondSuccess();
         } else {
             Response::respondError(ERRORS::NO_PERMISSION);
@@ -132,12 +132,19 @@ class CommentController extends Controller {
             $name = $this->ticket->owner->name;
         }
 
+        $url = Setting::getSetting('url')->getValue();
+
+        if(!Controller::isUserSystemEnabled()) {
+          $url .= '/check-ticket/' . $this->ticket->ticketNumber;
+          $url .= '/' . $email;
+        }
+
         $mailSender->setTemplate(MailTemplate::TICKET_RESPONDED, [
             'to' => $email,
             'name' => $name,
-            'ticketNumber' => $this->ticket->ticketNumber,
             'title' => $this->ticket->title,
-            'url' => Setting::getSetting('url')->getValue()
+            'ticketNumber' => $this->ticket->ticketNumber,
+            'url' => $url
         ]);
 
         $mailSender->send();

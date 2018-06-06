@@ -44,7 +44,7 @@ class TestSMTPController extends Controller {
             Controller::request('smtp-password'),
             Controller::request('no-reply-email')
         );
-        
+
         if($mailSender->isConnected()) {
             Response::respondSuccess();
         } else {
