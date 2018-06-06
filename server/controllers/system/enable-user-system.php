@@ -91,7 +91,8 @@ class EnableUserSystemController extends Controller {
         $mailSender->setTemplate(MailTemplate::USER_SYSTEM_ENABLED, [
             'to' => $email,
             'name' => $name,
-            'password' => $password
+            'password' => $password,
+            'url' => Setting::getSetting('url')->getValue(),
         ]);
         $mailSender->send();
 
