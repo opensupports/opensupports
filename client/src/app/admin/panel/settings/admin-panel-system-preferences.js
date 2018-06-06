@@ -25,7 +25,8 @@ class AdminPanelSystemPreferences extends React.Component {
         loading: true,
         message: null,
         values: {
-            maintenance: false
+            maintenance: false,
+            'smtp-pass': 'HIDDEN',
         }
     };
 
@@ -73,7 +74,7 @@ class AdminPanelSystemPreferences extends React.Component {
                                     <div className="row">
                                         <div className="col-md-9">
                                             <FormField label={i18n('SMTP_SERVER')} fieldProps={{size: 'large'}} name="smtp-host"/>
-                                            <FormField label={i18n('SMTP_PASSWORD')} fieldProps={{size: 'large', password: true}} name="smtp-pass"/>
+                                            <FormField label={i18n('SMTP_PASSWORD')} fieldProps={{size: 'large'}} name="smtp-pass"/>
                                         </div>
                                         <div className="col-md-3">
                                             <FormField label={i18n('PORT')} fieldProps={{size: 'auto'}} name="smtp-port"/>
@@ -173,7 +174,7 @@ class AdminPanelSystemPreferences extends React.Component {
                 'smtp-host': form['smtp-host'],
                 'smtp-port': form['smtp-port'],
                 'smtp-user': form['smtp-user'],
-                'smtp-pass': form['smtp-pass'],
+                [ form['smtp-pass'] !== 'HIDDEN' ? 'smtp-pass' : null]: form['smtp-pass'],
                 'maintenance-mode': form['maintenance-mode'] * 1,
                 'allow-attachments': form['allow-attachments'] * 1,
                 'max-size': form['max-size'],
@@ -219,7 +220,7 @@ class AdminPanelSystemPreferences extends React.Component {
                 'smtp-host': result.data['smtp-host'],
                 'smtp-port': result.data['smtp-port'],
                 'smtp-user': result.data['smtp-user'],
-                'smtp-pass': '',
+                'smtp-pass': 'HIDDEN',
                 'maintenance-mode': !!(result.data['maintenance-mode'] * 1),
                 'allow-attachments': !!(result.data['allow-attachments'] * 1),
                 'max-size': result.data['max-size'],
@@ -236,7 +237,7 @@ class AdminPanelSystemPreferences extends React.Component {
             message: 'error'
         });
     }
-    
+
     onDiscardChangesSubmit(event) {
         event.preventDefault();
         this.setState({loading: true});
