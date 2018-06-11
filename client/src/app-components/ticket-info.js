@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import htmlToText from 'html-to-text';
 
 import i18n from 'lib-app/i18n';
 import Icon from 'core-components/icon';
@@ -19,7 +20,7 @@ class TicketInfo extends React.Component {
                     </span>
                 </div>
                 <div className="ticket-info__description">
-                    {this.props.ticket.content}
+                    {htmlToText.fromString(this.props.ticket.content)}
                 </div>
 
                 <div className="ticket-info__author">

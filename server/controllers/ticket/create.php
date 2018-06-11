@@ -85,8 +85,8 @@ class CreateController extends Controller {
     }
 
     public function handler() {
-        $this->title = htmlentities(Controller::request('title'));
-        $this->content = htmlentities(Controller::request('content', true));
+        $this->title = Controller::request('title');
+        $this->content = Controller::request('content', true);
         $this->departmentId = Controller::request('departmentId');
         $this->language = Controller::request('language');
         $this->email = Controller::request('email');
