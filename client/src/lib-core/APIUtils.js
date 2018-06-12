@@ -1,5 +1,6 @@
 const _ = require('lodash');
-const $ = require('jquery');
+const axios = require('axios');
+const qs = require('qs');
 
 const APIUtils = {
 
@@ -11,21 +12,14 @@ const APIUtils = {
                 data: data
             };
             
-            if(dataAsForm) {
-                options = {
-                    url: path,
-                    type: method,
-                    data: data,
-                    processData: false,
-                    contentType: false
-                };
+            if(!dataAsForm){
+                options.headers = {'content-type': 'application/x-www-form-urlencoded'};
+                options.data = qs.stringify(options.data);
             }
             
-            $.ajax(options)
-            .done(resolve)
-            .fail((jqXHR, textStatus) => {
-                reject(textStatus);
-            });
+            axios(options)
+            .then((result) => resolve(result.data))
+            .catch(() => reject());
         };
     },
 
