@@ -13,7 +13,7 @@ const APIUtils = {
             };
             
             if(!dataAsForm){
-                options.headers = {'content-type': 'application/x-www-form-urlencoded'},
+                options.headers = {'content-type': 'application/x-www-form-urlencoded'};
                 options.data = qs.stringify(options.data);
             }
             

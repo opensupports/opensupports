@@ -16,6 +16,7 @@
     "test": "export NODE_PATH=src && mocha src/lib-test/preprocessor.js --compilers js:babel-core/register --recursive src/**/**/__tests__/*-test.js"
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.15.0",
     "babel-core": "^5.8.22",
     "babel-plugin-transform-class-properties": "^6.11.5",
     "babel-register": "^6.7.2",
@@ -42,7 +43,6 @@
     "gulp-uglify": "^2.1.2",
     "gulp-util": "^3.0.6",
     "humps": "^0.6.0",
-    "jquery-mockjax": "^2.1.0",
     "jsdom": "^8.4.1",
     "morgan": "^1.6.1",
     "proxyquire": "^1.7.4",
@@ -61,7 +61,6 @@
     "draft-js": "^0.10.0",
     "draft-js-export-html": "^0.5.2",
     "history": "^3.0.0",
-    "jquery": "^2.1.4",
     "keycode": "^2.1.4",
     "localStorage": "^1.0.3",
     "lodash": "^3.10.0",
