@@ -1,6 +1,8 @@
 const _ = require('lodash');
-const $ = require('jquery');
-const mockjax = require('jquery-mockjax')($, window);
+const axios = require('axios');
+const MockAdapter = require('axios-mock-adapter');
+const qs = require('qs');
+const mock = new MockAdapter(axios);
 
 let fixtures = (function () {
     let fixturesData = [];
@@ -23,12 +25,9 @@ fixtures.add(require('data/fixtures/system-fixtures'));
 fixtures.add(require('data/fixtures/article-fixtures'));
 
 _.each(fixtures.getAll(), function (fixture) {
-    mockjax({
-        contentType: fixture.contentType || 'application/json',
-        url: 'http://localhost:3000/api' + fixture.path,
-        responseTime: fixture.time || 500,
-        response: function (settings) {
-            this.responseText = fixture.response(settings.data);
-        }
+    mock.onAny('http://localhost:3000/api' + fixture.path).reply(function(config) {
+        return new Promise(function(resolve, reject) {
+            setTimeout(() => resolve([200, fixture.response(qs.parse(config.data))]), fixture.time || 500);
+        });
     });
 });
