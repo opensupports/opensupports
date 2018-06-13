@@ -30,7 +30,7 @@ describe'system/add-department' do
 
             row = $database.getRow('department', 5, 'id')
 
-            (row['name']).should.equal('&lt;b&gt;new department&lt;/b&gt;')
+            (row['name']).should.equal('<b>new department</b>')
 
             lastLog = $database.getLastRow('log')
             (lastLog['type']).should.equal('ADD_DEPARTMENT')
