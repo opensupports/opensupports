@@ -157,8 +157,10 @@ class CreateTicketForm extends React.Component {
 }
 
 export default connect((store) => {
+    const { language, supportedLanguages } = store.config;
+
     return {
-        language: store.config.language,
+        language: _.includes(supportedLanguages, language) ? language : supportedLanguages[0],
         allowAttachments: store.config['allow-attachments']
     };
 })(CreateTicketForm);

@@ -148,13 +148,15 @@ class AdminPanelSystemPreferences extends React.Component {
     }
 
     onFormChange(form) {
-        let values = _.clone(form);
+        const { language, supportedLanguages, allowedLanguages } = form;
 
-        _.extend(values, {
-            supportedLanguages: _.filter(values.supportedLanguages, (language) => _.includes(values.allowedLanguages, language))
+        this.setState({
+          values: _.extend({}, form, {
+              language: _.includes(supportedLanguages, language) ? language : Object.keys(languageList)[supportedLanguages[0]],
+              supportedLanguages: _.filter(supportedLanguages, (language) => _.includes(allowedLanguages, language))
+          }),
+          message: null
         });
-
-        this.setState({values, message: null});
     }
 
     onSubmit(form) {

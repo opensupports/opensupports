@@ -1,8 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import {Editor} from 'react-draft-wysiwyg';
-import {EditorState, ContentState, convertFromHTML} from 'draft-js';
-import {stateToHTML} from 'draft-js-export-html';
+import {EditorState, ContentState, convertToRaw} from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+
 import {isIE} from 'lib-core/navigator';
 
 class TextEditor extends React.Component {
@@ -21,7 +23,7 @@ class TextEditor extends React.Component {
 
     static getEditorStateFromHTML(htmlString) {
         if(isIE()) return htmlString;
-        const blocksFromHTML = convertFromHTML(htmlString);
+        const blocksFromHTML = htmlToDraft(htmlString);
         const state = ContentState.createFromBlockArray(
             blocksFromHTML.contentBlocks,
             blocksFromHTML.entityMap
@@ -32,7 +34,7 @@ class TextEditor extends React.Component {
 
     static getHTMLFromEditorState(editorState) {
         if(isIE()) return editorState;
-        return stateToHTML(editorState.getCurrentContent());
+        return draftToHtml(convertToRaw(editorState.getCurrentContent()));
     }
 
     static isEditorState(editorState) {
@@ -97,7 +99,7 @@ class TextEditor extends React.Component {
 
     getToolbarOptions() {
         return {
-            options: ['inline', 'blockType', 'list', 'link', 'image'],
+            options: ['inline', 'blockType', 'list', 'link', 'image', 'textAlign'],
             inline: {
                 inDropdown: false,
                 options: ['bold', 'italic', 'underline', 'strikethrough', 'monospace']
@@ -114,7 +116,11 @@ class TextEditor extends React.Component {
                 urlEnabled: true,
                 uploadEnabled: false,
                 alignmentEnabled: false
-            }
+            },
+            textAlign: {
+                inDropdown: false,
+                options: ['left', 'center', 'right', 'justify'],
+            },
         };
     }
 

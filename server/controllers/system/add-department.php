@@ -33,7 +33,7 @@ class AddDepartmentController extends Controller {
     }
 
     public function handler() {
-        $name = htmlentities(Controller::request('name'));
+        $name = Controller::request('name');
 
         $departmentInstance = new Department();
 
