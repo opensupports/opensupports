@@ -828,7 +828,7 @@ class MailTexts {
           ],
           'USER_SYSTEM_ENABLED' => [
 
-'Δημιουργία λογαριασμού - OpenSupports',
+            'Δημιουργία λογαριασμού - OpenSupports',
             'Λογαριασμός που δημιουργήθηκε',
             '«Γεια σας, {{name}}. Δημιουργήσαμε ένα λογαριασμό στον οποίο μπορείτε να έχετε πρόσβαση στα εισιτήρια που μας έχετε στείλει. ',
             'Μπορείτε να αποκτήσετε πρόσβαση στο λογαριασμό σας χρησιμοποιώντας αυτό το μήνυμα ηλεκτρονικού ταχυδρομείου <i> ({{to}}) </ i> και τον κωδικό πρόσβασης παρακάτω.Παρακαλώ αλλάξτε τον κωδικό πρόσβασης μόλις συνδεθείτε.',
@@ -843,9 +843,9 @@ class MailTexts {
           ],
           'TICKET_RESPONDED' => [
               '#{{ticketNumber}} Νέα απάντηση- OpenSupports',
-              'Το εισιτήριο ανταποκρίθηκε',
-              'Χαίρετε,{{name}}. Έχετε λάβει μια απάντηση στο εισιτήριο με τίτλο <i>{{title}}</i>.',
-              'Κάντε κλικ παρακάτω για να δείτε τη νέα απάντηση.'
+              'Reactie op incident ',
+              'Hallo, {{name}}. Er is een reactie geplaats bij het incident met onderwerp <i>{{title}}</i>.',
+              'Klik hieronder om de reactie te bekijken.'
           ],
           'TICKET_CLOSED' => [
              '#{{ticketNumber}} Το εισιτήριο έκλεισε - OpenSupports',
@@ -855,9 +855,75 @@ class MailTexts {
           ],
           'TICKET_CREATED_STAFF' => [
               '#{{ticketNumber}} Δημιουργήθηκε εισιτήριο- OpenSupports',
-              'Δημιουργήθηκε εισιτήριο',
-              'Ο χρήστης {{name}} δημιούργησε ένα νέο εισιτήριο με τίτλο<i>{{title}}</i>.',
-              'Μπορείτε να έχετε πρόσβαση στο εισιτήριο με τον αριθμό εισιτηρίου του.',
+              'Incident aangemaakt',
+              'Gebruiker {{name}} heeft een nieuw incident aangemaakt met onderwerp <i>{{title}}</i>.',
+              'Bekijk dit incident via het incidentnummer.',
+              '{{ticketNumber}}'
+          ],
+        ],
+        'nl' => [
+          'USER_SIGNUP' => [
+              'Aanmelden {{to}} - OpenSupports',
+              'Verifieer uw account',
+              'Welkom bij het Support Center, {{name}}!. U moet uw account verifiëren om toegang te krijgen tot het systeem.',
+              'Use this code in {{url}}/verify-token/{{to}}/{{verificationToken}} or click the button below.',
+              '{{verificationToken}}'
+          ],
+          'USER_PASSWORD' => [
+              'Wachtwoord is aangepast - OpenSupports',
+              'Wachtwoord is gewijzigd',
+              'Hallo, {{name}}. Uw wachtwoord is gewijzigd voor het klantenportaal.'
+          ],
+          'USER_EMAIL' => [
+              'E-mailadres is aangepast - OpenSupports',
+              'Email adres gewijzigd',
+              'Hallo, {{name}}. Uw email adres is gewijzigd naar {{newemail}} in het klantenportaal.'
+          ],
+          'PASSWORD_FORGOT' => [
+              'Herstel wachtwoord - OpenSupports',
+              'Reset wachtwoord',
+              'Hallo, {{name}}. U heeft een verzoek gedaan om uw wachtwoord te resetten.',
+              'Gebruik deze code {{url}}/recover-password?email={{to}}&token={{token}} of klik op de knop hieronder.'
+          ],
+          'USER_SYSTEM_DISABLED' => [
+            'Toegangssysteem gewijzigd - OpenSupports',
+            'Toegang tot incidenten is gewijzigd',
+            'Hallo, {{name}}. De toegang tot incidenten is gewijzigd.',
+            'U kunt uw incidenten bekijken d.m.v. uw email en het incident nummer.Klik op de knop hieronder om uw tickets te bekijken.',
+            '{{tickets}}'
+          ],
+          'USER_SYSTEM_ENABLED' => [
+
+            'Account is aangemaakt - OpenSupports',
+            'Account Aangemaakt',
+            'Hallo, {{name}}. We hebben een account voor u aangemaakt waarmee u uw incidenten kunt bekijken.',
+            'U kunt inloggen met dit email adres <i>({{to}})</i> en onderstaande wachtwoord.Verander alstublieft het wachtwoord na het inloggen.',
+            '{{password}}'
+          ],
+          'TICKET_CREATED' => [
+              '#{{ticketNumber}} Incident aangemaakt - OpenSupports',
+              'Incident aangemaakt',
+              'Hallo, {{name}}. U heeft zojuist een incident aangemaakt met onderwerp <i>{{title}}</i> in ons support center.',
+              'U kunt dit incident bekijken via het incidentnummer of via de knop hieronder.',
+              '{{ticketNumber}}'
+          ],
+          'TICKET_RESPONDED' => [
+              '#{{ticketNumber}} Nieuw antwoord - OpenSupports',
+              'Το εισιτήριο ανταποκρίθηκε',
+              'Χαίρετε,{{name}}. Έχετε λάβει μια απάντηση στο εισιτήριο με τίτλο <i>{{title}}</i>.',
+              'Κάντε κλικ παρακάτω για να δείτε τη νέα απάντηση.'
+          ],
+          'TICKET_CLOSED' => [
+             '#{{ticketNumber}} Incident gesloten - OpenSupports',
+              'Incident is gesloten',
+              'Hallo, {{name}}. Een incident met onderwerp <i>{{title}}</i> is gesloten.',
+              'U kunt dit incident bekijken via het incidentnummer. Of klik op de knop hieronder.'
+          ],
+          'TICKET_CREATED_STAFF' => [
+              '#{{ticketNumber}} Incident aangemaakt - OpenSupports',
+              'Incident is gesloten',
+              'Hallo, {{name}}. Een incident met onderwerp <i>{{title}}</i> is gesloten.',
+              'U kunt dit incident bekijken via het incidentnummer. Of klik op de knop hieronder.',
               '{{ticketNumber}}'
           ],
         ],

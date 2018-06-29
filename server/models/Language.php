@@ -46,10 +46,4 @@ class Language extends DataStore {
         }
         return $array;
     }
-
-<<<<<<< HEAD
-
-=======
-
->>>>>>> err1r-master
 }
