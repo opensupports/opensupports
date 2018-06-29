@@ -47,6 +47,10 @@ class InitialMails {
                 'it' => [
                     'subject' => 'Sei iscritto {{to}} - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-signup-it.html')
+                ],
+                'nl' => [
+                    'subject' => 'Aanmelden {{to}} - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/user-signup-nl.html')
                 ]
             ],
             'USER_PASSWORD' => [
@@ -93,7 +97,11 @@ class InitialMails {
                 'it' => [
                     'subject' => 'Password modificata - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-edit-password-it.html')
-                ]
+                ],
+                'nl' => [
+                    'subject' => 'Wachtwoord is aangepast - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/user-edit-password-nl.html')
+                ] 
             ],
             'USER_EMAIL' => [
                 'en' => [
@@ -139,7 +147,11 @@ class InitialMails {
                 'it' => [
                     'subject' => 'E-mail modificata - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-edit-email-it.html')
-                ]
+                ],
+                'nl' => [
+                    'subject' => 'E-mailadres is aangepast - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/user-edit-email-nl.html')
+                ]  
             ],
             'PASSWORD_FORGOT' => [
                 'en' => [
@@ -185,13 +197,17 @@ class InitialMails {
                 'it' => [
                     'subject' => 'Recupera la password - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-password-forgot-it.html')
+                ],
+                'nl' => [
+                    'subject' => 'Herstel wachtwoord - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/user-password-forgot-nl.html')
                 ]
             ],
             'USER_SYSTEM_DISABLED' => [
                 'en' => [
                     'subject' => 'Access system changed - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-system-disabled-en.html')
-                ],
+                ],               
                 'es' => [
                     'subject' => 'Sistema de acceso cambiado - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-system-disabled-es.html')
@@ -231,13 +247,17 @@ class InitialMails {
                 'it' => [
                     'subject' => 'Il sistema di accesso è cambiato - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-system-disabled-it.html')
+                ],
+                'nl' => [
+                    'subject' => 'Toegangssysteem gewijzigd - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/user-system-disabled-nl.html')
                 ]
             ],
             'USER_SYSTEM_ENABLED' => [
                 'en' => [
                     'subject' => 'Account created - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-system-enabled-en.html')
-                ],
+                ],           
                 'es' => [
                     'subject' => 'Cuenta creada - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-system-enabled-es.html')
@@ -277,13 +297,17 @@ class InitialMails {
                 'it' => [
                     'subject' => 'Account creato - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/user-system-enabled-it.html')
-                ]
+                ],
+                'nl' => [
+                    'subject' => 'Account is aangemaakt - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/user-system-enabled-nl.html')
+                ] 
             ],
             'TICKET_CREATED' => [
                 'en' => [
                     'subject' => '#{{ticketNumber}} Ticket created - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/ticket-created-en.html')
-                ],
+                ],            
                 'es' => [
                     'subject' => '#{{ticketNumber}} Ticket creado - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/ticket-created-es.html')
@@ -323,13 +347,17 @@ class InitialMails {
                 'it' => [
                     'subject' => '#{{ticketNumber}} ticket creato - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/ticket-created-it.html')
-                ]
+                ],
+                'nl' => [
+                    'subject' => '#{{ticketNumber}} Incident aangemaakt - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-created-nl.html')
+                ]  
             ],
             'TICKET_RESPONDED' => [
                 'en' => [
                     'subject' => '#{{ticketNumber}} New response - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/ticket-responded-en.html')
-                ],
+                ],             
                 'es' => [
                     'subject' => '#{{ticketNumber}} Nueva respuesta - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/ticket-responded-es.html')
@@ -369,13 +397,17 @@ class InitialMails {
                 'it' => [
                     'subject' => '#{{ticketNumber}} Ticket risposto - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/ticket-responded-it.html')
-                ]
+                ],
+                'nl' => [
+                    'subject' => '#{{ticketNumber}} Nieuw antwoord - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-responded-nl.html')
+                ] 
             ],
             'TICKET_CLOSED' => [
                 'en' => [
                     'subject' => '#{{ticketNumber}} Ticket closed - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/ticket-closed-en.html')
-                ],
+                ],        
                 'es' => [
                     'subject' => '#{{ticketNumber}} Ticket cerrado - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/ticket-closed-es.html')
@@ -415,13 +447,17 @@ class InitialMails {
                 'it' => [
                     'subject' => '#{{ticketNumber}} Ticket chiuso - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/ticket-closed-it.html')
-                ]
+                ],
+                'nl' => [
+                    'subject' => '#{{ticketNumber}} Incident gesloten - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-closed-nl.html')
+                ]  
             ],
             'TICKET_CREATED_STAFF' => [
                 'en' => [
                     'subject' => '#{{ticketNumber}} Ticket created - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/ticket-created-staff-en.html')
-                ],
+                ],      
                 'es' => [
                     'subject' => '#{{ticketNumber}} Ticket creado - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/ticket-created-staff-es.html')
@@ -461,7 +497,11 @@ class InitialMails {
                 'it' => [
                     'subject' => '#{{ticketNumber}} Ticket creato - OpenSupports',
                     'body' => file_get_contents('data/mail-templates/ticket-created-staff-it.html')
-                ]
+                ],
+                'nl' => [
+                    'subject' => '#{{ticketNumber}} Incident aangemaakt - OpenSupports',
+                    'body' => file_get_contents('data/mail-templates/ticket-created-staff-nl.html')
+                ] 
             ]
         ];
     }
