@@ -728,6 +728,72 @@ class MailTexts {
               '{{ticketNumber}}'
           ],
         ],
+        'br' => [
+          'USER_SIGNUP' => [
+              'Inscrever-se {{to}} - OpenSupports',
+              'Verifique sua conta',
+              'Bem-vindo ao nosso centro de suporte, {{name}}!. Precisamos que você verifique este e-mail para acessar sua conta.',
+              'Use este código em {{url}}/verify-token/{{to}}/{{verificationToken}} ou clique no botão abaixo.',
+              '{{verificationToken}}'
+          ],
+          'USER_PASSWORD' => [
+              'Senha editada - OpenSupports',
+              'Senha alterada',
+              'Olá, {{name}}. Queremos informá-lo de que sua senha foi alterada do seu painel de clientes.'
+          ],
+          'USER_EMAIL' => [
+              'Email editado - OpenSupports',
+              'E-mail alterado',
+              'Oi, {{name}}. Queremos informar que seu e-mail foi alterado para {{newemail}} do seu painel de clientes.'
+          ],
+          'PASSWORD_FORGOT' => [
+              'Recuperar senha - OpenSupports',
+              'Recuperar senha',
+              'Olá, {{name}}. Você solicitou a recuperação da sua senha.',
+              'Use este código em {{url}}/recover-password?email={{to}}&token={{token}} ou clique no botão abaixo.',
+              '{{token}}'
+          ],
+          'USER_SYSTEM_DISABLED' => [
+              'Sistema de acesso alterado - OpenSupports',
+              'Sistema de acesso alterado',
+              'Oi, {{name}}. O sistema de acesso aos tickets mudou.',
+              'Você pode acessar e ver seus bilhetes usando seu e-mail eo número do bilhete.Clique no botão abaixo para ver os seus bilhetes.',
+              '{{tickets}}'
+          ],
+          'USER_SYSTEM_ENABLED' => [
+              'Conta criada - OpenSupports',
+              'Conta criada',
+              'Oi, {{name}}. Criamos uma conta onde você pode acessar os ingressos que você nos enviou.',
+              'Você pode acessar sua conta usando este e-mail <i>({{to}})</i> e a senha abaixo.Por favor, altere a senha assim que fizer login.',
+              '{{password}}'
+          ],
+          'TICKET_CREATED' => [
+              '#{{ticketNumber}} Ticket criado - OpenSupports',
+              'Ticket criado',
+              'Olá, {{name}}. Você enviou um novo ticket intitulado <i>{{title}}</i> para o nosso centro de suporte.',
+              'Você pode acessar o bilhete pelo seu número de bilhete. Ou você pode clicar no botão abaixo.',
+              '{{ticketNumber}}'
+          ],
+          'TICKET_RESPONDED' => [
+              '#{{ticketNumber}} Nova resposta - OpenSupports',
+              'Ticket respondeu',
+              'Olá, {{name}}. Recebeu uma resposta no título do bilhete <i>{{title}}</i>.',
+              'Por favor, clique abaixo para ver a nova resposta.'
+          ],
+          'TICKET_CLOSED' => [
+              '#{{ticketNumber}} Bilhete fechado - OpenSupports',
+              'Bilhete fechado',
+              'Olá, {{name}}. Um bilhete que você enviou intitulado <i>{{title}}</i> foi fechado.',
+              'Você pode acessar o bilhete pelo seu número de bilhete. Ou você pode clicar no botão abaixo.'
+          ],
+          'TICKET_CREATED_STAFF' => [
+              '#{{ticketNumber}} Ticket criado - OpenSupports',
+              'Ticket criado',
+              'O usuário {{name}} criou um novo bilhete de direito <i>{{title}}</i>.',
+              'Você pode acessar o bilhete pelo seu número de bilhete.',
+              '{{ticketNumber}}'
+          ],
+        ],
     ];
   }
 }
