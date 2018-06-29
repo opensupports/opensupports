@@ -14,9 +14,11 @@ class Language extends DataStore {
         'cn',
         'in',
         'tr',
-        'it'
+        'it',
+        'br',
+        'gr'
     ];
-    
+
     public static function getProps() {
         return [
             'code',
@@ -44,5 +46,5 @@ class Language extends DataStore {
         return $array;
     }
 
-    
+
 }
