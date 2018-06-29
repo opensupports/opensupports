@@ -10,6 +10,7 @@ import russianLanguage    from 'data/languages/ru';
 import turkishLanguage    from 'data/languages/tr';
 import italianLanguage    from 'data/languages/it';
 import brazilLanguage     from 'data/languages/br';
+import greekLanguage      from 'data/languages/gr';
 
 export default {
     'en': {
@@ -59,5 +60,9 @@ export default {
     'br' : {
       name:'Portuguese(BR)',
       data: brazilLanguage
+    },
+    'gr' : {
+      name:'Greek',
+      data: greekLanguage
     }
 };
