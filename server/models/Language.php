@@ -16,7 +16,8 @@ class Language extends DataStore {
         'tr',
         'it',
         'br',
-        'gr'
+        'gr',
+        'nl'
     ];
 
     public static function getProps() {
@@ -46,5 +47,9 @@ class Language extends DataStore {
         return $array;
     }
 
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> err1r-master
 }
