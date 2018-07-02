@@ -10,6 +10,6 @@ describe'system/get-mail-templates' do
 
             (result['status']).should.equal('success')
 
-            (result['data'].size).should.equal(110)
+            (result['data'].size).should.equal(140)
         end
 end
