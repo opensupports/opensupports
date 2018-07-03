@@ -73,6 +73,7 @@ class DownloadController extends Controller {
         $fileDownloader = FileDownloader::getInstance();
         $fileDownloader->setFileName($fileName);
         $fileDownloader->download();
+        exit();
     }
 
     private function isNotAuthor($ticket, $loggedUser) {
