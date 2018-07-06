@@ -44,7 +44,7 @@ class StaffEditor extends React.Component {
         departments: this.getUserDepartments(),
         sendEmailOnNewTicket: this.props.sendEmailOnNewTicket
     };
-    
+
     render() {
         return (
             <div className="staff-editor">
@@ -206,7 +206,7 @@ class StaffEditor extends React.Component {
             </div>
         );
     }
-    
+
     renderDelete() {
         return (
             <div>
@@ -290,11 +290,11 @@ class StaffEditor extends React.Component {
             path: '/staff/edit',
             data: {
                 staffId: this.props.staffId,
-                sendEmailOnNewTicket: form.sendEmailOnNewTicket * 1,
-                email: form.email,
-                password: form.password,
-                level: (form.level !== undefined) ? form.level + 1 : null,
-                departments: departments && JSON.stringify(departments)
+                sendEmailOnNewTicket: (eventType === 'SEND_EMAIL_ON_NEW_TICKET') ? form.sendEmailOnNewTicket * 1 : null,
+                email: (eventType === 'EMAIL') ? form.email : null,
+                password: (eventType === 'PASSWORD') ? form.password : null,
+                level: (form.level !== undefined && eventType == 'LEVEL') ? form.level + 1 : null,
+                departments: (eventType === 'DEPARTMENTS') ? (departments && JSON.stringify(departments)) : null,
             }
         }).then(() => {
             window.scrollTo(0,0);
