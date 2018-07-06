@@ -87,7 +87,7 @@ class EditStaffController extends Controller {
             $this->staffInstance->profilePic = ($fileUploader instanceof FileUploader) ? $fileUploader->getFileName() : null;
         }
 
-	      if(Controller::request('sendEmailOnNewTicket') !== '' && $this->isModifyingCurrentStaff()) {
+	      if(Controller::request('sendEmailOnNewTicket') !== null && Controller::request('sendEmailOnNewTicket') !== '' && $this->isModifyingCurrentStaff()) {
             $this->staffInstance->sendEmailOnNewTicket = intval(Controller::request('sendEmailOnNewTicket'));
         }
 
