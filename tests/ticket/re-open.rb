@@ -36,10 +36,9 @@ describe '/ticket/re-open' do
         })
 
         (result['status']).should.equal('success')
-        
+
         ticket = $database.getRow('ticket', 'tickettoreopen', 'title')
         (ticket['closed']).should.equal('0')
-        (ticket['unread']).should.equal('1')
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('RE_OPEN')
