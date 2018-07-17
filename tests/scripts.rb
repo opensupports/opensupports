@@ -69,6 +69,16 @@ class Scripts
         result['data']
     end
 
+    def self.closeTicket(ticketNumber)
+        result = request('/ticket/close', {
+            ticketNumber:ticketNumber,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        result['data']
+    end
+
     def self.createAPIKey(name)
         request('/system/add-api-key', {
             csrf_userid: $csrf_userid,
