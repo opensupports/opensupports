@@ -62,9 +62,12 @@ class CloseController extends Controller {
     public function handler() {
         $this->ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
 
-        if($this->shouldDenyPermission()) {
-            Response::respondError(ERRORS::NO_PERMISSION);
-            return;
+        if(
+          (Controller::isUserSystemEnabled() || Controller::isStaffLogged()) &&
+          !$this->ticket->isOwner(Controller::getLoggedUser()) &&
+          !$this->ticket->isAuthor(Controller::getLoggedUser())
+        ) {
+            throw new Exception(ERRORS::NO_PERMISSION);
         }
 
         $this->markAsUnread();
@@ -77,16 +80,6 @@ class CloseController extends Controller {
         Log::createLog('CLOSE', $this->ticket->ticketNumber);
 
         Response::respondSuccess();
-    }
-
-    private function shouldDenyPermission() {
-        if(Controller::isStaffLogged()) {
-        	return $this->ticket->owner && $this->ticket->owner->id !== Controller::getLoggedUser()->id;
-        } else if(Controller::isUserSystemEnabled()) {
-        	return $this->ticket->author->id !== Controller::getLoggedUser()->id;
-        } else {
-        	return false;
-        }
     }
 
     private function markAsUnread() {
