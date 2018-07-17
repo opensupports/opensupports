@@ -83,11 +83,8 @@ class CloseController extends Controller {
     }
 
     private function markAsUnread() {
-        if(Controller::isStaffLogged()) {
-            $this->ticket->unread = true;
-        } else {
-            $this->ticket->unreadStaff = true;
-        }
+        $this->ticket->unread = !$this->ticket->isAuthor(Controller::getLoggedUser());
+        $this->ticket->unreadStaff = !$this->ticket->isOwner(Controller::getLoggedUser());
     }
 
     private function addCloseEvent() {

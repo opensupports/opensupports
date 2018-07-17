@@ -50,7 +50,7 @@ class UnAssignStaffController extends Controller {
             $owner->store();
 
             $ticket->owner = null;
-            $ticket->unread = true;
+            $ticket->unread = !$ticket->isAuthor($user);
 
             $event = Ticketevent::getEvent(Ticketevent::UN_ASSIGN);
             $event->setProperties(array(

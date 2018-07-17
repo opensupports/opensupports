@@ -34,6 +34,7 @@ describe '/ticket/close' do
             csrf_token: $csrf_token
         })
 
+        puts result
         (result['status']).should.equal('success')
 
         ticket = $database.getRow('ticket', 1 , 'id')

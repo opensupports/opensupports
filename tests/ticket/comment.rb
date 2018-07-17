@@ -78,6 +78,31 @@ describe '/ticket/comment/' do
         (lastLog['type']).should.equal('COMMENT')
     end
 
+    it 'should add comment to ticket created by staff' do
+        request('/user/logout')
+        Scripts.login($staff[:email], $staff[:password], true)
+        result = request('/ticket/comment', {
+            content: 'some comment content',
+            ticketNumber: $ticketNumberByStaff,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        (result['status']).should.equal('success')
+
+        ticket = $database.getRow('ticket', $ticketNumberByStaff, 'ticket_number')
+        comment = $database.getRow('ticketevent', ticket['id'], 'ticket_id')
+        (comment['content']).should.equal('some comment content')
+        (comment['type']).should.equal('COMMENT')
+        (comment['author_staff_id']).should.equal($csrf_userid)
+        (ticket['unread_staff']).should.equal('1')
+
+        lastLog = $database.getLastRow('log')
+        (lastLog['type']).should.equal('COMMENT')
+
+        request('/user/logout')
+    end
+
     it 'should fail if user is not the author nor owner' do
         Scripts.createUser('no_commenter@comment.com', 'no_commenter', 'No Commenter')
         Scripts.login('no_commenter@comment.com', 'no_commenter')

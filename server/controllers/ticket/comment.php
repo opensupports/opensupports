@@ -115,7 +115,8 @@ class CommentController extends Controller {
         ));
 
         if(Controller::isStaffLogged()) {
-            $this->ticket->unread = true;
+            $this->ticket->unread = !$this->ticket->isAuthor(Controller::getLoggedUser());
+            $this->ticket->unreadStaff = !$this->ticket->isOwner(Controller::getLoggedUser());
             $comment->authorStaff = Controller::getLoggedUser();
         } else if(Controller::isUserSystemEnabled()) {
             $this->ticket->unreadStaff = true;

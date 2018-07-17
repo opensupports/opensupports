@@ -64,7 +64,7 @@ class ChangeDepartmentController extends Controller {
         ));
         $ticket->addEvent($event);
         $ticket->department = $department;
-        $ticket->unread = true;
+        $ticket->unread = !$ticket->isAuthor($user);
         $ticket->store();
 
         if(!$user->sharedDepartmentList->includesId($department->id)) {
