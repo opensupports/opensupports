@@ -6,8 +6,6 @@ import history            from 'lib-app/history';
 import i18n               from 'lib-app/i18n';
 import API                from 'lib-app/api-call';
 import SessionStore       from 'lib-app/session-store';
-import store              from 'app/store';
-import SessionActions     from 'actions/session-actions';
 import LanguageSelector   from 'app-components/language-selector';
 import Captcha            from 'app/main/captcha';
 
@@ -21,7 +19,8 @@ import Message            from 'core-components/message';
 class CreateTicketForm extends React.Component {
 
     static propTypes = {
-        userLogged: React.PropTypes.bool
+        userLogged: React.PropTypes.bool,
+        onSuccess: React.PropTypes.func,
     };
 
     static defaultProps = {
@@ -138,14 +137,11 @@ class CreateTicketForm extends React.Component {
         this.setState({
             loading: false,
             message: 'success'
+        }, () => {
+            if(this.props.onSuccess) {
+                this.props.onSuccess();
+            }
         });
-
-        if(this.props.userLogged) {
-            store.dispatch(SessionActions.getUserData());
-            setTimeout(() => {history.push('/dashboard')}, 2000);
-        } else {
-            setTimeout(() => {history.push('/check-ticket/' + result.data.ticketNumber + '/' + email)}, 1000);
-        }
     }
 
     onTicketFail() {

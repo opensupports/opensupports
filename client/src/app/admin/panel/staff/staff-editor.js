@@ -235,6 +235,7 @@ class StaffEditor extends React.Component {
     getTicketListProps() {
         return {
             type: 'secondary',
+            userId: this.props.staffId,
             tickets: this.props.tickets,
             departments: this.props.departments,
             ticketPath: '/admin/panel/tickets/view-ticket/'

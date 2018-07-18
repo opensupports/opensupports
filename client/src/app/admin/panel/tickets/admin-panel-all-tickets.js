@@ -13,6 +13,7 @@ import Message from 'core-components/message';
 class AdminPanelAllTickets extends React.Component {
 
     static defaultProps = {
+        userId: 0,
         departments: [],
         tickets: []
     };
@@ -40,6 +41,7 @@ class AdminPanelAllTickets extends React.Component {
 
     getTicketListProps() {
         return {
+            userId: this.props.userId,
             showDepartmentDropdown: false,
             departments: this.props.departments,
             tickets: this.props.tickets,
@@ -75,6 +77,7 @@ class AdminPanelAllTickets extends React.Component {
 
 export default connect((store) => {
     return {
+        userId: store.session.userId,
         departments: store.session.userDepartments,
         tickets: store.adminData.allTickets,
         pages: store.adminData.allTicketsPages,

@@ -134,16 +134,18 @@ class CreateController extends Controller {
 
         $ticket->setAuthor($author);
 
-        if(Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) {
+        if(Controller::isUserSystemEnabled() || Controller::isStaffLogged()) {
             $author->sharedTicketList->add($ticket);
+        }
+
+        if(Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) {
             $author->tickets++;
 
             $this->email = $author->email;
             $this->name = $author->name;
-
-            $author->store();
         }
 
+        $author->store();
         $ticket->store();
 
         $this->ticketNumber = $ticket->ticketNumber;

@@ -15,7 +15,7 @@ use Respect\Validation\Validator as DataValidator;
  * @apiPermission staff1
  *
  * @apiUse NO_PERMISSION
- * 
+ *
  * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data Array of new tickets.
  *
  */
@@ -41,13 +41,13 @@ class GetNewTicketsStaffController extends Controller {
         foreach ($user->sharedDepartmentList as $department) {
             $query .= 'department_id=' . $department->id . ' OR ';
         }
-        $query = substr($query,0,-3);
+
         $ownerExists = RedBean::exec('SHOW COLUMNS FROM ticket LIKE \'owner_id\'');
 
         if($ownerExists != 0) {
-            $query .= ') AND owner_id IS NULL';
+            $query .= 'FALSE) AND owner_id IS NULL';
         } else {
-            $query .= ')';
+            $query .= 'FALSE)';
         }
 
         $ticketList = Ticket::find($query);

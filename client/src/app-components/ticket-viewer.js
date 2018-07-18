@@ -99,7 +99,7 @@ class TicketViewer extends React.Component {
                 </div>
                 <div className="ticket-viewer__info-row-header row">
                     <div className="col-md-4">{i18n('PRIORITY')}</div>
-                    <div className="col-md-4">{i18n('OWNED')}</div>
+                    <div className="col-md-4">{i18n('OWNER')}</div>
                     <div className="col-md-4">{i18n('STATUS')}</div>
                 </div>
                 <div className="ticket-viewer__info-row-values row">
@@ -107,9 +107,7 @@ class TicketViewer extends React.Component {
                         <DropDown className="ticket-viewer__editable-dropdown" items={priorityList} selectedIndex={priorities[ticket.priority]} onChange={this.onPriorityDropdownChanged.bind(this)} />
                     </div>
                     <div className="col-md-4">
-                        <Button type={(ticket.owner) ? 'primary' : 'secondary'} size="extra-small" onClick={this.onAssignClick.bind(this)}>
-                            {i18n(ticket.owner ? 'UN_ASSIGN' : 'ASSIGN_TO_ME')}
-                        </Button>
+                        {this.renderEditableOwnerNode()}
                     </div>
                     <div className="col-md-4">
                         <Button type={(ticket.closed) ? 'secondary' : 'primary'} size="extra-small" onClick={this.onCloseClick.bind(this)}>
@@ -159,6 +157,23 @@ class TicketViewer extends React.Component {
                 </div>
             </div>
         );
+    }
+
+    renderEditableOwnerNode() {
+        let ownerNode = null;
+        let {ticket, userId} = this.props;
+
+        if (_.isEmpty(ticket.owner) || ticket.owner.id == userId) {
+            ownerNode = (
+                <Button type={(ticket.owner) ? 'primary' : 'secondary'} size="extra-small" onClick={this.onAssignClick.bind(this)}>
+                    {i18n(ticket.owner ? 'UN_ASSIGN' : 'ASSIGN_TO_ME')}
+                </Button>
+            );
+        } else {
+            ownerNode = (this.props.ticket.owner) ? this.props.ticket.owner.name : i18n('NONE')
+        }
+
+        return ownerNode;
     }
 
     renderOwnerNode() {
@@ -358,6 +373,7 @@ class TicketViewer extends React.Component {
 
 export default connect((store) => {
     return {
+        userId: store.session.userId,
         allowAttachments: store.config['allow-attachments'],
         userSystemEnabled: store.config['user-system-enabled']
     };
