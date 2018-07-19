@@ -29,6 +29,7 @@ export default {
     'DATE': '日付',
     'RESPOND': '応答する',
     'RESPOND_TICKET': 'チケット応答',
+    'CLOSE_TICKET': 'クローズチケット',
     'NO_ATTACHMENT': '添付ファイルがありません',
     'STAFF': 'スタッフ',
     'CUSTOMER': '顧客',
@@ -180,7 +181,7 @@ export default {
     'STAFF_UPDATED': 'スタッフメンバーが更新されました',
     'UPDATE': '更新',
     'NEVER': '決して',
-    
+
     'CHART_CREATE_TICKET': '作成されたチケット',
     'CHART_CLOSE': 'チケットが閉じられました',
     'CHART_SIGNUP': 'サインアップ',

@@ -29,6 +29,7 @@ export default {
     'DATE': 'Datum',
     'RESPOND': 'Antworten',
     'RESPOND_TICKET': 'Ticket beantworten',
+    'CLOSE_TICKET': 'Ticket schließen',
     'NO_ATTACHMENT': 'Keine Dateianlage',
     'STAFF': 'Personal',
     'CUSTOMER': 'Kunde',

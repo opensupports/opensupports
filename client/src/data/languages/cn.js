@@ -29,6 +29,7 @@ export default {
     'DATE': '日期',
     'RESPOND': '響應',
     'RESPOND_TICKET': '響應故障單',
+    'CLOSE_TICKET': '關門票',
     'NO_ATTACHMENT': '沒有文件附件',
     'STAFF': '員工',
     'CUSTOMER': '顧客',

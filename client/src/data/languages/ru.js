@@ -29,6 +29,7 @@ export default {
     'DATE': 'Дата',
     'RESPOND': 'Отвечать',
     'RESPOND_TICKET': 'Ответить билет',
+    'CLOSE_TICKET': 'закрыть билет',
     'NO_ATTACHMENT': 'Нет вложений файлов',
     'STAFF': 'Сотрудники',
     'CUSTOMER': 'Клиент',
