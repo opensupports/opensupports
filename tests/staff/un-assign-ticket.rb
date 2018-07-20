@@ -23,7 +23,7 @@ describe '/staff/un-assign-ticket' do
         (ticket['owner_id']).should.equal(nil)
         (ticket['unread']).should.equal('1')
 
-        staff_ticket = $database.getRow('staff_ticket', 1 , 'id')
+        staff_ticket = $database.getRow('staff_ticket', 1 , 'ticket_id')
 
         (staff_ticket).should.equal(nil)
     end
@@ -75,7 +75,7 @@ describe '/staff/un-assign-ticket' do
       (ticket['owner_id']).should.equal(nil)
       (ticket['unread']).should.equal('1')
 
-      staff_ticket = $database.getRow('staff_ticket', 1 , 'id')
+      staff_ticket = $database.getRow('staff_ticket', 1 , 'ticket_id')
 
       (staff_ticket).should.equal(nil)
     end

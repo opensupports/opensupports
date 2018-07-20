@@ -43,6 +43,7 @@ class Ticket extends DataStore {
             'closed',
             'priority',
             'author',
+            'authorStaff',
             'owner',
             'ownTicketeventList',
             'unreadStaff',
@@ -58,6 +59,22 @@ class Ticket extends DataStore {
 
     public static function getByTicketNumber($value) {
         return Ticket::getTicket($value, 'ticketNumber');
+    }
+
+    public function setAuthor($author) {
+        if($author instanceof User) {
+            $this->author = $author;
+        } else if($author instanceof Staff) {
+            $this->authorStaff = $author;
+        }
+    }
+
+    public function getAuthor() {
+        if($this->author && !$this->author->isNull()) {
+            return $this->author;
+        } else {
+            return $this->authorStaff;
+        }
     }
 
     public function getDefaultProps() {
@@ -112,18 +129,20 @@ class Ticket extends DataStore {
     }
 
     public function authorToArray() {
-        $author = $this->author;
+        $author = $this->getAuthor();
 
         if ($author && !$author->isNull()) {
             return [
                 'id' => $author->id,
                 'name' => $author->name,
+                'staff' => $author instanceof Staff,
+                'profilePic' => ($author instanceof Staff) ? $author->profilePic : null,
                 'email' => $author->email
             ];
         } else {
             return [
-                'name' => $this->authorName,
-                'email' => $this->authorEmail
+              'name' => $this->authorName,
+              'email' => $this->authorEmail
             ];
         }
     }
@@ -155,7 +174,7 @@ class Ticket extends DataStore {
             ];
 
             $author = $ticketEvent->getAuthor();
-            if(!$author->isNull()) {
+            if($author && !$author->isNull()) {
                 $event['author'] = [
                     'id'=> $author->id,
                     'name' => $author->name,
@@ -173,5 +192,14 @@ class Ticket extends DataStore {
 
     public function addEvent(Ticketevent $event) {
         $this->ownTicketeventList->add($event);
+    }
+
+    public function isAuthor($user) {
+        $ticketAuthor = $this->authorToArray();
+        return $user->id == $ticketAuthor['id'] && ($user instanceof Staff) == $ticketAuthor['staff'];
+    }
+
+    public function isOwner($user) {
+        return $this->owner && $user->id == $this->owner->id && ($user instanceof Staff);
     }
 }

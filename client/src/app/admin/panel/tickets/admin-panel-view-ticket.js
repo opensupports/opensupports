@@ -75,7 +75,10 @@ class AdminPanelViewTicket extends React.Component {
             onChange: this.retrieveTicket.bind(this),
             assignmentAllowed: this.props.assignmentAllowed,
             customResponses: this.props.customResponses,
-            editable: this.state.ticket.owner && this.state.ticket.owner.id == SessionStore.getSessionData().userId
+            editable: (
+                (this.state.ticket.owner && this.state.ticket.owner.id == SessionStore.getSessionData().userId) ||
+                (this.state.ticket.author && this.state.ticket.author.staff && this.state.ticket.author.id == SessionStore.getSessionData().userId)
+            )
         };
     }
 
@@ -94,7 +97,7 @@ class AdminPanelViewTicket extends React.Component {
             ticket: result.data
         });
 
-        if(!this.props.avoidSeen && result.data.unreadStaff) {
+        if(!this.props.avoidSeen) {
             API.call({
                 path: '/ticket/seen',
                 data: {
@@ -109,7 +112,7 @@ class AdminPanelViewTicket extends React.Component {
             loading: false,
             ticket: {}
         });
-        
+
         if(this.props.onRetrieveFail) {
             this.props.onRetrieveFail();
         }

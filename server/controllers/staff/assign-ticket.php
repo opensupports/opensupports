@@ -70,7 +70,7 @@ class AssignStaffController extends Controller {
         } else {
             $this->user->sharedTicketList->add($this->ticket);
             $this->ticket->owner = $this->user;
-            $this->ticket->unread = true;
+            $this->ticket->unread = !$this->ticket->isAuthor($this->user);
             $event = Ticketevent::getEvent(Ticketevent::ASSIGN);
             $event->setProperties(array(
                 'authorStaff' => Controller::getLoggedUser(),

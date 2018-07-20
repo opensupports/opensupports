@@ -122,7 +122,6 @@ class CreateController extends Controller {
             'title' => $this->title,
             'content' => $this->content,
             'language' => $this->language,
-            'author' => $author,
             'department' => $department,
             'file' => ($fileUploader instanceof FileUploader) ? $fileUploader->getFileName() : null,
             'date' => Date::getCurrentDate(),
@@ -130,19 +129,23 @@ class CreateController extends Controller {
             'unreadStaff' => true,
             'closed' => false,
             'authorName' => $this->name,
-            'authorEmail' => $this->email
+            'authorEmail' => $this->email,
         ));
 
-        if(Controller::isUserSystemEnabled()) {
+        $ticket->setAuthor($author);
+
+        if(Controller::isUserSystemEnabled() || Controller::isStaffLogged()) {
             $author->sharedTicketList->add($ticket);
+        }
+
+        if(Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) {
             $author->tickets++;
 
             $this->email = $author->email;
             $this->name = $author->name;
-
-            $author->store();
         }
 
+        $author->store();
         $ticket->store();
 
         $this->ticketNumber = $ticket->ticketNumber;

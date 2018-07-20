@@ -18,9 +18,9 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TICKET
- * @apiUse INVALID_PRIORITY 
+ * @apiUse INVALID_PRIORITY
  *
- * @apiSuccess {Object} data Empty object 
+ * @apiSuccess {Object} data Empty object
  *
  */
 
@@ -52,10 +52,10 @@ class ChangePriorityController extends Controller {
 
         if($ticket->owner && $user->id === $ticket->owner->id) {
             $ticket->priority = $priority;
-            $ticket->unread = true;
+            $ticket->unread = !$ticket->isAuthor($user);
             $event = Ticketevent::getEvent(Ticketevent::PRIORITY_CHANGED);
             $event->setProperties(array(
-                'authorStaff' => Controller::getLoggedUser(), 
+                'authorStaff' => Controller::getLoggedUser(),
                 'content' => $ticket->priority,
                 'date' => Date::getCurrentDate()
             ));
@@ -70,5 +70,3 @@ class ChangePriorityController extends Controller {
 
     }
 }
-
-

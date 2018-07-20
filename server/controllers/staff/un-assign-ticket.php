@@ -45,12 +45,14 @@ class UnAssignStaffController extends Controller {
         $ticket = Ticket::getByTicketNumber($ticketNumber);
         $owner = $ticket->owner;
 
-        if(($owner && $owner->id === $user->id) || $user->level > 2) {
-            $owner->sharedTicketList->remove($ticket);
-            $owner->store();
+        if($ticket->isOwner($user) || $user->level > 2) {
+            if(!$ticket->isAuthor($user)) {
+                $owner->sharedTicketList->remove($ticket);
+                $owner->store();
+            }
 
             $ticket->owner = null;
-            $ticket->unread = true;
+            $ticket->unread = !$ticket->isAuthor($user);
 
             $event = Ticketevent::getEvent(Ticketevent::UN_ASSIGN);
             $event->setProperties(array(
