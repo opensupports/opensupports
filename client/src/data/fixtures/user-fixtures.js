@@ -77,7 +77,9 @@ module.exports = [
             if (data.password.length > 6) {
                 return {
                     status: 'success',
-                    data: {}
+                    data: {
+                        staff: true
+                    }
                 };
             } else {
                 return {
