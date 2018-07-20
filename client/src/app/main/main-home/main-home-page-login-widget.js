@@ -163,14 +163,14 @@ class MainHomePageLoginWidget extends React.Component {
     onForgotPasswordClick() {
         this.setState({
             sideToShow: 'back'
-        }, this.moveFocusToCurrentSide);
+        });
     }
 
     onBackToLoginClick() {
         this.setState({
             sideToShow: 'front',
             recoverSent: false
-        }, this.moveFocusToCurrentSide);
+        });
     }
 
     onRecoverPasswordSent() {
@@ -189,23 +189,6 @@ class MainHomePageLoginWidget extends React.Component {
         }, function () {
             this.refs.recoverForm.refs.email.focus();
         }.bind(this));
-    }
-
-    moveFocusToCurrentSide() {
-        let currentWidget;
-        let previousWidget;
-
-        if (this.state.sideToShow === 'front') {
-            currentWidget = ReactDOM.findDOMNode(this.refs.loginWidget);
-            previousWidget = ReactDOM.findDOMNode(this.refs.recoverWidget);
-        } else {
-            currentWidget = ReactDOM.findDOMNode(this.refs.recoverWidget);
-            previousWidget = ReactDOM.findDOMNode(this.refs.loginWidget);
-        }
-
-        if (focus.isActiveElementInsideDOMTree(previousWidget)) {
-            focus.focusFirstInput(currentWidget);
-        }
     }
 }
 
