@@ -112,9 +112,10 @@ class TicketViewer extends React.Component {
                         </Button>
                     </div>
                     <div className="col-md-4">
-                        <Button type={(ticket.closed) ? 'secondary' : 'primary'} size="extra-small" onClick={this.onCloseClick.bind(this)}>
-                            {i18n(ticket.closed ? 'RE_OPEN' : 'CLOSE')}
-                        </Button>
+                        {ticket.closed ?
+                        <Button type='secondary' size="extra-small" onClick={this.onCloseClick.bind(this)}>
+                            {i18n('RE_OPEN')}
+                        </Button> : i18n('OPENED')}
                     </div>
                 </div>
             </div>
@@ -192,7 +193,10 @@ class TicketViewer extends React.Component {
                     <Form {...this.getCommentFormProps()}>
                         <FormField name="content" validation="TEXT_AREA" required field="textarea" />
                         {(this.props.allowAttachments) ? <FormField name="file" field="file"/> : null}
-                        <SubmitButton>{i18n('RESPOND_TICKET')}</SubmitButton>
+                        <div className="ticket-viewer__response-buttons">
+                            <SubmitButton type="secondary">{i18n('RESPOND_TICKET')}</SubmitButton>
+                            <Button size="medium" onClick={this.onCloseTicketClick.bind(this)}>{i18n('CLOSE_TICKET')}</Button>
+                        </div>
                     </Form>
                 </div>
                 {(this.state.commentError) ? this.renderCommentError() : null}
@@ -353,6 +357,15 @@ class TicketViewer extends React.Component {
         if (this.props.onChange) {
             this.props.onChange();
         }
+    }
+    onCloseTicketClick(event){
+        event.preventDefault();
+        API.call({
+            path: '/ticket/close',
+            data: {
+                ticketNumber: this.props.ticket.ticketNumber
+            }
+        }).then(this.onTicketModification.bind(this));
     }
 }
 

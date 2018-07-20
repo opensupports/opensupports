@@ -29,6 +29,7 @@ export default {
     'DATE': 'Datum',
     'RESPOND': 'Actie',
     'RESPOND_TICKET': 'Reageren',
+    'CLOSE_TICKET': 'Sluit ticket',
     'NO_ATTACHMENT': 'Geen bijlage',
     'STAFF': 'Management',
     'CUSTOMER': 'Klant',

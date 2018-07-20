@@ -29,6 +29,7 @@ export default {
     'DATE': 'Fecha',
     'RESPOND': 'Responder',
     'RESPOND_TICKET': 'Responder Ticket',
+    'CLOSE_TICKET': 'Cerrar Ticket',
     'NO_ATTACHMENT': 'No hay archivo adjunto',
     'STAFF': 'Staff',
     'CUSTOMER': 'Cliente',

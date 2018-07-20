@@ -29,6 +29,7 @@ export default {
     'DATE': 'Date',
     'RESPOND': 'Répondre',
     'RESPOND_TICKET': 'Répondre au ticket',
+    'CLOSE_TICKET': 'Fermer ticket',
     'NO_ATTACHMENT': 'Aucune pièce jointe',
     'STAFF': 'Administrateur',
     'CUSTOMER': 'Client',

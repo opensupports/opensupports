@@ -29,6 +29,7 @@ export default {
     'DATE': 'Encontro',
     'RESPOND': 'Responder',
     'RESPOND_TICKET': 'Respond Ticket',
+    'CLOSE_TICKET': 'Fechar passagem',
     'NO_ATTACHMENT': 'Nenhum anexo de arquivo',
     'STAFF': 'Funcionários',
     'CUSTOMER': 'Cliente',
