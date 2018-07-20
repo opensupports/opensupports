@@ -56,7 +56,7 @@ class RecoverPasswordController extends Controller {
         if(!Controller::isUserSystemEnabled()) {
             throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
         }
-        
+
         $this->requestData();
         $this->changePassword();
     }
@@ -68,7 +68,12 @@ class RecoverPasswordController extends Controller {
     }
     public function changePassword() {
         $recoverPassword = RecoverPassword::getDataStore($this->token, 'token');
-        $this->user = User::getDataStore($this->email, 'email');
+
+        if($recoverPassword->staff) {
+            $this->user = Staff::getDataStore($this->email, 'email');
+        }else {
+            $this->user = User::getDataStore($this->email, 'email');
+        }
 
         if (!$recoverPassword->isNull() && !$this->user->isNull()) {
             $recoverPassword->delete();
@@ -80,7 +85,7 @@ class RecoverPasswordController extends Controller {
             $this->user->store();
 
             $this->sendMail();
-            Response::respondSuccess();
+            Response::respondSuccess(['staff' => $recoverPassword->staff]);
         } else {
             Response::respondError(ERRORS::NO_PERMISSION);
         }
