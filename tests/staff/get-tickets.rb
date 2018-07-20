@@ -22,6 +22,6 @@ describe '/staff/get-tickets' do
         })
 
         (result['status']).should.equal('success')
-        (result['data'].size).should.equal(2)
+        (result['data'].size).should.equal(3)
     end
 end

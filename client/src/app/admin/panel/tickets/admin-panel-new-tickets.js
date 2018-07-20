@@ -12,6 +12,7 @@ import Message from 'core-components/message';
 class AdminPanelNewTickets extends React.Component {
 
     static defaultProps = {
+        userId: 0,
         departments: [],
         tickets: []
     };
@@ -31,6 +32,7 @@ class AdminPanelNewTickets extends React.Component {
 
     getProps() {
         return {
+            userId: this.props.userId,
             departments: this.props.departments,
             tickets: this.props.tickets,
             type: 'secondary',
@@ -42,6 +44,7 @@ class AdminPanelNewTickets extends React.Component {
 
 export default connect((store) => {
     return {
+        userId: store.session.userId,
         departments: store.session.userDepartments,
         tickets: store.adminData.newTickets,
         loading: !store.adminData.newTicketsLoaded,

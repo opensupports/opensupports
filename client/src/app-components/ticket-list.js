@@ -17,6 +17,7 @@ class TicketList extends React.Component {
         ticketPath: React.PropTypes.string,
         showDepartmentDropdown: React.PropTypes.bool,
         tickets: React.PropTypes.arrayOf(React.PropTypes.object),
+        userId: React.PropTypes.number,
         type: React.PropTypes.oneOf([
             'primary',
             'secondary'
@@ -233,7 +234,15 @@ class TicketList extends React.Component {
     }
 
     isTicketUnread(ticket) {
-        return (this.props.type === 'primary' && ticket.unread) || (this.props.type === 'secondary' && ticket.unreadStaff);
+        if(this.props.type === 'primary') {
+            return ticket.unread;
+        } else if(this.props.type === 'secondary') {
+              if(ticket.author.id == this.props.userId && ticket.author.staff) {
+                  return ticket.unread;
+              } else {
+                  return ticket.unreadStaff;
+              }
+        }
     }
 }
 

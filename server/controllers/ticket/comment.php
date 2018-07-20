@@ -65,7 +65,6 @@ class CommentController extends Controller {
                     'csrf_token' => [
                         'validation' => DataValidator::equals($session->getToken()),
                         'error' => ERRORS::INVALID_TOKEN
-
                     ]
                 ]
             ];
@@ -73,24 +72,30 @@ class CommentController extends Controller {
     }
 
     public function handler() {
-        $session = Session::getInstance();
         $this->requestData();
+        $ticketAuthor = $this->ticket->authorToArray();
+        $isAuthor = $this->ticket->isAuthor(Controller::getLoggedUser());
+        $isOwner = $this->ticket->isOwner(Controller::getLoggedUser());
 
-        if ((!Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) ||
-            (!Controller::isStaffLogged() && $session->isLoggedWithId(($this->ticket->author) ? $this->ticket->author->id : 0)) ||
-            (Controller::isStaffLogged() && $session->isLoggedWithId(($this->ticket->owner) ? $this->ticket->owner->id : 0))) {
-            $this->storeComment();
-
-            if(Controller::isStaffLogged() || $this->ticket->owner) {
-                $this->sendMail();
-            }
-
-            Log::createLog('COMMENT', $this->ticket->ticketNumber);
-
-            Response::respondSuccess();
-        } else {
-            Response::respondError(ERRORS::NO_PERMISSION);
+        if((Controller::isUserSystemEnabled() || Controller::isStaffLogged()) && !$isOwner && !$isAuthor) {
+            throw new Exception(ERRORS::NO_PERMISSION);
         }
+
+        $this->storeComment();
+
+        if($isAuthor && $this->ticket->owner) {
+          $this->sendMail([
+            'email' => $this->ticket->owner->email,
+            'name' => $this->ticket->owner->name,
+            'staff' => true
+          ]);
+        } else {
+          $this->sendMail($ticketAuthor);
+        }
+
+        Log::createLog('COMMENT', $this->ticket->ticketNumber);
+
+        Response::respondSuccess();
     }
 
     private function requestData() {
@@ -110,7 +115,8 @@ class CommentController extends Controller {
         ));
 
         if(Controller::isStaffLogged()) {
-            $this->ticket->unread = true;
+            $this->ticket->unread = !$this->ticket->isAuthor(Controller::getLoggedUser());
+            $this->ticket->unreadStaff = !$this->ticket->isOwner(Controller::getLoggedUser());
             $comment->authorStaff = Controller::getLoggedUser();
         } else if(Controller::isUserSystemEnabled()) {
             $this->ticket->unreadStaff = true;
@@ -121,20 +127,16 @@ class CommentController extends Controller {
         $this->ticket->store();
     }
 
-    private function sendMail() {
+    private function sendMail($recipient) {
         $mailSender = MailSender::getInstance();
 
-        $email = ($this->ticket->author) ? $this->ticket->author->email : $this->ticket->authorEmail;
-        $name = ($this->ticket->author) ? $this->ticket->author->name : $this->ticket->authorName;
-
-        if(!Controller::isStaffLogged() && $this->ticket->owner) {
-            $email = $this->ticket->owner->email;
-            $name = $this->ticket->owner->name;
-        }
+        $email = $recipient['email'];
+        $name = $recipient['name'];
+        $isStaff = $recipient['staff'];
 
         $url = Setting::getSetting('url')->getValue();
 
-        if(!Controller::isUserSystemEnabled()) {
+        if(!Controller::isUserSystemEnabled() && !$isStaff) {
           $url .= '/check-ticket/' . $this->ticket->ticketNumber;
           $url .= '/' . $email;
         }
