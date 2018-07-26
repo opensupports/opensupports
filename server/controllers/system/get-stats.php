@@ -1,5 +1,6 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
+use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {post} /system/get-stats Get stats
@@ -40,7 +41,8 @@ class GetStatsController extends Controller {
     }
 
     public function handler() {
-        $this->generationNewStats();
+        $this->generateNewStats();
+        $this->deleteLastStats();
 
         $staffId = Controller::request('staffId');
 
@@ -56,7 +58,7 @@ class GetStatsController extends Controller {
         }
     }
 
-    public function generationNewStats() {
+    public function generateNewStats() {
         $lastStatDay = Setting::getSetting('last-stat-day');
         $previousCurrentDate = floor(Date::getPreviousDate() / 10000);
         $currentDate = floor(Date::getCurrentDate() / 10000);
@@ -107,6 +109,13 @@ class GetStatsController extends Controller {
             $lastStatDay->value = $currentDate;
             $lastStatDay->store();
         }
+    }
+
+    public function deleteLastStats() {
+        $removeOlderThanDays = 31;
+        $oldDate = floor(Date::getPreviousDate($removeOlderThanDays) / 10000);
+
+        RedBean::exec("DELETE FROM stat WHERE date < $oldDate");
     }
 
     public function generateGeneralStat($type, $date) {
