@@ -23,7 +23,6 @@ class WidgetTransition extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.sideToShow != this.props.sideToShow && this.primaryWidget && this.secondaryWidget) {
-            console.log("The component was updated!");
             this.moveFocusToCurrentSide();
         }
     }
