@@ -19,7 +19,7 @@ class PasswordRecovery extends React.Component {
 
     render() {
         return (
-            <Widget title={i18n('RECOVER_PASSWORD')}>
+            <Widget {...this.props} title={i18n('RECOVER_PASSWORD')}>
                 <Form {...this.props.formProps}>
                     <div className="password-recovery__inputs">
                         <FormField placeholder={i18n('EMAIL_LOWERCASE')} name="email" className="password-recovery__input" validation="EMAIL" required/>
