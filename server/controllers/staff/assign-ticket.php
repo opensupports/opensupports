@@ -15,6 +15,7 @@ DataValidator::with('CustomValidations', true);
  * @apiPermission staff1
  *
  * @apiParam {Number} ticketNumber The number of the ticket to assign.
+ * @apiParam {Number} staffId The id of the staff.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TICKET
@@ -46,12 +47,22 @@ class AssignStaffController extends Controller {
 
     public function handler() {
         $ticketNumber = Controller::request('ticketNumber');
-        $this->user = Controller::getLoggedUser();
+        $staffId = Controller::request('staffId');
         $this->ticket = Ticket::getByTicketNumber($ticketNumber);
+        if($staffId) {
+            $this->user = Staff::getDataStore($staffId, 'id');
+            if($this->user->isNull()) {
+                throw new Exception(ERRORS::INVALID_STAFF);
+            }
+            if(!$this->user->sharedDepartmentList->includesId($this->ticket->department->id)) {
+                throw new Exception(ERRORS::INVALID_DEPARTMENT);
+            }
+        } else {
+            $this->user = Controller::getLoggedUser();
+        }
 
         if($this->ticket->owner) {
             throw new Exception(ERRORS::TICKET_ALREADY_ASSIGNED);
-            return;
         }
 
         if(!$this->ticketHasStaffDepartment())  {
