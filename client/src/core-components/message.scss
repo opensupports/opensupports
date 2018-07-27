@@ -68,6 +68,22 @@
         }
     }
 
+    &_warning {
+        background-color: #fcb90063;
+
+        .message__icon {
+            color: #fcb900;
+        }
+
+        .message__title {
+            color: $primary-blue;
+        }
+
+        .message__content {
+            color: $primary-blue;
+        }
+    }
+
     &_with-title {
         text-align: left;
 

@@ -336,6 +336,7 @@ export default {
     'WILL_DELETE_CUSTOM_RESPONSE': 'カスタムレスポンスが削除されます。',
     'WILL_DELETE_DEPARTMENT': '部門は削除されます。すべてのチケットは、選択された部門に転送されます。',
     'NO_STAFF_ASSIGNED': 'この部署にはスタッフが割り当てられていません。',
+    'NO_DEPARTMENT_ASSIGNED': 'あなたに割り当てられたチケット部門はありません.',
     'LEVEL_UPDATED': 'レベルが正常に更新されました。',
     'DEPARTMENTS_UPDATED': '部署が正常に更新されました。',
     'FAILED_EDIT_STAFF': 'スタッフメンバーの編集中にエラーが発生しました。',

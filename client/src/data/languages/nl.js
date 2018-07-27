@@ -337,6 +337,7 @@ export default {
     'WILL_DELETE_CUSTOM_RESPONSE': 'Het aangepaste antwoord zal worden verwijderd.',
     'WILL_DELETE_DEPARTMENT': 'De afdeling wordt verwijderd. Alle incidenten worden overgedragen aan de geselecteerde afdeling.',
     'NO_STAFF_ASSIGNED': 'Er is geen medewerker toegewezen aan deze afdeling.',
+    'NO_DEPARTMENT_ASSIGNED': 'Er is u geen incidentafdeling toegewezen.',
     'LEVEL_UPDATED': 'Niveau is succesvol bijgewerkt.',
     'DEPARTMENTS_UPDATED': 'Afdelingen zijn succesvol bijgewerkt.',
     'FAILED_EDIT_STAFF': 'Er is een fout opgetreden bij het bewerken van de medewerker.',

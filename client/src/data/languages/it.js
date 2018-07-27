@@ -336,6 +336,7 @@ export default {
     'WILL_DELETE_CUSTOM_RESPONSE': 'La risposta personalizzata verrà eliminata..',
     'WILL_DELETE_DEPARTMENT': 'Il dipartimento verrà cancellato. Tutti i ticket saranno trasferiti al dipartimento selezionato.',
     'NO_STAFF_ASSIGNED': 'Nessun membro dello staff è assegnato a questo dipartimento.',
+    'NO_DEPARTMENT_ASSIGNED': 'Nessun reparto ticket è stato affidato a te.',
     'LEVEL_UPDATED': 'Il livello è stato aggiornato correttamente.',
     'DEPARTMENTS_UPDATED': 'I dipartimenti sono stati aggiornati con successo.',
     'FAILED_EDIT_STAFF': 'Si è verificato un errore durante la modifica di un membro dello staff.',

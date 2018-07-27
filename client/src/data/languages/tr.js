@@ -336,6 +336,7 @@ export default {
     'WILL_DELETE_CUSTOM_RESPONSE': 'Özel yanıt silinir.',
     'WILL_DELETE_DEPARTMENT': 'Bölüm silinecek. Tüm biletler, seçilen bölüme transfer olacak.',
     'NO_STAFF_ASSIGNED': 'Bu bölüme hiçbir personel atanmamaktadır.',
+    'NO_DEPARTMENT_ASSIGNED': 'Hiçbir bilet departmanı size atanmadı.',
     'LEVEL_UPDATED': 'Seviye başarıyla güncellendi.',
     'DEPARTMENTS_UPDATED': 'Bölümler başarıyla güncellendi.',
     'FAILED_EDIT_STAFF': 'Personel değiştirmeye çalışılırken bir hata oluştu.',

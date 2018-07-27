@@ -336,6 +336,7 @@ export default {
     'WILL_DELETE_CUSTOM_RESPONSE': 'Die benutzerdefinierte Antwort wird gelöscht.',
     'WILL_DELETE_DEPARTMENT': 'Die Abteilung wird gelöscht. Alle Tickets werden an die gewählte Abteilung übertragen.',
     'NO_STAFF_ASSIGNED': 'Dieser Abteilung ist kein Mitarbeiter zugeordnet.',
+    'NO_DEPARTMENT_ASSIGNED': 'Ihnen ist keine Ticketabteilung zugeordnet.',
     'LEVEL_UPDATED': 'Level wurde erfolgreich aktualisiert.',
     'DEPARTMENTS_UPDATED': 'Abteilungen wurden erfolgreich aktualisiert.',
     'FAILED_EDIT_STAFF': 'Beim bearbeiten des Mitarbeiters ist ein Fehler aufgetreten.',

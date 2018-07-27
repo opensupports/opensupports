@@ -336,6 +336,7 @@ export default {
     'WILL_DELETE_CUSTOM_RESPONSE': 'La réponse personnalisée sera supprimée.',
     'WILL_DELETE_DEPARTMENT': 'Le département sera supprimé. Tous les tickets seront transférés au département sélectionné.',
     'NO_STAFF_ASSIGNED': 'Aucun membre de l\'administration n\'est affecté à ce service.',
+    'NO_DEPARTMENT_ASSIGNED': 'Aucun service de tickets ne vous est assigné.',
     'LEVEL_UPDATED': 'Le niveau a été mis à jour avec succès.',
     'DEPARTMENTS_UPDATED': 'Les départements ont été mis à jour avec succès.',
     'FAILED_EDIT_STAFF': 'Une erreur s\'est produite lors de la tentative de modification de l\'administrateur.',

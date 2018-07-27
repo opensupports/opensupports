@@ -1,6 +1,11 @@
-.admin-panel-my-tickets {
+.admin-panel-all-tickets {
+
     &__search-box {
         padding: 0 50px;
         margin-bottom: 30px;
+    }
+
+    &__department-warning {
+        margin-bottom: 20px;
     }
 }

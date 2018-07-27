@@ -336,6 +336,7 @@ export default {
     'WILL_DELETE_CUSTOM_RESPONSE': 'A resposta personalizada será excluída.',
     'WILL_DELETE_DEPARTMENT': 'O departamento será excluído. Todos os bilhetes serão transferidos para o departamento selecionado.',
     'NO_STAFF_ASSIGNED': 'Nenhum membro do pessoal é atribuído a este departamento.',
+    'NO_DEPARTMENT_ASSIGNED': 'Nenhum departamento de tickets é atribuído a você.',
     'LEVEL_UPDATED': 'Nível foi atualizado com êxito.',
     'DEPARTMENTS_UPDATED': 'Os departamentos foram atualizados com sucesso.',
     'FAILED_EDIT_STAFF': 'Ocorreu um erro ao tentar editar o membro da equipe.',
