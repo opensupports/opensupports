@@ -2,6 +2,8 @@ import React from 'react';
 import _ from 'lodash';
 import {connect}  from 'react-redux';
 
+import AdminDataActions from 'actions/admin-data-actions';
+
 import i18n  from 'lib-app/i18n';
 import API   from 'lib-app/api-call';
 import SessionStore       from 'lib-app/session-store';
@@ -24,7 +26,9 @@ class TicketViewer extends React.Component {
         onChange: React.PropTypes.func,
         editable: React.PropTypes.bool,
         customResponses: React.PropTypes.array,
-        assignmentAllowed: React.PropTypes.bool
+        assignmentAllowed: React.PropTypes.bool,
+        staffMembers: React.PropTypes.array,
+        staffMembersLoaded: React.PropTypes.bool,
     };
 
     static defaultProps = {
@@ -41,6 +45,12 @@ class TicketViewer extends React.Component {
         commentValue: TextEditor.createEmpty(),
         commentEdited: false
     };
+
+    componentDidMount() {
+        if(!this.props.staffMembersLoaded && this.props.editable) {
+            this.props.dispatch(AdminDataActions.retrieveStaffMembers());
+        }
+    }
 
     render() {
         const ticket = this.props.ticket;
@@ -84,7 +94,7 @@ class TicketViewer extends React.Component {
             <div className="ticket-viewer__headers">
                 <div className="ticket-viewer__info-row-header row">
                     <div className="col-md-4">{i18n('DEPARTMENT')}</div>
-                    <div className=" col-md-4">{i18n('AUTHOR')}</div>
+                    <div className="col-md-4">{i18n('AUTHOR')}</div>
                     <div className="col-md-4">{i18n('DATE')}</div>
                 </div>
                 <div className="ticket-viewer__info-row-values row">
@@ -165,11 +175,7 @@ class TicketViewer extends React.Component {
         let {ticket, userId} = this.props;
 
         if (_.isEmpty(ticket.owner) || ticket.owner.id == userId) {
-            ownerNode = (
-                <Button type={(ticket.owner) ? 'primary' : 'secondary'} size="extra-small" onClick={this.onAssignClick.bind(this)}>
-                    {i18n(ticket.owner ? 'UN_ASSIGN' : 'ASSIGN_TO_ME')}
-                </Button>
-            );
+            ownerNode = this.renderAssignStaffList();
         } else {
             ownerNode = (this.props.ticket.owner) ? this.props.ticket.owner.name : i18n('NONE')
         }
@@ -191,6 +197,18 @@ class TicketViewer extends React.Component {
         }
 
         return ownerNode;
+    }
+
+    renderAssignStaffList() {
+        const items = this.getStaffAssignmentItems();
+        const ownerId = this.props.ticket.owner && this.props.ticket.owner.id;
+        return (
+            <DropDown
+                className="ticket-viewer__editable-dropdown" items={items}
+                selectedIndex={ownerId && _.findIndex(items, {id: ownerId})}
+                onChange={this.onAssignmentChange.bind(this)}
+                />
+        );
     }
 
     renderTicketEvent(options, index) {
@@ -265,6 +283,23 @@ class TicketViewer extends React.Component {
         };
     }
 
+    getStaffAssignmentItems() {
+        const {staffMembers, userId} = this.props;
+        let staffAssignmentItems = [
+            {content: 'None', id: 0},
+            {content: 'Assign to me', id: userId}
+        ];
+
+        staffAssignmentItems = staffAssignmentItems.concat(
+            _.map(
+                _.filter(staffMembers, ({id}) => (id != userId)),
+                ({id, name}) => ({content: name, id})
+            )
+        );
+
+        return staffAssignmentItems;
+    }
+
     onDepartmentDropdownChanged(event) {
         AreYouSure.openModal(null, this.changeDepartment.bind(this, event.index));
     }
@@ -273,12 +308,17 @@ class TicketViewer extends React.Component {
         AreYouSure.openModal(null, this.changePriority.bind(this, event.index));
     }
 
-    onAssignClick() {
+    onAssignmentChange(event) {
+        AreYouSure.openModal(null, this.assingTo.bind(this, event.index));
+    }
+
+    assingTo(index) {
+        const id = this.getStaffAssignmentItems()[index].id;
+        const {ticketNumber} = this.props.ticket;
+
         API.call({
-            path: (this.props.ticket.owner) ? '/staff/un-assign-ticket' : '/staff/assign-ticket',
-            data: {
-                ticketNumber: this.props.ticket.ticketNumber
-            }
+            path: (index == 0) ? '/staff/un-assign-ticket' : '/staff/assign-ticket',
+            data: { ticketNumber, staffId: id }
         }).then(this.onTicketModification.bind(this));
     }
 
@@ -387,6 +427,8 @@ class TicketViewer extends React.Component {
 export default connect((store) => {
     return {
         userId: store.session.userId,
+        staffMembers: store.adminData.staffMembers,
+        staffMembersLoaded: store.adminData.staffMembersLoaded,
         allowAttachments: store.config['allow-attachments'],
         userSystemEnabled: store.config['user-system-enabled']
     };

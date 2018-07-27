@@ -9,6 +9,7 @@ class AdminDataReducer extends Reducer {
         return {
             customResponses: [],
             customResponsesLoaded: false,
+
             myTickets: [],
             myTicketsLoaded: false,
             myTicketsError: false,
@@ -19,7 +20,11 @@ class AdminDataReducer extends Reducer {
 
             allTickets: [],
             allTicketsLoaded: false,
-            allTicketsError: false
+            allTicketsError: false,
+
+            staffMembers: [],
+            staffMembersLoaded: false,
+            staffMembersError: false,
         };
     }
 
@@ -37,7 +42,11 @@ class AdminDataReducer extends Reducer {
 
             'ALL_TICKETS_FULFILLED': this.onAllTicketsRetrieved,
             'ALL_TICKETS_REJECTED': this.onAllTicketsRejected,
-            'ALL_TICKETS_PENDING': this.onAllTicketsPending
+            'ALL_TICKETS_PENDING': this.onAllTicketsPending,
+
+            'STAFF_MEMBERS_FULFILLED': this.onStaffMembersRetrieved,
+            'STAFF_MEMBERS_REJECTED': this.onStaffMembersRejected,
+            'STAFF_MEMBERS_PENDING': this.onStaffMembersPending
         };
     }
 
@@ -102,7 +111,7 @@ class AdminDataReducer extends Reducer {
 
     onAllTicketsRejected(state) {
         return _.extend({}, state, {
-            allTicketsError: false,
+            allTicketsError: true,
             allTicketsLoaded: false
         });
     }
@@ -111,6 +120,27 @@ class AdminDataReducer extends Reducer {
         return _.extend({}, state, {
             allTicketsError: false,
             allTicketsLoaded: false
+        });
+    }
+
+    onStaffMembersRetrieved(state, payload) {
+        return _.extend({}, state, {
+            staffMembers: payload.data,
+            staffMembersLoaded: true
+        });
+    }
+
+    onStaffMembersRejected(state) {
+        return _.extend({}, state, {
+            staffMembersError: true,
+            staffMembersLoaded: false
+        });
+    }
+
+    onStaffMembersPending(state) {
+        return _.extend({}, state, {
+            staffMembersError: false,
+            staffMembersLoaded: false
         });
     }
 }
