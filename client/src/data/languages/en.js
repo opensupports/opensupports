@@ -181,6 +181,7 @@ export default {
     'STAFF_UPDATED': 'Staff member has been updated',
     'UPDATE': 'Update',
     'NEVER': 'Never',
+    'HIMSELF': 'himself',
 
     'CHART_CREATE_TICKET': 'Tickets created',
     'CHART_CLOSE': 'Tickets closed',
@@ -353,8 +354,8 @@ export default {
     'LAST_365_DAYS': 'Last 365 days',
 
     'ACTIVITY_COMMENT_THIS': 'commented this ticket',
-    'ACTIVITY_ASSIGN_THIS': 'assigned this ticket',
-    'ACTIVITY_UN_ASSIGN_THIS': 'unassigned this ticket',
+    'ACTIVITY_ASSIGN_THIS': 'assigned this ticket to',
+    'ACTIVITY_UN_ASSIGN_THIS': 'unassigned this ticket to',
     'ACTIVITY_CLOSE_THIS': 'closed this ticket',
     'ACTIVITY_CREATE_TICKET_THIS': 'created this ticket',
     'ACTIVITY_RE_OPEN_THIS': 'reopened this ticket',

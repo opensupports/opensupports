@@ -181,6 +181,7 @@
      'STAFF_UPDATED': 'Το μέλος προσωπικού έχει ενημερωθεί',
      'UPDATE': 'Ενημέρωση',
      'NEVER': 'Ποτέ',
+     'HIMSELF': 'ο ίδιος',
 
      'CHART_CREATE_TICKET': 'Τα εισιτήρια δημιουργήθηκαν',
      'CHART_CLOSE': 'Τα εισιτήρια κλείσανε',
@@ -353,8 +354,8 @@
      'LAST_365_DAYS': 'Τελευταίες 365 μέρες',
 
      'ACTIVITY_COMMENT_THIS': 'σχολίασε αυτό το εισιτήριο',
-     'ACTIVITY_ASSIGN_THIS': 'ορίστηκε αυτό το εισιτήριο',
-     'ACTIVITY_UN_ASSIGN_THIS': 'δεν ορίστηκε αυτό το εισιτήριο',
+     'ACTIVITY_ASSIGN_THIS': 'ορίστηκε αυτό το εισιτήριο σε',
+     'ACTIVITY_UN_ASSIGN_THIS': 'δεν ορίστηκε αυτό το εισιτήριο σε',
      'ACTIVITY_CLOSE_THIS': 'έκλεισε αυτό το εισιτήριο',
      'ACTIVITY_CREATE_TICKET_THIS': 'δημιουργήθηκε αυτό το εισιτήριο',
      'ACTIVITY_RE_OPEN_THIS': 'άνοιξε εκ νέου αυτό το εισιτήριο',

@@ -181,6 +181,7 @@ export default {
     'STAFF_UPDATED': 'Medewerker is gewijzigd',
     'UPDATE': 'Update',
     'NEVER': 'Nooit',
+    'HIMSELF': 'zichzelf',
 
     'CHART_CREATE_TICKET': 'Aangemaakte incidenten',
     'CHART_CLOSE': 'Gesloten incidenten',
@@ -353,8 +354,8 @@ export default {
     'LAST_365_DAYS': 'Laatste 365 dagen',
 
     'ACTIVITY_COMMENT_THIS': 'heeft een bericht achtergelaten op dit incident',
-    'ACTIVITY_ASSIGN_THIS': 'heeft dit incident toegewezen',
-    'ACTIVITY_UN_ASSIGN_THIS': 'heeft dit incident niet-toegewezen aan een medewerker',
+    'ACTIVITY_ASSIGN_THIS': 'heeft dit incident toegewezen aan',
+    'ACTIVITY_UN_ASSIGN_THIS': 'heeft dit incident niet-toegewezen aan een medewerker aan',
     'ACTIVITY_CLOSE_THIS': 'heeft dit incident gesloten',
     'ACTIVITY_CREATE_TICKET_THIS': 'heeft dit incident aangemaakt',
     'ACTIVITY_RE_OPEN_THIS': 'heeft dit incident heropend',

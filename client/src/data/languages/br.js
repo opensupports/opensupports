@@ -180,6 +180,7 @@ export default {
     'STAFF_UPDATED': 'Membro da equipe atualizado',
     'UPDATE': 'Atualizar',
     'NEVER': 'Nunca',
+    'HIMSELF': 'ele mesmo',
 
     'CHART_CREATE_TICKET': 'Chamados criados',
     'CHART_CLOSE': 'Chamados fechados',
@@ -352,8 +353,8 @@ export default {
     'LAST_365_DAYS': 'Últimos 365 dias',
 
     'ACTIVITY_COMMENT_THIS': 'comentou este chamado',
-    'ACTIVITY_ASSIGN_THIS': 'atribuiu este chamado',
-    'ACTIVITY_UN_ASSIGN_THIS': 'desatribuiu este chamado',
+    'ACTIVITY_ASSIGN_THIS': 'atribuiu este chamado para',
+    'ACTIVITY_UN_ASSIGN_THIS': 'desatribuiu este chamado para',
     'ACTIVITY_CLOSE_THIS': 'fechou este chamado',
     'ACTIVITY_CREATE_TICKET_THIS': 'criou este chamado',
     'ACTIVITY_RE_OPEN_THIS': 'reabriu este chamado',

@@ -52,6 +52,9 @@ class EnableUserSystemController extends Controller {
         $ticketList = Ticket::getAll();
 
         foreach($ticketList as $ticket) {
+            if($ticket->authorStaff) {
+                continue;
+            }
 
             $userInstance = User::getDataStore($ticket->authorEmail, 'email');
 

@@ -181,6 +181,7 @@ export default {
     'STAFF_UPDATED': 'Mitarbeiter wurde aktualisiert',
     'UPDATE': 'Aktualisierung',
     'NEVER': 'Niemals',
+    'HIMSELF': 'selbst',
 
     'CHART_CREATE_TICKET': 'Tickets erstellt',
     'CHART_CLOSE': 'Tickets geschlossen',
@@ -352,8 +353,8 @@ export default {
     'LAST_365_DAYS': 'Letzte 365 Tage',
 
     'ACTIVITY_COMMENT_THIS': 'hat dieses Ticket kommentiert',
-    'ACTIVITY_ASSIGN_THIS': 'hat dieses Ticket zugewiesen',
-    'ACTIVITY_UN_ASSIGN_THIS': 'hat dieses Ticket nicht zugewiesen',
+    'ACTIVITY_ASSIGN_THIS': 'hat dieses Ticket zugewiesen zu',
+    'ACTIVITY_UN_ASSIGN_THIS': 'hat dieses Ticket nicht zugewiesen zu',
     "ACTIVITY_CLOSE_THIS": 'hat dieses Ticket geschlossen',
     'ACTIVITY_CREATE_TICKET_THIS': 'hat dieses Ticket erstellt',
     'ACTIVITY_RE_OPEN_THIS': 'hat dieses Ticket wieder geöffnet',

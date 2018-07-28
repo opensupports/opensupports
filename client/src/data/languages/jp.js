@@ -181,6 +181,7 @@ export default {
     'STAFF_UPDATED': 'スタッフメンバーが更新されました',
     'UPDATE': '更新',
     'NEVER': '決して',
+    'HIMSELF': '彼自身',
 
     'CHART_CREATE_TICKET': '作成されたチケット',
     'CHART_CLOSE': 'チケットが閉じられました',
@@ -352,8 +353,8 @@ export default {
     'LAST_365_DAYS': '過去365日間',
 
     'ACTIVITY_COMMENT_THIS': 'はこのチケットにコメントしました',
-    'ACTIVITY_ASSIGN_THIS': 'がこのチケットを割り当てました',
-    'ACTIVITY_UN_ASSIGN_THIS': 'はこのチケットの割り当てを解除しました',
+    'ACTIVITY_ASSIGN_THIS': 'はこのチケットを',
+    'ACTIVITY_UN_ASSIGN_THIS': 'はこのチケットの割当を解除しました',
     'ACTIVITY_CLOSE_THIS': 'がこのチケットを閉鎖しました',
     'ACTIVITY_CREATE_TICKET_THIS': 'がこのチケットを作成しました',
     'ACTIVITY_RE_OPEN_THIS': 'がこのチケットを再開しました',

@@ -181,6 +181,7 @@ export default {
     'STAFF_UPDATED': 'स्टाफ सदस्य को अद्यतन किया गया है',
     'UPDATE': 'अद्यतन',
     'NEVER': 'कभी नहीँ',
+    'HIMSELF': 'स्वयं',
 
     'CHART_CREATE_TICKET': 'टिकट बनाया',
     'CHART_CLOSE': 'टिकट बंद कर दिया',
@@ -352,8 +353,8 @@ export default {
     'LAST_365_DAYS': 'पिछले 365 दिन',
 
     'ACTIVITY_COMMENT_THIS': 'यह टिकट टिप्पणी की',
-    'ACTIVITY_ASSIGN_THIS': 'इस टिकट को सौंपा',
-    'ACTIVITY_UN_ASSIGN_THIS': 'इस टिकट को असाइन किया गया',
+    'ACTIVITY_ASSIGN_THIS': 'इस टिकट को सौंपा गया',
+    'ACTIVITY_UN_ASSIGN_THIS': 'इस टिकट को असाइन नहीं किया गया',
     'ACTIVITY_CLOSE_THIS': 'इस टिकट को बंद कर दिया',
     'ACTIVITY_CREATE_TICKET_THIS': 'यह टिकट बनाया',
     'ACTIVITY_RE_OPEN_THIS': 'इस टिकट को फिर से खोल दिया',

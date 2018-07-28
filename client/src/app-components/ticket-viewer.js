@@ -29,6 +29,9 @@ class TicketViewer extends React.Component {
         assignmentAllowed: React.PropTypes.bool,
         staffMembers: React.PropTypes.array,
         staffMembersLoaded: React.PropTypes.bool,
+        userId: React.PropTypes.number,
+        userStaff: React.PropTypes.bool,
+        userDepartments: React.PropTypes.array,
     };
 
     static defaultProps = {
@@ -47,7 +50,7 @@ class TicketViewer extends React.Component {
     };
 
     componentDidMount() {
-        if(!this.props.staffMembersLoaded && this.props.editable) {
+        if(!this.props.staffMembersLoaded && this.props.userStaff) {
             this.props.dispatch(AdminDataActions.retrieveStaffMembers());
         }
     }
@@ -186,12 +189,8 @@ class TicketViewer extends React.Component {
     renderOwnerNode() {
         let ownerNode = null;
 
-        if (this.props.assignmentAllowed && _.isEmpty(this.props.ticket.owner)) {
-            ownerNode = (
-                <Button type="secondary" size="extra-small" onClick={this.onAssignClick.bind(this)}>
-                    {i18n('ASSIGN_TO_ME')}
-                </Button>
-            );
+        if (this.props.assignmentAllowed) {
+            ownerNode = this.renderAssignStaffList();
         } else {
             ownerNode = (this.props.ticket.owner) ? this.props.ticket.owner.name : i18n('NONE')
         }
@@ -202,10 +201,16 @@ class TicketViewer extends React.Component {
     renderAssignStaffList() {
         const items = this.getStaffAssignmentItems();
         const ownerId = this.props.ticket.owner && this.props.ticket.owner.id;
+
+        let selectedIndex = _.findIndex(items, {id: ownerId});
+        selectedIndex = (selectedIndex !== -1) ? selectedIndex : 0;
+
+        console.log(selectedIndex);
+
         return (
             <DropDown
                 className="ticket-viewer__editable-dropdown" items={items}
-                selectedIndex={ownerId && _.findIndex(items, {id: ownerId})}
+                selectedIndex={selectedIndex}
                 onChange={this.onAssignmentChange.bind(this)}
                 />
         );
@@ -283,23 +288,6 @@ class TicketViewer extends React.Component {
         };
     }
 
-    getStaffAssignmentItems() {
-        const {staffMembers, userId} = this.props;
-        let staffAssignmentItems = [
-            {content: 'None', id: 0},
-            {content: 'Assign to me', id: userId}
-        ];
-
-        staffAssignmentItems = staffAssignmentItems.concat(
-            _.map(
-                _.filter(staffMembers, ({id}) => (id != userId)),
-                ({id, name}) => ({content: name, id})
-            )
-        );
-
-        return staffAssignmentItems;
-    }
-
     onDepartmentDropdownChanged(event) {
         AreYouSure.openModal(null, this.changeDepartment.bind(this, event.index));
     }
@@ -314,12 +302,25 @@ class TicketViewer extends React.Component {
 
     assingTo(index) {
         const id = this.getStaffAssignmentItems()[index].id;
-        const {ticketNumber} = this.props.ticket;
+        const {ticketNumber, owner} = this.props.ticket;
 
-        API.call({
-            path: (index == 0) ? '/staff/un-assign-ticket' : '/staff/assign-ticket',
-            data: { ticketNumber, staffId: id }
-        }).then(this.onTicketModification.bind(this));
+        let APICallPromise = new Promise(resolve => resolve());
+
+        if(owner) {
+            APICallPromise.then(() => API.call({
+                path: '/staff/un-assign-ticket',
+                data: { ticketNumber }
+            }));
+        }
+
+        if(id !== 0) {
+            APICallPromise.then(() => API.call({
+                path: '/staff/assign-ticket',
+                data: { ticketNumber, staffId: id }
+            }));
+        }
+
+        APICallPromise.then(this.onTicketModification.bind(this));
     }
 
     onCloseClick() {
@@ -422,11 +423,36 @@ class TicketViewer extends React.Component {
             }
         }).then(this.onTicketModification.bind(this));
     }
+
+    getStaffAssignmentItems() {
+        const {staffMembers, userDepartments, userId, ticket} = this.props;
+        const ticketDepartmentId = ticket.department.id;
+        let staffAssignmentItems = [
+            {content: 'None', id: 0}
+        ];
+
+        if(_.any(userDepartments, {id: ticketDepartmentId})) {
+            staffAssignmentItems.push({content: i18n('ASSIGN_TO_ME'), id: userId});
+        }
+
+        staffAssignmentItems = staffAssignmentItems.concat(
+            _.map(
+                _.filter(staffMembers, ({id, departments}) => {
+                    return (id != userId) && _.any(departments, {id: ticketDepartmentId});
+                }),
+                ({id, name}) => ({content: name, id})
+            )
+        );
+
+        return staffAssignmentItems;
+    }
 }
 
 export default connect((store) => {
     return {
         userId: store.session.userId,
+        userStaff: store.session.staff,
+        userDepartments: store.session.userDepartments,
         staffMembers: store.adminData.staffMembers,
         staffMembersLoaded: store.adminData.staffMembersLoaded,
         allowAttachments: store.config['allow-attachments'],

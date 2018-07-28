@@ -181,6 +181,7 @@ export default {
     'STAFF_UPDATED': 'Çalışanlar güncellendi',
     'UPDATE': 'Güncelleştirme',
     'NEVER': 'Asla',
+    'HIMSELF': 'kendisi',
 
     'CHART_CREATE_TICKET': 'Biletler oluşturuldu',
     'CHART_CLOSE': 'Biletler kapandı',
