@@ -181,6 +181,7 @@ export default {
     'STAFF_UPDATED': 'Il membro del personale è stato aggiornato',
     'UPDATE': 'Aggiornare',
     'NEVER': 'Mai',
+    'HIMSELF': 'lui stesso',
 
     'CHART_CREATE_TICKET': 'Tickets creato',
     'CHART_CLOSE': 'Tickets chiuso',
@@ -336,6 +337,7 @@ export default {
     'WILL_DELETE_CUSTOM_RESPONSE': 'La risposta personalizzata verrà eliminata..',
     'WILL_DELETE_DEPARTMENT': 'Il dipartimento verrà cancellato. Tutti i ticket saranno trasferiti al dipartimento selezionato.',
     'NO_STAFF_ASSIGNED': 'Nessun membro dello staff è assegnato a questo dipartimento.',
+    'NO_DEPARTMENT_ASSIGNED': 'Nessun reparto ticket è stato affidato a te.',
     'LEVEL_UPDATED': 'Il livello è stato aggiornato correttamente.',
     'DEPARTMENTS_UPDATED': 'I dipartimenti sono stati aggiornati con successo.',
     'FAILED_EDIT_STAFF': 'Si è verificato un errore durante la modifica di un membro dello staff.',
@@ -351,8 +353,8 @@ export default {
     'LAST_365_DAYS': 'Ultimi 365 giorni',
 
     'ACTIVITY_COMMENT_THIS': 'ha commentato questo ticket',
-    'ACTIVITY_ASSIGN_THIS': 'assegnato questo ticket',
-    'ACTIVITY_UN_ASSIGN_THIS': 'non ha assegnato questo ticket',
+    'ACTIVITY_ASSIGN_THIS': 'assegnato questo ticket a',
+    'ACTIVITY_UN_ASSIGN_THIS': 'non ha assegnato questo ticket a',
     'ACTIVITY_CLOSE_THIS': 'ha chiuso questo ticket',
     'ACTIVITY_CREATE_TICKET_THIS': 'ha creato questo ticket',
     'ACTIVITY_RE_OPEN_THIS': 'ha riaperto questo ticket',

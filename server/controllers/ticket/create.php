@@ -79,6 +79,10 @@ class CreateController extends Controller {
                 'validation' => DataValidator::email(),
                 'error' => ERRORS::INVALID_EMAIL
             ];
+            $validations['requestData']['name'] = [
+                'validation' => DataValidator::length(2, 40),
+                'error' => ERRORS::INVALID_NAME
+            ];
         }
 
         return $validations;

@@ -2,6 +2,8 @@ import React from 'react';
 import _ from 'lodash';
 import {connect}  from 'react-redux';
 
+import AdminDataActions from 'actions/admin-data-actions';
+
 import i18n  from 'lib-app/i18n';
 import API   from 'lib-app/api-call';
 import SessionStore       from 'lib-app/session-store';
@@ -24,7 +26,12 @@ class TicketViewer extends React.Component {
         onChange: React.PropTypes.func,
         editable: React.PropTypes.bool,
         customResponses: React.PropTypes.array,
-        assignmentAllowed: React.PropTypes.bool
+        assignmentAllowed: React.PropTypes.bool,
+        staffMembers: React.PropTypes.array,
+        staffMembersLoaded: React.PropTypes.bool,
+        userId: React.PropTypes.number,
+        userStaff: React.PropTypes.bool,
+        userDepartments: React.PropTypes.array,
     };
 
     static defaultProps = {
@@ -41,6 +48,12 @@ class TicketViewer extends React.Component {
         commentValue: TextEditor.createEmpty(),
         commentEdited: false
     };
+
+    componentDidMount() {
+        if(!this.props.staffMembersLoaded && this.props.userStaff) {
+            this.props.dispatch(AdminDataActions.retrieveStaffMembers());
+        }
+    }
 
     render() {
         const ticket = this.props.ticket;
@@ -84,7 +97,7 @@ class TicketViewer extends React.Component {
             <div className="ticket-viewer__headers">
                 <div className="ticket-viewer__info-row-header row">
                     <div className="col-md-4">{i18n('DEPARTMENT')}</div>
-                    <div className=" col-md-4">{i18n('AUTHOR')}</div>
+                    <div className="col-md-4">{i18n('AUTHOR')}</div>
                     <div className="col-md-4">{i18n('DATE')}</div>
                 </div>
                 <div className="ticket-viewer__info-row-values row">
@@ -165,11 +178,7 @@ class TicketViewer extends React.Component {
         let {ticket, userId} = this.props;
 
         if (_.isEmpty(ticket.owner) || ticket.owner.id == userId) {
-            ownerNode = (
-                <Button type={(ticket.owner) ? 'primary' : 'secondary'} size="extra-small" onClick={this.onAssignClick.bind(this)}>
-                    {i18n(ticket.owner ? 'UN_ASSIGN' : 'ASSIGN_TO_ME')}
-                </Button>
-            );
+            ownerNode = this.renderAssignStaffList();
         } else {
             ownerNode = (this.props.ticket.owner) ? this.props.ticket.owner.name : i18n('NONE')
         }
@@ -180,17 +189,31 @@ class TicketViewer extends React.Component {
     renderOwnerNode() {
         let ownerNode = null;
 
-        if (this.props.assignmentAllowed && _.isEmpty(this.props.ticket.owner)) {
-            ownerNode = (
-                <Button type="secondary" size="extra-small" onClick={this.onAssignClick.bind(this)}>
-                    {i18n('ASSIGN_TO_ME')}
-                </Button>
-            );
+        if (this.props.assignmentAllowed) {
+            ownerNode = this.renderAssignStaffList();
         } else {
             ownerNode = (this.props.ticket.owner) ? this.props.ticket.owner.name : i18n('NONE')
         }
 
         return ownerNode;
+    }
+
+    renderAssignStaffList() {
+        const items = this.getStaffAssignmentItems();
+        const ownerId = this.props.ticket.owner && this.props.ticket.owner.id;
+
+        let selectedIndex = _.findIndex(items, {id: ownerId});
+        selectedIndex = (selectedIndex !== -1) ? selectedIndex : 0;
+
+        console.log(selectedIndex);
+
+        return (
+            <DropDown
+                className="ticket-viewer__editable-dropdown" items={items}
+                selectedIndex={selectedIndex}
+                onChange={this.onAssignmentChange.bind(this)}
+                />
+        );
     }
 
     renderTicketEvent(options, index) {
@@ -273,13 +296,31 @@ class TicketViewer extends React.Component {
         AreYouSure.openModal(null, this.changePriority.bind(this, event.index));
     }
 
-    onAssignClick() {
-        API.call({
-            path: (this.props.ticket.owner) ? '/staff/un-assign-ticket' : '/staff/assign-ticket',
-            data: {
-                ticketNumber: this.props.ticket.ticketNumber
-            }
-        }).then(this.onTicketModification.bind(this));
+    onAssignmentChange(event) {
+        AreYouSure.openModal(null, this.assingTo.bind(this, event.index));
+    }
+
+    assingTo(index) {
+        const id = this.getStaffAssignmentItems()[index].id;
+        const {ticketNumber, owner} = this.props.ticket;
+
+        let APICallPromise = new Promise(resolve => resolve());
+
+        if(owner) {
+            APICallPromise.then(() => API.call({
+                path: '/staff/un-assign-ticket',
+                data: { ticketNumber }
+            }));
+        }
+
+        if(id !== 0) {
+            APICallPromise.then(() => API.call({
+                path: '/staff/assign-ticket',
+                data: { ticketNumber, staffId: id }
+            }));
+        }
+
+        APICallPromise.then(this.onTicketModification.bind(this));
     }
 
     onCloseClick() {
@@ -382,11 +423,38 @@ class TicketViewer extends React.Component {
             }
         }).then(this.onTicketModification.bind(this));
     }
+
+    getStaffAssignmentItems() {
+        const {staffMembers, userDepartments, userId, ticket} = this.props;
+        const ticketDepartmentId = ticket.department.id;
+        let staffAssignmentItems = [
+            {content: 'None', id: 0}
+        ];
+
+        if(_.any(userDepartments, {id: ticketDepartmentId})) {
+            staffAssignmentItems.push({content: i18n('ASSIGN_TO_ME'), id: userId});
+        }
+
+        staffAssignmentItems = staffAssignmentItems.concat(
+            _.map(
+                _.filter(staffMembers, ({id, departments}) => {
+                    return (id != userId) && _.any(departments, {id: ticketDepartmentId});
+                }),
+                ({id, name}) => ({content: name, id})
+            )
+        );
+
+        return staffAssignmentItems;
+    }
 }
 
 export default connect((store) => {
     return {
         userId: store.session.userId,
+        userStaff: store.session.staff,
+        userDepartments: store.session.userDepartments,
+        staffMembers: store.adminData.staffMembers,
+        staffMembersLoaded: store.adminData.staffMembersLoaded,
         allowAttachments: store.config['allow-attachments'],
         userSystemEnabled: store.config['user-system-enabled']
     };

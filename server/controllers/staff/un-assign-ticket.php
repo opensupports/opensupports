@@ -57,7 +57,8 @@ class UnAssignStaffController extends Controller {
             $event = Ticketevent::getEvent(Ticketevent::UN_ASSIGN);
             $event->setProperties(array(
                 'authorStaff' => $user,
-                'date' => Date::getCurrentDate()
+                'date' => Date::getCurrentDate(),
+                'content' => $owner->name
             ));
 
             $ticket->addEvent($event);

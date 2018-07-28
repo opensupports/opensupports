@@ -28,10 +28,12 @@ class AdminPanelAllTickets extends React.Component {
     }
 
     render() {
+        const noDepartments = !this.props.departments.length;
         return (
-            <div className="admin-panel-my-tickets">
+            <div className="admin-panel-all-tickets">
                 <Header title={i18n('ALL_TICKETS')} description={i18n('ALL_TICKETS_DESCRIPTION')} />
-                <div className="admin-panel-my-tickets__search-box">
+                {(noDepartments) ? <Message className="admin-panel-all-tickets__department-warning" type="warning">{i18n('NO_DEPARTMENT_ASSIGNED')}</Message> : null}
+                <div className="admin-panel-all-tickets__search-box">
                     <SearchBox onSearch={this.onSearch.bind(this)} />
                 </div>
                 {(this.props.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketList {...this.getTicketListProps()}/>}

@@ -181,6 +181,7 @@ export default {
     'STAFF_UPDATED': 'Membro da equipe foi atualizado',
     'UPDATE': 'Actualizar',
     'NEVER': 'Nunca',
+    'HIMSELF': 'ele mesmo',
 
     'CHART_CREATE_TICKET': 'Ingressos criados',
     'CHART_CLOSE': 'Ingressos fechados',
@@ -336,6 +337,7 @@ export default {
     'WILL_DELETE_CUSTOM_RESPONSE': 'A resposta personalizada será excluída.',
     'WILL_DELETE_DEPARTMENT': 'O departamento será excluído. Todos os bilhetes serão transferidos para o departamento selecionado.',
     'NO_STAFF_ASSIGNED': 'Nenhum membro do pessoal é atribuído a este departamento.',
+    'NO_DEPARTMENT_ASSIGNED': 'Nenhum departamento de tickets é atribuído a você.',
     'LEVEL_UPDATED': 'Nível foi atualizado com êxito.',
     'DEPARTMENTS_UPDATED': 'Os departamentos foram atualizados com sucesso.',
     'FAILED_EDIT_STAFF': 'Ocorreu um erro ao tentar editar o membro da equipe.',
@@ -351,8 +353,8 @@ export default {
     'LAST_365_DAYS': 'Últimos 365 dias',
 
     'ACTIVITY_COMMENT_THIS': 'comentou este ticket',
-    'ACTIVITY_ASSIGN_THIS': 'atribuído este bilhete',
-    'ACTIVITY_UN_ASSIGN_THIS': 'não atribuído este bilhete',
+    'ACTIVITY_ASSIGN_THIS': 'atribuído este bilhete para',
+    'ACTIVITY_UN_ASSIGN_THIS': 'não atribuído este bilhete para',
     'ACTIVITY_CLOSE_THIS': 'fechado este bilhete',
     'ACTIVITY_CREATE_TICKET_THIS': 'criado este bilhete',
     'ACTIVITY_RE_OPEN_THIS': 'reaberto este bilhete',

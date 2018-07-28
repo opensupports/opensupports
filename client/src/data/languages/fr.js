@@ -181,6 +181,7 @@ export default {
     'STAFF_UPDATED': 'Le membre du personnel a été mis à jour',
     'UPDATE': 'Mettre à jour',
     'NEVER': 'Jamais',
+    'HIMSELF': 'lui-même',
 
     'CHART_CREATE_TICKET': 'Tickets créés',
     'CHART_CLOSE': 'Tickets fermés',
@@ -336,6 +337,7 @@ export default {
     'WILL_DELETE_CUSTOM_RESPONSE': 'La réponse personnalisée sera supprimée.',
     'WILL_DELETE_DEPARTMENT': 'Le département sera supprimé. Tous les tickets seront transférés au département sélectionné.',
     'NO_STAFF_ASSIGNED': 'Aucun membre de l\'administration n\'est affecté à ce service.',
+    'NO_DEPARTMENT_ASSIGNED': 'Aucun service de tickets ne vous est assigné.',
     'LEVEL_UPDATED': 'Le niveau a été mis à jour avec succès.',
     'DEPARTMENTS_UPDATED': 'Les départements ont été mis à jour avec succès.',
     'FAILED_EDIT_STAFF': 'Une erreur s\'est produite lors de la tentative de modification de l\'administrateur.',
@@ -351,8 +353,8 @@ export default {
     'LAST_365_DAYS': 'Les 365 derniers jours',
 
     'ACTIVITY_COMMENT_THIS': 'a commenté ce ticket',
-    'ACTIVITY_ASSIGN_THIS': 'a assigné ce ticket',
-    'ACTIVITY_UN_ASSIGN_THIS': 'a supprimé l\'assignation de ce ticket',
+    'ACTIVITY_ASSIGN_THIS': 'a assigné ce ticket à',
+    'ACTIVITY_UN_ASSIGN_THIS': 'a supprimé l\'assignation de ce ticket à',
     'ACTIVITY_CLOSE_THIS': 'a fermé ce ticket',
     'ACTIVITY_CREATE_TICKET_THIS': 'a créé ce ticket',
     'ACTIVITY_RE_OPEN_THIS': 'a réouvert ce ticket',
