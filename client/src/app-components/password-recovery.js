@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import i18n        from 'lib-app/i18n';
-import API from 'lib-app/api-call';
+import API         from 'lib-app/api-call';
 
 import Form             from 'core-components/form';
 import FormField        from 'core-components/form-field';
@@ -12,7 +12,7 @@ import SubmitButton     from 'core-components/submit-button';
 import Message          from 'core-components/message';
 
 class PasswordRecovery extends React.Component {
-    
+
     static propTypes = {
         recoverSent: React.PropTypes.bool,
         formProps: React.PropTypes.object,

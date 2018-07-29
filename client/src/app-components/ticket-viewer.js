@@ -111,7 +111,7 @@ class TicketViewer extends React.Component {
                     </div>
                     <div className="col-md-4">
                         {ticket.closed ?
-                        <Button type='secondary' size="extra-small" onClick={this.onCloseClick.bind(this)}>
+                        <Button type='secondary' size="extra-small" onClick={this.onReopenClick.bind(this)}>
                             {i18n('RE_OPEN')}
                         </Button> : i18n('OPENED')}
                     </div>
@@ -282,13 +282,27 @@ class TicketViewer extends React.Component {
         }).then(this.onTicketModification.bind(this));
     }
 
-    onCloseClick() {
-        AreYouSure.openModal(null, this.toggleClose.bind(this));
+    onReopenClick() {
+        AreYouSure.openModal(null, this.reopenTicket.bind(this));
     }
 
-    toggleClose() {
+    onCloseTicketClick(event) {
+        event.preventDefault();
+        AreYouSure.openModal(null, this.closeTicket.bind(this));
+    }
+
+    reopenTicket() {
         API.call({
-            path: (this.props.ticket.closed) ? '/ticket/re-open' : '/ticket/close',
+            path: '/ticket/re-open',
+            data: {
+                ticketNumber: this.props.ticket.ticketNumber
+            }
+        }).then(this.onTicketModification.bind(this));
+    }
+
+    closeTicket() {
+        API.call({
+            path: '/ticket/close',
             data: {
                 ticketNumber: this.props.ticket.ticketNumber
             }
@@ -372,15 +386,6 @@ class TicketViewer extends React.Component {
         if (this.props.onChange) {
             this.props.onChange();
         }
-    }
-    onCloseTicketClick(event){
-        event.preventDefault();
-        API.call({
-            path: '/ticket/close',
-            data: {
-                ticketNumber: this.props.ticket.ticketNumber
-            }
-        }).then(this.onTicketModification.bind(this));
     }
 }
 

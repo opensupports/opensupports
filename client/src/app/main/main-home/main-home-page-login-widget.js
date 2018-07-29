@@ -9,7 +9,7 @@ import API         from 'lib-app/api-call';
 import focus       from 'lib-core/focus';
 import i18n        from 'lib-app/i18n';
 
-import PasswordRecovery from 'app-components/password-recovery.js';
+import PasswordRecovery from 'app-components/password-recovery';
 import SubmitButton     from 'core-components/submit-button';
 import Button           from 'core-components/button';
 import Form             from 'core-components/form';
