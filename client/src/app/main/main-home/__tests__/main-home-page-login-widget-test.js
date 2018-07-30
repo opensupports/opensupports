@@ -1,4 +1,4 @@
-const SessionActionsMock = require('actions/__mocks__/session-actions-mock');
+/*const SessionActionsMock = require('actions/__mocks__/session-actions-mock');
 const APICallMock = require('lib-app/__mocks__/api-call-mock');
 
 const SubmitButton = ReactMock();
@@ -183,4 +183,4 @@ describe('Login/Recover Widget', function () {
             expect(widgetTransition.props.sideToShow).to.equal('front');
         });
     });
-});
+});*/
