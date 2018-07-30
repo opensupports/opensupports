@@ -9,6 +9,7 @@ import API         from 'lib-app/api-call';
 import focus       from 'lib-core/focus';
 import i18n        from 'lib-app/i18n';
 
+import PasswordRecovery from 'app-components/password-recovery.js';
 import SubmitButton     from 'core-components/submit-button';
 import Button           from 'core-components/button';
 import Form             from 'core-components/form';
@@ -65,20 +66,7 @@ class MainHomePageLoginWidget extends React.Component {
 
     renderPasswordRecovery() {
         return (
-            <Widget className="main-home-page__widget login-widget_password" title={i18n('RECOVER_PASSWORD')} ref="recoverWidget">
-                <Form {...this.getRecoverFormProps()}>
-                    <div className="login-widget__inputs">
-                        <FormField placeholder={i18n('EMAIL_LOWERCASE')} name="email" className="login-widget__input" validation="EMAIL" required/>
-                    </div>
-                    <div className="login-widget__submit-button">
-                        <SubmitButton type="primary">{i18n('RECOVER_PASSWORD')}</SubmitButton>
-                    </div>
-                </Form>
-                <Button className="login-widget__forgot-password" type="link" onClick={this.onBackToLoginClick.bind(this)} onMouseDown={(event) => {event.preventDefault()}}>
-                    {i18n('BACK_LOGIN_FORM')}
-                </Button>
-                {this.renderRecoverStatus()}
-            </Widget>
+            <PasswordRecovery recoverSent={this.state.recoverSent} formProps={this.getRecoverFormProps()} onBackToLoginClick={this.onBackToLoginClick.bind(this)}/>
         );
     }
 
@@ -163,14 +151,14 @@ class MainHomePageLoginWidget extends React.Component {
     onForgotPasswordClick() {
         this.setState({
             sideToShow: 'back'
-        }, this.moveFocusToCurrentSide);
+        });
     }
 
     onBackToLoginClick() {
         this.setState({
             sideToShow: 'front',
             recoverSent: false
-        }, this.moveFocusToCurrentSide);
+        });
     }
 
     onRecoverPasswordSent() {
@@ -189,23 +177,6 @@ class MainHomePageLoginWidget extends React.Component {
         }, function () {
             this.refs.recoverForm.refs.email.focus();
         }.bind(this));
-    }
-
-    moveFocusToCurrentSide() {
-        let currentWidget;
-        let previousWidget;
-
-        if (this.state.sideToShow === 'front') {
-            currentWidget = ReactDOM.findDOMNode(this.refs.loginWidget);
-            previousWidget = ReactDOM.findDOMNode(this.refs.recoverWidget);
-        } else {
-            currentWidget = ReactDOM.findDOMNode(this.refs.recoverWidget);
-            previousWidget = ReactDOM.findDOMNode(this.refs.loginWidget);
-        }
-
-        if (focus.isActiveElementInsideDOMTree(previousWidget)) {
-            focus.focusFirstInput(currentWidget);
-        }
     }
 }
 
