@@ -927,6 +927,72 @@ class MailTexts {
               '{{ticketNumber}}'
           ],
         ],
+          'th' => [
+          'USER_SIGNUP' => [
+              'Signup {{to}} - OpenSupports',
+              'Verify your account',
+              'Welcome to our support center, {{name}}!. We need you to verify this email in order to get access to your account.',
+              'Use this code in {{url}}/verify-token/{{to}}/{{verificationToken}} or click the button below.',
+              '{{verificationToken}}'
+          ],
+          'USER_PASSWORD' => [
+              'Password edited - OpenSupports',
+              'Password changed',
+              'Hi, {{name}}. We want to inform you that your password has changed from your customer panel.'
+          ],
+          'USER_EMAIL' => [
+              'Email edited - OpenSupports',
+              'Email changed',
+              'Hi, {{name}}. We want to inform you that your email has changed to {{newemail}} from your customer panel.'
+          ],
+          'PASSWORD_FORGOT' => [
+              'Recover password - OpenSupports',
+              'Recover password',
+              'Hi, {{name}}. You have requested to recover your password.',
+              'Use this code in {{url}}/recover-password?email={{to}}&token={{token}} or click the button below.',
+              '{{token}}'
+          ],
+          'USER_SYSTEM_DISABLED' => [
+              'Access system changed - OpenSupports',
+              'Access system changed',
+              'Hello, {{name}}. The system to access tickets has changed.',
+              'You can access and see to your tickets by using your email and the ticket number.Click in the button below to see your tickets.',
+              '{{tickets}}'
+          ],
+          'USER_SYSTEM_ENABLED' => [
+              'Account created - OpenSupports',
+              'Account created',
+              'Hello, {{name}}. We have created an account where you can access the tickets you have sent us.',
+              'You can access your account by using this email <i>({{to}})</i> and password below.Please change the password as soon as you log in.',
+              '{{password}}'
+          ],
+          'TICKET_CREATED' => [
+              '#{{ticketNumber}} Ticket created - OpenSupports',
+              'Ticket created',
+              'Hello, {{name}}. You have sent a new ticket titled <i>{{title}}</i> to our support center.',
+              'You can access to the ticket by its ticket number or you can click on the button below.',
+              '{{ticketNumber}}'
+          ],
+          'TICKET_RESPONDED' => [
+              '#{{ticketNumber}} New response - OpenSupports',
+              'Ticket responded',
+              'Hello, {{name}}. You have received a response in the ticket titled <i>{{title}}</i>.',
+              'Please click below to see the new response.'
+          ],
+          'TICKET_CLOSED' => [
+             '#{{ticketNumber}} Ticket closed - OpenSupports',
+              'Ticket closed',
+              'Hello, {{name}}. A ticket you sent titled <i>{{title}}</i> has been closed.',
+              'You can access to the ticket by its ticket number. Or you can click on the button below.'
+          ],
+          'TICKET_CREATED_STAFF' => [
+              '#{{ticketNumber}} Ticket created - OpenSupports',
+              'Ticket created',
+              'User {{name}} has created a new ticket titled <i>{{title}}</i>.',
+              'You can access to the ticket by its ticket number.',
+              '{{ticketNumber}}'
+          ],
+        ],
     ];
   }
 }
