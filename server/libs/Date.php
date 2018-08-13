@@ -4,7 +4,7 @@ class Date {
         return date('YmdHi');
     }
 
-    public static function getPreviousDate() {
-        return date('YmdHi', strtotime(' -1 day '));
+    public static function getPreviousDate($days = 1) {
+        return date('YmdHi', strtotime(" -$days day "));
     }
 }

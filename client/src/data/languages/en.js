@@ -181,6 +181,7 @@ export default {
     'STAFF_UPDATED': 'Staff member has been updated',
     'UPDATE': 'Update',
     'NEVER': 'Never',
+    'HIMSELF': 'himself',
 
     'CHART_CREATE_TICKET': 'Tickets created',
     'CHART_CLOSE': 'Tickets closed',
@@ -337,6 +338,7 @@ export default {
     'WILL_DELETE_CUSTOM_RESPONSE': 'The custom response will be deleted.',
     'WILL_DELETE_DEPARTMENT': 'The department will be deleted. All the tickets will be transfer to the department selected.',
     'NO_STAFF_ASSIGNED': 'No staff member is assigned to this department.',
+    'NO_DEPARTMENT_ASSIGNED': 'No ticket department is assigned you.',
     'LEVEL_UPDATED': 'Level has been updated successfully.',
     'DEPARTMENTS_UPDATED': 'Departments have been updated successfully.',
     'FAILED_EDIT_STAFF': 'An error occurred while trying to edit staff member.',
@@ -352,8 +354,8 @@ export default {
     'LAST_365_DAYS': 'Last 365 days',
 
     'ACTIVITY_COMMENT_THIS': 'commented this ticket',
-    'ACTIVITY_ASSIGN_THIS': 'assigned this ticket',
-    'ACTIVITY_UN_ASSIGN_THIS': 'unassigned this ticket',
+    'ACTIVITY_ASSIGN_THIS': 'assigned this ticket to',
+    'ACTIVITY_UN_ASSIGN_THIS': 'unassigned this ticket to',
     'ACTIVITY_CLOSE_THIS': 'closed this ticket',
     'ACTIVITY_CREATE_TICKET_THIS': 'created this ticket',
     'ACTIVITY_RE_OPEN_THIS': 'reopened this ticket',

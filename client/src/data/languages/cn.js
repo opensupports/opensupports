@@ -181,6 +181,7 @@ export default {
     'STAFF_UPDATED': '工作人员已更新',
     'UPDATE': '更新',
     'NEVER': '从来没有',
+    'HIMSELF': '他自己',
 
     'CHART_CREATE_TICKET': '已創建門票',
     'CHART_CLOSE': '門票已關閉',
@@ -336,6 +337,7 @@ export default {
     'WILL_DELETE_CUSTOM_RESPONSE': '自定義響應將被刪除。',
     'WILL_DELETE_DEPARTMENT': '部門將被刪除。所有票將轉移到所選部門。',
     'NO_STAFF_ASSIGNED': '沒有工作人員被分配到這個部門。',
+    'NO_DEPARTMENT_ASSIGNED': '没有为您分配票务部门。',
     'LEVEL_UPDATED': '級別已成功更新。',
     'DEPARTMENTS_UPDATED': '部門已成功更新。',
     'FAILED_EDIT_STAFF': '嘗試編輯員工時出錯。',
@@ -351,8 +353,8 @@ export default {
     'LAST_365_DAYS':'過去365天',
 
     'ACTIVITY_COMMENT_THIS': '評論了這張票',
-    'ACTIVITY_ASSIGN_THIS': '分配這張票',
-    'ACTIVITY_UN_ASSIGN_THIS': '取消分配此票',
+    'ACTIVITY_ASSIGN_THIS': '将此票证分配给',
+    'ACTIVITY_UN_ASSIGN_THIS': '未分配此票给',
     'ACTIVITY_CLOSE_THIS': '關閉這張票',
     'ACTIVITY_CREATE_TICKET_THIS': '創建了這張票',
     'ACTIVITY_RE_OPEN_THIS': '重新打開這張票',

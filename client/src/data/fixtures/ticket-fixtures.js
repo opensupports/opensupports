@@ -99,7 +99,7 @@ module.exports = [
                     title: 'Lorem ipsum door',
                     content: 'I had a problem with the installation of the php server',
                     department: {
-                        id: 1,
+                        id: '1',
                         name: 'Sales Support'
                     },
                     date: '201604151155',
@@ -110,12 +110,12 @@ module.exports = [
                     closed: false,
                     priority: 'medium',
                     author: {
-                        id: 3,
+                        id: '3',
                         name: 'Haskell Curry',
                         email: 'haskell@lambda.com'
                     },
                     owner: {
-                        id: 1,
+                        id: '12',
                         name: 'Steve Jobs'
                     },
                     events: [

@@ -181,6 +181,7 @@ export default {
     'STAFF_UPDATED': 'Mitarbeiter wurde aktualisiert',
     'UPDATE': 'Aktualisierung',
     'NEVER': 'Niemals',
+    'HIMSELF': 'selbst',
 
     'CHART_CREATE_TICKET': 'Tickets erstellt',
     'CHART_CLOSE': 'Tickets geschlossen',
@@ -336,6 +337,7 @@ export default {
     'WILL_DELETE_CUSTOM_RESPONSE': 'Die benutzerdefinierte Antwort wird gelöscht.',
     'WILL_DELETE_DEPARTMENT': 'Die Abteilung wird gelöscht. Alle Tickets werden an die gewählte Abteilung übertragen.',
     'NO_STAFF_ASSIGNED': 'Dieser Abteilung ist kein Mitarbeiter zugeordnet.',
+    'NO_DEPARTMENT_ASSIGNED': 'Ihnen ist keine Ticketabteilung zugeordnet.',
     'LEVEL_UPDATED': 'Level wurde erfolgreich aktualisiert.',
     'DEPARTMENTS_UPDATED': 'Abteilungen wurden erfolgreich aktualisiert.',
     'FAILED_EDIT_STAFF': 'Beim bearbeiten des Mitarbeiters ist ein Fehler aufgetreten.',
@@ -351,8 +353,8 @@ export default {
     'LAST_365_DAYS': 'Letzte 365 Tage',
 
     'ACTIVITY_COMMENT_THIS': 'hat dieses Ticket kommentiert',
-    'ACTIVITY_ASSIGN_THIS': 'hat dieses Ticket zugewiesen',
-    'ACTIVITY_UN_ASSIGN_THIS': 'hat dieses Ticket nicht zugewiesen',
+    'ACTIVITY_ASSIGN_THIS': 'hat dieses Ticket zugewiesen zu',
+    'ACTIVITY_UN_ASSIGN_THIS': 'hat dieses Ticket nicht zugewiesen zu',
     "ACTIVITY_CLOSE_THIS": 'hat dieses Ticket geschlossen',
     'ACTIVITY_CREATE_TICKET_THIS': 'hat dieses Ticket erstellt',
     'ACTIVITY_RE_OPEN_THIS': 'hat dieses Ticket wieder geöffnet',

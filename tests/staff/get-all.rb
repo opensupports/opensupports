@@ -29,7 +29,7 @@ describe'/staff/get-all' do
         (result['data'][2]['level']).should.equal('2')
         (result['data'][2]['departments'][0]['id']).should.equal('1')
         (result['data'][2]['departments'][0]['name']).should.equal('Help and Support')
-        (result['data'][2]['assignedTickets']).should.equal(0)
+        (result['data'][2]['assignedTickets']).should.equal(1)
         (result['data'][2]['closedTickets']).should.equal(0)
     end
 end

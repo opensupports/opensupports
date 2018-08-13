@@ -93,20 +93,36 @@ class TicketEvent extends React.Component {
     }
 
     renderAssignment() {
+        let assignedTo = this.props.content;
+        let authorName = this.props.author.name;
+
+        if(!assignedTo || assignedTo == authorName) {
+            assignedTo = i18n('HIMSELF');
+        }
+
         return (
             <div className="ticket-event__circled">
-                <span className="ticket-event__circled-author">{this.props.author.name}</span>
+                <span className="ticket-event__circled-author">{authorName}</span>
                 <span className="ticket-event__circled-text"> {i18n('ACTIVITY_ASSIGN_THIS')}</span>
+                <span className="ticket-event__circled-text"> {assignedTo}</span>
                 <span className="ticket-event__circled-date"> {i18n('DATE_PREFIX')} {DateTransformer.transformToString(this.props.date)}</span>
             </div>
         )
     }
 
     renderUnAssignment() {
+        let unAssignedTo = this.props.content;
+        let authorName = this.props.author.name;
+
+        if(!unAssignedTo || unAssignedTo == authorName) {
+            unAssignedTo = i18n('HIMSELF');
+        }
+
         return (
             <div className="ticket-event__circled">
-                <span className="ticket-event__circled-author">{this.props.author.name}</span>
+                <span className="ticket-event__circled-author">{authorName}</span>
                 <span className="ticket-event__circled-text"> {i18n('ACTIVITY_UN_ASSIGN_THIS')}</span>
+                <span className="ticket-event__circled-text"> {unAssignedTo}</span>
                 <span className="ticket-event__circled-date"> {i18n('DATE_PREFIX')} {DateTransformer.transformToString(this.props.date)}</span>
             </div>
         )

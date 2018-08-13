@@ -20,6 +20,11 @@ const ID = {
     'COMMENT': 3
 };
 
+const statsPeriod = {
+    'WEEK': 7,
+    'MONTH': 30
+};
+
 class Stats extends React.Component {
 
     static propTypes = {
@@ -33,14 +38,14 @@ class Stats extends React.Component {
             return {
                 name: name,
                 values: []
-            } 
+            }
         }),
         showed: [0],
         period: 0
     };
 
     componentDidMount() {
-        this.retrieve(7);
+        this.retrieve('WEEK');
     }
 
     render() {
@@ -58,7 +63,7 @@ class Stats extends React.Component {
             'stats': true,
             'stats_staff': this.props.type === 'staff'
         };
-        
+
         return classNames(classes);
     }
 
@@ -90,7 +95,7 @@ class Stats extends React.Component {
 
     getDropDownProps() {
         return {
-            items: ['LAST_7_DAYS', 'LAST_30_DAYS', 'LAST_90_DAYS', 'LAST_365_DAYS'].map((name) => {
+            items: Object.keys(statsPeriod).map(key => 'LAST_' + statsPeriod[key] + '_DAYS').map((name) => {
                 return {
                     content: i18n(name),
                     icon: ''
@@ -102,9 +107,7 @@ class Stats extends React.Component {
     }
 
     onDropDownChange(event) {
-        let val = [7, 30, 90, 365];
-
-        this.retrieve(val[event.index]);
+        this.retrieve(Object.keys(statsPeriod)[event.index]);
     }
 
     getStatsChartProps() {
@@ -116,23 +119,7 @@ class Stats extends React.Component {
         };
     }
 
-    retrieve(period) {
-        let periodName;
-
-        switch (period) {
-            case 30:
-                periodName = 'MONTH';
-                break;
-            case 90:
-                periodName = 'QUARTER';
-                break;
-            case 365:
-                periodName = 'YEAR';
-                break;
-            default:
-                periodName = 'WEEK';
-        }
-
+    retrieve(periodName) {
         API.call({
             path: '/system/get-stats',
             data: this.getApiCallData(periodName)
@@ -172,7 +159,7 @@ class Stats extends React.Component {
 
         return showed;
     }
-    
+
     getStrokes() {
         return this.props.type === 'general' ? generalStrokes : staffStrokes;
     }

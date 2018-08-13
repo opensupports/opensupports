@@ -181,6 +181,7 @@ export default {
     'STAFF_UPDATED': 'Medewerker is gewijzigd',
     'UPDATE': 'Update',
     'NEVER': 'Nooit',
+    'HIMSELF': 'zichzelf',
 
     'CHART_CREATE_TICKET': 'Aangemaakte incidenten',
     'CHART_CLOSE': 'Gesloten incidenten',
@@ -337,6 +338,7 @@ export default {
     'WILL_DELETE_CUSTOM_RESPONSE': 'Het aangepaste antwoord zal worden verwijderd.',
     'WILL_DELETE_DEPARTMENT': 'De afdeling wordt verwijderd. Alle incidenten worden overgedragen aan de geselecteerde afdeling.',
     'NO_STAFF_ASSIGNED': 'Er is geen medewerker toegewezen aan deze afdeling.',
+    'NO_DEPARTMENT_ASSIGNED': 'Er is u geen incidentafdeling toegewezen.',
     'LEVEL_UPDATED': 'Niveau is succesvol bijgewerkt.',
     'DEPARTMENTS_UPDATED': 'Afdelingen zijn succesvol bijgewerkt.',
     'FAILED_EDIT_STAFF': 'Er is een fout opgetreden bij het bewerken van de medewerker.',
@@ -352,8 +354,8 @@ export default {
     'LAST_365_DAYS': 'Laatste 365 dagen',
 
     'ACTIVITY_COMMENT_THIS': 'heeft een bericht achtergelaten op dit incident',
-    'ACTIVITY_ASSIGN_THIS': 'heeft dit incident toegewezen',
-    'ACTIVITY_UN_ASSIGN_THIS': 'heeft dit incident niet-toegewezen aan een medewerker',
+    'ACTIVITY_ASSIGN_THIS': 'heeft dit incident toegewezen aan',
+    'ACTIVITY_UN_ASSIGN_THIS': 'heeft dit incident niet-toegewezen aan een medewerker aan',
     'ACTIVITY_CLOSE_THIS': 'heeft dit incident gesloten',
     'ACTIVITY_CREATE_TICKET_THIS': 'heeft dit incident aangemaakt',
     'ACTIVITY_RE_OPEN_THIS': 'heeft dit incident heropend',

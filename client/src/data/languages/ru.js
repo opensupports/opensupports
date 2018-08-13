@@ -181,6 +181,7 @@ export default {
     'STAFF_UPDATED': 'Сотрудник обновлен',
     'UPDATE': 'Обновить',
     'NEVER': 'Никогда',
+    'HIMSELF': 'сам',
 
     'CHART_CREATE_TICKET': 'Билеты создано',
     'CHART_CLOSE': ' Билеты закрыты',
@@ -335,6 +336,7 @@ export default {
     'WILL_DELETE_CUSTOM_RESPONSE': 'Обычай ответ будет удален.',
     'WILL_DELETE_DEPARTMENT': 'Отдел будет удален. Все билеты будут передача в отдел выбранного.',
     'NO_STAFF_ASSIGNED': 'Ни один сотрудник не будет назначен в этот отдел.',
+    'NO_DEPARTMENT_ASSIGNED': 'Вам не назначено билетное ведомство.',
     'LEVEL_UPDATED': 'Уровень был успешно обновлен.',
     'DEPARTMENTS_UPDATED': 'Отделы были успешно обновлены.',
     'FAILED_EDIT_STAFF': 'Произошла ошибка при попытке редактирования сотрудника.',
@@ -350,8 +352,8 @@ export default {
     'LAST_365_DAYS': 'Последние 365 дней',
 
     'ACTIVITY_COMMENT_THIS': 'прокомментировал этот билет',
-    'ACTIVITY_ASSIGN_THIS': 'присвоен этот билет',
-    'ACTIVITY_UN_ASSIGN_THIS': 'неназначенный билет',
+    'ACTIVITY_ASSIGN_THIS': 'присвоен этот билет в',
+    'ACTIVITY_UN_ASSIGN_THIS': 'неназначенный билет в',
     'ACTIVITY_CLOSE_THIS': 'закрыл этот билет',
     'ACTIVITY_CREATE_TICKET_THIS': 'создал этот билет',
     'ACTIVITY_RE_OPEN_THIS': 'снова открыт этот билет',

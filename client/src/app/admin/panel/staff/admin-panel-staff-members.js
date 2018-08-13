@@ -1,6 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router';
 import _ from 'lodash';
+import {connect}  from 'react-redux';
+
+import AdminDataActions from 'actions/admin-data-actions';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -18,15 +21,23 @@ import Loading from 'core-components/loading';
 
 class AdminPanelStaffMembers extends React.Component {
 
-    state = {
-        selectedDepartment: 0,
+    static propTypes = {
+        staffList: React.PropTypes.array,
+        loading: React.PropTypes.boolean,
+    }
+
+    static defaultProps = {
         staffList: [],
         loading: true,
+    };
+
+    state = {
+        selectedDepartment: 0,
         page: 1
     };
 
     componentDidMount() {
-        this.retrieveStaffMembers();
+        this.props.dispatch(AdminDataActions.retrieveStaffMembers());
     }
 
     render() {
@@ -39,7 +50,7 @@ class AdminPanelStaffMembers extends React.Component {
                         <Icon name="user-plus" className=""/> {i18n('ADD_NEW_STAFF')}
                     </Button>
                 </div>
-                {(this.state.loading) ? <Loading backgrounded /> : <PeopleList list={this.getStaffList()} page={this.state.page} onPageSelect={(index) => this.setState({page: index+1})} />}
+                {(this.props.loading) ? <Loading backgrounded /> : <PeopleList list={this.getStaffList()} page={this.state.page} onPageSelect={(index) => this.setState({page: index+1})} />}
             </div>
         );
     }
@@ -66,9 +77,9 @@ class AdminPanelStaffMembers extends React.Component {
         let staffList;
 
         if(!this.state.selectedDepartment) {
-            staffList = this.state.staffList;
+            staffList = this.props.staffList;
         } else {
-            staffList = _.filter(this.state.staffList, (staff) => {
+            staffList = _.filter(this.props.staffList, (staff) => {
                 return _.findIndex(staff.departments, {id: this.state.selectedDepartment}) !== -1;
             });
         }
@@ -96,22 +107,12 @@ class AdminPanelStaffMembers extends React.Component {
 
         return departments;
     }
-
-    retrieveStaffMembers() {
-        API.call({
-            path: '/staff/get-all',
-            data: {}
-        }).then(this.onStaffRetrieved.bind(this));
-    }
-
-    onStaffRetrieved(result) {
-        if(result.status == 'success'){
-            this.setState({
-                loading: false,
-                staffList: result.data
-            });
-        }
-    }
 }
 
-export default AdminPanelStaffMembers;
+export default connect((store) => {
+    return {
+        staffList: store.adminData.staffMembers,
+        loading: !store.adminData.staffMembersLoaded,
+        error: store.adminData.staffMembersError
+    };
+})(AdminPanelStaffMembers);

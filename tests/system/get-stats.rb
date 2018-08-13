@@ -85,25 +85,25 @@ describe'/system/get-stats' do
 
         d = Date.today.prev_day
         yesterday = d.strftime("%Y%m%d")
-        d = Date.today.prev_day.prev_day
+        d = Date.today.prev_day(2)
         yesterday2 = d.strftime("%Y%m%d")
-        d = Date.today.prev_day.prev_day.prev_day
+        d = Date.today.prev_day(3)
         yesterday3 = d.strftime("%Y%m%d")
-        d = Date.today.prev_day.prev_day.prev_day.prev_day
+        d = Date.today.prev_day(4)
         yesterday4 = d.strftime("%Y%m%d")
-        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day
+        d = Date.today.prev_day(5)
         yesterday5 = d.strftime("%Y%m%d")
-        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day
+        d = Date.today.prev_day(6)
         yesterday6 = d.strftime("%Y%m%d")
-        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day
+        d = Date.today.prev_day(7)
         yesterday7 = d.strftime("%Y%m%d")
-        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day
+        d = Date.today.prev_day(8)
         yesterday8 = d.strftime("%Y%m%d")
-        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day
+        d = Date.today.prev_day(9)
         yesterday9 = d.strftime("%Y%m%d")
-        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day
+        d = Date.today.prev_day(10)
         yesterday10 = d.strftime("%Y%m%d")
-        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day
+        d = Date.today.prev_day(11)
         yesterday11 = d.strftime("%Y%m%d")
 
         assertData(11, yesterday3, 'CREATE_TICKET', '1')
@@ -156,5 +156,27 @@ describe'/system/get-stats' do
 
         assertData(20, yesterday11, 'CLOSE', '0')
         assertData(21, yesterday11, 'ASSIGN', '0')
+    end
+
+    it 'should remove very old stats' do
+        prev_days_to_remove = 32;
+
+        stats_count = $database.query('SELECT COUNT(*) as qt FROM stat').fetch_hash['qt'];
+        date = Date.today.prev_day(prev_days_to_remove).strftime("%Y%m%d");
+
+        $database.query('INSERT INTO stat VALUES(\'\', '+ date +', \'CLOSE\', 1, 0, NULL)');
+        $database.query('INSERT INTO stat VALUES(\'\', '+ date +', \'SINGUP\', 1, 0, NULL)');
+        $database.query('INSERT INTO stat VALUES(\'\', '+ date +', \'COMMENT\', 1, 0, NULL)');
+        stats_count_updated = $database.query('SELECT COUNT(*) as qt FROM stat').fetch_hash['qt'];
+        (stats_count).should.not.equal(stats_count_updated)
+
+        request('/system/get-stats', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            period: 'MONTH',
+            staffId: '1'
+        })
+        stats_count_updated = $database.query('SELECT COUNT(*) as qt FROM stat').fetch_hash['qt'];
+        (stats_count).should.equal(stats_count_updated)
     end
 end
