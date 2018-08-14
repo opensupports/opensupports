@@ -32,7 +32,7 @@ class TicketGetController extends Controller {
 
     public function validations() {
         $session = Session::getInstance();
-        
+
         if (Controller::isUserSystemEnabled() || Controller::isStaffLogged()) {
             return [
                 'permission' => 'user',
@@ -78,6 +78,6 @@ class TicketGetController extends Controller {
         $user = Controller::getLoggedUser();
 
         return (!Controller::isStaffLogged() && (Controller::isUserSystemEnabled() && $this->ticket->author->id !== $user->id)) ||
-               (Controller::isStaffLogged() && (($this->ticket->owner && $this->ticket->owner->id !== $user->id) && !$user->sharedDepartmentList->includesId($this->ticket->department->id)));
+               (Controller::isStaffLogged() && (!$user->sharedTicketList->includesId($this->ticket->id) && !$user->sharedDepartmentList->includesId($this->ticket->department->id)));
     }
 }

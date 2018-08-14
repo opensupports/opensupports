@@ -41,7 +41,10 @@ class RecoverPasswordController extends Controller {
             'permission' => 'any',
             'requestData' => [
                 'email' => [
-                    'validation' => DataValidator::email()->userEmail(),
+                    'validation' => DataValidator::oneOf(
+                        DataValidator::email()->userEmail(),
+                        DataValidator::email()->staffEmail()
+                    ),
                     'error' => ERRORS::INVALID_EMAIL
                 ],
                 'password' => [

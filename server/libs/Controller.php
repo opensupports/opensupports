@@ -55,6 +55,10 @@ abstract class Controller {
     public static function request($key, $secure = false) {
         $result = call_user_func(self::$dataRequester, $key);
 
+        if($key === 'email' || $key === 'newEmail') {
+            return strtolower($result);
+        }
+
         if($secure) {
             $config = HTMLPurifier_Config::createDefault();
             $purifier = new HTMLPurifier($config);

@@ -1,4 +1,4 @@
-/*const SessionActionsMock = require('actions/__mocks__/session-actions-mock');
+const SessionActionsMock = require('actions/__mocks__/session-actions-mock');
 const APICallMock = require('lib-app/__mocks__/api-call-mock');
 
 const SubmitButton = ReactMock();
@@ -9,11 +9,13 @@ const Checkbox = ReactMock();
 const Message = ReactMock();
 const Widget = ReactMock();
 const WidgetTransition = ReactMock();
+const PasswordRecovery = ReactMock();
 
 const MainHomePageLoginWidget = requireUnit('app/main/main-home/main-home-page-login-widget', {
     'react-redux': ReduxMock,
     'actions/session-actions': SessionActionsMock,
     'lib-app/api-call': APICallMock,
+    'app-components/password-recovery': PasswordRecovery,
     'core-components/submit-button': SubmitButton,
     'core-components/button': Button,
     'core-components/input': Input,
@@ -98,7 +100,7 @@ describe('Login/Recover Widget', function () {
             expect(loginForm.props.errors).to.deep.equal({password: 'ERROR_PASSWORD'});
             expect(loginForm.props.loading).to.equal(false);
         });
-        
+
         it('should show back side if \'Forgot your password?\' link is clicked', function () {
             expect(widgetTransition.props.sideToShow).to.equal('front');
             forgotPasswordButton.props.onClick();
@@ -107,8 +109,7 @@ describe('Login/Recover Widget', function () {
     });
 
     describe('Recover Password form', function () {
-        let recoverWidget, recoverForm, widgetTransition, emailInput, component,
-            backToLoginButton, submitButton;
+        let recoverPassword, widgetTransition, component;
 
         let dispatch = stub();
 
@@ -117,32 +118,20 @@ describe('Login/Recover Widget', function () {
                 <MainHomePageLoginWidget dispatch={dispatch} session={{pending: false, failed: false}} />
             );
             widgetTransition = TestUtils.scryRenderedComponentsWithType(component, WidgetTransition)[0];
-            recoverWidget = TestUtils.scryRenderedComponentsWithType(component, Widget)[1];
-            recoverForm = TestUtils.scryRenderedComponentsWithType(component, Form)[1];
-            emailInput = TestUtils.scryRenderedComponentsWithType(component, Input)[2];
-            submitButton = TestUtils.scryRenderedComponentsWithType(component, SubmitButton)[1];
-            backToLoginButton = TestUtils.scryRenderedComponentsWithType(component, Button)[1];
-
-            component.refs.recoverForm = {
-                refs: {
-                    email: {
-                        focus: stub()
-                    }
-                }
-            };
+            recoverPassword = TestUtils.scryRenderedComponentsWithType(component, PasswordRecovery)[0];
         });
 
         it('should control form errors by prop', function () {
-            expect(recoverForm.props.errors).to.deep.equal({});
-            recoverForm.props.onValidateErrors({email: 'MOCK_ERROR'});
-            expect(recoverForm.props.errors).to.deep.equal({email: 'MOCK_ERROR'});
+            expect(recoverPassword.props.formProps.errors).to.deep.equal({});
+             recoverPassword.props.formProps.onValidateErrors({email: 'MOCK_ERROR'});
+            expect(recoverPassword.props.formProps.errors).to.deep.equal({email: 'MOCK_ERROR'});
         });
 
         it('should call sendRecoverPassword when submitted', function () {
             let mockSubmitData = {email: 'MOCK_VALUE'};
             APICallMock.call.reset();
 
-            recoverForm.props.onSubmit(mockSubmitData);
+            recoverPassword.props.formProps.onSubmit(mockSubmitData);
             expect(APICallMock.call).to.have.been.calledWith({
                 path: '/user/send-recover-password',
                 data: mockSubmitData
@@ -152,12 +141,12 @@ describe('Login/Recover Widget', function () {
         it('should set loading true in the form when submitted', function () {
             let mockSubmitData = {email: 'MOCK_VALUE'};
 
-            recoverForm.props.onSubmit(mockSubmitData);
-            expect(recoverForm.props.loading).to.equal(true);
+            recoverPassword.props.formProps.onSubmit(mockSubmitData);
+            expect(recoverForm.props.formProps.loading).to.equal(true);
         });
 
         it('should add error and stop loading when send recover fails', function () {
-            component.refs.recoverForm.refs.email.focus.reset();
+            component.refs.recoverPassword.refs.email.focus.reset();
 
             component.onRecoverPasswordFail();
             expect(recoverForm.props.errors).to.deep.equal({email: 'EMAIL_NOT_EXIST'});
@@ -183,4 +172,4 @@ describe('Login/Recover Widget', function () {
             expect(widgetTransition.props.sideToShow).to.equal('front');
         });
     });
-});*/
+});

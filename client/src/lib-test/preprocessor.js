@@ -23,18 +23,19 @@ global.requireUnit = function (path, mocks) {
 };
 global.reRenderIntoDocument = (function () {
     let div;
-    
+
     return function (jsx) {
         if (!div) {
             div = document.createElement('div')
         }
-        
+
         return ReactDOM.render(jsx, div);
     }
 })();
 global.ReduxMock = {
     connect: stub().returns(stub().returnsArg(0))
 };
+global.globalIndexPath = '';
 
 Array.prototype.swap = function (x,y) {
     var b = this[x];

@@ -79,13 +79,13 @@ class WidgetTransition extends React.Component {
             rotateY: (this.props.sideToShow === 'front') ? spring(0, [100, 20]) : spring(180, [100, 20])
         };
     }
-    
+
     moveFocusToCurrentSide() {
         let currentWidget;
         let previousWidget;
 
         if (this.props.sideToShow === 'front') {
-            currentWidget = this.primaryWidget; 
+            currentWidget = this.primaryWidget;
             previousWidget = this.secondaryWidget;
         } else {
             currentWidget = this.secondaryWidget;

@@ -120,11 +120,11 @@ class TicketViewer extends React.Component {
                         <DropDown className="ticket-viewer__editable-dropdown" items={priorityList} selectedIndex={priorities[ticket.priority]} onChange={this.onPriorityDropdownChanged.bind(this)} />
                     </div>
                     <div className="col-md-4">
-                        {this.renderEditableOwnerNode()}
+                        {this.renderAssignStaffList()}
                     </div>
                     <div className="col-md-4">
                         {ticket.closed ?
-                        <Button type='secondary' size="extra-small" onClick={this.onCloseClick.bind(this)}>
+                        <Button type='secondary' size="extra-small" onClick={this.onReopenClick.bind(this)}>
                             {i18n('RE_OPEN')}
                         </Button> : i18n('OPENED')}
                     </div>
@@ -173,19 +173,6 @@ class TicketViewer extends React.Component {
         );
     }
 
-    renderEditableOwnerNode() {
-        let ownerNode = null;
-        let {ticket, userId} = this.props;
-
-        if (_.isEmpty(ticket.owner) || ticket.owner.id == userId) {
-            ownerNode = this.renderAssignStaffList();
-        } else {
-            ownerNode = (this.props.ticket.owner) ? this.props.ticket.owner.name : i18n('NONE')
-        }
-
-        return ownerNode;
-    }
-
     renderOwnerNode() {
         let ownerNode = null;
 
@@ -204,8 +191,6 @@ class TicketViewer extends React.Component {
 
         let selectedIndex = _.findIndex(items, {id: ownerId});
         selectedIndex = (selectedIndex !== -1) ? selectedIndex : 0;
-
-        console.log(selectedIndex);
 
         return (
             <DropDown
@@ -323,13 +308,27 @@ class TicketViewer extends React.Component {
         APICallPromise.then(this.onTicketModification.bind(this));
     }
 
-    onCloseClick() {
-        AreYouSure.openModal(null, this.toggleClose.bind(this));
+    onReopenClick() {
+        AreYouSure.openModal(null, this.reopenTicket.bind(this));
     }
 
-    toggleClose() {
+    onCloseTicketClick(event) {
+        event.preventDefault();
+        AreYouSure.openModal(null, this.closeTicket.bind(this));
+    }
+
+    reopenTicket() {
         API.call({
-            path: (this.props.ticket.closed) ? '/ticket/re-open' : '/ticket/close',
+            path: '/ticket/re-open',
+            data: {
+                ticketNumber: this.props.ticket.ticketNumber
+            }
+        }).then(this.onTicketModification.bind(this));
+    }
+
+    closeTicket() {
+        API.call({
+            path: '/ticket/close',
             data: {
                 ticketNumber: this.props.ticket.ticketNumber
             }
@@ -413,15 +412,6 @@ class TicketViewer extends React.Component {
         if (this.props.onChange) {
             this.props.onChange();
         }
-    }
-    onCloseTicketClick(event){
-        event.preventDefault();
-        API.call({
-            path: '/ticket/close',
-            data: {
-                ticketNumber: this.props.ticket.ticketNumber
-            }
-        }).then(this.onTicketModification.bind(this));
     }
 
     getStaffAssignmentItems() {

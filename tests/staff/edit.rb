@@ -16,7 +16,7 @@ describe'/staff/edit' do
 
         row = $database.getRow('staff', 3, 'id')
 
-        (row['email']).should.equal('LittleLannister@opensupports.com')
+        (row['email']).should.equal('littlelannister@opensupports.com')
         (row['level']).should.equal('1')
 
         rows = $database.getRow('department_staff', 3, 'staff_id')
