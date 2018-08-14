@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import {connect} from 'react-redux';
+import history from 'lib-app/history';
 
 import SessionActions     from 'actions/session-actions';
 import CreateTicketForm from 'app/main/dashboard/dashboard-create-ticket/create-ticket-form';

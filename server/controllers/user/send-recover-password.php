@@ -38,7 +38,10 @@ class SendRecoverPasswordController extends Controller {
             'permission' => 'any',
             'requestData' => [
                 'email' => [
-                    'validation' => DataValidator::email()->userEmail(),
+                    'validation' => DataValidator::oneOf(
+                        DataValidator::email()->userEmail(),
+                        DataValidator::email()->staffEmail()
+                    ),
                     'error' => ERRORS::INVALID_EMAIL
                 ]
             ]
@@ -66,7 +69,7 @@ class SendRecoverPasswordController extends Controller {
             $recoverPassword->setProperties(array(
                 'email' => $email,
                 'token' => $this->token,
-                'staff' => $this->staff
+                'staff' => !!$this->staff
             ));
             $recoverPassword->store();
 

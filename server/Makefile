@@ -28,7 +28,9 @@ stop:
 	@docker stop opensupports-db && docker rm opensupports-db || true
 	@docker stop opensupports-myadmin && docker rm opensupports-myadmin || true
 	@docker stop opensupports-fakesmtp && docker rm opensupports-fakesmtp || true
-	@docker stop opensupports-srv
+	@docker stop opensupports-srv || true
+	@rm -rf .fakemail || true
+	@mkdir .fakemail
 
 db:
 	@docker exec -it opensupports-db bash -c "mysql -u root" || echo "${red}Please execute 'make run' first${reset}"

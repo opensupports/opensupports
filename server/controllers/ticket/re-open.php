@@ -63,8 +63,13 @@ class ReOpenController extends Controller {
     private function shouldDenyPermission() {
         $user = Controller::getLoggedUser();
 
-        return (!Controller::isStaffLogged() && $this->ticket->author->id !== $user->id) ||
-        (Controller::isStaffLogged() && $this->ticket->owner && $this->ticket->owner->id !== $user->id);
+        return !(
+            $this->ticket->isAuthor($user) ||
+            (
+                Controller::isStaffLogged() &&
+                $user->sharedDepartmentList->includesId($this->ticket->department->id)
+            )
+        );
     }
 
     private function markAsUnread() {

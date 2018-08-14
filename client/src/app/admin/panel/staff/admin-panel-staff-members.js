@@ -23,7 +23,7 @@ class AdminPanelStaffMembers extends React.Component {
 
     static propTypes = {
         staffList: React.PropTypes.array,
-        loading: React.PropTypes.boolean,
+        loading: React.PropTypes.bool,
     }
 
     static defaultProps = {
@@ -37,7 +37,7 @@ class AdminPanelStaffMembers extends React.Component {
     };
 
     componentDidMount() {
-        this.props.dispatch(AdminDataActions.retrieveStaffMembers());
+        this.retrieveStaffMembers();
     }
 
     render() {
@@ -106,6 +106,10 @@ class AdminPanelStaffMembers extends React.Component {
         });
 
         return departments;
+    }
+
+    retrieveStaffMembers() {
+        this.props.dispatch(AdminDataActions.retrieveStaffMembers());
     }
 }
 

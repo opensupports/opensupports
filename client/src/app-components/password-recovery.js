@@ -25,10 +25,11 @@ class PasswordRecovery extends React.Component {
     };
 
     render() {
+        const { renderLogo, formProps, onBackToLoginClick } = this.props;
         return (
-            <Widget {...this.props} className="password-recovery__content">
+            <Widget {...this.props} className={this.getClass()} title={!renderLogo && i18n('RECOVER_PASSWORD')}>
                 {this.renderLogo()}
-                <Form {...this.props.formProps}>
+                <Form {...formProps}>
                     <div className="password-recovery__inputs">
                         <FormField placeholder={i18n('EMAIL_LOWERCASE')} name="email" className="password-recovery__input" validation="EMAIL" required/>
                     </div>
@@ -36,12 +37,19 @@ class PasswordRecovery extends React.Component {
                         <SubmitButton type="primary">{i18n('RECOVER_PASSWORD')}</SubmitButton>
                     </div>
                 </Form>
-                <Button className="password-recovery__forgot-password" type="link" onClick={this.props.onBackToLoginClick} onMouseDown={(event) => {event.preventDefault()}}>
+                <Button className="password-recovery__forgot-password" type="link" onClick={onBackToLoginClick} onMouseDown={(event) => {event.preventDefault()}}>
                     {i18n('BACK_LOGIN_FORM')}
                 </Button>
                 {this.renderRecoverStatus()}
             </Widget>
         );
+    }
+
+    getClass() {
+        return classNames({
+            'password-recovery__content': true,
+            [this.props.className]: (this.props.className)
+        });
     }
 
     renderLogo() {

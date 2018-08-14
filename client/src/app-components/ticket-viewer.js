@@ -120,7 +120,7 @@ class TicketViewer extends React.Component {
                         <DropDown className="ticket-viewer__editable-dropdown" items={priorityList} selectedIndex={priorities[ticket.priority]} onChange={this.onPriorityDropdownChanged.bind(this)} />
                     </div>
                     <div className="col-md-4">
-                        {this.renderEditableOwnerNode()}
+                        {this.renderAssignStaffList()}
                     </div>
                     <div className="col-md-4">
                         {ticket.closed ?
@@ -173,19 +173,6 @@ class TicketViewer extends React.Component {
         );
     }
 
-    renderEditableOwnerNode() {
-        let ownerNode = null;
-        let {ticket, userId} = this.props;
-
-        if (_.isEmpty(ticket.owner) || ticket.owner.id == userId) {
-            ownerNode = this.renderAssignStaffList();
-        } else {
-            ownerNode = (this.props.ticket.owner) ? this.props.ticket.owner.name : i18n('NONE')
-        }
-
-        return ownerNode;
-    }
-
     renderOwnerNode() {
         let ownerNode = null;
 
@@ -204,8 +191,6 @@ class TicketViewer extends React.Component {
 
         let selectedIndex = _.findIndex(items, {id: ownerId});
         selectedIndex = (selectedIndex !== -1) ? selectedIndex : 0;
-
-        console.log(selectedIndex);
 
         return (
             <DropDown

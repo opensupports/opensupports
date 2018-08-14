@@ -80,14 +80,31 @@ class EditStaffController extends Controller {
         }
 
         if(Controller::request('departments') && Controller::isStaffLogged(3)) {
-            $this->staffInstance->sharedDepartmentList = $this->getDepartmentList();
+            $departmentList = $this->getDepartmentList();
+            $ticketList = $this->staffInstance->sharedTicketList;
+
+            $this->staffInstance->sharedDepartmentList = $departmentList;
+
+            foreach($ticketList as $ticket) {
+                if(!$departmentList->includesId($ticket->department->id)) {
+                    if($ticket->isOwner($this->staffInstance) ) {
+                        $ticket->owner = null;
+                    }
+
+                    if(!$ticket->isAuthor($this->staffInstance)) {
+                        $this->staffInstance->sharedTicketList->remove($ticket);
+                    }
+
+                    $ticket->store();
+                }
+            }
         }
 
         if($fileUploader = $this->uploadFile(true)) {
             $this->staffInstance->profilePic = ($fileUploader instanceof FileUploader) ? $fileUploader->getFileName() : null;
         }
 
-	      if(Controller::request('sendEmailOnNewTicket') !== null && Controller::request('sendEmailOnNewTicket') !== '' && $this->isModifyingCurrentStaff()) {
+	    if(Controller::request('sendEmailOnNewTicket') !== null && Controller::request('sendEmailOnNewTicket') !== '' && $this->isModifyingCurrentStaff()) {
             $this->staffInstance->sendEmailOnNewTicket = intval(Controller::request('sendEmailOnNewTicket'));
         }
 

@@ -47,9 +47,10 @@ spl_autoload_register(function ($class) {
     }
 });
 
-//Load custom validations
+// LOAD CUSTOM VALIDATIONS
 include_once 'libs/validations/dataStoreId.php';
 include_once 'libs/validations/userEmail.php';
+include_once 'libs/validations/staffEmail.php';
 include_once 'libs/validations/captcha.php';
 include_once 'libs/validations/validLanguage.php';
 include_once 'libs/validations/validTicketNumber.php';
