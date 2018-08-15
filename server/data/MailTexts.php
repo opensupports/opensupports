@@ -929,67 +929,67 @@ class MailTexts {
         ],
           'th' => [
           'USER_SIGNUP' => [
-              'Signup {{to}} - OpenSupports',
-              'Verify your account',
-              'Welcome to our support center, {{name}}!. We need you to verify this email in order to get access to your account.',
-              'Use this code in {{url}}/verify-token/{{to}}/{{verificationToken}} or click the button below.',
+              'ลงทะเบียน {{to}} - OpenSupports',
+              'ตรวจสอบบัญชีของคุณ',
+              'ยินดีต้อนรับสู่ศูนย์dkiสนับสนุนของเรา {{name}}!. เราต้องการให้คุณยืนยันอีเมลนี้เพื่อเข้าถึงบัญชีของคุณ',
+              'ใช้รหัสนี้ใน {{url}}/verify-token/{{to}}/{{verificationToken}} หรือคลิกที่ปุ่มด้านล่าง',
               '{{verificationToken}}'
           ],
           'USER_PASSWORD' => [
-              'Password edited - OpenSupports',
-              'Password changed',
-              'Hi, {{name}}. We want to inform you that your password has changed from your customer panel.'
+              'แก้ไขรหัสผ่านแล้ว - OpenSupports',
+              'เปลี่ยนรหัสผ่านแล้ว',
+              'สวัสดี, {{name}}. เราต้องการแจ้งให้คุณทราบว่ารหัสผ่านของคุณได้เปลี่ยนจากแผงลูกค้าของคุณแล้ว'
           ],
           'USER_EMAIL' => [
-              'Email edited - OpenSupports',
-              'Email changed',
-              'Hi, {{name}}. We want to inform you that your email has changed to {{newemail}} from your customer panel.'
+              'แก้ไขอีเมลแล้ว - OpenSupports',
+              'เปลี่ยนอีเมลแล้ว',
+              'สวัสดี, {{name}}. เราต้องการแจ้งให้คุณทราบว่าอีเมลของคุณได้เปลี่ยนเป็น {{newemail}} จากแผงลูกค้าของคุณแล้ว'
           ],
           'PASSWORD_FORGOT' => [
-              'Recover password - OpenSupports',
-              'Recover password',
-              'Hi, {{name}}. You have requested to recover your password.',
-              'Use this code in {{url}}/recover-password?email={{to}}&token={{token}} or click the button below.',
+              'กู้คืนรหัสผ่าน - OpenSupports',
+              'กู้คืนรหัสผ่าน',
+              'สวัสดี, {{name}}. คุณได้ขอคืนรหัสผ่านของคุณแล้ว',
+              'ใช้รหัสนี้ใน {{url}}/recover-password?email={{to}}&token={{token}} หรือคลิกที่ปุ่มด้านล่าง',
               '{{token}}'
           ],
           'USER_SYSTEM_DISABLED' => [
-              'Access system changed - OpenSupports',
-              'Access system changed',
-              'Hello, {{name}}. The system to access tickets has changed.',
-              'You can access and see to your tickets by using your email and the ticket number.Click in the button below to see your tickets.',
+              'เปลี่ยนระบบการเข้าถึงแล้ว - OpenSupports',
+              'เปลี่ยนระบบการเข้าถึงแล้ว',
+              'สวัสดี, {{name}}. ระบบเพื่อเข้าถึงคำร้องมีการเปลี่ยนแปลงแล้ว',
+              'คุณสามารถเข้าถึงและดูคำร้องได้โดยใช้อีเมลและหมายเลขคำร้อง คลิกที่ปุ่มด้านล่างเพื่อดูคำร้องของคุณ',
               '{{tickets}}'
           ],
           'USER_SYSTEM_ENABLED' => [
-              'Account created - OpenSupports',
-              'Account created',
-              'Hello, {{name}}. We have created an account where you can access the tickets you have sent us.',
-              'You can access your account by using this email <i>({{to}})</i> and password below.Please change the password as soon as you log in.',
+              'สร้างบัญชีแล้ว - OpenSupports',
+              'สร้างบัญชีแล้ว',
+              'สวัสดี, {{name}}. เราได้สร้างบัญชีที่คุณสามารถเข้าถึงคำร้อง ที่คุณส่งถึงเราได้แล้ว',
+              'คุณสามารถเข้าถึงบัญชีของคุณโดยใช้อีเมลนี้ <i>({{to}})</i> และรหัสผ่านด้านล่างกรุณาเปลี่ยนรหัสผ่านทันทีที่คุณเข้าสู่ระบบ',
               '{{password}}'
           ],
           'TICKET_CREATED' => [
-              '#{{ticketNumber}} Ticket created - OpenSupports',
-              'Ticket created',
-              'Hello, {{name}}. You have sent a new ticket titled <i>{{title}}</i> to our support center.',
-              'You can access to the ticket by its ticket number or you can click on the button below.',
+              '#{{ticketNumber}} สร้างคำร้องแล้ว - OpenSupports',
+              'คำร้องได้ถูกสร้างแล้ว',
+              'สวัสดี, {{name}}. คุณได้ส่งคำร้องใหม่ชื่อ <i>{{title}}</i> มายังศูนย์ช่วยเหลือของเรา',
+              'คุณสามารถเข้าถึงคำร้องโดยใช้หมายเลขคำร้องหรือคลิกที่ปุ่มด้านล่าง',
               '{{ticketNumber}}'
           ],
           'TICKET_RESPONDED' => [
-              '#{{ticketNumber}} New response - OpenSupports',
-              'Ticket responded',
-              'Hello, {{name}}. You have received a response in the ticket titled <i>{{title}}</i>.',
-              'Please click below to see the new response.'
+              '#{{ticketNumber}} คำตอบใหม่ - OpenSupports',
+              'คำตอบใหม่',
+              'สวัสดี, {{name}}. คุณได้รับการตอบกลับในคำร้องที่ชื่อ <i>{{title}}</i>.',
+              'โปรดคลิกที่ด้านล่างเพื่อดูการตอบกลับใหม่'
           ],
           'TICKET_CLOSED' => [
-             '#{{ticketNumber}} Ticket closed - OpenSupports',
-              'Ticket closed',
-              'Hello, {{name}}. A ticket you sent titled <i>{{title}}</i> has been closed.',
-              'You can access to the ticket by its ticket number. Or you can click on the button below.'
+             '#{{ticketNumber}} ปิดคำร้องแล้ว - OpenSupports',
+              'ปิดคำร้องแล้ว',
+              'สวัสดี, {{name}}. คำร้องที่คุณส่งในชื่อ <i>{{title}}</i> ถูกปิดแล้ว',
+              'คุณสามารถเข้าถึงคำร้องได้ตามหมายเลขคำร้อง หรือคุณสามารถคลิกที่ปุ่มด้านล่าง'
           ],
           'TICKET_CREATED_STAFF' => [
-              '#{{ticketNumber}} Ticket created - OpenSupports',
-              'Ticket created',
-              'User {{name}} has created a new ticket titled <i>{{title}}</i>.',
-              'You can access to the ticket by its ticket number.',
+              '#{{ticketNumber}} สร้างคำร้องแล้ว - OpenSupports',
+              'สร้างคำร้องแล้ว',
+              'ผู้ใช้ {{name}} ได้สร้างคำร้องใหม่ในชื่อ <i>{{title}}</i>.',
+              'คุณสามารถเข้าถึงคำร้องได้ตามหมายเลขคำร้อง',
               '{{ticketNumber}}'
           ],
         ],
