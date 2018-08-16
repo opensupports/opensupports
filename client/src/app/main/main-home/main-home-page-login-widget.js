@@ -66,7 +66,7 @@ class MainHomePageLoginWidget extends React.Component {
 
     renderPasswordRecovery() {
         return (
-            <PasswordRecovery recoverSent={this.state.recoverSent} formProps={this.getRecoverFormProps()} onBackToLoginClick={this.onBackToLoginClick.bind(this)}/>
+            <PasswordRecovery ref="passwordRecovery" recoverSent={this.state.recoverSent} formProps={this.getRecoverFormProps()} onBackToLoginClick={this.onBackToLoginClick.bind(this)}/>
         );
     }
 
@@ -174,9 +174,7 @@ class MainHomePageLoginWidget extends React.Component {
             recoverFormErrors: {
                 email: i18n('EMAIL_NOT_EXIST')
             }
-        }, function () {
-            this.refs.recoverForm.refs.email.focus();
-        }.bind(this));
+        }, () => this.refs.passwordRecovery.focusEmail());
     }
 }
 
