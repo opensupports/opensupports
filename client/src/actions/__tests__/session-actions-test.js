@@ -1,7 +1,9 @@
 const sessionStoreMock = require('lib-app/__mocks__/session-store-mock');
 const APICallMock = require('lib-app/__mocks__/api-call-mock');
 const storeMock = {
-    dispatch: stub()
+    dispatch: stub().returns({
+        then: stub()
+    })
 };
 
 const SessionActions = requireUnit('actions/session-actions', {

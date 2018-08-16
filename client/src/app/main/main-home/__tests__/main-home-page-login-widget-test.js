@@ -9,7 +9,7 @@ const Checkbox = ReactMock();
 const Message = ReactMock();
 const Widget = ReactMock();
 const WidgetTransition = ReactMock();
-const PasswordRecovery = ReactMock();
+const PasswordRecovery = ReactMock({ focusEmail: stub() });
 
 const MainHomePageLoginWidget = requireUnit('app/main/main-home/main-home-page-login-widget', {
     'react-redux': ReduxMock,
@@ -35,7 +35,6 @@ describe('Login/Recover Widget', function () {
         let dispatch = stub();
 
         function renderComponent(props = {session: {pending: false, failed: false}}) {
-
             component = reRenderIntoDocument(
                 <MainHomePageLoginWidget dispatch={dispatch} {...props}/>
             );
@@ -53,6 +52,9 @@ describe('Login/Recover Widget', function () {
                         focus: stub()
                     }
                 }
+            };
+            component.refs.passwordRecovery = {
+                focusEmail: stub()
             };
         }
 
@@ -142,33 +144,17 @@ describe('Login/Recover Widget', function () {
             let mockSubmitData = {email: 'MOCK_VALUE'};
 
             recoverPassword.props.formProps.onSubmit(mockSubmitData);
-            expect(recoverForm.props.formProps.loading).to.equal(true);
+            expect(recoverPassword.props.formProps.loading).to.equal(true);
         });
 
         it('should add error and stop loading when send recover fails', function () {
-            component.refs.recoverPassword.refs.email.focus.reset();
-
             component.onRecoverPasswordFail();
-            expect(recoverForm.props.errors).to.deep.equal({email: 'EMAIL_NOT_EXIST'});
-            expect(recoverForm.props.loading).to.equal(false);
-            expect(component.refs.recoverForm.refs.email.focus).to.have.been.called;
-        });
-
-        it('should show message when send recover success', function () {
-            let message = TestUtils.scryRenderedComponentsWithType(component, Message)[0];
-            expect(message).to.equal(undefined);
-
-            component.onRecoverPasswordSent();
-            message = TestUtils.scryRenderedComponentsWithType(component, Message)[0];
-
-            expect(recoverForm.props.loading).to.equal(false);
-            expect(message).to.not.equal(null);
-            expect(message.props.type).to.equal('info');
-            expect(message.props.children).to.equal('RECOVER_SENT');
+            expect(recoverPassword.props.formProps.errors).to.deep.equal({email: 'EMAIL_NOT_EXIST'});
+            expect(recoverPassword.props.formProps.loading).to.equal(false);
         });
 
         it('should show front side if \'Back to login form\' link is clicked', function () {
-            backToLoginButton.props.onClick();
+            component.onBackToLoginClick();
             expect(widgetTransition.props.sideToShow).to.equal('front');
         });
     });
