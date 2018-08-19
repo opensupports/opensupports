@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /user/login Login
- * @apiVersion 4.1.0
+ * @apiVersion 4.2.0
  *
  * @apiName Login
  *

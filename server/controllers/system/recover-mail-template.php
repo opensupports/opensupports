@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/recover-mail-template Recover mail template
- * @apiVersion 4.1.0
+ * @apiVersion 4.2.0
  *
  * @apiName Recover mail template
  *
