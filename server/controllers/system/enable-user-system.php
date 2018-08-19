@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /system/enable-user-system Enable user system
- * @apiVersion 4.1.0
+ * @apiVersion 4.2.0
  *
  * @apiName Enable user system
  *

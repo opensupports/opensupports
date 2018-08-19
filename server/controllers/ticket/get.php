@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 /**
  * @api {post} /ticket/get Get ticket
- * @apiVersion 4.1.0
+ * @apiVersion 4.2.0
  *
  * @apiName Get ticket
  *
