@@ -36,7 +36,21 @@ class EditStaffController extends Controller {
     public function validations() {
         return [
             'permission' => 'staff_1',
-            'requestData' => []
+            'requestData' => [
+                'email' => [
+                    'validation' => DataValidator::oneOf(DataValidator::email(), DataValidator::falseVal()),
+                    'error' => ERRORS::INVALID_EMAIL
+                ],
+                'password' => [
+                    'validation' => DataValidator::oneOf(DataValidator::length(5, 200), DataValidator::falseVal()),
+                    'error' => ERRORS::INVALID_PASSWORD
+                ],
+                'level' => [
+                    'validation' => DataValidator::oneOf(DataValidator::between(1, 3, true), DataValidator::falseVal()),
+                    'error' => ERRORS::INVALID_LEVEL
+                ]
+
+            ]
         ];
     }
 
@@ -53,7 +67,7 @@ class EditStaffController extends Controller {
                 return;
             }
         } else {
-            Response::respondError(ERRORS::NO_PERMISSION);
+            Response::respondError($staffId);
             return;
         }
 
