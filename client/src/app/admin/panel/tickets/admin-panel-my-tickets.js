@@ -32,7 +32,7 @@ class AdminPanelMyTickets extends React.Component {
                 {(this.props.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketList {...this.getProps()}/>}
                 <div style={{textAlign: 'right', marginTop: 10}}>
                     <Button onClick={this.onCreateTicket.bind(this)} type="secondary" size="medium">
-                        <Icon size="sm" name="plus"/> Create ticket
+                        <Icon size="sm" name="plus"/> {i18n('CREATE_TICKET')}
                     </Button>
                 </div>
             </div>

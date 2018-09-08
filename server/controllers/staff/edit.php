@@ -67,7 +67,7 @@ class EditStaffController extends Controller {
                 return;
             }
         } else {
-            Response::respondError($staffId);
+            Response::respondError(ERRORS::NO_PERMISSION);
             return;
         }
 

@@ -182,6 +182,7 @@ export default {
     'UPDATE': '更新',
     'NEVER': '从来没有',
     'HIMSELF': '他自己',
+    'ADD_USER': '添加用户',
 
     'CHART_CREATE_TICKET': '已創建門票',
     'CHART_CLOSE': '門票已關閉',

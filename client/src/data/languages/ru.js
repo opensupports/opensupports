@@ -182,6 +182,7 @@ export default {
     'UPDATE': 'Обновить',
     'NEVER': 'Никогда',
     'HIMSELF': 'сам',
+    'ADD_USER': 'Добавить пользователя',
 
     'CHART_CREATE_TICKET': 'Билеты создано',
     'CHART_CLOSE': ' Билеты закрыты',

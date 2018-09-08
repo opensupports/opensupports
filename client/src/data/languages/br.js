@@ -181,6 +181,8 @@ export default {
     'UPDATE': 'Atualizar',
     'NEVER': 'Nunca',
     'HIMSELF': 'ele mesmo',
+    'ADD_USER': 'Adicionar usuário',
+
 
     'CHART_CREATE_TICKET': 'Chamados criados',
     'CHART_CLOSE': 'Chamados fechados',

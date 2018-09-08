@@ -182,6 +182,7 @@ export default {
     'UPDATE': 'Update',
     'NEVER': 'Nooit',
     'HIMSELF': 'zichzelf',
+    'ADD_USER': 'Voeg gebruiker toe',
 
     'CHART_CREATE_TICKET': 'Aangemaakte incidenten',
     'CHART_CLOSE': 'Gesloten incidenten',

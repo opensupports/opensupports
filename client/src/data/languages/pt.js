@@ -182,6 +182,7 @@ export default {
     'UPDATE': 'Actualizar',
     'NEVER': 'Nunca',
     'HIMSELF': 'ele mesmo',
+    'ADD_USER': 'Adicionar usuário',
 
     'CHART_CREATE_TICKET': 'Ingressos criados',
     'CHART_CLOSE': 'Ingressos fechados',

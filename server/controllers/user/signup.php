@@ -97,7 +97,7 @@ class SignUpController extends Controller {
             throw new Exception(ERRORS::ALREADY_BANNED);
         }
 
-        if (!Setting::getSetting('registration')->value && $apiKey->isNull() && !$this->csvImported) {
+        if (!Setting::getSetting('registration')->value && $apiKey->isNull() && !Controller::isStaffLogged(2) && !$this->csvImported) {
             throw new Exception(ERRORS::NO_PERMISSION);
         }
 

@@ -182,6 +182,7 @@ export default {
     'UPDATE': 'अद्यतन',
     'NEVER': 'कभी नहीँ',
     'HIMSELF': 'स्वयं',
+    'ADD_USER': 'उपयोगकर्ता जोड़ें',
 
     'CHART_CREATE_TICKET': 'टिकट बनाया',
     'CHART_CLOSE': 'टिकट बंद कर दिया',

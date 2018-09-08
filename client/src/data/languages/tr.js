@@ -182,6 +182,7 @@ export default {
     'UPDATE': 'Güncelleştirme',
     'NEVER': 'Asla',
     'HIMSELF': 'kendisi',
+    'ADD_USER': 'Kullanıcı Ekle',
 
     'CHART_CREATE_TICKET': 'Biletler oluşturuldu',
     'CHART_CLOSE': 'Biletler kapandı',
