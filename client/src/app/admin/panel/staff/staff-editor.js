@@ -331,7 +331,7 @@ class StaffEditor extends React.Component {
             path: '/staff/edit',
             dataAsForm: true,
             data: {
-                staffId: this.props.staffId,
+                staffId: (!this.props.myAcount) ? this.props.staffId : null,
                 file: event.target.files[0]
             }
         }).then(() => {
