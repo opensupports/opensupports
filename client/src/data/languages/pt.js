@@ -182,6 +182,8 @@ export default {
     'UPDATE': 'Actualizar',
     'NEVER': 'Nunca',
     'HIMSELF': 'ele mesmo',
+    'ADD_USER': 'Adicionar usuário',
+    'UPLOAD_FILE': 'Subir arquivo',
 
     'CHART_CREATE_TICKET': 'Ingressos criados',
     'CHART_CLOSE': 'Ingressos fechados',

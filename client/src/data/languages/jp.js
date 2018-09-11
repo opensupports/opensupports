@@ -182,6 +182,8 @@ export default {
     'UPDATE': '更新',
     'NEVER': '決して',
     'HIMSELF': '彼自身',
+    'ADD_USER': 'ユーザーを追加する',
+    'UPLOAD_FILE': 'ファイルをアップロードする',
 
     'CHART_CREATE_TICKET': '作成されたチケット',
     'CHART_CLOSE': 'チケットが閉じられました',

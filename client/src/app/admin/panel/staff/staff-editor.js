@@ -290,7 +290,7 @@ class StaffEditor extends React.Component {
         API.call({
             path: '/staff/edit',
             data: {
-                staffId: this.props.staffId,
+                staffId: (!this.props.myAccount) ? this.props.staffId : null,
                 sendEmailOnNewTicket: (eventType === 'SEND_EMAIL_ON_NEW_TICKET') ? form.sendEmailOnNewTicket * 1 : null,
                 email: (eventType === 'EMAIL') ? form.email : null,
                 password: (eventType === 'PASSWORD') ? form.password : null,
@@ -331,7 +331,7 @@ class StaffEditor extends React.Component {
             path: '/staff/edit',
             dataAsForm: true,
             data: {
-                staffId: this.props.staffId,
+                staffId: (!this.props.myAcount) ? this.props.staffId : null,
                 file: event.target.files[0]
             }
         }).then(() => {

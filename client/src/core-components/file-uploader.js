@@ -3,6 +3,8 @@ import React from 'react';
 import Button from 'core-components/button';
 import Icon from 'core-components/icon';
 
+import i18n from 'lib-app/i18n';
+
 class FileUploader extends React.Component {
     static propTypes = {
         text: React.PropTypes.string,
@@ -11,7 +13,7 @@ class FileUploader extends React.Component {
     };
 
     static defaultProps = {
-        text: 'Upload file'
+        text: i18n('UPLOAD_FILE')
     };
 
     render() {
