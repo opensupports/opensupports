@@ -183,6 +183,7 @@ export default {
     'NEVER': 'Nooit',
     'HIMSELF': 'zichzelf',
     'ADD_USER': 'Voeg gebruiker toe',
+    'UPLOAD_FILE': 'Upload bestand',
 
     'CHART_CREATE_TICKET': 'Aangemaakte incidenten',
     'CHART_CLOSE': 'Gesloten incidenten',

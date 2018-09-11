@@ -9,6 +9,8 @@ import Table from 'core-components/table';
 import SearchBox from 'core-components/search-box';
 import Button from 'core-components/button';
 import Message from 'core-components/message';
+import Icon from 'core-components/icon';
+import ModalContainer from 'app-components/modal-container';
 import MainSignUpWidget from 'app/main/main-signup/main-signup-widget';
 
 class AdminPanelListUsers extends React.Component {
@@ -160,7 +162,7 @@ class AdminPanelListUsers extends React.Component {
             <div className="admin-panel-list-users__add-user-form">
                 <MainSignUpWidget onSuccess={this.onCreateUserSuccess.bind(this)} />
                 <div style={{textAlign: 'center'}}>
-                    <Button onClick={ModalContainer.closeModal} type="link">Please use i18n('CLOSE')</Button>
+                    <Button onClick={ModalContainer.closeModal} type="link">{i18n('CLOSE')}</Button>
                 </div>
             </div>
         );

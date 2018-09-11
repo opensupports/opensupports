@@ -55,7 +55,7 @@ class AdminPanelMyTickets extends React.Component {
             <div>
                 <CreateTicketForm onSuccess={this.onCreateTicketSuccess.bind(this)} />
                 <div style={{textAlign: 'center'}}>
-                    <Button onClick={ModalContainer.closeModal} type="link">Close</Button>
+                    <Button onClick={ModalContainer.closeModal} type="link">{i18n('CLOSE')}</Button>
                 </div>
             </div>
         );

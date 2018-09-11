@@ -183,6 +183,7 @@ export default {
     'NEVER': 'कभी नहीँ',
     'HIMSELF': 'स्वयं',
     'ADD_USER': 'उपयोगकर्ता जोड़ें',
+    'UPLOAD_FILE': 'दस्तावेज अपलोड करें',
 
     'CHART_CREATE_TICKET': 'टिकट बनाया',
     'CHART_CLOSE': 'टिकट बंद कर दिया',

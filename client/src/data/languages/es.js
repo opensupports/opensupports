@@ -183,6 +183,7 @@ export default {
     'NEVER': 'Nunca',
     'HIMSELF': 'si mismo',
     'ADD_USER': 'Añadir un usuario',
+    'UPLOAD_FILE': 'Subir archivo',
 
     'CHART_CREATE_TICKET': 'Tickets creados',
     'CHART_CLOSE': 'Tickets cerrados',
