@@ -105,11 +105,14 @@ class CommentController extends Controller {
     }
 
     private function storeComment() {
+        $fileUploader = FileUploader::getInstance();
+        $fileUploader->setPermission(FileManager::PERMISSION_TICKET, $this->ticket->ticketNumber);
+        $imagePaths = $this->uploadImages();
         $fileUploader = $this->uploadFile();
 
         $comment = Ticketevent::getEvent(Ticketevent::COMMENT);
         $comment->setProperties(array(
-            'content' => $this->content,
+            'content' => $this->replaceWithImagePaths($imagePaths, $this->content),
             'file' => ($fileUploader instanceof FileUploader) ? $fileUploader->getFileName() : null,
             'date' => Date::getCurrentDate()
         ));

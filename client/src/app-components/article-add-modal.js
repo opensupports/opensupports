@@ -1,4 +1,6 @@
 import React from 'react';
+import _ from 'lodash';
+import {connect} from 'react-redux';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -9,12 +11,14 @@ import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
 import Button from 'core-components/button';
+import TextEditor from 'core-components/text-editor';
 
 class ArticleAddModal extends React.Component {
     static propTypes = {
         topicId: React.PropTypes.number.isRequired,
         topicName: React.PropTypes.string.isRequired,
-        position: React.PropTypes.number.isRequired
+        position: React.PropTypes.number.isRequired,
+        allowAttachments: React.PropTypes.bool
     };
 
     state = {
@@ -27,7 +31,7 @@ class ArticleAddModal extends React.Component {
                 <Header title={i18n('ADD_ARTICLE')} description={i18n('ADD_ARTICLE_DESCRIPTION', {category: this.props.topicName})} />
                 <Form onSubmit={this.onAddNewArticleFormSubmit.bind(this)} loading={this.state.loading}>
                     <FormField name="title" label={i18n('TITLE')} field="input" fieldProps={{size: 'large'}} validation="TITLE" required/>
-                    <FormField name="content" label={i18n('CONTENT')} field="textarea" validation="TEXT_AREA" required/>
+                    <FormField name="content" label={i18n('CONTENT')} field="textarea" validation="TEXT_AREA" required fieldProps={{allowImages: this.props.allowAttachments}}/>
                     <SubmitButton type="secondary">{i18n('ADD_ARTICLE')}</SubmitButton>
                     <Button className="article-add-modal__cancel-button" type="link" onClick={(event) => {
                         event.preventDefault();
@@ -45,12 +49,12 @@ class ArticleAddModal extends React.Component {
 
         API.call({
             path: '/article/add',
-            data: {
+            dataAsForm: true,
+            data: _.extend(TextEditor.getContentFormData(form.content), {
                 title: form.title,
-                content: form.content,
                 topicId: this.props.topicId,
                 position: this.props.position
-            }
+            })
         }).then(() => {
             ModalContainer.closeModal();
 
@@ -64,5 +68,8 @@ class ArticleAddModal extends React.Component {
         });
     }
 }
-
-export default ArticleAddModal;
+export default connect((store) => {
+    return {
+        allowAttachments: store.config['allow-attachments']
+    };
+})(ArticleAddModal);

@@ -19,7 +19,7 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} content The new content of the article. Optional.
  * @apiParam {String} title The new title of the article. Optional.
  * @apiParam {Number} position The new position of the article. Optional.
- * 
+ *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TOPIC
  *
@@ -58,7 +58,13 @@ class EditArticleController extends Controller {
         }
 
         if(Controller::request('content')) {
-            $article->content = Controller::request('content', true);
+            $fileUploader = FileUploader::getInstance();
+            $fileUploader->setPermission(FileManager::PERMISSION_ARTICLE);
+
+            $content = Controller::request('content', true);
+            $imagePaths = $this->uploadImages();
+
+            $article->content = $this->replaceWithImagePaths($imagePaths, $content);
         }
 
         if(Controller::request('title')) {

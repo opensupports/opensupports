@@ -196,6 +196,7 @@ class Ticket extends DataStore {
 
     public function isAuthor($user) {
         $ticketAuthor = $this->authorToArray();
+        if(is_string($user)) return $user == $ticketAuthor['email'];
         return $user->id == $ticketAuthor['id'] && ($user instanceof Staff) == $ticketAuthor['staff'];
     }
 

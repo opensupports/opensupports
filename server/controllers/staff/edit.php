@@ -100,6 +100,9 @@ class EditStaffController extends Controller {
             }
         }
 
+        $fileUploader = FileUploader::getInstance();
+        $fileUploader->setPermission(FileManager::PERMISSION_PROFILE);
+
         if($fileUploader = $this->uploadFile(true)) {
             $this->staffInstance->profilePic = ($fileUploader instanceof FileUploader) ? $fileUploader->getFileName() : null;
         }

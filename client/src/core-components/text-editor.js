@@ -1,62 +1,64 @@
 import React from 'react';
 import classNames from 'classnames';
-import {Editor} from 'react-draft-wysiwyg';
-import {EditorState, ContentState, convertToRaw} from 'draft-js';
-import draftToHtml from 'draftjs-to-html';
-import htmlToDraft from 'html-to-draftjs';
+import ReactQuill, { Quill } from 'react-quill';
+import ImageResize from 'quill-image-resize-module-react';
 
 import {isIE} from 'lib-core/navigator';
+import Base64ImageParser from 'lib-core/base64-image-parser';
+
+Quill.register('modules/ImageResize', ImageResize);
 
 class TextEditor extends React.Component {
     static propTypes = {
         errored: React.PropTypes.bool,
         onChange: React.PropTypes.func,
-        value: React.PropTypes.oneOfType([
-            React.PropTypes.object, React.PropTypes.string
-        ])
+        value: React.PropTypes.string,
+        allowImages: React.PropTypes.bool
     };
 
     static createEmpty() {
-        if(isIE()) return '';
-        return EditorState.createEmpty();
+        return '';
     }
 
     static getEditorStateFromHTML(htmlString) {
-        if(isIE()) return htmlString;
-        const blocksFromHTML = htmlToDraft(htmlString);
-        const state = ContentState.createFromBlockArray(
-            blocksFromHTML.contentBlocks,
-            blocksFromHTML.entityMap
-        );
-
-        return EditorState.createWithContent(state);
+        return htmlString;
     }
 
     static getHTMLFromEditorState(editorState) {
-        if(isIE()) return editorState;
-        return draftToHtml(convertToRaw(editorState.getCurrentContent()));
+        return editorState;
     }
 
     static isEditorState(editorState) {
-        if(isIE()) return typeof editorState === 'String';
-        return editorState && editorState.getCurrentContent;
+        return typeof editorState === 'String';
+    }
+
+    static getContentFormData(content) {
+        const images = Base64ImageParser.getImagesSrc(content).map(Base64ImageParser.dataURLtoFile);
+        const contentFormData = {
+            'content': Base64ImageParser.removeImagesSrc(content),
+            'images': images.length,
+        };
+
+        images.forEach((image, index) => contentFormData[`image_${index}`] = image);
+
+        return contentFormData;
     }
 
     state = {
-        value: TextEditor.createEmpty(),
+        value: '',
         focused: false
     };
 
     render() {
         return (
             <div className={this.getClass()}>
-                {isIE() ? this.renderTextArea() : this.renderDraftJS()}
+                {isIE() ? this.renderTextArea() : this.renderQuill()}
             </div>
         );
     }
 
-    renderDraftJS() {
-        return <Editor {...this.getEditorProps()} />;
+    renderQuill() {
+        return <ReactQuill {...this.getEditorProps()} />
     }
 
     renderTextArea() {
@@ -67,7 +69,7 @@ class TextEditor extends React.Component {
               onFocus={this.onEditorFocus.bind(this)}
               onBlur={this.onBlur.bind(this)}
               ref="editor"
-              value={this.props.value || this.state.value}
+              value={this.props.value}
           />
         );
     }
@@ -87,46 +89,36 @@ class TextEditor extends React.Component {
 
     getEditorProps() {
         return {
-            wrapperClassName: 'text-editor__editor',
-            editorState: this.props.value || this.state.value,
-            ref: 'editor',
-            toolbar: this.getToolbarOptions(),
-            onEditorStateChange: this.onEditorChange.bind(this),
+            className: 'text-editor__editor',
+            value: (this.props.value !== undefined) ? this.props.value : this.state.value,
+            ref: "editor",
+            modules: this.getModulesOptions(),
+            onChange: this.onEditorChange.bind(this),
             onFocus: this.onEditorFocus.bind(this),
-            onBlur: this.onBlur.bind(this)
+            onBlur: this.onBlur.bind(this),
+            onKeyDown: (e) => { if(e.key == "Tab") { e.preventDefault(); e.stopPropagation(); }}
         };
     }
 
-    getToolbarOptions() {
+    getModulesOptions() {
         return {
-            options: ['inline', 'blockType', 'list', 'link', 'image', 'textAlign'],
-            inline: {
-                inDropdown: false,
-                options: ['bold', 'italic', 'underline', 'strikethrough', 'monospace']
+            toolbar: {
+                container: [
+                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                    [{ align: [] }],
+                    ['bold', 'italic', 'underline','strike', 'blockquote'],
+                    [{'list': 'ordered'}, {'list': 'bullet'}],
+                    ['blockquote', 'code-block' ],
+                    (this.props.allowImages) ? ['link', 'image'] : ['link']
+                ],
             },
-            blockType: {
-                inDropdown: true,
-                options: [ 'Normal', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'Blockquote']
-            },
-            list: {
-                inDropdown: false,
-                options: ['unordered', 'ordered']
-            },
-            image: {
-                urlEnabled: true,
-                uploadEnabled: false,
-                alignmentEnabled: false
-            },
-            textAlign: {
-                inDropdown: false,
-                options: ['left', 'center', 'right', 'justify'],
-            },
+            ImageResize: {parchment: Quill.import('parchment')},
         };
     }
 
     onEditorChange(value) {
         if(isIE()) value = value.target.value;
-        this.setState({value});
+        if(this.props.value === undefined) this.setState({value});
 
         if (this.props.onChange) {
             this.props.onChange({target: {value}});
@@ -151,11 +143,7 @@ class TextEditor extends React.Component {
 
     focus() {
         if (this.refs.editor) {
-            if(isIE()) {
-              this.refs.editor.focus();
-            } else {
-              this.refs.editor.focusEditor();
-            }
+            this.refs.editor.focus();
         }
     }
 }

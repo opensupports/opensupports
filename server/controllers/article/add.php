@@ -53,10 +53,16 @@ class AddArticleController extends Controller {
     }
 
     public function handler() {
+        $content = Controller::request('content', true);
+
+        $fileUploader = FileUploader::getInstance();
+        $fileUploader->setPermission(FileManager::PERMISSION_ARTICLE);
+        $imagePaths = $this->uploadImages();
+
         $article = new Article();
         $article->setProperties([
             'title' => Controller::request('title'),
-            'content' => Controller::request('content', true),
+            'content' => $this->replaceWithImagePaths($imagePaths, $content),
             'lastEdited' => Date::getCurrentDate(),
             'position' => Controller::request('position') || 1
         ]);

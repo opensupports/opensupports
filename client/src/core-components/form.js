@@ -160,13 +160,7 @@ class Form extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        const form = _.mapValues(this.getFormValue(), (field) => {
-            if (TextEditor.isEditorState(field)) {
-                return TextEditor.getHTMLFromEditorState(field);
-            } else {
-                return field;
-            }
-        });
+        const form = this.getFormValue();
 
         if (this.hasFormErrors()) {
             this.updateErrors(this.getAllFieldErrors(), this.focusFirstErrorField.bind(this));
@@ -180,10 +174,7 @@ class Form extends React.Component {
 
         form[fieldName] = event.target.value;
 
-        this.setState({
-            form: form
-        });
-
+        if(this.props.values === undefined) this.setState({form});
 
         if (this.props.onChange) {
             this.props.onChange(form);
@@ -213,7 +204,7 @@ class Form extends React.Component {
     }
 
     getFormValue() {
-        return this.props.values || this.state.form;
+        return (this.props.values !== undefined) ? this.props.values : this.state.form;
     }
 
     focusFirstErrorField() {

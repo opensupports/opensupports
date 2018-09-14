@@ -21,7 +21,7 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} email The email of the user who created the ticket.
  * @apiParam {String} name The Name of the author of the ticket.
  *
- * @apiUse NO_PERMISSION
+ * @apiUse NO_PERMISSION$ticketNumber
  * @apiUse INVALID_TITLE
  * @apiUse INVALID_CONTENT
  * @apiUse INVALID_DEPARTMENT
@@ -118,13 +118,17 @@ class CreateController extends Controller {
     private function storeTicket() {
         $department = Department::getDataStore($this->departmentId);
         $author = Controller::getLoggedUser();
+        $ticket = new Ticket();
 
+        $fileUploader = FileUploader::getInstance();
+        $fileUploader->setPermission(FileManager::PERMISSION_TICKET, $ticket->generateUniqueTicketNumber());
+
+        $imagePaths = $this->uploadImages();
         $fileUploader = $this->uploadFile();
 
-        $ticket = new Ticket();
         $ticket->setProperties(array(
             'title' => $this->title,
-            'content' => $this->content,
+            'content' => $this->replaceWithImagePaths($imagePaths, $this->content),
             'language' => $this->language,
             'department' => $department,
             'file' => ($fileUploader instanceof FileUploader) ? $fileUploader->getFileName() : null,

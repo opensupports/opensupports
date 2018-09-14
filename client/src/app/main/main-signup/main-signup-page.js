@@ -47,7 +47,7 @@ class MainSignUpPageWidget extends React.Component {
             </div>
         );
     }
-    
+
     renderMessage() {
         switch (this.state.message) {
             case 'success':
