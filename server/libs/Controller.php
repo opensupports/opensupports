@@ -147,6 +147,7 @@ abstract class Controller {
     }
 
     public function replaceWithImagePaths($imagePaths, $content) {
+        if(!is_array($imagePaths)) return $content;
         return str_replace(array_map(function($index) { return "IMAGE_PATH_$index"; }, array_keys($imagePaths)), $imagePaths, $content);
     }
 
