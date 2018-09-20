@@ -21,7 +21,7 @@ module.exports = [
                         'session-prefix': 'opensupports-z6ctpq2winvfhchX2_',
                         'maintenance-mode': false,
                         'allow-attachments': true,
-                        'max-size': 500,
+                        'max-size': 1,
                         'departments': [
                             {id: 1, name: 'Sales Support', owners: 2},
                             {id: 2, name: 'Technical Issues', owners: 5},

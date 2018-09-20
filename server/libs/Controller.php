@@ -109,6 +109,14 @@ abstract class Controller {
         $fileUploader = FileUploader::getInstance();
         $fileUploader->setMaxSize($maxSize);
 
+        $allImagesValidSize = true;
+
+        for($i=0;$i<$totalImages;$i++) {
+            $allImagesValidSize = $allImagesValidSize && $fileUploader->isSizeValid($_FILES["image_$i"]);
+        }
+
+        if(!$allImagesValidSize) throw new Exception(ERRORS::INVALID_FILE);
+
         $imagePaths = [];
         $url = Setting::getSetting('url')->getValue();
         for($i=0;$i<$totalImages;$i++) {

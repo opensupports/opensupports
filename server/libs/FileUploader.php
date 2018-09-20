@@ -1,7 +1,7 @@
 <?php
 
 class FileUploader extends FileManager {
-    private $maxSize = 1024;
+    private $maxSize = 1;
     private $linearCongruentialGenerator;
     private $linearCongruentialGeneratorOffset;
     private $fileName;
@@ -19,10 +19,14 @@ class FileUploader extends FileManager {
 
     private function __construct() {}
 
+    public function isSizeValid($file) {
+        return $file['size'] <= (1048576 * $this->maxSize);
+    }
+
     public function upload($file) {
         $this->setNewName($file['name']);
 
-        if($file['size'] > (1024 * $this->maxSize)) {
+        if(!$this->isSizeValid($file)) {
             return false;
         }
 

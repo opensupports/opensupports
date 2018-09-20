@@ -6,7 +6,6 @@ import {reactDFS, renderChildrenWithProps} from 'lib-core/react-dfs';
 import ValidationFactory from 'lib-app/validations/validator-factory';
 
 import FormField from 'core-components/form-field';
-import TextEditor from 'core-components/text-editor';
 
 class Form extends React.Component {
 

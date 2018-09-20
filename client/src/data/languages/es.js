@@ -346,6 +346,7 @@ export default {
     'WILL_RECOVER_EMAIL_TEMPLATE': 'Esta plantilla de correo electrónico se recuperará a su valor predeterminado en este idioma.',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'El archivo CSV se ha importado correctamente',
     'SUCCESS_DELETING_ALL_USERS': 'Los usuarios se han eliminado correctamente',
+    'ERROR_IMAGE_SIZE': 'Ninguna imagen puede tener un tamaño superior a {size} MB',
 
     'LAST_7_DAYS': 'Últimos 7 dias',
     'LAST_30_DAYS': 'Últimos 30 dias',

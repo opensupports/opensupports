@@ -321,6 +321,7 @@ export default {
     'INVALID_EMAIL_OR_TICKET_NUMBER': 'E-mail o numero di ticket non validi',
     'INVALID_FILE': 'File non valido',
     'ERRORS_FOUND': 'Trovati errori',
+    'ERROR_IMAGE_SIZE': 'Nessuna immagine può avere una dimensione superiore a {size} MB',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'È stato registrato con successo nel nostro sistema di supporto.',

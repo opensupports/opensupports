@@ -321,6 +321,7 @@ export default {
     'INVALID_EMAIL_OR_TICKET_NUMBER': '電子郵件或機票號無效',
     'INVALID_FILE': '無效文件',
     'ERRORS_FOUND': '發現錯誤',
+    'ERROR_IMAGE_SIZE': '没有图像的大小可以超过{size}MB',
 
     //MESSAGES
     'SIGNUP_SUCCESS': '您已在我們的支持系統中成功註冊',
