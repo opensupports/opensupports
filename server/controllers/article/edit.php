@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /article/edit Edit article
- * @apiVersion 4.2.0
+ * @apiVersion 4.3.0
  *
  * @apiName Edit a article
  *
@@ -19,9 +19,12 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} content The new content of the article. Optional.
  * @apiParam {String} title The new title of the article. Optional.
  * @apiParam {Number} position The new position of the article. Optional.
+ * @apiParam {Number} images The number of images in the content
+ * @apiParam image_i The image file of index `i` (mutiple params accepted)
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TOPIC
+ * @apiUse INVALID_FILE
  *
  * @apiSuccess {Object} data Empty object
  *
@@ -62,7 +65,7 @@ class EditArticleController extends Controller {
             $fileUploader->setPermission(FileManager::PERMISSION_ARTICLE);
 
             $content = Controller::request('content', true);
-            $imagePaths = $this->uploadImages();
+            $imagePaths = $this->uploadImages(true);
 
             $article->content = $this->replaceWithImagePaths($imagePaths, $content);
         }

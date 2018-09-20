@@ -95,11 +95,12 @@ abstract class Controller {
         return \Slim\Slim::getInstance();
     }
 
-    public function uploadImages() {
+    public function uploadImages($forceUpload = false) {
         $allowAttachments = Setting::getSetting('allow-attachments')->getValue();
         $totalImages = Controller::request('images') * 1;
 
-        if(!$totalImages || (!$allowAttachments && !$forceUpload)) return '';
+        if(!$allowAttachments && !$forceUpload) return [];
+        if(!$totalImages) return [];
 
         $maxSize = Setting::getSetting('max-size')->getValue();
         $fileGap = Setting::getSetting('file-gap')->getValue();
@@ -133,7 +134,8 @@ abstract class Controller {
     public function uploadFile($forceUpload = false) {
         $allowAttachments = Setting::getSetting('allow-attachments')->getValue();
 
-        if(!isset($_FILES['file']) || (!$allowAttachments && !$forceUpload)) return '';
+        if(!$allowAttachments && !$forceUpload) return '';
+        if(!isset($_FILES['file'])) return '';
 
         $maxSize = Setting::getSetting('max-size')->getValue();
         $fileGap = Setting::getSetting('file-gap')->getValue();

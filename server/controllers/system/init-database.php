@@ -4,7 +4,7 @@ use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {post} /system/init-database Init database
- * @apiVersion 4.2.0
+ * @apiVersion 4.3.0
  *
  * @apiName Init database
  *

@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/get-logs Get logs
- * @apiVersion 4.2.0
+ * @apiVersion 4.3.0
  *
  * @apiName Get logs
  *

@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/create Create ticket
- * @apiVersion 4.2.0
+ * @apiVersion 4.3.0
  *
  * @apiName Create ticket
  *
@@ -19,15 +19,18 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {Number} departmentId The id of the department of the current ticket.
  * @apiParam {String} language The language of the ticket.
  * @apiParam {String} email The email of the user who created the ticket.
- * @apiParam {String} name The Name of the author of the ticket.
+ * @apiParam {Number} images The number of images in the content
+ * @apiParam image_i The image file of index `i` (mutiple params accepted)
+ * @apiParam file The file you with to upload.
  *
- * @apiUse NO_PERMISSION$ticketNumber
+ * @apiUse NO_PERMISSION
  * @apiUse INVALID_TITLE
  * @apiUse INVALID_CONTENT
  * @apiUse INVALID_DEPARTMENT
  * @apiUse INVALID_LANGUAGE
  * @apiUse INVALID_CAPTCHA
  * @apiUse INVALID_EMAIL
+ * @apiUse INVALID_FILE
  *
  * @apiSuccess {Object} data Information of the new ticket
  * @apiSuccess {Number} data.ticketNumber Number of the new ticket
@@ -123,8 +126,8 @@ class CreateController extends Controller {
         $fileUploader = FileUploader::getInstance();
         $fileUploader->setPermission(FileManager::PERMISSION_TICKET, $ticket->generateUniqueTicketNumber());
 
-        $imagePaths = $this->uploadImages();
-        $fileUploader = $this->uploadFile();
+        $imagePaths = $this->uploadImages(Controller::isStaffLogged());
+        $fileUploader = $this->uploadFile(Controller::isStaffLogged());
 
         $ticket->setProperties(array(
             'title' => $this->title,

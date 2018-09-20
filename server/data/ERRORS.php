@@ -161,7 +161,7 @@
  */
 /**
  * @apiDefine INVALID_FILE
- * @apiError {String} INVALID_FILE The file is invalid.
+ * @apiError {String} INVALID_FILE The file is invalid or max size exceeded.
  */
 /**
  * @apiDefine DATABASE_CONNECTION
