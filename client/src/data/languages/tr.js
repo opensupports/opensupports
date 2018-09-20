@@ -182,6 +182,8 @@ export default {
     'UPDATE': 'Güncelleştirme',
     'NEVER': 'Asla',
     'HIMSELF': 'kendisi',
+    'ADD_USER': 'Kullanıcı Ekle',
+    'UPLOAD_FILE': 'Dosya yükleme',
 
     'CHART_CREATE_TICKET': 'Biletler oluşturuldu',
     'CHART_CLOSE': 'Biletler kapandı',
