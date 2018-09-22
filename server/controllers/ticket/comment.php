@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/comment Comment ticket
- * @apiVersion 4.2.0
+ * @apiVersion 4.3.0
  *
  * @apiName Comment ticket
  *
@@ -16,11 +16,15 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiParam {String} content Content of the comment.
  * @apiParam {Number} ticketNumber The number of the ticket to comment.
+ * @apiParam {Number} images The number of images in the content
+ * @apiParam image_i The image file of index `i` (mutiple params accepted)
+ * @apiParam file The file you with to upload.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_CONTENT
  * @apiUse INVALID_TICKET
  * @apiUse INVALID_TOKEN
+ * @apiUse INVALID_FILE
  *
  * @apiSuccess {Object} data Empty object
  *
@@ -105,11 +109,14 @@ class CommentController extends Controller {
     }
 
     private function storeComment() {
-        $fileUploader = $this->uploadFile();
+        $fileUploader = FileUploader::getInstance();
+        $fileUploader->setPermission(FileManager::PERMISSION_TICKET, $this->ticket->ticketNumber);
+        $imagePaths = $this->uploadImages(Controller::isStaffLogged());
+        $fileUploader = $this->uploadFile(Controller::isStaffLogged());
 
         $comment = Ticketevent::getEvent(Ticketevent::COMMENT);
         $comment->setProperties(array(
-            'content' => $this->content,
+            'content' => $this->replaceWithImagePaths($imagePaths, $this->content),
             'file' => ($fileUploader instanceof FileUploader) ? $fileUploader->getFileName() : null,
             'date' => Date::getCurrentDate()
         ));

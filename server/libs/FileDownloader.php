@@ -51,4 +51,32 @@ class FileDownloader extends FileManager {
           array_key_exists($fileExtension, $contentTypes) ? $fileExtension : 'default'
       ];
     }
+
+    public function getFilePermission() {
+        if(!strlen($this->getFileName())) return NULL;
+        $indicator = $this->getFileName()[0];
+
+        if($indicator === 'a') {
+            return FileManager::PERMISSION_ARTICLE;
+        } else if($indicator === 't') {
+            return FileManager::PERMISSION_TICKET;
+        } else if($indicator === 'p') {
+            return FileManager::PERMISSION_PROFILE;
+        }
+
+        return NULL;
+    }
+
+    public function getTicketNumber() {
+        $fileName = $this->getFileName();
+        if(strlen($fileName) < 2) return NULL;
+        $ticketNumber = 0;
+
+        for($i=1; $fileName[$i] !== '_'; $i++) {
+            $ticketNumber *= 10;
+            $ticketNumber += $fileName[$i];
+        }
+
+        return $ticketNumber;
+    }
 }

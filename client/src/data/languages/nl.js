@@ -324,6 +324,7 @@ export default {
     'INVALID_EMAIL_OR_TICKET_NUMBER': 'Ongeldig e-mailadres of incidentnummer',
     'INVALID_FILE': 'Ongeldig bestand',
     'ERRORS_FOUND': 'Er is een fout opgetreden',
+    'ERROR_IMAGE_SIZE': 'Geen enkele afbeelding kan groter zijn dan {size} MB',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'U hebt zich succesvol geregistreerd in ons ondersteuningssysteem.',

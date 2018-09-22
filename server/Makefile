@@ -37,3 +37,6 @@ db:
 
 sh:
 	@docker exec -it opensupports-srv bash
+
+doc:
+	@apidoc -i models/ -i data/ -i libs/ -i controllers/ -o apidoc/

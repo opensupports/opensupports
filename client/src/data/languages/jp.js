@@ -323,6 +323,7 @@ export default {
     'INVALID_EMAIL_OR_TICKET_NUMBER': '電子メールまたはチケット番号が無効です',
     'INVALID_FILE': '無効なファイル',
     'ERRORS_FOUND': 'エラーが見つかりました',
+    'ERROR_IMAGE_SIZE': 'イメージのサイズが{size} MBを超えることはできません',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'あなたは私たちのサポートシステムに正常に登録しました。',

@@ -56,6 +56,7 @@ Just as there is a `gulp dev` task for development, there is also a `gulp prod` 
 - `make db` access to mysql database console
 - `make sh` access to backend docker container bash
 - `make test` run phpunit tests
+- `make doc` to build the documentation (requires `apidoc`)
 
 Server api runs on `http://localhost:8080/`
 Also, there's a *phpmyadmin* instance running on `http://localhost:6060/`,

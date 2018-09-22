@@ -2,7 +2,7 @@ import React from 'react'
 import {Motion, spring} from 'react-motion';
 
 class Tooltip extends React.Component {
-    
+
     static propTypes = {
         children: React.PropTypes.node,
         content: React.PropTypes.node,

@@ -322,6 +322,7 @@ export default {
     'INVALID_EMAIL_OR_TICKET_NUMBER': 'Неправильный номер эл. Почты или номера билета.',
     'INVALID_FILE': 'неверный файл',
     'ERRORS_FOUND': 'Ошибки найдены',
+    'ERROR_IMAGE_SIZE': 'Изображение не может иметь размер больше {size} МБ',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'Вы успешно зарегистрировались в нашей системе поддержки.',

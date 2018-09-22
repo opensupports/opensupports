@@ -22,7 +22,8 @@ class AdminPanelViewArticle extends React.Component {
 
     static propTypes = {
         topics: React.PropTypes.array,
-        loading: React.PropTypes.bool
+        loading: React.PropTypes.bool,
+        allowAttachments: React.PropTypes.bool
     };
 
     static defaultProps = {
@@ -95,7 +96,7 @@ class AdminPanelViewArticle extends React.Component {
                     </Button>
                 </div>
                 <FormField name="title" label={i18n('TITLE')} />
-                <FormField name="content" label={i18n('CONTENT')} field="textarea" />
+                <FormField name="content" label={i18n('CONTENT')} field="textarea" fieldProps={{allowImages: this.props.allowAttachments}}/>
             </Form>
         );
     }
@@ -129,11 +130,11 @@ class AdminPanelViewArticle extends React.Component {
     onFormSubmit(form) {
         API.call({
             path: '/article/edit',
-            data: {
+            dataAsForm: true,
+            data: _.extend(TextEditor.getContentFormData(form.content), {
                 articleId: this.findArticle().id,
-                title: form.title,
-                content: form.content
-            }
+                title: form.title
+            })
         }).then(() => {
             this.props.dispatch(ArticlesActions.retrieveArticles());
             this.setState({
@@ -162,6 +163,7 @@ class AdminPanelViewArticle extends React.Component {
 
 export default connect((store) => {
     return {
+        allowAttachments: store.config['allow-attachments'],
         topics: store.articles.topics,
         loading: store.articles.loading
     };

@@ -323,6 +323,7 @@ export default {
     'INVALID_EMAIL_OR_TICKET_NUMBER': 'Geçersiz e-posta veya bilet numarası',
     'INVALID_FILE': 'geçersiz dosya',
     'ERRORS_FOUND': 'Hatalar bulundu',
+    'ERROR_IMAGE_SIZE': 'Hiçbir resmin boyutu {size} MB\'den büyük olabilir',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'Destek sistemimize başarılı bir şekilde kayıt oldunuz.',

@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /system/init-settings Init settings
- * @apiVersion 4.2.0
+ * @apiVersion 4.3.0
  *
  * @apiName Init settings
  *
@@ -77,7 +77,7 @@ class InitSettingsController extends Controller {
             'maintenance-mode' => 0,
             'layout' => 'boxed',
             'allow-attachments' => !!Controller::request('allow-attachments'),
-            'max-size' => 1024,
+            'max-size' => 1,
             'title' => Controller::request('title') ? Controller::request('title') : 'Support Center',
             'url' => Controller::request('url')  ? Controller::request('url') : ('http://' . $_SERVER['HTTP_HOST']),
             'registration' => !!Controller::request('registration'),

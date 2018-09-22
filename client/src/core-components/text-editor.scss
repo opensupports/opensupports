@@ -7,13 +7,8 @@
         border: 1px solid $grey;
         border-radius: 3px;
 
-        .DraftEditor-root {
-            height: 200px;
-            padding-left: 10px;
-        }
-
-        .public-DraftEditor-content {
-            height: 185px;
+        .ql-container {
+            min-height: 200px;
         }
     }
 

@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Ticket Ticket
- * @apiVersion 4.2.0
+ * @apiVersion 4.3.0
  * @apiGroup Data Structures
  * @apiParam {Number}  ticketNumber The number of the ticket.
  * @apiParam {String}  title The title of the ticket.
@@ -196,6 +196,7 @@ class Ticket extends DataStore {
 
     public function isAuthor($user) {
         $ticketAuthor = $this->authorToArray();
+        if(is_string($user)) return $user == $ticketAuthor['email'];
         return $user->id == $ticketAuthor['id'] && ($user instanceof Staff) == $ticketAuthor['staff'];
     }
 

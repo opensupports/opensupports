@@ -323,6 +323,7 @@ export default {
     'INVALID_EMAIL_OR_TICKET_NUMBER': 'अमान्य ईमेल या टिकट नंबर',
     'INVALID_FILE': 'अवैध फाइल',
     'ERRORS_FOUND': 'त्रुटियां मिलीं',
+    'ERROR_IMAGE_SIZE': 'कोई छवि {size} एमबी से अधिक आकार नहीं हो सकती है',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'आप हमारे समर्थन प्रणाली में सफलतापूर्वक दर्ज कर लिया है।',

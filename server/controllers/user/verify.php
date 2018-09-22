@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /user/verify Verify email
- * @apiVersion 4.2.0
+ * @apiVersion 4.3.0
  *
  * @apiName Verify email
  *

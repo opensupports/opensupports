@@ -1,6 +1,6 @@
 import React              from 'react';
 import _                  from 'lodash';
-import {connect} from 'react-redux';
+import {connect}          from 'react-redux';
 
 import history            from 'lib-app/history';
 import i18n               from 'lib-app/i18n';
@@ -57,7 +57,13 @@ class CreateTicketForm extends React.Component {
                             size: 'medium'
                         }}/>
                     </div>
-                    <FormField label={i18n('CONTENT')} name="content" validation="TEXT_AREA" required field="textarea" />
+                    <FormField
+                        label={i18n('CONTENT')}
+                        name="content"
+                        validation="TEXT_AREA"
+                        fieldProps={{allowImages: this.props.allowAttachments}}
+                        required
+                        field="textarea" />
                     {(this.props.allowAttachments) ? this.renderFileUpload() : null}
                     {(!this.props.userLogged) ? this.renderCaptcha() : null}
                     <SubmitButton>{i18n('CREATE_TICKET')}</SubmitButton>
@@ -125,7 +131,7 @@ class CreateTicketForm extends React.Component {
             API.call({
                 path: '/ticket/create',
                 dataAsForm: true,
-                data: _.extend({}, formState, {
+                data: _.extend({}, formState, TextEditor.getContentFormData(formState.content), {
                     captcha: captcha && captcha.getValue(),
                     departmentId: SessionStore.getDepartments()[formState.departmentIndex].id
                 })
