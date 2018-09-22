@@ -72,7 +72,7 @@ class CreateController extends Controller {
             ]
         ];
 
-        if(!Controller::isUserSystemEnabled()) {
+        if(!Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) {
             $validations['permission'] = 'any';
             $validations['requestData']['captcha'] = [
                 'validation' => DataValidator::captcha(),

@@ -75,4 +75,4 @@ class MainSignUpPage extends React.Component {
     }
 }
 
-export default MainSignUpPageWidget;
+export default MainSignUpPage;
