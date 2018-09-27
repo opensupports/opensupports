@@ -21,18 +21,12 @@ class AdminPanelViewUser extends React.Component {
         verified: true,
         tickets: [],
         invalid: false,
-        loading: true
+        loading: true,
+        disabled: false
     };
 
     componentDidMount() {
-        API.call({
-            path: '/user/get-user',
-            data: {
-                userId: this.props.params.userId
-            }
-        }).then(this.onUserRetrieved.bind(this)).catch(() => this.setState({
-            invalid: true
-        }));
+        this.retrieveUser();
     }
 
     render() {
@@ -43,7 +37,7 @@ class AdminPanelViewUser extends React.Component {
             </div>
         );
     }
-    
+
     renderInvalid() {
         return (
             <div className="admin-panel-view-user__invalid">
@@ -51,7 +45,7 @@ class AdminPanelViewUser extends React.Component {
             </div>
         );
     }
-    
+
     renderUserInfo() {
         return (
             <div className="admin-panel-view-user__content">
@@ -60,6 +54,7 @@ class AdminPanelViewUser extends React.Component {
                         {i18n('NAME')}
                         <div className="admin-panel-view-user__info-box">
                             {this.state.name}
+                            {(this.state.disabled) ? this.renderDisabled() : null}
                         </div>
                     </div>
                     <div className="admin-panel-view-user__info-item">
@@ -69,8 +64,17 @@ class AdminPanelViewUser extends React.Component {
                             {(!this.state.verified) ? this.renderNotVerified() : null}
                         </div>
                     </div>
-                    <div className="admin-panel-view-user__delete-button">
-                        <Button onClick={this.onDeleteClick.bind(this)} size="medium">{i18n('DELETE_AND_BAN')}</Button>
+                    <div className="admin-panel-view-user__action-buttons">
+                        <Button
+                            className="admin-panel-view-user__action-button"
+                            onClick={this.onDisableClick.bind(this)}
+                            size="medium"
+                            type={this.state.disabled ? 'tertiary' : 'primary'}>
+                            {i18n(this.state.disabled ? 'ENABLE_USER' : 'DISABLE_USER')}
+                        </Button>
+                        <Button className="admin-panel-view-user__action-button" onClick={this.onDeleteClick.bind(this)} size="medium">
+                            {i18n('DELETE_AND_BAN')}
+                        </Button>
                     </div>
                 </div>
                 <span className="separator" />
@@ -85,6 +89,12 @@ class AdminPanelViewUser extends React.Component {
     renderNotVerified() {
         return (
             <InfoTooltip className="admin-panel-view-user__unverified" type="warning" text={i18n('UNVERIFIED_EMAIL')} />
+        );
+    }
+
+    renderDisabled() {
+        return (
+            <InfoTooltip className="admin-panel-view-user__unverified" type="warning" text={i18n('USER_DISABLED')} />
         );
     }
 
@@ -104,12 +114,29 @@ class AdminPanelViewUser extends React.Component {
             email: result.data.email,
             verified: result.data.verified,
             tickets: result.data.tickets,
+            disabled: result.data.disabled,
             loading: false
         });
     }
 
+    onDisableClick() {
+        AreYouSure.openModal(
+            i18n(this.state.disabled ? 'ENABLE_USER_DESCRIPTION' : 'DISABLE_USER_DESCRIPTION'),
+            this.disableUser.bind(this)
+        );
+    }
+
     onDeleteClick() {
         AreYouSure.openModal(i18n('DELETE_USER_DESCRIPTION'), this.deleteUser.bind(this))
+    }
+
+    disableUser() {
+        API.call({
+            path: this.state.disabled ? '/user/enable' : '/user/disable',
+            data: {
+                userId: this.props.params.userId
+            }
+        }).then(this.retrieveUser.bind(this));
     }
 
     deleteUser() {
@@ -126,6 +153,17 @@ class AdminPanelViewUser extends React.Component {
                 }
             }).then(() => history.push('/admin/panel/users/list-users'));
         });
+    }
+
+    retrieveUser() {
+        API.call({
+            path: '/user/get-user',
+            data: {
+                userId: this.props.params.userId
+            }
+        }).then(this.onUserRetrieved.bind(this)).catch(() => this.setState({
+            invalid: true
+        }));
     }
 }
 

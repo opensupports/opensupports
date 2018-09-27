@@ -15,7 +15,7 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiParam {Number} page Number of pages of users.
  * @apiParam {String} orderBy Parameter to order the users by tickets or id.
- * @apiParam {Boolean} desc  Parameter to order the users in an ascending or descending way.
+ * @apiParam {Boolean} desc Parameter to order the users in an ascending or descending way.
  * @apiParam {String} search Text query to find users.
  *
  * @apiUse NO_PERMISSION
@@ -56,7 +56,7 @@ class GetUsersController extends Controller {
         if(!Controller::isUserSystemEnabled()) {
             throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
         }
-        
+
         $userList = $this->getUserList();
         $userListArray = [];
 
@@ -67,7 +67,8 @@ class GetUsersController extends Controller {
                 'verified' => !$user->verificationToken,
                 'tickets' => $user->tickets,
                 'email' => $user->email,
-                'signupDate' => $user->signupDate
+                'signupDate' => $user->signupDate,
+                'disabled' => !!$user->disabled
             ];
         }
 

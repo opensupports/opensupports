@@ -184,6 +184,8 @@ export default {
     'HIMSELF': 'kendisi',
     'ADD_USER': 'Kullanıcı Ekle',
     'UPLOAD_FILE': 'Dosya yükleme',
+    'ENABLE_USER': 'Kullanıcıyı Etkinleştir',
+    'DISABLE_USER': 'Kullanıcıyı Devre Dışı Bırak',
 
     'CHART_CREATE_TICKET': 'Biletler oluşturuldu',
     'CHART_CLOSE': 'Biletler kapandı',
@@ -295,6 +297,8 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Bir kullanıcı sisteminin kullanımını etkinleştirir / devre dışı bırakır. Devre dışı bırakırsanız, tüm kullanıcılar silinir ancak biletler muhafaza edilir. Etkinleştirirseniz, mevcut biletler kullanıcıları oluşturulur.',
     'CSV_DESCRIPTION': 'CSV dosyasının 3 sütun olması gerekir: e-posta, şifre, ad. Satır sayısı sınırı yoktur. Dosya satır başına bir kullanıcı oluşturulur.',
     'SMTP_SERVER_DESCRIPTION': 'SMTP sunucusunun yapılandırması, uygulamanın postalar göndermesine izin verir. Onu yapılandırmazsanız, OpenSupports tarafından hiçbir e-posta gönderilmeyecektir',
+    'ENABLE_USER_DESCRIPTION': 'Bu eylem, kullanıcının giriş yapmasına ve bilet oluşturmasına izin verir.',
+    'DISABLE_USER_DESCRIPTION': 'Kullanıcı devre dışı bırakılacak ve oturum açıp bilet oluşturamayacak.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-posta veya şifre geçersiz',
@@ -324,6 +328,7 @@ export default {
     'INVALID_FILE': 'geçersiz dosya',
     'ERRORS_FOUND': 'Hatalar bulundu',
     'ERROR_IMAGE_SIZE': 'Hiçbir resmin boyutu {size} MB\'den büyük olabilir',
+    'USER_DISABLED': 'Bu hesap devre dışı.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'Destek sistemimize başarılı bir şekilde kayıt oldunuz.',

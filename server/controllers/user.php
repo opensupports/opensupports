@@ -15,6 +15,8 @@ include 'user/ban.php';
 include 'user/un-ban.php';
 include 'user/list-ban.php';
 include 'user/verify.php';
+include 'user/enable.php';
+include 'user/disable.php';
 
 $userControllers = new ControllerGroup();
 $userControllers->setGroupPath('/user');
@@ -35,4 +37,6 @@ $userControllers->addController(new BanUserController);
 $userControllers->addController(new UnBanUserController);
 $userControllers->addController(new ListBanUserController);
 $userControllers->addController(new VerifyController);
+$userControllers->addController(new EnableUserController);
+$userControllers->addController(new DisableUserController);
 $userControllers->finalize();

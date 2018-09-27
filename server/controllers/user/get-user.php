@@ -46,17 +46,16 @@ class GetUserByIdController extends Controller {
     }
 
     public function handler() {
-        
         if(!Controller::isUserSystemEnabled()) {
             throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
         }
-        
+
         $userId = Controller::request('userId');
         $user = User::getDataStore($userId);
         $staff = Controller::getLoggedUser();
-        
+
         $tickets = new DataStoreList();
-        
+
         foreach($user->sharedTicketList as $ticket) {
             if($staff->sharedDepartmentList->includesId($ticket->department->id)) {
                 $tickets->add($ticket);
@@ -68,7 +67,8 @@ class GetUserByIdController extends Controller {
             'email' => $user->email,
             'signupDate' => $user->signupDate,
             'tickets' => $tickets->toArray(),
-            'verified' => !$user->verificationToken
+            'verified' => !$user->verificationToken,
+            'disabled' => !!$user->disabled
         ]);
     }
 }

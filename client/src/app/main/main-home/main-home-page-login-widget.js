@@ -114,6 +114,8 @@ class MainHomePageLoginWidget extends React.Component {
                 errors.password = i18n('ERROR_PASSWORD');
             } else if (this.props.session.failMessage === 'UNVERIFIED_USER') {
                 errors.email = i18n('UNVERIFIED_EMAIL');
+            } else if (this.props.session.failMessage === 'USER_DISABLED') {
+                errors.email = i18n('USER_DISABLED');
             }
         }
 
