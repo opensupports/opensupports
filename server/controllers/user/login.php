@@ -61,6 +61,10 @@ class LoginController extends Controller {
                 throw new Exception(ERRORS::UNVERIFIED_USER);
             }
 
+            if($this->userInstance->disabled) {
+                throw new Exception(ERRORS::USER_DISABLED);
+            }
+
             $this->createUserSession();
             $this->createSessionCookie();
             if(Controller::request('staff')) {

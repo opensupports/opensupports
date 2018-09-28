@@ -183,6 +183,8 @@ export default {
     'HIMSELF': 'ele mesmo',
     'ADD_USER': 'Adicionar usuário',
     'UPLOAD_FILE': 'Subir arquivo',
+    'ENABLE_USER': 'Ativar usuário',
+    'DISABLE_USER': 'Desativar usuário',
 
     'CHART_CREATE_TICKET': 'Chamados criados',
     'CHART_CLOSE': 'Chamados fechados',
@@ -295,6 +297,8 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Ativar / desativar o uso de um sistema de usuário. Se você desativá-lo, todos os usuários serão excluídos, mas os chamados serão mantidos. Se você ativá-lo, os chamados de usuários existentes serão criados.',
     'CSV_DESCRIPTION': 'O arquivo CSV deve ter 3 colunas: e-mail, senha, nome. Não há limite na contagem de linhas. Ele será criado um usuário por linha no arquivo.',
     'SMTP_SERVER_DESCRIPTION': 'A configuração do servidor SMTP permite que o aplicativo envie e-mails. Se você não configurá-lo, nenhum e-mail será enviado pela OpenSupports.',
+    'ENABLE_USER_DESCRIPTION': 'Essa ação permite que o usuário faça login e crie tickets.',
+    'DISABLE_USER_DESCRIPTION': 'O usuário será desativado e não poderá fazer login e criar tickets.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-mail ou senha inválidos',
@@ -324,6 +328,7 @@ export default {
     'INVALID_FILE': 'arquivo inválido',
     'ERRORS_FOUND': 'Erros encontrados',
     'ERROR_IMAGE_SIZE': 'Nenhuma imagem pode ter um tamanho maior que {size} MB',
+    'USER_DISABLED': 'Esta conta está desativada.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'Você se registrou com sucesso em nosso sistema de suporte.',

@@ -184,6 +184,8 @@ export default {
     'HIMSELF': 'si mismo',
     'ADD_USER': 'Añadir un usuario',
     'UPLOAD_FILE': 'Subir archivo',
+    'ENABLE_USER': 'Habilitar usuario',
+    'DISABLE_USER': 'Deshabilitar usuario',
 
     'CHART_CREATE_TICKET': 'Tickets creados',
     'CHART_CLOSE': 'Tickets cerrados',
@@ -295,6 +297,8 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Habilitar/Deshabilitar el uso de un sistema de usuario. Si lo deshabilitas, todos los usuarios serán eliminados pero los tickets serán guardados. Si lo habilitas, se crearán los usuarios de los tickets existentes.',
     'CSV_DESCRIPTION': 'El archivo CSV debe tener 3 columnas: correo electrónico, contraseña, nombre. No hay límite en el recuento de filas. Se creará un usuario por fila en el archivo.',
     'SMTP_SERVER_DESCRIPTION': 'La configuracion de SMTP permite que la applicacion mande emails. Si no es configurado, ningún mail sera enviado OpenSupports.',
+    'ENABLE_USER_DESCRIPTION': 'Esta acción permite al usuario iniciar sesión y crear tickets..',
+    'DISABLE_USER_DESCRIPTION': 'El usuario estará deshabilitado y no podrá iniciar sesión y crear tickets.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email o contraseña inválida',
@@ -349,6 +353,7 @@ export default {
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'El archivo CSV se ha importado correctamente',
     'SUCCESS_DELETING_ALL_USERS': 'Los usuarios se han eliminado correctamente',
     'ERROR_IMAGE_SIZE': 'Ninguna imagen puede tener un tamaño superior a {size} MB',
+    'USER_DISABLED': 'Esta cuenta está deshabilitada.',
 
     'LAST_7_DAYS': 'Últimos 7 dias',
     'LAST_30_DAYS': 'Últimos 30 dias',

@@ -184,6 +184,8 @@ export default {
     'HIMSELF': 'lui stesso',
     'ADD_USER': 'Aggiungi utente',
     'UPLOAD_FILE': 'Caricare un file',
+    'ENABLE_USER': 'Abilita utente',
+    'DISABLE_USER': 'Disabilita utente',
 
     'CHART_CREATE_TICKET': 'Tickets creato',
     'CHART_CLOSE': 'Tickets chiuso',
@@ -295,6 +297,8 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Abilita / disabilita l\'utilizzo di un sistema utente. Se lo disattiverai, tutti gli utenti verranno eliminati ma i biglietti saranno conservati. Se lo abiliterai, verranno creati gli utenti dei biglietti esistenti.',
     'CSV_DESCRIPTION': 'l file CSV deve avere 3 colonne: e-mail, password, nome. Non esiste alcun limite nel conteggio delle righe. Sarà creato un utente per riga nel file.',
     'SMTP_SERVER_DESCRIPTION': 'La configurazione del server SMTP consente all\'applicazione di inviare messaggi. Se non lo si configura, non verrà inviata alcuna email da OpenSupports.',
+    'ENABLE_USER_DESCRIPTION': 'Questa azione consente all\'utente di accedere e creare ticket.',
+    'DISABLE_USER_DESCRIPTION': 'L\'utente sarà disabilitato e non sarà in grado di accedere e creare biglietti.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email o password errate',
@@ -324,6 +328,7 @@ export default {
     'INVALID_FILE': 'File non valido',
     'ERRORS_FOUND': 'Trovati errori',
     'ERROR_IMAGE_SIZE': 'Nessuna immagine può avere una dimensione superiore a {size} MB',
+    'USER_DISABLED': 'Questo account è disabilitato.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'È stato registrato con successo nel nostro sistema di supporto.',

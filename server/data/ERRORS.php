@@ -175,6 +175,18 @@
  * @apiDefine SMTP_CONNECTION
  * @apiError {String} SMTP_CONNECTION Could not connect with SMTP server.
  */
+/**
+ * @apiDefine ALREADY_DISABLED
+ * @apiError {String} ALREADY_DISABLED User is already disabled
+ */
+/**
+ * @apiDefine ALREADY_ENABLED
+ * @apiError {String} ALREADY_ENABLED User is already enabled
+ */
+/**
+ * @apiDefine USER_DISABLED
+ * @apiError {String} USER_DISABLED User is disabled
+ */
 
 class ERRORS {
     const INVALID_CREDENTIALS = 'INVALID_CREDENTIALS';
@@ -222,4 +234,7 @@ class ERRORS {
     const DATABASE_CONNECTION = 'DATABASE_CONNECTION';
     const DATABASE_CREATION = 'DATABASE_CREATION';
     const SMTP_CONNECTION = 'SMTP_CONNECTION';
+    const ALREADY_DISABLED = 'ALREADY_DISABLED';
+    const ALREADY_ENABLED = 'ALREADY_ENABLED';
+    const USER_DISABLED = 'USER_DISABLED';
 }
