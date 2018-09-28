@@ -184,6 +184,7 @@ export default {
     'HIMSELF': 'zichzelf',
     'ADD_USER': 'Voeg gebruiker toe',
     'UPLOAD_FILE': 'Upload bestand',
+    'PRIVATE': 'privaat',
 
     'CHART_CREATE_TICKET': 'Aangemaakte incidenten',
     'CHART_CLOSE': 'Gesloten incidenten',

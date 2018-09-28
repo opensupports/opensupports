@@ -13,6 +13,7 @@
  * @apiParam {Boolean}  author.staff Indicates if the author is a staff.
  * @apiParam {String}  date The date of the ticket event.
  * @apiParam {String}  file The file of the ticket event.
+ * @apiParam {Boolean} private Indicates if this event is not shown to users.
  */
 
 class Ticketevent extends DataStore {
@@ -58,7 +59,8 @@ class Ticketevent extends DataStore {
             'file',
             'authorUser',
             'authorStaff',
-            'date'
+            'date',
+            'private'
         ];
     }
 

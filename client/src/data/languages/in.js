@@ -184,6 +184,7 @@ export default {
     'HIMSELF': 'स्वयं',
     'ADD_USER': 'उपयोगकर्ता जोड़ें',
     'UPLOAD_FILE': 'दस्तावेज अपलोड करें',
+    'PRIVATE': 'निजी',
 
     'CHART_CREATE_TICKET': 'टिकट बनाया',
     'CHART_CLOSE': 'टिकट बंद कर दिया',

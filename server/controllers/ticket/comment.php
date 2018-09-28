@@ -16,6 +16,7 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiParam {String} content Content of the comment.
  * @apiParam {Number} ticketNumber The number of the ticket to comment.
+ * @apiParam {Boolean} private Indicates if the comment is not shown to users.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_CONTENT
@@ -111,7 +112,8 @@ class CommentController extends Controller {
         $comment->setProperties(array(
             'content' => $this->content,
             'file' => ($fileUploader instanceof FileUploader) ? $fileUploader->getFileName() : null,
-            'date' => Date::getCurrentDate()
+            'date' => Date::getCurrentDate(),
+            'private' => (Controller::isStaffLogged() && Controller::request('private')) ? 1 : 0
         ));
 
         if(Controller::isStaffLogged()) {

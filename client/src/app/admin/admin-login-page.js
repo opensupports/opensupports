@@ -26,7 +26,7 @@ class AdminLoginPage extends React.Component {
         loadingLogin: false,
         loadingRecover: false
     };
-    
+
     componentDidUpdate(prevProps) {
         if (!prevProps.session.failed && this.props.session.failed) {
             this.refs.loginForm.refs.password.focus();
@@ -34,7 +34,7 @@ class AdminLoginPage extends React.Component {
     }
 
     render() {
-        return ( 
+        return (
             <div className="admin-login-page">
                 <WidgetTransition sideToShow={this.state.sideToShow} className={classNames('admin-login-page__container', this.props.className)}>
                     {this.renderLogin()}
@@ -43,7 +43,7 @@ class AdminLoginPage extends React.Component {
             </div>
         );
     }
-    
+
     renderLogin() {
         return (
             <div>
@@ -65,7 +65,7 @@ class AdminLoginPage extends React.Component {
             </div>
         );
     }
-    
+
     renderPasswordRecovery() {
         return (
             <div>
@@ -161,7 +161,7 @@ class AdminLoginPage extends React.Component {
             loginFormErrors: errors
         });
     }
-    
+
     onRecoverFormErrorsValidation(errors) {
         this.setState({
             recoverFormErrors: errors

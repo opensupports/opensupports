@@ -184,6 +184,7 @@ export default {
     'HIMSELF': '他自己',
     'ADD_USER': '添加用户',
     'UPLOAD_FILE': '上传文件',
+    'PRIVATE': '私人的',
 
     'CHART_CREATE_TICKET': '已創建門票',
     'CHART_CLOSE': '門票已關閉',

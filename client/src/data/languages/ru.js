@@ -184,6 +184,7 @@ export default {
     'HIMSELF': 'сам',
     'ADD_USER': 'Добавить пользователя',
     'UPLOAD_FILE': 'Загрузить файл',
+    'PRIVATE': 'частный',
 
     'CHART_CREATE_TICKET': 'Билеты создано',
     'CHART_CLOSE': ' Билеты закрыты',

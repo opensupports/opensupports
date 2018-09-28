@@ -184,6 +184,7 @@ export default {
     'HIMSELF': 'lui-même',
     'ADD_USER': 'Ajouter un utilisateur',
     'UPLOAD_FILE': 'Téléverser un fichier',
+    'PRIVATE': 'privé',
 
     'CHART_CREATE_TICKET': 'Tickets créés',
     'CHART_CLOSE': 'Tickets fermés',

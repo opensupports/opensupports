@@ -184,6 +184,7 @@ export default {
     'HIMSELF': 'kendisi',
     'ADD_USER': 'Kullanıcı Ekle',
     'UPLOAD_FILE': 'Dosya yükleme',
+    'PRIVATE': 'gizli',
 
     'CHART_CREATE_TICKET': 'Biletler oluşturuldu',
     'CHART_CLOSE': 'Biletler kapandı',

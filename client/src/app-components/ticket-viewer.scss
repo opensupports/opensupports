@@ -10,6 +10,9 @@
         font-size: 16px;
         padding: 6px 0;
     }
+    &__private {
+
+    }
 
     &__number {
         color: white;
@@ -76,11 +79,19 @@
             padding: 20px 0 0 20px;
             text-align: left;
         }
+
         &-buttons {
             display: flex;
-             justify-content: space-between;
-             align-items: center;
+            justify-content: space-between;
+            align-items: center;
         }
+
+    }
+    &__actions {
+        background-color: $very-light-grey;
+
+        display:flex;
+        align-items:center;justify-content: space-between;
     }
 
 }

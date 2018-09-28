@@ -20,7 +20,8 @@ class TicketEvent extends React.Component {
         ]),
         author: React.PropTypes.object,
         content: React.PropTypes.string,
-        date: React.PropTypes.string
+        date: React.PropTypes.string,
+        private: React.PropTypes.string,
     };
 
     render() {
@@ -83,7 +84,8 @@ class TicketEvent extends React.Component {
                 <span className="ticket-event__comment-pointer" />
                 <div className="ticket-event__comment-author">
                     <span className="ticket-event__comment-author-name">{this.props.author.name}</span>
-                    <span className="ticket-event__comment-author-type">({i18n((this.props.author.staff) ? 'STAFF' : 'CUSTOMER')})</span>
+                    <span className="ticket-event__comment-author-type">{i18n((this.props.author.staff) ? 'STAFF' : 'CUSTOMER')}</span>
+                    {(this.props.private*1) ? <span className="ticket-event__comment-author-type">{i18n('PRIVATE')}</span> : null}
                 </div>
                 <div className="ticket-event__comment-date">{DateTransformer.transformToString(this.props.date)}</div>
                 <div className="ticket-event__comment-content" dangerouslySetInnerHTML={{__html: this.props.content}}></div>
@@ -205,7 +207,8 @@ class TicketEvent extends React.Component {
             'ticket-event_close': this.props.type === 'CLOSE',
             'ticket-event_reopen': this.props.type === 'RE_OPEN',
             'ticket-event_department': this.props.type === 'DEPARTMENT_CHANGED',
-            'ticket-event_priority': this.props.type === 'PRIORITY_CHANGED'
+            'ticket-event_priority': this.props.type === 'PRIORITY_CHANGED',
+            'ticket-event_private': this.props.private*1,
         };
 
         return classNames(classes);

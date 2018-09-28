@@ -183,6 +183,7 @@ export default {
     'HIMSELF': 'ele mesmo',
     'ADD_USER': 'Adicionar usuário',
     'UPLOAD_FILE': 'Subir arquivo',
+    'PRIVATE': 'privado',
 
     'CHART_CREATE_TICKET': 'Chamados criados',
     'CHART_CLOSE': 'Chamados fechados',

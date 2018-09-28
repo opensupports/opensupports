@@ -66,10 +66,14 @@
             color: $primary-black;
 
             &-type {
-                font-size: 10px;
+                font-size: 10.6px;
                 padding-left: 10px;
                 color: $secondary-blue;
-                font-variant: small-caps;
+                background-color: very-light-grey;
+                border: 2px solid;
+                border-radius: 4px;
+                padding: 4px;
+                margin-left: 12px;
             }
         }
 
@@ -78,6 +82,8 @@
             border: 2px solid $light-grey;
             border-bottom: none;
             padding: 12px;
+            font-size: 10.6px;
+            font-family: helvetica;
             background-color: $light-grey;
 
         }
@@ -174,6 +180,26 @@
         .ticket-event__icon {
             padding-left: 11px;
             padding-top: 5px;
+        }
+    }
+    &_private {
+        .ticket-event__comment-pointer {
+            border-right-color: $light-yellow;
+        }
+        .ticket-event__comment-date {
+            background-color: $light-yellow;
+            border-color: $light-yellow;
+        }
+        .ticket-event__comment-content {
+            background-color: $very-light-yellow;
+            border-color: $very-light-yellow;
+        }
+        .ticket-event__staff-pic {
+            background-color: $light-yellow;
+            border-color: $light-yellow;
+        }
+        .ticket-event__file {
+            background-color: $light-yellow;
         }
     }
 }
