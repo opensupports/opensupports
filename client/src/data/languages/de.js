@@ -185,6 +185,8 @@ export default {
     'ADD_USER': 'Benutzer hinzufügen',
     'UPLOAD_FILE': 'Datei hochladen',
     'PRIVATE': 'Privatgelände',
+    'ENABLE_USER': 'Benutzer aktivieren',
+    'DISABLE_USER': 'Benutzer deaktivieren',
 
     'CHART_CREATE_TICKET': 'Tickets erstellt',
     'CHART_CLOSE': 'Tickets geschlossen',
@@ -296,6 +298,8 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Aktivieren/deaktivieren Sie die Verwendung eines Benutzersystems. Wenn Sie es deaktivieren, werden alle Benutzer gelöscht, aber die Tickets werden behalten. Wenn Sie es aktivieren, werden die Benutzer der vorhandenen Tickets erstellt.',
     'CSV_DESCRIPTION': 'Die CSV-Datei muss 3 Spalten haben: E-Mail-Adresse, Passwort, Name. Es gibt kein Limit in der Zeilenzahl. Es wird ein Benutzer pro Zeile in der Datei erstellt.',
     'SMTP_SERVER_DESCRIPTION': 'Die Konfiguration des SMTP-Servers ermöglicht es der Software, Mails zu senden. Wenn Sie es nicht konfigurieren, werden keine E-Mails von OpenSupports gesendet.',
+    'ENABLE_USER_DESCRIPTION': 'Mit dieser Aktion kann der Benutzer sich anmelden und Tickets erstellen.',
+    'DISABLE_USER_DESCRIPTION': 'Der Benutzer wird deaktiviert und kann keine Tickets anmelden und erstellen.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-Mail-Adresse oder Passwort ungültig!',
@@ -324,6 +328,8 @@ export default {
     'INVALID_EMAIL_OR_TICKET_NUMBER': 'Ungültige E-Mail-Adresse oder Ticketnummer!',
     'INVALID_FILE': 'Ungültige Datei!',
     'ERRORS_FOUND': 'Fehler gefunden!',
+    'ERROR_IMAGE_SIZE': 'Kein Bild darf größer als {size} MB sein',
+    'USER_DISABLED': 'Dieser Account ist deaktiviert.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'Sie haben sich erfolgreich in unserem Support-System registriert.',

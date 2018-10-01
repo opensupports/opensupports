@@ -5,6 +5,7 @@ import API from 'lib-app/api-call';
 import DateTransformer from 'lib-core/date-transformer';
 
 import Header from 'core-components/header';
+import InfoTooltip from 'core-components/info-tooltip';
 import Table from 'core-components/table';
 import SearchBox from 'core-components/search-box';
 import Button from 'core-components/button';
@@ -96,9 +97,12 @@ class AdminPanelListUsers extends React.Component {
     getUserRow(user) {
         return {
             name: (
-                <Button className="admin-panel-list-users__name-link" type="link" route={{to: '/admin/panel/users/view-user/' + user.id}}>
-                    {user.name}
-                </Button>
+                <div>
+                    <Button className="admin-panel-list-users__name-link" type="link" route={{to: '/admin/panel/users/view-user/' + user.id}}>
+                        {user.name}
+                    </Button>
+                    {user.disabled ? this.renderDisabled() : null}
+                </div>
             ),
             email: user.email,
             tickets: (
@@ -108,6 +112,12 @@ class AdminPanelListUsers extends React.Component {
             ),
             signupDate: DateTransformer.transformToString(user.signupDate, false)
         };
+    }
+
+    renderDisabled() {
+        return (
+            <InfoTooltip className="admin-panel-list-users__name-disabled" type="warning" text={i18n('USER_DISABLED')} />
+        );
     }
 
     onSearch(query) {
@@ -154,7 +164,7 @@ class AdminPanelListUsers extends React.Component {
         API.call({
             path: '/user/get-users',
             data: data
-        }).then(this.onUsersRetrieved.bind(this)).catch(this.onUsersRejected.bind(this));
+        }).catch(this.onUsersRejected.bind(this)).then(this.onUsersRetrieved.bind(this));
     }
 
     onCreateUser(user) {
@@ -177,7 +187,7 @@ class AdminPanelListUsers extends React.Component {
             pages: result.data.pages * 1,
             users: result.data.users,
             orderBy: result.data.orderBy,
-            desc: (result.data.desc === '1'),
+            desc: (result.data.desc*1),
             error: false,
             loading: false
         });

@@ -4,6 +4,7 @@ var jsdom = require('jsdom').jsdom;
 
 global.document = jsdom('<html><body></body></html>');
 global.window = document.defaultView;
+global.Node = global.window.Node;
 global.navigator = {
     userAgent: 'node.js'
 };

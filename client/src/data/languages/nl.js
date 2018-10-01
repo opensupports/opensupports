@@ -185,6 +185,8 @@ export default {
     'ADD_USER': 'Voeg gebruiker toe',
     'UPLOAD_FILE': 'Upload bestand',
     'PRIVATE': 'privaat',
+    'ENABLE_USER': 'Schakel gebruiker in',
+    'DISABLE_USER': 'Gebruiker uitschakelen',
 
     'CHART_CREATE_TICKET': 'Aangemaakte incidenten',
     'CHART_CLOSE': 'Gesloten incidenten',
@@ -297,6 +299,8 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Schakel het gebruik van een gebruikerssysteem in / uit. Als u dit uitschakelt, worden alle gebruikers verwijderd, maar worden de incidenten bewaard. Als u dit inschakelt, worden de gebruikers van bestaande incidenten aangemaakt.',
     'CSV_DESCRIPTION': 'Het CSV-bestand moet drie kolommen bevatten: e-mailadres, wachtwoord, naam. Er is geen limiet in rijtelling. Er wordt één gebruiker per rij in de database gemaakt.',
     'SMTP_SERVER_DESCRIPTION': 'De configuratie van de SMTP-server staat het systeem toe om e-mails te verzenden. Als u deze optie niet configureerd, worden er geen e-mails verzonden door OpenSupports.',
+    'ENABLE_USER_DESCRIPTION': 'Met deze actie kan de gebruiker inloggen en tickets maken.',
+    'DISABLE_USER_DESCRIPTION': 'De gebruiker wordt uitgeschakeld en kan zich niet aanmelden en geen tickets maken.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-mailadres of wachtwoord ongeldig',
@@ -325,6 +329,8 @@ export default {
     'INVALID_EMAIL_OR_TICKET_NUMBER': 'Ongeldig e-mailadres of incidentnummer',
     'INVALID_FILE': 'Ongeldig bestand',
     'ERRORS_FOUND': 'Er is een fout opgetreden',
+    'ERROR_IMAGE_SIZE': 'Geen enkele afbeelding kan groter zijn dan {size} MB',
+    'USER_DISABLED': 'Dit account is uitgeschakeld.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'U hebt zich succesvol geregistreerd in ons ondersteuningssysteem.',

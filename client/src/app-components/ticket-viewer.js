@@ -29,6 +29,7 @@ class TicketViewer extends React.Component {
         assignmentAllowed: React.PropTypes.bool,
         staffMembers: React.PropTypes.array,
         staffMembersLoaded: React.PropTypes.bool,
+        allowAttachments: React.PropTypes.bool,
         userId: React.PropTypes.number,
         userStaff: React.PropTypes.bool,
         userDepartments: React.PropTypes.array,
@@ -218,7 +219,7 @@ class TicketViewer extends React.Component {
                         {this.renderPrivate()}
                     </div>
                     <div className="ticket-viewer__response-field row">
-                        <FormField name="content" validation="TEXT_AREA" required field="textarea" />
+                        <FormField name="content" validation="TEXT_AREA" required field="textarea" fieldProps={{allowImages: this.props.allowAttachments}}/>
                         {(this.props.allowAttachments) ? <FormField name="file" field="file"/> : null}
                         <div className="ticket-viewer__response-buttons">
                             <SubmitButton type="secondary">{i18n('RESPOND_TICKET')}</SubmitButton>
@@ -404,7 +405,7 @@ class TicketViewer extends React.Component {
             dataAsForm: true,
             data: _.extend({
                 ticketNumber: this.props.ticket.ticketNumber
-            }, formState, {private: formState.private ? 1 : 0})
+            }, formState, {private: formState.private ? 1 : 0}, TextEditor.getContentFormData(formState.content))
         }).then(this.onCommentSuccess.bind(this), this.onCommentFail.bind(this));
     }
 

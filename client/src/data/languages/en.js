@@ -185,6 +185,8 @@ export default {
     'ADD_USER': 'Add user',
     'UPLOAD_FILE': 'Upload file',
     'PRIVATE': 'private',
+    'ENABLE_USER': 'Enable User',
+    'DISABLE_USER': 'Disable User',
 
     'CHART_CREATE_TICKET': 'Tickets created',
     'CHART_CLOSE': 'Tickets closed',
@@ -297,6 +299,8 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Enable/disable the use of an user system. If you disable it, all users will be deleted but the tickets will be kept. If you enable it, the users of existent tickets will be created.',
     'CSV_DESCRIPTION': 'The CSV file must have 3 columns: email, password, name. There is no limit in row count. It will be created one user per row in the file.',
     'SMTP_SERVER_DESCRIPTION': 'The configuration of the SMTP server allows the application to send mails. If you do not configure it, no emails will be sent by OpenSupports.',
+    'ENABLE_USER_DESCRIPTION': 'This action allows the user to sign in and create tickets.',
+    'DISABLE_USER_DESCRIPTION': 'User will be disabled and will not be able to sign in and create tickets.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
@@ -325,6 +329,8 @@ export default {
     'INVALID_EMAIL_OR_TICKET_NUMBER': 'Invalid email or ticket number',
     'INVALID_FILE': 'Invalid file',
     'ERRORS_FOUND': 'Errors found',
+    'ERROR_IMAGE_SIZE': 'No image can have a size greater than {size} MB',
+    'USER_DISABLED': 'This account is disabled.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',

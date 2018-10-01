@@ -185,6 +185,8 @@ export default {
     'ADD_USER': 'ユーザーを追加する',
     'UPLOAD_FILE': 'ファイルをアップロードする',
     'PRIVATE': 'プライベート',
+    'ENABLE_USER': 'ユーザーを有効にする',
+    'DISABLE_USER': 'ユーザーを無効にする',
 
     'CHART_CREATE_TICKET': '作成されたチケット',
     'CHART_CLOSE': 'チケットが閉じられました',
@@ -296,6 +298,8 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'ユーザシステムの使用を有効/無効にします。無効にすると、すべてのユーザーは削除されますが、チケットは保持されます。これを有効にすると、既存のチケットのユーザーが作成されます。',
     'CSV_DESCRIPTION': 'CSVファイルには、電子メール、パスワード、名前の3つの列が必要です。行数に制限はありません。ファイル内で行ごとに1人ずつ作成されます',
     'SMTP_SERVER_DESCRIPTION': 'SMTPサーバーの設定により、アプリケーションはメールを送信できます。 これを設定しないと、OpenSupportsから電子メールは送信されません。',
+    'ENABLE_USER_DESCRIPTION': 'これにより、ユーザーはサインインしてチケットを作成できます。',
+    'DISABLE_USER_DESCRIPTION': 'ユーザーは無効になり、ログインしてチケットを作成することはできません。',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': '電子メールまたはパスワードが無効です',
@@ -324,6 +328,8 @@ export default {
     'INVALID_EMAIL_OR_TICKET_NUMBER': '電子メールまたはチケット番号が無効です',
     'INVALID_FILE': '無効なファイル',
     'ERRORS_FOUND': 'エラーが見つかりました',
+    'ERROR_IMAGE_SIZE': 'イメージのサイズが{size} MBを超えることはできません',
+    'USER_DISABLED': 'このアカウントは無効です。',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'あなたは私たちのサポートシステムに正常に登録しました。',

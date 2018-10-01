@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/get-all  Get all staffs
- * @apiVersion 4.2.0
+ * @apiVersion 4.3.0
  *
  * @apiName Get all staffs
  *

@@ -38,3 +38,30 @@ This request will return you the session data with an `userId` and a `token`. Yo
 If you don't pass the userId and token, a `NO_PERMISSION` error will be returned.
 
 Additionally, if there are no users (only staff members), you can check a ticket you created by providing your email and the ticketNumber to the `/ticket/check` path. This path will return you a `token` and `ticketNumber` you will use to comment, retrieve, or do any other operations to the ticket.
+
+## File Attachments
+We have two settings for file attachment:
+* *allow-attachments* setting flag indicates if users can attach files.
+* *max-size* setting indicates what is the file size limit in MB.
+
+When you want to attach images to a ticket, comment or article; you can place the string `IMAGE_PATH_i` inside the parameter `content`.
+`IMAGE_PATH_i` indicates that it should be replaced with the path of the image of index `i` (zero-indexed).
+
+You may also include the `images` parameter indicating the number of images; and `image_i` parameters, which contain the image file object of index `i`.
+
+For example
+
+```
+/article/add
+title = 'article title'
+content = 'this is an article <img src="IMAGE_PATH_0"/> with two images <img src="IMAGE_PATH_1"/>'
+position = 1
+topicId = 1
+images = 2
+image_0 = <File>
+image_1 = <File>
+```
+
+This request will upload `image_0` and `image_1`. After that, it will replace `IMAGE_PATH_0` and `IMAGE_PATH_1` with the corresponding urls for each image. The rest of the request will operate normal.
+
+**Please remember that `max-size` setting applies also to images.**

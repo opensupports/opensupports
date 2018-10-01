@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /user/login Login
- * @apiVersion 4.2.0
+ * @apiVersion 4.3.0
  *
  * @apiName Login
  *
@@ -59,6 +59,10 @@ class LoginController extends Controller {
         if ($this->checkInputCredentials() || $this->checkRememberToken()) {
             if($this->userInstance->verificationToken !== null) {
                 throw new Exception(ERRORS::UNVERIFIED_USER);
+            }
+
+            if($this->userInstance->disabled) {
+                throw new Exception(ERRORS::USER_DISABLED);
             }
 
             $this->createUserSession();

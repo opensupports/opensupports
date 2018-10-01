@@ -6,7 +6,7 @@ class Validator {
     constructor(validator = null) {
         this.previousValidator = validator;
     }
-    
+
     performValidation(value, form) {
         let error;
 
@@ -27,8 +27,8 @@ class Validator {
         if (value.length === 0) return this.getError('ERROR_EMPTY');
     }
 
-    getError(errorKey) {
-        return i18n(errorKey);
+    getError(errorKey, params) {
+        return i18n(errorKey, params);
     }
 }
 

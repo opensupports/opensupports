@@ -10,7 +10,7 @@ describe'system/edit-settings' do
             "time-zone" => -3,
             "layout" => 'full-width',
             "allow-attachments" => 1,
-            "max-size" => 2048,
+            "max-size" => 2,
             "language" => 'en',
             "no-reply-email" => 'testemail@hotmail.com'
         })
@@ -27,7 +27,7 @@ describe'system/edit-settings' do
         (row['value']).should.equal('full-width')
 
         row = $database.getRow('setting', 'max-size', 'name')
-        (row['value']).should.equal('2048')
+        (row['value']).should.equal('2')
 
         row = $database.getRow('setting', 'language', 'name')
         (row['value']).should.equal('en')

@@ -4,7 +4,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {get} /system/download Download file
- * @apiVersion 4.2.0
+ * @apiVersion 4.3.0
  *
  * @apiName Download file
  *
@@ -42,36 +42,32 @@ class DownloadController extends Controller {
         $fileName = Controller::request('file');
         $isStaffProfilePic = !Staff::getDataStore($fileName, 'profilePic')->isNull();
 
-        if(!$isStaffProfilePic) {
-            $session = Session::getInstance();
-            $loggedUser = Controller::getLoggedUser();
+        $fileDownloader = FileDownloader::getInstance();
+        $fileDownloader->setFileName($fileName);
 
-            if(!$session->sessionExists()) {
-                Response::respond403();
-                return;
-            }
+        $session = Session::getInstance();
 
-            $ticket = Ticket::getTicket($fileName, 'file');
-
-            if($ticket->isNull() || ($this->isNotAuthor($ticket, $loggedUser) && $this->isNotDepartmentOwner($ticket, $loggedUser))) {
-                $ticketEvent = Ticketevent::getDataStore($fileName, 'file');
-
-                if($ticketEvent->isNull()) {
-                    Response::respond403();
-                    return;
-                }
-
-                $ticket = $ticketEvent->ticket;
-
-                if($this->isNotAuthor($ticket, $loggedUser) && $this->isNotDepartmentOwner($ticket, $loggedUser)) {
-                    Response::respond403();
-                    return;
-                }
+        if(!$session->isStaffLogged()) {
+            switch($fileDownloader->getFilePermission()) {
+                case FileManager::PERMISSION_TICKET:
+                    $ticketNumber = $fileDownloader->getTicketNumber();
+                    $ticket = Ticket::getByTicketNumber($ticketNumber);
+                    if($this->isNotAuthor($ticket, Controller::getLoggedUser())) {
+                        return Response::respond403();
+                    }
+                    break;
+                case FileManager::PERMISSION_ARTICLE:
+                    if(Controller::isUserSystemEnabled() && !$session->sessionExists()) {
+                        return Response::respond403();
+                    }
+                    break;
+                case FileManager::PERMISSION_PROFILE:
+                    break;
+                default:
+                    return Response::respond403();
             }
         }
 
-        $fileDownloader = FileDownloader::getInstance();
-        $fileDownloader->setFileName($fileName);
         $fileDownloader->download();
         exit();
     }
@@ -82,7 +78,7 @@ class DownloadController extends Controller {
         if($session->getTicketNumber()) {
             return $session->getTicketNumber() !== $ticket->ticketNumber;
         } else {
-            return $loggedUser->level >= 1 || $ticket->author->id !== $loggedUser->id;
+            return $ticket->author->id !== $loggedUser->id || ($loggedUser instanceof Staff) !== $ticket->authorToArray()['staff'];
         }
     }
 
