@@ -25,10 +25,10 @@ describe'/system/get-stats' do
             $database.query("INSERT INTO log VALUES(NULL, 'COMMENT', NULL, " + yesterday3 + ", NULL, NULL, NULL);")
         end
         for i in 0..8
-            $database.query("INSERT INTO ticketevent VALUES(NULL, 'CLOSE', NULL, NULL, " + yesterday3 + ", NULL, NULL, 1);")
+            $database.query("INSERT INTO ticketevent VALUES(NULL, 'CLOSE', NULL, NULL, " + yesterday3 + ", 0, NULL, NULL, 1);")
         end
         for i in 0..4
-            $database.query("INSERT INTO ticketevent VALUES(NULL, 'ASSIGN', NULL, NULL, " + yesterday3 + ", NULL, NULL, 1);")
+            $database.query("INSERT INTO ticketevent VALUES(NULL, 'ASSIGN', NULL, NULL, " + yesterday3 + ", 0, NULL, NULL, 1);")
         end
 
         #day 2
@@ -45,10 +45,10 @@ describe'/system/get-stats' do
             $database.query("INSERT INTO log VALUES(NULL, 'COMMENT', NULL, " + yesterday2 + ", NULL, NULL, NULL);")
         end
         for i in 0..10
-            $database.query("INSERT INTO ticketevent VALUES(NULL, 'CLOSE', NULL, NULL, " + yesterday2 + ", NULL, NULL, 1);")
+            $database.query("INSERT INTO ticketevent VALUES(NULL, 'CLOSE', NULL, NULL, " + yesterday2 + ", 0, NULL, NULL, 1);")
         end
         for i in 0..2
-            $database.query("INSERT INTO ticketevent VALUES(NULL, 'ASSIGN', NULL, NULL, " + yesterday2 + ", NULL, NULL, 1);")
+            $database.query("INSERT INTO ticketevent VALUES(NULL, 'ASSIGN', NULL, NULL, " + yesterday2 + ", 0, NULL, NULL, 1);")
         end
 
         #day 3
@@ -65,10 +65,10 @@ describe'/system/get-stats' do
             $database.query("INSERT INTO log VALUES(NULL, 'COMMENT', NULL, " + yesterday + ", NULL, NULL, NULL);")
         end
         for i in 0..3
-            $database.query("INSERT INTO ticketevent VALUES(NULL, 'CLOSE', NULL, NULL, " + yesterday + ", NULL, NULL, 1);")
+            $database.query("INSERT INTO ticketevent VALUES(NULL, 'CLOSE', NULL, NULL, " + yesterday + ", 0, NULL, NULL, 1);")
         end
         for i in 0..7
-            $database.query("INSERT INTO ticketevent VALUES(NULL, 'ASSIGN', NULL, NULL, " + yesterday + ", NULL, NULL, 1);")
+            $database.query("INSERT INTO ticketevent VALUES(NULL, 'ASSIGN', NULL, NULL, " + yesterday + ", 0, NULL, NULL, 1);")
         end
 
         @result = request('/system/get-stats', {
