@@ -184,6 +184,7 @@ export default {
     'HIMSELF': '彼自身',
     'ADD_USER': 'ユーザーを追加する',
     'UPLOAD_FILE': 'ファイルをアップロードする',
+    'PRIVATE': 'プライベート',
     'ENABLE_USER': 'ユーザーを有効にする',
     'DISABLE_USER': 'ユーザーを無効にする',
 

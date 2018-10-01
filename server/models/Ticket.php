@@ -170,7 +170,8 @@ class Ticket extends DataStore {
                 'content'=> $ticketEvent->content,
                 'author' => [],
                 'date'=> $ticketEvent->date,
-                'file'=> $ticketEvent->file
+                'file'=> $ticketEvent->file,
+                'private'=> $ticketEvent->private,
             ];
 
             $author = $ticketEvent->getAuthor();
@@ -184,6 +185,10 @@ class Ticket extends DataStore {
                 ];
             }
 
+            if(!Controller::isStaffLogged() && $ticketEvent->private) {
+                continue;
+            }
+    
             $events[] = $event;
         }
 

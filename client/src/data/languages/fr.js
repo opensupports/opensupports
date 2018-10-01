@@ -184,6 +184,7 @@ export default {
     'HIMSELF': 'lui-même',
     'ADD_USER': 'Ajouter un utilisateur',
     'UPLOAD_FILE': 'Téléverser un fichier',
+    'PRIVATE': 'privé',
     'ENABLE_USER': 'Activer l\'utilisateur',
     'DISABLE_USER': 'Désactiver l\'utilisateur',
 

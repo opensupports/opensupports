@@ -183,6 +183,7 @@ export default {
     'HIMSELF': 'ele mesmo',
     'ADD_USER': 'Adicionar usuário',
     'UPLOAD_FILE': 'Subir arquivo',
+    'PRIVATE': 'privado',
     'ENABLE_USER': 'Ativar usuário',
     'DISABLE_USER': 'Desativar usuário',
 
@@ -244,7 +245,7 @@ export default {
     'INSTALLATION_COMPLETED': 'Instalação completa.',
     'INSTALLATION_COMPLETED_DESCRIPTION': 'A instalação do OpenSupports está concluída. Redirecionando para o painel de administração ...',
 
-     'STEP_TITLE': 'Passo {current} de {total} - {title}',
+    'STEP_TITLE': 'Passo {current} de {total} - {title}',
     'STEP_1_DESCRIPTION': 'Selecione o idioma preferido para o assistente de instalação.',
     'STEP_2_DESCRIPTION': 'Aqui estão listados os requisitos para executar o OpenSupports. Certifique-se de que todos os requisitos estão satisfeitos.',
     'STEP_3_DESCRIPTION': 'Preencha a configuração do banco de dados MySQL.',

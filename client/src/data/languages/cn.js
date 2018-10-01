@@ -184,6 +184,7 @@ export default {
     'HIMSELF': '他自己',
     'ADD_USER': '添加用户',
     'UPLOAD_FILE': '上传文件',
+    'PRIVATE': '私人的',
     'ENABLE_USER': '启用用户',
     'DISABLE_USER': '禁用用户',
 

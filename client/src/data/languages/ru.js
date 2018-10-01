@@ -184,6 +184,7 @@ export default {
     'HIMSELF': 'сам',
     'ADD_USER': 'Добавить пользователя',
     'UPLOAD_FILE': 'Загрузить файл',
+    'PRIVATE': 'частный',
     'ENABLE_USER': 'Включить пользователя',
     'DISABLE_USER': 'Отключить пользователя',
 

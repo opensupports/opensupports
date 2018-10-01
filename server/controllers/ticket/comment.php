@@ -16,6 +16,7 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiParam {String} content Content of the comment.
  * @apiParam {Number} ticketNumber The number of the ticket to comment.
+ * @apiParam {Boolean} private Indicates if the comment is not shown to users.
  * @apiParam {Number} images The number of images in the content
  * @apiParam image_i The image file of index `i` (mutiple params accepted)
  * @apiParam file The file you with to upload.
@@ -118,7 +119,8 @@ class CommentController extends Controller {
         $comment->setProperties(array(
             'content' => $this->replaceWithImagePaths($imagePaths, $this->content),
             'file' => ($fileUploader instanceof FileUploader) ? $fileUploader->getFileName() : null,
-            'date' => Date::getCurrentDate()
+            'date' => Date::getCurrentDate(),
+            'private' => (Controller::isStaffLogged() && Controller::request('private')) ? 1 : 0
         ));
 
         if(Controller::isStaffLogged()) {

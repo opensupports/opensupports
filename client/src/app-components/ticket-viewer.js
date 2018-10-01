@@ -47,7 +47,8 @@ class TicketViewer extends React.Component {
     state = {
         loading: false,
         commentValue: TextEditor.createEmpty(),
-        commentEdited: false
+        commentEdited: false,
+        commentPrivate: false
     };
 
     componentDidMount() {
@@ -211,19 +212,22 @@ class TicketViewer extends React.Component {
     renderResponseField() {
         return (
             <div className="ticket-viewer__response">
-                <div className="ticket-viewer__response-title row">{i18n('RESPOND')}</div>
-                {this.renderCustomResponses()}
-                <div className="ticket-viewer__response-field row">
-                    <Form {...this.getCommentFormProps()}>
+                <Form {...this.getCommentFormProps()}>
+                    <div className="ticket-viewer__response-title row">{i18n('RESPOND')}</div>
+                    <div className="ticket-viewer__actions row">
+                        {this.renderCustomResponses()}
+                        {this.renderPrivate()}
+                    </div>
+                    <div className="ticket-viewer__response-field row">
                         <FormField name="content" validation="TEXT_AREA" required field="textarea" fieldProps={{allowImages: this.props.allowAttachments}}/>
                         {(this.props.allowAttachments) ? <FormField name="file" field="file"/> : null}
                         <div className="ticket-viewer__response-buttons">
                             <SubmitButton type="secondary">{i18n('RESPOND_TICKET')}</SubmitButton>
                             <Button size="medium" onClick={this.onCloseTicketClick.bind(this)}>{i18n('CLOSE_TICKET')}</Button>
                         </div>
-                    </Form>
-                </div>
-                {(this.state.commentError) ? this.renderCommentError() : null}
+                    </div>
+                    {(this.state.commentError) ? this.renderCommentError() : null}
+                </Form>
             </div>
         );
     }
@@ -243,7 +247,7 @@ class TicketViewer extends React.Component {
             });
 
             customResponsesNode = (
-                <div className="ticket-viewer__response-custom row">
+                <div className="ticket-viewer__response-custom">
                     <DropDown items={customResponses} size="medium" onChange={this.onCustomResponsesChanged.bind(this)}/>
                 </div>
             );
@@ -258,6 +262,18 @@ class TicketViewer extends React.Component {
         );
     }
 
+    renderPrivate() {
+        if (this.props.userStaff) {
+            return (
+                <div className="ticket-viewer__private">
+                    <FormField label={i18n('PRIVATE')} name="private" field="checkbox"/>
+                </div>
+            );
+        } else {
+            return null;
+        }
+    }
+
     getCommentFormProps() {
         return {
             onSubmit: this.onSubmit.bind(this),
@@ -265,11 +281,13 @@ class TicketViewer extends React.Component {
             onChange: (formState) => {this.setState({
                 commentValue: formState.content,
                 commentFile: formState.file,
-                commentEdited: true
+                commentEdited: true,
+                commentPrivate: formState.private
             })},
             values: {
                 'content': this.state.commentValue,
-                'file': this.state.commentFile
+                'file': this.state.commentFile,
+                'private': this.state.commentPrivate
             }
         };
     }
@@ -387,7 +405,7 @@ class TicketViewer extends React.Component {
             dataAsForm: true,
             data: _.extend({
                 ticketNumber: this.props.ticket.ticketNumber
-            }, formState, TextEditor.getContentFormData(formState.content))
+            }, formState, {private: formState.private ? 1 : 0}, TextEditor.getContentFormData(formState.content))
         }).then(this.onCommentSuccess.bind(this), this.onCommentFail.bind(this));
     }
 

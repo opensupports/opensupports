@@ -184,6 +184,7 @@ export default {
     'HIMSELF': 'स्वयं',
     'ADD_USER': 'उपयोगकर्ता जोड़ें',
     'UPLOAD_FILE': 'दस्तावेज अपलोड करें',
+    'PRIVATE': 'निजी',
     'ENABLE_USER': 'उपयोगकर्ता सक्षम करें',
     'DISABLE_USER': 'उपयोगकर्ता को अक्षम करें',
 

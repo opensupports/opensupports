@@ -14,7 +14,7 @@ class AdminPanelStats extends React.Component {
             </div>
         );
     }
-    
+
 }
 
 export default AdminPanelStats;

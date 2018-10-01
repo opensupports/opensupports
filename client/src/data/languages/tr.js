@@ -184,6 +184,7 @@ export default {
     'HIMSELF': 'kendisi',
     'ADD_USER': 'Kullanıcı Ekle',
     'UPLOAD_FILE': 'Dosya yükleme',
+    'PRIVATE': 'gizli',
     'ENABLE_USER': 'Kullanıcıyı Etkinleştir',
     'DISABLE_USER': 'Kullanıcıyı Devre Dışı Bırak',
 
