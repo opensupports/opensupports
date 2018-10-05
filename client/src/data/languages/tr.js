@@ -235,6 +235,7 @@ export default {
     'USER_SYSTEM': 'Kullanıcı Sistemi',
     'PREVIOUS': 'Önceki',
     'DATABASE_HOST': 'MySQL sunucusu',
+    'DATABASE_PORT': 'MySQL sunucu bağlantı noktası',
     'DATABASE_NAME': 'MySQL veritabanı adı',
     'DATABASE_USER': 'MySQL kullanıcısı',
     'DATABASE_PASSWORD': 'MySQL şifresi',
@@ -300,6 +301,7 @@ export default {
     'SMTP_SERVER_DESCRIPTION': 'SMTP sunucusunun yapılandırması, uygulamanın postalar göndermesine izin verir. Onu yapılandırmazsanız, OpenSupports tarafından hiçbir e-posta gönderilmeyecektir',
     'ENABLE_USER_DESCRIPTION': 'Bu eylem, kullanıcının giriş yapmasına ve bilet oluşturmasına izin verir.',
     'DISABLE_USER_DESCRIPTION': 'Kullanıcı devre dışı bırakılacak ve oturum açıp bilet oluşturamayacak.',
+    'PRIVATE_DESCRIPTION': 'Bu yanıt sadece personel tarafından görülebilir',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-posta veya şifre geçersiz',
@@ -373,6 +375,7 @@ export default {
     'LEFT_EMPTY_DATABASE': 'Otomatik veritabanı oluşturulması için boş bırakıldı',
     'REMEMBER_ME': 'Hatırlamak',
     'EMAIL_LOWERCASE': 'e-posta',
+    'DEFAULT_PORT': '3306 için boş bırak varsayılan olarak',
     'PASSWORD_LOWERCASE': 'parola',
     'TEST_SMTP_CONNECTION': 'SMTP bağlantısını test et',
     'SMTP_CONNECTION_SUCCESS': 'SMTP kimlik bilgileri geçerlidir.',

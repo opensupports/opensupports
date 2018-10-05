@@ -29,6 +29,7 @@ export default {
     'DATE': 'Data',
     'RESPOND': 'Responder',
     'RESPOND_TICKET': 'Responder chamado',
+    'CLOSE_TICKET': 'Fechar ticket',
     'NO_ATTACHMENT': 'Nenhum anexo',
     'STAFF': 'Equipe',
     'CUSTOMER': 'Cliente',
@@ -300,6 +301,7 @@ export default {
     'SMTP_SERVER_DESCRIPTION': 'A configuração do servidor SMTP permite que o aplicativo envie e-mails. Se você não configurá-lo, nenhum e-mail será enviado pela OpenSupports.',
     'ENABLE_USER_DESCRIPTION': 'Essa ação permite que o usuário faça login e crie tickets.',
     'DISABLE_USER_DESCRIPTION': 'O usuário será desativado e não poderá fazer login e criar tickets.',
+    'PRIVATE_DESCRIPTION': 'Esta resposta só será vista pelos funcionários',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-mail ou senha inválidos',

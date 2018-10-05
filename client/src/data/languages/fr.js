@@ -235,6 +235,7 @@ export default {
     'USER_SYSTEM': 'Système utilisateur',
     'PREVIOUS': 'Précédent',
     'DATABASE_HOST': 'Serveur MySQL',
+    'DATABASE_PORT': 'Port du serveur MySQL',
     'DATABASE_NAME': 'Nom de la base de données MySQL',
     'DATABASE_USER': 'Utilisateur MySQL',
     'DATABASE_PASSWORD': 'Mot de passe MySQL',
@@ -300,6 +301,7 @@ export default {
     'SMTP_SERVER_DESCRIPTION': 'La configuration du serveur SMTP permet à l\'application d\'envoyer des mails. Si vous ne le configurez pas, aucun service d\'email ne sera envoyé par OpenSupports.',
     'ENABLE_USER_DESCRIPTION': 'Cette action permet à l\'utilisateur de se connecter et de créer des tickets.',
     'DISABLE_USER_DESCRIPTION': 'L\'utilisateur sera désactivé et ne pourra pas se connecter et créer des tickets.',
+    'PRIVATE_DESCRIPTION': 'Cette réponse ne sera vue que par les membres du personnel',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-mail ou mot de passe invalide',
@@ -373,6 +375,7 @@ export default {
     'LEFT_EMPTY_DATABASE': 'Laisser vide pour la création automatique de la base de données',
     'REMEMBER_ME': 'Se souvenir de moi',
     'EMAIL_LOWERCASE': 'email',
+    'DEFAULT_PORT': 'Laisser vide pour 3306 par défaut',
     'PASSWORD_LOWERCASE': 'mot de passe',
     'TEST_SMTP_CONNECTION': 'Test de connexion SMTP',
     'SMTP_CONNECTION_SUCCESS': 'Les informations d\'identification SMTP sont valides.',
