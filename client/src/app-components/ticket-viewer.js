@@ -19,6 +19,7 @@ import Button             from 'core-components/button';
 import Message            from 'core-components/message';
 import Icon               from 'core-components/icon';
 import TextEditor         from 'core-components/text-editor';
+import InfoTooltip        from 'core-components/info-tooltip';
 
 class TicketViewer extends React.Component {
     static propTypes = {
@@ -214,9 +215,11 @@ class TicketViewer extends React.Component {
             <div className="ticket-viewer__response">
                 <Form {...this.getCommentFormProps()}>
                     <div className="ticket-viewer__response-title row">{i18n('RESPOND')}</div>
-                    <div className="ticket-viewer__actions row">
-                        {this.renderCustomResponses()}
-                        {this.renderPrivate()}
+                    <div className="row">
+                        <div className="ticket-viewer__response-actions">
+                            {this.renderCustomResponses()}
+                            {this.renderPrivate()}
+                        </div>
                     </div>
                     <div className="ticket-viewer__response-field row">
                         <FormField name="content" validation="TEXT_AREA" required field="textarea" fieldProps={{allowImages: this.props.allowAttachments}}/>
@@ -256,22 +259,23 @@ class TicketViewer extends React.Component {
         return customResponsesNode;
     }
 
-    renderCommentError() {
-        return (
-            <Message className="ticket-viewer__message" type="error">{i18n('TICKET_COMMENT_ERROR')}</Message>
-        );
-    }
-
     renderPrivate() {
         if (this.props.userStaff) {
             return (
-                <div className="ticket-viewer__private">
+                <div className="ticket-viewer__response-private">
                     <FormField label={i18n('PRIVATE')} name="private" field="checkbox"/>
+                    <InfoTooltip className="ticket-viewer__response-private-info" text={i18n('PRIVATE_DESCRIPTION')} />
                 </div>
             );
         } else {
             return null;
         }
+    }
+
+    renderCommentError() {
+        return (
+            <Message className="ticket-viewer__message" type="error">{i18n('TICKET_COMMENT_ERROR')}</Message>
+        );
     }
 
     getCommentFormProps() {

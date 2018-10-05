@@ -5,6 +5,7 @@ server/composer.lock
 server/vendor
 server/files/
 !server/files/.gitkeep
+!server/files/.htaccess
 server/.dbdata
 server/.fakemail
 server/apidoc

@@ -10,9 +10,6 @@
         font-size: 16px;
         padding: 6px 0;
     }
-    &__private {
-
-    }
 
     &__number {
         color: white;
@@ -74,10 +71,23 @@
             text-align: left;
         }
 
-        &-custom {
+        &-actions {
             background-color: $very-light-grey;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &-custom {
             padding: 20px 0 0 20px;
             text-align: left;
+        }
+
+        &-private {
+            padding: 20px 20px 0 0;
+
+            &-info {
+                margin-left: 5px;
+            }
         }
 
         &-buttons {
@@ -87,11 +97,4 @@
         }
 
     }
-    &__actions {
-        background-color: $very-light-grey;
-
-        display:flex;
-        align-items:center;justify-content: space-between;
-    }
-
 }
