@@ -147,6 +147,7 @@ class TextEditor extends React.Component {
         for (let index in items) {
             let item = items[index];
             if (item.kind === 'file') {
+                event.preventDefault();
                 let blob = item.getAsFile();
                 let reader = new FileReader();
                 reader.onload = (event) => {
