@@ -51,7 +51,7 @@ class TextEditor extends React.Component {
 
     render() {
         return (
-            <div className={this.getClass()}>
+            <div className={this.getClass()} onPaste={this.onPaste.bind(this)}>
                 {isIE() ? this.renderTextArea() : this.renderQuill()}
             </div>
         );
@@ -138,6 +138,29 @@ class TextEditor extends React.Component {
 
         if(this.props.onBlur) {
             this.props.onBlur(event)
+        }
+    }
+
+    onPaste(event) {
+        let items = event.nativeEvent && event.nativeEvent.clipboardData.items;
+
+        for (let index in items) {
+            let item = items[index];
+            if (item.kind === 'file') {
+                let blob = item.getAsFile();
+                let reader = new FileReader();
+                reader.onload = (event) => {
+                    this.props.onChange({
+                        target: {
+                            value: (
+                                this.props.value
+                                + `<img src="${event.target.result}" />`
+                            )
+                        }
+                    });
+                };
+                reader.readAsDataURL(blob);
+            }
         }
     }
 
