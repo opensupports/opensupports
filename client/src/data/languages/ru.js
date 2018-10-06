@@ -235,6 +235,7 @@ export default {
     'USER_SYSTEM': 'Пользовательская система',
     'PREVIOUS': 'Предыдущая',
     'DATABASE_HOST': 'Сервер MySQL',
+    'DATABASE_PORT': 'Порт сервера MySQL',
     'DATABASE_NAME': 'Имя базы данных MySQL',
     'DATABASE_USER': 'Пользователь MySQL',
     'DATABASE_PASSWORD': 'Пароль MySQL',
@@ -252,6 +253,7 @@ export default {
     'STEP_4_DESCRIPTION': 'Выберите свои пользовательские настройки.',
     'STEP_5_DESCRIPTION': 'Пожалуйста, настройте учетную запись администратора.',
     'STEP_6_DESCRIPTION': 'Установка завершена.',
+    'STEP_7_DESCRIPTION': 'Установка завершена.',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'Это форма для создания билетов. Заполните форму и отправьте нам свои вопросы / сомнения / предложения. Наша система поддержки будет ответить на него как можно скорее.',
@@ -299,6 +301,7 @@ export default {
     'SMTP_SERVER_DESCRIPTION': 'Конфигурация SMTP-сервера позволяет приложению отправлять письма. Если вы не настроите его, никакие электронные письма не будут отправлены OpenSupports.',
     'ENABLE_USER_DESCRIPTION': 'Это действие позволяет пользователю входить в систему и создавать билеты.',
     'DISABLE_USER_DESCRIPTION': 'Пользователь будет отключен и не сможет войти и создать билеты',
+    'PRIVATE_DESCRIPTION': 'Этот ответ будет рассматриваться только сотрудниками',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'электронной почты или пароль недействительный',
@@ -373,6 +376,7 @@ export default {
     'REMEMBER_ME': 'Запомнить',
     'EMAIL_LOWERCASE': 'Эл. адрес',
     'PASSWORD_LOWERCASE': 'пароль',
+    'DEFAULT_PORT': 'Оставьте пустым для 3306 по умолчанию',
     'TEST_SMTP_CONNECTION': 'Тестирование SMTP-соединения',
     'SMTP_CONNECTION_SUCCESS': 'Учетные данные SMTP действительны.',
     'SMTP_CONNECTION_ERROR': 'Не удается подключиться к SMTP-серверу.'

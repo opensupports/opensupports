@@ -235,6 +235,7 @@ export default {
     'USER_SYSTEM': '用戶系統',
     'PREVIOUS': '以前',
     'DATABASE_HOST': 'MySQL服務器',
+    'DATABASE_PORT': 'MySQL服务器端口',
     'DATABASE_NAME': 'MySQL數據庫名稱',
     'DATABASE_USER': 'MySQL用戶',
     'DATABASE_PASSWORD': 'MySQL密碼',
@@ -300,6 +301,7 @@ export default {
     'SMTP_SERVER_DESCRIPTION': 'SMTP服务器允许应用程序发送邮件。 如果您没有配置，OpenSupports将不会发送任何电子邮件。',
     'ENABLE_USER_DESCRIPTION': '此操作允许用户登录并创建票证。',
     'DISABLE_USER_DESCRIPTION': '用户将被禁用，无法登录并创建票证。',
+    'PRIVATE_DESCRIPTION': '只有工作人员才能看到这种回应',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': '電子郵件或密碼無效',
@@ -373,6 +375,7 @@ export default {
     'LEFT_EMPTY_DATABASE': '留空为自动创建数据库',
     'REMEMBER_ME': '记住我',
     'EMAIL_LOWERCASE': '电子邮件',
+    'DEFAULT_PORT': '默认为空，为3306',
     'PASSWORD_LOWERCASE': '密码',
     'SYSTEM_SETTINGS': '系统设置',
     'TEST_SMTP_CONNECTION': '测试SMTP连接',

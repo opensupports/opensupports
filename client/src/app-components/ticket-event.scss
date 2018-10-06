@@ -47,7 +47,7 @@
 
     &__comment {
         position: relative;
-        word-break: break-all;
+        word-wrap: break-word;
 
         &-pointer {
             right: 100%;
@@ -64,17 +64,19 @@
             position: relative;
             padding: 12px;
             color: $primary-black;
+        }
 
-            &-type {
-                font-size: 10.6px;
-                padding-left: 10px;
-                color: $secondary-blue;
-                background-color: very-light-grey;
-                border: 2px solid;
-                border-radius: 4px;
-                padding: 4px;
-                margin-left: 12px;
-            }
+        &-badge-container {
+            margin-left: 12px;
+        }
+
+        &-badge {
+            font-size: 10.6px;
+            font-weight: bold;
+            color: $primary-blue;
+            background-color: $very-light-grey;
+            padding: 6px;
+            width: 100px;
         }
 
         &-date {
@@ -108,10 +110,6 @@
     &_staff {
         .ticket-event__icon {
             background-color: $primary-blue;
-        }
-
-        .ticket-event__comment-author-type {
-            color: $primary-blue;
         }
     }
 
@@ -190,16 +188,9 @@
             background-color: $light-yellow;
             border-color: $light-yellow;
         }
-        .ticket-event__comment-content {
-            background-color: $very-light-yellow;
-            border-color: $very-light-yellow;
-        }
         .ticket-event__staff-pic {
             background-color: $light-yellow;
             border-color: $light-yellow;
-        }
-        .ticket-event__file {
-            background-color: $light-yellow;
         }
     }
 }

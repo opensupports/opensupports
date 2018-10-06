@@ -122,7 +122,7 @@ abstract class Controller {
         $url = Setting::getSetting('url')->getValue();
         for($i=0;$i<$totalImages;$i++) {
             $fileUploader->setGeneratorValues($fileGap, $fileFirst, $fileQuantity->getValue());
-            $fileUploader->upload($_FILES["image_$i"]);
+            $fileUploader->upload("image_$i");
             $imagePaths[] = $url . '/api/system/download?file=' . $fileUploader->getFileName();
             $fileQuantity->value++;
         }
@@ -146,7 +146,7 @@ abstract class Controller {
         $fileUploader->setMaxSize($maxSize);
         $fileUploader->setGeneratorValues($fileGap, $fileFirst, $fileQuantity->getValue());
 
-        if($fileUploader->upload($_FILES['file'])) {
+        if($fileUploader->upload('file')) {
             $fileQuantity->value++;
             $fileQuantity->store();
 

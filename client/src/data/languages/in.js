@@ -235,6 +235,7 @@ export default {
     'USER_SYSTEM': 'उपयोगकर्ता सिस्टम',
     'PREVIOUS': 'पिछला',
     'DATABASE_HOST': 'MySQL सर्वर',
+    'DATABASE_PORT': 'MySQL सर्वर पोर्ट',
     'DATABASE_NAME': 'MySQL डाटाबेस नाम',
     'DATABASE_USER': 'MySQL उपयोगकर्ता',
     'DATABASE_PASSWORD': 'MySQL पासवर्ड',
@@ -300,6 +301,7 @@ export default {
     'SMTP_SERVER_DESCRIPTION': 'एसएमटीपी सर्वर का कॉन्फ़िगरेशन एप्लिकेशन को मेल भेजने की अनुमति देता है। यदि आप इसे कॉन्फ़िगर नहीं करते हैं, तो OpenSupports द्वारा कोई ईमेल नहीं भेजा जाएगा।',
     'ENABLE_USER_DESCRIPTION': 'यह क्रिया उपयोगकर्ता को साइन इन करने और टिकट बनाने की अनुमति देती है।',
     'DISABLE_USER_DESCRIPTION': 'उपयोगकर्ता अक्षम कर दिया जाएगा और साइन इन करने और टिकट बनाने में सक्षम नहीं होगा।',
+    'PRIVATE_DESCRIPTION': 'यह प्रतिक्रिया केवल कर्मचारियों के सदस्यों द्वारा देखी जाएगी',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'ईमेल या पासवर्ड अमान्य',
@@ -373,6 +375,7 @@ export default {
     'LEFT_EMPTY_DATABASE': 'स्वचालित डेटाबेस निर्माण के लिए खाली छोड़ दिया',
     'REMEMBER_ME': 'मुझे याद रखना',
     'EMAIL_LOWERCASE': 'ईमेल',
+    'DEFAULT_PORT': '3306 के लिए डिफ़ॉल्ट के रूप में खाली छोड़ दें',
     'PASSWORD_LOWERCASE': 'पासवर्ड',
     'TEST_SMTP_CONNECTION': 'परीक्षण एसएमटीपी कनेक्शन',
     'SMTP_CONNECTION_SUCCESS': 'SMTP क्रेडेंशियल्स मान्य हं।',

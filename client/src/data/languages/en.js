@@ -184,7 +184,7 @@ export default {
     'HIMSELF': 'himself',
     'ADD_USER': 'Add user',
     'UPLOAD_FILE': 'Upload file',
-    'PRIVATE': 'private',
+    'PRIVATE': 'Private',
     'ENABLE_USER': 'Enable User',
     'DISABLE_USER': 'Disable User',
 
@@ -301,6 +301,7 @@ export default {
     'SMTP_SERVER_DESCRIPTION': 'The configuration of the SMTP server allows the application to send mails. If you do not configure it, no emails will be sent by OpenSupports.',
     'ENABLE_USER_DESCRIPTION': 'This action allows the user to sign in and create tickets.',
     'DISABLE_USER_DESCRIPTION': 'User will be disabled and will not be able to sign in and create tickets.',
+    'PRIVATE_DESCRIPTION': 'This response will only be seen by staff members',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',

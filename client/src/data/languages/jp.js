@@ -235,6 +235,7 @@ export default {
     'USER_SYSTEM': 'ユーザシステム',
     'PREVIOUS': '前',
     'DATABASE_HOST': 'MySQLサーバー',
+    'DATABASE_PORT': 'MySQLサーバポート',
     'DATABASE_NAME': 'MySQLデータベース名',
     'DATABASE_USER': 'MySQLユーザー',
     'DATABASE_PASSWORD': 'MySQLのパスワード',
@@ -300,6 +301,7 @@ export default {
     'SMTP_SERVER_DESCRIPTION': 'SMTPサーバーの設定により、アプリケーションはメールを送信できます。 これを設定しないと、OpenSupportsから電子メールは送信されません。',
     'ENABLE_USER_DESCRIPTION': 'これにより、ユーザーはサインインしてチケットを作成できます。',
     'DISABLE_USER_DESCRIPTION': 'ユーザーは無効になり、ログインしてチケットを作成することはできません。',
+    'PRIVATE_DESCRIPTION': 'スタッフのみがこの回答を見ることができます',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': '電子メールまたはパスワードが無効です',
@@ -373,6 +375,7 @@ export default {
     'LEFT_EMPTY_DATABASE': '自動データベース作成のために空のままにする',
     'REMEMBER_ME': '覚えている',
     'EMAIL_LOWERCASE': 'Eメール',
+    'DEFAULT_PORT': '既定値として3306の場合は空のままにします',
     'PASSWORD_LOWERCASE': 'パスワード',
     'TEST_SMTP_CONNECTION': 'SMTP接続をテストする',
     'SMTP_CONNECTION_SUCCESS': 'SMTP資格情報が有効です。',
