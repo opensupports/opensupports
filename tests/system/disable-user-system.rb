@@ -65,6 +65,40 @@ describe'system/disable-user-system' do
             (result['status']).should.equal('success')
         end
 
+        it 'should be able to assign and respond tickets' do
+            Scripts.login($staff[:email], $staff[:password], true);
+            ticket = $database.getLastRow('ticket');
+            result = request('/staff/assign-ticket', {
+                ticketNumber: ticket['ticket_number'],
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+            })
+            (result['status']).should.equal('success')
+
+            result = request('/ticket/comment', {
+                ticketNumber: ticket['ticket_number'],
+                content: 'This is a staff response for a ticket without an user',
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+            })
+            (result['status']).should.equal('success')
+        end
+
+        it 'should be be able to create a ticket as an admin' do
+            result = request('/ticket/create', {
+                title: 'created by staff with user system disabled',
+                content: 'an staff created this ticket while user system disabled',
+                departmentId: 1,
+                language: 'en',
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token
+            })
+            (result['status']).should.equal('success')
+            ticket = $database.getRow('ticket', result['data']['ticketNumber'], 'ticket_number')
+            (ticket['author_id']).should.equal(nil)
+            (ticket['author_staff_id']).should.equal('1')
+        end
+
         it 'should not disable the user system if it is already disabled 'do
             request('/user/logout')
             Scripts.login($staff[:email], $staff[:password], true)

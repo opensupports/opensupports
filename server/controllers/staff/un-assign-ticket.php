@@ -45,7 +45,7 @@ class UnAssignStaffController extends Controller {
         $ticket = Ticket::getByTicketNumber($ticketNumber);
         $owner = $ticket->owner;
 
-        if($ticket->isOwner($user) || $user->level > 2) {
+        if($owner && ($ticket->isOwner($user) || $user->level > 2)) {
             if(!$ticket->isAuthor($owner)) {
                 $owner->sharedTicketList->remove($ticket);
                 $owner->store();
