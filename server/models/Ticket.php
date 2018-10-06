@@ -141,6 +141,8 @@ class Ticket extends DataStore {
             ];
         } else {
             return [
+              'id' => NULL,
+              'staff' => false,
               'name' => $this->authorName,
               'email' => $this->authorEmail
             ];
@@ -200,9 +202,9 @@ class Ticket extends DataStore {
     }
 
     public function isAuthor($user) {
-        if(!$user->isNull()) return false;
         $ticketAuthor = $this->authorToArray();
         if(is_string($user)) return $user == $ticketAuthor['email'];
+        if(!($user instanceof DataStore) || $user->isNull()) return false;
         return $user->id == $ticketAuthor['id'] && ($user instanceof Staff) == $ticketAuthor['staff'];
     }
 
