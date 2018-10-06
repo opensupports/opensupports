@@ -188,7 +188,7 @@ class Ticket extends DataStore {
             if(!Controller::isStaffLogged() && $ticketEvent->private) {
                 continue;
             }
-    
+
             $events[] = $event;
         }
 
@@ -200,12 +200,13 @@ class Ticket extends DataStore {
     }
 
     public function isAuthor($user) {
+        if(!$user->isNull()) return false;
         $ticketAuthor = $this->authorToArray();
         if(is_string($user)) return $user == $ticketAuthor['email'];
         return $user->id == $ticketAuthor['id'] && ($user instanceof Staff) == $ticketAuthor['staff'];
     }
 
     public function isOwner($user) {
-        return $this->owner && $user->id == $this->owner->id && ($user instanceof Staff);
+        return !$user->isNull() && $this->owner && $user->id == $this->owner->id && ($user instanceof Staff);
     }
 }

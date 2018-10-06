@@ -141,7 +141,7 @@ class CommentController extends Controller {
 
         $email = $recipient['email'];
         $name = $recipient['name'];
-        $isStaff = $recipient['staff'];
+        $isStaff = array_key_exists('staff', $recipient) && $recipient['staff'];
 
         $url = Setting::getSetting('url')->getValue();
 
