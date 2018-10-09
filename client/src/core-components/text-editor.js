@@ -106,7 +106,7 @@ class TextEditor extends React.Component {
                 container: [
                     [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
                     [{ align: [] }],
-                    ['bold', 'italic', 'underline','strike', 'blockquote'],
+                    ['bold', 'italic', 'underline','strike'],
                     [{'list': 'ordered'}, {'list': 'bullet'}],
                     ['blockquote', 'code-block' ],
                     (this.props.allowImages) ? ['link', 'image'] : ['link']
