@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect}  from 'react-redux';
+import _ from 'lodash';
 
 import i18n from 'lib-app/i18n';
 
@@ -21,6 +22,10 @@ class AdminPanelMyTickets extends React.Component {
         tickets: []
     };
 
+    state = {
+        showClosedTickets: false
+    };
+
     componentDidMount() {
         this.props.dispatch(AdminDataAction.retrieveMyTickets());
     }
@@ -39,15 +44,32 @@ class AdminPanelMyTickets extends React.Component {
         );
     }
 
+    filterOpenedTickets(tickets){
+        return _.filter(tickets, (ticket) => {
+            return !ticket.closed
+        });
+    }
+
     getProps() {
         return {
             userId: this.props.userId,
             departments: this.props.departments,
-            tickets: this.props.tickets,
+            tickets: this.state.showClosedTickets ? this.props.tickets : this.filterOpenedTickets(this.props.tickets),
             type: 'secondary',
             loading: this.props.loading,
-            ticketPath: '/admin/panel/tickets/view-ticket/'
+            ticketPath: '/admin/panel/tickets/view-ticket/',
+            filterClosedTickets: true,
+            showClosedTickets: this.state.showClosedTickets,
+            onShowClosedTicketsChange: this.onShowClosedTicketsChange.bind(this) 
         };
+    }
+
+    onShowClosedTicketsChange() {
+        this.setState(function(state) {
+            return {
+                showClosedTickets: !state.showClosedTickets
+            };
+        });
     }
 
     onCreateTicket() {

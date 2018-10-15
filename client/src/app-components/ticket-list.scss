@@ -2,8 +2,17 @@
 
 .ticket-list {
 
-    &__department-selector {
+    &__filters {
         margin-bottom: 25px;
+    }
+
+    &__department-selector {
+        display: inline-block;
+    }
+
+    &__checkbox {
+        display: inline-block;
+        margin-left: 25px;
     }
 
     &__number {

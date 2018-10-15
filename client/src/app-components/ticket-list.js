@@ -9,6 +9,7 @@ import Table from 'core-components/table';
 import Button from 'core-components/button';
 import Tooltip from 'core-components/tooltip';
 import DropDown from 'core-components/drop-down';
+import Checkbox from 'core-components/checkbox';
 
 class TicketList extends React.Component {
     static propTypes = {
@@ -21,7 +22,10 @@ class TicketList extends React.Component {
         type: React.PropTypes.oneOf([
             'primary',
             'secondary'
-        ])
+        ]),
+        showClosedTickets: React.PropTypes.bool,
+        filterClosedTickets: React.PropTypes.bool,
+        onShowClosedTicketsChange: React.PropTypes.func
     };
 
     static defaultProps = {
@@ -30,7 +34,9 @@ class TicketList extends React.Component {
         tickets: [],
         departments: [],
         ticketPath: '/dashboard/ticket/',
-        type: 'primary'
+        type: 'primary',
+        showClosedTickets: false,
+        filterClosedTickets: false
     };
 
     state = {
@@ -40,10 +46,18 @@ class TicketList extends React.Component {
     render() {
         return (
             <div className="ticket-list">
-                {(this.props.type === 'secondary' && this.props.showDepartmentDropdown) ? this.renderDepartmentsDropDown() : null}
+                <div className="ticket-list__filters"> 
+                    {(this.props.type === 'secondary' && this.props.showDepartmentDropdown) ? this.renderDepartmentsDropDown() : null}
+                    {this.props.filterClosedTickets ? this.renderFilterCheckbox() : null}
+                </div>
                 <Table {...this.getTableProps()} />
             </div>
         );
+    }
+
+
+    renderFilterCheckbox() {
+        return <Checkbox className="ticket-list__checkbox" label="Show Closed Tickets" value={this.props.showClosedTickets} onChange={this.props.onShowClosedTicketsChange} wrapInLabel/>
     }
 
     renderDepartmentsDropDown() {
