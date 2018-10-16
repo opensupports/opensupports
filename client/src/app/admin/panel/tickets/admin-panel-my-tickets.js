@@ -23,7 +23,7 @@ class AdminPanelMyTickets extends React.Component {
     };
 
     state = {
-        showClosedTickets: false
+        closedTicketsShown: false
     };
 
     componentDidMount() {
@@ -54,20 +54,19 @@ class AdminPanelMyTickets extends React.Component {
         return {
             userId: this.props.userId,
             departments: this.props.departments,
-            tickets: this.state.showClosedTickets ? this.props.tickets : this.filterOpenedTickets(this.props.tickets),
+            tickets: this.state.closedTicketsShown ? this.props.tickets : this.filterOpenedTickets(this.props.tickets),
             type: 'secondary',
             loading: this.props.loading,
             ticketPath: '/admin/panel/tickets/view-ticket/',
-            filterClosedTickets: true,
-            showClosedTickets: this.state.showClosedTickets,
-            onShowClosedTicketsChange: this.onShowClosedTicketsChange.bind(this) 
+            closedTicketsShown: this.state.closedTicketsShown,
+            onClosedTicketsShownChange: this.onClosedTicketsShownChange.bind(this) 
         };
     }
 
-    onShowClosedTicketsChange() {
+    onClosedTicketsShownChange() {
         this.setState(function(state) {
             return {
-                showClosedTickets: !state.showClosedTickets
+                closedTicketsShown: !state.closedTicketsShown
             };
         });
     }
