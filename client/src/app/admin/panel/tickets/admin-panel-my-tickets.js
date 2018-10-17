@@ -44,17 +44,11 @@ class AdminPanelMyTickets extends React.Component {
         );
     }
 
-    filterOpenedTickets(tickets){
-        return _.filter(tickets, (ticket) => {
-            return !ticket.closed
-        });
-    }
-
     getProps() {
         return {
             userId: this.props.userId,
             departments: this.props.departments,
-            tickets: this.state.closedTicketsShown ? this.props.tickets : this.filterOpenedTickets(this.props.tickets),
+            tickets: this.props.tickets,
             type: 'secondary',
             loading: this.props.loading,
             ticketPath: '/admin/panel/tickets/view-ticket/',
@@ -68,6 +62,8 @@ class AdminPanelMyTickets extends React.Component {
             return {
                 closedTicketsShown: !state.closedTicketsShown
             };
+        }, () => {
+            this.props.dispatch(AdminDataAction.retrieveMyTickets(this.state.closedTicketsShown * 1));
         });
     }
 

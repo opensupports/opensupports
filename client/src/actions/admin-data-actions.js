@@ -12,12 +12,12 @@ export default {
         };
     },
 
-    retrieveMyTickets() {
+    retrieveMyTickets(closed = 0) {
         return {
             type: 'MY_TICKETS',
             payload: API.call({
                 path: '/staff/get-tickets',
-                data: {}
+                data: {closed}
             })
         };
     },

@@ -150,6 +150,10 @@ abstract class DataStore {
         }
     }
 
+    public function withCondition($condition, $values) {
+       return new static($this->_bean->withCondition($condition, $values)); 
+    }
+
     private function updateBeanProp($key, $value) {
         if ($value instanceof DataStoreList) {
             $this->_bean[$key] = $value->toBeanList();
