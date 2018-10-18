@@ -14,6 +14,7 @@ use Respect\Validation\Validator as DataValidator;
  * @apiPermission staff1
  *
  * @apiParam {Number} page The page number.
+ * @apiParam {Boolean} closed Include closed tickets.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_PAGE
@@ -59,7 +60,8 @@ class GetAllTicketsStaffController extends Controller {
         $page = Controller::request('page');
 
         $query = $this->getStaffDepartmentsQueryFilter();
-        $query .= 'ORDER BY id DESC LIMIT 10 OFFSET ' . (($page-1)*10);
+        $query .= $this->getClosedFilter();
+        $query .= ' ORDER BY id DESC LIMIT 10 OFFSET ' . (($page-1)*10);
 
         return Ticket::find($query);
     }
@@ -80,5 +82,14 @@ class GetAllTicketsStaffController extends Controller {
         $query .= 'FALSE) ';
 
         return $query;
+    }
+
+    private function getClosedFilter() {
+        $closed = Controller::request('closed')*1;
+        if ($closed) {
+            return '';
+        } else {
+            return " AND (closed = '0')";
+        }
     }
 }

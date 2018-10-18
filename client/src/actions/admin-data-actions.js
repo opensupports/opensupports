@@ -32,12 +32,14 @@ export default {
         };
     },
 
-    retrieveAllTickets(page = 1) {
+    retrieveAllTickets(page = 1, closed = 0) {
+        console.log('Closed is:');
+        console.log(closed);
         return {
             type: 'ALL_TICKETS',
             payload: API.call({
                 path: '/staff/get-all-tickets',
-                data: {page}
+                data: {page, closed}
             })
         };
     },

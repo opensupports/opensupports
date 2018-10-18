@@ -20,7 +20,8 @@ class AdminPanelAllTickets extends React.Component {
 
     state = {
         page: 1,
-        query: ''
+        query: '',
+        closedTicketsShown: false
     };
 
     componentDidMount() {
@@ -52,8 +53,20 @@ class AdminPanelAllTickets extends React.Component {
             ticketPath: '/admin/panel/tickets/view-ticket/',
             onPageChange: this.onPageChange.bind(this),
             page: this.state.page,
-            pages: this.props.pages
+            pages: this.props.pages,
+            closedTicketsShown: this.state.closedTicketsShown,
+            onClosedTicketsShownChange: this.onClosedTicketsShownChange.bind(this) 
         };
+    }
+
+    onClosedTicketsShownChange() {
+        this.setState(function(state) {
+            return {
+                closedTicketsShown: !state.closedTicketsShown
+            };
+        }, () => {
+            this.props.dispatch(AdminDataAction.retrieveAllTickets(this.state.page, this.state.closedTicketsShown * 1));
+        });
     }
 
     onSearch(query) {
