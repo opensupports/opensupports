@@ -927,6 +927,73 @@ class MailTexts {
               '{{ticketNumber}}'
           ],
         ],
+		'id' => [
+          'USER_SIGNUP' => [
+              'Masuk {{to}} - OpenSupports',
+              'Verifikasi akun Anda',
+              'Selamat datang di pusat dukungan kami, {{name}}!. Kami ingin Anda memverifikasi email ini untuk mendapatkan akses ke akun Anda.',
+              'Gunakan kode ini di {{url}}/verifikasi-token/{{to}}/{{verificationToken}} 
+atau klik tombol di bawah ini.',
+              '{{verificationToken}}'
+          ],
+          'USER_PASSWORD' => [
+              'Mengubah kata sandi - OpenSupports',
+              'Kata sandi telah diganti',
+              'Hai, {{name}}. Kami ingin memberi tahu Anda bahwa kata sandi Anda telah berubah dari panel pelanggan Anda.'
+          ],
+          'USER_EMAIL' => [
+              'Mengubah email - OpenSupports',
+              'Email telah diganti',
+              'Halo, {{name}}. Kami ingin memberi tahu Anda bahwa email Anda telah diubah menjadi {{newemail}} dari panel pelanggan Anda.'
+          ],
+          'PASSWORD_FORGOT' => [
+              'Pemulihan kata sandi - OpenSupports',
+              'Memulihkan kata sandi',
+              'Hai, {{name}}. Anda telah meminta untuk memulihkan kata sandi Anda.',
+              'Gunakan kode ini di {{url}}/memulihkan-kata sandi? email={{to}}&token={{token}} atau klik tombol di bawah ini.',
+              '{{token}}'
+          ],
+          'USER_SYSTEM_DISABLED' => [
+              'Mengubah sistem akses - OpenSupports',
+              'Sistem akses telah diubah',
+              'Halo, {{name}}. Sistem untuk mengakses tiket telah berubah.',
+              'Anda dapat mengakses dan melihat tiket Anda dengan menggunakan email dan nomor tiket. Klik tombol di bawah ini untuk melihat tiket Anda.',
+              '{{tickets}}'
+          ],
+          'USER_SYSTEM_ENABLED' => [
+              'Pembuatan akun - OpenSupports',
+              'Akun telah dibuat',
+              'Halo, {{name}}. Kami telah membuat akun di mana Anda dapat mengakses tiket yang Anda kirimkan kepada kami.',
+              'Anda dapat mengakses akun Anda dengan menggunakan email ini <i>({{to}})</i> dan kata sandi di bawah ini. Harap ubah kata sandi segera setelah Anda masuk.',
+              '{{password}}'
+          ],
+          'TICKET_CREATED' => [
+              '#{{ticketNumber}} Pembuatan tiket - OpenSupports',
+              'Tiket telah dibuat',
+              'Halo, {{name}}. Anda telah mengirim tiket baru berjudul <i>{{title}}</i> ke pusat dukungan kami.',
+              'Anda dapat mengakses tiket dengan nomor tiketnya atau Anda dapat mengklik tombol di bawah ini.',
+              '{{ticketNumber}}'
+          ],
+          'TICKET_RESPONDED' => [
+              '#{{ticketNumber}} Tanggapan baru - OpenSupports',
+              'Tiket telah ditanggapi',
+              'Halo, {{name}}. Anda telah menerima jawaban di tiket yang berjudul <i>{{title}}</i>.',
+              'Silakan klik di bawah ini untuk melihat tanggapan baru.'
+          ],
+          'TICKET_CLOSED' => [
+             '#{{ticketNumber}} Penutupan tiket - OpenSupports',
+              'Tiket telah ditutup',
+              'Halo, {{name}}. Tiket yang Anda kirim berjudul <i>{{title}}</i> telah ditutup.',
+              'Anda dapat mengakses tiket dengan nomor tiketnya. Atau Anda bisa mengklik tombol di bawah ini.'
+          ],
+          'TICKET_CREATED_STAFF' => [
+              '#{{ticketNumber}} Pembuatan tiket - OpenSupports',
+              'Tiket telah dibuat',
+              'Pengguna {{name}} telah membuat tiket baru berjudul <i>{{title}}</i>.',
+              'Anda dapat mengakses tiket dengan nomor tiketnya.',
+              '{{ticketNumber}}'
+          ],
+        ],
     ];
   }
 }
