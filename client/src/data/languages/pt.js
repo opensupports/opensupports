@@ -30,6 +30,7 @@ export default {
     'RESPOND': 'Responder',
     'RESPOND_TICKET': 'Respond Ticket',
     'CLOSE_TICKET': 'Fechar passagem',
+    'DELETE_TICKET': 'Apagar ticket',
     'NO_ATTACHMENT': 'Nenhum anexo de arquivo',
     'STAFF': 'Funcionários',
     'CUSTOMER': 'Cliente',

@@ -30,6 +30,7 @@ export default {
     'RESPOND': '応答する',
     'RESPOND_TICKET': 'チケット応答',
     'CLOSE_TICKET': 'クローズチケット',
+    'DELETE_TICKET': 'チケットを削除する',
     'NO_ATTACHMENT': '添付ファイルがありません',
     'STAFF': 'スタッフ',
     'CUSTOMER': '顧客',

@@ -30,6 +30,7 @@
      'RESPOND': 'Απάντηση',
      'RESPOND_TICKET': 'Απάντηση Εισιτηρίου',
      'CLOSE_TICKET': 'κλειστό εισιτήριο',
+     'DELETE_TICKET': 'Διαγραφή εισιτηρίου',
      'NO_ATTACHMENT': 'Χωρίς Συνημμένα Αρχεία',
      'STAFF': 'Προσωπικό',
      'CUSTOMER': 'Πελάτης',

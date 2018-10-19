@@ -30,6 +30,7 @@ export default {
     'RESPOND': 'Actie',
     'RESPOND_TICKET': 'Reageren',
     'CLOSE_TICKET': 'Sluit ticket',
+    'DELETE_TICKET': 'Ticket verwijderen',
     'NO_ATTACHMENT': 'Geen bijlage',
     'STAFF': 'Management',
     'CUSTOMER': 'Klant',

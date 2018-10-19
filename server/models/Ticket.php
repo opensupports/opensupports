@@ -90,6 +90,10 @@ class Ticket extends DataStore {
         parent::store();
     }
 
+    public function delete() {
+        parent::delete();
+    }
+
     public function generateUniqueTicketNumber() {
         $linearCongruentialGenerator = new LinearCongruentialGenerator();
         $ticketQuantity = Ticket::count();

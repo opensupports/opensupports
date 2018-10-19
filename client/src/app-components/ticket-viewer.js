@@ -34,6 +34,7 @@ class TicketViewer extends React.Component {
         userId: React.PropTypes.number,
         userStaff: React.PropTypes.bool,
         userDepartments: React.PropTypes.array,
+        userLevel: React.PropTypes.number
     };
 
     static defaultProps = {
@@ -77,7 +78,7 @@ class TicketViewer extends React.Component {
                 <div className="ticket-viewer__comments">
                     {ticket.events && ticket.events.map(this.renderTicketEvent.bind(this))}
                 </div>
-                {(!this.props.ticket.closed && (this.props.editable || !this.props.assignmentAllowed)) ? this.renderResponseField() : null}
+                {(!this.props.ticket.closed && (this.props.editable || !this.props.assignmentAllowed)) ? this.renderResponseField() : (this.showDeleteButton())? <Button size="medium" onClick={this.onDeleteTicketClick.bind(this)}>'delete ticket'</Button> : null}
             </div>
         );
     }
@@ -226,7 +227,11 @@ class TicketViewer extends React.Component {
                         {(this.props.allowAttachments) ? <FormField name="file" field="file"/> : null}
                         <div className="ticket-viewer__response-buttons">
                             <SubmitButton type="secondary">{i18n('RESPOND_TICKET')}</SubmitButton>
-                            <Button size="medium" onClick={this.onCloseTicketClick.bind(this)}>{i18n('CLOSE_TICKET')}</Button>
+                            <div className="ticket-viewer__response-buttons-secondary">
+                                <Button size="medium" onClick={this.onCloseTicketClick.bind(this)}>{i18n('CLOSE_TICKET')}</Button>
+                                <div></div>
+                                {(this.showDeleteButton())? <Button size="medium" onClick={this.onDeleteTicketClick.bind(this)}>{i18n('DELETE_TICKET')}</Button> : null}
+                            </div>
                         </div>
                     </div>
                     {(this.state.commentError) ? this.renderCommentError() : null}
@@ -339,6 +344,10 @@ class TicketViewer extends React.Component {
         event.preventDefault();
         AreYouSure.openModal(null, this.closeTicket.bind(this));
     }
+    onDeleteTicketClick(event) {
+        event.preventDefault();
+        AreYouSure.openModal(null, this.deleteTicket.bind(this));
+    }
 
     reopenTicket() {
         API.call({
@@ -356,6 +365,14 @@ class TicketViewer extends React.Component {
                 ticketNumber: this.props.ticket.ticketNumber
             }
         }).then(this.onTicketModification.bind(this));
+    }
+    deleteTicket() {
+        API.call({
+            path: '/ticket/delete',
+            data: {
+                ticketNumber: this.props.ticket.ticketNumber
+            }
+        })
     }
 
     changeDepartment(index) {
@@ -459,6 +476,18 @@ class TicketViewer extends React.Component {
 
         return staffAssignmentItems;
     }
+
+    showDeleteButton() {
+        if(!this.props.ticket.owner) {
+            if(this.props.userLevel == 3) return true;
+            if(this.props.userId == this.props.ticket.author.id) {
+                if((this.props.userStaff && this.props.ticket.author.staff) || (!this.props.userStaff && !this.props.ticket.author.staff)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
 
 export default connect((store) => {
@@ -469,6 +498,7 @@ export default connect((store) => {
         staffMembers: store.adminData.staffMembers,
         staffMembersLoaded: store.adminData.staffMembersLoaded,
         allowAttachments: store.config['allow-attachments'],
-        userSystemEnabled: store.config['user-system-enabled']
+        userSystemEnabled: store.config['user-system-enabled'],
+        userLevel: store.session.userLevel
     };
 })(TicketViewer);
