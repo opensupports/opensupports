@@ -4,15 +4,17 @@
 
     &__filters {
         margin-bottom: 25px;
+        text-align: left;
     }
 
     &__department-selector {
         display: inline-block;
+        margin-right: 25px;
+        text-align: center;
     }
 
     &__checkbox {
         display: inline-block;
-        margin-left: 25px;
     }
 
     &__number {
