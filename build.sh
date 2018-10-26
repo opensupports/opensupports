@@ -4,8 +4,10 @@ gulp prod --api
 rm build/index.html
 echo "2/3 Creating api folder..."
 cd ../server
-rm -rf files
-mkdir files
+mkdir files2
+mv files/.htaccess files2
+rm -rf files/
+mv files2 files
 cd ..
 mkdir api
 cp server/index.php api
@@ -17,8 +19,7 @@ cp -R server/data api
 cp -R server/libs api
 cp -R server/models api
 cp -R server/vendor api
-mkdir api/files
-touch api/files/.keep
+cp -R server/files api
 echo -n > api/config.php
 chmod -R 755 .
 echo "3/3 Generating zip..."

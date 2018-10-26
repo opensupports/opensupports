@@ -24,7 +24,7 @@ use Respect\Validation\Validator as DataValidator;
  * @apiUse INVALID_SUBJECT
  * @apiUse INVALID_BODY
  *
- * @apiSuccess {Object} data Empty object 
+ * @apiSuccess {Object} data Empty object
  *
  */
 
@@ -60,18 +60,16 @@ class EditMailTemplateController extends Controller {
         $language = Controller::request('language');
         $templateType = Controller::request('templateType');
         $subject = Controller::request('subject', true);
-        $body = Controller::request('body', true);
+        $body = Controller::request('body');
 
         $mailTemplate = MailTemplate::findOne(' language = ? AND type = ?', [$language, $templateType]);
         if($mailTemplate->isNull()) {
-            Response::respondError(ERRORS::INVALID_TEMPLATE);
-            return;
+            throw new Exception(ERRORS::INVALID_TEMPLATE);
         }
         $mailTemplate->subject = $subject;
         $mailTemplate->body = $body;
         $mailTemplate->store();
 
         Response::respondSuccess();
-
     }
 }
