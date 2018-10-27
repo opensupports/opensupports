@@ -2,18 +2,19 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /staff/get-all-tickets Get all tickets
+ * @api {post} /staff/get-all-tickets Get all tickets according to search
  * @apiVersion 4.3.0
  *
  * @apiName Get all tickets
  *
  * @apiGroup Staff
  *
- * @apiDescription This path retrieves all tickets.
+ * @apiDescription This path retrieves all tickets according to search and opened/closed filters.
  *
  * @apiPermission staff1
  *
  * @apiParam {Number} page The page number.
+ * @apiParam {String} query Query string to search.
  * @apiParam {Boolean} closed Include closed tickets.
  *
  * @apiUse NO_PERMISSION
@@ -59,11 +60,24 @@ class GetAllTicketsStaffController extends Controller {
     private function getTicketList() {
         $page = Controller::request('page');
 
-        $query = $this->getStaffDepartmentsQueryFilter();
+        $query = $this->getSearchQuery();
+        $query .= $this->getStaffDepartmentsQueryFilter();
         $query .= $this->getClosedFilter();
-        $query .= ' ORDER BY id DESC LIMIT 10 OFFSET ' . (($page-1)*10);
+        $query .= "ORDER BY CASE WHEN (title LIKE ?) THEN 1 ELSE 2 END ASC LIMIT 10 OFFSET " . (($page-1)*10);
 
-        return Ticket::find($query);
+        return Ticket::find($query, [
+            Controller::request('query') . '%',
+            '%' . Controller::request('query') . '%',
+            Controller::request('query') . '%'
+        ]);
+    }
+
+    private function getSearchQuery() {
+        $page = Controller::request('page');
+
+        $query = " (title LIKE ? OR title LIKE ?) AND ";
+
+        return $query;
     }
 
     private function getTotalPages() {
