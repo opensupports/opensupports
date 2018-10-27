@@ -25,7 +25,7 @@ class AdminPanelAllTickets extends React.Component {
     };
 
     componentDidMount() {
-        this.props.dispatch(AdminDataAction.retrieveAllTickets());
+        this.updateTicketList();
     }
 
     render() {
@@ -40,6 +40,14 @@ class AdminPanelAllTickets extends React.Component {
                 {(this.props.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketList {...this.getTicketListProps()}/>}
             </div>
         );
+    }
+
+    updateTicketList() {
+        this.props.dispatch(AdminDataAction.retrieveAllTickets(
+            this.state.page,
+            this.state.query,
+            this.state.closedTicketsShown*1
+        ));
     }
 
     getTicketListProps() {
@@ -65,28 +73,20 @@ class AdminPanelAllTickets extends React.Component {
                 closedTicketsShown: !state.closedTicketsShown
             };
         }, () => {
-            this.props.dispatch(AdminDataAction.retrieveAllTickets(this.state.page, this.state.closedTicketsShown * 1));
+            this.updateTicketList();
         });
     }
 
     onSearch(query) {
-        this.setState({query, page: 1});
-
-        if(query) {
-            this.props.dispatch(AdminDataAction.searchTickets(query));
-        } else {
-            this.props.dispatch(AdminDataAction.retrieveAllTickets());
-        }
+        this.setState({query, page: 1}, () => {
+            this.updateTicketList();
+        });
     }
 
     onPageChange(event) {
-        this.setState({page: event.target.value});
-
-        if(this.state.query) {
-            this.props.dispatch(AdminDataAction.searchTickets(this.state.query, event.target.value));
-        } else {
-            this.props.dispatch(AdminDataAction.retrieveAllTickets(event.target.value));
-        }
+        this.setState({page: event.target.value}, () => {
+            this.updateTicketList();
+        });
     }
 }
 
