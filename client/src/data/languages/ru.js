@@ -187,6 +187,7 @@ export default {
     'PRIVATE': 'частный',
     'ENABLE_USER': 'Включить пользователя',
     'DISABLE_USER': 'Отключить пользователя',
+    'SHOW_CLOSED_TICKETS': 'Показать закрытые билеты',
 
     'CHART_CREATE_TICKET': 'Билеты создано',
     'CHART_CLOSE': ' Билеты закрыты',
