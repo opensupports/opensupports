@@ -94,13 +94,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-background-color:blue;
-            &-secondary {
-                background-color:blue;
-                display: flex;
-                justify-content: space-between;
-            }
         }
 
+    }
+    &__delete-button {
+        margin-left: 10px;
     }
 }

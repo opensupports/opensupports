@@ -20,7 +20,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_TICKET
  *
  * @apiSuccess {Object} data Empty object
- *
+ *ulp d
  */
 
 class DeleteController extends Controller {
@@ -43,13 +43,13 @@ class DeleteController extends Controller {
         $user = Controller::getLoggedUser();
         $ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
 
-        if(Controller::isStaffLogged() && (!$user->level ==3  || $ticket->owner)) {
+        if(Controller::isStaffLogged() && ($user->level < 3  || $ticket->owner)) {
             throw new Exception(ERRORS::NO_PERMISSION);
         }
-        if(!Controller::isStaffLogged() && ($user->name !== $ticket->author->name || $ticket->owner) ) {
+        if(!Controller::isStaffLogged() && (($user->email !== $ticket->author->email) || $ticket->owner) ) {
             throw new Exception(ERRORS::NO_PERMISSION);
         }
-
+        
         $ticket->delete();
 
         Response::respondSuccess();

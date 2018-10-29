@@ -35,6 +35,16 @@ class Scripts
             raise response['message']
         end
     end
+    def self.deleteStaff(staffid)
+
+        response = request('/staff/delete', {
+            :staffId => staffid
+        })
+
+        if response['status'] === 'fail'
+            raise response['message']
+        end
+    end
 
     def self.login(email = 'steve@jobs.com', password = 'custompassword', staff = false)
         request('/user/logout')
