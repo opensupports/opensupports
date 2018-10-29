@@ -30,6 +30,7 @@ export default {
     'RESPOND': '響應',
     'RESPOND_TICKET': '響應故障單',
     'CLOSE_TICKET': '關門票',
+    'DELETE_TICKET': '删除票证',
     'NO_ATTACHMENT': '沒有文件附件',
     'STAFF': '員工',
     'CUSTOMER': '顧客',

@@ -30,6 +30,7 @@ export default {
     'RESPOND': 'Antworten',
     'RESPOND_TICKET': 'Ticket beantworten',
     'CLOSE_TICKET': 'Ticket schließen',
+    'DELETE_TICKET': 'Ticket löschen',
     'NO_ATTACHMENT': 'Keine Dateianlage',
     'STAFF': 'Personal',
     'CUSTOMER': 'Kunde',

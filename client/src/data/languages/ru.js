@@ -30,6 +30,7 @@ export default {
     'RESPOND': 'Отвечать',
     'RESPOND_TICKET': 'Ответить билет',
     'CLOSE_TICKET': 'закрыть билет',
+    'DELETE_TICKET': 'Удалить билет',
     'NO_ATTACHMENT': 'Нет вложений файлов',
     'STAFF': 'Сотрудники',
     'CUSTOMER': 'Клиент',

@@ -30,6 +30,7 @@ export default {
     'RESPOND': 'प्रतिक्रिया',
     'RESPOND_TICKET': 'प्रतिक्रिया टिकट',
     'CLOSE_TICKET': 'करीबी टिकट',
+    'DELETE_TICKET': 'टिकट हटाएं',
     'NO_ATTACHMENT': 'कोई फ़ाइल अनुलग्नक नहीं',
     'STAFF': 'कर्मचारी',
     'CUSTOMER': 'ग्राहक',

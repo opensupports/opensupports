@@ -12,6 +12,7 @@ include 'ticket/close.php';
 include 'ticket/re-open.php';
 include 'ticket/change-priority.php';
 include 'ticket/seen.php';
+include 'ticket/delete.php';
 
 $ticketControllers = new ControllerGroup();
 $ticketControllers->setGroupPath('/ticket');
@@ -29,5 +30,6 @@ $ticketControllers->addController(new CloseController);
 $ticketControllers->addController(new ReOpenController);
 $ticketControllers->addController(new ChangePriorityController);
 $ticketControllers->addController(new SeenController);
+$ticketControllers->addController(new DeleteController);
 
 $ticketControllers->finalize();
