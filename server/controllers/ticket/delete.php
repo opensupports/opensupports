@@ -42,14 +42,20 @@ class DeleteController extends Controller {
     public function handler() {
         $user = Controller::getLoggedUser();
         $ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
+        $ticketAuthor = $ticket->authorToArray();
 
-        if(Controller::isStaffLogged() && ($user->level < 3  || $ticket->owner)) {
+        if($ticket->owner) {
             throw new Exception(ERRORS::NO_PERMISSION);
         }
-        if(!Controller::isStaffLogged() && (($user->email !== $ticket->author->email) || $ticket->owner) ) {
+
+        if(Controller::isStaffLogged() && $user->level < 3) {
             throw new Exception(ERRORS::NO_PERMISSION);
         }
-        
+
+        if(!Controller::isStaffLogged() && ($user->email !== $ticketAuthor['email'] || $ticketAuthor['staff'])) {
+            throw new Exception(ERRORS::NO_PERMISSION);
+        }
+
         $ticket->delete();
 
         Response::respondSuccess();

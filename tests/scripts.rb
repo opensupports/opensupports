@@ -35,10 +35,11 @@ class Scripts
             raise response['message']
         end
     end
-    def self.deleteStaff(staffid)
-
+    def self.deleteStaff(staffId)
         response = request('/staff/delete', {
-            :staffId => staffid
+            staffId: staffId,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
         })
 
         if response['status'] === 'fail'
