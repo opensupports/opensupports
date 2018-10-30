@@ -371,7 +371,7 @@ class TicketViewer extends React.Component {
             data: {
                 ticketNumber: this.props.ticket.ticketNumber
             }
-        })
+        }).then(this.onTicketModification.bind(this));
     }
 
     changeDepartment(index) {
