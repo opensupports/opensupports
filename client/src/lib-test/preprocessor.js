@@ -4,6 +4,7 @@ var jsdom = require('jsdom').jsdom;
 
 global.document = jsdom('<html><body></body></html>');
 global.window = document.defaultView;
+global.Node = global.window.Node;
 global.navigator = {
     userAgent: 'node.js'
 };
@@ -23,18 +24,19 @@ global.requireUnit = function (path, mocks) {
 };
 global.reRenderIntoDocument = (function () {
     let div;
-    
+
     return function (jsx) {
         if (!div) {
             div = document.createElement('div')
         }
-        
+
         return ReactDOM.render(jsx, div);
     }
 })();
 global.ReduxMock = {
     connect: stub().returns(stub().returnsArg(0))
 };
+global.globalIndexPath = '';
 
 Array.prototype.swap = function (x,y) {
     var b = this[x];

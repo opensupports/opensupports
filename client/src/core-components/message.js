@@ -10,7 +10,7 @@ class Message extends React.Component {
         title: React.PropTypes.string,
         children: React.PropTypes.node,
         leftAligned: React.PropTypes.bool,
-        type: React.PropTypes.oneOf(['success', 'error', 'info'])
+        type: React.PropTypes.oneOf(['success', 'error', 'info', 'warning'])
     };
 
     static defaultProps = {
@@ -53,6 +53,7 @@ class Message extends React.Component {
             'message_success': (this.props.type === 'success'),
             'message_error': (this.props.type === 'error'),
             'message_info': (this.props.type === 'info'),
+            'message_warning': (this.props.type === 'warning'),
             'message_with-title': (this.props.title),
             'message_left-aligned': (this.props.leftAligned),
 
@@ -66,7 +67,8 @@ class Message extends React.Component {
         let iconNames = {
             'success': 'check-circle',
             'error': 'exclamation-circle',
-            'info': 'info-circle'
+            'info': 'info-circle',
+            'warning': 'exclamation-triangle'
         };
 
         return iconNames[this.props.type];

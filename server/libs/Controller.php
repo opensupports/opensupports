@@ -27,10 +27,10 @@ abstract class Controller {
             }
         };
     }
-    
+
     public function validate() {
         $validator = new Validator();
-        
+
         $validator->validate($this->validations());
     }
 
@@ -54,7 +54,11 @@ abstract class Controller {
 
     public static function request($key, $secure = false) {
         $result = call_user_func(self::$dataRequester, $key);
-        
+
+        if($key === 'email' || $key === 'newEmail') {
+            return strtolower($result);
+        }
+
         if($secure) {
             $config = HTMLPurifier_Config::createDefault();
             $purifier = new HTMLPurifier($config);
@@ -63,7 +67,7 @@ abstract class Controller {
             return $result;
         }
     }
-    
+
     public static function getLoggedUser() {
         $session = Session::getInstance();
 
@@ -94,11 +98,48 @@ abstract class Controller {
     public static function getAppInstance() {
         return \Slim\Slim::getInstance();
     }
-    
+
+    public function uploadImages($forceUpload = false) {
+        $allowAttachments = Setting::getSetting('allow-attachments')->getValue();
+        $totalImages = Controller::request('images') * 1;
+
+        if(!$allowAttachments && !$forceUpload) return [];
+        if(!$totalImages) return [];
+
+        $maxSize = Setting::getSetting('max-size')->getValue();
+        $fileGap = Setting::getSetting('file-gap')->getValue();
+        $fileFirst = Setting::getSetting('file-first-number')->getValue();
+        $fileQuantity = Setting::getSetting('file-quantity');
+
+        $fileUploader = FileUploader::getInstance();
+        $fileUploader->setMaxSize($maxSize);
+
+        $allImagesValidSize = true;
+
+        for($i=0;$i<$totalImages;$i++) {
+            $allImagesValidSize = $allImagesValidSize && $fileUploader->isSizeValid($_FILES["image_$i"]);
+        }
+
+        if(!$allImagesValidSize) throw new Exception(ERRORS::INVALID_FILE);
+
+        $imagePaths = [];
+        $url = Setting::getSetting('url')->getValue();
+        for($i=0;$i<$totalImages;$i++) {
+            $fileUploader->setGeneratorValues($fileGap, $fileFirst, $fileQuantity->getValue());
+            $fileUploader->upload("image_$i");
+            $imagePaths[] = $url . '/api/system/download?file=' . $fileUploader->getFileName();
+            $fileQuantity->value++;
+        }
+
+        $fileQuantity->store();
+        return $imagePaths;
+    }
+
     public function uploadFile($forceUpload = false) {
         $allowAttachments = Setting::getSetting('allow-attachments')->getValue();
 
-        if(!isset($_FILES['file']) || (!$allowAttachments && !$forceUpload)) return '';
+        if(!$allowAttachments && !$forceUpload) return '';
+        if(!isset($_FILES['file'])) return '';
 
         $maxSize = Setting::getSetting('max-size')->getValue();
         $fileGap = Setting::getSetting('file-gap')->getValue();
@@ -109,7 +150,7 @@ abstract class Controller {
         $fileUploader->setMaxSize($maxSize);
         $fileUploader->setGeneratorValues($fileGap, $fileFirst, $fileQuantity->getValue());
 
-        if($fileUploader->upload($_FILES['file'])) {
+        if($fileUploader->upload('file')) {
             $fileQuantity->value++;
             $fileQuantity->store();
 
@@ -118,7 +159,12 @@ abstract class Controller {
             throw new Exception(ERRORS::INVALID_FILE);
         }
     }
-    
+
+    public function replaceWithImagePaths($imagePaths, $content) {
+        if(!is_array($imagePaths)) return $content;
+        return str_replace(array_map(function($index) { return "IMAGE_PATH_$index"; }, array_keys($imagePaths)), $imagePaths, $content);
+    }
+
     public static function isUserSystemEnabled() {
         return Setting::getSetting('user-system-enabled')->getValue();
     }

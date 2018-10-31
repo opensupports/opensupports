@@ -1,13 +1,11 @@
 // MOCKS
 const ValidationFactoryMock = require('lib-app/__mocks__/validations/validation-factory-mock');
-const TextEditorMock = require('core-components/__mocks__/text-editor-mock');
 const FormField = ReactMock();
 
 // COMPONENT
 const Form = requireUnit('core-components/form', {
-    'lib-app/validations/validations-factory': ValidationFactoryMock,
+    'lib-app/validations/validator-factory': ValidationFactoryMock,
     'core-components/form-field': FormField,
-    'core-components/text-editor': TextEditorMock
 });
 
 describe('Form component', function () {
@@ -185,18 +183,6 @@ describe('Form component', function () {
             expect(fields[1].props.error).to.equal('MOCK_ERROR_2');
             expect(fields[2].props.error).to.equal(undefined);
             expect(form.props.onSubmit).to.not.have.been.called;
-        });
-
-        it('should transform TextEdit value to HTML', function () {
-            form.state.form.first = TextEditorMock.createEmpty();
-
-            TestUtils.Simulate.submit(ReactDOM.findDOMNode(form));
-            expect(TextEditorMock.getHTMLFromEditorState).to.have.been.calledWith(form.state.form.first);
-            expect(form.props.onSubmit).to.have.been.calledWith({
-                first: 'HTML_CODE',
-                second: 'value2',
-                third: 'value3'
-            });
         });
 
         it('should focus the first field with error', function () {

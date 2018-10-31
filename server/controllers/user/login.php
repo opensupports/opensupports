@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /user/login Login
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName Login
  *
@@ -51,15 +51,18 @@ class LoginController extends Controller {
         if(!Controller::isUserSystemEnabled() && !Controller::request('staff')) {
             throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
         }
-        
+
         if ($this->isAlreadyLoggedIn()) {
             throw new Exception(ERRORS::SESSION_EXISTS);
         }
 
         if ($this->checkInputCredentials() || $this->checkRememberToken()) {
             if($this->userInstance->verificationToken !== null) {
-                Response::respondError(ERRORS::UNVERIFIED_USER);
-                return;
+                throw new Exception(ERRORS::UNVERIFIED_USER);
+            }
+
+            if($this->userInstance->disabled) {
+                throw new Exception(ERRORS::USER_DISABLED);
             }
 
             $this->createUserSession();
@@ -71,7 +74,7 @@ class LoginController extends Controller {
 
             Response::respondSuccess($this->getUserData());
         } else {
-            Response::respondError(ERRORS::INVALID_CREDENTIALS);
+            throw new Exception(ERRORS::INVALID_CREDENTIALS);
         }
     }
 
@@ -81,13 +84,13 @@ class LoginController extends Controller {
 
     private function checkInputCredentials() {
         $this->userInstance = $this->getUserByInputCredentials();
-        
+
         return !$this->userInstance->isNull();
     }
 
     private function checkRememberToken() {
         $this->userInstance = $this->getUserByRememberToken();
-        
+
         return !$this->userInstance->isNull();
     }
 
@@ -117,7 +120,7 @@ class LoginController extends Controller {
             return User::authenticate($email, $password);
         }
     }
-    
+
     private function getUserByRememberToken() {
         $rememberToken = Controller::request('rememberToken');
         $userInstance = new NullDataStore();
@@ -131,7 +134,7 @@ class LoginController extends Controller {
                 $sessionCookie->delete();
             }
         }
-        
+
         return $userInstance;
     }
 

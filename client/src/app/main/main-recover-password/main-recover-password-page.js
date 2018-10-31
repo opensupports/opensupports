@@ -3,6 +3,7 @@ import _      from 'lodash';
 
 import i18n            from 'lib-app/i18n';
 import API             from 'lib-app/api-call';
+import history         from 'lib-app/history';
 
 import Widget          from 'core-components/widget';
 import Form            from 'core-components/form';
@@ -73,8 +74,8 @@ class MainRecoverPasswordPage extends React.Component {
         }).then(this.onPasswordRecovered.bind(this)).catch(this.onPasswordRecoverFail.bind(this));
     }
 
-    onPasswordRecovered() {
-        setTimeout(() => {this.props.history.push('/')}, 2000);
+    onPasswordRecovered(response) {
+        setTimeout(() => {history.push((response.data.staff*1) ? '/admin' : '/')}, 2000);
         this.setState({
             recoverStatus: 'valid',
             loading: false

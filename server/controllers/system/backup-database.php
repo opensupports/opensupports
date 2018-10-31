@@ -3,7 +3,7 @@ use Ifsnop\Mysqldump as IMysqldump;
 
 /**
  * @api {post} /system/backup-database Backup database
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName Backup database
  *
@@ -14,7 +14,7 @@ use Ifsnop\Mysqldump as IMysqldump;
  * @apiPermission staff3
  *
  * @apiUse NO_PERMISSION
- * 
+ *
  * @apiSuccess {File} file File of the backup
  *
  */
@@ -31,15 +31,10 @@ class BackupDatabaseController extends Controller {
     }
 
     public function handler() {
-        global $mysql_host;
-        global $mysql_database;
-        global $mysql_user;
-        global $mysql_password;
-
         $fileDownloader = FileDownloader::getInstance();
         $fileDownloader->setFileName('backup.sql');
 
-        $mysqlDump = new IMysqldump\Mysqldump('mysql:host='. $mysql_host .';dbname=' . $mysql_database, $mysql_user, $mysql_password);
+        $mysqlDump = new IMysqldump\Mysqldump('mysql:host='. MYSQL_HOST . ';port=' . MYSQL_PORT . ';dbname=' . MYSQL_DATABASE , MYSQL_USER, MYSQL_PASSWORD);
         $mysqlDump->start($fileDownloader->getFullFilePath());
 
         if($fileDownloader->download()) {

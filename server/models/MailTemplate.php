@@ -3,7 +3,7 @@ use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {OBJECT} MailTemplate MailTemplate
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  * @apiGroup Data Structures
  * @apiParam {String} type The type of the mail template.
  * @apiParam {String} subject The subject of the mail template.
@@ -13,7 +13,7 @@ use RedBeanPHP\Facade as RedBean;
 
 class MailTemplate extends DataStore {
     const TABLE = 'mailtemplate';
-    
+
     const USER_SIGNUP = 'USER_SIGNUP';
     const USER_PASSWORD = 'USER_PASSWORD';
     const PASSWORD_FORGOT = 'PASSWORD_FORGOT';
@@ -26,7 +26,7 @@ class MailTemplate extends DataStore {
 
     public static function getTemplate($type) {
         $globalLanguage = Setting::getSetting('language')->value;
-        
+
         $bean = RedBean::findOne(MailTemplate::TABLE, 'type = :type AND language = :language', array(
             ':type'  => $type,
             ':language' => $globalLanguage
@@ -34,7 +34,7 @@ class MailTemplate extends DataStore {
 
         return ($bean) ? new MailTemplate($bean) : new NullDataStore();
     }
-    
+
     public static function getProps() {
         return [
             'type',
@@ -51,7 +51,7 @@ class MailTemplate extends DataStore {
             'to' => $config['to']
         ];
     }
-    
+
     public function compileString($string, $config) {
         $compiledString = $string;
 

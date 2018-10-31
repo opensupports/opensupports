@@ -14,7 +14,7 @@ class DashboardLayout extends React.Component {
                     <DashboardMenu location={this.props.location} />
                 </div>
                 <div className={this.getDashboardContentClass()}>
-                    <Widget>
+                    <Widget className="col-md-12">
                         {this.props.children}
                     </Widget>
                 </div>

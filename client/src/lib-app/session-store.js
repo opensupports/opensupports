@@ -60,6 +60,8 @@ class SessionStore {
         this.setItem('registration', configs.registration);
         this.setItem('user-system-enabled', configs['user-system-enabled']);
         this.setItem('allow-attachments', configs['allow-attachments']);
+        this.setItem('maintenance-mode', configs['maintenance-mode']);
+        this.setItem('max-size', configs['max-size']);
     }
 
     getConfigs() {
@@ -74,7 +76,8 @@ class SessionStore {
             registration: (this.getItem('registration') * 1),
             'user-system-enabled': (this.getItem('user-system-enabled') * 1),
             'allow-attachments': (this.getItem('allow-attachments') * 1),
-            'maintenance-mode': (this.getItem('maintenance-mode') * 1)
+            'maintenance-mode': (this.getItem('maintenance-mode') * 1),
+            'max-size': this.getItem('max-size'),
         };
     }
 

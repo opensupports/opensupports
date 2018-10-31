@@ -29,6 +29,7 @@ export default {
     'DATE': 'Encontro',
     'RESPOND': 'Responder',
     'RESPOND_TICKET': 'Respond Ticket',
+    'CLOSE_TICKET': 'Fechar passagem',
     'NO_ATTACHMENT': 'Nenhum anexo de arquivo',
     'STAFF': 'Funcionários',
     'CUSTOMER': 'Cliente',
@@ -179,6 +180,13 @@ export default {
     'SEND_EMAIL_ON_NEW_TICKET': 'Enviar email para cada novo ticket',
     'STAFF_UPDATED': 'Membro da equipe foi atualizado',
     'UPDATE': 'Actualizar',
+    'NEVER': 'Nunca',
+    'HIMSELF': 'ele mesmo',
+    'ADD_USER': 'Adicionar usuário',
+    'UPLOAD_FILE': 'Subir arquivo',
+    'PRIVATE': 'privado',
+    'ENABLE_USER': 'Ativar usuário',
+    'DISABLE_USER': 'Desativar usuário',
 
     'CHART_CREATE_TICKET': 'Ingressos criados',
     'CHART_CLOSE': 'Ingressos fechados',
@@ -227,6 +235,7 @@ export default {
     'USER_SYSTEM': 'Sistema de Usuário',
     'PREVIOUS': 'Anterior',
     'DATABASE_HOST': 'Servidor MySQL',
+    'DATABASE_PORT': 'Porta do servidor MySQL',
     'DATABASE_NAME': 'Nome do banco de dados MySQL',
     'DATABASE_USER': 'Usuário do MySQL',
     'DATABASE_PASSWORD': 'Senha do MySQL',
@@ -290,6 +299,9 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Ativar / desativar o uso de um sistema de usuário. Se você desativá-lo, todos os usuários serão excluídos, mas os ingressos serão mantidos. Se você ativá-lo, os usuários de tickets existentes serão criados.',
     'CSV_DESCRIPTION': 'O arquivo CSV deve ter 3 colunas: e-mail, senha, nome. Não há limite na contagem de linhas. Ele será criado um usuário por linha no arquivo.',
     'SMTP_SERVER_DESCRIPTION': 'A configuração do servidor SMTP permite que o aplicativo envie e-mails. Se você não configurá-lo, nenhum e-mail será enviado pela OpenSupports.',
+    'ENABLE_USER_DESCRIPTION': 'Essa ação permite que o usuário faça login e crie tickets.',
+    'DISABLE_USER_DESCRIPTION': 'O usuário será desativado e não poderá fazer login e criar tickets.',
+    'PRIVATE_DESCRIPTION': 'Esta resposta só será vista pelos funcionários',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-mail ou senha inválidos',
@@ -318,7 +330,9 @@ export default {
     'INVALID_EMAIL_OR_TICKET_NUMBER': 'Número de e-mail ou bilhete inválido',
     'INVALID_FILE': 'arquivo inválido',
     'ERRORS_FOUND': 'Erros encontrados',
-    
+    'ERROR_IMAGE_SIZE': 'Nenhuma imagem pode ter um tamanho maior que {size} MB',
+    'USER_DISABLED': 'Esta conta está desativada.',
+
     //MESSAGES
     'SIGNUP_SUCCESS': 'Você se registrou com sucesso em nosso sistema de suporte.',
     'TICKET_SENT': 'O ticket foi criado com sucesso.',
@@ -334,6 +348,7 @@ export default {
     'WILL_DELETE_CUSTOM_RESPONSE': 'A resposta personalizada será excluída.',
     'WILL_DELETE_DEPARTMENT': 'O departamento será excluído. Todos os bilhetes serão transferidos para o departamento selecionado.',
     'NO_STAFF_ASSIGNED': 'Nenhum membro do pessoal é atribuído a este departamento.',
+    'NO_DEPARTMENT_ASSIGNED': 'Nenhum departamento de tickets é atribuído a você.',
     'LEVEL_UPDATED': 'Nível foi atualizado com êxito.',
     'DEPARTMENTS_UPDATED': 'Os departamentos foram atualizados com sucesso.',
     'FAILED_EDIT_STAFF': 'Ocorreu um erro ao tentar editar o membro da equipe.',
@@ -349,8 +364,8 @@ export default {
     'LAST_365_DAYS': 'Últimos 365 dias',
 
     'ACTIVITY_COMMENT_THIS': 'comentou este ticket',
-    'ACTIVITY_ASSIGN_THIS': 'atribuído este bilhete',
-    'ACTIVITY_UN_ASSIGN_THIS': 'não atribuído este bilhete',
+    'ACTIVITY_ASSIGN_THIS': 'atribuído este bilhete para',
+    'ACTIVITY_UN_ASSIGN_THIS': 'não atribuído este bilhete para',
     'ACTIVITY_CLOSE_THIS': 'fechado este bilhete',
     'ACTIVITY_CREATE_TICKET_THIS': 'criado este bilhete',
     'ACTIVITY_RE_OPEN_THIS': 'reaberto este bilhete',
@@ -360,10 +375,11 @@ export default {
     'LEFT_EMPTY_DATABASE': 'Esquerda vazia para criação automática de banco de dados',
     'REMEMBER_ME': 'Lembrar',
     'EMAIL_LOWERCASE': 'email',
+    'DEFAULT_PORT': 'Deixar vazio para 3306 como padrão',
     'PASSWORD_LOWERCASE': 'senha',
     'TEST_SMTP_CONNECTION': 'Testar conexão SMTP',
     'SMTP_CONNECTION_SUCCESS': 'As credenciais SMTP são válidas.',
-    'SMTP_CONNECTION_ERROR': 'Não pode se conectar ao servidor SMTP.',
+    'SMTP_CONNECTION_ERROR': 'Não pode se conectar ao servidor SMTP.'
 
     'STAFF_LIMIT': 'Você atingiu o limite de membros da equipe permitido. Atualize seu plano ou entre em contato com nossa equipe de suporte.'
 };

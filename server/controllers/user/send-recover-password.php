@@ -4,17 +4,18 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/send-recover-password Send password recovery
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName Send password recovery
  *
  * @apiGroup User
  *
- * @apiDescription This path sends a token to the email of the user to change his password.
+ * @apiDescription This path sends a token to the email of the user/staff to change his password.
  *
  * @apiPermission any
  *
- * @apiParam {String} email The email of the user who forgot the password.
+ * @apiParam {String} email The email of the user/staff who forgot the password.
+ * @apiParam {Boolean} staff Indicates if the user is a staff member.
  *
  * @apiUse INVALID_EMAIL
  * @apiUse USER_SYSTEM_DISABLED
@@ -30,13 +31,17 @@ class SendRecoverPasswordController extends Controller {
 
     private $token;
     private $user;
+    private $staff;
 
     public function validations() {
         return [
             'permission' => 'any',
             'requestData' => [
                 'email' => [
-                    'validation' => DataValidator::email()->userEmail(),
+                    'validation' => DataValidator::oneOf(
+                        DataValidator::email()->userEmail(),
+                        DataValidator::email()->staffEmail()
+                    ),
                     'error' => ERRORS::INVALID_EMAIL
                 ]
             ]
@@ -47,17 +52,24 @@ class SendRecoverPasswordController extends Controller {
         if(!Controller::isUserSystemEnabled()) {
             throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
         }
-        
+
+        $this->staff = Controller::request('staff');
         $email = Controller::request('email');
-        $this->user = User::getUser($email,'email');
-        
+
+        if($this->staff){
+            $this->user = Staff::getUser($email,'email');
+        }else {
+            $this->user = User::getUser($email,'email');
+        }
+
         if(!$this->user->isNull()) {
             $this->token = Hashing::generateRandomToken();
 
             $recoverPassword = new RecoverPassword();
             $recoverPassword->setProperties(array(
                 'email' => $email,
-                'token' => $this->token
+                'token' => $this->token,
+                'staff' => !!$this->staff
             ));
             $recoverPassword->store();
 
@@ -67,7 +79,6 @@ class SendRecoverPasswordController extends Controller {
         } else {
             Response::respondError(ERRORS::INVALID_EMAIL);
         }
-        
     }
 
     public function sendEmail() {
@@ -76,6 +87,7 @@ class SendRecoverPasswordController extends Controller {
         $mailSender->setTemplate(MailTemplate::PASSWORD_FORGOT, [
             'to' => $this->user->email,
             'name' => $this->user->name,
+            'url' => Setting::getSetting('url')->getValue(),
             'token' => $this->token
         ]);
 

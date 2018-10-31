@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /ticket/seen See ticket
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName See ticket
  *
@@ -43,20 +43,20 @@ class SeenController extends Controller {
         $ticketnumber = Controller::request('ticketNumber');
         $user = Controller::getLoggedUser();
         $ticket = Ticket::getByTicketNumber($ticketnumber);
-        
-        if (Controller::isStaffLogged() && $ticket->owner && $ticket->owner->id === $user->id) {
+
+        if(!$ticket->isOwner($user) && !$ticket->isAuthor($user)) {
+            throw new Exception(ERRORS::NO_PERMISSION);
+        }
+
+        if ($ticket->isOwner($user)) {
             $ticket->unreadStaff = false;
-            $ticket->store();
-            Response::respondSuccess();
-            return;
         }
-        if (!Controller::isStaffLogged() && $ticket->author && $user->id === $ticket->author->id) {
-            $ticket->unread  = false;
-            $ticket->store();
-            Response::respondSuccess();
-            return;
+        if ($ticket->isAuthor($user)) {
+            $ticket->unread = false;
         }
-        Response::respondError(ERRORS::NO_PERMISSION);
-        
+
+        $ticket->store();
+
+        Response::respondSuccess();
     }
 }

@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 /**
  * @api {post} /ticket/get Get ticket
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName Get ticket
  *
@@ -18,9 +18,9 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_TICKET
  * @apiUse INVALID_TOKEN
  * @apiUse NO_PERMISSION
- * 
+ *
  * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)} data Information about the requested ticket.
- * 
+ *
  */
 
 
@@ -32,7 +32,7 @@ class TicketGetController extends Controller {
 
     public function validations() {
         $session = Session::getInstance();
-        
+
         if (Controller::isUserSystemEnabled() || Controller::isStaffLogged()) {
             return [
                 'permission' => 'user',
@@ -78,6 +78,6 @@ class TicketGetController extends Controller {
         $user = Controller::getLoggedUser();
 
         return (!Controller::isStaffLogged() && (Controller::isUserSystemEnabled() && $this->ticket->author->id !== $user->id)) ||
-               (Controller::isStaffLogged() && (($this->ticket->owner && $this->ticket->owner->id !== $user->id) || !$user->sharedDepartmentList->includesId($this->ticket->department->id)));
+               (Controller::isStaffLogged() && (!$user->sharedTicketList->includesId($this->ticket->id) && !$user->sharedDepartmentList->includesId($this->ticket->department->id)));
     }
 }

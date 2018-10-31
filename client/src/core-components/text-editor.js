@@ -1,48 +1,76 @@
 import React from 'react';
 import classNames from 'classnames';
-import {Editor} from 'react-draft-wysiwyg';
-import {EditorState, ContentState, convertFromHTML} from 'draft-js';
-import {stateToHTML} from 'draft-js-export-html';
+import ReactQuill, { Quill } from 'react-quill';
+import ImageResize from 'quill-image-resize-module-react';
+
+import {isIE} from 'lib-core/navigator';
+import Base64ImageParser from 'lib-core/base64-image-parser';
+
+Quill.register('modules/ImageResize', ImageResize);
 
 class TextEditor extends React.Component {
     static propTypes = {
         errored: React.PropTypes.bool,
         onChange: React.PropTypes.func,
-        value: React.PropTypes.object
+        value: React.PropTypes.string,
+        allowImages: React.PropTypes.bool
     };
-    
-    static createEmpty() {
-        return EditorState.createEmpty()
-    }
-    
-    static getEditorStateFromHTML(htmlString) {
-        const blocksFromHTML = convertFromHTML(htmlString);
-        const state = ContentState.createFromBlockArray(
-            blocksFromHTML.contentBlocks,
-            blocksFromHTML.entityMap
-        );
 
-        return EditorState.createWithContent(state);
+    static createEmpty() {
+        return '';
+    }
+
+    static getEditorStateFromHTML(htmlString) {
+        return htmlString;
     }
 
     static getHTMLFromEditorState(editorState) {
-        return stateToHTML(editorState.getCurrentContent());
+        return editorState;
     }
-    
+
     static isEditorState(editorState) {
-        return editorState && editorState.getCurrentContent;
+        return typeof editorState === 'String';
+    }
+
+    static getContentFormData(content) {
+        const images = Base64ImageParser.getImagesSrc(content).map(Base64ImageParser.dataURLtoFile);
+        const contentFormData = {
+            'content': Base64ImageParser.removeImagesSrc(content),
+            'images': images.length,
+        };
+
+        images.forEach((image, index) => contentFormData[`image_${index}`] = image);
+
+        return contentFormData;
     }
 
     state = {
-        value: EditorState.createEmpty(),
+        value: '',
         focused: false
     };
 
     render() {
         return (
-            <div className={this.getClass()}>
-                <Editor {...this.getEditorProps()} />
+            <div className={this.getClass()} onPaste={this.onPaste.bind(this)}>
+                {isIE() ? this.renderTextArea() : this.renderQuill()}
             </div>
+        );
+    }
+
+    renderQuill() {
+        return <ReactQuill {...this.getEditorProps()} />
+    }
+
+    renderTextArea() {
+        return (
+          <textarea
+              className="text-editor__editor"
+              onChange={this.onEditorChange.bind(this)}
+              onFocus={this.onEditorFocus.bind(this)}
+              onBlur={this.onBlur.bind(this)}
+              ref="editor"
+              value={this.props.value}
+          />
         );
     }
 
@@ -51,6 +79,7 @@ class TextEditor extends React.Component {
             'text-editor': true,
             'text-editor_errored': (this.props.errored),
             'text-editor_focused': (this.state.focused),
+            'text-editor_textarea': isIE(),
 
             [this.props.className]: (this.props.className)
         };
@@ -60,41 +89,36 @@ class TextEditor extends React.Component {
 
     getEditorProps() {
         return {
-            wrapperClassName: 'text-editor__editor',
-            editorState: this.props.value || this.state.value,
-            ref: 'editor',
-            toolbar: this.getToolbarOptions(),
-            onEditorStateChange: this.onEditorChange.bind(this),
+            className: 'text-editor__editor',
+            value: (this.props.value !== undefined) ? this.props.value : this.state.value,
+            ref: "editor",
+            modules: this.getModulesOptions(),
+            onChange: this.onEditorChange.bind(this),
             onFocus: this.onEditorFocus.bind(this),
-            onBlur: this.onBlur.bind(this)
+            onBlur: this.onBlur.bind(this),
+            onKeyDown: (e) => { if(e.key == "Tab") { e.preventDefault(); e.stopPropagation(); }}
         };
     }
 
-    getToolbarOptions() {
+    getModulesOptions() {
         return {
-            options: ['inline', 'blockType', 'list', 'link', 'image'],
-            inline: {
-                inDropdown: false,
-                options: ['bold', 'italic', 'underline', 'strikethrough', 'monospace']
+            toolbar: {
+                container: [
+                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                    [{ align: [] }],
+                    ['bold', 'italic', 'underline','strike'],
+                    [{'list': 'ordered'}, {'list': 'bullet'}],
+                    ['blockquote', 'code-block' ],
+                    (this.props.allowImages) ? ['link', 'image'] : ['link']
+                ],
             },
-            blockType: {
-                inDropdown: true,
-                options: [ 'Normal', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'Blockquote']
-            },
-            list: {
-                inDropdown: false,
-                options: ['unordered', 'ordered']
-            },
-            image: {
-                urlEnabled: true,
-                uploadEnabled: false,
-                alignmentEnabled: false
-            }
+            ImageResize: {parchment: Quill.import('parchment')},
         };
     }
 
     onEditorChange(value) {
-        this.setState({value});
+        if(isIE()) value = value.target.value;
+        if(this.props.value === undefined) this.setState({value});
 
         if (this.props.onChange) {
             this.props.onChange({target: {value}});
@@ -117,9 +141,33 @@ class TextEditor extends React.Component {
         }
     }
 
+    onPaste(event) {
+        let items = event.nativeEvent && event.nativeEvent.clipboardData.items;
+
+        for (let index in items) {
+            let item = items[index];
+            if (item.kind === 'file') {
+                event.preventDefault();
+                let blob = item.getAsFile();
+                let reader = new FileReader();
+                reader.onload = (event) => {
+                    this.props.onChange({
+                        target: {
+                            value: (
+                                this.props.value
+                                + `<img src="${event.target.result}" />`
+                            )
+                        }
+                    });
+                };
+                reader.readAsDataURL(blob);
+            }
+        }
+    }
+
     focus() {
         if (this.refs.editor) {
-            this.refs.editor.focusEditor();
+            this.refs.editor.focus();
         }
     }
 }

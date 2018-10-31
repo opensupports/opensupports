@@ -24,14 +24,15 @@ class TopicEditModal extends React.Component {
     };
 
     state = {
-        values: this.props.defaultValues || {title: '', icon: 'address-card', color: '#ff6900'}
+        values: this.props.defaultValues || {title: '', icon: 'address-card', color: '#ff6900'},
+        loading: false
     };
 
     render() {
         return (
             <div className="topic-edit-modal">
                 <Header title={i18n((this.props.addForm) ? 'ADD_TOPIC' : 'EDIT_TOPIC')} description={i18n((this.props.addForm) ? 'ADD_TOPIC_DESCRIPTION' : 'EDIT_TOPIC_DESCRIPTION')} />
-                <Form values={this.state.values} onChange={this.onFormChange.bind(this)} onSubmit={this.onSubmit.bind(this)}>
+                <Form values={this.state.values} onChange={this.onFormChange.bind(this)} onSubmit={this.onSubmit.bind(this)} loading={this.state.loading}>
                     <FormField name="title" label={i18n('TITLE')} fieldProps={{size: 'large'}} validation="TITLE" required />
                     <FormField name="icon" className="topic-edit-modal__icon" label={i18n('ICON')} decorator={IconSelector} />
                     <FormField name="color" className="topic-edit-modal__color" label={i18n('COLOR')} decorator={ColorSelector} />
@@ -48,6 +49,10 @@ class TopicEditModal extends React.Component {
     }
 
     onSubmit() {
+        this.setState({
+          loading: true
+        });
+
         API.call({
             path: (this.props.addForm) ? '/article/add-topic' : '/article/edit-topic',
             data: {
@@ -58,10 +63,14 @@ class TopicEditModal extends React.Component {
             }
         }).then(() => {
             this.context.closeModal();
-            
+
             if(this.props.onChange) {
                 this.props.onChange();
             }
+        }).catch(() => {
+            this.setState({
+              loading: false
+            });
         });
     }
 

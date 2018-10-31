@@ -40,9 +40,10 @@ spl_autoload_register(function ($class) {
     }
 });
 
-//Load custom validations
+// LOAD CUSTOM VALIDATIONS
 include_once 'libs/validations/dataStoreId.php';
 include_once 'libs/validations/userEmail.php';
+include_once 'libs/validations/staffEmail.php';
 include_once 'libs/validations/captcha.php';
 include_once 'libs/validations/validLanguage.php';
 include_once 'libs/validations/validTicketNumber.php';
@@ -73,8 +74,12 @@ if($client->getClientVersion() !== API_VERSION) {
 }
 
 
+// REDBEAN CONFIGURATION
+use RedBeanPHP\Facade as RedBean;
+
 if(defined('MYSQL_HOST') && defined('MYSQL_DATABASE') && defined('MYSQL_USER') && defined('MYSQL_PASSWORD')) {
-    RedBean::setup('mysql:host='. MYSQL_HOST .';dbname=' . MYSQL_DATABASE , MYSQL_USER, MYSQL_PASSWORD);
+    if(!defined('MYSQL_PORT')) define('MYSQL_PORT', '3306');
+    RedBean::setup('mysql:host='. MYSQL_HOST .';port=' . MYSQL_PORT . ';dbname=' . MYSQL_DATABASE , MYSQL_USER, MYSQL_PASSWORD);
     RedBean::setAutoResolve(true);
 }
 

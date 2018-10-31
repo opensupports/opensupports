@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /system/enable-user-system Enable user system
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName Enable user system
  *
@@ -52,6 +52,9 @@ class EnableUserSystemController extends Controller {
         $ticketList = Ticket::getAll();
 
         foreach($ticketList as $ticket) {
+            if($ticket->authorStaff) {
+                continue;
+            }
 
             $userInstance = User::getDataStore($ticket->authorEmail, 'email');
 
@@ -91,7 +94,8 @@ class EnableUserSystemController extends Controller {
         $mailSender->setTemplate(MailTemplate::USER_SYSTEM_ENABLED, [
             'to' => $email,
             'name' => $name,
-            'password' => $password
+            'password' => $password,
+            'url' => Setting::getSetting('url')->getValue(),
         ]);
         $mailSender->send();
 

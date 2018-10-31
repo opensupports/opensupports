@@ -47,7 +47,7 @@
 
     &__comment {
         position: relative;
-        word-break: break-all;
+        word-wrap: break-word;
 
         &-pointer {
             right: 100%;
@@ -64,13 +64,19 @@
             position: relative;
             padding: 12px;
             color: $primary-black;
+        }
 
-            &-type {
-                font-size: 10px;
-                padding-left: 10px;
-                color: $secondary-blue;
-                font-variant: small-caps;
-            }
+        &-badge-container {
+            margin-left: 12px;
+        }
+
+        &-badge {
+            font-size: 10.6px;
+            font-weight: bold;
+            color: $primary-blue;
+            background-color: $very-light-grey;
+            padding: 6px;
+            width: 100px;
         }
 
         &-date {
@@ -78,6 +84,8 @@
             border: 2px solid $light-grey;
             border-bottom: none;
             padding: 12px;
+            font-size: 10.6px;
+            font-family: helvetica;
             background-color: $light-grey;
 
         }
@@ -102,10 +110,6 @@
     &_staff {
         .ticket-event__icon {
             background-color: $primary-blue;
-        }
-
-        .ticket-event__comment-author-type {
-            color: $primary-blue;
         }
     }
 
@@ -174,6 +178,19 @@
         .ticket-event__icon {
             padding-left: 11px;
             padding-top: 5px;
+        }
+    }
+    &_private {
+        .ticket-event__comment-pointer {
+            border-right-color: $light-yellow;
+        }
+        .ticket-event__comment-date {
+            background-color: $light-yellow;
+            border-color: $light-yellow;
+        }
+        .ticket-event__staff-pic {
+            background-color: $light-yellow;
+            border-color: $light-yellow;
         }
     }
 }

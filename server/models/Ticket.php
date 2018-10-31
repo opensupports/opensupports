@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Ticket Ticket
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  * @apiGroup Data Structures
  * @apiParam {Number}  ticketNumber The number of the ticket.
  * @apiParam {String}  title The title of the ticket.
@@ -43,6 +43,7 @@ class Ticket extends DataStore {
             'closed',
             'priority',
             'author',
+            'authorStaff',
             'owner',
             'ownTicketeventList',
             'unreadStaff',
@@ -58,6 +59,22 @@ class Ticket extends DataStore {
 
     public static function getByTicketNumber($value) {
         return Ticket::getTicket($value, 'ticketNumber');
+    }
+
+    public function setAuthor($author) {
+        if($author instanceof User) {
+            $this->author = $author;
+        } else if($author instanceof Staff) {
+            $this->authorStaff = $author;
+        }
+    }
+
+    public function getAuthor() {
+        if($this->author && !$this->author->isNull()) {
+            return $this->author;
+        } else {
+            return $this->authorStaff;
+        }
     }
 
     public function getDefaultProps() {
@@ -78,10 +95,10 @@ class Ticket extends DataStore {
         $ticketQuantity = Ticket::count();
 
         if ($ticketQuantity === 0) {
-            $ticketNumber = $linearCongruentialGenerator->generateFirst();
+            $ticketNumber = Setting::getSetting('ticket-first-number')->value;
         } else {
             $linearCongruentialGenerator->setGap(Setting::getSetting('ticket-gap')->value);
-            $linearCongruentialGenerator->setFirst(Ticket::getTicket(1)->ticketNumber);
+            $linearCongruentialGenerator->setFirst(Setting::getSetting('ticket-first-number')->value);
 
             $ticketNumber = $linearCongruentialGenerator->generate($ticketQuantity);
         }
@@ -112,18 +129,22 @@ class Ticket extends DataStore {
     }
 
     public function authorToArray() {
-        $author = $this->author;
+        $author = $this->getAuthor();
 
         if ($author && !$author->isNull()) {
             return [
                 'id' => $author->id,
                 'name' => $author->name,
+                'staff' => $author instanceof Staff,
+                'profilePic' => ($author instanceof Staff) ? $author->profilePic : null,
                 'email' => $author->email
             ];
         } else {
             return [
-                'name' => $this->authorName,
-                'email' => $this->authorEmail
+              'id' => NULL,
+              'staff' => false,
+              'name' => $this->authorName,
+              'email' => $this->authorEmail
             ];
         }
     }
@@ -151,11 +172,12 @@ class Ticket extends DataStore {
                 'content'=> $ticketEvent->content,
                 'author' => [],
                 'date'=> $ticketEvent->date,
-                'file'=> $ticketEvent->file
+                'file'=> $ticketEvent->file,
+                'private'=> $ticketEvent->private,
             ];
 
             $author = $ticketEvent->getAuthor();
-            if(!$author->isNull()) {
+            if($author && !$author->isNull()) {
                 $event['author'] = [
                     'id'=> $author->id,
                     'name' => $author->name,
@@ -163,6 +185,10 @@ class Ticket extends DataStore {
                     'profilePic' => ($author instanceof Staff) ? $author->profilePic : null,
                     'staff' => $author instanceof Staff
                 ];
+            }
+
+            if(!Controller::isStaffLogged() && $ticketEvent->private) {
+                continue;
             }
 
             $events[] = $event;
@@ -173,5 +199,16 @@ class Ticket extends DataStore {
 
     public function addEvent(Ticketevent $event) {
         $this->ownTicketeventList->add($event);
+    }
+
+    public function isAuthor($user) {
+        $ticketAuthor = $this->authorToArray();
+        if(is_string($user)) return $user == $ticketAuthor['email'];
+        if(!($user instanceof DataStore) || $user->isNull()) return false;
+        return $user->id == $ticketAuthor['id'] && ($user instanceof Staff) == $ticketAuthor['staff'];
+    }
+
+    public function isOwner($user) {
+        return !$user->isNull() && $this->owner && $user->id == $this->owner->id && ($user instanceof Staff);
     }
 }

@@ -38,10 +38,10 @@ class MailSender {
     public function setTemplate($type, $config) {
         $mailTemplate = MailTemplate::getTemplate($type);
         $compiledMailContent = $mailTemplate->compile($config);
-        
+
         $this->mailOptions = array_merge($this->mailOptions, $compiledMailContent);
     }
-    
+
     public function send() {
         $mailerInstance = $this->getMailerInstance();
 
@@ -51,6 +51,7 @@ class MailSender {
             throw new Exception('Mail sending data not available');
         }
 
+        $mailerInstance->ClearAllRecipients();
         $mailerInstance->addAddress($this->mailOptions['to']);
         $mailerInstance->Subject = $this->mailOptions['subject'];
         $mailerInstance->Body = $this->mailOptions['body'];
@@ -71,6 +72,7 @@ class MailSender {
 
             $this->mailerInstance->From = $this->mailOptions['from'];
             $this->mailerInstance->FromName = $this->mailOptions['fromName'];
+            $this->mailerInstance->CharSet = 'UTF-8';
 
             $this->mailerInstance->isSMTP();
             $this->mailerInstance->SMTPAuth = true;

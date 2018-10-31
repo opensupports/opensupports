@@ -5,7 +5,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/signup Sign up
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName Sign up
  *
@@ -44,7 +44,7 @@ class SignUpController extends Controller {
     private $userPassword;
     private $verificationToken;
     private $csvImported;
-    
+
     public function __construct($csvImported = false) {
         $this->csvImported = $csvImported;
     }
@@ -67,14 +67,14 @@ class SignUpController extends Controller {
                 ]
             ]
         ];
-        
+
         if(!$this->csvImported) {
             $validations['requestData']['captcha'] = [
                 'validation' => DataValidator::captcha(),
                 'error' => ERRORS::INVALID_CAPTCHA
             ];
         }
-        
+
         return $validations;
     }
 
@@ -82,7 +82,7 @@ class SignUpController extends Controller {
         if(!Controller::isUserSystemEnabled()) {
             throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
         }
-        
+
         $this->storeRequestData();
         $apiKey = APIKey::getDataStore(Controller::request('apiKey'), 'token');
 
@@ -97,7 +97,7 @@ class SignUpController extends Controller {
             throw new Exception(ERRORS::ALREADY_BANNED);
         }
 
-        if (!Setting::getSetting('registration')->value && $apiKey->isNull() && !$this->csvImported) {
+        if (!Setting::getSetting('registration')->value && $apiKey->isNull() && !Controller::isStaffLogged(2) && !$this->csvImported) {
             throw new Exception(ERRORS::NO_PERMISSION);
         }
 
@@ -111,10 +111,10 @@ class SignUpController extends Controller {
             'userId' => $userId,
             'userEmail' => $this->userEmail
         ]);
-        
+
         Log::createLog('SIGNUP', null, User::getDataStore($userId));
     }
-    
+
     public function storeRequestData() {
         $this->userName = Controller::request('name');
         $this->userEmail = Controller::request('email');
@@ -136,17 +136,17 @@ class SignUpController extends Controller {
 
         return $userInstance->store();
     }
-    
+
     public function sendRegistrationMail() {
         $mailSender = MailSender::getInstance();
-        
+
         $mailSender->setTemplate(MailTemplate::USER_SIGNUP, [
             'to' => $this->userEmail,
             'name' => $this->userName,
             'url' => Setting::getSetting('url')->getValue(),
             'verificationToken' => $this->verificationToken
         ]);
-        
+
         $mailSender->send();
     }
 }

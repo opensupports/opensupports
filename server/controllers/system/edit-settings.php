@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /system/edit-settings Edit settings
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName Edit settings
  *
@@ -53,7 +53,7 @@ class EditSettingsController extends Controller {
         ];
 
         foreach($settings as $setting) {
-            if(Controller::request($setting)) {
+            if(Controller::request($setting)!==null) {
                 $settingInstance = Setting::getSetting($setting);
                 $settingInstance->value = Controller::request($setting);
                 $settingInstance->store();
@@ -68,10 +68,14 @@ class EditSettingsController extends Controller {
 
         Response::respondSuccess();
     }
-    
+
     public function handleLanguages() {
         $allowed = json_decode(Controller::request('allowedLanguages'));
         $supported = json_decode(Controller::request('supportedLanguages'));
+
+        if (array_diff($supported, $allowed)) {
+            throw new Exception(ERRORS::INVALID_SUPPORTED_LANGUAGES);
+        }
 
         foreach(Language::LANGUAGES as $languageCode) {
             $language = Language::getDataStore($languageCode, 'code');

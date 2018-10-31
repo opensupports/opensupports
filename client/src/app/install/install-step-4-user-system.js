@@ -30,7 +30,6 @@ class InstallStep4UserSystem extends React.Component {
                     <FormField name="registration" label={i18n('ENABLE_USER_REGISTRATION')} decorator={ToggleButton} fieldProps={{disabled: this.isDisabled()}}/>
                     <div className="install-step-4__buttons">
                         <SubmitButton className="install-step-4__next" size="medium" type="secondary">{i18n('NEXT')}</SubmitButton>
-                        <Button className="install-step-4__previous" size="medium" onClick={this.onPreviousClick.bind(this)}>{i18n('PREVIOUS')}</Button>
                     </div>
                 </Form>
             </div>
@@ -46,17 +45,12 @@ class InstallStep4UserSystem extends React.Component {
         });
     }
 
-    onPreviousClick(event) {
-        event.preventDefault();
-        history.push('/install/step-3');
-    }
-
     onSubmit(form) {
         this.props.dispatch(ConfigActions.updateUserSystemSettings({
             'user-system-enabled': form['user-system-enabled'] * 1,
             'registration': form['registration'] * 1
         }));
-        
+
         history.push('/install/step-5');
     }
 

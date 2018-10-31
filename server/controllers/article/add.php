@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /article/add Add article
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName Add article
  *
@@ -18,11 +18,14 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} content Content of the new article.
  * @apiParam {Number} position Position of the new article.
  * @apiParam {Number} topicId Id of the articles's topic.
+ * @apiParam {Number} images The number of images in the content
+ * @apiParam image_i The image file of index `i` (mutiple params accepted)
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_NAME
  * @apiUse INVALID_CONTENT
  * @apiUse INVALID_TOPIC
+ * @apiUse INVALID_FILE
  *
  * @apiSuccess {Object} data Article info
  * @apiSuccess {Number} data.articleId Article id
@@ -37,7 +40,7 @@ class AddArticleController extends Controller {
             'permission' => 'staff_2',
             'requestData' => [
                 'title' => [
-                    'validation' => DataValidator::length(3, 100),
+                    'validation' => DataValidator::length(1, 100),
                     'error' => ERRORS::INVALID_NAME
                 ],
                 'content' => [
@@ -53,10 +56,16 @@ class AddArticleController extends Controller {
     }
 
     public function handler() {
+        $content = Controller::request('content', true);
+
+        $fileUploader = FileUploader::getInstance();
+        $fileUploader->setPermission(FileManager::PERMISSION_ARTICLE);
+        $imagePaths = $this->uploadImages(true);
+
         $article = new Article();
         $article->setProperties([
             'title' => Controller::request('title'),
-            'content' => Controller::request('content', true),
+            'content' => $this->replaceWithImagePaths($imagePaths, $content),
             'lastEdited' => Date::getCurrentDate(),
             'position' => Controller::request('position') || 1
         ]);

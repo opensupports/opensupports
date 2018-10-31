@@ -3,7 +3,7 @@ use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {OBJECT} User User
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  * @apiGroup Data Structures
  * @apiParam {String} email The email of the user.
  * @apiParam {Number} id The id of the user.
@@ -28,7 +28,8 @@ class User extends DataStore {
             'signupDate',
             'tickets',
             'sharedTicketList',
-            'verificationToken'
+            'verificationToken',
+            'disabled'
         ];
     }
 
@@ -45,7 +46,8 @@ class User extends DataStore {
             'email' => $this->email,
             'id' => $this->id,
             'name' => $this->name,
-            'verified' => !$this->verificationToken
+            'verified' => !$this->verificationToken,
+            'disabled' => $this->disabled
         ];
     }
 }

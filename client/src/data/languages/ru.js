@@ -29,6 +29,7 @@ export default {
     'DATE': 'Дата',
     'RESPOND': 'Отвечать',
     'RESPOND_TICKET': 'Ответить билет',
+    'CLOSE_TICKET': 'закрыть билет',
     'NO_ATTACHMENT': 'Нет вложений файлов',
     'STAFF': 'Сотрудники',
     'CUSTOMER': 'Клиент',
@@ -179,6 +180,13 @@ export default {
     'SEND_EMAIL_ON_NEW_TICKET': 'Отправить письмо на новый билет',
     'STAFF_UPDATED': 'Сотрудник обновлен',
     'UPDATE': 'Обновить',
+    'NEVER': 'Никогда',
+    'HIMSELF': 'сам',
+    'ADD_USER': 'Добавить пользователя',
+    'UPLOAD_FILE': 'Загрузить файл',
+    'PRIVATE': 'частный',
+    'ENABLE_USER': 'Включить пользователя',
+    'DISABLE_USER': 'Отключить пользователя',
 
     'CHART_CREATE_TICKET': 'Билеты создано',
     'CHART_CLOSE': ' Билеты закрыты',
@@ -227,6 +235,7 @@ export default {
     'USER_SYSTEM': 'Пользовательская система',
     'PREVIOUS': 'Предыдущая',
     'DATABASE_HOST': 'Сервер MySQL',
+    'DATABASE_PORT': 'Порт сервера MySQL',
     'DATABASE_NAME': 'Имя базы данных MySQL',
     'DATABASE_USER': 'Пользователь MySQL',
     'DATABASE_PASSWORD': 'Пароль MySQL',
@@ -244,6 +253,7 @@ export default {
     'STEP_4_DESCRIPTION': 'Выберите свои пользовательские настройки.',
     'STEP_5_DESCRIPTION': 'Пожалуйста, настройте учетную запись администратора.',
     'STEP_6_DESCRIPTION': 'Установка завершена.',
+    'STEP_7_DESCRIPTION': 'Установка завершена.',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'Это форма для создания билетов. Заполните форму и отправьте нам свои вопросы / сомнения / предложения. Наша система поддержки будет ответить на него как можно скорее.',
@@ -289,6 +299,9 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Включить / отключить использование пользовательской системы. Если вы отключите его, все пользователи будут удалены. Если вы включите его, будут созданы пользователи существующих билетов.',
     'CSV_DESCRIPTION': 'Файл CSV должен иметь 3 столбца: адрес электронной почты, пароль и имя. Количество строк не ограничено. В файле будет создан один пользователь для каждой строки.',
     'SMTP_SERVER_DESCRIPTION': 'Конфигурация SMTP-сервера позволяет приложению отправлять письма. Если вы не настроите его, никакие электронные письма не будут отправлены OpenSupports.',
+    'ENABLE_USER_DESCRIPTION': 'Это действие позволяет пользователю входить в систему и создавать билеты.',
+    'DISABLE_USER_DESCRIPTION': 'Пользователь будет отключен и не сможет войти и создать билеты',
+    'PRIVATE_DESCRIPTION': 'Этот ответ будет рассматриваться только сотрудниками',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'электронной почты или пароль недействительный',
@@ -317,7 +330,9 @@ export default {
     'INVALID_EMAIL_OR_TICKET_NUMBER': 'Неправильный номер эл. Почты или номера билета.',
     'INVALID_FILE': 'неверный файл',
     'ERRORS_FOUND': 'Ошибки найдены',
-    
+    'ERROR_IMAGE_SIZE': 'Изображение не может иметь размер больше {size} МБ',
+    'USER_DISABLED': 'Эта учетная запись отключена.',
+
     //MESSAGES
     'SIGNUP_SUCCESS': 'Вы успешно зарегистрировались в нашей системе поддержки.',
     'TICKET_SENT': 'Билет был успешно создан.',
@@ -333,6 +348,7 @@ export default {
     'WILL_DELETE_CUSTOM_RESPONSE': 'Обычай ответ будет удален.',
     'WILL_DELETE_DEPARTMENT': 'Отдел будет удален. Все билеты будут передача в отдел выбранного.',
     'NO_STAFF_ASSIGNED': 'Ни один сотрудник не будет назначен в этот отдел.',
+    'NO_DEPARTMENT_ASSIGNED': 'Вам не назначено билетное ведомство.',
     'LEVEL_UPDATED': 'Уровень был успешно обновлен.',
     'DEPARTMENTS_UPDATED': 'Отделы были успешно обновлены.',
     'FAILED_EDIT_STAFF': 'Произошла ошибка при попытке редактирования сотрудника.',
@@ -348,8 +364,8 @@ export default {
     'LAST_365_DAYS': 'Последние 365 дней',
 
     'ACTIVITY_COMMENT_THIS': 'прокомментировал этот билет',
-    'ACTIVITY_ASSIGN_THIS': 'присвоен этот билет',
-    'ACTIVITY_UN_ASSIGN_THIS': 'неназначенный билет',
+    'ACTIVITY_ASSIGN_THIS': 'присвоен этот билет в',
+    'ACTIVITY_UN_ASSIGN_THIS': 'неназначенный билет в',
     'ACTIVITY_CLOSE_THIS': 'закрыл этот билет',
     'ACTIVITY_CREATE_TICKET_THIS': 'создал этот билет',
     'ACTIVITY_RE_OPEN_THIS': 'снова открыт этот билет',
@@ -360,6 +376,7 @@ export default {
     'REMEMBER_ME': 'Запомнить',
     'EMAIL_LOWERCASE': 'Эл. адрес',
     'PASSWORD_LOWERCASE': 'пароль',
+    'DEFAULT_PORT': 'Оставьте пустым для 3306 по умолчанию',
     'TEST_SMTP_CONNECTION': 'Тестирование SMTP-соединения',
     'SMTP_CONNECTION_SUCCESS': 'Учетные данные SMTP действительны.',
     'SMTP_CONNECTION_ERROR': 'Не удается подключиться к SMTP-серверу.',

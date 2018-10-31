@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/get-custom-responses Get custom responses
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName Get custom responses
  *

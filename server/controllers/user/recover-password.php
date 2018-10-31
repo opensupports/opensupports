@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/recover-password Recover password
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName Recover password
  *
@@ -41,7 +41,10 @@ class RecoverPasswordController extends Controller {
             'permission' => 'any',
             'requestData' => [
                 'email' => [
-                    'validation' => DataValidator::email()->userEmail(),
+                    'validation' => DataValidator::oneOf(
+                        DataValidator::email()->userEmail(),
+                        DataValidator::email()->staffEmail()
+                    ),
                     'error' => ERRORS::INVALID_EMAIL
                 ],
                 'password' => [
@@ -56,7 +59,7 @@ class RecoverPasswordController extends Controller {
         if(!Controller::isUserSystemEnabled()) {
             throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
         }
-        
+
         $this->requestData();
         $this->changePassword();
     }
@@ -68,7 +71,12 @@ class RecoverPasswordController extends Controller {
     }
     public function changePassword() {
         $recoverPassword = RecoverPassword::getDataStore($this->token, 'token');
-        $this->user = User::getDataStore($this->email, 'email');
+
+        if($recoverPassword->staff) {
+            $this->user = Staff::getDataStore($this->email, 'email');
+        }else {
+            $this->user = User::getDataStore($this->email, 'email');
+        }
 
         if (!$recoverPassword->isNull() && !$this->user->isNull()) {
             $recoverPassword->delete();
@@ -80,7 +88,7 @@ class RecoverPasswordController extends Controller {
             $this->user->store();
 
             $this->sendMail();
-            Response::respondSuccess();
+            Response::respondSuccess(['staff' => $recoverPassword->staff]);
         } else {
             Response::respondError(ERRORS::NO_PERMISSION);
         }

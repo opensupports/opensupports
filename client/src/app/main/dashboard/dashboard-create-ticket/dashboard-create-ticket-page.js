@@ -1,8 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
 import {connect} from 'react-redux';
+import history from 'lib-app/history';
 
+import SessionActions     from 'actions/session-actions';
 import CreateTicketForm from 'app/main/dashboard/dashboard-create-ticket/create-ticket-form';
+
 import Widget from 'core-components/widget';
 
 class DashboardCreateTicketPage extends React.Component {
@@ -21,10 +24,21 @@ class DashboardCreateTicketPage extends React.Component {
         return (
             <div className={this.getClass()}>
                 <Wrapper>
-                    <CreateTicketForm userLogged={(this.props.location.pathname !== '/create-ticket')} />
+                    <CreateTicketForm
+                        userLogged={(this.props.location.pathname !== '/create-ticket')}
+                        onSuccess={this.onCreateTicketSuccess.bind(this)}/>
                 </Wrapper>
             </div>
         );
+    }
+
+    onCreateTicketSuccess() {
+        if((this.props.location.pathname !== '/create-ticket')) {
+            this.props.dispatch(SessionActions.getUserData());
+            setTimeout(() => {history.push('/dashboard')}, 2000);
+        } else {
+            setTimeout(() => {history.push('/check-ticket/' + result.data.ticketNumber + '/' + email)}, 1000);
+        }
     }
 
     getClass() {

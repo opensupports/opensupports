@@ -93,7 +93,7 @@ class PeopleList extends React.Component {
                 </div>
                 <div className="people-list__item-block people-list__item-last-login">
                     <div>{i18n('LAST_LOGIN')}</div>
-                    <div>{DateTransformer.transformToString(item.lastLogin)}</div>
+                    <div>{item.lastLogin ? DateTransformer.transformToString(item.lastLogin) : i18n('NEVER')}</div>
                 </div>
             </div>
         ) : null;

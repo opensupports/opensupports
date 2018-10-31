@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/create Create ticket
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName Create ticket
  *
@@ -19,7 +19,9 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {Number} departmentId The id of the department of the current ticket.
  * @apiParam {String} language The language of the ticket.
  * @apiParam {String} email The email of the user who created the ticket.
- * @apiParam {String} name The Name of the author of the ticket.
+ * @apiParam {Number} images The number of images in the content
+ * @apiParam image_i The image file of index `i` (mutiple params accepted)
+ * @apiParam file The file you with to upload.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TITLE
@@ -28,6 +30,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_LANGUAGE
  * @apiUse INVALID_CAPTCHA
  * @apiUse INVALID_EMAIL
+ * @apiUse INVALID_FILE
  *
  * @apiSuccess {Object} data Information of the new ticket
  * @apiSuccess {Number} data.ticketNumber Number of the new ticket
@@ -51,7 +54,7 @@ class CreateController extends Controller {
             'permission' => 'user',
             'requestData' => [
                 'title' => [
-                    'validation' => DataValidator::length(10, 200),
+                    'validation' => DataValidator::length(1, 200),
                     'error' => ERRORS::INVALID_TITLE
                 ],
                 'content' => [
@@ -68,8 +71,8 @@ class CreateController extends Controller {
                 ]
             ]
         ];
-        
-        if(!Controller::isUserSystemEnabled()) {
+
+        if(!Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) {
             $validations['permission'] = 'any';
             $validations['requestData']['captcha'] = [
                 'validation' => DataValidator::captcha(),
@@ -79,8 +82,12 @@ class CreateController extends Controller {
                 'validation' => DataValidator::email(),
                 'error' => ERRORS::INVALID_EMAIL
             ];
+            $validations['requestData']['name'] = [
+                'validation' => DataValidator::length(2, 40),
+                'error' => ERRORS::INVALID_NAME
+            ];
         }
-        
+
         return $validations;
     }
 
@@ -97,7 +104,7 @@ class CreateController extends Controller {
         if(!Controller::isUserSystemEnabled()) {
             $this->sendMail();
         }
-        
+
         $staffs = Staff::find('send_email_on_new_ticket = 1');
         foreach ($staffs as $staff) {
             if($staff->sharedDepartmentList->includesId(Controller::request('departmentId'))) {
@@ -114,15 +121,18 @@ class CreateController extends Controller {
     private function storeTicket() {
         $department = Department::getDataStore($this->departmentId);
         $author = Controller::getLoggedUser();
-
-        $fileUploader = $this->uploadFile();
-
         $ticket = new Ticket();
+
+        $fileUploader = FileUploader::getInstance();
+        $fileUploader->setPermission(FileManager::PERMISSION_TICKET, $ticket->generateUniqueTicketNumber());
+
+        $imagePaths = $this->uploadImages(Controller::isStaffLogged());
+        $fileUploader = $this->uploadFile(Controller::isStaffLogged());
+
         $ticket->setProperties(array(
             'title' => $this->title,
-            'content' => $this->content,
+            'content' => $this->replaceWithImagePaths($imagePaths, $this->content),
             'language' => $this->language,
-            'author' => $author,
             'department' => $department,
             'file' => ($fileUploader instanceof FileUploader) ? $fileUploader->getFileName() : null,
             'date' => Date::getCurrentDate(),
@@ -130,21 +140,25 @@ class CreateController extends Controller {
             'unreadStaff' => true,
             'closed' => false,
             'authorName' => $this->name,
-            'authorEmail' => $this->email
+            'authorEmail' => $this->email,
         ));
-        
-        if(Controller::isUserSystemEnabled()) {
+
+        $ticket->setAuthor($author);
+
+        if(Controller::isUserSystemEnabled() || Controller::isStaffLogged()) {
             $author->sharedTicketList->add($ticket);
+        }
+
+        if(Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) {
             $author->tickets++;
-            
+
             $this->email = $author->email;
             $this->name = $author->name;
-
-            $author->store(); 
         }
-        
+
+        $author->store();
         $ticket->store();
-        
+
         $this->ticketNumber = $ticket->ticketNumber;
     }
 

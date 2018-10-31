@@ -78,6 +78,31 @@ describe '/ticket/comment/' do
         (lastLog['type']).should.equal('COMMENT')
     end
 
+    it 'should add comment to ticket created by staff' do
+        request('/user/logout')
+        Scripts.login($staff[:email], $staff[:password], true)
+        result = request('/ticket/comment', {
+            content: 'some comment content',
+            ticketNumber: $ticketNumberByStaff,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        (result['status']).should.equal('success')
+
+        ticket = $database.getRow('ticket', $ticketNumberByStaff, 'ticket_number')
+        comment = $database.getRow('ticketevent', ticket['id'], 'ticket_id')
+        (comment['content']).should.equal('some comment content')
+        (comment['type']).should.equal('COMMENT')
+        (comment['author_staff_id']).should.equal($csrf_userid)
+        (ticket['unread_staff']).should.equal('1')
+
+        lastLog = $database.getLastRow('log')
+        (lastLog['type']).should.equal('COMMENT')
+
+        request('/user/logout')
+    end
+
     it 'should fail if user is not the author nor owner' do
         Scripts.createUser('no_commenter@comment.com', 'no_commenter', 'No Commenter')
         Scripts.login('no_commenter@comment.com', 'no_commenter')
@@ -116,5 +141,47 @@ describe '/ticket/comment/' do
 
         (result['status']).should.equal('fail')
         (result['message']).should.equal('NO_PERMISSION')
+    end
+
+    it 'should keep private on 0 if an user creates a private comment' do
+        Scripts.login('commenter@os4.com', 'commenter')
+
+        result = request('/ticket/comment', {
+            content: 'this is not a private comment',
+            ticketNumber: @ticketNumber,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            private: 1
+        })
+
+        (result['status']).should.equal('success')
+        comment = $database.getRow('ticketevent', 'this is not a private comment', 'content')
+        (comment['private']).should.equal("0")
+        request('/user/logout')
+
+    end
+
+    it 'should change private to 1 if a staff creates a private comment' do
+        request('/user/logout')
+
+        Scripts.login('jorah@opensupports.com', 'testpassword', true)
+
+        request('/staff/assign-ticket', {
+            ticketNumber: @ticketNumber,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+        })
+
+        result = request('/ticket/comment', {
+            content: 'this is a private comment',
+            ticketNumber: @ticketNumber,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            private: 1
+        })
+        puts result['message']
+        (result['status']).should.equal('success')
+        comment = $database.getRow('ticketevent', 'this is a private comment', 'content')
+        (comment['private']).should.equal("1")
     end
 end

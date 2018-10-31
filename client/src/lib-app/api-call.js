@@ -4,7 +4,7 @@ const SessionStore = require('lib-app/session-store');
 
 function processData (data, dataAsForm = false) {
     let newData;
-    
+
     if(dataAsForm) {
         newData = new FormData();
 
@@ -24,7 +24,7 @@ function processData (data, dataAsForm = false) {
             client_id: clientId
         }, data)
     }
-    
+
     return newData;
 }
 
@@ -56,15 +56,15 @@ module.exports = {
                 });
         });
     },
-    
+
     getFileLink(filePath) {
         return `${apiRoot}/system/download?file=${filePath}&client_id=${clientId}&session_id=${SessionStore.getItem('session_id')}`;
     },
-    
+
     getAPIUrl() {
         return apiRoot;
     },
-    
+
     getURL() {
         return root;
     }

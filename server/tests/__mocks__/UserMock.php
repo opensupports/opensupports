@@ -8,7 +8,7 @@ class User extends \Mock {
             'getDataStore' => parent::stub()->returns(self::getUserInstanceMock())
         ));
     }
-    
+
     public function isNull() {
         return false;
     }
@@ -19,6 +19,8 @@ class User extends \Mock {
         $mockUserInstance->id = 'MOCK_ID';
         $mockUserInstance->email = 'MOCK_EMAIL';
         $mockUserInstance->password = 'MOCK_PASSWORD';
+        $mockUserInstance->disabled = 0;
+        $mockUserInstance->lastLogin = '20180101';
         $mockUserInstance->verificationToken = null;
 
         return $mockUserInstance;

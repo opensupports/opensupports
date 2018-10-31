@@ -2,6 +2,12 @@
 
 .admin-login-page {
     display: flex;
+    margin: 0 auto;
+    width: 446px;
+    
+    &__container {
+        height: 361px;
+    }
 
     &__content {
         margin: 0 auto;

@@ -7,13 +7,8 @@
         border: 1px solid $grey;
         border-radius: 3px;
 
-        .DraftEditor-root {
-            height: 200px;
-            padding-left: 10px;
-        }
-
-        .public-DraftEditor-content {
-            height: 185px;
+        .ql-editor {
+            min-height: 200px;
         }
     }
 
@@ -26,6 +21,14 @@
     &_errored {
         .text-editor__editor {
             border: 1px solid $primary-red;
+        }
+    }
+
+    &_textarea {
+        .text-editor__editor {
+            height: 200px;
+            padding-left: 10px;
+            width: 100%;
         }
     }
 }

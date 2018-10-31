@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/add-api-key Add APIKey
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName Add APIKey
  *

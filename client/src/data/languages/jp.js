@@ -29,6 +29,7 @@ export default {
     'DATE': '日付',
     'RESPOND': '応答する',
     'RESPOND_TICKET': 'チケット応答',
+    'CLOSE_TICKET': 'クローズチケット',
     'NO_ATTACHMENT': '添付ファイルがありません',
     'STAFF': 'スタッフ',
     'CUSTOMER': '顧客',
@@ -179,7 +180,14 @@ export default {
     'SEND_EMAIL_ON_NEW_TICKET': 'メールを送信毎に新しいチケット',
     'STAFF_UPDATED': 'スタッフメンバーが更新されました',
     'UPDATE': '更新',
-    
+    'NEVER': '決して',
+    'HIMSELF': '彼自身',
+    'ADD_USER': 'ユーザーを追加する',
+    'UPLOAD_FILE': 'ファイルをアップロードする',
+    'PRIVATE': 'プライベート',
+    'ENABLE_USER': 'ユーザーを有効にする',
+    'DISABLE_USER': 'ユーザーを無効にする',
+
     'CHART_CREATE_TICKET': '作成されたチケット',
     'CHART_CLOSE': 'チケットが閉じられました',
     'CHART_SIGNUP': 'サインアップ',
@@ -213,7 +221,7 @@ export default {
     'ACTIVITY_BAN_USER': '禁止されたユーザー',
     'ACTIVITY_DELETE_USER': '削除されたユーザー',
     'ACTIVITY_UN_BAN_USER': '禁止されたユーザー',
-    
+
     'SERVER_REQUIREMENTS': 'サーバー要件',
     'DATABASE_CONFIGURATION': 'データベース構成',
     'ADMIN_SETUP': '管理者設定',
@@ -227,6 +235,7 @@ export default {
     'USER_SYSTEM': 'ユーザシステム',
     'PREVIOUS': '前',
     'DATABASE_HOST': 'MySQLサーバー',
+    'DATABASE_PORT': 'MySQLサーバポート',
     'DATABASE_NAME': 'MySQLデータベース名',
     'DATABASE_USER': 'MySQLユーザー',
     'DATABASE_PASSWORD': 'MySQLのパスワード',
@@ -290,6 +299,9 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'ユーザシステムの使用を有効/無効にします。無効にすると、すべてのユーザーは削除されますが、チケットは保持されます。これを有効にすると、既存のチケットのユーザーが作成されます。',
     'CSV_DESCRIPTION': 'CSVファイルには、電子メール、パスワード、名前の3つの列が必要です。行数に制限はありません。ファイル内で行ごとに1人ずつ作成されます',
     'SMTP_SERVER_DESCRIPTION': 'SMTPサーバーの設定により、アプリケーションはメールを送信できます。 これを設定しないと、OpenSupportsから電子メールは送信されません。',
+    'ENABLE_USER_DESCRIPTION': 'これにより、ユーザーはサインインしてチケットを作成できます。',
+    'DISABLE_USER_DESCRIPTION': 'ユーザーは無効になり、ログインしてチケットを作成することはできません。',
+    'PRIVATE_DESCRIPTION': 'スタッフのみがこの回答を見ることができます',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': '電子メールまたはパスワードが無効です',
@@ -318,6 +330,8 @@ export default {
     'INVALID_EMAIL_OR_TICKET_NUMBER': '電子メールまたはチケット番号が無効です',
     'INVALID_FILE': '無効なファイル',
     'ERRORS_FOUND': 'エラーが見つかりました',
+    'ERROR_IMAGE_SIZE': 'イメージのサイズが{size} MBを超えることはできません',
+    'USER_DISABLED': 'このアカウントは無効です。',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'あなたは私たちのサポートシステムに正常に登録しました。',
@@ -334,6 +348,7 @@ export default {
     'WILL_DELETE_CUSTOM_RESPONSE': 'カスタムレスポンスが削除されます。',
     'WILL_DELETE_DEPARTMENT': '部門は削除されます。すべてのチケットは、選択された部門に転送されます。',
     'NO_STAFF_ASSIGNED': 'この部署にはスタッフが割り当てられていません。',
+    'NO_DEPARTMENT_ASSIGNED': 'あなたに割り当てられたチケット部門はありません.',
     'LEVEL_UPDATED': 'レベルが正常に更新されました。',
     'DEPARTMENTS_UPDATED': '部署が正常に更新されました。',
     'FAILED_EDIT_STAFF': 'スタッフメンバーの編集中にエラーが発生しました。',
@@ -349,8 +364,8 @@ export default {
     'LAST_365_DAYS': '過去365日間',
 
     'ACTIVITY_COMMENT_THIS': 'はこのチケットにコメントしました',
-    'ACTIVITY_ASSIGN_THIS': 'がこのチケットを割り当てました',
-    'ACTIVITY_UN_ASSIGN_THIS': 'はこのチケットの割り当てを解除しました',
+    'ACTIVITY_ASSIGN_THIS': 'はこのチケットを',
+    'ACTIVITY_UN_ASSIGN_THIS': 'はこのチケットの割当を解除しました',
     'ACTIVITY_CLOSE_THIS': 'がこのチケットを閉鎖しました',
     'ACTIVITY_CREATE_TICKET_THIS': 'がこのチケットを作成しました',
     'ACTIVITY_RE_OPEN_THIS': 'がこのチケットを再開しました',
@@ -360,6 +375,7 @@ export default {
     'LEFT_EMPTY_DATABASE': '自動データベース作成のために空のままにする',
     'REMEMBER_ME': '覚えている',
     'EMAIL_LOWERCASE': 'Eメール',
+    'DEFAULT_PORT': '既定値として3306の場合は空のままにします',
     'PASSWORD_LOWERCASE': 'パスワード',
     'TEST_SMTP_CONNECTION': 'SMTP接続をテストする',
     'SMTP_CONNECTION_SUCCESS': 'SMTP資格情報が有効です。',
@@ -367,4 +383,3 @@ export default {
 
     'STAFF_LIMIT': '許可されているスタッフの制限に達しました。 計画を更新するか、サポートチームにお問い合わせください。'
 };
-

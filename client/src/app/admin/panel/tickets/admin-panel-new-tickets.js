@@ -12,6 +12,7 @@ import Message from 'core-components/message';
 class AdminPanelNewTickets extends React.Component {
 
     static defaultProps = {
+        userId: 0,
         departments: [],
         tickets: []
     };
@@ -21,9 +22,11 @@ class AdminPanelNewTickets extends React.Component {
     }
 
     render() {
+        const noDepartments = !this.props.departments.length;
         return (
-            <div className="admin-panel-my-tickets">
+            <div className="admin-panel-new-tickets">
                 <Header title={i18n('NEW_TICKETS')} description={i18n('NEW_TICKETS_DESCRIPTION')} />
+                {(noDepartments) ? <Message className="admin-panel-new-tickets__department-warning" type="warning">{i18n('NO_DEPARTMENT_ASSIGNED')}</Message> : null}
                 {(this.props.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketList {...this.getProps()}/>}
             </div>
         );
@@ -31,6 +34,7 @@ class AdminPanelNewTickets extends React.Component {
 
     getProps() {
         return {
+            userId: this.props.userId,
             departments: this.props.departments,
             tickets: this.props.tickets,
             type: 'secondary',
@@ -42,6 +46,7 @@ class AdminPanelNewTickets extends React.Component {
 
 export default connect((store) => {
     return {
+        userId: store.session.userId,
         departments: store.session.userDepartments,
         tickets: store.adminData.newTickets,
         loading: !store.adminData.newTicketsLoaded,

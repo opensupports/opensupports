@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/edit Edit staff
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName Edit staff
  *
@@ -23,7 +23,7 @@ use Respect\Validation\Validator as DataValidator;
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_STAFF
  *
- * @apiSuccess {Object} data Empty object 
+ * @apiSuccess {Object} data Empty object
  *
  */
 
@@ -36,7 +36,21 @@ class EditStaffController extends Controller {
     public function validations() {
         return [
             'permission' => 'staff_1',
-            'requestData' => []
+            'requestData' => [
+                'email' => [
+                    'validation' => DataValidator::oneOf(DataValidator::email(), DataValidator::falseVal()),
+                    'error' => ERRORS::INVALID_EMAIL
+                ],
+                'password' => [
+                    'validation' => DataValidator::oneOf(DataValidator::length(5, 200), DataValidator::falseVal()),
+                    'error' => ERRORS::INVALID_PASSWORD
+                ],
+                'level' => [
+                    'validation' => DataValidator::oneOf(DataValidator::between(1, 3, true), DataValidator::falseVal()),
+                    'error' => ERRORS::INVALID_LEVEL
+                ]
+
+            ]
         ];
     }
 
@@ -56,9 +70,9 @@ class EditStaffController extends Controller {
             Response::respondError(ERRORS::NO_PERMISSION);
             return;
         }
-        
+
         if(Controller::request('departments')) {
-            $this->updateDepartmentsOwners();    
+            $this->updateDepartmentsOwners();
         }
 
         $this->editInformation();
@@ -74,21 +88,41 @@ class EditStaffController extends Controller {
         if(Controller::request('password')) {
             $this->staffInstance->password = Hashing::hashPassword(Controller::request('password'));
         }
-        
+
         if(Controller::request('level') && Controller::isStaffLogged(3) && !$this->isModifyingCurrentStaff()) {
             $this->staffInstance->level = Controller::request('level');
         }
-        
+
         if(Controller::request('departments') && Controller::isStaffLogged(3)) {
-            $this->staffInstance->sharedDepartmentList = $this->getDepartmentList();
+            $departmentList = $this->getDepartmentList();
+            $ticketList = $this->staffInstance->sharedTicketList;
+
+            $this->staffInstance->sharedDepartmentList = $departmentList;
+
+            foreach($ticketList as $ticket) {
+                if(!$departmentList->includesId($ticket->department->id)) {
+                    if($ticket->isOwner($this->staffInstance) ) {
+                        $ticket->owner = null;
+                    }
+
+                    if(!$ticket->isAuthor($this->staffInstance)) {
+                        $this->staffInstance->sharedTicketList->remove($ticket);
+                    }
+
+                    $ticket->store();
+                }
+            }
         }
+
+        $fileUploader = FileUploader::getInstance();
+        $fileUploader->setPermission(FileManager::PERMISSION_PROFILE);
 
         if($fileUploader = $this->uploadFile(true)) {
             $this->staffInstance->profilePic = ($fileUploader instanceof FileUploader) ? $fileUploader->getFileName() : null;
         }
-        
-        if(Controller::request('sendEmailOnNewTicket') !== null && $this->isModifyingCurrentStaff()) {
-            $this->staffInstance->sendEmailOnNewTicket = Controller::request('sendEmailOnNewTicket') * 1;
+
+	    if(Controller::request('sendEmailOnNewTicket') !== null && Controller::request('sendEmailOnNewTicket') !== '' && $this->isModifyingCurrentStaff()) {
+            $this->staffInstance->sendEmailOnNewTicket = intval(Controller::request('sendEmailOnNewTicket'));
         }
 
         $this->staffInstance->store();

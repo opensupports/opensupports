@@ -18,7 +18,7 @@ describe '/ticket/seen' do
         end
     end
 
-    describe 'when a user is logged' do
+    describe 'when an user is logged' do
 
         request('/user/logout')
         Scripts.login()

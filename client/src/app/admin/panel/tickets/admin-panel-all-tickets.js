@@ -13,6 +13,7 @@ import Message from 'core-components/message';
 class AdminPanelAllTickets extends React.Component {
 
     static defaultProps = {
+        userId: 0,
         departments: [],
         tickets: []
     };
@@ -27,10 +28,12 @@ class AdminPanelAllTickets extends React.Component {
     }
 
     render() {
+        const noDepartments = !this.props.departments.length;
         return (
-            <div className="admin-panel-my-tickets">
+            <div className="admin-panel-all-tickets">
                 <Header title={i18n('ALL_TICKETS')} description={i18n('ALL_TICKETS_DESCRIPTION')} />
-                <div className="admin-panel-my-tickets__search-box">
+                {(noDepartments) ? <Message className="admin-panel-all-tickets__department-warning" type="warning">{i18n('NO_DEPARTMENT_ASSIGNED')}</Message> : null}
+                <div className="admin-panel-all-tickets__search-box">
                     <SearchBox onSearch={this.onSearch.bind(this)} />
                 </div>
                 {(this.props.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketList {...this.getTicketListProps()}/>}
@@ -40,6 +43,7 @@ class AdminPanelAllTickets extends React.Component {
 
     getTicketListProps() {
         return {
+            userId: this.props.userId,
             showDepartmentDropdown: false,
             departments: this.props.departments,
             tickets: this.props.tickets,
@@ -75,6 +79,7 @@ class AdminPanelAllTickets extends React.Component {
 
 export default connect((store) => {
     return {
+        userId: store.session.userId,
         departments: store.session.userDepartments,
         tickets: store.adminData.allTickets,
         pages: store.adminData.allTicketsPages,

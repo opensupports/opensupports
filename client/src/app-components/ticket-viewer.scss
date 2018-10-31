@@ -71,10 +71,30 @@
             text-align: left;
         }
 
-        &-custom {
+        &-actions {
             background-color: $very-light-grey;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &-custom {
             padding: 20px 0 0 20px;
             text-align: left;
         }
+
+        &-private {
+            padding: 20px 20px 0 0;
+
+            &-info {
+                margin-left: 5px;
+            }
+        }
+
+        &-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
     }
 }

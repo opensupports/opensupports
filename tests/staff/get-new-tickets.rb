@@ -10,6 +10,7 @@ describe '/staff/get-new-tickets' do
         })
 
         (result['status']).should.equal('success')
-        (result['data'].size).should.equal(7)
+        (result['data'].size).should.equal(8)
+
     end
 end

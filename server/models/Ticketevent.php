@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} TicketEvent TicketEvent
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  * @apiGroup Data Structures
  * @apiParam {String}  type The type of the ticket event. It can be COMMENT, ASSIGN, UN_ASSIGN, CLOSE, RE_OPEN, DEPARTMENT_CHANGED or PRIORITY_CHANGED
  * @apiParam {String}  content The content of the ticket event.
@@ -13,6 +13,7 @@
  * @apiParam {Boolean}  author.staff Indicates if the author is a staff.
  * @apiParam {String}  date The date of the ticket event.
  * @apiParam {String}  file The file of the ticket event.
+ * @apiParam {Boolean} private Indicates if this event is not shown to users.
  */
 
 class Ticketevent extends DataStore {
@@ -58,7 +59,8 @@ class Ticketevent extends DataStore {
             'file',
             'authorUser',
             'authorStaff',
-            'date'
+            'date',
+            'private'
         ];
     }
 

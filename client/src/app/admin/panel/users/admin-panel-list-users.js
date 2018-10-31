@@ -5,10 +5,14 @@ import API from 'lib-app/api-call';
 import DateTransformer from 'lib-core/date-transformer';
 
 import Header from 'core-components/header';
+import InfoTooltip from 'core-components/info-tooltip';
 import Table from 'core-components/table';
 import SearchBox from 'core-components/search-box';
 import Button from 'core-components/button';
 import Message from 'core-components/message';
+import Icon from 'core-components/icon';
+import ModalContainer from 'app-components/modal-container';
+import MainSignUpWidget from 'app/main/main-signup/main-signup-widget';
 
 class AdminPanelListUsers extends React.Component {
 
@@ -37,6 +41,11 @@ class AdminPanelListUsers extends React.Component {
                 <Header title={i18n('LIST_USERS')} description={i18n('LIST_USERS_DESCRIPTION')} />
                 <SearchBox className="admin-panel-list-users__search-box" placeholder={i18n('SEARCH_USERS')} onSearch={this.onSearch.bind(this)} />
                 {(this.state.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_USERS')}</Message> : <Table {...this.getTableProps()}/>}
+                <div style={{textAlign: 'right', marginTop: 10}}>
+                    <Button onClick={this.onCreateUser.bind(this)} type="secondary" size="medium">
+                        <Icon size="sm" name="plus"/> {i18n('ADD_USER')}
+                    </Button>
+                </div>
             </div>
         );
     }
@@ -88,9 +97,12 @@ class AdminPanelListUsers extends React.Component {
     getUserRow(user) {
         return {
             name: (
-                <Button className="admin-panel-list-users__name-link" type="link" route={{to: '/admin/panel/users/view-user/' + user.id}}>
-                    {user.name}
-                </Button>
+                <div>
+                    <Button className="admin-panel-list-users__name-link" type="link" route={{to: '/admin/panel/users/view-user/' + user.id}}>
+                        {user.name}
+                    </Button>
+                    {user.disabled ? this.renderDisabled() : null}
+                </div>
             ),
             email: user.email,
             tickets: (
@@ -100,6 +112,12 @@ class AdminPanelListUsers extends React.Component {
             ),
             signupDate: DateTransformer.transformToString(user.signupDate, false)
         };
+    }
+
+    renderDisabled() {
+        return (
+            <InfoTooltip className="admin-panel-list-users__name-disabled" type="warning" text={i18n('USER_DISABLED')} />
+        );
     }
 
     onSearch(query) {
@@ -146,7 +164,21 @@ class AdminPanelListUsers extends React.Component {
         API.call({
             path: '/user/get-users',
             data: data
-        }).then(this.onUsersRetrieved.bind(this)).catch(this.onUsersRejected.bind(this));
+        }).catch(this.onUsersRejected.bind(this)).then(this.onUsersRetrieved.bind(this));
+    }
+
+    onCreateUser(user) {
+        ModalContainer.openModal(
+            <div className="admin-panel-list-users__add-user-form">
+                <MainSignUpWidget onSuccess={this.onCreateUserSuccess.bind(this)} />
+                <div style={{textAlign: 'center'}}>
+                    <Button onClick={ModalContainer.closeModal} type="link">{i18n('CLOSE')}</Button>
+                </div>
+            </div>
+        );
+    }
+    onCreateUserSuccess() {
+        ModalContainer.closeModal();
     }
 
     onUsersRetrieved(result) {
@@ -155,7 +187,7 @@ class AdminPanelListUsers extends React.Component {
             pages: result.data.pages * 1,
             users: result.data.users,
             orderBy: result.data.orderBy,
-            desc: (result.data.desc === '1'),
+            desc: (result.data.desc*1),
             error: false,
             loading: false
         });

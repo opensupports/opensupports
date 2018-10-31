@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/get-all  Get all staffs
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName Get all staffs
  *
@@ -12,7 +12,7 @@ use Respect\Validation\Validator as DataValidator;
  * @apiDescription This path retrieves information about all the staff member.
  *
  * @apiPermission staff3
- * 
+ *
  * @apiUse NO_PERMISSION
  *
  * @apiSuccess {[Staff](#api-Data_Structures-ObjectStaff)[]} data Array of staff members.
@@ -25,7 +25,7 @@ class GetAllStaffController extends Controller {
 
     public function validations() {
         return [
-            'permission' => 'staff_3',
+            'permission' => 'staff_1',
             'requestData' => []
         ];
     }
@@ -58,6 +58,6 @@ class GetAllStaffController extends Controller {
         }
 
         Response::respondSuccess($staffArray);
-    
+
     }
 }

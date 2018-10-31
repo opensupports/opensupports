@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /system/get-settings Get settings
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName Get settings
  *
@@ -41,9 +41,9 @@ class GetSettingsController extends Controller {
                     'reCaptchaKey' => ($captchaValues['isDefault']) ? 'DEFAULT' : $captchaValues['recaptcha-public'],
                     'reCaptchaPrivate' => ($captchaValues['isDefault']) ? 'DEFAULT' : $captchaValues['recaptcha-private'],
                     'time-zone' => Setting::getSetting('time-zone')->getValue(),
-                    'maintenance-mode' => Setting::getSetting('maintenance-mode')->getValue() * 1,
+                    'maintenance-mode' => intval(Setting::getSetting('maintenance-mode')->getValue()),
                     'layout' => Setting::getSetting('layout')->getValue(),
-                    'allow-attachments' => Setting::getSetting('allow-attachments')->getValue() * 1,
+                    'allow-attachments' => intval(Setting::getSetting('allow-attachments')->getValue()),
                     'max-size' => Setting::getSetting('max-size')->getValue(),
                     'url' => Setting::getSetting('url')->getValue(),
                     'title' => Setting::getSetting('title')->getValue(),
@@ -62,16 +62,16 @@ class GetSettingsController extends Controller {
                     'reCaptchaKey' => ($captchaValues['recaptcha-public'] !== 'NONE') ? $captchaValues['recaptcha-public'] : '',
                     'language' => Setting::getSetting('language')->getValue(),
                     'time-zone' => Setting::getSetting('time-zone')->getValue(),
-                    'maintenance-mode' => Setting::getSetting('maintenance-mode')->getValue() * 1,
+                    'maintenance-mode' => intval(Setting::getSetting('maintenance-mode')->getValue()),
                     'layout' => Setting::getSetting('layout')->getValue(),
-                    'allow-attachments' => Setting::getSetting('allow-attachments')->getValue() * 1,
+                    'allow-attachments' => intval(Setting::getSetting('allow-attachments')->getValue()),
                     'max-size' => Setting::getSetting('max-size')->getValue(),
                     'title' => Setting::getSetting('title')->getValue(),
                     'registration' => Setting::getSetting('registration')->getValue(),
                     'departments' => Department::getDepartmentNames(),
                     'supportedLanguages' => Language::getSupportedLanguages(),
                     'allowedLanguages' => Language::getAllowedLanguages(),
-                    'user-system-enabled' => Setting::getSetting('user-system-enabled')->getValue() * 1,
+                    'user-system-enabled' => intval(Setting::getSetting('user-system-enabled')->getValue()),
                     'session-prefix' => Setting::getSetting('session-prefix')
                 ];
             }

@@ -6,11 +6,11 @@ describe'system/edit-settings' do
         result= request('/system/edit-settings', {
             "csrf_userid" => $csrf_userid,
             "csrf_token" => $csrf_token,
-            "maintenance-mode" => false,
+            "maintenance-mode" => 0,
             "time-zone" => -3,
             "layout" => 'full-width',
             "allow-attachments" => 1,
-            "max-size" => 2048,
+            "max-size" => 2,
             "language" => 'en',
             "no-reply-email" => 'testemail@hotmail.com'
         })
@@ -27,7 +27,7 @@ describe'system/edit-settings' do
         (row['value']).should.equal('full-width')
 
         row = $database.getRow('setting', 'max-size', 'name')
-        (row['value']).should.equal('2048')
+        (row['value']).should.equal('2')
 
         row = $database.getRow('setting', 'language', 'name')
         (row['value']).should.equal('en')
@@ -37,6 +37,20 @@ describe'system/edit-settings' do
 
         request('/user/logout')
     end
+    it 'should fail if supported languages are invalid' do
+        request('/user/logout')
+        Scripts.login($staff[:email], $staff[:password], true)
+
+        result= request('/system/edit-settings', {
+            "csrf_userid" => $csrf_userid,
+            "csrf_token" => $csrf_token,
+            "supportedLanguages" => '["en", "pt", "jp", "ru", "de"]',
+            "allowedLanguages" => '["en", "pt", "jp", "ru"]'
+        })
+
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('INVALID_SUPPORTED_LANGUAGES')
+    end
     it 'should change allowed and supported languages' do
         request('/user/logout')
         Scripts.login($staff[:email], $staff[:password], true)
@@ -45,7 +59,7 @@ describe'system/edit-settings' do
             "csrf_userid" => $csrf_userid,
             "csrf_token" => $csrf_token,
             "supportedLanguages" => '["en", "pt", "jp", "ru"]',
-            "allowedLanguages" => '["en","pt", "jp", "ru", "de"]'
+            "allowedLanguages" => '["en", "pt", "jp", "ru", "de"]'
         })
 
         (result['status']).should.equal('success')

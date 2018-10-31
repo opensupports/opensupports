@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/close Close ticket
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName Close
  *
@@ -62,9 +62,12 @@ class CloseController extends Controller {
     public function handler() {
         $this->ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
 
-        if($this->shouldDenyPermission()) {
-            Response::respondError(ERRORS::NO_PERMISSION);
-            return;
+        if(
+          (Controller::isUserSystemEnabled() || Controller::isStaffLogged()) &&
+          !$this->ticket->isOwner(Controller::getLoggedUser()) &&
+          !$this->ticket->isAuthor(Controller::getLoggedUser())
+        ) {
+            throw new Exception(ERRORS::NO_PERMISSION);
         }
 
         $this->markAsUnread();
@@ -79,22 +82,9 @@ class CloseController extends Controller {
         Response::respondSuccess();
     }
 
-    private function shouldDenyPermission() {
-        if(Controller::isStaffLogged()) {
-        	return $this->ticket->owner && $this->ticket->owner->id !== Controller::getLoggedUser()->id;
-        } else if(Controller::isUserSystemEnabled()) {
-        	return $this->ticket->author->id !== Controller::getLoggedUser()->id;
-        } else {
-        	return false;
-        }
-    }
-
     private function markAsUnread() {
-        if(Controller::isStaffLogged()) {
-            $this->ticket->unread = true;
-        } else {
-            $this->ticket->unreadStaff = true;
-        }
+        $this->ticket->unread = !$this->ticket->isAuthor(Controller::getLoggedUser());
+        $this->ticket->unreadStaff = !$this->ticket->isOwner(Controller::getLoggedUser());
     }
 
     private function addCloseEvent() {

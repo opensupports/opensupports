@@ -19,7 +19,7 @@ describe'system/disable-user-system' do
 
             numberOftickets= $database.query("SELECT * FROM ticket WHERE author_id IS NULL AND author_email IS NOT NULL AND author_name IS NOT NULL")
 
-            (numberOftickets.num_rows).should.equal(36)
+            (numberOftickets.num_rows).should.equal(39)
 
             request('/user/logout')
 
@@ -58,10 +58,45 @@ describe'system/disable-user-system' do
                 content: 'The north remembers',
                 departmentId: 1,
                 language: 'en',
+                name: 'Test Subject',
                 email: 'emailtest@opensupports.com'
             })
 
             (result['status']).should.equal('success')
+        end
+
+        it 'should be able to assign and respond tickets' do
+            Scripts.login($staff[:email], $staff[:password], true);
+            ticket = $database.getLastRow('ticket');
+            result = request('/staff/assign-ticket', {
+                ticketNumber: ticket['ticket_number'],
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+            })
+            (result['status']).should.equal('success')
+
+            result = request('/ticket/comment', {
+                ticketNumber: ticket['ticket_number'],
+                content: 'This is a staff response for a ticket without an user',
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+            })
+            (result['status']).should.equal('success')
+        end
+
+        it 'should be be able to create a ticket as an admin' do
+            result = request('/ticket/create', {
+                title: 'created by staff with user system disabled',
+                content: 'an staff created this ticket while user system disabled',
+                departmentId: 1,
+                language: 'en',
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token
+            })
+            (result['status']).should.equal('success')
+            ticket = $database.getRow('ticket', result['data']['ticketNumber'], 'ticket_number')
+            (ticket['author_id']).should.equal(nil)
+            (ticket['author_staff_id']).should.equal('1')
         end
 
         it 'should not disable the user system if it is already disabled 'do
@@ -92,7 +127,7 @@ describe'system/disable-user-system' do
 
             numberOftickets= $database.query("SELECT * FROM ticket WHERE author_email IS NULL AND author_name IS NULL AND author_id IS NOT NULL"  )
 
-            (numberOftickets.num_rows).should.equal(37)
+            (numberOftickets.num_rows).should.equal(40)
 
         end
 

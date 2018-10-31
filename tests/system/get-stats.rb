@@ -13,62 +13,62 @@ describe'/system/get-stats' do
 
         #day 1
         for i in 0..5
-            $database.query("INSERT INTO log VALUES('', 'SIGNUP', NULL, " + yesterday3 + ", NULL, NULL, NULL);")
+            $database.query("INSERT INTO log VALUES(NULL, 'SIGNUP', NULL, " + yesterday3 + ", NULL, NULL, NULL);")
         end
         for i in 0..0
-            $database.query("INSERT INTO log VALUES('', 'CREATE_TICKET', NULL, " + yesterday3 + ", NULL, NULL, NULL);")
+            $database.query("INSERT INTO log VALUES(NULL, 'CREATE_TICKET', NULL, " + yesterday3 + ", NULL, NULL, NULL);")
         end
         for i in 0..1
-            $database.query("INSERT INTO log VALUES('', 'CLOSE', NULL, " + yesterday3 + ", NULL, NULL, NULL);")
+            $database.query("INSERT INTO log VALUES(NULL, 'CLOSE', NULL, " + yesterday3 + ", NULL, NULL, NULL);")
         end
         for i in 0..2
-            $database.query("INSERT INTO log VALUES('', 'COMMENT', NULL, " + yesterday3 + ", NULL, NULL, NULL);")
+            $database.query("INSERT INTO log VALUES(NULL, 'COMMENT', NULL, " + yesterday3 + ", NULL, NULL, NULL);")
         end
         for i in 0..8
-            $database.query("INSERT INTO ticketevent VALUES('', 'CLOSE', NULL, NULL, " + yesterday3 + ", NULL, NULL, 1);")
+            $database.query("INSERT INTO ticketevent VALUES(NULL, 'CLOSE', NULL, NULL, " + yesterday3 + ", 0, NULL, NULL, 1);")
         end
         for i in 0..4
-            $database.query("INSERT INTO ticketevent VALUES('', 'ASSIGN', NULL, NULL, " + yesterday3 + ", NULL, NULL, 1);")
+            $database.query("INSERT INTO ticketevent VALUES(NULL, 'ASSIGN', NULL, NULL, " + yesterday3 + ", 0, NULL, NULL, 1);")
         end
 
         #day 2
         for i in 0..7
-            $database.query("INSERT INTO log VALUES('', 'SIGNUP', NULL, " + yesterday2 + ", NULL, NULL, NULL);")
+            $database.query("INSERT INTO log VALUES(NULL, 'SIGNUP', NULL, " + yesterday2 + ", NULL, NULL, NULL);")
         end
         for i in 0..2
-            $database.query("INSERT INTO log VALUES('', 'CREATE_TICKET', NULL, " + yesterday2 + ", NULL, NULL, NULL);")
+            $database.query("INSERT INTO log VALUES(NULL, 'CREATE_TICKET', NULL, " + yesterday2 + ", NULL, NULL, NULL);")
         end
         for i in 0..9
-            $database.query("INSERT INTO log VALUES('', 'CLOSE', NULL, " + yesterday2 + ", NULL, NULL, NULL);")
+            $database.query("INSERT INTO log VALUES(NULL, 'CLOSE', NULL, " + yesterday2 + ", NULL, NULL, NULL);")
         end
         for i in 0..2
-            $database.query("INSERT INTO log VALUES('', 'COMMENT', NULL, " + yesterday2 + ", NULL, NULL, NULL);")
+            $database.query("INSERT INTO log VALUES(NULL, 'COMMENT', NULL, " + yesterday2 + ", NULL, NULL, NULL);")
         end
         for i in 0..10
-            $database.query("INSERT INTO ticketevent VALUES('', 'CLOSE', NULL, NULL, " + yesterday2 + ", NULL, NULL, 1);")
+            $database.query("INSERT INTO ticketevent VALUES(NULL, 'CLOSE', NULL, NULL, " + yesterday2 + ", 0, NULL, NULL, 1);")
         end
         for i in 0..2
-            $database.query("INSERT INTO ticketevent VALUES('', 'ASSIGN', NULL, NULL, " + yesterday2 + ", NULL, NULL, 1);")
+            $database.query("INSERT INTO ticketevent VALUES(NULL, 'ASSIGN', NULL, NULL, " + yesterday2 + ", 0, NULL, NULL, 1);")
         end
 
         #day 3
         for i in 0..0
-            $database.query("INSERT INTO log VALUES('', 'SIGNUP', NULL, " + yesterday + ", NULL, NULL, NULL);")
+            $database.query("INSERT INTO log VALUES(NULL, 'SIGNUP', NULL, " + yesterday + ", NULL, NULL, NULL);")
         end
         for i in 0..1
-            $database.query("INSERT INTO log VALUES('', 'CREATE_TICKET', NULL, " + yesterday + ", NULL, NULL, NULL);")
+            $database.query("INSERT INTO log VALUES(NULL, 'CREATE_TICKET', NULL, " + yesterday + ", NULL, NULL, NULL);")
         end
         for i in 0..4
-            $database.query("INSERT INTO log VALUES('', 'CLOSE', NULL, " + yesterday + ", NULL, NULL, NULL);")
+            $database.query("INSERT INTO log VALUES(NULL, 'CLOSE', NULL, " + yesterday + ", NULL, NULL, NULL);")
         end
         for i in 0..7
-            $database.query("INSERT INTO log VALUES('', 'COMMENT', NULL, " + yesterday + ", NULL, NULL, NULL);")
+            $database.query("INSERT INTO log VALUES(NULL, 'COMMENT', NULL, " + yesterday + ", NULL, NULL, NULL);")
         end
         for i in 0..3
-            $database.query("INSERT INTO ticketevent VALUES('', 'CLOSE', NULL, NULL, " + yesterday + ", NULL, NULL, 1);")
+            $database.query("INSERT INTO ticketevent VALUES(NULL, 'CLOSE', NULL, NULL, " + yesterday + ", 0, NULL, NULL, 1);")
         end
         for i in 0..7
-            $database.query("INSERT INTO ticketevent VALUES('', 'ASSIGN', NULL, NULL, " + yesterday + ", NULL, NULL, 1);")
+            $database.query("INSERT INTO ticketevent VALUES(NULL, 'ASSIGN', NULL, NULL, " + yesterday + ", 0, NULL, NULL, 1);")
         end
 
         @result = request('/system/get-stats', {
@@ -85,25 +85,25 @@ describe'/system/get-stats' do
 
         d = Date.today.prev_day
         yesterday = d.strftime("%Y%m%d")
-        d = Date.today.prev_day.prev_day
+        d = Date.today.prev_day(2)
         yesterday2 = d.strftime("%Y%m%d")
-        d = Date.today.prev_day.prev_day.prev_day
+        d = Date.today.prev_day(3)
         yesterday3 = d.strftime("%Y%m%d")
-        d = Date.today.prev_day.prev_day.prev_day.prev_day
+        d = Date.today.prev_day(4)
         yesterday4 = d.strftime("%Y%m%d")
-        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day
+        d = Date.today.prev_day(5)
         yesterday5 = d.strftime("%Y%m%d")
-        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day
+        d = Date.today.prev_day(6)
         yesterday6 = d.strftime("%Y%m%d")
-        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day
+        d = Date.today.prev_day(7)
         yesterday7 = d.strftime("%Y%m%d")
-        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day
+        d = Date.today.prev_day(8)
         yesterday8 = d.strftime("%Y%m%d")
-        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day
+        d = Date.today.prev_day(9)
         yesterday9 = d.strftime("%Y%m%d")
-        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day
+        d = Date.today.prev_day(10)
         yesterday10 = d.strftime("%Y%m%d")
-        d = Date.today.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day.prev_day
+        d = Date.today.prev_day(11)
         yesterday11 = d.strftime("%Y%m%d")
 
         assertData(11, yesterday3, 'CREATE_TICKET', '1')
@@ -156,5 +156,27 @@ describe'/system/get-stats' do
 
         assertData(20, yesterday11, 'CLOSE', '0')
         assertData(21, yesterday11, 'ASSIGN', '0')
+    end
+
+    it 'should remove very old stats' do
+        prev_days_to_remove = 32;
+
+        stats_count = $database.query('SELECT COUNT(*) as qt FROM stat').fetch_hash['qt'];
+        date = Date.today.prev_day(prev_days_to_remove).strftime("%Y%m%d");
+
+        $database.query('INSERT INTO stat VALUES(\'\', '+ date +', \'CLOSE\', 1, 0, NULL)');
+        $database.query('INSERT INTO stat VALUES(\'\', '+ date +', \'SINGUP\', 1, 0, NULL)');
+        $database.query('INSERT INTO stat VALUES(\'\', '+ date +', \'COMMENT\', 1, 0, NULL)');
+        stats_count_updated = $database.query('SELECT COUNT(*) as qt FROM stat').fetch_hash['qt'];
+        (stats_count).should.not.equal(stats_count_updated)
+
+        request('/system/get-stats', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            period: 'MONTH',
+            staffId: '1'
+        })
+        stats_count_updated = $database.query('SELECT COUNT(*) as qt FROM stat').fetch_hash['qt'];
+        (stats_count).should.equal(stats_count_updated)
     end
 end

@@ -1,18 +1,16 @@
 import React              from 'react';
 import _                  from 'lodash';
-import {connect} from 'react-redux';
-import {EditorState, convertToRaw} from 'draft-js';
+import {connect}          from 'react-redux';
 
 import history            from 'lib-app/history';
 import i18n               from 'lib-app/i18n';
 import API                from 'lib-app/api-call';
 import SessionStore       from 'lib-app/session-store';
-import store              from 'app/store';
-import SessionActions     from 'actions/session-actions';
 import LanguageSelector   from 'app-components/language-selector';
 import Captcha            from 'app/main/captcha';
 
 import Header             from 'core-components/header';
+import TextEditor         from 'core-components/text-editor';
 import Form               from 'core-components/form';
 import FormField          from 'core-components/form-field';
 import SubmitButton       from 'core-components/submit-button';
@@ -21,7 +19,8 @@ import Message            from 'core-components/message';
 class CreateTicketForm extends React.Component {
 
     static propTypes = {
-        userLogged: React.PropTypes.bool
+        userLogged: React.PropTypes.bool,
+        onSuccess: React.PropTypes.func,
     };
 
     static defaultProps = {
@@ -33,7 +32,7 @@ class CreateTicketForm extends React.Component {
         message: null,
         form: {
             title: '',
-            content: EditorState.createEmpty(),
+            content: TextEditor.createEmpty(),
             departmentIndex: 0,
             email: '',
             name: '',
@@ -58,7 +57,13 @@ class CreateTicketForm extends React.Component {
                             size: 'medium'
                         }}/>
                     </div>
-                    <FormField label={i18n('CONTENT')} name="content" validation="TEXT_AREA" required field="textarea" />
+                    <FormField
+                        label={i18n('CONTENT')}
+                        name="content"
+                        validation="TEXT_AREA"
+                        fieldProps={{allowImages: this.props.allowAttachments}}
+                        required
+                        field="textarea" />
                     {(this.props.allowAttachments) ? this.renderFileUpload() : null}
                     {(!this.props.userLogged) ? this.renderCaptcha() : null}
                     <SubmitButton>{i18n('CREATE_TICKET')}</SubmitButton>
@@ -126,7 +131,7 @@ class CreateTicketForm extends React.Component {
             API.call({
                 path: '/ticket/create',
                 dataAsForm: true,
-                data: _.extend({}, formState, {
+                data: _.extend({}, formState, TextEditor.getContentFormData(formState.content), {
                     captcha: captcha && captcha.getValue(),
                     departmentId: SessionStore.getDepartments()[formState.departmentIndex].id
                 })
@@ -138,14 +143,11 @@ class CreateTicketForm extends React.Component {
         this.setState({
             loading: false,
             message: 'success'
+        }, () => {
+            if(this.props.onSuccess) {
+                this.props.onSuccess();
+            }
         });
-
-        if(this.props.userLogged) {
-            store.dispatch(SessionActions.getUserData());
-            setTimeout(() => {history.push('/dashboard')}, 2000);
-        } else {
-            setTimeout(() => {history.push('/check-ticket/' + result.data.ticketNumber + '/' + email)}, 1000);
-        }
     }
 
     onTicketFail() {
@@ -157,9 +159,10 @@ class CreateTicketForm extends React.Component {
 }
 
 export default connect((store) => {
+    const { language, supportedLanguages } = store.config;
+
     return {
-        language: store.config.language,
+        language: _.includes(supportedLanguages, language) ? language : supportedLanguages[0],
         allowAttachments: store.config['allow-attachments']
     };
 })(CreateTicketForm);
-

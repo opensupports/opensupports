@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/get-all-tickets Get all tickets
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName Get all tickets
  *
@@ -39,7 +39,7 @@ class GetAllTicketsStaffController extends Controller {
             ]
         ];
     }
-    
+
     public function handler() {
         if (Ticket::isTableEmpty()) {
             Response::respondSuccess([
@@ -77,8 +77,7 @@ class GetAllTicketsStaffController extends Controller {
         foreach ($user->sharedDepartmentList as $department) {
             $query .= 'department_id=' . $department->id . ' OR ';
         }
-        $query = substr($query,0,-3);
-        $query .= ') ';
+        $query .= 'FALSE) ';
 
         return $query;
     }

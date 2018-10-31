@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /staff/un-assign-ticket Un-assign ticket
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName Un-assign ticket
  *
@@ -43,26 +43,29 @@ class UnAssignStaffController extends Controller {
         $ticketNumber = Controller::request('ticketNumber');
         $user = Controller::getLoggedUser();
         $ticket = Ticket::getByTicketNumber($ticketNumber);
+        $owner = $ticket->owner;
 
-        if($ticket->owner && $ticket->owner->id == $user->id) {
-            $user->sharedTicketList->remove($ticket);
-            $user->store();
-            
+        if($owner && ($ticket->isOwner($user) || $user->level > 2)) {
+            if(!$ticket->isAuthor($owner)) {
+                $owner->sharedTicketList->remove($ticket);
+                $owner->store();
+            }
+
             $ticket->owner = null;
-            $ticket->unread = true;
-            
+            $ticket->unread = !$ticket->isAuthor($user);
+
             $event = Ticketevent::getEvent(Ticketevent::UN_ASSIGN);
             $event->setProperties(array(
                 'authorStaff' => $user,
-                'date' => Date::getCurrentDate()
+                'date' => Date::getCurrentDate(),
+                'content' => $owner->name
             ));
-            
+
             $ticket->addEvent($event);
             $ticket->store();
             Response::respondSuccess();
         } else {
-            Response::respondError(ERRORS::NO_PERMISSION);
-            return;
+            throw new Exception(ERRORS::NO_PERMISSION);
         }
     }
 }

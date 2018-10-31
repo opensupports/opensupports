@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /ticket/re-open Reopen ticket
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName Reopen ticket
  *
@@ -17,7 +17,7 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TICKET
- * 
+ *
  * @apiSuccess {Object} data Empty object
  *
  */
@@ -63,8 +63,13 @@ class ReOpenController extends Controller {
     private function shouldDenyPermission() {
         $user = Controller::getLoggedUser();
 
-        return (!Controller::isStaffLogged() && $this->ticket->author->id !== $user->id) ||
-        (Controller::isStaffLogged() && $this->ticket->owner && $this->ticket->owner->id !== $user->id);
+        return !(
+            $this->ticket->isAuthor($user) ||
+            (
+                Controller::isStaffLogged() &&
+                $user->sharedDepartmentList->includesId($this->ticket->department->id)
+            )
+        );
     }
 
     private function markAsUnread() {

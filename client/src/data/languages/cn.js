@@ -29,6 +29,7 @@ export default {
     'DATE': '日期',
     'RESPOND': '響應',
     'RESPOND_TICKET': '響應故障單',
+    'CLOSE_TICKET': '關門票',
     'NO_ATTACHMENT': '沒有文件附件',
     'STAFF': '員工',
     'CUSTOMER': '顧客',
@@ -179,6 +180,13 @@ export default {
     'SEND_EMAIL_ON_NEW_TICKET': '电子邮件为每个新票',
     'STAFF_UPDATED': '工作人员已更新',
     'UPDATE': '更新',
+    'NEVER': '从来没有',
+    'HIMSELF': '他自己',
+    'ADD_USER': '添加用户',
+    'UPLOAD_FILE': '上传文件',
+    'PRIVATE': '私人的',
+    'ENABLE_USER': '启用用户',
+    'DISABLE_USER': '禁用用户',
 
     'CHART_CREATE_TICKET': '已創建門票',
     'CHART_CLOSE': '門票已關閉',
@@ -227,6 +235,7 @@ export default {
     'USER_SYSTEM': '用戶系統',
     'PREVIOUS': '以前',
     'DATABASE_HOST': 'MySQL服務器',
+    'DATABASE_PORT': 'MySQL服务器端口',
     'DATABASE_NAME': 'MySQL數據庫名稱',
     'DATABASE_USER': 'MySQL用戶',
     'DATABASE_PASSWORD': 'MySQL密碼',
@@ -290,6 +299,9 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': '啟用/禁用用戶系統的使用。如果你禁用它，所有的用戶將被刪除，但票將被保留。如果啟用，將創建現有票證的用戶。',
     'CSV_DESCRIPTION': 'CSV文件必須有3列：電子郵件，密碼，名稱。行數沒有限制。它將在文件中的每行中創建一個用戶。',
     'SMTP_SERVER_DESCRIPTION': 'SMTP服务器允许应用程序发送邮件。 如果您没有配置，OpenSupports将不会发送任何电子邮件。',
+    'ENABLE_USER_DESCRIPTION': '此操作允许用户登录并创建票证。',
+    'DISABLE_USER_DESCRIPTION': '用户将被禁用，无法登录并创建票证。',
+    'PRIVATE_DESCRIPTION': '只有工作人员才能看到这种回应',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': '電子郵件或密碼無效',
@@ -318,6 +330,8 @@ export default {
     'INVALID_EMAIL_OR_TICKET_NUMBER': '電子郵件或機票號無效',
     'INVALID_FILE': '無效文件',
     'ERRORS_FOUND': '發現錯誤',
+    'ERROR_IMAGE_SIZE': '没有图像的大小可以超过{size}MB',
+    'USER_DISABLED': '此帐户已被停用。',
 
     //MESSAGES
     'SIGNUP_SUCCESS': '您已在我們的支持系統中成功註冊',
@@ -334,6 +348,7 @@ export default {
     'WILL_DELETE_CUSTOM_RESPONSE': '自定義響應將被刪除。',
     'WILL_DELETE_DEPARTMENT': '部門將被刪除。所有票將轉移到所選部門。',
     'NO_STAFF_ASSIGNED': '沒有工作人員被分配到這個部門。',
+    'NO_DEPARTMENT_ASSIGNED': '没有为您分配票务部门。',
     'LEVEL_UPDATED': '級別已成功更新。',
     'DEPARTMENTS_UPDATED': '部門已成功更新。',
     'FAILED_EDIT_STAFF': '嘗試編輯員工時出錯。',
@@ -349,8 +364,8 @@ export default {
     'LAST_365_DAYS':'過去365天',
 
     'ACTIVITY_COMMENT_THIS': '評論了這張票',
-    'ACTIVITY_ASSIGN_THIS': '分配這張票',
-    'ACTIVITY_UN_ASSIGN_THIS': '取消分配此票',
+    'ACTIVITY_ASSIGN_THIS': '将此票证分配给',
+    'ACTIVITY_UN_ASSIGN_THIS': '未分配此票给',
     'ACTIVITY_CLOSE_THIS': '關閉這張票',
     'ACTIVITY_CREATE_TICKET_THIS': '創建了這張票',
     'ACTIVITY_RE_OPEN_THIS': '重新打開這張票',
@@ -360,6 +375,7 @@ export default {
     'LEFT_EMPTY_DATABASE': '留空为自动创建数据库',
     'REMEMBER_ME': '记住我',
     'EMAIL_LOWERCASE': '电子邮件',
+    'DEFAULT_PORT': '默认为空，为3306',
     'PASSWORD_LOWERCASE': '密码',
     'SYSTEM_SETTINGS': '系统设置',
     'TEST_SMTP_CONNECTION': '测试SMTP连接',
@@ -368,4 +384,3 @@ export default {
 
     'STAFF_LIMIT': '你已经达到允许的工作人员的限制。 请更新您的计划或联系我们的支持团队。'
 };
-

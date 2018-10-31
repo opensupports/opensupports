@@ -24,11 +24,28 @@ describe '/staff/assign-ticket' do
 
         (ticket['unread']).should.equal('1')
 
-        staff_ticket = $database.getRow('staff_ticket', 1 , 'id')
+        staff_ticket = $database.getRow('staff_ticket', 1 , 'ticket_id')
 
         (staff_ticket['staff_id']).should.equal('1')
 
         (staff_ticket['ticket_id']).should.equal('1')
+    end
+    it 'should assign ticket if a staff choose another to assing a ticket ' do
+        ticket = $database.getRow('ticket', 3 , 'id')
+        result = request('/staff/assign-ticket', {
+            ticketNumber: ticket['ticket_number'],
+            staffId:4,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        (result['status']).should.equal('success')
+
+        ticket = $database.getRow('ticket', 3 , 'id')
+
+        (ticket['owner_id']).should.equal('4')
+
+        (ticket['unread']).should.equal('1')
+
     end
 
     it 'should fail if ticket is already owned' do

@@ -16,20 +16,6 @@ describe '/ticket/create' do
         (result['message']).should.equal('NO_PERMISSION')
 
     end
-
-    it 'should fail if title is too short' do
-        result = request('/ticket/create', {
-            title: 'GG',
-            departmentId: 1,
-            language: 'en',
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token
-        })
-
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_TITLE')
-    end
-
     it 'should fail if title is very long' do
         long_text = ''
         300.times {long_text << 'a'}
@@ -157,5 +143,25 @@ describe '/ticket/create' do
         (ticket1).should.equal((ticket0 - 100000 + 1 * ticket_number_gap) % 900000 + 100000)
         (ticket2).should.equal((ticket0 - 100000 + 2 * ticket_number_gap) % 900000 + 100000)
         (ticket3).should.equal((ticket0 - 100000 + 3 * ticket_number_gap) % 900000 + 100000)
+    end
+
+    it 'should be able to create a ticket while being staff' do
+        request('/user/logout')
+        Scripts.login($staff[:email], $staff[:password], true)
+        result = request('/ticket/create', {
+            title: 'created by staff',
+            content: 'The staff created it',
+            departmentId: 1,
+            language: 'en',
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        (result['status']).should.equal('success')
+        ticket = $database.getRow('ticket', result['data']['ticketNumber'], 'ticket_number')
+        (ticket['author_id']).should.equal(nil)
+        (ticket['author_staff_id']).should.equal('1')
+
+        $ticketNumberByStaff = result['data']['ticketNumber']
+        request('/user/logout')
     end
 end

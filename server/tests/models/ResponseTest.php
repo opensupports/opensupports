@@ -3,7 +3,9 @@ include_once 'tests/__lib__/Mock.php';
 include_once 'tests/__mocks__/SlimMock.php';
 include_once 'models/Response.php';
 
-class ResponseTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class ResponseTest extends TestCase {
     public function testErrorResponseFormat() {
         //Mock data
         $mockErrorValue = 'MOCK_ERROR_VALUE';
@@ -13,7 +15,8 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
             'message' => $mockErrorValue,
             'data' => $mockData
         ));
-        $responseInstance = \Slim\Slim::getInstance()->response();
+        $responseInstance = \Slim\Slim::getInstance();
+        $responseInstance = $responseInstance->response;
 
         //Execute Response
         Response::respondError($mockErrorValue, $mockData);
@@ -31,7 +34,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
             'message' => $mockErrorValue,
             'data' => null
         ));
-        $responseInstance = \Slim\Slim::getInstance()->response();
+        $responseInstance = \Slim\Slim::getInstance()->response;
 
         //Execute Response
         Response::respondError($mockErrorValue);
@@ -48,7 +51,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
             'status' => 'success',
             'data' => $mockData
         ));
-        $responseInstance = \Slim\Slim::getInstance()->response();
+        $responseInstance = \Slim\Slim::getInstance()->response;
 
         //Execute Response
         Response::respondSuccess($mockData);
@@ -64,7 +67,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
             'status' => 'success',
             'data' => null
         ));
-        $responseInstance = \Slim\Slim::getInstance()->response();
+        $responseInstance = \Slim\Slim::getInstance()->response;
 
         //Execute Response
         Response::respondSuccess();

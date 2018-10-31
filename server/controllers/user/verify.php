@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /user/verify Verify email
- * @apiVersion 4.1.0
+ * @apiVersion 4.3.0
  *
  * @apiName Verify email
  *
@@ -44,23 +44,23 @@ class VerifyController extends Controller{
         if(!Controller::isUserSystemEnabled()) {
             throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
         }
-        
+
         $email = Controller::request('email');
         $token = Controller::request('token');
 
         $userRow = User::getDataStore($email, 'email');
 
         if(!$userRow) {
-            Response::respondError(ERRORS::INVALID_EMAIL);
-            return;
+            throw new Exception(ERRORS::INVALID_EMAIL);
         }
+
         if($userRow->verificationToken !== $token) {
-            Response::respondError(ERRORS::INVALID_TOKEN);
-            return;
+            throw new Exception(ERRORS::INVALID_TOKEN);
         }
+
         $userRow->verificationToken = null;
         $userRow->store();
-        
+
         Response::respondSuccess();
     }
 }
