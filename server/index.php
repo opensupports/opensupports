@@ -73,14 +73,8 @@ if($client->getClientVersion() !== API_VERSION) {
     exit;
 }
 
-
-// REDBEAN CONFIGURATION
-use RedBeanPHP\Facade as RedBean;
-
-if(defined('MYSQL_HOST') && defined('MYSQL_DATABASE') && defined('MYSQL_USER') && defined('MYSQL_PASSWORD')) {
-    if(!defined('MYSQL_PORT')) define('MYSQL_PORT', '3306');
-    RedBean::setup('mysql:host='. MYSQL_HOST .';port=' . MYSQL_PORT . ';dbname=' . MYSQL_DATABASE , MYSQL_USER, MYSQL_PASSWORD);
-    RedBean::setAutoResolve(true);
-}
+$mysqlSettings = $client->getMySQLSettings();
+RedBean::setup('mysql:host='. $mysqlSettings['MYSQL_HOST'] .';port=3306;dbname=' . $mysqlSettings['MYSQL_DATABASE'] , $mysqlSettings['MYSQL_USER'], $mysqlSettings['MYSQL_PASSWORD']);
+RedBean::setAutoResolve(true);
 
 $app->run();
