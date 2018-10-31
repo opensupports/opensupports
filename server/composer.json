@@ -7,9 +7,10 @@
         "gabordemooij/redbean": "^4.3",
         "ifsnop/mysqldump-php": "2.*",
         "ezyang/htmlpurifier": "^4.8",
-        "aws/aws-sdk-php": "^3.27"
+        "aws/aws-sdk-php": "^3.27",
+        "heroku/heroku-buildpack-php": "^145.0"
     },
     "require-dev": {
-      "phpunit/phpunit": "5.0.*"
+      "phpunit/phpunit": "5.7.*"
     }
 }
