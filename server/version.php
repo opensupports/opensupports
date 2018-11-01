@@ -1,2 +1,2 @@
 <?php
-define('API_VERSION', 'latest');
+define('API_VERSION', '4.3.0');
