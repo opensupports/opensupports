@@ -30,6 +30,7 @@ export default {
     'RESPOND': 'Yanıtla',
     'RESPOND_TICKET': 'Bilete Gider',
     'CLOSE_TICKET': 'Yakın bilet',
+    'DELETE_TICKET': 'Bilet sil',
     'NO_ATTACHMENT': 'Dosya eki yok',
     'STAFF': 'Personel',
     'CUSTOMER': 'Müşteri',
