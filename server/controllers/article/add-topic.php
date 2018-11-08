@@ -17,6 +17,7 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} name Name of the new topic.
  * @apiParam {String} icon Icon of the new topic.
  * @apiParam {String} iconColor Icon's color of the new topic.
+ * @apiParam {Boolean} private Indicates if the topic is not shown to users.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_NAME
@@ -35,7 +36,7 @@ class AddTopicController extends Controller {
             'permission' => 'staff_2',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::length(3, 100),
+                    'validation' => DataValidator::length(2, 100),
                     'error' => ERRORS::INVALID_NAME
                 ]
             ]
@@ -47,7 +48,8 @@ class AddTopicController extends Controller {
         $topic->setProperties([
             'name' => Controller::request('name'),
             'icon' => Controller::request('icon'),
-            'iconColor' => Controller::request('iconColor')
+            'iconColor' => Controller::request('iconColor'),
+            'private' => Controller::request('private') ? 1 : 0
         ]);
 
         Log::createLog('ADD_TOPIC', $topic->name);

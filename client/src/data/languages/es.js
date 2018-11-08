@@ -302,7 +302,8 @@ export default {
     'SMTP_SERVER_DESCRIPTION': 'La configuracion de SMTP permite que la applicacion mande emails. Si no es configurado, ningún mail sera enviado OpenSupports.',
     'ENABLE_USER_DESCRIPTION': 'Esta acción permite al usuario iniciar sesión y crear tickets..',
     'DISABLE_USER_DESCRIPTION': 'El usuario estará deshabilitado y no podrá iniciar sesión y crear tickets.',
-    'PRIVATE_DESCRIPTION': 'Esta respuesta solo será vista por los miembros del personal.',
+    'PRIVATE_RESPONSE_DESCRIPTION': 'Esta respuesta solo será vista por los miembros del personal.',
+    'PRIVATE_TOPIC_DESCRIPTION': 'Este tema solo será visto por los miembros del personal.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email o contraseña inválida',

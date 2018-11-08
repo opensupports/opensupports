@@ -15,7 +15,7 @@ DataValidator::with('CustomValidations', true);
  * @apiPermission any or user
  *
  * @apiUse NO_PERMISSION
- * 
+ *
  * @apiSuccess {[Topic](#api-Data_Structures-ObjectTopic)[]} data Array of topics.
  */
 
@@ -33,11 +33,11 @@ class GetAllArticlesController extends Controller {
     public function handler() {
         $topics = Topic::getAll();
         $topicsArray = [];
-        
+
         foreach($topics as $topic) {
-            $topicsArray[] = $topic->toArray();
+            Controller::isStaffLogged() ? $topicsArray[] = $topic->toArray() : ($topic->private*1 ? null : $topicsArray[] = $topic->toArray())  ;
         }
-        
+
         Response::respondSuccess($topicsArray);
     }
 }

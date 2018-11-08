@@ -302,7 +302,8 @@ export default {
     'SMTP_SERVER_DESCRIPTION': 'SMTP服务器允许应用程序发送邮件。 如果您没有配置，OpenSupports将不会发送任何电子邮件。',
     'ENABLE_USER_DESCRIPTION': '此操作允许用户登录并创建票证。',
     'DISABLE_USER_DESCRIPTION': '用户将被禁用，无法登录并创建票证。',
-    'PRIVATE_DESCRIPTION': '只有工作人员才能看到这种回应',
+    'PRIVATE_RESPONSE_DESCRIPTION': '只有工作人员才能看到这种回应',
+    'PRIVATE_TOPIC_DESCRIPTION': '只有工作人员才能看到此主题',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': '電子郵件或密碼無效',

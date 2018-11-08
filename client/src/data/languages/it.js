@@ -302,7 +302,8 @@ export default {
     'SMTP_SERVER_DESCRIPTION': 'La configurazione del server SMTP consente all\'applicazione di inviare messaggi. Se non lo si configura, non verrà inviata alcuna email da OpenSupports.',
     'ENABLE_USER_DESCRIPTION': 'Questa azione consente all\'utente di accedere e creare ticket.',
     'DISABLE_USER_DESCRIPTION': 'L\'utente sarà disabilitato e non sarà in grado di accedere e creare biglietti.',
-    'PRIVATE_DESCRIPTION': 'Questa risposta sarà visibile solo ai membri dello staff',
+    'PRIVATE_RESPONSE_DESCRIPTION': 'Questa risposta sarà visibile solo ai membri dello staff',
+    'PRIVATE_TOPIC_DESCRIPTION': 'Questo argomento sarà visto solo dai membri dello staff',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email o password errate',

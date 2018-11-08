@@ -302,6 +302,8 @@ export default {
     'SMTP_SERVER_DESCRIPTION': 'SMTP sunucusunun yapılandırması, uygulamanın postalar göndermesine izin verir. Onu yapılandırmazsanız, OpenSupports tarafından hiçbir e-posta gönderilmeyecektir',
     'ENABLE_USER_DESCRIPTION': 'Bu eylem, kullanıcının giriş yapmasına ve bilet oluşturmasına izin verir.',
     'DISABLE_USER_DESCRIPTION': 'Kullanıcı devre dışı bırakılacak ve oturum açıp bilet oluşturamayacak.',
+    'PRIVATE_RESPONSE_DESCRIPTION': 'Bu yanıt sadece personel tarafından görülebilir',
+    'PRIVATE_TOPIC_DESCRIPTION': 'Bu konu sadece çalışanlar tarafından görülebilir',
     'PRIVATE_DESCRIPTION': 'Bu yanıt sadece personel tarafından görülebilir',
 
     //ERRORS

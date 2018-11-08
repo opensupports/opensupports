@@ -7,6 +7,7 @@
  * @apiParam {String} name Name of the topic.
  * @apiParam {String} icon Icon of the topic.
  * @apiParam {String} iconColor Icon's color of the topic.
+ * @apiParam {Boolean} private Indicates if this event is not shown to users.
  * @apiParam {[Article](#api-Data_Structures-ObjectArticle)[]} articles Articles of the Topic.
  */
 
@@ -18,7 +19,8 @@ class Topic extends DataStore {
             'name',
             'icon',
             'iconColor',
-            'ownArticleList'
+            'ownArticleList',
+            'private'
         ];
     }
 
@@ -34,6 +36,7 @@ class Topic extends DataStore {
             'name' => $this->name,
             'icon' => $this->icon,
             'iconColor' => $this->iconColor,
+            'private' => $this->private,
             'articles' => $articlesArray
         ];
     }
