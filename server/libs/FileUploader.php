@@ -8,16 +8,6 @@ class FileUploader extends FileManager {
     private $permission;
     private $storage;
 
-    private static $instance = null;
-
-    public static function getInstance() {
-        if (self::$instance === null) {
-            self::$instance = new FileUploader();
-        }
-
-        return self::$instance;
-    }
-
     private function __construct() {
         $this->storage = new \Upload\Storage\FileSystem($this->getLocalPath());
     }

@@ -1,17 +1,9 @@
 <?php
 class MailSender {
+    use SingletonTrait;
 
     private $mailOptions = [];
     private $mailerInstance;
-    private static $instance = NULL;
-
-    public static function getInstance() {
-        if(MailSender::$instance === NULL) {
-            MailSender::$instance = new MailSender();
-        }
-
-        return MailSender::$instance;
-    }
 
     private function __construct() {
         $this->setConnectionSettings(

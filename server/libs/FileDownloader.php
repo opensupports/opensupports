@@ -1,19 +1,6 @@
 <?php
 
 class FileDownloader extends FileManager {
-
-    private static $instance = null;
-
-    public static function getInstance() {
-        if (self::$instance === null) {
-            self::$instance = new FileDownloader();
-        }
-
-        return self::$instance;
-    }
-
-    private function __construct() {}
-
     public function download() {
         $fullFilePath = $this->getFullFilePath();
 
