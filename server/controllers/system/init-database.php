@@ -1,5 +1,4 @@
 <?php
-//include '../../config.php';
 use RedBeanPHP\Facade as RedBean;
 
 /**

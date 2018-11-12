@@ -15,5 +15,10 @@ if(defined('MYSQL_HOST') && defined('MYSQL_DATABASE') && defined('MYSQL_USER') &
 \Slim\Slim::registerAutoLoader();
 $app = new \Slim\Slim();
 
+// LOAD CONTROLLERS
+foreach (glob('controllers/*.php') as $controller) {
+    include_once $controller;
+}
+
 Controller::init();
 $app->run();

@@ -1,6 +1,4 @@
 <?php
-require_once 'libs/Controller.php';
-
 use Respect\Validation\Validator as DataValidator;
 
 class ValidationException extends Exception {}
