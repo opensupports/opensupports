@@ -10,8 +10,6 @@ include_once 'tests/__mocks__/HashingMock.php';
 include_once 'tests/__mocks__/SessionCookieMock.php';
 include_once 'data/ERRORS.php';
 
-include_once 'controllers/user/login.php';
-
 use PHPUnit\Framework\TestCase;
 
 class LoginControllerTest extends TestCase {

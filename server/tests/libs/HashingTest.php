@@ -1,6 +1,4 @@
 <?php
-include_once 'libs/Hashing.php';
-
 use PHPUnit\Framework\TestCase;
 
 class HashingTest extends TestCase {
