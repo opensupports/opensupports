@@ -69,8 +69,8 @@ describe 'Mail templates' do
                 template: 'USER_SIGNUP',
                 subject: 'new subject',
                 text1: 'new text1',
-                text2: 'new text2',
-                text3: 'new text3',
+                text2: 'new text2 {{name}}',
+                text3: 'new text3 {{url}}/verify-token/{{to}}/{{verificationToken}}',
             })
 
             (result['status']).should.equal('success')
@@ -80,9 +80,34 @@ describe 'Mail templates' do
             (row['template']).should.equal('USER_SIGNUP')
             (row['subject']).should.equal('new subject')
             (row['text1']).should.equal('new text1')
-            (row['text2']).should.equal('new text2')
-            (row['text3']).should.equal('new text3')
+            (row['text2']).should.equal('new text2 {{name}}')
+            (row['text3']).should.equal('new text3 {{url}}/verify-token/{{to}}/{{verificationToken}}')
         end
+
+        it 'should fail if one of the texts has invalid syntax' do
+            result = request('/system/edit-mail-template', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                language: 'en',
+                template: 'USER_SIGNUP',
+                subject: 'new subject',
+                text1: 'new text1',
+                text2: 'new text2',
+                text3: 'new text3 {{url}}/verify-token/{{to}}/{{verificationToken}}',
+            })
+
+            (result['status']).should.equal('fail')
+            (result['message']).should.equal('INVALID_TEXT_2')
+
+            row = $database.getRow('mailtemplate', 1, 'id')
+
+            (row['template']).should.equal('USER_SIGNUP')
+            (row['subject']).should.equal('new subject')
+            (row['text1']).should.equal('new text1')
+            (row['text2']).should.equal('new text2 {{name}}')
+            (row['text3']).should.equal('new text3 {{url}}/verify-token/{{to}}/{{verificationToken}}')
+        end
+
     end
 
     describe 'system/recover-mail-template' do

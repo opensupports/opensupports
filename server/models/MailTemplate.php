@@ -8,7 +8,9 @@ use RedBeanPHP\Facade as RedBean;
  * @apiParam {String} type The type of the mail template.
  * @apiParam {String} subject The subject of the mail template.
  * @apiParam {string} language The language of the mail template.
- * @apiParam {String} body The body of the mail template.
+ * @apiParam {String} text1 First paragraph of the mail template.
+ * @apiParam {String} text2 Second paragraph of the mail template.
+ * @apiParam {String} text3 Thrid paragraph of the mail template.
  */
 
 class MailTemplate extends DataStore {
