@@ -93,17 +93,19 @@ class InitSettingsController extends Controller {
     }
 
     private function storeMailTemplates() {
-        $mails = InitialMails::retrieve();
+        $mailLanguages = MailTexts::getTexts();
 
-        foreach ($mails as $mailType => $mailLanguages) {
-            foreach ($mailLanguages as $mailLanguage => $mailContent) {
+        foreach ($mailLanguages as $language => $mailTemplate) {
+            foreach ($mailTemplate as $template => $texts) {
                 $mailTemplate = new MailTemplate();
 
                 $mailTemplate->setProperties([
-                    'type' => $mailType,
-                    'language' => $mailLanguage,
-                    'subject' => $mailContent['subject'],
-                    'body' => $mailContent['body']
+                    'template' => $template,
+                    'language' => $language,
+                    'subject' => $texts[0],
+                    'text1' => array_key_exists(1, $texts) ? $texts[1] : '',
+                    'text2' => array_key_exists(2, $texts) ? $texts[2] : '',
+                    'text3' => array_key_exists(3, $texts) ? $texts[3] : '',
                 ]);
 
                 $mailTemplate->store();
