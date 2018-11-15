@@ -188,6 +188,7 @@ export default {
     'PRIVATE': 'निजी',
     'ENABLE_USER': 'उपयोगकर्ता सक्षम करें',
     'DISABLE_USER': 'उपयोगकर्ता को अक्षम करें',
+    'SHOW_CLOSED_TICKETS': 'बंद टिकट दिखाएं',
 
     'CHART_CREATE_TICKET': 'टिकट बनाया',
     'CHART_CLOSE': 'टिकट बंद कर दिया',

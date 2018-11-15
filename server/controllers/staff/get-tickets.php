@@ -13,6 +13,8 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiPermission staff1
  *
+ * @apiParam {bool} closed Include closed tickets in the response.
+ *
  * @apiUse NO_PERMISSION
  * 
  * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data Array of tickets assigned to the staff
@@ -32,6 +34,11 @@ class GetTicketStaffController extends Controller {
 
     public function handler() {
         $user = Controller::getLoggedUser();
-        Response::respondSuccess($user->sharedTicketList->toArray());
+        $closed = Controller::request('closed');
+        if ($closed) {
+            Response::respondSuccess($user->sharedTicketList->toArray());
+        } else {
+            Response::respondSuccess($user->withCondition('closed = ?', ['0'])->sharedTicketList->toArray());
+        }
     }
 }

@@ -188,6 +188,7 @@ export default {
     'PRIVATE': 'gizli',
     'ENABLE_USER': 'Kullanıcıyı Etkinleştir',
     'DISABLE_USER': 'Kullanıcıyı Devre Dışı Bırak',
+    'SHOW_CLOSED_TICKETS': 'Kapalı Biletleri Göster',
 
     'CHART_CREATE_TICKET': 'Biletler oluşturuldu',
     'CHART_CLOSE': 'Biletler kapandı',

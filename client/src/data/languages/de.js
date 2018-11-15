@@ -188,6 +188,7 @@ export default {
     'PRIVATE': 'Privatgelände',
     'ENABLE_USER': 'Benutzer aktivieren',
     'DISABLE_USER': 'Benutzer deaktivieren',
+    'SHOW_CLOSED_TICKETS': 'Geschlossene Tickets anzeigen',
 
     'CHART_CREATE_TICKET': 'Tickets erstellt',
     'CHART_CLOSE': 'Tickets geschlossen',

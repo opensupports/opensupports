@@ -188,6 +188,7 @@ export default {
     'PRIVATE': 'privaat',
     'ENABLE_USER': 'Schakel gebruiker in',
     'DISABLE_USER': 'Gebruiker uitschakelen',
+    'SHOW_CLOSED_TICKETS': 'Toon gesloten tickets',
 
     'CHART_CREATE_TICKET': 'Aangemaakte incidenten',
     'CHART_CLOSE': 'Gesloten incidenten',

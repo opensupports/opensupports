@@ -188,6 +188,7 @@ export default {
     'PRIVATE': 'privato',
     'ENABLE_USER': 'Abilita utente',
     'DISABLE_USER': 'Disabilita utente',
+    'SHOW_CLOSED_TICKETS': 'Mostra biglietti chiusi',
 
     'CHART_CREATE_TICKET': 'Tickets creato',
     'CHART_CLOSE': 'Tickets chiuso',
