@@ -18,7 +18,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_CREDENTIALS
  *
  * @apiSuccess {Object} data Information about an user
- * @apiSuccess {String} data.name Name of the user 
+ * @apiSuccess {String} data.name Name of the user
  * @apiSuccess {String} data.email Email of the user
  * @apiSuccess {Boolean} data.verified Indicates if the user is verified
  * @apiSuccess {Object} data Information about an user
@@ -48,7 +48,7 @@ class GetUserController extends Controller {
         $ticketList = $user->sharedTicketList;
 
         foreach($ticketList as $ticket) {
-            $parsedTicketList[] = $ticket->toArray();
+            $parsedTicketList[] = $ticket->toArray(true);
         }
 
         Response::respondSuccess([
