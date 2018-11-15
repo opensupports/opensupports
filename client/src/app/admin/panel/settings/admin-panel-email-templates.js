@@ -18,6 +18,10 @@ import SubmitButton from 'core-components/submit-button';
 
 class AdminPanelEmailTemplates extends React.Component {
 
+    static propTypes = {
+        language: React.PropTypes.string,
+    };
+
     state = {
         headerImage: '',
         loadingHeaderImage: false,
@@ -28,7 +32,7 @@ class AdminPanelEmailTemplates extends React.Component {
         selectedIndex: -1,
         edited: false,
         errors: {},
-        language: 'en',
+        language: this.props.language,
         form: {
             subject: '',
             text1: '',
@@ -284,4 +288,8 @@ class AdminPanelEmailTemplates extends React.Component {
     }
 }
 
-export default AdminPanelEmailTemplates;
+export default connect((store) => {
+    return {
+        language: store.config.language,
+    };
+})(AdminPanelEmailTemplates);
