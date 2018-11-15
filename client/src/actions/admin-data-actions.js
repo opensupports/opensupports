@@ -12,22 +12,22 @@ export default {
         };
     },
 
-    retrieveMyTickets(closed = 0) {
+    retrieveMyTickets(page, closed = 0) {
         return {
             type: 'MY_TICKETS',
             payload: API.call({
                 path: '/staff/get-tickets',
-                data: {closed}
+                data: {page, closed}
             })
         };
     },
 
-    retrieveNewTickets() {
+    retrieveNewTickets(page = 1) {
         return {
             type: 'NEW_TICKETS',
             payload: API.call({
                 path: '/staff/get-new-tickets',
-                data: {}
+                data: {page}
             })
         };
     },

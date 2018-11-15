@@ -21,7 +21,7 @@ class AdminPanelAllTickets extends React.Component {
     state = {
         page: 1,
         query: '',
-        closedTicketsShown: false
+        closedTicketsShown: 0
     };
 
     componentDidMount() {
@@ -46,7 +46,7 @@ class AdminPanelAllTickets extends React.Component {
         this.props.dispatch(AdminDataAction.retrieveAllTickets(
             this.state.page,
             this.state.query,
-            this.state.closedTicketsShown*1
+            this.state.closedTicketsShown * 1
         ));
     }
 
@@ -63,7 +63,7 @@ class AdminPanelAllTickets extends React.Component {
             page: this.state.page,
             pages: this.props.pages,
             closedTicketsShown: this.state.closedTicketsShown,
-            onClosedTicketsShownChange: this.onClosedTicketsShownChange.bind(this) 
+            onClosedTicketsShownChange: this.onClosedTicketsShownChange.bind(this)
         };
     }
 

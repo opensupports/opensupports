@@ -52,7 +52,7 @@ class GetAllTicketsStaffController extends Controller {
         }
 
         Response::respondSuccess([
-            'tickets' => $this->getTicketList()->toArray(),
+            'tickets' => $this->getTicketList()->toArray(true),
             'pages' => $this->getTotalPages()
         ]);
     }
@@ -81,9 +81,14 @@ class GetAllTicketsStaffController extends Controller {
     }
 
     private function getTotalPages() {
-        $query = $this->getStaffDepartmentsQueryFilter();
+        $query = $this->getSearchQuery();
+        $query .= $this->getStaffDepartmentsQueryFilter();
+        $query .= $this->getClosedFilter();
 
-        return ceil(Ticket::count($query) / 10);
+        return ceil(Ticket::count($query, [
+            Controller::request('query') . '%',
+            '%' . Controller::request('query') . '%'
+        ]) / 10);
     }
 
     private function getStaffDepartmentsQueryFilter() {
