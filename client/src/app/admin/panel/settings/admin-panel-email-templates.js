@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import {connect} from 'react-redux';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -18,6 +19,8 @@ import SubmitButton from 'core-components/submit-button';
 class AdminPanelEmailTemplates extends React.Component {
 
     state = {
+        headerImage: '',
+        loadingHeaderImage: false,
         loadingList: true,
         loadingTemplate: false,
         templates: [],
@@ -36,6 +39,7 @@ class AdminPanelEmailTemplates extends React.Component {
 
     componentDidMount() {
         this.retrieveMailTemplateList();
+        this.retrieveHeaderImage();
     }
 
     render() {
@@ -49,11 +53,19 @@ class AdminPanelEmailTemplates extends React.Component {
 
     renderContent() {
         return (
-            <div className="row">
-                <div className="col-md-3">
-                    <Listing {...this.getListingProps()}/>
+            <div>
+                <div className="row">
+                    <div className="col-md-3">
+                        <Listing {...this.getListingProps()}/>
+                    </div>
+                    {(this.state.selectedIndex != -1) ? this.renderForm() : null}
                 </div>
-                {(this.state.selectedIndex != -1) ? this.renderForm() : null}
+                <Form values={{headerImage: this.state.headerImage}} onChange={form => this.setState({headerImage: form.headerImage})} onSubmit={this.onHeaderImageSubmit.bind(this)}>
+                    <div className="admin-panel-email-templates__image-container">
+                            <FormField className="admin-panel-email-templates__image-header-url" label={i18n('IMAGE_HEADER_URL')} name="headerImage" required fieldProps={{size: 'large'}} />
+                            <SubmitButton className="admin-panel-email-templates__image-header-submit" type="secondary" size="small">{i18n('SAVE')}</SubmitButton>
+                    </div>
+                </Form>
             </div>
         );
     }
@@ -148,6 +160,21 @@ class AdminPanelEmailTemplates extends React.Component {
         }
     }
 
+    onHeaderImageSubmit(form) {
+        this.setState({
+            loadingHeaderImage: true,
+        });
+
+        API.call({
+            path: '/system/edit-settings',
+            data: {
+                'mail-template-header-image': form['headerImage']
+            }
+        }).then(() => this.setState({
+            loadingHeaderImage: false,
+        }))
+    }
+
     onFormSubmit(form) {
         const {selectedIndex, language, templates} = this.state;
 
@@ -169,26 +196,26 @@ class AdminPanelEmailTemplates extends React.Component {
             this.setState({
                 loadingForm: false,
             });
-            
+
             switch(response.message) {
                 case 'INVALID_SUBJECT':
                     this.setState({
-                        errors: {subject: 'Invalid syntax'}
+                        errors: {subject: i18n('INVALID_SYNTAX')}
                     });
                     break;
                 case 'INVALID_TEXT_1':
                     this.setState({
-                        errors: {text1: 'Invalid syntax'}
+                        errors: {text1: i18n('INVALID_SYNTAX')}
                     });
                 break;
                 case 'INVALID_TEXT_2':
                     this.setState({
-                        errors: {text2: 'Invalid syntax'}
+                        errors: {text2: i18n('INVALID_SYNTAX')}
                     });
                 break;
                 case 'INVALID_TEXT_3':
                     this.setState({
-                        errors: {text3: 'Invalid syntax'}
+                        errors: {text3: i18n('INVALID_SYNTAX')}
                     });
                 break;
             }
@@ -244,6 +271,15 @@ class AdminPanelEmailTemplates extends React.Component {
         }).then((result) => this.setState({
             loadingList: false,
             templates: result.data
+        }));
+    }
+
+    retrieveHeaderImage() {
+        API.call({
+            path: '/system/get-settings',
+            data: {allSettings: 1}
+        }).then(result => this.setState({
+            headerImage: result.data['mail-template-header-image']
         }));
     }
 }

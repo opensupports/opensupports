@@ -177,6 +177,7 @@ export default {
     'HOME': 'ホーム',
     'TICKET_NUMBER': 'チケット番号',
     'NEXT': '次',
+    'SUBJECT': '件名',
     'SEND_EMAIL_ON_NEW_TICKET': 'メールを送信毎に新しいチケット',
     'STAFF_UPDATED': 'スタッフメンバーが更新されました',
     'UPDATE': '更新',
@@ -187,6 +188,7 @@ export default {
     'PRIVATE': 'プライベート',
     'ENABLE_USER': 'ユーザーを有効にする',
     'DISABLE_USER': 'ユーザーを無効にする',
+    'IMAGE_HEADER_URL': '画像のヘッダーURL',
 
     'CHART_CREATE_TICKET': '作成されたチケット',
     'CHART_CLOSE': 'チケットが閉じられました',
@@ -332,6 +334,7 @@ export default {
     'ERRORS_FOUND': 'エラーが見つかりました',
     'ERROR_IMAGE_SIZE': 'イメージのサイズが{size} MBを超えることはできません',
     'USER_DISABLED': 'このアカウントは無効です。',
+    'INVALID_SYNTAX': '無効な構文。',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'あなたは私たちのサポートシステムに正常に登録しました。',

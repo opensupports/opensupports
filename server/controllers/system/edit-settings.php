@@ -49,7 +49,8 @@ class EditSettingsController extends Controller {
             'allow-attachments',
             'max-size',
             'title',
-            'url'
+            'url',
+            'mail-template-header-image'
         ];
 
         foreach($settings as $setting) {

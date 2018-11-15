@@ -177,6 +177,7 @@ export default {
     'HOME': 'Home',
     'TICKET_NUMBER': 'Ticket number',
     'NEXT': 'Next',
+    'SUBJECT': 'Subject',
     'SEND_EMAIL_ON_NEW_TICKET': 'Send email on new ticket',
     'STAFF_UPDATED': 'Staff member has been updated',
     'UPDATE': 'Update',
@@ -187,6 +188,7 @@ export default {
     'PRIVATE': 'Private',
     'ENABLE_USER': 'Enable User',
     'DISABLE_USER': 'Disable User',
+    'IMAGE_HEADER_URL': 'Image header URL',
 
     'CHART_CREATE_TICKET': 'Tickets created',
     'CHART_CLOSE': 'Tickets closed',
@@ -332,6 +334,7 @@ export default {
     'ERRORS_FOUND': 'Errors found',
     'ERROR_IMAGE_SIZE': 'No image can have a size greater than {size} MB',
     'USER_DISABLED': 'This account is disabled.',
+    'INVALID_SYNTAX': 'Invalid syntax.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',

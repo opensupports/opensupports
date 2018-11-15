@@ -177,6 +177,7 @@ export default {
     'HOME': 'घर',
     'TICKET_NUMBER': 'टिकट नंबर',
     'NEXT': 'आगामी',
+    'SUBJECT': 'विषय',
     'SEND_EMAIL_ON_NEW_TICKET': 'एक ईमेल भेजने के लिए प्रत्येक नए टिकट',
     'STAFF_UPDATED': 'स्टाफ सदस्य को अद्यतन किया गया है',
     'UPDATE': 'अद्यतन',
@@ -187,6 +188,7 @@ export default {
     'PRIVATE': 'निजी',
     'ENABLE_USER': 'उपयोगकर्ता सक्षम करें',
     'DISABLE_USER': 'उपयोगकर्ता को अक्षम करें',
+    'IMAGE_HEADER_URL': 'छवि शीर्षलेख यूआरएल',
 
     'CHART_CREATE_TICKET': 'टिकट बनाया',
     'CHART_CLOSE': 'टिकट बंद कर दिया',
@@ -332,6 +334,7 @@ export default {
     'ERRORS_FOUND': 'त्रुटियां मिलीं',
     'ERROR_IMAGE_SIZE': 'कोई छवि {size} एमबी से अधिक आकार नहीं हो सकती है',
     'USER_DISABLED': 'यह खाता अक्षम है।',
+    'INVALID_SYNTAX': 'अवैध वाक्य रचना।',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'आप हमारे समर्थन प्रणाली में सफलतापूर्वक दर्ज कर लिया है।',

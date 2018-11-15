@@ -177,6 +177,7 @@ export default {
     'HOME': 'Accueil',
     'TICKET_NUMBER': 'Numéro de ticket',
     'NEXT': 'Suivant',
+    'SUBJECT': 'Assujettir',
     'SEND_EMAIL_ON_NEW_TICKET': 'Envoyer un e-mail pour chaque nouveau ticket',
     'STAFF_UPDATED': 'Le membre du personnel a été mis à jour',
     'UPDATE': 'Mettre à jour',
@@ -187,6 +188,7 @@ export default {
     'PRIVATE': 'privé',
     'ENABLE_USER': 'Activer l\'utilisateur',
     'DISABLE_USER': 'Désactiver l\'utilisateur',
+    'IMAGE_HEADER_URL': 'URL de l\'en-tête de l\'image',
 
     'CHART_CREATE_TICKET': 'Tickets créés',
     'CHART_CLOSE': 'Tickets fermés',
@@ -332,6 +334,7 @@ export default {
     'ERRORS_FOUND': 'Des erreurs sont survenues',
     'ERROR_IMAGE_SIZE': 'Aucune image ne peut avoir une taille supérieure à {size} MB',
     'USER_DISABLED': 'Ce compte est désactivé.',
+    'INVALID_SYNTAX': 'Syntaxe invalide.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'Vous êtes inscrit avec succès dans notre système de support.',

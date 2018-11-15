@@ -177,6 +177,7 @@ export default {
     'HOME': 'Inicio',
     'TICKET_NUMBER': 'Número do chamado',
     'NEXT': 'Próximo',
+    'SUBJECT': 'Sujeito',
     'SEND_EMAIL_ON_NEW_TICKET': 'Enviar email para cada novo ticket',
     'STAFF_UPDATED': 'Membro da equipe atualizado',
     'UPDATE': 'Atualizar',
@@ -187,6 +188,7 @@ export default {
     'PRIVATE': 'privado',
     'ENABLE_USER': 'Ativar usuário',
     'DISABLE_USER': 'Desativar usuário',
+    'IMAGE_HEADER_URL': 'URL do cabeçalho da imagem',
 
     'CHART_CREATE_TICKET': 'Chamados criados',
     'CHART_CLOSE': 'Chamados fechados',
@@ -332,6 +334,7 @@ export default {
     'ERRORS_FOUND': 'Erros encontrados',
     'ERROR_IMAGE_SIZE': 'Nenhuma imagem pode ter um tamanho maior que {size} MB',
     'USER_DISABLED': 'Esta conta está desativada.',
+    'INVALID_SYNTAX': 'Sintaxe inválida.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'Você se registrou com sucesso em nosso sistema de suporte.',

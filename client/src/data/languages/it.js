@@ -177,6 +177,7 @@ export default {
     'HOME': 'Home',
     'TICKET_NUMBER': 'Ticket numero',
     'NEXT': 'Prossimo',
+    'SUBJECT': 'Soggetto',
     'SEND_EMAIL_ON_NEW_TICKET': 'Invia e-mail al nuovo ticket',
     'STAFF_UPDATED': 'Il membro del personale è stato aggiornato',
     'UPDATE': 'Aggiornare',
@@ -187,6 +188,7 @@ export default {
     'PRIVATE': 'privato',
     'ENABLE_USER': 'Abilita utente',
     'DISABLE_USER': 'Disabilita utente',
+    'IMAGE_HEADER_URL': 'URL dell\'intestazione dell\'immagine',
 
     'CHART_CREATE_TICKET': 'Tickets creato',
     'CHART_CLOSE': 'Tickets chiuso',
@@ -332,6 +334,7 @@ export default {
     'ERRORS_FOUND': 'Trovati errori',
     'ERROR_IMAGE_SIZE': 'Nessuna immagine può avere una dimensione superiore a {size} MB',
     'USER_DISABLED': 'Questo account è disabilitato.',
+    'INVALID_SYNTAX': 'Sintassi non valida.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'È stato registrato con successo nel nostro sistema di supporto.',

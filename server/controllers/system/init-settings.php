@@ -88,7 +88,8 @@ class InitSettingsController extends Controller {
             'file-gap' => Hashing::generateRandomPrime(100000, 999999),
             'file-first-number' => Hashing::generateRandomNumber(100000, 999999),
             'file-quantity' => 0,
-            'session-prefix' => 'opensupports-'.Hashing::generateRandomToken().'_'
+            'session-prefix' => 'opensupports-'.Hashing::generateRandomToken().'_',
+            'mail-template-header-image' => 'http://opensupports.com/logo.png'
         ]);
     }
 

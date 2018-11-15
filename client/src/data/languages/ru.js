@@ -177,6 +177,7 @@ export default {
     'HOME': 'Главная',
     'TICKET_NUMBER': 'Номер билета',
     'NEXT': 'следующий',
+    'SUBJECT': 'Предмет',
     'SEND_EMAIL_ON_NEW_TICKET': 'Отправить письмо на новый билет',
     'STAFF_UPDATED': 'Сотрудник обновлен',
     'UPDATE': 'Обновить',
@@ -187,6 +188,7 @@ export default {
     'PRIVATE': 'частный',
     'ENABLE_USER': 'Включить пользователя',
     'DISABLE_USER': 'Отключить пользователя',
+    'IMAGE_HEADER_URL': 'URL заголовка изображения',
 
     'CHART_CREATE_TICKET': 'Билеты создано',
     'CHART_CLOSE': ' Билеты закрыты',
@@ -332,6 +334,7 @@ export default {
     'ERRORS_FOUND': 'Ошибки найдены',
     'ERROR_IMAGE_SIZE': 'Изображение не может иметь размер больше {size} МБ',
     'USER_DISABLED': 'Эта учетная запись отключена.',
+    'INVALID_SYNTAX': 'Недопустимый синтаксис.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'Вы успешно зарегистрировались в нашей системе поддержки.',

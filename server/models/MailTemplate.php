@@ -78,6 +78,9 @@ class MailTemplate extends DataStore {
           $matches[] = '{{' . $this->template . '_MATCH_' . ($key + 1) . '}}';
       }
 
+      $matches[] = '{{IMAGE_HEADER_URL}}';
+      $texts[] = Setting::getSetting('mail-template-header-image')->value;
+
       $body = str_replace($matches, $texts, file_get_contents($templateFilePaths[$this->template]));
 
       return $this->compileString($body, $config);

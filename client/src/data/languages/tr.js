@@ -177,6 +177,7 @@ export default {
     'HOME': 'Ev',
     'TICKET_NUMBER': 'Bilet numarası',
     'NEXT': 'Sonraki',
+    'SUBJECT': 'konu',
     'SEND_EMAIL_ON_NEW_TICKET': 'Yeni biletle e-posta gönder',
     'STAFF_UPDATED': 'Çalışanlar güncellendi',
     'UPDATE': 'Güncelleştirme',
@@ -187,6 +188,7 @@ export default {
     'PRIVATE': 'gizli',
     'ENABLE_USER': 'Kullanıcıyı Etkinleştir',
     'DISABLE_USER': 'Kullanıcıyı Devre Dışı Bırak',
+    'IMAGE_HEADER_URL': 'Resim başlığı URL\'si',
 
     'CHART_CREATE_TICKET': 'Biletler oluşturuldu',
     'CHART_CLOSE': 'Biletler kapandı',
@@ -332,6 +334,7 @@ export default {
     'ERRORS_FOUND': 'Hatalar bulundu',
     'ERROR_IMAGE_SIZE': 'Hiçbir resmin boyutu {size} MB\'den büyük olabilir',
     'USER_DISABLED': 'Bu hesap devre dışı.',
+    'INVALID_SYNTAX': 'Geçersiz sözdizimi.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'Destek sistemimize başarılı bir şekilde kayıt oldunuz.',

@@ -177,6 +177,7 @@ export default {
     'HOME': 'Home',
     'TICKET_NUMBER': 'Ticketnummer',
     'NEXT': 'Nächstes',
+    'SUBJECT': 'Gegenstand',
     'SEND_EMAIL_ON_NEW_TICKET': 'E-Mail für jedes neues Ticket',
     'STAFF_UPDATED': 'Mitarbeiter wurde aktualisiert',
     'UPDATE': 'Aktualisierung',
@@ -187,6 +188,7 @@ export default {
     'PRIVATE': 'Privatgelände',
     'ENABLE_USER': 'Benutzer aktivieren',
     'DISABLE_USER': 'Benutzer deaktivieren',
+    'IMAGE_HEADER_URL': 'URL des Image-Headers',
 
     'CHART_CREATE_TICKET': 'Tickets erstellt',
     'CHART_CLOSE': 'Tickets geschlossen',
@@ -332,6 +334,7 @@ export default {
     'ERRORS_FOUND': 'Fehler gefunden!',
     'ERROR_IMAGE_SIZE': 'Kein Bild darf größer als {size} MB sein',
     'USER_DISABLED': 'Dieser Account ist deaktiviert.',
+    'INVALID_SYNTAX': 'Ungültiger Satzbau.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'Sie haben sich erfolgreich in unserem Support-System registriert.',
