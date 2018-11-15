@@ -304,6 +304,7 @@ export default {
     'DISABLE_USER_DESCRIPTION': 'User will be disabled and will not be able to sign in and create tickets.',
     'PRIVATE_RESPONSE_DESCRIPTION': 'This response will only be seen by staff members',
     'PRIVATE_TOPIC_DESCRIPTION': 'This topic will only be seen by staff members',
+    'PRIVATE_DEPARTMENT_DESCRIPTION': 'This department will only be seen by staff members',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',

@@ -16,6 +16,7 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiParam {String} name The new name of the department.
  * @apiParam {Number} departmentId The Id of the department.
+ * @apiParam {Boolean} private Indicates if the department is shown to users;
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_NAME
@@ -33,10 +34,6 @@ class EditDepartmentController extends Controller {
         return [
             'permission' => 'staff_3',
             'requestData' => [
-                'name' => [
-                    'validation' => DataValidator::alnum(),
-                    'error' => ERRORS::INVALID_NAME
-                ],
                 'departmentId' => [
                     'validation' => DataValidator::dataStoreId('department'),
                     'error' => ERRORS::INVALID_DEPARTMENT
@@ -46,17 +43,19 @@ class EditDepartmentController extends Controller {
     }
 
     public function handler() {
+
         $newname = Controller::request('name');
         $departmentId = Controller::request('departmentId');
+        $private = Controller::request('private');
 
         $departmentInstance = Department::getDataStore($departmentId);
 
-        $departmentInstance->name = $newname ;
-
+        $newname ? $departmentInstance->name = $newname : null;
+        $departmentInstance->private = $private ? 1 : 0;
         $departmentInstance->store();
 
         Log::createLog('EDIT_DEPARTMENT', $departmentInstance->name);
-        
+
         Response::respondSuccess();
 
     }

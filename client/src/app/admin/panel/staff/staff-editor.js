@@ -256,7 +256,13 @@ class StaffEditor extends React.Component {
     }
 
     getDepartments() {
-        return SessionStore.getDepartments().map(department => department.name);
+        return SessionStore.getDepartments().map(department => {
+                if(department.private*1){
+                    return <spam> {department.name} <Icon name='user-secret'/> </spam>
+                }else {
+                    return department.name;
+                }
+        });
     }
 
     getStaffLevelInfo() {

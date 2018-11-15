@@ -50,7 +50,7 @@ class GetSettingsController extends Controller {
                     'smtp-host' => Setting::getSetting('smtp-host')->getValue(),
                     'smtp-user' => Setting::getSetting('smtp-user')->getValue(),
                     'registration' => Setting::getSetting('registration')->getValue(),
-                    'departments' => Department::getDepartmentNames(),
+                    'departments' => Department::getAllDepartmentNames(),
                     'supportedLanguages' => Language::getSupportedLanguages(),
                     'allowedLanguages' => Language::getAllowedLanguages(),
                     'session-prefix' => Setting::getSetting('session-prefix')
@@ -66,7 +66,7 @@ class GetSettingsController extends Controller {
                     'max-size' => Setting::getSetting('max-size')->getValue(),
                     'title' => Setting::getSetting('title')->getValue(),
                     'registration' => Setting::getSetting('registration')->getValue(),
-                    'departments' => Department::getDepartmentNames(),
+                    'departments' => Controller::isStaffLogged() ? Department::getAllDepartmentNames() : Department::getPublicDepartmentNames(),
                     'supportedLanguages' => Language::getSupportedLanguages(),
                     'allowedLanguages' => Language::getAllowedLanguages(),
                     'user-system-enabled' => intval(Setting::getSetting('user-system-enabled')->getValue()),

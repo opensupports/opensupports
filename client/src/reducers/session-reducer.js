@@ -103,9 +103,8 @@ class SessionReducer extends Reducer {
 
     onUserDataRetrieved(state, payload) {
         let userData = payload.data;
-        
         sessionStore.storeUserData(payload.data);
-        
+
         return _.extend({}, state, {
             staff: userData.staff,
             userName: userData.name,
@@ -117,11 +116,11 @@ class SessionReducer extends Reducer {
             userSendEmailOnNewTicket: userData.sendEmailOnNewTicket * 1
         });
     }
-    
+
     onSessionChecked(state) {
         let userData = sessionStore.getUserData();
         let userId = sessionStore.getSessionData().userId;
-        
+
         return _.extend({}, state, {
             initDone: true,
             logged: true,
