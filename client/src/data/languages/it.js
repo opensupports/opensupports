@@ -30,6 +30,7 @@ export default {
     'RESPOND': 'Rispondi',
     'RESPOND_TICKET': 'Rispondi al ticket',
     'CLOSE_TICKET': 'Ticket vicino',
+    'DELETE_TICKET': 'Elimina ticket',
     'NO_ATTACHMENT': 'Nessun file allegato',
     'STAFF': 'Staff',
     'CUSTOMER': 'Customer',
@@ -188,6 +189,7 @@ export default {
     'PRIVATE': 'privato',
     'ENABLE_USER': 'Abilita utente',
     'DISABLE_USER': 'Disabilita utente',
+    'SHOW_CLOSED_TICKETS': 'Mostra biglietti chiusi',
     'IMAGE_HEADER_URL': 'URL dell\'intestazione dell\'immagine',
 
     'CHART_CREATE_TICKET': 'Tickets creato',

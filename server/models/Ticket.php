@@ -90,17 +90,21 @@ class Ticket extends DataStore {
         parent::store();
     }
 
+    public function delete() {
+        parent::delete();
+    }
+
     public function generateUniqueTicketNumber() {
         $linearCongruentialGenerator = new LinearCongruentialGenerator();
-        $ticketQuantity = Ticket::count();
 
-        if ($ticketQuantity === 0) {
+        if (Ticket::count() === 0) {
             $ticketNumber = Setting::getSetting('ticket-first-number')->value;
         } else {
+            $lastTicketId = Ticket::findOne(' ORDER BY id DESC')->id;
             $linearCongruentialGenerator->setGap(Setting::getSetting('ticket-gap')->value);
             $linearCongruentialGenerator->setFirst(Setting::getSetting('ticket-first-number')->value);
 
-            $ticketNumber = $linearCongruentialGenerator->generate($ticketQuantity);
+            $ticketNumber = $linearCongruentialGenerator->generate($lastTicketId + 1);
         }
 
         return $ticketNumber;

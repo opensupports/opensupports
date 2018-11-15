@@ -31,10 +31,12 @@ describe '/staff/assign-ticket' do
         (staff_ticket['ticket_id']).should.equal('1')
     end
     it 'should assign ticket if a staff choose another to assing a ticket ' do
+        staffId = $database.getRow('staff','ayra2@opensupports.com','email')['id']
+
         ticket = $database.getRow('ticket', 3 , 'id')
         result = request('/staff/assign-ticket', {
             ticketNumber: ticket['ticket_number'],
-            staffId:4,
+            staffId: staffId,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
@@ -42,10 +44,9 @@ describe '/staff/assign-ticket' do
 
         ticket = $database.getRow('ticket', 3 , 'id')
 
-        (ticket['owner_id']).should.equal('4')
+        (ticket['owner_id']).should.equal(staffId)
 
         (ticket['unread']).should.equal('1')
-
     end
 
     it 'should fail if ticket is already owned' do

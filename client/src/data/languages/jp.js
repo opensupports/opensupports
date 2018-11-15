@@ -30,6 +30,7 @@ export default {
     'RESPOND': '応答する',
     'RESPOND_TICKET': 'チケット応答',
     'CLOSE_TICKET': 'クローズチケット',
+    'DELETE_TICKET': 'チケットを削除する',
     'NO_ATTACHMENT': '添付ファイルがありません',
     'STAFF': 'スタッフ',
     'CUSTOMER': '顧客',
@@ -188,6 +189,7 @@ export default {
     'PRIVATE': 'プライベート',
     'ENABLE_USER': 'ユーザーを有効にする',
     'DISABLE_USER': 'ユーザーを無効にする',
+    'SHOW_CLOSED_TICKETS': 'クローズドチケットを表示する',
     'IMAGE_HEADER_URL': '画像のヘッダーURL',
 
     'CHART_CREATE_TICKET': '作成されたチケット',

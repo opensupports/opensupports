@@ -30,6 +30,7 @@ export default {
     'RESPOND': 'Отвечать',
     'RESPOND_TICKET': 'Ответить билет',
     'CLOSE_TICKET': 'закрыть билет',
+    'DELETE_TICKET': 'Удалить билет',
     'NO_ATTACHMENT': 'Нет вложений файлов',
     'STAFF': 'Сотрудники',
     'CUSTOMER': 'Клиент',
@@ -188,6 +189,7 @@ export default {
     'PRIVATE': 'частный',
     'ENABLE_USER': 'Включить пользователя',
     'DISABLE_USER': 'Отключить пользователя',
+    'SHOW_CLOSED_TICKETS': 'Показать закрытые билеты',
     'IMAGE_HEADER_URL': 'URL заголовка изображения',
 
     'CHART_CREATE_TICKET': 'Билеты создано',

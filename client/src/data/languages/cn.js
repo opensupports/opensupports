@@ -30,6 +30,7 @@ export default {
     'RESPOND': '響應',
     'RESPOND_TICKET': '響應故障單',
     'CLOSE_TICKET': '關門票',
+    'DELETE_TICKET': '删除票证',
     'NO_ATTACHMENT': '沒有文件附件',
     'STAFF': '員工',
     'CUSTOMER': '顧客',
@@ -188,6 +189,7 @@ export default {
     'PRIVATE': '私人的',
     'ENABLE_USER': '启用用户',
     'DISABLE_USER': '禁用用户',
+    'SHOW_CLOSED_TICKETS': '显示已关闭的门票',
     'IMAGE_HEADER_URL': '图片标题网址',
 
     'CHART_CREATE_TICKET': '已創建門票',

@@ -30,6 +30,7 @@ export default {
     'RESPOND': 'Yanıtla',
     'RESPOND_TICKET': 'Bilete Gider',
     'CLOSE_TICKET': 'Yakın bilet',
+    'DELETE_TICKET': 'Bilet sil',
     'NO_ATTACHMENT': 'Dosya eki yok',
     'STAFF': 'Personel',
     'CUSTOMER': 'Müşteri',
@@ -188,6 +189,7 @@ export default {
     'PRIVATE': 'gizli',
     'ENABLE_USER': 'Kullanıcıyı Etkinleştir',
     'DISABLE_USER': 'Kullanıcıyı Devre Dışı Bırak',
+    'SHOW_CLOSED_TICKETS': 'Kapalı Biletleri Göster',
     'IMAGE_HEADER_URL': 'Resim başlığı URL\'si',
 
     'CHART_CREATE_TICKET': 'Biletler oluşturuldu',

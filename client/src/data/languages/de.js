@@ -30,6 +30,7 @@ export default {
     'RESPOND': 'Antworten',
     'RESPOND_TICKET': 'Ticket beantworten',
     'CLOSE_TICKET': 'Ticket schließen',
+    'DELETE_TICKET': 'Ticket löschen',
     'NO_ATTACHMENT': 'Keine Dateianlage',
     'STAFF': 'Personal',
     'CUSTOMER': 'Kunde',
@@ -188,6 +189,7 @@ export default {
     'PRIVATE': 'Privatgelände',
     'ENABLE_USER': 'Benutzer aktivieren',
     'DISABLE_USER': 'Benutzer deaktivieren',
+    'SHOW_CLOSED_TICKETS': 'Geschlossene Tickets anzeigen',
     'IMAGE_HEADER_URL': 'URL des Image-Headers',
 
     'CHART_CREATE_TICKET': 'Tickets erstellt',

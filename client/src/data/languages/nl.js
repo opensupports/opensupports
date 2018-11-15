@@ -30,6 +30,7 @@ export default {
     'RESPOND': 'Actie',
     'RESPOND_TICKET': 'Reageren',
     'CLOSE_TICKET': 'Sluit ticket',
+    'DELETE_TICKET': 'Ticket verwijderen',
     'NO_ATTACHMENT': 'Geen bijlage',
     'STAFF': 'Management',
     'CUSTOMER': 'Klant',
@@ -188,6 +189,7 @@ export default {
     'PRIVATE': 'privaat',
     'ENABLE_USER': 'Schakel gebruiker in',
     'DISABLE_USER': 'Gebruiker uitschakelen',
+    'SHOW_CLOSED_TICKETS': 'Toon gesloten tickets',
     'IMAGE_HEADER_URL': 'Image header URL',
 
     'CHART_CREATE_TICKET': 'Aangemaakte incidenten',

@@ -30,6 +30,7 @@ export default {
     'RESPOND': 'Respond',
     'RESPOND_TICKET': 'Respond Ticket',
     'CLOSE_TICKET': 'Close ticket',
+    'DELETE_TICKET': 'Delete ticket',
     'NO_ATTACHMENT': 'No file attachment',
     'STAFF': 'Staff',
     'CUSTOMER': 'Customer',
@@ -188,6 +189,7 @@ export default {
     'PRIVATE': 'Private',
     'ENABLE_USER': 'Enable User',
     'DISABLE_USER': 'Disable User',
+    'SHOW_CLOSED_TICKETS': 'Show Closed Tickets',
     'IMAGE_HEADER_URL': 'Image header URL',
 
     'CHART_CREATE_TICKET': 'Tickets created',

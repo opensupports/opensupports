@@ -30,6 +30,7 @@ export default {
     'RESPOND': 'प्रतिक्रिया',
     'RESPOND_TICKET': 'प्रतिक्रिया टिकट',
     'CLOSE_TICKET': 'करीबी टिकट',
+    'DELETE_TICKET': 'टिकट हटाएं',
     'NO_ATTACHMENT': 'कोई फ़ाइल अनुलग्नक नहीं',
     'STAFF': 'कर्मचारी',
     'CUSTOMER': 'ग्राहक',
@@ -188,6 +189,7 @@ export default {
     'PRIVATE': 'निजी',
     'ENABLE_USER': 'उपयोगकर्ता सक्षम करें',
     'DISABLE_USER': 'उपयोगकर्ता को अक्षम करें',
+    'SHOW_CLOSED_TICKETS': 'बंद टिकट दिखाएं',
     'IMAGE_HEADER_URL': 'छवि शीर्षलेख यूआरएल',
 
     'CHART_CREATE_TICKET': 'टिकट बनाया',

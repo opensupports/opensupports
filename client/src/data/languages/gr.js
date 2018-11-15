@@ -30,6 +30,7 @@
      'RESPOND': 'Απάντηση',
      'RESPOND_TICKET': 'Απάντηση Εισιτηρίου',
      'CLOSE_TICKET': 'κλειστό εισιτήριο',
+     'DELETE_TICKET': 'Διαγραφή εισιτηρίου',
      'NO_ATTACHMENT': 'Χωρίς Συνημμένα Αρχεία',
      'STAFF': 'Προσωπικό',
      'CUSTOMER': 'Πελάτης',
@@ -188,6 +189,7 @@
      'PRIVATE': 'ιδιωτικός',
      'ENABLE_USER': 'Ενεργοποίηση χρήστη',
      'DISABLE_USER': 'Απενεργοποίηση χρήστη',
+     'SHOW_CLOSED_TICKETS': 'Εμφάνιση κλειστών εισιτηρίων',
      'IMAGE_HEADER_URL': 'Διεύθυνση URL κεφαλίδας εικόνας',
 
      'CHART_CREATE_TICKET': 'Τα εισιτήρια δημιουργήθηκαν',

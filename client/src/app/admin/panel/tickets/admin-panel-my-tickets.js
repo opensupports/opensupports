@@ -21,6 +21,10 @@ class AdminPanelMyTickets extends React.Component {
         tickets: []
     };
 
+    state = {
+        closedTicketsShown: false
+    };
+
     componentDidMount() {
         this.props.dispatch(AdminDataAction.retrieveMyTickets());
     }
@@ -46,8 +50,20 @@ class AdminPanelMyTickets extends React.Component {
             tickets: this.props.tickets,
             type: 'secondary',
             loading: this.props.loading,
-            ticketPath: '/admin/panel/tickets/view-ticket/'
+            ticketPath: '/admin/panel/tickets/view-ticket/',
+            closedTicketsShown: this.state.closedTicketsShown,
+            onClosedTicketsShownChange: this.onClosedTicketsShownChange.bind(this) 
         };
+    }
+
+    onClosedTicketsShownChange() {
+        this.setState(function(state) {
+            return {
+                closedTicketsShown: !state.closedTicketsShown
+            };
+        }, () => {
+            this.props.dispatch(AdminDataAction.retrieveMyTickets(this.state.closedTicketsShown * 1));
+        });
     }
 
     onCreateTicket() {

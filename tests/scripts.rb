@@ -35,6 +35,17 @@ class Scripts
             raise response['message']
         end
     end
+    def self.deleteStaff(staffId)
+        response = request('/staff/delete', {
+            staffId: staffId,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        if response['status'] === 'fail'
+            raise response['message']
+        end
+    end
 
     def self.login(email = 'steve@jobs.com', password = 'custompassword', staff = false)
         request('/user/logout')
