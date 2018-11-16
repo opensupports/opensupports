@@ -145,7 +145,7 @@ export default {
     'RECAPTCHA_PUBLIC_KEY': 'Recaptcha Publieke Sleutel',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha Prive Sleutel',
     'ALLOW_FILE_ATTACHMENTS': 'Sta bijlage(s) toe',
-    'MAX_SIZE_KB': 'Max grootte (KB)',
+    'MAX_SIZE_MB': 'Max grootte (MB)',
     'UPDATE_SETTINGS': 'Update instellingen',
     'DEFAULT_LANGUAGE': 'Standaard Taal',
     'SUPPORTED_LANGUAGES': 'Talen die zijn ondersteund',

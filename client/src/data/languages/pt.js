@@ -145,7 +145,7 @@ export default {
     'RECAPTCHA_PUBLIC_KEY': 'Recaptcha Chave Pública',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha Private Key',
     'ALLOW_FILE_ATTACHMENTS': 'Permitir anexos de arquivo',
-    'MAX_SIZE_KB': 'Tamanho máximo (KB)',
+    'MAX_SIZE_MB': 'Tamanho máximo (MB)',
     'UPDATE_SETTINGS': 'Atualizar configurações',
     'DEFAULT_LANGUAGE': 'Idioma padrão',
     'SUPPORTED_LANGUAGES': 'Idiomas suportados',

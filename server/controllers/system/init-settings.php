@@ -85,9 +85,6 @@ class InitSettingsController extends Controller {
             'last-stat-day' => date('YmdHi', strtotime(' -12 day ')),
             'ticket-gap' => Hashing::generateRandomPrime(100000, 999999),
             'ticket-first-number' => Hashing::generateRandomNumber(100000, 999999),
-            'file-gap' => Hashing::generateRandomPrime(100000, 999999),
-            'file-first-number' => Hashing::generateRandomNumber(100000, 999999),
-            'file-quantity' => 0,
             'session-prefix' => 'opensupports-'.Hashing::generateRandomToken().'_',
             'mail-template-header-image' => 'http://opensupports.com/logo.png'
         ]);

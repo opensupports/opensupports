@@ -145,7 +145,7 @@ export default {
     'RECAPTCHA_PUBLIC_KEY': 'Hızlı Erişim Anahtarı',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha Özel Anahtar',
     'ALLOW_FILE_ATTACHMENTS': 'Dosya eklerine izin ver',
-    'MAX_SIZE_KB': 'Maksimum Boyut (KB)',
+    'MAX_SIZE_MB': 'Maksimum Boyut (MB)',
     'UPDATE_SETTINGS': 'Ayarları güncelle',
     'DEFAULT_LANGUAGE': 'Varsayılan dil',
     'SUPPORTED_LANGUAGES': 'Desteklenen Diller',

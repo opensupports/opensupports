@@ -145,7 +145,7 @@
      'RECAPTCHA_PUBLIC_KEY': 'Recaptcha Δημοσίου Κλειδιού',
      'RECAPTCHA_PRIVATE_KEY': 'Recaptcha Ιδιωτικού Κλειδιού',
      'ALLOW_FILE_ATTACHMENTS': 'Επιτρέπονται Συνημμένα Αρχεία',
-     'MAX_SIZE_KB': 'Μέγιστο Μέγεθος (KB)',
+     'MAX_SIZE_MB': 'Μέγιστο Μέγεθος (MB)',
      'UPDATE_SETTINGS': 'Ενημέρωση Ρυθμίσεων',
      'DEFAULT_LANGUAGE': 'Προεπιλεγμένες Γλώσσες',
      'SUPPORTED_LANGUAGES': 'Υποστηριζόμενες Γλώσσες',

@@ -145,7 +145,7 @@ export default {
     'RECAPTCHA_PUBLIC_KEY': 'Recaptcha公開鍵',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha秘密鍵',
     'ALLOW_FILE_ATTACHMENTS': '添付ファイルを許可する',
-    'MAX_SIZE_KB': '最大サイズ（KB）',
+    'MAX_SIZE_MB': '最大サイズ（KB）',
     'UPDATE_SETTINGS': '設定を更新する',
     'DEFAULT_LANGUAGE': '既定の言語',
     'SUPPORTED_LANGUAGES': 'サポートされている言語',

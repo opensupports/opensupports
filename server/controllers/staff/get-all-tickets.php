@@ -31,7 +31,7 @@ class GetAllTicketsStaffController extends Controller {
     const METHOD = 'POST';
 
     public function validations() {
-        return[
+        return [
             'permission' => 'staff_1',
             'requestData' => [
                 'page' => [

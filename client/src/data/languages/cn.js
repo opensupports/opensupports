@@ -145,7 +145,7 @@ export default {
     'RECAPTCHA_PUBLIC_KEY': 'Recaptcha公鑰',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha私人鑰匙',
     'ALLOW_FILE_ATTACHMENTS': '允許文件附件',
-    'MAX_SIZE_KB': '最大尺寸（KB）',
+    'MAX_SIZE_MB': '最大尺寸（KB）',
     'UPDATE_SETTINGS': '更新設置',
     'DEFAULT_LANGUAGE': '默認語言',
     'SUPPORTED_LANGUAGES': '支持的語言',
