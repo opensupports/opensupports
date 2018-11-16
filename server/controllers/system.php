@@ -1,32 +1,4 @@
 <?php
-require_once 'system/check-requirements.php';
-require_once 'system/init-database.php';
-require_once 'system/init-settings.php';
-require_once 'system/init-admin.php';
-require_once 'system/installation-done.php';
-require_once 'system/get-settings.php';
-require_once 'system/edit-settings.php';
-require_once 'system/add-department.php';
-require_once 'system/edit-department.php';
-require_once 'system/delete-department.php';
-require_once 'system/get-logs.php';
-require_once 'system/get-mail-templates.php';
-require_once 'system/edit-mail-template.php';
-require_once 'system/recover-mail-template.php';
-require_once 'system/disable-registration.php';
-require_once 'system/enable-registration.php';
-require_once 'system/disable-user-system.php';
-require_once 'system/enable-user-system.php';
-require_once 'system/add-api-key.php';
-require_once 'system/delete-api-key.php';
-require_once 'system/get-api-keys.php';
-require_once 'system/get-stats.php';
-require_once 'system/delete-all-users.php';
-require_once 'system/csv-import.php';
-require_once 'system/backup-database.php';
-require_once 'system/download.php';
-require_once 'system/test-smtp.php';
-
 $systemControllerGroup = new ControllerGroup();
 $systemControllerGroup->setGroupPath('/system');
 

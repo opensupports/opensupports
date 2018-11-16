@@ -1,23 +1,4 @@
 <?php
-include 'user/login.php';
-include 'user/signup.php';
-include 'user/logout.php';
-include 'user/check-session.php';
-include 'user/recover-password.php';
-include 'user/send-recover-password.php';
-include 'user/edit-password.php';
-include 'user/edit-email.php';
-include 'user/get.php';
-include 'user/get-users.php';
-include 'user/get-user.php';
-include 'user/delete.php';
-include 'user/ban.php';
-include 'user/un-ban.php';
-include 'user/list-ban.php';
-include 'user/verify.php';
-include 'user/enable.php';
-include 'user/disable.php';
-
 $userControllers = new ControllerGroup();
 $userControllers->setGroupPath('/user');
 

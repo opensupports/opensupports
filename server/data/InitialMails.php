@@ -1,6 +1,4 @@
 <?php
-require_once 'data/MailTexts.php';
-
 class InitialMails {
 
     public static function getBody($templateCode, $texts) {
