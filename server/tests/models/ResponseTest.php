@@ -1,7 +1,6 @@
 <?php
 include_once 'tests/__lib__/Mock.php';
 include_once 'tests/__mocks__/SlimMock.php';
-include_once 'models/Response.php';
 
 use PHPUnit\Framework\TestCase;
 

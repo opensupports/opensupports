@@ -1,7 +1,4 @@
 <?php
-require_once 'libs/Validator.php';
-require_once 'models/Session.php';
-
 use RedBeanPHP\Facade as RedBean;
 
 abstract class Controller {

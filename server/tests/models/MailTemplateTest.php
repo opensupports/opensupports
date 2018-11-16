@@ -3,7 +3,6 @@ include_once 'tests/__lib__/Mock.php';
 include_once 'tests/__mocks__/BeanMock.php';
 include_once 'tests/__mocks__/SettingMock.php';
 include_once 'tests/__mocks__/RedBeanMock.php';
-include_once 'models/MailTemplate.php';
 
 use RedBeanPHP\Facade as RedBean;
 use PHPUnit\Framework\TestCase;

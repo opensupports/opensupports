@@ -1,6 +1,4 @@
 <?php
-require_once 'models/DataStore.php';
-
 class DataStoreList implements IteratorAggregate {
     private $list = [];
 
