@@ -51,7 +51,7 @@ class HashingTest extends TestCase {
         foreach($nonPrimes as $number) $this->assertFalse(Hashing::isPrime($number));
     }
 
-    public function testShouldGenerateRandsomPrime() {
+    public function testShouldGenerateRandomPrime() {
         $TEST_TIMES = 10;
 
         for ($i = 0; $i < $TEST_TIMES; $i++) {
@@ -63,7 +63,6 @@ class HashingTest extends TestCase {
 
             $this->assertTrue($min < $number1 && $number1 < $max);
             $this->assertTrue($min < $number2 && $number2 < $max);
-            $this->assertNotEquals($number1, $number2);
             $this->assertTrue(Hashing::isPrime($number1));
             $this->assertTrue(Hashing::isPrime($number2));
         }
