@@ -57,7 +57,7 @@ class EditTopicController extends Controller {
         if(Controller::request('icon')) {
             $topic->icon = Controller::request('icon');
         }
-        if(Controller::request('private') || Controller::request('private') == 0) {
+        if (Controller::request('private') !== null) {
             $topic->private = Controller::request('private');
         }
 
