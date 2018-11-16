@@ -39,9 +39,17 @@ class GetLogsController extends Controller {
     }
 
     public function handler() {
+        $this->deleteLastLogs();
         $page = Controller::request('page');
         $logList = Log::find('ORDER BY id desc LIMIT ? OFFSET ?', [10, 10*($page-1)]);
 
         Response::respondSuccess($logList->toArray());
+    }
+
+    public function deleteLastLogs() {
+        $removeOlderThanDays = 31;
+        $oldDate = floor(Date::getPreviousDate($removeOlderThanDays) / 10000);
+
+        RedBean::exec("DELETE FROM log WHERE date < $oldDate");
     }
 }

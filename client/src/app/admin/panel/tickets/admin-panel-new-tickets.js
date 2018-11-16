@@ -18,7 +18,7 @@ class AdminPanelNewTickets extends React.Component {
     };
 
     componentDidMount() {
-        this.props.dispatch(AdminDataAction.retrieveNewTickets());
+        this.retrieveNewTickets()
     }
 
     render() {
@@ -39,8 +39,15 @@ class AdminPanelNewTickets extends React.Component {
             tickets: this.props.tickets,
             type: 'secondary',
             loading: this.props.loading,
-            ticketPath: '/admin/panel/tickets/view-ticket/'
+            ticketPath: '/admin/panel/tickets/view-ticket/',
+            page: this.props.page,
+            pages: this.props.pages,
+            onPageChange: event => this.retrieveNewTickets(event.target.value)
         };
+    }
+
+    retrieveNewTickets(page = this.props.page) {
+        this.props.dispatch(AdminDataAction.retrieveNewTickets(page));
     }
 }
 
@@ -49,6 +56,8 @@ export default connect((store) => {
         userId: store.session.userId,
         departments: store.session.userDepartments,
         tickets: store.adminData.newTickets,
+        page: store.adminData.newTicketsPage,
+        pages: store.adminData.newTicketsPages,
         loading: !store.adminData.newTicketsLoaded,
         error: store.adminData.newTicketsError
     };

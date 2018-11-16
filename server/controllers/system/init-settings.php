@@ -85,25 +85,25 @@ class InitSettingsController extends Controller {
             'last-stat-day' => date('YmdHi', strtotime(' -12 day ')),
             'ticket-gap' => Hashing::generateRandomPrime(100000, 999999),
             'ticket-first-number' => Hashing::generateRandomNumber(100000, 999999),
-            'file-gap' => Hashing::generateRandomPrime(100000, 999999),
-            'file-first-number' => Hashing::generateRandomNumber(100000, 999999),
-            'file-quantity' => 0,
-            'session-prefix' => 'opensupports-'.Hashing::generateRandomToken().'_'
+            'session-prefix' => 'opensupports-'.Hashing::generateRandomToken().'_',
+            'mail-template-header-image' => 'http://opensupports.com/logo.png'
         ]);
     }
 
     private function storeMailTemplates() {
-        $mails = InitialMails::retrieve();
+        $mailLanguages = MailTexts::getTexts();
 
-        foreach ($mails as $mailType => $mailLanguages) {
-            foreach ($mailLanguages as $mailLanguage => $mailContent) {
+        foreach ($mailLanguages as $language => $mailTemplate) {
+            foreach ($mailTemplate as $template => $texts) {
                 $mailTemplate = new MailTemplate();
 
                 $mailTemplate->setProperties([
-                    'type' => $mailType,
-                    'language' => $mailLanguage,
-                    'subject' => $mailContent['subject'],
-                    'body' => $mailContent['body']
+                    'template' => $template,
+                    'language' => $language,
+                    'subject' => $texts[0],
+                    'text1' => array_key_exists(1, $texts) ? $texts[1] : '',
+                    'text2' => array_key_exists(2, $texts) ? $texts[2] : '',
+                    'text3' => array_key_exists(3, $texts) ? $texts[3] : '',
                 ]);
 
                 $mailTemplate->store();

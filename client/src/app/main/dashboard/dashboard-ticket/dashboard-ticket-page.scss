@@ -1,3 +1,7 @@
 .dashboard-ticket-page {
     padding: 0 10px;
+
+    &__loading {
+        min-height: 300px;
+    }
 }

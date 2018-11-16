@@ -145,7 +145,7 @@ export default {
     'RECAPTCHA_PUBLIC_KEY': 'Recaptcha Publieke Sleutel',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha Prive Sleutel',
     'ALLOW_FILE_ATTACHMENTS': 'Sta bijlage(s) toe',
-    'MAX_SIZE_KB': 'Max grootte (KB)',
+    'MAX_SIZE_MB': 'Max grootte (MB)',
     'UPDATE_SETTINGS': 'Update instellingen',
     'DEFAULT_LANGUAGE': 'Standaard Taal',
     'SUPPORTED_LANGUAGES': 'Talen die zijn ondersteund',
@@ -178,6 +178,7 @@ export default {
     'HOME': 'Home',
     'TICKET_NUMBER': 'Incidentnummer',
     'NEXT': 'Volgende',
+    'SUBJECT': 'Bedrijf',
     'SEND_EMAIL_ON_NEW_TICKET': 'Stuur e-mail bij nieuw incident',
     'STAFF_UPDATED': 'Medewerker is gewijzigd',
     'UPDATE': 'Update',
@@ -189,6 +190,7 @@ export default {
     'ENABLE_USER': 'Schakel gebruiker in',
     'DISABLE_USER': 'Gebruiker uitschakelen',
     'SHOW_CLOSED_TICKETS': 'Toon gesloten tickets',
+    'IMAGE_HEADER_URL': 'Image header URL',
 
     'CHART_CREATE_TICKET': 'Aangemaakte incidenten',
     'CHART_CLOSE': 'Gesloten incidenten',
@@ -334,6 +336,7 @@ export default {
     'ERRORS_FOUND': 'Er is een fout opgetreden',
     'ERROR_IMAGE_SIZE': 'Geen enkele afbeelding kan groter zijn dan {size} MB',
     'USER_DISABLED': 'Dit account is uitgeschakeld.',
+    'INVALID_SYNTAX': 'Ongeldige syntaxis.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'U hebt zich succesvol geregistreerd in ons ondersteuningssysteem.',

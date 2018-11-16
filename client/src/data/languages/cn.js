@@ -145,7 +145,7 @@ export default {
     'RECAPTCHA_PUBLIC_KEY': 'Recaptcha公鑰',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha私人鑰匙',
     'ALLOW_FILE_ATTACHMENTS': '允許文件附件',
-    'MAX_SIZE_KB': '最大尺寸（KB）',
+    'MAX_SIZE_MB': '最大尺寸（KB）',
     'UPDATE_SETTINGS': '更新設置',
     'DEFAULT_LANGUAGE': '默認語言',
     'SUPPORTED_LANGUAGES': '支持的語言',
@@ -178,6 +178,7 @@ export default {
     'HOME': '家',
     'TICKET_NUMBER': '票號',
     'NEXT': '下一個',
+    'SUBJECT': '学科',
     'SEND_EMAIL_ON_NEW_TICKET': '电子邮件为每个新票',
     'STAFF_UPDATED': '工作人员已更新',
     'UPDATE': '更新',
@@ -189,6 +190,7 @@ export default {
     'ENABLE_USER': '启用用户',
     'DISABLE_USER': '禁用用户',
     'SHOW_CLOSED_TICKETS': '显示已关闭的门票',
+    'IMAGE_HEADER_URL': '图片标题网址',
 
     'CHART_CREATE_TICKET': '已創建門票',
     'CHART_CLOSE': '門票已關閉',
@@ -334,6 +336,7 @@ export default {
     'ERRORS_FOUND': '發現錯誤',
     'ERROR_IMAGE_SIZE': '没有图像的大小可以超过{size}MB',
     'USER_DISABLED': '此帐户已被停用。',
+    'INVALID_SYNTAX': '无效的语法。',
 
     //MESSAGES
     'SIGNUP_SUCCESS': '您已在我們的支持系統中成功註冊',

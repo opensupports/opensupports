@@ -145,7 +145,7 @@ export default {
     'RECAPTCHA_PUBLIC_KEY': 'Recaptcha clave pública',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha clave privada',
     'ALLOW_FILE_ATTACHMENTS': 'Permitir archivos adjuntos',
-    'MAX_SIZE_KB': 'Tamaño máximo (KB)',
+    'MAX_SIZE_MB': 'Tamaño máximo (MB)',
     'UPDATE_SETTINGS': 'Actualizar Configuraciones',
     'DEFAULT_LANGUAGE': 'Idioma predeterminado',
     'SUPPORTED_LANGUAGES': 'Idiomas Soportados',
@@ -178,6 +178,7 @@ export default {
     'HOME': 'Inicio',
     'TICKET_NUMBER': 'Número de Ticket',
     'NEXT': 'Siguiente',
+    'SUBJECT': 'Asunto',
     'SEND_EMAIL_ON_NEW_TICKET': 'Enviar email por cada nuevo ticket',
     'STAFF_UPDATED': 'Miembro de Staff actualizado',
     'UPDATE': 'Actualizar',
@@ -189,6 +190,7 @@ export default {
     'ENABLE_USER': 'Habilitar usuario',
     'DISABLE_USER': 'Deshabilitar usuario',
     'SHOW_CLOSED_TICKETS': 'Mostrar Tickets Cerrados',
+    'IMAGE_HEADER_URL': 'URL del encabezado de la imagen',
 
     'CHART_CREATE_TICKET': 'Tickets creados',
     'CHART_CLOSE': 'Tickets cerrados',
@@ -332,6 +334,8 @@ export default {
     'INVALID_EMAIL_OR_TICKET_NUMBER': 'Email o numero de ticket inválido',
     'INVALID_FILE': 'Archivo inválido',
     'ERRORS_FOUND': 'Se encontraron errores',
+    'USER_DISABLED': 'Esta cuenta está deshabilitada.',
+    'INVALID_SYNTAX': 'Sintaxis inválida.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'Se ha registrado con éxito en nuestro sistema de soporte.',
@@ -358,7 +362,6 @@ export default {
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'El archivo CSV se ha importado correctamente',
     'SUCCESS_DELETING_ALL_USERS': 'Los usuarios se han eliminado correctamente',
     'ERROR_IMAGE_SIZE': 'Ninguna imagen puede tener un tamaño superior a {size} MB',
-    'USER_DISABLED': 'Esta cuenta está deshabilitada.',
 
     'LAST_7_DAYS': 'Últimos 7 dias',
     'LAST_30_DAYS': 'Últimos 30 dias',
