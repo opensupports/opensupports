@@ -50,6 +50,8 @@ class GetLogsController extends Controller {
         $removeOlderThanDays = 31;
         $oldDate = floor(Date::getPreviousDate($removeOlderThanDays) / 10000);
 
-        RedBean::exec("DELETE FROM log WHERE date < $oldDate");
+        try {
+            RedBean::exec("DELETE FROM log WHERE date < $oldDate");
+        } catch(Exception $e) {}
     }
 }

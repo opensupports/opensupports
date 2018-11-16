@@ -8,6 +8,7 @@ include_once 'tests/__mocks__/SessionMock.php';
 include_once 'tests/__mocks__/UserMock.php';
 include_once 'tests/__mocks__/HashingMock.php';
 include_once 'tests/__mocks__/SessionCookieMock.php';
+include_once 'tests/__mocks__/RedBeanMock.php';
 include_once 'data/ERRORS.php';
 
 use PHPUnit\Framework\TestCase;
@@ -43,7 +44,8 @@ class LoginControllerTest extends TestCase {
             'userEmail' => 'MOCK_EMAIL',
             'staff' => false,
             'token' => 'TEST_TOKEN',
-            'rememberToken' => null
+            'rememberToken' => null,
+            'rememberExpiration' => Date::getNextDate(30)
         )));
     }
 

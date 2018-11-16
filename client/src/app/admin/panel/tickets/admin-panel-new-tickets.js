@@ -12,13 +12,14 @@ import Message from 'core-components/message';
 class AdminPanelNewTickets extends React.Component {
 
     static defaultProps = {
+        page: 1,
         userId: 0,
         departments: [],
         tickets: []
     };
 
     componentDidMount() {
-        this.retrieveNewTickets()
+        this.retrieveNewTickets();
     }
 
     render() {
