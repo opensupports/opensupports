@@ -207,6 +207,9 @@ class TicketViewer extends React.Component {
     }
 
     renderTicketEvent(options, index) {
+        if (this.props.userStaff) {
+            options.content = MentionsParser.parse(options.content);
+        }
         return (
             <TicketEvent {...options} author={(!_.isEmpty(options.author)) ? options.author : this.props.ticket.author} key={index} />
         );
