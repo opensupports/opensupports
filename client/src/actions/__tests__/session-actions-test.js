@@ -69,7 +69,8 @@ describe('Session Actions,', function () {
                 data: {
                     rememberToken: 'SOME_TOKEN',
                     userId: 'SOME_ID',
-                    isAutomatic: true
+                    remember: 1,
+                    isAutomatic: 1
                 }
             });
         });
