@@ -384,5 +384,5 @@ export default {
     'PASSWORD_LOWERCASE': 'contraseña',
     'TEST_SMTP_CONNECTION': 'Probar conexion de SMTP',
     'SMTP_CONNECTION_SUCCESS': 'La credenciales de SMTP son correctas.',
-    'SMTP_CONNECTION_ERROR': 'No es posible conectarse al servidor de SMTP.'
+    'SMTP_CONNECTION_ERROR': 'No es posible conectarse al servidor de SMTP.',
 };

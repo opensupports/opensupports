@@ -384,7 +384,7 @@ export default {
     'PASSWORD_LOWERCASE': 'senha',
     'TEST_SMTP_CONNECTION': 'Testar conexão SMTP',
     'SMTP_CONNECTION_SUCCESS': 'As credenciais SMTP são válidas.',
-    'SMTP_CONNECTION_ERROR': 'Não pode se conectar ao servidor SMTP.'
+    'SMTP_CONNECTION_ERROR': 'Não pode se conectar ao servidor SMTP.',
 
-    'STAFF_LIMIT': 'Você atingiu o limite de membros da equipe permitido. Atualize seu plano ou entre em contato com nossa equipe de suporte.'
+    'STAFF_LIMIT': 'Você atingiu o limite de membros da equipe permitido. Atualize seu plano ou entre em contato com nossa equipe de suporte.',
 };

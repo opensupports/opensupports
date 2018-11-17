@@ -386,5 +386,5 @@ export default {
     'SMTP_CONNECTION_SUCCESS': 'SMTP資格情報が有効です。',
     'SMTP_CONNECTION_ERROR': 'SMTPサーバーに接続できません。',
 
-    'STAFF_LIMIT': '許可されているスタッフの制限に達しました。 計画を更新するか、サポートチームにお問い合わせください。'
+    'STAFF_LIMIT': '許可されているスタッフの制限に達しました。 計画を更新するか、サポートチームにお問い合わせください。',
 };

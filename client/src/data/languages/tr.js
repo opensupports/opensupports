@@ -386,5 +386,5 @@ export default {
     'SMTP_CONNECTION_SUCCESS': 'SMTP kimlik bilgileri geçerlidir.',
     'SMTP_CONNECTION_ERROR': 'SMTP sunucusuna bağlanılamıyor.',
 
-    'STAFF_LIMIT': 'İzin verilen personel sayısına ulaştınız. Lütfen planınızı güncelleyin veya destek ekibimizle iletişime geçin.'
+    'STAFF_LIMIT': 'İzin verilen personel sayısına ulaştınız. Lütfen planınızı güncelleyin veya destek ekibimizle iletişime geçin.',
 };

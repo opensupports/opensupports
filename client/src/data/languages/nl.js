@@ -384,5 +384,5 @@ export default {
     'PASSWORD_LOWERCASE': 'Wachtwoord',
     'TEST_SMTP_CONNECTION': 'Test SMTP verbinding',
     'SMTP_CONNECTION_SUCCESS': 'SMTP inloggegevens zijn correct.',
-    'SMTP_CONNECTION_ERROR': 'Verbinding naar SMTP server mislukt.'
+    'SMTP_CONNECTION_ERROR': 'Verbinding naar SMTP server mislukt.',
 };

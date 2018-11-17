@@ -387,5 +387,5 @@ export default {
     'SMTP_CONNECTION_SUCCESS': 'SMTP凭据有效',
     'SMTP_CONNECTION_ERROR': '无法连接到SMTP服务器',
 
-    'STAFF_LIMIT': '你已经达到允许的工作人员的限制。 请更新您的计划或联系我们的支持团队。'
+    'STAFF_LIMIT': '你已经达到允许的工作人员的限制。 请更新您的计划或联系我们的支持团队。',
 };

@@ -386,5 +386,5 @@ export default {
     'SMTP_CONNECTION_SUCCESS': 'Les informations d\'identification SMTP sont valides.',
     'SMTP_CONNECTION_ERROR': 'Ne peut pas se connecter au serveur SMTP.',
 
-    'STAFF_LIMIT': 'Vous avez atteint la limite des membres du personnel autorisés. Veuillez mettre à jour votre plan ou contacter notre équipe de support.'
+    'STAFF_LIMIT': 'Vous avez atteint la limite des membres du personnel autorisés. Veuillez mettre à jour votre plan ou contacter notre équipe de support.',
 };

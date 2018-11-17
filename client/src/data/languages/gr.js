@@ -384,5 +384,5 @@
      'PASSWORD_LOWERCASE': 'κωδικός πρόσβασης',
      'TEST_SMTP_CONNECTION': 'Δοκίμασε την SMTP σύνδεση',
      'SMTP_CONNECTION_SUCCESS': 'Τα SMTP διαπιστευτήρια είναι έγκυρα.',
-     'SMTP_CONNECTION_ERROR': 'Δεν μπορεί να γίνει σύνδεση στον SMTP διακομιστή.'
+     'SMTP_CONNECTION_ERROR': 'Δεν μπορεί να γίνει σύνδεση στον SMTP διακομιστή.',
  };

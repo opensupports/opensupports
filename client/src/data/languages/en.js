@@ -386,5 +386,5 @@ export default {
     'SMTP_CONNECTION_SUCCESS': 'SMTP credentials are valid.',
     'SMTP_CONNECTION_ERROR': 'Can\'t connect to SMTP server.',
 
-    'STAFF_LIMIT': 'You have reached the limit of staff members allowed. Please update your plan or contact our support team.'
+    'STAFF_LIMIT': 'You have reached the limit of staff members allowed. Please update your plan or contact our support team.',
 };

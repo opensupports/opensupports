@@ -386,6 +386,6 @@ export default {
     'SMTP_CONNECTION_SUCCESS': 'Le credenziali SMTP sono valide.',
     'SMTP_CONNECTION_ERROR': 'Impossibile connettersi al server SMTP.',
 
-    'STAFF_LIMIT': 'Hai raggiunto il limite consentito dai membri del personale. Aggiorna il tuo piano o contatta il nostro team di assistenza.'
+    'STAFF_LIMIT': 'Hai raggiunto il limite consentito dai membri del personale. Aggiorna il tuo piano o contatta il nostro team di assistenza.',
 };
 /** Special thanks to Fabio Giarrusso for translation contribution **/
