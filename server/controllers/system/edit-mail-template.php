@@ -9,20 +9,24 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiGroup System
  *
- * @apiDescription This path edit a mail template.
+ * @apiDescription This path edits a mail template.
  *
  * @apiPermission staff3
  *
- * @apiParam {String} templateType The new type of the template.
- * @apiParam {String} language The new language of the template.
+ * @apiParam {String} template The template to edit.
+ * @apiParam {String} language The language of the template to edit.
  * @apiParam {String} subject The new subject of the template.
- * @apiParam {String} body The new content of the template.
+ * @apiParam {String} text1 The first paragraph template.
+ * @apiParam {String} text2 The second paragraph template.
+ * @apiParam {String} text3 The third paragraph template.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TEMPLATE
  * @apiUse INVALID_LANGUAGE
  * @apiUse INVALID_SUBJECT
- * @apiUse INVALID_BODY
+ * @apiUse INVALID_TEXT_1
+ * @apiUse INVALID_TEXT_2
+ * @apiUse INVALID_TEXT_3
  *
  * @apiSuccess {Object} data Empty object
  *
@@ -32,11 +36,16 @@ class EditMailTemplateController extends Controller {
     const PATH = '/edit-mail-template';
     const METHOD = 'POST';
 
+    private $langauge;
+    private $templateType;
+    private $subject;
+    private $texts;
+
     public function validations() {
         return [
             'permission' => 'staff_3',
             'requestData' => [
-                'templateType' => [
+                'template' => [
                     'validation' => DataValidator::length(4),
                     'error' => ERRORS::INVALID_TEMPLATE
                 ],
@@ -48,28 +57,87 @@ class EditMailTemplateController extends Controller {
                     'validation' => DataValidator::length(4),
                     'error' => ERRORS::INVALID_SUBJECT
                 ],
-                'body' => [
-                    'validation' => DataValidator::length(4),
-                    'error' => ERRORS::INVALID_BODY
-                ]
             ]
         ];
     }
 
     public function handler() {
-        $language = Controller::request('language');
-        $templateType = Controller::request('templateType');
-        $subject = Controller::request('subject', true);
-        $body = Controller::request('body');
+        $this->language = Controller::request('language');
+        $this->templateType = Controller::request('template');
+        $this->subject = Controller::request('subject', true);
+        $this->texts = [
+            Controller::request('text1'),
+            Controller::request('text2'),
+            Controller::request('text3'),
+        ];
 
-        $mailTemplate = MailTemplate::findOne(' language = ? AND type = ?', [$language, $templateType]);
+        $mailTemplate = MailTemplate::findOne(' language = ? AND template = ?', [$this->language, $this->templateType]);
+
         if($mailTemplate->isNull()) {
             throw new Exception(ERRORS::INVALID_TEMPLATE);
         }
-        $mailTemplate->subject = $subject;
-        $mailTemplate->body = $body;
+
+        $this->validateReplacements();
+
+        $mailTemplate->subject = $this->subject;
+        $mailTemplate->text1 = $this->texts[0];
+        $mailTemplate->text2 = $this->texts[1];
+        $mailTemplate->text3 = $this->texts[2];
+
         $mailTemplate->store();
 
         Response::respondSuccess();
+    }
+
+    public function validateReplacements() {
+        $originalText = MailTexts::getTexts()[$this->language][$this->templateType];
+
+        if(!$this->includes(
+            $this->getReplacementStrings($originalText[1]),
+            $this->getReplacementStrings($this->texts[0])
+        )) {
+            throw new Exception(ERRORS::INVALID_TEXT_1);
+        }
+
+        if(!$this->includes(
+            $this->getReplacementStrings($originalText[2]),
+            $this->getReplacementStrings($this->texts[1])
+        )) {
+            throw new Exception(ERRORS::INVALID_TEXT_2);
+        }
+
+        if(!$this->includes(
+            $this->getReplacementStrings($originalText[3]),
+            $this->getReplacementStrings($this->texts[2])
+        )) {
+            throw new Exception(ERRORS::INVALID_TEXT_3);
+        }
+    }
+
+    public function includes($array1, $array2) {
+        foreach($array1 as $item) {
+            if(!in_array($item, $array2)) return false;
+        }
+
+        return true;
+    }
+
+    public function getReplacementStrings($string) {
+        $replacements = [];
+
+        for($i=0; $i<strlen($string)-1; $i++) {
+            if($string[$i] == '{' && $string[$i+1] == '{') {
+                $replacement = "";
+                $i += 2;
+                for(; $i<strlen($string)-1;$i++) {
+                    if($string[$i] == '}' && $string[$i+1] == '}') break;
+                    $replacement .= $string[$i];
+                }
+
+                $replacements[] = $replacement;
+            }
+        }
+
+        return $replacements;
     }
 }

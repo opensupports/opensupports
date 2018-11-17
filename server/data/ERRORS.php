@@ -187,6 +187,18 @@
  * @apiDefine USER_DISABLED
  * @apiError {String} USER_DISABLED User is disabled
  */
+/**
+ * @apiDefine INVALID_TEXT_1
+ * @apiError {String} INVALID_TEXT_1 text1 of mail template has an invalid syntax or missing variables
+ */
+/**
+ * @apiDefine INVALID_TEXT_2
+ * @apiError {String} INVALID_TEXT_2 text2 of mail template has an invalid syntax or missing variables
+ */
+/**
+ * @apiDefine INVALID_TEXT_3
+ * @apiError {String} INVALID_TEXT_3 text3 of mail template has an invalid syntax or missing variables
+ */
 
 class ERRORS {
     const INVALID_CREDENTIALS = 'INVALID_CREDENTIALS';
@@ -238,4 +250,7 @@ class ERRORS {
     const ALREADY_DISABLED = 'ALREADY_DISABLED';
     const ALREADY_ENABLED = 'ALREADY_ENABLED';
     const USER_DISABLED = 'USER_DISABLED';
+    const INVALID_TEXT_1 = 'INVALID_TEXT_1';
+    const INVALID_TEXT_2 = 'INVALID_TEXT_2';
+    const INVALID_TEXT_3 = 'INVALID_TEXT_3';
 }

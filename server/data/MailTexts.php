@@ -8,7 +8,6 @@ class MailTexts {
               'Verify your account',
               'Welcome to our support center, {{name}}!. We need you to verify this email in order to get access to your account.',
               'Use this code in {{url}}/verify-token/{{to}}/{{verificationToken}} or click the button below.',
-              '{{verificationToken}}'
           ],
           'USER_PASSWORD' => [
               'Password edited - OpenSupports',
@@ -25,28 +24,24 @@ class MailTexts {
               'Recover password',
               'Hi, {{name}}. You have requested to recover your password.',
               'Use this code in {{url}}/recover-password?email={{to}}&token={{token}} or click the button below.',
-              '{{token}}'
           ],
           'USER_SYSTEM_DISABLED' => [
               'Access system changed - OpenSupports',
               'Access system changed',
               'Hello, {{name}}. The system to access tickets has changed.',
               'You can access and see to your tickets by using your email and the ticket number.Click in the button below to see your tickets.',
-              '{{tickets}}'
           ],
           'USER_SYSTEM_ENABLED' => [
               'Account created - OpenSupports',
               'Account created',
               'Hello, {{name}}. We have created an account where you can access the tickets you have sent us.',
               'You can access your account by using this email <i>({{to}})</i> and password below.Please change the password as soon as you log in.',
-              '{{password}}'
           ],
           'TICKET_CREATED' => [
               '#{{ticketNumber}} Ticket created - OpenSupports',
               'Ticket created',
               'Hello, {{name}}. You have sent a new ticket titled <i>{{title}}</i> to our support center.',
               'You can access to the ticket by its ticket number or you can click on the button below.',
-              '{{ticketNumber}}'
           ],
           'TICKET_RESPONDED' => [
               '#{{ticketNumber}} New response - OpenSupports',
@@ -65,7 +60,6 @@ class MailTexts {
               'Ticket created',
               'User {{name}} has created a new ticket titled <i>{{title}}</i>.',
               'You can access to the ticket by its ticket number.',
-              '{{ticketNumber}}'
           ],
         ],
         'cn' => [
@@ -74,7 +68,6 @@ class MailTexts {
               '验证您的帐户',
               '欢迎来到我们的支援中心{{name}} !. 我们需要您验证此电子邮件才能访问您的帐户。',
               '使用此代码 {{url}}/verify-token/{{to}}/{{verificationToken}} 或单击下面的按钮.',
-              '{{verificationToken}}'
           ],
           'USER_PASSWORD' => [
               '密码已编辑 - OpenSupports',
@@ -91,28 +84,24 @@ class MailTexts {
               '恢复密码',
               '喂 {{name}}。 您已要求恢复密码。',
               '使用此代码 {{url}}/recover-password?email={{to}}&token={{token}} 或单击下面的按钮.',
-              '{{token}}'
           ],
           'USER_SYSTEM_DISABLED' => [
               '访问系统更改 - OpenSupports',
               '访问系统更改',
               '您好，{{name}}。 访问票证的系统已更改。',
               '您可以通过使用您的电子邮件和票号访问和查看您的机票。 点击下面的按钮查看您的票。',
-              '{{tickets}}'
           ],
           'USER_SYSTEM_ENABLED' => [
               '帐户已创建 - OpenSupports',
               '帐户已创建',
               '您好，{{name}}。 我们已经创建了一个帐户，您可以访问您发送给我们的票。',
               '您可以在下面使用此电子邮件 <i>({{to}})</i> 和密码访问您的帐户。 请在登录后立即更改密码。',
-              '{{password}}'
           ],
           'TICKET_CREATED' => [
               '#{{ticketNumber}} 已创建票证 - OpenSupports',
               '票据创建',
               '您好，{{name}}。 您已将一张名为 <i>{{title}}</i> 的新票发送到我们的支持中心。',
               '您可以通过其票号访问票证。 或者你可以点击下面的按钮。',
-              '{{ticketNumber}}'
           ],
           'TICKET_RESPONDED' => [
               '#{{ticketNumber}} 新反应 - OpenSupports',
@@ -131,7 +120,6 @@ class MailTexts {
               '票据创建',
               '用戶 {{name}}。 他創造了一個題為新票 <i>{{title}}</i>。',
               '您可以通过其票号访问票证。',
-              '{{ticketNumber}}'
           ],
         ],
         'de' => [
@@ -140,7 +128,6 @@ class MailTexts {
               'Überprüfen Sie Ihr Konto',
               'Willkommen in unserem Support-Center, {{name}} !. Wir müssen Sie diese E-Mail bestätigen, um Zugang zu Ihrem Konto zu erhalten.',
               'Verwenden Sie diesen Code in {{url}}/verify-token/{{to}}/{{verificationToken}} oder klicken Sie auf die Schaltfläche unten.',
-              '{{verificationToken}}'
           ],
           'USER_PASSWORD' => [
               'Passwort bearbeitet - OpenSupports',
@@ -157,28 +144,24 @@ class MailTexts {
               'Passwort wiederherstellen',
               'Hallo, {{name}}. Sie haben aufgefordert, Ihr Passwort wiederherzustellen.',
               'Verwenden Sie diesen Code in {{url}}/recover-password?email={{to}}&token={{token}} oder klicken Sie auf die Schaltfläche unten.',
-              '{{token}}'
           ],
           'USER_SYSTEM_DISABLED' => [
               'Access system changed - OpenSupports',
               'Zugriffssystem geändert',
               'Hallo, {{name}}. Das System für den Zugriff auf Tickets hat sich geändert.',
               'können mit Ihren E-Mails und der Ticketnummer auf Ihre Tickets zugreifen und sie sehen.Klicken Sie auf die Schaltfläche unten, um Ihre Tickets zu sehen.',
-              '{{tickets}}'
           ],
           'USER_SYSTEM_ENABLED' => [
               'Account erstellt - OpenSupports',
               'Account erstellt',
               'Hallo, {{name}}. Wir haben ein Konto erstellt, wo Sie auf die Tickets zugreifen können, die Sie uns geschickt haben.',
               'Sie können auf Ihr Konto zugreifen, indem Sie diese E-Mail <i>({{to}})</i> und das Passwort unten verwenden.Bitte ändern Sie das Passwort, sobald Sie sich anmelden.',
-              '{{password}}'
           ],
           'TICKET_CREATED' => [
               '#{{ticketNumber}} Ticket erstellt - OpenSupports',
               'Ticket erstellt',
               'Hallo, {{name}}. Sie haben ein neues Ticket mit dem Titel <i>{{title}}</i> an unser Support-Center geschickt.',
               'Sie können das Ticket nach der Fahrkartennummer erreichen. Oder klicken Sie auf die Schaltfläche unten.',
-              '{{ticketNumber}}'
           ],
           'TICKET_RESPONDED' => [
               '#{{ticketNumber}} Neue Antwort - OpenSupports',
@@ -197,7 +180,6 @@ class MailTexts {
               'Ticket erstellt',
               'Der Benutzer {{name}} hat ein neues Ticket erstellt berechtigt <i>{{title}}</i>.',
               'Sie können das Ticket nach der Fahrkartennummer erreichen.',
-              '{{ticketNumber}}'
           ],
         ],
         'es' => [
@@ -206,7 +188,6 @@ class MailTexts {
               'Verifica tu cuenta',
               'Bienvenido a nuestro contro de soporte, {{name}}!. Necesitamos que verifiques este email para poder acceder a tu cuenta.',
               'Usá este código en {{url}}/verify-token/{{to}}/{{verificationToken}} o hacé click en el botón de abajo.',
-              '{{verificationToken}}'
           ],
           'USER_PASSWORD' => [
               'Contraseña a cambiado - OpenSupports',
@@ -223,28 +204,24 @@ class MailTexts {
               'Recuperar contraseña',
               'Hola, {{name}}. Has requerido recuperar tu contraseña.',
               'Usá este codigo en {{url}}/recover-password?email={{to}}&token={{token}} o hacé click en el botón de abajo.',
-              '{{token}}'
           ],
           'USER_SYSTEM_DISABLED' => [
               'Sistema de acceso cambiado - OpenSupports',
               'Sistema de acceso cambiado',
               'Hola, {{name}}. El sistema para acceder a los tickets ha cambiado.',
               'Ahora podes acceder a los tickets usando tu email y el numero de ticket.Hacé click en el botón de abajo para poder ver los tickets.',
-              '{{tickets}}'
           ],
           'USER_SYSTEM_ENABLED' => [
               'Cuenta creada - OpenSupports',
               'Cuenta creada',
               'Hola, {{name}}. Hemos creado una cuenta donde puedes acceder a los tickets que nos has enviado.',
               'Puedes acceder usando tu email <i>({{to}})</i> y el la contraseña de abajo.Por favor, cambia tu contraseña tan pronto como ingreses al panel de usuario.',
-              '{{password}}'
           ],
           'TICKET_CREATED' => [
               '#{{ticketNumber}} Ticket creado - OpenSupports',
               'Ticket creado',
               'Hola, {{name}}. Has creado un nuevo ticket titulado <i>{{title}}</i> en nuestro sistema de soporte.',
               'Puedes ver el ticket usando el numero de ticket prensentado abajo o puedes hacer click en el botón de más abajo.',
-              '{{ticketNumber}}'
           ],
           'TICKET_RESPONDED' => [
               '#{{ticketNumber}} Nueva respuesta - OpenSupports',
@@ -263,7 +240,6 @@ class MailTexts {
               'Ticket creado',
               'El usuario {{name}} ha creado un nuevo ticket titulado <i>{{title}}</i>.',
               'Puedes ver el ticket usando el numero de ticket prensentado abajo.',
-              '{{ticketNumber}}'
           ],
         ],
         'fr' => [
@@ -272,7 +248,6 @@ class MailTexts {
               'Vérifiez votre compte',
               'Bienvenue dans notre centre de support, {{name}}!. Nous vous demandons de vérifier cet e-mail afin d accéder à votre compte.',
               'Utilisez ce code dans {{url}}/verify-token/{{to}}/{{verificationToken}} ou cliquez sur le bouton ci-dessous.',
-              '{{verificationToken}}'
           ],
           'USER_PASSWORD' => [
               'Mot de passe modifié - OpenSupports',
@@ -289,28 +264,24 @@ class MailTexts {
               'Récupérer mot de passe',
               'Salut, {{name}}. Vous avez demandé à récupérer votre mot de passe.',
               'Utilisez ce code dans {{url}}/recover-password?email={{to}}&token={{token}} ou cliquez sur le bouton ci-dessous.',
-              '{{token}}'
           ],
           'USER_SYSTEM_DISABLED' => [
               'Système d\'accès modifié - OpenSupports',
               'Système d\'accès modifié',
               'Bonjour, {{name}}.Le système d\'accès aux tickets a changé.',
               'Vous pouvez accéder et voir vos billets en utilisant votre email et le numéro de ticket.Cliquez sur le bouton ci-dessous pour voir vos billets.',
-              '{{tickets}}'
           ],
           'USER_SYSTEM_ENABLED' => [
               'Compte créé - OpenSupports',
               'Compte créé',
               'Bonjour, {{name}}. Nous avons créé un compte où vous pouvez accéder aux billets que vous nous avez envoyés.',
               'Vous pouvez accéder à votre compte en utilisant ce courriel <i>({{to}})</i> et votre mot de passe ci-dessous.Veuillez modifier le mot de passe dès que vous vous connectez.',
-              '{{password}}'
           ],
           'TICKET_CREATED' => [
               '#{{ticketNumber}} Ticket créé - OpenSupports',
               'Ticket créé',
               'Bonjour, {{name}}. Vous avez envoyé un nouveau ticket intitulé <i>{{title}}</i> à notre centre de support.',
               'Vous pouvez accéder au billet par son numéro de ticket. Ou vous pouvez cliquer sur le bouton ci-dessous.',
-              '{{ticketNumber}}'
           ],
           'TICKET_RESPONDED' => [
               '#{{ticketNumber}} Nouvelle réponse - OpenSupports',
@@ -329,7 +300,6 @@ class MailTexts {
               'Ticket créé',
               'L\'utilisateur {{name}}. a créé un nouveau poste intitulé <i>{{title}}</i>.',
               'Vous pouvez accéder au billet par son numéro de ticket.',
-              '{{ticketNumber}}'
           ],
         ],
         'in' => [
@@ -338,7 +308,6 @@ class MailTexts {
               'अपने खाते को सत्यापित करें',
               'हमारे समर्थन केंद्र में आपका स्वागत है {{name}}!. आपके खाते तक पहुंच प्राप्त करने के लिए हमें आपको यह ईमेल सत्यापित करने की आवश्यकता है।',
               'इस कोड का उपयोग करें {{url}}/verify-token/{{to}}/{{verificationToken}} या नीचे दिए गए बटन पर क्लिक करें।',
-              '{{verificationToken}}'
           ],
           'USER_PASSWORD' => [
               'sandi diedit - OpenSupports',
@@ -355,28 +324,24 @@ class MailTexts {
               'गोपनीय शब्द पुन प्राप्त करे',
               'नमस्ते {{name}}. आपने अपना पासवर्ड पुनर्प्राप्त करने का अनुरोध किया है',
               'इस कोड का उपयोग करें {{url}}/recover-password?email={{to}}&token={{token}} या नीचे दिए गए बटन पर क्लिक करें.',
-              '{{token}}'
           ],
           'USER_SYSTEM_DISABLED' => [
               'sistem akses berubah - OpenSupports',
               'एक्सेस सिस्टम बदल गया',
               'नमस्ते {{name}}. टिकट का उपयोग करने के लिए सिस्टम बदल गया है।',
               'आप अपने ईमेल और टिकट नंबर का उपयोग करके अपने टिकट तक पहुंच सकते हैं और देख सकते हैं।अपने टिकट देखने के लिए नीचे दिए गए बटन पर क्लिक करें।',
-              '{{tickets}}'
           ],
           'USER_SYSTEM_ENABLED' => [
               'Akun telah dibuat - OpenSupports',
               'खाता बन गय',
               'नमस्ते {{name}}. हमने एक खाता बनाया है, जहां आप हमारे द्वारा भेजे गए टिकटों तक पहुंच सकते हैं।',
               'आप इस ईमेल <i>({{to}})</i> और नीचे दिए गए पासवर्ड का उपयोग करके अपने खाते का उपयोग कर सकते हैं।जैसे ही आप लॉग इन करते हैं, तभी पासवर्ड बदल दें।',
-              '{{password}}'
           ],
           'TICKET_CREATED' => [
               '#{{ticketNumber}} tiket dibuat - OpenSupports',
               'टिकट बनाय',
               'नमस्ते {{name}}. आपने हमारे समर्थन केंद्र पर <i>{{title}}</i> नामक एक नया टिकट भेजा है.',
               'आप अपने टिकट नंबर से टिकट तक पहुंच सकते हैं। या आप नीचे दिए गए बटन पर क्लिक कर सकते हैं।',
-              '{{ticketNumber}}'
           ],
           'TICKET_RESPONDED' => [
               '#{{ticketNumber}} tanggapan baru - OpenSupports',
@@ -395,7 +360,6 @@ class MailTexts {
               'टिकट बनाया',
               'उपयोगकर्ता {{name}} हकदार एक नया पद बनाया गया है <i>{{title}}</i>.',
               'आप अपने टिकट नंबर से टिकट तक पहुंच सकते हैं।',
-              '{{ticketNumber}}'
           ],
         ],
         'it' => [
@@ -404,7 +368,6 @@ class MailTexts {
               'Verifica il tuo account',
               'Benvenuto, {{name}}!. Devi verificare questa email per accedere al tuo account.',
               'Clicca sul link {{url}}/verify-token/{{to}}/{{verificationToken}} o clicca sul pulsante qui sotto.',
-              '{{verificationToken}}'
           ],
           'USER_PASSWORD' => [
               'Password modificata - OpenSupports',
@@ -421,28 +384,24 @@ class MailTexts {
               'Recupera password',
               'Ciao, {{name}}. Hai richiesto di recuperare la tua password.',
               'Clicca sul link {{url}}/recover-password?email={{to}}&token={{token}} o clicca sul pulsante qui sotto.',
-              '{{token}}'
           ],
           'USER_SYSTEM_DISABLED' => [
               'Il sistema di accesso è cambiato - OpenSupports',
               'Modifica sistema di accesso',
               'Ciao, {{name}}. Il sistema di accesso ai tuoi tickets è cambiato.',
               'Puoi accedere ai tuoi ticket usando la tua email e il numero del ticket.Clicca sul bottone qui sotto per vedere i tuoi tickets.',
-              '{{tickets}}'
           ],
           'USER_SYSTEM_ENABLED' => [
               'Account creato - OpenSupports',
               'Account creato',
               'Ciao, {{name}}. Abbiamo creato il tuo account.',
               ' Puoi accedere al tuo account utilizzando questa email <i>({{to}})</i> e la password qui sotto.Ti consigliamo di cambiare la password dopo il primo accesso.',
-              '{{password}}'
           ],
           'TICKET_CREATED' => [
               '#{{ticketNumber}} ticket creato - OpenSupports',
               'Ticket inviato',
               'Ciao, {{name}}. Hai inviato un nuovo ticket <i>{{title}}</i> al nostro centro si assistenza.',
               'È possibile accedere al ticket attraverso il numero del ticket. Oppure puoi cliccare sul bottone qui sotto.',
-              '{{ticketNumber}}'
           ],
           'TICKET_RESPONDED' => [
               '#{{ticketNumber}} Ticket risposto - OpenSupports',
@@ -461,7 +420,6 @@ class MailTexts {
               'Ticket inviato',
               'l\'utente {{name}} ha creato un nuovo titolo dal titolo <i>{{title}}</i>',
               'È possibile accedere al ticket con il suo numero di ticket.',
-              '{{ticketNumber}}'
           ],
         ],
         'jp' => [
@@ -470,7 +428,6 @@ class MailTexts {
               'アカウントを確認する',
               'サポートセンターへようこそ, {{name}}!. アカウントにアクセスするには、このメールを確認する必要があります。',
               'でこのコードを使用 {{url}}/verify-token/{{to}}/{{verificationToken}} 下のボタンをクリックしてください.',
-              '{{verificationToken}}'
           ],
           'USER_PASSWORD' => [
               'パスワードの編集 - OpenSupports',
@@ -487,28 +444,24 @@ class MailTexts {
               'パスワードを回復',
               'こんにちは、{{name}}。 パスワードの回復を要求しました。',
               'でこのコードを使用 {{url}}/recover-password?email={{to}}&token={{token}} 下のボタンをクリックしてください.',
-              '{{token}}'
           ],
           'USER_SYSTEM_DISABLED' => [
               'アクセスシステムが変更されました - OpenSupports',
               'アクセスシステムが変更されました',
               'こんにちは、{{name}}。 チケットにアクセスするシステムが変更されました。',
               'あなたはあなたの電子メールとチケット番号を使ってチケットにアクセスして見ることができます。チケットを見るには、下のボタンをクリックしてください。',
-              '{{tickets}}'
           ],
           'USER_SYSTEM_ENABLED' => [
               'アカウントが作成されました - OpenSupports',
               'アカウントが作成されました',
               'こんにちは、{{name}}。 あなたが送ったチケットにアクセスできるアカウントを作成しました。',
               '下記のメール<i>（{{to}}）</i>とパスワードを使用してアカウントにアクセスできます。ログインするとすぐにパスワードを変更してください。',
-              '{{password}}'
           ],
           'TICKET_CREATED' => [
               '#{{ticketNumber}} チケットが作成されました - OpenSupports',
               'チケットが作成されました',
               'こんにちは、{{name}}。<i>{{title}}</i> という新しいチケットをサポートセンターにお送りしました。',
               'そのチケット番号でチケットにアクセスできます。 または、下のボタンをクリックしてください。',
-              '{{ticketNumber}}'
           ],
           'TICKET_RESPONDED' => [
               '#{{ticketNumber}} 新しい応答 - OpenSupports',
@@ -527,7 +480,6 @@ class MailTexts {
               'チケットが作成されました',
               'ユーザーは {{name}} 彼は題した新しいチケットを作成しました <i>{{title}}</i>。',
               'そのチケット番号でチケットにアクセスできます。',
-              '{{ticketNumber}}'
           ],
         ],
         'pt' => [
@@ -536,7 +488,6 @@ class MailTexts {
               'Verifique sua conta',
               'Bem-vindo ao nosso centro de suporte, {{name}}!. Precisamos que você verifique este e-mail para acessar sua conta.',
               'Use este código em {{url}}/verify-token/{{to}}/{{verificationToken}} ou clique no botão abaixo.',
-              '{{verificationToken}}'
           ],
           'USER_PASSWORD' => [
               'Senha editada - OpenSupports',
@@ -553,28 +504,24 @@ class MailTexts {
               'Recuperar senha',
               'Olá, {{name}}. Você solicitou a recuperação da sua senha.',
               'Use este código em {{url}}/recover-password?email={{to}}&token={{token}} ou clique no botão abaixo.',
-              '{{token}}'
           ],
           'USER_SYSTEM_DISABLED' => [
               'Sistema de acesso alterado - OpenSupports',
               'Sistema de acesso alterado',
               'Oi, {{name}}. O sistema de acesso aos tickets mudou.',
               'Você pode acessar e ver seus bilhetes usando seu e-mail eo número do bilhete.Clique no botão abaixo para ver os seus bilhetes.',
-              '{{tickets}}'
           ],
           'USER_SYSTEM_ENABLED' => [
               'Conta criada - OpenSupports',
               'Conta criada',
               'Oi, {{name}}. Criamos uma conta onde você pode acessar os ingressos que você nos enviou.',
               'Você pode acessar sua conta usando este e-mail <i>({{to}})</i> e a senha abaixo.Por favor, altere a senha assim que fizer login.',
-              '{{password}}'
           ],
           'TICKET_CREATED' => [
               '#{{ticketNumber}} Ticket criado - OpenSupports',
               'Ticket criado',
               'Olá, {{name}}. Você enviou um novo ticket intitulado <i>{{title}}</i> para o nosso centro de suporte.',
               'Você pode acessar o bilhete pelo seu número de bilhete. Ou você pode clicar no botão abaixo.',
-              '{{ticketNumber}}'
           ],
           'TICKET_RESPONDED' => [
               '#{{ticketNumber}} Nova resposta - OpenSupports',
@@ -593,7 +540,6 @@ class MailTexts {
               'Ticket criado',
               'O usuário {{name}} criou um novo bilhete de direito <i>{{title}}</i>.',
               'Você pode acessar o bilhete pelo seu número de bilhete.',
-              '{{ticketNumber}}'
           ],
         ],
         'ru' => [
@@ -602,7 +548,6 @@ class MailTexts {
               'подтвердите ваш аккаунт',
               'Добро пожаловать в наш центр поддержки, {{name}}!. Нам нужно, чтобы вы подтвердили это письмо, чтобы получить доступ к вашей учетной записи.',
               'Используйте этот код в {{url}}/verify-token/{{to}}/{{verificationToken}} или нажмите кнопку ниже.',
-              '{{verificationToken}}'
           ],
           'USER_PASSWORD' => [
               'Пароль изменен - OpenSupports',
@@ -619,28 +564,24 @@ class MailTexts {
               'Восстановить пароль',
               'Здравствуй, {{name}}. Вы запросили восстановить пароль.',
               'Используйте этот код в {{url}}/recover-password?email={{to}}&token={{token}} или нажмите кнопку ниже.',
-              '{{token}}'
           ],
           'USER_SYSTEM_DISABLED' => [
               'Система доступа изменена - OpenSupports',
               'Система доступа изменена',
               'Здравствуйте, {{name}}. Система доступа к билетам изменилась.',
               'Вы можете получить доступ к своим билетам и посмотреть их, используя свою электронную почту и номер билета.Нажмите кнопку ниже, чтобы увидеть свои билеты.',
-              '{{tickets}}'
           ],
           'USER_SYSTEM_ENABLED' => [
               'Аккаунт создан - OpenSupports',
               'Аккаунт создан',
               'Здравствуйте, {{name}}. Мы создали учетную запись, где вы можете получить доступ к билетам, которые вы нам отправили.',
               'Вы можете получить доступ к своей учетной записи, используя это электронное письмо <i>({{to}})</i> и пароль ниже.Измените пароль, как только вы войдете в систему.',
-              '{{password}}'
           ],
           'TICKET_CREATED' => [
               '#{{ticketNumber}} Создан билет - OpenSupports',
               'Создан билет',
               'Здравствуйте, {{name}}. Вы отправили новый билет с названием <i>{{title}}</i> в наш центр поддержки.',
               'Вы можете получить доступ к билету по его номеру билета. Или вы можете нажать на кнопку ниже.',
-              '{{ticketNumber}}'
           ],
           'TICKET_RESPONDED' => [
               '#{{ticketNumber}} Новый ответ - OpenSupports',
@@ -659,7 +600,6 @@ class MailTexts {
               'Создан билет',
               'Пользователь {{name}} создал новый билет под названием <i>{{title}}</i>.',
               'Вы можете получить доступ к билету по его номеру билета.',
-              '{{ticketNumber}}'
           ],
         ],
         'tr' => [
@@ -668,7 +608,6 @@ class MailTexts {
               'Hesabınızı doğrulayın',
               'Destek merkezimize hoş geldiniz, {{name}}!. Hesabınıza erişebilmek için bu e-postayı doğrulamanız gerekiyor.',
               'Bu kodu şu adreste kullanın {{url}}/verify-token/{{to}}/{{verificationToken}} veya aşağıdaki butona tıklayın.',
-              '{{verificationToken}}'
           ],
           'USER_PASSWORD' => [
               'Şifre düzenlendi - OpenSupports',
@@ -685,28 +624,24 @@ class MailTexts {
               'Şifre kurtarma',
               'Merhaba, {{name}}. Şifrenizi geri yüklemenizi istediniz.',
               'Bu kodu şu adreste kullanın {{url}}/recover-password?email={{to}}&token={{token}} veya aşağıdaki butona tıklayın.',
-              '{{token}}'
           ],
           'USER_SYSTEM_DISABLED' => [
               'Erişim sistemi değiştirildi - OpenSupports',
               'Erişim sistemi değiştirildi',
               'Merhaba, {{name}}. Biletleri erişmek için sistem değişti.',
               'E-posta adresinizi ve bilet numaranızı kullanarak biletinize erişebilir ve biletlerini görebilirsiniz.Biletlerini görmek için aşağıdaki butona tıklayın.',
-              '{{tickets}}'
           ],
           'USER_SYSTEM_ENABLED' => [
               'Hesap oluşturuldu - OpenSupports',
               'Hesap oluşturuldu',
               'Merhaba, {{name}}. Bize gönderdiğiniz bilete erişebileceğiniz bir hesap oluşturduk.',
               'Hesabınıza, <i>({{to}})</i> e-posta adresini kullanarak ve aşağıdaki şifreyle erişebilirsiniz.Lütfen giriş yaptığınızda şifreyi değiştirin.',
-              '{{password}}'
           ],
           'TICKET_CREATED' => [
               '#{{ticketNumber}} Bilet oluşturuldu - OpenSupports',
               'Bilet oluşturuldu',
               'Merhaba, {{name}}. Destek merkezimize <i>{{title}}</i> başlıklı yeni bir bilet gönderdiniz.',
               'Bilete bilet numarasından erişebilirsiniz. Ya da aşağıdaki düğmeyi tıklayabilirsiniz.',
-              '{{ticketNumber}}'
           ],
           'TICKET_RESPONDED' => [
               '#{{ticketNumber}} Yeni yanıt - OpenSupports',
@@ -725,7 +660,6 @@ class MailTexts {
               'Bilet oluşturuldu',
               'Kullanıcı {{name}} başlıklı yeni bir bilet yarattı <i>{{title}}</i> .',
               'Bilete bilet numarasından erişebilirsiniz.',
-              '{{ticketNumber}}'
           ],
         ],
         'br' => [
@@ -734,7 +668,6 @@ class MailTexts {
               'Verifique sua conta',
               'Bem-vindo ao nosso centro de suporte, {{name}}!. Precisamos que você verifique este e-mail para acessar sua conta.',
               'Use este código em {{url}}/verify-token/{{to}}/{{verificationToken}} ou clique no botão abaixo.',
-              '{{verificationToken}}'
           ],
           'USER_PASSWORD' => [
               'Senha editada - OpenSupports',
@@ -751,28 +684,24 @@ class MailTexts {
               'Recuperar senha',
               'Olá, {{name}}. Você solicitou a recuperação da sua senha.',
               'Use este código em {{url}}/recover-password?email={{to}}&token={{token}} ou clique no botão abaixo.',
-              '{{token}}'
           ],
           'USER_SYSTEM_DISABLED' => [
               'Sistema de acesso alterado - OpenSupports',
               'Sistema de acesso alterado',
               'Oi, {{name}}. O sistema de acesso aos tickets mudou.',
               'Você pode acessar e ver seus bilhetes usando seu e-mail eo número do bilhete.Clique no botão abaixo para ver os seus bilhetes.',
-              '{{tickets}}'
           ],
           'USER_SYSTEM_ENABLED' => [
               'Conta criada - OpenSupports',
               'Conta criada',
               'Oi, {{name}}. Criamos uma conta onde você pode acessar os ingressos que você nos enviou.',
               'Você pode acessar sua conta usando este e-mail <i>({{to}})</i> e a senha abaixo.Por favor, altere a senha assim que fizer login.',
-              '{{password}}'
           ],
           'TICKET_CREATED' => [
               '#{{ticketNumber}} Ticket criado - OpenSupports',
               'Ticket criado',
               'Olá, {{name}}. Você enviou um novo ticket intitulado <i>{{title}}</i> para o nosso centro de suporte.',
               'Você pode acessar o bilhete pelo seu número de bilhete. Ou você pode clicar no botão abaixo.',
-              '{{ticketNumber}}'
           ],
           'TICKET_RESPONDED' => [
               '#{{ticketNumber}} Nova resposta - OpenSupports',
@@ -791,7 +720,6 @@ class MailTexts {
               'Ticket criado',
               'O usuário {{name}} criou um novo bilhete de direito <i>{{title}}</i>.',
               'Você pode acessar o bilhete pelo seu número de bilhete.',
-              '{{ticketNumber}}'
           ],
         ],
         'gr' => [
@@ -800,7 +728,6 @@ class MailTexts {
               'Επιβεβαιώστε το λογαριασμό σας',
               'Καλώς ήρθατε στο κέντρο υποστήριξης {{name}} !. Πρέπει να επαληθεύσετε αυτό το μήνυμα ηλεκτρονικού ταχυδρομείου για να αποκτήσετε πρόσβαση στο λογαριασμό σας.',
               'Χρησιμοποιήστε αυτόν τον κωδικό στο {{url}}/verify-token/{{to}}/{{verificationToken}} ή κάντε κλικ στο παρακάτω κουμπί.',
-              '{{verificationToken}}'
           ],
           'USER_PASSWORD' => [
               'Ο κωδικός επεξεργασίας τροποποιήθηκε- OpenSupports',
@@ -817,29 +744,24 @@ class MailTexts {
               'Ανάκτηση κωδικού πρόσβασης',
               'Γεια σου, {{name}}. Ζητήσατε να ανακτήσετε τον κωδικό πρόσβασής σας.',
               'Χρησιμοποιήστε αυτόν τον κωδικό στο {{url}} / recover-password? Email = {{to}} & token = {{token}} ή κάντε κλικ στο παρακάτω κουμπί.',
-              '{{token}}'
           ],
           'USER_SYSTEM_DISABLED' => [
             'Το σύστημα πρόσβασης άλλαξε - OpenSupports',
             'Το σύστημα πρόσβασης άλλαξε',
             '«Γεια σας, {{name}}. Το σύστημα πρόσβασης στα εισιτήρια έχει αλλάξει. ',
             'Μπορείτε να έχετε πρόσβαση και να δείτε τα εισιτήριά σας χρησιμοποιώντας το email σας και τον αριθμό του εισιτηρίου.Κάντε κλικ στο κουμπί παρακάτω για να δείτε τα εισιτήριά σας.',
-            '{{tickets}}'
           ],
           'USER_SYSTEM_ENABLED' => [
-
             'Δημιουργία λογαριασμού - OpenSupports',
             'Λογαριασμός που δημιουργήθηκε',
             '«Γεια σας, {{name}}. Δημιουργήσαμε ένα λογαριασμό στον οποίο μπορείτε να έχετε πρόσβαση στα εισιτήρια που μας έχετε στείλει. ',
             'Μπορείτε να αποκτήσετε πρόσβαση στο λογαριασμό σας χρησιμοποιώντας αυτό το μήνυμα ηλεκτρονικού ταχυδρομείου <i> ({{to}}) </ i> και τον κωδικό πρόσβασης παρακάτω.Παρακαλώ αλλάξτε τον κωδικό πρόσβασης μόλις συνδεθείτε.',
-            '{{password}}'
           ],
           'TICKET_CREATED' => [
               '#{{ticketNumber}} Δημιουργήθηκε εισιτήριο - OpenSupports',
               'Δημιουργήθηκε εισιτήριο',
               'Χαίρετε, {{name}}.Έχετε στείλει ένα νέο εισιτήριο με τίτλο <i> {{title}} </ i> στο κέντρο υποστήριξης.',
               'Μπορείτε να έχετε πρόσβαση στο εισιτήριο με τον αριθμό εισιτηρίου του ή μπορείτε να κάνετε κλικ στο παρακάτω κουμπί.',
-              '{{ticketNumber}}'
           ],
           'TICKET_RESPONDED' => [
               '#{{ticketNumber}} Νέα απάντηση- OpenSupports',
@@ -858,7 +780,6 @@ class MailTexts {
               'Incident aangemaakt',
               'Gebruiker {{name}} heeft een nieuw incident aangemaakt met onderwerp <i>{{title}}</i>.',
               'Bekijk dit incident via het incidentnummer.',
-              '{{ticketNumber}}'
           ],
         ],
         'nl' => [
@@ -867,7 +788,6 @@ class MailTexts {
               'Verifieer uw account',
               'Welkom bij het Support Center, {{name}}!. U moet uw account verifiëren om toegang te krijgen tot het systeem.',
               'Use this code in {{url}}/verify-token/{{to}}/{{verificationToken}} or click the button below.',
-              '{{verificationToken}}'
           ],
           'USER_PASSWORD' => [
               'Wachtwoord is aangepast - OpenSupports',
@@ -890,22 +810,18 @@ class MailTexts {
             'Toegang tot incidenten is gewijzigd',
             'Hallo, {{name}}. De toegang tot incidenten is gewijzigd.',
             'U kunt uw incidenten bekijken d.m.v. uw email en het incident nummer.Klik op de knop hieronder om uw tickets te bekijken.',
-            '{{tickets}}'
           ],
           'USER_SYSTEM_ENABLED' => [
-
             'Account is aangemaakt - OpenSupports',
             'Account Aangemaakt',
             'Hallo, {{name}}. We hebben een account voor u aangemaakt waarmee u uw incidenten kunt bekijken.',
             'U kunt inloggen met dit email adres <i>({{to}})</i> en onderstaande wachtwoord.Verander alstublieft het wachtwoord na het inloggen.',
-            '{{password}}'
           ],
           'TICKET_CREATED' => [
               '#{{ticketNumber}} Incident aangemaakt - OpenSupports',
               'Incident aangemaakt',
               'Hallo, {{name}}. U heeft zojuist een incident aangemaakt met onderwerp <i>{{title}}</i> in ons support center.',
               'U kunt dit incident bekijken via het incidentnummer of via de knop hieronder.',
-              '{{ticketNumber}}'
           ],
           'TICKET_RESPONDED' => [
               '#{{ticketNumber}} Nieuw antwoord - OpenSupports',
@@ -924,7 +840,6 @@ class MailTexts {
               'Incident is gesloten',
               'Hallo, {{name}}. Een incident met onderwerp <i>{{title}}</i> is gesloten.',
               'U kunt dit incident bekijken via het incidentnummer. Of klik op de knop hieronder.',
-              '{{ticketNumber}}'
           ],
         ],
     ];

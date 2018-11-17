@@ -30,6 +30,7 @@ export default {
     'RESPOND': 'Отвечать',
     'RESPOND_TICKET': 'Ответить билет',
     'CLOSE_TICKET': 'закрыть билет',
+    'DELETE_TICKET': 'Удалить билет',
     'NO_ATTACHMENT': 'Нет вложений файлов',
     'STAFF': 'Сотрудники',
     'CUSTOMER': 'Клиент',
@@ -144,7 +145,7 @@ export default {
     'RECAPTCHA_PUBLIC_KEY': 'Recaptcha Открытый ключ',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha Секретный ключ',
     'ALLOW_FILE_ATTACHMENTS': 'Разрешить файловые вложения',
-    'MAX_SIZE_KB': 'Максимальный размер (КБ)',
+    'MAX_SIZE_MB': 'Максимальный размер (КБ)',
     'UPDATE_SETTINGS': 'Обновить настройки',
     'DEFAULT_LANGUAGE': 'Язык по умолчанию',
     'SUPPORTED_LANGUAGES': 'Поддерживаемые Языки',
@@ -177,6 +178,7 @@ export default {
     'HOME': 'Главная',
     'TICKET_NUMBER': 'Номер билета',
     'NEXT': 'следующий',
+    'SUBJECT': 'Предмет',
     'SEND_EMAIL_ON_NEW_TICKET': 'Отправить письмо на новый билет',
     'STAFF_UPDATED': 'Сотрудник обновлен',
     'UPDATE': 'Обновить',
@@ -187,6 +189,8 @@ export default {
     'PRIVATE': 'частный',
     'ENABLE_USER': 'Включить пользователя',
     'DISABLE_USER': 'Отключить пользователя',
+    'SHOW_CLOSED_TICKETS': 'Показать закрытые билеты',
+    'IMAGE_HEADER_URL': 'URL заголовка изображения',
 
     'CHART_CREATE_TICKET': 'Билеты создано',
     'CHART_CLOSE': ' Билеты закрыты',
@@ -332,6 +336,7 @@ export default {
     'ERRORS_FOUND': 'Ошибки найдены',
     'ERROR_IMAGE_SIZE': 'Изображение не может иметь размер больше {size} МБ',
     'USER_DISABLED': 'Эта учетная запись отключена.',
+    'INVALID_SYNTAX': 'Недопустимый синтаксис.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'Вы успешно зарегистрировались в нашей системе поддержки.',

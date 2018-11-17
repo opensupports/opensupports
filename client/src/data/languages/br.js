@@ -30,6 +30,7 @@ export default {
     'RESPOND': 'Responder',
     'RESPOND_TICKET': 'Responder chamado',
     'CLOSE_TICKET': 'Fechar ticket',
+    'DELETE_TICKET': 'Apagar ticket',
     'NO_ATTACHMENT': 'Nenhum anexo',
     'STAFF': 'Equipe',
     'CUSTOMER': 'Cliente',
@@ -144,7 +145,7 @@ export default {
     'RECAPTCHA_PUBLIC_KEY': 'Chave Pública do Recaptcha',
     'RECAPTCHA_PRIVATE_KEY': 'Private Key do Recaptcha',
     'ALLOW_FILE_ATTACHMENTS': 'Permitir anexar arquivos',
-    'MAX_SIZE_KB': 'Tamanho máximo (KB)',
+    'MAX_SIZE_MB': 'Tamanho máximo (MB)',
     'UPDATE_SETTINGS': 'Atualizar configurações',
     'DEFAULT_LANGUAGE': 'Idioma padrão',
     'SUPPORTED_LANGUAGES': 'Idiomas suportados',
@@ -177,6 +178,7 @@ export default {
     'HOME': 'Inicio',
     'TICKET_NUMBER': 'Número do chamado',
     'NEXT': 'Próximo',
+    'SUBJECT': 'Sujeito',
     'SEND_EMAIL_ON_NEW_TICKET': 'Enviar email para cada novo ticket',
     'STAFF_UPDATED': 'Membro da equipe atualizado',
     'UPDATE': 'Atualizar',
@@ -187,6 +189,8 @@ export default {
     'PRIVATE': 'privado',
     'ENABLE_USER': 'Ativar usuário',
     'DISABLE_USER': 'Desativar usuário',
+    'SHOW_CLOSED_TICKETS': 'Mostrar ingressos fechados',
+    'IMAGE_HEADER_URL': 'URL do cabeçalho da imagem',
 
     'CHART_CREATE_TICKET': 'Chamados criados',
     'CHART_CLOSE': 'Chamados fechados',
@@ -332,6 +336,7 @@ export default {
     'ERRORS_FOUND': 'Erros encontrados',
     'ERROR_IMAGE_SIZE': 'Nenhuma imagem pode ter um tamanho maior que {size} MB',
     'USER_DISABLED': 'Esta conta está desativada.',
+    'INVALID_SYNTAX': 'Sintaxe inválida.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'Você se registrou com sucesso em nosso sistema de suporte.',

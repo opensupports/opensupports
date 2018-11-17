@@ -16,10 +16,11 @@ describe '/staff/get/' do
         (result['data']['sendEmailOnNewTicket']).should.equal('1')
     end
     it 'should return staff member data with staff Id' do
+        staff = $database.getRow('staff','tyrion@opensupports.com','email')
         result = request('/staff/get', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
-            staffId: 3
+            staffId: staff['id']
         })
 
         (result['status']).should.equal('success')

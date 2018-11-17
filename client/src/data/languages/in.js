@@ -30,6 +30,7 @@ export default {
     'RESPOND': 'प्रतिक्रिया',
     'RESPOND_TICKET': 'प्रतिक्रिया टिकट',
     'CLOSE_TICKET': 'करीबी टिकट',
+    'DELETE_TICKET': 'टिकट हटाएं',
     'NO_ATTACHMENT': 'कोई फ़ाइल अनुलग्नक नहीं',
     'STAFF': 'कर्मचारी',
     'CUSTOMER': 'ग्राहक',
@@ -144,7 +145,7 @@ export default {
     'RECAPTCHA_PUBLIC_KEY': 'Recaptcha सार्वजनिक कुंजी',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha निजी कुंजी',
     'ALLOW_FILE_ATTACHMENTS': 'फ़ाइल अनुलग्नकों की अनुमति दें',
-    'MAX_SIZE_KB': 'अधिकतम आकार (KB)',
+    'MAX_SIZE_MB': 'अधिकतम आकार (MB)',
     'UPDATE_SETTINGS': 'सेटिंग अपडेट करें',
     'DEFAULT_LANGUAGE': 'डिफ़ॉल्ट भाषा',
     'SUPPORTED_LANGUAGES': 'समर्थित भाषाएँ',
@@ -177,6 +178,7 @@ export default {
     'HOME': 'घर',
     'TICKET_NUMBER': 'टिकट नंबर',
     'NEXT': 'आगामी',
+    'SUBJECT': 'विषय',
     'SEND_EMAIL_ON_NEW_TICKET': 'एक ईमेल भेजने के लिए प्रत्येक नए टिकट',
     'STAFF_UPDATED': 'स्टाफ सदस्य को अद्यतन किया गया है',
     'UPDATE': 'अद्यतन',
@@ -187,6 +189,8 @@ export default {
     'PRIVATE': 'निजी',
     'ENABLE_USER': 'उपयोगकर्ता सक्षम करें',
     'DISABLE_USER': 'उपयोगकर्ता को अक्षम करें',
+    'SHOW_CLOSED_TICKETS': 'बंद टिकट दिखाएं',
+    'IMAGE_HEADER_URL': 'छवि शीर्षलेख यूआरएल',
 
     'CHART_CREATE_TICKET': 'टिकट बनाया',
     'CHART_CLOSE': 'टिकट बंद कर दिया',
@@ -332,6 +336,7 @@ export default {
     'ERRORS_FOUND': 'त्रुटियां मिलीं',
     'ERROR_IMAGE_SIZE': 'कोई छवि {size} एमबी से अधिक आकार नहीं हो सकती है',
     'USER_DISABLED': 'यह खाता अक्षम है।',
+    'INVALID_SYNTAX': 'अवैध वाक्य रचना।',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'आप हमारे समर्थन प्रणाली में सफलतापूर्वक दर्ज कर लिया है।',

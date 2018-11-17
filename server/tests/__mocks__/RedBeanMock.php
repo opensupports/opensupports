@@ -10,6 +10,7 @@ namespace RedBeanPHP {
             self::setStatics(array(
                 'trash' => parent::stub(),
                 'store' => parent::stub(),
+                'exec' => parent::stub(),
                 'dispense' => parent::stub()->returns(new \BeanMock())
             ));
         }

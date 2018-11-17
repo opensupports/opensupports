@@ -1,7 +1,4 @@
 <?php
-require_once 'libs/Validator.php';
-require_once 'models/Session.php';
-
 use RedBeanPHP\Facade as RedBean;
 
 abstract class Controller {
@@ -107,9 +104,6 @@ abstract class Controller {
         if(!$totalImages) return [];
 
         $maxSize = Setting::getSetting('max-size')->getValue();
-        $fileGap = Setting::getSetting('file-gap')->getValue();
-        $fileFirst = Setting::getSetting('file-first-number')->getValue();
-        $fileQuantity = Setting::getSetting('file-quantity');
 
         $fileUploader = FileUploader::getInstance();
         $fileUploader->setMaxSize($maxSize);
@@ -125,13 +119,10 @@ abstract class Controller {
         $imagePaths = [];
         $url = Setting::getSetting('url')->getValue();
         for($i=0;$i<$totalImages;$i++) {
-            $fileUploader->setGeneratorValues($fileGap, $fileFirst, $fileQuantity->getValue());
             $fileUploader->upload("image_$i");
             $imagePaths[] = $url . '/api/system/download?file=' . $fileUploader->getFileName();
-            $fileQuantity->value++;
         }
 
-        $fileQuantity->store();
         return $imagePaths;
     }
 
@@ -142,17 +133,11 @@ abstract class Controller {
         if(!isset($_FILES['file'])) return '';
 
         $maxSize = Setting::getSetting('max-size')->getValue();
-        $fileGap = Setting::getSetting('file-gap')->getValue();
-        $fileFirst = Setting::getSetting('file-first-number')->getValue();
-        $fileQuantity = Setting::getSetting('file-quantity');
 
         $fileUploader = FileUploader::getInstance();
         $fileUploader->setMaxSize($maxSize);
-        $fileUploader->setGeneratorValues($fileGap, $fileFirst, $fileQuantity->getValue());
 
         if($fileUploader->upload('file')) {
-            $fileQuantity->value++;
-            $fileQuantity->store();
 
             return $fileUploader;
         } else {
