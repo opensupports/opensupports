@@ -7,6 +7,7 @@ import AdminDataActions from 'actions/admin-data-actions';
 import i18n  from 'lib-app/i18n';
 import API   from 'lib-app/api-call';
 import SessionStore       from 'lib-app/session-store';
+import MentionsParser     from 'lib-app/mentions-parser';
 
 import TicketEvent        from 'app-components/ticket-event';
 import AreYouSure         from 'app-components/are-you-sure';
@@ -73,7 +74,7 @@ class TicketViewer extends React.Component {
                 </div>
                 {this.props.editable ? this.renderEditableHeaders() : this.renderHeaders()}
                 <div className="ticket-viewer__content">
-                    <TicketEvent type="COMMENT" author={ticket.author} content={ticket.content} date={ticket.date} file={ticket.file}/>
+                    <TicketEvent type="COMMENT" author={ticket.author} content={this.props.userStaff ? MentionsParser.parse(ticket.content) : ticket.content} date={ticket.date} file={ticket.file}/>
                 </div>
                 <div className="ticket-viewer__comments">
                     {ticket.events && ticket.events.map(this.renderTicketEvent.bind(this))}
@@ -206,6 +207,9 @@ class TicketViewer extends React.Component {
     }
 
     renderTicketEvent(options, index) {
+        if (this.props.userStaff) {
+            options.content = MentionsParser.parse(options.content);
+        }
         return (
             <TicketEvent {...options} author={(!_.isEmpty(options.author)) ? options.author : this.props.ticket.author} key={index} />
         );
