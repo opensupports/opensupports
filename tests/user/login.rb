@@ -44,28 +44,38 @@ describe '/user/login' do
         (result['data']['staff']).should.equal('true')
     end
 
-    it 'should return remember token' do
+    it 'should work with remember token' do
         request('/user/logout', {})
         result = request('/user/login', {
             email: @loginEmail,
             password: @loginPass,
-            remember: true
+            remember: 1
         })
 
         (result['status']).should.equal('success')
 
         @rememberToken = result['data']['rememberToken']
-        @userid = result['data']['userId']
-    end
+        @userId = result['data']['userId']
 
-    it 'should login with token' do
         request('/user/logout', {})
         result = request('/user/login', {
-            rememberToken: @rememberToken,
-            userId: @userid
+            userId: @userId,
+            rememberToken: '12abc',
+            remember: 1
         })
+        (result['status']).should.equal('fail')
+        result = request('/user/login', {
+            userId: 1,
+            rememberToken: @rememberToken,
+            remember: 1
+        })
+        (result['status']).should.equal('fail')
 
+        result = request('/user/login', {
+            userId: @userId,
+            rememberToken: @rememberToken,
+            remember: 1
+        })
         (result['status']).should.equal('success')
-        (result['data']['userId']).should.equal(@userid)
     end
 end

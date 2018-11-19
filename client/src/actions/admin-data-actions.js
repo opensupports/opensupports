@@ -12,32 +12,32 @@ export default {
         };
     },
 
-    retrieveMyTickets() {
+    retrieveMyTickets(page, closed = 0) {
         return {
             type: 'MY_TICKETS',
             payload: API.call({
                 path: '/staff/get-tickets',
-                data: {}
+                data: {page, closed}
             })
         };
     },
 
-    retrieveNewTickets() {
+    retrieveNewTickets(page = 1) {
         return {
             type: 'NEW_TICKETS',
             payload: API.call({
                 path: '/staff/get-new-tickets',
-                data: {}
+                data: {page}
             })
         };
     },
 
-    retrieveAllTickets(page = 1) {
+    retrieveAllTickets(page = 1, query = '', closed = 0) {
         return {
             type: 'ALL_TICKETS',
             payload: API.call({
                 path: '/staff/get-all-tickets',
-                data: {page}
+                data: {page, query, closed}
             })
         };
     },

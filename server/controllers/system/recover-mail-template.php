@@ -13,7 +13,7 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiPermission staff3
  *
- * @apiParam {String} templateType Type of the template.
+ * @apiParam {String} template Type of the template.
  * @apiParam {String} language Lenguage of the template.
  *
  * @apiUse NO_PERMISSION
@@ -32,7 +32,7 @@ class RecoverMailTemplateController extends Controller {
         return [
             'permission' => 'staff_3',
             'requestData' => [
-                'templateType' => [
+                'template' => [
                     'validation' => DataValidator::length(4),
                     'error' => ERRORS::INVALID_TEMPLATE
                 ],
@@ -45,23 +45,24 @@ class RecoverMailTemplateController extends Controller {
     }
 
     public function handler() {
-        $type = Controller::request('templateType');
+        $templateType = Controller::request('template');
         $language = Controller::request('language');
 
-        $mailTemplate = MailTemplate::findOne(' language = ? AND type = ?', [$language, $type]);
+        $mailTemplate = MailTemplate::findOne(' language = ? AND template = ?', [$language, $templateType]);
 
         if($mailTemplate->isNull()) {
-            Response::respondError(ERRORS::INVALID_TEMPLATE);
-            return;
+            throw new Exception(ERRORS::INVALID_TEMPLATE);
         }
-        $defaultTemplates = InitialMails::retrieve();
 
-        $mailTemplate->body = $defaultTemplates[$type][$language]['body'] ;
-        $mailTemplate->subject = $defaultTemplates[$type][$language]['subject'] ;
+        $mailTexts = MailTexts::getTexts()[$language][$templateType];
+
+        $mailTemplate->subject = $mailTexts[0];
+        $mailTemplate->text1 = (array_key_exists(1, $mailTexts)) ? $mailTexts[1] : '';
+        $mailTemplate->text2 = (array_key_exists(2, $mailTexts)) ? $mailTexts[2] : '';
+        $mailTemplate->text3 = (array_key_exists(3, $mailTexts)) ? $mailTexts[3] : '';
 
         $mailTemplate->store();
-        
-        Response::respondSuccess();
 
+        Response::respondSuccess();
     }
 }

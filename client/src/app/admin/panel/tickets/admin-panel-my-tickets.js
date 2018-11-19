@@ -18,11 +18,17 @@ class AdminPanelMyTickets extends React.Component {
     static defaultProps = {
         userId: 0,
         departments: [],
-        tickets: []
+        tickets: [],
+        page: 1,
+        pages: 0,
+    };
+
+    state = {
+        closedTicketsShown: false,
     };
 
     componentDidMount() {
-        this.props.dispatch(AdminDataAction.retrieveMyTickets());
+        this.retrieveMyTickets()
     }
 
     render() {
@@ -46,8 +52,21 @@ class AdminPanelMyTickets extends React.Component {
             tickets: this.props.tickets,
             type: 'secondary',
             loading: this.props.loading,
-            ticketPath: '/admin/panel/tickets/view-ticket/'
+            ticketPath: '/admin/panel/tickets/view-ticket/',
+            closedTicketsShown: this.state.closedTicketsShown,
+            onClosedTicketsShownChange: this.onClosedTicketsShownChange.bind(this),
+            pages: this.props.pages,
+            page: this.props.page,
+            onPageChange: event => this.retrieveMyTickets(event.target.value)
         };
+    }
+
+    onClosedTicketsShownChange() {
+        this.setState(function(state) {
+            return {
+                closedTicketsShown: !state.closedTicketsShown
+            };
+        }, () => this.retrieveMyTickets());
     }
 
     onCreateTicket() {
@@ -63,7 +82,11 @@ class AdminPanelMyTickets extends React.Component {
 
     onCreateTicketSuccess() {
         ModalContainer.closeModal();
-        this.props.dispatch(AdminDataAction.retrieveMyTickets());
+        this.retrieveMyTickets();
+    }
+
+    retrieveMyTickets(page = this.props.page, closed = this.state.closedTicketsShown) {
+        this.props.dispatch(AdminDataAction.retrieveMyTickets(page, closed * 1));
     }
 }
 
@@ -72,6 +95,8 @@ export default connect((store) => {
         userId: store.session.userId,
         departments: store.session.userDepartments,
         tickets: store.adminData.myTickets,
+        page: store.adminData.myTicketsPage,
+        pages: store.adminData.myTicketsPages,
         loading: !store.adminData.myTicketsLoaded,
         error: store.adminData.myTicketsError
     };

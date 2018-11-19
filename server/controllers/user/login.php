@@ -1,4 +1,5 @@
 <?php
+use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {post} /user/login Login
@@ -39,6 +40,7 @@ class LoginController extends Controller {
 
     private $userInstance;
     private $rememberToken;
+    private $rememberExpiration;
 
     public function validations() {
         return [
@@ -56,6 +58,8 @@ class LoginController extends Controller {
             throw new Exception(ERRORS::SESSION_EXISTS);
         }
 
+        $this->clearOldRememberTokens();
+
         if ($this->checkInputCredentials() || $this->checkRememberToken()) {
             if($this->userInstance->verificationToken !== null) {
                 throw new Exception(ERRORS::UNVERIFIED_USER);
@@ -66,7 +70,7 @@ class LoginController extends Controller {
             }
 
             $this->createUserSession();
-            $this->createSessionCookie();
+            $this->createRememberToken();
             if(Controller::request('staff')) {
                 $this->userInstance->lastLogin = Date::getCurrentDate();
                 $this->userInstance->store();
@@ -106,7 +110,8 @@ class LoginController extends Controller {
             'userEmail' => $userInstance->email,
             'staff' => Controller::request('staff'),
             'token' => Session::getInstance()->getToken(),
-            'rememberToken' => $this->rememberToken
+            'rememberToken' => $this->rememberToken,
+            'rememberExpiration' => $this->rememberExpiration
         );
     }
 
@@ -138,18 +143,30 @@ class LoginController extends Controller {
         return $userInstance;
     }
 
-    private function createSessionCookie() {
-        $remember =  Controller::request('remember');
+    private function clearOldRememberTokens() {
+        $currentDate = Date::getCurrentDate();
+
+        try {
+            RedBean::exec("DELETE FROM sessioncookie WHERE expiration_date < $currentDate");
+        } catch(Exception $e) {}
+    }
+
+    private function createRememberToken() {
+        $remember = Controller::request('remember');
+
         if ($remember) {
             $this->rememberToken = Hashing::generateRandomToken();
+            $this->rememberExpiration = Date::getNextDate(30);
 
             $sessionCookie = new SessionCookie();
             $sessionCookie->setProperties(array(
                 'user' => $this->userInstance,
                 'token' => $this->rememberToken,
                 'ip' => $_SERVER['REMOTE_ADDR'],
-                'creationDate' =>  date('d-m-Y (H:i:s)')
+                'creationDate' =>  Date::getCurrentDate(),
+                'expirationDate' => $this->rememberExpiration
             ));
+
             $sessionCookie->store();
         }
     }

@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+import SessionActions from 'actions/session-actions';
+
 import i18n from 'lib-app/i18n';
 
 import Header from 'core-components/header';
@@ -15,6 +17,10 @@ class DashboardListTicketsPage extends React.Component {
         tickets: []
     };
 
+    componentDidMount() {
+        this.retrieveUserData();
+    }
+
     render() {
         return (
             <div className="dashboard-ticket-list">
@@ -22,6 +28,10 @@ class DashboardListTicketsPage extends React.Component {
                 <TicketList tickets={this.props.tickets} type="primary"/>
             </div>
         );
+    }
+
+    retrieveUserData() {
+        this.props.dispatch(SessionActions.getUserData());
     }
 }
 

@@ -11,14 +11,20 @@ class AdminDataReducer extends Reducer {
             customResponsesLoaded: false,
 
             myTickets: [],
+            myTicketsPage: 1,
+            myTicketsPages: 1,
             myTicketsLoaded: false,
             myTicketsError: false,
 
             newTickets: [],
+            newTicketsPage: 1,
+            newTicketsPages: 1,
             newTicketsLoaded: false,
             newTicketsError: false,
 
             allTickets: [],
+            allTicketsPage: 1,
+            allTicketsPages: 1,
             allTicketsLoaded: false,
             allTicketsError: false,
 
@@ -61,7 +67,9 @@ class AdminDataReducer extends Reducer {
 
     onMyTicketsRetrieved(state, payload) {
         return _.extend({}, state, {
-            myTickets: payload.data,
+            myTickets: payload.data.tickets,
+            myTicketsPage: payload.data.page * 1,
+            myTicketsPages: payload.data.pages * 1,
             myTicketsLoaded: true
         });
     }
@@ -82,7 +90,9 @@ class AdminDataReducer extends Reducer {
 
     onNewTicketsRetrieved(state, payload) {
         return _.extend({}, state, {
-            newTickets: payload.data,
+            newTickets: payload.data.tickets,
+            newTicketsPage: payload.data.page * 1,
+            newTicketsPages: payload.data.pages * 1,
             newTicketsLoaded: true
         });
     }
@@ -104,7 +114,8 @@ class AdminDataReducer extends Reducer {
     onAllTicketsRetrieved(state, payload) {
         return _.extend({}, state, {
             allTickets: payload.data.tickets,
-            allTicketsPages: payload.data.pages,
+            allTicketsPage: payload.data.page * 1,
+            allTicketsPages: payload.data.pages * 1,
             allTicketsLoaded: true
         });
     }

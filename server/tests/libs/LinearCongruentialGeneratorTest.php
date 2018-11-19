@@ -1,7 +1,4 @@
 <?php
-include_once 'libs/Hashing.php';
-include_once 'libs/LinearCongruentialGenerator.php';
-
 use PHPUnit\Framework\TestCase;
 
 class LinearCongruentialGeneratorTest extends TestCase {

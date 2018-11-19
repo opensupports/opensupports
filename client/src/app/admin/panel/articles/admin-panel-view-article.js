@@ -7,6 +7,7 @@ import ArticlesActions from 'actions/articles-actions';
 import SessionStore from 'lib-app/session-store';
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
+import MentionsParser from 'lib-app/mentions-parser';
 import DateTransformer from 'lib-core/date-transformer';
 
 import AreYouSure from 'app-components/are-you-sure';
@@ -76,7 +77,7 @@ class AdminPanelViewArticle extends React.Component {
                     <Header title={article.title}/>
 
                     <div className="admin-panel-view-article__article-content">
-                        <div dangerouslySetInnerHTML={{__html: article.content}}/>
+                        <div dangerouslySetInnerHTML={{__html: MentionsParser.parse(article.content)}}/>
                     </div>
                     <div className="admin-panel-view-article__last-edited">
                         {i18n('LAST_EDITED_IN', {date: DateTransformer.transformToString(article.lastEdited)})}
