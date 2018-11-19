@@ -1,10 +1,15 @@
 <?php
 
+/**
+ * Trait SingletonTrait
+ * This trait helps implementing singleton classes
+ * It must be used on each class in a hierarchy that needs to be a singleton
+ */
 trait SingletonTrait
 {
-    private static $instance;
+    protected static $instance;
 
-    protected function __construct()
+    private function __construct()
     {
     }
 

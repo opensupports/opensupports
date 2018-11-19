@@ -1,6 +1,8 @@
 <?php
 
 class FileDownloader extends FileManager {
+    use SingletonTrait;
+
     public function download() {
         $fullFilePath = $this->getFullFilePath();
 

@@ -1,7 +1,6 @@
 <?php
 
 abstract class FileManager {
-    use SingletonTrait;
     private $fileName;
     private $localPath = 'files/';
 

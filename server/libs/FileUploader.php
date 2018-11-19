@@ -1,13 +1,14 @@
 <?php
 
 class FileUploader extends FileManager {
+    use SingletonTrait;
+
     private $maxSize = 1;
     private $fileName;
     private $permission;
     private $storage;
 
-    protected function __construct() {
-        parent::__construct();
+    private function __construct() {
         $this->storage = new \Upload\Storage\FileSystem($this->getLocalPath());
     }
 
