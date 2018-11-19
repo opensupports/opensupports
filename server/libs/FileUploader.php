@@ -6,7 +6,8 @@ class FileUploader extends FileManager {
     private $permission;
     private $storage;
 
-    private function __construct() {
+    protected function __construct() {
+        parent::__construct();
         $this->storage = new \Upload\Storage\FileSystem($this->getLocalPath());
     }
 
