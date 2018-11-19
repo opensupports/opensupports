@@ -3,6 +3,11 @@
 .application {
     padding: $half-space;
 
+    &__staff-limit-button {
+        text-align: center;
+        margin-top: 20px;
+    }
+
     &_full-width {
         padding: 0;
 
@@ -53,7 +58,7 @@
         .signup-widget {
             background-color: $very-light-grey;
         }
-        
+
         .dashboard {
 
             .widget {

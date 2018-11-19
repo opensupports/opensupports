@@ -37,7 +37,7 @@ export default {
             payload: newLanguage
         };
     },
-    
+
     updateData() {
         return {
             type: 'UPDATE_DATA',

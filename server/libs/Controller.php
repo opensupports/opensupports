@@ -1,8 +1,38 @@
 <?php
 use RedBeanPHP\Facade as RedBean;
 
+global $client;
+
 abstract class Controller {
     private static $dataRequester;
+    private $staffOverLimit;
+
+    public static function runStaffLimitFirewall() {
+        $loggedUser = Controller::getLoggedUser();
+        $this->staffOverLimit = $client->getStaffLimit() < Staff::count();
+
+        if(($loggedUser instanceOf Staff) && $this->staffOverLimit) {
+            $allowed = [
+                '/ticket/get-custom-responses',
+                '/system/get-stats',
+                '/system/get-settings',
+                '/system/check-requirements',
+                '/staff/edit',
+                '/staff/delete',
+                '/staff/get',
+                '/staff/get-all',
+            ];
+
+            $app = self::getAppInstance();
+            $resourceUri = $app->request->getResourceUri();
+
+            foreach($blockList as $blockedPath) {
+                if(strpos($resourceUri, $blockedPath) === false) {
+                    throw new Exception(ERRORS::STAFF_LIMIT);
+                }
+            }
+        }
+    }
 
     /**
      * Instance-related stuff
@@ -13,9 +43,12 @@ abstract class Controller {
     public function getHandler() {
         return function () {
             try {
+                $this->runStaffLimitFirewall();
+
                 if(RedBean::testConnection() && !Setting::isTableEmpty()) {
                     Session::getInstance()->setSessionPrefix(Setting::getSetting('session-prefix')->getValue());
                 }
+
                 $this->validate();
                 $this->handler();
             } catch (\Exception $exception) {

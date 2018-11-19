@@ -37,6 +37,7 @@ class GetSettingsController extends Controller {
         if(InstallationDoneController::isInstallationDone()) {
             if(Controller::request('allSettings') && Controller::isStaffLogged(3)) {
                 $settingsList = [
+                    'staffLimit' => $this->staffOverLimit,
                     'language' => Setting::getSetting('language')->getValue(),
                     'reCaptchaKey' => ($captchaValues['isDefault']) ? 'DEFAULT' : $captchaValues['recaptcha-public'],
                     'reCaptchaPrivate' => ($captchaValues['isDefault']) ? 'DEFAULT' : $captchaValues['recaptcha-private'],
@@ -56,10 +57,11 @@ class GetSettingsController extends Controller {
                     'supportedLanguages' => Language::getSupportedLanguages(),
                     'allowedLanguages' => Language::getAllowedLanguages(),
                     'session-prefix' => Setting::getSetting('session-prefix')->getValue(),
-                    'mail-template-header-image' => Setting::getSetting('mail-template-header-image')->getValue()
+                    'mail-template-header-image' => Setting::getSetting('mail-template-header-image')->getValue(),
                 ];
             } else {
                 $settingsList = [
+                    'staffLimit' => $this->staffOverLimit,
                     'reCaptchaKey' => ($captchaValues['recaptcha-public'] !== 'NONE') ? $captchaValues['recaptcha-public'] : '',
                     'language' => Setting::getSetting('language')->getValue(),
                     'time-zone' => Setting::getSetting('time-zone')->getValue(),
@@ -73,7 +75,7 @@ class GetSettingsController extends Controller {
                     'supportedLanguages' => Language::getSupportedLanguages(),
                     'allowedLanguages' => Language::getAllowedLanguages(),
                     'user-system-enabled' => intval(Setting::getSetting('user-system-enabled')->getValue()),
-                    'session-prefix' => Setting::getSetting('session-prefix')->getValue()
+                    'session-prefix' => Setting::getSetting('session-prefix')->getValue(),
                 ];
             }
         }

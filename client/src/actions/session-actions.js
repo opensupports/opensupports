@@ -6,7 +6,6 @@ import sessionStore from 'lib-app/session-store';
 import store from 'app/store';
 
 export default {
-
     login(loginData) {
         return {
             type: 'LOGIN',

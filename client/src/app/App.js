@@ -4,8 +4,14 @@ import classNames         from 'classnames';
 import { connect }        from 'react-redux'
 import DocumentTitle      from 'react-document-title';
 
+import SessionActions from 'actions/session-actions';
+
+import i18n from 'lib-app/i18n';
 import history from 'lib-app/history';
 import ModalContainer from 'app-components/modal-container';
+
+import Message from 'core-components/message';
+import Button from 'core-components/button';
 
 const level2Paths = [
     '/admin/panel/tickets/custom-responses',
@@ -57,19 +63,20 @@ class App extends React.Component {
     }
 
     redirectIfPathIsNotValid(props) {
+        const {pathname} = props.location;
         const validations = {
             languageChanged: props.config.language !== this.props.config.language,
-            loggedIn: !_.includes(props.location.pathname, '/dashboard') && props.session.logged,
-            loggedOut: _.includes(props.location.pathname, '/dashboard') && !props.session.logged,
-            loggedInStaff: !_.includes(props.location.pathname, '/admin/panel') && props.session.logged && props.session.staff,
-            loggedOutStaff: _.includes(props.location.pathname, '/admin/panel') && !props.session.logged
+            loggedIn: !_.includes(pathname, '/dashboard') && props.session.logged,
+            loggedOut: _.includes(pathname, '/dashboard') && !props.session.logged,
+            loggedInStaff: !_.includes(pathname, '/admin/panel') && props.session.logged && props.session.staff,
+            loggedOutStaff: _.includes(pathname, '/admin/panel') && !props.session.logged
         };
 
-        if(props.config['maintenance-mode'] && !_.includes(props.location.pathname, '/admin') && !_.includes(props.location.pathname, '/maintenance')) {
+        if(props.config['maintenance-mode'] && !_.includes(pathname, '/admin') && !_.includes(pathname, '/maintenance')) {
             history.push('/maintenance');
         }
 
-        if(!props.config['maintenance-mode'] && _.includes(props.location.pathname, '/maintenance')) {
+        if(!props.config['maintenance-mode'] && _.includes(pathname, '/maintenance')) {
             history.push('/');
         }
 
@@ -95,24 +102,28 @@ class App extends React.Component {
             history.push('/admin/panel');
         }
 
-        if (!props.config.registration && _.includes(props.location.pathname, 'signup')) {
+        if (!props.config.registration && _.includes(pathname, 'signup')) {
             history.push('/');
         }
 
-        if(props.config['user-system-enabled'] && _.includes(props.location.pathname, '/check-ticket')) {
+        if(props.config['user-system-enabled'] && _.includes(pathname, '/check-ticket')) {
             history.push('/');
         }
 
-        if(props.config.installedDone && !props.config.installed && !_.includes(props.location.pathname, '/install')) {
+        if(props.config.installedDone && !props.config.installed && !_.includes(pathname, '/install')) {
             history.push('/install');
         }
 
-        if(props.config.installedDone && props.config.installed && _.includes(props.location.pathname, '/install')) {
+        if(props.config.installedDone && props.config.installed && _.includes(pathname, '/install')) {
             history.push('/admin');
         }
 
-        if(isProd && _.includes(props.location.pathname, '/components-demo')) {
+        if(isProd && _.includes(pathname, '/components-demo')) {
             history.push('/');
+        }
+
+        if(props.session.logged && props.session.staff && !props.modal.opened && props.config.staffLimit && !_.includes(pathname, '/admin/panel/staff/staff-members') && !_.includes(pathname, '/admin/panel/staff/view-staff')) {
+            this.openStaffLimitModal();
         }
     }
 
@@ -129,6 +140,30 @@ class App extends React.Component {
         }
 
         return true;
+    }
+
+    openStaffLimitModal() {
+        let redirection = () => {
+            ModalContainer.closeModal();
+
+            if(this.props.session.userLevel < 3) {
+                this.props.dispatch(SessionActions.logout());
+            } else {
+                this.context.router.push('/admin/panel/staff/staff-members');
+            }
+        };
+
+        ModalContainer.openModal(
+            <div className="application__staff-limit">
+                <Message title={i18n('STAFF_LIMIT_EXCEEDED')} type="error">
+                    {i18n('STAFF_LIMIT_EXCEEDED_DESCRIPTION', {staffLimit: 4})}
+                </Message>
+                <div className="application__staff-limit-button">
+                    <Button onClick={redirection}>OK</Button>
+                </div>
+            </div>
+        );
+
     }
 }
 

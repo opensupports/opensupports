@@ -6,6 +6,7 @@ import {connect}  from 'react-redux';
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
 import SessionActions from 'actions/session-actions';
+import ConfigActions from 'actions/config-actions';
 
 import PasswordRecovery from 'app-components/password-recovery.js';
 import Button from 'core-components/button';
@@ -26,6 +27,10 @@ class AdminLoginPage extends React.Component {
         loadingLogin: false,
         loadingRecover: false
     };
+
+    componentDidMount() {
+        this.props.dispatch(ConfigActions.updateData());
+    }
 
     componentDidUpdate(prevProps) {
         if (!prevProps.session.failed && this.props.session.failed) {

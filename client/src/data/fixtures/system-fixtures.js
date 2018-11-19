@@ -30,7 +30,8 @@ module.exports = [
                         'allowedLanguages': ['en', 'es', 'de', 'fr', 'pt', 'jp', 'ru', 'cn', 'in', 'tr'],
                         'supportedLanguages': ['en', 'es', 'de'],
                         'registration': true,
-                        'user-system-enabled': true
+                        'user-system-enabled': true,
+                        'staffLimit': 1,
                     }
                 };
 
@@ -51,7 +52,8 @@ module.exports = [
                         'allowedLanguages': ['en', 'es', 'de', 'fr', 'pt', 'jp', 'ru', 'cn', 'in', 'tr'],
                         'supportedLanguages': ['en', 'es', 'de'],
                         'registration': true,
-                        'user-system-enabled': true
+                        'user-system-enabled': true,
+                        'staffLimit': 1,
                     }
                 };
             }

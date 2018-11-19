@@ -387,4 +387,6 @@ export default {
     'SMTP_CONNECTION_ERROR': 'Can\'t connect to SMTP server.',
 
     'STAFF_LIMIT': 'You have reached the limit of staff members allowed. Please update your plan or contact our support team.',
+    'STAFF_LIMIT_EXCEEDED': 'Staff Quantity Exceeded',
+    'STAFF_LIMIT_EXCEEDED_DESCRIPTION': 'The system has more staff members than the purchased quantity of {staffLimit}. Please, ask the admin to delete some staff members.',
 };
