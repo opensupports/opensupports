@@ -53,7 +53,7 @@ class InitSettingsController extends Controller {
     public function handler() {
         if (Setting::isTableEmpty()) {
             $this->storeGlobalSettings();
-            // $this->storeMailTemplates();
+            $this->storeMailTemplates();
             $this->storeLanguages();
             $this->storeMockedDepartments();
 
