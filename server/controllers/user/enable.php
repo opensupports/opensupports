@@ -42,7 +42,7 @@ class EnableUserController extends Controller {
         $user = User::getDataStore(Controller::request('userId'));
 
         if(!$user->disabled) {
-            throw new Exception(ERRORS::ALREADY_ENABLED);
+            throw new RequestException(ERRORS::ALREADY_ENABLED);
         }
 
         $user->disabled = 0;

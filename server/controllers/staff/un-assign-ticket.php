@@ -65,7 +65,7 @@ class UnAssignStaffController extends Controller {
             $ticket->store();
             Response::respondSuccess();
         } else {
-            throw new Exception(ERRORS::NO_PERMISSION);
+            throw new RequestException(ERRORS::NO_PERMISSION);
         }
     }
 }

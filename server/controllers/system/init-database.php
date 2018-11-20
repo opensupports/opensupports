@@ -40,7 +40,7 @@ class InitDatabaseController extends Controller {
 
     public function handler() {
         if(defined('MYSQL_HOST')) {
-            throw new Exception(ERRORS::INIT_SETTINGS_DONE);
+            throw new RequestException(ERRORS::INIT_SETTINGS_DONE);
         }
 
         $dbHost = Controller::request('dbHost');
@@ -56,7 +56,7 @@ class InitDatabaseController extends Controller {
             RedBean::selectDatabase($dbName);
 
             if(!RedBean::testConnection()) {
-                throw new Exception(ERRORS::DATABASE_CONNECTION);
+                throw new RequestException(ERRORS::DATABASE_CONNECTION);
             }
         } else {
             $dbName = 'opensupports_' . Hashing::generateRandomNumber(100, 999);
@@ -65,7 +65,7 @@ class InitDatabaseController extends Controller {
             RedBean::selectDatabase($dbName);
 
             if(!RedBean::testConnection()) {
-                throw new Exception(ERRORS::DATABASE_CREATION);
+                throw new RequestException(ERRORS::DATABASE_CREATION);
             }
         }
 

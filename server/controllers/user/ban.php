@@ -55,7 +55,7 @@ class BanUserController extends Controller {
 
             Response::respondSuccess();
         } else {
-            Response::respondError(ERRORS::ALREADY_BANNED);
+            throw new RequestException(ERRORS::ALREADY_BANNED);
         }
     }
 }

@@ -54,22 +54,22 @@ class AssignStaffController extends Controller {
             $this->staffToAssign = Staff::getDataStore($staffId, 'id');
 
             if($this->staffToAssign->isNull()) {
-                throw new Exception(ERRORS::INVALID_STAFF);
+                throw new RequestException(ERRORS::INVALID_STAFF);
             }
 
             if(!$this->staffToAssign->sharedDepartmentList->includesId($this->ticket->department->id)) {
-                throw new Exception(ERRORS::INVALID_DEPARTMENT);
+                throw new RequestException(ERRORS::INVALID_DEPARTMENT);
             }
         } else {
             $this->staffToAssign = Controller::getLoggedUser();
         }
 
         if($this->ticket->owner) {
-            throw new Exception(ERRORS::TICKET_ALREADY_ASSIGNED);
+            throw new RequestException(ERRORS::TICKET_ALREADY_ASSIGNED);
         }
 
         if(!$this->ticketHasStaffDepartment())  {
-            throw new Exception(ERRORS::INVALID_DEPARTMENT);
+            throw new RequestException(ERRORS::INVALID_DEPARTMENT);
         } else {
             $this->staffToAssign->sharedTicketList->add($this->ticket);
             $this->ticket->owner = $this->staffToAssign;

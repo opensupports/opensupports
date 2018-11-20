@@ -37,12 +37,12 @@ class DisableUserSystemController extends Controller {
         $password = Controller::request('password');
 
         if(!Hashing::verifyPassword($password, Controller::getLoggedUser()->password)) {
-            throw new Exception(ERRORS::INVALID_PASSWORD);
+            throw new RequestException(ERRORS::INVALID_PASSWORD);
 
         }
 
         if(!Controller::isUserSystemEnabled()) {
-            throw new Exception(ERRORS::SYSTEM_USER_IS_ALREADY_DISABLED);
+            throw new RequestException(ERRORS::SYSTEM_USER_IS_ALREADY_DISABLED);
         }
 
         $userSystemEnabled = Setting::getSetting('user-system-enabled');

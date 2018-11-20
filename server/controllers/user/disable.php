@@ -41,7 +41,7 @@ class DisableUserController extends Controller {
     public function handler() {
         $user = User::getDataStore(Controller::request('userId'));
         if($user->disabled) {
-            throw new Exception(ERRORS::ALREADY_DISABLED);
+            throw new RequestException(ERRORS::ALREADY_DISABLED);
         }
 
         $user->disabled = 1;

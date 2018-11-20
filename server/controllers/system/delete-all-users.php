@@ -37,7 +37,7 @@ class DeleteAllUsersController extends Controller {
         $password = Controller::request('password');
 
         if(!Hashing::verifyPassword($password, Controller::getLoggedUser()->password)) {
-            Response::respondError(ERRORS::INVALID_PASSWORD);
+            throw new RequestException(ERRORS::INVALID_PASSWORD);
             return;
         }
 

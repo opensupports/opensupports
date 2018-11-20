@@ -36,7 +36,7 @@ class CSVImportController extends Controller {
         $fileUploader = $this->uploadFile(true);
 
         if(!$fileUploader instanceof FileUploader) {
-            throw new Exception(ERRORS::INVALID_FILE);
+            throw new RequestException(ERRORS::INVALID_FILE);
         }
 
         $file = fopen($fileUploader->getFullFilePath(),'r');

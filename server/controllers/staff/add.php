@@ -97,7 +97,7 @@ class AddStaffController extends Controller {
             return;
         }
 
-        Response::respondError(ERRORS::ALREADY_A_STAFF);
+        throw new RequestException(ERRORS::ALREADY_A_STAFF);
     }
 
     public function storeRequestData() {

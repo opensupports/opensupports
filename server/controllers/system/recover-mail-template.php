@@ -51,7 +51,7 @@ class RecoverMailTemplateController extends Controller {
         $mailTemplate = MailTemplate::findOne(' language = ? AND template = ?', [$language, $templateType]);
 
         if($mailTemplate->isNull()) {
-            throw new Exception(ERRORS::INVALID_TEMPLATE);
+            throw new RequestException(ERRORS::INVALID_TEMPLATE);
         }
 
         $mailTexts = MailTexts::getTexts()[$language][$templateType];

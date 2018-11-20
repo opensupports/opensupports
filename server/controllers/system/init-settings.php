@@ -59,7 +59,7 @@ class InitSettingsController extends Controller {
 
             Response::respondSuccess();
         } else {
-            Response::respondError(ERRORS::INIT_SETTINGS_DONE);
+            throw new RequestException(ERRORS::INIT_SETTINGS_DONE);
         }
     }
 

@@ -80,7 +80,7 @@ class SignUpController extends Controller {
 
     public function handler() {
         if(!Controller::isUserSystemEnabled()) {
-            throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
+            throw new RequestException(ERRORS::USER_SYSTEM_DISABLED);
         }
 
         $this->storeRequestData();
@@ -89,16 +89,16 @@ class SignUpController extends Controller {
         $existentUser = User::getUser($this->userEmail, 'email');
 
         if (!$existentUser->isNull()) {
-            throw new Exception(ERRORS::USER_EXISTS);
+            throw new RequestException(ERRORS::USER_EXISTS);
         }
         $banRow = Ban::getDataStore($this->userEmail,'email');
 
         if (!$banRow->isNull()) {
-            throw new Exception(ERRORS::ALREADY_BANNED);
+            throw new RequestException(ERRORS::ALREADY_BANNED);
         }
 
         if (!Setting::getSetting('registration')->value && $apiKey->isNull() && !Controller::isStaffLogged(2) && !$this->csvImported) {
-            throw new Exception(ERRORS::NO_PERMISSION);
+            throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
         $userId = $this->createNewUserAndRetrieveId();

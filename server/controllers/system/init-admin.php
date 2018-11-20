@@ -53,7 +53,7 @@ class InitAdminController extends Controller {
 
     public function handler() {
         if(!Staff::isTableEmpty()) {
-            throw new Exception(ERRORS::INIT_SETTINGS_DONE);
+            throw new RequestException(ERRORS::INIT_SETTINGS_DONE);
         }
 
         $staff = new Staff();

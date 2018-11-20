@@ -39,7 +39,7 @@ class GetUserController extends Controller {
 
     public function handler() {
         if (Controller::isStaffLogged()) {
-            Response::respondError(ERRORS::INVALID_CREDENTIALS);
+            throw new RequestException(ERRORS::INVALID_CREDENTIALS);
             return;
         }
 

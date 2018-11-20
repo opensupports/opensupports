@@ -55,7 +55,7 @@ class CheckTicketController extends Controller {
 
     public function handler() {
         if (Controller::isUserSystemEnabled() || Controller::isStaffLogged()) {
-            throw new Exception(ERRORS::NO_PERMISSION);
+            throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
         $email = Controller::request('email');
@@ -70,7 +70,7 @@ class CheckTicketController extends Controller {
                 'ticketNumber' => $ticket->ticketNumber
             ]);
         } else {
-            throw new Exception(ERRORS::NO_PERMISSION);
+            throw new RequestException(ERRORS::NO_PERMISSION);
         }
     }
 }

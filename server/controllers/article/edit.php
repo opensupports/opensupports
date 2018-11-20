@@ -55,7 +55,7 @@ class EditArticleController extends Controller {
             if (!$newArticleTopic->isNull()) {
                 $article->topic = $newArticleTopic;
             } else {
-                Response::respondError(ERRORS::INVALID_TOPIC);
+                throw new RequestException(ERRORS::INVALID_TOPIC);
                 return;
             }
         }
