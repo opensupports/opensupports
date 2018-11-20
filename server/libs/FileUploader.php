@@ -54,7 +54,7 @@ class FileUploader extends FileManager {
             new \Upload\Validation\Size($this->maxSize.'M')
         ));
 
-        //try {
+        try {
             if(Controller::isProductionEnv()) {
                 global $client;
                 $client->uploadFile($file->getNameWithExtension(), $_FILES[$fileKey]);
@@ -63,9 +63,9 @@ class FileUploader extends FileManager {
             }
             $this->setFileName($file->getNameWithExtension());
             return true;
-        //} catch (\Exception $e) {
-        //    return false;
-        //}
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     private function generateFileName($fileName) {
