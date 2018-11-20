@@ -65,7 +65,7 @@ class ChangePriorityController extends Controller {
             Log::createLog('PRIORITY_CHANGED', $ticket->ticketNumber);
             Response::respondSuccess();
         } else {
-            Response::respondError(ERRORS::NO_PERMISSION);
+            throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
     }

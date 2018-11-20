@@ -48,7 +48,7 @@ class TestSMTPController extends Controller {
         if($mailSender->isConnected()) {
             Response::respondSuccess();
         } else {
-            throw new Exception(ERRORS::SMTP_CONNECTION);
+            throw new RequestException(ERRORS::SMTP_CONNECTION);
         }
     }
 }

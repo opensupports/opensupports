@@ -46,7 +46,7 @@ class DeleteStaffController extends Controller {
         $staff = Staff::getDataStore($staffId);
 
         if($staffId === Controller::getLoggedUser()->id) {
-            Response::respondError(ERRORS::INVALID_STAFF);
+            throw new RequestException(ERRORS::INVALID_STAFF);
             return;
         }
 

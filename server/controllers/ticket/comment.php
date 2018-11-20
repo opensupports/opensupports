@@ -83,7 +83,7 @@ class CommentController extends Controller {
         $isOwner = $this->ticket->isOwner(Controller::getLoggedUser());
 
         if((Controller::isUserSystemEnabled() || Controller::isStaffLogged()) && !$isOwner && !$isAuthor) {
-            throw new Exception(ERRORS::NO_PERMISSION);
+            throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
         $this->storeComment();

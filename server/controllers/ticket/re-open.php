@@ -44,7 +44,7 @@ class ReOpenController extends Controller {
         $this->ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
 
         if($this->shouldDenyPermission()) {
-            Response::respondError(ERRORS::NO_PERMISSION);
+            throw new RequestException(ERRORS::NO_PERMISSION);
             return;
         }
 

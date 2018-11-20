@@ -57,7 +57,7 @@ class AddAPIKeyController extends Controller {
             $apiInstance->store();
             Response::respondSuccess($token);
         } else {
-            Response::respondError(ERRORS::NAME_ALREADY_USED);
+            throw new RequestException(ERRORS::NAME_ALREADY_USED);
         }
 
     }

@@ -48,7 +48,7 @@ class GetStatsController extends Controller {
 
         if($staffId) {
             if($staffId !== Controller::getLoggedUser()->id && !Controller::isStaffLogged(3)) {
-                Response::respondError(ERRORS::NO_PERMISSION);
+                throw new RequestException(ERRORS::NO_PERMISSION);
                 return;
             }
 

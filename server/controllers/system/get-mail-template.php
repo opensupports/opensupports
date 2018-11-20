@@ -49,7 +49,7 @@ class GetMailTemplateController extends Controller {
         $mailTemplate = MailTemplate::findOne(' language = ? AND template = ?', [$language, $type]);
 
         if($mailTemplate->isNull()) {
-            throw new Exception(ERRORS::INVALID_TEMPLATE);
+            throw new RequestException(ERRORS::INVALID_TEMPLATE);
         }
 
         Response::respondSuccess($mailTemplate->toArray());

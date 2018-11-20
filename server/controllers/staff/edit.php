@@ -63,11 +63,11 @@ class EditStaffController extends Controller {
             $this->staffInstance = Staff::getDataStore($staffId, 'id');
 
             if($this->staffInstance->isNull()) {
-                Response::respondError(ERRORS::INVALID_STAFF);
+                throw new RequestException(ERRORS::INVALID_STAFF);
                 return;
             }
         } else {
-            Response::respondError(ERRORS::NO_PERMISSION);
+            throw new RequestException(ERRORS::NO_PERMISSION);
             return;
         }
 

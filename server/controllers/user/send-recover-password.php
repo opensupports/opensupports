@@ -50,7 +50,7 @@ class SendRecoverPasswordController extends Controller {
 
     public function handler() {
         if(!Controller::isUserSystemEnabled()) {
-            throw new Exception(ERRORS::USER_SYSTEM_DISABLED);
+            throw new RequestException(ERRORS::USER_SYSTEM_DISABLED);
         }
 
         $this->staff = Controller::request('staff');
@@ -77,7 +77,7 @@ class SendRecoverPasswordController extends Controller {
 
             Response::respondSuccess();
         } else {
-            Response::respondError(ERRORS::INVALID_EMAIL);
+            throw new RequestException(ERRORS::INVALID_EMAIL);
         }
     }
 

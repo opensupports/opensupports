@@ -58,7 +58,7 @@ class EditPassword extends Controller {
             
             Response::respondSuccess();
         } else{
-            Response::respondError(ERRORS::INVALID_OLD_PASSWORD);
+            throw new RequestException(ERRORS::INVALID_OLD_PASSWORD);
         }
     }
 }

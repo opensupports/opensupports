@@ -31,7 +31,7 @@ class CheckRequirementsController extends Controller {
 
     public function handler() {
         if(InstallationDoneController::isInstallationDone()) {
-          throw new Exception(ERRORS::INIT_SETTINGS_DONE);
+          throw new RequestException(ERRORS::INIT_SETTINGS_DONE);
         }
 
         Response::respondSuccess([

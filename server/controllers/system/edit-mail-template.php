@@ -74,7 +74,7 @@ class EditMailTemplateController extends Controller {
         $mailTemplate = MailTemplate::findOne(' language = ? AND template = ?', [$this->language, $this->templateType]);
 
         if($mailTemplate->isNull()) {
-            throw new Exception(ERRORS::INVALID_TEMPLATE);
+            throw new RequestException(ERRORS::INVALID_TEMPLATE);
         }
 
         $this->validateReplacements();
@@ -96,21 +96,21 @@ class EditMailTemplateController extends Controller {
             $this->getReplacementStrings($originalText[1]),
             $this->getReplacementStrings($this->texts[0])
         )) {
-            throw new Exception(ERRORS::INVALID_TEXT_1);
+            throw new RequestException(ERRORS::INVALID_TEXT_1);
         }
 
         if(!$this->includes(
             $this->getReplacementStrings($originalText[2]),
             $this->getReplacementStrings($this->texts[1])
         )) {
-            throw new Exception(ERRORS::INVALID_TEXT_2);
+            throw new RequestException(ERRORS::INVALID_TEXT_2);
         }
 
         if(!$this->includes(
             $this->getReplacementStrings($originalText[3]),
             $this->getReplacementStrings($this->texts[2])
         )) {
-            throw new Exception(ERRORS::INVALID_TEXT_3);
+            throw new RequestException(ERRORS::INVALID_TEXT_3);
         }
     }
 

@@ -166,7 +166,7 @@ abstract class Controller {
             $allImagesValidSize = $allImagesValidSize && $fileUploader->isSizeValid($_FILES["image_$i"]);
         }
 
-        if(!$allImagesValidSize) throw new Exception(ERRORS::INVALID_FILE);
+        if(!$allImagesValidSize) throw new RequestException(ERRORS::INVALID_FILE);
 
         $imagePaths = [];
         $url = Setting::getSetting('url')->getValue();
@@ -193,7 +193,7 @@ abstract class Controller {
 
             return $fileUploader;
         } else {
-            throw new Exception(ERRORS::INVALID_FILE);
+            throw new RequestException(ERRORS::INVALID_FILE);
         }
     }
 

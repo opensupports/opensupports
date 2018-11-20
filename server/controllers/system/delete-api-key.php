@@ -44,7 +44,7 @@ class DeleteAPIKeyController extends Controller {
         $keyInstance = APIKey::getDataStore($name, 'name');
         
         if($keyInstance->isNull()) {
-            Response::respondError(ERRORS::INVALID_NAME);
+            throw new RequestException(ERRORS::INVALID_NAME);
             return;
         }
 

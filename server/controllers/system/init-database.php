@@ -39,6 +39,6 @@ class InitDatabaseController extends Controller {
     }
 
     public function handler() {
-        Response::respondError(ERRORS::NO_PERMISSION);
+        throw new RequestException(ERRORS::NO_PERMISSION);
     }
 }

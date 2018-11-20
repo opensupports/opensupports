@@ -45,7 +45,7 @@ class SeenController extends Controller {
         $ticket = Ticket::getByTicketNumber($ticketnumber);
 
         if(!$ticket->isOwner($user) && !$ticket->isAuthor($user)) {
-            throw new Exception(ERRORS::NO_PERMISSION);
+            throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
         if ($ticket->isOwner($user)) {

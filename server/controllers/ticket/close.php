@@ -67,7 +67,7 @@ class CloseController extends Controller {
           !$this->ticket->isOwner(Controller::getLoggedUser()) &&
           !$this->ticket->isAuthor(Controller::getLoggedUser())
         ) {
-            throw new Exception(ERRORS::NO_PERMISSION);
+            throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
         $this->markAsUnread();

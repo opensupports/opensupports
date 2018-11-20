@@ -65,7 +65,7 @@ class TicketGetController extends Controller {
 
         if(Controller::isUserSystemEnabled() || Controller::isStaffLogged()) {
             if ($this->shouldDenyPermission()) {
-                throw new Exception(ERRORS::NO_PERMISSION);
+                throw new RequestException(ERRORS::NO_PERMISSION);
             } else {
                 Response::respondSuccess($this->ticket->toArray());
             }

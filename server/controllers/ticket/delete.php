@@ -45,15 +45,15 @@ class DeleteController extends Controller {
         $ticketAuthor = $ticket->authorToArray();
 
         if($ticket->owner) {
-            throw new Exception(ERRORS::NO_PERMISSION);
+            throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
         if(Controller::isStaffLogged() && $user->level < 3) {
-            throw new Exception(ERRORS::NO_PERMISSION);
+            throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
         if(!Controller::isStaffLogged() && ($user->email !== $ticketAuthor['email'] || $ticketAuthor['staff'])) {
-            throw new Exception(ERRORS::NO_PERMISSION);
+            throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
         $ticket->delete();

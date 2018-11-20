@@ -1,7 +1,9 @@
 <?php
+include_once 'libs/RequestException.php';
+
 use Respect\Validation\Validator as DataValidator;
 
-class ValidationException extends Exception {}
+class ValidationException extends RequestException {}
 
 class Validator {
 

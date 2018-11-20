@@ -43,7 +43,7 @@ class UnBanUserController extends Controller {
         $banRow = Ban::getDataStore($email,'email');
         
         if($banRow->isNull()) {
-            Response::respondError(ERRORS::INVALID_EMAIL);
+            throw new RequestException(ERRORS::INVALID_EMAIL);
         } else {
             $banRow->delete();
             

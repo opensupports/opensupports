@@ -53,7 +53,7 @@ class ChangeDepartmentController extends Controller {
         $user = Controller::getLoggedUser();
 
         if($ticket->owner && $ticket->owner->id !== $user->id && $user->level == 1){
-            throw new Exception(ERRORS::NO_PERMISSION);
+            throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
         $event = Ticketevent::getEvent(Ticketevent::DEPARTMENT_CHANGED);

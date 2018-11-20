@@ -53,7 +53,7 @@ class DeleteDepartmentController extends Controller {
         $this->transferDepartmentId = Controller::request('transferDepartmentId');
 
         if ($this->departmentId === $this->transferDepartmentId) {
-            Response::respondError(ERRORS::SAME_DEPARTMENT);
+            throw new RequestException(ERRORS::SAME_DEPARTMENT);
             return;
         }
 
