@@ -34,6 +34,21 @@ abstract class Controller {
         }
     }
 
+    private function logRequest($time) {
+        $logger = new \Monolog\Logger('general');
+        $logdnaHandler = new \Zwijn\Monolog\Handler\LogdnaHandler('your-key', 'myappname', \Monolog\Logger::DEBUG);
+        $logger->pushHandler($logdnaHandler);
+
+        $logger->debug(
+          "mylog",
+          [
+            'logdna-meta-data-field1' => ['value1' => 'value', 'value2' => 5],
+            'logdna-meta-data-field2' => ['value1' => 'value']
+          ]
+        );
+
+    }
+
     /**
      * Instance-related stuff
     */
@@ -42,6 +57,8 @@ abstract class Controller {
 
     public function getHandler() {
         return function () {
+            $start = microtime();
+
             try {
                 $this->runStaffLimitFirewall();
 
@@ -55,6 +72,8 @@ abstract class Controller {
                 Response::respondError($exception->getMessage());
                 return;
             }
+
+            $this->logRequest(number_format(microtime(true) - $start, 2));
         };
     }
 

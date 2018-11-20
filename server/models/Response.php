@@ -33,4 +33,8 @@ class Response {
         $app->response->setStatus(403);
         $app->response->finalize();
     }
+
+    public static function getResponse() {
+
+    }
 }
