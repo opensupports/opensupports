@@ -1,13 +1,13 @@
 <?php
 use RedBeanPHP\Facade as RedBean;
 
-global $client;
-
 abstract class Controller {
     private static $dataRequester;
     private $staffOverLimit;
 
     public static function runStaffLimitFirewall() {
+        global $client;
+
         $loggedUser = Controller::getLoggedUser();
         $this->staffOverLimit = $client->getStaffLimit() < Staff::count();
 
