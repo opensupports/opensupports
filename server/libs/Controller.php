@@ -5,7 +5,7 @@ abstract class Controller {
     private static $dataRequester;
     private $staffOverLimit;
 
-    public static function runStaffLimitFirewall() {
+    public function runStaffLimitFirewall() {
         global $client;
 
         $loggedUser = Controller::getLoggedUser();
