@@ -1,2 +1,2 @@
-<?php 
+<?php
 class RequestException extends Exception {}

@@ -69,7 +69,7 @@ abstract class Controller {
                 $this->validate();
                 $this->handler();
             } catch (\Exception $exception) {
-                Response::respondError($exception->getMessage());
+                Response::respondError($exception->getMessage(), $exception);
                 return;
             }
 
