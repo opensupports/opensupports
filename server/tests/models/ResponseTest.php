@@ -8,17 +8,17 @@ class ResponseTest extends TestCase {
     public function testErrorResponseFormat() {
         //Mock data
         $mockErrorValue = 'MOCK_ERROR_VALUE';
-        $mockData = array('example' => true);
+        $mockException = array('example' => true);
         $expectedArgument = json_encode(array(
             'status' => 'fail',
             'message' => $mockErrorValue,
-            'data' => $mockData
+            'data' => null
         ));
         $responseInstance = \Slim\Slim::getInstance();
         $responseInstance = $responseInstance->response;
 
         //Execute Response
-        Response::respondError($mockErrorValue, $mockData);
+        Response::respondError($mockErrorValue, $mockException);
 
         //Should have been called with expected format
         $this->assertTrue($responseInstance->setBody->hasBeenCalledWithArgs($expectedArgument));

@@ -1,28 +1,31 @@
 <?php
 class Response {
+    private static $response;
+    private static $responseException;
 
-    public static function respondError($errorMsg, $data = null) {
-        $response = array(
+    public static function respondError($errorMsg, $exception = null) {
+        self::$response = array(
             'status' => 'fail',
             'message' => $errorMsg,
-            'data' => $data
+            'data' => null
         );
+        self::$responseException = $exception;
 
         $app = \Slim\Slim::getInstance();
         $app->response->headers->set('Content-Type', 'application/json');
-        $app->response->setBody(json_encode($response));
+        $app->response->setBody(json_encode(self::$response));
         $app->response->finalize();
     }
 
     public static function respondSuccess($data = null) {
-        $response = array(
+        self::$response = array(
             'status' => 'success',
             'data' => $data
         );
 
         $app = \Slim\Slim::getInstance();
         $app->response->headers->set('Content-Type', 'application/json');
-        $app->response->setBody(json_encode($response));
+        $app->response->setBody(json_encode(self::$response));
         $app->response->finalize();
     }
 
