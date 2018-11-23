@@ -86,7 +86,7 @@ class TicketViewer extends React.Component {
 
     renderEditableHeaders() {
         const ticket = this.props.ticket;
-        const departments = SessionStore.getDepartments();
+        const departments = (this.props.ticket.author.staff ? SessionStore.getDepartments() : this.getPublicDepartments() );
 
         const priorities = {
             'low': 0,
@@ -302,14 +302,7 @@ class TicketViewer extends React.Component {
         };
     }
     getPublicDepartments() {
-        var publicdepartments = Session.Store.getDepartments().map((department) => {
-                if(department.private*1){
-                    null;
-                }else {
-                    department.name;
-                }
-        });
-        return publicdepartments;
+        return _.filter(SessionStore.getDepartments(),d => !(d.private*1));
     }
 
     onDepartmentDropdownChanged(event) {
