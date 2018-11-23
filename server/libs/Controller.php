@@ -37,19 +37,58 @@ abstract class Controller {
     private function logRequest($time) {
         global $client;
         $app = self::getAppInstance();
+        $loggedUserString = null;
+
+        if(self::isUserLogged()) {
+            $loggedUser = self::getLoggedUser();
+            $loggedUserString = $loggedUser->id . ':' . (($loggedUser instanceOf Staff) ? ('staff' . $loggedUser->level) : 'user');
+        }
 
         $logger = new \Monolog\Logger('general');
-        $logdnaHandler = new \Zwijn\Monolog\Handler\LogdnaHandler('your-key', 'myappname', \Monolog\Logger::DEBUG);
+        $logdnaHandler = new \Zwijn\Monolog\Handler\LogdnaHandler($_ENV['LOGDNA_KEY'], 'opensupports-api', \Monolog\Logger::DEBUG);
         $logger->pushHandler($logdnaHandler);
 
-        $logger->debug(
-          "mylog",
-          [
-            'clientId' => $client->getClientId(),
-            'requestTime' => $time,
-            'path' => $app->request->getResourceUri()
-          ]
-        );
+        if(Response::isErrored() && !Response::isExceptionExpected() ) {
+            $exception = Response::getException();
+            $logger->error(
+              $app->request->getResourceUri(),
+              [
+                'clientId' => $client->getClientId(),
+                'requestTime' => $time,
+                'logged' => $loggedUserString,
+                'exceptionMessage' => $exception->getMessage(),
+                'location' => $exception->getFile() . ':' . $exception->getLine(),
+              ]
+            );
+        } else {
+            $response = Response::getResponse();
+            $requestData = [];
+            $ignoreList = [
+                'content',
+                'password',
+                'newPassword',
+                'captcha',
+            ];
+            foreach(static::validations()['requestData'] as $key => $validation) {
+                if(in_array($key, $ignoreList)) {
+                    $requestData[$key] = 'NOT_SHOWN';
+                } else {
+                    $requestData[$key] = Controller::request($key);
+                }
+            }
+
+            $logger->debug(
+              $app->request->getResourceUri(),
+              [
+                'clientId' => $client->getClientId(),
+                'requestTime' => $time,
+                'logged' => $loggedUserString,
+                'status' => $response['status'],
+                'message' => Response::isErrored() ? $response['message'] : null,
+                'data' => json_encode($requestData),
+              ]
+            );
+        }
 
     }
 
@@ -77,7 +116,7 @@ abstract class Controller {
                 return;
             }
 
-            $this->logRequest(number_format(microtime(true) - $start, 2));
+            if(Response::hasBeenCalled()) $this->logRequest(number_format(microtime(true) - $start, 2));
         };
     }
 
