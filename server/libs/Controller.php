@@ -70,9 +70,7 @@ abstract class Controller {
                 'captcha',
             ];
             foreach($this->validations()['requestData'] as $key => $validation) {
-                if(in_array($key, $ignoreList)) {
-                    $requestData[$key] = 'NOT_SHOWN';
-                } else {
+                if(!in_array($key, $ignoreList)) {
                     $requestData[$key] = Controller::request($key);
                 }
             }
@@ -113,7 +111,6 @@ abstract class Controller {
                 $this->handler();
             } catch (\Exception $exception) {
                 Response::respondError($exception->getMessage(), $exception);
-                return;
             }
 
             if(Response::hasBeenCalled()) $this->logRequest(number_format(microtime(true) - $start, 2));
