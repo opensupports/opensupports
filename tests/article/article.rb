@@ -6,9 +6,25 @@ describe 'Article path' do
         icon: 'cogs',
         iconColor: 'red',
         csrf_userid: $csrf_userid,
-        csrf_token: $csrf_token
+        csrf_token: $csrf_token,
+        private: 0
     })
     @topic_id = topic['data']['topicId']
+
+    it 'should create a private topic' do
+        result = request('/article/add-topic', {
+            name: 'Private Topic',
+            icon: 'cogs',
+            iconColor: 'green',
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            private: 1
+        })
+        row = $database.getRow('topic', 'Private Topic', 'name')
+
+        result['status'].should.equal('success')
+        (row['private']).should.equal('1')
+    end
 
     it 'should create article' do
         result = request('/article/add', {
@@ -108,9 +124,15 @@ describe 'Article path' do
         (result['data'][0]['name']).should.equal('Server management')
         (result['data'][0]['icon']).should.equal('cogs')
         (result['data'][0]['iconColor']).should.equal('red')
-        (result['data'][1]['name']).should.equal('Software installation')
-        (result['data'][1]['icon']).should.equal('photo')
-        (result['data'][1]['iconColor']).should.equal('blue')
+        (result['data'][0]['private']).should.equal('0')
+        (result['data'][1]['name']).should.equal('Private Topic')
+        (result['data'][1]['icon']).should.equal('cogs')
+        (result['data'][1]['iconColor']).should.equal('green')
+        (result['data'][1]['private']).should.equal('1')
+        (result['data'][2]['name']).should.equal('Software installation')
+        (result['data'][2]['icon']).should.equal('photo')
+        (result['data'][2]['iconColor']).should.equal('blue')
+        (result['data'][2]['private']).should.equal('0')
 
         (result['data'][0]['articles'][0]['title']).should.equal('Some article')
         (result['data'][0]['articles'][0]['content']).should.equal('This is an article about server management.')
