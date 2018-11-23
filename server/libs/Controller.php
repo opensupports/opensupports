@@ -75,7 +75,7 @@ abstract class Controller {
                 }
             }
 
-            $logger->error(
+            $logger->debug(
               $app->request->getResourceUri(),
               [
                 'clientId' => $client->getClientId(),
