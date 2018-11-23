@@ -56,7 +56,7 @@ class Response {
     }
 
     public static function getResponse() {
-        return $response;
+        return self::$response;
     }
 
     public static function hasBeenCalled() {
