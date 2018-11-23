@@ -69,7 +69,7 @@ abstract class Controller {
                 'newPassword',
                 'captcha',
             ];
-            foreach(static::validations()['requestData'] as $key => $validation) {
+            foreach($this->validations()['requestData'] as $key => $validation) {
                 if(in_array($key, $ignoreList)) {
                     $requestData[$key] = 'NOT_SHOWN';
                 } else {
@@ -85,7 +85,7 @@ abstract class Controller {
                 'logged' => $loggedUserString,
                 'status' => $response['status'],
                 'message' => Response::isErrored() ? $response['message'] : null,
-                'data' => static::validations()['requestData'],
+                'data' => json_encode($requestData),
               ]
             );
         }
