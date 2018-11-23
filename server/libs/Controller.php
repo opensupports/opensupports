@@ -85,7 +85,7 @@ abstract class Controller {
                 'logged' => $loggedUserString,
                 'status' => $response['status'],
                 'message' => Response::isErrored() ? $response['message'] : null,
-                'data' => json_encode($requestData),
+                'data' => $requestData,
               ]
             );
         }
