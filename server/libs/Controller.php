@@ -100,7 +100,7 @@ abstract class Controller {
 
     public function getHandler() {
         return function () {
-            $start = microtime();
+            $start = microtime(true);
 
             try {
                 $this->runStaffLimitFirewall();
