@@ -88,11 +88,11 @@ class AddStaffController extends Controller {
                 'sharedDepartmentList' => $this->getDepartmentList()
 
             ]);
-            
+
             $this->addOwner();
-            
+
             Log::createLog('ADD_STAFF', $this->name);
-            
+
             Response::respondSuccess([
                 'id' => $staff->store()
             ]);
@@ -132,11 +132,11 @@ class AddStaffController extends Controller {
             $departmentRow->store();
         }
     }
-    
+
     private function checkStaffLimitExceeded() {
         if(Controller::isProductionEnv()) {
             global $client;
-            if ($client->getStaffLimit() <= Staff::count()) throw new Exception(ERRORS::STAFF_LIMIT);
+            if ($client->getStaffLimit() <= Staff::count()) throw new RequestException(ERRORS::STAFF_LIMIT);
         }
     }
 }
