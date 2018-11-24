@@ -1,12 +1,4 @@
 <?php
-include 'article/add-topic.php';
-include 'article/edit-topic.php';
-include 'article/delete-topic.php';
-include 'article/add.php';
-include 'article/edit.php';
-include 'article/delete.php';
-include 'article/get-all.php';
-
 $articleControllers = new ControllerGroup();
 $articleControllers->setGroupPath('/article');
 

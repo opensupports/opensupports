@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import {connect} from 'react-redux';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -17,66 +18,58 @@ import SubmitButton from 'core-components/submit-button';
 
 class AdminPanelEmailTemplates extends React.Component {
 
+    static propTypes = {
+        language: React.PropTypes.string,
+    };
+
     state = {
-        loaded: false,
-        items: [],
-        formLoading: false,
-        selectedIndex: 0,
+        headerImage: '',
+        loadingHeaderImage: false,
+        loadingList: true,
+        loadingTemplate: false,
+        templates: [],
+        loadingForm: false,
+        selectedIndex: -1,
         edited: false,
         errors: {},
-        language: 'en',
+        language: this.props.language,
         form: {
-            title: '',
-            content: ''
+            subject: '',
+            text1: '',
+            text2: '',
+            text3: '',
         }
     };
 
     componentDidMount() {
-        this.retrieveEmailTemplates();
+        this.retrieveMailTemplateList();
+        this.retrieveHeaderImage();
     }
 
     render() {
         return (
             <div className="admin-panel-email-templates">
                 <Header title={i18n('EMAIL_TEMPLATES')} description={i18n('EMAIL_TEMPLATES_DESCRIPTION')} />
-                {(this.state.loaded) ? this.renderContent() : this.renderLoading()}
+                {(!this.state.loadingList) ? this.renderContent() : this.renderLoading()}
             </div>
         );
     }
 
     renderContent() {
         return (
-            <div className="row">
-                <div className="col-md-3">
-                    <Listing {...this.getListingProps()}/>
+            <div>
+                <div className="row">
+                    <div className="col-md-3">
+                        <Listing {...this.getListingProps()}/>
+                    </div>
+                    {(this.state.selectedIndex != -1) ? this.renderForm() : null}
                 </div>
-                <div className="col-md-9">
-                    <FormField label={i18n('LANGUAGE')} decorator={LanguageSelector} value={this.state.language} onChange={event => this.onItemChange(this.state.selectedIndex, event.target.value)} fieldProps={{
-                        type: 'allowed',
-                        size: 'medium'
-                    }}/>
-                    <Form {...this.getFormProps()}>
-                        <div className="row">
-                            <div className="col-md-7">
-                                <FormField label={i18n('TITLE')} name="title" validation="TITLE" required fieldProps={{size: 'large'}}/>
-                            </div>
-                        </div>
-                        <FormField label={i18n('CONTENT')} name="content" validation="TEXT_AREA" required decorator={'textarea'} fieldProps={{className: 'admin-panel-email-templates__text-area'}} />
-                        <div className="admin-panel-email-templates__actions">
-                            <div className="admin-panel-email-templates__save-button">
-                                <SubmitButton type="secondary" size="small">{i18n('SAVE')}</SubmitButton>
-                            </div>
-                            <div className="admin-panel-email-templates__optional-buttons">
-                                {(this.state.edited) ? this.renderDiscardButton() : null}
-                                <div className="admin-panel-email-templates__recover-button">
-                                    <Button onClick={this.onRecoverClick.bind(this)} size="medium">
-                                        {i18n('RECOVER_DEFAULT')}
-                                    </Button>
-                                </div>
-                            </div>
-                        </div>
-                    </Form>
-                </div>
+                <Form values={{headerImage: this.state.headerImage}} onChange={form => this.setState({headerImage: form.headerImage})} onSubmit={this.onHeaderImageSubmit.bind(this)}>
+                    <div className="admin-panel-email-templates__image-container">
+                            <FormField className="admin-panel-email-templates__image-header-url" label={i18n('IMAGE_HEADER_URL')} name="headerImage" required fieldProps={{size: 'large'}} />
+                            <SubmitButton className="admin-panel-email-templates__image-header-submit" type="secondary" size="small">{i18n('SAVE')}</SubmitButton>
+                    </div>
+                </Form>
             </div>
         );
     }
@@ -85,6 +78,42 @@ class AdminPanelEmailTemplates extends React.Component {
         return (
             <div className="admin-panel-email-templates__loading">
                 <Loading backgrounded size="large"/>
+            </div>
+        );
+    }
+
+    renderForm() {
+        return (
+            <div className="col-md-9">
+                <FormField label={i18n('LANGUAGE')} decorator={LanguageSelector} value={this.state.language} onChange={event => this.onItemChange(this.state.selectedIndex, event.target.value)} fieldProps={{
+                    type: 'allowed',
+                    size: 'medium'
+                }}/>
+                <Form {...this.getFormProps()}>
+                    <div className="row">
+                        <div className="col-md-7">
+                            <FormField label={i18n('SUBJECT')} name="subject" validation="TITLE" required fieldProps={{size: 'large'}}/>
+                        </div>
+                    </div>
+
+                    <FormField label={i18n('TEXT') + '1'} name="text1" validation="TEXT_AREA" required decorator={'textarea'} fieldProps={{className: 'admin-panel-email-templates__text-area'}} />
+                    {(this.state.form.text2) ? <FormField label={i18n('TEXT') + '2'} name="text2" validation="TEXT_AREA" required decorator={'textarea'} fieldProps={{className: 'admin-panel-email-templates__text-area'}} /> : null}
+                    {(this.state.form.text3) ? <FormField label={i18n('TEXT') + '3'} name="text3" validation="TEXT_AREA" required decorator={'textarea'} fieldProps={{className: 'admin-panel-email-templates__text-area'}} /> : null}
+
+                    <div className="admin-panel-email-templates__actions">
+                        <div className="admin-panel-email-templates__save-button">
+                            <SubmitButton type="secondary" size="small">{i18n('SAVE')}</SubmitButton>
+                        </div>
+                        <div className="admin-panel-email-templates__optional-buttons">
+                            {(this.state.edited) ? this.renderDiscardButton() : null}
+                            <div className="admin-panel-email-templates__recover-button">
+                                <Button onClick={this.onRecoverClick.bind(this)} size="medium">
+                                    {i18n('RECOVER_DEFAULT')}
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </Form>
             </div>
         );
     }
@@ -102,7 +131,7 @@ class AdminPanelEmailTemplates extends React.Component {
     getListingProps() {
         return {
             title: i18n('EMAIL_TEMPLATES'),
-            items: this.getItems(),
+            items: this.getTemplateItems(),
             selectedIndex: this.state.selectedIndex,
             onChange: this.onItemChange.bind(this)
         };
@@ -112,49 +141,94 @@ class AdminPanelEmailTemplates extends React.Component {
         return {
             values: this.state.form,
             errors: this.state.errors,
-            loading: this.state.formLoading,
+            loading: this.state.loadingForm,
             onChange: (form) => {this.setState({form, edited: true})},
             onValidateErrors: (errors) => {this.setState({errors})},
             onSubmit: this.onFormSubmit.bind(this)
         }
     }
 
-    getItems() {
-        return this.state.items.map((item) => {
+    getTemplateItems() {
+        return this.state.templates.map((template) => {
             return {
-                content: item.type
+                content: template
             };
         });
     }
 
     onItemChange(index, language) {
         if(this.state.edited) {
-            AreYouSure.openModal(i18n('WILL_LOSE_CHANGES'), this.updateForm.bind(this, index, language));
+            AreYouSure.openModal(i18n('WILL_LOSE_CHANGES'), this.retrieveEmailTemplate.bind(this, index, language || this.state.language));
         } else {
-            this.updateForm(index, language);
+            this.retrieveEmailTemplate(index, language || this.state.language);
         }
     }
 
+    onHeaderImageSubmit(form) {
+        this.setState({
+            loadingHeaderImage: true,
+        });
+
+        API.call({
+            path: '/system/edit-settings',
+            data: {
+                'mail-template-header-image': form['headerImage']
+            }
+        }).then(() => this.setState({
+            loadingHeaderImage: false,
+        }))
+    }
+
     onFormSubmit(form) {
-        this.setState({formLoading: true});
+        const {selectedIndex, language, templates} = this.state;
+
+        this.setState({loadingForm: true});
 
         API.call({
             path: '/system/edit-mail-template',
             data: {
-                templateType: this.state.items[this.state.selectedIndex].type,
-                subject: form.title,
-                body: form.content,
-                language: this.state.language
+                template: templates[selectedIndex],
+                language,
+                subject: form.subject,
+                text1: form.text1,
+                text2: form.text2,
+                text3: form.text3,
             }
         }).then(() => {
-            this.setState({formLoading: false});
-            this.retrieveEmailTemplates();
+            this.setState({loadingForm: false, edited: false});
+        }).catch(response => {
+            this.setState({
+                loadingForm: false,
+            });
+
+            switch(response.message) {
+                case 'INVALID_SUBJECT':
+                    this.setState({
+                        errors: {subject: i18n('INVALID_SYNTAX')}
+                    });
+                    break;
+                case 'INVALID_TEXT_1':
+                    this.setState({
+                        errors: {text1: i18n('INVALID_SYNTAX')}
+                    });
+                break;
+                case 'INVALID_TEXT_2':
+                    this.setState({
+                        errors: {text2: i18n('INVALID_SYNTAX')}
+                    });
+                break;
+                case 'INVALID_TEXT_3':
+                    this.setState({
+                        errors: {text3: i18n('INVALID_SYNTAX')}
+                    });
+                break;
+            }
         });
     }
 
     onDiscardChangesClick(event) {
         event.preventDefault();
-        this.onItemChange(this.state.selectedIndex);
+        this.onItemChange(this.state.selectedIndex, this.state.language);
     }
 
     onRecoverClick(event) {
@@ -163,74 +237,59 @@ class AdminPanelEmailTemplates extends React.Component {
     }
 
     recoverEmailTemplate() {
+        const {selectedIndex, language, templates} = this.state;
+
         API.call({
             path: '/system/recover-mail-template',
             data: {
-                templateType: this.state.items[this.state.selectedIndex].type,
-                language: this.state.language
+                template: templates[selectedIndex],
+                language
             }
         }).then(() => {
-            this.retrieveEmailTemplates();
+            this.retrieveEmailTemplate(this.state.selectedIndex, language);
         });
     }
 
-    updateForm(index, language) {
-        let form = _.clone(this.state.form);
-        let items = this.state.items;
-
-        language = language || this.state.language;
-
-        form.title = (items[index] && items[index][language].subject) || '';
-        form.content = (items[index] && items[index][language].body) || '';
-
+    retrieveEmailTemplate(index, language) {
         this.setState({
-            selectedIndex: index,
-            language: language,
-            edited: false,
-            formLoading: false,
-            form: form,
-            errors: {}
+            loadingForm: true,
         });
+
+        API.call({
+            path: '/system/get-mail-template',
+            data: {template: this.state.templates[index], language}
+        }).then((result) => this.setState({
+            language,
+            selectedIndex: index,
+            edited: false,
+            loadingForm: false,
+            form: result.data,
+            errors: {},
+        }));
     }
 
-    retrieveEmailTemplates() {
-        return API.call({
-            path: '/system/get-mail-templates',
+    retrieveMailTemplateList() {
+        API.call({
+            path: '/system/get-mail-template-list',
             data: {}
         }).then((result) => this.setState({
-            edited: false,
-            loaded: true,
-            items: this.getParsedItems(result.data)
-        }, this.updateForm.bind(this, this.state.selectedIndex)));
+            loadingList: false,
+            templates: result.data
+        }));
     }
 
-    getParsedItems(items) {
-        let parsedItems = {};
-
-        _.forEach(items, (item) => {
-            if(parsedItems[item.type]) {
-                parsedItems[item.type][item.language] = {
-                    subject: item.subject,
-                    body: item.body
-                };
-            } else {
-                parsedItems[item.type] = {
-                    [item.language]: {
-                        subject: item.subject,
-                        body: item.body
-                    }
-                };
-            }
-        });
-
-        parsedItems = Object.keys(parsedItems).map((type) => {
-            return _.extend({
-                type: type
-            }, parsedItems[type]);
-        });
-
-        return parsedItems;
+    retrieveHeaderImage() {
+        API.call({
+            path: '/system/get-settings',
+            data: {allSettings: 1}
+        }).then(result => this.setState({
+            headerImage: result.data['mail-template-header-image']
+        }));
     }
 }
 
-export default AdminPanelEmailTemplates;
+export default connect((store) => {
+    return {
+        language: store.config.language,
+    };
+})(AdminPanelEmailTemplates);

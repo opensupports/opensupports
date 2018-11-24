@@ -145,7 +145,7 @@ export default {
     'RECAPTCHA_PUBLIC_KEY': 'Recaptcha Public Key',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha Private Key',
     'ALLOW_FILE_ATTACHMENTS': 'Allow file attachments',
-    'MAX_SIZE_KB': 'Max Size (KB)',
+    'MAX_SIZE_MB': 'Max Size (MB)',
     'UPDATE_SETTINGS': 'Update settings',
     'DEFAULT_LANGUAGE': 'Default Language',
     'SUPPORTED_LANGUAGES': 'Supported Languages',
@@ -178,6 +178,7 @@ export default {
     'HOME': 'Home',
     'TICKET_NUMBER': 'Ticket number',
     'NEXT': 'Next',
+    'SUBJECT': 'Subject',
     'SEND_EMAIL_ON_NEW_TICKET': 'Send email on new ticket',
     'STAFF_UPDATED': 'Staff member has been updated',
     'UPDATE': 'Update',
@@ -188,6 +189,8 @@ export default {
     'PRIVATE': 'Private',
     'ENABLE_USER': 'Enable User',
     'DISABLE_USER': 'Disable User',
+    'SHOW_CLOSED_TICKETS': 'Show Closed Tickets',
+    'IMAGE_HEADER_URL': 'Image header URL',
 
     'CHART_CREATE_TICKET': 'Tickets created',
     'CHART_CLOSE': 'Tickets closed',
@@ -334,6 +337,7 @@ export default {
     'ERRORS_FOUND': 'Errors found',
     'ERROR_IMAGE_SIZE': 'No image can have a size greater than {size} MB',
     'USER_DISABLED': 'This account is disabled.',
+    'INVALID_SYNTAX': 'Invalid syntax.',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',

@@ -34,10 +34,13 @@ class MailSender {
     }
 
     public function setTemplate($type, $config) {
-        $mailTemplate = MailTemplate::getTemplate($type);
-        $compiledMailContent = $mailTemplate->compile($config);
+        $mailTemplate = MailTemplate::getMailTemplate($type);
 
-        $this->mailOptions = array_merge($this->mailOptions, $compiledMailContent);
+        $this->mailOptions = array_merge($this->mailOptions, [
+            'subject' => $mailTemplate->getSubject($config),
+            'body' => $mailTemplate->getBody($config),
+            'to' => $config['to'],
+        ]);
     }
 
     public function send() {

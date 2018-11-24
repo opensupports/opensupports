@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import API from 'lib-app/api-call';
 import AdminDataActions from 'actions/admin-data-actions';
 import sessionStore from 'lib-app/session-store';
@@ -12,7 +14,7 @@ export default {
                 let loginCall = () => {
                     API.call({
                         path: '/user/login',
-                        data: loginData
+                        data: _.extend(loginData, {remember: loginData.remember * 1})
                     }).then((result) => {
                         store.dispatch(this.getUserData(result.data.userId, result.data.token, result.data.staff)).then(() => {
                             if(result.data.staff) {
@@ -48,7 +50,8 @@ export default {
                 data: {
                     userId: rememberData.userId,
                     rememberToken: rememberData.token,
-                    isAutomatic: true
+                    remember: 1,
+                    isAutomatic: 1
                 }
             }).then((result) => {
                 store.dispatch(this.getUserData(result.data.userId, result.data.token));

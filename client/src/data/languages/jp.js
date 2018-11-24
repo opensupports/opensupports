@@ -145,7 +145,7 @@ export default {
     'RECAPTCHA_PUBLIC_KEY': 'Recaptcha公開鍵',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha秘密鍵',
     'ALLOW_FILE_ATTACHMENTS': '添付ファイルを許可する',
-    'MAX_SIZE_KB': '最大サイズ（KB）',
+    'MAX_SIZE_MB': '最大サイズ（KB）',
     'UPDATE_SETTINGS': '設定を更新する',
     'DEFAULT_LANGUAGE': '既定の言語',
     'SUPPORTED_LANGUAGES': 'サポートされている言語',
@@ -178,6 +178,7 @@ export default {
     'HOME': 'ホーム',
     'TICKET_NUMBER': 'チケット番号',
     'NEXT': '次',
+    'SUBJECT': '件名',
     'SEND_EMAIL_ON_NEW_TICKET': 'メールを送信毎に新しいチケット',
     'STAFF_UPDATED': 'スタッフメンバーが更新されました',
     'UPDATE': '更新',
@@ -188,6 +189,8 @@ export default {
     'PRIVATE': 'プライベート',
     'ENABLE_USER': 'ユーザーを有効にする',
     'DISABLE_USER': 'ユーザーを無効にする',
+    'SHOW_CLOSED_TICKETS': 'クローズドチケットを表示する',
+    'IMAGE_HEADER_URL': '画像のヘッダーURL',
 
     'CHART_CREATE_TICKET': '作成されたチケット',
     'CHART_CLOSE': 'チケットが閉じられました',
@@ -334,6 +337,7 @@ export default {
     'ERRORS_FOUND': 'エラーが見つかりました',
     'ERROR_IMAGE_SIZE': 'イメージのサイズが{size} MBを超えることはできません',
     'USER_DISABLED': 'このアカウントは無効です。',
+    'INVALID_SYNTAX': '無効な構文。',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'あなたは私たちのサポートシステムに正常に登録しました。',

@@ -20,11 +20,12 @@ class AdminPanelAllTickets extends React.Component {
 
     state = {
         page: 1,
-        query: ''
+        query: '',
+        closedTicketsShown: 0
     };
 
     componentDidMount() {
-        this.props.dispatch(AdminDataAction.retrieveAllTickets());
+        this.updateTicketList();
     }
 
     render() {
@@ -41,6 +42,14 @@ class AdminPanelAllTickets extends React.Component {
         );
     }
 
+    updateTicketList() {
+        this.props.dispatch(AdminDataAction.retrieveAllTickets(
+            this.state.page,
+            this.state.query,
+            this.state.closedTicketsShown * 1
+        ));
+    }
+
     getTicketListProps() {
         return {
             userId: this.props.userId,
@@ -52,28 +61,32 @@ class AdminPanelAllTickets extends React.Component {
             ticketPath: '/admin/panel/tickets/view-ticket/',
             onPageChange: this.onPageChange.bind(this),
             page: this.state.page,
-            pages: this.props.pages
+            pages: this.props.pages,
+            closedTicketsShown: this.state.closedTicketsShown,
+            onClosedTicketsShownChange: this.onClosedTicketsShownChange.bind(this)
         };
     }
 
-    onSearch(query) {
-        this.setState({query, page: 1});
+    onClosedTicketsShownChange() {
+        this.setState(function(state) {
+            return {
+                closedTicketsShown: !state.closedTicketsShown
+            };
+        }, () => {
+            this.updateTicketList();
+        });
+    }
 
-        if(query) {
-            this.props.dispatch(AdminDataAction.searchTickets(query));
-        } else {
-            this.props.dispatch(AdminDataAction.retrieveAllTickets());
-        }
+    onSearch(query) {
+        this.setState({query, page: 1}, () => {
+            this.updateTicketList();
+        });
     }
 
     onPageChange(event) {
-        this.setState({page: event.target.value});
-
-        if(this.state.query) {
-            this.props.dispatch(AdminDataAction.searchTickets(this.state.query, event.target.value));
-        } else {
-            this.props.dispatch(AdminDataAction.retrieveAllTickets(event.target.value));
-        }
+        this.setState({page: event.target.value}, () => {
+            this.updateTicketList();
+        });
     }
 }
 

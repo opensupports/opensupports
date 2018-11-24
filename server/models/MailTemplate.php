@@ -8,7 +8,9 @@ use RedBeanPHP\Facade as RedBean;
  * @apiParam {String} type The type of the mail template.
  * @apiParam {String} subject The subject of the mail template.
  * @apiParam {string} language The language of the mail template.
- * @apiParam {String} body The body of the mail template.
+ * @apiParam {String} text1 First paragraph of the mail template.
+ * @apiParam {String} text2 Second paragraph of the mail template.
+ * @apiParam {String} text3 Thrid paragraph of the mail template.
  */
 
 class MailTemplate extends DataStore {
@@ -24,11 +26,26 @@ class MailTemplate extends DataStore {
     const TICKET_CLOSED = 'TICKET_CLOSED';
     const TICKET_CREATED_STAFF = 'TICKET_CREATED_STAFF';
 
-    public static function getTemplate($type) {
+    public static function getFilePaths() {
+        return [
+          'USER_SIGNUP' => 'data/mail-templates/user-signup.html',
+          'USER_PASSWORD' => 'data/mail-templates/user-edit-password.html',
+          'USER_EMAIL' => 'data/mail-templates/user-edit-email.html',
+          'PASSWORD_FORGOT' => 'data/mail-templates/user-password-forgot.html',
+          'USER_SYSTEM_DISABLED' => 'data/mail-templates/user-system-disabled.html',
+          'USER_SYSTEM_ENABLED' => 'data/mail-templates/user-system-enabled.html',
+          'TICKET_CREATED' => 'data/mail-templates/ticket-created.html',
+          'TICKET_RESPONDED' => 'data/mail-templates/ticket-responded.html',
+          'TICKET_CLOSED' => 'data/mail-templates/ticket-closed.html',
+          'TICKET_CREATED_STAFF' => 'data/mail-templates/ticket-created-staff.html',
+      ];
+    }
+
+    public static function getMailTemplate($template) {
         $globalLanguage = Setting::getSetting('language')->value;
 
-        $bean = RedBean::findOne(MailTemplate::TABLE, 'type = :type AND language = :language', array(
-            ':type'  => $type,
+        $bean = RedBean::findOne(MailTemplate::TABLE, 'template = :template AND language = :language', array(
+            ':template'  => $template,
             ':language' => $globalLanguage
         ));
 
@@ -37,19 +54,36 @@ class MailTemplate extends DataStore {
 
     public static function getProps() {
         return [
-            'type',
+            'template',
             'subject',
             'language',
-            'body'
+            'text1',
+            'text2',
+            'text3',
         ];
     }
 
-    public function compile($config) {
-        return [
-            'body' => $this->compileString($this->body, $config),
-            'subject' => $this->compileString($this->subject, $config),
-            'to' => $config['to']
-        ];
+    public function getSubject($config) {
+        return $this->compileString($this->subject, $config);
+    }
+
+    public function getBody($config) {
+      $templateFilePaths = MailTemplate::getFilePaths();
+      $texts = [
+          $this->text1, $this->text2, $this->text3, $this->text4,
+      ];
+
+      $matches = [];
+      foreach($texts as $key => $val) {
+          $matches[] = '{{' . $this->template . '_MATCH_' . ($key + 1) . '}}';
+      }
+
+      $matches[] = '{{IMAGE_HEADER_URL}}';
+      $texts[] = Setting::getSetting('mail-template-header-image')->value;
+
+      $body = str_replace($matches, $texts, file_get_contents($templateFilePaths[$this->template]));
+
+      return $this->compileString($body, $config);
     }
 
     public function compileString($string, $config) {
@@ -61,12 +95,15 @@ class MailTemplate extends DataStore {
 
         return $compiledString;
     }
+
     public function toArray() {
         return [
-            'type' => $this->type,
+            'template' => $this->template,
             'subject' => $this->subject,
             'language' => $this->language,
-            'body' => $this->body,
+            'text1' => $this->text1,
+            'text2' => $this->text2,
+            'text3' => $this->text3,
         ];
     }
 }

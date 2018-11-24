@@ -2,8 +2,6 @@
 
 class FileUploader extends FileManager {
     private $maxSize = 1;
-    private $linearCongruentialGenerator;
-    private $linearCongruentialGeneratorOffset;
     private $fileName;
     private $permission;
     private $storage;
@@ -71,12 +69,10 @@ class FileUploader extends FileManager {
         $newName = preg_replace('/[^a-zA-Z0-9\d\.\-]/', '_', $newName);
         $result = "";
 
-        if ($this->linearCongruentialGenerator instanceof LinearCongruentialGenerator) {
-            if($this->permission) $result = $this->permission . '_';
-            else $result = '';
+        if($this->permission) $result = $this->permission . '_';
+        else $result = '';
 
-            $result .= $this->linearCongruentialGenerator->generate($this->linearCongruentialGeneratorOffset) . '_' . $newName;
-        }
+        $result .= substr(Hashing::generateRandomToken(),  0, 6) . '_' . $newName;
 
         return $result;
     }
@@ -90,14 +86,6 @@ class FileUploader extends FileManager {
         else if($type === FileManager::PERMISSION_TICKET) $this->permission = 't' . $extra;
         else if($type === FileManager::PERMISSION_PROFILE)    $this->permission = 'p';
         else $this->permission = '';
-    }
-
-    public function setGeneratorValues($gap, $first, $offset) {
-        $this->linearCongruentialGenerator = new LinearCongruentialGenerator();
-        $this->linearCongruentialGeneratorOffset = $offset;
-
-        $this->linearCongruentialGenerator->setGap($gap);
-        $this->linearCongruentialGenerator->setFirst($first);
     }
 
     public function setMaxSize($maxSize) {

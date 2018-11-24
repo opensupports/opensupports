@@ -112,7 +112,7 @@ class AdminPanelSystemPreferences extends React.Component {
                                 <FormField className="admin-panel-system-preferences__file-attachments-field" name="allow-attachments" decorator={ToggleButton}/>
                             </div>
                             <div className="admin-panel-system-preferences__max-size">
-                                <span>{i18n('MAX_SIZE_KB')}</span>
+                                <span>{i18n('MAX_SIZE_MB')}</span>
                                 <FormField className="admin-panel-system-preferences__max-size-field" fieldProps={{size: 'small'}} name="max-size"/>
                             </div>
                         </div>

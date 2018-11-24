@@ -33,13 +33,13 @@ abstract class DataStore {
     }
     public static function find($query = '', $matches = []) {
         $beanList = RedBean::find(static::TABLE, $query, $matches);
-        
+
         return DataStoreList::getList(ucfirst(static::TABLE), $beanList);
     }
-    
+
     public static function findOne($query = '', $matches = []) {
         $bean = RedBean::findOne(static::TABLE, $query, $matches);
-        
+
         return ($bean) ? new static($bean) : new NullDataStore();
     }
 
@@ -148,6 +148,14 @@ abstract class DataStore {
         foreach ($this->properties as $key => $prop) {
             $this->updateBeanProp($key, $prop);
         }
+    }
+
+    public function withCondition($condition, $values) {
+       return new static($this->_bean->withCondition($condition, $values));
+    }
+
+    public function countShared($shared) {
+       return $this->_bean->countShared($shared);
     }
 
     private function updateBeanProp($key, $value) {

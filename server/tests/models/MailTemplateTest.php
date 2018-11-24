@@ -3,7 +3,6 @@ include_once 'tests/__lib__/Mock.php';
 include_once 'tests/__mocks__/BeanMock.php';
 include_once 'tests/__mocks__/SettingMock.php';
 include_once 'tests/__mocks__/RedBeanMock.php';
-include_once 'models/MailTemplate.php';
 
 use RedBeanPHP\Facade as RedBean;
 use PHPUnit\Framework\TestCase;
@@ -20,11 +19,11 @@ class MailTemplateTest extends TestCase {
     }
 
     public function testGetTemplateShouldReturnSpecifiedTemplate() {
-        $mailTemplate = MailTemplate::getTemplate(MailTemplate::USER_SIGNUP);
+        $mailTemplate = MailTemplate::getMailTemplate(MailTemplate::USER_SIGNUP);
 
-        $this->assertEquals('TEST_TYPE', $mailTemplate->type);
-        $this->assertTrue(Redbean::get('findOne')->hasBeenCalledWithArgs('mailtemplate', 'type = :type AND language = :language', array(
-            ':type'  => 'USER_SIGNUP',
+        $this->assertEquals('USER_SIGNUP', $mailTemplate->type);
+        $this->assertTrue(Redbean::get('findOne')->hasBeenCalledWithArgs('mailtemplate', 'template = :template AND language = :language', array(
+            ':template'  => 'USER_SIGNUP',
             ':language' => 'MOCK_SETTING_VALUE'
         )));
     }
@@ -32,23 +31,31 @@ class MailTemplateTest extends TestCase {
     public function testCompilation() {
         $mailTemplate = new MailTemplate();
         $mailTemplate->setProperties([
+            'template' => 'USER_SIGNUP',
             'subject' => 'Welcoming to {{to}}',
-            'body' => 'Welcome, {{userName}} to our team'
+            'text1' => 'Welcome, {{userName}} to our team'
         ]);
 
-        $result = $mailTemplate->compile([
+        $resultSubject = $mailTemplate->getSubject([
             'to' => 'cersei@opensupports.com',
             'userName' => 'Cersei Lannister',
         ]);
 
-        $this->assertEquals($result['subject'], 'Welcoming to cersei@opensupports.com');
-        $this->assertEquals($result['body'], 'Welcome, Cersei Lannister to our team');
+        $resultBody = $mailTemplate->getBody([
+            'to' => 'cersei@opensupports.com',
+            'userName' => 'Cersei Lannister',
+        ]);
+
+        $this->assertEquals($resultSubject, 'Welcoming to cersei@opensupports.com');
+        $this->assertContains('Welcome, Cersei Lannister to our team', $resultBody);
     }
 
     private function getMockTemplateBean() {
         $mailTemplateBean = new BeanMock();
-        $mailTemplateBean->type = 'TEST_TYPE';
-        $mailTemplateBean->body = 'Some body';
+        $mailTemplateBean->type = 'USER_SIGNUP';
+        $mailTemplateBean->text1 = 'Text1';
+        $mailTemplateBean->text2 = 'Text1';
+        $mailTemplateBean->text3 = 'Text1';
         $mailTemplateBean->subject = 'Some subject';
         $mailTemplateBean->language = 'en';
 

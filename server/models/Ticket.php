@@ -96,25 +96,25 @@ class Ticket extends DataStore {
 
     public function generateUniqueTicketNumber() {
         $linearCongruentialGenerator = new LinearCongruentialGenerator();
-        $ticketQuantity = Ticket::count();
 
-        if ($ticketQuantity === 0) {
+        if (Ticket::count() === 0) {
             $ticketNumber = Setting::getSetting('ticket-first-number')->value;
         } else {
+            $lastTicketId = Ticket::findOne(' ORDER BY id DESC')->id;
             $linearCongruentialGenerator->setGap(Setting::getSetting('ticket-gap')->value);
             $linearCongruentialGenerator->setFirst(Setting::getSetting('ticket-first-number')->value);
 
-            $ticketNumber = $linearCongruentialGenerator->generate($ticketQuantity);
+            $ticketNumber = $linearCongruentialGenerator->generate($lastTicketId + 1);
         }
 
         return $ticketNumber;
     }
 
-    public function toArray() {
+    public function toArray($minimized = false) {
         return [
             'ticketNumber' => $this->ticketNumber,
             'title' => $this->title,
-            'content' => $this->content,
+            'content' => $minimized ? strip_tags($this->content) : $this->content,
             'department' => [
                 'id' => $this->department->id,
                 'name' => $this->department->name
@@ -128,7 +128,7 @@ class Ticket extends DataStore {
             'priority' => $this->priority,
             'author' => $this->authorToArray(),
             'owner' => $this->ownerToArray(),
-            'events' => $this->eventsToArray()
+            'events' => $minimized ? [] : $this->eventsToArray()
         ];
     }
 
