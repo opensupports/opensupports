@@ -1,12 +1,9 @@
 <?php
-include_once 'tests/__lib__/Mock.php';
 include_once 'tests/__mocks__/RespectMock.php';
 include_once 'tests/__mocks__/SettingMock.php';
 include_once 'tests/__mocks__/APIKeyMock.php';
 include_once 'tests/__mocks__/ControllerMock.php';
 include_once 'tests/__mocks__/ReCaptchaMock.php';
-
-include_once 'libs/validations/captcha.php';
 
 use PHPUnit\Framework\TestCase;
 

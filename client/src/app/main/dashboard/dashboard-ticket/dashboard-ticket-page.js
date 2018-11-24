@@ -1,59 +1,82 @@
 import React from 'react';
 import _ from 'lodash';
-import {connect} from 'react-redux';
+
+import store from 'app/store';
+import SessionActions from 'actions/session-actions';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
 
-import SessionActions from 'actions/session-actions';
 import TicketViewer from 'app-components/ticket-viewer';
+import Loading from 'core-components/loading';
+import Message from 'core-components/message';
 
 class DashboardTicketPage extends React.Component {
 
-    static propTypes = {
-        tickets: React.PropTypes.array
+    state = {
+        error: null,
+        ticket: null,
     };
 
     componentDidMount() {
-        let ticket = this.getTicketData();
-
-        if(ticket.unread) {
-            API.call({
-                path: '/ticket/seen',
-                data: {
-                    ticketNumber: ticket.ticketNumber
-                }
-            }).then(() => {
-                this.retrieveUserData();
-            });
-        }
+        this.retrieveTicketData();
     }
 
     render() {
-        let ticketView = i18n('NO_PERMISSION');
-
-        if(!_.isEmpty(this.getTicketData())) {
-            ticketView = <TicketViewer ticket={this.getTicketData()} onChange={this.retrieveUserData.bind(this)}/>;
-        }
+        const {ticket, error} = this.state;
 
         return (
             <div className="dashboard-ticket-page">
-                {ticketView}
+                {(ticket || error) ? this.renderContent() : <Loading className="dashboard-ticket-page__loading" backgrounded/>}
             </div>
         );
     }
 
-    getTicketData() {
-        return _.find(this.props.tickets, {ticketNumber: this.props.params.ticketNumber}) || {};
+    renderContent() {
+        const {ticket, error} = this.state;
+
+        if(error) {
+            return (
+                <Message type="error">
+                    {i18n(error)}
+                </Message>
+            );
+        } else {
+            return (
+                <TicketViewer ticket={ticket} onChange={this.retrieveTicketData.bind(this)}/>
+            );
+        }
+
+    }
+
+    retrieveTicketData() {
+        API.call({
+            path: '/ticket/get',
+            data: {
+                ticketNumber: this.props.params.ticketNumber,
+            }
+        })
+        .then(result => {
+            const ticket = result.data
+            this.setState({ticket, error: null})
+
+            if(ticket.unread) {
+                API.call({
+                    path: '/ticket/seen',
+                    data: {
+                        ticketNumber: ticket.ticketNumber
+                    }
+                }).then(() => {
+                    this.retrieveUserData();
+                });
+            }
+        })
+        .catch(result => this.setState({error: result.message}));
     }
 
     retrieveUserData() {
-        this.props.dispatch(SessionActions.getUserData());
+        store.dispatch(SessionActions.getUserData());
     }
 }
 
-export default connect((store) => {
-    return {
-        tickets: store.session.userTickets
-    };
-})(DashboardTicketPage);
+export default DashboardTicketPage;

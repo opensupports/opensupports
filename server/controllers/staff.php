@@ -1,17 +1,4 @@
 <?php
-require_once 'staff/get.php';
-require_once 'staff/assign-ticket.php';
-require_once 'staff/un-assign-ticket.php';
-require_once 'staff/get-tickets.php';
-require_once 'staff/get-new-tickets.php';
-require_once 'staff/get-all-tickets.php';
-require_once 'staff/search-tickets.php';
-require_once 'staff/add.php';
-require_once 'staff/get-all.php';
-require_once 'staff/delete.php';
-require_once 'staff/edit.php';
-require_once 'staff/last-events.php';
-
 $systemControllerGroup = new ControllerGroup();
 $systemControllerGroup->setGroupPath('/staff');
 

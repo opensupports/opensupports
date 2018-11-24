@@ -14,9 +14,15 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiPermission staff1
  *
- * @apiUse NO_PERMISSION
+ * @apiParam {Number} page The page number.
  *
- * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data Array of new tickets.
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_PAGE
+ *
+ * @apiSuccess {Object} data Information about a tickets and quantity of pages.
+ * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data.tickets Array of new tickets of the current page.
+ * @apiSuccess {Number} data.page Number of current page.
+ * @apiSuccess {Number} data.pages Quantity of pages.
  *
  */
 
@@ -27,7 +33,12 @@ class GetNewTicketsStaffController extends Controller {
     public function validations() {
         return[
             'permission' => 'staff_1',
-            'requestData' => []
+            'requestData' => [
+                'page' => [
+                    'validation' => DataValidator::numeric(),
+                    'error' => ERRORS::INVALID_PAGE
+                ]
+            ]
         ];
     }
     public function handler() {
@@ -37,6 +48,8 @@ class GetNewTicketsStaffController extends Controller {
         }
 
         $user = Controller::getLoggedUser();
+        $page = Controller::request('page');
+
         $query = ' (';
         foreach ($user->sharedDepartmentList as $department) {
             $query .= 'department_id=' . $department->id . ' OR ';
@@ -45,13 +58,22 @@ class GetNewTicketsStaffController extends Controller {
         $ownerExists = RedBean::exec('SHOW COLUMNS FROM ticket LIKE \'owner_id\'');
 
         if($ownerExists != 0) {
-            $query .= 'FALSE) AND owner_id IS NULL';
+            $query .= 'FALSE) AND closed = 0 AND owner_id IS NULL';
         } else {
-            $query .= 'FALSE)';
+            $query .= 'FALSE) AND closed = 0';
         }
+
+        $countTotal = Ticket::count($query);
+
+        $query .= ' ORDER BY unread_staff DESC';
+        $query .= ' LIMIT 10 OFFSET ' . ($page-1)*10;
 
         $ticketList = Ticket::find($query);
 
-        Response::respondSuccess($ticketList->toArray());
+        Response::respondSuccess([
+            'tickets' => $ticketList->toArray(true),
+            'page' => $page,
+            'pages' => ceil($countTotal / 10)
+        ]);
     }
 }

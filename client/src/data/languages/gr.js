@@ -145,7 +145,7 @@
      'RECAPTCHA_PUBLIC_KEY': 'Recaptcha Δημοσίου Κλειδιού',
      'RECAPTCHA_PRIVATE_KEY': 'Recaptcha Ιδιωτικού Κλειδιού',
      'ALLOW_FILE_ATTACHMENTS': 'Επιτρέπονται Συνημμένα Αρχεία',
-     'MAX_SIZE_KB': 'Μέγιστο Μέγεθος (KB)',
+     'MAX_SIZE_MB': 'Μέγιστο Μέγεθος (MB)',
      'UPDATE_SETTINGS': 'Ενημέρωση Ρυθμίσεων',
      'DEFAULT_LANGUAGE': 'Προεπιλεγμένες Γλώσσες',
      'SUPPORTED_LANGUAGES': 'Υποστηριζόμενες Γλώσσες',
@@ -178,6 +178,7 @@
      'HOME': 'Σπίτι',
      'TICKET_NUMBER': 'Αριθμός εισιτηρίου',
      'NEXT': 'Επόμενο',
+    'SUBJECT': 'Θέμα',
      'SEND_EMAIL_ON_NEW_TICKET': 'Στείλτε μήνυμα ηλκετορνικού ταχυδρομείου στο νέο εισιτήριο',
      'STAFF_UPDATED': 'Το μέλος προσωπικού έχει ενημερωθεί',
      'UPDATE': 'Ενημέρωση',
@@ -188,6 +189,8 @@
      'PRIVATE': 'ιδιωτικός',
      'ENABLE_USER': 'Ενεργοποίηση χρήστη',
      'DISABLE_USER': 'Απενεργοποίηση χρήστη',
+     'SHOW_CLOSED_TICKETS': 'Εμφάνιση κλειστών εισιτηρίων',
+     'IMAGE_HEADER_URL': 'Διεύθυνση URL κεφαλίδας εικόνας',
 
      'CHART_CREATE_TICKET': 'Τα εισιτήρια δημιουργήθηκαν',
      'CHART_CLOSE': 'Τα εισιτήρια κλείσανε',
@@ -334,6 +337,7 @@
      'ERRORS_FOUND': 'Βρέθηκαν Σφάλματα',
      'ERROR_IMAGE_SIZE': 'Καμία εικόνα δεν μπορεί να έχει μέγεθος μεγαλύτερο από {size} MB',
      'USER_DISABLED': 'Αυτός ο λογαριασμός είναι απενεργοποιημένος.',
+     'INVALID_SYNTAX': 'Μη έγκυρη σύνταξη.',
 
      //MESSAGES
      'SIGNUP_SUCCESS': 'Έχετε εγγραφεί με επιτυχία στο σύστημα υποστήριξης μας.',
