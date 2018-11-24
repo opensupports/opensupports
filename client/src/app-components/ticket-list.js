@@ -45,9 +45,8 @@ class TicketList extends React.Component {
     render() {
         return (
             <div className="ticket-list">
-                <div className="ticket-list__filters"> 
-                    {(this.props.type === 'secondary' && this.props.showDepartmentDropdown) ? this.renderDepartments
-        () : null}
+                <div className="ticket-list__filters">
+                    {(this.props.type === 'secondary' && this.props.showDepartmentDropdown) ? this.renderDepartmentsDropDown() : null}
                     {this.props.onClosedTicketsShownChange ? this.renderFilterCheckbox() : null}
                 </div>
                 <Table {...this.getTableProps()} />
