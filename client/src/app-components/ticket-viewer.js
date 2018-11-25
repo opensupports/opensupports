@@ -272,7 +272,7 @@ class TicketViewer extends React.Component {
             return (
                 <div className="ticket-viewer__response-private">
                     <FormField label={i18n('PRIVATE')} name="private" field="checkbox"/>
-                    <InfoTooltip className="ticket-viewer__response-private-info" text={i18n('PRIVATE_DESCRIPTION')} />
+                    <InfoTooltip className="ticket-viewer__response-private-info" text={i18n('PRIVATE_RESPONSE_DESCRIPTION')} />
                 </div>
             );
         } else {

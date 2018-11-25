@@ -305,7 +305,8 @@ export default {
     'SMTP_SERVER_DESCRIPTION': 'SMTPサーバーの設定により、アプリケーションはメールを送信できます。 これを設定しないと、OpenSupportsから電子メールは送信されません。',
     'ENABLE_USER_DESCRIPTION': 'これにより、ユーザーはサインインしてチケットを作成できます。',
     'DISABLE_USER_DESCRIPTION': 'ユーザーは無効になり、ログインしてチケットを作成することはできません。',
-    'PRIVATE_DESCRIPTION': 'スタッフのみがこの回答を見ることができます',
+    'PRIVATE_RESPONSE_DESCRIPTION': 'スタッフのみがこの回答を見ることができます',
+    'PRIVATE_TOPIC_DESCRIPTION': 'このトピックは、スタッフによってのみ表示されます',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': '電子メールまたはパスワードが無効です',

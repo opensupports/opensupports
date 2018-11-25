@@ -305,7 +305,8 @@ export default {
     'SMTP_SERVER_DESCRIPTION': 'De configuratie van de SMTP-server staat het systeem toe om e-mails te verzenden. Als u deze optie niet configureerd, worden er geen e-mails verzonden door OpenSupports.',
     'ENABLE_USER_DESCRIPTION': 'Met deze actie kan de gebruiker inloggen en tickets maken.',
     'DISABLE_USER_DESCRIPTION': 'De gebruiker wordt uitgeschakeld en kan zich niet aanmelden en geen tickets maken.',
-    'PRIVATE_DESCRIPTION': 'Dit antwoord is alleen zichtbaar voor personeelsleden',
+    'PRIVATE_RESPONSE_DESCRIPTION': 'Dit antwoord is alleen zichtbaar voor personeelsleden',
+    'PRIVATE_TOPIC_DESCRIPTION': 'Dit onderwerp is alleen zichtbaar voor personeelsleden',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-mailadres of wachtwoord ongeldig',
