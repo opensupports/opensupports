@@ -139,4 +139,24 @@ describe 'Article path' do
         (result['data'][0]['articles'][0]['position']).should.equal('1')
 
     end
+    it 'should retrieve public departments' do
+        request('/user/logout')
+        Scripts.login('tyrion@opensupports.com', 'tyrionl')
+
+        result = request('/article/get-all', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        (result['status']).should.equal('success')
+
+        (result['data'][0]['name']).should.equal('Server management')
+        (result['data'][0]['icon']).should.equal('cogs')
+        (result['data'][0]['iconColor']).should.equal('red')
+        (result['data'][0]['private']).should.equal('0')
+        (result['data'][1]['name']).should.equal('Software installation')
+        (result['data'][1]['icon']).should.equal('photo')
+        (result['data'][1]['iconColor']).should.equal('blue')
+        (result['data'][1]['private']).should.equal('0')
+
+    end
 end
