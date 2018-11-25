@@ -178,7 +178,7 @@ class TicketEvent extends React.Component {
     renderPrivateBadge() {
         return (
             <span className="ticket-event__comment-badge-container">
-                <Tooltip content={i18n('PRIVATE_DESCRIPTION')} openOnHover>
+                <Tooltip content={i18n('PRIVATE_RESPONSE_DESCRIPTION')} openOnHover>
                     <span className="ticket-event__comment-badge">{i18n('PRIVATE')}</span>
                 </Tooltip>
             </span>

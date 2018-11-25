@@ -10,6 +10,7 @@ import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
 import IconSelector from 'core-components/icon-selector';
 import ColorSelector from 'core-components/color-selector';
+import InfoTooltip from 'core-components/info-tooltip';
 
 class TopicEditModal extends React.Component {
 
@@ -24,7 +25,7 @@ class TopicEditModal extends React.Component {
     };
 
     state = {
-        values: this.props.defaultValues || {title: '', icon: 'address-card', color: '#ff6900'},
+        values: this.props.defaultValues || {title: '', icon: 'address-card', color: '#ff6900', private: false},
         loading: false
     };
 
@@ -36,7 +37,9 @@ class TopicEditModal extends React.Component {
                     <FormField name="title" label={i18n('TITLE')} fieldProps={{size: 'large'}} validation="TITLE" required />
                     <FormField name="icon" className="topic-edit-modal__icon" label={i18n('ICON')} decorator={IconSelector} />
                     <FormField name="color" className="topic-edit-modal__color" label={i18n('COLOR')} decorator={ColorSelector} />
-
+                    <FormField className="topic-edit-modal__private" label={i18n('PRIVATE')} name="private" field="checkbox"/>
+                    <InfoTooltip className="topic-edit-modal__private"  text={i18n('PRIVATE_TOPIC_DESCRIPTION')} />
+                
                     <SubmitButton className="topic-edit-modal__save-button" type="secondary" size="small">
                         {i18n('SAVE')}
                     </SubmitButton>
@@ -59,7 +62,8 @@ class TopicEditModal extends React.Component {
                 topicId: this.props.topicId,
                 name: this.state.values['title'],
                 icon: this.state.values['icon'],
-                iconColor: this.state.values['color']
+                iconColor: this.state.values['color'],
+                private: this.state.values['private']*1
             }
         }).then(() => {
             this.context.closeModal();

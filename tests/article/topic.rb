@@ -7,6 +7,7 @@ describe 'Topic paths' do
             name: 'Server management',
             icon: 'cogs',
             iconColor: 'red',
+            private: 0,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
@@ -17,6 +18,7 @@ describe 'Topic paths' do
         (topic['name']).should.equal('Server management')
         (topic['icon_color']).should.equal('red')
         (topic['icon']).should.equal('cogs')
+        (topic['private']).should.equal('0')
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('ADD_TOPIC')
@@ -27,6 +29,7 @@ describe 'Topic paths' do
             topicId: 1,
             name: 'Installation issues',
             iconColor: 'blue',
+            private: 1,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
@@ -37,6 +40,7 @@ describe 'Topic paths' do
         (topic['name']).should.equal('Installation issues')
         (topic['icon_color']).should.equal('blue')
         (topic['icon']).should.equal('cogs')
+        (topic['private']).should.equal('1')
     end
 
     it 'should delete topic correctly' do
