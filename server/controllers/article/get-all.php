@@ -35,7 +35,11 @@ class GetAllArticlesController extends Controller {
         $topicsArray = [];
 
         foreach($topics as $topic) {
-            Controller::isStaffLogged() ? $topicsArray[] = $topic->toArray() : ($topic->private*1 ? null : $topicsArray[] = $topic->toArray())  ;
+            if (Controller::isStaffLogged()) {
+                $topicsArray[] = $topic->toArray();
+            } else if (!$topic->private) {
+                $topicsArray[] = $topic->toArray();
+            }
         }
 
         Response::respondSuccess($topicsArray);
