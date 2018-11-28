@@ -17,9 +17,9 @@ describe'/staff/get-all' do
         (result['data'][0]['departments'][0]['id']).should.equal('1')
         (result['data'][0]['departments'][0]['name']).should.equal('Help and Support')
         (result['data'][0]['departments'][1]['id']).should.equal('2')
-        (result['data'][0]['departments'][1]['name']).should.equal('Suggestions')
+        (result['data'][0]['departments'][1]['name']).should.equal('useless private deapartment')
         (result['data'][0]['departments'][2]['id']).should.equal('3')
-        (result['data'][0]['departments'][2]['name']).should.equal('Tech support')
+        (result['data'][0]['departments'][2]['name']).should.equal('Suggestions')
         (result['data'][0]['assignedTickets']).should.equal(6)
         (result['data'][0]['closedTickets']).should.equal(0)
 

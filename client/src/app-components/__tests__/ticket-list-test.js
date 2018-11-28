@@ -3,7 +3,7 @@ const TicketInfo = ReactMock();
 const Table = ReactMock();
 const Button = ReactMock();
 const Tooltip = ReactMock();
-const Dropdown = ReactMock();
+const DepartmentDropdown = ReactMock();
 const i18n = stub().returnsArg(0);
 
 const TicketList = requireUnit('app-components/ticket-list', {
@@ -11,7 +11,7 @@ const TicketList = requireUnit('app-components/ticket-list', {
     'core-components/table': Table,
     'core-components/button': Button,
     'core-components/tooltip': Tooltip,
-    'core-components/drop-down': Dropdown,
+    'app-components/department-dropdown': DepartmentDropdown,
     'lib-app/i18n': i18n
 });
 
@@ -54,7 +54,7 @@ describe('TicketList component', function () {
         );
 
         table = TestUtils.scryRenderedComponentsWithType(ticketList, Table);
-        dropdown = TestUtils.scryRenderedComponentsWithType(ticketList, Dropdown);
+        dropdown = TestUtils.scryRenderedComponentsWithType(ticketList, DepartmentDropdown);
     }
 
     it('should pass correct props to Table', function () {
@@ -84,12 +84,12 @@ describe('TicketList component', function () {
             }
         ]);
     });
-    
+
     it('should pass loading to Table', function () {
         renderTicketList({loading: true});
         expect(table[0].props.loading).to.equal(true);
     });
-    
+
     it('should pass correct compare function to Table', function () {
         let minCompare = table[0].props.comp;
 
@@ -114,7 +114,7 @@ describe('TicketList component', function () {
         row2.date = '20160401';
         expect(minCompare(row1, row2)).to.equal(-1);
     });
-    
+
     describe('when using secondary type', function () {
         beforeEach(function () {
             renderTicketList({
@@ -162,10 +162,10 @@ describe('TicketList component', function () {
         });
 
         it('should pass correct props to dropdown', function () {
-            expect(dropdown[0].props.items).to.deep.equal([
-                {content: i18n('ALL_DEPARTMENTS')},
-                {content: 'Sales Support'},
-                {content: 'Tech Help'}
+            expect(dropdown[0].props.departments).to.deep.equal([
+                {name: i18n('ALL_DEPARTMENTS')},
+                {name: 'Sales Support', id: 1},
+                {name: 'Tech Help', id: 2}
             ]);
             expect(dropdown[0].props.size).to.equal('medium');
         });

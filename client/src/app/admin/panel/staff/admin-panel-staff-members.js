@@ -18,6 +18,7 @@ import DropDown from 'core-components/drop-down';
 import Button from 'core-components/button';
 import Icon from 'core-components/icon';
 import Loading from 'core-components/loading';
+import DepartmentDropdown from 'app-components/department-dropdown';
 
 class AdminPanelStaffMembers extends React.Component {
 
@@ -45,7 +46,7 @@ class AdminPanelStaffMembers extends React.Component {
             <div className="admin-panel-staff-members">
                 <Header title={i18n('STAFF_MEMBERS')} description={i18n('STAFF_MEMBERS_DESCRIPTION')} />
                 <div className="admin-panel-staff-members__wrapper">
-                    <DropDown {...this.getDepartmentDropdownProps()} className="admin-panel-staff-members__dropdown" />
+                    <DepartmentDropdown {...this.getDepartmentDropdownProps()} className="admin-panel-staff-members__dropdown" />
                     <Button onClick={this.onAddNewStaff.bind(this)} size="medium" type="secondary" className="admin-panel-staff-members__button">
                         <Icon name="user-plus" className=""/> {i18n('ADD_NEW_STAFF')}
                     </Button>
@@ -61,7 +62,7 @@ class AdminPanelStaffMembers extends React.Component {
 
     getDepartmentDropdownProps() {
         return {
-            items: this.getDepartments(),
+            departments: this.getDepartments(),
             onChange: (event) => {
                 let departments = SessionStore.getDepartments();
                 this.setState({
@@ -97,12 +98,9 @@ class AdminPanelStaffMembers extends React.Component {
     }
 
     getDepartments() {
-        let departments = SessionStore.getDepartments().map((department) => {
-            return {content: department.name};
-        });
-
+        let departments = _.clone(SessionStore.getDepartments())
         departments.unshift({
-            content: i18n('ALL_DEPARTMENTS')
+            name: i18n('ALL_DEPARTMENTS')
         });
 
         return departments;

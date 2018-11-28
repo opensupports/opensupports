@@ -16,6 +16,7 @@ import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
 import DropDown from 'core-components/drop-down';
+import Icon from 'core-components/icon';
 
 class AdminPanelDepartments extends React.Component {
     static defaultProps = {
@@ -44,7 +45,13 @@ class AdminPanelDepartments extends React.Component {
                     </div>
                     <div className="col-md-8">
                         <Form {...this.getFormProps()}>
-                            <FormField label={i18n('NAME')} name="name" validation="NAME" required fieldProps={{size: 'large'}}/>
+                            <div>
+                                <FormField className="admin-panel-departments__name" label={i18n('NAME')} name="name" validation="NAME" required fieldProps={{size: 'large'}}/>
+                                <div className="admin-panel-departments__private-option">
+                                    <FormField  label={i18n('PRIVATE')} name="private" field="checkbox"/>
+                                    <InfoTooltip className="admin-panel-departments__info-tooltip" text={i18n('PRIVATE_DEPARTMENT_DESCRIPTION')} />
+                                </div>
+                            </div>
                             <SubmitButton size="medium" className="admin-panel-departments__update-name-button" type="secondary">
                                 {i18n((this.state.selectedIndex !== -1) ? 'UPDATE_DEPARTMENT' : 'ADD_DEPARTMENT')}
                             </SubmitButton>
@@ -100,6 +107,7 @@ class AdminPanelDepartments extends React.Component {
                     content: (
                         <span>
                             {department.name}
+                            {department.private*1 ? <Icon className="admin-panel-departments__private-icon" name='user-secret'/> : null }
                             {(!department.owners) ? (
                                 <span className="admin-panel-departments__warning">
                                     <InfoTooltip type="warning" text={i18n('NO_STAFF_ASSIGNED')}/>
@@ -143,7 +151,8 @@ class AdminPanelDepartments extends React.Component {
                 path: '/system/edit-department',
                 data: {
                     departmentId: this.getCurrentDepartment().id,
-                    name: form.name
+                    name: form.name,
+                    private: form.private ? 1 : 0
                 }
             }).then(() => {
                 this.setState({formLoading: false});
@@ -153,7 +162,8 @@ class AdminPanelDepartments extends React.Component {
             API.call({
                 path: '/system/add-department',
                 data: {
-                    name: form.name
+                    name: form.name,
+                    private: form.private ? 1 : 0
                 }
             }).then(() => {
                 this.retrieveDepartments();

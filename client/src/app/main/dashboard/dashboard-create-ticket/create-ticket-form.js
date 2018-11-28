@@ -8,6 +8,7 @@ import API                from 'lib-app/api-call';
 import SessionStore       from 'lib-app/session-store';
 import LanguageSelector   from 'app-components/language-selector';
 import Captcha            from 'app/main/captcha';
+import DepartmentDropdown from 'app-components/department-dropdown';
 
 import Header             from 'core-components/header';
 import TextEditor         from 'core-components/text-editor';
@@ -48,8 +49,8 @@ class CreateTicketForm extends React.Component {
                     {(!this.props.userLogged) ? this.renderEmailAndName() : null}
                     <FormField label={i18n('TITLE')} name="title" validation="TITLE" required field="input" fieldProps={{size: 'large'}}/>
                     <div className="row">
-                        <FormField className="col-md-5" label={i18n('DEPARTMENT')} name="departmentIndex" field="select" fieldProps={{
-                            items: SessionStore.getDepartments().map((department) => {return {content: department.name}}),
+                        <FormField className="col-md-5" label={i18n('DEPARTMENT')} name="departmentIndex" field="select" decorator={DepartmentDropdown} fieldProps={{
+                            departments: SessionStore.getDepartments(),
                             size: 'medium'
                         }} />
                         <FormField className="col-md-5" label={i18n('LANGUAGE')} name="language" field="select" decorator={LanguageSelector} fieldProps={{

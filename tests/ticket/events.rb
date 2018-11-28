@@ -44,7 +44,7 @@ describe 'Ticket Events' do
             csrf_token: $csrf_token
         })
         request('/ticket/change-department', {
-            departmentId: 2,
+            departmentId: 3,
             ticketNumber: ticketNumber,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
