@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/delete Delete a ticket
- * @apiVersion 4.3.0
+ * @apiVersion 4.3.2
  *
  * @apiName Delete ticket
  *

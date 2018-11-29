@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /user/check-session Check session
- * @apiVersion 4.3.0
+ * @apiVersion 4.3.2
  *
  * @apiName Check session
  *

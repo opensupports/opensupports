@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /system/delete-department Delete department
- * @apiVersion 4.3.0
+ * @apiVersion 4.3.2
  *
  * @apiName Delete department
  *
