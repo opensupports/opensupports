@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /user/ban Ban email
- * @apiVersion 4.3.0
+ * @apiVersion 4.3.2
  *
  * @apiName Ban email
  *

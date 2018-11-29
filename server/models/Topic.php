@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Topic Topic
- * @apiVersion 4.3.0
+ * @apiVersion 4.3.2
  * @apiGroup Data Structures
  * @apiParam {Number} id Id of the topic.
  * @apiParam {String} name Name of the topic.
