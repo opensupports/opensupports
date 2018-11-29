@@ -21,6 +21,7 @@ import Message            from 'core-components/message';
 import Icon               from 'core-components/icon';
 import TextEditor         from 'core-components/text-editor';
 import InfoTooltip        from 'core-components/info-tooltip';
+import DepartmentDropdown from 'app-components/department-dropdown';
 
 class TicketViewer extends React.Component {
     static propTypes = {
@@ -86,7 +87,8 @@ class TicketViewer extends React.Component {
 
     renderEditableHeaders() {
         const ticket = this.props.ticket;
-        const departments = SessionStore.getDepartments();
+        const departments = (this.props.ticket.author.staff ? SessionStore.getDepartments() : this.getPublicDepartments() );
+
         const priorities = {
             'low': 0,
             'medium': 1,
@@ -107,8 +109,8 @@ class TicketViewer extends React.Component {
                 </div>
                 <div className="ticket-viewer__info-row-values row">
                     <div className="col-md-4">
-                        <DropDown className="ticket-viewer__editable-dropdown"
-                                  items={departments.map((department) => {return {content: department.name}})}
+                        <DepartmentDropdown className="ticket-viewer__editable-dropdown"
+                                  departments={departments}
                                   selectedIndex={_.findIndex(departments, {id: this.props.ticket.department.id})}
                                   onChange={this.onDepartmentDropdownChanged.bind(this)} />
                     </div>
@@ -302,6 +304,9 @@ class TicketViewer extends React.Component {
                 'private': this.state.commentPrivate
             }
         };
+    }
+    getPublicDepartments() {
+        return _.filter(SessionStore.getDepartments(),d => !(d.private*1));
     }
 
     onDepartmentDropdownChanged(event) {

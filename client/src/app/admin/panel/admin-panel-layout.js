@@ -1,4 +1,7 @@
 import React from 'react';
+import store from 'app/store';
+
+import ConfigActions from 'actions/config-actions';
 
 import MainLayout from 'app/main/main-layout';
 import AdminPanelStaffWidget from 'app/admin/panel/admin-panel-staff-widget';
@@ -8,6 +11,10 @@ import Widget from 'core-components/widget';
 
 class AdminPanel extends React.Component {
 
+    componentDidMount() {
+        store.dispatch(ConfigActions.updateData());
+    }
+    
     render() {
         return (
             <MainLayout>

@@ -7,7 +7,7 @@ install:
 	@bundle install
 
 run: export MYSQL_HOST=127.0.0.1
-run: export MYSQL_PORT=4040
+run: export MYSQL_PORT=3306
 run:
 	 ./run-tests.sh
 

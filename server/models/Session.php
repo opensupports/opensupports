@@ -1,7 +1,8 @@
 <?php
 
 class Session {
-    static $instance = null;
+    use SingletonTrait;
+
     private $sessionPrefix = '';
     
     private function __construct() {
@@ -15,14 +16,6 @@ class Session {
 
     public function closeSession() {
         session_destroy();
-    }
-
-    public static function getInstance() {
-        if (!self::$instance) {
-            self::$instance = new Session();
-        }
-
-        return self::$instance;
     }
 
     public function createSession($userId, $staff = false) {

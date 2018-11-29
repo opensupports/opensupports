@@ -99,6 +99,9 @@ class CreateController extends Controller {
         $this->email = Controller::request('email');
         $this->name = Controller::request('name');
 
+        if(!Controller::isStaffLogged() && Department::getDataStore($this->departmentId)->private){
+            throw new Exception(ERRORS::INVALID_DEPARTMENT);
+        }
         $this->storeTicket();
 
         if(!Controller::isUserSystemEnabled()) {

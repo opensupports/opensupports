@@ -78,8 +78,41 @@ describe '/ticket/create' do
         (result['message']).should.equal('INVALID_DEPARTMENT')
 
     end
+    it 'should fail if an user tries to create a ticket with a private department' do
+        request('/user/logout')
+        Scripts.login('staff@opensupports.com', 'staff', true)
+
+        result = request('/system/add-department', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: 'useless private deapartment',
+            private: 1
+        })
+
+        row = $database.getRow('department', 'useless private deapartment', 'name')
+
+        request('/user/logout')
+        Scripts.createUser('user@os4.com', 'loginpass')
+        Scripts.login('user@os4.com', 'loginpass')
+
+        result = request('/ticket/create', {
+            title: 'Winter is here',
+            content: 'The king in the north',
+            departmentId: row['id'],
+            language: 'en',
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('INVALID_DEPARTMENT')
+
+        request('/user/logout')
+    end
 
     it 'should create ticket if pass data is valid' do
+        Scripts.login('creator@os4.com','creator')
+
         result = request('/ticket/create', {
             title: 'Winter is coming',
             content: 'The north remembers',
