@@ -307,6 +307,7 @@ export default {
     'DISABLE_USER_DESCRIPTION': 'ユーザーは無効になり、ログインしてチケットを作成することはできません。',
     'PRIVATE_RESPONSE_DESCRIPTION': 'スタッフのみがこの回答を見ることができます',
     'PRIVATE_TOPIC_DESCRIPTION': 'このトピックは、スタッフによってのみ表示されます',
+    'PRIVATE_DEPARTMENT_DESCRIPTION': 'この部署はスタッフだけが見ることができます',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': '電子メールまたはパスワードが無効です',
@@ -338,6 +339,7 @@ export default {
     'ERROR_IMAGE_SIZE': 'イメージのサイズが{size} MBを超えることはできません',
     'USER_DISABLED': 'このアカウントは無効です。',
     'INVALID_SYNTAX': '無効な構文。',
+    'DEPARTMENT_PRIVATE_TICKETS': 'この部門には、スタッフ以外が作成したチケットがあり、プライベートにすることはできません',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'あなたは私たちのサポートシステムに正常に登録しました。',

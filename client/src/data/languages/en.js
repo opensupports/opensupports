@@ -339,6 +339,7 @@ export default {
     'ERROR_IMAGE_SIZE': 'No image can have a size greater than {size} MB',
     'USER_DISABLED': 'This account is disabled.',
     'INVALID_SYNTAX': 'Invalid syntax.',
+    'DEPARTMENT_PRIVATE_TICKETS': 'This department has tickets created by non-staff and it can not be private',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',

@@ -7,6 +7,7 @@ import API from 'lib-app/api-call';
 import ConfigActions from 'actions/config-actions';
 
 import AreYouSure from 'app-components/are-you-sure';
+import DepartmentDropDown from 'app-components/department-dropdown';
 
 import InfoTooltip from 'core-components/info-tooltip';
 import Button from 'core-components/button';
@@ -17,6 +18,7 @@ import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
 import DropDown from 'core-components/drop-down';
 import Icon from 'core-components/icon';
+import Message from 'core-components/message';
 
 class AdminPanelDepartments extends React.Component {
     static defaultProps = {
@@ -28,10 +30,12 @@ class AdminPanelDepartments extends React.Component {
         selectedIndex: -1,
         selectedDropDownIndex: 0,
         edited: false,
+        errorMessage: null,
         errors: {},
         form: {
             title: '',
-            language: 'en'
+            language: 'en',
+            private: 0,
         }
     };
 
@@ -44,11 +48,12 @@ class AdminPanelDepartments extends React.Component {
                         <Listing {...this.getListingProps()}/>
                     </div>
                     <div className="col-md-8">
+                        {(this.state.errorMessage) ? <Message type="error">{i18n(this.state.errorMessage)}</Message> : null}
                         <Form {...this.getFormProps()}>
                             <div>
                                 <FormField className="admin-panel-departments__name" label={i18n('NAME')} name="name" validation="NAME" required fieldProps={{size: 'large'}}/>
                                 <div className="admin-panel-departments__private-option">
-                                    <FormField  label={i18n('PRIVATE')} name="private" field="checkbox"/>
+                                    <FormField label={i18n('PRIVATE')} name="private" field="checkbox"/>
                                     <InfoTooltip className="admin-panel-departments__info-tooltip" text={i18n('PRIVATE_DEPARTMENT_DESCRIPTION')} />
                                 </div>
                             </div>
@@ -88,11 +93,7 @@ class AdminPanelDepartments extends React.Component {
                 {i18n('WILL_DELETE_DEPARTMENT')}
                 <div className="admin-panel-departments__transfer-tickets">
                     <span className="admin-panel-departments__transfer-tickets-title">{i18n('TRANSFER_TICKETS_TO')}</span>
-                    <DropDown className="admin-panel-departments__transfer-tickets-drop-down" items={this.props.departments.filter((department, index) => index !== this.state.selectedIndex).map(department => {
-                        return {
-                            content: department.name
-                        };
-                    })} onChange={(department, index) => this.setState({selectedDropDownIndex: index})} size="medium"/>
+                    <DepartmentDropDown className="admin-panel-departments__transfer-tickets-drop-down" departments={this.getDropDownDepartments()} onChange={(event) => this.setState({selectedDropDownIndex: event.index})} size="medium"/>
                 </div>
             </div>
         );
@@ -157,7 +158,7 @@ class AdminPanelDepartments extends React.Component {
             }).then(() => {
                 this.setState({formLoading: false});
                 this.retrieveDepartments();
-            }).catch(this.onItemChange.bind(this, -1));
+            }).catch(result => this.setState({formLoading: false, errorMessage: result.message}));
         } else {
             API.call({
                 path: '/system/add-department',
@@ -194,7 +195,8 @@ class AdminPanelDepartments extends React.Component {
         }).then(() => {
             this.retrieveDepartments();
             this.onItemChange(-1);
-        });
+        })
+        .catch(result => this.setState({errorMessage: result.message}));
     }
 
     updateForm(index) {
@@ -202,12 +204,14 @@ class AdminPanelDepartments extends React.Component {
         let department = this.getCurrentDepartment(index);
 
         form.name = (department && department.name) || '';
+        form.private = (department && department.private) || 0;
 
         this.setState({
             selectedIndex: index,
             edited: false,
             formLoading: false,
-            form: form,
+            form,
+            errorMessage: null,
             errors: {}
         });
     }
@@ -225,6 +229,10 @@ class AdminPanelDepartments extends React.Component {
 
     getDropDownItemId() {
         return this.props.departments.filter((department, index) => index !== this.state.selectedIndex)[this.state.selectedDropDownIndex].id;
+    }
+
+    getDropDownDepartments() {
+        return this.props.departments.filter((department, index) => index !== this.state.selectedIndex);
     }
 }
 

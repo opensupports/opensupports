@@ -307,6 +307,7 @@ export default {
     'DISABLE_USER_DESCRIPTION': 'De gebruiker wordt uitgeschakeld en kan zich niet aanmelden en geen tickets maken.',
     'PRIVATE_RESPONSE_DESCRIPTION': 'Dit antwoord is alleen zichtbaar voor personeelsleden',
     'PRIVATE_TOPIC_DESCRIPTION': 'Dit onderwerp is alleen zichtbaar voor personeelsleden',
+    'PRIVATE_DEPARTMENT_DESCRIPTION': 'Deze afdeling is alleen zichtbaar voor personeelsleden',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-mailadres of wachtwoord ongeldig',
@@ -338,6 +339,7 @@ export default {
     'ERROR_IMAGE_SIZE': 'Geen enkele afbeelding kan groter zijn dan {size} MB',
     'USER_DISABLED': 'Dit account is uitgeschakeld.',
     'INVALID_SYNTAX': 'Ongeldige syntaxis.',
+    'DEPARTMENT_PRIVATE_TICKETS': 'Deze afdeling heeft tickets gemaakt door niet-personeel en het kan niet privé zijn',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'U hebt zich succesvol geregistreerd in ons ondersteuningssysteem.',

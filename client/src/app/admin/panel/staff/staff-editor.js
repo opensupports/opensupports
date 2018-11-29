@@ -168,9 +168,9 @@ class StaffEditor extends React.Component {
                 <span className="separator staff-editor__separator"/>
                 <Form className="staff-editor__update-level" values={{level: this.state.level}} onChange={form => this.setState({level: form.level})} onSubmit={this.onSubmit.bind(this, 'LEVEL')}>
                     <FormField name="level" label={i18n('LEVEL')} field="select" infoMessage={this.getStaffLevelInfo()} fieldProps={{
-                                    items: [{content: i18n('LEVEL_1')}, {content: i18n('LEVEL_2')}, {content: i18n('LEVEL_3')}],
-                                    size: 'large'
-                                }} />
+                        items: [{content: i18n('LEVEL_1')}, {content: i18n('LEVEL_2')}, {content: i18n('LEVEL_3')}],
+                        size: 'large'
+                    }} />
                     <SubmitButton size="medium" className="staff-editor__submit-button">{i18n('UPDATE_LEVEL')}</SubmitButton>
                 </Form>
             </div>
@@ -243,11 +243,11 @@ class StaffEditor extends React.Component {
     }
 
     getUserDepartments() {
-        let userDepartments = this.props.departments.map(department => department.name);
+        let userDepartments = this.props.departments.map(department => department.id);
         let departmentIndexes = [];
 
-        _.forEach(this.getDepartments(), (department, index) => {
-            if(_.includes(userDepartments, department)) {
+        _.forEach(SessionStore.getDepartments(), (department, index) => {
+            if(_.includes(userDepartments, department.id)) {
                 departmentIndexes.push(index);
             }
         });
@@ -257,11 +257,11 @@ class StaffEditor extends React.Component {
 
     getDepartments() {
         return SessionStore.getDepartments().map(department => {
-                if(department.private*1){
-                    return <spam> {department.name} <Icon name='user-secret'/> </spam>
-                }else {
-                    return department.name;
-                }
+            if(department.private * 1){
+                return <span> {department.name} <Icon name='user-secret'/> </span>
+            } else {
+                return department.name;
+            }
         });
     }
 
