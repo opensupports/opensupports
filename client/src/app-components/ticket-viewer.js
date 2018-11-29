@@ -87,7 +87,7 @@ class TicketViewer extends React.Component {
 
     renderEditableHeaders() {
         const ticket = this.props.ticket;
-        const departments = (this.props.ticket.author.staff ? SessionStore.getDepartments() : this.getPublicDepartments() );
+        const departments = this.getDepartmentsForTransfer();
 
         const priorities = {
             'low': 0,
@@ -209,9 +209,10 @@ class TicketViewer extends React.Component {
     }
 
     renderTicketEvent(options, index) {
-        if (this.props.userStaff) {
+        if (this.props.userStaff && typeof options.content === 'string') {
             options.content = MentionsParser.parse(options.content);
         }
+
         return (
             <TicketEvent {...options} author={(!_.isEmpty(options.author)) ? options.author : this.props.ticket.author} key={index} />
         );
@@ -305,6 +306,7 @@ class TicketViewer extends React.Component {
             }
         };
     }
+
     getPublicDepartments() {
         return _.filter(SessionStore.getDepartments(),d => !(d.private*1));
     }
@@ -352,6 +354,7 @@ class TicketViewer extends React.Component {
         event.preventDefault();
         AreYouSure.openModal(null, this.closeTicket.bind(this));
     }
+
     onDeleteTicketClick(event) {
         event.preventDefault();
         AreYouSure.openModal(null, this.deleteTicket.bind(this));
@@ -374,6 +377,7 @@ class TicketViewer extends React.Component {
             }
         }).then(this.onTicketModification.bind(this));
     }
+
     deleteTicket() {
         API.call({
             path: '/ticket/delete',
@@ -388,7 +392,7 @@ class TicketViewer extends React.Component {
             path: '/ticket/change-department',
             data: {
                 ticketNumber: this.props.ticket.ticketNumber,
-                departmentId: SessionStore.getDepartments()[index].id
+                departmentId: this.getDepartmentsForTransfer()[index].id
             }
         }).then(this.onTicketModification.bind(this));
     }
@@ -483,6 +487,10 @@ class TicketViewer extends React.Component {
         );
 
         return staffAssignmentItems;
+    }
+
+    getDepartmentsForTransfer() {
+        return this.props.ticket.author.staff ? SessionStore.getDepartments() : this.getPublicDepartments();
     }
 
     showDeleteButton() {

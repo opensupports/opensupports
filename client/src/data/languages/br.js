@@ -307,6 +307,7 @@ export default {
     'DISABLE_USER_DESCRIPTION': 'O usuário será desativado e não poderá fazer login e criar tickets.',
     'PRIVATE_RESPONSE_DESCRIPTION': 'Esta resposta só será vista pelos funcionários',
     'PRIVATE_TOPIC_DESCRIPTION': 'Este tópico será visto apenas por membros da equipe',
+    'PRIVATE_DEPARTMENT_DESCRIPTION': 'Este departamento só será visto pelos funcionários',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-mail ou senha inválidos',
@@ -338,6 +339,7 @@ export default {
     'ERROR_IMAGE_SIZE': 'Nenhuma imagem pode ter um tamanho maior que {size} MB',
     'USER_DISABLED': 'Esta conta está desativada.',
     'INVALID_SYNTAX': 'Sintaxe inválida.',
+    'DEPARTMENT_PRIVATE_TICKETS': 'Este departamento tem ingressos criados por não funcionários e não pode ser privado',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'Você se registrou com sucesso em nosso sistema de suporte.',

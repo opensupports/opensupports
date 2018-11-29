@@ -131,7 +131,7 @@ class TopicViewer extends React.Component {
                 title: this.props.name,
                 icon: this.props.icon,
                 iconColor: this.props.iconColor,
-                private: false
+                private: this.props.private * 1
             }
         };
 

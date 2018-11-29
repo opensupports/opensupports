@@ -307,6 +307,7 @@ export default {
     'DISABLE_USER_DESCRIPTION': 'Kullanıcı devre dışı bırakılacak ve oturum açıp bilet oluşturamayacak.',
     'PRIVATE_RESPONSE_DESCRIPTION': 'Bu yanıt sadece personel tarafından görülebilir',
     'PRIVATE_TOPIC_DESCRIPTION': 'Bu konu sadece çalışanlar tarafından görülebilir',
+    'PRIVATE_DEPARTMENT_DESCRIPTION': 'Bu bölüm sadece personel tarafından görülebilir',
     'PRIVATE_DESCRIPTION': 'Bu yanıt sadece personel tarafından görülebilir',
 
     //ERRORS
@@ -338,6 +339,7 @@ export default {
     'ERRORS_FOUND': 'Hatalar bulundu',
     'ERROR_IMAGE_SIZE': 'Hiçbir resmin boyutu {size} MB\'den büyük olabilir',
     'USER_DISABLED': 'Bu hesap devre dışı.',
+    'DEPARTMENT_PRIVATE_TICKETS': 'Bu departman, personel olmayanlar tarafından oluşturulan biletlere sahiptir ve özel olamaz',
     'INVALID_SYNTAX': 'Geçersiz sözdizimi.',
 
     //MESSAGES

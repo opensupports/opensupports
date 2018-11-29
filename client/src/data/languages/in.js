@@ -307,6 +307,7 @@ export default {
     'DISABLE_USER_DESCRIPTION': 'उपयोगकर्ता अक्षम कर दिया जाएगा और साइन इन करने और टिकट बनाने में सक्षम नहीं होगा।',
     'PRIVATE_RESPONSE_DESCRIPTION': 'यह प्रतिक्रिया केवल कर्मचारियों के सदस्यों द्वारा देखी जाएगी',
     'PRIVATE_TOPIC_DESCRIPTION': 'यह विषय केवल कर्मचारियों के सदस्यों द्वारा देखा जाएगा',
+    'PRIVATE_DEPARTMENT_DESCRIPTION': 'यह विभाग केवल कर्मचारियों के सदस्यों द्वारा देखा जाएगा',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'ईमेल या पासवर्ड अमान्य',
@@ -338,6 +339,7 @@ export default {
     'ERROR_IMAGE_SIZE': 'कोई छवि {size} एमबी से अधिक आकार नहीं हो सकती है',
     'USER_DISABLED': 'यह खाता अक्षम है।',
     'INVALID_SYNTAX': 'अवैध वाक्य रचना।',
+    'DEPARTMENT_PRIVATE_TICKETS': 'इस विभाग में गैर-कर्मचारियों द्वारा बनाए गए टिकट हैं और यह निजी नहीं हो सकता है',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'आप हमारे समर्थन प्रणाली में सफलतापूर्वक दर्ज कर लिया है।',

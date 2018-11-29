@@ -43,14 +43,17 @@ class EditDepartmentController extends Controller {
     }
 
     public function handler() {
-
-        $newname = Controller::request('name');
+        $newName = Controller::request('name');
         $departmentId = Controller::request('departmentId');
         $private = Controller::request('private');
 
         $departmentInstance = Department::getDataStore($departmentId);
 
-        $newname ? $departmentInstance->name = $newname : null;
+        if($private && Ticket::count(' author_id IS NOT NULL AND department_id = ? ', [$departmentId])) {
+            throw new RequestException(ERRORS::DEPARTMENT_PRIVATE_TICKETS);
+        }
+
+        if($newName) $departmentInstance->name = $newName;
         $departmentInstance->private = $private ? 1 : 0;
         $departmentInstance->store();
 

@@ -56,12 +56,24 @@ describe 'system/delete-department' do
             (result['message']).should.equal('SAME_DEPARTMENT')
         end
 
-        it 'should delete department' do
+        it 'should fail if department to transfer is private' do
             result = request('/system/delete-department', {
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
                 departmentId: 4,
                 transferDepartmentId: 2
+            })
+
+            (result['status']).should.equal('fail')
+            (result['message']).should.equal('DEPARTMENT_PRIVATE_TICKETS')
+        end
+
+        it 'should delete department' do
+            result = request('/system/delete-department', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                departmentId: 4,
+                transferDepartmentId: 3
             })
 
             (result['status']).should.equal('success')
@@ -73,13 +85,13 @@ describe 'system/delete-department' do
             ticket2 = $database.getRow('ticket', ticket2, 'ticket_number')
             ticket3 = $database.getRow('ticket', ticket3, 'ticket_number')
 
-            (ticket1['department_id']).should.equal('2')
+            (ticket1['department_id']).should.equal('3')
             (ticket1['owner_id']).should.equal(nil)
 
-            (ticket2['department_id']).should.equal('2')
+            (ticket2['department_id']).should.equal('3')
             (ticket2['owner_id']).should.equal(nil)
 
-            (ticket3['department_id']).should.equal('2')
+            (ticket3['department_id']).should.equal('3')
             (ticket3['owner_id']).should.equal($csrf_userid)
 
             lastLog = $database.getLastRow('log')

@@ -154,7 +154,7 @@ class LoginController extends Controller {
     private function createRememberToken() {
         $remember = Controller::request('remember');
 
-        if ($remember) {
+        if (!Controller::request('staff') && $remember) {
             $this->rememberToken = Hashing::generateRandomToken();
             $this->rememberExpiration = Date::getNextDate(30);
 

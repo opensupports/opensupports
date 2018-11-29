@@ -307,6 +307,7 @@ export default {
     'DISABLE_USER_DESCRIPTION': 'L\'utente sarà disabilitato e non sarà in grado di accedere e creare biglietti.',
     'PRIVATE_RESPONSE_DESCRIPTION': 'Questa risposta sarà visibile solo ai membri dello staff',
     'PRIVATE_TOPIC_DESCRIPTION': 'Questo argomento sarà visto solo dai membri dello staff',
+    'PRIVATE_DEPARTMENT_DESCRIPTION': 'Questo dipartimento sarà visto solo dai membri dello staff',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email o password errate',
@@ -338,6 +339,7 @@ export default {
     'ERROR_IMAGE_SIZE': 'Nessuna immagine può avere una dimensione superiore a {size} MB',
     'USER_DISABLED': 'Questo account è disabilitato.',
     'INVALID_SYNTAX': 'Sintassi non valida.',
+    'DEPARTMENT_PRIVATE_TICKETS': 'Questo dipartimento ha biglietti creati da non dipendenti e non può essere privato',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'È stato registrato con successo nel nostro sistema di supporto.',

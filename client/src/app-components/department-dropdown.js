@@ -11,20 +11,32 @@ class DepartmentDropdown extends React.Component {
         onChange: React.PropTypes.func,
         departments: React.PropTypes.array
     }
-    render(){
-        return <DropDown {...this.props} items={this.getDepartments()} />
+
+    render() {
+        return <DropDown {...this.props} onChange={this.onChange.bind(this)} items={this.getDepartments()} />
     }
 
-    getDepartments(){
+    getDepartments() {
         let departments = this.props.departments.map((department) => {
             if(department.private*1) {
                 return {content: <span>{department.name} <Icon name='user-secret'/></span>};
-            }else{
+            } else {
                 return {content: department.name};
             }
         });
 
         return departments;
+    }
+
+    onChange(event) {
+        if(this.props.onChange) {
+            this.props.onChange({
+                index: event.index,
+                target: {
+                    value: event.index
+                }
+            });
+        }
     }
 }
 

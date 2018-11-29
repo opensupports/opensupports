@@ -307,6 +307,7 @@ export default {
     'DISABLE_USER_DESCRIPTION': 'Пользователь будет отключен и не сможет войти и создать билеты',
     'PRIVATE_RESPONSE_DESCRIPTION': 'Этот ответ будет рассматриваться только сотрудниками',
     'PRIVATE_TOPIC_DESCRIPTION': 'Эта тема будет видна только сотрудникам',
+    'PRIVATE_DEPARTMENT_DESCRIPTION': 'Этот отдел будет рассматриваться только сотрудниками',
     'PRIVATE_DESCRIPTION': 'Этот ответ будет рассматриваться только сотрудниками',
 
     //ERRORS
@@ -338,6 +339,7 @@ export default {
     'ERRORS_FOUND': 'Ошибки найдены',
     'ERROR_IMAGE_SIZE': 'Изображение не может иметь размер больше {size} МБ',
     'USER_DISABLED': 'Эта учетная запись отключена.',
+    'DEPARTMENT_PRIVATE_TICKETS': 'У этого отдела есть билеты, созданные не сотрудниками, и он не может быть приватным',
     'INVALID_SYNTAX': 'Недопустимый синтаксис.',
 
     //MESSAGES
