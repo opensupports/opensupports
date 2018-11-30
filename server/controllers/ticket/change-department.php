@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/change-department Change department
- * @apiVersion 4.3.0
+ * @apiVersion 4.3.2
  *
  * @apiName Change department
  *
@@ -52,6 +52,10 @@ class ChangeDepartmentController extends Controller {
         $department = Department::getDataStore($departmentId);
         $user = Controller::getLoggedUser();
 
+        if(!$ticket->authorStaffId && $department->private){
+            throw new Exception(ERRORS::NO_PERMISSION);
+        }
+
         if($ticket->owner && $ticket->owner->id !== $user->id && $user->level == 1){
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
@@ -67,8 +71,8 @@ class ChangeDepartmentController extends Controller {
         $ticket->unread = !$ticket->isAuthor($user);
         $ticket->store();
 
-        if(!$user->sharedDepartmentList->includesId($department->id)) {
-            $unAssignTicketController = new UnAssignStaffController();
+        if($ticket->owner && !$ticket->owner->sharedDepartmentList->includesId($department->id)) {
+            $unAssignTicketController = new UnAssignStaffController($ticket->owner);
             $unAssignTicketController->validate();
             $unAssignTicketController->handler();
         }

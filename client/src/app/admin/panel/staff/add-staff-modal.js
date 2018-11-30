@@ -10,6 +10,7 @@ import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
 import Button from 'core-components/button';
+import Icon from 'core-components/icon';
 
 class AddStaffModal extends React.Component {
 
@@ -63,7 +64,13 @@ class AddStaffModal extends React.Component {
     }
 
     getDepartments() {
-        return SessionStore.getDepartments().map(department => department.name);
+        return SessionStore.getDepartments().map(department => {
+            if(department.private*1){
+                return <spam>{department.name} <Icon name='user-secret'/> </spam>
+            }else {
+                return department.name;
+            }
+        });
     }
 
     onSubmit(form) {

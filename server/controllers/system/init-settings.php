@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /system/init-settings Init settings
- * @apiVersion 4.3.0
+ * @apiVersion 4.3.2
  *
  * @apiName Init settings
  *
@@ -86,7 +86,7 @@ class InitSettingsController extends Controller {
             'ticket-gap' => Hashing::generateRandomPrime(100000, 999999),
             'ticket-first-number' => Hashing::generateRandomNumber(100000, 999999),
             'session-prefix' => 'opensupports-'.Hashing::generateRandomToken().'_',
-            'mail-template-header-image' => 'http://opensupports.com/logo.png'
+            'mail-template-header-image' => 'https://s3.amazonaws.com/opensupports/logo.png'
         ]);
     }
 

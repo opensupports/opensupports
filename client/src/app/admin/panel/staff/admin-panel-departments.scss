@@ -2,7 +2,6 @@
 
 .admin-panel-departments {
 
-
     &__list {
         position: relative;
     }
@@ -10,6 +9,14 @@
     &__update-name-button {
         float: left;
         min-width: 156px;
+    }
+
+    &__name {
+        display:inline-block;margin-right: 101px;
+    }
+    &__private-option {
+        display:inline-block;
+        margin-left: 10px;
     }
 
     &__optional-buttons {
@@ -38,5 +45,11 @@
 
     &__transfer-tickets-drop-down {
         display: inline-block;
+    }
+    &__private-icon {
+        margin-left: 5px;
+    }
+    &__info-tooltip {
+        margin-left: 2px;
     }
 }

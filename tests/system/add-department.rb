@@ -13,7 +13,8 @@ describe'system/add-department' do
 
             row = $database.getRow('department', 4, 'id')
 
-            (row['name']).should.equal('new department')
+            (row['name']).should.equal('Tech support')
+            (row['private']).should.equal("0")
 
             lastLog = $database.getLastRow('log')
             (lastLog['type']).should.equal('ADD_DEPARTMENT')
@@ -30,7 +31,25 @@ describe'system/add-department' do
 
             row = $database.getRow('department', 5, 'id')
 
-            (row['name']).should.equal('<b>new department</b>')
+            (row['name']).should.equal('new department')
+            (row['private']).should.equal("0")
+
+            lastLog = $database.getLastRow('log')
+            (lastLog['type']).should.equal('ADD_DEPARTMENT')
+        end
+
+        it 'should add a private department' do
+            result = request('/system/add-department', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                name: 'a private department',
+                private: 1
+            })
+
+            (result['status']).should.equal('success')
+
+            row = $database.getRow('department', 'a private department', 'name')
+            (row['private']).should.equal('1')
 
             lastLog = $database.getLastRow('log')
             (lastLog['type']).should.equal('ADD_DEPARTMENT')

@@ -5,10 +5,11 @@ import i18n from 'lib-app/i18n';
 import DateTransformer from 'lib-core/date-transformer';
 
 import TicketInfo from 'app-components/ticket-info';
+import DepartmentDropdown from 'app-components/department-dropdown';
 import Table from 'core-components/table';
 import Button from 'core-components/button';
 import Tooltip from 'core-components/tooltip';
-import DropDown from 'core-components/drop-down';
+import Icon from 'core-components/icon';
 import Checkbox from 'core-components/checkbox';
 
 class TicketList extends React.Component {
@@ -44,7 +45,7 @@ class TicketList extends React.Component {
     render() {
         return (
             <div className="ticket-list">
-                <div className="ticket-list__filters"> 
+                <div className="ticket-list__filters">
                     {(this.props.type === 'secondary' && this.props.showDepartmentDropdown) ? this.renderDepartmentsDropDown() : null}
                     {this.props.onClosedTicketsShownChange ? this.renderFilterCheckbox() : null}
                 </div>
@@ -61,14 +62,14 @@ class TicketList extends React.Component {
     renderDepartmentsDropDown() {
         return (
             <div className="ticket-list__department-selector">
-                <DropDown {...this.getDepartmentDropdownProps()} />
+                <DepartmentDropdown {...this.getDepartmentDropdownProps()} />
             </div>
         );
     }
 
     getDepartmentDropdownProps() {
         return {
-            items: this.getDepartments(),
+            departments: this.getDepartments(),
             onChange: (event) => {
                 this.setState({
                     selectedDepartment: event.index && this.props.departments[event.index - 1].id
@@ -92,12 +93,10 @@ class TicketList extends React.Component {
     }
 
     getDepartments() {
-        let departments = this.props.departments.map((department) => {
-            return {content: department.name};
-        });
+        let departments = _.clone(this.props.departments);
 
         departments.unshift({
-            content: i18n('ALL_DEPARTMENTS')
+            name: i18n('ALL_DEPARTMENTS')
         });
 
         return departments;

@@ -305,7 +305,9 @@ export default {
     'SMTP_SERVER_DESCRIPTION': 'La configuration du serveur SMTP permet à l\'application d\'envoyer des mails. Si vous ne le configurez pas, aucun service d\'email ne sera envoyé par OpenSupports.',
     'ENABLE_USER_DESCRIPTION': 'Cette action permet à l\'utilisateur de se connecter et de créer des tickets.',
     'DISABLE_USER_DESCRIPTION': 'L\'utilisateur sera désactivé et ne pourra pas se connecter et créer des tickets.',
-    'PRIVATE_DESCRIPTION': 'Cette réponse ne sera vue que par les membres du personnel',
+    'PRIVATE_RESPONSE_DESCRIPTION': 'Cette réponse ne sera vue que par les membres du personnel',
+    'PRIVATE_TOPIC_DESCRIPTION': 'Ce sujet ne sera vu que par les membres du personnel',
+    'PRIVATE_DEPARTMENT_DESCRIPTION': 'Ce département ne sera vu que par les membres du personnel',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-mail ou mot de passe invalide',
@@ -337,6 +339,7 @@ export default {
     'ERROR_IMAGE_SIZE': 'Aucune image ne peut avoir une taille supérieure à {size} MB',
     'USER_DISABLED': 'Ce compte est désactivé.',
     'INVALID_SYNTAX': 'Syntaxe invalide.',
+    'DEPARTMENT_PRIVATE_TICKETS': 'Ce service a des tickets créés par des non-membres du personnel et il ne peut pas être privé',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'Vous êtes inscrit avec succès dans notre système de support.',

@@ -35,12 +35,13 @@
         <?php endif; ?>
 
         <script>
-            opensupports_version = '4.3.0';
+            opensupports_version = '4.3.2';
             root = "<?=$url ?>";
             //Update when https is enabled with a load balancer
             apiRoot = 'http://api.opensupports.com/<?= $client->getClientVersion(); ?>';
             globalIndexPath = "";
-            clientId = "<?= $client->getClientId(); ?>"
+            showLogs=false;
+            clientId = "<?= $client->getClientId(); ?>";
         </script>
         <script src="https://s3.amazonaws.com/opensupports/opensupports_<?=$client->getClientVersion(); ?>.js"></script>
     </body>

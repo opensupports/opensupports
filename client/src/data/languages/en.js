@@ -305,7 +305,9 @@ export default {
     'SMTP_SERVER_DESCRIPTION': 'The configuration of the SMTP server allows the application to send mails. If you do not configure it, no emails will be sent by OpenSupports.',
     'ENABLE_USER_DESCRIPTION': 'This action allows the user to sign in and create tickets.',
     'DISABLE_USER_DESCRIPTION': 'User will be disabled and will not be able to sign in and create tickets.',
-    'PRIVATE_DESCRIPTION': 'This response will only be seen by staff members',
+    'PRIVATE_RESPONSE_DESCRIPTION': 'This response will only be seen by staff members',
+    'PRIVATE_TOPIC_DESCRIPTION': 'This topic will only be seen by staff members',
+    'PRIVATE_DEPARTMENT_DESCRIPTION': 'This department will only be seen by staff members',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
@@ -337,6 +339,7 @@ export default {
     'ERROR_IMAGE_SIZE': 'No image can have a size greater than {size} MB',
     'USER_DISABLED': 'This account is disabled.',
     'INVALID_SYNTAX': 'Invalid syntax.',
+    'DEPARTMENT_PRIVATE_TICKETS': 'This department has tickets created by non-staff and it can not be private',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',

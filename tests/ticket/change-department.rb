@@ -29,7 +29,7 @@ describe '/ticket/change-department' do
 
         result = request('/ticket/change-department', {
             ticketNumber: ticket['ticket_number'],
-            departmentId: 2,
+            departmentId: 3,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
@@ -38,7 +38,7 @@ describe '/ticket/change-department' do
 
         ticket = $database.getRow('ticket', 1 , 'id')
         (ticket['unread']).should.equal('1')
-        (ticket['department_id']).should.equal('2')
+        (ticket['department_id']).should.equal('3')
         (ticket['owner_id']).should.equal('1')
 
         lastLog = $database.getLastRow('log')

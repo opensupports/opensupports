@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /article/edit-topic Edit topic
- * @apiVersion 4.3.0
+ * @apiVersion 4.3.2
  *
  * @apiName Edit topic
  *
@@ -18,6 +18,7 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} name The new name of the topic. Optional.
  * @apiParam {String} icon The new icon of the topic. Optional.
  * @apiParam {String} iconColor The new Icon's color of the topic. Optional.
+ * @apiParam {Boolean} private Indicates if the topic is not shown to users.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TOPIC
@@ -55,6 +56,9 @@ class EditTopicController extends Controller {
 
         if(Controller::request('icon')) {
             $topic->icon = Controller::request('icon');
+        }
+        if (Controller::request('private') !== null) {
+            $topic->private = Controller::request('private');
         }
 
         $topic->store();

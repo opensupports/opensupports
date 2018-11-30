@@ -22,7 +22,8 @@ class TopicViewer extends React.Component {
         iconColor: React.PropTypes.string.isRequired,
         articles: React.PropTypes.array.isRequired,
         articlePath: React.PropTypes.string,
-        editable: React.PropTypes.bool
+        editable: React.PropTypes.bool,
+        private: React.PropTypes.bool
     };
 
     static defaultProps = {
@@ -53,6 +54,8 @@ class TopicViewer extends React.Component {
                     <span className="topic-viewer__title">{this.props.name}</span>
                     {(this.props.editable) ? this.renderEditButton() : null}
                     {(this.props.editable) ? this.renderDeleteButton() : null}
+                    {this.props.private*1 ? <Icon className="topic-viewer__private" name='user-secret' color='grey'/> : null}
+
                 </div>
                 <ul className="topic-viewer__list">
                     {this.state.articles.map(this.renderArticleItem.bind(this))}
@@ -127,7 +130,8 @@ class TopicViewer extends React.Component {
             defaultValues: {
                 title: this.props.name,
                 icon: this.props.icon,
-                iconColor: this.props.iconColor
+                iconColor: this.props.iconColor,
+                private: this.props.private * 1
             }
         };
 
@@ -148,7 +152,7 @@ class TopicViewer extends React.Component {
             <ArticleAddModal {...props}/>
         );
     }
-    
+
     getArticleLinkProps(article) {
         let classes = {
             'topic-viewer__list-item-button': true,

@@ -3,7 +3,7 @@ use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {post} /user/login Login
- * @apiVersion 4.3.0
+ * @apiVersion 4.3.2
  *
  * @apiName Login
  *
@@ -154,7 +154,7 @@ class LoginController extends Controller {
     private function createRememberToken() {
         $remember = Controller::request('remember');
 
-        if ($remember) {
+        if (!Controller::request('staff') && $remember) {
             $this->rememberToken = Hashing::generateRandomToken();
             $this->rememberExpiration = Date::getNextDate(30);
 

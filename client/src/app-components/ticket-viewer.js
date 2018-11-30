@@ -21,6 +21,7 @@ import Message            from 'core-components/message';
 import Icon               from 'core-components/icon';
 import TextEditor         from 'core-components/text-editor';
 import InfoTooltip        from 'core-components/info-tooltip';
+import DepartmentDropdown from 'app-components/department-dropdown';
 
 class TicketViewer extends React.Component {
     static propTypes = {
@@ -86,7 +87,8 @@ class TicketViewer extends React.Component {
 
     renderEditableHeaders() {
         const ticket = this.props.ticket;
-        const departments = SessionStore.getDepartments();
+        const departments = this.getDepartmentsForTransfer();
+
         const priorities = {
             'low': 0,
             'medium': 1,
@@ -107,8 +109,8 @@ class TicketViewer extends React.Component {
                 </div>
                 <div className="ticket-viewer__info-row-values row">
                     <div className="col-md-4">
-                        <DropDown className="ticket-viewer__editable-dropdown"
-                                  items={departments.map((department) => {return {content: department.name}})}
+                        <DepartmentDropdown className="ticket-viewer__editable-dropdown"
+                                  departments={departments}
                                   selectedIndex={_.findIndex(departments, {id: this.props.ticket.department.id})}
                                   onChange={this.onDepartmentDropdownChanged.bind(this)} />
                     </div>
@@ -207,9 +209,10 @@ class TicketViewer extends React.Component {
     }
 
     renderTicketEvent(options, index) {
-        if (this.props.userStaff) {
+        if (this.props.userStaff && typeof options.content === 'string') {
             options.content = MentionsParser.parse(options.content);
         }
+
         return (
             <TicketEvent {...options} author={(!_.isEmpty(options.author)) ? options.author : this.props.ticket.author} key={index} />
         );
@@ -272,7 +275,7 @@ class TicketViewer extends React.Component {
             return (
                 <div className="ticket-viewer__response-private">
                     <FormField label={i18n('PRIVATE')} name="private" field="checkbox"/>
-                    <InfoTooltip className="ticket-viewer__response-private-info" text={i18n('PRIVATE_DESCRIPTION')} />
+                    <InfoTooltip className="ticket-viewer__response-private-info" text={i18n('PRIVATE_RESPONSE_DESCRIPTION')} />
                 </div>
             );
         } else {
@@ -302,6 +305,10 @@ class TicketViewer extends React.Component {
                 'private': this.state.commentPrivate
             }
         };
+    }
+
+    getPublicDepartments() {
+        return _.filter(SessionStore.getDepartments(),d => !(d.private*1));
     }
 
     onDepartmentDropdownChanged(event) {
@@ -347,6 +354,7 @@ class TicketViewer extends React.Component {
         event.preventDefault();
         AreYouSure.openModal(null, this.closeTicket.bind(this));
     }
+
     onDeleteTicketClick(event) {
         event.preventDefault();
         AreYouSure.openModal(null, this.deleteTicket.bind(this));
@@ -369,6 +377,7 @@ class TicketViewer extends React.Component {
             }
         }).then(this.onTicketModification.bind(this));
     }
+
     deleteTicket() {
         API.call({
             path: '/ticket/delete',
@@ -383,7 +392,7 @@ class TicketViewer extends React.Component {
             path: '/ticket/change-department',
             data: {
                 ticketNumber: this.props.ticket.ticketNumber,
-                departmentId: SessionStore.getDepartments()[index].id
+                departmentId: this.getDepartmentsForTransfer()[index].id
             }
         }).then(this.onTicketModification.bind(this));
     }
@@ -478,6 +487,10 @@ class TicketViewer extends React.Component {
         );
 
         return staffAssignmentItems;
+    }
+
+    getDepartmentsForTransfer() {
+        return this.props.ticket.author.staff ? SessionStore.getDepartments() : this.getPublicDepartments();
     }
 
     showDeleteButton() {

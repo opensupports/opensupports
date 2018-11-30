@@ -18,7 +18,7 @@ class MentionsParser {
                 parsingLink = true;
                 parsingType = PARSING_MENTION;
                 parsingSegment = '';
-            } else if(!this.isAlphanumeric(character) && parsingLink){
+            } else if(!this.isDigit(character) && parsingLink){
                 ans += this.compileSegment(parsingSegment, parsingType);
 
                 parsingLink = false;
@@ -34,16 +34,19 @@ class MentionsParser {
         return ans;
     }
 
-    isAlphanumeric(string){
-        return /[a-zA-Z0-9]/.test(string);
+    isDigit(string){
+        return /[0-9]/.test(string);
     }
- 
+
     compileSegment(segment, parsingType){
         switch(parsingType){
             case PARSING_TEXT:
                 return segment;
             case PARSING_MENTION:
-                return '<a href=' + root + '/admin/panel/tickets/view-ticket/' + segment + '>#' + segment + '</a>';
+                if(segment.length == 6)
+                    return '<a href="' + root + '/admin/panel/tickets/view-ticket/' + segment + '">#' + segment + '</a>';
+                else
+                    return '#' + segment;
             default:
                 return '';
         }

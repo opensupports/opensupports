@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/add-department Add department
- * @apiVersion 4.3.0
+ * @apiVersion 4.3.2
  *
  * @apiName Add department
  *
@@ -14,6 +14,7 @@ use Respect\Validation\Validator as DataValidator;
  * @apiPermission staff3
  *
  * @apiParam {String} name Name of the new department.
+ * @apiParam {Boolean} private Indicates if the deparment is not shown to users.
  *
  * @apiUse NO_PERMISSION
  *
@@ -28,17 +29,24 @@ class AddDepartmentController extends Controller {
     public function validations() {
         return [
             'permission' => 'staff_3',
-            'requestData' => []
+            'requestData' => [
+                'name' => [
+                    'validation' => DataValidator::length(2, 100),
+                    'error' => ERRORS::INVALID_NAME
+                ]
+            ]
         ];
     }
 
     public function handler() {
         $name = Controller::request('name');
+        $private = Controller::request('private');
 
         $departmentInstance = new Department();
 
         $departmentInstance->setProperties([
-            'name' => $name,
+            'name' => $name ,
+            'private' => $private ? 1 : 0
         ]);
         $departmentInstance->store();
 

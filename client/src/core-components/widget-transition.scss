@@ -3,7 +3,11 @@
     display: inline-block;
 
     &--widget {
+        -webkit-perspective: 0;
+        -webkit-backface-visibility: hidden;
+        -webkit-transform: translate3d(0,0,0);
         display: inline-block;
+        visibility: visible;
         backface-visibility: hidden;
         position: absolute;
         left: 0;

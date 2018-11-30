@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /staff/add Add staff
- * @apiVersion 4.3.0
+ * @apiVersion 4.3.2
  *
  * @apiName Add staff
  *

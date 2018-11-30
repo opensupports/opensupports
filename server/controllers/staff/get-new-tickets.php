@@ -4,7 +4,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/get-new-tickets Get new tickets
- * @apiVersion 4.3.0
+ * @apiVersion 4.3.2
  *
  * @apiName Get new tickets
  *
@@ -42,13 +42,18 @@ class GetNewTicketsStaffController extends Controller {
         ];
     }
     public function handler() {
+        $page = Controller::request('page');
+
         if (Ticket::isTableEmpty()) {
-            Response::respondSuccess([]);
+            Response::respondSuccess([
+                'tickets' => [],
+                'page' => $page,
+                'pages' => 0
+            ]);
             return;
         }
 
         $user = Controller::getLoggedUser();
-        $page = Controller::request('page');
 
         $query = ' (';
         foreach ($user->sharedDepartmentList as $department) {

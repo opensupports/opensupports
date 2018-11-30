@@ -29,7 +29,7 @@ let renderApplication = function () {
 window.store = store;
 
 let unsubscribe = store.subscribe(() => {
-    console.log(store.getState());
+    if(showLogs) console.log(store.getState());
 
     if (store.getState().session.initDone && store.getState().config.initDone) {
         unsubscribe();

@@ -305,7 +305,9 @@ export default {
     'SMTP_SERVER_DESCRIPTION': 'Die Konfiguration des SMTP-Servers ermöglicht es der Software, Mails zu senden. Wenn Sie es nicht konfigurieren, werden keine E-Mails von OpenSupports gesendet.',
     'ENABLE_USER_DESCRIPTION': 'Mit dieser Aktion kann der Benutzer sich anmelden und Tickets erstellen.',
     'DISABLE_USER_DESCRIPTION': 'Der Benutzer wird deaktiviert und kann keine Tickets anmelden und erstellen.',
-    'PRIVATE_DESCRIPTION': 'Diese Antwort wird nur von den Mitarbeitern gesehen werden',
+    'PRIVATE_RESPONSE_DESCRIPTION': 'Diese Antwort wird nur von den Mitarbeitern gesehen werden',
+    'PRIVATE_TOPIC_DESCRIPTION': 'Dieses Thema wird nur von Mitarbeitern gesehen',
+    'PRIVATE_DEPARTMENT_DESCRIPTION': 'Diese Abteilung wird nur von Mitarbeitern gesehen',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-Mail-Adresse oder Passwort ungültig!',
@@ -337,6 +339,7 @@ export default {
     'ERROR_IMAGE_SIZE': 'Kein Bild darf größer als {size} MB sein',
     'USER_DISABLED': 'Dieser Account ist deaktiviert.',
     'INVALID_SYNTAX': 'Ungültiger Satzbau.',
+    'DEPARTMENT_PRIVATE_TICKETS': 'Diese Abteilung hat Tickets, die von Nicht-Mitarbeitern erstellt wurden, und kann nicht privat sein',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'Sie haben sich erfolgreich in unserem Support-System registriert.',

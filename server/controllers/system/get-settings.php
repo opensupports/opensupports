@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /system/get-settings Get settings
- * @apiVersion 4.3.0
+ * @apiVersion 4.3.2
  *
  * @apiName Get settings
  *
@@ -53,7 +53,7 @@ class GetSettingsController extends Controller {
                     'smtp-user' => ($smtpValues['isDefault']) ? 'DEFAULT' : $smtpValues['smtp-user'],
                     'no-reply-email' => ($smtpValues['isDefault']) ? 'DEFAULT' : $smtpValues['no-reply-email'],
                     'registration' => Setting::getSetting('registration')->getValue(),
-                    'departments' => Department::getDepartmentNames(),
+                    'departments' => Department::getAllDepartmentNames(),
                     'supportedLanguages' => Language::getSupportedLanguages(),
                     'allowedLanguages' => Language::getAllowedLanguages(),
                     'session-prefix' => Setting::getSetting('session-prefix')->getValue(),
@@ -71,7 +71,7 @@ class GetSettingsController extends Controller {
                     'max-size' => Setting::getSetting('max-size')->getValue(),
                     'title' => Setting::getSetting('title')->getValue(),
                     'registration' => Setting::getSetting('registration')->getValue(),
-                    'departments' => Department::getDepartmentNames(),
+                    'departments' => Controller::isStaffLogged() ? Department::getAllDepartmentNames() : Department::getPublicDepartmentNames(),
                     'supportedLanguages' => Language::getSupportedLanguages(),
                     'allowedLanguages' => Language::getAllowedLanguages(),
                     'user-system-enabled' => intval(Setting::getSetting('user-system-enabled')->getValue()),

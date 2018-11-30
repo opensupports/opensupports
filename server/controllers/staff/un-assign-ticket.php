@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /staff/un-assign-ticket Un-assign ticket
- * @apiVersion 4.3.0
+ * @apiVersion 4.3.2
  *
  * @apiName Un-assign ticket
  *
@@ -27,6 +27,12 @@ class UnAssignStaffController extends Controller {
     const PATH = '/un-assign-ticket';
     const METHOD = 'POST';
 
+    private $user;
+
+    public function __construct($user=null) {
+        $this->user = $user;
+    }
+
     public function validations() {
         return [
             'permission' => 'staff_1',
@@ -41,7 +47,7 @@ class UnAssignStaffController extends Controller {
 
     public function handler() {
         $ticketNumber = Controller::request('ticketNumber');
-        $user = Controller::getLoggedUser();
+        $user = ($this->user? $this->user : Controller::getLoggedUser());
         $ticket = Ticket::getByTicketNumber($ticketNumber);
         $owner = $ticket->owner;
 

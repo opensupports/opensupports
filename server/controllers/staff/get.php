@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /staff/get Get staff
- * @apiVersion 4.3.0
+ * @apiVersion 4.3.2
  *
  * @apiName Get staff
  *
@@ -15,7 +15,7 @@ DataValidator::with('CustomValidations', true);
  * @apiPermission staff1
  *
  * @apiParam {Number} staffId The id of the staff member to be searched.
- * 
+ *
  * @apiUse NO_PERMISSION
  *
  * @apiSuccess {Object} data Information about a staff member
@@ -57,7 +57,8 @@ class GetStaffController extends Controller {
         foreach($departmentList as $department) {
             $parsedDepartmentList[] = [
                 'id' => $department->id,
-                'name' => $department->name
+                'name' => $department->name,
+                'private' => $department->private
             ];
         }
 

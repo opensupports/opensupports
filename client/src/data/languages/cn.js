@@ -305,7 +305,9 @@ export default {
     'SMTP_SERVER_DESCRIPTION': 'SMTP服务器允许应用程序发送邮件。 如果您没有配置，OpenSupports将不会发送任何电子邮件。',
     'ENABLE_USER_DESCRIPTION': '此操作允许用户登录并创建票证。',
     'DISABLE_USER_DESCRIPTION': '用户将被禁用，无法登录并创建票证。',
-    'PRIVATE_DESCRIPTION': '只有工作人员才能看到这种回应',
+    'PRIVATE_RESPONSE_DESCRIPTION': '只有工作人员才能看到这种回应',
+    'PRIVATE_TOPIC_DESCRIPTION': '只有工作人员才能看到此主题',
+    'PRIVATE_DEPARTMENT_DESCRIPTION': '只有工作人员才能看到这个部门',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': '電子郵件或密碼無效',
@@ -337,6 +339,7 @@ export default {
     'ERROR_IMAGE_SIZE': '没有图像的大小可以超过{size}MB',
     'USER_DISABLED': '此帐户已被停用。',
     'INVALID_SYNTAX': '无效的语法。',
+    'DEPARTMENT_PRIVATE_TICKETS': '这个部门有非工作人员创建的门票，不能是私人的',
 
     //MESSAGES
     'SIGNUP_SUCCESS': '您已在我們的支持系統中成功註冊',
