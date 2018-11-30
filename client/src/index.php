@@ -1,5 +1,7 @@
 <?php
-    require_once 'api/4.1/Client.php';
+    require_once 'api-urls.php';
+    require_once 'api/Client.php';
+
     $client = Client::getByHost();
 
     $path = rtrim(dirname($_SERVER['PHP_SELF']), '/');
@@ -35,10 +37,10 @@
         <?php endif; ?>
 
         <script>
-            opensupports_version = '4.3.2';
+            opensupports_version = '<?= $client->getClientVersion()?>';
             root = "<?=$url ?>";
             //Update when https is enabled with a load balancer
-            apiRoot = 'http://api.opensupports.com/<?= $client->getClientVersion(); ?>';
+            apiRoot = '<?= getAPIUrl($client->getClientVersion()); ?>';
             globalIndexPath = "";
             showLogs=false;
             clientId = "<?= $client->getClientId(); ?>";
