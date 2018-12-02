@@ -49,7 +49,7 @@ class ConfigReducer extends Reducer {
             'user-system-enabled': !!(payload.data['user-system-enabled']* 1),
             'allow-attachments': !!(payload.data['allow-attachments']* 1),
             'maintenance-mode': !!(payload.data['maintenance-mode']* 1),
-            departments: payload.data.departments.map(department => _.extend({}, department, {private: department.private * 1})),
+            departments: payload.data.departments && payload.data.departments.map(department => _.extend({}, department, {private: department.private * 1})),
             initDone: true
         });
     }
