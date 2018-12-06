@@ -1,5 +1,4 @@
 <?php
-    require_once 'api-urls.php';
     require_once 'api/Client.php';
 
     $client = Client::getByHost();
@@ -40,7 +39,7 @@
             opensupports_version = '<?= $client->getClientVersion()?>';
             root = "<?=$url ?>";
             //Update when https is enabled with a load balancer
-            apiRoot = '<?= getAPIUrl($client->getClientVersion()); ?>';
+            apiRoot = 'https://<?= $client->getClientVersionURL()?>';
             globalIndexPath = "";
             showLogs=false;
             clientId = "<?= $client->getClientId(); ?>";

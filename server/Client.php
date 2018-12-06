@@ -3,11 +3,12 @@ require_once 'vendor/autoload.php';
 require_once 'libs/AWSClients.php';
 
 class Client {
-    const TABLE = 'opensupports_clients';
+    const CLIENT_TABLE = 'opensupports_clients';
+    const VERSION_TABLE = 'opensupports_versions';
     private $clientId;
     private $clientVersion;
     private $clientMySQLSettings;
-    
+
     public static function getByHost() {
         $client = new Client();
         $client->setClientId($client->getItem($_SERVER['HTTP_HOST']));
@@ -80,10 +81,34 @@ class Client {
         ]);
     }
 
+    public function getClientVersionURL() {
+        return $this->getVersionItem($client->getClientVersion());
+    }
+
+    private function getVersionItem($key) {
+        $value = AWSClients::getDynamoDbClientInstance()->getItem(array(
+            'ConsistentRead' => true,
+            'TableName' => Client::VERSION_TABLE,
+            'Key' => [
+                'id' => [
+                    'S' => $key
+                ]
+            ]
+        ))['Item']['value'];
+
+        if($value && array_key_exists('S', $value)) {
+            return $value['S'];
+        } else if($value && array_key_exists('N', $value)) {
+            return $value['N'];
+        } else {
+            return null;
+        }
+    }
+
     public function getItem($key) {
         $value = AWSClients::getDynamoDbClientInstance()->getItem(array(
             'ConsistentRead' => true,
-            'TableName' => Client::TABLE,
+            'TableName' => Client::CLIENT_TABLE,
             'Key' => [
                 'id' => [
                     'S' => $key
