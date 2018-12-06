@@ -82,7 +82,7 @@ class Client {
     }
 
     public function getClientVersionURL() {
-        return $this->getVersionItem($client->getClientVersion());
+        return $this->getVersionItem($this->getClientVersion());
     }
 
     private function getVersionItem($key) {

@@ -3,8 +3,12 @@
 
     $client = Client::getByHost();
 
+    $https = !empty($_SERVER['HTTPS']) && strcasecmp($_SERVER['HTTPS'], 'on') === 0 ||
+             !empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && strcasecmp($_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') === 0 ||
+             $_SERVER['SERVER_PORT'] == 443;
+
     $path = rtrim(dirname($_SERVER['PHP_SELF']), '/');
-    $url = ((isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $path;
+    $url = ($https ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $path;
 
     if(!$client->getClientId()) {
         http_response_code(404);
