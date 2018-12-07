@@ -29,9 +29,11 @@ module.exports = [
                         ],
                         'allowedLanguages': ['en', 'es', 'de', 'fr', 'pt', 'jp', 'ru', 'cn', 'in', 'tr'],
                         'supportedLanguages': ['en', 'es', 'de'],
-                        'registration': true,
-                        'user-system-enabled': true,
-                        'staffLimit': 1,
+                        'registration': 1,
+                        'user-system-enabled': 1,
+                        'automatic-upgrades': 1,
+                        'staffLimit': 5,
+                        'staffOverLimit': 0,
                     }
                 };
 
@@ -43,7 +45,7 @@ module.exports = [
                         'title': 'Support Center',
                         'layout': 'boxed',
                         'reCaptchaKey': '6LfM5CYTAAAAAGLz6ctpf-hchX2_l0Ge-Bn-n8wS',
-                        'maintenance-mode': false,
+                        'maintenance-mode': 0,
                         'departments': [
                             {id: 1, name: 'Sales Support', owners: 2},
                             {id: 2, name: 'Technical Issues', owners: 5},
@@ -51,9 +53,10 @@ module.exports = [
                         ],
                         'allowedLanguages': ['en', 'es', 'de', 'fr', 'pt', 'jp', 'ru', 'cn', 'in', 'tr'],
                         'supportedLanguages': ['en', 'es', 'de'],
-                        'registration': true,
-                        'user-system-enabled': true,
-                        'staffLimit': 1,
+                        'registration': 1,
+                        'user-system-enabled': 1,
+                        'staffLimit': 5,
+                        'staffOverLimit': 0,
                     }
                 };
             }

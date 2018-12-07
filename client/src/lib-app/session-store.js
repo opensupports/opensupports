@@ -63,6 +63,7 @@ class SessionStore {
         this.setItem('maintenance-mode', configs['maintenance-mode']);
         this.setItem('max-size', configs['max-size']);
         this.setItem('staffLimit', configs['staffLimit']);
+        this.setItem('staffOverLimit', configs['staffOverLimit']);
     }
 
     getConfigs() {
@@ -79,7 +80,8 @@ class SessionStore {
             'allow-attachments': (this.getItem('allow-attachments') * 1),
             'maintenance-mode': (this.getItem('maintenance-mode') * 1),
             'max-size': this.getItem('max-size'),
-            'staffLimit': this.getItem('staffLimit'),
+            'staffLimit': (this.getItem('staffLimit') || 0) * 1,
+            'staffOverLimit': (this.getItem('staffOverLimit') || 0) * 1,
         };
     }
 

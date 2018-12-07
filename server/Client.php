@@ -50,6 +50,10 @@ class Client {
         return $this->getItem($this->getClientId().'_staff-limit')*1;
     }
 
+    public function isUpgradeAutomatic() {
+        return $this->getItem($this->getClientId().'_automatic-upgrade')*1;
+    }
+
     public function getHiddenSettings() {
         return [
             'recaptcha-public' => $this->getItem('recaptcha-public'),

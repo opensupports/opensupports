@@ -122,7 +122,7 @@ class App extends React.Component {
             history.push('/');
         }
 
-        if(props.session.logged && props.session.staff && !props.modal.opened && props.config.staffLimit && !_.includes(pathname, '/admin/panel/staff/staff-members') && !_.includes(pathname, '/admin/panel/staff/view-staff')) {
+        if(props.session.logged && props.session.staff && !props.modal.opened && (props.config.staffOverLimit * 1) && !_.includes(pathname, '/admin/panel/staff/staff-members') && !_.includes(pathname, '/admin/panel/staff/view-staff')) {
             this.openStaffLimitModal();
         }
     }
@@ -156,7 +156,7 @@ class App extends React.Component {
         ModalContainer.openModal(
             <div className="application__staff-limit">
                 <Message title={i18n('STAFF_LIMIT_EXCEEDED')} type="error">
-                    {i18n('STAFF_LIMIT_EXCEEDED_DESCRIPTION', {staffLimit: 4})}
+                    {i18n('STAFF_LIMIT_EXCEEDED_DESCRIPTION', {staffLimit: this.props.config.staffLimit})}
                 </Message>
                 <div className="application__staff-limit-button">
                     <Button onClick={redirection}>OK</Button>

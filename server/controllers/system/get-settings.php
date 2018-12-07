@@ -37,7 +37,9 @@ class GetSettingsController extends Controller {
         if(InstallationDoneController::isInstallationDone()) {
             if(Controller::request('allSettings') && Controller::isStaffLogged(3)) {
                 $settingsList = [
-                    'staffLimit' => $this->staffOverLimit,
+                    'automatic-upgrades' => $this->automaticUpgrades,
+                    'staffLimit' => $this->staffLimit,
+                    'staffOverLimit' => $this->staffOverLimit,
                     'language' => Setting::getSetting('language')->getValue(),
                     'reCaptchaKey' => ($captchaValues['isDefault']) ? 'DEFAULT' : $captchaValues['recaptcha-public'],
                     'reCaptchaPrivate' => ($captchaValues['isDefault']) ? 'DEFAULT' : $captchaValues['recaptcha-private'],
@@ -61,7 +63,8 @@ class GetSettingsController extends Controller {
                 ];
             } else {
                 $settingsList = [
-                    'staffLimit' => $this->staffOverLimit,
+                    'staffLimit' => Controller::isStaffLogged() ? $this->staffLimit : 0,
+                    'staffOverLimit' => Controller::isStaffLogged() ? $this->staffOverLimit : 0,
                     'reCaptchaKey' => ($captchaValues['recaptcha-public'] !== 'NONE') ? $captchaValues['recaptcha-public'] : '',
                     'language' => Setting::getSetting('language')->getValue(),
                     'time-zone' => Setting::getSetting('time-zone')->getValue(),

@@ -4,12 +4,16 @@ use RedBeanPHP\Facade as RedBean;
 abstract class Controller {
     private static $dataRequester;
     private $staffOverLimit;
+    private $staffLimit;
+    private $automaticUpgrades;
 
     public function runStaffLimitFirewall() {
         global $client;
 
         $loggedUser = Controller::getLoggedUser();
-        $this->staffOverLimit = $client->getStaffLimit() < Staff::count();
+        $this->automaticUpgrades = $client->isUpgradeAutomatic();
+        $this->staffLimit = $client->getStaffLimit();
+        $this->staffOverLimit = $this->staffLimit < Staff::count();
 
         if(($loggedUser instanceOf Staff) && $this->staffOverLimit) {
             $allowed = [

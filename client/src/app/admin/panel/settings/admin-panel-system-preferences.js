@@ -24,6 +24,7 @@ class AdminPanelSystemPreferences extends React.Component {
     state = {
         loading: true,
         message: null,
+        automaticUpgrades: null,
         values: {
             maintenance: false,
             'smtp-pass': 'HIDDEN',
@@ -38,6 +39,9 @@ class AdminPanelSystemPreferences extends React.Component {
         return (
             <div className="admin-panel-system-preferences">
                 <Header title={i18n('SYSTEM_PREFERENCES')} description={i18n('SYSTEM_PREFERENCES_DESCRIPTION')}/>
+                <div style={{marginBottom: 30}}>
+                    {this.state.automaticUpgrades ? this.renderAutomaticUpgradesEnabled() : this.renderAutomaticUpgradesDisabled()}
+                </div>
                 <Form values={this.state.values} onChange={this.onFormChange.bind(this)} onSubmit={this.onSubmit.bind(this)} loading={this.state.loading}>
                     <div className="row">
                         <div className="col-md-12">
@@ -147,6 +151,31 @@ class AdminPanelSystemPreferences extends React.Component {
         }
     }
 
+    renderAutomaticUpgradesEnabled() {
+        if(this.state.automaticUpgrades === null) return null;
+        return (
+            <Message type="success" title="Automatic upgrades enabled">
+                Your OpenSupports instance will be upgraded automatically for each new release.
+                If you wish to disable automatic versioning,
+                please create a ticket in our <a href="https://support.opensupports.com/" target="_blank">support center</a>.
+                <br/>
+            </Message>
+        );
+    }
+
+    renderAutomaticUpgradesDisabled() {
+        if(this.state.automaticUpgrades === null) return null;
+        return (
+            <Message type="info" title="Automatic upgrades disabled">
+                Currenly, automatic version upgrades are disabled for you.
+                If you want to upgrade OpenSupports to a newer version,
+                please create a ticket in our <a href="https://support.opensupports.com/" target="_blank">support center</a>.
+                <br/>
+                If you wish to enable automatic versioning, you can also do it by a ticket.
+            </Message>
+        );
+    }
+
     onFormChange(form) {
         const { language, supportedLanguages, allowedLanguages } = form;
         const languageIndex = _.indexOf(languageKeys, language);
@@ -211,6 +240,7 @@ class AdminPanelSystemPreferences extends React.Component {
     onRecoverSettingsSuccess(result) {
         this.setState({
             loading: false,
+            automaticUpgrades: result.data['automatic-upgrades'] * 1,
             values: {
                 'language': result.data.language,
                 'reCaptchaKey': result.data.reCaptchaKey,
