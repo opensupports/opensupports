@@ -307,6 +307,7 @@ export default {
     'DISABLE_USER_DESCRIPTION': 'El usuario estará deshabilitado y no podrá iniciar sesión y crear tickets.',
     'PRIVATE_RESPONSE_DESCRIPTION': 'Esta respuesta solo será vista por los miembros del personal.',
     'PRIVATE_TOPIC_DESCRIPTION': 'Este tema solo será visto por los miembros del personal.',
+    'PRIVATE_DEPARTMENT_DESCRIPTION': 'Este departamento solo será visto por miembros del personal.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email o contraseña inválida',
@@ -338,6 +339,7 @@ export default {
     'USER_DISABLED': 'Esta cuenta está deshabilitada.',
     'INVALID_SYNTAX': 'Sintaxis inválida.',
 
+    'DEPARTMENT_PRIVATE_TICKETS': 'Este departamento tiene entradas creadas por personal no administrativo y no puede ser privado.',
     //MESSAGES
     'SIGNUP_SUCCESS': 'Se ha registrado con éxito en nuestro sistema de soporte.',
     'TICKET_SENT': 'El ticket se ha creado correctamente.',

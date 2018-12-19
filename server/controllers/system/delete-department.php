@@ -54,18 +54,23 @@ class DeleteDepartmentController extends Controller {
 
         if ($this->departmentId === $this->transferDepartmentId) {
             throw new RequestException(ERRORS::SAME_DEPARTMENT);
-            return;
+        }
+
+        $departmentToTransfer = Department::getDataStore($this->transferDepartmentId);
+        $departmentInstance = Department::getDataStore($this->departmentId);
+
+        if($departmentToTransfer->private && Ticket::count(' author_id IS NOT NULL AND department_id = ? ', [$departmentInstance->id])) {
+            throw new RequestException(ERRORS::DEPARTMENT_PRIVATE_TICKETS);
         }
 
         $this->transferDepartmentTickets();
-        $departmentInstance = Department::getDataStore($this->departmentId);
         $departmentInstance->delete();
 
         Log::createLog('DELETE_DEPARTMENT', $departmentInstance->name);
 
         Response::respondSuccess();
     }
-    
+
     public function transferDepartmentTickets() {
         $tickets = Ticket::find('department_id = ?', [$this->departmentId]);
         $newDepartment = Department::getDataStore($this->transferDepartmentId);;

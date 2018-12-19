@@ -207,6 +207,10 @@
  * @apiDefine INVALID_TEXT_3
  * @apiError {String} INVALID_TEXT_3 text3 of mail template has an invalid syntax or missing variables
  */
+/**
+ * @apiDefine DEPARTMENT_PRIVATE_TICKETS
+ * @apiError {String} DEPARTMENT_PRIVATE_TICKETS There are tickets for in department created by non-staff and it can't be private
+ */
 
 class ERRORS {
     const INVALID_CREDENTIALS = 'INVALID_CREDENTIALS';
@@ -262,4 +266,5 @@ class ERRORS {
     const INVALID_TEXT_1 = 'INVALID_TEXT_1';
     const INVALID_TEXT_2 = 'INVALID_TEXT_2';
     const INVALID_TEXT_3 = 'INVALID_TEXT_3';
+    const DEPARTMENT_PRIVATE_TICKETS = 'DEPARTMENT_PRIVATE_TICKETS';
 }
