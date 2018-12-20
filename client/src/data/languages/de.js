@@ -361,7 +361,7 @@ export default {
     'DEPARTMENTS_UPDATED': 'Abteilungen wurden erfolgreich aktualisiert.',
     'FAILED_EDIT_STAFF': 'Beim bearbeiten des Mitarbeiters ist ein Fehler aufgetreten.',
     'EMAIL_BANNED_SUCCESSFULLY': 'Die E-Mail-Adresse wurde erfolgreich gesperrt.',
-    'WILL_DELETE_STAFF': 'Dieser Mitarbeiter wird gelöscht und alle Karten werden nicht zugeordnet.',
+    'WILL_DELETE_STAFF': 'Dieser Mitarbeiter wird gelöscht und alle Tickets werden nicht zugeordnet.',
     'WILL_RECOVER_EMAIL_TEMPLATE': 'Diese E-Mail-Vorlage wird auf den Standardwert zurückgesetzt.',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'Die CSV-Datei wurde erfolgreich importiert.',
     'SUCCESS_DELETING_ALL_USERS': 'Die Benutzer wurden erfolgreich gelöscht.',
