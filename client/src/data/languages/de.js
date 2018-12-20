@@ -186,7 +186,7 @@ export default {
     'HIMSELF': 'selbst',
     'ADD_USER': 'Benutzer hinzufügen',
     'UPLOAD_FILE': 'Datei hochladen',
-    'PRIVATE': 'Privatgelände',
+    'PRIVATE': 'Interne Notiz',
     'ENABLE_USER': 'Benutzer aktivieren',
     'DISABLE_USER': 'Benutzer deaktivieren',
     'SHOW_CLOSED_TICKETS': 'Geschlossene Tickets anzeigen',
