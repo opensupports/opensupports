@@ -17,7 +17,7 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} language Indicates the default language of the system.
  * @apiParam {String} user-system-enabled Indicates if the user system should be enabled.
  * @apiParam {String} registration Indicates if the registration should be enabled.
- * @apiParam {String} no-reply-email Email from where automated emails will be sent.
+ * @apiParam {String} server-email Email from where automated emails will be sent.
  * @apiParam {String} smtp-host SMTP Server address.
  * @apiParam {String} smtp-port SMTP Server port.
  * @apiParam {String} smtp-user SMTP Authentication User.
@@ -68,11 +68,14 @@ class InitSettingsController extends Controller {
             'language' => Controller::request('language'),
             'recaptcha-public' => '',
             'recaptcha-private' => '',
-            'no-reply-email' => Controller::request('no-reply-email'),
+            'server-email' => Controller::request('email'),
+            'imap-host' => Controller::request('imap-host'),
+            'imap-user' => Controller::request('imap-user'),
+            'imap-pass' => Controller::request('imap-pass'),
             'smtp-host' => Controller::request('smtp-host'),
             'smtp-port' => Controller::request('smtp-port'),
             'smtp-user' => Controller::request('smtp-user'),
-            'smtp-pass' => Controller::request('smtp-password'),
+            'smtp-pass' => Controller::request('smtp-pass'),
             'time-zone' => 0,
             'maintenance-mode' => 0,
             'layout' => 'boxed',

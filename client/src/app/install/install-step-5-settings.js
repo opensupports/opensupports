@@ -31,7 +31,7 @@ class InstallStep5Settings extends React.Component {
                 <Form loading={this.state.loading} onSubmit={this.onSubmit.bind(this)} value={this.state.form} onChange={(form) => this.setState({form})}>
                     <FormField name="title" label={i18n('TITLE')} fieldProps={{size: 'large'}} required/>
                     <FormField className="install-step-5__attachments-field" name="allow-attachments" label={i18n('ALLOW_FILE_ATTACHMENTS')} field="checkbox" fieldProps={{size: 'large'}}/>
-                    <FormField name="no-reply-email" label={i18n('NOREPLY_EMAIL')} fieldProps={{size: 'large'}}/>
+                    <FormField name="server-email" label={i18n('SERVER_EMAIL')} fieldProps={{size: 'large'}}/>
                     <div className="install-step-5__smtp-block">
                         <Header title={i18n('SMTP_SERVER')} description={i18n('SMTP_SERVER_DESCRIPTION')} />
                         <FormField name="smtp-host" label={i18n('SMTP_SERVER')} fieldProps={{size: 'large'}}/>

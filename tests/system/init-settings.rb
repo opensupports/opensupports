@@ -17,11 +17,16 @@ describe '/system/init-settings' do
             'user-system-enabled' => true,
             'registration' => true,
             'title' => 'Support Center',
+            'imap-host' => '{imap.dreamhost.com:993/imap/ssl}INBOX',
+            'imap-user' => "support@opensupports.com",
+            'imap-pass' => "gotaxc22",
+            'imap-user' => 'support@opensupports.com',
+            'imap-pass' => '',
             'smtp-host' => 'localhost',
             'smtp-port' => 7070,
-            'smtp-user' => 'noreply@opensupports.com',
+            'smtp-user' => 'support@opensupports.com',
             'smtp-password' => '',
-            'no-reply-email' => 'noreply@opensupports.com',
+            'server-email' => 'support@opensupports.com',
             'language' => 'en'
         })
 

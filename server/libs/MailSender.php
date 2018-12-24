@@ -2,7 +2,7 @@
 class MailSender {
     use SingletonTrait;
 
-    private $mailOptions = [];
+    public $mailOptions = [];
     private $mailerInstance;
 
     private function __construct() {
@@ -11,7 +11,7 @@ class MailSender {
             Setting::getSetting('smtp-port')->getValue(),
             Setting::getSetting('smtp-user')->getValue(),
             Setting::getSetting('smtp-pass')->getValue(),
-            Setting::getSetting('no-reply-email')->getValue()
+            Setting::getSetting('server-email')->getValue()
         );
     }
 

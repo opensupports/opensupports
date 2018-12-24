@@ -49,6 +49,61 @@ class Database
     end
 end
 
+class MailServer
+    def initialize
+        @smtp_server     = ENV['OPENSUPPORTS_SMTP_SERVER']
+        @smtp_port       = ENV['OPENSUPPORTS_SMTP_PORT']
+
+        @imap_server     = ENV['OPENSUPPORTS_IMAP_SERVER']
+        @imap_port       = ENV['OPENSUPPORTS_IMAP_PORT']
+
+        @admin_user      = ENV['OPENSUPPORTS_EMAIL_ADMIN_USERNAME']
+        @admin_password  = ENV['OPENSUPPORTS_EMAIL_ADMIN_PASSWORD']
+
+        @client_user     = ENV['OPENSUPPORTS_EMAIL_CLIENT_USERNAME']
+        @client_password = ENV['OPENSUPPORTS_EMAIL_CLIENT_PASSWORD']
+
+        @admin_imap = Net::IMAP.new(@imap_server, @imap_port, true)
+        @client_imap = Net::IMAP.new(@imap_server, @imap_port, true)
+
+        @admin_imap.login(@admin_user, @admin_password)
+        @client_imap.login(@client_user, @client_password)
+
+        @client_smtp = Net::SMTP.new(@smtp_server, @smtp_port).start(user=@client_user, secret=@client_password)
+    end
+
+    def clear_mails
+        self.clear_admin_mails
+        self.clear_client_mails
+    end
+
+    def clear_admin_mails
+        @admin_imap.delete('INBOX')
+    end
+
+    def clear_client_mails
+        @client_imap.delete('INBOX')
+    end
+
+    def send_mail(subject, text, file = nil)
+        message = MailFactory.new
+        message.to = @admin_user
+        message.from = @client_user
+        message.subject = subject
+        message.html = text
+
+        unless file.nil?
+            message.attach(file)
+        end
+
+        @client_smtp.send_message(message.to_s, @client_user, @admin_user)
+        Net::SMTP.start(@smtp_server, @smtp_port, @smtp_server, @client_user, @client_password) { |smtp|
+            smtp.send_message(message.to_s, @client_user, @admin_user)
+        }
+    end
+end
+
+$mail_server = MailServer.new
 $database = Database.new
 
 $staff = {

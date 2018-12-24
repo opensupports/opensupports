@@ -67,7 +67,7 @@ class AdminPanelSystemPreferences extends React.Component {
                             <span className="separator" />
                             <div className="row">
                                 <div className="col-md-6">
-                                    <FormField label={i18n('NOREPLY_EMAIL')} fieldProps={{size: 'large'}} name="no-reply-email"/>
+                                    <FormField label={i18n('NOREPLY_EMAIL')} fieldProps={{size: 'large'}} name="server-email"/>
                                     <FormField label={i18n('SMTP_USER')} fieldProps={{size: 'large'}} name="smtp-user"/>
                                 </div>
                                 <div className="col-md-6">
@@ -173,7 +173,7 @@ class AdminPanelSystemPreferences extends React.Component {
                 'title': form['title'],
                 'layout': form['layout'] ? 'full-width' : 'boxed',
                 'time-zone': form['time-zone'],
-                'no-reply-email': form['no-reply-email'],
+                'server-email': form['server-email'],
                 'smtp-host': form['smtp-host'],
                 'smtp-port': form['smtp-port'],
                 'smtp-user': form['smtp-user'],
@@ -219,7 +219,7 @@ class AdminPanelSystemPreferences extends React.Component {
                 'title': result.data['title'],
                 'layout': (result.data['layout'] == 'full-width') ? 1 : 0,
                 'time-zone': result.data['time-zone'],
-                'no-reply-email': result.data['no-reply-email'],
+                'server-email': result.data['server-email'],
                 'smtp-host': result.data['smtp-host'],
                 'smtp-port': result.data['smtp-port'],
                 'smtp-user': result.data['smtp-user'],

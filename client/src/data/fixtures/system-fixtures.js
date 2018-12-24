@@ -14,7 +14,7 @@ module.exports = [
                         'title': 'Support Center',
                         'layout': 'boxed',
                         'time-zone': 3,
-                        'no-reply-email': 'shitr@post.com',
+                        'server-email': 'shitr@post.com',
                         'smtp-host': 'localhost',
                         'smtp-port': '7070',
                         'smtp-user': 'Wesa',
