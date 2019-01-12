@@ -68,7 +68,7 @@ class InitSettingsController extends Controller {
             'language' => Controller::request('language'),
             'recaptcha-public' => '',
             'recaptcha-private' => '',
-            'server-email' => Controller::request('email'),
+            'server-email' => Controller::request('server-email'),
             'imap-host' => Controller::request('imap-host'),
             'imap-user' => Controller::request('imap-user'),
             'imap-pass' => Controller::request('imap-pass'),

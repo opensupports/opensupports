@@ -308,13 +308,14 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Aktivieren/deaktivieren Sie die Verwendung eines Benutzersystems. Wenn Sie es deaktivieren, werden alle Benutzer gelöscht, aber die Tickets werden behalten. Wenn Sie es aktivieren, werden die Benutzer der vorhandenen Tickets erstellt.',
     'CSV_DESCRIPTION': 'Die CSV-Datei muss 3 Spalten haben: E-Mail-Adresse, Passwort, Name. Es gibt kein Limit in der Zeilenzahl. Es wird ein Benutzer pro Zeile in der Datei erstellt.',
     'SMTP_SERVER_DESCRIPTION': 'Die Konfiguration des SMTP-Servers ermöglicht es der Software, Mails zu senden. Wenn Sie es nicht konfigurieren, werden keine E-Mails von OpenSupports gesendet.',
-    'IMAP_SERVER_DESCRIPTION': 'Die Konfiguration des IMAP-Servers ermöglicht es der Anwendung, E-Mails zu analysieren, die an ein Postfach gesendet werden.',
+    'IMAP_SERVER_DESCRIPTION': 'Die Konfiguration des IMAP-Servers ermöglicht es der Anwendung, Tickets aus den an ein Postfach gesendeten E-Mails zu erstellen.',
     'ENABLE_USER_DESCRIPTION': 'Mit dieser Aktion kann der Benutzer sich anmelden und Tickets erstellen.',
     'DISABLE_USER_DESCRIPTION': 'Der Benutzer wird deaktiviert und kann keine Tickets anmelden und erstellen.',
     'PRIVATE_RESPONSE_DESCRIPTION': 'Diese Antwort wird nur von den Mitarbeitern gesehen werden',
     'PRIVATE_TOPIC_DESCRIPTION': 'Dieses Thema wird nur von Mitarbeitern gesehen',
     'PRIVATE_DEPARTMENT_DESCRIPTION': 'Diese Abteilung wird nur von Mitarbeitern gesehen',
     'EMAIL_SETTINGS_DESCRIPTION': 'Hier können Sie die Einstellungen für das Empfangen und Senden von E-Mails an Ihre Kunden bearbeiten.',
+    'IMAP_POLLING_DESCRIPTION': 'Die Posteingangsüberprüfung wird von OpenSupports nicht automatisch durchgeführt. Sie müssen regelmäßig POST-Anfragen an diese URL stellen, um die E-Mails zu verarbeiten: {url}',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-Mail-Adresse oder Passwort ungültig!',

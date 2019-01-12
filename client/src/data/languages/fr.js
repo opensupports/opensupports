@@ -308,13 +308,14 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Activer / désactiver l\'utilisation d\'un système utilisateur. Si vous le désactivez, tous les utilisateurs seront supprimés, mais les tickets seront conservés. Si vous l\'activez, les utilisateurs des tickets existants seront créés.',
     'CSV_DESCRIPTION': 'Le fichier CSV doit comporter 3 colonnes: email, mot de passe, nom. Il n\'y a pas de limite dans le nombre de lignes. Il sera créé un utilisateur par ligne dans le fichier.',
     'SMTP_SERVER_DESCRIPTION': 'La configuration du serveur SMTP permet à l\'application d\'envoyer des mails. Si vous ne le configurez pas, aucun service d\'email ne sera envoyé par OpenSupports.',
-    'IMAP_SERVER_DESCRIPTION': 'La configuration du serveur IMAP permet à l\'application d\'analyser les e-mails envoyés à une boîte aux lettres.',
+    'IMAP_SERVER_DESCRIPTION': 'La configuration du serveur IMAP permet à l’application de créer des tickets à partir des emails envoyés à une boîte aux lettres.',
     'ENABLE_USER_DESCRIPTION': 'Cette action permet à l\'utilisateur de se connecter et de créer des tickets.',
     'DISABLE_USER_DESCRIPTION': 'L\'utilisateur sera désactivé et ne pourra pas se connecter et créer des tickets.',
     'PRIVATE_RESPONSE_DESCRIPTION': 'Cette réponse ne sera vue que par les membres du personnel',
     'PRIVATE_TOPIC_DESCRIPTION': 'Ce sujet ne sera vu que par les membres du personnel',
     'PRIVATE_DEPARTMENT_DESCRIPTION': 'Ce département ne sera vu que par les membres du personnel',
     'EMAIL_SETTINGS_DESCRIPTION': 'Ici, vous pouvez modifier les paramètres de réception et d’envoi de courrier électronique à vos clients.',
+    'IMAP_POLLING_DESCRIPTION': 'La vérification de la boîte de réception ne sera pas effectuée automatiquement par OpenSupports. Vous devez faire des demandes POST périodiquement à cette URL pour traiter les emails: {url}',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-mail ou mot de passe invalide',

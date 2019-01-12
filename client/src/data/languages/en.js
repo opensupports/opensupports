@@ -308,13 +308,14 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Enable/disable the use of an user system. If you disable it, all users will be deleted but the tickets will be kept. If you enable it, the users of existent tickets will be created.',
     'CSV_DESCRIPTION': 'The CSV file must have 3 columns: email, password, name. There is no limit in row count. It will be created one user per row in the file.',
     'SMTP_SERVER_DESCRIPTION': 'The configuration of the SMTP server allows the application to send mails. If you do not configure it, no emails will be sent by OpenSupports.',
-    'IMAP_SERVER_DESCRIPTION': 'The configuration of the IMAP server allows the application parse emails sent to a mailbox.',
+    'IMAP_SERVER_DESCRIPTION': 'The configuration of the IMAP server allows the application to create tickets from the emails sent to a mailbox.',
     'ENABLE_USER_DESCRIPTION': 'This action allows the user to sign in and create tickets.',
     'DISABLE_USER_DESCRIPTION': 'User will be disabled and will not be able to sign in and create tickets.',
     'PRIVATE_RESPONSE_DESCRIPTION': 'This response will only be seen by staff members',
     'PRIVATE_TOPIC_DESCRIPTION': 'This topic will only be seen by staff members',
     'PRIVATE_DEPARTMENT_DESCRIPTION': 'This department will only be seen by staff members',
     'EMAIL_SETTINGS_DESCRIPTION': 'Here you can edit the settings for receiving and sending email to your customers.',
+    'IMAP_POLLING_DESCRIPTION': 'Inbox checking will not be done automatically by OpenSupports. You have to make POST requests periodically to this url to process the emails: {url}',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',

@@ -308,13 +308,14 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Schakel het gebruik van een gebruikerssysteem in / uit. Als u dit uitschakelt, worden alle gebruikers verwijderd, maar worden de incidenten bewaard. Als u dit inschakelt, worden de gebruikers van bestaande incidenten aangemaakt.',
     'CSV_DESCRIPTION': 'Het CSV-bestand moet drie kolommen bevatten: e-mailadres, wachtwoord, naam. Er is geen limiet in rijtelling. Er wordt één gebruiker per rij in de database gemaakt.',
     'SMTP_SERVER_DESCRIPTION': 'De configuratie van de SMTP-server staat het systeem toe om e-mails te verzenden. Als u deze optie niet configureerd, worden er geen e-mails verzonden door OpenSupports.',
-    'IMAP_SERVER_DESCRIPTION': 'Met de configuratie van de IMAP-server kan de toepassing e-mails analyseren die naar een mailbox worden verzonden.',
+    'IMAP_SERVER_DESCRIPTION': 'Met de configuratie van de IMAP-server kan de applicatie tickets maken van de e-mails die naar een mailbox worden verzonden.',
     'ENABLE_USER_DESCRIPTION': 'Met deze actie kan de gebruiker inloggen en tickets maken.',
     'DISABLE_USER_DESCRIPTION': 'De gebruiker wordt uitgeschakeld en kan zich niet aanmelden en geen tickets maken.',
     'PRIVATE_RESPONSE_DESCRIPTION': 'Dit antwoord is alleen zichtbaar voor personeelsleden',
     'PRIVATE_TOPIC_DESCRIPTION': 'Dit onderwerp is alleen zichtbaar voor personeelsleden',
     'PRIVATE_DEPARTMENT_DESCRIPTION': 'Deze afdeling is alleen zichtbaar voor personeelsleden',
     'EMAIL_SETTINGS_DESCRIPTION': 'Hier kunt u de instellingen voor het ontvangen en verzenden van e-mail naar uw klanten bewerken.',
+    'IMAP_POLLING_DESCRIPTION': 'Inbox controleren wordt niet automatisch gedaan door OpenSupports. U moet regelmatig POST-verzoeken doen naar deze URL om de e-mails te verwerken: {url}',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-mailadres of wachtwoord ongeldig',

@@ -16,12 +16,12 @@ import Loading from 'core-components/loading';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
+import Message from 'core-components/message';
 
 class AdminPanelEmailSettings extends React.Component {
 
     static propTypes = {
         language: React.PropTypes.string,
-        url: React.PropTypes.string,
     };
 
     state = {
@@ -35,6 +35,8 @@ class AdminPanelEmailSettings extends React.Component {
         edited: false,
         errors: {},
         language: this.props.language,
+        imapLoading: false,
+        smtpLoading: false,
         form: {
             subject: '',
             text1: '',
@@ -125,16 +127,16 @@ class AdminPanelEmailSettings extends React.Component {
                     <div className="admin-panel-email-settings__box">
                         <Header title={i18n('SMTP_SERVER')} description={i18n('SMTP_SERVER_DESCRIPTION')}/>
                         <Form onSubmit={this.submitSMTP.bind(this)} onChange={smtpForm => this.setState({smtpForm})}
-                              values={this.state.smtpForm}>
+                              values={this.state.smtpForm} loading={this.state.smtpLoading}>
                             <FormField name="smtp-host" label={i18n('SMTP_SERVER')} fieldProps={{size: 'large'}}/>
                             <FormField name="smtp-user" label={i18n('SMTP_USER')} fieldProps={{size: 'large'}}/>
                             <FormField name="smtp-pass" label={i18n('SMTP_PASSWORD')} fieldProps={{size: 'large'}}/>
                             <div className="admin-panel-email-settings__server-form-buttons">
                                 <SubmitButton className="admin-panel-email-settings__submit" type="secondary"
                                               size="small">{i18n('SAVE')}</SubmitButton>
-                                <Button type="tertiary" size="small" onClick={this.testSMTP.bind(this)}>
+                                <SubmitButton type="tertiary" size="small" onClick={this.testSMTP.bind(this)}>
                                     Test
-                                </Button>
+                                </SubmitButton>
                             </div>
                         </Form>
                     </div>
@@ -142,18 +144,21 @@ class AdminPanelEmailSettings extends React.Component {
                     <div className="admin-panel-email-settings__box">
                         <Header title={i18n('IMAP_SERVER')} description={i18n('IMAP_SERVER_DESCRIPTION')}/>
                         <Form onSubmit={this.submitIMAP.bind(this)} onChange={imapForm => this.setState({imapForm})}
-                              values={this.state.imapForm}>
+                              values={this.state.imapForm} loading={this.state.imapLoading}>
                             <FormField name="imap-host" label={i18n('IMAP_SERVER')} fieldProps={{size: 'large'}}/>
                             <FormField name="imap-user" label={i18n('IMAP_USER')} fieldProps={{size: 'large'}}/>
                             <FormField name="imap-pass" label={i18n('IMAP_PASSWORD')} fieldProps={{size: 'large'}}/>
                             <div className="admin-panel-email-settings__server-form-buttons">
                                 <SubmitButton className="admin-panel-email-settings__submit" type="secondary"
                                               size="small">{i18n('SAVE')}</SubmitButton>
-                                <Button type="tertiary" size="small" onClick={this.testIMAP.bind(this)}>
+                                <SubmitButton type="tertiary" size="small" onClick={this.testIMAP.bind(this)}>
                                     Test
-                                </Button>
+                                </SubmitButton>
                             </div>
                         </Form>
+                        <Message className="admin-panel-email-settings__imap-message" type="info">
+                            {i18n('IMAP_POLLING_DESCRIPTION', {url: `${apiRoot}/system/email-polling`})}
+                        </Message>
                     </div>
                 </div>
             </div>
@@ -334,15 +339,29 @@ class AdminPanelEmailSettings extends React.Component {
     }
 
     submitSMTP(form) {
-        this.editSettings(form, 'SMTP_SUCCESS');
+        this.setState({
+            smtpLoading: true
+        });
+
+        this.editSettings(form, 'SMTP_SUCCESS')
+        .then(() => this.setState({
+            smtpLoading: false
+        }));
     }
 
     submitIMAP(form) {
-        this.editSettings(form, 'IMAP_SUCCESS');
+        this.setState({
+            imapLoading: true
+        });
+
+        this.editSettings(form, 'IMAP_SUCCESS')
+        .then(() => this.setState({
+            imapLoading: false
+        }));
     }
 
     editSettings(form, successMessage) {
-        API.call({
+        return API.call({
             path: '/system/edit-settings',
             data: this.parsePasswordField(form)
         }).then(() => PopupMessage.open({
@@ -359,6 +378,10 @@ class AdminPanelEmailSettings extends React.Component {
     testSMTP(event) {
         event.preventDefault();
 
+        this.setState({
+            smtpLoading: true
+        });
+
         API.call({
             path: '/system/test-smtp',
             data: this.parsePasswordField(this.state.smtpForm)
@@ -370,15 +393,21 @@ class AdminPanelEmailSettings extends React.Component {
             title: `${i18n('UNSUCCESSFUL_CONNECTION')}: SMTP`,
             children: `${i18n('SERVER_ERROR')}: ${response.message}`,
             type: 'error',
+        })).then(() => this.setState({
+            smtpLoading: false
         }));
     }
 
     testIMAP(event) {
         event.preventDefault();
 
+        this.setState({
+            imapLoading: true
+        });
+
         API.call({
             path: '/system/test-imap',
-            data: this.parsePasswordField(this.state.smtpForm)
+            data: this.parsePasswordField(this.state.imapForm)
         }).then(() => PopupMessage.open({
             title: `${i18n('SUCCESSFUL_CONNECTION')}: IMAP`,
             children: i18n('SERVER_CREDENTIALS_WORKING'),
@@ -387,6 +416,8 @@ class AdminPanelEmailSettings extends React.Component {
             title: `${i18n('UNSUCCESSFUL_CONNECTION')}: IMAP`,
             children: `${i18n('SERVER_ERROR')}: ${response.message}`,
             type: 'error',
+        })).then(() => this.setState({
+            imapLoading: false
         }));
     }
 
@@ -470,6 +501,5 @@ class AdminPanelEmailSettings extends React.Component {
 export default connect((store) => {
     return {
         language: store.config.language,
-        url: store.config.url,
     };
 })(AdminPanelEmailSettings);

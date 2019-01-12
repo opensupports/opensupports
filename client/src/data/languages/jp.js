@@ -308,13 +308,14 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'ユーザシステムの使用を有効/無効にします。無効にすると、すべてのユーザーは削除されますが、チケットは保持されます。これを有効にすると、既存のチケットのユーザーが作成されます。',
     'CSV_DESCRIPTION': 'CSVファイルには、電子メール、パスワード、名前の3つの列が必要です。行数に制限はありません。ファイル内で行ごとに1人ずつ作成されます',
     'SMTP_SERVER_DESCRIPTION': 'SMTPサーバーの設定により、アプリケーションはメールを送信できます。 これを設定しないと、OpenSupportsから電子メールは送信されません。',
-    'IMAP_SERVER_DESCRIPTION': 'IMAPサーバーの設定により、アプリケーションはメールボックスに送信されたEメールを解析できます。',
+    'IMAP_SERVER_DESCRIPTION': 'IMAPサーバーの設定により、アプリケーションはメールボックスに送信されたEメールからチケットを作成できます。',
     'ENABLE_USER_DESCRIPTION': 'これにより、ユーザーはサインインしてチケットを作成できます。',
     'DISABLE_USER_DESCRIPTION': 'ユーザーは無効になり、ログインしてチケットを作成することはできません。',
     'PRIVATE_RESPONSE_DESCRIPTION': 'スタッフのみがこの回答を見ることができます',
     'PRIVATE_TOPIC_DESCRIPTION': 'このトピックは、スタッフによってのみ表示されます',
     'PRIVATE_DEPARTMENT_DESCRIPTION': 'この部署はスタッフだけが見ることができます',
     'EMAIL_SETTINGS_DESCRIPTION': 'ここでは、顧客との間でEメールを送受信するための設定を編集できます。',
+    'IMAP_POLLING_DESCRIPTION': '受信トレイのチェックはOpenSupportsによって自動的には行われません。メールを処理するには、定期的にこのURLにPOSTリクエストを送信する必要があります：{url}',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': '電子メールまたはパスワードが無効です',

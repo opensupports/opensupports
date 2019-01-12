@@ -308,14 +308,14 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Bir kullanıcı sisteminin kullanımını etkinleştirir / devre dışı bırakır. Devre dışı bırakırsanız, tüm kullanıcılar silinir ancak biletler muhafaza edilir. Etkinleştirirseniz, mevcut biletler kullanıcıları oluşturulur.',
     'CSV_DESCRIPTION': 'CSV dosyasının 3 sütun olması gerekir: e-posta, şifre, ad. Satır sayısı sınırı yoktur. Dosya satır başına bir kullanıcı oluşturulur.',
     'SMTP_SERVER_DESCRIPTION': 'SMTP sunucusunun yapılandırması, uygulamanın postalar göndermesine izin verir. Onu yapılandırmazsanız, OpenSupports tarafından hiçbir e-posta gönderilmeyecektir',
-    'IMAP_SERVER_DESCRIPTION': 'IMAP sunucusunun yapılandırması, uygulamanın bir posta kutusuna gönderilen e-postaları ayrıştırmasına izin verir.',
+    'IMAP_SERVER_DESCRIPTION': 'IMAP sunucusunun yapılandırması, uygulamanın bir posta kutusuna gönderilen e-postalardan bilet oluşturmasına izin verir.',
     'ENABLE_USER_DESCRIPTION': 'Bu eylem, kullanıcının giriş yapmasına ve bilet oluşturmasına izin verir.',
     'DISABLE_USER_DESCRIPTION': 'Kullanıcı devre dışı bırakılacak ve oturum açıp bilet oluşturamayacak.',
     'PRIVATE_RESPONSE_DESCRIPTION': 'Bu yanıt sadece personel tarafından görülebilir',
     'PRIVATE_TOPIC_DESCRIPTION': 'Bu konu sadece çalışanlar tarafından görülebilir',
     'PRIVATE_DEPARTMENT_DESCRIPTION': 'Bu bölüm sadece personel tarafından görülebilir',
-    'PRIVATE_DESCRIPTION': 'Bu yanıt sadece personel tarafından görülebilir',
     'EMAIL_SETTINGS_DESCRIPTION': 'Burada, müşterilerinize e-posta alma ve gönderme ayarlarını düzenleyebilirsiniz.',
+    'IMAP_POLLING_DESCRIPTION': 'Gelen kutusu kontrolü, OpenSupports tarafından otomatik olarak yapılmayacaktır. E-postaları işlemek için bu url\'ye düzenli aralıklarla POST istekleri yapmanız gerekir: {url}',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-posta veya şifre geçersiz',

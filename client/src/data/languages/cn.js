@@ -308,13 +308,14 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': '啟用/禁用用戶系統的使用。如果你禁用它，所有的用戶將被刪除，但票將被保留。如果啟用，將創建現有票證的用戶。',
     'CSV_DESCRIPTION': 'CSV文件必須有3列：電子郵件，密碼，名稱。行數沒有限制。它將在文件中的每行中創建一個用戶。',
     'SMTP_SERVER_DESCRIPTION': 'SMTP服务器允许应用程序发送邮件。 如果您没有配置，OpenSupports将不会发送任何电子邮件。',
-    'IMAP_SERVER_DESCRIPTION': 'IMAP服务器的配置允许应用程序解析发送到邮箱的电子邮件。',
+    'IMAP_SERVER_DESCRIPTION': 'IMAP服务器的配置允许应用程序根据发送到邮箱的电子邮件创建票证。',
     'ENABLE_USER_DESCRIPTION': '此操作允许用户登录并创建票证。',
     'DISABLE_USER_DESCRIPTION': '用户将被禁用，无法登录并创建票证。',
     'PRIVATE_RESPONSE_DESCRIPTION': '只有工作人员才能看到这种回应',
     'PRIVATE_TOPIC_DESCRIPTION': '只有工作人员才能看到此主题',
     'PRIVATE_DEPARTMENT_DESCRIPTION': '只有工作人员才能看到这个部门',
     'EMAIL_SETTINGS_DESCRIPTION': '您可以在此处编辑接收和发送电子邮件给客户的设置。',
+    'IMAP_POLLING_DESCRIPTION': 'OpenSupports不会自动完成收件箱检查。您必须定期向此网址发送POST请求以处理电子邮件：{url}',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': '電子郵件或密碼無效',

@@ -308,13 +308,14 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Habilitar/Deshabilitar el uso de un sistema de usuario. Si lo deshabilitas, todos los usuarios serán eliminados pero los tickets serán guardados. Si lo habilitas, se crearán los usuarios de los tickets existentes.',
     'CSV_DESCRIPTION': 'El archivo CSV debe tener 3 columnas: correo electrónico, contraseña, nombre. No hay límite en el recuento de filas. Se creará un usuario por fila en el archivo.',
     'SMTP_SERVER_DESCRIPTION': 'La configuracion de SMTP permite que la applicacion mande emails. Si no es configurado, ningún mail sera enviado OpenSupports.',
-    'IMAP_SERVER_DESCRIPTION': 'La configuración del servidor IMAP permite que los correos electrónicos de la aplicación se envíen a un buzón.',
+    'IMAP_SERVER_DESCRIPTION': 'La configuración del servidor IMAP permite que la aplicación cree tickets de los correos electrónicos enviados a un buzón.',
     'ENABLE_USER_DESCRIPTION': 'Esta acción permite al usuario iniciar sesión y crear tickets..',
     'DISABLE_USER_DESCRIPTION': 'El usuario estará deshabilitado y no podrá iniciar sesión y crear tickets.',
     'PRIVATE_RESPONSE_DESCRIPTION': 'Esta respuesta solo será vista por los miembros del personal.',
     'PRIVATE_TOPIC_DESCRIPTION': 'Este tema solo será visto por los miembros del personal.',
     'PRIVATE_DEPARTMENT_DESCRIPTION': 'Este departamento solo será visto por miembros del personal.',
     'EMAIL_SETTINGS_DESCRIPTION': 'Aquí puede editar la configuración para recibir y enviar correos electrónicos a sus clientes.',
+    'IMAP_POLLING_DESCRIPTION': 'La verificación de la bandeja de entrada no se hará automáticamente por OpenSupports. Debe realizar solicitudes POST periódicamente a esta URL para procesar los correos electrónicos: {url}',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email o contraseña inválida',

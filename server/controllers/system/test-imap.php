@@ -34,7 +34,7 @@ class TestIMAPController extends Controller {
     }
 
     public function handler() {
-        if(imap_open(Controller::request('imap-host'), Controller::request('imap-user'), Controller::request('imap-pass'), OP_SECURE)) {
+        if(imap_open(Controller::request('imap-host'), Controller::request('imap-user'), Controller::request('imap-pass'))) {
             Response::respondSuccess();
         } else {
             throw new RequestException(ERRORS::IMAP_CONNECTION);

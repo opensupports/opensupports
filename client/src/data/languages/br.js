@@ -308,13 +308,14 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Ativar / desativar o uso de um sistema de usuário. Se você desativá-lo, todos os usuários serão excluídos, mas os chamados serão mantidos. Se você ativá-lo, os chamados de usuários existentes serão criados.',
     'CSV_DESCRIPTION': 'O arquivo CSV deve ter 3 colunas: e-mail, senha, nome. Não há limite na contagem de linhas. Ele será criado um usuário por linha no arquivo.',
     'SMTP_SERVER_DESCRIPTION': 'A configuração do servidor SMTP permite que o aplicativo envie e-mails. Se você não configurá-lo, nenhum e-mail será enviado pela OpenSupports.',
-    'IMAP_SERVER_DESCRIPTION': 'A configuração do servidor IMAP permite que o aplicativo analise os e-mails enviados para uma caixa de correio.',
+    'IMAP_SERVER_DESCRIPTION': 'A configuração do servidor IMAP permite que o aplicativo crie tickets a partir dos emails enviados para uma caixa de correio.',
     'ENABLE_USER_DESCRIPTION': 'Essa ação permite que o usuário faça login e crie tickets.',
     'DISABLE_USER_DESCRIPTION': 'O usuário será desativado e não poderá fazer login e criar tickets.',
     'PRIVATE_RESPONSE_DESCRIPTION': 'Esta resposta só será vista pelos funcionários',
     'PRIVATE_TOPIC_DESCRIPTION': 'Este tópico será visto apenas por membros da equipe',
     'PRIVATE_DEPARTMENT_DESCRIPTION': 'Este departamento só será visto pelos funcionários',
     'EMAIL_SETTINGS_DESCRIPTION': 'Aqui você pode editar as configurações para receber e enviar e-mail para seus clientes.',
+    'IMAP_POLLING_DESCRIPTION': 'A verificação da caixa de entrada não será feita automaticamente pelo OpenSupports. Você precisa fazer solicitações POST periodicamente para esse URL para processar os e-mails: {url}',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-mail ou senha inválidos',

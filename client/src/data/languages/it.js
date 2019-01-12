@@ -308,13 +308,14 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Abilita / disabilita l\'utilizzo di un sistema utente. Se lo disattiverai, tutti gli utenti verranno eliminati ma i biglietti saranno conservati. Se lo abiliterai, verranno creati gli utenti dei biglietti esistenti.',
     'CSV_DESCRIPTION': 'l file CSV deve avere 3 colonne: e-mail, password, nome. Non esiste alcun limite nel conteggio delle righe. Sarà creato un utente per riga nel file.',
     'SMTP_SERVER_DESCRIPTION': 'La configurazione del server SMTP consente all\'applicazione di inviare messaggi. Se non lo si configura, non verrà inviata alcuna email da OpenSupports.',
-    'IMAP_SERVER_DESCRIPTION': 'La configurazione del server IMAP consente l\'applicazione di email di analisi inviate a una casella di posta.',
+    'IMAP_SERVER_DESCRIPTION': 'La configurazione del server IMAP consente all\'applicazione di creare ticket dalle e-mail inviate a una casella di posta.',
     'ENABLE_USER_DESCRIPTION': 'Questa azione consente all\'utente di accedere e creare ticket.',
     'DISABLE_USER_DESCRIPTION': 'L\'utente sarà disabilitato e non sarà in grado di accedere e creare biglietti.',
     'PRIVATE_RESPONSE_DESCRIPTION': 'Questa risposta sarà visibile solo ai membri dello staff',
     'PRIVATE_TOPIC_DESCRIPTION': 'Questo argomento sarà visto solo dai membri dello staff',
     'PRIVATE_DEPARTMENT_DESCRIPTION': 'Questo dipartimento sarà visto solo dai membri dello staff',
     'EMAIL_SETTINGS_DESCRIPTION': 'Qui puoi modificare le impostazioni per ricevere e inviare email ai tuoi clienti.',
+    'IMAP_POLLING_DESCRIPTION': 'Il controllo della posta in arrivo non verrà eseguito automaticamente da OpenSupports. Devi effettuare periodicamente richieste POST a questo URL per elaborare le email: {url}',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email o password errate',

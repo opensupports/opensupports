@@ -55,4 +55,10 @@
         justify-content: space-between;
         align-items: center;
     }
+
+    &__imap-message {
+        margin-top: 10px;
+        padding-left: 40px;
+        text-align: left;
+    }
 }
