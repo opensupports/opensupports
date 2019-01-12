@@ -1,5 +1,4 @@
 <?php
-use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/test-imap Test IMAP Connection
@@ -17,14 +16,14 @@ use Respect\Validation\Validator as DataValidator;
  * @apiParam {String} imap-user User for the IMAP server.
  * @apiParam {String} imap-pass Password for the IMAP server.
  *
- * @apiUse SMTP_CONNECTION
+ * @apiUse IMAP_CONNECTION
  *
  * @apiSuccess {Object} data Empty object
  *
  */
 
-class TestSMTPController extends Controller {
-    const PATH = '/test-smtp';
+class TestIMAPController extends Controller {
+    const PATH = '/test-imap';
     const METHOD = 'POST';
 
     public function validations() {

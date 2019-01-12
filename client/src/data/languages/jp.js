@@ -141,6 +141,9 @@ export default {
     'SMTP_USER': 'SMTPユーザー',
     'SMTP_SERVER': 'SMTPサーバー',
     'SMTP_PASSWORD': 'SMTPパスワード',
+    'IMAP_USER': 'IMAPユーザー',
+    'IMAP_SERVER': 'IMAPサーバー',
+    'IMAP_PASSWORD': 'IMAPパスワード',
     'PORT': 'ポート',
     'RECAPTCHA_PUBLIC_KEY': 'Recaptcha公開鍵',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha秘密鍵',
@@ -191,6 +194,8 @@ export default {
     'DISABLE_USER': 'ユーザーを無効にする',
     'SHOW_CLOSED_TICKETS': 'クローズドチケットを表示する',
     'IMAGE_HEADER_URL': '画像のヘッダーURL',
+    'IMAGE_HEADER_DESCRIPTION': '電子メールのヘッダーとして使用される画像',
+    'EMAIL_SETTINGS': 'メール設定',
 
     'CHART_CREATE_TICKET': '作成されたチケット',
     'CHART_CLOSE': 'チケットが閉じられました',
@@ -303,11 +308,13 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'ユーザシステムの使用を有効/無効にします。無効にすると、すべてのユーザーは削除されますが、チケットは保持されます。これを有効にすると、既存のチケットのユーザーが作成されます。',
     'CSV_DESCRIPTION': 'CSVファイルには、電子メール、パスワード、名前の3つの列が必要です。行数に制限はありません。ファイル内で行ごとに1人ずつ作成されます',
     'SMTP_SERVER_DESCRIPTION': 'SMTPサーバーの設定により、アプリケーションはメールを送信できます。 これを設定しないと、OpenSupportsから電子メールは送信されません。',
+    'IMAP_SERVER_DESCRIPTION': 'IMAPサーバーの設定により、アプリケーションはメールボックスに送信されたEメールを解析できます。',
     'ENABLE_USER_DESCRIPTION': 'これにより、ユーザーはサインインしてチケットを作成できます。',
     'DISABLE_USER_DESCRIPTION': 'ユーザーは無効になり、ログインしてチケットを作成することはできません。',
     'PRIVATE_RESPONSE_DESCRIPTION': 'スタッフのみがこの回答を見ることができます',
     'PRIVATE_TOPIC_DESCRIPTION': 'このトピックは、スタッフによってのみ表示されます',
     'PRIVATE_DEPARTMENT_DESCRIPTION': 'この部署はスタッフだけが見ることができます',
+    'EMAIL_SETTINGS_DESCRIPTION': 'ここでは、顧客との間でEメールを送受信するための設定を編集できます。',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': '電子メールまたはパスワードが無効です',
@@ -365,6 +372,9 @@ export default {
     'WILL_RECOVER_EMAIL_TEMPLATE': 'この電子メールテンプレートは、この言語のデフォルト値にリカバリされます。',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'CSVファイルを正常にインポートしました',
     'SUCCESS_DELETING_ALL_USERS': 'ユーザーは正常に削除されました',
+    'SUCCESSFUL_CONNECTION': '成功した接続',
+    'UNSUCCESSFUL_CONNECTION': '失敗した接続',
+    'SERVER_CREDENTIALS_WORKING': 'サーバーの資格情報が正しく機能している',
 
     'LAST_7_DAYS': '過去7日間',
     'LAST_30_DAYS': '過去30日間',
@@ -386,6 +396,7 @@ export default {
     'DEFAULT_PORT': '既定値として3306の場合は空のままにします',
     'PASSWORD_LOWERCASE': 'パスワード',
     'TEST_SMTP_CONNECTION': 'SMTP接続をテストする',
-    'SMTP_CONNECTION_SUCCESS': 'SMTP資格情報が有効です。',
-    'SMTP_CONNECTION_ERROR': 'SMTPサーバーに接続できません。'
+    'SERVER_ERROR': 'サーバーに接続できません。',
+    'EMAIL_SERVER_ADDRESS': 'メールサーバーアドレス',
+    'EMAIL_SERVER_ADDRESS_DESCRIPTION': 'メールが送受信されるアドレス'
 };

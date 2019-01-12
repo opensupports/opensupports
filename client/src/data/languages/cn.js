@@ -141,6 +141,9 @@ export default {
     'SMTP_USER': 'SMTP用戶',
     'SMTP_SERVER': 'SMTP服務器',
     'SMTP_PASSWORD': 'SMTP密碼',
+    'IMAP_USER': 'IMAP用户',
+    'IMAP_SERVER': 'IMAP服务器',
+    'IMAP_PASSWORD': 'IMAP密码',
     'PORT': '港口',
     'RECAPTCHA_PUBLIC_KEY': 'Recaptcha公鑰',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha私人鑰匙',
@@ -191,6 +194,8 @@ export default {
     'DISABLE_USER': '禁用用户',
     'SHOW_CLOSED_TICKETS': '显示已关闭的门票',
     'IMAGE_HEADER_URL': '图片标题网址',
+    'IMAGE_HEADER_DESCRIPTION': '将用作电子邮件标题的图像',
+    'EMAIL_SETTINGS': '电邮设定',
 
     'CHART_CREATE_TICKET': '已創建門票',
     'CHART_CLOSE': '門票已關閉',
@@ -303,11 +308,13 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': '啟用/禁用用戶系統的使用。如果你禁用它，所有的用戶將被刪除，但票將被保留。如果啟用，將創建現有票證的用戶。',
     'CSV_DESCRIPTION': 'CSV文件必須有3列：電子郵件，密碼，名稱。行數沒有限制。它將在文件中的每行中創建一個用戶。',
     'SMTP_SERVER_DESCRIPTION': 'SMTP服务器允许应用程序发送邮件。 如果您没有配置，OpenSupports将不会发送任何电子邮件。',
+    'IMAP_SERVER_DESCRIPTION': 'IMAP服务器的配置允许应用程序解析发送到邮箱的电子邮件。',
     'ENABLE_USER_DESCRIPTION': '此操作允许用户登录并创建票证。',
     'DISABLE_USER_DESCRIPTION': '用户将被禁用，无法登录并创建票证。',
     'PRIVATE_RESPONSE_DESCRIPTION': '只有工作人员才能看到这种回应',
     'PRIVATE_TOPIC_DESCRIPTION': '只有工作人员才能看到此主题',
     'PRIVATE_DEPARTMENT_DESCRIPTION': '只有工作人员才能看到这个部门',
+    'EMAIL_SETTINGS_DESCRIPTION': '您可以在此处编辑接收和发送电子邮件给客户的设置。',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': '電子郵件或密碼無效',
@@ -365,6 +372,9 @@ export default {
     'WILL_RECOVER_EMAIL_TEMPLATE': '此電子郵件模板將恢復為該語言的默認值。',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'CSV文件已成功導入',
     'SUCCESS_DELETING_ALL_USERS': '用戶已成功刪除',
+    'SUCCESSFUL_CONNECTION': '成功连接',
+    'UNSUCCESSFUL_CONNECTION': '连接不成功',
+    'SERVER_CREDENTIALS_WORKING': '服务器凭据正常工作',
 
     'LAST_7_DAYS': '最近7天',
     'LAST_30_DAYS': '最近30天',
@@ -387,6 +397,7 @@ export default {
     'PASSWORD_LOWERCASE': '密码',
     'SYSTEM_SETTINGS': '系统设置',
     'TEST_SMTP_CONNECTION': '测试SMTP连接',
-    'SMTP_CONNECTION_SUCCESS': 'SMTP凭据有效',
-    'SMTP_CONNECTION_ERROR': '无法连接到SMTP服务器'
+    'SERVER_ERROR': '无法连接到服务器。',
+    'EMAIL_SERVER_ADDRESS': '电邮服务器地址',
+    'EMAIL_SERVER_ADDRESS_DESCRIPTION': '地址将收到和发送邮件'
 };

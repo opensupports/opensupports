@@ -141,6 +141,9 @@ export default {
     'SMTP_USER': 'Utilisateur SMTP',
     'SMTP_SERVER': 'Serveur SMTP',
     'SMTP_PASSWORD': 'Mot de passe SMTP',
+    'IMAP_USER': 'Utilisateur IMAP',
+    'IMAP_SERVER': 'Serveur IMAP',
+    'IMAP_PASSWORD': 'Mot de passe IMAP',
     'PORT': 'Port',
     'RECAPTCHA_PUBLIC_KEY': 'Clé publique Recaptcha',
     'RECAPTCHA_PRIVATE_KEY': 'Clé privée Recaptcha',
@@ -191,6 +194,8 @@ export default {
     'DISABLE_USER': 'Désactiver l\'utilisateur',
     'SHOW_CLOSED_TICKETS': 'Afficher les billets fermés',
     'IMAGE_HEADER_URL': 'URL de l\'en-tête de l\'image',
+    'IMAGE_HEADER_DESCRIPTION': 'Image qui sera utilisée comme en-tête de l\'email',
+    'EMAIL_SETTINGS': 'Paramètres de messagerie',
 
     'CHART_CREATE_TICKET': 'Tickets créés',
     'CHART_CLOSE': 'Tickets fermés',
@@ -303,11 +308,13 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Activer / désactiver l\'utilisation d\'un système utilisateur. Si vous le désactivez, tous les utilisateurs seront supprimés, mais les tickets seront conservés. Si vous l\'activez, les utilisateurs des tickets existants seront créés.',
     'CSV_DESCRIPTION': 'Le fichier CSV doit comporter 3 colonnes: email, mot de passe, nom. Il n\'y a pas de limite dans le nombre de lignes. Il sera créé un utilisateur par ligne dans le fichier.',
     'SMTP_SERVER_DESCRIPTION': 'La configuration du serveur SMTP permet à l\'application d\'envoyer des mails. Si vous ne le configurez pas, aucun service d\'email ne sera envoyé par OpenSupports.',
+    'IMAP_SERVER_DESCRIPTION': 'La configuration du serveur IMAP permet à l\'application d\'analyser les e-mails envoyés à une boîte aux lettres.',
     'ENABLE_USER_DESCRIPTION': 'Cette action permet à l\'utilisateur de se connecter et de créer des tickets.',
     'DISABLE_USER_DESCRIPTION': 'L\'utilisateur sera désactivé et ne pourra pas se connecter et créer des tickets.',
     'PRIVATE_RESPONSE_DESCRIPTION': 'Cette réponse ne sera vue que par les membres du personnel',
     'PRIVATE_TOPIC_DESCRIPTION': 'Ce sujet ne sera vu que par les membres du personnel',
     'PRIVATE_DEPARTMENT_DESCRIPTION': 'Ce département ne sera vu que par les membres du personnel',
+    'EMAIL_SETTINGS_DESCRIPTION': 'Ici, vous pouvez modifier les paramètres de réception et d’envoi de courrier électronique à vos clients.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-mail ou mot de passe invalide',
@@ -365,6 +372,9 @@ export default {
     'WILL_RECOVER_EMAIL_TEMPLATE': 'Ce modèle de courrier électronique sera réinitialisé à sa valeur par défaut pour cette langue.',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'Le fichier CSV a été importé avec succès',
     'SUCCESS_DELETING_ALL_USERS': 'Les utilisateurs ont été supprimés avec succès',
+    'SUCCESSFUL_CONNECTION': 'Connexion réussie',
+    'UNSUCCESSFUL_CONNECTION': 'Connexion infructueuse',
+    'SERVER_CREDENTIALS_WORKING': 'Les informations d\'identification du serveur fonctionnent correctement',
 
     'LAST_7_DAYS': 'Les 7 derniers jours',
     'LAST_30_DAYS': 'Les 30 derniers jours',
@@ -386,6 +396,7 @@ export default {
     'DEFAULT_PORT': 'Laisser vide pour 3306 par défaut',
     'PASSWORD_LOWERCASE': 'mot de passe',
     'TEST_SMTP_CONNECTION': 'Test de connexion SMTP',
-    'SMTP_CONNECTION_SUCCESS': 'Les informations d\'identification SMTP sont valides.',
-    'SMTP_CONNECTION_ERROR': 'Ne peut pas se connecter au serveur SMTP.'
+    'SERVER_ERROR': 'Ne peut pas se connecter au serveur.',
+    'EMAIL_SERVER_ADDRESS': 'Adresse du serveur de messagerie',
+    'EMAIL_SERVER_ADDRESS_DESCRIPTION': 'Adresse où les mails seront reçus et envoyés'
 };

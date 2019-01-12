@@ -141,6 +141,9 @@ export default {
     'SMTP_USER': 'एसएमटीपी उपयोगकर्ता',
     'SMTP_SERVER': 'एसएमटीपी सर्वर',
     'SMTP_PASSWORD': 'एसएमटीपी पासवर्ड',
+    'IMAP_USER': 'IMAP उपयोगकर्ता',
+    'IMAP_SERVER': 'IMAP सर्वर',
+    'IMAP_PASSWORD': 'IMAP पासवर्ड',
     'PORT': 'बंदरगाह',
     'RECAPTCHA_PUBLIC_KEY': 'Recaptcha सार्वजनिक कुंजी',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha निजी कुंजी',
@@ -191,6 +194,8 @@ export default {
     'DISABLE_USER': 'उपयोगकर्ता को अक्षम करें',
     'SHOW_CLOSED_TICKETS': 'बंद टिकट दिखाएं',
     'IMAGE_HEADER_URL': 'छवि शीर्षलेख यूआरएल',
+    'IMAGE_HEADER_DESCRIPTION': 'वह छवि जो ईमेल के शीर्ष लेख के रूप में उपयोग की जाएगी',
+    'EMAIL_SETTINGS': 'ईमेल सेटिंग',
 
     'CHART_CREATE_TICKET': 'टिकट बनाया',
     'CHART_CLOSE': 'टिकट बंद कर दिया',
@@ -303,11 +308,13 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'किसी उपयोगकर्ता सिस्टम के उपयोग को सक्षम / अक्षम करें यदि आप इसे अक्षम करते हैं, तो सभी उपयोगकर्ताओं को हटा दिया जाएगा लेकिन टिकट को रखा जाएगा। यदि आप इसे सक्षम करते हैं, तो विद्यमान टिकट के उपयोगकर्ता बनाए जाएंगे',
     'CSV_DESCRIPTION': 'सीएसवी फ़ाइल में 3 कॉलम होना चाहिए: ईमेल, पासवर्ड, नाम। पंक्ति गणना में कोई सीमा नहीं है फ़ाइल में प्रति पंक्ति एक उपयोगकर्ता बनाया जाएगा।',
     'SMTP_SERVER_DESCRIPTION': 'एसएमटीपी सर्वर का कॉन्फ़िगरेशन एप्लिकेशन को मेल भेजने की अनुमति देता है। यदि आप इसे कॉन्फ़िगर नहीं करते हैं, तो OpenSupports द्वारा कोई ईमेल नहीं भेजा जाएगा।',
+    'IMAP_SERVER_DESCRIPTION': 'IMAP सर्वर का कॉन्फ़िगरेशन एक मेलबॉक्स में भेजे गए एप्लिकेशन पार्स ईमेल की अनुमति देता है।',
     'ENABLE_USER_DESCRIPTION': 'यह क्रिया उपयोगकर्ता को साइन इन करने और टिकट बनाने की अनुमति देती है।',
     'DISABLE_USER_DESCRIPTION': 'उपयोगकर्ता अक्षम कर दिया जाएगा और साइन इन करने और टिकट बनाने में सक्षम नहीं होगा।',
     'PRIVATE_RESPONSE_DESCRIPTION': 'यह प्रतिक्रिया केवल कर्मचारियों के सदस्यों द्वारा देखी जाएगी',
     'PRIVATE_TOPIC_DESCRIPTION': 'यह विषय केवल कर्मचारियों के सदस्यों द्वारा देखा जाएगा',
     'PRIVATE_DEPARTMENT_DESCRIPTION': 'यह विभाग केवल कर्मचारियों के सदस्यों द्वारा देखा जाएगा',
+    'EMAIL_SETTINGS_DESCRIPTION': 'यहां आप अपने ग्राहकों को ईमेल प्राप्त करने और भेजने के लिए सेटिंग्स को संपादित कर सकते हैं।',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'ईमेल या पासवर्ड अमान्य',
@@ -365,6 +372,9 @@ export default {
     'WILL_RECOVER_EMAIL_TEMPLATE': 'यह इस भाषा पर डिफ़ॉल्ट मान है करने के लिए इस ईमेल टेम्पलेट की वसूली की जाएगी।',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'सीएसवी फ़ाइल को सफलतापूर्वक आयात किया गया है',
     'SUCCESS_DELETING_ALL_USERS': 'उपयोगकर्ताओं को सफलतापूर्वक हटा दिया गया है',
+    'SUCCESSFUL_CONNECTION': 'सफल संबंध',
+    'UNSUCCESSFUL_CONNECTION': 'असफल कनेक्शन',
+    'SERVER_CREDENTIALS_WORKING': 'सर्वर क्रेडेंशियल्स सही ढंग से काम कर रहे हैं',
 
     'LAST_7_DAYS': 'पिछले 7 दिन',
     'LAST_30_DAYS': 'अंतिम 30 दिन',
@@ -386,6 +396,7 @@ export default {
     'DEFAULT_PORT': '3306 के लिए डिफ़ॉल्ट के रूप में खाली छोड़ दें',
     'PASSWORD_LOWERCASE': 'पासवर्ड',
     'TEST_SMTP_CONNECTION': 'परीक्षण एसएमटीपी कनेक्शन',
-    'SMTP_CONNECTION_SUCCESS': 'SMTP क्रेडेंशियल्स मान्य हं।',
-    'SMTP_CONNECTION_ERROR': 'एसएमटीपी सर्वर से कनेक्ट नहीं हो सकता'
+    'SERVER_ERROR': 'सर्वर से कनेक्ट नहीं हो पा रहा।',
+    'EMAIL_SERVER_ADDRESS': 'ईमेल सर्वर का पता',
+    'EMAIL_SERVER_ADDRESS_DESCRIPTION': 'पता जहां मेल प्राप्त होगा और भेजा जाएगा'
 };

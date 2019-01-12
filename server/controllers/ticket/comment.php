@@ -155,6 +155,7 @@ class CommentController extends Controller {
             'name' => $name,
             'title' => $this->ticket->title,
             'ticketNumber' => $this->ticket->ticketNumber,
+            'content' => $this->content,
             'url' => $url
         ]);
 

@@ -30,5 +30,6 @@ $systemControllerGroup->addController(new CSVImportController);
 $systemControllerGroup->addController(new DisableUserSystemController);
 $systemControllerGroup->addController(new EnableUserSystemController);
 $systemControllerGroup->addController(new TestSMTPController);
+$systemControllerGroup->addController(new TestIMAPController);
 
 $systemControllerGroup->finalize();

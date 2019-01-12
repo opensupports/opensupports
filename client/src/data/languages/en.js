@@ -141,6 +141,9 @@ export default {
     'SMTP_USER': 'SMTP User',
     'SMTP_SERVER': 'SMTP Server',
     'SMTP_PASSWORD': 'SMTP Password',
+    'IMAP_USER': 'IMAP User',
+    'IMAP_SERVER': 'IMAP Server',
+    'IMAP_PASSWORD': 'IMAP Password',
     'PORT': 'Port',
     'RECAPTCHA_PUBLIC_KEY': 'Recaptcha Public Key',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha Private Key',
@@ -191,6 +194,8 @@ export default {
     'DISABLE_USER': 'Disable User',
     'SHOW_CLOSED_TICKETS': 'Show Closed Tickets',
     'IMAGE_HEADER_URL': 'Image header URL',
+    'IMAGE_HEADER_DESCRIPTION': 'Image that will be used as header of the email',
+    'EMAIL_SETTINGS': 'Email Settings',
 
     'CHART_CREATE_TICKET': 'Tickets created',
     'CHART_CLOSE': 'Tickets closed',
@@ -303,11 +308,13 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Enable/disable the use of an user system. If you disable it, all users will be deleted but the tickets will be kept. If you enable it, the users of existent tickets will be created.',
     'CSV_DESCRIPTION': 'The CSV file must have 3 columns: email, password, name. There is no limit in row count. It will be created one user per row in the file.',
     'SMTP_SERVER_DESCRIPTION': 'The configuration of the SMTP server allows the application to send mails. If you do not configure it, no emails will be sent by OpenSupports.',
+    'IMAP_SERVER_DESCRIPTION': 'The configuration of the IMAP server allows the application parse emails sent to a mailbox.',
     'ENABLE_USER_DESCRIPTION': 'This action allows the user to sign in and create tickets.',
     'DISABLE_USER_DESCRIPTION': 'User will be disabled and will not be able to sign in and create tickets.',
     'PRIVATE_RESPONSE_DESCRIPTION': 'This response will only be seen by staff members',
     'PRIVATE_TOPIC_DESCRIPTION': 'This topic will only be seen by staff members',
     'PRIVATE_DEPARTMENT_DESCRIPTION': 'This department will only be seen by staff members',
+    'EMAIL_SETTINGS_DESCRIPTION': 'Here you can edit the settings for receiving and sending email to your customers.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
@@ -365,6 +372,9 @@ export default {
     'WILL_RECOVER_EMAIL_TEMPLATE': 'This email template will be recover to it\'s default value on this language.',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'CSV File has been imported successfully',
     'SUCCESS_DELETING_ALL_USERS': 'Users have beend deleted successfully',
+    'SUCCESSFUL_CONNECTION': 'Successful connection',
+    'UNSUCCESSFUL_CONNECTION': 'Unsuccessful connection',
+    'SERVER_CREDENTIALS_WORKING': 'Server credentials are working correctly',
 
     'LAST_7_DAYS': 'Last 7 days',
     'LAST_30_DAYS': 'Last 30 days',
@@ -386,6 +396,7 @@ export default {
     'EMAIL_LOWERCASE': 'email',
     'PASSWORD_LOWERCASE': 'password',
     'TEST_SMTP_CONNECTION': 'Test SMTP connection',
-    'SMTP_CONNECTION_SUCCESS': 'SMTP credentials are valid.',
-    'SMTP_CONNECTION_ERROR': 'Can\'t connect to SMTP server.'
+    'SERVER_ERROR': 'Can not connect to server.',
+    'EMAIL_SERVER_ADDRESS': 'Email server address',
+    'EMAIL_SERVER_ADDRESS_DESCRIPTION': 'Address where mails will be received and sent'
 };

@@ -73,7 +73,6 @@ class InitSettingsController extends Controller {
             'imap-user' => Controller::request('imap-user'),
             'imap-pass' => Controller::request('imap-pass'),
             'smtp-host' => Controller::request('smtp-host'),
-            'smtp-port' => Controller::request('smtp-port'),
             'smtp-user' => Controller::request('smtp-user'),
             'smtp-pass' => Controller::request('smtp-pass'),
             'time-zone' => 0,

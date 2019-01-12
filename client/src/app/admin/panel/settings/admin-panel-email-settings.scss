@@ -1,6 +1,6 @@
 @import "../../../../scss/vars";
 
-.admin-panel-email-templates {
+.admin-panel-email-settings {
 
     &__text-area {
         width: 100%;
@@ -26,12 +26,33 @@
         margin-left: 10px;
     }
 
-    &__image-container {
+    &__image-container,
+    &__email-form {
         background-color: $very-light-grey;
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 5px 20px;
         margin-top: 20px;
+    }
+
+    &__box {
+        text-align: center;
+        background-color: $very-light-grey;
+        padding: 30px;
+        margin-bottom: 30px;
+        flex-basis: 48%;
+    }
+
+    &__servers {
+        display: flex;
+        justify-content: space-evenly;
+        margin-top: 30px;
+    }
+
+    &__server-form-buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 }
