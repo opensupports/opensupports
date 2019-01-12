@@ -4,6 +4,8 @@ class EmailPolling extends Controller {
     const PATH = '/email-polling';
     const METHOD = 'POST';
 
+    private $mailbox;
+
     public function validations() {
         return [
             'permission' => 'any',
@@ -19,6 +21,13 @@ class EmailPolling extends Controller {
 
         if(Controller::isUserSystemEnabled())
             throw new RequestException(ERRORS::USER_SYSTEM);
+
+        $this->mailbox = new \PhpImap\Mailbox(
+            Setting::getSetting('imap-host')->getValue(),
+            Setting::getSetting('imap-user')->getValue(),
+            Setting::getSetting('imap-pass')->getValue(),
+            __DIR__
+        );
 
         $errors = [];
         $emails = $this->getLastEmails();
@@ -85,19 +94,13 @@ class EmailPolling extends Controller {
     }
 
     public function getLastEmails() {
-        $mailbox = new \PhpImap\Mailbox(
-            Setting::getSetting('imap-host')->getValue(),
-            Setting::getSetting('imap-user')->getValue(),
-            Setting::getSetting('imap-pass')->getValue(),
-            __DIR__
-        );
-
-        $mailsIds = $mailbox->searchMailbox('ALL');
+        $mailsIds = $this->mailbox->searchMailbox('ALL');
         $emails = [];
         sort($mailsIds);
+
         foreach($mailsIds as $mailId) {
-            $mail = $mailbox->getMail($mailId);
-            $mailHeader = $mailbox->getMailHeader($mailId);
+            $mail = $this->mailbox->getMail($mailId);
+            $mailHeader = $this->mailbox->getMailHeader($mailId);
             $emails[] = new Email([
                 'fromAddress' => $mailHeader->fromAddress,
                 'fromName' => $mailHeader->fromName,
@@ -111,6 +114,12 @@ class EmailPolling extends Controller {
     }
 
     public function eraseAllEmails() {
+        $mailsIds = $this->mailbox->searchMailbox('ALL');
 
+        foreach($mailsIds as $mailId) {
+            $this->mailbox->deleteMail($mailId);
+        }
+
+        $this->mailbox->expungeDeletedMails();
     }
 }
