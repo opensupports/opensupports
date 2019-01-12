@@ -6,7 +6,9 @@ import {Motion, spring} from 'react-motion';
 class Modal extends React.Component {
     static propTypes = {
         content: React.PropTypes.node,
-        noPadding: React.PropTypes.bool
+        noPadding: React.PropTypes.bool,
+        outsideClick: React.PropTypes.bool,
+        onOutsideClick: React.PropTypes.func
     };
 
     render() {
@@ -32,8 +34,8 @@ class Modal extends React.Component {
 
     renderModal(animation) {
         return (
-            <div className={this.getClass()} style={{opacity: animation.fade}}>
-                <div className="modal__content" style={{transform: 'scale(' + animation.scale + ')'}}>
+            <div className={this.getClass()} style={{opacity: animation.fade}} onClick={this.onModalClick.bind(this)}>
+                <div className="modal__content" style={{transform: 'scale(' + animation.scale + ')'}} onClick={this.onModalContentClick.bind(this)}>
                     {this.props.content}
                 </div>
             </div>
@@ -47,6 +49,18 @@ class Modal extends React.Component {
         };
 
         return classNames(classes);
+    }
+
+    onModalClick() {
+        if(this.props.outsideClick) {
+            this.props.onOutsideClick();
+        }
+    }
+
+    onModalContentClick(event) {
+        if(this.props.outsideClick) {
+            event.stopPropagation();
+        }
     }
 }
 

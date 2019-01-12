@@ -8,7 +8,8 @@ class ModalReducer extends Reducer {
         return {
             opened: false,
             noPadding: false,
-            content: null
+            content: null,
+            outsideClick: false,
         };
     }
 
@@ -25,7 +26,8 @@ class ModalReducer extends Reducer {
         return _.extend({}, state, {
             opened: true,
             content: payload.content,
-            noPadding: payload.noPadding || false
+            noPadding: payload.noPadding || false,
+            outsideClick: payload.outsideClick
         });
     }
 
@@ -35,7 +37,8 @@ class ModalReducer extends Reducer {
         return _.extend({}, state, {
             opened: false,
             content: null,
-            noPadding: false
+            noPadding: false,
+            outsideClick: false
         });
     }
 }

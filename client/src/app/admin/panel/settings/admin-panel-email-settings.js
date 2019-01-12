@@ -347,7 +347,7 @@ class AdminPanelEmailSettings extends React.Component {
             data: this.parsePasswordField(form)
         }).then(() => PopupMessage.open({
             title: i18n('SETTINGS_UPDATED'),
-            children: successMessage,
+            children: i18n(successMessage),
             type: 'success'
         })).catch(response => PopupMessage.open({
             title: i18n('ERROR_UPDATING_SETTINGS'),
