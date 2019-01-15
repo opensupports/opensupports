@@ -3,11 +3,11 @@ class Response {
     private static $response;
     private static $responseException;
 
-    public static function respondError($errorMsg, $exception = null) {
+    public static function respondError($errorMsg, $exception = null, $data = null) {
         self::$response = array(
             'status' => 'fail',
             'message' => $errorMsg,
-            'data' => null
+            'data' => $data
         );
         self::$responseException = $exception;
 

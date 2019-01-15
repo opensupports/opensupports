@@ -3,7 +3,7 @@ describe'system/edit-settings' do
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should edit settings' do
-        result= request('/system/edit-settings', {
+        result = request('/system/edit-settings', {
             "csrf_userid" => $csrf_userid,
             "csrf_token" => $csrf_token,
             "maintenance-mode" => 0,
@@ -12,7 +12,7 @@ describe'system/edit-settings' do
             "allow-attachments" => 1,
             "max-size" => 2,
             "language" => 'en',
-            "no-reply-email" => 'testemail@hotmail.com'
+            "server-email" => 'testemail@hotmail.com'
         })
 
         (result['status']).should.equal('success')
@@ -32,7 +32,7 @@ describe'system/edit-settings' do
         row = $database.getRow('setting', 'language', 'name')
         (row['value']).should.equal('en')
 
-        row = $database.getRow('setting', 'no-reply-email', 'name')
+        row = $database.getRow('setting', 'server-email', 'name')
         (row['value']).should.equal('testemail@hotmail.com')
 
         request('/user/logout')

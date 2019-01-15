@@ -4,7 +4,7 @@ class Session {
     use SingletonTrait;
 
     private $sessionPrefix = '';
-    
+
     private function __construct() {
         $this->initSession();
     }
@@ -18,17 +18,29 @@ class Session {
         session_destroy();
     }
 
+    public function clearSessionData() {
+        $this->store('userId', null);
+        $this->store('staff', null);
+        $this->store('token', null);
+        $this->store('ticketNumber', null);
+    }
+
+    public function setSessionData($data) {
+        foreach($data as $key => $value)
+            $this->store($key, $value);
+    }
+
     public function createSession($userId, $staff = false) {
         $this->store('userId', $userId);
         $this->store('staff', $staff);
         $this->store('token', Hashing::generateRandomToken());
     }
-    
+
     public function createTicketSession($ticketNumber) {
         $this->store('ticketNumber', $ticketNumber);
         $this->store('token', Hashing::generateRandomToken());
     }
-    
+
     public function getTicketNumber() {
         return $this->getStoredData('ticketNumber');
     }
@@ -52,7 +64,7 @@ class Session {
     public function checkAuthentication($data) {
         $userId = $this->getStoredData('userId');
         $token = $this->getStoredData('token');
-        
+
         return $userId && $token &&
                $userId === $data['userId'] &&
                $token === $data['token'];
@@ -71,7 +83,7 @@ class Session {
 
         return $storedValue;
     }
-    
+
     public function isLoggedWithId($userId) {
         return ($this->getStoredData('userId') === $userId);
     }

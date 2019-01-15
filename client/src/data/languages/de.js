@@ -141,6 +141,9 @@ export default {
     'SMTP_USER': 'SMTP Benutzer',
     'SMTP_SERVER': 'SMTP Server',
     'SMTP_PASSWORD': 'SMTP Kennwort',
+    'IMAP_USER': 'IMAP-Benutzer',
+    'IMAP_SERVER': 'IMAP-Server',
+    'IMAP_PASSWORD': 'IMAP-Passwort',
     'PORT': 'Port',
     'RECAPTCHA_PUBLIC_KEY': 'Recaptcha - Öffentlicher Schlüssel',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha - Privater Schlüssel',
@@ -191,6 +194,8 @@ export default {
     'DISABLE_USER': 'Benutzer deaktivieren',
     'SHOW_CLOSED_TICKETS': 'Geschlossene Tickets anzeigen',
     'IMAGE_HEADER_URL': 'URL des Image-Headers',
+    'IMAGE_HEADER_DESCRIPTION': 'Bild, das als Header der E-Mail verwendet wird',
+    'EMAIL_SETTINGS': 'Email Einstellungen',
 
     'CHART_CREATE_TICKET': 'Tickets erstellt',
     'CHART_CLOSE': 'Tickets geschlossen',
@@ -303,11 +308,14 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Aktivieren/deaktivieren Sie die Verwendung eines Benutzersystems. Wenn Sie es deaktivieren, werden alle Benutzer gelöscht, aber die Tickets werden behalten. Wenn Sie es aktivieren, werden die Benutzer der vorhandenen Tickets erstellt.',
     'CSV_DESCRIPTION': 'Die CSV-Datei muss 3 Spalten haben: E-Mail-Adresse, Passwort, Name. Es gibt kein Limit in der Zeilenzahl. Es wird ein Benutzer pro Zeile in der Datei erstellt.',
     'SMTP_SERVER_DESCRIPTION': 'Die Konfiguration des SMTP-Servers ermöglicht es der Software, Mails zu senden. Wenn Sie es nicht konfigurieren, werden keine E-Mails von OpenSupports gesendet.',
+    'IMAP_SERVER_DESCRIPTION': 'Die Konfiguration des IMAP-Servers ermöglicht es der Anwendung, Tickets aus den an ein Postfach gesendeten E-Mails zu erstellen.',
     'ENABLE_USER_DESCRIPTION': 'Mit dieser Aktion kann der Benutzer sich anmelden und Tickets erstellen.',
     'DISABLE_USER_DESCRIPTION': 'Der Benutzer wird deaktiviert und kann keine Tickets anmelden und erstellen.',
     'PRIVATE_RESPONSE_DESCRIPTION': 'Diese Antwort wird nur von den Mitarbeitern gesehen werden',
     'PRIVATE_TOPIC_DESCRIPTION': 'Dieses Thema wird nur von Mitarbeitern gesehen',
     'PRIVATE_DEPARTMENT_DESCRIPTION': 'Diese Abteilung wird nur von Mitarbeitern gesehen',
+    'EMAIL_SETTINGS_DESCRIPTION': 'Hier können Sie die Einstellungen für das Empfangen und Senden von E-Mails an Ihre Kunden bearbeiten.',
+    'IMAP_POLLING_DESCRIPTION': 'Die Posteingangsüberprüfung wird von OpenSupports nicht automatisch durchgeführt. Sie müssen regelmäßig POST-Anfragen an diese URL stellen, um die E-Mails zu verarbeiten: {url}',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-Mail-Adresse oder Passwort ungültig!',
@@ -365,6 +373,9 @@ export default {
     'WILL_RECOVER_EMAIL_TEMPLATE': 'Diese E-Mail-Vorlage wird auf den Standardwert zurückgesetzt.',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'Die CSV-Datei wurde erfolgreich importiert.',
     'SUCCESS_DELETING_ALL_USERS': 'Die Benutzer wurden erfolgreich gelöscht.',
+    'SUCCESSFUL_CONNECTION': 'Erfolgreiche Verbindung',
+    'UNSUCCESSFUL_CONNECTION': 'Verbindung fehlgeschlagen',
+    'SERVER_CREDENTIALS_WORKING': 'Server-Anmeldeinformationen funktionieren ordnungsgemäß',
 
     'LAST_7_DAYS': 'Letzte 7 Tage',
     'LAST_30_DAYS': 'Letzte 30 Tage',
@@ -386,6 +397,7 @@ export default {
     'DEFAULT_PORT': 'Leave leer für 3306 als Standard',
     'PASSWORD_LOWERCASE': 'Passwort',
     'TEST_SMTP_CONNECTION': 'SMTP Verbindung testen',
-    'SMTP_CONNECTION_SUCCESS': 'SMTP Anmeldeinformationen sind gültig.',
-    'SMTP_CONNECTION_ERROR': 'Verbindung zum SMTP Server nicht erfolgreich.'
+    'SERVER_ERROR': 'Kann nicht mit dem Server verbinden.',
+    'EMAIL_SERVER_ADDRESS': 'E-Mail-Serveradresse',
+    'EMAIL_SERVER_ADDRESS_DESCRIPTION': 'Adresse, an die Mails gesendet und gesendet werden'
 };

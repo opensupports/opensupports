@@ -9,11 +9,12 @@ import Modal from 'core-components/modal';
 
 class ModalContainer extends React.Component {
 
-    static openModal(content, noPadding) {
+    static openModal(content, noPadding, outsideClick=false) {
         store.dispatch(
             ModalActions.openModal({
                 content,
-                noPadding
+                noPadding,
+                outsideClick
             })
         );
     }
@@ -49,8 +50,9 @@ class ModalContainer extends React.Component {
     }
     
     renderModal() {
+        const {content, noPadding, outsideClick} = this.props.modal;
         return (
-            <Modal content={this.props.modal.content} noPadding={this.props.modal.noPadding}/>
+            <Modal content={content} noPadding={noPadding} outsideClick={outsideClick} onOutsideClick={this.closeModal.bind(this)}/>
         );
     }
 

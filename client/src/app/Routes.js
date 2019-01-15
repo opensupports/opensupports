@@ -49,7 +49,7 @@ import AdminPanelViewStaff from 'app/admin/panel/staff/admin-panel-view-staff';
 
 import AdminPanelSystemPreferences from 'app/admin/panel/settings/admin-panel-system-preferences';
 import AdminPanelAdvancedSettings from 'app/admin/panel/settings/admin-panel-advanced-settings';
-import AdminPanelEmailTemplates from 'app/admin/panel/settings/admin-panel-email-templates';
+import AdminPanelEmailSettings from 'app/admin/panel/settings/admin-panel-email-settings';
 
 // INSTALLATION
 import InstallLayout from 'app/install/install-layout';
@@ -139,7 +139,7 @@ export default (
                         <IndexRedirect to="system-preferences" />
                         <Route path="system-preferences" component={AdminPanelSystemPreferences} />
                         <Route path="advanced-settings" component={AdminPanelAdvancedSettings} />
-                        <Route path="email-templates" component={AdminPanelEmailTemplates} />
+                        <Route path="email-settings" component={AdminPanelEmailSettings} />
                     </Route>
                 </Route>
             </Route>
