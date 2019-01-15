@@ -35,6 +35,7 @@ import AdminPanelNewTickets from 'app/admin/panel/tickets/admin-panel-new-ticket
 import AdminPanelAllTickets from 'app/admin/panel/tickets/admin-panel-all-tickets';
 import AdminPanelViewTicket from 'app/admin/panel/tickets/admin-panel-view-ticket';
 import AdminPanelCustomResponses from 'app/admin/panel/tickets/admin-panel-custom-responses';
+import AdminPanelCustomTags from 'app/admin/panel/tickets/admin-panel-custom-tags';
 
 import AdminPanelListUsers from 'app/admin/panel/users/admin-panel-list-users';
 import AdminPanelViewUser from 'app/admin/panel/users/admin-panel-view-user';
@@ -113,6 +114,7 @@ export default (
                         <Route path="all-tickets" component={AdminPanelAllTickets} />
                         <Route path="custom-responses" component={AdminPanelCustomResponses} />
                         <Route path="view-ticket/:ticketNumber" component={AdminPanelViewTicket} />
+                        <Route path="custom-tags" component={AdminPanelCustomTags} />
                     </Route>
 
                     <Route path="users">
