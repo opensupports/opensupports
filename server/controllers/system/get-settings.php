@@ -50,6 +50,7 @@ class GetSettingsController extends Controller {
                     'smtp-user' => Setting::getSetting('smtp-user')->getValue(),
                     'imap-host' => Setting::getSetting('imap-host')->getValue(),
                     'imap-user' => Setting::getSetting('imap-user')->getValue(),
+                    'imap-token' => Setting::getSetting('imap-token')->getValue(),
                     'registration' => Setting::getSetting('registration')->getValue(),
                     'departments' => Department::getAllDepartmentNames(),
                     'supportedLanguages' => Language::getSupportedLanguages(),

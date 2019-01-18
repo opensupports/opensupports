@@ -144,6 +144,8 @@ export default {
     'IMAP_USER': 'IMAP User',
     'IMAP_SERVER': 'IMAP Server',
     'IMAP_PASSWORD': 'IMAP Password',
+    'IMAP_TOKEN': 'IMAP Token',
+    'IMAP_TOKEN_DESCRIPTION': 'Use this token to authenticate the polling request.',
     'PORT': 'Port',
     'RECAPTCHA_PUBLIC_KEY': 'Recaptcha Public Key',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha Private Key',
@@ -382,6 +384,7 @@ export default {
     'LAST_90_DAYS': 'Last 90 days',
     'LAST_365_DAYS': 'Last 365 days',
 
+    'TEST': 'Test',
     'ACTIVITY_COMMENT_THIS': 'commented this ticket',
     'ACTIVITY_ASSIGN_THIS': 'assigned this ticket to',
     'ACTIVITY_UN_ASSIGN_THIS': 'unassigned this ticket to',

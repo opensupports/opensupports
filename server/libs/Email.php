@@ -1,4 +1,5 @@
 <?php
+use EmailReplyParser\Parser\EmailParser;
 
 class Email {
     private $sender;
@@ -49,7 +50,9 @@ class Email {
     }
 
     private function parseContent($data) {
-        return $data['content'];
+        $emailParser = new EmailParser();
+
+        return $emailParser->parse($data['content'])->getVisibleText();
     }
 
     private function parseAttachment($data) {

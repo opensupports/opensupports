@@ -1,6 +1,7 @@
 <?php
+use Respect\Validation\Validator as DataValidator;
 
-class EmailPolling extends Controller {
+class EmailPollingController extends Controller {
     const PATH = '/email-polling';
     const METHOD = 'POST';
 
@@ -9,7 +10,12 @@ class EmailPolling extends Controller {
     public function validations() {
         return [
             'permission' => 'any',
-            'requestData' => []
+            'requestData' => [
+                'token' => [
+                    'validation' => DataValidator::length(1, 200),
+                    'error' => ERRORS::INVALID_TOKEN
+                ]
+            ]
         ];
     }
 
@@ -19,6 +25,10 @@ class EmailPolling extends Controller {
         $defaultLanguage = Setting::getSetting('language')->getValue();
         $defaultDepartmentId = Department::getAll()->first()->id;
 
+
+        if(Controller::request('token') !== Setting::getSetting('imap-token')->getValue())
+            throw new RequestException(ERRORS::INVALID_TOKEN);
+
         if(Controller::isUserSystemEnabled())
             throw new RequestException(ERRORS::USER_SYSTEM);
 
@@ -26,12 +36,12 @@ class EmailPolling extends Controller {
             Setting::getSetting('imap-host')->getValue(),
             Setting::getSetting('imap-user')->getValue(),
             Setting::getSetting('imap-pass')->getValue(),
-            __DIR__
+            'files/'
         );
 
         $errors = [];
         $emails = $this->getLastEmails();
-
+/*
         $session = Session::getInstance();
         $oldSession = [
             'userId' => $session->getUserId(),
@@ -61,6 +71,17 @@ class EmailPolling extends Controller {
                 return null;
             });
 
+            if($email->getAttachement()) {
+                $attachment = $email->getAttachement();
+                $_FILES['file'] = [
+                    'name' => $attachment->name,
+                    'type' => mime_content_type($attachment->filePath),
+                    'tmp_name' => $attachment->filePath,
+                    'error' => UPLOAD_ERR_OK,
+                    'size' => filesize($attachment->filePath),
+                ];
+            }
+
             try {
                 if($email->isReply()) {
                     if($email->getTicket()->authorToArray()['email'] === $email->getSender()) {
@@ -79,6 +100,8 @@ class EmailPolling extends Controller {
                     'error' => $e->__toString(),
                 ];
             }
+
+            unset($_FILES['file']);
         }
 
         $session->clearSessionData();
@@ -90,7 +113,7 @@ class EmailPolling extends Controller {
             Response::respondError(ERRORS::EMAIL_POLLING, null, $errors);
         } else {
             Response::respondSuccess();
-        }
+        }*/
     }
 
     public function getLastEmails() {
@@ -101,12 +124,14 @@ class EmailPolling extends Controller {
         foreach($mailsIds as $mailId) {
             $mail = $this->mailbox->getMail($mailId);
             $mailHeader = $this->mailbox->getMailHeader($mailId);
+            $mailAttachment = count($mail->getAttachments()) ? $mail->getAttachments()[0] : null;
+
             $emails[] = new Email([
                 'fromAddress' => $mailHeader->fromAddress,
                 'fromName' => $mailHeader->fromName,
                 'subject' => $mailHeader->subject,
                 'content' => $mail->textPlain,
-                'file' => null,
+                'file' => $mailAttachment,
             ]);
         }
 

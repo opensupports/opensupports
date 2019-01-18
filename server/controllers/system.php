@@ -31,5 +31,6 @@ $systemControllerGroup->addController(new DisableUserSystemController);
 $systemControllerGroup->addController(new EnableUserSystemController);
 $systemControllerGroup->addController(new TestSMTPController);
 $systemControllerGroup->addController(new TestIMAPController);
+$systemControllerGroup->addController(new EmailPollingController);
 
 $systemControllerGroup->finalize();
