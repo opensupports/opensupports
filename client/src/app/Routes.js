@@ -39,6 +39,7 @@ import AdminPanelCustomResponses from 'app/admin/panel/tickets/admin-panel-custo
 import AdminPanelListUsers from 'app/admin/panel/users/admin-panel-list-users';
 import AdminPanelViewUser from 'app/admin/panel/users/admin-panel-view-user';
 import AdminPanelBanUsers from 'app/admin/panel/users/admin-panel-ban-users';
+import AdminPanelCustomFields from 'app/admin/panel/users/admin-panel-custom-fields';
 
 import AdminPanelListArticles from 'app/admin/panel/articles/admin-panel-list-articles';
 import AdminPanelViewArticle from 'app/admin/panel/articles/admin-panel-view-article';
@@ -120,6 +121,7 @@ export default (
                         <Route path="list-users" component={AdminPanelListUsers} />
                         <Route path="view-user/:userId" component={AdminPanelViewUser} />
                         <Route path="ban-users" component={AdminPanelBanUsers} />
+                        <Route path="custom-fields" component={AdminPanelCustomFields} />
                     </Route>
 
                     <Route path="articles">

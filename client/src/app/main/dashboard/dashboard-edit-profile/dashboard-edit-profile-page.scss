@@ -13,4 +13,13 @@
         margin-top: 20px;
         margin-bottom: 20px;
     }
+
+    &__custom-fields {
+        text-align: left;
+    }
+
+    &__custom-field {
+        display: inline-block;
+        margin-right: 20px;
+    }
 }

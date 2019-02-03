@@ -209,7 +209,31 @@
  */
 /**
  * @apiDefine EMAIL_POLLING
- * @apiError {String} EMAIL_POLLING Email polling
+ * @apiError {String} EMAIL_POLLING Email polling was unsuccesful
+ */
+/**
+ * @apiDefine IMAP_CONNECTION
+ * @apiError {String} IMAP_CONNECTION Imap connection was unsuccesfull
+ */
+/**
+* @apiDefine CUSTOM_FIELD_ALREADY_EXISTS
+* @apiError {String} CUSTOM_FIELD_ALREADY_EXISTS Custom field already exists
+*/
+/**
+* @apiDefine INVALID_CUSTOM_FIELD
+* @apiError {String} INVALID_CUSTOM_FIELD Custom field id is invalid
+*/
+/**
+* @apiDefine INVALID_CUSTOM_FIELD_TYPE
+* @apiError {String} INVALID_CUSTOM_FIELD_TYPE The type is invalid
+*/
+/**
+ * @apiDefine INVALID_CUSTOM_FIELD_OPTIONS
+ * @apiError {String} INVALID_CUSTOM_FIELD_OPTIONS Options are not a json array
+ */
+/**
+ * @apiDefine INVALID_CUSTOM_FIELD_OPTION
+ * @apiError {String} INVALID_CUSTOM_FIELD_OPTION Option is not in the list of possibles
  */
 
 class ERRORS {
@@ -268,4 +292,9 @@ class ERRORS {
     const INVALID_TEXT_3 = 'INVALID_TEXT_3';
     const DEPARTMENT_PRIVATE_TICKETS = 'DEPARTMENT_PRIVATE_TICKETS';
     const EMAIL_POLLING = 'EMAIL_POLLING';
+    const CUSTOM_FIELD_ALREADY_EXISTS = 'CUSTOM_FIELD_ALREADY_EXISTS';
+    const INVALID_CUSTOM_FIELD = 'INVALID_CUSTOM_FIELD';
+    const INVALID_CUSTOM_FIELD_TYPE = 'INVALID_CUSTOM_FIELD_TYPE';
+    const INVALID_CUSTOM_FIELD_OPTIONS = 'INVALID_CUSTOM_FIELD_OPTIONS';
+    const INVALID_CUSTOM_FIELD_OPTION = 'INVALID_CUSTOM_FIELD_OPTION';
 }

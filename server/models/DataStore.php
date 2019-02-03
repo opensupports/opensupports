@@ -173,6 +173,7 @@ abstract class DataStore {
 
         $listType = str_replace('List', '', $listType);
         $listType = str_replace('shared', '', $listType);
+        $listType = str_replace('xown', '', $listType);
         $listType = str_replace('own', '', $listType);
 
         return $listType;

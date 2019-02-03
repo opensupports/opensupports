@@ -153,6 +153,11 @@ class AdminPanelMenu extends React.Component {
                         name: i18n('BAN_USERS'),
                         path: '/admin/panel/users/ban-users',
                         level: 1
+                    },
+                    {
+                        name: i18n('CUSTOM_FIELDS'),
+                        path: '/admin/panel/users/custom-fields',
+                        level: 1
                     }
                 ])
             },
