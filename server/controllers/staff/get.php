@@ -69,7 +69,7 @@ class GetStaffController extends Controller {
             'level' => $user->level,
             'staff' => true,
             'departments' => $parsedDepartmentList,
-            'tickets' => $user->sharedTicketList->toArray(),
+            'tickets' => $user->sharedTicketList->toArray(true),
             'sendEmailOnNewTicket' => $user->sendEmailOnNewTicket
         ]);
     }

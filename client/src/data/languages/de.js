@@ -61,7 +61,7 @@ export default {
     'HIGH': 'Hoch',
     'MEDIUM': 'Mittel',
     'LOW': 'Niedrig',
-    'TITLE': 'Titel',
+    'TITLE': 'Betreff',
     'CONTENT': 'Inhalt',
     'SAVE': 'Speichern',
     'DISCARD_CHANGES': 'Änderungen verwerfen',

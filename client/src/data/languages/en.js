@@ -144,6 +144,8 @@ export default {
     'IMAP_USER': 'IMAP User',
     'IMAP_SERVER': 'IMAP Server',
     'IMAP_PASSWORD': 'IMAP Password',
+    'IMAP_TOKEN': 'IMAP Token',
+    'IMAP_TOKEN_DESCRIPTION': 'Use this token to authenticate the polling request.',
     'PORT': 'Port',
     'RECAPTCHA_PUBLIC_KEY': 'Recaptcha Public Key',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha Private Key',
@@ -196,6 +198,15 @@ export default {
     'IMAGE_HEADER_URL': 'Image header URL',
     'IMAGE_HEADER_DESCRIPTION': 'Image that will be used as header of the email',
     'EMAIL_SETTINGS': 'Email Settings',
+    'ADDITIONAL_FIELDS': 'Additonal Fields',
+    'NEW_CUSTOM_FIELD': 'New Custom field',
+    'TYPE': 'Type',
+    'SELECT_INPUT': 'Select input',
+    'TEXT_INPUT': 'Text input',
+    'OPTION': 'Option {index}',
+    'OPTIONS': 'Options',
+    'FIELD_DESCRIPTION': 'Field description (Optional)',
+    'CUSTOM_FIELDS': 'Custom fields',
 
     'CHART_CREATE_TICKET': 'Tickets created',
     'CHART_CLOSE': 'Tickets closed',
@@ -316,6 +327,8 @@ export default {
     'PRIVATE_DEPARTMENT_DESCRIPTION': 'This department will only be seen by staff members',
     'EMAIL_SETTINGS_DESCRIPTION': 'Here you can edit the settings for receiving and sending email to your customers.',
     'IMAP_POLLING_DESCRIPTION': 'Inbox checking will not be done automatically by OpenSupports. You have to make POST requests periodically to this url to process the emails: {url}',
+    'NEW_CUSTOM_FIELD_DESCRIPTION': 'Here you can create a custom field for an user, it can be a blank text box or a fixed set of options.',
+    'CUSTOM_FIELDS_DESCRIPTION': 'Custom fields are defined additional fields the users are able to fill to provide more information about them.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
@@ -376,12 +389,14 @@ export default {
     'SUCCESSFUL_CONNECTION': 'Successful connection',
     'UNSUCCESSFUL_CONNECTION': 'Unsuccessful connection',
     'SERVER_CREDENTIALS_WORKING': 'Server credentials are working correctly',
+    'DELETE_CUSTOM_FIELD_SURE': 'Some users may be using this field. Are you sure you want to delete it?',
 
     'LAST_7_DAYS': 'Last 7 days',
     'LAST_30_DAYS': 'Last 30 days',
     'LAST_90_DAYS': 'Last 90 days',
     'LAST_365_DAYS': 'Last 365 days',
 
+    'TEST': 'Test',
     'ACTIVITY_COMMENT_THIS': 'commented this ticket',
     'ACTIVITY_ASSIGN_THIS': 'assigned this ticket to',
     'ACTIVITY_UN_ASSIGN_THIS': 'unassigned this ticket to',

@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import {connect} from 'react-redux';
+import randomString from 'random-string';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -55,6 +56,7 @@ class AdminPanelEmailSettings extends React.Component {
             ['imap-host']: '',
             ['imap-user']: '',
             ['imap-pass']: 'HIDDEN',
+            ['imap-token']: '',
         },
     };
 
@@ -135,7 +137,7 @@ class AdminPanelEmailSettings extends React.Component {
                                 <SubmitButton className="admin-panel-email-settings__submit" type="secondary"
                                               size="small">{i18n('SAVE')}</SubmitButton>
                                 <SubmitButton type="tertiary" size="small" onClick={this.testSMTP.bind(this)}>
-                                    Test
+                                    {i18n('TEST')}
                                 </SubmitButton>
                             </div>
                         </Form>
@@ -148,11 +150,12 @@ class AdminPanelEmailSettings extends React.Component {
                             <FormField name="imap-host" label={i18n('IMAP_SERVER')} fieldProps={{size: 'large'}}/>
                             <FormField name="imap-user" label={i18n('IMAP_USER')} fieldProps={{size: 'large'}}/>
                             <FormField name="imap-pass" label={i18n('IMAP_PASSWORD')} fieldProps={{size: 'large'}}/>
+                            <FormField name="imap-token" label={i18n('IMAP_TOKEN')} infoMessage={i18n('IMAP_TOKEN_DESCRIPTION')} fieldProps={{size: 'large', icon: 'refresh', onIconClick: this.generateImapToken.bind(this)}}/>
                             <div className="admin-panel-email-settings__server-form-buttons">
                                 <SubmitButton className="admin-panel-email-settings__submit" type="secondary"
                                               size="small">{i18n('SAVE')}</SubmitButton>
                                 <SubmitButton type="tertiary" size="small" onClick={this.testIMAP.bind(this)}>
-                                    Test
+                                    {i18n('TEST')}
                                 </SubmitButton>
                             </div>
                         </Form>
@@ -334,6 +337,15 @@ class AdminPanelEmailSettings extends React.Component {
         AreYouSure.openModal(i18n('WILL_RECOVER_EMAIL_TEMPLATE'), this.recoverEmailTemplate.bind(this));
     }
 
+    generateImapToken() {
+        this.setState({
+            imapForm: {
+                ...this.state.imapForm,
+                ['imap-token']: randomString({length: 20}),
+            }
+        });
+    }
+
     submitEmailAddress(form) {
         this.editSettings(form, 'EMAIL_SUCCESS');
     }
@@ -481,6 +493,7 @@ class AdminPanelEmailSettings extends React.Component {
                 ['imap-host']: result.data['imap-host'],
                 ['imap-user']: result.data['imap-user'],
                 ['imap-pass']: 'HIDDEN',
+                ['imap-token']: result.data['imap-token'],
             },
         }));
     }

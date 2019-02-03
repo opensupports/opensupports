@@ -41,6 +41,10 @@ class Session {
         $this->store('token', Hashing::generateRandomToken());
     }
 
+    public function isTicketSession() {
+        return $this->getStoredData('ticketNumber') && $this->getStoredData('token');
+    }
+
     public function getTicketNumber() {
         return $this->getStoredData('ticketNumber');
     }

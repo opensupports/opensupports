@@ -1,8 +1,11 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import _ from 'lodash';
 
 import API from 'lib-app/api-call';
 import i18n from 'lib-app/i18n';
 
+import SessionActions from 'actions/session-actions';
 import AreYouSure from 'app-components/are-you-sure';
 
 import Header from 'core-components/header';
@@ -13,17 +16,41 @@ import Message from 'core-components/message';
 
 class DashboardEditProfilePage extends React.Component {
 
-    state= {
+    static propTypes = {
+        userCustomFields: React.PropTypes.object,
+    };
+
+    static defaultProps = {
+        userCustomFields: {},
+    };
+
+    state = {
         loadingEmail: false,
         loadingPass: false,
-        messageEmail:'',
-        messagePass:''
+        messageEmail: '',
+        messagePass: '',
+        customFields: [],
+        customFieldsFrom: {},
+        loadingCustomFields: false,
     };
+
+    componentDidMount() {
+        this.retrieveCustomFields();
+    }
 
     render() {
         return (
             <div className="edit-profile-page">
                 <Header title={i18n('EDIT_PROFILE')} description={i18n('EDIT_PROFILE_VIEW_DESCRIPTION')} />
+                <div className="edit-profile-page__title">{i18n('ADDITIONAL_FIELDS')}</div>
+                <Form loading={this.state.loadingCustomFields} values={this.state.customFieldsFrom} onChange={form => this.setState({customFieldsFrom: form})} onSubmit={this.onCustomFieldsSubmit.bind(this)}>
+                    <div className="edit-profile-page__custom-fields">
+                        {this.state.customFields.map(this.renderCustomField.bind(this))}
+                    </div>
+                    <div className="row">
+                        <SubmitButton>{i18n('SAVE')}</SubmitButton>
+                    </div>
+                </Form>
                 <div className="edit-profile-page__title">{i18n('EDIT_EMAIL')}</div>
                 <Form loading={this.state.loadingEmail} onSubmit={this.onSubmitEditEmail.bind(this)}>
                     <FormField name="newEmail" label={i18n('NEW_EMAIL')} field="input" validation="EMAIL" fieldProps={{size:'large'}} required/>
@@ -41,6 +68,25 @@ class DashboardEditProfilePage extends React.Component {
             </div>
         );
     }
+
+    renderCustomField(customField, key) {
+        if(customField.type === 'text') {
+            return (
+                <div className="edit-profile-page__custom-field" key={key}>
+                    <FormField name={customField.name} label={customField.name} infoMessage={customField.description} field="input" fieldProps={{size:'small'}}/>
+                </div>
+            );
+        } else {
+            const items = customField.options.map(option => ({content: option.name, value: option.name}));
+
+            return (
+                <div className="edit-profile-page__custom-field" key={key}>
+                    <FormField name={customField.name} label={customField.name} infoMessage={customField.description} field="select" fieldProps={{size:'small', items}}/>
+                </div>
+            );
+        }
+    }
+
     renderMessageEmail() {
         switch (this.state.messageEmail) {
             case 'success':
@@ -52,6 +98,7 @@ class DashboardEditProfilePage extends React.Component {
         }
 
     }
+
     renderMessagePass() {
         switch (this.state.messagePass) {
             case 'success':
@@ -62,10 +109,37 @@ class DashboardEditProfilePage extends React.Component {
                 return null;
         }
     }
+
+    onCustomFieldsSubmit(form) {
+        const {customFields} = this.state;
+        const parsedFrom = {}
+
+        customFields.forEach(customField => {
+            if(customField.type === 'select') {
+                parsedFrom[`customfield_${customField.name}`] = customField.options[form[customField.name]].name;
+            } else {
+                parsedFrom[`customfield_${customField.name}`] = form[customField.name];
+            }
+        });
+
+        this.setState({
+            loadingCustomFields: true,
+        });
+
+        API.call({
+            path: '/user/edit-custom-fields',
+            data: parsedFrom
+        }).then(() => {
+            this.setState({loadingCustomFields: false});
+            this.props.dispatch(SessionActions.getUserData());
+        });
+
+    }
+
     onSubmitEditEmail(formState) {
         AreYouSure.openModal(i18n('EMAIL_WILL_CHANGE'), this.callEditEmailAPI.bind(this, formState));
     }
-    
+
     onSubmitEditPassword(formState) {
         AreYouSure.openModal(i18n('PASSWORD_WILL_CHANGE'), this.callEditPassAPI.bind(this, formState));
     }
@@ -115,6 +189,39 @@ class DashboardEditProfilePage extends React.Component {
         }.bind(this));
     }
 
+    retrieveCustomFields() {
+        API.call({
+            path: '/system/get-custom-fields',
+            data: {}
+        })
+        .then(result => {
+            const customFieldsFrom = {};
+            const {userCustomFields} = this.props;
+            result.data.forEach(customField => {
+                if(customField.type === 'select') {
+                    const index = _.indexOf(customField.options.map(option => option.name), userCustomFields[customField.name]);
+                    customFieldsFrom[customField.name] = (index === -1 ? 0 : index);
+                } else {
+                    customFieldsFrom[customField.name] = userCustomFields[customField.name] || '';
+                }
+            });
+
+            this.setState({
+                customFields: result.data,
+                customFieldsFrom,
+            });
+        });
+    }
 }
 
-export default DashboardEditProfilePage;
+export default connect((store) => {
+    const userCustomFields = {};
+
+    store.session.userCustomFields.forEach(customField => {
+        userCustomFields[customField.customfield] = customField.value;
+    });
+
+    return {
+        userCustomFields: userCustomFields || {},
+    };
+})(DashboardEditProfilePage);

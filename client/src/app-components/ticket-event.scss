@@ -96,7 +96,7 @@
             border-top: none;
             padding: 20px 10px;
             text-align: left;
-            
+
             img {
                 max-width:100%;
             }
@@ -109,6 +109,10 @@
         text-align: right;
         padding: 5px 10px;
         font-size: 12px;
+    }
+
+    &__comment-badge-value {
+        font-weight: normal;
     }
 
     &_staff {
