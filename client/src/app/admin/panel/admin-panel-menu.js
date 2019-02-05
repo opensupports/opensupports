@@ -158,6 +158,11 @@ class AdminPanelMenu extends React.Component {
                         name: i18n('BAN_USERS'),
                         path: '/admin/panel/users/ban-users',
                         level: 1
+                    },
+                    {
+                        name: i18n('CUSTOM_FIELDS'),
+                        path: '/admin/panel/users/custom-fields',
+                        level: 1
                     }
                 ])
             },
@@ -211,8 +216,8 @@ class AdminPanelMenu extends React.Component {
                         level: 3
                     },
                     {
-                        name: i18n('EMAIL_TEMPLATES'),
-                        path: '/admin/panel/settings/email-templates',
+                        name: i18n('EMAIL_SETTINGS'),
+                        path: '/admin/panel/settings/email-settings',
                         level: 3
                     }
                 ])

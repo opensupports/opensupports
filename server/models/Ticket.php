@@ -141,7 +141,8 @@ class Ticket extends DataStore {
                 'name' => $author->name,
                 'staff' => $author instanceof Staff,
                 'profilePic' => ($author instanceof Staff) ? $author->profilePic : null,
-                'email' => $author->email
+                'email' => $author->email,
+                'customfields' => $author->xownCustomfieldvalueList ? $author->xownCustomfieldvalueList->toArray() : [],
             ];
         } else {
             return [

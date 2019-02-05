@@ -148,6 +148,10 @@
  * @apiError {String} INVALID_BODY The body is invalid.
  */
 /**
+ * @apiDefine USER_SYSTEM_ENABLED
+ * @apiError {String} USER_SYSTEM_ENABLED The user system is enabled.
+ */
+/**
  * @apiDefine USER_SYSTEM_DISABLED
  * @apiError {String} USER_SYSTEM_DISABLED The user system is disabled.
  */
@@ -211,6 +215,34 @@
  * @apiDefine DEPARTMENT_PRIVATE_TICKETS
  * @apiError {String} DEPARTMENT_PRIVATE_TICKETS There are tickets for in department created by non-staff and it can't be private
  */
+/**
+ * @apiDefine EMAIL_POLLING
+ * @apiError {String} EMAIL_POLLING Email polling was unsuccesful
+ */
+/**
+ * @apiDefine IMAP_CONNECTION
+ * @apiError {String} IMAP_CONNECTION Imap connection was unsuccesfull
+ */
+/**
+* @apiDefine CUSTOM_FIELD_ALREADY_EXISTS
+* @apiError {String} CUSTOM_FIELD_ALREADY_EXISTS Custom field already exists
+*/
+/**
+* @apiDefine INVALID_CUSTOM_FIELD
+* @apiError {String} INVALID_CUSTOM_FIELD Custom field id is invalid
+*/
+/**
+* @apiDefine INVALID_CUSTOM_FIELD_TYPE
+* @apiError {String} INVALID_CUSTOM_FIELD_TYPE The type is invalid
+*/
+/**
+ * @apiDefine INVALID_CUSTOM_FIELD_OPTIONS
+ * @apiError {String} INVALID_CUSTOM_FIELD_OPTIONS Options are not a json array
+ */
+/**
+ * @apiDefine INVALID_CUSTOM_FIELD_OPTION
+ * @apiError {String} INVALID_CUSTOM_FIELD_OPTION Option is not in the list of possibles
+ */
 
 class ERRORS {
     const INVALID_CREDENTIALS = 'INVALID_CREDENTIALS';
@@ -251,6 +283,7 @@ class ERRORS {
     const INVALID_TEMPLATE = 'INVALID_TEMPLATE';
     const INVALID_SUBJECT = 'INVALID_SUBJECT';
     const INVALID_BODY = 'INVALID_BODY';
+    const USER_SYSTEM_ENABLED = 'USER_SYSTEM_ENABLED';
     const USER_SYSTEM_DISABLED = 'USER_SYSTEM_DISABLED';
     const SYSTEM_USER_IS_ALREADY_DISABLED = 'SYSTEM_USER_IS_ALREADY_DISABLED';
     const SYSTEM_USER_IS_ALREADY_ENABLED = 'SYSTEM_USER_IS_ALREADY_ENABLED';
@@ -260,6 +293,7 @@ class ERRORS {
     const DATABASE_CONNECTION = 'DATABASE_CONNECTION';
     const DATABASE_CREATION = 'DATABASE_CREATION';
     const SMTP_CONNECTION = 'SMTP_CONNECTION';
+    const IMAP_CONNECTION = 'IMAP_CONNECTION';
     const ALREADY_DISABLED = 'ALREADY_DISABLED';
     const ALREADY_ENABLED = 'ALREADY_ENABLED';
     const USER_DISABLED = 'USER_DISABLED';
@@ -267,4 +301,10 @@ class ERRORS {
     const INVALID_TEXT_2 = 'INVALID_TEXT_2';
     const INVALID_TEXT_3 = 'INVALID_TEXT_3';
     const DEPARTMENT_PRIVATE_TICKETS = 'DEPARTMENT_PRIVATE_TICKETS';
+    const EMAIL_POLLING = 'EMAIL_POLLING';
+    const CUSTOM_FIELD_ALREADY_EXISTS = 'CUSTOM_FIELD_ALREADY_EXISTS';
+    const INVALID_CUSTOM_FIELD = 'INVALID_CUSTOM_FIELD';
+    const INVALID_CUSTOM_FIELD_TYPE = 'INVALID_CUSTOM_FIELD_TYPE';
+    const INVALID_CUSTOM_FIELD_OPTIONS = 'INVALID_CUSTOM_FIELD_OPTIONS';
+    const INVALID_CUSTOM_FIELD_OPTION = 'INVALID_CUSTOM_FIELD_OPTION';
 }

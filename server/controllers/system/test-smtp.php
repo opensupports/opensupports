@@ -39,10 +39,9 @@ class TestSMTPController extends Controller {
         $mailSender = MailSender::getInstance();
         $mailSender->setConnectionSettings(
             Controller::request('smtp-host'),
-            Controller::request('smtp-port'),
             Controller::request('smtp-user'),
-            Controller::request('smtp-password'),
-            Controller::request('no-reply-email')
+            Controller::request('smtp-pass'),
+            ''
         );
 
         if($mailSender->isConnected()) {

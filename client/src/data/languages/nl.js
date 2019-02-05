@@ -141,6 +141,9 @@ export default {
     'SMTP_USER': 'SMTP Gebruiker',
     'SMTP_SERVER': 'SMTP Server',
     'SMTP_PASSWORD': 'SMTP Wachtwoord',
+    'IMAP_USER': 'IMAP-gebruiker',
+    'IMAP_SERVER': 'IMAP-server',
+    'IMAP_PASSWORD': 'IMAP-wachtwoord',
     'PORT': 'Poort',
     'RECAPTCHA_PUBLIC_KEY': 'Recaptcha Publieke Sleutel',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha Prive Sleutel',
@@ -191,6 +194,8 @@ export default {
     'DISABLE_USER': 'Gebruiker uitschakelen',
     'SHOW_CLOSED_TICKETS': 'Toon gesloten tickets',
     'IMAGE_HEADER_URL': 'Image header URL',
+    'IMAGE_HEADER_DESCRIPTION': 'Afbeelding die wordt gebruikt als koptekst van de e-mail',
+    'EMAIL_SETTINGS': 'Email instellingen',
 
     'CHART_CREATE_TICKET': 'Aangemaakte incidenten',
     'CHART_CLOSE': 'Gesloten incidenten',
@@ -303,11 +308,14 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Schakel het gebruik van een gebruikerssysteem in / uit. Als u dit uitschakelt, worden alle gebruikers verwijderd, maar worden de incidenten bewaard. Als u dit inschakelt, worden de gebruikers van bestaande incidenten aangemaakt.',
     'CSV_DESCRIPTION': 'Het CSV-bestand moet drie kolommen bevatten: e-mailadres, wachtwoord, naam. Er is geen limiet in rijtelling. Er wordt één gebruiker per rij in de database gemaakt.',
     'SMTP_SERVER_DESCRIPTION': 'De configuratie van de SMTP-server staat het systeem toe om e-mails te verzenden. Als u deze optie niet configureerd, worden er geen e-mails verzonden door OpenSupports.',
+    'IMAP_SERVER_DESCRIPTION': 'Met de configuratie van de IMAP-server kan de applicatie tickets maken van de e-mails die naar een mailbox worden verzonden.',
     'ENABLE_USER_DESCRIPTION': 'Met deze actie kan de gebruiker inloggen en tickets maken.',
     'DISABLE_USER_DESCRIPTION': 'De gebruiker wordt uitgeschakeld en kan zich niet aanmelden en geen tickets maken.',
     'PRIVATE_RESPONSE_DESCRIPTION': 'Dit antwoord is alleen zichtbaar voor personeelsleden',
     'PRIVATE_TOPIC_DESCRIPTION': 'Dit onderwerp is alleen zichtbaar voor personeelsleden',
     'PRIVATE_DEPARTMENT_DESCRIPTION': 'Deze afdeling is alleen zichtbaar voor personeelsleden',
+    'EMAIL_SETTINGS_DESCRIPTION': 'Hier kunt u de instellingen voor het ontvangen en verzenden van e-mail naar uw klanten bewerken.',
+    'IMAP_POLLING_DESCRIPTION': 'Inbox controleren wordt niet automatisch gedaan door OpenSupports. U moet regelmatig POST-verzoeken doen naar deze URL om de e-mails te verwerken: {url}',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-mailadres of wachtwoord ongeldig',
@@ -365,6 +373,9 @@ export default {
     'WILL_RECOVER_EMAIL_TEMPLATE': 'Dit e-mailsjabloon wordt hersteld naar de standaardwaarde voor deze taal.',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'Het CSV bestand is succesvol geimporteerd',
     'SUCCESS_DELETING_ALL_USERS': 'Gebruikers zijn succesvol verwijderd',
+    'SUCCESSFUL_CONNECTION': 'Succesvolle verbinding',
+    'UNSUCCESSFUL_CONNECTION': 'Mislukte verbinding',
+    'SERVER_CREDENTIALS_WORKING': 'Serverreferenties werken correct',
 
     'LAST_7_DAYS': 'Laatste 7 dagen',
     'LAST_30_DAYS': 'Laatste 30 dagen',
@@ -386,6 +397,7 @@ export default {
     'EMAIL_LOWERCASE': 'e-mail',
     'PASSWORD_LOWERCASE': 'Wachtwoord',
     'TEST_SMTP_CONNECTION': 'Test SMTP verbinding',
-    'SMTP_CONNECTION_SUCCESS': 'SMTP inloggegevens zijn correct.',
-    'SMTP_CONNECTION_ERROR': 'Verbinding naar SMTP server mislukt.'
+    'SERVER_ERROR': 'Kan geen verbinding maken met de server.',
+    'EMAIL_SERVER_ADDRESS': 'E-mailserveradres',
+    'EMAIL_SERVER_ADDRESS_DESCRIPTION': 'Adres waar mails worden ontvangen en verzonden'
 };

@@ -40,6 +40,7 @@ import AdminPanelCustomTags from 'app/admin/panel/tickets/admin-panel-custom-tag
 import AdminPanelListUsers from 'app/admin/panel/users/admin-panel-list-users';
 import AdminPanelViewUser from 'app/admin/panel/users/admin-panel-view-user';
 import AdminPanelBanUsers from 'app/admin/panel/users/admin-panel-ban-users';
+import AdminPanelCustomFields from 'app/admin/panel/users/admin-panel-custom-fields';
 
 import AdminPanelListArticles from 'app/admin/panel/articles/admin-panel-list-articles';
 import AdminPanelViewArticle from 'app/admin/panel/articles/admin-panel-view-article';
@@ -50,7 +51,7 @@ import AdminPanelViewStaff from 'app/admin/panel/staff/admin-panel-view-staff';
 
 import AdminPanelSystemPreferences from 'app/admin/panel/settings/admin-panel-system-preferences';
 import AdminPanelAdvancedSettings from 'app/admin/panel/settings/admin-panel-advanced-settings';
-import AdminPanelEmailTemplates from 'app/admin/panel/settings/admin-panel-email-templates';
+import AdminPanelEmailSettings from 'app/admin/panel/settings/admin-panel-email-settings';
 
 // INSTALLATION
 import InstallLayout from 'app/install/install-layout';
@@ -122,6 +123,7 @@ export default (
                         <Route path="list-users" component={AdminPanelListUsers} />
                         <Route path="view-user/:userId" component={AdminPanelViewUser} />
                         <Route path="ban-users" component={AdminPanelBanUsers} />
+                        <Route path="custom-fields" component={AdminPanelCustomFields} />
                     </Route>
 
                     <Route path="articles">
@@ -141,7 +143,7 @@ export default (
                         <IndexRedirect to="system-preferences" />
                         <Route path="system-preferences" component={AdminPanelSystemPreferences} />
                         <Route path="advanced-settings" component={AdminPanelAdvancedSettings} />
-                        <Route path="email-templates" component={AdminPanelEmailTemplates} />
+                        <Route path="email-settings" component={AdminPanelEmailSettings} />
                     </Route>
                 </Route>
             </Route>

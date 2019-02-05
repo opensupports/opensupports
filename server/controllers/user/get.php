@@ -55,7 +55,8 @@ class GetUserController extends Controller {
             'name' => $user->name,
             'email' => $user->email,
             'verified' => !$user->verificationToken,
-            'tickets' => $parsedTicketList
+            'tickets' => $parsedTicketList,
+            'customfields' => $user->xownCustomfieldvalueList->toArray(),
         ]);
     }
 }

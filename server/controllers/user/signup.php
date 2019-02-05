@@ -19,6 +19,7 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} email The email of the new user.
  * @apiParam {String} password The password of the new user.
  * @apiParam {String} apiKey APIKey to sign up an user if the user system is disabled.
+ * @apiParam {String} customfield_ Custom field values for this user.
  *
  * @apiUse INVALID_NAME
  * @apiUse INVALID_EMAIL
@@ -28,6 +29,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse USER_EXISTS
  * @apiUse ALREADY_BANNED
  * @apiUse NO_PERMISSION
+ * @apiUse INVALID_CUSTOM_FIELD_OPTION
  *
  * @apiSuccess {Object} data Information about created user
  * @apiSuccess {Number} data.userId Id of the new user
@@ -131,7 +133,8 @@ class SignUpController extends Controller {
             'tickets' => 0,
             'email' => $this->userEmail,
             'password' => Hashing::hashPassword($this->userPassword),
-            'verificationToken' => (MailSender::getInstance()->isConnected()) ? $this->verificationToken : null
+            'verificationToken' => (MailSender::getInstance()->isConnected()) ? $this->verificationToken : null,
+            'xownCustomfieldvalueList' => $this->getCustomFieldValues()
         ]);
 
         return $userInstance->store();

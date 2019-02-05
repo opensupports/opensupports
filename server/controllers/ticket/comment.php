@@ -79,7 +79,7 @@ class CommentController extends Controller {
     public function handler() {
         $this->requestData();
         $ticketAuthor = $this->ticket->authorToArray();
-        $isAuthor = $this->ticket->isAuthor(Controller::getLoggedUser());
+        $isAuthor = $this->ticket->isAuthor(Controller::getLoggedUser()) || Session::getInstance()->isTicketSession();
         $isOwner = $this->ticket->isOwner(Controller::getLoggedUser());
 
         if((Controller::isUserSystemEnabled() || Controller::isStaffLogged()) && !$isOwner && !$isAuthor) {
@@ -89,13 +89,13 @@ class CommentController extends Controller {
         $this->storeComment();
 
         if($isAuthor && $this->ticket->owner) {
-          $this->sendMail([
-            'email' => $this->ticket->owner->email,
-            'name' => $this->ticket->owner->name,
-            'staff' => true
-          ]);
-        } else {
-          $this->sendMail($ticketAuthor);
+            $this->sendMail([
+                'email' => $this->ticket->owner->email,
+                'name' => $this->ticket->owner->name,
+                'staff' => true
+            ]);
+        } else if($isOwner) {
+            $this->sendMail($ticketAuthor);
         }
 
         Log::createLog('COMMENT', $this->ticket->ticketNumber);
@@ -155,6 +155,7 @@ class CommentController extends Controller {
             'name' => $name,
             'title' => $this->ticket->title,
             'ticketNumber' => $this->ticket->ticketNumber,
+            'content' => $this->content,
             'url' => $url
         ]);
 

@@ -141,6 +141,9 @@ export default {
     'SMTP_USER': 'SMTP Kullanıcısı',
     'SMTP_SERVER': 'SMTP Sunucusu',
     'SMTP_PASSWORD': 'SMTP Parolası',
+    'IMAP_USER': 'IMAP Kullanıcısı',
+    'IMAP_SERVER': 'IMAP Sunucusu',
+    'IMAP_PASSWORD': 'IMAP Şifresi',
     'PORT': 'Liman',
     'RECAPTCHA_PUBLIC_KEY': 'Hızlı Erişim Anahtarı',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha Özel Anahtar',
@@ -191,6 +194,8 @@ export default {
     'DISABLE_USER': 'Kullanıcıyı Devre Dışı Bırak',
     'SHOW_CLOSED_TICKETS': 'Kapalı Biletleri Göster',
     'IMAGE_HEADER_URL': 'Resim başlığı URL\'si',
+    'IMAGE_HEADER_DESCRIPTION': 'E-postanın başlığı olarak kullanılacak resim',
+    'EMAIL_SETTINGS': 'e mail ayarları',
 
     'CHART_CREATE_TICKET': 'Biletler oluşturuldu',
     'CHART_CLOSE': 'Biletler kapandı',
@@ -303,12 +308,14 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Bir kullanıcı sisteminin kullanımını etkinleştirir / devre dışı bırakır. Devre dışı bırakırsanız, tüm kullanıcılar silinir ancak biletler muhafaza edilir. Etkinleştirirseniz, mevcut biletler kullanıcıları oluşturulur.',
     'CSV_DESCRIPTION': 'CSV dosyasının 3 sütun olması gerekir: e-posta, şifre, ad. Satır sayısı sınırı yoktur. Dosya satır başına bir kullanıcı oluşturulur.',
     'SMTP_SERVER_DESCRIPTION': 'SMTP sunucusunun yapılandırması, uygulamanın postalar göndermesine izin verir. Onu yapılandırmazsanız, OpenSupports tarafından hiçbir e-posta gönderilmeyecektir',
+    'IMAP_SERVER_DESCRIPTION': 'IMAP sunucusunun yapılandırması, uygulamanın bir posta kutusuna gönderilen e-postalardan bilet oluşturmasına izin verir.',
     'ENABLE_USER_DESCRIPTION': 'Bu eylem, kullanıcının giriş yapmasına ve bilet oluşturmasına izin verir.',
     'DISABLE_USER_DESCRIPTION': 'Kullanıcı devre dışı bırakılacak ve oturum açıp bilet oluşturamayacak.',
     'PRIVATE_RESPONSE_DESCRIPTION': 'Bu yanıt sadece personel tarafından görülebilir',
     'PRIVATE_TOPIC_DESCRIPTION': 'Bu konu sadece çalışanlar tarafından görülebilir',
     'PRIVATE_DEPARTMENT_DESCRIPTION': 'Bu bölüm sadece personel tarafından görülebilir',
-    'PRIVATE_DESCRIPTION': 'Bu yanıt sadece personel tarafından görülebilir',
+    'EMAIL_SETTINGS_DESCRIPTION': 'Burada, müşterilerinize e-posta alma ve gönderme ayarlarını düzenleyebilirsiniz.',
+    'IMAP_POLLING_DESCRIPTION': 'Gelen kutusu kontrolü, OpenSupports tarafından otomatik olarak yapılmayacaktır. E-postaları işlemek için bu url\'ye düzenli aralıklarla POST istekleri yapmanız gerekir: {url}',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'E-posta veya şifre geçersiz',
@@ -366,6 +373,9 @@ export default {
     'WILL_RECOVER_EMAIL_TEMPLATE': 'Bu e-posta şablonu, bu dildeki varsayılan değere kadar düzelir.',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'CSV Dosyası başarıyla içe aktarıldı',
     'SUCCESS_DELETING_ALL_USERS': 'Kullanıcılar başarılı bir şekilde silindi',
+    'SUCCESSFUL_CONNECTION': 'Başarılı bağlantı',
+    'UNSUCCESSFUL_CONNECTION': 'Başarısız bağlantı',
+    'SERVER_CREDENTIALS_WORKING': 'Sunucu kimlik bilgileri doğru çalışıyor',
 
     'LAST_7_DAYS': 'Son 7 gün',
     'LAST_30_DAYS': 'Son 30 gün',
@@ -387,6 +397,7 @@ export default {
     'DEFAULT_PORT': '3306 için boş bırak varsayılan olarak',
     'PASSWORD_LOWERCASE': 'parola',
     'TEST_SMTP_CONNECTION': 'SMTP bağlantısını test et',
-    'SMTP_CONNECTION_SUCCESS': 'SMTP kimlik bilgileri geçerlidir.',
-    'SMTP_CONNECTION_ERROR': 'SMTP sunucusuna bağlanılamıyor.'
+    'SERVER_ERROR': 'Sunucuya bağlanamıyor.',
+    'EMAIL_SERVER_ADDRESS': 'E-posta sunucusu adresi',
+    'EMAIL_SERVER_ADDRESS_DESCRIPTION': 'Postaların alınacağı ve gönderileceği adres',
 };

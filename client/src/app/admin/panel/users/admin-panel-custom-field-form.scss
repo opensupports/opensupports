@@ -1,0 +1,30 @@
+.admin-panel-custom-field-form {
+    min-width: 400px;
+
+    &__options {
+
+        &-title {
+            margin-bottom: 10px;
+        }
+    }
+
+    &__option {
+        display: flex;
+        align-items: center;
+
+
+        &-add-button {
+            margin: 20px 0;
+        }
+
+        &-delete-button {
+            margin-top: 7px;
+            margin-left: 12px;
+        }
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: space-between;
+    }
+}

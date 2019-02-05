@@ -141,6 +141,9 @@ export default {
     'SMTP_USER': 'SMTP Пользователь',
     'SMTP_SERVER': 'SMTP-сервер',
     'SMTP_PASSWORD': 'Пароль SMTP',
+    'IMAP_USER': 'Пользователь IMAP',
+    'IMAP_SERVER': 'IMAP сервер',
+    'IMAP_PASSWORD': 'Пароль IMAP',
     'PORT': 'порт',
     'RECAPTCHA_PUBLIC_KEY': 'Recaptcha Открытый ключ',
     'RECAPTCHA_PRIVATE_KEY': 'Recaptcha Секретный ключ',
@@ -191,6 +194,8 @@ export default {
     'DISABLE_USER': 'Отключить пользователя',
     'SHOW_CLOSED_TICKETS': 'Показать закрытые билеты',
     'IMAGE_HEADER_URL': 'URL заголовка изображения',
+    'IMAGE_HEADER_DESCRIPTION': 'Изображение, которое будет использоваться в качестве заголовка письма',
+    'EMAIL_SETTINGS': 'Настройки электронной почты',
 
     'CHART_CREATE_TICKET': 'Билеты создано',
     'CHART_CLOSE': ' Билеты закрыты',
@@ -303,12 +308,14 @@ export default {
     'ENABLE_USER_SYSTEM_DESCRIPTION': 'Включить / отключить использование пользовательской системы. Если вы отключите его, все пользователи будут удалены. Если вы включите его, будут созданы пользователи существующих билетов.',
     'CSV_DESCRIPTION': 'Файл CSV должен иметь 3 столбца: адрес электронной почты, пароль и имя. Количество строк не ограничено. В файле будет создан один пользователь для каждой строки.',
     'SMTP_SERVER_DESCRIPTION': 'Конфигурация SMTP-сервера позволяет приложению отправлять письма. Если вы не настроите его, никакие электронные письма не будут отправлены OpenSupports.',
+    'IMAP_SERVER_DESCRIPTION': 'Конфигурация сервера IMAP позволяет приложению создавать заявки из электронных писем, отправляемых в почтовый ящик.',
     'ENABLE_USER_DESCRIPTION': 'Это действие позволяет пользователю входить в систему и создавать билеты.',
     'DISABLE_USER_DESCRIPTION': 'Пользователь будет отключен и не сможет войти и создать билеты',
     'PRIVATE_RESPONSE_DESCRIPTION': 'Этот ответ будет рассматриваться только сотрудниками',
     'PRIVATE_TOPIC_DESCRIPTION': 'Эта тема будет видна только сотрудникам',
     'PRIVATE_DEPARTMENT_DESCRIPTION': 'Этот отдел будет рассматриваться только сотрудниками',
-    'PRIVATE_DESCRIPTION': 'Этот ответ будет рассматриваться только сотрудниками',
+    'EMAIL_SETTINGS_DESCRIPTION': 'Здесь вы можете редактировать настройки для получения и отправки электронной почты своим клиентам.',
+    'IMAP_POLLING_DESCRIPTION': 'Проверка входящих сообщений не будет выполняться автоматически OpenSupports. Вы должны периодически отправлять POST-запросы к этому URL для обработки электронных писем: {url}',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'электронной почты или пароль недействительный',
@@ -366,6 +373,9 @@ export default {
     'WILL_RECOVER_EMAIL_TEMPLATE': 'Этот шаблон электронной почты будет восстанавливаться, чтобы это значение по умолчанию на этом языке.',
     'SUCCESS_IMPORTING_CSV_DESCRIPTION': 'Файл CSV успешно установлен',
     'SUCCESS_DELETING_ALL_USERS': 'Пользователи удалили beend',
+    'SUCCESSFUL_CONNECTION': 'Успешное соединение',
+    'UNSUCCESSFUL_CONNECTION': 'Неудачное соединение',
+    'SERVER_CREDENTIALS_WORKING': 'Учетные данные сервера работают правильно',
 
     'LAST_7_DAYS': 'Последние 7 дней',
     'LAST_30_DAYS': 'Последние 30 дней',
@@ -387,6 +397,7 @@ export default {
     'PASSWORD_LOWERCASE': 'пароль',
     'DEFAULT_PORT': 'Оставьте пустым для 3306 по умолчанию',
     'TEST_SMTP_CONNECTION': 'Тестирование SMTP-соединения',
-    'SMTP_CONNECTION_SUCCESS': 'Учетные данные SMTP действительны.',
-    'SMTP_CONNECTION_ERROR': 'Не удается подключиться к SMTP-серверу.'
+    'SERVER_ERROR': 'Невозможно установить связь с сервером.',
+    'EMAIL_SERVER_ADDRESS': 'Адрес почтового сервера',
+    'EMAIL_SERVER_ADDRESS_DESCRIPTION': 'Адрес, по которому будут приниматься и отправляться письма'
 };

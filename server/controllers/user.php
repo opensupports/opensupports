@@ -20,4 +20,6 @@ $userControllers->addController(new ListBanUserController);
 $userControllers->addController(new VerifyController);
 $userControllers->addController(new EnableUserController);
 $userControllers->addController(new DisableUserController);
+$userControllers->addController(new EditCustomFieldsController);
+
 $userControllers->finalize();

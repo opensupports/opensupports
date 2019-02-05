@@ -58,4 +58,11 @@
             border: 1px solid $primary-red;
         }
     }
+
+    &_icon-clickable {
+
+        .input__icon {
+            cursor: pointer;
+        }
+    }
 }

@@ -1,10 +1,14 @@
 # LIBRARIES
 require 'bacon'
 require 'net/http'
+require 'net/imap'
+require 'net/smtp'
 require 'uri'
 require 'mysql'
 require 'json'
 require 'mechanize'
+require 'mailfactory'
+require 'mail'
 require './libs.rb'
 require './scripts.rb'
 

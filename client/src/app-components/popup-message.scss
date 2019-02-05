@@ -1,0 +1,17 @@
+@import "../scss/vars";
+
+.popup-message {
+    min-width: 500px;
+    position: relative;
+
+    &__close-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: $dark-grey;
+        &:focus {
+            outline: none;
+            color: $grey;
+        }
+    }
+}
