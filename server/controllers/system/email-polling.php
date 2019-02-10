@@ -41,7 +41,7 @@ class EmailPollingController extends Controller {
 
         $errors = [];
         $emails = $this->getLastEmails();
-/*
+
         $session = Session::getInstance();
         $oldSession = [
             'userId' => $session->getUserId(),
@@ -70,9 +70,9 @@ class EmailPollingController extends Controller {
 
                 return null;
             });
-
-            if($email->getAttachement()) {
-                $attachment = $email->getAttachement();
+            /*
+            if($email->getAttachment()) {
+                $attachment = $email->getAttachment();
                 $_FILES['file'] = [
                     'name' => $attachment->name,
                     'type' => mime_content_type($attachment->filePath),
@@ -81,6 +81,7 @@ class EmailPollingController extends Controller {
                     'size' => filesize($attachment->filePath),
                 ];
             }
+            */
 
             try {
                 if($email->isReply()) {
@@ -113,7 +114,7 @@ class EmailPollingController extends Controller {
             Response::respondError(ERRORS::EMAIL_POLLING, null, $errors);
         } else {
             Response::respondSuccess();
-        }*/
+        }
     }
 
     public function getLastEmails() {
@@ -124,15 +125,19 @@ class EmailPollingController extends Controller {
         foreach($mailsIds as $mailId) {
             $mail = $this->mailbox->getMail($mailId);
             $mailHeader = $this->mailbox->getMailHeader($mailId);
-            $mailAttachment = count($mail->getAttachments()) ? $mail->getAttachments()[0] : null;
+            // $mailAttachment = count($mail->getAttachments()) ? current($mail->getAttachments()) : null;
 
             $emails[] = new Email([
                 'fromAddress' => $mailHeader->fromAddress,
                 'fromName' => $mailHeader->fromName,
                 'subject' => $mailHeader->subject,
                 'content' => $mail->textPlain,
-                'file' => $mailAttachment,
+                'file' => null,
             ]);
+
+            foreach($mail->getAttachments() as $attachment) {
+                unlink($attachment->filePath);
+            }
         }
 
         return $emails;

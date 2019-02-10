@@ -134,7 +134,6 @@ abstract class Controller {
         $fileUploader->setMaxSize($maxSize);
 
         if($fileUploader->upload('file')) {
-
             return $fileUploader;
         } else {
             throw new RequestException(ERRORS::INVALID_FILE);
