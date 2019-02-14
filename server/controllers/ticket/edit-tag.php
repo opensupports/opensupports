@@ -50,7 +50,8 @@ class EditTagController extends Controller {
         if($name) $tagInstance->name = $name;
         if($color) $tagInstance->color = $color;
 
-        if (!Tag::getDataStore($name, 'name')->isNull()) {
+        $newNameTagInstance = Tag::getDataStore($name, 'name');
+        if (!$newNameTagInstance ->isNull() && $newNameTagInstance->id !== $tagInstance->id) {
             throw new RequestException(ERRORS::TAG_EXISTS);
         }
 

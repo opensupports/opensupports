@@ -25,8 +25,8 @@ DataValidator::with('CustomValidations', true);
  *
  */
 
-class AddTagController extends Controller {
-    const PATH = '/add-tag';
+class CreateTagController extends Controller {
+    const PATH = '/create-tag';
     const METHOD = 'POST';
 
     public function validations() {
@@ -42,7 +42,6 @@ class AddTagController extends Controller {
     }
 
     public function handler() {
-
         $name = Controller::request('name');
         $color = Controller::request('color');
 

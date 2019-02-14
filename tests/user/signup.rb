@@ -3,7 +3,7 @@ describe '/user/signup' do
         response = request('/user/signup', {
           :name => 'Steve Jobs',
           :email => 'steve@jobs.com',
-          :password => 'custom'
+          :password => 'custompassword'
         })
 
         userRow = $database.getRow('user', response['data']['userId'])

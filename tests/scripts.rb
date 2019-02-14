@@ -20,7 +20,7 @@ class Scripts
         departments = request('/system/get-settings', {
           csrf_userid: $csrf_userid,
           csrf_token: $csrf_token
-        })['departments']
+        })['data']['departments']
         departments = departments.collect  { |x| x.id }
 
         response = request('/staff/add', {

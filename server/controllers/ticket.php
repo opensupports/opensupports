@@ -16,7 +16,7 @@ $ticketControllers->addController(new ReOpenController);
 $ticketControllers->addController(new ChangePriorityController);
 $ticketControllers->addController(new SeenController);
 $ticketControllers->addController(new DeleteController);
-$ticketControllers->addController(new AddTagController);
+$ticketControllers->addController(new CreateTagController);
 $ticketControllers->addController(new EditTagController);
 $ticketControllers->addController(new DeleteTagController);
 $ticketControllers->addController(new GetTagsController);
