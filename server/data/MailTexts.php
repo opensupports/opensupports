@@ -841,6 +841,67 @@ class MailTexts {
               'Hallo, {{name}}. Een incident met onderwerp <i>{{title}}</i> is gesloten.',
               'U kunt dit incident bekijken via het incidentnummer. Of klik op de knop hieronder.',
           ],
+        
+        ],
+        'hu' => [
+          'USER_SIGNUP' => [
+              'Bejelentkezés {{to}} - OpenSupports',
+              'Hitelesítse a fiókját',
+              'Üdvözöljük az ügyfélszolgálati rendszerünkben kedves {{name}}!. Kérjük, hitelesítse email fiókját, hogy hozzáférhessen szolgáltatásainkhoz.',
+              'Használja ezt a kódot {{url}}/verify-token/{{to}}/{{verificationToken}} vagy kattintson az alábbi gombra.',
+          ],
+          'USER_PASSWORD' => [
+              'Jelszó módosítása - OpenSupports',
+              'Jelszó módosítva',
+              'Kedves, {{name}}! Tájékoztatni szeretnénk, hogy a jelszava sikeresen megváltozott.'
+          ],
+          'USER_EMAIL' => [
+              'Email módosítva - OpenSupports',
+              'Email módosítva',
+              'Kedves, {{name}}! Tájékoztatni szeretnénk, hogy az email címe megváltozott. Az új email címe {{newemail}} névre halgat.'
+          ],
+          'PASSWORD_FORGOT' => [
+              'Jelszó visszaállítás - OpenSupports',
+              'Jelszó visszaállítás',
+              'Kedves, {{name}}! Jelszó visszaállítási kérelmet nyújtott be számunkra.',
+              'Kérjük, használja a következő kódot: {{url}}/recover-password?email={{to}}&token={{token}} vagy kattintson a gombra a jelszó visszaállításához.',
+          ],
+          'USER_SYSTEM_DISABLED' => [
+              'Jogosultság változás - OpenSupports',
+              'Jogosultság változás',
+              'Kedves, {{name}}! Megváltozott a jogosultsága az ügyfélszolgálati rendszerünkben.',
+              'Jelenetkezzen be a rendszerbe az email fiókja segítségével és tekintse meg hibajegyeit. Kattintson az alábbi gombra a hibajegyek megtekintéséhez.',
+          ],
+          'USER_SYSTEM_ENABLED' => [
+              'Felhasználó fiók létrehozva - OpenSupports',
+              'Felhasználó fiók létrehozva',
+              'Kedves, {{name}}! Sikeresen létrehoztuk felhasználói fiókját.',
+              'A következő email fiókkal <i>({{to}})</i> és jelszó párossal érheti el fiókját. Kérjük változtassa meg a jelszavát az első belépést követően.',
+          ],
+          'TICKET_CREATED' => [
+              '#{{ticketNumber}} hibajegy létrehozva - OpenSupports',
+              'Hibajegy létrehozva',
+              'Kedves, {{name}}! Sikeresen létrejött a <i>{{title}}</i> megnevezésű hibajegy az ügyfélszolgálati rendszerünkben.',
+              'A hibaejegy elérhető a hibajegy sorszámával vagy kattintson az alul található gombra.',
+          ],
+          'TICKET_RESPONDED' => [
+              '#{{ticketNumber}} új hozzászólás - OpenSupports',
+              'Új hozzászólás',
+              'Kedves, {{name}}! Új hozzászólás érkezett <i>{{title}}</i> megnevezésű hibajegyhez.',
+              'Kattintson az alábbi gombra a hozzászólás megtekintéséhez.'
+          ],
+          'TICKET_CLOSED' => [
+             '#{{ticketNumber}} hibajegy lezárva - OpenSupports',
+              'Hibajegy lezárva',
+              'Kedves {{name}}! A <i>{{title}}</i> megnevezésű hibajegy lezárásra került.',
+              'Amennyiben elszeretné érni a hibajegyet kattintson a hibajegy sorszámára vagy az alul található gombra.'
+          ],
+          'TICKET_CREATED_STAFF' => [
+              '#{{ticketNumber}} hibajegy létrehozva - OpenSupports',
+              'Hibajegy létrehozva',
+              '{{name}} felhasználó új hibajegyet hozott létre <i>{{title}}</i> néven.',
+              'Amennyiben elszeretné érni a hibajegyet kattintson a hibajegy sorszámára.',
+          ],
         ],
     ];
   }
