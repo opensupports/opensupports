@@ -41,16 +41,20 @@ class DeleteCustomFieldController extends Controller {
     public function handler() {
         $customField = Customfield::getDataStore(Controller::request('id'));
 
-        foreach(Users::getAll() as $user) {
-            $customFieldValueList = $user->xownCustomfieldvalueList || [];
+        foreach(User::getAll() as $user) {
+            $customFieldValueList = $user->xownCustomfieldvalueList ? $user->xownCustomfieldvalueList : [];
 
             foreach($customFieldValueList as $customFieldValue) {
                 if($customFieldValue->customfield->id == $customField->id) {
                     $user->xownCustomfieldvalueList->remove($customFieldValue);
                 }
             }
+
+            $user->store();
         }
 
         $customField->delete();
+
+        Response::respondSuccess();
     }
 }

@@ -141,7 +141,7 @@ end
 $database = Database.new
 
 # $mail_server.clear_mails
-# $mail_server.send_mail('suppport message 1', 'texttexttext tex')
+# $mail_server.send_mail('support message 1', 'texttexttext tex')
 # $mail_server.check
 
 $staff = {
