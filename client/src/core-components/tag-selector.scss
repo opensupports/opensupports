@@ -1,0 +1,41 @@
+@import '../scss/vars';
+
+.tag-selector{
+  margin-bottom: 30px;
+  text-align: left;
+  &__selected-tags {
+    border-radius: 3px;
+    background-color:white;
+    padding:3px 1px;
+  }
+
+  &__selected-tag,
+  &__tag-option {
+    color:white;
+    border-radius: 3px;
+    margin-left: 5px;
+    padding:3px;
+    font-size: 10px;
+  }
+
+  &__selected-tag {
+    display: inline-block;
+
+    &-remove {
+      margin-left: 10px;
+      cursor: pointer;
+    }
+  }
+
+  &__tag-options {
+    font-size: 13px;
+    color: $dark-grey;
+  }
+
+  &__tag-option {
+    cursor: pointer;
+    &-name {
+
+    }
+  }
+}
