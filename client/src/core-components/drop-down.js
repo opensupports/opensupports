@@ -50,11 +50,12 @@ class DropDown extends React.Component {
 
     render() {
         let animation = this.getAnimationStyles();
-        let selectedItem = this.props.items[this.getSelectedIndex()];
 
         return (
             <div className={this.getClass()}>
-                {this.renderCurrentItem(selectedItem)}
+                <div {...this.getCurrentItemProps()}>
+                    {this.props.children ? this.props.children : this.renderCurrentItem()}
+                </div>
                 <Motion defaultStyle={animation.defaultStyle} style={animation.style} onRest={this.onAnimationFinished.bind(this)}>
                     {this.renderList.bind(this)}
                 </Motion>
@@ -72,15 +73,17 @@ class DropDown extends React.Component {
         );
     }
 
-    renderCurrentItem(item) {
-        var iconNode = null;
+    renderCurrentItem() {
+        let item = this.props.items[this.getSelectedIndex()];
+        let iconNode = null;
+
 
         if (item.icon) {
             iconNode = <Icon className="drop-down__current-item-icon" name={item.icon} />;
         }
 
         return (
-            <div {...this.getCurrentItemProps()}>
+            <div>
                 {iconNode}{item.content}
             </div>
         );

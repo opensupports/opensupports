@@ -1,39 +1,73 @@
 import React from 'react';
 import _ from 'lodash';
 import Icon from 'core-components/icon';
+import DropDown from 'core-components/drop-down';
 
 class TagSelector extends React.Component {
 
     static propTypes = {
         items: React.PropTypes.arrayOf(React.PropTypes.shape({
             name: React.PropTypes.string,
-            color: React.PropTypes.string
+            color: React.PropTypes.string,
         })),
-        values: React.PropTypes.arrayOf(React.PropTypes.string)
+        values: React.PropTypes.arrayOf(React.PropTypes.string),
+        onRemoveClick: React.PropTypes.func,
     };
 
     render() {
         return (
-            <div>
-                <div style={{alignItems:'center', backgroundColor:'light-blue'}}>
-                    <h2>Tags</h2>
-                    <div style={{justifyContent:'flex-start', borderRadius:'25px', backgroundColor:'grey'}}>{this.renderItemsList()}</div>
-                </div>
-                <div>{this.props.values.join()}</div>
+            <div className="tag-selector">
+                <DropDown className="tag-selector__drop-down" items={this.renderTagOptions().map(tag => ({content: tag}))} selectedIndex={-1} size="large">
+                    {this.renderSelectedTags()}
+                </DropDown>
             </div>
         );
     }
-    renderItemsList() {
-        const itemList = _.filter(this.props.items,(item) => !_.includes(this.props.values,item.name));
-        console.log('la lista de items librs',itemList);
-        return itemList.map((item,index) => {
-                return(
-                    <spam style={{justifyContent:'space-between',backgroundColor:item.color,borderRadius:'25px'}} key={index}>
-                        <spam >{item.name}</spam>
-                        <spam style={{color:item.color,borderRadius:'25px' ,backgroundColor:'white'}}>x</spam>
-                    </spam>
-                )
-        });
+
+    renderSelectedTags() {
+        const itemList = this.props.values.map(value => _.find(this.props.items, {name:value}));
+
+        return itemList.map(this.renderSelectedTag.bind(this));
     }
+
+
+    renderSelectedTag(item,index) {
+        return (
+            <div className="tag-selector__selected-tag" style={{backgroundColor:item.color}} onClick={event => event.stopPropagation()} key={index}>
+                <span className="tag-selector__selected-tag-name">{item.name}</span>
+                <span onClick={this.onRemoveClick.bind(this,item.name)} className="tag-selector__selected-tag-remove" >
+                    <Icon name="times-circle" size="small"/>
+                </span>
+            </div>
+        );
+    }
+
+    renderTagOptions() {
+        const itemList = _.filter(this.props.items,(item) => !_.includes(this.props.values,item.name));
+
+        return itemList.map(this.renderTagOption.bind(this));
+    }
+
+    renderTagOption(item,index) {
+        return (
+            <div onClick={this.onTagSelected.bind(this,item.name)} className="tag-selector__tag-option" key={index}>
+                <span className="tag-selector__tag-option-square" style={{backgroundColor:item.color}}/>
+                <span className="tag-selector__tag-option-name" >{item.name}</span>
+            </div>
+        );
+    }
+
+    onRemoveClick(tag) {
+
+        if(this.props.onRemoveClick){
+            this.props.onRemoveClick(tag);
+        }
+    }
+    onTagSelected(tag) {
+        if(this.props.onTagSelected){
+            this.props.onTagSelected(tag);
+        }
+    }
+
 }
 export default TagSelector;

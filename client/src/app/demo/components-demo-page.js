@@ -17,6 +17,7 @@ const Menu = require('core-components/menu');
 const Tooltip = require('core-components/tooltip');
 const Table = require('core-components/table');
 const InfoTooltip = require('core-components/info-tooltip');
+const TagSelector = require('core-components/tag-selector');
 
 function rand(min, max, num) {
     var rtn = [];
@@ -75,6 +76,23 @@ let DemoPage = React.createClass({
 				<Button type="primary">Sign up</Button>
 			)
 		},
+        {
+            title: 'Tag selector',
+            render: (
+                <TagSelector
+                    items={[
+                        {name: 'tag1', color: 'blue'},
+                        {name: 'suggestion', color: '#ff6900'},
+                        {name: 'tag3', color: 'red'},
+                        {name: 'tag4', color: 'green'},
+                        {name: 'bug', color: '#eb144c'},
+                    ]}
+                    values={['suggestion','bug']}
+                    onRemoveClick={(e)  => console.log('deleted click', e)}
+                    onTagSelected={(e)  => console.log('selected click', e)}
+                />
+            )
+        },
         {
             title: 'Input',
             render: (
