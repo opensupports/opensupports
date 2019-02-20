@@ -530,5 +530,10 @@ module.exports = [
                 ]
             };
         }
+    },
+    {
+        path: '/system/get-custom-fields',
+        time: 100,
+        data: []
     }
 ];
