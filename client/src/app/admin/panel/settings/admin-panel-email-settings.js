@@ -185,21 +185,24 @@ class AdminPanelEmailSettings extends React.Component {
                         </div>
                     </div>
 
-                    <FormField label={i18n('TEXT') + '1'} name="text1" validation="TEXT_AREA" required
+                    <FormField key="text1" label={i18n('TEXT') + '1'} name="text1" validation="TEXT_AREA" required
                                decorator={'textarea'}
                                fieldProps={{className: 'admin-panel-email-settings__text-area'}}/>
                     {(this.state.form.text2) ?
-                        <FormField label={i18n('TEXT') + '2'} name="text2" validation="TEXT_AREA" required
+                        <FormField key="text2" label={i18n('TEXT') + '2'} name="text2" validation="TEXT_AREA" required
                                    decorator={'textarea'}
                                    fieldProps={{className: 'admin-panel-email-settings__text-area'}}/> : null}
                     {(this.state.form.text3) ?
-                        <FormField label={i18n('TEXT') + '3'} name="text3" validation="TEXT_AREA" required
+                        <FormField key="text3" label={i18n('TEXT') + '3'} name="text3" validation="TEXT_AREA" required
                                    decorator={'textarea'}
                                    fieldProps={{className: 'admin-panel-email-settings__text-area'}}/> : null}
 
                     <div className="admin-panel-email-settings__actions">
                         <div className="admin-panel-email-settings__save-button">
-                            <SubmitButton type="secondary" size="small">{i18n('SAVE')}</SubmitButton>
+                            <SubmitButton key="submit-email-template" type="secondary" size="small" onClick={e => {
+                                e.preventDefault();
+                                this.onFormSubmit(this.state.form);
+                            }}>{i18n('SAVE')}</SubmitButton>
                         </div>
                         <div className="admin-panel-email-settings__optional-buttons">
                             {(this.state.edited) ? this.renderDiscardButton() : null}
@@ -245,7 +248,6 @@ class AdminPanelEmailSettings extends React.Component {
             onValidateErrors: (errors) => {
                 this.setState({errors})
             },
-            onSubmit: this.onFormSubmit.bind(this)
         }
     }
 
@@ -281,6 +283,7 @@ class AdminPanelEmailSettings extends React.Component {
     }
 
     onFormSubmit(form) {
+        console.log('form submmited');
         const {selectedIndex, language, templates} = this.state;
 
         this.setState({loadingForm: true});

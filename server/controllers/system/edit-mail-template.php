@@ -62,7 +62,7 @@ class EditMailTemplateController extends Controller {
     }
 
     public function handler() {
-        $this->language = Controller::request('language');
+        $this->langauge = Controller::request('language');
         $this->templateType = Controller::request('template');
         $this->subject = Controller::request('subject', true);
         $this->texts = [
@@ -71,7 +71,7 @@ class EditMailTemplateController extends Controller {
             Controller::request('text3'),
         ];
 
-        $mailTemplate = MailTemplate::findOne(' language = ? AND template = ?', [$this->language, $this->templateType]);
+        $mailTemplate = MailTemplate::findOne(' language = ? AND template = ?', [$this->langauge, $this->templateType]);
 
         if($mailTemplate->isNull()) {
             throw new RequestException(ERRORS::INVALID_TEMPLATE);
@@ -90,23 +90,23 @@ class EditMailTemplateController extends Controller {
     }
 
     public function validateReplacements() {
-        $originalText = MailTexts::getTexts()[$this->language][$this->templateType];
+        $originalText = MailTexts::getTexts()[$this->langauge][$this->templateType];
 
-        if(!$this->includes(
+        if(array_key_exists(1, $originalText) && !$this->includes(
             $this->getReplacementStrings($originalText[1]),
             $this->getReplacementStrings($this->texts[0])
         )) {
             throw new RequestException(ERRORS::INVALID_TEXT_1);
         }
 
-        if(!$this->includes(
+        if(array_key_exists(2, $originalText) && !$this->includes(
             $this->getReplacementStrings($originalText[2]),
             $this->getReplacementStrings($this->texts[1])
         )) {
             throw new RequestException(ERRORS::INVALID_TEXT_2);
         }
 
-        if(!$this->includes(
+        if(array_key_exists(3, $originalText) && !$this->includes(
             $this->getReplacementStrings($originalText[3]),
             $this->getReplacementStrings($this->texts[2])
         )) {
