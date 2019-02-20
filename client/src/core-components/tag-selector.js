@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import Icon from 'core-components/icon';
+import DropDown from 'core-components/drop-down';
 
 class TagSelector extends React.Component {
 
@@ -16,12 +17,9 @@ class TagSelector extends React.Component {
     render() {
         return (
             <div className="tag-selector">
-                <div className="tag-selector__selected-tags">
+                <DropDown className="tag-selector__drop-down" items={this.renderTagOptions().map(tag => ({content: tag}))} selectedIndex={-1} size="large">
                     {this.renderSelectedTags()}
-                </div>
-                <div className="tag-selector__tag-options">
-                    {this.renderTagOptions()}
-                </div>
+                </DropDown>
             </div>
         );
     }
@@ -35,7 +33,7 @@ class TagSelector extends React.Component {
 
     renderSelectedTag(item,index) {
         return (
-            <div className="tag-selector__selected-tag" style={{backgroundColor:item.color}} key={index}>
+            <div className="tag-selector__selected-tag" style={{backgroundColor:item.color}} onClick={event => event.stopPropagation()} key={index}>
                 <span className="tag-selector__selected-tag-name">{item.name}</span>
                 <span onClick={this.onRemoveClick.bind(this,item.name)} className="tag-selector__selected-tag-remove" >
                     <Icon name="times-circle" size="small"/>
@@ -52,20 +50,22 @@ class TagSelector extends React.Component {
 
     renderTagOption(item,index) {
         return (
-            <div onClick={this.onTagSelected.bind(this,item.name)} className="tag-selector__tag-option" style={{backgroundColor:item.color}} key={index}>
+            <div onClick={this.onTagSelected.bind(this,item.name)} className="tag-selector__tag-option" key={index}>
+                <span className="tag-selector__tag-option-square" style={{backgroundColor:item.color}}/>
                 <span className="tag-selector__tag-option-name" >{item.name}</span>
             </div>
         );
     }
 
-    onRemoveClick(name) {
+    onRemoveClick(tag) {
+
         if(this.props.onRemoveClick){
-            this.props.onRemoveClick(name);
+            this.props.onRemoveClick(tag);
         }
     }
-    onTagSelected(name) {
+    onTagSelected(tag) {
         if(this.props.onTagSelected){
-            this.props.onTagSelected(name);
+            this.props.onTagSelected(tag);
         }
     }
 

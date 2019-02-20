@@ -83,7 +83,7 @@ let DemoPage = React.createClass({
                     items={[
                         {name: 'tag1', color: 'blue'},
                         {name: 'suggestion', color: '#ff6900'},
-                        {name: 'tag3', color: 'yellow'},
+                        {name: 'tag3', color: 'red'},
                         {name: 'tag4', color: 'green'},
                         {name: 'bug', color: '#eb144c'},
                     ]}
