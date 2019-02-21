@@ -3,7 +3,7 @@ describe '/user/edit-password' do
     request('/user/logout')
     result = request('/user/login', {
         email: 'steve@jobs.com',
-        password: 'custom'
+        password: 'custompassword'
     })
 
     $csrf_userid = result['data']['userId']
@@ -12,7 +12,7 @@ describe '/user/edit-password' do
 
     it 'should fail if new password is incorrect' do
         result = request('/user/edit-password', {
-            oldPassword: 'custom',
+            oldPassword: 'custompassword',
             newPassword: 'np',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
@@ -24,7 +24,7 @@ describe '/user/edit-password' do
         250.times {long_text << 'a'}
 
         result = request('/user/edit-password', {
-            oldPassword: 'custom',
+            oldPassword: 'custompassword',
             newPassword: long_text,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
@@ -46,7 +46,7 @@ describe '/user/edit-password' do
 
     it 'should change password' do
         result = request('/user/edit-password',{
-            oldPassword: 'custom',
+            oldPassword: 'custompassword',
             newPassword: 'newpassword',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
@@ -55,9 +55,13 @@ describe '/user/edit-password' do
 
         request('/user/logout')
 
-        result = request('/user/login',{
-            email: 'steve@jobs.com',
-            password: 'newpassword'
+        Scripts.login('steve@jobs.com','newpassword')
+
+        result = request('/user/edit-password',{
+            oldPassword: 'newpassword',
+            newPassword: 'custompassword',
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
         })
         (result['status']).should.equal('success')
     end

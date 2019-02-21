@@ -11,7 +11,11 @@
  * @apiDefine USER_EXISTS
  * @apiError {String} USER_EXISTS The user already exists.
  */
-/**
+ /**
+  * @apiDefine TAG_EXISTS
+  * @apiError {String} TAG_EXISTS The tag already exists.
+  */
+ /**
  * @apiDefine NO_PERMISSION
  * @apiError {String} NO_PERMISSION You have no permission to perform this operation.
  */
@@ -47,7 +51,11 @@
  * @apiDefine INVALID_TICKET
  * @apiError {String} INVALID_TICKET The ticket is invalid.
  */
-/**
+ /**
+  * @apiDefine INVALID_TAG
+  * @apiError {String} INVALID_TAG The tag is invalid.
+  */
+ /**
  * @apiDefine INIT_SETTINGS_DONE
  * @apiError {String} INIT_SETTINGS_DONE The init settings are already done.
  */
@@ -240,6 +248,7 @@ class ERRORS {
     const INVALID_CREDENTIALS = 'INVALID_CREDENTIALS';
     const SESSION_EXISTS = 'SESSION_EXISTS';
     const USER_EXISTS = 'USER_EXISTS';
+    const TAG_EXISTS = 'TAG_EXISTS';
     const NO_PERMISSION = 'NO_PERMISSION';
     const INVALID_TITLE = 'INVALID_TITLE';
     const INVALID_CONTENT = 'INVALID_CONTENT';
@@ -249,6 +258,7 @@ class ERRORS {
     const INVALID_SETTING = 'INVALID_SETTING';
     const INVALID_DEPARTMENT = 'INVALID_DEPARTMENT';
     const INVALID_TICKET = 'INVALID_TICKET';
+    const INVALID_TAG = 'INVALID_TAG';
     const INIT_SETTINGS_DONE = 'INIT_SETTINGS_DONE';
     const INVALID_OLD_PASSWORD = 'INVALID_OLD_PASSWORD';
     const INVALID_CAPTCHA = 'INVALID_CAPTCHA';
