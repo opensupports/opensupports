@@ -3,14 +3,14 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /ticket/add-tag Add tag
+ * @api {post} /ticket/create-tag Create tag
  * @apiVersion 4.3.2
  *
- * @apiName Add tag
+ * @apiName Create tag
  *
  * @apiGroup Ticket
  *
- * @apiDescription This path add a new tag.
+ * @apiDescription This path creates a new tag.
  *
  * @apiPermission staff1
  *
