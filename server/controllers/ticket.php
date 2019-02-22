@@ -21,5 +21,6 @@ $ticketControllers->addController(new EditTagController);
 $ticketControllers->addController(new DeleteTagController);
 $ticketControllers->addController(new GetTagsController);
 $ticketControllers->addController(new AddTagController);
+$ticketControllers->addController(new RemoveTagController);
 
 $ticketControllers->finalize();
