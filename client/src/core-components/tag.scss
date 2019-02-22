@@ -1,0 +1,24 @@
+@import '../scss/vars';
+
+.tag{
+  color: white;
+  display: inline-block;
+  border-radius: 3px;
+  margin-left: 5px;
+  padding: 3px;
+  font-size: 13px;
+  cursor: default;
+
+  &__remove {
+    cursor: pointer;
+    margin-left: 10px;
+
+    &:hover {
+      color: $light-grey;
+    }
+  }
+
+  &_small {
+    font-size: 11px;
+  }
+}

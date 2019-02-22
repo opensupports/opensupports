@@ -9,38 +9,11 @@
       cursor: text;
       background-color: white;
       border: 1px solid $grey;
+      min-height: 38px;
 
       &:focus {
         outline: none;
         border-color: $primary-blue;
-      }
-    }
-  }
-
-  &__selected-tags {
-    border-radius: 3px;
-    background-color: white;
-    padding: 3px 1px;
-  }
-
-  &__selected-tag {
-    color: white;
-    display: inline-block;
-    border-radius: 3px;
-    margin-left: 5px;
-    padding: 3px;
-    font-size: 13px;
-  }
-
-  &__selected-tag {
-    cursor: default;
-
-    &-remove {
-      cursor: pointer;
-      margin-left: 10px;
-
-      &:hover {
-        color: $light-grey;
       }
     }
   }
