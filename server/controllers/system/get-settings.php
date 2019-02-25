@@ -56,7 +56,8 @@ class GetSettingsController extends Controller {
                     'supportedLanguages' => Language::getSupportedLanguages(),
                     'allowedLanguages' => Language::getAllowedLanguages(),
                     'session-prefix' => Setting::getSetting('session-prefix')->getValue(),
-                    'mail-template-header-image' => Setting::getSetting('mail-template-header-image')->getValue()
+                    'mail-template-header-image' => Setting::getSetting('mail-template-header-image')->getValue(),
+                    'tags' => Tag::getAll()->toArray()
                 ];
             } else {
                 $settingsList = [
@@ -73,7 +74,8 @@ class GetSettingsController extends Controller {
                     'supportedLanguages' => Language::getSupportedLanguages(),
                     'allowedLanguages' => Language::getAllowedLanguages(),
                     'user-system-enabled' => intval(Setting::getSetting('user-system-enabled')->getValue()),
-                    'session-prefix' => Setting::getSetting('session-prefix')->getValue()
+                    'session-prefix' => Setting::getSetting('session-prefix')->getValue(),
+                    'tags' => Tag::getAll()->toArray()
                 ];
             }
         }

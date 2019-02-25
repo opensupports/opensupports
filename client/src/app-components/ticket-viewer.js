@@ -22,6 +22,8 @@ import Icon               from 'core-components/icon';
 import TextEditor         from 'core-components/text-editor';
 import InfoTooltip        from 'core-components/info-tooltip';
 import DepartmentDropdown from 'app-components/department-dropdown';
+import TagSelector        from 'core-components/tag-selector';
+import Tag                from 'core-components/tag';
 
 class TicketViewer extends React.Component {
     static propTypes = {
@@ -36,10 +38,12 @@ class TicketViewer extends React.Component {
         userId: React.PropTypes.number,
         userStaff: React.PropTypes.bool,
         userDepartments: React.PropTypes.array,
-        userLevel: React.PropTypes.number
+        userLevel: React.PropTypes.number,
+        tags: React.PropTypes.array
     };
 
     static defaultProps = {
+        tags: [],
         editable: false,
         ticket: {
             author: {},
@@ -63,6 +67,7 @@ class TicketViewer extends React.Component {
 
     render() {
         const ticket = this.props.ticket;
+        console.log('tickett',ticket)
 
         return (
             <div className="ticket-viewer">
@@ -105,7 +110,7 @@ class TicketViewer extends React.Component {
                 <div className="ticket-viewer__info-row-header row">
                     <div className="col-md-4">{i18n('DEPARTMENT')}</div>
                     <div className="col-md-4">{i18n('AUTHOR')}</div>
-                    <div className="col-md-4">{i18n('DATE')}</div>
+                    <div className="col-md-4">{i18n('TAGS')}</div>
                 </div>
                 <div className="ticket-viewer__info-row-values row">
                     <div className="col-md-4">
@@ -115,7 +120,7 @@ class TicketViewer extends React.Component {
                                   onChange={this.onDepartmentDropdownChanged.bind(this)} />
                     </div>
                     <div className="col-md-4">{ticket.author.name}</div>
-                    <div className="col-md-4">{DateTransformer.transformToString(ticket.date)}</div>
+                    <div className="col-md-4"> <TagSelector items={this.props.tags} values={this.props.ticket.tags} onRemoveClick={this.removeTag.bind(this)} onTagSelected={this.addTag.bind(this)}/></div>
                 </div>
                 <div className="ticket-viewer__info-row-header row">
                     <div className="col-md-4">{i18n('PRIORITY')}</div>
@@ -153,12 +158,15 @@ class TicketViewer extends React.Component {
                 <div className="ticket-viewer__info-row-header row">
                     <div className="ticket-viewer__department col-md-4">{i18n('DEPARTMENT')}</div>
                     <div className="ticket-viewer__author col-md-4">{i18n('AUTHOR')}</div>
-                    <div className="ticket-viewer__date col-md-4">{i18n('DATE')}</div>
+                    <div className="ticket-viewer__date col-md-4">{i18n('TAGS')}</div>
                 </div>
                 <div className="ticket-viewer__info-row-values row">
                     <div className="ticket-viewer__department col-md-4">{ticket.department.name}</div>
                     <div className="ticket-viewer__author col-md-4">{ticket.author.name}</div>
-                    <div className="ticket-viewer__date col-md-4">{DateTransformer.transformToString(ticket.date, false)}</div>
+                    <div className="col-md-4">{ticket.tags.length ? ticket.tags.map((tagName,index) => {
+                        let tag = _.find(this.props.tags, {name:tagName});
+                        return <Tag name={tag && tag.name} color={tag && tag.color} key={index} />
+                    }) : i18n('NONE')}</div>
                 </div>
                 <div className="ticket-viewer__info-row-header row">
                     <div className="ticket-viewer__department col-md-4">{i18n('PRIORITY')}</div>
@@ -412,7 +420,25 @@ class TicketViewer extends React.Component {
             }
         }).then(this.onTicketModification.bind(this));
     }
+    addTag(tag) {
+        API.call({
+            path: '/ticket/add-tag',
+            data: {
+                ticketNumber: this.props.ticket.ticketNumber,
+                tagId: tag
+            }
+        }).then(this.onTicketModification.bind(this))
+    }
 
+    removeTag(tag) {
+        API.call({
+            path: '/ticket/remove-tag',
+            data: {
+                ticketNumber: this.props.ticket.ticketNumber,
+                tagId: tag
+            }
+        }).then(this.onTicketModification.bind(this))
+    }
     onCustomResponsesChanged({index}) {
         let replaceContentWithCustomResponse = () => {
             this.setState({
@@ -515,6 +541,7 @@ export default connect((store) => {
         staffMembersLoaded: store.adminData.staffMembersLoaded,
         allowAttachments: store.config['allow-attachments'],
         userSystemEnabled: store.config['user-system-enabled'],
-        userLevel: store.session.userLevel
+        userLevel: store.session.userLevel,
+        tags: store.config['tags']
     };
 })(TicketViewer);

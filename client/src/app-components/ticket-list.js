@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import {connect} from "react-redux";
 
 import i18n from 'lib-app/i18n';
 import DateTransformer from 'lib-core/date-transformer';
@@ -11,6 +12,7 @@ import Button from 'core-components/button';
 import Tooltip from 'core-components/tooltip';
 import Icon from 'core-components/icon';
 import Checkbox from 'core-components/checkbox';
+import Tag from 'core-components/tag';
 
 class TicketList extends React.Component {
     static propTypes = {
@@ -182,9 +184,16 @@ class TicketList extends React.Component {
                 </Tooltip>
             ),
             title: (
-                <Button className="ticket-list__title-link" type="clean" route={{to: this.props.ticketPath + ticket.ticketNumber}}>
-                    {titleText}
-                </Button>
+                <div>
+                    <Button className="ticket-list__title-link" type="clean" route={{to: this.props.ticketPath + ticket.ticketNumber}}>
+                        {titleText}
+                    </Button>
+                    {ticket.tags.map((tagName,index) => {
+                        let tag = _.find(this.props.tags, {name:tagName});
+                        return <Tag size='small' name={tag && tag.name} color={tag && tag.color} key={index} />
+                    })}
+                </div>
+
             ),
             priority: this.getTicketPriority(ticket.priority),
             department: ticket.department.name,
@@ -257,5 +266,8 @@ class TicketList extends React.Component {
     }
 }
 
-
-export default TicketList;
+export default connect((store) => {
+    return {
+        tags: store.config['tags']
+    };
+})(TicketList);

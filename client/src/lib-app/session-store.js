@@ -62,6 +62,8 @@ class SessionStore {
         this.setItem('allow-attachments', configs['allow-attachments']);
         this.setItem('maintenance-mode', configs['maintenance-mode']);
         this.setItem('max-size', configs['max-size']);
+        this.setItem('tags', configs['tags']);
+
     }
 
     getConfigs() {
@@ -78,6 +80,7 @@ class SessionStore {
             'allow-attachments': (this.getItem('allow-attachments') * 1),
             'maintenance-mode': (this.getItem('maintenance-mode') * 1),
             'max-size': this.getItem('max-size'),
+            'tags': this.getItem('tags')
         };
     }
 
