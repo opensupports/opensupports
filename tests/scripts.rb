@@ -107,4 +107,12 @@ class Scripts
             description: description
         })
     end
+    def self.createTag(name, color)
+        request('/ticket/create-tag', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: name,
+            color: color
+        })
+    end
 end

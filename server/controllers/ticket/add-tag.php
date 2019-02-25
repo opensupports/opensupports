@@ -20,6 +20,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TICKET
  * @apiUse INVALID_TAG
+ * @apiUse TAG_EXISTS
  *
  * @apiSuccess {Object} data Empty object
  *
