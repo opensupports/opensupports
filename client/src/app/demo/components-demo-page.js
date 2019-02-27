@@ -87,7 +87,7 @@ let DemoPage = React.createClass({
                         {name: 'tag4', color: 'green'},
                         {name: 'bug', color: '#eb144c'},
                     ]}
-                    values={['suggestion','bug']}
+                    values={['suggestion','bug', 'tag4']}
                     onRemoveClick={(e)  => console.log('deleted click', e)}
                     onTagSelected={(e)  => console.log('selected click', e)}
                 />
