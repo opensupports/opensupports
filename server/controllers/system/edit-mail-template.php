@@ -36,7 +36,7 @@ class EditMailTemplateController extends Controller {
     const PATH = '/edit-mail-template';
     const METHOD = 'POST';
 
-    private $langauge;
+    private $language;
     private $templateType;
     private $subject;
     private $texts;
@@ -92,21 +92,21 @@ class EditMailTemplateController extends Controller {
     public function validateReplacements() {
         $originalText = MailTexts::getTexts()[$this->language][$this->templateType];
 
-        if(!$this->includes(
+        if(array_key_exists(1, $originalText) && !$this->includes(
             $this->getReplacementStrings($originalText[1]),
             $this->getReplacementStrings($this->texts[0])
         )) {
             throw new RequestException(ERRORS::INVALID_TEXT_1);
         }
 
-        if(!$this->includes(
+        if(array_key_exists(2, $originalText) && !$this->includes(
             $this->getReplacementStrings($originalText[2]),
             $this->getReplacementStrings($this->texts[1])
         )) {
             throw new RequestException(ERRORS::INVALID_TEXT_2);
         }
 
-        if(!$this->includes(
+        if(array_key_exists(3, $originalText) && !$this->includes(
             $this->getReplacementStrings($originalText[3]),
             $this->getReplacementStrings($this->texts[2])
         )) {
