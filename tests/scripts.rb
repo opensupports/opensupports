@@ -20,7 +20,7 @@ class Scripts
         departments = request('/system/get-settings', {
           csrf_userid: $csrf_userid,
           csrf_token: $csrf_token
-        })['departments']
+        })['data']['departments']
         departments = departments.collect  { |x| x.id }
 
         response = request('/staff/add', {
@@ -105,6 +105,14 @@ class Scripts
             name: name,
             type: 'text',
             description: description
+        })
+    end
+    def self.createTag(name, color)
+        request('/ticket/create-tag', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: name,
+            color: color
         })
     end
 end

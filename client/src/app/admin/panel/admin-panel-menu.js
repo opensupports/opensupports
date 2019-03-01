@@ -135,6 +135,11 @@ class AdminPanelMenu extends React.Component {
                         name: i18n('CUSTOM_RESPONSES'),
                         path: '/admin/panel/tickets/custom-responses',
                         level: 2
+                    },
+                    {
+                        name: i18n('CUSTOM_TAGS'),
+                        path: '/admin/panel/tickets/custom-tags',
+                        level: 1
                     }
                 ])
             },
