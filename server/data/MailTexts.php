@@ -825,9 +825,9 @@ class MailTexts {
           ],
           'TICKET_RESPONDED' => [
               '#{{ticketNumber}} Nieuw antwoord - OpenSupports',
-              'Το εισιτήριο ανταποκρίθηκε',
-              'Χαίρετε,{{name}}. Έχετε λάβει μια απάντηση στο εισιτήριο με τίτλο <i>{{title}}</i>.',
-              'Κάντε κλικ παρακάτω για να δείτε τη νέα απάντηση.'
+              'Nieuw antwoord',
+              'Hallo, {{name}}. Een incident met onderwerp <i>{{title}}</i> heeft eeb nieuw antwoord.',
+              'U kunt dit incident bekijken via het incidentnummer. Of klik op de knop hieronder.'
           ],
           'TICKET_CLOSED' => [
              '#{{ticketNumber}} Incident gesloten - OpenSupports',
