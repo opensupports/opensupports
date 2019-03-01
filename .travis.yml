@@ -15,7 +15,7 @@ before_install:
 - mysql -e 'CREATE DATABASE development;'
 - nvm install 6.14.4
 - npm install -g npm@6.1.0
-- npm install -g mocha
+- npm install -g mocha@5.2.0
 - cd client
 - npm install
 - cd ../tests
