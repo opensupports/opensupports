@@ -36,7 +36,7 @@ class EditMailTemplateController extends Controller {
     const PATH = '/edit-mail-template';
     const METHOD = 'POST';
 
-    private $langauge;
+    private $language;
     private $templateType;
     private $subject;
     private $texts;
@@ -62,7 +62,7 @@ class EditMailTemplateController extends Controller {
     }
 
     public function handler() {
-        $this->langauge = Controller::request('language');
+        $this->language = Controller::request('language');
         $this->templateType = Controller::request('template');
         $this->subject = Controller::request('subject', true);
         $this->texts = [
@@ -71,7 +71,7 @@ class EditMailTemplateController extends Controller {
             Controller::request('text3'),
         ];
 
-        $mailTemplate = MailTemplate::findOne(' language = ? AND template = ?', [$this->langauge, $this->templateType]);
+        $mailTemplate = MailTemplate::findOne(' language = ? AND template = ?', [$this->language, $this->templateType]);
 
         if($mailTemplate->isNull()) {
             throw new RequestException(ERRORS::INVALID_TEMPLATE);
@@ -90,7 +90,7 @@ class EditMailTemplateController extends Controller {
     }
 
     public function validateReplacements() {
-        $originalText = MailTexts::getTexts()[$this->langauge][$this->templateType];
+        $originalText = MailTexts::getTexts()[$this->language][$this->templateType];
 
         if(array_key_exists(1, $originalText) && !$this->includes(
             $this->getReplacementStrings($originalText[1]),
