@@ -9,7 +9,7 @@ class Tag extends React.Component {
         color: React.PropTypes.string,
         showDeleteButton: React.PropTypes.bool,
         onRemoveClick: React.PropTypes.func,
-        size: React.PropTypes.oneOf(['small','medium'])
+        size: React.PropTypes.oneOf(['small','medium','large'])
     };
 
     render() {
@@ -33,7 +33,8 @@ class Tag extends React.Component {
         let classes = {
             'tag': true,
             'tag_small': this.props.size === 'small',
-            'tag_medium': this.props.size === 'medium'
+            'tag_medium': this.props.size === 'medium',
+            'tag_large': this.props.size === 'large',
         };
 
         return classNames(classes);

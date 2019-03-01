@@ -109,6 +109,7 @@ module.exports = [
                     unreadStaff: true,
                     closed: false,
                     priority: 'medium',
+                    tags: [],
                     author: {
                         id: '3',
                         name: 'Haskell Curry',

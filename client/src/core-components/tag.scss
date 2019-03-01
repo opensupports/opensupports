@@ -21,4 +21,11 @@
   &_small {
     font-size: 11px;
   }
+
+  &_large {
+    width: 220px;
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 8px;
+  }
 }

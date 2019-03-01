@@ -41,17 +41,25 @@ class AdminPanelCustomTags extends React.Component {
 
     renderContent() {
         return (
-            <div className="row">
-                <div className="col-md-3">
-                    <Button onClick={this.openTagModal.bind(this)} type="secondary" ><Icon name="pencil"/>'NUEVO TAGi18n'</Button>
+            <div className="admin-panel-custom-tags__content">
+                <div>
+                    <Button onClick={this.openTagModal.bind(this)}  type="secondary">
+                        {i18n('CREATE_CUSTOM_TAG')}<Icon className="admin-panel-custom-tags__add-button-icon" name="plus"/>
+                    </Button>
                 </div>
-                {this.props.tags.map((tag) => {
-                    return(
-                        <Tag color={tag.color} name={tag.name} onRemoveClick={this.onDeleteClick.bind(this, tag.id)} showDeleteButton />
-                    )
-                })}
+                <div className="admin-panel-custom-tags__tag-list">
+                    {this.props.tags.map(this.renderTag.bind(this))}
+                </div>
             </div>
         );
+    }
+
+    renderTag(tag, index) {
+        return(
+            <div key={index} className="admin-panel-custom-tags__tag-container" >
+                <Tag color={tag.color} name={tag.name} onRemoveClick={this.onDeleteClick.bind(this, tag.id)} size='large' showDeleteButton />
+            </div>
+        )
     }
 
     openTagModal() {

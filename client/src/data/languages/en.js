@@ -48,6 +48,7 @@ export default {
     'ALL_TICKETS': 'All Tickets',
     'CUSTOM_RESPONSES': 'Custom Responses',
     'CUSTOM_TAGS': 'Custom Tags',
+    'CREATE_CUSTOM_TAG': 'Create custom tag',
     'LIST_USERS': 'List Users',
     'BAN_USERS': 'Ban Users',
     'LIST_ARTICLES': 'Article List',
@@ -103,6 +104,7 @@ export default {
     'COLOR': 'Color',
     'ADD_NEW_ARTICLE': 'Add new article',
     'ADD_ARTICLE': 'Add article',
+    'ADD_CUSTOM_TAG': 'Add custom tag',
     'LAST_EDITED_IN': 'Last edited in {date}',
     'EDIT': 'Edit',
     'NO_RESULTS': 'No results',
@@ -207,6 +209,7 @@ export default {
     'OPTION': 'Option {index}',
     'OPTIONS': 'Options',
     'FIELD_DESCRIPTION': 'Field description (Optional)',
+    'DESCRIPTION_ADD_CUSTOM_TAG': 'here you can add a new custom tag',
     'CUSTOM_FIELDS': 'Custom fields',
 
     'CHART_CREATE_TICKET': 'Tickets created',

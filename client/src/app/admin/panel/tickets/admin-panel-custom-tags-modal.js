@@ -27,8 +27,8 @@ class AdminPanelCustomTagsModal extends React.Component {
 
     render() {
         return (
-            <div>
-                <Header title={'new tags'} description={i18n('Here you can add a topic that works as a category for articles.')} />
+            <div className='admin-panel-custom-tags-modal'>
+                <Header title={i18n('ADD_CUSTOM_TAG')} description={i18n('DESCRIPTION_ADD_CUSTOM_TAG')} />
                 <Form
                     values={this.state.form}
                     onChange={this.onFormChange.bind(this)}
@@ -38,13 +38,14 @@ class AdminPanelCustomTagsModal extends React.Component {
                     loading={this.state.loading}>
                     <FormField name="name" label={i18n('NAME')} fieldProps={{size: 'large'}} required />
                     <FormField name="color" label={i18n('COLOR')} decorator={ColorSelector} />
-
-                    <SubmitButton className="topic-edit-modal__save-button" type="secondary" size="small">
-                        {i18n('SAVE')}
-                    </SubmitButton>
-                    <Button className="topic-edit-modal__discard-button" onClick={this.onDiscardClick.bind(this)} size="small">
-                        {i18n('CANCEL')}
-                    </Button>
+                    <div className='admin-panel-custom-tags-modal__actions'>
+                        <SubmitButton  type="secondary" size="small">
+                            {i18n('SAVE')}
+                        </SubmitButton>
+                        <Button onClick={this.onDiscardClick.bind(this)} size="small">
+                            {i18n('CANCEL')}
+                        </Button>
+                    </div>
                 </Form>
             </div>
         );

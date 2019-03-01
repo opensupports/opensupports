@@ -137,7 +137,7 @@ class AdminPanelMenu extends React.Component {
                         level: 2
                     },
                     {
-                        name: 'Customtags i18n',
+                        name: i18n('CUSTOM_TAGS'),
                         path: '/admin/panel/tickets/custom-tags',
                         level: 1
                     }
