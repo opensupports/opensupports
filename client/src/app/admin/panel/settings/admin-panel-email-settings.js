@@ -283,7 +283,6 @@ class AdminPanelEmailSettings extends React.Component {
     }
 
     onFormSubmit(form) {
-        console.log('form submmited');
         const {selectedIndex, language, templates} = this.state;
 
         this.setState({loadingForm: true});
