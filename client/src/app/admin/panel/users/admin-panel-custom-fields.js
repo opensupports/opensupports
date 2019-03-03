@@ -43,9 +43,9 @@ class AdminPanelCustomFields extends React.Component {
             <Table
                 className="admin-panel-custom-fields__list"
                 headers={[
-                    {key: 'name', value: 'Name'},
-                    {key: 'type', value: 'Type'},
-                    {key: 'options', value: 'Options'},
+                    {key: 'name', value: i18n('NAME')},
+                    {key: 'type', value: i18n('TYPE')},
+                    {key: 'options', value: i18n('OPTIONS')},
                     {key: 'actions', value: ''},
                 ]}
                 rows={this.state.customFields.map(this.getCustomField.bind(this))}

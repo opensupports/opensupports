@@ -80,6 +80,9 @@ class TicketEvent extends React.Component {
     }
 
     renderComment() {
+        const {author} = this.props.author;
+        const customFields = (author && author.customfields) || [];
+
         return (
             <div className="ticket-event__comment">
                 <span className="ticket-event__comment-pointer" />
@@ -88,7 +91,7 @@ class TicketEvent extends React.Component {
                     <span className="ticket-event__comment-badge-container">
                         <span className="ticket-event__comment-badge">{i18n((this.props.author.staff) ? 'STAFF' : 'CUSTOMER')}</span>
                     </span>
-                    {this.props.author.customfields.map(this.renderCustomFieldValue.bind(this))}
+                    {customFields.map(this.renderCustomFieldValue.bind(this))}
                     {(this.props.private*1) ? this.renderPrivateBadge() : null}
                 </div>
                 <div className="ticket-event__comment-date">{DateTransformer.transformToString(this.props.date)}</div>
