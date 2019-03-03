@@ -11,7 +11,6 @@ import MentionsParser     from 'lib-app/mentions-parser';
 
 import TicketEvent        from 'app-components/ticket-event';
 import AreYouSure         from 'app-components/are-you-sure';
-import DateTransformer    from 'lib-core/date-transformer';
 import Form               from 'core-components/form';
 import FormField          from 'core-components/form-field';
 import SubmitButton       from 'core-components/submit-button';
@@ -67,7 +66,6 @@ class TicketViewer extends React.Component {
 
     render() {
         const ticket = this.props.ticket;
-        console.log('tickett',ticket)
 
         return (
             <div className="ticket-viewer">
