@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import {connect} from "react-redux";
+import {connect} from 'react-redux';
 
 import i18n from 'lib-app/i18n';
 import DateTransformer from 'lib-core/date-transformer';
@@ -10,7 +10,6 @@ import DepartmentDropdown from 'app-components/department-dropdown';
 import Table from 'core-components/table';
 import Button from 'core-components/button';
 import Tooltip from 'core-components/tooltip';
-import Icon from 'core-components/icon';
 import Checkbox from 'core-components/checkbox';
 import Tag from 'core-components/tag';
 
