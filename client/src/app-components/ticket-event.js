@@ -80,7 +80,7 @@ class TicketEvent extends React.Component {
     }
 
     renderComment() {
-        const {author} = this.props.author;
+        const author = this.props.author;
         const customFields = (author && author.customfields) || [];
 
         return (
