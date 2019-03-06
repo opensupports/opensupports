@@ -44,7 +44,7 @@ class AdminPanelCustomTags extends React.Component {
             <div className="admin-panel-custom-tags__content">
                 <div>
                     <Button onClick={this.openTagModal.bind(this)}  type="secondary">
-                        {i18n('CREATE_CUSTOM_TAG')}<Icon className="admin-panel-custom-tags__add-button-icon" name="plus"/>
+                        {i18n('ADD_CUSTOM_TAG')}<Icon className="admin-panel-custom-tags__add-button-icon" name="plus"/>
                     </Button>
                 </div>
                 <div className="admin-panel-custom-tags__tag-list">

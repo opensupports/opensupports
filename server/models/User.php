@@ -3,7 +3,7 @@ use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {OBJECT} User User
- * @apiVersion 4.3.2
+ * @apiVersion 4.4.0
  * @apiGroup Data Structures
  * @apiParam {String} email The email of the user.
  * @apiParam {Number} id The id of the user.

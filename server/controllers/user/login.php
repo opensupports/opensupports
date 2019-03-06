@@ -3,7 +3,7 @@ use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {post} /user/login Login
- * @apiVersion 4.3.2
+ * @apiVersion 4.4.0
  *
  * @apiName Login
  *

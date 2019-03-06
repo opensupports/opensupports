@@ -4,7 +4,7 @@ use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {post} /system/get-logs Get logs
- * @apiVersion 4.3.2
+ * @apiVersion 4.4.0
  *
  * @apiName Get logs
  *

@@ -49,7 +49,6 @@ export default {
     'CUSTOM_RESPONSES': 'Respostas personalizadas',
     'CUSTOM_TAGS': 'Tags personalizadas',
     'LIST_USERS': 'Listar usuários',
-    'CREATE_CUSTOM_TAG': 'Criar tag personalizada',
     'BAN_USERS': 'Banir usuários',
     'LIST_ARTICLES': 'Lista de Artigos',
     'STAFF_MEMBERS': 'Membros da equipe',
@@ -366,6 +365,7 @@ export default {
     'USER_DISABLED': 'Esta conta está desativada.',
     'INVALID_SYNTAX': 'Sintaxe inválida.',
     'DEPARTMENT_PRIVATE_TICKETS': 'Este departamento tem ingressos criados por não funcionários e não pode ser privado',
+    'CURRENTLY_UNAVAILABLE': 'Atualmente indisponivel',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'Você se registrou com sucesso em nosso sistema de suporte.',

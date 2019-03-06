@@ -49,7 +49,6 @@ export default {
     'CUSTOM_RESPONSES': 'カスタムレスポンス',
     'CUSTOM_TAGS': 'カスタムタグ',
     'LIST_USERS': 'ユーザーを一覧表示する',
-    'CREATE_CUSTOM_TAG': 'カスタムタグを作成する',
     'BAN_USERS': 'ユーザーを禁止',
     'LIST_ARTICLES': '記事一覧',
     'STAFF_MEMBERS': 'スタッフ',
@@ -366,6 +365,7 @@ export default {
     'USER_DISABLED': 'このアカウントは無効です。',
     'INVALID_SYNTAX': '無効な構文。',
     'DEPARTMENT_PRIVATE_TICKETS': 'この部門には、スタッフ以外が作成したチケットがあり、プライベートにすることはできません',
+    'CURRENTLY_UNAVAILABLE': '現在お取り扱いできません',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'あなたは私たちのサポートシステムに正常に登録しました。',

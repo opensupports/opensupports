@@ -49,7 +49,6 @@ export default {
     'CUSTOM_RESPONSES': 'Risposte Personalizzate',
     'CUSTOM_TAGS': 'Tag personalizzati',
     'LIST_USERS': 'Lista Utenti',
-    'CREATE_CUSTOM_TAG': 'Crea un tag personalizzato',
     'BAN_USERS': 'Utenti Indesiderati',
     'LIST_ARTICLES': 'Lista Articoli',
     'STAFF_MEMBERS': 'Membri dello Staff',
@@ -366,6 +365,7 @@ export default {
     'USER_DISABLED': 'Questo account è disabilitato.',
     'INVALID_SYNTAX': 'Sintassi non valida.',
     'DEPARTMENT_PRIVATE_TICKETS': 'Questo dipartimento ha biglietti creati da non dipendenti e non può essere privato',
+    'CURRENTLY_UNAVAILABLE': 'attualmente non disponibile',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'È stato registrato con successo nel nostro sistema di supporto.',

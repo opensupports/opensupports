@@ -54,6 +54,11 @@ class Stats extends React.Component {
                 <DropDown {...this.getDropDownProps()}/>
                 <ToggleList {...this.getToggleListProps()} />
                 <StatsChart {...this.getStatsChartProps()} />
+                <div className="stats__disable-box">
+                    <div className="stats__disable-box-message">
+                        {i18n('CURRENTLY_UNAVAILABLE')}
+                    </div>
+                </div>
             </div>
         );
     }

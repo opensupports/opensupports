@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /system/check-requirements Checks requirements
- * @apiVersion 4.3.2
+ * @apiVersion 4.4.0
  *
  * @apiName Check requirements
  *

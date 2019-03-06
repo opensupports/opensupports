@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /system/edit-settings Edit settings
- * @apiVersion 4.3.2
+ * @apiVersion 4.4.0
  *
  * @apiName Edit settings
  *

@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /article/get-all Get all articles
- * @apiVersion 4.3.2
+ * @apiVersion 4.4.0
  *
  * @apiName Get all articles
  *

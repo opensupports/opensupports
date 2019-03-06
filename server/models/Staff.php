@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Staff Staff
- * @apiVersion 4.3.2
+ * @apiVersion 4.4.0
  * @apiGroup Data Structures
  * @apiParam {String} name Name of the staff member.
  * @apiParam {String} email Email of the staff member.

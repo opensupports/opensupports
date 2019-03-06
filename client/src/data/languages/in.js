@@ -49,7 +49,6 @@ export default {
     'CUSTOM_RESPONSES': 'कस्टम प्रतिक्रिया',
     'CUSTOM_TAGS': 'कस्टम टैग',
     'LIST_USERS': 'उपयोगकर्ता सूची',
-    'CREATE_CUSTOM_TAG': 'कस्टम टैग बनाएं',
     'BAN_USERS': 'उपयोगकर्ता का प्रतिबन्ध करें',
     'LIST_ARTICLES': 'अनुच्छेद सूची',
     'STAFF_MEMBERS': 'कर्मचारी',
@@ -366,6 +365,7 @@ export default {
     'USER_DISABLED': 'यह खाता अक्षम है।',
     'INVALID_SYNTAX': 'अवैध वाक्य रचना।',
     'DEPARTMENT_PRIVATE_TICKETS': 'इस विभाग में गैर-कर्मचारियों द्वारा बनाए गए टिकट हैं और यह निजी नहीं हो सकता है',
+    'CURRENTLY_UNAVAILABLE': 'वर्तमान में अनुपलब्ध',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'आप हमारे समर्थन प्रणाली में सफलतापूर्वक दर्ज कर लिया है।',
