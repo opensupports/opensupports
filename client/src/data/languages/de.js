@@ -47,6 +47,7 @@ export default {
     'NEW_TICKETS': 'Neue Tickets',
     'ALL_TICKETS': 'Alle Tickets',
     'CUSTOM_RESPONSES': 'Benutzerdefinierte Antworten',
+    'CUSTOM_TAGS': 'Benutzerdefinierte Tags',
     'LIST_USERS': 'Benutzer auflisten',
     'BAN_USERS': 'Gesperrte Benutzer',
     'LIST_ARTICLES': 'Artikelliste',
@@ -104,6 +105,7 @@ export default {
     'ADD_ARTICLE': 'Artikel hinzufügen',
     'LAST_EDITED_IN': 'Zuletzt bearbeitet am {date}',
     'EDIT': 'Bearbeiten',
+    'ADD_CUSTOM_TAG': 'Benutzerdefiniertes Tag hinzufügen',
     'NO_RESULTS': 'Keine Ergebnisse',
     'DELETE_AND_BAN': 'Löschen und blockieren',
     'STAFF_LEVEL': 'Mitarbeiter-Ebene',
@@ -363,6 +365,7 @@ export default {
     'USER_DISABLED': 'Dieser Account ist deaktiviert.',
     'INVALID_SYNTAX': 'Ungültiger Satzbau.',
     'DEPARTMENT_PRIVATE_TICKETS': 'Diese Abteilung hat Tickets, die von Nicht-Mitarbeitern erstellt wurden, und kann nicht privat sein',
+    'CURRENTLY_UNAVAILABLE': 'momentan nicht verfügbar',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'Sie haben sich erfolgreich in unserem Support-System registriert.',

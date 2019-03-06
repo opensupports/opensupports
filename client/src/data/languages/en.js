@@ -49,7 +49,6 @@ export default {
     'CUSTOM_RESPONSES': 'Custom Responses',
     'CUSTOM_TAGS': 'Custom Tags',
     'LIST_USERS': 'List Users',
-    'CREATE_CUSTOM_TAG': 'Create custom tag',
     'BAN_USERS': 'Ban Users',
     'LIST_ARTICLES': 'Article List',
     'STAFF_MEMBERS': 'Staff Members',
@@ -366,6 +365,7 @@ export default {
     'USER_DISABLED': 'This account is disabled.',
     'INVALID_SYNTAX': 'Invalid syntax.',
     'DEPARTMENT_PRIVATE_TICKETS': 'This department has tickets created by non-staff and it can not be private',
+    'CURRENTLY_UNAVAILABLE': 'Currently unavailable',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',

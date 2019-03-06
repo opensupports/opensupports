@@ -49,7 +49,6 @@ export default {
     'CUSTOM_RESPONSES': 'Aangepaste antwoord',
     'CUSTOM_TAGS': 'Aangepaste tags',
     'LIST_USERS': 'Gebruikerslijst',
-    'CREATE_CUSTOM_TAG': 'Maak een aangepaste tag',
     'BAN_USERS': 'Geblokkeerde gebruikers',
     'LIST_ARTICLES': 'Artikellijst',
     'STAFF_MEMBERS': 'Medewerkers',
@@ -366,6 +365,7 @@ export default {
     'USER_DISABLED': 'Dit account is uitgeschakeld.',
     'INVALID_SYNTAX': 'Ongeldige syntaxis.',
     'DEPARTMENT_PRIVATE_TICKETS': 'Deze afdeling heeft tickets gemaakt door niet-personeel en het kan niet privé zijn',
+    'CURRENTLY_UNAVAILABLE': 'Momenteel niet beschikbaar',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'U hebt zich succesvol geregistreerd in ons ondersteuningssysteem.',

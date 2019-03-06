@@ -187,7 +187,7 @@ class TicketList extends React.Component {
                     <Button className="ticket-list__title-link" type="clean" route={{to: this.props.ticketPath + ticket.ticketNumber}}>
                         {titleText}
                     </Button>
-                    {ticket.tags.map((tagName,index) => {
+                    {(ticket.tags || []).map((tagName,index) => {
                         let tag = _.find(this.props.tags, {name:tagName});
                         return <Tag size='small' name={tag && tag.name} color={tag && tag.color} key={index} />
                     })}

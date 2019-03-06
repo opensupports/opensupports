@@ -103,7 +103,7 @@ export default (
             <Route path="admin">
                 <IndexRoute component={AdminLoginPage} />
                 <Route path="panel" component={AdminPanelLayout}>
-                    <IndexRedirect to="stats" />
+                    <IndexRedirect to="activity" />
                     <Route path="stats" component={AdminPanelStats} />
                     <Route path="activity" component={AdminPanelActivity} />
                     <Route path="my-account" component={AdminPanelMyAccount} />

@@ -41,6 +41,8 @@ class GetStatsController extends Controller {
     }
 
     public function handler() {
+        throw new ValidationException(ERRORS::UNAVAILABLE_STATS);
+        /*
         $this->generateNewStats();
         $this->deleteLastStats();
 
@@ -55,7 +57,7 @@ class GetStatsController extends Controller {
             $this->getStaffStat();
         } else {
             $this->getGeneralStat();
-        }
+        }*/
     }
 
     public function generateNewStats() {

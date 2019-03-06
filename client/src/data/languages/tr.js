@@ -49,7 +49,6 @@ export default {
     'CUSTOM_RESPONSES': 'Özel Yanıtlar',
     'CUSTOM_TAGS': 'Özel Etiketler',
     'LIST_USERS': 'Kullanıcıları Listele',
-    'CREATE_CUSTOM_TAG': 'Özel etiket oluştur',
     'BAN_USERS': 'Kullanıcıları Yasaklama',
     'LIST_ARTICLES': 'Makale Listesi',
     'STAFF_MEMBERS': 'Personel üyeleri',
@@ -366,6 +365,7 @@ export default {
     'USER_DISABLED': 'Bu hesap devre dışı.',
     'DEPARTMENT_PRIVATE_TICKETS': 'Bu departman, personel olmayanlar tarafından oluşturulan biletlere sahiptir ve özel olamaz',
     'INVALID_SYNTAX': 'Geçersiz sözdizimi.',
+    'CURRENTLY_UNAVAILABLE': 'Şu anda kullanılamıyor',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'Destek sistemimize başarılı bir şekilde kayıt oldunuz.',

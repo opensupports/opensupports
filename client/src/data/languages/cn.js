@@ -49,7 +49,6 @@ export default {
     'CUSTOM_RESPONSES': '自定義響應',
     'CUSTOM_TAGS': '自定义标签',
     'LIST_USERS': '列出用戶',
-    'CREATE_CUSTOM_TAG': '创建自定义标记',
     'BAN_USERS': '禁止用戶',
     'LIST_ARTICLES': '文章列表',
     'STAFF_MEMBERS': '工作人員',
@@ -366,6 +365,7 @@ export default {
     'USER_DISABLED': '此帐户已被停用。',
     'INVALID_SYNTAX': '无效的语法。',
     'DEPARTMENT_PRIVATE_TICKETS': '这个部门有非工作人员创建的门票，不能是私人的',
+    'CURRENTLY_UNAVAILABLE': '当前不可用',
 
     //MESSAGES
     'SIGNUP_SUCCESS': '您已在我們的支持系統中成功註冊',
