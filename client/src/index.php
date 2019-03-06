@@ -19,7 +19,7 @@
         <div id="app"></div>
 
         <script>
-            opensupports_version = '4.3.2';
+            opensupports_version = '4.4.0';
             root = "<?=$url ?>";
             apiRoot = '<?=$url ?>/api';
             globalIndexPath = "<?=$path ?>";

@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /ticket/re-open Reopen ticket
- * @apiVersion 4.3.2
+ * @apiVersion 4.4.0
  *
  * @apiName Reopen ticket
  *

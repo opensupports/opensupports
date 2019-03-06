@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /system/init-settings Init settings
- * @apiVersion 4.3.2
+ * @apiVersion 4.4.0
  *
  * @apiName Init settings
  *

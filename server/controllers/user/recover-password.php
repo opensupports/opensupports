@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/recover-password Recover password
- * @apiVersion 4.3.2
+ * @apiVersion 4.4.0
  *
  * @apiName Recover password
  *
