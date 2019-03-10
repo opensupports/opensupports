@@ -70,7 +70,7 @@ class MailSender {
             $this->mailerInstance->Host = $this->mailOptions['smtp-host'];
             $this->mailerInstance->Username = $this->mailOptions['smtp-user'];
             $this->mailerInstance->Password = $this->mailOptions['smtp-pass'];
-            $this->mailerInstance->Timeout = 1000;
+            $this->mailerInstance->Timeout = 10;
             $this->mailerInstance->SMTPOptions = [
                 'ssl' => [
                     'verify_peer' => false,
