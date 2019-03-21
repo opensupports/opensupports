@@ -57,6 +57,7 @@ class CreateTicketForm extends React.Component {
                             type: 'supported',
                             size: 'medium'
                         }}/>
+                        <FormField label={i18n('CLIENT_SITE_PATH')} name="title" validation="SITE_URL" required field="input" fieldProps={{size: 'large'}}/>
                     </div>
                     <FormField
                         label={i18n('CONTENT')}
