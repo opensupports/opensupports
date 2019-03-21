@@ -35,14 +35,14 @@
 
     &__row {
         border: 0;
-        color: #B8B8B8;
+        color: $dark-grey;
 
         &:nth-child(even) {
-            background-color: #F9F9F9;
+            background-color: $light-grey;
         }
 
         &:nth-child(odd) {
-            background-color: #F1F1F1;
+            background-color: $medium-grey;
         }
 
         &-highlighted {
