@@ -419,5 +419,6 @@ export default {
     'TEST_SMTP_CONNECTION': 'Test SMTP connection',
     'SERVER_ERROR': 'Can not connect to server.',
     'EMAIL_SERVER_ADDRESS': 'Email server address',
-    'EMAIL_SERVER_ADDRESS_DESCRIPTION': 'Address where mails will be received and sent'
+    'EMAIL_SERVER_ADDRESS_DESCRIPTION': 'Address where mails will be received and sent',
+    'CLIENT_SITE_PATH': 'Website URL'
 };

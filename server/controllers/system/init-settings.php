@@ -88,7 +88,7 @@ class InitSettingsController extends Controller {
             'ticket-gap' => Hashing::generateRandomPrime(100000, 999999),
             'ticket-first-number' => Hashing::generateRandomNumber(100000, 999999),
             'session-prefix' => 'opensupports-'.Hashing::generateRandomToken().'_',
-            'mail-template-header-image' => 'https://s3.amazonaws.com/opensupports/logo.png',
+            'mail-template-header-image' => 'https://www.promemoriagroup.com/_nuxt/img/40e5981.png',
             'imap-token' => '',
         ]);
     }

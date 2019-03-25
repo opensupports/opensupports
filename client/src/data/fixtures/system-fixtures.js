@@ -29,8 +29,8 @@ module.exports = [
                         ],
                         'allowedLanguages': ['en', 'es', 'de', 'fr', 'pt', 'jp', 'ru', 'cn', 'in', 'tr'],
                         'supportedLanguages': ['en', 'es', 'de'],
-                        'registration': true,
-                        'user-system-enabled': true,
+                        'registration': false,
+                        'user-system-enabled': false,
                         'tags': [{id:1,name:'bug', color:'#eb144c'},{id: 2,name:'suggestion',color:'#ff6900'}]
                     }
                 };
@@ -51,8 +51,8 @@ module.exports = [
                         ],
                         'allowedLanguages': ['en', 'es', 'de', 'fr', 'pt', 'jp', 'ru', 'cn', 'in', 'tr'],
                         'supportedLanguages': ['en', 'es', 'de'],
-                        'registration': true,
-                        'user-system-enabled': true,
+                        'registration': false,
+                        'user-system-enabled': false,
                         'tags': [{id:1,name:'bug', color:'#eb144c'},{id: 2,name:'suggestion',color:'#ff6900'}]
                     }
                 };

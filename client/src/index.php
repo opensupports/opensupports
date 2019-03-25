@@ -1,6 +1,6 @@
 <?php
     $path = rtrim(str_replace('\\','/',dirname($_SERVER['PHP_SELF'])), '/');
-    $url = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $path;
+    $url = 'https://' . $_SERVER['HTTP_HOST'] . $path;
 ?>
 <!doctype html>
 <html class="no-js" lang="">
