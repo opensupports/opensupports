@@ -23,6 +23,7 @@
  * @apiParam {Number}  owner.id The owner's id of the ticket.
  * @apiParam {String}  owner.name The owner's name of the ticket.
  * @apiParam {String}  owner.email The owner's email of the ticket.
+ * @apiParam {String}  site_url Indirizzo del sito della segnalazione
  * @apiParam {[TicketEvent](#api-Data_Structures-ObjectTicketevent)[]} events Events related to the ticket.
  */
 use RedBeanPHP\Facade as RedBean;
@@ -50,7 +51,8 @@ class Ticket extends DataStore {
             'language',
             'authorEmail',
             'authorName',
-            'sharedTagList'
+            'sharedTagList',
+            'site_url'
         );
     }
 
@@ -130,7 +132,8 @@ class Ticket extends DataStore {
             'author' => $this->authorToArray(),
             'owner' => $this->ownerToArray(),
             'events' => $minimized ? [] : $this->eventsToArray(),
-            'tags' => $this->sharedTagList->toArray(true)
+            'tags' => $this->sharedTagList->toArray(true),
+            'site_url' => $this->site_url
         ];
     }
 
