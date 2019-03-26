@@ -47,8 +47,8 @@ class CreateTicketForm extends React.Component {
                 <Header title={i18n('CREATE_TICKET')} description={i18n('CREATE_TICKET_DESCRIPTION')} />
                 <Form {...this.getFormProps()}>
                     {(!this.props.userLogged) ? this.renderEmailAndName() : null}
-                    <FormField label={i18n('TITLE')} name="title" validation="TITLE" required field="input" fieldProps={{size: 'large'}}/>
-                    <FormField label={i18n('CLIENT_SITE_PATH')} name="site_url" validation="SITE_URL" required field="input" fieldProps={{size: 'large', url: true}}/>
+                    <FormField label={i18n('TITLE')} name="title" validation="TITLE" required field="input" fieldProps={{size: 'auto'}}/>
+                    <FormField label={i18n('CLIENT_SITE_PATH')} name="site_url" validation="SITE_URL" required field="input" fieldProps={{size: 'auto', url: true}}/>
                     <div className="row">
                         <FormField className="col-md-5" label={i18n('DEPARTMENT')} name="departmentIndex" field="select" decorator={DepartmentDropdown} fieldProps={{
                             departments: SessionStore.getDepartments(),
