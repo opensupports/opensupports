@@ -12,7 +12,7 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiDescription This path edit tags.
  *
- * @apiPermission staff1
+ * @apiPermission staff3
  *
  * @apiParam {Number} tagId The id of the tag.
  * @apiParam {Number} name The new name of the tag.
@@ -32,7 +32,7 @@ class EditTagController extends Controller {
 
     public function validations() {
         return [
-            'permission' => 'staff_1',
+            'permission' => 'staff_3',
             'requestData' => [
                 'tagId' => [
                     'validation' => DataValidator::dataStoreId('tag'),
