@@ -12,7 +12,7 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiDescription This path attaches a new tag to a ticket.
  *
- * @apiPermission staff3
+ * @apiPermission staff1
  *
  * @apiParam {Number} ticketNumber The number of the ticket which the tag is going to be attached.
  * @apiParam {String} tagId The id of the tag to attach.
@@ -32,7 +32,7 @@ class AddTagController extends Controller {
 
     public function validations() {
         return [
-            'permission' => 'staff_3',
+            'permission' => 'staff_1',
             'requestData' => [
                 'ticketNumber' => [
                     'validation' => DataValidator::validTicketNumber(),
