@@ -74,5 +74,5 @@ export default {
     'pl': {
         name: 'Polish',
         data: polishLanguage
-    },
+    }
 };
