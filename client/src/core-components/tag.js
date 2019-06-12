@@ -16,10 +16,10 @@ class Tag extends React.Component {
         return (
             <div className={this.getClass()} style={{backgroundColor:this.props.color}} onClick={event => event.stopPropagation()} >
                 <span className="tag__name">{this.props.name}</span>
-                <div>
+                <span>
                     {this.props.showEditButton ? this.renderEditButton() : null}
                     {this.props.showDeleteButton ? this.renderRemoveButton() : null}
-                </div>
+                </span>
             </div>
         );
     }
