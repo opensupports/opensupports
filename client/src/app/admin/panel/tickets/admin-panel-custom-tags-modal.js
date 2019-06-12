@@ -26,13 +26,45 @@ class AdminPanelCustomTagsModal extends React.Component {
     };
 
     render() {
+        return(
+            this.props.createTag ? this.renderCreateTagContent() : this.renderEditTagContent()
+        );
+    }
+
+    renderEditTagContent() {
+        return (
+            <div className='admin-panel-custom-tags-modal'>
+                <Header title={i18n('EDIT_CUSTOM_TAG')} description={i18n('DESCRIPTION_EDIT_CUSTOM_TAG')} />
+                <Form
+                    values={this.state.form}
+                    onChange={this.onFormChange.bind(this)}
+                    onSubmit={this.onSubmitEditTag.bind(this)}
+                    errors={this.state.errors}
+                    onValidateErrors={errors => this.setState({errors})}
+                    loading={this.state.loading}>
+                    <FormField name="name" label={i18n('NAME')} fieldProps={{size: 'large'}}/>
+                    <FormField name="color" label={i18n('COLOR')} decorator={ColorSelector} />
+                    <div className='admin-panel-custom-tags-modal__actions'>
+                        <SubmitButton  type="secondary" size="small">
+                            {i18n('SAVE')}
+                        </SubmitButton>
+                        <Button onClick={this.onDiscardClick.bind(this)} size="small">
+                            {i18n('CANCEL')}
+                        </Button>
+                    </div>
+                </Form>
+            </div>
+        );
+    }
+
+    renderCreateTagContent() {
         return (
             <div className='admin-panel-custom-tags-modal'>
                 <Header title={i18n('ADD_CUSTOM_TAG')} description={i18n('DESCRIPTION_ADD_CUSTOM_TAG')} />
                 <Form
                     values={this.state.form}
                     onChange={this.onFormChange.bind(this)}
-                    onSubmit={this.onSubmitTag.bind(this)}
+                    onSubmit={this.onSubmitNewTag.bind(this)}
                     errors={this.state.errors}
                     onValidateErrors={errors => this.setState({errors})}
                     loading={this.state.loading}>
@@ -56,8 +88,39 @@ class AdminPanelCustomTagsModal extends React.Component {
             form
         });
     }
+    onSubmitEditTag(form) {
+        this.setState({
+            loading: true
+        });
 
-    onSubmitTag(form) {
+        API.call({
+            path: '/ticket/edit-tag',
+            data: {
+                tagId: this.props.id,
+                name: form.name,
+                color: form.color,
+            }
+        }).then(() => {
+            this.context.closeModal();
+            this.setState({
+                loading: false,
+                errors: {}
+            });
+            if(this.props.onTagChange) {
+                this.props.onTagChange();
+            }
+        }).catch((result) => {
+
+            this.setState({
+                loading: false,
+                errors: {
+                    'name': result.message
+                }
+            });
+
+        });
+    }
+    onSubmitNewTag(form) {
         this.setState({
             loading: true
         });

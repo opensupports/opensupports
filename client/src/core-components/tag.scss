@@ -17,6 +17,12 @@
       color: $light-grey;
     }
   }
+  &__edit {
+    cursor: pointer;
+    &:hover {
+      color: $light-grey;
+    }
+  }
 
   &_small {
     font-size: 11px;
