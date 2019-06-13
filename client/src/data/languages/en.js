@@ -106,6 +106,7 @@ export default {
     'LAST_EDITED_IN': 'Last edited in {date}',
     'EDIT': 'Edit',
     'ADD_CUSTOM_TAG': 'Add custom tag',
+    'EDIT_CUSTOM_TAG': 'Edit custom tag',
     'NO_RESULTS': 'No results',
     'DELETE_AND_BAN': 'Delete and ban',
     'STAFF_LEVEL': 'Staff Level',
@@ -209,6 +210,7 @@ export default {
     'OPTIONS': 'Options',
     'FIELD_DESCRIPTION': 'Field description (Optional)',
     'DESCRIPTION_ADD_CUSTOM_TAG': 'here you can add a new custom tag',
+    'DESCRIPTION_EDIT_CUSTOM_TAG': 'here you can edit a custom tag',
     'CUSTOM_FIELDS': 'Custom fields',
 
     'CHART_CREATE_TICKET': 'Tickets created',

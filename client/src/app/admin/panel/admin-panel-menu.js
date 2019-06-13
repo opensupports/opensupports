@@ -135,11 +135,6 @@ class AdminPanelMenu extends React.Component {
                         name: i18n('CUSTOM_RESPONSES'),
                         path: '/admin/panel/tickets/custom-responses',
                         level: 2
-                    },
-                    {
-                        name: i18n('CUSTOM_TAGS'),
-                        path: '/admin/panel/tickets/custom-tags',
-                        level: 1
                     }
                 ])
             },
@@ -218,6 +213,11 @@ class AdminPanelMenu extends React.Component {
                     {
                         name: i18n('EMAIL_SETTINGS'),
                         path: '/admin/panel/settings/email-settings',
+                        level: 3
+                    },
+                    {
+                        name: i18n('CUSTOM_TAGS'),
+                        path: '/admin/panel/settings/custom-tags',
                         level: 3
                     }
                 ])

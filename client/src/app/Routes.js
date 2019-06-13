@@ -35,7 +35,6 @@ import AdminPanelNewTickets from 'app/admin/panel/tickets/admin-panel-new-ticket
 import AdminPanelAllTickets from 'app/admin/panel/tickets/admin-panel-all-tickets';
 import AdminPanelViewTicket from 'app/admin/panel/tickets/admin-panel-view-ticket';
 import AdminPanelCustomResponses from 'app/admin/panel/tickets/admin-panel-custom-responses';
-import AdminPanelCustomTags from 'app/admin/panel/tickets/admin-panel-custom-tags';
 
 import AdminPanelListUsers from 'app/admin/panel/users/admin-panel-list-users';
 import AdminPanelViewUser from 'app/admin/panel/users/admin-panel-view-user';
@@ -52,6 +51,7 @@ import AdminPanelViewStaff from 'app/admin/panel/staff/admin-panel-view-staff';
 import AdminPanelSystemPreferences from 'app/admin/panel/settings/admin-panel-system-preferences';
 import AdminPanelAdvancedSettings from 'app/admin/panel/settings/admin-panel-advanced-settings';
 import AdminPanelEmailSettings from 'app/admin/panel/settings/admin-panel-email-settings';
+import AdminPanelCustomTags from 'app/admin/panel/settings/admin-panel-custom-tags';
 
 // INSTALLATION
 import InstallLayout from 'app/install/install-layout';
@@ -115,7 +115,6 @@ export default (
                         <Route path="all-tickets" component={AdminPanelAllTickets} />
                         <Route path="custom-responses" component={AdminPanelCustomResponses} />
                         <Route path="view-ticket/:ticketNumber" component={AdminPanelViewTicket} />
-                        <Route path="custom-tags" component={AdminPanelCustomTags} />
                     </Route>
 
                     <Route path="users">
@@ -144,6 +143,7 @@ export default (
                         <Route path="system-preferences" component={AdminPanelSystemPreferences} />
                         <Route path="advanced-settings" component={AdminPanelAdvancedSettings} />
                         <Route path="email-settings" component={AdminPanelEmailSettings} />
+                        <Route path="custom-tags" component={AdminPanelCustomTags} />
                     </Route>
                 </Route>
             </Route>
