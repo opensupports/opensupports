@@ -62,8 +62,7 @@ class MailTexts {
               'You can access to the ticket by its ticket number.',
           ],
         ],
-         
-	      'pl' => [
+	'pl' => [
           'USER_SIGNUP' => [
               'Signup {{to}} - OpenSupports',
               'Zweryfikuj swoje konto',
