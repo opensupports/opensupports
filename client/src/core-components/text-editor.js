@@ -45,7 +45,7 @@ class TextEditor extends React.Component {
     }
 
     state = {
-        value: '',
+        value: this.props.value,
         focused: false
     };
 

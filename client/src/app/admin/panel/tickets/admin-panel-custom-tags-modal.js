@@ -26,7 +26,7 @@ class AdminPanelCustomTagsModal extends React.Component {
     };
 
     render() {
-        return(
+        return (
             this.props.createTag ? this.renderCreateTagContent() : this.renderEditTagContent()
         );
     }
@@ -88,6 +88,7 @@ class AdminPanelCustomTagsModal extends React.Component {
             form
         });
     }
+
     onSubmitEditTag(form) {
         this.setState({
             loading: true
@@ -120,6 +121,7 @@ class AdminPanelCustomTagsModal extends React.Component {
 
         });
     }
+    
     onSubmitNewTag(form) {
         this.setState({
             loading: true

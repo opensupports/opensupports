@@ -60,7 +60,8 @@ class Ticketevent extends DataStore {
             'authorUser',
             'authorStaff',
             'date',
-            'private'
+            'private',
+            'editedContent'
         ];
     }
 
@@ -75,6 +76,10 @@ class Ticketevent extends DataStore {
 
         return new NullDataStore();
     }
+    
+    public static function getTicketEvent($value, $property = 'id') {
+        return parent::getDataStore($value, $property);
+    }
 
     public function toArray() {
         $user = ($this->authorStaff) ? $this->authorStaff : $this->authorUser;
@@ -87,7 +92,8 @@ class Ticketevent extends DataStore {
                 'staff' => $user instanceOf Staff,
                 'id' => $user ? $user->id : null,
                 'customfields' => $user->xownCustomfieldvalueList ? $user->xownCustomfieldvalueList->toArray() : [],
-            ]
+            ],
+            'edited' => $this->editedContent
         ];
     }
 }
