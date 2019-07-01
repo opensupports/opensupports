@@ -115,6 +115,13 @@ class Scripts
             color: color
         })
     end
+    def self.assignTicket(ticketnumber)
+        request('/staff/assign-ticket', {
+            ticketNumber: ticketnumber,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+    end
     def self.commentTicket(ticketnumber,content)
         request('/ticket/comment', {
             content: content,

@@ -95,7 +95,7 @@ class CommentController extends Controller {
                 'staff' => true
             ]);
         } else if($isOwner) {
-            $this->sendMail($ticketAuthor);
+         !Controller::request('private') ? $this->sendMail($ticketAuthor) : null;
         }
 
         Log::createLog('COMMENT', $this->ticket->ticketNumber);
@@ -151,12 +151,12 @@ class CommentController extends Controller {
         }
 
         $mailSender->setTemplate(MailTemplate::TICKET_RESPONDED, [
-            'to' => $email,
-            'name' => $name,
-            'title' => $this->ticket->title,
-            'ticketNumber' => $this->ticket->ticketNumber,
-            'content' => $this->content,
-            'url' => $url
+          'to' => $email,
+          'name' => $name,
+          'title' => $this->ticket->title,
+          'ticketNumber' => $this->ticket->ticketNumber,
+          'content' => $this->content,
+          'url' => $url
         ]);
 
         $mailSender->send();

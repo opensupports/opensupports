@@ -71,12 +71,15 @@ describe '/ticket/edit-comment' do
 
 
     it 'should not change the content of a comment if the user is not the author' do
+        request('/user/logout')
         Scripts.login($staff[:email], $staff[:password], true)
 
         ticket = $database.getRow('ticket', 'ticket made by an user', 'title')
-        Scripts.commentTicket(ticket['ticket_number'],'comment by a staffffff')
 
-        ticketevent = $database.getRow('ticketevent', 'comment by a staffffff', 'content')
+        Scripts.assignTicket(ticket['ticket_number'])
+        Scripts.commentTicket(ticket['ticket_number'],'this is a new comment of a staff member')
+
+        ticketevent = $database.getRow('ticketevent', 'this is a new comment of a staff member', 'content')
 
         request('/user/logout')
         Scripts.login();
@@ -84,7 +87,7 @@ describe '/ticket/edit-comment' do
         result = request('/ticket/edit-comment', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
-            content: 'comment edited by a user',
+            content: 'comment edited by an user',
             ticketEventId: ticketevent['id']
         })
         (result['status']).should.equal('fail')

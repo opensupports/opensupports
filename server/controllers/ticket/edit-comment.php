@@ -62,6 +62,7 @@ class EditCommentController extends Controller {
             $ticket->store();
         }
 
+        
         Response::respondSuccess();
     }
 }
