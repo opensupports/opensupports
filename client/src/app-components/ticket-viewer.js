@@ -492,7 +492,7 @@ class TicketViewer extends React.Component {
         const data = {};
 
         if(ticketeventid){
-            data.ticketeventId = ticketeventid
+            data.ticketEventId = ticketeventid
         }else{
             data.ticketNumber = this.props.ticket.ticketNumber
         }
