@@ -67,10 +67,10 @@ class Scripts
       request('/user/logout')
     end
 
-    def self.createTicket(title = 'Winter is coming')
+    def self.createTicket(title = 'Winter is coming',content = 'The north remembers')
         result = request('/ticket/create', {
             title: title,
-            content: 'The north remembers',
+            content: content,
             departmentId: 1,
             language: 'en',
             csrf_userid: $csrf_userid,
@@ -113,6 +113,21 @@ class Scripts
             csrf_token: $csrf_token,
             name: name,
             color: color
+        })
+    end
+    def self.assignTicket(ticketnumber)
+        request('/staff/assign-ticket', {
+            ticketNumber: ticketnumber,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+    end
+    def self.commentTicket(ticketnumber,content)
+        request('/ticket/comment', {
+            content: content,
+            ticketNumber: ticketnumber,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
         })
     end
 end
