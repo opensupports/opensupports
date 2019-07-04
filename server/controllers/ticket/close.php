@@ -70,6 +70,12 @@ class CloseController extends Controller {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
+        if(Controller::isStaffLogged()){
+            $user = Controller::getLoggedUser();
+
+            if (!$user->canManageTicket($this->ticket)) throw new RequestException(ERRORS::NO_PERMISSION);
+        }
+
         $this->markAsUnread();
         $this->addCloseEvent();
         $this->ticket->closed = true;

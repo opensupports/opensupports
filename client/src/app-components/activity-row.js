@@ -19,6 +19,7 @@ class ActivityRow extends React.Component {
             'RE_OPEN',
             'DEPARTMENT_CHANGED',
             'PRIORITY_CHANGED',
+            'EDIT_COMMENT',
 
             'EDIT_SETTINGS',
             'SIGNUP',

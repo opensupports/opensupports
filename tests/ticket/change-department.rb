@@ -45,37 +45,4 @@ describe '/ticket/change-department' do
         (lastLog['type']).should.equal('DEPARTMENT_CHANGED')
     end
 
-    it 'should unassing ticket if staff does not server new department' do
-      ticket = $database.getRow('ticket', 1 , 'id')
-      request('/staff/edit', {
-          csrf_userid: $csrf_userid,
-          csrf_token: $csrf_token,
-          departments: '[1, 2]',
-          staffId: 1
-      })
-
-      result = request('/ticket/change-department', {
-          ticketNumber: ticket['ticket_number'],
-          departmentId: 3,
-          csrf_userid: $csrf_userid,
-          csrf_token: $csrf_token
-      })
-
-      (result['status']).should.equal('success')
-
-      ticket = $database.getRow('ticket', 1 , 'id')
-      (ticket['unread']).should.equal('1')
-      (ticket['department_id']).should.equal('3')
-      (ticket['owner_id']).should.equal(nil)
-
-      lastLog = $database.getLastRow('log')
-      (lastLog['type']).should.equal('DEPARTMENT_CHANGED')
-
-      request('/staff/edit', {
-          csrf_userid: $csrf_userid,
-          csrf_token: $csrf_token,
-          departments: '[1, 2, 3]',
-          staffId: 1
-      })
-    end
 end

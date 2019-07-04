@@ -56,6 +56,8 @@ class ChangeDepartmentController extends Controller {
             throw new Exception(ERRORS::NO_PERMISSION);
         }
 
+        if (!$user->canManageTicket($ticket)) throw new RequestException(ERRORS::NO_PERMISSION);
+
         if($ticket->owner && $ticket->owner->id !== $user->id && $user->level == 1){
             throw new RequestException(ERRORS::NO_PERMISSION);
         }

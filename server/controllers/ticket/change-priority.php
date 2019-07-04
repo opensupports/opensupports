@@ -50,6 +50,9 @@ class ChangePriorityController extends Controller {
         $ticket = Ticket::getByTicketNumber($ticketNumber);
         $user = Controller::getLoggedUser();
 
+        if (!$user->canManageTicket($ticket)) throw new RequestException(ERRORS::NO_PERMISSION);
+
+
         if($ticket->owner && $user->id === $ticket->owner->id) {
             $ticket->priority = $priority;
             $ticket->unread = !$ticket->isAuthor($user);
