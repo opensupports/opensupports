@@ -228,6 +228,7 @@ export default {
     'ACTIVITY_RE_OPEN': 'reopened ticket',
     'ACTIVITY_DEPARTMENT_CHANGED': 'changed department of ticket',
     'ACTIVITY_PRIORITY_CHANGED': 'changed priority of ticket',
+    'ACTIVITY_EDIT_COMMENT': 'edited a comment of ticket',
 
     'ACTIVITY_EDIT_SETTINGS': 'edited settings',
     'ACTIVITY_SIGNUP': 'signed up',

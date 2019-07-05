@@ -14,10 +14,10 @@ use Respect\Validation\Validator as DataValidator;
  * @apiPermission staff1
  *
  * @apiParam {Number} page The page number.
- * 
+ *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_PAGE
- * 
+ *
  * @apiSuccess {[TicketEvent](#api-Data_Structures-ObjectTicketevent)[]} data Array of last events
  *
  */
