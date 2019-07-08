@@ -16,11 +16,21 @@ class Tag extends React.Component {
         return (
             <div className={this.getClass()} style={{backgroundColor:this.props.color}} onClick={event => event.stopPropagation()} >
                 <span className="tag__name">{this.props.name}</span>
-                {this.props.showDeleteButton ? this.renderRemoveButton() : null}
+                <span>
+                    {this.props.showEditButton ? this.renderEditButton() : null}
+                    {this.props.showDeleteButton ? this.renderRemoveButton() : null}
+                </span>
             </div>
         );
     }
 
+    renderEditButton() {
+        return (
+            <span onClick={this.props.onEditClick} className="tag__edit" >
+                <Icon name="pencil" size="small"/>
+            </span>
+        );
+    }
     renderRemoveButton() {
         return (
             <span onClick={this.props.onRemoveClick} className="tag__remove" >

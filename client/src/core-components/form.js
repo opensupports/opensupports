@@ -15,7 +15,8 @@ class Form extends React.Component {
         onValidateErrors: React.PropTypes.func,
         onChange: React.PropTypes.func,
         values: React.PropTypes.object,
-        onSubmit: React.PropTypes.func
+        onSubmit: React.PropTypes.func,
+        defaultValues: React.PropTypes.object
     };
 
     static childContextTypes = {
@@ -24,9 +25,8 @@ class Form extends React.Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
-            form: {},
+            form: props.defaultValues || {},
             validations: {},
             errors: {}
         };

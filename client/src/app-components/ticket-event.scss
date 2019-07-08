@@ -96,21 +96,47 @@
             border-top: none;
             padding: 20px 10px;
             text-align: left;
-
+            position:relative;
+            
             img {
                 max-width:100%;
             }
+            &__edit {
+                position:absolute;
+                top: 3px;
+                right: 9px;
+                align-self: right;
+                color:white;
+                :hover {
+                    color: grey;
+                    cursor:pointer;
+                }
+            }
         }
     }
+    &__submit-edited-comment {
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px;
+    }
 
-    &__file {
+    &__items {
         background-color: $very-light-grey;
-        cursor: pointer;
-        text-align: right;
-        padding: 5px 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px;
         font-size: 12px;
     }
 
+    &__file {
+        cursor: pointer;
+        text-align: right;
+    }
+    &__edited{
+        font-style: italic;
+    }
     &__comment-badge-value {
         font-weight: normal;
     }

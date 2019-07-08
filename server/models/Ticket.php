@@ -50,7 +50,8 @@ class Ticket extends DataStore {
             'language',
             'authorEmail',
             'authorName',
-            'sharedTagList'
+            'sharedTagList',
+            'editedContent'
         );
     }
 
@@ -130,7 +131,8 @@ class Ticket extends DataStore {
             'author' => $this->authorToArray(),
             'owner' => $this->ownerToArray(),
             'events' => $minimized ? [] : $this->eventsToArray(),
-            'tags' => $this->sharedTagList->toArray(true)
+            'tags' => $this->sharedTagList->toArray(true),
+            'edited' => $this->editedContent
         ];
     }
 
@@ -181,6 +183,8 @@ class Ticket extends DataStore {
                 'date'=> $ticketEvent->date,
                 'file'=> $ticketEvent->file,
                 'private'=> $ticketEvent->private,
+                'edited' => $ticketEvent->editedContent,
+                'id' => $ticketEvent->id
             ];
 
             $author = $ticketEvent->getAuthor();

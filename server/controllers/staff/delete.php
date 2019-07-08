@@ -52,18 +52,18 @@ class DeleteStaffController extends Controller {
 
         foreach($staff->sharedTicketList as $ticket) {
             $ticket->owner = null;
-            $ticket->true  = true;
+            $ticket->unreadStaff  = true;
             $ticket->store();
         }
-            
+
         foreach($staff->sharedDepartmentList as $department) {
             $department->owners--;
             $department->store();
         }
-        
+
         RedBean::exec('DELETE FROM log WHERE author_staff_id = ?', [$staffId]);
         $staff->delete();
         Response::respondSuccess();
     }
-    
+
 }

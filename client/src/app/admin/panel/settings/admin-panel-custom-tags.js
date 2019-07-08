@@ -57,14 +57,20 @@ class AdminPanelCustomTags extends React.Component {
     renderTag(tag, index) {
         return (
             <div key={index} className="admin-panel-custom-tags__tag-container" >
-                <Tag color={tag.color} name={tag.name} onRemoveClick={this.onDeleteClick.bind(this, tag.id)} size='large' showDeleteButton />
+                <Tag color={tag.color} name={tag.name} onEditClick={this.openEditTagModal.bind(this, tag.id, tag.name, tag.color)} onRemoveClick={this.onDeleteClick.bind(this, tag.id)} size='large' showEditButton showDeleteButton />
             </div>
         )
     }
 
     openTagModal() {
         ModalContainer.openModal(
-            <AdminPanelCustomTagsModal onTagCreated={this.retrieveCustomTags.bind(this)}/>
+            <AdminPanelCustomTagsModal onTagCreated={this.retrieveCustomTags.bind(this)} createTag />
+        );
+    }
+    
+    openEditTagModal(tagId,tagName,tagColor, event) {
+        ModalContainer.openModal(
+            <AdminPanelCustomTagsModal defaultValues={{name: tagName , color: tagColor}} id={tagId} onTagChange={this.retrieveCustomTags.bind(this)}/>
         );
     }
 
