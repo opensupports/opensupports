@@ -62,11 +62,8 @@ class CloseController extends Controller {
     public function handler() {
         $this->ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
 
-        if(
-          (Controller::isUserSystemEnabled() || Controller::isStaffLogged()) &&
-          !$this->ticket->isOwner(Controller::getLoggedUser()) &&
-          !$this->ticket->isAuthor(Controller::getLoggedUser())
-        ) {
+        if(!Controller::isStaffLogged() && Controller::isUserSystemEnabled() &&
+           !$this->ticket->isAuthor(Controller::getLoggedUser())){
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
