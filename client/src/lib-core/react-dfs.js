@@ -1,7 +1,7 @@
 import React     from 'react';
 import _         from 'lodash';
 
-let reactDFS = function (children, visitFunction) {
+export let reactDFS = function (children, visitFunction) {
     let stack = [];
 
     React.Children.forEach(children, child => stack.push(child));
@@ -23,7 +23,7 @@ let reactDFS = function (children, visitFunction) {
     }
 };
 
-let renderChildrenWithProps = function(children, mapFunction) {
+export let renderChildrenWithProps = function(children, mapFunction) {
     if (typeof children !== 'object' || children === null) {
         return children;
     }
@@ -41,9 +41,4 @@ let renderChildrenWithProps = function(children, mapFunction) {
             return React.cloneElement(child, {}, renderChildrenWithProps(child.props && child.props.children, mapFunction));
         }
     }.bind(this));
-};
-
-export default {
-    renderChildrenWithProps,
-    reactDFS
 };

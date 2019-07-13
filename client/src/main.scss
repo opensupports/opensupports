@@ -2,10 +2,8 @@
 @import 'scss/vars';
 @import 'scss/typography';
 @import 'scss/base';
-@import 'scss/font_awesome/font-awesome';
-@import 'scss/react-draft-wysiwyg';
 @import 'scss/quill.snow.min';
 
-@import 'core-components/*';
-@import 'app-components/*';
-@import 'app/*';
+@import 'core-components/*.scss';
+@import 'app-components/*.scss';
+@import 'app/**/*.scss';
