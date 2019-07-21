@@ -444,6 +444,7 @@ class TicketViewer extends React.Component {
             }
         }).then(this.onTicketModification.bind(this));
     }
+
     addTag(tag) {
         API.call({
             path: '/ticket/add-tag',
@@ -463,6 +464,7 @@ class TicketViewer extends React.Component {
             }
         }).then(this.onTicketModification.bind(this))
     }
+
     onCustomResponsesChanged({index}) {
         let replaceContentWithCustomResponse = () => {
             this.setState({
@@ -523,6 +525,7 @@ class TicketViewer extends React.Component {
             commentError: true
         });
     }
+
     onSubmit(formState) {
         this.setState({
             loading: true
