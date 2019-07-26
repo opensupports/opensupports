@@ -23,6 +23,7 @@ const config = env => {
         output: {
             path: BUILD_DIR,
             filename: '[name].js',
+            publicPath: '/'
         },
         module: {
             rules: [
@@ -78,6 +79,7 @@ const config = env => {
         plugins: [
             new htmlWebpackPlugin({
                 template: APP_DIR + '/index.html',
+                publicPath: '/'
             }),
             new webpack.HotModuleReplacementPlugin(),
             new webpack.DefinePlugin({
