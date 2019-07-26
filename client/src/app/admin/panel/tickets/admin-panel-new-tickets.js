@@ -15,7 +15,11 @@ class AdminPanelNewTickets extends React.Component {
         page: 1,
         userId: 0,
         departments: [],
-        tickets: []
+        tickets: [],
+    };
+
+    state = {
+        departmentId: null,
     };
 
     componentDidMount() {
@@ -43,12 +47,16 @@ class AdminPanelNewTickets extends React.Component {
             ticketPath: '/admin/panel/tickets/view-ticket/',
             page: this.props.page,
             pages: this.props.pages,
-            onPageChange: event => this.retrieveNewTickets(event.target.value)
+            onPageChange: event => this.retrieveNewTickets(event.target.value),
+            onDepartmentChange: departmentId => {
+                this.setState({departmentId});
+                this.retrieveNewTickets(1, departmentId);
+            },
         };
     }
 
-    retrieveNewTickets(page = this.props.page) {
-        this.props.dispatch(AdminDataAction.retrieveNewTickets(page));
+    retrieveNewTickets(page = this.props.page, departmentId = this.state.departmentId) {
+        this.props.dispatch(AdminDataAction.retrieveNewTickets(page, departmentId));
     }
 }
 
