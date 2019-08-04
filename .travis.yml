@@ -12,7 +12,6 @@ services:
 before_install:
 - rvm use 2.6 --install --binary --fuzzy
 - ruby --version
-- apt-get install ruby-bundler
 - mysql -e 'CREATE DATABASE development;'
 - nvm install 6.14.4
 - npm install -g npm@6.1.0
