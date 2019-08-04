@@ -10,15 +10,16 @@ services:
   - mysql
 
 before_install:
-- rvm use 2.6 --install --binary --fuzzy
+- rvm use 2.3 --install --binary --fuzzy
 - ruby --version
 - mysql -e 'CREATE DATABASE development;'
 - nvm install 6.14.4
 - npm install -g npm@6.1.0
-- npm install -g mocha@5.2.0
+- npm install -g mocha@6.2.0
 - cd client
 - npm install
 - cd ../tests
+- gem install bundler
 - bundle install
 - gem install bacon
 - cd ../server
