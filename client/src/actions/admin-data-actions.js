@@ -12,22 +12,22 @@ export default {
         };
     },
 
-    retrieveMyTickets(page, closed = 0) {
+    retrieveMyTickets(page, closed = 0, departmentId = 0) {
         return {
             type: 'MY_TICKETS',
             payload: API.call({
                 path: '/staff/get-tickets',
-                data: {page, closed}
+                data: {page, closed, departmentId}
             })
         };
     },
 
-    retrieveNewTickets(page = 1) {
+    retrieveNewTickets(page = 1, departmentId = 0) {
         return {
             type: 'NEW_TICKETS',
             payload: API.call({
                 path: '/staff/get-new-tickets',
-                data: {page}
+                data: {page, departmentId}
             })
         };
     },

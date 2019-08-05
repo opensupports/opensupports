@@ -7,6 +7,9 @@ import ConfigActions from 'actions/config-actions';
 import routes from 'app/Routes';
 import store from 'app/store';
 
+import 'font-awesome-sass-loader';
+import './main.scss';
+
 Array.prototype.swap = function (x,y) {
     var b = this[x];
     this[x] = this[y];
@@ -14,12 +17,12 @@ Array.prototype.swap = function (x,y) {
     return this;
 };
 
-if (isProd === 'disabled') {
+if (process.env.NODE_ENV !== 'production') {
     // Enable React devtools
     window.React = React;
 }
 
-if (noFixtures === 'disabled') {
+if (process.env.FIXTURES) {
     require('lib-app/fixtures-loader');
 }
 
