@@ -7,7 +7,6 @@ import ConfigActions from 'actions/config-actions';
 import routes from 'app/Routes';
 import store from 'app/store';
 
-import 'font-awesome-sass-loader';
 import './main.scss';
 
 Array.prototype.swap = function (x,y) {
