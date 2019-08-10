@@ -95,7 +95,9 @@ const config = env => {
                 './src/.htaccess',
                 {from: './src/assets/images', to: 'images'},
             ]),
-            new BundleAnalyzerPlugin(),
+            new BundleAnalyzerPlugin({
+                analyzerMode: process.env.NODE_ENV !== 'production' ? 'server' : 'disabled'
+            }),
         ],
         optimization: {
             splitChunks: {
