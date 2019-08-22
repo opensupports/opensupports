@@ -59,7 +59,7 @@ class EditStaffController extends Controller {
 
         if(!$staffId) {
             $this->staffInstance = Controller::getLoggedUser();
-        } else if(Controller::isStaffLogged(3) || Controller::getLoggedUser()->id === $staffId) {
+        } else if(Controller::isStaffLogged(3) || ((Controller::isStaffLogged() && Controller::getLoggedUser()->id === $staffId)) ) {
             $this->staffInstance = Staff::getDataStore($staffId, 'id');
 
             if($this->staffInstance->isNull()) {

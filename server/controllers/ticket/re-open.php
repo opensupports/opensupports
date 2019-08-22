@@ -47,6 +47,8 @@ class ReOpenController extends Controller {
             $user = Controller::getLoggedUser();
 
             if (!$user->canManageTicket($this->ticket)) throw new RequestException(ERRORS::NO_PERMISSION);
+        } else if (!$this->ticket->isAuthor($user)) {
+            throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
         $this->markAsUnread();

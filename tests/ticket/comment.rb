@@ -139,8 +139,7 @@ describe '/ticket/comment/' do
             csrf_token: $csrf_token
         })
 
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('NO_PERMISSION')
+        (result['status']).should.equal('success')
     end
 
     it 'should keep private on 0 if an user creates a private comment' do

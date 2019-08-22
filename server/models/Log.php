@@ -50,9 +50,7 @@ class Log extends DataStore {
 
     public function toArray() {
         $author = ($this->authorUser instanceof User) ? $this->authorUser : $this->authorStaff;
-        if(!$author){
-            throw new Exception($this->id);
-        }
+
         return [
             'type' => $this->type,
             'to' => $this->to,

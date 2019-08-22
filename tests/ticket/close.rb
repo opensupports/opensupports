@@ -16,7 +16,7 @@ describe '/ticket/close' do
           csrf_token: $csrf_token
       })
 
-      (result['status']).should.equal('fail')
+      (result['status']).should.equal('success')
     end
 
     it 'should close ticket if you have it assigned' do
