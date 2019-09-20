@@ -1,7 +1,7 @@
 'use strict';
 
 const React = require('react');
-const LineChart = require("react-chartjs-2").Line;
+// const LineChart = require("react-chartjs-2").Line;
 const _ = require('lodash');
 const DocumentTitle = require('react-document-title');
 
@@ -230,8 +230,11 @@ let DemoPage = React.createClass({
         },
         {
             title: 'LineChart',
+            // render: (
+            //     <LineChart data={chartData} options={chartOptions} width="600" height="250" />
+            // ),
             render: (
-                <LineChart data={chartData} options={chartOptions} width="600" height="250" />
+                null
             )
         }
 	],

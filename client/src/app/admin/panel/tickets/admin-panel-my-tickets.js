@@ -25,10 +25,11 @@ class AdminPanelMyTickets extends React.Component {
 
     state = {
         closedTicketsShown: false,
+        departmentId: null,
     };
 
     componentDidMount() {
-        this.retrieveMyTickets()
+        this.retrieveMyTickets();
     }
 
     render() {
@@ -57,7 +58,11 @@ class AdminPanelMyTickets extends React.Component {
             onClosedTicketsShownChange: this.onClosedTicketsShownChange.bind(this),
             pages: this.props.pages,
             page: this.props.page,
-            onPageChange: event => this.retrieveMyTickets(event.target.value)
+            onPageChange: event => this.retrieveMyTickets(event.target.value),
+            onDepartmentChange: departmentId => {
+                this.setState({departmentId});
+                this.retrieveMyTickets(1, this.state.closedTicketsShown, departmentId);
+            },
         };
     }
 
@@ -85,8 +90,8 @@ class AdminPanelMyTickets extends React.Component {
         this.retrieveMyTickets();
     }
 
-    retrieveMyTickets(page = this.props.page, closed = this.state.closedTicketsShown) {
-        this.props.dispatch(AdminDataAction.retrieveMyTickets(page, closed * 1));
+    retrieveMyTickets(page = this.props.page, closed = this.state.closedTicketsShown, departmentId = this.state.departmentId) {
+        this.props.dispatch(AdminDataAction.retrieveMyTickets(page, closed * 1, departmentId));
     }
 }
 

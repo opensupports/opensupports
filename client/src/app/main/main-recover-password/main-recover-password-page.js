@@ -74,7 +74,7 @@ class MainRecoverPasswordPage extends React.Component {
         }).then(this.onPasswordRecovered.bind(this)).catch(this.onPasswordRecoverFail.bind(this));
     }
 
-    onPasswordRecovered(response) {
+    onPasswordRecovered(response = {data: {}}) {
         setTimeout(() => {history.push((response.data.staff*1) ? '/admin' : '/')}, 2000);
         this.setState({
             recoverStatus: 'valid',

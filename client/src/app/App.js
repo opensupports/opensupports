@@ -111,7 +111,7 @@ class App extends React.Component {
             history.push('/admin');
         }
 
-        if(isProd && _.includes(props.location.pathname, '/components-demo')) {
+        if(process.env.NODE_ENV === 'production' && _.includes(props.location.pathname, '/components-demo')) {
             history.push('/');
         }
     }

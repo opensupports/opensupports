@@ -2,12 +2,12 @@
 
 var jsdom = require('jsdom').jsdom;
 
-global.document = jsdom('<html><body></body></html>');
+global.document = jsdom('<html><body></body></html>', {
+    url: 'http://localhost'
+});
 global.window = document.defaultView;
 global.Node = global.window.Node;
-global.navigator = {
-    userAgent: 'node.js'
-};
+global.navigator = global.window.navigator;
 global.React = require('react');
 global.ReactDOM = require('react-dom');
 global.chai = require('chai');
