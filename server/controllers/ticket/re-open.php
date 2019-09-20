@@ -42,14 +42,9 @@ class ReOpenController extends Controller {
 
     public function handler() {
         $this->ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
+        $user = Controller::getLoggedUser();
 
-        if(Controller::isStaffLogged()){
-            $user = Controller::getLoggedUser();
-
-            if (!$user->canManageTicket($this->ticket)) throw new RequestException(ERRORS::NO_PERMISSION);
-        } else if (!$this->ticket->isAuthor($user)) {
-            throw new RequestException(ERRORS::NO_PERMISSION);
-        }
+        if (!$user->canManageTicket($this->ticket)) throw new RequestException(ERRORS::NO_PERMISSION);
 
         $this->markAsUnread();
         $this->addReopenEvent();

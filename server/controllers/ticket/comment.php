@@ -87,10 +87,8 @@ class CommentController extends Controller {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
-        if(Controller::isStaffLogged()){
-            if(!$user->canManageTicket($this->ticket)) {
-                throw new RequestException(ERRORS::NO_PERMISSION);
-            }
+        if(!$user->canManageTicket($this->ticket)) {
+            throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
         $this->storeComment();

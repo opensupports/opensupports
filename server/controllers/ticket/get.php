@@ -77,7 +77,7 @@ class TicketGetController extends Controller {
     private function shouldDenyPermission() {
         $user = Controller::getLoggedUser();
 
-        return (!Controller::isStaffLogged() && (Controller::isUserSystemEnabled() && $this->ticket->author->id !== $user->id)) ||
-               (Controller::isStaffLogged() && (!$user->sharedTicketList->includesId($this->ticket->id) && !$user->sharedDepartmentList->includesId($this->ticket->department->id)));
+        return (!Controller::isStaffLogged() && (Controller::isUserSystemEnabled() && !$user->canManageTicket($this->ticket))) ||
+               (Controller::isStaffLogged() && !$user->canManageTicket($this->ticket));
     }
 }

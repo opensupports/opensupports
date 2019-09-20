@@ -43,6 +43,10 @@ class User extends DataStore {
         return parent::getDataStore($value, $property);
     }
 
+    public function canManageTicket(Ticket $ticket){
+        return $ticket->isAuthor($this);
+    }
+
     public function toArray() {
         return [
             'email' => $this->email,

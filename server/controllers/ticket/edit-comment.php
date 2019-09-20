@@ -49,7 +49,7 @@ class EditCommentController extends Controller {
         $ticketevent = Ticketevent::getTicketEvent(Controller::request('ticketEventId'));
         $ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
 
-        if(!Controller::isStaffLogged() && ($user->id !== $ticketevent->authorUserId && $user->id !== $ticket->authorId )){
+        if(!Controller::isStaffLogged() &&  ($user->id !== $ticketevent->authorUserId && $user->id !== $ticket->authorId ) ){
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 

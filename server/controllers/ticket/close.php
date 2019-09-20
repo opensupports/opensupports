@@ -64,7 +64,7 @@ class CloseController extends Controller {
         $user = Controller::getLoggedUser();
 
         if(!Controller::isStaffLogged() && Controller::isUserSystemEnabled() &&
-           !$this->ticket->isAuthor($user)){
+           !$user->canManageTicket($this->ticket)){
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 

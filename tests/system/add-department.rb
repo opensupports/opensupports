@@ -29,7 +29,7 @@ describe'system/add-department' do
 
             (result['status']).should.equal('success')
 
-            row = $database.getRow('department', 5, 'id')
+            row = $database.getRow('department', 6, 'id')
 
             (row['name']).should.equal('new department')
             (row['private']).should.equal("0")
