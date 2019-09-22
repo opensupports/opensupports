@@ -842,6 +842,66 @@ class MailTexts {
               'U kunt dit incident bekijken via het incidentnummer. Of klik op de knop hieronder.',
           ],
         ],
+        'da' => [
+          'USER_SIGNUP' => [
+              'Tilmelding {{to}} - OpenSupports',
+              'Bekræft din konto',
+              'Velkommen til vores supportcenter, {{name}}!. Vi har brug for at du bekræfter denne e-mail for at give dig adgang til din konto.',
+              'Brug denne kode i {{url}}/verify-token/{{to}}/{{verificationToken}} eller klik på knappen herunder.',
+          ],
+          'USER_PASSWORD' => [
+              'Adgangskode redigeret - OpenSupports',
+              'Adgangskøde ændret',
+              'Hej {{name}}. Vi vil informere dig om, at din adgangskode er ændret i dit kundepanel.'
+          ],
+          'USER_EMAIL' => [
+              'E-mail redigeret - OpenSupports',
+              'E-mail ændret',
+              'Hej {{name}}. Vi vil informere dig om, at din e-mail er ændret til {{newemail}} i dit kundepanel.'
+          ],
+          'PASSWORD_FORGOT' => [
+              'Gendan adgangskode - OpenSupports',
+              'Gendan adgangskode',
+              'Hej {{name}}. Du har forespugt om gendannelse af din adgangskode.',
+              'Brug denne kode i {{url}}/recover-password?email={{to}}&token={{token}} eller klik på knappen herunder.',
+          ],
+          'USER_SYSTEM_DISABLED' => [
+              'Adgangssystem ændret - OpenSupports',
+              'Adgangssystem ændret',
+              'Hej {{name}}. Systemet til at få adgang til tickets er ændret.',
+              'Du kan få adgang og se dine tickets ved at bruge din e-mail og ticketnummer. Klik på knappen herunder for at se dine tickets.',
+          ],
+          'USER_SYSTEM_ENABLED' => [
+              'Konto oprettet - OpenSupports',
+              'Konto oprettet',
+              'Hej {{name}}. Vi har oprettet en konto hvor du kan få adgang til de tickets, som du har sendt til os.',
+              'Du får adgang til din konto ved at bruge e-mail <i>({{to}})</i> og adgangskode herunder. Du bør venligst ændre din adgangskode, så snart du logger ind.',
+          ],
+          'TICKET_CREATED' => [
+              '#{{ticketNumber}} Ticket oprettet - OpenSupports',
+              'Ticket oprettet',
+              'Hej {{name}}. Du har sendt en ny ticket med titlen <i>{{title}}</i> til vores supportcenter.',
+              'Du får adgang til din ticket gennem dets ticketnummer, eller du kan klikke på knappen herunder.',
+          ],
+          'TICKET_RESPONDED' => [
+              '#{{ticketNumber}} Nyt svar - OpenSupports',
+              'Ticket besvaret',
+              'Hej {{name}}. Du har modtaget en besvarelse på ticket med titlen <i>{{title}}</i>.',
+              'Klik venligst herunder for at se besvarelsen.'
+          ],
+          'TICKET_CLOSED' => [
+             '#{{ticketNumber}} Ticket lukket - OpenSupports',
+              'Ticket lukket',
+              'Hej {{name}}. En ticket du sendte med titlen <i>{{title}}</i> er blevet lukket.',
+              'Du får adgang til din ticket gennem dets ticketnummer, eller du kan klikke på knappen herunder.'
+          ],
+          'TICKET_CREATED_STAFF' => [
+              '#{{ticketNumber}} Ticket oprettet - OpenSupports',
+              'Ticket oprettet',
+              'Bruger {{name}} har oprettet en ny ticket med titlen <i>{{title}}</i>.',
+              'Du får adgang til ticket gennem ticketnummeret.',
+          ],
+        ],        
     ];
   }
 }
