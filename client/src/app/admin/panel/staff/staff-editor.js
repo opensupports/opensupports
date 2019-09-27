@@ -7,7 +7,7 @@ import API from 'lib-app/api-call';
 import SessionStore from 'lib-app/session-store';
 import TicketList from 'app-components/ticket-list';
 import AreYouSure from 'app-components/are-you-sure';
-import Stats from 'app-components/stats';
+// import Stats from 'app-components/stats';
 
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
@@ -112,7 +112,7 @@ class StaffEditor extends React.Component {
                     <div className="col-md-8">
                         <div className="staff-editor__activity">
                             <div className="staff-editor__activity-title">{i18n('ACTIVITY')}</div>
-                            <Stats staffId={this.props.staffId} type="staff"/>
+                            {this.renderStaffStats()}
                         </div>
                     </div>
                 </div>
@@ -193,6 +193,14 @@ class StaffEditor extends React.Component {
                 <FormField name="departments" field="checkbox-group" fieldProps={{items: this.getDepartments()}} />
             </Form>
         );
+    }
+
+    renderStaffStats() {
+        // return (
+        //     <Stats staffId={this.props.staffId} type="staff"/>
+        // );
+
+        return null;
     }
 
     renderTickets() {

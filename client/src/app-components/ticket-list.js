@@ -26,7 +26,8 @@ class TicketList extends React.Component {
             'secondary'
         ]),
         closedTicketsShown: React.PropTypes.bool,
-        onClosedTicketsShownChange: React.PropTypes.func
+        onClosedTicketsShownChange: React.PropTypes.func,
+        onDepartmentChange: React.PropTypes.func,
     };
 
     static defaultProps = {
@@ -72,9 +73,13 @@ class TicketList extends React.Component {
         return {
             departments: this.getDepartments(),
             onChange: (event) => {
+                const departmentId = event.index && this.props.departments[event.index - 1].id;
                 this.setState({
-                    selectedDepartment: event.index && this.props.departments[event.index - 1].id
+                    selectedDepartment: departmentId
                 });
+                if(this.props.onDepartmentChange) {
+                    this.props.onDepartmentChange(departmentId || null);
+                }
             },
             size: 'medium'
         };
