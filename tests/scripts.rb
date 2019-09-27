@@ -67,16 +67,15 @@ class Scripts
       request('/user/logout')
     end
 
-    def self.createTicket(title = 'Winter is coming',content = 'The north remembers')
+    def self.createTicket(title = 'Winter is coming',content = 'The north remembers', department = 1)
         result = request('/ticket/create', {
             title: title,
             content: content,
-            departmentId: 1,
+            departmentId: department,
             language: 'en',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
-
         result['data']
     end
 
