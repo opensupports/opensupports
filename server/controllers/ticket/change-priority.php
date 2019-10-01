@@ -50,23 +50,20 @@ class ChangePriorityController extends Controller {
         $ticket = Ticket::getByTicketNumber($ticketNumber);
         $user = Controller::getLoggedUser();
 
-        if($ticket->owner && $user->id === $ticket->owner->id) {
-            $ticket->priority = $priority;
-            $ticket->unread = !$ticket->isAuthor($user);
-            $event = Ticketevent::getEvent(Ticketevent::PRIORITY_CHANGED);
-            $event->setProperties(array(
-                'authorStaff' => Controller::getLoggedUser(),
-                'content' => $ticket->priority,
-                'date' => Date::getCurrentDate()
-            ));
-            $ticket->addEvent($event);
-            $ticket->store();
+        if(!$user->canManageTicket($ticket)) throw new RequestException(ERRORS::NO_PERMISSION);
 
-            Log::createLog('PRIORITY_CHANGED', $ticket->ticketNumber);
-            Response::respondSuccess();
-        } else {
-            throw new RequestException(ERRORS::NO_PERMISSION);
-        }
+        $ticket->priority = $priority;
+        $ticket->unread = !$ticket->isAuthor($user);
+        $event = Ticketevent::getEvent(Ticketevent::PRIORITY_CHANGED);
+        $event->setProperties(array(
+            'authorStaff' => Controller::getLoggedUser(),
+            'content' => $ticket->priority,
+            'date' => Date::getCurrentDate()
+        ));
+        $ticket->addEvent($event);
+        $ticket->store();
 
+        Log::createLog('PRIORITY_CHANGED', $ticket->ticketNumber);
+        Response::respondSuccess();
     }
 }

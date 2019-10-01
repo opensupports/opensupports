@@ -19,7 +19,7 @@ describe'system/disable-user-system' do
 
             numberOftickets= $database.query("SELECT * FROM ticket WHERE author_id IS NULL AND author_email IS NOT NULL AND author_name IS NOT NULL")
 
-            (numberOftickets.num_rows).should.equal(41)
+            (numberOftickets.num_rows).should.equal(51)
 
             request('/user/logout')
 
@@ -127,7 +127,7 @@ describe'system/disable-user-system' do
 
             numberOftickets= $database.query("SELECT * FROM ticket WHERE author_email IS NULL AND author_name IS NULL AND author_id IS NOT NULL"  )
 
-            (numberOftickets.num_rows).should.equal(42)
+            (numberOftickets.num_rows).should.equal(52)
 
         end
 

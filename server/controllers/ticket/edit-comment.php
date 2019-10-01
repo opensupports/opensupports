@@ -44,25 +44,41 @@ class EditCommentController extends Controller {
     public function handler() {
         $user = Controller::getLoggedUser();
         $newcontent = Controller::request('content');
+        $ticketNumberLog = null;
 
         $ticketevent = Ticketevent::getTicketEvent(Controller::request('ticketEventId'));
         $ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
 
-        if(!Controller::isStaffLogged() && ($user->id !== $ticketevent->authorUserId && $user->id !== $ticket->authorId )){
+        if(!Controller::isStaffLogged() &&  ($user->id !== $ticketevent->authorUserId && $user->id !== $ticket->authorId ) ){
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
+        if(Controller::isStaffLogged()){
+            if(!$ticketevent->isNull()){
+                $ticket = $ticketevent->ticket;
+            }
+
+            if(!$user->canManageTicket($ticket)) {
+                throw new RequestException(ERRORS::NO_PERMISSION);
+            }
+        }
+
         if(!$ticketevent->isNull()){
+            $ticketNumber = Ticket::getTicket($ticketevent->ticketId)->ticketNumber;
+
             $ticketevent->content = $newcontent;
             $ticketevent->editedContent = true;
             $ticketevent->store();
         }else{
+            $ticketNumber = $ticket->ticketNumber;
+
             $ticket->content = $newcontent;
             $ticket->editedContent = true;
             $ticket->store();
         }
 
-        
+        Log::createLog('EDIT_COMMENT', $ticketNumber);
+
         Response::respondSuccess();
     }
 }

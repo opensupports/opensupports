@@ -49,6 +49,9 @@ class RemoveTagController extends Controller {
         $tagId = Controller::request('tagId');
         $tag = Tag::getDataStore($tagId);
         $ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
+        $user = Controller::getLoggedUser();
+
+        if (!$user->canManageTicket($ticket)) throw new RequestException(ERRORS::NO_PERMISSION);
 
         if (!$ticket->sharedTagList->includesId($tagId)) throw new RequestException(ERRORS::INVALID_TAG);
 

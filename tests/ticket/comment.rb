@@ -78,7 +78,7 @@ describe '/ticket/comment/' do
         (lastLog['type']).should.equal('COMMENT')
     end
 
-    it 'should add comment to ticket created by staff' do
+    it 'should add comment if staff member serves to the same department as the ticket' do
         request('/user/logout')
         Scripts.login($staff[:email], $staff[:password], true)
         result = request('/ticket/comment', {
@@ -101,6 +101,69 @@ describe '/ticket/comment/' do
         (lastLog['type']).should.equal('COMMENT')
 
         request('/user/logout')
+    end
+    it 'should comment the ticket if staff member does not serve the deparment of the ticket and he is author' do
+        request('/user/logout')
+        Scripts.login($staff[:email], $staff[:password], true)
+        Scripts.createTicket('ticketttobecommented', 'tickettobecommentedbytheauthor', 2)
+        request('/staff/edit', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            departments: '[1]',
+            staffId: 1
+        })
+        ticket = $database.getRow('ticket', 'ticketttobecommented' , 'title')
+
+        result = request('/ticket/comment', {
+            content: 'some comment content jeje',
+            ticketNumber: ticket['ticket_number'],
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        (result['status']).should.equal('success')
+
+        ticket = $database.getRow('ticket', 'ticketttobecommented' , 'title')
+        comment = $database.getRow('ticketevent', ticket['id'], 'ticket_id')
+        (comment['content']).should.equal('some comment content jeje')
+        (comment['type']).should.equal('COMMENT')
+        (comment['author_staff_id']).should.equal($csrf_userid)
+
+        lastLog = $database.getLastRow('log')
+        (lastLog['type']).should.equal('COMMENT')
+
+    end
+    it 'should not comment the ticket if staff member does not serve to the department of the ticket and he is not the author' do
+        request('/staff/edit', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            departments: '[]',
+            staffId: 1
+        })
+
+        request('/user/logout')
+        Scripts.login('commenter@os4.com', 'commenter')
+        Scripts.createTicket('title138','commentofthetitkect138', 1)
+        request('/user/logout')
+        Scripts.login($staff[:email], $staff[:password], true)
+        ticket = $database.getRow('ticket', 'title138' , 'title')
+
+        result = request('/ticket/comment', {
+            content: 'some comment content jeje',
+            ticketNumber: ticket['ticket_number'],
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('NO_PERMISSION')
+
+        request('/staff/edit', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            departments: '[1, 2]',
+            staffId: 1
+        })
     end
 
     it 'should fail if user is not the author nor owner' do
@@ -139,8 +202,7 @@ describe '/ticket/comment/' do
             csrf_token: $csrf_token
         })
 
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('NO_PERMISSION')
+        (result['status']).should.equal('success')
     end
 
     it 'should keep private on 0 if an user creates a private comment' do
@@ -179,7 +241,7 @@ describe '/ticket/comment/' do
             csrf_token: $csrf_token,
             private: 1
         })
-        puts result['message']
+
         (result['status']).should.equal('success')
         comment = $database.getRow('ticketevent', 'this is a private comment', 'content')
         (comment['private']).should.equal("1")

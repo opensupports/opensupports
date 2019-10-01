@@ -81,8 +81,13 @@ class CommentController extends Controller {
         $ticketAuthor = $this->ticket->authorToArray();
         $isAuthor = $this->ticket->isAuthor(Controller::getLoggedUser()) || Session::getInstance()->isTicketSession();
         $isOwner = $this->ticket->isOwner(Controller::getLoggedUser());
+        $user = Controller::getLoggedUser();
 
-        if((Controller::isUserSystemEnabled() || Controller::isStaffLogged()) && !$isOwner && !$isAuthor) {
+        if(!Controller::isStaffLogged() && Controller::isUserSystemEnabled() && !$isAuthor){
+            throw new RequestException(ERRORS::NO_PERMISSION);
+        }
+
+        if(!$user->canManageTicket($this->ticket)) {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 

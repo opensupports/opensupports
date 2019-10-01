@@ -42,11 +42,9 @@ class ReOpenController extends Controller {
 
     public function handler() {
         $this->ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
+        $user = Controller::getLoggedUser();
 
-        if($this->shouldDenyPermission()) {
-            throw new RequestException(ERRORS::NO_PERMISSION);
-            return;
-        }
+        if (!$user->canManageTicket($this->ticket)) throw new RequestException(ERRORS::NO_PERMISSION);
 
         $this->markAsUnread();
         $this->addReopenEvent();
@@ -57,19 +55,6 @@ class ReOpenController extends Controller {
         Log::createLog('RE_OPEN', $this->ticket->ticketNumber);
 
         Response::respondSuccess();
-    }
-
-
-    private function shouldDenyPermission() {
-        $user = Controller::getLoggedUser();
-
-        return !(
-            $this->ticket->isAuthor($user) ||
-            (
-                Controller::isStaffLogged() &&
-                $user->sharedDepartmentList->includesId($this->ticket->department->id)
-            )
-        );
     }
 
     private function markAsUnread() {

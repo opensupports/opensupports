@@ -41,12 +41,16 @@ class Staff extends DataStore {
         return [
             'level' => 1,
             'ownStatList' => new DataStoreList(),
-            'sendEmailOnNewTicket' => 0 
+            'sendEmailOnNewTicket' => 0
         ];
     }
 
     public static function getUser($value, $property = 'id') {
         return parent::getDataStore($value, $property);
+    }
+
+    public function canManageTicket(Ticket $ticket){
+        return $this->sharedDepartmentList->includesId($ticket->departmentId) || $this->id === $ticket->author_staff_id;
     }
 
     public function toArray() {
