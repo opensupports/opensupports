@@ -106,6 +106,7 @@ export default {
     'LAST_EDITED_IN': 'Last edited in {date}',
     'EDIT': 'редактировать',
     'ADD_CUSTOM_TAG': 'Добавить пользовательский тег',
+    'EDIT_CUSTOM_TAG': 'Редактирование пользовательских тегов',
     'NO_RESULTS': 'Нет результатов',
     'DELETE_AND_BAN': 'Удалить и запретить',
     'STAFF_LEVEL': 'Уровень персонала',
@@ -209,6 +210,7 @@ export default {
     'OPTIONS': 'Опции',
     'FIELD_DESCRIPTION': 'Описание поля (необязательно)',
     'DESCRIPTION_ADD_CUSTOM_TAG': 'здесь вы можете добавить новый пользовательский тег',
+    'DESCRIPTION_EDIT_CUSTOM_TAG': 'здесь вы можете редактировать пользовательский тег',
     'CUSTOM_FIELDS': 'Настраиваемые поля',
 
     'CHART_CREATE_TICKET': 'Билеты создано',
@@ -226,6 +228,7 @@ export default {
     'ACTIVITY_RE_OPEN': 'возобновлено билет на',
     'ACTIVITY_DEPARTMENT_CHANGED': 'Измененный отдел билета',
     'ACTIVITY_PRIORITY_CHANGED': 'Измененный приоритет билета',
+    'ACTIVITY_EDIT_COMMENT': 'редактировал комментарий билета',
 
     'ACTIVITY_EDIT_SETTINGS': 'отредактированные настройки',
     'ACTIVITY_SIGNUP': 'подписали',
@@ -396,6 +399,7 @@ export default {
     'SERVER_CREDENTIALS_WORKING': 'Учетные данные сервера работают правильно',
     'DELETE_CUSTOM_FIELD_SURE': 'Некоторые пользователи могут использовать это поле. Вы уверены, что хотите это удалить?',
 
+    'COMMENT_EDITED': '(Комментарий отредактирован)',
     'LAST_7_DAYS': 'Последние 7 дней',
     'LAST_30_DAYS': 'Последние 30 дней',
     'LAST_90_DAYS': 'Последние 90 дней',

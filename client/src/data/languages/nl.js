@@ -106,6 +106,7 @@ export default {
     'LAST_EDITED_IN': 'Laats bewerkt op {date}',
     'EDIT': 'Bewerk',
     'ADD_CUSTOM_TAG': 'Voeg aangepaste tag toe',
+    'EDIT_CUSTOM_TAG': 'douanemarkering bewerken',
     'NO_RESULTS': 'Geen resultaten',
     'DELETE_AND_BAN': 'Verwijder en blokkeer',
     'STAFF_LEVEL': 'Medewerkersniveau',
@@ -209,6 +210,7 @@ export default {
     'OPTIONS': 'opties',
     'FIELD_DESCRIPTION': 'Veldbeschrijving (optioneel)',
     'DESCRIPTION_ADD_CUSTOM_TAG': 'hier kun je een nieuwe aangepaste tag toevoegen',
+    'DESCRIPTION_EDIT_CUSTOM_TAG': 'Hier kunt u een aangepaste tag bewerken',
     'CUSTOM_FIELDS': 'Aangepaste velden',
 
     'CHART_CREATE_TICKET': 'Aangemaakte incidenten',
@@ -226,6 +228,7 @@ export default {
     'ACTIVITY_RE_OPEN': 'heeft een incident heropend',
     'ACTIVITY_DEPARTMENT_CHANGED': 'heeft de afdeling van incident veranderd',
     'ACTIVITY_PRIORITY_CHANGED': 'heeft de prioriteit van incident veranderd',
+    'ACTIVITY_EDIT_COMMENT': 'bewerkt een reactie van het biljet',
 
     'ACTIVITY_EDIT_SETTINGS': 'Heeft instellingen aangepast',
     'ACTIVITY_SIGNUP': 'is geregistreerd',
@@ -396,6 +399,7 @@ export default {
     'SERVER_CREDENTIALS_WORKING': 'Serverreferenties werken correct',
     'DELETE_CUSTOM_FIELD_SURE': 'Sommige gebruikers gebruiken dit veld mogelijk. Weet je zeker dat je het wilt verwijderen?',
 
+    'COMMENT_EDITED': '(Opmerking bewerkt)',
     'LAST_7_DAYS': 'Laatste 7 dagen',
     'LAST_30_DAYS': 'Laatste 30 dagen',
     'LAST_90_DAYS': 'Laatste 90 dagen',
