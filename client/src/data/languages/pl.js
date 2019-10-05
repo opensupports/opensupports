@@ -399,7 +399,7 @@ export default {
     'SERVER_CREDENTIALS_WORKING': 'poświadczenia Serwer pracuje poprawnie',
     'DELETE_CUSTOM_FIELD_SURE': 'Niektórzy użytkownicy mogą używać tego pola. Czy na pewno chcesz je usunąć?',
     
-    'COMMENT_EDITED': '(Komentarz edytowany)'
+    'COMMENT_EDITED': '(Komentarz edytowany)',
     'LAST_7_DAYS': 'Ostatni tydzień',
     'LAST_30_DAYS': 'Ostatni miesiąc',
     'LAST_90_DAYS': 'Ostatni kwartał',
