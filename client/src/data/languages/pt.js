@@ -106,6 +106,7 @@ export default {
     'LAST_EDITED_IN': 'Última edição em {date}',
     'EDIT': 'Editar',
     'ADD_CUSTOM_TAG': 'Adicionar tag personalizada',
+    'EDIT_CUSTOM_TAG': 'Editar tag personalizado',
     'NO_RESULTS': 'Nenhum resultado',
     'DELETE_AND_BAN': 'Excluir e proibir',
     'STAFF_LEVEL': 'Nível Pessoal',
@@ -209,6 +210,7 @@ export default {
     'OPTIONS': 'Opções',
     'FIELD_DESCRIPTION': 'Descrição do campo (opcional)',
     'DESCRIPTION_ADD_CUSTOM_TAG': 'aqui você pode adicionar uma nova tag personalizada',
+    'DESCRIPTION_EDIT_CUSTOM_TAG': 'aqui você pode editar uma marca personalizada',
     'CUSTOM_FIELDS': 'Os campos personalizados',
 
     'CHART_CREATE_TICKET': 'Ingressos criados',
@@ -226,6 +228,7 @@ export default {
     'ACTIVITY_RE_OPEN': 'Bilhete reaberto',
     'ACTIVITY_DEPARTMENT_CHANGED': 'Mudou departamento de bilhete',
     'ACTIVITY_PRIORITY_CHANGED': 'Prioridade alterada do bilhete',
+    'ACTIVITY_EDIT_COMMENT': 'editado um comentário de bilhete',
 
     'ACTIVITY_EDIT_SETTINGS': 'Configurações editadas',
     'ACTIVITY_SIGNUP': 'Se inscreveu',
@@ -396,6 +399,7 @@ export default {
     'SERVER_CREDENTIALS_WORKING': 'Credenciais do servidor estão funcionando corretamente',
     'DELETE_CUSTOM_FIELD_SURE': 'Alguns usuários podem estar usando este campo. Tem certeza de que deseja excluí-lo?',
 
+    'COMMENT_EDITED': '(Editado comentário)',
     'LAST_7_DAYS': 'Últimos 7 dias',
     'LAST_30_DAYS': 'Últimos 30 dias',
     'LAST_90_DAYS': 'Últimos 90 dias',

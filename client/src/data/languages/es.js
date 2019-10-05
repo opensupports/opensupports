@@ -106,6 +106,7 @@ export default {
     'LAST_EDITED_IN': 'Última edición en {date}',
     'EDIT': 'Editar',
     'ADD_CUSTOM_TAG': 'Añadir etiqueta personalizada',
+    'EDIT_CUSTOM_TAG': 'Editar etiqueta personalizada',
     'NO_RESULTS': 'No hay resultados',
     'DELETE_AND_BAN': 'Borrar y bloquear',
     'STAFF_LEVEL': 'Nivel de Staff',
@@ -209,6 +210,7 @@ export default {
     'OPTIONS': 'Opciones',
     'FIELD_DESCRIPTION': 'Descripción del campo (opcional)',
     'DESCRIPTION_ADD_CUSTOM_TAG': 'Aquí puedes agregar una nueva etiqueta personalizada',
+    'DESCRIPTION_EDIT_CUSTOM_TAG': 'aquí se puede editar una etiqueta personalizada',
     'CUSTOM_FIELDS': 'Campos Personalizados',
 
     'CHART_CREATE_TICKET': 'Tickets creados',
@@ -226,6 +228,7 @@ export default {
     'ACTIVITY_RE_OPEN': 'reabrió el ticket',
     'ACTIVITY_DEPARTMENT_CHANGED': 'cambió el departamento del ticket',
     'ACTIVITY_PRIORITY_CHANGED': 'cambió la prioridad del ticket',
+    'ACTIVITY_EDIT_COMMENT': 'editado un comentario del billete',
 
     'ACTIVITY_EDIT_SETTINGS': 'editó las preferencias',
     'ACTIVITY_SIGNUP': 'se registró',
@@ -396,6 +399,7 @@ export default {
     'SERVER_CREDENTIALS_WORKING': 'Las credenciales del servidor están funcionando correctamente',
     'DELETE_CUSTOM_FIELD_SURE': 'Algunos usuarios pueden estar usando este campo. ¿Seguro que quieres borrarlo?',
 
+    'COMMENT_EDITED': '(Comentario editado)',
     'LAST_7_DAYS': 'Últimos 7 dias',
     'LAST_30_DAYS': 'Últimos 30 dias',
     'LAST_90_DAYS': 'Últimos 90 dias',

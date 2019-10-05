@@ -842,6 +842,66 @@ class MailTexts {
               'U kunt dit incident bekijken via het incidentnummer. Of klik op de knop hieronder.',
           ],
         ],
+        'pl' => [
+          'USER_SIGNUP' => [
+              'Signup {{to}} - OpenSupports',
+              'Zweryfikuj swoje konto',
+              'Witamy w naszym centrum pomocy, {{name}}!. Musisz zweryfikować tego maila, aby uzyskać dostęp do swojego konta.',
+              'Użyj kodu weryfikacyjnego{{url}}/tokena weryfikacji/{{to}}/{{verificationToken}} lub kliknij przycisk poniżej.',
+          ],
+          'USER_PASSWORD' => [
+              'Edycja hasła - OpenSupports',
+              'Hasło zostało zmienione',
+              'Hej, {{name}}. Twoje hasło zostało zmienione w panelu Klienta.'
+          ],
+          'USER_EMAIL' => [
+              'Edycja e-mail - OpenSupports',
+              'Mail został zmieniony',
+              'Hej, {{name}}. Twój adres e-mail został zmieniony na {{newemail}} w panelu Klienta.'
+          ],
+          'PASSWORD_FORGOT' => [
+              'Odzyskaj hasło - OpenSupports',
+              'Hasło odzyskane',
+              'Hej, {{name}}. Zażądałeś odzyskania hasła.',
+              'Użyj tego linka {{url}}/recover-password?email={{to}}&token={{token}} lub kliknij przycisk poniżej.',
+          ],
+          'USER_SYSTEM_DISABLED' => [
+              'Zmieniono dostęp do systemu - OpenSupports',
+              'Zmieniono dostęp do systemu',
+              'Hello, {{name}}. System dostępu do zgłoszeń uległ zmianie',
+              'Możesz uzyskać dostęp do swoich zgoszeń i sprawdzić je, używając adresu e-mail i numeru zgłoszenia. Kliknij poniższy przyciś, aby zobaczyć swoje zgłoszenia.',
+          ],
+          'USER_SYSTEM_ENABLED' => [
+              'Twporzenie konta - OpenSupports',
+              'Konto zostało utworzone',
+              'Hello, {{name}}. Stworzyliśmy konto, na którym możesz uzyskać dostęp do wysłanych przez Ciebie zgłoszeń.',
+              'Możesz uzyskać dostęp do swojego konta za pomocą tego e-maila <i>({{to}})</i> i hasła poniżej. Zmień hasło zaraz po zalogowaniu',
+          ],
+          'TICKET_CREATED' => [
+              '#{{ticketNumber}} Tworzenie zgłoszenia - OpenSupports',
+              'Zgłoszenie utworzono',
+              'Hello, {{name}}. Wysłałeś nowe zgłoszenie zatytułowane <i>{{title}}</i> do naszego centrum pomocy.',
+              'Możesz uzyskać dostęp do zgłoszenia poprzez jego numer lub kliknij w przycisk poniżej.',
+          ],
+          'TICKET_RESPONDED' => [
+              '#{{ticketNumber}} Nowa odpowiedź - OpenSupports',
+              'Odpowiedź na zgłoszenie',
+              'Hello, {{name}}. Otrzymałeś odpowiedź na zgłoszenie zatytułowane <i>{{title}}</i>.',
+              'Kliknij poniżej, aby zobaczyć nową odpowiedź.'
+          ],
+          'TICKET_CLOSED' => [
+             '#{{ticketNumber}} Zamknięcie zgłoszenia - OpenSupports',
+              'Zgłoszenie zamknięto',
+              'Hello, {{name}}. Zgłoszenie pod tytułem <i>{{title}}</i> zostało zamknięte.',
+              'Możesz uzyskać dostęp do zgłoszenia poprzez jego numer lub kliknij w przycisk poniżej.'
+          ],
+          'TICKET_CREATED_STAFF' => [
+              '#{{ticketNumber}} Utworzono zgłoszenie - OpenSupports',
+              'Zgłoszenie utworzono',
+              'Użytkownik {{name}} utworzył nowe zgłoszenie pod tytułem <i>{{title}}</i>.',
+              'Możesz uzyskać dostęp do zgłoszenia po jego numerze.',
+          ],
+        ],
     ];
   }
 }
