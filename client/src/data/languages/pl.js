@@ -206,7 +206,7 @@ export default {
     'TYPE': 'Rodzaj',
     'SELECT_INPUT': 'Wybierz wejście',
     'TEXT_INPUT': 'Wprowadzanie tekstu',
-    'OPTION': 'Opcji indeksu} {',
+    'OPTION': 'Opcji {index}',
     'OPTIONS': 'Opcje',
     'FIELD_DESCRIPTION': 'opis pola (opcjonalnie)',
     'DESCRIPTION_ADD_CUSTOM_TAG': 'tutaj można dodać nowy niestandardowy tag',
