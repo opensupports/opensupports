@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 
-import {dispatch} from 'app/store';
+import store from 'app/store';
 import SessionActions from 'actions/session-actions';
 import i18n from 'lib-app/i18n';
 
@@ -65,7 +65,7 @@ class DashboardMenu extends React.Component {
         if (itemIndex < this.getDashboardRoutes().length) {
             this.goToPathByIndex(itemIndex)
         } else {
-            dispatch(SessionActions.logout());
+            store.dispatch(SessionActions.logout());
         }
     }
 
