@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /system/test-imap Test IMAP Connection
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  *
  * @apiName Test IMAP Connection
  *

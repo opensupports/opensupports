@@ -3,7 +3,7 @@ use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {post} /system/delete-all-users Delete all users
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  *
  * @apiName Delete all users
  *

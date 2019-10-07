@@ -4,7 +4,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {get} /system/download Download file
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  *
  * @apiName Download file
  *

@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Ticket Ticket
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  * @apiGroup Data Structures
  * @apiParam {Number}  ticketNumber The number of the ticket.
  * @apiParam {String}  title The title of the ticket.
