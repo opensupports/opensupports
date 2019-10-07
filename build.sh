@@ -1,6 +1,8 @@
+echo "1/3 Building frontend..."
 cd client
 npm run build
 rm build/index.html
+echo "2/3 Creating api folder..."
 cd ../server
 composer install
 echo -n > config.php
@@ -22,6 +24,7 @@ cp server/vendor api
 cp server/files api
 cp server/config.php api
 cp client/src/index.php client/build
+echo "3/3 Generating zip..."
 cd client/build
 zip opensupports_dev.zip index.php
 zip -u opensupports_dev.zip .htaccess
