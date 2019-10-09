@@ -4,7 +4,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/get-new-tickets Get new tickets
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  *
  * @apiName Get new tickets
  *

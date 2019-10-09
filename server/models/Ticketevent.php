@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} TicketEvent TicketEvent
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  * @apiGroup Data Structures
  * @apiParam {String}  type The type of the ticket event. It can be COMMENT, ASSIGN, UN_ASSIGN, CLOSE, RE_OPEN, DEPARTMENT_CHANGED or PRIORITY_CHANGED
  * @apiParam {String}  content The content of the ticket event.

@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/get-all-tickets Get all tickets according to search
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  *
  * @apiName Get all tickets
  *

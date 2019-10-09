@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Stat Stat
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  * @apiGroup Data Structures
  * @apiParam {Number} date The date of the stat as a number in format YYYYMMDD.
  * @apiParam {String} type The type of the stat. It can be CREATE_TICKET, CLOSE, SIGNUP, COMMENT, ASSIGN or UNASSIGN
