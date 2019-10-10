@@ -21,6 +21,20 @@ describe '/ticket/seen' do
     end
 
     describe 'when an user is logged' do
+        
+        request('/user/logout')
+        Scripts.login()
+        it 'should fail if user is not author' do
+            ticket = $database.getRow('ticket', 1, 'id')
+            result = request('/ticket/seen', {
+                ticketNumber: ticket['ticket_number'],
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token
+            })
+
+            (result['status']).should.equal('fail')
+            (result['message']).should.equal('NO_PERMISSION')
+        end
 
         request('/user/logout')
         Scripts.login('user_get@os4.com', 'user_get')

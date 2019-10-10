@@ -41,7 +41,7 @@ describe '/user/login' do
         })
 
         (result['status']).should.equal('success')
-        (result['data']['staff']).should.equal('true')
+        (result['data']['staff']).should.equal(true)
     end
 
     it 'should work with remember token' do

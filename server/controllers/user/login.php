@@ -108,7 +108,7 @@ class LoginController extends Controller {
         return array(
             'userId' => $userInstance->id,
             'userEmail' => $userInstance->email,
-            'staff' => Controller::request('staff'),
+            'staff' => !!Controller::request('staff'),
             'token' => Session::getInstance()->getToken(),
             'rememberToken' => $this->rememberToken,
             'rememberExpiration' => $this->rememberExpiration
