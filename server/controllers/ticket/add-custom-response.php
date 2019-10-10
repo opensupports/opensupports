@@ -55,7 +55,7 @@ class AddCustomResponseController extends Controller {
         $customResponse = new CustomResponse();
         $customResponse->setProperties([
             'name' => Controller::request('name'),
-            'content' => Controller::request('content'),
+            'content' => Controller::request('content', true),
             'language' => Controller::request('language')
         ]);
         $customResponse->store();
