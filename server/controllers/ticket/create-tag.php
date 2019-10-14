@@ -36,6 +36,10 @@ class CreateTagController extends Controller {
                 'name' => [
                     'validation' => DataValidator::length(2, 100),
                     'error' => ERRORS::INVALID_NAME
+                ],
+                'color' => [
+                    'validation' => DataValidator::hexRgbColor()->startsWith('#'),
+                    'error' => ERRORS::INVALID_COLOR
                 ]
             ]
         ];
