@@ -8,14 +8,14 @@ describe '/ticket/edit-tag' do
             csrf_token: $csrf_token,
             tagId: 1,
             name: 'TAG1',
-            color: 'yellow'
+            color: '#ff00ff'
         })
         (result['status']).should.equal('success')
 
         tag = $database.getRow('tag', 1, 'id')
 
         (tag['name']).should.equal('TAG1')
-        (tag['color']).should.equal('yellow')
+        (tag['color']).should.equal('#ff00ff')
     end
 
     it 'should fail if the name already exists' do
@@ -23,14 +23,15 @@ describe '/ticket/edit-tag' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             name: 'TAG2',
-            color: 'blue'
+            color: '#0000ff'
         })
 
         result = request('/ticket/edit-tag', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             tagId: 2,
-            name: 'TAG1'
+            name: 'TAG1',
+            color: '#ff00ff'
         })
 
         (result['status']).should.equal('fail')
