@@ -69,7 +69,6 @@ class TicketViewer extends React.Component {
 
     render() {
         const ticket = this.props.ticket;
-
         return (
             <div className="ticket-viewer">
                 <div className="ticket-viewer__header row">
@@ -605,6 +604,7 @@ class TicketViewer extends React.Component {
 }
 
 export default connect((store) => {
+
     return {
         userId: store.session.userId,
         userStaff: store.session.staff,

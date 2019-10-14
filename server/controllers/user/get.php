@@ -54,6 +54,7 @@ class GetUserController extends Controller {
         Response::respondSuccess([
             'name' => $user->name,
             'email' => $user->email,
+            'staff' => false,
             'verified' => !$user->verificationToken,
             'tickets' => $parsedTicketList,
             'customfields' => $user->xownCustomfieldvalueList->toArray(),

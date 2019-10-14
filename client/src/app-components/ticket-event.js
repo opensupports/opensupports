@@ -117,7 +117,7 @@ class TicketEvent extends React.Component {
         return (
             <div  className="ticket-event__comment-content">
                 <div dangerouslySetInnerHTML={{__html: this.props.content}}></div>
-                {((this.props.author.id === this.props.userId) || (this.props.userStaff)) ? this.renderEditIcon() : null}
+                {((this.props.author.id == this.props.userId && this.props.author.staff == this.props.userStaff) || this.props.userStaff) ? this.renderEditIcon() : null}
             </div>
         )
     }

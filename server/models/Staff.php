@@ -50,7 +50,7 @@ class Staff extends DataStore {
     }
 
     public function canManageTicket(Ticket $ticket){
-        return $this->sharedDepartmentList->includesId($ticket->departmentId) || $this->id === $ticket->author_staff_id;
+        return $this->sharedDepartmentList->includesId($ticket->departmentId) || $this->id === $ticket->authorStaffId;
     }
 
     public function toArray() {
