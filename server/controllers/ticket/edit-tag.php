@@ -37,6 +37,10 @@ class EditTagController extends Controller {
                 'tagId' => [
                     'validation' => DataValidator::dataStoreId('tag'),
                     'error' => ERRORS::INVALID_TAG
+                ],
+                'color' => [
+                    'validation' => DataValidator::hexRgbColor()->startsWith('#'),
+                    'error' => ERRORS::INVALID_COLOR
                 ]
             ]
         ];
