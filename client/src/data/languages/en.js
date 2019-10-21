@@ -193,6 +193,7 @@ export default {
     'NEVER': 'Never',
     'HIMSELF': 'himself',
     'ADD_USER': 'Add user',
+    'INVITE_USER': 'Invite user',
     'UPLOAD_FILE': 'Upload file',
     'PRIVATE': 'Private',
     'ENABLE_USER': 'Enable User',
@@ -336,6 +337,7 @@ export default {
     'IMAP_POLLING_DESCRIPTION': 'Inbox checking will not be done automatically by OpenSupports. You have to make POST requests periodically to this url to process the emails: {url}',
     'NEW_CUSTOM_FIELD_DESCRIPTION': 'Here you can create a custom field for an user, it can be a blank text box or a fixed set of options.',
     'CUSTOM_FIELDS_DESCRIPTION': 'Custom fields are defined additional fields the users are able to fill to provide more information about them.',
+    'INVITE_USER_VIEW_DESCRIPTION': 'Here you can invite an user to join our support system, he will just need to provide his password to create a new user.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
@@ -372,6 +374,7 @@ export default {
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',
+    'INVITE_USER_SUCCESS': 'You have invited a new user successfully in our support system',
     'TICKET_SENT': 'Ticket has been created successfully.',
     'VALID_RECOVER': 'Password recovered successfully',
     'EMAIL_EXISTS': 'Email already exists',

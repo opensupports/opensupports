@@ -13,6 +13,7 @@ import Message from 'core-components/message';
 import Icon from 'core-components/icon';
 import ModalContainer from 'app-components/modal-container';
 import MainSignUpWidget from 'app/main/main-signup/main-signup-widget';
+import InviteUserWidget from 'app/admin/panel/users/invite-user-widget';
 
 class AdminPanelListUsers extends React.Component {
 
@@ -44,6 +45,9 @@ class AdminPanelListUsers extends React.Component {
                 <div style={{textAlign: 'right', marginTop: 10}}>
                     <Button onClick={this.onCreateUser.bind(this)} type="secondary" size="medium">
                         <Icon size="sm" name="plus"/> {i18n('ADD_USER')}
+                    </Button>
+                    <Button onClick={this.onInviteUser.bind(this)} type="secondary" size="medium">
+                        <Icon size="sm" name="plus"/> {i18n('INVITE_USER')}
                     </Button>
                 </div>
             </div>
@@ -178,6 +182,20 @@ class AdminPanelListUsers extends React.Component {
         );
     }
     onCreateUserSuccess() {
+        ModalContainer.closeModal();
+    }
+
+    onInviteUser(user) {
+        ModalContainer.openModal(
+            <div className="admin-panel-list-users__invite-user-form">
+                <InviteUserWidget onSuccess={this.onInviteUserSuccess.bind(this)} />
+                <div style={{textAlign: 'center'}}>
+                    <Button onClick={ModalContainer.closeModal} type="link">{i18n('CLOSE')}</Button>
+                </div>
+            </div>
+        );
+    }
+    onInviteUserSuccess() {
         ModalContainer.closeModal();
     }
 
