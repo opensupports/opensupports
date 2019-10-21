@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Staff Staff
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  * @apiGroup Data Structures
  * @apiParam {String} name Name of the staff member.
  * @apiParam {String} email Email of the staff member.
@@ -50,7 +50,7 @@ class Staff extends DataStore {
     }
 
     public function canManageTicket(Ticket $ticket){
-        return $this->sharedDepartmentList->includesId($ticket->departmentId) || $this->id === $ticket->author_staff_id;
+        return $this->sharedDepartmentList->includesId($ticket->departmentId) || $this->id === $ticket->authorStaffId;
     }
 
     public function toArray() {

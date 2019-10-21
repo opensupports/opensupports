@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Ban Ban
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  * @apiGroup Data Structures
  * @apiParam {Email} email The email address that is banned.
  */

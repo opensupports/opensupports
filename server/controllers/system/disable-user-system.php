@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /system/disable-user-system Disable user system
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  *
  * @apiName Disable user system
  *

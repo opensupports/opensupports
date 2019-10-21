@@ -4,22 +4,22 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/edit-comment Edit a comment
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  *
  * @apiName Edit comment
  *
  * @apiGroup Ticket
  *
- * @apiDescription This path edit a comment.
+ * @apiDescription This path edits a comment.
  *
  * @apiPermission user
  *
  * @apiParam {String} content The new content of the comment.
  * @apiParam {Number} ticketEventId The id of the ticket event.
- * @apiParam {Number} ticketNumber The id of the ticket number.
+ * @apiParam {Number} ticketNumber The number of the ticket.
  *
  * @apiUse NO_PERMISSION
- * @apiUse INVALID_CONENT
+ * @apiUse INVALID_CONTENT
  *
  * @apiSuccess {Object} data Empty object
  *
@@ -43,7 +43,7 @@ class EditCommentController extends Controller {
 
     public function handler() {
         $user = Controller::getLoggedUser();
-        $newcontent = Controller::request('content');
+        $newcontent = Controller::request('content', true);
         $ticketNumberLog = null;
 
         $ticketevent = Ticketevent::getTicketEvent(Controller::request('ticketEventId'));
@@ -69,7 +69,7 @@ class EditCommentController extends Controller {
             $ticketevent->content = $newcontent;
             $ticketevent->editedContent = true;
             $ticketevent->store();
-        }else{
+        } else {
             $ticketNumber = $ticket->ticketNumber;
 
             $ticket->content = $newcontent;

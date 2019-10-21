@@ -12,17 +12,18 @@ rm -rf files/
 mv files2 files
 cd ..
 mkdir api
-cp server/index.php api
-cp server/.htaccess api
-cp server/composer.json api
-cp server/composer.lock api
-cp server/controllers api
-cp server/data api
-cp server/libs api
-cp server/models api
-cp server/vendor api
-cp server/files api
+mv server/index.php api
+mv server/.htaccess api
+mv server/composer.json api
+mv server/composer.lock api
+mv server/controllers api
+mv server/data api
+mv server/libs api
+mv server/models api
+mv server/vendor api
+mv server/files api
 cp server/config.php api
+chmod -R 755 .
 cp client/src/index.php client/build
 echo "3/3 Generating zip..."
 cd client/build

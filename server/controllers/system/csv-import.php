@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /system/csv-import CSV import
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  *
  * @apiName CSV import
  *

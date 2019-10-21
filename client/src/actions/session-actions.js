@@ -58,7 +58,7 @@ export default {
                 }
             }).then((result) => {
                 store.dispatch(this.getUserData(result.data.userId, result.data.token));
-
+                
                 return result;
             })
         };

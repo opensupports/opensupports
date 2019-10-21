@@ -20,7 +20,7 @@ describe '/ticket/get-tags' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             name: 'TAG3',
-            color: 'grey'
+            color: '#dddddd'
         })
         result = request('/ticket/get-tags', {
             csrf_userid: $csrf_userid,
@@ -29,10 +29,10 @@ describe '/ticket/get-tags' do
 
         (result['status']).should.equal('success')
         (result['data'][0]['name']).should.equal('TAG1')
-        (result['data'][0]['color']).should.equal('yellow')
+        (result['data'][0]['color']).should.equal('#ff00ff')
         (result['data'][1]['name']).should.equal('TAG2')
-        (result['data'][1]['color']).should.equal('blue')
+        (result['data'][1]['color']).should.equal('#0000ff')
         (result['data'][2]['name']).should.equal('TAG3')
-        (result['data'][2]['color']).should.equal('grey')
+        (result['data'][2]['color']).should.equal('#dddddd')
     end
 end
