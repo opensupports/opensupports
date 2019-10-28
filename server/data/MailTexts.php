@@ -25,6 +25,12 @@ class MailTexts {
               'Hi, {{name}}. You have requested to recover your password.',
               'Use this code in {{url}}/recover-password?email={{to}}&token={{token}} or click the button below.',
           ],
+          'USER_INVITE' => [
+              'User invited - OpenSupports',
+              'User invited',
+              'Hi, {{name}}. You have been invited to join our support center.',
+              'Use this code in {{url}}/recover-password?email={{to}}&token={{token}}&invited=true or click the button below to set up your password.'
+          ],
           'USER_SYSTEM_DISABLED' => [
               'Access system changed - OpenSupports',
               'Access system changed',

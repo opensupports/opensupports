@@ -18,7 +18,7 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} name The name of the new user.
  * @apiParam {String} email The email of the new user.
  * @apiParam {String} password The password of the new user.
- * @apiParam {String} apiKey APIKey to sign up an user if the user system is disabled.
+ * @apiParam {String} apiKey APIKey to sign up an user if the registration system is disabled.
  * @apiParam {String} customfield_ Custom field values for this user.
  *
  * @apiUse INVALID_NAME

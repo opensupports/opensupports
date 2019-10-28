@@ -251,6 +251,10 @@
  * @apiDefine INVALID_COLOR
  * @apiError {String} INVALID_COLOR The color should be in hexadecimal, preceded by a '#'
  */
+/**
+ * @apiDefine MAIL_SENDER_NOT_CONNECTED
+ * @apiError {String} MAIL_SENDER_NOT_CONNECTED The mail sender is not connected.
+ */
 
 class ERRORS {
     const INVALID_CREDENTIALS = 'INVALID_CREDENTIALS';
@@ -317,4 +321,5 @@ class ERRORS {
     const INVALID_CUSTOM_FIELD_OPTION = 'INVALID_CUSTOM_FIELD_OPTION';
     const UNAVAILABLE_STATS = 'UNAVAILABLE_STATS';
     const INVALID_COLOR = 'INVALID_COLOR';
+    const MAIL_SENDER_NOT_CONNECTED = 'MAIL_SENDER_NOT_CONNECTED';
 }
