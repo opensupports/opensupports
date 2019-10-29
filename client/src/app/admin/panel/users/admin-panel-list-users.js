@@ -43,9 +43,6 @@ class AdminPanelListUsers extends React.Component {
                 <SearchBox className="admin-panel-list-users__search-box" placeholder={i18n('SEARCH_USERS')} onSearch={this.onSearch.bind(this)} />
                 {(this.state.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_USERS')}</Message> : <Table {...this.getTableProps()}/>}
                 <div style={{textAlign: 'right', marginTop: 10}}>
-                    <Button onClick={this.onCreateUser.bind(this)} type="secondary" size="medium">
-                        <Icon size="sm" name="plus"/> {i18n('ADD_USER')}
-                    </Button>
                     <Button onClick={this.onInviteUser.bind(this)} type="secondary" size="medium">
                         <Icon size="sm" name="plus"/> {i18n('INVITE_USER')}
                     </Button>
@@ -169,20 +166,6 @@ class AdminPanelListUsers extends React.Component {
             path: '/user/get-users',
             data: data
         }).catch(this.onUsersRejected.bind(this)).then(this.onUsersRetrieved.bind(this));
-    }
-
-    onCreateUser(user) {
-        ModalContainer.openModal(
-            <div className="admin-panel-list-users__add-user-form">
-                <MainSignUpWidget onSuccess={this.onCreateUserSuccess.bind(this)} />
-                <div style={{textAlign: 'center'}}>
-                    <Button onClick={ModalContainer.closeModal} type="link">{i18n('CLOSE')}</Button>
-                </div>
-            </div>
-        );
-    }
-    onCreateUserSuccess() {
-        ModalContainer.closeModal();
     }
 
     onInviteUser(user) {
