@@ -26,7 +26,7 @@ class Log extends DataStore {
         ];
     }
 
-    public static function createLog($type,$to, $author = null) {
+    public static function createLog($type, $to, $author = null) {
         if($author === null) {
             $author = Controller::getLoggedUser();
         }

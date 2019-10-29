@@ -234,6 +234,7 @@ export default {
 
     'ACTIVITY_EDIT_SETTINGS': 'edited settings',
     'ACTIVITY_SIGNUP': 'signed up',
+    'ACTIVITY_INVITE': 'invited user',
     'ACTIVITY_ADD_TOPIC': 'added topic',
     'ACTIVITY_ADD_ARTICLE': 'added article',
     'ACTIVITY_DELETE_TOPIC': 'deleted topic',

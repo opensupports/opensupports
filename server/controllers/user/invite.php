@@ -102,7 +102,8 @@ class InviteUserController extends Controller {
                 'userId' => $userId,
                 'userEmail' => $this->userEmail
             ]);
-            // TODO: Log::createLog('SIGN_UP', null, User::getDataStore($userId));
+
+            Log::createLog('INVITE', $this->userName);
         } else {
             throw new RequestException(ERRORS::MAIL_SENDER_NOT_CONNECTED);
         }
