@@ -11,6 +11,7 @@ export default {
     'SIGN_UP': 'Sign up',
     'FORGOT_PASSWORD': 'Forgot your password?',
     'RECOVER_PASSWORD': 'Recover Password',
+    'SET_UP_PASSWORD': 'Set up your password',
     'RECOVER_SENT': 'An email with recover instructions has been sent.',
     'NEW_EMAIL': 'New email',
     'FULL_NAME': 'Full name',

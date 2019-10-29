@@ -26,8 +26,8 @@ class MailTexts {
               'Use this code in {{url}}/recover-password?email={{to}}&token={{token}} or click the button below.',
           ],
           'USER_INVITE' => [
-              'User invited - OpenSupports',
-              'User invited',
+              'You have been invited - OpenSupports',
+              'You have been invited',
               'Hi, {{name}}. You have been invited to join our support center.',
               'Use this code in {{url}}/recover-password?email={{to}}&token={{token}}&invited=true or click the button below to set up your password.'
           ],
