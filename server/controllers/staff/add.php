@@ -44,7 +44,6 @@ class AddStaffController extends Controller {
     private $level;
     private $departments;
 
-
     public function validations() {
         return [
             'permission' => 'staff_3',
@@ -74,7 +73,7 @@ class AddStaffController extends Controller {
         $this->storeRequestData();
         $staff = new Staff();
 
-        $staffRow = Staff::getDataStore($this->email,'email');
+        $staffRow = Staff::getDataStore($this->email, 'email');
 
         if($staffRow->isNull()) {
             $staff->setProperties([
@@ -84,7 +83,6 @@ class AddStaffController extends Controller {
                 'profilePic' => $this->profilePic,
                 'level' => $this->level,
                 'sharedDepartmentList' => $this->getDepartmentList()
-
             ]);
             
             $this->addOwner();
@@ -120,6 +118,7 @@ class AddStaffController extends Controller {
 
         return $listDepartments;
     }
+
     public function addOwner() {
         $departmentIds = json_decode($this->departments);
 

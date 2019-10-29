@@ -57,9 +57,9 @@ class SendRecoverPasswordController extends Controller {
         $email = Controller::request('email');
 
         if($this->staff){
-            $this->user = Staff::getUser($email,'email');
-        }else {
-            $this->user = User::getUser($email,'email');
+            $this->user = Staff::getUser($email, 'email');
+        } else {
+            $this->user = User::getUser($email, 'email');
         }
 
         if(!$this->user->isNull()) {
