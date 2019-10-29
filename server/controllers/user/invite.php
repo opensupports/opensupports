@@ -69,10 +69,6 @@ class InviteUserController extends Controller {
             throw new RequestException(ERRORS::USER_SYSTEM_DISABLED);
         }
 
-        if (!Setting::getSetting('registration')->value) {
-            throw new RequestException(ERRORS::NO_PERMISSION);
-        }
-
         $this->storeRequestData();
 
         $existentUser = User::getUser($this->userEmail, 'email');
