@@ -195,6 +195,7 @@ export default {
     'HIMSELF': 'himself',
     'ADD_USER': 'Add user',
     'INVITE_USER': 'Invite user',
+    'INVITE_STAFF': 'Invite staff',
     'UPLOAD_FILE': 'Upload file',
     'PRIVATE': 'Private',
     'ENABLE_USER': 'Enable User',
@@ -340,6 +341,7 @@ export default {
     'NEW_CUSTOM_FIELD_DESCRIPTION': 'Here you can create a custom field for an user, it can be a blank text box or a fixed set of options.',
     'CUSTOM_FIELDS_DESCRIPTION': 'Custom fields are defined additional fields the users are able to fill to provide more information about them.',
     'INVITE_USER_VIEW_DESCRIPTION': 'Here you can invite an user to join our support system, he will just need to provide his password to create a new user.',
+    'INVITE_STAFF_DESCRIPTION': 'Here you can invite staff members to your teams.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
