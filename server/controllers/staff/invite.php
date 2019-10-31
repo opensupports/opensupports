@@ -99,7 +99,7 @@ class InviteStaffController extends Controller {
             'id' => $staff->store()
         ]);
 
-        // TODO: Log::createLog('ADD_STAFF', $this->name);
+        Log::createLog('INVITE', $this->name);
     }
 
     public function storeRequestData() {

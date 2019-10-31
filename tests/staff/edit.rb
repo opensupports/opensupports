@@ -32,15 +32,22 @@ describe'/staff/edit' do
     end
 
     it 'should edit own data staff' do
-        request('/staff/add', {
+        request('/staff/invite', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             name: 'Arya Stark',
-            password: 'starkpassword',
             email: 'arya@opensupports.com',
             level: 1,
             profilePic: '',
             departments: '[1]'
+        })
+
+        recoverpassword = $database.getRow('recoverpassword', 'arya@opensupports.com', 'email')
+
+        request('/user/recover-password', {
+            email: 'arya@opensupports.com',
+            password: 'starkpassword',
+            token: recoverpassword['token']
         })
 
         row = $database.getRow('staff', 'arya@opensupports.com', 'email')
