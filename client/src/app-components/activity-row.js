@@ -65,15 +65,25 @@ class ActivityRow extends React.Component {
             <div className="activity-row">
                 <Icon {...this.getIconProps()} className="activity-row__icon"/>
                 <span>
-                    <Link className="activity-row__name-link" to={this.getNameLinkDestination()}>
-                        {this.props.author.name}
-                    </Link>
+                    {this.renderAuthorName()}
                 </span>
                 <span className="activity-row__message"> {i18n('ACTIVITY_' + this.props.type)} </span>
                 {_.includes(ticketRelatedTypes, this.props.type) ? this.renderTicketNumber() : this.props.to}
                 <span className="separator" />
             </div>
         );
+    }
+
+    renderAuthorName() {
+        let name = this.props.author.name;
+
+        if (this.props.author.id) {
+            name = <Link className="activity-row__name-link" to={this.getNameLinkDestination()}>
+                        {this.props.author.name}
+                   </Link>;
+        }
+
+        return name;
     }
 
     renderTicketNumber() {
