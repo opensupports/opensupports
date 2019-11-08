@@ -26,7 +26,6 @@ DataValidator::with('CustomValidations', true);
  * @apiUse ALREADY_BANNED
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_CUSTOM_FIELD_OPTION
- * @apiUse MAIL_SENDER_NOT_CONNECTED
  *
  * @apiSuccess {Object} data Information about invited user
  * @apiSuccess {Number} data.userId Id of the invited user
@@ -83,30 +82,26 @@ class InviteUserController extends Controller {
             throw new RequestException(ERRORS::ALREADY_BANNED);
         }
 
-        if(MailSender::getInstance()->isConnected()) {
-            $userId = $this->createNewUserAndRetrieveId();
+        $userId = $this->createNewUserAndRetrieveId();
 
-            $this->token = Hashing::generateRandomToken();
+        $this->token = Hashing::generateRandomToken();
 
-            $recoverPassword = new RecoverPassword();
-            $recoverPassword->setProperties(array(
-                'email' => $this->userEmail,
-                'token' => $this->token,
-                'staff' => false
-            ));
-            $recoverPassword->store();
+        $recoverPassword = new RecoverPassword();
+        $recoverPassword->setProperties(array(
+            'email' => $this->userEmail,
+            'token' => $this->token,
+            'staff' => false
+        ));
+        $recoverPassword->store();
 
-            $this->sendInvitationMail();
+        $this->sendInvitationMail();
 
-            Response::respondSuccess([
-                'userId' => $userId,
-                'userEmail' => $this->userEmail
-            ]);
+        Response::respondSuccess([
+            'userId' => $userId,
+            'userEmail' => $this->userEmail
+        ]);
 
-            Log::createLog('INVITE', $this->userName);
-        } else {
-            throw new RequestException(ERRORS::MAIL_SENDER_NOT_CONNECTED);
-        }
+        Log::createLog('INVITE', $this->userName);
     }
 
     public function storeRequestData() {

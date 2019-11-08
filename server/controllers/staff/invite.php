@@ -69,8 +69,6 @@ class InviteStaffController extends Controller {
 
         if(!$staffRow->isNull()) throw new RequestException(ERRORS::ALREADY_A_STAFF);
 
-        if(!MailSender::getInstance()->isConnected()) throw new RequestException(ERRORS::MAIL_SENDER_NOT_CONNECTED);
-
         $staff = new Staff();
         $staff->setProperties([
             'name'=> $this->name,
