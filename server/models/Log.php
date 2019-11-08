@@ -39,7 +39,10 @@ class Log extends DataStore {
 
         if($author === null) {
             $author = Controller::getLoggedUser();
-            if(!$author->isNull()) $authorName = $author->name;
+        }
+
+        if(!$author->isNull()) {
+            $authorName = $author->name;
         }
 
         $log = new Log();
