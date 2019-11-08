@@ -122,6 +122,16 @@ describe'system/disable-user-system' do
             (result['status']).should.equal('success')
             (result['data'].size).should.equal(10)
         end
+        
+        it 'should be able to get system logs as admin' do
+            result = request('/system/get-logs', {
+                page: 1,
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token
+            })
+            (result['status']).should.equal('success')
+            (result['data'].size).should.equal(10)
+        end
 
         it 'should be be able to create a ticket as an admin' do
             result = request('/ticket/create', {
