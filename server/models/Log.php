@@ -30,7 +30,7 @@ class Log extends DataStore {
     public static function createLog($type, $to, $author = null) {
         $session = Session::getInstance();
         $authorName = '';
-        
+
         if($session->isTicketSession()) {
             $ticketNumber = $session->getTicketNumber();
             $ticket = Ticket::getByTicketNumber($ticketNumber);
@@ -68,7 +68,7 @@ class Log extends DataStore {
             'to' => $this->to,
             'author' => [
                 'name' => $this->authorName,
-                'id' => !$author->isNull() ? $author->id : null,
+                'id' => $author && !$author->isNull() ? $author->id : null,
                 'staff' => $author instanceof Staff
             ],
             'date' => $this->date
