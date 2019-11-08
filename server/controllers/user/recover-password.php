@@ -56,10 +56,6 @@ class RecoverPasswordController extends Controller {
     }
 
     public function handler() {
-        if(!Controller::isUserSystemEnabled()) {
-            throw new RequestException(ERRORS::USER_SYSTEM_DISABLED);
-        }
-
         $this->requestData();
         $this->changePassword();
     }
@@ -75,6 +71,10 @@ class RecoverPasswordController extends Controller {
 
         if($recoverPassword->isNull() || $recoverPassword->email !== $this->email) {
             throw new RequestException(ERRORS::NO_PERMISSION);
+        }
+
+        if(!Controller::isUserSystemEnabled() && !$recoverPassword->staff) {
+            throw new RequestException(ERRORS::USER_SYSTEM_DISABLED);
         }
 
         if($recoverPassword->staff) {

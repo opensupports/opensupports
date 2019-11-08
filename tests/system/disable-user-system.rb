@@ -113,7 +113,36 @@ describe'system/disable-user-system' do
             (result['message']).should.equal('SYSTEM_USER_IS_ALREADY_DISABLED')
         end
 
+        it 'should allow staff members to recover their passwords' do
+            request('/user/logout')
+            result = request('/user/send-recover-password', {
+                email: 'jorah@opensupports.com',
+                staff: true
+            })
+            (result['status']).should.equal('success')
+
+            token = $database.getLastRow('recoverpassword')['token'];
+
+            result = request('/user/recover-password', {
+                email: 'jorah@opensupports.com',
+                password: 's3cur3p455w0rd',
+                token: token
+            })
+            (result['status']).should.equal('success')
+            (result['data']['staff']).should.equal('1')
+
+            result = request('/user/login', {
+                email: 'jorah@opensupports.com',
+                password: 's3cur3p455w0rd',
+                staff: true
+            })
+            (result['status']).should.equal('success')
+            (result['data']['userEmail']).should.equal('jorah@opensupports.com')
+        end
+
         it 'should enable the user system' do
+            request('/user/logout')
+            Scripts.login($staff[:email], $staff[:password], true)
             result = request('/system/enable-user-system', {
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
