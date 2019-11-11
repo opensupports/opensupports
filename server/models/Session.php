@@ -11,7 +11,9 @@ class Session {
 
     public function initSession() {
         session_cache_limiter(false);
-        session_start();
+        session_start([
+            'cookie_lifetime' => 86400
+        ]);
     }
 
     public function closeSession() {
