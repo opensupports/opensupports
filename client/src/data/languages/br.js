@@ -300,7 +300,7 @@ export default {
     'DELETE_USER_DESCRIPTION': 'O usuário não será capaz de entrar no sistema e todos os seus chamados serão apagados. Além disso, o e-mail não poderá mais ser usado.',
     'DELETE_TOPIC_DESCRIPTION': 'Ao excluir o tópico, todos os artigos dele serão apagados.',
     'EDIT_TOPIC_DESCRIPTION': 'Aqui você pode alterar o nome, o ícone ea cor do ícone do tópico.',
-    'ADD_ARTICLE_DESCRIPTION': 'Aqui você pode adicionar um artigo que estará disponível para cada usuário. Ele será adicionado dentro da categoria {categoria}.',
+    'ADD_ARTICLE_DESCRIPTION': 'Aqui você pode adicionar um artigo que estará disponível para cada usuário. Ele será adicionado dentro da categoria {category}.',
     'LIST_ARTICLES_DESCRIPTION': 'Esta é uma lista de artigos que inclui informações sobre nossos serviços.',
     'ADD_TOPIC_DESCRIPTION': 'Aqui você pode adicionar um tópico que funciona como uma categoria para artigos.',
     'DELETE_ARTICLE_DESCRIPTION': 'Você vai excluir este artigo para sempre.',
