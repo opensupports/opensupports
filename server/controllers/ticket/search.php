@@ -26,8 +26,8 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {Number} assigned The status of assigned 1 or 0 to make a custom search.
  * @apiParam {String} query A string to find into a ticket to make a custom search.
  * @apiParam {Number} page The number of the page of the tickets.
- * @apiParam {Object} orderBy A object {value, asc}with string and boolean to make a especific order of the  search. 
- * 
+ * @apiParam {Object} orderBy A object {value, asc}with string and boolean to make a especific order of the  search.
+ *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TAG_FILTER
  * @apiUse INVALID_CLOSED_FILTER
@@ -99,24 +99,25 @@ class SearchController extends Controller {
     }
 
     public function handler() {
-        $query = "FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id)";
-        $filters = "";
-        $order = "";
-        Controller::request("page") ?  $page =  Controller::request("page") : $page  = 1 ;
+        $inputs = [
+            'closed' => Controller::request('closed'),
+            'tags' => json_decode(Controller::request('tags')),
+            'unreadStaff' => Controller::request('unreadStaff'),
+            'priority' => json_decode(Controller::request('priority')),
+            'dateRange' => json_decode(Controller::request('dateRange')),
+            'departments' => json_decode(Controller::request('departments')),
+            'authors' => json_decode(Controller::request('authors'),true),
+            'assigned' => Controller::request('assigned'),
+            'query' => Controller::request('query'),
+            'orderBy' => json_decode(Controller::request('orderBy'),true),
+            'page' => Controller::request('page')
+        ];
+        $query = $this->getSQLQuery($inputs);
+        $queryWithOrder = $this->getSQLQueryWithOrder($inputs);
 
-        $this->setQueryFilters($filters);
-        $query .= $filters . " GROUP BY ticket.id";
-
+        throw new Exception("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2");
         $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2")[0]['COUNT(*)'];
-        error_log(print_r("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", true));
-        error_log(print_r($totalCount, true));
-
-        $query = "SELECT ticket.id,ticket.title,ticket.ticket_number,ticket.content ,ticketevent.content " . $query;
-
-        $this->setQueryOrder($order);
-        $query .= $order ." LIMIT 10 OFFSET " . (($page-1)*10);
-        
-        $ticketList = RedBean::getAll($query);
+        $ticketList = RedBean::getAll($queryWithOrder);
 
         Response::respondSuccess([
             'tickets' => $ticketList,
@@ -125,61 +126,74 @@ class SearchController extends Controller {
         ]);
 
     }
-    //FILTER
-    private function setQueryFilters(&$filters){
-        $this->setTagFilter($filters);
-        $this->setClosedFilter($filters);
-        $this->setAssignedFilter($filters);
-        $this->setSeenFilter($filters);
-        $this->setPriorityFilter($filters);
-        $this->setDateFilter($filters);
-        $this->setDepartmentFilter($filters);
-        $this->setAuthorFilter($filters);
-        $this->setStringFilter($filters);
 
+    public function getSQLQuery($inputs) {
+        $query = "FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id)";
+        $filters = "";
+        $this->setQueryFilters($inputs, $filters);
+        $query .= $filters . " GROUP BY ticket.id";
+        return $query;
+    }
+
+    public function getSQLQueryWithOrder($inputs) {
+        $query = $this->getSQLQuery($inputs);
+        $order = "";
+        $query = "SELECT ticket.id,ticket.title,ticket.ticket_number,ticket.content ,ticketevent.content " . $query;
+
+        $this->setQueryOrder($inputs, $order);
+        $inputs['page'] ?  $page =  $inputs['page'] : $page  = 1 ;
+        $query .= $order ." LIMIT 10 OFFSET " . (($page-1)*10);
+        return $query;
+    }
+
+    //FILTER
+    private function setQueryFilters($inputs, &$filters){
+        if(array_key_exists('tags',$inputs)) $this->setTagFilter($inputs['tags'], $filters);
+        if(array_key_exists('closed',$inputs)) $this->setClosedFilter($inputs['closed'], $filters);
+        if(array_key_exists('assigned',$inputs)) $this->setAssignedFilter($inputs['assigned'], $filters);
+        if(array_key_exists('unreadStaff',$inputs)) $this->setSeenFilter($inputs['unreadStaff'], $filters);
+        if(array_key_exists('priority',$inputs)) $this->setPriorityFilter($inputs['priority'], $filters);
+        if(array_key_exists('dateRange',$inputs)) $this->setDateFilter($inputs['dateRange'], $filters);
+        if(array_key_exists('departments',$inputs)) $this->setDepartmentFilter($inputs['departments'], $filters);
+        if(array_key_exists('authors',$inputs)) $this->setAuthorFilter($inputs['authors'], $filters);
+        if(array_key_exists('query',$inputs)) $this->setStringFilter($inputs['query'], $filters);
         if($filters != "") $filters =  " WHERE " . $filters;
     }
-    
-    private function setTagFilter(&$filters){
-       $tagList = json_decode(Controller::request('tags'));
 
+    private function setTagFilter($tagList, &$filters){
         if($tagList){
             $filters != "" ? $filters .= " and " : null;
 
-            foreach($tagList as $key => $tag) {  
+            foreach($tagList as $key => $tag) {
 
                 $key == 0 ? $filters .= " ( " : null;
                 ($key != 0 && $key != sizeof($tagList)) ? $filters .= " or " : null;
-                
+
                 $filters .= "tag_ticket.tag_id  = " . $tag ;
             }
             $filters .= ")";
         }
     }
-    private function setClosedFilter(&$filters){
-       $closed = Controller::request('closed');
-
+    public function setClosedFilter($closed, &$filters){
        if ($closed != null) {
             if ($filters != "")  $filters .= " and ";
             $filters .= "ticket.closed = " . $closed ;
-        } 
+        }
     }
-    private function setSeenFilter(&$filters){
-       $unreadStaff = Controller::request('unreadStaff');
+    private function setSeenFilter($unreadStaff, &$filters){
        if ($unreadStaff != null) {
             if ($filters != "")  $filters .= " and ";
             $filters .= "ticket.unread_staff = " . $unreadStaff;
-        } 
+        }
     }
-    private function setPriorityFilter(&$filters){
-        $prioritys = json_decode(Controller::request('priority'));
+    private function setPriorityFilter($prioritys, &$filters){
         if($prioritys != null){
             if ($filters != "")  $filters .= " and ";
             foreach(array_unique($prioritys) as $key => $priority) {
 
                 $key == 0 ? $filters .= " ( " : null;
                 ($key != 0 && $key != sizeof($prioritys)) ? $filters .= " or " : null;
-                
+
                 if($priority == 0){
                     $filters .= "ticket.priority = " . "'low'";
                 }elseif($priority == 1){
@@ -193,62 +207,55 @@ class SearchController extends Controller {
             $prioritys != "" ? $filters .= ") " : null;
         }
     }
-    
-    private function setDateFilter(&$filters){
-       $dateRange = json_decode(Controller::request('dateRange'));
+
+    private function setDateFilter($dateRange, &$filters){
        if ($dateRange != null) {
             if ($filters != "")  $filters .= " and ";
 
             foreach($dateRange as $key => $date) {
                 $key == 0 ? ($filters .= "(ticket.date >= " . $date ): ($filters .= " and ticket.date <= " . $date . ")");
             }
-        } 
+        }
     }
 
-    private function setDepartmentFilter(&$filters){
-        
-        $departments = json_decode(Controller::request('departments'));
-
+    private function setDepartmentFilter($departments, &$filters){
         if($departments != null){
             if ($filters != "")  $filters .= " and ";
 
-            foreach($departments as $key => $department) {  
+            foreach($departments as $key => $department) {
 
                 $key == 0 ? $filters .= " ( " : null;
                 ($key != 0 && $key != sizeof($departments)) ? $filters .= " or " : null;
-                
+
                 $filters .= "ticket.department_id = " . $department ;
             }
             $filters .= ")";
         }
     }
 
-    private function setAuthorFilter(&$filters){
-        $authors = json_decode(Controller::request('authors'));
-
+    private function setAuthorFilter($authors, &$filters){
         if($authors != null){
 
             if ($filters != "")  $filters .= " and ";
-            
+
             foreach($authors as $key => $author){
 
                 $key == 0 ? $filters .= " ( " : null;
                 ($key != 0 && $key != sizeof($authors)) ? $filters .= " or " : null;
-                
-                if($author->staff){
-                    $filters .= "ticket.author_staff_id  = " . $author->id;
+
+                if($author['staff']){
+                    $filters .= "ticket.author_staff_id  = " . $author['id'];
                 } else {
-                    $filters .= "ticket.author_id = " . $author->id;
+                    $filters .= "ticket.author_id = " . $author['id'];
                 }
             }
 
             $filters .= ")";
-        
+
         }
     }
 
-    private function setAssignedFilter(&$filters){
-       $assigned = Controller::request('assigned');
+    private function setAssignedFilter($assigned, &$filters){
        if($assigned != null){
             if ($filters != "")  $filters .= " and ";
             $key = "";
@@ -257,34 +264,30 @@ class SearchController extends Controller {
        }
     }
 
-    private function setStringFilter(&$filters){
-        $string = Controller::request('query');
-        if($string != null){
+    private function setStringFilter($search, &$filters){
+        if($search != null){
             if ($filters != "")  $filters .= " and ";
-            $filters .= " (ticket.title LIKE '%" . $string . "%' or ticket.content LIKE '%" . $string . "%' or ticket.ticket_number LIKE '%" . $string . "%' or (ticketevent.type = 'COMMENT' and ticketevent.content LIKE '%" . $string ."%'))";
+            $filters .= " (ticket.title LIKE '%" . $search . "%' or ticket.content LIKE '%" . $search . "%' or ticket.ticket_number LIKE '%" . $search . "%' or (ticketevent.type = 'COMMENT' and ticketevent.content LIKE '%" . $search ."%'))";
         };
     }
 
     //ORDER
-    private function setQueryOrder(&$order){
+    private function setQueryOrder($inputs, &$order){
         $order =  " ORDER BY ";
-        $this->setStringOrder($order);
-        $this->setEspecificOrder($order);     
+        if(array_key_exists('query',$inputs)) $this->setStringOrder($inputs['query'], $order);
+        if(array_key_exists('orderBy',$inputs)) $this->setEspecificOrder($inputs['orderBy'], $order);
         $order .=  "ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.priority desc, ticket.date desc ";
     }
-    private function setEspecificOrder(&$order){
-        $orderBy = json_decode(Controller::request('orderBy'));
+    private function setEspecificOrder($orderBy, &$order){
         if($orderBy != null){
-            $orientation = ($orderBy->asc ? " asc" : " desc" );
-            $order .= "ticket." . $orderBy->value . $orientation . ",";
+            $orientation = ($orderBy['asc'] ? " asc" : " desc" );
+            $order .= "ticket." . $orderBy['value'] . $orientation . ",";
         };
     }
-    private function setStringOrder(&$order){
-        $string = Controller::request('query');
-        if($string != null){
-            $order .= "CASE WHEN (ticket.ticket_number LIKE '%" . $string ."%') THEN ticket.ticket_number END desc,CASE WHEN (ticket.title LIKE '%" . $string ."%') THEN ticket.title END desc, CASE WHEN ( ticket.content LIKE '%" . $string ."%') THEN ticket.content END desc, CASE WHEN (ticketevent.type = 'COMMENT' and ticketevent.content LIKE '%".$string."%') THEN ticketevent.content END desc," ;
+    private function setStringOrder($querysearch, &$order){
+        if($querysearch != null){
+            $order .= "CASE WHEN (ticket.ticket_number LIKE '%" . $querysearch ."%') THEN ticket.ticket_number END desc,CASE WHEN (ticket.title LIKE '%" . $querysearch ."%') THEN ticket.title END desc, CASE WHEN ( ticket.content LIKE '%" . $querysearch ."%') THEN ticket.content END desc, CASE WHEN (ticketevent.type = 'COMMENT' and ticketevent.content LIKE '%".$querysearch."%') THEN ticketevent.content END desc," ;
         }
     }
 
 }
-

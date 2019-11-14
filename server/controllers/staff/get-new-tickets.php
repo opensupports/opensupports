@@ -32,7 +32,7 @@ class GetNewTicketsStaffController extends Controller {
 
     public function validations() {
         return[
-            'permission' => 'any',
+            'permission' => 'staff_1',
             'requestData' => [
                 'page' => [
                     'validation' => DataValidator::numeric(),
