@@ -206,7 +206,7 @@ export default {
     'TYPE': 'Tipo',
     'SELECT_INPUT': 'Seleccionar entrada',
     'TEXT_INPUT': 'Entrada de texto',
-    'OPTION': 'Opción {índice}',
+    'OPTION': 'Opción {index}',
     'OPTIONS': 'Opciones',
     'FIELD_DESCRIPTION': 'Descripción del campo (opcional)',
     'DESCRIPTION_ADD_CUSTOM_TAG': 'Aquí puedes agregar una nueva etiqueta personalizada',
