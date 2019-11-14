@@ -65,6 +65,35 @@ describe'system/disable-user-system' do
             (result['status']).should.equal('success')
         end
 
+        it 'should be able to comment on ticket as a non-logged user' do
+            result = request('/ticket/create', {
+                title: 'Doubt about Russian language',
+                content: 'Stariy means old in Russian?',
+                departmentId: 1,
+                language: 'en',
+                name: 'Abraham Einstein',
+                email: 'abrahameinstein@opensupports.com'
+            })
+            (result['status']).should.equal('success')
+
+            ticketNumber = result['data']['ticketNumber']
+
+            result = request('/ticket/check', {
+                ticketNumber: ticketNumber,
+                email: 'abrahameinstein@opensupports.com',
+                captcha: 'valid'
+            })
+            token = result['data']['token']
+            (result['status']).should.equal('success');
+
+            result = request('/ticket/comment', {
+                content: 'I actually think it is not like that, but anyways, thanks',
+                ticketNumber: ticketNumber,
+                csrf_token: token
+            })
+            (result['status']).should.equal('success')
+        end
+
         it 'should be able to assign and respond tickets' do
             Scripts.login($staff[:email], $staff[:password], true);
             ticket = $database.getLastRow('ticket');
@@ -82,6 +111,26 @@ describe'system/disable-user-system' do
                 csrf_token: $csrf_token,
             })
             (result['status']).should.equal('success')
+        end
+
+        it 'should be able to get the latest events as admin' do
+            result = request('/staff/last-events', {
+                page: 1,
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token
+            })
+            (result['status']).should.equal('success')
+            (result['data'].size).should.equal(10)
+        end
+        
+        it 'should be able to get system logs as admin' do
+            result = request('/system/get-logs', {
+                page: 1,
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token
+            })
+            (result['status']).should.equal('success')
+            (result['data'].size).should.equal(10)
         end
 
         it 'should be be able to create a ticket as an admin' do
@@ -127,8 +176,7 @@ describe'system/disable-user-system' do
 
             numberOftickets= $database.query("SELECT * FROM ticket WHERE author_email IS NULL AND author_name IS NULL AND author_id IS NOT NULL"  )
 
-            (numberOftickets.num_rows).should.equal(52)
-
+            (numberOftickets.num_rows).should.equal(53)
         end
 
         it 'should not enable the user system' do
@@ -140,6 +188,5 @@ describe'system/disable-user-system' do
 
             (result['status']).should.equal('fail')
             (result['message']).should.equal('SYSTEM_USER_IS_ALREADY_ENABLED')
-
         end
 end

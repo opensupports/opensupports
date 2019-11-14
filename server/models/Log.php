@@ -22,13 +22,27 @@ class Log extends DataStore {
             'authorUser',
             'authorStaff',
             'to',
-            'date'
+            'date',
+            'authorName'
         ];
     }
 
-    public static function createLog($type,$to, $author = null) {
+    public static function createLog($type, $to, $author = null) {
+        $session = Session::getInstance();
+        $authorName = '';
+
+        if($session->isTicketSession()) {
+            $ticketNumber = $session->getTicketNumber();
+            $ticket = Ticket::getByTicketNumber($ticketNumber);
+            $authorName = $ticket->authorToArray()['name'];
+        }
+
         if($author === null) {
             $author = Controller::getLoggedUser();
+        }
+
+        if(!$author->isNull()) {
+            $authorName = $author->name;
         }
 
         $log = new Log();
@@ -36,7 +50,8 @@ class Log extends DataStore {
         $log->setProperties(array(
             'type' => $type,
             'to' => $to,
-            'date' => Date::getCurrentDate()
+            'date' => Date::getCurrentDate(),
+            'authorName' => $authorName
         ));
 
         if($author instanceof User) {
@@ -55,8 +70,8 @@ class Log extends DataStore {
             'type' => $this->type,
             'to' => $this->to,
             'author' => [
-                'name' => $author->name,
-                'id' => $author->id,
+                'name' => $this->authorName,
+                'id' => ($author && !$author->isNull()) ? $author->id : null,
                 'staff' => $author instanceof Staff
             ],
             'date' => $this->date
