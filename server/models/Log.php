@@ -71,7 +71,7 @@ class Log extends DataStore {
             'to' => $this->to,
             'author' => [
                 'name' => $this->authorName,
-                'id' => $author && !$author->isNull() ? $author->id : null,
+                'id' => ($author && !$author->isNull()) ? $author->id : null,
                 'staff' => $author instanceof Staff
             ],
             'date' => $this->date

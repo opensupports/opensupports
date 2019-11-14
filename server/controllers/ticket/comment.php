@@ -100,8 +100,8 @@ class CommentController extends Controller {
                 'name' => $this->ticket->owner->name,
                 'staff' => true
             ]);
-        } else if($isOwner) {
-            !Controller::request('private') ? $this->sendMail($ticketAuthor) : null;
+        } else if($isOwner && !Controller::request('private')) {
+            $this->sendMail($ticketAuthor);
         }
 
         Log::createLog('COMMENT', $this->ticket->ticketNumber);

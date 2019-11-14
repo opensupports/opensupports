@@ -92,7 +92,7 @@ class Ticketevent extends DataStore {
                 'name' => $user ? $user->name : $author['name'],
                 'staff' => $user instanceOf Staff,
                 'id' => $user ? $user->id : null,
-                'customfields' => $user && $user->xownCustomfieldvalueList ? $user->xownCustomfieldvalueList->toArray() : [],
+                'customfields' => ($user && $user->xownCustomfieldvalueList) ? $user->xownCustomfieldvalueList->toArray() : [],
             ],
             'edited' => $this->editedContent
         ];
