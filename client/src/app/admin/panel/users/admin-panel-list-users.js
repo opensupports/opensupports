@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -16,7 +17,6 @@ import MainSignUpWidget from 'app/main/main-signup/main-signup-widget';
 import InviteUserWidget from 'app/admin/panel/users/invite-user-widget';
 
 class AdminPanelListUsers extends React.Component {
-
     state = {
         loading: true,
         users: [],
@@ -40,8 +40,16 @@ class AdminPanelListUsers extends React.Component {
         return (
             <div className="admin-panel-list-users">
                 <Header title={i18n('LIST_USERS')} description={i18n('LIST_USERS_DESCRIPTION')} />
+                {(this.state.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_USERS')}</Message> : this.renderTableAndInviteButton()}
+            </div>
+        );
+    }
+
+    renderTableAndInviteButton() {
+        return (
+            <div>
                 <SearchBox className="admin-panel-list-users__search-box" placeholder={i18n('SEARCH_USERS')} onSearch={this.onSearch.bind(this)} />
-                {(this.state.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_USERS')}</Message> : <Table {...this.getTableProps()}/>}
+                <Table {...this.getTableProps()}/>
                 <div style={{textAlign: 'right', marginTop: 10}}>
                     <Button onClick={this.onInviteUser.bind(this)} type="secondary" size="medium">
                         <Icon size="sm" name="plus"/> {i18n('INVITE_USER')}
@@ -202,4 +210,8 @@ class AdminPanelListUsers extends React.Component {
     }
 }
 
-export default AdminPanelListUsers;
+export default connect((store) => {
+    return {
+        config: store.config
+    };
+})(AdminPanelListUsers);
