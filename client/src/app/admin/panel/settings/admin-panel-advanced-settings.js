@@ -153,7 +153,7 @@ class AdminPanelAdvancedSettings extends React.Component {
         ModalContainer.closeModal();
         API.call({
             path: '/system/add-api-key',
-            data: {name}
+            data: {name, type: 'REGISTRATION'}
         }).then(this.getAllKeys.bind(this));
     }
 
@@ -177,7 +177,7 @@ class AdminPanelAdvancedSettings extends React.Component {
 
     onRetrieveSuccess(result) {
         this.setState({
-            APIKeys: result.data,
+            APIKeys: result.data.filter(key => key['type'] === 'REGISTRATION'),
             selectedAPIKey: -1
         });
     }
