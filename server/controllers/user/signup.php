@@ -72,7 +72,7 @@ class SignUpController extends Controller {
 
         if(!$this->csvImported) {
             $validations['requestData']['captcha'] = [
-                'validation' => DataValidator::captcha(),
+                'validation' => DataValidator::captcha(APIKey::REGISTRATION),
                 'error' => ERRORS::INVALID_CAPTCHA
             ];
         }
@@ -101,6 +101,10 @@ class SignUpController extends Controller {
 
         if (!Setting::getSetting('registration')->value && $apiKey->isNull() && !Controller::isStaffLogged(2) && !$this->csvImported) {
             throw new RequestException(ERRORS::NO_PERMISSION);
+        }
+
+        if(!$apiKey->isNull() && $apiKey->type !== APIKey::REGISTRATION) {
+            throw new RequestException(ERRORS::INVALID_API_KEY_TYPE);
         }
 
         $userId = $this->createNewUserAndRetrieveId();
