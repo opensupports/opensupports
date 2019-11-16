@@ -17,7 +17,7 @@ describe'system/disable-user-system' do
             row = $database.getRow('user', 1, 'id')
             (row).should.equal(nil)
 
-            numberOftickets= $database.query("SELECT * FROM ticket WHERE author_id IS NULL AND author_email IS NOT NULL AND author_name IS NOT NULL")
+            numberOftickets = $database.query("SELECT * FROM ticket WHERE author_id IS NULL AND author_email IS NOT NULL AND author_name IS NOT NULL")
 
             (numberOftickets.num_rows).should.equal(51)
 
@@ -99,6 +99,21 @@ describe'system/disable-user-system' do
             (ticket['author_staff_id']).should.equal('1')
         end
 
+        it 'should be able to create a ticket using api' do
+            api_key = Scripts.createAPIKey('ticketCreateKey', 'TICKET_CREATE')['data']
+            request('/user/logout')
+            result = request('/ticket/create', {
+                email: 'fromapi@testemail.com',
+                name: 'Random user',
+                title: 'created by api',
+                content: 'this ticket was created using anapi key while user system is disabled',
+                departmentId: 1,
+                language: 'en',
+                apiKey: api_key
+            })
+            (result['status']).should.equal('success')
+        end
+
         it 'should not disable the user system if it is already disabled 'do
             request('/user/logout')
             Scripts.login($staff[:email], $staff[:password], true)
@@ -127,7 +142,7 @@ describe'system/disable-user-system' do
 
             numberOftickets= $database.query("SELECT * FROM ticket WHERE author_email IS NULL AND author_name IS NULL AND author_id IS NOT NULL"  )
 
-            (numberOftickets.num_rows).should.equal(52)
+            (numberOftickets.num_rows).should.equal(53)
 
         end
 
