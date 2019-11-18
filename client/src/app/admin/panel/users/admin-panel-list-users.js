@@ -13,7 +13,6 @@ import Button from 'core-components/button';
 import Message from 'core-components/message';
 import Icon from 'core-components/icon';
 import ModalContainer from 'app-components/modal-container';
-import MainSignUpWidget from 'app/main/main-signup/main-signup-widget';
 import InviteUserWidget from 'app/admin/panel/users/invite-user-widget';
 
 class AdminPanelListUsers extends React.Component {
