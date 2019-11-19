@@ -52,7 +52,7 @@ class SearchController extends Controller {
 
     public function validations() {
         return [
-            'permission' => 'any',
+            'permission' => 'staff_1',
             'requestData' => [
                 'page' => [
                     'validation' => DataValidator::oneOf(DataValidator::numeric()->positive(),DataValidator::nullType()),
@@ -110,25 +110,38 @@ class SearchController extends Controller {
             'assigned' => Controller::request('assigned'),
             'query' => Controller::request('query'),
             'orderBy' => json_decode(Controller::request('orderBy'),true),
-            'page' => Controller::request('page')
+            'page' => Controller::request('page'),
+            'user' => Controller::getLoggedUser(),
         ];
+
         $query = $this->getSQLQuery($inputs);
         $queryWithOrder = $this->getSQLQueryWithOrder($inputs);
 
-        throw new Exception("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2");
         $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2")[0]['COUNT(*)'];
         $ticketList = RedBean::getAll($queryWithOrder);
 
-        Response::respondSuccess([
-            'tickets' => $ticketList,
-            'pages' => ceil($totalCount / 10),
-            'page' => Controller::request('page')
-        ]);
+        $ticketTableExists  = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticket';");
+
+        if($ticketTableExists){
+            Response::respondSuccess([
+                'tickets' => $ticketList,
+                'pages' => ceil($totalCount / 10),
+                'page' => $inputs['page'] ? $inputs['page'] : 1
+            ]);
+        }else{
+            Response::respondSuccess([]);
+        }
 
     }
 
     public function getSQLQuery($inputs) {
-        $query = "FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id)";
+        $tagsTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'tag_ticket';");
+        $ticketEventTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticketevent';");
+
+        $taglistQuery = ( $tagsTableExists ? " LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id" : '');
+        $ticketeventlistQuery = ( $ticketEventTableExists ? " LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id" : '');
+
+        $query = "FROM (ticket" . $taglistQuery . $ticketeventlistQuery .")";
         $filters = "";
         $this->setQueryFilters($inputs, $filters);
         $query .= $filters . " GROUP BY ticket.id";
@@ -138,7 +151,7 @@ class SearchController extends Controller {
     public function getSQLQueryWithOrder($inputs) {
         $query = $this->getSQLQuery($inputs);
         $order = "";
-        $query = "SELECT ticket.id,ticket.title,ticket.ticket_number,ticket.content ,ticketevent.content " . $query;
+        $query = "SELECT ticket.id,ticket.title,ticket.ticket_number, ticket.priority ,ticket.department_id, ticket.author_id , ticket.date " . $query;
 
         $this->setQueryOrder($inputs, $order);
         $inputs['page'] ?  $page =  $inputs['page'] : $page  = 1 ;
@@ -154,14 +167,16 @@ class SearchController extends Controller {
         if(array_key_exists('unreadStaff',$inputs)) $this->setSeenFilter($inputs['unreadStaff'], $filters);
         if(array_key_exists('priority',$inputs)) $this->setPriorityFilter($inputs['priority'], $filters);
         if(array_key_exists('dateRange',$inputs)) $this->setDateFilter($inputs['dateRange'], $filters);
-        if(array_key_exists('departments',$inputs)) $this->setDepartmentFilter($inputs['departments'], $filters);
+        if(array_key_exists('departments',$inputs)) $this->setDepartmentFilter($inputs['departments'],$inputs['user'], $filters);
         if(array_key_exists('authors',$inputs)) $this->setAuthorFilter($inputs['authors'], $filters);
         if(array_key_exists('query',$inputs)) $this->setStringFilter($inputs['query'], $filters);
         if($filters != "") $filters =  " WHERE " . $filters;
     }
 
     private function setTagFilter($tagList, &$filters){
-        if($tagList){
+        $tagsTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'tag_ticket';");
+
+        if($tagList && $tagsTableExists){
             $filters != "" ? $filters .= " and " : null;
 
             foreach($tagList as $key => $tag) {
@@ -188,11 +203,16 @@ class SearchController extends Controller {
     }
     private function setPriorityFilter($prioritys, &$filters){
         if($prioritys != null){
+            $first = TRUE;
             if ($filters != "")  $filters .= " and ";
-            foreach(array_unique($prioritys) as $key => $priority) {
+            foreach(array_unique($prioritys) as $priority) {
 
-                $key == 0 ? $filters .= " ( " : null;
-                ($key != 0 && $key != sizeof($prioritys)) ? $filters .= " or " : null;
+                if($first){
+                    $filters .= " ( ";
+                    $first = FALSE;
+                } else {
+                    $filters .= " or ";
+                }
 
                 if($priority == 0){
                     $filters .= "ticket.priority = " . "'low'";
@@ -202,10 +222,11 @@ class SearchController extends Controller {
                     $filters .= "ticket.priority = " . "'high'";
                 }
 
-                $key == sizeof($prioritys) ? $filters .= " ) " : null ;
+
             }
             $prioritys != "" ? $filters .= ") " : null;
         }
+
     }
 
     private function setDateFilter($dateRange, &$filters){
@@ -218,30 +239,38 @@ class SearchController extends Controller {
         }
     }
 
-    private function setDepartmentFilter($departments, &$filters){
-        if($departments != null){
-            if ($filters != "")  $filters .= " and ";
+    private function setDepartmentFilter($departments,$user, &$filters){
 
-            foreach($departments as $key => $department) {
+        $validDepartments = $this->generateValidDepartmentList($departments, $user);
+        if ($filters != "")  $filters .= " and ";
+        $first = TRUE;
 
-                $key == 0 ? $filters .= " ( " : null;
-                ($key != 0 && $key != sizeof($departments)) ? $filters .= " or " : null;
-
-                $filters .= "ticket.department_id = " . $department ;
+        foreach($validDepartments as $department) {
+            if($first){
+                $filters .= " ( ";
+                $first = FALSE;
+            } else {
+                $filters .= " or ";
             }
-            $filters .= ")";
+            $filters .= "ticket.department_id = " . $department;
         }
+        $filters .= ")";
+
     }
 
     private function setAuthorFilter($authors, &$filters){
         if($authors != null){
-
+            $first = TRUE;
             if ($filters != "")  $filters .= " and ";
 
-            foreach($authors as $key => $author){
+            foreach($authors as $author){
 
-                $key == 0 ? $filters .= " ( " : null;
-                ($key != 0 && $key != sizeof($authors)) ? $filters .= " or " : null;
+                if($first){
+                    $filters .= " ( ";
+                    $first = FALSE;
+                } else {
+                    $filters .= " or ";
+                }
 
                 if($author['staff']){
                     $filters .= "ticket.author_staff_id  = " . $author['id'];
@@ -265,10 +294,29 @@ class SearchController extends Controller {
     }
 
     private function setStringFilter($search, &$filters){
+        $ticketEventTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticketevent';");
+
         if($search != null){
             if ($filters != "")  $filters .= " and ";
-            $filters .= " (ticket.title LIKE '%" . $search . "%' or ticket.content LIKE '%" . $search . "%' or ticket.ticket_number LIKE '%" . $search . "%' or (ticketevent.type = 'COMMENT' and ticketevent.content LIKE '%" . $search ."%'))";
+            $ticketevent = ( $ticketEventTableExists ? " or (ticketevent.type = 'COMMENT' and ticketevent.content LIKE '%" . $search ."%')" : "");
+            $filters .= " (ticket.title LIKE '%" . $search . "%' or ticket.content LIKE '%" . $search . "%' or ticket.ticket_number LIKE '%" . $search . "%'". $ticketevent  ." )";
         };
+    }
+
+    private function generateValidDepartmentList($departments, $user){
+        $result = [];
+        $managedDepartments = [];
+        if($departments == null) $departments = [];
+        foreach ($user->sharedDepartmentList->toArray() as $department) {
+             array_push($managedDepartments,$department['id']);
+        }
+        $result = array_intersect($departments,$managedDepartments);
+
+        if(empty($result)) $result =  $managedDepartments;
+
+        $result = array_unique($result);
+
+        return $result;
     }
 
     //ORDER
@@ -285,8 +333,11 @@ class SearchController extends Controller {
         };
     }
     private function setStringOrder($querysearch, &$order){
+        $ticketEventTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticketevent';");
+
         if($querysearch != null){
-            $order .= "CASE WHEN (ticket.ticket_number LIKE '%" . $querysearch ."%') THEN ticket.ticket_number END desc,CASE WHEN (ticket.title LIKE '%" . $querysearch ."%') THEN ticket.title END desc, CASE WHEN ( ticket.content LIKE '%" . $querysearch ."%') THEN ticket.content END desc, CASE WHEN (ticketevent.type = 'COMMENT' and ticketevent.content LIKE '%".$querysearch."%') THEN ticketevent.content END desc," ;
+            $ticketeventOrder =  ( $ticketEventTableExists ? " CASE WHEN (ticketevent.type = 'COMMENT' and ticketevent.content LIKE '%".$querysearch."%') THEN ticketevent.content END desc," : "");
+            $order .= "CASE WHEN (ticket.ticket_number LIKE '%" . $querysearch ."%') THEN ticket.ticket_number END desc,CASE WHEN (ticket.title LIKE '%" . $querysearch ."%') THEN ticket.title END desc, CASE WHEN ( ticket.content LIKE '%" . $querysearch ."%') THEN ticket.content END desc," . $ticketeventOrder ;
         }
     }
 
