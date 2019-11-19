@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} TicketEvent TicketEvent
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  * @apiGroup Data Structures
  * @apiParam {String}  type The type of the ticket event. It can be COMMENT, ASSIGN, UN_ASSIGN, CLOSE, RE_OPEN, DEPARTMENT_CHANGED or PRIORITY_CHANGED
  * @apiParam {String}  content The content of the ticket event.
@@ -83,15 +83,16 @@ class Ticketevent extends DataStore {
 
     public function toArray() {
         $user = ($this->authorStaff) ? $this->authorStaff : $this->authorUser;
+        $author = $this->ticket->authorToArray();
 
         return [
             'type' => $this->type,
             'ticketNumber' => $this->ticket->ticketNumber,
             'author' => [
-                'name' => $user ? $user->name : null,
+                'name' => $user ? $user->name : $author['name'],
                 'staff' => $user instanceOf Staff,
                 'id' => $user ? $user->id : null,
-                'customfields' => $user->xownCustomfieldvalueList ? $user->xownCustomfieldvalueList->toArray() : [],
+                'customfields' => ($user && $user->xownCustomfieldvalueList) ? $user->xownCustomfieldvalueList->toArray() : [],
             ],
             'edited' => $this->editedContent
         ];

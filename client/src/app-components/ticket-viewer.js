@@ -69,7 +69,6 @@ class TicketViewer extends React.Component {
 
     render() {
         const ticket = this.props.ticket;
-
         return (
             <div className="ticket-viewer">
                 <div className="ticket-viewer__header row">
@@ -444,6 +443,7 @@ class TicketViewer extends React.Component {
             }
         }).then(this.onTicketModification.bind(this));
     }
+
     addTag(tag) {
         API.call({
             path: '/ticket/add-tag',
@@ -463,6 +463,7 @@ class TicketViewer extends React.Component {
             }
         }).then(this.onTicketModification.bind(this))
     }
+
     onCustomResponsesChanged({index}) {
         let replaceContentWithCustomResponse = () => {
             this.setState({
@@ -492,7 +493,7 @@ class TicketViewer extends React.Component {
         const data = {};
 
         if(ticketeventid){
-            data.ticketeventId = ticketeventid
+            data.ticketEventId = ticketeventid
         }else{
             data.ticketNumber = this.props.ticket.ticketNumber
         }
@@ -523,6 +524,7 @@ class TicketViewer extends React.Component {
             commentError: true
         });
     }
+
     onSubmit(formState) {
         this.setState({
             loading: true
@@ -602,6 +604,7 @@ class TicketViewer extends React.Component {
 }
 
 export default connect((store) => {
+
     return {
         userId: store.session.userId,
         userStaff: store.session.staff,

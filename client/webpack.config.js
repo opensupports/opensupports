@@ -10,15 +10,11 @@ const {dependencies} = require('./package.json');
 const BUILD_DIR = path.join(__dirname, 'build');
 const APP_DIR = path.join(__dirname, 'src');
 
-const VENDOR_LIST = Object.keys(dependencies);
-
 const config = env => {
     return {
         devtool: 'source-map',
         entry: {
-          config: APP_DIR + '/config.js',
           bundle: APP_DIR + '/index.js',
-          vendor: VENDOR_LIST,
         },
         output: {
             path: BUILD_DIR,
@@ -93,30 +89,13 @@ const config = env => {
             // }),
             new CopyPlugin([
                 './src/.htaccess',
+                './src/config.js',
                 {from: './src/assets/images', to: 'images'},
             ]),
             new BundleAnalyzerPlugin({
                 analyzerMode: process.env.NODE_ENV !== 'production' ? 'server' : 'disabled'
             }),
         ],
-        optimization: {
-            splitChunks: {
-                cacheGroups: {
-                    config: {
-                        chunks: 'initial',
-                        name: 'config',
-                        test: 'config',
-                        enforce: true,
-                    },
-                    vendor: {
-                        chunks: 'initial',
-                        name: 'vendor',
-                        test: 'vendor',
-                        enforce: true,
-                    },
-                }
-            },
-        },
         resolve: {
             modules: ['./src', './node_modules']
         },

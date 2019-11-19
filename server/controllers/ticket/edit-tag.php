@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/edit-tag Edit tag
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  *
  * @apiName Edit tag
  *
@@ -37,6 +37,10 @@ class EditTagController extends Controller {
                 'tagId' => [
                     'validation' => DataValidator::dataStoreId('tag'),
                     'error' => ERRORS::INVALID_TAG
+                ],
+                'color' => [
+                    'validation' => DataValidator::hexRgbColor()->startsWith('#'),
+                    'error' => ERRORS::INVALID_COLOR
                 ]
             ]
         ];

@@ -106,6 +106,7 @@ export default {
     'LAST_EDITED_IN': 'Última edição em {date}',
     'EDIT': 'Editar',
     'ADD_CUSTOM_TAG': 'Adicionar tag personalizada',
+    'EDIT_CUSTOM_TAG': 'Editar tag personalizado',
     'NO_RESULTS': 'Nenhum resultado',
     'DELETE_AND_BAN': 'Excluir e banir',
     'STAFF_LEVEL': 'Nível Pessoal',
@@ -209,6 +210,7 @@ export default {
     'OPTIONS': 'Opções',
     'FIELD_DESCRIPTION': 'Descrição do campo (opcional)',
     'DESCRIPTION_ADD_CUSTOM_TAG': 'aqui você pode adicionar uma nova tag personalizada',
+    'DESCRIPTION_EDIT_CUSTOM_TAG': 'aqui você pode editar uma marca personalizada',
     'CUSTOM_FIELDS': 'Os campos personalizados',
 
     'CHART_CREATE_TICKET': 'Chamados criados',
@@ -226,6 +228,7 @@ export default {
     'ACTIVITY_RE_OPEN': 'Chamado reaberto',
     'ACTIVITY_DEPARTMENT_CHANGED': 'Mudou departamento do Chamado',
     'ACTIVITY_PRIORITY_CHANGED': 'Prioridade alterada do Chamado',
+    'ACTIVITY_EDIT_COMMENT': 'editado um comentário de bilhete',
 
     'ACTIVITY_EDIT_SETTINGS': 'Configurações editadas',
     'ACTIVITY_SIGNUP': 'Se inscreveu',
@@ -297,7 +300,7 @@ export default {
     'DELETE_USER_DESCRIPTION': 'O usuário não será capaz de entrar no sistema e todos os seus chamados serão apagados. Além disso, o e-mail não poderá mais ser usado.',
     'DELETE_TOPIC_DESCRIPTION': 'Ao excluir o tópico, todos os artigos dele serão apagados.',
     'EDIT_TOPIC_DESCRIPTION': 'Aqui você pode alterar o nome, o ícone ea cor do ícone do tópico.',
-    'ADD_ARTICLE_DESCRIPTION': 'Aqui você pode adicionar um artigo que estará disponível para cada usuário. Ele será adicionado dentro da categoria {categoria}.',
+    'ADD_ARTICLE_DESCRIPTION': 'Aqui você pode adicionar um artigo que estará disponível para cada usuário. Ele será adicionado dentro da categoria {category}.',
     'LIST_ARTICLES_DESCRIPTION': 'Esta é uma lista de artigos que inclui informações sobre nossos serviços.',
     'ADD_TOPIC_DESCRIPTION': 'Aqui você pode adicionar um tópico que funciona como uma categoria para artigos.',
     'DELETE_ARTICLE_DESCRIPTION': 'Você vai excluir este artigo para sempre.',
@@ -396,6 +399,7 @@ export default {
     'SERVER_CREDENTIALS_WORKING': 'Credenciais do servidor estão funcionando corretamente',
     'DELETE_CUSTOM_FIELD_SURE': 'Alguns usuários podem estar usando este campo. Tem certeza de que deseja excluí-lo?',
 
+    'COMMENT_EDITED': '(Editado comentário)',
     'LAST_7_DAYS': 'Últimos 7 dias',
     'LAST_30_DAYS': 'Últimos 30 dias',
     'LAST_90_DAYS': 'Últimos 90 dias',

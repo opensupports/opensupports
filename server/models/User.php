@@ -3,7 +3,7 @@ use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {OBJECT} User User
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  * @apiGroup Data Structures
  * @apiParam {String} email The email of the user.
  * @apiParam {Number} id The id of the user.
@@ -41,6 +41,10 @@ class User extends DataStore {
 
     public static function getUser($value, $property = 'id') {
         return parent::getDataStore($value, $property);
+    }
+
+    public function canManageTicket(Ticket $ticket){
+        return $ticket->isAuthor($this);
     }
 
     public function toArray() {

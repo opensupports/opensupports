@@ -107,6 +107,7 @@ export default {
     'EDIT': 'Düzenle',
     'ADD_CUSTOM_TAG': 'Özel etiket ekle',
     'EDIT_CUSTOM_TAG': 'Özel etiketi düzenle',
+    'EDIT_CUSTOM_TAG': 'Düzenleme özel etiket',
     'NO_RESULTS': 'Sonuç yok',
     'DELETE_AND_BAN': 'Sil ve yasakla',
     'STAFF_LEVEL': 'Personel Seviyesi',
@@ -211,6 +212,7 @@ export default {
     'FIELD_DESCRIPTION': 'Alan açıklaması (İsteğe bağlı)',
     'DESCRIPTION_ADD_CUSTOM_TAG': 'buraya yeni bir özel etiket ekleyebilirsiniz',
     'DESCRIPTION_EDIT_CUSTOM_TAG': 'burada özel bir etiketi düzenleyebilirsiniz',
+    'DESCRIPTION_EDIT_CUSTOM_TAG': 'Burada özel bir etiketi düzenleyebilirsiniz',
     'CUSTOM_FIELDS': 'Özel Alanlar',
 
     'CHART_CREATE_TICKET': 'Biletler oluşturuldu',
@@ -220,6 +222,7 @@ export default {
     'CHART_ASSIGN': 'Atanmış',
 
     //ACTIVITIES
+
     'ACTIVITY_COMMENT': 'bilet cevaplandı',
     'ACTIVITY_ASSIGN': 'bilet atandı',
     'ACTIVITY_UN_ASSIGN': 'biletin ataması kaldırıldı',
@@ -228,7 +231,15 @@ export default {
     'ACTIVITY_RE_OPEN': 'bilet yeniden açıldı',
     'ACTIVITY_DEPARTMENT_CHANGED': 'bilet departmanı değiştirildi',
     'ACTIVITY_PRIORITY_CHANGED': 'bilet önceliği değiştirildi',
-
+    'ACTIVITY_COMMENT': 'Yorumlanan bilet',
+    'ACTIVITY_ASSIGN': 'Tahsis edilen bilet',
+    'ACTIVITY_UN_ASSIGN': 'Atanmamış bilet',
+    'ACTIVITY_CLOSE': 'Kapalı bilet',
+    'ACTIVITY_CREATE_TICKET': 'Bilet yarattı',
+    'ACTIVITY_RE_OPEN': 'Yeniden açılan bilet',
+    'ACTIVITY_DEPARTMENT_CHANGED': 'Değiştirilen bilet dairesi',
+    'ACTIVITY_PRIORITY_CHANGED': 'Biletin önceliği değiştirildi',
+    'ACTIVITY_EDIT_COMMENT': 'Bilet bir yorum düzenlenmiş',
     'ACTIVITY_EDIT_SETTINGS': 'ayarlar düzenlendi',
     'ACTIVITY_SIGNUP': 'kayıt oldu',
     'ACTIVITY_ADD_TOPIC': 'konu eklendi',
@@ -398,6 +409,7 @@ export default {
     'SERVER_CREDENTIALS_WORKING': 'Sunucu kimlik bilgileri doğru çalışıyor',
     'DELETE_CUSTOM_FIELD_SURE': 'Bazı kullanıcılar bu alanı kullanıyor olabilir. Silmek istediğinize emin misiniz?',
 
+    'COMMENT_EDITED': '(Yorum düzenlendi)',
     'LAST_7_DAYS': 'Son 7 gün',
     'LAST_30_DAYS': 'Son 30 gün',
     'LAST_90_DAYS': 'Son 90 gün',

@@ -106,6 +106,7 @@ export default {
     'LAST_EDITED_IN': '最後編輯日期：{date}',
     'EDIT': '編輯',
     'ADD_CUSTOM_TAG': '添加自定义标记',
+    'EDIT_CUSTOM_TAG': '编辑自定义标签',
     'NO_RESULTS': '沒有結果',
     'DELETE_AND_BAN': '刪除和禁止',
     'STAFF_LEVEL': '員工級別',
@@ -209,6 +210,7 @@ export default {
     'OPTIONS': '选项',
     'FIELD_DESCRIPTION': '字段描述（可选）',
     'DESCRIPTION_ADD_CUSTOM_TAG': '在这里，您可以添加新的自定义标记',
+    'DESCRIPTION_EDIT_CUSTOM_TAG': '在这里你可以编辑自定义标签',
     'CUSTOM_FIELDS': '自定义字段',
 
     'CHART_CREATE_TICKET': '已創建門票',
@@ -226,6 +228,7 @@ export default {
     'ACTIVITY_RE_OPEN': '重開機票',
     'ACTIVITY_DEPARTMENT_CHANGED': '改變機票',
     'ACTIVITY_PRIORITY_CHANGED': '更改票的優先級',
+    'ACTIVITY_EDIT_COMMENT': '编辑票的评论',
 
     'ACTIVITY_EDIT_SETTINGS': '編輯設置',
     'ACTIVITY_SIGNUP': '註冊',
@@ -396,6 +399,7 @@ export default {
     'SERVER_CREDENTIALS_WORKING': '服务器凭据正常工作',
     'DELETE_CUSTOM_FIELD_SURE': '某些用户可能正在使用此字段。你确定你要删除吗？',
 
+    'COMMENT_EDITED': '（编辑评论）',
     'LAST_7_DAYS': '最近7天',
     'LAST_30_DAYS': '最近30天',
     'LAST_90_DAYS': '過去90天',

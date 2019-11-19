@@ -15,7 +15,7 @@ describe '/ticket/edit-comment' do
         })
 
         ticket = $database.getRow('ticket', 'ticket made by an user', 'title')
-
+    
         (result['status']).should.equal('success')
         (ticket['content']).should.equal('content edited by the user')
     end
@@ -68,7 +68,6 @@ describe '/ticket/edit-comment' do
 
         request('/user/logout')
     end
-
 
     it 'should not change the content of a comment if the user is not the author' do
         request('/user/logout')

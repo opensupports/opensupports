@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/create-tag Create tag
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  *
  * @apiName Create tag
  *
@@ -36,6 +36,10 @@ class CreateTagController extends Controller {
                 'name' => [
                     'validation' => DataValidator::length(2, 100),
                     'error' => ERRORS::INVALID_NAME
+                ],
+                'color' => [
+                    'validation' => DataValidator::hexRgbColor()->startsWith('#'),
+                    'error' => ERRORS::INVALID_COLOR
                 ]
             ]
         ];

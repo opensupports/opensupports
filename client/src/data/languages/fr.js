@@ -106,6 +106,7 @@ export default {
     'LAST_EDITED_IN': 'Dernière modification le {date}',
     'EDIT': 'Modifier',
     'ADD_CUSTOM_TAG': 'Ajouter un tag personnalisé',
+    'EDIT_CUSTOM_TAG': 'Modifier la balise personnalisée',
     'NO_RESULTS': 'Aucun résultat',
     'DELETE_AND_BAN': 'Supprimer et bannir',
     'STAFF_LEVEL': 'Niveau d\'administration',
@@ -209,6 +210,7 @@ export default {
     'OPTIONS': 'Les options',
     'FIELD_DESCRIPTION': 'Description du champ (facultatif)',
     'DESCRIPTION_ADD_CUSTOM_TAG': 'ici vous pouvez ajouter un nouveau tag personnalisé',
+    'DESCRIPTION_EDIT_CUSTOM_TAG': 'Vous pouvez modifier une balise personnalisée',
     'CUSTOM_FIELDS': 'Les champs personnalisés',
 
     'CHART_CREATE_TICKET': 'Tickets créés',
@@ -226,6 +228,7 @@ export default {
     'ACTIVITY_RE_OPEN': 'ticket réouvert',
     'ACTIVITY_DEPARTMENT_CHANGED': 'a changé de département le ticket',
     'ACTIVITY_PRIORITY_CHANGED': 'a changé la priorité du ticket',
+    'ACTIVITY_EDIT_COMMENT': 'édité un commentaire du billet',
 
     'ACTIVITY_EDIT_SETTINGS': 'a modifié les paramètres',
     'ACTIVITY_SIGNUP': 's\'est inscrit',
@@ -396,6 +399,7 @@ export default {
     'SERVER_CREDENTIALS_WORKING': 'Les informations d\'identification du serveur fonctionnent correctement',
     'DELETE_CUSTOM_FIELD_SURE': 'Certains utilisateurs peuvent utiliser ce champ. Es-tu sûr de vouloir le supprimer?',
 
+    'COMMENT_EDITED': '(Édité un commentaire)',
     'LAST_7_DAYS': 'Les 7 derniers jours',
     'LAST_30_DAYS': 'Les 30 derniers jours',
     'LAST_90_DAYS': 'Les 90 derniers jours',

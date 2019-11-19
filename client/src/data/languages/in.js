@@ -106,6 +106,7 @@ export default {
     'LAST_EDITED_IN': 'अंतिम में संपादित तारीख {date}',
     'EDIT': 'संपादित करें',
     'ADD_CUSTOM_TAG': 'कस्टम टैग जोड़ें',
+    'EDIT_CUSTOM_TAG': 'कस्टम टैग संपादित करें',
     'NO_RESULTS': 'कोई परिणाम नहीं',
     'DELETE_AND_BAN': 'हटाएँ और प्रतिबंध लगाने',
     'STAFF_LEVEL': 'स्टाफ स्तर',
@@ -209,6 +210,7 @@ export default {
     'OPTIONS': 'विकल्प',
     'FIELD_DESCRIPTION': 'फ़ील्ड विवरण (वैकल्पिक)',
     'DESCRIPTION_ADD_CUSTOM_TAG': 'यहां आप एक नया कस्टम टैग जोड़ सकते हैं',
+    'DESCRIPTION_EDIT_CUSTOM_TAG': 'यहाँ आप एक कस्टम टैग संपादित कर सकते हैं',
     'CUSTOM_FIELDS': 'कस्टम फील्ड्स',
 
     'CHART_CREATE_TICKET': 'टिकट बनाया',
@@ -226,6 +228,7 @@ export default {
     'ACTIVITY_RE_OPEN': 'फिर से खोल टिकट',
     'ACTIVITY_DEPARTMENT_CHANGED': 'टिकट के बदले विभाग',
     'ACTIVITY_PRIORITY_CHANGED': 'टिकट के बदले प्राथमिकता',
+    'ACTIVITY_EDIT_COMMENT': 'टिकट की एक टिप्पणी संपादित',
 
     'ACTIVITY_EDIT_SETTINGS': 'संपादित सेटिंग्स',
     'ACTIVITY_SIGNUP': 'साइनअप किया',
@@ -396,6 +399,7 @@ export default {
     'SERVER_CREDENTIALS_WORKING': 'सर्वर क्रेडेंशियल्स सही ढंग से काम कर रहे हैं',
     'DELETE_CUSTOM_FIELD_SURE': 'कुछ उपयोगकर्ता इस क्षेत्र का उपयोग कर सकते हैं। क्या आप इसे मिटाना चाहते हैं?',
 
+    'COMMENT_EDITED': '(टिप्पणी संपादित)',
     'LAST_7_DAYS': 'पिछले 7 दिन',
     'LAST_30_DAYS': 'अंतिम 30 दिन',
     'LAST_90_DAYS': 'अंतिम 90 दिन',

@@ -77,7 +77,8 @@ class SessionReducer extends Reducer {
             logged: true,
             pending: false,
             failed: false,
-            userId: payload.data.userId
+            userId: payload.data.userId,
+            staff: payload.data.staff
         });
     }
 
@@ -94,6 +95,7 @@ class SessionReducer extends Reducer {
             sessionStore.storeRememberData({
                 token: resultData.rememberToken,
                 userId: resultData.userId,
+                staff: resultData.staff,
                 expiration: resultData.rememberExpiration
             });
         }

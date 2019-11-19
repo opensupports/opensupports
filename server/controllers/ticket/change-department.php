@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/change-department Change department
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  *
  * @apiName Change department
  *
@@ -56,7 +56,7 @@ class ChangeDepartmentController extends Controller {
             throw new Exception(ERRORS::NO_PERMISSION);
         }
 
-        if($ticket->owner && $ticket->owner->id !== $user->id && $user->level == 1){
+        if(!$user->canManageTicket($ticket)){
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 

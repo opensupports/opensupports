@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/add-tag Add tag
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  *
  * @apiName Add tag
  *
@@ -50,6 +50,9 @@ class AddTagController extends Controller {
         $tagId = Controller::request('tagId');
         $tag = Tag::getDataStore($tagId);
         $ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
+        $user = Controller::getLoggedUser();
+
+        if(!$user->canManageTicket($ticket)) throw new RequestException(ERRORS::NO_PERMISSION);
 
         if ($ticket->sharedTagList->includesId($tagId)) throw new RequestException(ERRORS::TAG_EXISTS);
 

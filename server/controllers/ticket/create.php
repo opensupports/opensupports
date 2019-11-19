@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/create Create ticket
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  *
  * @apiName Create ticket
  *
@@ -115,10 +115,16 @@ class CreateController extends Controller {
             }
         }
 
-        Log::createLog('CREATE_TICKET', $this->ticketNumber);
         Response::respondSuccess([
             'ticketNumber' => $this->ticketNumber
         ]);
+
+        if(!Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) {
+            $session = Session::getInstance();
+            $session->createTicketSession($this->ticketNumber);
+        }
+        
+        Log::createLog('CREATE_TICKET', $this->ticketNumber);
     }
 
     private function storeTicket() {

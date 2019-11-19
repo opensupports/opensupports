@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} APIKey APIKey
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  * @apiGroup Data Structures
  * @apiParam {String} name Name of the APIKey.
  * @apiParam {String} token Token of the APIKey.
