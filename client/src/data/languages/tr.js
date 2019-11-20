@@ -106,6 +106,7 @@ export default {
     'LAST_EDITED_IN': 'tarihinde son düzenlendi  {date}',
     'EDIT': 'Düzenle',
     'ADD_CUSTOM_TAG': 'Özel etiket ekle',
+    'EDIT_CUSTOM_TAG': 'Düzenleme özel etiket',
     'NO_RESULTS': 'Sonuç yok',
     'DELETE_AND_BAN': 'Sil ve yasaklama',
     'STAFF_LEVEL': 'Personel Seviyesi',
@@ -209,6 +210,7 @@ export default {
     'OPTIONS': 'Seçenekler',
     'FIELD_DESCRIPTION': 'Alan açıklaması (İsteğe bağlı)',
     'DESCRIPTION_ADD_CUSTOM_TAG': 'buraya yeni bir özel etiket ekleyebilirsiniz',
+    'DESCRIPTION_EDIT_CUSTOM_TAG': 'Burada özel bir etiketi düzenleyebilirsiniz',
     'CUSTOM_FIELDS': 'Özel Alanlar',
 
     'CHART_CREATE_TICKET': 'Biletler oluşturuldu',
@@ -226,6 +228,7 @@ export default {
     'ACTIVITY_RE_OPEN': 'Yeniden açılan bilet',
     'ACTIVITY_DEPARTMENT_CHANGED': 'Değiştirilen bilet dairesi',
     'ACTIVITY_PRIORITY_CHANGED': 'Biletin önceliği değiştirildi',
+    'ACTIVITY_EDIT_COMMENT': 'Bilet bir yorum düzenlenmiş',
 
     'ACTIVITY_EDIT_SETTINGS': 'Düzenlenmiş ayarlar',
     'ACTIVITY_SIGNUP': 'Kaydoldu',
@@ -396,6 +399,7 @@ export default {
     'SERVER_CREDENTIALS_WORKING': 'Sunucu kimlik bilgileri doğru çalışıyor',
     'DELETE_CUSTOM_FIELD_SURE': 'Bazı kullanıcılar bu alanı kullanıyor olabilir. Silmek istediğinize emin misiniz?',
 
+    'COMMENT_EDITED': '(Yorum düzenlendi)',
     'LAST_7_DAYS': 'Son 7 gün',
     'LAST_30_DAYS': 'Son 30 gün',
     'LAST_90_DAYS': 'Son 90 gün',

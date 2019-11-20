@@ -106,6 +106,7 @@ export default {
     'LAST_EDITED_IN': 'Ultimo aggiornamento {date}',
     'EDIT': 'Modifica',
     'ADD_CUSTOM_TAG': 'Aggiungi un tag personalizzato',
+    'EDIT_CUSTOM_TAG': 'Modifica tag personalizzato',
     'NO_RESULTS': 'Nessun risultato',
     'DELETE_AND_BAN': 'Elimina e banna',
     'STAFF_LEVEL': 'Livello Staff',
@@ -205,10 +206,11 @@ export default {
     'TYPE': 'genere',
     'SELECT_INPUT': 'Seleziona input',
     'TEXT_INPUT': 'L\'immissione di testo',
-    'OPTION': 'Opzione {indice}',
+    'OPTION': 'Opzione {index}',
     'OPTIONS': 'Opzioni',
     'FIELD_DESCRIPTION': 'Descrizione del campo (facoltativo)',
     'DESCRIPTION_ADD_CUSTOM_TAG': 'qui puoi aggiungere un nuovo tag personalizzato',
+    'DESCRIPTION_EDIT_CUSTOM_TAG': 'qui è possibile modificare un tag personalizzato',
     'CUSTOM_FIELDS': 'Campi personalizzati',
 
     'CHART_CREATE_TICKET': 'Tickets creato',
@@ -226,6 +228,7 @@ export default {
     'ACTIVITY_RE_OPEN': 'Ticket riaperto',
     'ACTIVITY_DEPARTMENT_CHANGED': 'Cambio reparto al ticket',
     'ACTIVITY_PRIORITY_CHANGED': 'Priorità del ticket modificata',
+    'ACTIVITY_EDIT_COMMENT': 'a cura di un commento del biglietto',
 
     'ACTIVITY_EDIT_SETTINGS': 'impostazioni modificate',
     'ACTIVITY_SIGNUP': 'signed up',
@@ -396,6 +399,7 @@ export default {
     'SERVER_CREDENTIALS_WORKING': 'Le credenziali del server funzionano correttamente',
     'DELETE_CUSTOM_FIELD_SURE': 'Alcuni utenti potrebbero utilizzare questo campo. Sei sicuro di voler cancellare?',
 
+    'COMMENT_EDITED': '(Commento modificato)',
     'LAST_7_DAYS': 'Ultimi 7 giorni',
     'LAST_30_DAYS': 'Ultimi 30 giorni',
     'LAST_90_DAYS': 'Ultimi 90 giorni',

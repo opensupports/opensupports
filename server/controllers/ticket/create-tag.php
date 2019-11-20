@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/create-tag Create tag
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  *
  * @apiName Create tag
  *
@@ -12,7 +12,7 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiDescription This path creates a new tag.
  *
- * @apiPermission staff1
+ * @apiPermission staff3
  *
  * @apiParam {Number} name The new name of the tag.
  * @apiParam {String} color The new color of the tag.
@@ -31,11 +31,15 @@ class CreateTagController extends Controller {
 
     public function validations() {
         return [
-            'permission' => 'staff_1',
+            'permission' => 'staff_3',
             'requestData' => [
                 'name' => [
                     'validation' => DataValidator::length(2, 100),
                     'error' => ERRORS::INVALID_NAME
+                ],
+                'color' => [
+                    'validation' => DataValidator::hexRgbColor()->startsWith('#'),
+                    'error' => ERRORS::INVALID_COLOR
                 ]
             ]
         ];

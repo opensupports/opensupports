@@ -55,7 +55,7 @@ class AdminPanelCustomTags extends React.Component {
     }
 
     renderTag(tag, index) {
-        return(
+        return (
             <div key={index} className="admin-panel-custom-tags__tag-container" >
                 <Tag color={tag.color} name={tag.name} onRemoveClick={this.onDeleteClick.bind(this, tag.id)} size='large' showDeleteButton />
             </div>

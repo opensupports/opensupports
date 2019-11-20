@@ -106,6 +106,7 @@ export default {
     'LAST_EDITED_IN': 'Last edited in {date}',
     'EDIT': 'Edit',
     'ADD_CUSTOM_TAG': 'Add custom tag',
+    'EDIT_CUSTOM_TAG': 'Edit custom tag',
     'NO_RESULTS': 'No results',
     'DELETE_AND_BAN': 'Delete and ban',
     'STAFF_LEVEL': 'Staff Level',
@@ -209,6 +210,7 @@ export default {
     'OPTIONS': 'Options',
     'FIELD_DESCRIPTION': 'Field description (Optional)',
     'DESCRIPTION_ADD_CUSTOM_TAG': 'here you can add a new custom tag',
+    'DESCRIPTION_EDIT_CUSTOM_TAG': 'here you can edit a custom tag',
     'CUSTOM_FIELDS': 'Custom fields',
 
     'CHART_CREATE_TICKET': 'Tickets created',
@@ -226,6 +228,7 @@ export default {
     'ACTIVITY_RE_OPEN': 'reopened ticket',
     'ACTIVITY_DEPARTMENT_CHANGED': 'changed department of ticket',
     'ACTIVITY_PRIORITY_CHANGED': 'changed priority of ticket',
+    'ACTIVITY_EDIT_COMMENT': 'edited a comment of ticket',
 
     'ACTIVITY_EDIT_SETTINGS': 'edited settings',
     'ACTIVITY_SIGNUP': 'signed up',
@@ -396,6 +399,7 @@ export default {
     'SERVER_CREDENTIALS_WORKING': 'Server credentials are working correctly',
     'DELETE_CUSTOM_FIELD_SURE': 'Some users may be using this field. Are you sure you want to delete it?',
 
+    'COMMENT_EDITED': '(comment edited)',
     'LAST_7_DAYS': 'Last 7 days',
     'LAST_30_DAYS': 'Last 30 days',
     'LAST_90_DAYS': 'Last 90 days',

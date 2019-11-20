@@ -106,6 +106,7 @@ export default {
     'LAST_EDITED_IN': '{date} で最後に編集されました',
     'EDIT': '編集',
     'ADD_CUSTOM_TAG': 'カスタムタグを追加',
+    'EDIT_CUSTOM_TAG': '編集カスタムタグ',
     'NO_RESULTS': '結果なし',
     'DELETE_AND_BAN': '削除と禁止',
     'STAFF_LEVEL': 'レベルのスタッフ',
@@ -209,6 +210,7 @@ export default {
     'OPTIONS': 'オプション',
     'FIELD_DESCRIPTION': 'フィールドの説明（オプション）',
     'DESCRIPTION_ADD_CUSTOM_TAG': 'ここで新しいカスタムタグを追加することができます',
+    'DESCRIPTION_EDIT_CUSTOM_TAG': 'ここでは、カスタムタグを編集することができます',
     'CUSTOM_FIELDS': 'カスタムフィールド',
 
     'CHART_CREATE_TICKET': '作成されたチケット',
@@ -226,6 +228,7 @@ export default {
     'ACTIVITY_RE_OPEN': 'チケットがもう一度開かれた',
     'ACTIVITY_DEPARTMENT_CHANGED': '部署が変更されました',
     'ACTIVITY_PRIORITY_CHANGED': '私たちは、チケットの優先順位を変更する必要があります',
+    'ACTIVITY_EDIT_COMMENT': 'チケットのコメントを編集しました',
 
     'ACTIVITY_EDIT_SETTINGS': '編集した設定',
     'ACTIVITY_SIGNUP': 'サインアップ',
@@ -396,6 +399,7 @@ export default {
     'SERVER_CREDENTIALS_WORKING': 'サーバーの資格情報が正しく機能している',
     'DELETE_CUSTOM_FIELD_SURE': 'このフィールドを使用しているユーザーもいます。削除してよろしいですか？',
 
+    'COMMENT_EDITED': '（コメントは、編集しました）',
     'LAST_7_DAYS': '過去7日間',
     'LAST_30_DAYS': '過去30日間',
     'LAST_90_DAYS': '過去90日間',

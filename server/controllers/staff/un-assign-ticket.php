@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /staff/un-assign-ticket Un-assign ticket
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  *
  * @apiName Un-assign ticket
  *
@@ -50,6 +50,10 @@ class UnAssignStaffController extends Controller {
         $user = ($this->user? $this->user : Controller::getLoggedUser());
         $ticket = Ticket::getByTicketNumber($ticketNumber);
         $owner = $ticket->owner;
+
+        if(!$user->canManageTicket($ticket)) {
+            throw new RequestException(ERRORS::NO_PERMISSION);
+        }
 
         if($owner && ($ticket->isOwner($user) || $user->level > 2)) {
             if(!$ticket->isAuthor($owner)) {

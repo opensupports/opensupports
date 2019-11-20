@@ -47,7 +47,8 @@ class TicketViewer extends React.Component {
         ticket: {
             author: {},
             department: {},
-            comments: []
+            comments: [],
+            edited: null
         }
     };
 
@@ -55,7 +56,9 @@ class TicketViewer extends React.Component {
         loading: false,
         commentValue: TextEditor.createEmpty(),
         commentEdited: false,
-        commentPrivate: false
+        commentPrivate: false,
+        edit: false,
+        editId: 0
     };
 
     componentDidMount() {
@@ -66,7 +69,6 @@ class TicketViewer extends React.Component {
 
     render() {
         const ticket = this.props.ticket;
-
         return (
             <div className="ticket-viewer">
                 <div className="ticket-viewer__header row">
@@ -78,7 +80,21 @@ class TicketViewer extends React.Component {
                 </div>
                 {this.props.editable ? this.renderEditableHeaders() : this.renderHeaders()}
                 <div className="ticket-viewer__content">
-                    <TicketEvent type="COMMENT" author={ticket.author} content={this.props.userStaff ? MentionsParser.parse(ticket.content) : ticket.content} date={ticket.date} file={ticket.file}/>
+                    <TicketEvent
+                        loading={this.state.loading}
+                        type="COMMENT"
+                        author={ticket.author}
+                        content={this.props.userStaff ? MentionsParser.parse(ticket.content) : ticket.content}
+                        userStaff={this.props.userStaff}
+                        userId={this.props.userId}
+                        date={ticket.date}
+                        onEdit={this.onEdit.bind(this,0)}
+                        edited={ticket.edited}
+                        file={ticket.file}
+                        edit={this.state.edit && this.state.editId == 0}
+                        onToggleEdit={this.onToggleEdit.bind(this, 0)}
+                        allowAttachments={this.props.allowAttachments}
+                    />
                 </div>
                 <div className="ticket-viewer__comments">
                     {ticket.events && ticket.events.map(this.renderTicketEvent.bind(this))}
@@ -238,9 +254,18 @@ class TicketViewer extends React.Component {
         if (this.props.userStaff && typeof options.content === 'string') {
             options.content = MentionsParser.parse(options.content);
         }
-
         return (
-            <TicketEvent {...options} author={(!_.isEmpty(options.author)) ? options.author : this.props.ticket.author} key={index} />
+            <TicketEvent
+                {...options}
+                author={(!_.isEmpty(options.author)) ? options.author : this.props.ticket.author}
+                userStaff={this.props.userStaff}
+                userId={this.props.userId}
+                onEdit={this.onEdit.bind(this, options.id)}
+                edit={this.state.edit && this.state.editId == options.id}
+                onToggleEdit={this.onToggleEdit.bind(this, options.id)}
+                key={index}
+                allowAttachments={this.props.allowAttachments}
+            />
         );
     }
 
@@ -438,6 +463,7 @@ class TicketViewer extends React.Component {
             }
         }).then(this.onTicketModification.bind(this));
     }
+
     addTag(tag) {
         API.call({
             path: '/ticket/add-tag',
@@ -457,6 +483,7 @@ class TicketViewer extends React.Component {
             }
         }).then(this.onTicketModification.bind(this))
     }
+
     onCustomResponsesChanged({index}) {
         let replaceContentWithCustomResponse = () => {
             this.setState({
@@ -470,6 +497,52 @@ class TicketViewer extends React.Component {
         } else {
             replaceContentWithCustomResponse();
         }
+    }
+
+    onToggleEdit(ticketEventId){
+        this.setState({
+            edit: !this.state.edit,
+            editId: ticketEventId
+        })
+    }
+
+    onEdit(ticketeventid,{content}) {
+        this.setState({
+            loading: true
+        });
+        const data = {};
+
+        if(ticketeventid){
+            data.ticketEventId = ticketeventid
+        }else{
+            data.ticketNumber = this.props.ticket.ticketNumber
+        }
+
+        API.call({
+            path: '/ticket/edit-comment',
+            data: _.extend(
+                data,
+                TextEditor.getContentFormData(content)
+            )
+        }).then(this.onEditCommentSuccess.bind(this), this.onFailCommentFail.bind(this));
+    }
+
+    onEditCommentSuccess() {
+        this.setState({
+            loading: false,
+            commentError: false,
+            commentEdited: false,
+            edit:false
+        });
+
+        this.onTicketModification();
+    }
+
+    onFailCommentFail() {
+        this.setState({
+            loading: false,
+            commentError: true
+        });
     }
 
     onSubmit(formState) {
@@ -551,6 +624,7 @@ class TicketViewer extends React.Component {
 }
 
 export default connect((store) => {
+
     return {
         userId: store.session.userId,
         userStaff: store.session.staff,

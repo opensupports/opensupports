@@ -24,7 +24,7 @@ describe'/staff/add' do
         (row['level']).should.equal('2')
 
         row = $database.getRow('department', 1, 'id')
-        (row['owners']).should.equal('3')
+        (row['owners']).should.equal('4')
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('ADD_STAFF')
@@ -46,6 +46,6 @@ describe'/staff/add' do
         (result['message']).should.equal('ALREADY_A_STAFF')
 
         row = $database.getRow('department', 1, 'id')
-        (row['owners']).should.equal('3')
+        (row['owners']).should.equal('4')
     end
 end

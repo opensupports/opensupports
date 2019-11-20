@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/delete-tag Delete a tag
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  *
  * @apiName Delete tag
  *
@@ -12,7 +12,7 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiDescription This path delete a tag.
  *
- * @apiPermission staff1
+ * @apiPermission staff3
  *
  * @apiParam {Number} tagId The id of the tag.
  *
@@ -29,7 +29,7 @@ class DeleteTagController extends Controller {
 
     public function validations() {
         return [
-            'permission' => 'staff_1',
+            'permission' => 'staff_3',
             'requestData' => [
                 'tagId' => [
                     'validation' => DataValidator::dataStoreId('tag'),

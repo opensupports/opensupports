@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/get-user Get user information
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  *
  * @apiName Get user information
  *

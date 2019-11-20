@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Ticket Ticket
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  * @apiGroup Data Structures
  * @apiParam {Number}  ticketNumber The number of the ticket.
  * @apiParam {String}  title The title of the ticket.
@@ -52,7 +52,8 @@ class Ticket extends DataStore {
             'authorEmail',
             'authorName',
             'sharedTagList',
-            'site_url'
+            'site_url',
+            'editedContent'
         );
     }
 
@@ -133,7 +134,8 @@ class Ticket extends DataStore {
             'owner' => $this->ownerToArray(),
             'events' => $minimized ? [] : $this->eventsToArray(),
             'tags' => $this->sharedTagList->toArray(true),
-            'site_url' => $this->site_url
+            'site_url' => $this->site_url,
+            'edited' => $this->editedContent
         ];
     }
 
@@ -184,6 +186,8 @@ class Ticket extends DataStore {
                 'date'=> $ticketEvent->date,
                 'file'=> $ticketEvent->file,
                 'private'=> $ticketEvent->private,
+                'edited' => $ticketEvent->editedContent,
+                'id' => $ticketEvent->id
             ];
 
             $author = $ticketEvent->getAuthor();

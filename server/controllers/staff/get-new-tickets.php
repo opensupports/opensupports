@@ -4,7 +4,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/get-new-tickets Get new tickets
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  *
  * @apiName Get new tickets
  *
@@ -43,6 +43,7 @@ class GetNewTicketsStaffController extends Controller {
     }
     public function handler() {
         $page = Controller::request('page');
+        $departmentId = Controller::request('departmentId');
 
         if (Ticket::isTableEmpty()) {
             Response::respondSuccess([
@@ -66,6 +67,10 @@ class GetNewTicketsStaffController extends Controller {
             $query .= 'FALSE) AND closed = 0 AND owner_id IS NULL';
         } else {
             $query .= 'FALSE) AND closed = 0';
+        }
+
+        if($departmentId) {
+            $query .= ' AND department_id=' . $departmentId;
         }
 
         $countTotal = Ticket::count($query);

@@ -76,9 +76,9 @@ class DashboardArticlePage extends React.Component {
     getClass() {
         let classes = {
             'dashboard-article-page': true,
-            'dashboard-article-page_wrapped': _.startsWith(this.props.location.pathname, '/article/')
+            'dashboard-article-page_wrapped': _.startsWith(this.props.location.pathname, '/dashboard/article/')
         };
-        
+
         return classNames(classes);
     }
 

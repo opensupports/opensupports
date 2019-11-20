@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/get-tags Get tags
- * @apiVersion 4.4.0
+ * @apiVersion 4.5.0
  *
  * @apiName Get tags
  *
@@ -12,7 +12,7 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiDescription This path returns all the tags.
  *
- * @apiPermission staff1
+ * @apiPermission staff3
  *
  * @apiUse NO_PERMISSION
  *
@@ -26,14 +26,14 @@ class GetTagsController extends Controller {
 
     public function validations() {
         return [
-            'permission' => 'staff_1',
+            'permission' => 'staff_3',
             'requestData' => []
         ];
     }
 
     public function handler() {
         $tags = Tag::getAll();
-        
+
         Response::respondSuccess($tags->toArray());
     }
 }

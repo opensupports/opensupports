@@ -247,6 +247,10 @@
  * @apiDefine UNAVAILABLE_STATS
  * @apiError {String} UNAVAILABLE_STATS Stats are currently unavailable
  */
+/**
+ * @apiDefine INVALID_COLOR
+ * @apiError {String} INVALID_COLOR The color should be in hexadecimal, preceded by a '#'
+ */
 
 class ERRORS {
     const INVALID_CREDENTIALS = 'INVALID_CREDENTIALS';
@@ -312,4 +316,5 @@ class ERRORS {
     const INVALID_CUSTOM_FIELD_OPTIONS = 'INVALID_CUSTOM_FIELD_OPTIONS';
     const INVALID_CUSTOM_FIELD_OPTION = 'INVALID_CUSTOM_FIELD_OPTION';
     const UNAVAILABLE_STATS = 'UNAVAILABLE_STATS';
+    const INVALID_COLOR = 'INVALID_COLOR';
 }

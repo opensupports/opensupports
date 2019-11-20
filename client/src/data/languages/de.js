@@ -106,6 +106,7 @@ export default {
     'LAST_EDITED_IN': 'Zuletzt bearbeitet am {date}',
     'EDIT': 'Bearbeiten',
     'ADD_CUSTOM_TAG': 'Benutzerdefiniertes Tag hinzufügen',
+    'EDIT_CUSTOM_TAG': 'Bearbeiten benutzerdefinierter Tag',
     'NO_RESULTS': 'Keine Ergebnisse',
     'DELETE_AND_BAN': 'Löschen und blockieren',
     'STAFF_LEVEL': 'Mitarbeiter-Ebene',
@@ -209,6 +210,7 @@ export default {
     'OPTIONS': 'Optionen',
     'FIELD_DESCRIPTION': 'Feldbeschreibung (optional)',
     'DESCRIPTION_ADD_CUSTOM_TAG': 'Hier können Sie ein neues benutzerdefiniertes Tag hinzufügen',
+    'DESCRIPTION_EDIT_CUSTOM_TAG': 'Hier können Sie einen benutzerdefinierten Tag bearbeiten',
     'CUSTOM_FIELDS': 'Benutzerdefinierte Felder',
 
     'CHART_CREATE_TICKET': 'Tickets erstellt',
@@ -226,6 +228,7 @@ export default {
     'ACTIVITY_RE_OPEN': 'Ticket wieder geöffnet',
     'ACTIVITY_DEPARTMENT_CHANGED': 'Abteilung des Tickets wurde geändert.',
     'ACTIVITY_PRIORITY_CHANGED': 'Priorität des Tickets wurde geändert.',
+    'ACTIVITY_EDIT_COMMENT': 'Kommentar von Ticket bearbeitet',
 
     'ACTIVITY_EDIT_SETTINGS': 'Einstellungen',
     'ACTIVITY_SIGNUP': 'Registriert',
@@ -269,7 +272,7 @@ export default {
     'INSTALLATION_COMPLETED': 'Installation abgeschlossen.',
     'INSTALLATION_COMPLETED_DESCRIPTION': 'Die Installation von OpenSupports ist abgeschlossen. Umleitung zum Admin-Panel...',
 
-    'STEP_TITLE': 'Schritt {aktuell} von {total} - {title}',
+    'STEP_TITLE': 'Schritt {current} von {total} - {title}',
     'STEP_1_DESCRIPTION': 'Wählen Sie Ihre bevorzugte Sprache für den Installationsassistenten aus.',
     'STEP_2_DESCRIPTION': 'Hier sind die Voraussetzungen für das Ausführen von OpenSupports aufgelistet. Bitte stellen Sie sicher, dass alle Anforderungen erfüllt sind.',
     'STEP_3_DESCRIPTION': 'Bitte füllen Sie die MySQL-Datenbankkonfiguration aus.',
@@ -396,6 +399,7 @@ export default {
     'SERVER_CREDENTIALS_WORKING': 'Server-Anmeldeinformationen funktionieren ordnungsgemäß',
     'DELETE_CUSTOM_FIELD_SURE': 'Einige Benutzer verwenden dieses Feld möglicherweise. Möchten Sie es wirklich löschen?',
 
+    'COMMENT_EDITED': '(Kommentar bearbeiten)',
     'LAST_7_DAYS': 'Letzte 7 Tage',
     'LAST_30_DAYS': 'Letzte 30 Tage',
     'LAST_90_DAYS': 'Letzte 90 Tage',

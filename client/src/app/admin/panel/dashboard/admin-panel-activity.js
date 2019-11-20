@@ -43,7 +43,7 @@ class AdminPanelActivity extends React.Component {
             </div>
         );
     }
-    
+
     getMenuProps() {
         return {
             className: 'admin-panel-activity__menu',
