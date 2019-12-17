@@ -116,17 +116,21 @@ class SearchController extends Controller {
 
         $query = $this->getSQLQuery($inputs);
         $queryWithOrder = $this->getSQLQueryWithOrder($inputs);
-
         $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2")[0]['COUNT(*)'];
-        $ticketList = RedBean::getAll($queryWithOrder);
+        $ticketIdList = RedBean::getAll($queryWithOrder);
+        $ticketList = [];
+
+        foreach ($ticketIdList as $item) {
+            $ticket = Ticket::getDataStore($item['id']);
+            array_push($ticketList, $ticket->toArray());
+        }
 
         $ticketTableExists  = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticket';");
-
         if($ticketTableExists){
             Response::respondSuccess([
                 'tickets' => $ticketList,
                 'pages' => ceil($totalCount / 10),
-                'page' => $inputs['page'] ? $inputs['page'] : 1
+                'page' => $inputs['page'] ? ($inputs['page']*1) : 1
             ]);
         }else{
             Response::respondSuccess([]);
@@ -151,7 +155,7 @@ class SearchController extends Controller {
     public function getSQLQueryWithOrder($inputs) {
         $query = $this->getSQLQuery($inputs);
         $order = "";
-        $query = "SELECT ticket.id,ticket.title,ticket.ticket_number, ticket.priority ,ticket.department_id, ticket.author_id , ticket.date " . $query;
+        $query = "SELECT" . " ticket.id " . $query;
 
         $this->setQueryOrder($inputs, $order);
         $inputs['page'] ?  $page =  $inputs['page'] : $page  = 1 ;

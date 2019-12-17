@@ -50,6 +50,7 @@ class GetAllTicketsStaffController extends Controller {
             ]);
             return;
         }
+        
         Response::respondSuccess([
             'tickets' => $this->getTicketList()->toArray(true),
             'pages' => $this->getTotalPages()
