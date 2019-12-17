@@ -236,7 +236,7 @@ class SearchControllerTest extends TestCase {
             $this->searchController->getSQLQueryWithOrder([
                 'page' => 1
             ]),
-            "SELECT ticket.id,ticket.title,ticket.ticket_number, ticket.priority ,ticket.department_id, ticket.author_id , ticket.date FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) GROUP BY ticket.id ORDER BY ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.priority desc, ticket.date desc  LIMIT 10 OFFSET 0"
+            "SELECT ticket.id FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) GROUP BY ticket.id ORDER BY ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.priority desc, ticket.date desc  LIMIT 10 OFFSET 0"
         );
 
         $this->assertEquals(
@@ -244,7 +244,7 @@ class SearchControllerTest extends TestCase {
                 'page' => 1,
                 'query' => 'stark'
             ]),
-            "SELECT ticket.id,ticket.title,ticket.ticket_number, ticket.priority ,ticket.department_id, ticket.author_id , ticket.date FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  (ticket.title LIKE '%stark%' or ticket.content LIKE '%stark%' or ticket.ticket_number LIKE '%stark%' or (ticketevent.type = 'COMMENT' and ticketevent.content LIKE '%stark%') ) GROUP BY ticket.id ORDER BY CASE WHEN (ticket.ticket_number LIKE '%stark%') THEN ticket.ticket_number END desc,CASE WHEN (ticket.title LIKE '%stark%') THEN ticket.title END desc, CASE WHEN ( ticket.content LIKE '%stark%') THEN ticket.content END desc, CASE WHEN (ticketevent.type = 'COMMENT' and ticketevent.content LIKE '%stark%') THEN ticketevent.content END desc,ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.priority desc, ticket.date desc  LIMIT 10 OFFSET 0"
+            "SELECT ticket.id FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  (ticket.title LIKE '%stark%' or ticket.content LIKE '%stark%' or ticket.ticket_number LIKE '%stark%' or (ticketevent.type = 'COMMENT' and ticketevent.content LIKE '%stark%') ) GROUP BY ticket.id ORDER BY CASE WHEN (ticket.ticket_number LIKE '%stark%') THEN ticket.ticket_number END desc,CASE WHEN (ticket.title LIKE '%stark%') THEN ticket.title END desc, CASE WHEN ( ticket.content LIKE '%stark%') THEN ticket.content END desc, CASE WHEN (ticketevent.type = 'COMMENT' and ticketevent.content LIKE '%stark%') THEN ticketevent.content END desc,ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.priority desc, ticket.date desc  LIMIT 10 OFFSET 0"
         );
 
         $this->assertEquals(
@@ -252,7 +252,7 @@ class SearchControllerTest extends TestCase {
                 'page' => 1,
                 'orderBy' => ['value' => 'closed', 'asc' => 1]
             ]),
-            "SELECT ticket.id,ticket.title,ticket.ticket_number, ticket.priority ,ticket.department_id, ticket.author_id , ticket.date FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) GROUP BY ticket.id ORDER BY ticket.closed asc,ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.priority desc, ticket.date desc  LIMIT 10 OFFSET 0"
+            "SELECT ticket.id FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) GROUP BY ticket.id ORDER BY ticket.closed asc,ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.priority desc, ticket.date desc  LIMIT 10 OFFSET 0"
         );
     }
 }
