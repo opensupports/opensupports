@@ -10,7 +10,7 @@ describe'/staff/get-all' do
 
         (result['status']).should.equal('success')
 
-        result['data'][0]['departments'].sort_by do |department|
+        result['data'][0]['departments'] = result['data'][0]['departments'].sort_by do |department|
             department['id'].to_i
         end
         puts result['data']
