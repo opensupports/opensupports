@@ -11,7 +11,7 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiDescription This path retrieves information about all the staff member.
  *
- * @apiPermission staff3
+ * @apiPermission staff1
  *
  * @apiUse NO_PERMISSION
  *

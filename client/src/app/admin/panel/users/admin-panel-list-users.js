@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -12,10 +13,9 @@ import Button from 'core-components/button';
 import Message from 'core-components/message';
 import Icon from 'core-components/icon';
 import ModalContainer from 'app-components/modal-container';
-import MainSignUpWidget from 'app/main/main-signup/main-signup-widget';
+import InviteUserWidget from 'app/admin/panel/users/invite-user-widget';
 
 class AdminPanelListUsers extends React.Component {
-
     state = {
         loading: true,
         users: [],
@@ -39,11 +39,19 @@ class AdminPanelListUsers extends React.Component {
         return (
             <div className="admin-panel-list-users">
                 <Header title={i18n('LIST_USERS')} description={i18n('LIST_USERS_DESCRIPTION')} />
+                {(this.state.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_USERS')}</Message> : this.renderTableAndInviteButton()}
+            </div>
+        );
+    }
+
+    renderTableAndInviteButton() {
+        return (
+            <div>
                 <SearchBox className="admin-panel-list-users__search-box" placeholder={i18n('SEARCH_USERS')} onSearch={this.onSearch.bind(this)} />
-                {(this.state.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_USERS')}</Message> : <Table {...this.getTableProps()}/>}
+                <Table {...this.getTableProps()}/>
                 <div style={{textAlign: 'right', marginTop: 10}}>
-                    <Button onClick={this.onCreateUser.bind(this)} type="secondary" size="medium">
-                        <Icon size="sm" name="plus"/> {i18n('ADD_USER')}
+                    <Button onClick={this.onInviteUser.bind(this)} type="secondary" size="medium">
+                        <Icon size="sm" name="plus"/> {i18n('INVITE_USER')}
                     </Button>
                 </div>
             </div>
@@ -167,17 +175,17 @@ class AdminPanelListUsers extends React.Component {
         }).catch(this.onUsersRejected.bind(this)).then(this.onUsersRetrieved.bind(this));
     }
 
-    onCreateUser(user) {
+    onInviteUser(user) {
         ModalContainer.openModal(
-            <div className="admin-panel-list-users__add-user-form">
-                <MainSignUpWidget onSuccess={this.onCreateUserSuccess.bind(this)} />
+            <div className="admin-panel-list-users__invite-user-form">
+                <InviteUserWidget onSuccess={this.onInviteUserSuccess.bind(this)} />
                 <div style={{textAlign: 'center'}}>
                     <Button onClick={ModalContainer.closeModal} type="link">{i18n('CLOSE')}</Button>
                 </div>
             </div>
         );
     }
-    onCreateUserSuccess() {
+    onInviteUserSuccess() {
         ModalContainer.closeModal();
     }
 
@@ -201,4 +209,8 @@ class AdminPanelListUsers extends React.Component {
     }
 }
 
-export default AdminPanelListUsers;
+export default connect((store) => {
+    return {
+        config: store.config
+    };
+})(AdminPanelListUsers);

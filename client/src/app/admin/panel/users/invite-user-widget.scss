@@ -1,0 +1,19 @@
+.invite-user-widget {
+    padding: 30px;
+    text-align: center;
+
+    &__form {
+        margin-bottom: 20px;
+    }
+
+    &__inputs {
+        display: inline-block;
+        margin: 0 auto;
+    }
+
+    &__captcha {
+        margin: 10px auto 20px;
+        height: 78px;
+        width: 304px;
+    }
+}

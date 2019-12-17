@@ -79,10 +79,10 @@ class CommentController extends Controller {
 
     public function handler() {
         $this->requestData();
-        $this->user = Controller::getLoggedUser();
         $ticketAuthor = $this->ticket->authorToArray();
-        $isAuthor = $this->ticket->isAuthor($this->user) || $this->session->isTicketSession();
+        $isAuthor = $this->session->isTicketSession() || $this->ticket->isAuthor($this->user);
         $isOwner = $this->ticket->isOwner($this->user);
+        $private = Controller::request('private');
 
         if(!Controller::isStaffLogged() && Controller::isUserSystemEnabled() && !$isAuthor){
             throw new RequestException(ERRORS::NO_PERMISSION);
@@ -94,14 +94,15 @@ class CommentController extends Controller {
 
         $this->storeComment();
 
-        if($isAuthor && $this->ticket->owner) {
+        if(!$isAuthor && !$private) {
+            $this->sendMail($ticketAuthor);
+        }
+        if($this->ticket->owner && !$isOwner) {
             $this->sendMail([
                 'email' => $this->ticket->owner->email,
                 'name' => $this->ticket->owner->name,
                 'staff' => true
             ]);
-        } else if($isOwner && !Controller::request('private')) {
-            $this->sendMail($ticketAuthor);
         }
 
         Log::createLog('COMMENT', $this->ticket->ticketNumber);
@@ -113,6 +114,7 @@ class CommentController extends Controller {
         $ticketNumber = Controller::request('ticketNumber');
         $this->ticket = Ticket::getByTicketNumber($ticketNumber);
         $this->content = Controller::request('content', true);
+        $this->user = Controller::getLoggedUser();
     }
 
     private function storeComment() {
@@ -136,6 +138,8 @@ class CommentController extends Controller {
         } else if(Controller::isUserSystemEnabled()) {
             $this->ticket->unreadStaff = true;
             $comment->authorUser = $this->user;
+        } else {
+            $this->ticket->unreadStaff = true;
         }
 
         $this->ticket->addEvent($comment);

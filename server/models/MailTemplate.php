@@ -19,6 +19,7 @@ class MailTemplate extends DataStore {
     const USER_SIGNUP = 'USER_SIGNUP';
     const USER_PASSWORD = 'USER_PASSWORD';
     const PASSWORD_FORGOT = 'PASSWORD_FORGOT';
+    const USER_INVITE = 'USER_INVITE';
     const USER_SYSTEM_DISABLED = 'USER_SYSTEM_DISABLED';
     const USER_SYSTEM_ENABLED = 'USER_SYSTEM_ENABLED';
     const TICKET_CREATED = 'TICKET_CREATED';
@@ -32,6 +33,7 @@ class MailTemplate extends DataStore {
           'USER_PASSWORD' => 'data/mail-templates/user-edit-password.html',
           'USER_EMAIL' => 'data/mail-templates/user-edit-email.html',
           'PASSWORD_FORGOT' => 'data/mail-templates/user-password-forgot.html',
+          'USER_INVITE' => 'data/mail-templates/user-invite.html',
           'USER_SYSTEM_DISABLED' => 'data/mail-templates/user-system-disabled.html',
           'USER_SYSTEM_ENABLED' => 'data/mail-templates/user-system-enabled.html',
           'TICKET_CREATED' => 'data/mail-templates/ticket-created.html',

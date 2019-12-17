@@ -4,6 +4,7 @@ $userControllers->setGroupPath('/user');
 
 $userControllers->addController(new LoginController);
 $userControllers->addController(new SignUpController);
+$userControllers->addController(new InviteUserController);
 $userControllers->addController(new LogoutController);
 $userControllers->addController(new CheckSessionController);
 $userControllers->addController(new SendRecoverPasswordController);

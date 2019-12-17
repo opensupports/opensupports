@@ -1,10 +1,10 @@
 import React              from 'react';
+import ReactDOM           from 'react-dom';
 import _                  from 'lodash';
 import classNames         from 'classnames';
 
 import i18n               from 'lib-app/i18n';
 import API                from 'lib-app/api-call';
-import history            from 'lib-app/history';
 
 import Captcha            from 'app/main/captcha';
 import SubmitButton       from 'core-components/submit-button';
@@ -14,9 +14,10 @@ import FormField          from 'core-components/form-field';
 import Widget             from 'core-components/widget';
 import Header             from 'core-components/header';
 
-class MainSignUpWidget extends React.Component {
+class InviteUserWidget extends React.Component {
 
     static propTypes = {
+        onSuccess: React.PropTypes.func,
         className: React.PropTypes.string
     };
 
@@ -41,19 +42,17 @@ class MainSignUpWidget extends React.Component {
     render() {
         return (
             <Widget className={this.getClass()}>
-                <Header title={i18n('SIGN_UP')} description={i18n('SIGN_UP_VIEW_DESCRIPTION')} />
+                <Header title={i18n('INVITE_USER')} description={i18n('INVITE_USER_VIEW_DESCRIPTION')} />
                 <Form {...this.getFormProps()}>
-                    <div className="signup-widget__inputs">
+                    <div className="invite-user-widget__inputs">
                         <FormField {...this.getInputProps()} label={i18n('FULL_NAME')} name="name" validation="NAME" required/>
                         <FormField {...this.getInputProps()} label={i18n('EMAIL')} name="email" validation="EMAIL" required/>
-                        <FormField {...this.getInputProps(true)} label={i18n('PASSWORD')} name="password" validation="PASSWORD" required/>
-                        <FormField {...this.getInputProps(true)} label={i18n('REPEAT_PASSWORD')} name="repeated-password" validation="REPEAT_PASSWORD" required/>
                         {this.state.customFields.map(this.renderCustomField.bind(this))}
                     </div>
-                    <div className="signup-widget__captcha">
+                    <div className="invite-user-widget__captcha">
                         <Captcha ref="captcha"/>
                     </div>
-                    <SubmitButton type="primary">{i18n('SIGN_UP')}</SubmitButton>
+                    <SubmitButton type="primary">{i18n('INVITE_USER')}</SubmitButton>
                 </Form>
 
                 {this.renderMessage()}
@@ -89,7 +88,7 @@ class MainSignUpWidget extends React.Component {
     renderMessage() {
         switch (this.state.message) {
             case 'success':
-                return <Message type="success">{i18n('SIGNUP_SUCCESS')}</Message>;
+                return <Message type="success">{i18n('INVITE_USER_SUCCESS')}</Message>;
             case 'fail':
                 return <Message type="error">{i18n('EMAIL_EXISTS')}</Message>;
             default:
@@ -99,7 +98,7 @@ class MainSignUpWidget extends React.Component {
 
     getClass() {
         let classes = {
-            'signup-widget': true,
+            'invite-user-widget': true,
             [this.props.className]: this.props.className
         };
         return classNames(classes);
@@ -108,14 +107,14 @@ class MainSignUpWidget extends React.Component {
     getFormProps() {
         return {
             loading: this.state.loading,
-            className: 'signup-widget__form',
-            onSubmit: this.onSignupFormSubmit.bind(this)
+            className: 'invite-user-widget__form',
+            onSubmit: this.onInviteUserFormSubmit.bind(this)
         };
     }
 
     getInputProps(password) {
         return {
-            className: 'signup-widget__input',
+            className: 'invite-user-widget__input',
             fieldProps: {
                 size: 'medium',
                 password: password
@@ -123,7 +122,7 @@ class MainSignUpWidget extends React.Component {
         };
     }
 
-    onSignupFormSubmit(formState) {
+    onInviteUserFormSubmit(formState) {
         const captcha = this.refs.captcha.getWrappedInstance();
 
         if (!captcha.getValue()) {
@@ -142,22 +141,20 @@ class MainSignUpWidget extends React.Component {
             })
 
             API.call({
-                path: '/user/signup',
+                path: '/user/invite',
                 data: _.extend({captcha: captcha.getValue()}, form)
-            }).then(this.onSignupSuccess.bind(this)).catch(this.onSignupFail.bind(this));
+            }).then(this.onInviteUserSuccess.bind(this)).catch(this.onInviteUserFail.bind(this));
         }
     }
 
-    onSignupSuccess() {
+    onInviteUserSuccess() {
         this.setState({
             loading: false,
             message: 'success'
-        }, () => {
-            setTimeout(() => {history.push('/check-ticket')}, 2000);
         });
     }
 
-    onSignupFail() {
+    onInviteUserFail() {
         this.setState({
             loading: false,
             message: 'fail'
@@ -165,4 +162,4 @@ class MainSignUpWidget extends React.Component {
     }
 }
 
-export default MainSignUpWidget;
+export default InviteUserWidget;

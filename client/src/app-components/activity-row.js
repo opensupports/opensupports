@@ -23,6 +23,7 @@ class ActivityRow extends React.Component {
 
             'EDIT_SETTINGS',
             'SIGNUP',
+            'INVITE',
             'ADD_TOPIC',
             'ADD_ARTICLE',
             'DELETE_TOPIC',
@@ -116,6 +117,7 @@ class ActivityRow extends React.Component {
 
             'EDIT_SETTINGS': 'wrench',
             'SIGNUP': 'user-plus',
+            'INVITE': 'user-plus',
             'ADD_TOPIC': 'book',
             'ADD_ARTICLE': 'book',
             'DELETE_TOPIC': 'book',
