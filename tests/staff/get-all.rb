@@ -8,9 +8,12 @@ describe'/staff/get-all' do
             csrf_token: $csrf_token
         })
 
-        puts result['data']
-
         (result['status']).should.equal('success')
+
+        result['data'][0]['departments'].sort_by do |department|
+            department['id'].to_i
+        end
+        puts result['data']
 
         (result['data'][0]['name']).should.equal('Emilia Clarke')
         (result['data'][0]['email']).should.equal('staff@opensupports.com')
