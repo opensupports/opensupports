@@ -71,7 +71,7 @@ class SearchController extends Controller {
                     'error' => ERRORS::INVALID_UNREAD_STAFF_FILTER
                 ],
                 'priority' => [
-                    'validation' => DataValidator::oneOf(DataValidator::validPrioritys(),DataValidator::nullType()),
+                    'validation' => DataValidator::oneOf(DataValidator::validPriorities(),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_PRIORITY_FILTER
                 ],
                 'dateRange' => [
@@ -205,11 +205,11 @@ class SearchController extends Controller {
             $filters .= "ticket.unread_staff = " . $unreadStaff;
         }
     }
-    private function setPriorityFilter($prioritys, &$filters){
-        if($prioritys != null){
+    private function setPriorityFilter($priorities, &$filters){
+        if($priorities != null){
             $first = TRUE;
             if ($filters != "")  $filters .= " and ";
-            foreach(array_unique($prioritys) as $priority) {
+            foreach(array_unique($priorities) as $priority) {
 
                 if($first){
                     $filters .= " ( ";
@@ -228,7 +228,7 @@ class SearchController extends Controller {
 
 
             }
-            $prioritys != "" ? $filters .= ") " : null;
+            $priorities != "" ? $filters .= ") " : null;
         }
 
     }
