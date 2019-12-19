@@ -22,6 +22,12 @@ class TicketQueryList extends React.Component {
         this.getTickets();
     }
 
+    componentDidUpdate(prevProps) {
+      if (this.props.customList.title !== prevProps.customList.title) {
+        this.getTickets();
+      }
+    }
+
     render() {
         return (
             <div>
@@ -38,7 +44,7 @@ class TicketQueryList extends React.Component {
             path: '/ticket/search',
             data: {
                 page : this.state.page,
-                ...this.props.filters
+                ...this.props.customList.filters
             }
         }).then((result) => {
             this.setState({

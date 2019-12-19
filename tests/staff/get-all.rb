@@ -13,7 +13,6 @@ describe'/staff/get-all' do
         result['data'][0]['departments'] = result['data'][0]['departments'].sort_by do |department|
             department['id'].to_i
         end
-        puts result['data']
 
         (result['data'][0]['name']).should.equal('Emilia Clarke')
         (result['data'][0]['email']).should.equal('staff@opensupports.com')
