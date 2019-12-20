@@ -206,7 +206,7 @@ export default {
     'TYPE': 'genere',
     'SELECT_INPUT': 'Seleziona input',
     'TEXT_INPUT': 'L\'immissione di testo',
-    'OPTION': 'Opzione {indice}',
+    'OPTION': 'Opzione {index}',
     'OPTIONS': 'Opzioni',
     'FIELD_DESCRIPTION': 'Descrizione del campo (facoltativo)',
     'DESCRIPTION_ADD_CUSTOM_TAG': 'qui puoi aggiungere un nuovo tag personalizzato',

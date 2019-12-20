@@ -83,15 +83,16 @@ class Ticketevent extends DataStore {
 
     public function toArray() {
         $user = ($this->authorStaff) ? $this->authorStaff : $this->authorUser;
+        $author = $this->ticket->authorToArray();
 
         return [
             'type' => $this->type,
             'ticketNumber' => $this->ticket->ticketNumber,
             'author' => [
-                'name' => $user ? $user->name : null,
+                'name' => $user ? $user->name : $author['name'],
                 'staff' => $user instanceOf Staff,
                 'id' => $user ? $user->id : null,
-                'customfields' => $user->xownCustomfieldvalueList ? $user->xownCustomfieldvalueList->toArray() : [],
+                'customfields' => ($user && $user->xownCustomfieldvalueList) ? $user->xownCustomfieldvalueList->toArray() : [],
             ],
             'edited' => $this->editedContent
         ];

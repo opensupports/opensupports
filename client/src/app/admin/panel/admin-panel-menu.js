@@ -107,18 +107,18 @@ class AdminPanelMenu extends React.Component {
     getRoutes() {
         const customLists = this.getCustomlists();
 
-        return this.getItemsByFilteredByLevel([
+        return this.getItemsByFilteredByLevel(_.without([
             {
                 groupName: i18n('DASHBOARD'),
                 path: '/admin/panel',
                 icon: 'tachometer',
                 level: 1,
                 items: this.getItemsByFilteredByLevel([
-                    {
+                    /*{
                         name: i18n('STATISTICS'),
                         path: '/admin/panel/stats',
                         level: 1
-                    },
+                    },*/
                     {
                         name: i18n('LAST_ACTIVITY'),
                         path: '/admin/panel/activity',
@@ -155,7 +155,7 @@ class AdminPanelMenu extends React.Component {
                     ...customLists
                 ])
             },
-            {
+            this.props.config['user-system-enabled'] ? {
                 groupName: i18n('USERS'),
                 path: '/admin/panel/users',
                 icon: 'user',
@@ -177,7 +177,7 @@ class AdminPanelMenu extends React.Component {
                         level: 1
                     }
                 ])
-            },
+            } : null,
             {
                 groupName: i18n('ARTICLES'),
                 path: '/admin/panel/articles',
@@ -192,7 +192,6 @@ class AdminPanelMenu extends React.Component {
                 ])
             },
             {
-
                 groupName: i18n('STAFF'),
                 path: '/admin/panel/staff',
                 icon: 'users',
@@ -239,7 +238,7 @@ class AdminPanelMenu extends React.Component {
                     }
                 ])
             }
-        ]);
+        ], null));
     }
 
     getItemsByFilteredByLevel(items) {
@@ -249,6 +248,7 @@ class AdminPanelMenu extends React.Component {
 
 export default connect((store) => {
     return {
-        level: store.session.userLevel
+        level: store.session.userLevel,
+        config: store.config
     };
 })(AdminPanelMenu);

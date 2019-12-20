@@ -6,15 +6,22 @@ describe '/ticket/delete' do
         Scripts.createTicket('ticket_to_delete')
         ticket = $database.getRow('ticket', 'ticket_to_delete', 'title')
 
-        request('/staff/add', {
+        request('/staff/invite', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             name: 'Ned Stark',
-            password: 'headless',
             email: 'ned@opensupports.com',
             level: 3,
             profilePic: '',
             departments: '[1]'
+        })
+
+        recoverpassword = $database.getRow('recoverpassword', 'ned@opensupports.com', 'email')
+
+        request('/user/recover-password', {
+            email: 'ned@opensupports.com',
+            password: 'headless',
+            token: recoverpassword['token']
         })
 
         request('/user/logout')
@@ -80,16 +87,24 @@ describe '/ticket/delete' do
 
          ticket = $database.getRow('ticket', 'ticket_to_delete_4', 'title');
 
-         request('/staff/add', {
-             csrf_userid: $csrf_userid,
-             csrf_token: $csrf_token,
-             name: 'Joan Chris',
-             password: 'theyaregonnafireme',
-             email: 'uselessstaff@opensupports.com',
-             level: 2,
-             profilePic: '',
-             departments: '[1]'
+         request('/staff/invite', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: 'Joan Chris',
+            email: 'uselessstaff@opensupports.com',
+            level: 2,
+            profilePic: '',
+            departments: '[1]'
          })
+
+         recoverpassword = $database.getRow('recoverpassword', 'uselessstaff@opensupports.com', 'email')
+
+         request('/user/recover-password', {
+             email: 'uselessstaff@opensupports.com',
+             password: 'theyaregonnafireme',
+             token: recoverpassword['token']
+         })
+
          request('/user/logout')
 
          Scripts.login('uselessstaff@opensupports.com', 'theyaregonnafireme',true)
