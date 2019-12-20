@@ -152,9 +152,8 @@ abstract class Controller {
     public static function getCustomFieldValues() {
         $customFields = Customfield::getAll();
         $customFieldValues = new DataStoreList();
-
         foreach($customFields as $customField) {
-            $value = Controller::request('customfield_' . $customField->name);
+            $value = Controller::request('customfield_' . str_replace(' ', '_', $customField->name));
             if($value !== null) {
                 $customFieldValue = new Customfieldvalue();
                 $customFieldValue->setProperties([
@@ -183,7 +182,6 @@ abstract class Controller {
                 $customFieldValues->add($customFieldValue);
             }
         }
-
         return $customFieldValues;
     }
 }

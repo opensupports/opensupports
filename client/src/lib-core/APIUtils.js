@@ -44,4 +44,8 @@ const APIUtils = {
     }
 };
 
+export const getCustomFieldParamName = function (customFieldName) {
+    return `customfield_${customFieldName}`.replace(/ /g,'_');
+}
+
 export default APIUtils;
