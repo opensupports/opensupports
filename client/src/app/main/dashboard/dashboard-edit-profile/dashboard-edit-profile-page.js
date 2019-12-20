@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 import API from 'lib-app/api-call';
 import i18n from 'lib-app/i18n';
+import { getCustomFieldParamName } from 'lib-core/APIUtils';
 
 import SessionActions from 'actions/session-actions';
 import AreYouSure from 'app-components/are-you-sure';
@@ -124,9 +125,9 @@ class DashboardEditProfilePage extends React.Component {
 
         customFields.forEach(customField => {
             if(customField.type === 'select') {
-                parsedFrom[`customfield_${customField.name}`] = customField.options[form[customField.name]].name;
+                parsedFrom[getCustomFieldParamName(customField.name)] = customField.options[form[customField.name]].name;
             } else {
-                parsedFrom[`customfield_${customField.name}`.replace(/ /g,'_')] = form[customField.name];
+                parsedFrom[getCustomFieldParamName(customField.name)] = form[customField.name];
             }
         });
 
