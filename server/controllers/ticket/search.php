@@ -111,21 +111,22 @@ class SearchController extends Controller {
             'query' => Controller::request('query'),
             'orderBy' => json_decode(Controller::request('orderBy'),true),
             'page' => Controller::request('page'),
-            'user' => Controller::getLoggedUser(),
+            'allowedDepartments' => Controller::getLoggedUser()->sharedDepartmentList->toArray(),
         ];
+
 
         $query = $this->getSQLQuery($inputs);
         $queryWithOrder = $this->getSQLQueryWithOrder($inputs);
-        $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2")[0]['COUNT(*)'];
-        $ticketIdList = RedBean::getAll($queryWithOrder);
+        $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", [':query' => $inputs['query']])[0]['COUNT(*)'];
+        $ticketIdList = RedBean::getAll($queryWithOrder, [':query' => "%" . $inputs['query'] . "%"]);
         $ticketList = [];
 
         foreach ($ticketIdList as $item) {
             $ticket = Ticket::getDataStore($item['id']);
             array_push($ticketList, $ticket->toArray());
         }
-
         $ticketTableExists  = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticket';");
+
         if($ticketTableExists){
             Response::respondSuccess([
                 'tickets' => $ticketList,
@@ -171,7 +172,7 @@ class SearchController extends Controller {
         if(array_key_exists('unreadStaff',$inputs)) $this->setSeenFilter($inputs['unreadStaff'], $filters);
         if(array_key_exists('priority',$inputs)) $this->setPriorityFilter($inputs['priority'], $filters);
         if(array_key_exists('dateRange',$inputs)) $this->setDateFilter($inputs['dateRange'], $filters);
-        if(array_key_exists('departments',$inputs)) $this->setDepartmentFilter($inputs['departments'],$inputs['user'], $filters);
+        if(array_key_exists('departments',$inputs)) $this->setDepartmentFilter($inputs['departments'],$inputs['allowedDepartments'], $filters);
         if(array_key_exists('authors',$inputs)) $this->setAuthorFilter($inputs['authors'], $filters);
         if(array_key_exists('query',$inputs)) $this->setStringFilter($inputs['query'], $filters);
         if($filters != "") $filters =  " WHERE " . $filters;
@@ -243,9 +244,8 @@ class SearchController extends Controller {
         }
     }
 
-    private function setDepartmentFilter($departments,$user, &$filters){
-
-        $validDepartments = $this->generateValidDepartmentList($departments, $user);
+    private function setDepartmentFilter($departments,$allowedDepartments, &$filters){
+        $validDepartments = $this->generateValidDepartmentList($departments, $allowedDepartments);
         if ($filters != "")  $filters .= " and ";
         $first = TRUE;
 
@@ -302,16 +302,16 @@ class SearchController extends Controller {
 
         if($search != null){
             if ($filters != "")  $filters .= " and ";
-            $ticketevent = ( $ticketEventTableExists ? " or (ticketevent.type = 'COMMENT' and ticketevent.content LIKE '%" . $search ."%')" : "");
-            $filters .= " (ticket.title LIKE '%" . $search . "%' or ticket.content LIKE '%" . $search . "%' or ticket.ticket_number LIKE '%" . $search . "%'". $ticketevent  ." )";
+            $ticketevent = ( $ticketEventTableExists ? " or (ticketevent.type = 'COMMENT' and ticketevent.content LIKE :query)" : "");
+            $filters .= " (ticket.title LIKE :query or ticket.content LIKE :query or ticket.ticket_number LIKE :query". $ticketevent  ." )";
         };
     }
 
-    private function generateValidDepartmentList($departments, $user){
+    private function generateValidDepartmentList($departments, $allowedDepartments){
         $result = [];
         $managedDepartments = [];
         if($departments == null) $departments = [];
-        foreach ($user->sharedDepartmentList->toArray() as $department) {
+        foreach ($allowedDepartments as $department) {
              array_push($managedDepartments,$department['id']);
         }
         $result = array_intersect($departments,$managedDepartments);
