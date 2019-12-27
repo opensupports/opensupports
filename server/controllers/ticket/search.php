@@ -91,7 +91,7 @@ class SearchController extends Controller {
                     'error' => ERRORS::INVALID_ASSIGNED_FILTER
                 ],
                 'orderBy' => [
-                    'validation' => DataValidator::oneOf(DataValidator::ValidOrderBy(),DataValidator::nullType()),
+                    'validation' => DataValidator::oneOf(DataValidator::validOrderBy(),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_ORDER_BY
                 ],
             ]
@@ -340,8 +340,8 @@ class SearchController extends Controller {
         $ticketEventTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticketevent';");
 
         if($querysearch != null){
-            $ticketeventOrder =  ( $ticketEventTableExists ? " CASE WHEN (ticketevent.type = 'COMMENT' and ticketevent.content LIKE '%".$querysearch."%') THEN ticketevent.content END desc," : "");
-            $order .= "CASE WHEN (ticket.ticket_number LIKE '%" . $querysearch ."%') THEN ticket.ticket_number END desc,CASE WHEN (ticket.title LIKE '%" . $querysearch ."%') THEN ticket.title END desc, CASE WHEN ( ticket.content LIKE '%" . $querysearch ."%') THEN ticket.content END desc," . $ticketeventOrder ;
+            $ticketeventOrder =  ( $ticketEventTableExists ? " CASE WHEN (ticketevent.type = 'COMMENT' and ticketevent.content LIKE :query) THEN ticketevent.content END desc," : "");
+            $order .= "CASE WHEN (ticket.ticket_number LIKE :query) THEN ticket.ticket_number END desc,CASE WHEN (ticket.title LIKE :query) THEN ticket.title END desc, CASE WHEN ( ticket.content LIKE :query) THEN ticket.content END desc," . $ticketeventOrder ;
         }
     }
 

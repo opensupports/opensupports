@@ -298,7 +298,7 @@ export default {
     'MY_TICKETS_DESCRIPTION': 'Here you can view the tickets you are responsible for.',
     'NEW_TICKETS_DESCRIPTION': 'Here you can view all the new tickets that are not assigned by anyone.',
     'ALL_TICKETS_DESCRIPTION': 'Here you can view the tickets of the departments you are assigned.',
-    'SEARCH_TICKETS_DESCRIPTION': 'Here you can search tickets by specifics filters.',
+    'SEARCH_TICKETS_DESCRIPTION': 'Here you can search tickets by specific filters',
     'TICKET_VIEW_DESCRIPTION': 'This ticket has been sent by a customer. Here you can respond or assign the ticket',
     'BAN_USERS_DESCRIPTION': 'Here you can see a list of banned emails, you can un-ban them or add more emails to the list.',
     'LIST_USERS_DESCRIPTION': 'This is the list of users that are registered in this platform. You can search for someone in particular, delete it or ban it.',
