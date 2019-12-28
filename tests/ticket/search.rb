@@ -126,7 +126,7 @@ describe '/ticket/search' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             page: 1,
-            query: 'dasjfawj!!!)())'
+            assigned: 11113
         })
         (result['status']).should.equal('fail')
         (result['message']).should.equal('INVALID_ASSIGNED_FILTER')
