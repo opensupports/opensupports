@@ -5,8 +5,8 @@ namespace CustomValidations;
 use Respect\Validation\Rules\AbstractRule;
 
 class ValidPriorities extends AbstractRule {
-    public function validate($prioritys) {
-    	$PriorityList = json_decode($prioritys);
+    public function validate($priorities) {
+    	$PriorityList = json_decode($priorities);
 
     	if(is_array($PriorityList)){
 			foreach (array_unique($PriorityList) as $priorityId) {

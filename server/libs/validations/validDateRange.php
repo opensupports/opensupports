@@ -7,15 +7,15 @@ use Respect\Validation\Rules\AbstractRule;
 class ValidDateRange extends AbstractRule {
 
     public function validate($dateRange) {
-    	$dateArray = json_decode($dateRange);
-    	$counter = 0;
-    	if(is_array($dateArray)){	
-			foreach ($dateArray as $date) {
-				if (is_numeric($date)) $counter++;
-			}
+        $dateArray = json_decode($dateRange);
+        $length = count($dateArray);
 
-			return ((sizeof($dateArray) == 2  && $counter == 2) || sizeof($dateArray) == 0 );
-    	}
-    	return false;
-    }
+        if(is_array($dateArray) && $length == 2  ){
+            foreach ($dateArray as $date) {
+                if (!is_numeric($date)) return false;
+            }
+            return $dateArray[0] <= $dateArray[1];
+        }
+        return false;
+   }
 }

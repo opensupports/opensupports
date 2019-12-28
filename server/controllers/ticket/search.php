@@ -195,19 +195,19 @@ class SearchController extends Controller {
         }
     }
     public function setClosedFilter($closed, &$filters){
-       if ($closed != null) {
+       if ($closed !== null) {
             if ($filters != "")  $filters .= " and ";
             $filters .= "ticket.closed = " . $closed ;
         }
     }
     private function setSeenFilter($unreadStaff, &$filters){
-       if ($unreadStaff != null) {
+       if ($unreadStaff !== null) {
             if ($filters != "")  $filters .= " and ";
             $filters .= "ticket.unread_staff = " . $unreadStaff;
         }
     }
     private function setPriorityFilter($priorities, &$filters){
-        if($priorities != null){
+        if($priorities !== null){
             $first = TRUE;
             if ($filters != "")  $filters .= " and ";
             foreach(array_unique($priorities) as $priority) {
@@ -220,11 +220,11 @@ class SearchController extends Controller {
                 }
 
                 if($priority == 0){
-                    $filters .= "ticket.priority = " . "'low'";
+                    $filters .= "ticket.priority = 'low'";
                 }elseif($priority == 1){
-                    $filters .= "ticket.priority = " . "'medium'";
+                    $filters .= "ticket.priority = 'medium'";
                 }elseif($priority == 2){
-                    $filters .= "ticket.priority = " . "'high'";
+                    $filters .= "ticket.priority = 'high'";
                 }
 
 
@@ -235,7 +235,7 @@ class SearchController extends Controller {
     }
 
     private function setDateFilter($dateRange, &$filters){
-       if ($dateRange != null) {
+       if ($dateRange !== null) {
             if ($filters != "")  $filters .= " and ";
 
             foreach($dateRange as $key => $date) {
@@ -263,7 +263,7 @@ class SearchController extends Controller {
     }
 
     private function setAuthorFilter($authors, &$filters){
-        if($authors != null){
+        if($authors !== null){
             $first = TRUE;
             if ($filters != "")  $filters .= " and ";
 
@@ -289,7 +289,7 @@ class SearchController extends Controller {
     }
 
     private function setAssignedFilter($assigned, &$filters){
-       if($assigned != null){
+       if($assigned !== null){
             if ($filters != "")  $filters .= " and ";
             $key = "";
             $assigned == 0 ? $key = "IS NULL" : $key = "IS NOT NULL";
@@ -300,7 +300,7 @@ class SearchController extends Controller {
     private function setStringFilter($search, &$filters){
         $ticketEventTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticketevent';");
 
-        if($search != null){
+        if($search !== null){
             if ($filters != "")  $filters .= " and ";
             $ticketevent = ( $ticketEventTableExists ? " or (ticketevent.type = 'COMMENT' and ticketevent.content LIKE :query)" : "");
             $filters .= " (ticket.title LIKE :query or ticket.content LIKE :query or ticket.ticket_number LIKE :query". $ticketevent  ." )";
@@ -331,7 +331,7 @@ class SearchController extends Controller {
         $order .=  "ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.priority desc, ticket.date desc ";
     }
     private function setEspecificOrder($orderBy, &$order){
-        if($orderBy != null){
+        if($orderBy !== null){
             $orientation = ($orderBy['asc'] ? " asc" : " desc" );
             $order .= "ticket." . $orderBy['value'] . $orientation . ",";
         };
@@ -339,7 +339,7 @@ class SearchController extends Controller {
     private function setStringOrder($querysearch, &$order){
         $ticketEventTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticketevent';");
 
-        if($querysearch != null){
+        if($querysearch !== null){
             $ticketeventOrder =  ( $ticketEventTableExists ? " CASE WHEN (ticketevent.type = 'COMMENT' and ticketevent.content LIKE :query) THEN ticketevent.content END desc," : "");
             $order .= "CASE WHEN (ticket.ticket_number LIKE :query) THEN ticket.ticket_number END desc,CASE WHEN (ticket.title LIKE :query) THEN ticket.title END desc, CASE WHEN ( ticket.content LIKE :query) THEN ticket.content END desc," . $ticketeventOrder ;
         }
