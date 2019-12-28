@@ -8,6 +8,7 @@ import i18n  from 'lib-app/i18n';
 import API   from 'lib-app/api-call';
 import SessionStore       from 'lib-app/session-store';
 import MentionsParser     from 'lib-app/mentions-parser';
+import history from 'lib-app/history';
 
 import TicketEvent        from 'app-components/ticket-event';
 import AreYouSure         from 'app-components/are-you-sure';
@@ -69,7 +70,6 @@ class TicketViewer extends React.Component {
 
     render() {
         const ticket = this.props.ticket;
-
         return (
             <div className="ticket-viewer">
                 <div className="ticket-viewer__header row">
@@ -416,7 +416,10 @@ class TicketViewer extends React.Component {
             data: {
                 ticketNumber: this.props.ticket.ticketNumber
             }
-        }).then(this.onTicketModification.bind(this));
+        }).then((result) => {
+             this.onTicketModification(result);
+             history.push('/admin/panel/tickets/my-tickets/');
+        });
     }
 
     changeDepartment(index) {
@@ -444,6 +447,7 @@ class TicketViewer extends React.Component {
             }
         }).then(this.onTicketModification.bind(this));
     }
+
     addTag(tag) {
         API.call({
             path: '/ticket/add-tag',
@@ -463,6 +467,7 @@ class TicketViewer extends React.Component {
             }
         }).then(this.onTicketModification.bind(this))
     }
+
     onCustomResponsesChanged({index}) {
         let replaceContentWithCustomResponse = () => {
             this.setState({
@@ -492,7 +497,7 @@ class TicketViewer extends React.Component {
         const data = {};
 
         if(ticketeventid){
-            data.ticketeventId = ticketeventid
+            data.ticketEventId = ticketeventid
         }else{
             data.ticketNumber = this.props.ticket.ticketNumber
         }
@@ -523,6 +528,7 @@ class TicketViewer extends React.Component {
             commentError: true
         });
     }
+
     onSubmit(formState) {
         this.setState({
             loading: true
@@ -602,6 +608,7 @@ class TicketViewer extends React.Component {
 }
 
 export default connect((store) => {
+
     return {
         userId: store.session.userId,
         userStaff: store.session.staff,
