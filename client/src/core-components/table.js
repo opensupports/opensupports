@@ -55,7 +55,7 @@ class Table extends React.Component {
             'table__header-column': true,
             [header.className]: (header.className)
         };
-        
+
         return (
             <th className={classNames(classes)} key={header.key}>
                 {header.value}
@@ -97,7 +97,7 @@ class Table extends React.Component {
         };
 
         return (
-            
+
             <td className={classNames(classes)} key={key}>{row[key]}</td>
         );
     }
@@ -139,15 +139,15 @@ class Table extends React.Component {
             this.props.onPageChange({target: {value: index}});
         }
     }
-    
+
     getRowClass(row) {
         let classes = {
             'table__row': true,
             'table__row-highlighted': row.highlighted
         };
-        
+
         classes[row.className] = (row.className);
-        
+
         return classNames(classes);
     }
 

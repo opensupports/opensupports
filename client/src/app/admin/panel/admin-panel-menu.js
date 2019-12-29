@@ -76,7 +76,7 @@ class AdminPanelMenu extends React.Component {
 
     getGroupItemIndex() {
         const group = this.getRoutes()[this.getGroupIndex()];
-        const pathname = this.props.location.pathname;
+        const pathname = this.props.location.pathname + this.props.location.search;
 
         return _.findIndex(group.items, {path: pathname});
     }
@@ -90,7 +90,23 @@ class AdminPanelMenu extends React.Component {
         return (groupIndex === -1) ? 0 : groupIndex;
     }
 
+    getCustomlists() {
+        if(window.customTicketList){
+            return window.customTicketList.map((item, index) => {
+                    return {
+                        name: item.title,
+                        path: '/admin/panel/tickets/search-tickets?custom=' + index,
+                        level: 1
+                    }
+            })
+        } else {
+            return [];
+        }
+    }
+
     getRoutes() {
+        const customLists = this.getCustomlists();
+
         return this.getItemsByFilteredByLevel(_.without([
             {
                 groupName: i18n('DASHBOARD'),
@@ -135,7 +151,8 @@ class AdminPanelMenu extends React.Component {
                         name: i18n('CUSTOM_RESPONSES'),
                         path: '/admin/panel/tickets/custom-responses',
                         level: 2
-                    }
+                    },
+                    ...customLists
                 ])
             },
             this.props.config['user-system-enabled'] ? {

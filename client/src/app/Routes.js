@@ -33,6 +33,7 @@ import AdminPanelMyAccount from 'app/admin/panel/dashboard/admin-panel-my-accoun
 import AdminPanelMyTickets from 'app/admin/panel/tickets/admin-panel-my-tickets';
 import AdminPanelNewTickets from 'app/admin/panel/tickets/admin-panel-new-tickets';
 import AdminPanelAllTickets from 'app/admin/panel/tickets/admin-panel-all-tickets';
+import AdminPanelSearchTickets from 'app/admin/panel/tickets/admin-panel-search-tickets';
 import AdminPanelViewTicket from 'app/admin/panel/tickets/admin-panel-view-ticket';
 import AdminPanelCustomResponses from 'app/admin/panel/tickets/admin-panel-custom-responses';
 
@@ -113,6 +114,7 @@ export default (
                         <Route path="my-tickets" component={AdminPanelMyTickets} />
                         <Route path="new-tickets" component={AdminPanelNewTickets} />
                         <Route path="all-tickets" component={AdminPanelAllTickets} />
+                        <Route path="search-tickets" component={AdminPanelSearchTickets} />
                         <Route path="custom-responses" component={AdminPanelCustomResponses} />
                         <Route path="view-ticket/:ticketNumber" component={AdminPanelViewTicket} />
                     </Route>
