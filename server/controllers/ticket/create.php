@@ -98,6 +98,7 @@ class CreateController extends Controller {
         $this->language = Controller::request('language');
         $this->email = Controller::request('email');
         $this->name = Controller::request('name');
+        $this->site_url = Controller::request('site_url');
 
         if(!Controller::isStaffLogged() && Department::getDataStore($this->departmentId)->private){
             throw new Exception(ERRORS::INVALID_DEPARTMENT);
@@ -150,6 +151,7 @@ class CreateController extends Controller {
             'closed' => false,
             'authorName' => $this->name,
             'authorEmail' => $this->email,
+            'site_url' => $this->site_url
         ));
 
         $ticket->setAuthor($author);

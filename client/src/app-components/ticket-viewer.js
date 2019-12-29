@@ -137,6 +137,16 @@ class TicketViewer extends React.Component {
                     <div className="col-md-4"> <TagSelector items={this.props.tags} values={this.props.ticket.tags} onRemoveClick={this.removeTag.bind(this)} onTagSelected={this.addTag.bind(this)}/></div>
                 </div>
                 <div className="ticket-viewer__info-row-header row">
+                    <div className="col-md-12">{i18n('CLIENT_SITE_PATH')}</div>
+                </div>
+                <div className="ticket-viewer__info-row-values row">
+                    <div className="col-md-12">
+                        <a href={ticket.site_url} title={ticket.author.name} target="_blank">
+                            {ticket.site_url}
+                        </a>
+                    </div>
+                </div>
+                <div className="ticket-viewer__info-row-header row">
                     <div className="col-md-4">{i18n('PRIORITY')}</div>
                     <div className="col-md-4">{i18n('OWNER')}</div>
                     <div className="col-md-4">{i18n('STATUS')}</div>
@@ -181,6 +191,16 @@ class TicketViewer extends React.Component {
                         let tag = _.find(this.props.tags, {name:tagName});
                         return <Tag name={tag && tag.name} color={tag && tag.color} key={index} />
                     }) : i18n('NONE')}</div>
+                </div>
+                <div className="ticket-viewer__info-row-header row">
+                    <div className="col-md-12">{i18n('CLIENT_SITE_PATH')}</div>
+                </div>
+                <div className="ticket-viewer__info-row-values row">
+                    <div className="col-md-12">
+                        <a href={ticket.site_url} title={ticket.author.name} target="_blank">
+                            {ticket.site_url}
+                        </a>
+                    </div>
                 </div>
                 <div className="ticket-viewer__info-row-header row">
                     <div className="ticket-viewer__department col-md-4">{i18n('PRIORITY')}</div>

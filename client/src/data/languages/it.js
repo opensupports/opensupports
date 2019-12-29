@@ -423,6 +423,7 @@ export default {
     'TEST_SMTP_CONNECTION': 'Verifica connessione SMTP',
     'SERVER_ERROR': 'Non è possibile connettersi con il server.',
     'EMAIL_SERVER_ADDRESS': 'Indirizzo del server email',
-    'EMAIL_SERVER_ADDRESS_DESCRIPTION': 'Indirizzo dove verranno ricevuti e inviati i messaggi'
+    'EMAIL_SERVER_ADDRESS_DESCRIPTION': 'Indirizzo dove verranno ricevuti e inviati i messaggi',
+    'CLIENT_SITE_PATH': 'Indirizzo piattaforma'
 };
 /** Special thanks to Fabio Giarrusso for translation contribution **/

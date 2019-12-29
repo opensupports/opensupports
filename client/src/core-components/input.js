@@ -16,6 +16,7 @@ class Input extends React.Component {
         onChange: React.PropTypes.func,
         size: React.PropTypes.oneOf(['small', 'medium', 'large', 'auto']),
         password: React.PropTypes.bool,
+        url: React.PropTypes.bool,
         required: React.PropTypes.bool,
         icon: React.PropTypes.string,
         error: React.PropTypes.string,
@@ -49,7 +50,7 @@ class Input extends React.Component {
         let props = _.clone(this.props);
 
         props['aria-required'] = this.props.required;
-        props.type = (this.props.password) ? 'password' : 'text';
+        props.type = (this.props.password) ? 'password' : ((this.props.url) ? 'url' : 'text');
         props.ref = 'nativeInput';
 
         delete props.errored;
