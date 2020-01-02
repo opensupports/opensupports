@@ -73,9 +73,12 @@ class TicketViewer extends React.Component {
             <div className="ticket-viewer">
                 <div className="ticket-viewer__header row">
                     <span className="ticket-viewer__number">#{ticket.ticketNumber}</span>
-                    <span className="ticket-viewer__title">{ticket.title}</span>
+                    { false ? <span className="ticket-viewer__title">{ticket.title}</span> : this.editTitle()}
                     <span className="ticket-viewer__flag">
                         <Icon name={(ticket.language === 'en') ? 'us' : ticket.language}/>
+                    </span>
+                    <span>
+                        <Icon name="pencil" onClick={this.props.onToggleEdit} />
                     </span>
                 </div>
                 {this.props.editable ? this.renderEditableHeaders() : this.renderHeaders()}
@@ -102,6 +105,16 @@ class TicketViewer extends React.Component {
                 {(!this.props.ticket.closed && (this.props.editable || !this.props.assignmentAllowed)) ? this.renderResponseField() : (this.showDeleteButton())? <Button size="medium" onClick={this.onDeleteTicketClick.bind(this)}>{i18n('DELETE_TICKET')}</Button> : null}
             </div>
         );
+    }
+
+    editTitle(){
+        return(
+             <span className="ticket-viewer__title">
+                 <Form {...this.getCommentFormProps()}>
+                     <FormField label={i18n('TITLE')} name="title" validation="TITLE" required field="input" fieldProps={{size: 'small'}}/>
+                 </Form>
+             </span>
+        )
     }
 
     renderEditableHeaders() {

@@ -36,6 +36,10 @@ class EditCommentController extends Controller {
                 'content' => [
                     'validation' => DataValidator::length(10, 5000),
                     'error' => ERRORS::INVALID_CONTENT
+                ],
+                'ticketNumber' => [
+                    'validation' => DataValidator::validTicketNumber(),
+                    'error' => ERRORS::INVALID_TICKET
                 ]
             ]
         ];
