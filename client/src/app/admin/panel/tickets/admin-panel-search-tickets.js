@@ -20,7 +20,7 @@ class AdminPanelSearchTickets extends React.Component {
     }
 
     getFilters() {
-        let customList = window.customTicketList[this.props.location.query.custom*1] ? window.customTicketList[this.props.location.query.custom*1] : null
+        let customList = (window.customTicketList && window.customTicketList[this.props.location.query.custom*1]) ? window.customTicketList[this.props.location.query.custom*1] : null
         return {
             ...customList
         };
