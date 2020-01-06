@@ -27,19 +27,18 @@ class TagSelector extends React.Component {
 
     renderSelectedTags() {
         const itemList = this.props.values.map(value => _.find(this.props.items, {name:value}));
-
+    
         return itemList.map(this.renderSelectedTag.bind(this));
     }
 
-
     renderSelectedTag(item,index) {
+    
         return <Tag name={item.name} color={item.color} showDeleteButton onRemoveClick={this.onRemoveClick.bind(this,item.id)} key={index}/>;
-
     }
 
     renderTagOptions() {
         const itemList = _.filter(this.props.items,(item) => !_.includes(this.props.values,item.name));
-
+    
         return itemList.map(this.renderTagOption.bind(this));
     }
 

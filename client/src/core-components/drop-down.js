@@ -77,7 +77,6 @@ class DropDown extends React.Component {
         let item = this.props.items[this.getSelectedIndex()];
         let iconNode = null;
 
-
         if (item.icon) {
             iconNode = <Icon className="drop-down__current-item-icon" name={item.icon} />;
         }
@@ -234,10 +233,12 @@ class DropDown extends React.Component {
     }
 
     getSelectedIndex() {
+    
         return (this.props.selectedIndex !== undefined) ? this.props.selectedIndex : this.state.selectedIndex;
     }
 
     modulo(number, mod) {
+    
         return ((number % mod) + mod) % mod;
     }
 }
