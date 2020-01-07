@@ -12,7 +12,7 @@ import SubmitButton from 'core-components/submit-button';
 import Button from 'core-components/button';
 import Icon from 'core-components/icon';
 
-class AddStaffModal extends React.Component {
+class InviteStaffModal extends React.Component {
 
     static contextTypes = {
         closeModal: React.PropTypes.func
@@ -30,15 +30,14 @@ class AddStaffModal extends React.Component {
 
     render() {
         return (
-            <div className="add-staff-modal">
-                <Header title={i18n('ADD_STAFF')} description={i18n('ADD_STAFF_DESCRIPTION')} />
+            <div className="invite-staff-modal">
+                <Header title={i18n('INVITE_STAFF')} description={i18n('INVITE_STAFF_DESCRIPTION')} />
                 <Form onSubmit={this.onSubmit.bind(this)} errors={this.getErrors()} onValidateErrors={errors => this.setState({errors})} loading={this.state.loading}>
                     <div className="row">
                         <div className="col-md-7">
                             <FormField name="name" label={i18n('NAME')} fieldProps={{size: 'large'}} validation="NAME" required />
                             <FormField name="email" label={i18n('EMAIL')} fieldProps={{size: 'large'}} validation="EMAIL" required />
-                            <FormField name="password" label={i18n('PASSWORD')} fieldProps={{size: 'large', password: true}} validation="PASSWORD" required />
-                            <div className="add-staff-modal__level-selector">
+                            <div className="invite-staff-modal__level-selector">
                                 <FormField name="level" label={i18n('LEVEL')} field="select" fieldProps={{
                                     items: [{content: i18n('LEVEL_1')}, {content: i18n('LEVEL_2')}, {content: i18n('LEVEL_3')}],
                                     size: 'large'
@@ -46,8 +45,8 @@ class AddStaffModal extends React.Component {
                             </div>
                         </div>
                         <div className="col-md-5">
-                            <div className="add-staff-modal__departments">
-                                <div className="add-staff-modal__departments-title">{i18n('Departments')}</div>
+                            <div className="invite-staff-modal__departments">
+                                <div className="invite-staff-modal__departments-title">{i18n('Departments')}</div>
                                 <FormField name="departments" field="checkbox-group" fieldProps={{items: this.getDepartments()}} />
                             </div>
                         </div>
@@ -66,7 +65,7 @@ class AddStaffModal extends React.Component {
     getDepartments() {
         return SessionStore.getDepartments().map(department => {
             if(department.private*1){
-                return <spam>{department.name} <Icon name='user-secret'/> </spam>
+                return <span>{department.name} <Icon name='user-secret'/> </span>
             } else {
                 return department.name;
             }
@@ -81,11 +80,10 @@ class AddStaffModal extends React.Component {
         this.setState({loading: true});
 
         API.call({
-            path: '/staff/add',
+            path: '/staff/invite',
             data: {
                 name: form.name,
                 email: form.email,
-                password: form.password,
                 level: form.level + 1,
                 departments: JSON.stringify(departments)
             }
@@ -119,4 +117,4 @@ class AddStaffModal extends React.Component {
     }
 }
 
-export default AddStaffModal;
+export default InviteStaffModal;

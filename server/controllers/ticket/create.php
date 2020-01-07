@@ -115,10 +115,16 @@ class CreateController extends Controller {
             }
         }
 
-        Log::createLog('CREATE_TICKET', $this->ticketNumber);
         Response::respondSuccess([
             'ticketNumber' => $this->ticketNumber
         ]);
+
+        if(!Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) {
+            $session = Session::getInstance();
+            $session->createTicketSession($this->ticketNumber);
+        }
+        
+        Log::createLog('CREATE_TICKET', $this->ticketNumber);
     }
 
     private function storeTicket() {

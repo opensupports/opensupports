@@ -16,25 +16,33 @@ class Scripts
         })
     end
 
-    def self.createStaff(email, password, name, level='1')
+    def self.createStaff(email, password, name, level='1') # WARNING: NOT USED ANYWHERE
         departments = request('/system/get-settings', {
           csrf_userid: $csrf_userid,
           csrf_token: $csrf_token
         })['data']['departments']
         departments = departments.collect  { |x| x.id }
 
-        response = request('/staff/add', {
+        response = request('/staff/invite', {
             :name => name,
             :email => email,
-            :password => password,
             :level => level,
             :departments => departments.to_string
+        })
+
+        recoverpassword = $database.getRow('recoverpassword', email, 'email')
+
+        response = request('/user/recover-password', {
+            email: email,
+            password: password,
+            token: recoverpassword['token']
         })
 
         if response['status'] === 'fail'
             raise response['message']
         end
     end
+
     def self.deleteStaff(staffId)
         response = request('/staff/delete', {
             staffId: staffId,
@@ -107,6 +115,7 @@ class Scripts
             description: description
         })
     end
+
     def self.createTag(name, color)
         request('/ticket/create-tag', {
             csrf_userid: $csrf_userid,
@@ -115,6 +124,7 @@ class Scripts
             color: color
         })
     end
+
     def self.assignTicket(ticketnumber)
         request('/staff/assign-ticket', {
             ticketNumber: ticketnumber,
@@ -122,6 +132,7 @@ class Scripts
             csrf_token: $csrf_token
         })
     end
+
     def self.commentTicket(ticketnumber,content)
         request('/ticket/comment', {
             content: content,

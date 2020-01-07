@@ -272,7 +272,7 @@ export default {
     'INSTALLATION_COMPLETED': 'Installation abgeschlossen.',
     'INSTALLATION_COMPLETED_DESCRIPTION': 'Die Installation von OpenSupports ist abgeschlossen. Umleitung zum Admin-Panel...',
 
-    'STEP_TITLE': 'Schritt {aktuell} von {total} - {title}',
+    'STEP_TITLE': 'Schritt {current} von {total} - {title}',
     'STEP_1_DESCRIPTION': 'Wählen Sie Ihre bevorzugte Sprache für den Installationsassistenten aus.',
     'STEP_2_DESCRIPTION': 'Hier sind die Voraussetzungen für das Ausführen von OpenSupports aufgelistet. Bitte stellen Sie sicher, dass alle Anforderungen erfüllt sind.',
     'STEP_3_DESCRIPTION': 'Bitte füllen Sie die MySQL-Datenbankkonfiguration aus.',

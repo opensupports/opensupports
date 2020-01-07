@@ -146,7 +146,7 @@ class CreateTicketForm extends React.Component {
             message: 'success'
         }, () => {
             if(this.props.onSuccess) {
-                this.props.onSuccess();
+                this.props.onSuccess(result, email);
             }
         });
     }
