@@ -8,6 +8,7 @@ import i18n  from 'lib-app/i18n';
 import API   from 'lib-app/api-call';
 import SessionStore       from 'lib-app/session-store';
 import MentionsParser     from 'lib-app/mentions-parser';
+import history from 'lib-app/history';
 
 import TicketEvent        from 'app-components/ticket-event';
 import AreYouSure         from 'app-components/are-you-sure';
@@ -415,7 +416,10 @@ class TicketViewer extends React.Component {
             data: {
                 ticketNumber: this.props.ticket.ticketNumber
             }
-        }).then(this.onTicketModification.bind(this));
+        }).then((result) => {
+             this.onTicketModification(result);
+             history.push('/admin/panel/tickets/my-tickets/');
+        });
     }
 
     changeDepartment(index) {
