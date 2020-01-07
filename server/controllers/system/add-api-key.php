@@ -14,7 +14,7 @@ use Respect\Validation\Validator as DataValidator;
  * @apiPermission staff3
  *
  * @apiParam {String} name Name of the new APIKey.
- * @apiParam {String} type Type of APIKey: "REGSITRATION" or "TICKET_CREATE"
+ * @apiParam {String} type Type of APIKey: "REGISTRATION" or "TICKET_CREATE"
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_NAME
