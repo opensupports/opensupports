@@ -75,7 +75,7 @@ class CreateController extends Controller {
         if(!Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) {
             $validations['permission'] = 'any';
             $validations['requestData']['captcha'] = [
-                'validation' => DataValidator::captcha(),
+                'validation' => DataValidator::captcha(APIKey::TICKET_CREATE),
                 'error' => ERRORS::INVALID_CAPTCHA
             ];
             $validations['requestData']['email'] = [
