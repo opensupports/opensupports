@@ -9,6 +9,42 @@
         color: white;
         font-size: 16px;
         padding: 6px 0;
+        display: flex;
+        align-items:center;
+        justify-content:center;
+        position: relative;
+        &:hover {
+            .ticket-viewer__edit-title-icon {
+                color: $grey;
+            }
+        }
+    }
+
+    &__edited-title-text {
+        font-style: italic;
+        font-size: 14px;
+        margin-left: 10px;
+    }
+
+    &__edit-title-icon {
+        position: absolute;
+        color: #414A59;
+        right: 12px;
+        &:hover {
+            cursor:pointer;
+        }
+    }
+
+    &___input-edit-title {
+         color: black;
+         align-items:center;
+         justify-content: center;
+         margin-bottom: 6px;
+         margin-right: 6px;
+
+         .input__text {
+             height: 25px;
+         }
     }
 
     &__number {

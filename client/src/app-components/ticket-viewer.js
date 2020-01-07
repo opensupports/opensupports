@@ -23,6 +23,7 @@ import InfoTooltip        from 'core-components/info-tooltip';
 import DepartmentDropdown from 'app-components/department-dropdown';
 import TagSelector        from 'core-components/tag-selector';
 import Tag                from 'core-components/tag';
+import Input                from 'core-components/input';
 
 class TicketViewer extends React.Component {
     static propTypes = {
@@ -58,7 +59,10 @@ class TicketViewer extends React.Component {
         commentEdited: false,
         commentPrivate: false,
         edit: false,
-        editId: 0
+        editTitle: false,
+        editId: 0,
+        newTitle: this.props.ticket.title,
+        editTitleError: false
     };
 
     componentDidMount() {
@@ -71,16 +75,7 @@ class TicketViewer extends React.Component {
         const ticket = this.props.ticket;
         return (
             <div className="ticket-viewer">
-                <div className="ticket-viewer__header row">
-                    <span className="ticket-viewer__number">#{ticket.ticketNumber}</span>
-                    { false ? <span className="ticket-viewer__title">{ticket.title}</span> : this.editTitle()}
-                    <span className="ticket-viewer__flag">
-                        <Icon name={(ticket.language === 'en') ? 'us' : ticket.language}/>
-                    </span>
-                    <span>
-                        <Icon name="pencil" onClick={this.props.onToggleEdit} />
-                    </span>
-                </div>
+                {this.state.editTitle ? this.renderEditableTitle() : this.renderTitleHeader()}
                 {this.props.editable ? this.renderEditableHeaders() : this.renderHeaders()}
                 <div className="ticket-viewer__content">
                     <TicketEvent
@@ -106,14 +101,42 @@ class TicketViewer extends React.Component {
             </div>
         );
     }
-
-    editTitle(){
+    renderTitleHeader() {
         return(
-             <span className="ticket-viewer__title">
-                 <Form {...this.getCommentFormProps()}>
-                     <FormField label={i18n('TITLE')} name="title" validation="TITLE" required field="input" fieldProps={{size: 'small'}}/>
-                 </Form>
-             </span>
+            <div className="ticket-viewer__header row">
+                <span className="ticket-viewer__number">#{this.props.ticket.ticketNumber}</span>
+                <span className="ticket-viewer__title">{this.props.ticket.title}</span>
+                <span className="ticket-viewer__flag">
+                    <Icon name={(this.props.ticket.language === 'en') ? 'us' : this.props.ticket.language}/>
+                </span>
+                {((this.props.ticket.author.id == this.props.userId && this.props.ticket.author.staff == this.props.userStaff) || this.props.userStaff) ? this.renderEditTitleOption() : null}
+                {this.props.ticket.editedTitle ? this.renderEditedTitleText() : null }
+            </div>
+        )
+    }
+    renderEditedTitleText(){
+        return(
+            <div className="ticket-viewer__edited-title-text"> {i18n('TITLE_EDITED')} </div>
+        )
+    }
+    renderEditTitleOption() {
+        return(
+            <span className="ticket-viewer__edit-title-icon">
+                <Icon name="pencil" onClick={() => {this.setState({editTitle: true})}} />
+            </span>
+        )
+    }
+
+    renderEditableTitle(){
+        return(
+            <div className="ticket-viewer__header row">
+                <div className="ticket-viewer__edit-title-box">
+                    <FormField className="ticket-viewer___input-edit-title" error={this.state.editTitleError}  value={this.state.newTitle} field='input' onChange={(e) => {this.setState({newTitle: e.target.value })}} />
+                </div>
+                <Button type='secondary' size="extra-small" onClick={this.changeTitle.bind(this)}>
+                    {i18n('EDIT_TITLE')}
+                </Button>
+            </div>
         )
     }
 
@@ -404,6 +427,20 @@ class TicketViewer extends React.Component {
         AreYouSure.openModal(null, this.deleteTicket.bind(this));
     }
 
+    changeTitle(){
+        API.call({
+            path: '/ticket/edit-title',
+            data: {
+                ticketNumber: this.props.ticket.ticketNumber,
+                title: this.state.newTitle
+            }
+        }).then(() => {
+            this.setState({editTitle: false,editTitleError: false}) ;this.onTicketModification();
+        }).catch((result) => {
+            this.setState({editTitleError: i18n(result.message)} )
+        });
+    }
+
     reopenTicket() {
         API.call({
             path: '/ticket/re-open',
@@ -617,7 +654,6 @@ class TicketViewer extends React.Component {
 }
 
 export default connect((store) => {
-
     return {
         userId: store.session.userId,
         userStaff: store.session.staff,

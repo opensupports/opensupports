@@ -6,6 +6,20 @@ describe '/ticket/edit-title' do
     ticket = $database.getRow('ticket', 'Valar Morghulis', 'title')
     ticketNumber = ticket['ticket_number']
 
+    it 'should fail change title of the ticket if the title is invalid' do
+        result = request('/ticket/edit-title', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            title: '',
+            ticketNumber: ticket['ticket_number']
+        })
+
+        ticket = $database.getRow('ticket', ticketNumber, 'ticket_number')
+
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('INVALID_TITLE')
+    end
+
     it 'should change title of the ticket if the author user tries it' do
         result = request('/ticket/edit-title', {
             csrf_userid: $csrf_userid,
@@ -53,7 +67,7 @@ describe '/ticket/edit-title' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             title: 'Casterly Rock',
-            ticketEventId: ticket['ticket_number']
+            ticketNumber: ticket['ticket_number']
         })
         (result['status']).should.equal('fail')
         (result['message']).should.equal('NO_PERMISSION')
