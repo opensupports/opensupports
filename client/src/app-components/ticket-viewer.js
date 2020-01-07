@@ -24,7 +24,6 @@ import InfoTooltip        from 'core-components/info-tooltip';
 import DepartmentDropdown from 'app-components/department-dropdown';
 import TagSelector        from 'core-components/tag-selector';
 import Tag                from 'core-components/tag';
-import Input                from 'core-components/input';
 
 class TicketViewer extends React.Component {
     static propTypes = {

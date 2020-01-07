@@ -91,6 +91,7 @@ export default {
     'BAN_EMAIL': 'Ban email',
     'EDIT_EMAIL': 'Edit email',
     'EDIT_PASSWORD': 'Edit password',
+    'EDIT_TITLE': 'Edit title',
     'CHANGE_EMAIL': 'Change email',
     'CHANGE_PASSWORD': 'Change password',
     'NAME': 'Name',
@@ -408,6 +409,7 @@ export default {
     'SERVER_CREDENTIALS_WORKING': 'Server credentials are working correctly',
     'DELETE_CUSTOM_FIELD_SURE': 'Some users may be using this field. Are you sure you want to delete it?',
 
+    'TITLE_EDITED': '(title edited)',
     'COMMENT_EDITED': '(comment edited)',
     'LAST_7_DAYS': 'Last 7 days',
     'LAST_30_DAYS': 'Last 30 days',
