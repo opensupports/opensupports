@@ -234,7 +234,7 @@ export default {
     'ACTIVITY_DEPARTMENT_CHANGED': 'changed department of ticket',
     'ACTIVITY_PRIORITY_CHANGED': 'changed priority of ticket',
     'ACTIVITY_EDIT_COMMENT': 'edited a comment of ticket',
-
+    'ACTIVITY_EDIT_TITLE': 'edited title of ticket',
     'ACTIVITY_EDIT_SETTINGS': 'edited settings',
     'ACTIVITY_SIGNUP': 'signed up',
     'ACTIVITY_INVITE': 'invited user',
@@ -361,6 +361,7 @@ export default {
     'TICKET_COMMENT_ERROR': 'An error occurred while trying to add the comment.',
     'NO_PERMISSION': 'You\'ve no permission to access to this page.',
     'INVALID_USER': 'User id is invalid',
+    'INVALID_TITLE': 'invalid title',
     'ERROR_RETRIEVING_TICKETS': 'An error occurred while trying to retrieve tickets.',
     'ERROR_RETRIEVING_USERS': 'An error occurred while trying to retrieve users.',
     'ERROR_RETRIEVING_BAN_LIST': 'An error occurred while trying to retrieve the list of banned emails.',

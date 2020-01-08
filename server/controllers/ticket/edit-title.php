@@ -19,6 +19,7 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TITLE
+ * @apiUse INVALID_TOKEN
  *
  * @apiSuccess {Object} data Empty object
  *
@@ -29,19 +30,39 @@ class EditTitleController extends Controller {
     const METHOD = 'POST';
 
     public function validations() {
-        return [
-            'permission' => 'user',
-            'requestData' => [
-                'title' => [
-                    'validation' => DataValidator::length(1, 200),
-                    'error' => ERRORS::INVALID_TITLE
-                ],
-                'ticketNumber' => [
-                    'validation' => DataValidator::validTicketNumber(),
-                    'error' => ERRORS::INVALID_TICKET
+        if(Controller::isUserSystemEnabled()){
+            return [
+                'permission' => 'user',
+                'requestData' => [
+                    'title' => [
+                        'validation' => DataValidator::length(1, 200),
+                        'error' => ERRORS::INVALID_TITLE
+                    ],
+                    'ticketNumber' => [
+                        'validation' => DataValidator::validTicketNumber(),
+                        'error' => ERRORS::INVALID_TICKET
+                    ]
                 ]
-            ]
-        ];
+            ];
+        } else {
+            return [
+                'permission' => 'any',
+                'requestData' => [
+                    'title' => [
+                        'validation' => DataValidator::length(1, 200),
+                        'error' => ERRORS::INVALID_TITLE
+                    ],
+                    'ticketNumber' => [
+                        'validation' => DataValidator::validTicketNumber(),
+                        'error' => ERRORS::INVALID_TICKET
+                    ],
+                    'csrf_token' => [
+                        'validation' => DataValidator::equals(Session::getInstance()->getToken()),
+                        'error' => ERRORS::INVALID_TOKEN
+                    ]
+                ]
+            ];
+        }
     }
 
     public function handler() {
@@ -49,7 +70,7 @@ class EditTitleController extends Controller {
         $newtitle = Controller::request('title');
         $ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
 
-        if(!$user->canManageTicket($ticket)) {
+        if(Controller::isUserSystemEnabled() && !$user->canManageTicket($ticket)) {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
