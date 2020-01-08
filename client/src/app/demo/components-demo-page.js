@@ -26,7 +26,7 @@ class DemoPage extends React.Component {
             <div>
                 <AutocompleteDropDown
                 items={itemsList}
-                value={this.state.selectedList}
+                values={this.state.selectedList}
                 onChange={selectedList => this.setState({selectedList: selectedList})}/>
                 <button onClick={() => this.setState({selectedList: []})}>clear</button>
             </div>

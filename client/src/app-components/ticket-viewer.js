@@ -134,7 +134,13 @@ class TicketViewer extends React.Component {
                                   onChange={this.onDepartmentDropdownChanged.bind(this)} />
                     </div>
                     <div className="col-md-4">{ticket.author.name}</div>
-                    <div className="col-md-4"> <TagSelector items={this.props.tags} values={this.props.ticket.tags} onRemoveClick={this.removeTag.bind(this)} onTagSelected={this.addTag.bind(this)}/></div>
+                    <div className="col-md-4">
+                        <TagSelector
+                            items={this.props.tags}
+                            values={this.props.ticket.tags}
+                            onRemoveClick={this.removeTag.bind(this)}
+                            onTagSelected={this.addTag.bind(this)}/>
+                    </div>
                 </div>
                 <div className="ticket-viewer__info-row-header row">
                     <div className="col-md-4">{i18n('PRIORITY')}</div>
@@ -143,7 +149,11 @@ class TicketViewer extends React.Component {
                 </div>
                 <div className="ticket-viewer__info-row-values row">
                     <div className="col-md-4">
-                        <DropDown className="ticket-viewer__editable-dropdown" items={priorityList} selectedIndex={priorities[ticket.priority]} onChange={this.onPriorityDropdownChanged.bind(this)} />
+                        <DropDown
+                            className="ticket-viewer__editable-dropdown"
+                            items={priorityList}
+                            selectedIndex={priorities[ticket.priority]}
+                            onChange={this.onPriorityDropdownChanged.bind(this)} />
                     </div>
                     <div className="col-md-4">
                         {this.renderAssignStaffList()}
