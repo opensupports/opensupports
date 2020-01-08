@@ -102,15 +102,19 @@ class TicketViewer extends React.Component {
         );
     }
     renderTitleHeader() {
+
+        const {ticket, userStaff, userId} = this.props;
+        const {ticketNumber, title, author, editedTitle, language} = ticket;
+
         return(
             <div className="ticket-viewer__header row">
-                <span className="ticket-viewer__number">#{this.props.ticket.ticketNumber}</span>
-                <span className="ticket-viewer__title">{this.props.ticket.title}</span>
+                <span className="ticket-viewer__number">#{ticketNumber}</span>
+                <span className="ticket-viewer__title">{title}</span>
                 <span className="ticket-viewer__flag">
-                    <Icon name={(this.props.ticket.language === 'en') ? 'us' : this.props.ticket.language}/>
+                    <Icon name={(language === 'en') ? 'us' : language}/>
                 </span>
-                {((this.props.ticket.author.id == this.props.userId && this.props.ticket.author.staff == this.props.userStaff) || this.props.userStaff) ? this.renderEditTitleOption() : null}
-                {this.props.ticket.editedTitle ? this.renderEditedTitleText() : null }
+                {((author.id == userId && author.staff == userStaff) || userStaff) ? this.renderEditTitleOption() : null}
+                {editedTitlee ? this.renderEditedTitleText() : null }
             </div>
         )
     }
@@ -122,7 +126,7 @@ class TicketViewer extends React.Component {
     renderEditTitleOption() {
         return(
             <span className="ticket-viewer__edit-title-icon">
-                <Icon name="pencil" onClick={() => {this.setState({editTitle: true})}} />
+                <Icon name="pencil" onClick={() => this.setState({editTitle: true})} />
             </span>
         )
     }
@@ -131,7 +135,7 @@ class TicketViewer extends React.Component {
         return(
             <div className="ticket-viewer__header row">
                 <div className="ticket-viewer__edit-title-box">
-                    <FormField className="ticket-viewer___input-edit-title" error={this.state.editTitleError}  value={this.state.newTitle} field='input' onChange={(e) => {this.setState({newTitle: e.target.value })}} />
+                    <FormField className="ticket-viewer___input-edit-title" error={this.state.editTitleError}  value={this.state.newTitle} field='input' onChange={(e) => this.setState({newTitle: e.target.value })} />
                 </div>
                 <Button type='secondary' size="extra-small" onClick={this.changeTitle.bind(this)}>
                     {i18n('EDIT_TITLE')}
@@ -435,9 +439,15 @@ class TicketViewer extends React.Component {
                 title: this.state.newTitle
             }
         }).then(() => {
-            this.setState({editTitle: false,editTitleError: false}) ;this.onTicketModification();
+            this.setState({
+                editTitle: false,
+                editTitleError: false
+            });
+            this.onTicketModification();
         }).catch((result) => {
-            this.setState({editTitleError: i18n(result.message)} )
+            this.setState({
+                editTitleError: i18n(result.message)
+            })
         });
     }
 
