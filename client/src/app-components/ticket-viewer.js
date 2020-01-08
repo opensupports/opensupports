@@ -114,7 +114,7 @@ class TicketViewer extends React.Component {
                     <Icon name={(language === 'en') ? 'us' : language}/>
                 </span>
                 {((author.id == userId && author.staff == userStaff) || userStaff) ? this.renderEditTitleOption() : null}
-                {editedTitlee ? this.renderEditedTitleText() : null }
+                {editedTitle ? this.renderEditedTitleText() : null }
             </div>
         )
     }
