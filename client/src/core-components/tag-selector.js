@@ -13,6 +13,7 @@ class TagSelector extends React.Component {
         })),
         values: React.PropTypes.arrayOf(React.PropTypes.string),
         onRemoveClick: React.PropTypes.func,
+        onTagSelected: React.PropTypes.func,
     };
 
     render() {

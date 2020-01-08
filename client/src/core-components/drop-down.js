@@ -69,7 +69,10 @@ class DropDown extends React.Component {
     }
 
     renderList({opacity, translateY}) {
-        let style = { opacity: opacity, transform: `translateY(${translateY}px)`};
+        let style = {
+            opacity: opacity,
+            transform: `translateY(${translateY}px)`
+        };
 
         return (
             <div className="drop-down__list-container" style={style}>
@@ -164,9 +167,8 @@ class DropDown extends React.Component {
                         highlightedIndex: this.modulo(highlightedIndex - 1, itemsQuantity)
                     });
 
-                    if (onHighlightedIndexChange){
-                        onHighlightedIndexChange(this.modulo(highlightedIndex - 1, itemsQuantity));
-                    }
+                    onHighlightedIndexChange && onHighlightedIndexChange(this.modulo(highlightedIndex - 1, itemsQuantity));
+                    
                 }
             },
             'down': () => {
@@ -177,9 +179,8 @@ class DropDown extends React.Component {
                         highlightedIndex: this.modulo(highlightedIndex + 1, itemsQuantity)
                     });
 
-                    if (onHighlightedIndexChange){
-                        onHighlightedIndexChange(this.modulo(highlightedIndex + 1, itemsQuantity));
-                    }
+                    onHighlightedIndexChange && onHighlightedIndexChange(this.modulo(highlightedIndex + 1, itemsQuantity));
+                    
                 }
             },
             'enter': () => {
@@ -190,9 +191,8 @@ class DropDown extends React.Component {
                         opened: true
                     });
 
-                    if (onMenuToggle) {
-                        onMenuToggle(true);
-                    }
+                    onMenuToggle && onMenuToggle(true);
+                    
                 }
             },
             'space': () => {
@@ -202,53 +202,48 @@ class DropDown extends React.Component {
                     opened: true
                 });
 
-                if (onMenuToggle) {
-                    onMenuToggle(true);
-                }
+                onMenuToggle && onMenuToggle(true);
+                
             },
             'esc': () => {
                 this.setState({
                     opened: false
                 });
 
-                if (onMenuToggle) {
-                    onMenuToggle(false);
-                }
+                onMenuToggle && onMenuToggle(false);
+                
             },
             'tab': () => {
                 if (this.getOpen()) {
                     event.preventDefault();
 
-                    if (onHighlightedIndexChange){
-                        this.onIndexSelected(highlightedIndex)
-                    }
+                    onHighlightedIndexChange && this.onIndexSelected(highlightedIndex);
+                    
                 }
             }
         };
     }
 
     handleBlur() {
-        const {onMenuToggle} = this.props;
+        const { onMenuToggle, } = this.props;
 
         this.setState({
             opened: false
         });
 
-        if (onMenuToggle) {
-            onMenuToggle(false);
-        }
+        onMenuToggle && onMenuToggle(false);
+
     }
 
     handleClick() {
-        const {onMenuToggle} = this.props;
+        const { onMenuToggle, } = this.props;
 
         this.setState({
             opened: !this.getOpen()
         });
 
-        if (onMenuToggle) {
-            onMenuToggle(!this.getOpen());
-        }
+        onMenuToggle && onMenuToggle(!this.getOpen());
+        
     }
 
     handleItemClick(index) {
@@ -268,19 +263,12 @@ class DropDown extends React.Component {
             highlightedIndex: index
         });
         
-        if (onHighlightedIndexChange){
-            onHighlightedIndexChange(index);
-        }
+        onHighlightedIndexChange && onHighlightedIndexChange(index);
+        
+        onMenuToggle && onMenuToggle(false);
 
-        if (onMenuToggle) {
-            onMenuToggle(false);
-        }
-
-        if (onChange) {
-            onChange({
-                index
-            });
-        }
+        onChange && onChange({ index });
+        
     }
 
     handleListMouseDown(event) {
@@ -288,7 +276,7 @@ class DropDown extends React.Component {
     }
 
     onAnimationFinished() {
-        const {onHighlightedIndexChange} = this.props;
+        const { onHighlightedIndexChange, } = this.props;
 
 
         if (!this.getOpen() && this.getHighlightedIndex() !== this.getSelectedIndex()) {
@@ -296,9 +284,8 @@ class DropDown extends React.Component {
                 highlightedIndex: this.getSelectedIndex(),
             });
 
-            if (onHighlightedIndexChange){
-                onHighlightedIndexChange(this.getSelectedIndex());
-            }
+            onHighlightedIndexChange && onHighlightedIndexChange(this.getSelectedIndex());
+
         }
     }
 

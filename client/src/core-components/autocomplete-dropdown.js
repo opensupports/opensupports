@@ -10,6 +10,9 @@ class AutocompleteDropDown extends React.Component {
 
     static propTypes = {
         items: Menu.propTypes.items,
+        onChange: React.PropTypes.func,
+        value: React.PropTypes.arrayOf(React.PropTypes.shape({
+        }))
     };
 
     state = {
@@ -59,7 +62,7 @@ class AutocompleteDropDown extends React.Component {
     }
 
     renderSelectedItems() {
-        return this.state.itemsSelected.map(item => this.renderSelectedItem(item));
+        return this.getValue().map(item => this.renderSelectedItem(item));
     }
 
     renderSelectedItem(item) {
@@ -67,8 +70,8 @@ class AutocompleteDropDown extends React.Component {
     }
 
     getDropdownList() {
-        const {items} = this.props;
-        const list = this.getUnselectedList(items, this.state.itemsSelected);
+        const { items, } = this.props;
+        const list = this.getUnselectedList(items, this.getValue());
         
         return list.filter(s => _.includes(s.name, this.state.inputValue));
     }
@@ -78,23 +81,34 @@ class AutocompleteDropDown extends React.Component {
     }
 
     onRemoveClick(itemId, event) {
+        const { onChange, } = this.props;
+
         event.preventDefault();
 
         this.setState({
-            itemsSelected: this.state.itemsSelected.filter(item => item.id != itemId),
+            itemsSelected: this.getValue().filter(item => item.id != itemId),
             opened: false,
             highlightedIndex: 0,
         });
+
+        onChange && onChange(this.getValue().filter(item => item.id != itemId));
+
     }
 
     onChangeDropDown(e){
+        const { onChange, } = this.props;
+
         if (this.getDropdownList().length) {
             this.setState({
-                itemsSelected: [...this.state.itemsSelected, this.getDropdownList()[e.index]],
+                itemsSelected: [...this.getValue(), this.getDropdownList()[e.index]],
                 inputValue: "",
                 highlightedIndex: 0,
             });
+
+            onChange && onChange([...this.getValue(), this.getDropdownList()[e.index]]);
+    
         }
+
     }
 
     onChangeInput(str){        
@@ -118,17 +132,26 @@ class AutocompleteDropDown extends React.Component {
     }
 
     onKeyDown(event){
+        const { onChange, } = this.props;
+
         if (keyCode(event) === "space"){
             event.stopPropagation();
         }
 
         if (keyCode(event) === "backspace" && this.state.inputValue === ""){
             this.setState({
-                itemsSelected: this.state.itemsSelected.slice(0,this.state.itemsSelected.length-1),
+                itemsSelected: this.getValue().slice(0,this.getValue().length-1),
+                highlightedIndex: 0,
             });
 
+            onChange && onChange(this.getValue().slice(0,this.getValue().length-1));
         }
     }
+
+    getValue() {
+        return (this.props.value !== undefined) ? this.props.value : this.state.itemsSelected;
+    }
+
 }
 
 export default AutocompleteDropDown;
