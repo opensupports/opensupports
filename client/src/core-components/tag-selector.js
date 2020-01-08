@@ -38,13 +38,13 @@ class TagSelector extends React.Component {
 
     renderTagOptions() {
         const itemList = _.filter(this.props.items,(item) => !_.includes(this.props.values,item.name));
-    
+        
         return itemList.map(this.renderTagOption.bind(this));
     }
 
-    renderTagOption(item,index) {
+    renderTagOption(item) {
         return (
-            <div onClick={this.onTagSelected.bind(this,item.id)} className="tag-selector__tag-option" key={index}>
+            <div onClick={this.onTagSelected.bind(this,item.id)} className="tag-selector__tag-option" key={`tag-option-${item.id}`}>
                 <span className="tag-selector__tag-option-square" style={{backgroundColor:item.color}}/>
                 <span className="tag-selector__tag-option-name" >{item.name}</span>
             </div>

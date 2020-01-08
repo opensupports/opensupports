@@ -1,0 +1,21 @@
+@import "../scss/vars";
+
+.autocomplete {
+    &__input {
+        display: inline-block;
+        border: 0;
+        background: transparent;
+        outline: none;
+        padding-left: 5px;
+        width: auto;
+        max-width: 100%;
+        min-width: 20px;
+    }
+
+    .sizer {
+        line-height: 1.21428571em;
+        padding: .67857143em 2.1em .67857143em 1em;
+        display: none;
+        white-space: pre;
+    }
+}
