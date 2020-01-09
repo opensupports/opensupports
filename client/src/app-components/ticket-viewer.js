@@ -101,8 +101,8 @@ class TicketViewer extends React.Component {
             </div>
         );
     }
-    renderTitleHeader() {
 
+    renderTitleHeader() {
         const {ticket, userStaff, userId} = this.props;
         const {ticketNumber, title, author, editedTitle, language} = ticket;
 
@@ -118,11 +118,13 @@ class TicketViewer extends React.Component {
             </div>
         )
     }
+
     renderEditedTitleText(){
         return(
             <div className="ticket-viewer__edited-title-text"> {i18n('TITLE_EDITED')} </div>
         )
     }
+    
     renderEditTitleOption() {
         return(
             <span className="ticket-viewer__edit-title-icon">
