@@ -9,11 +9,13 @@ import Tag from 'core-components/tag';
 class AutocompleteDropDown extends React.Component {
 
     static propTypes = {
-        items: Menu.propTypes.items,
+        //items: Menu.propTypes.items,
         onChange: React.PropTypes.func,
         values: React.PropTypes.arrayOf(React.PropTypes.shape({})),
         onRemoveClick: React.PropTypes.func,
         onTagSelected: React.PropTypes.func,
+        //getItemListFromQuery: React.propTypes.func,
+        disabled: React.PropTypes.bool,
     };
 
     state = {
@@ -21,10 +23,28 @@ class AutocompleteDropDown extends React.Component {
         inputValue: "",
         opened: false,
         highlightedIndex: 0,
+        items2: [],
     };
+
+    componentDidMount() {
+        const { getItemListFromQuery, } = this.props;
+
+        if (this.state.items2.length === 0){
+            if(getItemListFromQuery !== undefined) {
+                getItemListFromQuery("")
+                .then(res => {
+                    this.setState({
+                        items2: res,
+                    });
+                });
+            }
+
+        }
+    }
 
     render() {
         let inputWith = 0;
+
         if(this.span) {
             this.span.style.display = 'inline';
             this.span.textContent = this.state.inputValue;
@@ -34,7 +54,7 @@ class AutocompleteDropDown extends React.Component {
 
         return (
             <div className="tag-selector">
-                <label>
+                <label onClick={(e) => e.stopPropagation()}>
                     <DropDown
                         className="tag-selector__drop-down"
                         items={this.getDropdownList()}
@@ -71,14 +91,39 @@ class AutocompleteDropDown extends React.Component {
     }
 
     getDropdownList() {
-        const { items, } = this.props;
-        const list = this.getUnselectedList(items, this.getValue());
-        
-        return list.filter(s => _.includes(s.name, this.state.inputValue));
+        const {
+            items,
+        } = this.props;
+        let resp = [];
+
+        if (items !== undefined) {
+            const list = this.getUnselectedList(items, this.getValue());
+
+            resp = list.filter(s => _.includes(s.name, this.state.inputValue));
+
+        } else {
+            resp = this.getUnselectedList(this.state.items2, this.getValue());
+
+        }
+
+        return resp;
+
     }
 
     getUnselectedList(list, selectedList) {
         return list.filter(item  => !_.some(selectedList, item));
+    }
+
+    getValue() {
+        const { values, } = this.props;
+
+        return (values !== undefined) ? values : this.state.itemsSelected;
+    }
+
+    getDeletingItemLoading() {
+        const  { deletingItemLoading, } = this.props;
+
+        return (deletingItemLoading !== undefined) ? deletingItemLoading : false;
     }
 
     onRemoveClick(itemId, event) {
@@ -103,7 +148,8 @@ class AutocompleteDropDown extends React.Component {
     onChangeDropDown(e){
         const {
             onChange,
-            onTagSelected
+            onTagSelected,
+            getItemListFromQuery,
         } = this.props;
 
         if (this.getDropdownList().length) {
@@ -113,6 +159,15 @@ class AutocompleteDropDown extends React.Component {
                 highlightedIndex: 0,
             });
 
+            if (getItemListFromQuery !== undefined) {
+                getItemListFromQuery("")
+                .then(res => {
+                    this.setState({
+                        items2: res,
+                    });
+                })
+            }
+
             onChange && onChange([...this.getValue(), this.getDropdownList()[e.index]]);
 
             onTagSelected && onTagSelected(this.getDropdownList()[e.index].id);
@@ -121,12 +176,23 @@ class AutocompleteDropDown extends React.Component {
 
     }
 
-    onChangeInput(str){        
+    onChangeInput(str){
+        const { getItemListFromQuery, } = this.props;
+
         this.setState({
             inputValue: str,
             opened: true,
             highlightedIndex: 0,
         });
+
+        if (getItemListFromQuery !== undefined) {
+            getItemListFromQuery(str)
+            .then(res => {
+                this.setState({
+                    items2: res,
+                });
+            })
+        }
     }
 
     onMenuToggle(b){
@@ -147,6 +213,12 @@ class AutocompleteDropDown extends React.Component {
             onRemoveClick,
         } = this.props;
 
+        if(this.props.disabled) {
+            event.stopPropagation();
+            event.preventDefault();
+            return;
+        }
+
         if (keyCode(event) === "space"){
             event.stopPropagation();
         }
@@ -164,12 +236,6 @@ class AutocompleteDropDown extends React.Component {
                 onRemoveClick && onRemoveClick(itemId);
             }
         }
-    }
-
-    getValue() {
-        const { values, } = this.props;
-
-        return (values !== undefined) ? values : this.state.itemsSelected;
     }
 
 }

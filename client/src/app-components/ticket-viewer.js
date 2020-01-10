@@ -58,7 +58,8 @@ class TicketViewer extends React.Component {
         commentEdited: false,
         commentPrivate: false,
         edit: false,
-        editId: 0
+        editId: 0,
+        tagSelectorLoading: false,
     };
 
     componentDidMount() {
@@ -139,7 +140,8 @@ class TicketViewer extends React.Component {
                             items={this.props.tags}
                             values={this.props.ticket.tags}
                             onRemoveClick={this.removeTag.bind(this)}
-                            onTagSelected={this.addTag.bind(this)}/>
+                            onTagSelected={this.addTag.bind(this)}
+                            loading={this.state.tagSelectorLoading}/>
                     </div>
                 </div>
                 <div className="ticket-viewer__info-row-header row">
@@ -455,23 +457,47 @@ class TicketViewer extends React.Component {
     }
 
     addTag(tag) {
+        this.setState({
+            tagSelectorLoading: true,
+        })
         API.call({
             path: '/ticket/add-tag',
             data: {
                 ticketNumber: this.props.ticket.ticketNumber,
                 tagId: tag
             }
-        }).then(this.onTicketModification.bind(this))
+        })
+        .then(() => {
+            this.setState({
+                tagSelectorLoading: false,
+            });
+            this.onTicketModification();
+        })
+        .catch(() => this.setState({
+            tagSelectorLoading: false,
+        }))
     }
 
     removeTag(tag) {
+        this.setState({
+            tagSelectorLoading: true,
+        });
+
         API.call({
             path: '/ticket/remove-tag',
             data: {
                 ticketNumber: this.props.ticket.ticketNumber,
                 tagId: tag
             }
-        }).then(this.onTicketModification.bind(this))
+        }).then(() => {
+            this.setState({
+                tagSelectorLoading: false,
+            });
+
+            this.onTicketModification();
+        }).catch(() => this.setState({
+            tagSelectorLoading: false,
+        }))
     }
 
     onCustomResponsesChanged({index}) {

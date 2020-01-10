@@ -12,6 +12,7 @@ class TagSelector extends React.Component {
         values: React.PropTypes.arrayOf(React.PropTypes.string),
         onRemoveClick: React.PropTypes.func,
         onTagSelected: React.PropTypes.func,
+        loading: React.PropTypes.bool,
     };
 
     render() {
@@ -25,7 +26,7 @@ class TagSelector extends React.Component {
                     values={values}
                     onRemoveClick={this.props.onRemoveClick}
                     onTagSelected={this.props.onTagSelected}
-                    />
+                    disabled={this.props.loading} />
             </div>
         );
     }
@@ -37,20 +38,6 @@ class TagSelector extends React.Component {
                 <span className="tag-selector__tag-option-name" >{item.name}</span>
             </div>
         );
-    }
-
-    onRemoveClick(tagId) {
-        const { onRemoveClick, } = this.props;
-
-        onRemoveClick && onRemoveClick(tagId);
-
-    }
-
-    onTagSelected(tagId) {
-        const { onTagSelected, } = this.props;
-
-        onTagSelected && onTagSelected(tagId);
-
     }
 
 }
