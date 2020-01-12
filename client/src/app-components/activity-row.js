@@ -19,6 +19,7 @@ class ActivityRow extends React.Component {
             'RE_OPEN',
             'DEPARTMENT_CHANGED',
             'PRIORITY_CHANGED',
+            'EDIT_TITLE',
             'EDIT_COMMENT',
 
             'EDIT_SETTINGS',
@@ -60,6 +61,8 @@ class ActivityRow extends React.Component {
             'DEPARTMENT_CHANGED',
             'PRIORITY_CHANGED',
             'COMMENT_EDITED',
+            'EDIT_TITLE',
+            'EDIT_COMMENT',
         ];
 
         return (
@@ -113,6 +116,7 @@ class ActivityRow extends React.Component {
             'RE_OPEN': 'unlock-alt',
             'DEPARTMENT_CHANGED': 'exchange',
             'PRIORITY_CHANGED': 'exclamation',
+            'EDIT_TITLE': 'edit',
             'EDIT_COMMENT': 'edit',
 
             'EDIT_SETTINGS': 'wrench',

@@ -19,7 +19,7 @@ describe'system/disable-user-system' do
 
             numberOftickets = $database.query("SELECT * FROM ticket WHERE author_id IS NULL AND author_email IS NOT NULL AND author_name IS NOT NULL")
 
-            (numberOftickets.num_rows).should.equal(51)
+            (numberOftickets.num_rows).should.equal(52)
 
             request('/user/logout')
 
@@ -122,7 +122,7 @@ describe'system/disable-user-system' do
             (result['status']).should.equal('success')
             (result['data'].size).should.equal(10)
         end
-        
+
         it 'should be able to get system logs as admin' do
             result = request('/system/get-logs', {
                 page: 1,
@@ -220,7 +220,7 @@ describe'system/disable-user-system' do
 
             numberOftickets= $database.query("SELECT * FROM ticket WHERE author_email IS NULL AND author_name IS NULL AND author_id IS NOT NULL"  )
 
-            (numberOftickets.num_rows).should.equal(54)
+            (numberOftickets.num_rows).should.equal(55)
         end
 
         it 'should not enable the user system' do

@@ -15,7 +15,7 @@ describe '/ticket/edit-comment' do
         })
 
         ticket = $database.getRow('ticket', 'ticket made by an user', 'title')
-    
+
         (result['status']).should.equal('success')
         (ticket['content']).should.equal('content edited by the user')
     end

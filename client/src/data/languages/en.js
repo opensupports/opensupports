@@ -91,6 +91,7 @@ export default {
     'BAN_EMAIL': 'Ban email',
     'EDIT_EMAIL': 'Edit email',
     'EDIT_PASSWORD': 'Edit password',
+    'EDIT_TITLE': 'Edit title',
     'CHANGE_EMAIL': 'Change email',
     'CHANGE_PASSWORD': 'Change password',
     'NAME': 'Name',
@@ -233,7 +234,7 @@ export default {
     'ACTIVITY_DEPARTMENT_CHANGED': 'changed department of ticket',
     'ACTIVITY_PRIORITY_CHANGED': 'changed priority of ticket',
     'ACTIVITY_EDIT_COMMENT': 'edited a comment of ticket',
-
+    'ACTIVITY_EDIT_TITLE': 'edited title of ticket',
     'ACTIVITY_EDIT_SETTINGS': 'edited settings',
     'ACTIVITY_SIGNUP': 'signed up',
     'ACTIVITY_INVITE': 'invited user',
@@ -360,6 +361,7 @@ export default {
     'TICKET_COMMENT_ERROR': 'An error occurred while trying to add the comment.',
     'NO_PERMISSION': 'You\'ve no permission to access to this page.',
     'INVALID_USER': 'User id is invalid',
+    'INVALID_TITLE': 'invalid title',
     'ERROR_RETRIEVING_TICKETS': 'An error occurred while trying to retrieve tickets.',
     'ERROR_RETRIEVING_USERS': 'An error occurred while trying to retrieve users.',
     'ERROR_RETRIEVING_BAN_LIST': 'An error occurred while trying to retrieve the list of banned emails.',
@@ -408,6 +410,7 @@ export default {
     'SERVER_CREDENTIALS_WORKING': 'Server credentials are working correctly',
     'DELETE_CUSTOM_FIELD_SURE': 'Some users may be using this field. Are you sure you want to delete it?',
 
+    'TITLE_EDITED': '(title edited)',
     'COMMENT_EDITED': '(comment edited)',
     'LAST_7_DAYS': 'Last 7 days',
     'LAST_30_DAYS': 'Last 30 days',

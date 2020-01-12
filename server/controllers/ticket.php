@@ -4,6 +4,7 @@ $ticketControllers->setGroupPath('/ticket');
 
 $ticketControllers->addController(new CreateController);
 $ticketControllers->addController(new EditCommentController);
+$ticketControllers->addController(new EditTitleController);
 $ticketControllers->addController(new CommentController);
 $ticketControllers->addController(new TicketGetController);
 $ticketControllers->addController(new CheckTicketController);
