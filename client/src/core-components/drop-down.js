@@ -6,7 +6,6 @@ import keyCode from 'keycode';
 
 import Menu from 'core-components/menu';
 import Icon from 'core-components/icon';
-
 import Loading from 'core-components/loading'
 
 class DropDown extends React.Component {
@@ -17,7 +16,6 @@ class DropDown extends React.Component {
         items: Menu.propTypes.items,
         onChange: React.PropTypes.func,
         size: React.PropTypes.oneOf(['small', 'medium', 'large']),
-        
         highlightedIndex: React.PropTypes.number,
         onHighlightedIndexChange: React.PropTypes.func,
         opened: React.PropTypes.bool,
@@ -63,8 +61,11 @@ class DropDown extends React.Component {
                 <div {...this.getCurrentItemProps()}>
                     {this.props.children ? this.props.children : this.renderCurrentItem()}
                 </div>
-                <Motion defaultStyle={animation.defaultStyle} style={animation.style} onRest={this.onAnimationFinished.bind(this)}>
-                    {this.renderList.bind(this)}
+                <Motion
+                    defaultStyle={animation.defaultStyle}
+                    style={animation.style}
+                    onRest={this.onAnimationFinished.bind(this)}>
+                        {this.renderList.bind(this)}
                 </Motion>
             </div>
         );
@@ -167,26 +168,26 @@ class DropDown extends React.Component {
         return {
             'up': () => {
                 if (opened) {
+                    const newHighlightedIndex = this.modulo(highlightedIndex - 1, itemsQuantity);
                     event.preventDefault();
 
                     this.setState({
-                        highlightedIndex: this.modulo(highlightedIndex - 1, itemsQuantity)
+                        highlightedIndex: newHighlightedIndex,
                     });
 
-                    onHighlightedIndexChange && onHighlightedIndexChange(this.modulo(highlightedIndex - 1, itemsQuantity));
-                    
+                    onHighlightedIndexChange && onHighlightedIndexChange(newHighlightedIndex);
                 }
             },
             'down': () => {
                 if (opened) {
+                    const newHighlightedIndex = this.modulo(highlightedIndex + 1, itemsQuantity);
                     event.preventDefault();
 
                     this.setState({
-                        highlightedIndex: this.modulo(highlightedIndex + 1, itemsQuantity)
+                        highlightedIndex: newHighlightedIndex,
                     });
 
-                    onHighlightedIndexChange && onHighlightedIndexChange(this.modulo(highlightedIndex + 1, itemsQuantity));
-                    
+                    onHighlightedIndexChange && onHighlightedIndexChange(newHighlightedIndex);
                 }
             },
             'enter': () => {
@@ -198,7 +199,6 @@ class DropDown extends React.Component {
                     });
 
                     onMenuToggle && onMenuToggle(true);
-                    
                 }
             },
             'space': () => {
@@ -209,7 +209,6 @@ class DropDown extends React.Component {
                 });
 
                 onMenuToggle && onMenuToggle(true);
-                
             },
             'esc': () => {
                 this.setState({
@@ -217,14 +216,12 @@ class DropDown extends React.Component {
                 });
 
                 onMenuToggle && onMenuToggle(false);
-                
             },
             'tab': () => {
                 if (this.getOpen()) {
                     event.preventDefault();
 
                     onHighlightedIndexChange && this.onIndexSelected(highlightedIndex);
-                    
                 }
             }
         };
@@ -238,7 +235,6 @@ class DropDown extends React.Component {
         });
 
         onMenuToggle && onMenuToggle(false);
-
     }
 
     handleClick() {
@@ -249,7 +245,6 @@ class DropDown extends React.Component {
         });
 
         onMenuToggle && onMenuToggle(!this.getOpen());
-        
     }
 
     handleItemClick(index) {
@@ -268,13 +263,12 @@ class DropDown extends React.Component {
             selectedIndex: index,
             highlightedIndex: index
         });
-        
+
         onHighlightedIndexChange && onHighlightedIndexChange(index);
-        
+
         onMenuToggle && onMenuToggle(false);
 
         onChange && onChange({ index });
-        
     }
 
     handleListMouseDown(event) {
@@ -291,23 +285,26 @@ class DropDown extends React.Component {
             });
 
             onHighlightedIndexChange && onHighlightedIndexChange(this.getSelectedIndex());
-
         }
     }
 
     getSelectedIndex() {
-        return (this.props.selectedIndex !== undefined) ? this.props.selectedIndex : this.state.selectedIndex;
+        const { selectedIndex, } = this.props;
+        return (selectedIndex !== undefined) ? selectedIndex : this.state.selectedIndex;
     }
+
     modulo(number, mod) {
         return ((number % mod) + mod) % mod;
     }
 
     getOpen(){
-        return (this.props.opened !== undefined) ? this.props.opened : this.state.opened;
+        const { opened, } = this.props;
+        return (opened !== undefined) ? opened : this.state.opened;
     }
 
     getHighlightedIndex() {
-        return (this.props.highlightedIndex !== undefined) ? this.props.highlightedIndex : this.state.highlightedIndex;
+        const { highlightedIndex, } = this.props;
+        return (highlightedIndex !== undefined) ? highlightedIndex : this.state.highlightedIndex;
     }
 
 }

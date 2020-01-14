@@ -34,11 +34,11 @@
 
     &__loading {
         padding-top: 12.5%;
+
         .loading__icon {
             border-color: rgba(150, 150, 150, 0.2);
             border-left-color:  $primary-red;
         }
-
     }
 
     &__empty-list {

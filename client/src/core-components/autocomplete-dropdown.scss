@@ -1,15 +1,36 @@
 @import "../scss/vars";
 
 .autocomplete {
+    margin-bottom: 30px;
+    text-align: left;
+
+    &__drop-down {
+        .drop-down__current-item {
+            cursor: text;
+            background-color: $very-light-grey;
+            border: 1px solid $grey;
+            min-height: 38px;
+
+            &:focus {
+                outline: none;
+                border-color: $primary-blue;
+            }
+        }
+    }
+  
+    &__label {
+        display: inline-block;
+    }
+
     &__input {
         display: inline-block;
         border: 0;
         background: transparent;
         outline: none;
         padding-left: 5px;
-        width: 20px;
+        width: 10px;
         max-width: 100%;
-        min-width: 20px;
+        min-width: 10px;
     }
 
     .sizer {
