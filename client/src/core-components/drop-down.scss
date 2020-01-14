@@ -28,6 +28,25 @@
         position: absolute;
         width: 150px;
         z-index: 100;
+        background-color: white;
+        height: 40px;
+    }
+
+    &__loading {
+        padding-top: 12.5%;
+        .loading__icon {
+            border-color: rgba(150, 150, 150, 0.2);
+            border-left-color:  $primary-red;
+        }
+
+    }
+
+    &__empty-list {
+        padding: 10px;
+        background-color: white;
+        color: $dark-grey;
+        font-style: italic;
+        cursor: default;
     }
 
     &_closed {

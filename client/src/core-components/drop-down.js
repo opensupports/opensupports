@@ -7,6 +7,8 @@ import keyCode from 'keycode';
 import Menu from 'core-components/menu';
 import Icon from 'core-components/icon';
 
+import Loading from 'core-components/loading'
+
 class DropDown extends React.Component {
 
     static propTypes = {
@@ -76,7 +78,11 @@ class DropDown extends React.Component {
 
         return (
             <div className="drop-down__list-container" style={style}>
-                <Menu {...this.getMenuProps()} />
+                {this.props.loading ?
+                    <div><Loading className='drop-down__loading' /></div> :
+                    this.props.items.length ?
+                        <Menu {...this.getMenuProps()} /> :
+                        <div className='drop-down__empty-list'>Empty</div>}
             </div>
         );
     }

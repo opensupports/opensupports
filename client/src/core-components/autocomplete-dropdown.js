@@ -18,28 +18,38 @@ class AutocompleteDropDown extends React.Component {
         disabled: React.PropTypes.bool,
     };
 
+    id = 1;
+
     state = {
         itemsSelected: [],
         inputValue: "",
         opened: false,
         highlightedIndex: 0,
         items2: [],
+        loading: false,
     };
 
     componentDidMount() {
         const { getItemListFromQuery, } = this.props;
 
-        if (this.state.items2.length === 0){
-            if(getItemListFromQuery !== undefined) {
-                getItemListFromQuery("")
-                .then(res => {
-                    this.setState({
-                        items2: res,
-                    });
-                });
-            }
+        this.setTimeout = _.throttle((query) => {
+            let id = ++this.id;
 
-        }
+            getItemListFromQuery(query, this.getValue().map(item => item.id))
+            .then(res => {
+                if(id === this.id)
+                this.setState({
+                    items2: res,
+                    loading: false,
+                });
+            })
+            .catch(() => this.setState({
+                loading: false,
+            }));
+        }, 300, {leading: false});
+
+        this.searchApi("");
+
     }
 
     render() {
@@ -64,6 +74,7 @@ class AutocompleteDropDown extends React.Component {
                         opened={this.state.opened}
                         onHighlightedIndexChange={n => this.onHighlightedIndexChange(n)}
                         highlightedIndex={this.state.highlightedIndex}
+                        loading={this.state.loading}
                     >
                         {this.renderSelectedItems()}
                         <input
@@ -87,7 +98,12 @@ class AutocompleteDropDown extends React.Component {
     }
 
     renderSelectedItem(item) {
-        return  <Tag name={item.name} color={item.color} showDeleteButton onRemoveClick={this.onRemoveClick.bind(this,item.id)}  key={item.id}/>
+        return  <Tag
+                    name={item.name}
+                    color={item.color}
+                    showDeleteButton
+                    onRemoveClick={this.onRemoveClick.bind(this,item.id)}
+                    key={item.id}/>
     }
 
     getDropdownList() {
@@ -120,57 +136,46 @@ class AutocompleteDropDown extends React.Component {
         return (values !== undefined) ? values : this.state.itemsSelected;
     }
 
-    getDeletingItemLoading() {
-        const  { deletingItemLoading, } = this.props;
-
-        return (deletingItemLoading !== undefined) ? deletingItemLoading : false;
-    }
-
     onRemoveClick(itemId, event) {
         const {
             onChange,
             onRemoveClick,
         } = this.props;
 
+        const newList = this.getValue().filter(item => item.id != itemId);
+
         event.preventDefault();
 
         this.setState({
-            itemsSelected: this.getValue().filter(item => item.id != itemId),
+            itemsSelected: newList,
             opened: false,
             highlightedIndex: 0,
         });
 
-        onChange && onChange(this.getValue().filter(item => item.id != itemId));
-
+        onChange && onChange(newList);
         onRemoveClick && onRemoveClick(itemId);
+        this.searchApi("", newList);
     }
 
     onChangeDropDown(e){
         const {
             onChange,
             onTagSelected,
-            getItemListFromQuery,
         } = this.props;
 
         if (this.getDropdownList().length) {
+            const itemSelected = this.getDropdownList()[e.index];
+            const newList = [...this.getValue(), itemSelected];
+
             this.setState({
-                itemsSelected: [...this.getValue(), this.getDropdownList()[e.index]],
+                itemsSelected: newList,
                 inputValue: "",
                 highlightedIndex: 0,
             });
 
-            if (getItemListFromQuery !== undefined) {
-                getItemListFromQuery("")
-                .then(res => {
-                    this.setState({
-                        items2: res,
-                    });
-                })
-            }
-
-            onChange && onChange([...this.getValue(), this.getDropdownList()[e.index]]);
-
-            onTagSelected && onTagSelected(this.getDropdownList()[e.index].id);
+            onChange && onChange(newList);
+            onTagSelected && onTagSelected(itemSelected.id);
+            this.searchApi("", newList);
     
         }
 
@@ -186,13 +191,14 @@ class AutocompleteDropDown extends React.Component {
         });
 
         if (getItemListFromQuery !== undefined) {
-            getItemListFromQuery(str)
-            .then(res => {
-                this.setState({
-                    items2: res,
-                });
-            })
+            this.setState({
+                loading: true,
+            });
+
+            this.setTimeout(str);
+
         }
+
     }
 
     onMenuToggle(b){
@@ -216,26 +222,57 @@ class AutocompleteDropDown extends React.Component {
         if(this.props.disabled) {
             event.stopPropagation();
             event.preventDefault();
+
             return;
+
         }
 
         if (keyCode(event) === "space"){
             event.stopPropagation();
+
         }
 
         if (keyCode(event) === "backspace" && this.state.inputValue === ""){
+            const newList = this.getValue().slice(0,this.getValue().length-1);
             this.setState({
-                itemsSelected: this.getValue().slice(0,this.getValue().length-1),
+                itemsSelected: newList,
                 highlightedIndex: 0,
             });
 
-            onChange && onChange(this.getValue().slice(0,this.getValue().length-1));
+            onChange && onChange(newList);
 
             if (this.getValue().length) {
                 const itemId = this.getValue()[this.getValue().length-1].id;
+
                 onRemoveClick && onRemoveClick(itemId);
             }
+
+            this.searchApi("", newList);
+
         }
+
+    }
+
+    searchApi(query, blacklist=this.getValue()) {
+        const { getItemListFromQuery, } = this.props;
+
+        if (getItemListFromQuery !== undefined) {
+
+            getItemListFromQuery(query, blacklist.map(item => item.id))
+            .then(res => {
+                this.setState({
+                    items2: res,
+                    loading: false,
+                });
+            })
+            .catch(() => {
+                this.setState({
+                    loading: false,
+                })
+            })
+
+        }
+
     }
 
 }
