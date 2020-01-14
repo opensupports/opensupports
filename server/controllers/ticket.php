@@ -4,6 +4,7 @@ $ticketControllers->setGroupPath('/ticket');
 
 $ticketControllers->addController(new CreateController);
 $ticketControllers->addController(new EditCommentController);
+$ticketControllers->addController(new EditTitleController);
 $ticketControllers->addController(new CommentController);
 $ticketControllers->addController(new TicketGetController);
 $ticketControllers->addController(new CheckTicketController);
@@ -23,5 +24,6 @@ $ticketControllers->addController(new DeleteTagController);
 $ticketControllers->addController(new GetTagsController);
 $ticketControllers->addController(new AddTagController);
 $ticketControllers->addController(new RemoveTagController);
+$ticketControllers->addController(new SearchController);
 
 $ticketControllers->finalize();

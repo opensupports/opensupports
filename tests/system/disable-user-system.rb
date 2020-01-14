@@ -17,9 +17,9 @@ describe'system/disable-user-system' do
             row = $database.getRow('user', 1, 'id')
             (row).should.equal(nil)
 
-            numberOftickets= $database.query("SELECT * FROM ticket WHERE author_id IS NULL AND author_email IS NOT NULL AND author_name IS NOT NULL")
+            numberOftickets = $database.query("SELECT * FROM ticket WHERE author_id IS NULL AND author_email IS NOT NULL AND author_name IS NOT NULL")
 
-            (numberOftickets.num_rows).should.equal(51)
+            (numberOftickets.num_rows).should.equal(52)
 
             request('/user/logout')
 
@@ -122,7 +122,7 @@ describe'system/disable-user-system' do
             (result['status']).should.equal('success')
             (result['data'].size).should.equal(10)
         end
-        
+
         it 'should be able to get system logs as admin' do
             result = request('/system/get-logs', {
                 page: 1,
@@ -146,6 +146,21 @@ describe'system/disable-user-system' do
             ticket = $database.getRow('ticket', result['data']['ticketNumber'], 'ticket_number')
             (ticket['author_id']).should.equal(nil)
             (ticket['author_staff_id']).should.equal('1')
+        end
+
+        it 'should be able to create a ticket using api' do
+            api_key = Scripts.createAPIKey('ticketCreateKey', 'TICKET_CREATE')['data']
+            request('/user/logout')
+            result = request('/ticket/create', {
+                email: 'fromapi@testemail.com',
+                name: 'Random user',
+                title: 'created by api',
+                content: 'this ticket was created using anapi key while user system is disabled',
+                departmentId: 1,
+                language: 'en',
+                apiKey: api_key
+            })
+            (result['status']).should.equal('success')
         end
 
         it 'should not disable the user system if it is already disabled 'do
@@ -205,7 +220,7 @@ describe'system/disable-user-system' do
 
             numberOftickets= $database.query("SELECT * FROM ticket WHERE author_email IS NULL AND author_name IS NULL AND author_id IS NOT NULL"  )
 
-            (numberOftickets.num_rows).should.equal(53)
+            (numberOftickets.num_rows).should.equal(55)
         end
 
         it 'should not enable the user system' do

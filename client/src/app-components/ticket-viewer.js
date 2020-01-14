@@ -8,6 +8,7 @@ import i18n  from 'lib-app/i18n';
 import API   from 'lib-app/api-call';
 import SessionStore       from 'lib-app/session-store';
 import MentionsParser     from 'lib-app/mentions-parser';
+import history from 'lib-app/history';
 
 import TicketEvent        from 'app-components/ticket-event';
 import AreYouSure         from 'app-components/are-you-sure';
@@ -60,6 +61,9 @@ class TicketViewer extends React.Component {
         edit: false,
         editId: 0,
         tagSelectorLoading: false,
+        editTitle: false,
+        newTitle: this.props.ticket.title,
+        editTitleError: false,
     };
 
     componentDidMount() {
@@ -72,13 +76,7 @@ class TicketViewer extends React.Component {
         const ticket = this.props.ticket;
         return (
             <div className="ticket-viewer">
-                <div className="ticket-viewer__header row">
-                    <span className="ticket-viewer__number">#{ticket.ticketNumber}</span>
-                    <span className="ticket-viewer__title">{ticket.title}</span>
-                    <span className="ticket-viewer__flag">
-                        <Icon name={(ticket.language === 'en') ? 'us' : ticket.language}/>
-                    </span>
-                </div>
+                {this.state.editTitle ? this.renderEditableTitle() : this.renderTitleHeader()}
                 {this.props.editable ? this.renderEditableHeaders() : this.renderHeaders()}
                 <div className="ticket-viewer__content">
                     <TicketEvent
@@ -103,6 +101,50 @@ class TicketViewer extends React.Component {
                 {(!this.props.ticket.closed && (this.props.editable || !this.props.assignmentAllowed)) ? this.renderResponseField() : (this.showDeleteButton())? <Button size="medium" onClick={this.onDeleteTicketClick.bind(this)}>{i18n('DELETE_TICKET')}</Button> : null}
             </div>
         );
+    }
+
+    renderTitleHeader() {
+        const {ticket, userStaff, userId} = this.props;
+        const {ticketNumber, title, author, editedTitle, language} = ticket;
+
+        return(
+            <div className="ticket-viewer__header row">
+                <span className="ticket-viewer__number">#{ticketNumber}</span>
+                <span className="ticket-viewer__title">{title}</span>
+                <span className="ticket-viewer__flag">
+                    <Icon name={(language === 'en') ? 'us' : language}/>
+                </span>
+                {((author.id == userId && author.staff == userStaff) || userStaff) ? this.renderEditTitleOption() : null}
+                {editedTitle ? this.renderEditedTitleText() : null }
+            </div>
+        )
+    }
+
+    renderEditedTitleText(){
+        return(
+            <div className="ticket-viewer__edited-title-text"> {i18n('TITLE_EDITED')} </div>
+        )
+    }
+    
+    renderEditTitleOption() {
+        return(
+            <span className="ticket-viewer__edit-title-icon">
+                <Icon name="pencil" onClick={() => this.setState({editTitle: true})} />
+            </span>
+        )
+    }
+
+    renderEditableTitle(){
+        return(
+            <div className="ticket-viewer__header row">
+                <div className="ticket-viewer__edit-title-box">
+                    <FormField className="ticket-viewer___input-edit-title" error={this.state.editTitleError}  value={this.state.newTitle} field='input' onChange={(e) => this.setState({newTitle: e.target.value })} />
+                </div>
+                <Button type='secondary' size="extra-small" onClick={this.changeTitle.bind(this)}>
+                    {i18n('EDIT_TITLE')}
+                </Button>
+            </div>
+        )
     }
 
     renderEditableHeaders() {
@@ -403,6 +445,26 @@ class TicketViewer extends React.Component {
         AreYouSure.openModal(null, this.deleteTicket.bind(this));
     }
 
+    changeTitle(){
+        API.call({
+            path: '/ticket/edit-title',
+            data: {
+                ticketNumber: this.props.ticket.ticketNumber,
+                title: this.state.newTitle
+            }
+        }).then(() => {
+            this.setState({
+                editTitle: false,
+                editTitleError: false
+            });
+            this.onTicketModification();
+        }).catch((result) => {
+            this.setState({
+                editTitleError: i18n(result.message)
+            })
+        });
+    }
+
     reopenTicket() {
         API.call({
             path: '/ticket/re-open',
@@ -427,7 +489,10 @@ class TicketViewer extends React.Component {
             data: {
                 ticketNumber: this.props.ticket.ticketNumber
             }
-        }).then(this.onTicketModification.bind(this));
+        }).then((result) => {
+             this.onTicketModification(result);
+             history.push('/admin/panel/tickets/my-tickets/');
+        });
     }
 
     changeDepartment(index) {
@@ -640,7 +705,6 @@ class TicketViewer extends React.Component {
 }
 
 export default connect((store) => {
-
     return {
         userId: store.session.userId,
         userStaff: store.session.staff,
