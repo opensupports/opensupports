@@ -59,7 +59,7 @@ abstract class Controller {
         if($secure) {
             $config = HTMLPurifier_Config::createDefault();
             $config->set('HTML.SafeIframe', true);
-            $config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/|psv4\.userapi\.com/)%');
+            $config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/|psv4\.userapi\.com/|.*drive\.google\.com)%');
             
             $purifier = new HTMLPurifier($config);
             return $purifier->purify($result);
