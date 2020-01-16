@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import AutocompleteDropDown from './autocomplete-dropdown';
+import Autocomplete from 'core-components/autocomplete';
 
 class TagSelector extends React.Component {
 
@@ -21,7 +21,7 @@ class TagSelector extends React.Component {
 
         return (
             <div className="tag-selector">
-                <AutocompleteDropDown
+                <Autocomplete
                     items={items}
                     values={values}
                     onRemoveClick={this.props.onRemoveClick}

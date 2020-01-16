@@ -1,4 +1,4 @@
-import AutocompleteDropDown from 'core-components/autocomplete-dropdown';
+import Autocomplete from 'core-components/autocomplete';
 
 const React = require('react');
 const _ = require('lodash');
@@ -27,7 +27,7 @@ const searchApi = (query, blacklist = []) => {
         setTimeout(function () {
             const result = data.filter(item => _.includes(item.name, query));
             res(result.slice(0, 10));
-        }, query == 'brazilq' ? 2000 : 100);
+        }, query == 'brazilq' ? 100 : 50);
     });
 };
 
@@ -53,13 +53,17 @@ class DemoPage extends React.Component {
 
         return (
             <div>
-                <AutocompleteDropDown
+                <Autocomplete
                 items={itemsList}
                 values={this.state.selectedList}
                 onChange={selectedList => this.setState({selectedList: selectedList})} />
                 <button onClick={() => this.setState({selectedList: []})}>clear</button>
 
-                <AutocompleteDropDown
+                <Autocomplete
+                    getItemListFromQuery={searchApi}
+                    onChange={selectedList => this.setState({selectedList2: selectedList})} />
+
+                <Autocomplete
                 values={this.state.selectedList2}
                 getItemListFromQuery={searchApi}
                 onChange={selectedList => this.setState({selectedList2: selectedList})} />
