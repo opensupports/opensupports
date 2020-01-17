@@ -256,19 +256,22 @@ class DropDown extends React.Component {
             onMenuToggle,
             onHighlightedIndexChange,
             onChange,
+            loading,
         } = this.props;
 
-        this.setState({
-            opened: false,
-            selectedIndex: index,
-            highlightedIndex: index
-        });
+        if (!loading){
+            this.setState({
+                opened: false,
+                selectedIndex: index,
+                highlightedIndex: index
+            });
 
-        onHighlightedIndexChange && onHighlightedIndexChange(index);
+            onHighlightedIndexChange && onHighlightedIndexChange(index);
 
-        onMenuToggle && onMenuToggle(false);
+            onMenuToggle && onMenuToggle(false);
 
-        onChange && onChange({ index });
+            onChange && onChange({ index });
+        }
     }
 
     handleListMouseDown(event) {

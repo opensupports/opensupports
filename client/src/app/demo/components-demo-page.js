@@ -60,10 +60,6 @@ class DemoPage extends React.Component {
                 <button onClick={() => this.setState({selectedList: []})}>clear</button>
 
                 <Autocomplete
-                    getItemListFromQuery={searchApi}
-                    onChange={selectedList => this.setState({selectedList2: selectedList})} />
-
-                <Autocomplete
                 values={this.state.selectedList2}
                 getItemListFromQuery={searchApi}
                 onChange={selectedList => this.setState({selectedList2: selectedList})} />
