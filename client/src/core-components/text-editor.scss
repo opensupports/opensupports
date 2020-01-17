@@ -10,6 +10,11 @@
         .ql-editor {
             min-height: 200px;
         }
+        
+        .ql-container {
+            overflow-y: auto;
+            height: 70vh;
+        }
     }
 
     &_focused {
