@@ -49,14 +49,14 @@ const searchApi = spy((query, blacklist = []) => {
 });
 
 describe('Autocomplete component with external api', function () {
-    let selectedList2 = [], autocompleteInput, autocompleteDropdown;
+    let selectedList = [], autocompleteInput, autocompleteDropdown, autocompleteWithExternalApi, tag;
     function renderAutocomplete(props) {
-        selectedList2 = [];
+        selectedList = [];
 
-        let autocompleteWithExternalApi = TestUtils.renderIntoDocument(
+        autocompleteWithExternalApi = TestUtils.renderIntoDocument(
             <Autocomplete
                 getItemListFromQuery={searchApi}
-                onChange={selectedList => selectedList2 = selectedList} />
+                onChange={selectedListAutocomplete => selectedList = selectedListAutocomplete} />
         );
 
         autocompleteInput = TestUtils.scryRenderedDOMComponentsWithClass(autocompleteWithExternalApi, 'autocomplete__input')[0];
@@ -69,132 +69,432 @@ describe('Autocomplete component with external api', function () {
         });
 
         it('should open menu with list', function() {
-            expect(searchApi).to.have.been.calledWith("", selectedList2.map(item => item.id));
+            expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
+            expect(selectedList.length).to.equal(0);
+
             autocompleteInput.value = "ho";
             TestUtils.Simulate.change(autocompleteInput);
+
             expect(autocompleteDropdown.props.opened).to.equal(true);
             expect(autocompleteDropdown.props.loading).to.equal(true);
-            return timeout(function () {
-                expect(searchApi).to.have.been.calledWith("ho", selectedList2.map(item => item.id));
-                expect(autocompleteDropdown.props.loading).to.equal(false);
-                expect(autocompleteDropdown.props.items.length).to.equal(4);
-                expect(selectedList2.length).to.equal(0);
-                autocompleteDropdown.props.onChange({index: 1});
-                expect(searchApi).to.have.been.calledWith("", selectedList2.map(item => item.id));
-                expect(selectedList2[0].name).to.equal("honduras");
-                expect(autocompleteDropdown.props.opened).to.equal(false);
-            }, 360);
+            expect(selectedList.length).to.equal(0);
         });
 
         it('should select item if enter is pressed', function() {
-            expect(searchApi).to.have.been.calledWith("", selectedList2.map(item => item.id));
+            expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
+            expect(selectedList.length).to.equal(0);
+
             autocompleteInput.value = "argentina";
             TestUtils.Simulate.change(autocompleteInput);
+
             expect(autocompleteDropdown.props.opened).to.equal(true);
             expect(autocompleteDropdown.props.loading).to.equal(true);
-            return timeout(function () {
-                expect(searchApi).to.have.been.calledWith("argentina", selectedList2.map(item => item.id));
+
+            return timeout(function() {
                 expect(autocompleteDropdown.props.loading).to.equal(false);
+                expect(searchApi).to.have.been.calledWith("argentina", selectedList.map(item => item.id));
                 expect(autocompleteDropdown.props.items.length).to.equal(1);
-                expect(selectedList2.length).to.equal(0);
+                expect(autocompleteDropdown.props.items[0].name).to.equal("argentina");
+                expect(autocompleteDropdown.props.items[0].id).to.equal(10);
+                expect(selectedList.length).to.equal(0);
+
                 autocompleteDropdown.props.onChange({index: 0});
-                expect(searchApi).to.have.been.calledWith("", selectedList2.map(item => item.id));
-                expect(selectedList2.length).to.equal(1);
+
                 expect(autocompleteDropdown.props.opened).to.equal(false);
+                expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
+                expect(selectedList.length).to.equal(1);
+                expect(selectedList[0].name).to.equal("argentina");
+                expect(selectedList[0].id).to.equal(10);
             }, 360);
         });
 
-        it("should sinc", function() {
-            expect(searchApi).to.have.been.calledWith("", selectedList2.map(item => item.id));
+        it('should sinc', function() {
+            expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
+            expect(selectedList.length).to.equal(0);
+
             autocompleteInput.value = "brazilq";
             TestUtils.Simulate.change(autocompleteInput);
+
             expect(autocompleteDropdown.props.opened).to.equal(true);
             expect(autocompleteDropdown.props.loading).to.equal(true);
-            return timeout(function () {
-                expect(searchApi).to.have.not.been.calledWith("brazil", selectedList2.map(item => item.id));
+
+            return timeout(function() {
+                expect(autocompleteDropdown.props.loading).to.equal(true);
+                expect(searchApi).to.have.not.been.calledWith("brazil", selectedList.map(item => item.id));
+                expect(selectedList.length).to.equal(0);
+
                 autocompleteInput.value = "brazil";
                 TestUtils.Simulate.change(autocompleteInput);
-                return timeout(function () {
-                    expect(searchApi).to.have.been.calledWith("brazil", selectedList2.map(item => item.id));
-                    expect(autocompleteDropdown.props.opened).to.equal(true);
+
+                expect(autocompleteDropdown.props.opened).to.equal(true);
+                expect(autocompleteDropdown.props.loading).to.equal(true);
+
+                return timeout(function() {
+                    expect(autocompleteDropdown.props.loading).to.equal(false);
+                    expect(searchApi).to.have.been.calledWith("brazil", selectedList.map(item => item.id));
                     expect(autocompleteDropdown.props.items.length).to.equal(1);
-                    expect(selectedList2.length).to.equal(0);
+                    expect(autocompleteDropdown.props.items[0].name).to.equal("brazil");
+                    expect(autocompleteDropdown.props.items[0].id).to.equal(30);
+                    expect(selectedList.length).to.equal(0);
+
                     autocompleteDropdown.props.onChange({index: 0});
-                    expect(searchApi).to.have.been.calledWith("", selectedList2.map(item => item.id));
+
                     expect(autocompleteDropdown.props.opened).to.equal(false);
-                    expect(selectedList2.length).to.equal(1);
-                    expect(selectedList2[0].name).to.equal("brazil");
+                    expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
+                    expect(autocompleteDropdown.props.opened).to.equal(false);
+                    expect(selectedList.length).to.equal(1);
+                    expect(selectedList[0].name).to.equal("brazil");
+                    expect(selectedList[0].id).to.equal(30);
+
                     autocompleteDropdown.props.onMenuToggle(true);
+
                     expect(autocompleteDropdown.props.opened).to.equal(true);
                     expect(autocompleteDropdown.props.items.length).to.equal(0); 
                 }, 360);
-            }, 50);
+            }, 25);
         });
 
-        it("should delete item if backspace is pressed and input value is '' ", function() {
-            expect(searchApi).to.have.been.calledWith("", selectedList2.map(item => item.id));
-            autocompleteInput.value = "za";
-            TestUtils.Simulate.change(autocompleteInput);
-            expect(autocompleteDropdown.props.opened).to.equal(true);
-            expect(autocompleteDropdown.props.loading).to.equal(true);
-            return timeout(function () {
-                expect(searchApi).to.have.been.calledWith("za", selectedList2.map(item => item.id));
-                autocompleteDropdown.props.onChange({index: 3});
-                expect(searchApi).to.have.been.calledWith("", selectedList2.map(item => item.id));
-                expect(selectedList2[0].name).to.equal("zambia");
-                expect(selectedList2.length).to.equal(1);
-                TestUtils.Simulate.keyDown(autocompleteInput, {key: 'backspace', keyCode: 8, which: 8});
-                expect(searchApi).to.have.been.calledWith("", selectedList2.map(item => item.id));
-                expect(selectedList2.length).to.equal(0);
-                autocompleteInput.value = "";
-                TestUtils.Simulate.change(autocompleteInput);
-                expect(searchApi).to.have.been.calledWith("", selectedList2.map(item => item.id));
-                TestUtils.Simulate.keyDown(autocompleteInput, {key: 'backspace', keyCode: 8, which: 8});
-                expect(searchApi).to.have.been.calledWith("", selectedList2.map(item => item.id));
-                expect(selectedList2.length).to.equal(0);
-            }, 360);
-        });
+        it('should delete item if backspace is pressed and input value is ""', function() {
+            expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
+            expect(selectedList.length).to.equal(0);
 
-        it("should ...", function() {
-            expect(searchApi).to.have.been.calledWith("", selectedList2.map(item => item.id));
             autocompleteInput.value = "ang";
             TestUtils.Simulate.change(autocompleteInput);
+
             expect(autocompleteDropdown.props.opened).to.equal(true);
             expect(autocompleteDropdown.props.loading).to.equal(true);
-            return timeout(function () {
-                expect(searchApi).to.have.been.calledWith("ang", selectedList2.map(item => item.id));
+
+            return timeout(function() {
+                expect(autocompleteDropdown.props.loading).to.equal(false);
+                expect(searchApi).to.have.been.calledWith("ang", selectedList.map(item => item.id));
                 expect(autocompleteDropdown.props.items.length).to.equal(3);
+                expect(autocompleteDropdown.props.items[0].name).to.equal("angola");
+                expect(autocompleteDropdown.props.items[0].id).to.equal(6);
+                expect(selectedList.length).to.equal(0);
+
                 autocompleteDropdown.props.onChange({index: 0});
-                expect(searchApi).to.have.been.calledWith("", selectedList2.map(item => item.id));
-                expect(selectedList2[0].name).to.equal("angola");
-                expect(selectedList2.length).to.equal(1);
+
+                expect(autocompleteDropdown.props.opened).to.equal(false);
+                expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
+                expect(selectedList.length).to.equal(1);
+                expect(selectedList[0].name).to.equal("angola");
+                expect(selectedList[0].id).to.equal(6);
+
                 autocompleteInput.value = "ang";
                 TestUtils.Simulate.change(autocompleteInput);
+
                 expect(autocompleteDropdown.props.opened).to.equal(true);
                 expect(autocompleteDropdown.props.loading).to.equal(true);
+
                 return timeout(function() {
-                    expect(searchApi).to.have.been.calledWith("ang", selectedList2.map(item => item.id));
+                    expect(autocompleteDropdown.props.loading).to.equal(false);
+                    expect(searchApi).to.have.been.calledWith("ang", selectedList.map(item => item.id));
                     expect(autocompleteDropdown.props.items.length).to.equal(2);
+                    expect(autocompleteDropdown.props.items[0].name).to.equal("anguilla");
+                    expect(autocompleteDropdown.props.items[0].id).to.equal(7);
+                    expect(selectedList.length).to.equal(1);
+
                     autocompleteDropdown.props.onChange({index: 0});
-                    expect(searchApi).to.have.been.calledWith("", selectedList2.map(item => item.id));
-                    expect(selectedList2.length).to.equal(2);
-                    expect(selectedList2[1].name).to.equal("anguilla");
+
+                    expect(autocompleteDropdown.props.opened).to.equal(false);
+                    expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
+                    expect(selectedList.length).to.equal(2);
+                    expect(selectedList[0].name).to.equal("angola");
+                    expect(selectedList[0].id).to.equal(6);
+                    expect(selectedList[1].name).to.equal("anguilla");
+                    expect(selectedList[1].id).to.equal(7);
                     expect(autocompleteDropdown.props.items.length).to.equal(1);
+                    expect(autocompleteDropdown.props.items[0].name).to.equal("bangladesh");
+                    expect(autocompleteDropdown.props.items[0].id).to.equal(18);
+
                     TestUtils.Simulate.keyDown(autocompleteInput, {key: 'backspace', keyCode: 8, which: 8});
-                    expect(selectedList2.length).to.equal(1);
-                    expect(searchApi).to.have.been.calledWith("", selectedList2.map(item => item.id));
+
+                    expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
+                    expect(selectedList.length).to.equal(1);
+                    expect(selectedList[0].name).to.equal("angola");
+                    expect(selectedList[0].id).to.equal(6);
+
                     autocompleteInput.value = "ang";
                     TestUtils.Simulate.change(autocompleteInput);
+
                     expect(autocompleteDropdown.props.opened).to.equal(true);
                     expect(autocompleteDropdown.props.loading).to.equal(true);
+
                     return timeout(function() {
-                        expect(searchApi).to.have.been.calledWith("ang", selectedList2.map(item => item.id));
+                        expect(autocompleteDropdown.props.loading).to.equal(false);
+                        expect(searchApi).to.have.been.calledWith("ang", selectedList.map(item => item.id));
                         expect(autocompleteDropdown.props.items.length).to.equal(2);
                         expect(autocompleteDropdown.props.items[0].name).to.equal("anguilla");
+                        expect(autocompleteDropdown.props.items[0].id).to.equal(7);
+                        expect(selectedList.length).to.equal(1);
                     }, 360);
                 },360);
             }, 360);
         });
 
+        it("should delete item if click is pressed", function() {
+            expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
+            expect(selectedList.length).to.equal(0);
+
+            autocompleteInput.value = "ang";
+            TestUtils.Simulate.change(autocompleteInput);
+
+            expect(autocompleteDropdown.props.opened).to.equal(true);
+            expect(autocompleteDropdown.props.loading).to.equal(true);
+
+            return timeout(function () {
+                expect(autocompleteDropdown.props.loading).to.equal(false);
+                expect(searchApi).to.have.been.calledWith("ang", selectedList.map(item => item.id));
+                expect(autocompleteDropdown.props.items.length).to.equal(3);
+                expect(selectedList.length).to.equal(0);
+
+                autocompleteDropdown.props.onChange({index: 0});
+
+                expect(autocompleteDropdown.props.opened).to.equal(false);
+                expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
+                expect(selectedList.length).to.equal(1);
+                expect(selectedList[0].name).to.equal("angola");
+                expect(selectedList[0].id).to.equal(6);
+
+                tag = TestUtils.scryRenderedComponentsWithType(autocompleteWithExternalApi, Tag)[0];
+                tag.props.onRemoveClick({ preventDefault: stub() });
+
+                expect(selectedList.length).to.equal(0);
+
+                autocompleteInput.value = "ang";
+                TestUtils.Simulate.change(autocompleteInput);
+
+                expect(autocompleteDropdown.props.opened).to.equal(true);
+                expect(autocompleteDropdown.props.loading).to.equal(true);
+
+                return timeout(function () {
+                    expect(autocompleteDropdown.props.loading).to.equal(false);
+                    expect(searchApi).to.have.been.calledWith("ang", selectedList.map(item => item.id));
+                    expect(autocompleteDropdown.props.items.length).to.equal(3);
+                    expect(autocompleteDropdown.props.items[0].name).to.equal("angola");
+                    expect(autocompleteDropdown.props.items[0].id).to.equal(6);
+                    expect(selectedList.length).to.equal(0);
+                }, 360);
+            }, 360);
+        });
+    });
+
+    describe('Autocomplete component with items', function() {
+        let selectedList = [], autocompleteInput, autocompleteDropdown, itemsList, autocomplete;
+        function renderAutocomplete(props) {
+            selectedList = [];
+            itemsList = [
+                {id: 45, name: 'lautaro', content: 'Lautaro.', color: 'gray'},
+                {id: 46, name: 'dsafa', content: 'dsafa', color: 'black'},
+                {id: 47, name: 'asdasdasd', content: 'asdasdasd.', color: 'red'},
+                {id: 48, name: '123123123', content: '123123123.', color: 'blue'},
+                {id: 49, name: 'hola', content: 'hola', color: 'green'},
+            ];
+
+            autocomplete = TestUtils.renderIntoDocument(
+                <Autocomplete
+                    items={itemsList}
+                    onChange={selectedListAutocomplete => selectedList = selectedListAutocomplete} />
+            );
+
+            autocompleteInput = TestUtils.scryRenderedDOMComponentsWithClass(autocomplete, 'autocomplete__input')[0];
+            autocompleteDropdown = TestUtils.scryRenderedComponentsWithType(autocomplete, DropDown)[0];
+        }
+
+        beforeEach(function() {
+            renderAutocomplete();
+        });
+
+        it('should open menu with list', function() {
+            expect(selectedList.length).to.equal(0);
+
+            autocompleteInput.value = "la";
+            TestUtils.Simulate.change(autocompleteInput);
+
+            expect(autocompleteDropdown.props.opened).to.equal(true);
+            expect(autocompleteDropdown.props.items.length).to.equal(2);
+        });
+
+        it('should select item if enter is pressed', function() {
+            expect(selectedList.length).to.equal(0);
+
+            autocompleteInput.value = "la";
+            TestUtils.Simulate.change(autocompleteInput);
+
+            expect(autocompleteDropdown.props.opened).to.equal(true);
+            expect(autocompleteDropdown.props.items.length).to.equal(2);
+            expect(autocompleteDropdown.props.items[0].name).to.equal("lautaro");
+            expect(autocompleteDropdown.props.items[0].id).to.equal(45);
+            expect(autocompleteDropdown.props.items[1].name).to.equal("hola");
+            expect(autocompleteDropdown.props.items[1].id).to.equal(49);
+
+            autocompleteDropdown.props.onChange({index: 0});
+
+            expect(autocompleteDropdown.props.opened).to.equal(false);
+            expect(selectedList.length).to.equal(1);
+            expect(selectedList[0].name).to.equal("lautaro");
+            expect(selectedList[0].id).to.equal(45);
+
+            autocompleteInput.value = "";
+            TestUtils.Simulate.change(autocompleteInput);
+
+            expect(autocompleteDropdown.props.opened).to.equal(true);
+            expect(autocompleteDropdown.props.items.length).to.equal(4);
+            expect(autocompleteDropdown.props.items[0].name).to.equal("dsafa");
+            expect(autocompleteDropdown.props.items[0].id).to.equal(46);
+            expect(autocompleteDropdown.props.items[1].name).to.equal("asdasdasd");
+            expect(autocompleteDropdown.props.items[1].id).to.equal(47);
+            expect(autocompleteDropdown.props.items[2].name).to.equal("123123123");
+            expect(autocompleteDropdown.props.items[2].id).to.equal(48);
+            expect(autocompleteDropdown.props.items[3].name).to.equal("hola");
+            expect(autocompleteDropdown.props.items[3].id).to.equal(49);
+
+            autocompleteDropdown.props.onChange({index: 2});
+
+            expect(autocompleteDropdown.props.opened).to.equal(false);
+            expect(selectedList.length).to.equal(2);
+            expect(selectedList[0].name).to.equal("lautaro");
+            expect(selectedList[0].id).to.equal(45);
+            expect(selectedList[1].name).to.equal("123123123");
+            expect(selectedList[1].id).to.equal(48);
+
+            autocompleteInput.value = "";
+            TestUtils.Simulate.change(autocompleteInput);
+
+            expect(autocompleteDropdown.props.opened).to.equal(true);
+            expect(autocompleteDropdown.props.items.length).to.equal(3);
+            expect(autocompleteDropdown.props.items[0].name).to.equal("dsafa");
+            expect(autocompleteDropdown.props.items[0].id).to.equal(46);
+            expect(autocompleteDropdown.props.items[1].name).to.equal("asdasdasd");
+            expect(autocompleteDropdown.props.items[1].id).to.equal(47);
+            expect(autocompleteDropdown.props.items[2].name).to.equal("hola");
+            expect(autocompleteDropdown.props.items[2].id).to.equal(49);
+
+            autocompleteInput.value = "lau";
+            TestUtils.Simulate.change(autocompleteInput);
+
+            expect(autocompleteDropdown.props.opened).to.equal(true);
+            expect(autocompleteDropdown.props.items.length).to.equal(0);
+
+            autocompleteInput.value = "la";
+            TestUtils.Simulate.change(autocompleteInput);
+
+            expect(autocompleteDropdown.props.opened).to.equal(true);
+            expect(autocompleteDropdown.props.items.length).to.equal(1);
+            expect(autocompleteDropdown.props.items[0].name).to.equal("hola");
+            expect(autocompleteDropdown.props.items[0].id).to.equal(49);
+
+            autocompleteDropdown.props.onChange({index: 0});
+
+            expect(autocompleteDropdown.props.opened).to.equal(false);
+            expect(selectedList.length).to.equal(3);
+            expect(selectedList[0].name).to.equal("lautaro");
+            expect(selectedList[0].id).to.equal(45);
+            expect(selectedList[1].name).to.equal("123123123");
+            expect(selectedList[1].id).to.equal(48);
+            expect(selectedList[2].name).to.equal("hola");
+            expect(selectedList[2].id).to.equal(49);
+        });
+
+        it('should delete item if (backspace or click) is pressed and input value is "" ', function() {
+            expect(selectedList.length).to.equal(0);
+
+            autocompleteInput.value = "123";
+            TestUtils.Simulate.change(autocompleteInput);
+
+            expect(autocompleteDropdown.props.opened).to.equal(true);
+            expect(autocompleteDropdown.props.items.length).to.equal(1);
+            expect(autocompleteDropdown.props.items[0].name).to.equal("123123123");
+            expect(autocompleteDropdown.props.items[0].id).to.equal(48);
+
+            autocompleteDropdown.props.onChange({index: 0});
+
+            expect(autocompleteDropdown.props.opened).to.equal(false);
+            expect(selectedList.length).to.equal(1);
+            expect(selectedList[0].name).to.equal("123123123");
+            expect(selectedList[0].id).to.equal(48);
+
+            autocompleteInput.value = "la";
+            TestUtils.Simulate.change(autocompleteInput);
+
+            expect(autocompleteDropdown.props.opened).to.equal(true);
+            expect(autocompleteDropdown.props.items.length).to.equal(2);
+            expect(autocompleteDropdown.props.items[0].name).to.equal("lautaro");
+            expect(autocompleteDropdown.props.items[0].id).to.equal(45);
+            expect(autocompleteDropdown.props.items[1].name).to.equal("hola");
+            expect(autocompleteDropdown.props.items[1].id).to.equal(49);
+
+            autocompleteDropdown.props.onChange({index: 1});
+
+            expect(autocompleteDropdown.props.opened).to.equal(false);
+            expect(selectedList.length).to.equal(2);
+            expect(selectedList[0].name).to.equal("123123123");
+            expect(selectedList[0].id).to.equal(48);
+            expect(selectedList[1].name).to.equal("hola");
+            expect(selectedList[1].id).to.equal(49);
+
+            autocompleteInput.value = "l";
+            TestUtils.Simulate.change(autocompleteInput);
+
+            expect(autocompleteDropdown.props.opened).to.equal(true);
+            expect(autocompleteDropdown.props.items.length).to.equal(1);
+            expect(autocompleteDropdown.props.items[0].name).to.equal("lautaro");
+            expect(autocompleteDropdown.props.items[0].id).to.equal(45);
+
+            autocompleteDropdown.props.onChange({index: 0});
+
+            expect(autocompleteDropdown.props.opened).to.equal(false);
+            expect(selectedList.length).to.equal(3);
+            expect(selectedList[0].name).to.equal("123123123");
+            expect(selectedList[0].id).to.equal(48);
+            expect(selectedList[1].name).to.equal("hola");
+            expect(selectedList[1].id).to.equal(49);
+            expect(selectedList[2].name).to.equal("lautaro");
+            expect(selectedList[2].id).to.equal(45);
+
+            TestUtils.Simulate.keyDown(autocompleteInput, {key: 'backspace', keyCode: 8, which: 8});
+
+            expect(selectedList.length).to.equal(2);
+
+            autocompleteInput.value = "asd";
+            TestUtils.Simulate.change(autocompleteInput);
+            TestUtils.Simulate.keyDown(autocompleteInput, {key: 'backspace', keyCode: 8, which: 8});
+
+            expect(selectedList.length).to.equal(2);
+            expect(selectedList[0].name).to.equal("123123123");
+            expect(selectedList[0].id).to.equal(48);
+            expect(selectedList[1].name).to.equal("hola");
+            expect(selectedList[1].id).to.equal(49);
+
+            tag = TestUtils.scryRenderedComponentsWithType(autocomplete, Tag)[0];
+            tag.props.onRemoveClick({ preventDefault: stub() });
+
+            expect(selectedList.length).to.equal(1);
+            expect(selectedList[0].name).to.equal("hola");
+            expect(selectedList[0].id).to.equal(49);
+
+            autocompleteInput.value = "a";
+            TestUtils.Simulate.change(autocompleteInput);
+            TestUtils.Simulate.keyDown(autocompleteInput, {key: 'backspace', keyCode: 8, which: 8});
+            TestUtils.Simulate.keyDown(autocompleteInput, {key: 'backspace', keyCode: 8, which: 8});
+            TestUtils.Simulate.keyDown(autocompleteInput, {key: 'backspace', keyCode: 8, which: 8});
+            TestUtils.Simulate.keyDown(autocompleteInput, {key: 'backspace', keyCode: 8, which: 8});
+            TestUtils.Simulate.keyDown(autocompleteInput, {key: 'backspace', keyCode: 8, which: 8});
+
+            expect(selectedList.length).to.equal(1);
+
+            autocompleteInput.value = "";
+            TestUtils.Simulate.change(autocompleteInput);
+            TestUtils.Simulate.keyDown(autocompleteInput, {key: 'backspace', keyCode: 8, which: 8});
+
+            expect(selectedList.length).to.equal(0);
+
+            TestUtils.Simulate.keyDown(autocompleteInput, {key: 'backspace', keyCode: 8, which: 8});
+            TestUtils.Simulate.keyDown(autocompleteInput, {key: 'backspace', keyCode: 8, which: 8});
+            TestUtils.Simulate.keyDown(autocompleteInput, {key: 'backspace', keyCode: 8, which: 8});
+            TestUtils.Simulate.keyDown(autocompleteInput, {key: 'backspace', keyCode: 8, which: 8});
+
+            expect(selectedList.length).to.equal(0);
+        });
     });
 });

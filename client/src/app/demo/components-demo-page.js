@@ -44,7 +44,7 @@ class DemoPage extends React.Component {
     
 	render() {
         let itemsList = [
-            {id: 45, name: 'Lautaro', content: 'Lautaro.', color: 'gray'},
+            {id: 45, name: 'lautaro', content: 'Lautaro.', color: 'gray'},
             {id: 46, name: 'dsafa', content: 'dsafa', color: 'black'},
             {id: 47, name: 'asdasdasd', content: 'asdasdasd.', color: 'red'},
             {id: 48, name: '123123123', content: '123123123.', color: 'blue'},
@@ -54,15 +54,17 @@ class DemoPage extends React.Component {
         return (
             <div>
                 <Autocomplete
-                items={itemsList}
-                values={this.state.selectedList}
-                onChange={selectedList => this.setState({selectedList: selectedList})} />
-                <button onClick={() => this.setState({selectedList: []})}>clear</button>
-
+                    items={itemsList}
+                    values={this.state.selectedList}
+                    onChange={selectedList => this.setState({selectedList: selectedList})} />
+                <button onClick={() =>
+                this.setState({
+                    selectedList: [], })
+                    }>clear</button>
                 <Autocomplete
-                values={this.state.selectedList2}
-                getItemListFromQuery={searchApi}
-                onChange={selectedList => this.setState({selectedList2: selectedList})} />
+                    values={this.state.selectedList2}
+                    getItemListFromQuery={searchApi}
+                    onChange={selectedList => this.setState({selectedList2: selectedList})} />
                 <button onClick={() => {
                     this.setState({selectedList2: []});
                     }}>clear</button>
