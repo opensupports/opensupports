@@ -120,7 +120,7 @@ class SearchController extends Controller {
         $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", [':query' => $inputs['query']])[0]['COUNT(*)'];
         $ticketIdList = RedBean::getAll($queryWithOrder, [':query' => "%" . $inputs['query'] . "%"]);
         $ticketList = [];
-
+        
         foreach ($ticketIdList as $item) {
             $ticket = Ticket::getDataStore($item['id']);
             array_push($ticketList, $ticket->toArray());
@@ -245,20 +245,26 @@ class SearchController extends Controller {
     }
 
     private function setDepartmentFilter($departments,$allowedDepartments, &$filters){
-        $validDepartments = $this->generateValidDepartmentList($departments, $allowedDepartments);
+        $idStaff = Controller::getLoggedUser()->id ;
         if ($filters != "")  $filters .= " and ";
+        
+        $validDepartments = $this->generateValidDepartmentList($departments, $allowedDepartments);
         $first = TRUE;
-
-        foreach($validDepartments as $department) {
-            if($first){
-                $filters .= " ( ";
-                $first = FALSE;
-            } else {
-                $filters .= " or ";
+        if($validDepartments){
+            foreach($validDepartments as $department) {
+                if($first){
+                    $filters .= " ( ";
+                    $first = FALSE;
+                } else {
+                    $filters .= " or ";
+                }
+                $filters .= "ticket.department_id = " . $department;
             }
-            $filters .= "ticket.department_id = " . $department;
+            $filters .= " or ";
+        }else{
+            $filters .= "(";
         }
-        $filters .= ")";
+        $filters .= "ticket.author_staff_id = " . $idStaff . ")";
 
     }
 
