@@ -11,21 +11,27 @@ import Message from 'core-components/message';
 class AdminPanelSearchTickets extends React.Component {
 
     render() {
-        let title = (window.customTicketList ? window.customTicketList[this.props.location.query.custom*1]['title'] : i18n('CUSTOM_LIST'));
-        
         return (
             <div className="admin-panel-all-tickets">
-                <Header title={title} description={i18n('SEARCH_TICKETS_DESCRIPTION')} />
-                {(this.props.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketQueryList customList ={this.getFilters()}/>}
+                <Header title={this.getList().title} description={i18n('SEARCH_TICKETS_DESCRIPTION')} />
+                {(this.props.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketQueryList customList ={this.getList().filters}/>}
             </div>
         );
     }
 
-    getFilters() {
-        let customList = (window.customTicketList && window.customTicketList[this.props.location.query.custom*1]) ? window.customTicketList[this.props.location.query.custom*1] : null
-        return {
-            ...customList
-        };
+    getList() {
+        if (
+            window.customTicketList && 
+            this.props.location.query.custom && 
+            window.customTicketList[this.props.location.query.custom*1]
+        ){ 
+            return window.customTicketList[this.props.location.query.custom*1];
+        } else {
+            return {
+                'title' : i18n('CUSTOM_LIST'),
+                'filters' : []
+            };
+        }
     }
 }
 
