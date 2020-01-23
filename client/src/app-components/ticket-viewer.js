@@ -671,14 +671,14 @@ class TicketViewer extends React.Component {
             {content: 'None', id: 0}
         ];
 
-        if(_.any(userDepartments, {id: ticketDepartmentId})) {
+        if(_.some(userDepartments, {id: ticketDepartmentId})) {
             staffAssignmentItems.push({content: i18n('ASSIGN_TO_ME'), id: userId});
         }
 
         staffAssignmentItems = staffAssignmentItems.concat(
             _.map(
                 _.filter(staffMembers, ({id, departments}) => {
-                    return (id != userId) && _.any(departments, {id: ticketDepartmentId});
+                    return (id != userId) && _.some(departments, {id: ticketDepartmentId});
                 }),
                 ({id, name}) => ({content: name, id})
             )
