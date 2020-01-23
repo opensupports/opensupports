@@ -173,6 +173,7 @@ class SearchControllerTest extends TestCase {
         $this->assertEquals(
             $this->searchController->getSQLQuery([
                 'departments' => null,
+                'staffId' => 1,
                 'allowedDepartments' => [
                     [
                         'id' => 2
@@ -185,12 +186,13 @@ class SearchControllerTest extends TestCase {
                     ]
                 ]
             ]),
-            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  ( ticket.department_id = 2 or ticket.department_id = 1 or ticket.department_id = 3) GROUP BY ticket.id'
+            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  ( ticket.department_id = 2 or ticket.department_id = 1 or ticket.department_id = 3 or ticket.author_staff_id = 1) GROUP BY ticket.id'
         );
 
         $this->assertEquals(
             $this->searchController->getSQLQuery([
                 'departments' => [1],
+                'staffId' => 1,
                 'allowedDepartments' => [
                     [
                         'id' => 2
@@ -203,12 +205,13 @@ class SearchControllerTest extends TestCase {
                     ]
                 ]
             ]),
-            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  ( ticket.department_id = 1) GROUP BY ticket.id'
+            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  ( ticket.department_id = 1 or ticket.author_staff_id = 1) GROUP BY ticket.id'
         );
 
         $this->assertEquals(
             $this->searchController->getSQLQuery([
                 'departments' => [1,2,3],
+                'staffId' => 1,
                 'allowedDepartments' => [
                     [
                         'id' => 2
@@ -221,7 +224,7 @@ class SearchControllerTest extends TestCase {
                     ]
                 ]
             ]),
-            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  ( ticket.department_id = 1 or ticket.department_id = 2 or ticket.department_id = 3) GROUP BY ticket.id'
+            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  ( ticket.department_id = 1 or ticket.department_id = 2 or ticket.department_id = 3 or ticket.author_staff_id = 1) GROUP BY ticket.id'
         );
     }
 
