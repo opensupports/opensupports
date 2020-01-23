@@ -15,7 +15,7 @@ print '[2/3] Updating APIkey table...' . PHP_EOL;
 if ($mysql->query("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'apikey' AND COLUMN_NAME = 'type'")->num_rows == 0) {
 	$mysql->query("ALTER TABLE apikey ADD type varchar(191)");
 } else {
-	print 'type column already exists' . PHP_EOL;
+	print 'type column already  exists' . PHP_EOL;
 }
 
 // Update Log table
