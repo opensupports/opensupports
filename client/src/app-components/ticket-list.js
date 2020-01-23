@@ -12,6 +12,7 @@ import Button from 'core-components/button';
 import Tooltip from 'core-components/tooltip';
 import Checkbox from 'core-components/checkbox';
 import Tag from 'core-components/tag';
+import Icon from 'core-components/icon';
 
 class TicketList extends React.Component {
     static propTypes = {
@@ -189,6 +190,7 @@ class TicketList extends React.Component {
             ),
             title: (
                 <div>
+                    <Icon name={this.getStatusIconType(ticket.closed)} />
                     <Button className="ticket-list__title-link" type="clean" route={{to: this.props.ticketPath + ticket.ticketNumber}}>
                         {titleText}
                     </Button>
@@ -206,6 +208,10 @@ class TicketList extends React.Component {
             unread: this.isTicketUnread(ticket),
             highlighted: this.isTicketUnread(ticket)
         };
+    }
+
+    getStatusIconType(status) {
+        return status ? "lock" : "unlock-alt";
     }
 
     getTicketPriority(priority) {
