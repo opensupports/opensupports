@@ -112,6 +112,7 @@ class SearchController extends Controller {
             'orderBy' => json_decode(Controller::request('orderBy'),true),
             'page' => Controller::request('page'),
             'allowedDepartments' => Controller::getLoggedUser()->sharedDepartmentList->toArray(),
+            'staffId' => Controller::getLoggedUser()->id
         ];
 
 
@@ -172,7 +173,9 @@ class SearchController extends Controller {
         if(array_key_exists('unreadStaff',$inputs)) $this->setSeenFilter($inputs['unreadStaff'], $filters);
         if(array_key_exists('priority',$inputs)) $this->setPriorityFilter($inputs['priority'], $filters);
         if(array_key_exists('dateRange',$inputs)) $this->setDateFilter($inputs['dateRange'], $filters);
-        if(array_key_exists('departments',$inputs)) $this->setDepartmentFilter($inputs['departments'],$inputs['allowedDepartments'], $filters);
+        if(array_key_exists('departments',$inputs) && array_key_exists('allowedDepartments',$inputs) && array_key_exists('staffId',$inputs)){
+            $this->setDepartmentFilter($inputs['departments'],$inputs['allowedDepartments'], $inputs['staffId'], $filters);
+        }
         if(array_key_exists('authors',$inputs)) $this->setAuthorFilter($inputs['authors'], $filters);
         if(array_key_exists('query',$inputs)) $this->setStringFilter($inputs['query'], $filters);
         if($filters != "") $filters =  " WHERE " . $filters;
@@ -207,7 +210,7 @@ class SearchController extends Controller {
         }
     }
     private function setPriorityFilter($priorities, &$filters){
-        if($priorities !== null){
+        if($priorities){
             $first = TRUE;
             if ($filters != "")  $filters .= " and ";
             foreach(array_unique($priorities) as $priority) {
@@ -244,8 +247,7 @@ class SearchController extends Controller {
         }
     }
 
-    private function setDepartmentFilter($departments,$allowedDepartments, &$filters){
-        $idStaff = Controller::getLoggedUser()->id ;
+    private function setDepartmentFilter($departments,$allowedDepartments, $idStaff, &$filters){
         if ($filters != "")  $filters .= " and ";
         
         $validDepartments = $this->generateValidDepartmentList($departments, $allowedDepartments);
@@ -265,7 +267,6 @@ class SearchController extends Controller {
             $filters .= "(";
         }
         $filters .= "ticket.author_staff_id = " . $idStaff . ")";
-
     }
 
     private function setAuthorFilter($authors, &$filters){
