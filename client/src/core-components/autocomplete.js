@@ -8,7 +8,7 @@ import Tag from 'core-components/tag';
 const ItemsSchema = React.PropTypes.arrayOf(React.PropTypes.shape({
     id: React.PropTypes.number,
     name: React.PropTypes.string,
-    content: React.PropTypes.string,
+    content: React.PropTypes.node,
     color: React.PropTypes.string,
 }));
 
@@ -90,7 +90,7 @@ class Autocomplete extends React.Component {
                             onKeyDown={e => this.onKeyDown(e)}
                             onChange={e => this.onChangeInput(e.target.value)}
                             style={this.span ? {width: inputWidth} : {}} />
-                                <span className="sizer" ref={span => this.span = span} />
+                        <span className="sizer" ref={span => this.span = span} />
                     </DropDown>
                 </label>
             </div>
@@ -128,6 +128,7 @@ class Autocomplete extends React.Component {
     }
 
     getUnselectedList(list, selectedList) {
+
         return list.filter(item  => !_.some(selectedList, item));
     }
 
@@ -203,9 +204,9 @@ class Autocomplete extends React.Component {
         });
     }
 
-    onHighlightedIndexChange(n) {
+    onHighlightedIndexChange(index) {
         this.setState({
-            highlightedIndex: n,
+            highlightedIndex: index,
         });
     }
 
