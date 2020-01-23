@@ -56,6 +56,14 @@ class Ticket extends DataStore {
         );
     }
 
+    public static function getFetchAs() {
+        return [
+            'author' => 'user',
+            'authorStaff' => 'staff',
+            'owner' => 'staff',
+        ];
+    }
+
     public static function getTicket($value, $property = 'id') {
         return parent::getDataStore($value, $property);
     }

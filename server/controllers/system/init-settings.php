@@ -1,4 +1,5 @@
 <?php
+use RedBeanPHP\Facade as RedBean;
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
@@ -52,6 +53,7 @@ class InitSettingsController extends Controller {
 
     public function handler() {
         if (Setting::isTableEmpty()) {
+            RedBean::exec(file_get_contents('data/db_schema.sql'));
             $this->storeGlobalSettings();
             $this->storeMailTemplates();
             $this->storeLanguages();
