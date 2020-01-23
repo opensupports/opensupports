@@ -97,7 +97,6 @@ class Table extends React.Component {
         };
 
         return (
-
             <td className={classNames(classes)} key={key}>{row[key]}</td>
         );
     }
