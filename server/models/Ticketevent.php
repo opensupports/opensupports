@@ -65,6 +65,13 @@ class Ticketevent extends DataStore {
         ];
     }
 
+    public static function getFetchAs() {
+        return [
+            'authorUser' => 'user',
+            'authorStaff' => 'staff'
+        ];
+    }
+
     public function getAuthor() {
         if($this->authorUser) {
             return $this->authorUser;
