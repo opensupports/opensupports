@@ -207,7 +207,7 @@ class SearchController extends Controller {
         }
     }
     private function setPriorityFilter($priorities, &$filters){
-        if($priorities !== null){
+        if($priorities){
             $first = TRUE;
             if ($filters != "")  $filters .= " and ";
             foreach(array_unique($priorities) as $priority) {
