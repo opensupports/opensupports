@@ -35,7 +35,7 @@ class EditTitleController extends Controller {
                 'permission' => 'user',
                 'requestData' => [
                     'title' => [
-                        'validation' => DataValidator::length(1, 200),
+                        'validation' => DataValidator::notBlank()->length(1, 200),
                         'error' => ERRORS::INVALID_TITLE
                     ],
                     'ticketNumber' => [
@@ -49,7 +49,7 @@ class EditTitleController extends Controller {
                 'permission' => 'any',
                 'requestData' => [
                     'title' => [
-                        'validation' => DataValidator::length(1, 200),
+                        'validation' => DataValidator::notBlank()->length(1, 200),
                         'error' => ERRORS::INVALID_TITLE
                     ],
                     'ticketNumber' => [
