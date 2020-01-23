@@ -48,6 +48,7 @@ export default {
     'NEW_TICKETS': 'New Tickets',
     'ALL_TICKETS': 'All Tickets',
     'CUSTOM_RESPONSES': 'Custom Responses',
+    'CUSTOM_LIST': 'Custom List',
     'CUSTOM_TAGS': 'Custom Tags',
     'LIST_USERS': 'List Users',
     'BAN_USERS': 'Ban Users',
