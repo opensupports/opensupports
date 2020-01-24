@@ -27,6 +27,7 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} query A string to find into a ticket to make a custom search.
  * @apiParam {Number} page The number of the page of the tickets.
  * @apiParam {Object} orderBy A object {value, asc}with string and boolean to make a especific order of the  search.
+ * @apiParam {Number[]} owners The ids of the owners to make a custom search.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TAG_FILTER
@@ -86,6 +87,10 @@ class SearchController extends Controller {
                     'validation' => DataValidator::oneOf(DataValidator::validAuthorsId(),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_AUTHOR_FILTER
                 ],
+                'owners' => [
+                    'validation' => DataValidator::oneOf(DataValidator::validOwnersId(),DataValidator::nullType()),
+                    'error' => ERRORS::INVALID_OWNER_FILTER
+                ],
                 'assigned' => [
                     'validation' => DataValidator::oneOf(DataValidator::in(['0','1']),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_ASSIGNED_FILTER
@@ -107,6 +112,7 @@ class SearchController extends Controller {
             'dateRange' => json_decode(Controller::request('dateRange')),
             'departments' => json_decode(Controller::request('departments')),
             'authors' => json_decode(Controller::request('authors'),true),
+            'owners' => json_decode(Controller::request('owners')),
             'assigned' => Controller::request('assigned'),
             'query' => Controller::request('query'),
             'orderBy' => json_decode(Controller::request('orderBy'),true),
@@ -177,6 +183,7 @@ class SearchController extends Controller {
             $this->setDepartmentFilter($inputs['departments'],$inputs['allowedDepartments'], $inputs['staffId'], $filters);
         }
         if(array_key_exists('authors',$inputs)) $this->setAuthorFilter($inputs['authors'], $filters);
+        if(array_key_exists('owners',$inputs)) $this->setOwnerFilter($inputs['owners'], $filters);
         if(array_key_exists('query',$inputs)) $this->setStringFilter($inputs['query'], $filters);
         if($filters != "") $filters =  " WHERE " . $filters;
     }
@@ -289,9 +296,27 @@ class SearchController extends Controller {
                     $filters .= "ticket.author_id = " . $author['id'];
                 }
             }
+            $filters .= ")";
+        }
+    }
+
+    private function setOwnerFilter($owners, &$filters){
+        if($owners){
+            $first = TRUE;
+            if ($filters != "")  $filters .= " and ";
+
+            foreach($owners as $owner){
+
+                if($first){
+                    $filters .= "(";
+                    $first = FALSE;
+                } else {
+                    $filters .= " or ";
+                }
+                $filters .= "ticket.owner_id = " . $owner;
+            }
 
             $filters .= ")";
-
         }
     }
 

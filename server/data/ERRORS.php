@@ -92,6 +92,46 @@
  * @apiError {String} INVALID_QUERY The query is invalid.
  */
 /**
+ * @apiDefine INVALID_TAG_FILTER
+ * @apiError {String} INVALID_TAG_FILTER The tag filter is invalid.
+ */
+/**
+ * @apiDefine INVALID_CLOSED_FILTER
+ * @apiError {String} INVALID_CLOSED_FILTER The closed filter is invalid.
+ */
+/**
+ * @apiDefine INVALID_UNREAD_STAFF_FILTER
+ * @apiError {String} INVALID_UNREAD_STAFF_FILTER The unread-staff filter is invalid.
+ */
+/**
+ * @apiDefine INVALID_PRIORITY_FILTER
+ * @apiError {String} INVALID_PRIORITY_FILTER The priority filter is invalid.
+ */
+/**
+ * @apiDefine INVALID_DATE_RANGE_FILTER
+ * @apiError {String} INVALID_DATE_RANGE_FILTER The date-range filter is invalid.
+ */
+/**
+ * @apiDefine INVALID_DEPARTMENT_FILTER
+ * @apiError {String} INVALID_DEPARTMENT_FILTER The department filter is invalid.
+ */
+/**
+ * @apiDefine INVALID_AUTHOR_FILTER
+ * @apiError {String} INVALID_AUTHOR_FILTER The author filter is invalid.
+ */
+/**
+ * @apiDefine INVALID_OWNER_FILTER
+ * @apiError {String} INVALID_OWNER_FILTER The owner filter is invalid.
+ */
+/**
+ * @apiDefine INVALID_ASSIGNED_FILTER
+ * @apiError {String} INVALID_ASSIGNED_FILTER The assigned filter is invalid.
+ */
+/**
+ * @apiDefine INVALID_ORDER_BY
+ * @apiError {String} INVALID_ORDER_BY The order-by is invalid.
+ */
+/**
  * @apiDefine INVALID_TOPIC
  * @apiError {String} INVALID_TOPIC The topic is invalid.
  */
@@ -288,6 +328,7 @@ class ERRORS {
     const INVALID_DATE_RANGE_FILTER = 'INVALID_DATE_RANGE_FILTER';
     const INVALID_DEPARTMENT_FILTER = 'INVALID_DEPARTMENT_FILTER';
     const INVALID_AUTHOR_FILTER = 'INVALID_AUTHOR_FILTER';
+    const INVALID_OWNER_FILTER = 'INVALID_OWNER_FILTER';
     const INVALID_ASSIGNED_FILTER = 'INVALID_ASSIGNED_FILTER';
     const INVALID_ORDER_BY = 'INVALID_ORDER_BY';
     const INVALID_TOPIC = 'INVALID_TOPIC';
