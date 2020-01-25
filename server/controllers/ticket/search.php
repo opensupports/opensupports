@@ -6,7 +6,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/search Search tickets
- * @apiVersion 4.5.0
+ * @apiVersion 4.6.0
  *
  * @apiName Search ticket
  *
