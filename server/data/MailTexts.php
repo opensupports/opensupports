@@ -183,7 +183,7 @@ class MailTexts {
           ],
           'TICKET_RESPONDED' => [
               '#{{ticketNumber}} Neue Antwort - OpenSupports',
-              'Ticket antwortete',
+              'Ticket beantwort',
               'Hallo, {{name}}. Sie haben eine Antwort im Ticket <i>{{title}}</i> erhalten.',
               'Bitte klicken Sie unten, um die neue Antwort zu sehen.'
           ],
