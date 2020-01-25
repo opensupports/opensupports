@@ -179,25 +179,25 @@ class MailTexts {
               '#{{ticketNumber}} Ticket erstellt - OpenSupports',
               'Ticket erstellt',
               'Hallo, {{name}}. Sie haben ein neues Ticket mit dem Titel <i>{{title}}</i> an unser Support-Center geschickt.',
-              'Sie können das Ticket nach der Fahrkartennummer erreichen. Oder klicken Sie auf die Schaltfläche unten.',
+              'Sie können das Ticket nach der Ticketnummer erreichen. Oder klicken Sie auf die Schaltfläche unten.',
           ],
           'TICKET_RESPONDED' => [
               '#{{ticketNumber}} Neue Antwort - OpenSupports',
               'Ticket antwortete',
-              'Hallo, {{name}}. Sie haben eine Antwort im Tickettitel <i>{{title}}</i> erhalten.',
+              'Hallo, {{name}}. Sie haben eine Antwort im Ticket <i>{{title}}</i> erhalten.',
               'Bitte klicken Sie unten, um die neue Antwort zu sehen.'
           ],
           'TICKET_CLOSED' => [
               '#{{ticketNumber}} Ticket geschlossen - OpenSupports',
               'Ticket geschlossen',
               'Hallo, {{name}}. Ein Ticket, das Sie mit dem Titel <i>{{title}}</i> gesendet haben, wurde geschlossen.',
-              'Sie können das Ticket nach der Fahrkartennummer erreichen. Oder klicken Sie auf die Schaltfläche unten.'
+              'Sie können das Ticket nach der Ticketnummer erreichen. Oder klicken Sie auf die Schaltfläche unten.'
           ],
           'TICKET_CREATED_STAFF' => [
               '#{{ticketNumber}} Ticket erstellt - OpenSupports',
               'Ticket erstellt',
               'Der Benutzer {{name}} hat ein neues Ticket erstellt berechtigt <i>{{title}}</i>.',
-              'Sie können das Ticket nach der Fahrkartennummer erreichen.',
+              'Sie können das Ticket nach der Ticketnummer erreichen.',
           ],
         ],
         'es' => [
