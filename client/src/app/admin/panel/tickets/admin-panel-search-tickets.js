@@ -12,38 +12,54 @@ import TicketQueryFilters from 'app-components/ticket-query-filters';
 class AdminPanelSearchTickets extends React.Component {
 
     state = {
+        listData: this.getList(),
+        /*
         filters: {
             closed: undefined,
             tags: "[]",
             priority: undefined,
             departments: "[1]",
-        },
+        },*/
     }
 
     render() {
         return (
             <div className="admin-panel-all-tickets">
-                <Header title={i18n('ALL_TICKETS')} description={i18n('SEARCH_TICKETS_DESCRIPTION')} />
+                <Header title={this.getList().title} description={i18n('SEARCH_TICKETS_DESCRIPTION')} />
                 <TicketQueryFilters
-                    defaultValue={this.state.filters}
+                    defaultValue={this.state.listData.filters}
                     onChange={filters => this.onChangeFilters(filters)} />
-                {(this.props.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketQueryList customList={this.getFilters()}/>}
+                {(this.props.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketQueryList customList={this.state.listData.filters}/>}
             </div>
         );
     }
 
-    getFilters() {
-        //let customList = (window.customTicketList && window.customTicketList[this.props.location.query.custom*1]) ? window.customTicketList[this.props.location.query.custom*1] : null
-        let customList = {filters: this.state.filters,};
-        //console.log("customList: ", customList);
-        return {
-            ...customList
-        };
+    getList() {
+        if (
+            window.customTicketList && 
+            this.props.location.query.custom && 
+            window.customTicketList[this.props.location.query.custom*1]
+        ){ 
+            return window.customTicketList[this.props.location.query.custom*1];
+        } else {
+            return {
+                'title' : i18n('CUSTOM_LIST'),
+                'filters' : {
+                    closed: undefined,
+                    tags: "[]",
+                    priority: undefined,
+                    departments: "[]",
+                }
+            };
+        }
     }
 
     onChangeFilters(filters) {
         this.setState({
-            filters: filters,
+            listData: {
+                ...listData,
+                filters: filters,
+            }
         });
     }
 }

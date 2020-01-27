@@ -63,7 +63,7 @@ class DashboardArticlePage extends React.Component {
             <div className="dashboard-article-page__article">
                 <Header title={article.title}/>
 
-                <div className="dashboard-article-page__article-content">
+                <div className="dashboard-article-page__article-content ql-editor">
                     <div dangerouslySetInnerHTML={{__html: article.content}}/>
                 </div>
                 <div className="dashboard-article-page__last-edited">

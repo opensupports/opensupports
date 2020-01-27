@@ -4,7 +4,7 @@
         "respect/validation": "^1.1",
         "phpmailer/phpmailer": "^5.2",
         "google/recaptcha": "~1.1",
-        "gabordemooij/redbean": "^4.3",
+        "gabordemooij/redbean": "^5.4",
         "ifsnop/mysqldump-php": "2.*",
         "ezyang/htmlpurifier": "^4.8",
         "codeguy/upload": "^1.3",

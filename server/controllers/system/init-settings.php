@@ -1,10 +1,11 @@
 <?php
+use RedBeanPHP\Facade as RedBean;
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /system/init-settings Init settings
- * @apiVersion 4.5.0
+ * @apiVersion 4.6.0
  *
  * @apiName Init settings
  *
@@ -52,6 +53,7 @@ class InitSettingsController extends Controller {
 
     public function handler() {
         if (Setting::isTableEmpty()) {
+            RedBean::exec(file_get_contents('data/db_schema.sql'));
             $this->storeGlobalSettings();
             $this->storeMailTemplates();
             $this->storeLanguages();

@@ -6,7 +6,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/search Search tickets
- * @apiVersion 4.5.0
+ * @apiVersion 4.6.0
  *
  * @apiName Search ticket
  *
@@ -27,6 +27,7 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} query A string to find into a ticket to make a custom search.
  * @apiParam {Number} page The number of the page of the tickets.
  * @apiParam {Object} orderBy A object {value, asc}with string and boolean to make a especific order of the  search.
+ * @apiParam {Number[]} owners The ids of the owners to make a custom search.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TAG_FILTER
@@ -86,6 +87,10 @@ class SearchController extends Controller {
                     'validation' => DataValidator::oneOf(DataValidator::validAuthorsId(),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_AUTHOR_FILTER
                 ],
+                'owners' => [
+                    'validation' => DataValidator::oneOf(DataValidator::validOwnersId(),DataValidator::nullType()),
+                    'error' => ERRORS::INVALID_OWNER_FILTER
+                ],
                 'assigned' => [
                     'validation' => DataValidator::oneOf(DataValidator::in(['0','1']),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_ASSIGNED_FILTER
@@ -107,11 +112,13 @@ class SearchController extends Controller {
             'dateRange' => json_decode(Controller::request('dateRange')),
             'departments' => json_decode(Controller::request('departments')),
             'authors' => json_decode(Controller::request('authors'),true),
+            'owners' => json_decode(Controller::request('owners')),
             'assigned' => Controller::request('assigned'),
             'query' => Controller::request('query'),
             'orderBy' => json_decode(Controller::request('orderBy'),true),
             'page' => Controller::request('page'),
             'allowedDepartments' => Controller::getLoggedUser()->sharedDepartmentList->toArray(),
+            'staffId' => Controller::getLoggedUser()->id
         ];
 
 
@@ -120,7 +127,7 @@ class SearchController extends Controller {
         $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", [':query' => $inputs['query']])[0]['COUNT(*)'];
         $ticketIdList = RedBean::getAll($queryWithOrder, [':query' => "%" . $inputs['query'] . "%"]);
         $ticketList = [];
-
+        
         foreach ($ticketIdList as $item) {
             $ticket = Ticket::getDataStore($item['id']);
             array_push($ticketList, $ticket->toArray());
@@ -172,8 +179,11 @@ class SearchController extends Controller {
         if(array_key_exists('unreadStaff',$inputs)) $this->setSeenFilter($inputs['unreadStaff'], $filters);
         if(array_key_exists('priority',$inputs)) $this->setPriorityFilter($inputs['priority'], $filters);
         if(array_key_exists('dateRange',$inputs)) $this->setDateFilter($inputs['dateRange'], $filters);
-        if(array_key_exists('departments',$inputs)) $this->setDepartmentFilter($inputs['departments'],$inputs['allowedDepartments'], $filters);
+        if(array_key_exists('departments',$inputs) && array_key_exists('allowedDepartments',$inputs) && array_key_exists('staffId',$inputs)){
+            $this->setDepartmentFilter($inputs['departments'],$inputs['allowedDepartments'], $inputs['staffId'], $filters);
+        }
         if(array_key_exists('authors',$inputs)) $this->setAuthorFilter($inputs['authors'], $filters);
+        if(array_key_exists('owners',$inputs)) $this->setOwnerFilter($inputs['owners'], $filters);
         if(array_key_exists('query',$inputs)) $this->setStringFilter($inputs['query'], $filters);
         if($filters != "") $filters =  " WHERE " . $filters;
     }
@@ -207,7 +217,7 @@ class SearchController extends Controller {
         }
     }
     private function setPriorityFilter($priorities, &$filters){
-        if($priorities !== null){
+        if($priorities){
             $first = TRUE;
             if ($filters != "")  $filters .= " and ";
             foreach(array_unique($priorities) as $priority) {
@@ -244,22 +254,26 @@ class SearchController extends Controller {
         }
     }
 
-    private function setDepartmentFilter($departments,$allowedDepartments, &$filters){
-        $validDepartments = $this->generateValidDepartmentList($departments, $allowedDepartments);
+    private function setDepartmentFilter($departments,$allowedDepartments, $idStaff, &$filters){
         if ($filters != "")  $filters .= " and ";
+        
+        $validDepartments = $this->generateValidDepartmentList($departments, $allowedDepartments);
         $first = TRUE;
-
-        foreach($validDepartments as $department) {
-            if($first){
-                $filters .= " ( ";
-                $first = FALSE;
-            } else {
-                $filters .= " or ";
+        if($validDepartments){
+            foreach($validDepartments as $department) {
+                if($first){
+                    $filters .= " ( ";
+                    $first = FALSE;
+                } else {
+                    $filters .= " or ";
+                }
+                $filters .= "ticket.department_id = " . $department;
             }
-            $filters .= "ticket.department_id = " . $department;
+            $filters .= " or ";
+        }else{
+            $filters .= "(";
         }
-        $filters .= ")";
-
+        $filters .= "ticket.author_staff_id = " . $idStaff . ")";
     }
 
     private function setAuthorFilter($authors, &$filters){
@@ -282,9 +296,27 @@ class SearchController extends Controller {
                     $filters .= "ticket.author_id = " . $author['id'];
                 }
             }
+            $filters .= ")";
+        }
+    }
+
+    private function setOwnerFilter($owners, &$filters){
+        if($owners){
+            $first = TRUE;
+            if ($filters != "")  $filters .= " and ";
+
+            foreach($owners as $owner){
+
+                if($first){
+                    $filters .= "(";
+                    $first = FALSE;
+                } else {
+                    $filters .= " or ";
+                }
+                $filters .= "ticket.owner_id = " . $owner;
+            }
 
             $filters .= ")";
-
         }
     }
 
