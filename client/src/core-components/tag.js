@@ -31,6 +31,7 @@ class Tag extends React.Component {
             </span>
         );
     }
+
     renderRemoveButton() {
         return (
             <span onClick={this.props.onRemoveClick} className="tag__remove" >
