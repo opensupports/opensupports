@@ -23,9 +23,10 @@ class TicketQueryList extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-      if (JSON.stringify(this.props.customList.filters) !== JSON.stringify(prevProps.customList.filters)) {
-        this.getTickets();
-      }
+
+        if (JSON.stringify(this.props.customList.filters) !== JSON.stringify(prevProps.customList.filters)) {
+            this.getTickets();
+        }
     }
 
     render() {

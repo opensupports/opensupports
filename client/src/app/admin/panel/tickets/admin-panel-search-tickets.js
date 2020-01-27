@@ -15,7 +15,8 @@ class AdminPanelSearchTickets extends React.Component {
         filters: {
             closed: undefined,
             tags: "[]",
-            page: 1,
+            priority: undefined,
+            departments: "[1]",
         },
     }
 

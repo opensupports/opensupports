@@ -1,0 +1,38 @@
+@import '../scss/vars';
+
+.ticket-query-filters {
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+    }
+
+    &__staff-selected {
+        display: inline-block;
+        border-radius: 3px;
+        margin-left: 5px;
+        padding: 1px;
+        font-size: 13px;
+        cursor: default;
+
+        &__profile-pic {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+    }
+
+    &__staff-option {
+        &__profile-pic {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+        }
+
+        &__name {
+            margin-left: 10px;
+        }
+    }
+}
