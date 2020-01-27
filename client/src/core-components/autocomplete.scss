@@ -3,6 +3,7 @@
 .autocomplete {
     margin-bottom: 30px;
     text-align: left;
+    display: inline-block;
 
     &__drop-down {
         .drop-down__current-item {
@@ -15,6 +16,12 @@
                 outline: none;
                 border-color: $primary-blue;
             }
+        }
+
+        .menu__list {
+            max-height: 410px;
+            overflow-y: auto;
+            @include scrollbars();
         }
     }
   

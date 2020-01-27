@@ -103,11 +103,11 @@ class Autocomplete extends React.Component {
 
     renderSelectedItem(item) {
         return  <Tag
-                    name={item.name}
+                    name={item.contentOnSelected || item.name}
                     color={item.color}
                     showDeleteButton
                     onRemoveClick={this.onRemoveClick.bind(this,item.id)}
-                    key={item.id} />
+                    key={"tagId__" + item.id} />
     }
 
     getDropdownList() {
