@@ -36,11 +36,11 @@ class AddCustomResponseController extends Controller {
             'permission' => 'staff_2',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::length(5, 100),
+                    'validation' => DataValidator::notBlank()->length(5, 100),
                     'error' => ERRORS::INVALID_NAME
                 ],
                 'content' => [
-                    'validation' => DataValidator::length(20, 500),
+                    'validation' => DataValidator::content(),
                     'error' => ERRORS::INVALID_CONTENT
                 ],
                 'language' => [

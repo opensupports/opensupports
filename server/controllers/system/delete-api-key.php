@@ -31,7 +31,7 @@ class DeleteAPIKeyController extends Controller {
             'permission' => 'staff_3',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::length(2, 55),
+                    'validation' => DataValidator::notBlank()->length(2, 55),
                     'error' => ERRORS::INVALID_NAME
                 ]
             ]

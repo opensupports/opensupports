@@ -37,7 +37,15 @@ class EditCustomResponseController extends Controller {
                 'id' => [
                     'validation' => DataValidator::dataStoreId('customresponse'),
                     'error' => ERRORS::INVALID_NAME
-                ]
+                ],
+                'content' => [
+                    'validation' => DataValidator::content(),
+                    'error' => ERRORS::INVALID_CONTENT
+                ],
+                'name' => [
+                    'validation' => DataValidator::notBlank()->length(1, 200),
+                    'error' => ERRORS::INVALID_NAME
+                ],
             ]
         ];
     }

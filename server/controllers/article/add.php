@@ -40,11 +40,11 @@ class AddArticleController extends Controller {
             'permission' => 'staff_2',
             'requestData' => [
                 'title' => [
-                    'validation' => DataValidator::length(1, 100),
+                    'validation' => DataValidator::notBlank()->length(1, 100),
                     'error' => ERRORS::INVALID_NAME
                 ],
                 'content' => [
-                    'validation' => DataValidator::length(10),
+                    'validation' => DataValidator::content(),
                     'error' => ERRORS::INVALID_CONTENT
                 ],
                 'topicId' => [

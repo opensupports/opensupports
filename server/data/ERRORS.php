@@ -40,6 +40,10 @@
  * @apiError {String} INVALID_NAME The name is invalid, probably too short.
  */
 /**
+ * @apiDefine INVALID_DESCRIPTION
+ * @apiError {String} INVALID_DESCRIPTION The description is invalid.
+ */
+/**
  * @apiDefine INVALID_SETTING
  * @apiError {String} INVALID_SETTING The setting are invalid.
  */
@@ -307,6 +311,7 @@ class ERRORS {
     const INVALID_EMAIL = 'INVALID_EMAIL';
     const INVALID_PASSWORD = 'INVALID_PASSWORD';
     const INVALID_NAME = 'INVALID_NAME';
+    const INVALID_DESCRIPTION = 'INVALID_DESCRIPTION';
     const INVALID_SETTING = 'INVALID_SETTING';
     const INVALID_DEPARTMENT = 'INVALID_DEPARTMENT';
     const INVALID_TICKET = 'INVALID_TICKET';

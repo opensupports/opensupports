@@ -41,7 +41,15 @@ class EditArticleController extends Controller {
                 'articleId' => [
                     'validation' => DataValidator::dataStoreId('article'),
                     'error' => ERRORS::INVALID_TOPIC
-                ]
+                ],
+                'title' => [
+                    'validation' => DataValidator::notBlank()->length(5, 100),
+                    'error' => ERRORS::INVALID_TITLE
+                ],
+                'content' => [
+                    'validation' => DataValidator::content(),
+                    'error' => ERRORS::INVALID_CONTENT
+                ],
             ]
         ];
     }

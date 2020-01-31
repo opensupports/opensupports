@@ -36,9 +36,9 @@ class AddTopicController extends Controller {
             'permission' => 'staff_2',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::length(2, 100),
-                    'error' => ERRORS::INVALID_NAME
-                ]
+                    'validation' => DataValidator::notBlank()->length(1, 200),
+                    'error' => ERRORS::INVALID_TITLE
+                ],
             ]
         ];
     }
