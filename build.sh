@@ -4,7 +4,7 @@ npm run build
 rm build/index.html
 echo "2/3 Creating api folder..."
 cd ../server
-composer install
+composer install --no-dev
 echo -n > config.php
 mkdir files2
 mv files/.htaccess files2
