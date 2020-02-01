@@ -84,7 +84,6 @@ class Autocomplete extends React.Component {
                         {this.renderSelectedItems()}
                         <input
                             className="autocomplete__input"
-                            id="query"
                             ref={input => this.input = input}
                             value={this.state.inputValue}
                             onKeyDown={e => this.onKeyDown(e)}
