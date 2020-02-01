@@ -15,5 +15,20 @@ export default {
         let min = date.substring(10, 12);
 
         return d + " " + month[m] + " " + y + " at " + hr + ":" + min;
+    },
+
+    getDate(date) {
+        return date < 10 ? `0${date}` : `${date}`;
+    },
+
+    getDateToday() {
+        let today = new Date();
+        let Year = `${today.getFullYear()}`;
+        let Month = this.getDate(today.getMonth()+1);
+        let Day = this.getDate(today.getDate());
+        let newDate = Year.concat(Month.concat(Day));
+
+        return newDate*1;
     }
+
 };
