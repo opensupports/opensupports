@@ -254,13 +254,28 @@ class SearchController extends Controller {
         }
     }
 
-    private function setDepartmentFilter($departments,$allowedDepartments, $idStaff, &$filters){
+    private function setDepartmentFilter($departments,$ownDepartments, $idStaff, &$filters){
         if ($filters != "")  $filters .= " and ";
-        
-        $validDepartments = $this->generateValidDepartmentList($departments, $allowedDepartments);
+
+        $restOfDepartments =  $this->generateValidDepartmentList($departments, $ownDepartments);
+        $allowedDepartments = $this->generateValidDepartmentList($departments, $ownDepartments, true);
         $first = TRUE;
-        if($validDepartments){
-            foreach($validDepartments as $department) {
+       
+        if(!$allowedDepartments && !$restOfDepartments){
+            foreach($ownDepartments as $department) {
+                if($first){
+                    $filters .= " ( ";
+                    $first = FALSE;
+                } else {
+                    $filters .= " or ";
+                }
+                $filters .= "ticket.department_id = " . $department['id'];
+            } 
+            $filters .= ")";
+        } 
+        
+        if($allowedDepartments){
+            foreach($allowedDepartments as $department) {
                 if($first){
                     $filters .= " ( ";
                     $first = FALSE;
@@ -269,11 +284,24 @@ class SearchController extends Controller {
                 }
                 $filters .= "ticket.department_id = " . $department;
             }
-            $filters .= " or ";
-        }else{
-            $filters .= "(";
         }
-        $filters .= "ticket.author_staff_id = " . $idStaff . ")";
+        
+        if($restOfDepartments){
+            if($allowedDepartments) $filters .= " or ";
+            $filters .= "(ticket.author_staff_id = " . $idStaff . " and ";
+            $first = TRUE;
+            foreach($restOfDepartments as $department) {
+                if($first){
+                    $filters .= " ( ";
+                    $first = FALSE;
+                } else {
+                    $filters .= " or ";
+                }
+                $filters .= "ticket.department_id = " . $department;
+            }
+            $filters .= "))";
+        }
+        if($allowedDepartments) $filters .= " )";
     }
 
     private function setAuthorFilter($authors, &$filters){
@@ -339,20 +367,22 @@ class SearchController extends Controller {
         };
     }
 
-    private function generateValidDepartmentList($departments, $allowedDepartments){
-        $result = [];
+    private function generateValidDepartmentList($departments, $allowedDepartments, $allowed = false){
+        $allowedDepartmentsresult = [];
         $managedDepartments = [];
         if($departments == null) $departments = [];
         foreach ($allowedDepartments as $department) {
              array_push($managedDepartments,$department['id']);
         }
-        $result = array_intersect($departments,$managedDepartments);
 
-        if(empty($result)) $result =  $managedDepartments;
+        $allowedDepartmentsresult = array_values(array_unique(array_intersect($departments,$managedDepartments)));
+        $authorsDepartments = array_values(array_diff($departments,$allowedDepartmentsresult));
 
-        $result = array_unique($result);
-
-        return $result;
+        if($allowed){
+            return $allowedDepartmentsresult;
+        }else{
+            return $authorsDepartments;
+        };
     }
 
     //ORDER
