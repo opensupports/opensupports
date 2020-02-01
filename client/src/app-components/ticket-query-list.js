@@ -24,7 +24,7 @@ class TicketQueryList extends React.Component {
 
     componentDidUpdate(prevProps) {
 
-        if (JSON.stringify(this.props.customList.filters) !== JSON.stringify(prevProps.customList.filters)) {
+        if (JSON.stringify(this.props.filters) !== JSON.stringify(prevProps.filters)) {
             this.getTickets();
         }
     }
@@ -32,7 +32,11 @@ class TicketQueryList extends React.Component {
     render() {
         return (
             <div>
-                {(this.state.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketList {...this.getTicketListProps()}/>}
+                {
+                    (this.state.error) ?
+                    <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> :
+                    <TicketList {...this.getTicketListProps()}/>
+                }
             </div>
         );
     }
@@ -45,7 +49,7 @@ class TicketQueryList extends React.Component {
             path: '/ticket/search',
             data: {
                 page : this.state.page,
-                ...this.props.customList.filters
+                ...this.props.filters
             }
         }).then((result) => {
             this.setState({
@@ -67,7 +71,16 @@ class TicketQueryList extends React.Component {
     }
 
     getTicketListProps () {
-        const {page,pages,loading,tickets} = this.state;
+        const {
+            page,
+            pages,
+            loading,
+            tickets
+        } = this.state;
+        const {
+            filters,
+            onChangeOrderBy
+        } = this.props;
         return {
             userId: this.props.userId,
             ticketPath: '/admin/panel/tickets/view-ticket/',
@@ -78,7 +91,10 @@ class TicketQueryList extends React.Component {
             type: 'secondary',
             showDepartmentDropdown: false,
             closedTicketsShown: false,
-            onPageChange:this.onPageChange.bind(this)
+            onPageChange:this.onPageChange.bind(this),
+            orderBy: filters.orderBy,
+            showOrderArrows: true,
+            onChangeOrderBy: onChangeOrderBy,
         };
     }
 

@@ -5,12 +5,14 @@ import AdminDataActions from 'actions/admin-data-actions';
 
 import API from 'lib-app/api-call';
 import keyCode from 'keycode';
+import DateTransformer from 'lib-core/date-transformer';
 
 import Input from 'core-components/input';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import TagSelector from 'core-components/tag-selector';
 import Autocomplete from '../core-components/autocomplete';
+import DateRange from '../core-components/date-range';
 
 
 class TicketQueryFilters extends React.Component {
@@ -21,9 +23,10 @@ class TicketQueryFilters extends React.Component {
         tags: React.PropTypes.array,
         defaultValue: React.PropTypes.shape(),
     }
-    
+
     state = {
         filters: this.props.defaultValue,
+        value: undefined,
     }
 
     componentDidMount() {
@@ -54,14 +57,15 @@ class TicketQueryFilters extends React.Component {
                         <span>Departments</span>
                         <Autocomplete
                             items={this.getDepartmentsItems()}
-                            values={this.getSelectedDepartmentsItems()}
+                            values={this.getSelectedDepartments()}
                             onChange={this.onChangeDepartmentFilters.bind(this)}/>
                     </div>
                     <div className="ticket-query-filters__container">
-                        <span>Staffs</span>
+                        <span>Owners</span>
                         <Autocomplete
                             items={this.getStaffList()}
-                            onChange={this.onChangeStaffFilters.bind(this)}/>
+                            values={this.getSelectedStaffs()}
+                            onChange={this.onChangeStaffFilters.bind(this)} />
                     </div>
                     <div className="ticket-query-filters__container">
                         <span>Tags</span>
@@ -71,6 +75,12 @@ class TicketQueryFilters extends React.Component {
                             onTagSelected={this.addTag.bind(this)}
                             onRemoveClick={this.removeTag.bind(this)}
                         />
+                    </div>
+                    <div className="ticket-query-filters__container">
+                        <span>Date</span>
+                        <DateRange
+                            value={this.state.value}
+                            onChange={this.onChangeDateRange.bind(this)} />
                     </div>
                 </Form>
             </div>
@@ -122,7 +132,6 @@ class TicketQueryFilters extends React.Component {
         this.setState({
             filters: newFilters,
         });
-
         onChange && onChange(newFilters);
     }
 
@@ -156,6 +165,27 @@ class TicketQueryFilters extends React.Component {
         onChange && onChange(newFilters);
     }
 
+    onChangeDateRange(value) {
+        const { onChange, } = this.props;
+        let startDate = value.startDate === "" ? 20170101 : value.startDate;
+        let endDate = value.endDate === "" ? DateTransformer.getDateToday() : value.endDate;
+        let newDateRange = JSON.stringify([startDate*10000, (endDate*10000)+2400]);
+        let newFilters = {
+            ...this.state.filters,
+            dateRange: value.valid ? newDateRange : undefined
+        }
+
+        this.setState({
+            value: {
+                startDate: startDate,
+                endDate: endDate,
+                valid: value.valid,
+            },
+            filters: newFilters,
+        });
+        onChange && onChange(newFilters);
+    }
+
     removeTag(tag) {
         const { onChange, } = this.props;
         let newTagList = JSON.stringify((JSON.parse(this.state.filters.tags)).filter(item => item !== tag));
@@ -163,7 +193,6 @@ class TicketQueryFilters extends React.Component {
         this.setState({
             filters: {...this.state.filters, tags: newTagList},
         });
-
         onChange && onChange({...this.state.filters, tags: newTagList});
     }
 
@@ -174,7 +203,6 @@ class TicketQueryFilters extends React.Component {
         this.setState({
             filters: {...this.state.filters, tags: newTags},
         });
-
         onChange && onChange({...this.state.filters, tags: newTags});
     }
 
@@ -235,7 +263,7 @@ class TicketQueryFilters extends React.Component {
         return departmentsList;
     }
 
-    getSelectedDepartmentsItems() {
+    getSelectedDepartments() {
         let departments = this.getDepartmentsItems();
         let selectedDepartmentsId = JSON.parse(this.state.filters.departments);
         let selectedDepartments = departments.filter(item => _.includes(selectedDepartmentsId, item.id));
@@ -259,7 +287,15 @@ class TicketQueryFilters extends React.Component {
     }
 
     getStaffProfilePic(staff) {
-        return (staff.profilePic) ? API.getFileLink(staff.profilePic) : (API.getURL() + '/images/profile.png');
+        return staff.profilePic ? API.getFileLink(staff.profilePic) : (API.getURL() + '/images/profile.png');
+    }
+
+    getSelectedStaffs() {
+        let staffs = this.getStaffList();
+        let selectedStaffsId = JSON.parse(this.state.filters.owners);
+        let selectedStaffs = staffs.filter(staff => _.includes(selectedStaffsId, staff.id));
+
+        return selectedStaffs;
     }
 
     retrieveStaffMembers() {

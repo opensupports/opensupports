@@ -13,13 +13,6 @@ class AdminPanelSearchTickets extends React.Component {
 
     state = {
         listData: this.getList(),
-        /*
-        filters: {
-            closed: undefined,
-            tags: "[]",
-            priority: undefined,
-            departments: "[1]",
-        },*/
     }
 
     render() {
@@ -29,7 +22,13 @@ class AdminPanelSearchTickets extends React.Component {
                 <TicketQueryFilters
                     defaultValue={this.state.listData.filters}
                     onChange={filters => this.onChangeFilters(filters)} />
-                {(this.props.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketQueryList customList={this.state.listData.filters}/>}
+                {
+                    (this.props.error) ?
+                        <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> :
+                        <TicketQueryList
+                            filters={this.state.listData.filters}
+                            onChangeOrderBy={this.onChangeOrderBy.bind(this)} />
+                }
             </div>
         );
     }
@@ -45,10 +44,14 @@ class AdminPanelSearchTickets extends React.Component {
             return {
                 'title' : i18n('CUSTOM_LIST'),
                 'filters' : {
+                    query: "",
                     closed: undefined,
-                    tags: "[]",
                     priority: undefined,
                     departments: "[]",
+                    owners: "[]",
+                    tags: "[]",
+                    dateRange: undefined ,
+                    orderBy: undefined
                 }
             };
         }
@@ -57,8 +60,29 @@ class AdminPanelSearchTickets extends React.Component {
     onChangeFilters(filters) {
         this.setState({
             listData: {
-                ...listData,
+                ...this.state.listData,
                 filters: filters,
+            }
+        });
+    }
+
+    onChangeOrderBy(value) {
+        const { listData, } = this.state;
+        let orderBy = listData.filters.orderBy ? JSON.parse(listData.filters.orderBy) : {value: ""};
+        let newOrderBy = {};
+        let newAsc = 0;
+        let newValue = value;
+
+        if(value === orderBy.value) {
+            newAsc = orderBy.asc === 0 ? 1 : 0;
+        }
+
+        newOrderBy = JSON.stringify({"value": newValue, "asc": newAsc});
+
+        this.setState({
+            listData: {
+                ...this.state.listDate,
+                filters: {...this.state.listData.filters, orderBy: newOrderBy}
             }
         });
     }
