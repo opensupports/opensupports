@@ -49,7 +49,9 @@ class TicketList extends React.Component {
         return (
             <div className="ticket-list">
                 <div className="ticket-list__filters">
-                    {(this.props.type === 'secondary' && this.props.showDepartmentDropdown) ? this.renderDepartmentsDropDown() : null}
+                    {(this.props.type === 'secondary' && this.props.showDepartmentDropdown) ?
+                        this.renderDepartmentsDropDown() :
+                        null}
                     {this.props.onClosedTicketsShownChange ? this.renderFilterCheckbox() : null}
                 </div>
                 <Table {...this.getTableProps()} />
@@ -59,7 +61,12 @@ class TicketList extends React.Component {
 
 
     renderFilterCheckbox() {
-        return <Checkbox className="ticket-list__checkbox" label={i18n("SHOW_CLOSED_TICKETS")} value={this.props.closedTicketsShown} onChange={this.props.onClosedTicketsShownChange} wrapInLabel/>
+        return <Checkbox
+                    className="ticket-list__checkbox"
+                    label={i18n("SHOW_CLOSED_TICKETS")}
+                    value={this.props.closedTicketsShown}
+                    onChange={this.props.onClosedTicketsShownChange}
+                    wrapInLabel />
     }
 
     renderDepartmentsDropDown() {
@@ -92,7 +99,6 @@ class TicketList extends React.Component {
             headers: this.getTableHeaders(),
             rows: this.getTableRows(),
             pageSize: 10,
-            comp: this.compareFunction,
             page: this.props.page,
             pages: this.props.pages,
             onPageChange: this.props.onPageChange
@@ -129,7 +135,10 @@ class TicketList extends React.Component {
                 },
                 {
                     key: 'date',
-                    value: i18n('DATE'),
+                    value:  <div>
+                                {i18n('DATE')}
+                                {this.renderIcon('date')}
+                            </div>,
                     className: 'ticket-list__date col-md-2'
                 }
             ];
@@ -162,11 +171,52 @@ class TicketList extends React.Component {
                 },
                 {
                     key: 'date',
-                    value: i18n('DATE'),
+                    value:  <div>
+                                {i18n('DATE')}
+                                {this.renderIcon('date')}
+                            </div>,
                     className: 'ticket-list__date col-md-2'
                 }
             ];
         }
+    }
+
+    renderIcon(header) {
+        const {
+            orderBy,
+            showOrderArrows,
+            onChangeOrderBy
+        } = this.props;
+
+        if(showOrderArrows) {
+            return (
+                <Icon
+                    name={`arrow-${orderBy !== undefined ? this.getIconName(header, orderBy) : "down"}`}
+                    className="ticket-list__order-icon"
+                    color={orderBy ? this.getIconColor(header, orderBy) : "white"}
+                    onClick={() => onChangeOrderBy(header)} />
+            );
+        }
+    }
+
+    getIconName(header, orderBy) {
+        let name = "down";
+        orderBy = JSON.parse(orderBy);
+
+        if(orderBy.value === header) {
+            name = orderBy.asc === 0 ? "down" : "up";
+        }
+
+        return name;
+    }
+
+    getIconColor(header, orderBy) {
+        let color = "white";
+
+        orderBy = JSON.parse(orderBy);
+        color = orderBy.value === header ? "gray" : "white";
+
+        return color;
     }
 
     getTableRows() {
@@ -230,37 +280,6 @@ class TicketList extends React.Component {
                 <span className="ticket-list__priority-low">{i18n('LOW')}</span>
             );
         }
-    }
-
-    compareFunction(row1, row2) {
-        if (row1.closed == row2.closed) {
-            if (row1.unread == row2.unread) {
-                let s1 = row1.date;
-                let s2 = row2.date;
-
-                let y1 = s1.substring(0, 4);
-                let y2 = s2.substring(0, 4);
-
-                if (y1 == y2) {
-                    let m1 = s1.substring(4, 6);
-                    let m2 = s2.substring(4, 6);
-
-                    if (m1 == m2) {
-                        let d1 = s1.substring(6, 8);
-                        let d2 = s2.substring(6, 8);
-
-                        if (d1 == d2) {
-                            return 0;
-                        }
-                        return d1 > d2 ? -1 : 1;
-                    }
-                    return m1 > m2 ? -1 : 1;
-                }
-                return y1 > y2 ? -1 : 1;
-            }
-            return row1.unread ? -1 : 1;
-        }
-        return row1.closed ? -1 : 1;
     }
 
     isTicketUnread(ticket) {
