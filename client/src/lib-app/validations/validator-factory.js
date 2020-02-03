@@ -4,6 +4,7 @@ import RepeatPasswordValidator from 'lib-app/validations/repeat-password-validat
 import LengthValidator from 'lib-app/validations/length-validator';
 import ListValidator from 'lib-app/validations/list-validator';
 import ImageSizeValidator from 'lib-app/validations/image-size-validator';
+import SpaceValidator from './space-validator';
 
 let validators = {
     'DEFAULT': new Validator(),
