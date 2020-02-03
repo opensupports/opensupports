@@ -104,6 +104,12 @@ class SearchController extends Controller {
     }
 
     public function handler() {
+
+        $allowedDepartmentsId = [];
+        foreach (Controller::getLoggedUser()->sharedDepartmentList->toArray() as $department) {
+            array_push($allowedDepartmentsId,$department['id']);
+        }
+
         $inputs = [
             'closed' => Controller::request('closed'),
             'tags' => json_decode(Controller::request('tags')),
@@ -117,7 +123,7 @@ class SearchController extends Controller {
             'query' => Controller::request('query'),
             'orderBy' => json_decode(Controller::request('orderBy'),true),
             'page' => Controller::request('page'),
-            'allowedDepartments' => Controller::getLoggedUser()->sharedDepartmentList->toArray(),
+            'allowedDepartments' => $allowedDepartmentsId,
             'staffId' => Controller::getLoggedUser()->id
         ];
 
@@ -254,28 +260,28 @@ class SearchController extends Controller {
         }
     }
 
-    private function setDepartmentFilter($departments,$ownDepartments, $idStaff, &$filters){
+    private function setDepartmentFilter($requestedDepartments,$myDepartments, $idStaff, &$filters){
         if ($filters != "")  $filters .= " and ";
 
-        $restOfDepartments =  $this->generateValidDepartmentList($departments, $ownDepartments);
-        $allowedDepartments = $this->generateValidDepartmentList($departments, $ownDepartments, true);
+        $requestedNotOwnedDepartments =  $this->generateValidDepartmentList($requestedDepartments, $myDepartments);
+        $requestedOwnedDepartments = $this->generateValidDepartmentList($requestedDepartments, $myDepartments, true);
         $first = TRUE;
-       
-        if(!$allowedDepartments && !$restOfDepartments){
-            foreach($ownDepartments as $department) {
+        
+        if(!$requestedOwnedDepartments && !$requestedNotOwnedDepartments){
+            foreach($myDepartments as $department) {
                 if($first){
                     $filters .= " ( ";
                     $first = FALSE;
                 } else {
                     $filters .= " or ";
                 }
-                $filters .= "ticket.department_id = " . $department['id'];
+                $filters .= "ticket.department_id = " . $department;
             } 
             $filters .= ")";
         } 
         
-        if($allowedDepartments){
-            foreach($allowedDepartments as $department) {
+        if($requestedOwnedDepartments){
+            foreach($requestedOwnedDepartments as $department) {
                 if($first){
                     $filters .= " ( ";
                     $first = FALSE;
@@ -286,11 +292,11 @@ class SearchController extends Controller {
             }
         }
         
-        if($restOfDepartments){
-            if($allowedDepartments) $filters .= " or ";
+        if($requestedNotOwnedDepartments){
+            if($requestedOwnedDepartments) $filters .= " or ";
             $filters .= "(ticket.author_staff_id = " . $idStaff . " and ";
             $first = TRUE;
-            foreach($restOfDepartments as $department) {
+            foreach($requestedNotOwnedDepartments as $department) {
                 if($first){
                     $filters .= " ( ";
                     $first = FALSE;
@@ -301,7 +307,7 @@ class SearchController extends Controller {
             }
             $filters .= "))";
         }
-        if($allowedDepartments) $filters .= " )";
+        if($requestedOwnedDepartments) $filters .= " )";
     }
 
     private function setAuthorFilter($authors, &$filters){
@@ -366,22 +372,19 @@ class SearchController extends Controller {
             $filters .= " (ticket.title LIKE :query or ticket.content LIKE :query or ticket.ticket_number LIKE :query". $ticketevent  ." )";
         };
     }
-
-    private function generateValidDepartmentList($departments, $allowedDepartments, $allowed = false){
-        $allowedDepartmentsresult = [];
-        $managedDepartments = [];
-        if($departments == null) $departments = [];
-        foreach ($allowedDepartments as $department) {
-             array_push($managedDepartments,$department['id']);
-        }
-
-        $allowedDepartmentsresult = array_values(array_unique(array_intersect($departments,$managedDepartments)));
-        $authorsDepartments = array_values(array_diff($departments,$allowedDepartmentsresult));
-
+                       
+    private function generateValidDepartmentList($requestedDepartments, $myDepartments, $allowed = false){
+        $requestedNotOwnedDepartments = [];
+        
+        if($requestedDepartments == null) $requestedDepartments = [];
+        
+        $requestedOwnedDepartments = array_values(array_unique(array_intersect($requestedDepartments, $myDepartments)));
+        $requestedNotOwnedDepartments = array_values(array_diff($requestedDepartments, $requestedOwnedDepartments));
+        
         if($allowed){
-            return $allowedDepartmentsresult;
+            return $requestedOwnedDepartments;
         }else{
-            return $authorsDepartments;
+            return $requestedNotOwnedDepartments;
         };
     }
 

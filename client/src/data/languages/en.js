@@ -363,6 +363,7 @@ export default {
     'NO_PERMISSION': 'You\'ve no permission to access to this page.',
     'INVALID_USER': 'User id is invalid',
     'INVALID_TITLE': 'invalid title',
+    'INVALID_NAME': 'invalid name',
     'ERROR_RETRIEVING_TICKETS': 'An error occurred while trying to retrieve tickets.',
     'ERROR_RETRIEVING_USERS': 'An error occurred while trying to retrieve users.',
     'ERROR_RETRIEVING_BAN_LIST': 'An error occurred while trying to retrieve the list of banned emails.',
