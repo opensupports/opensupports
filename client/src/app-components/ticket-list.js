@@ -94,14 +94,21 @@ class TicketList extends React.Component {
     }
 
     getTableProps() {
+        const {
+            loading,
+            page,
+            pages,
+            onPageChange,
+        } = this.props;
+
         return {
-            loading: this.props.loading,
+            loading: loading,
             headers: this.getTableHeaders(),
             rows: this.getTableRows(),
             pageSize: 10,
-            page: this.props.page,
-            pages: this.props.pages,
-            onPageChange: this.props.onPageChange
+            page: page,
+            pages: pages,
+            onPageChange: onPageChange
         };
     }
 
