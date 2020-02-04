@@ -95,6 +95,10 @@ class SearchController extends Controller {
                     'validation' => DataValidator::oneOf(DataValidator::in(['0','1']),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_ASSIGNED_FILTER
                 ],
+                'query' => [
+                    'validation' => DataValidator::oneOf(DataValidator::notBlank(),DataValidator::nullType()),
+                    'error' => ERRORS::INVALID_QUERY_FILTER
+                ],
                 'orderBy' => [
                     'validation' => DataValidator::oneOf(DataValidator::validOrderBy(),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_ORDER_BY
@@ -130,16 +134,16 @@ class SearchController extends Controller {
 
         $query = $this->getSQLQuery($inputs);
         $queryWithOrder = $this->getSQLQueryWithOrder($inputs);
+        throw new Exception($queryWithOrder);
         $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", [':query' => $inputs['query']])[0]['COUNT(*)'];
         $ticketIdList = RedBean::getAll($queryWithOrder, [':query' => "%" . $inputs['query'] . "%"]);
         $ticketList = [];
-        
         foreach ($ticketIdList as $item) {
             $ticket = Ticket::getDataStore($item['id']);
             array_push($ticketList, $ticket->toArray());
         }
         $ticketTableExists  = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticket';");
-
+        throw new Exception("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2");
         if($ticketTableExists){
             Response::respondSuccess([
                 'tickets' => $ticketList,
@@ -263,8 +267,8 @@ class SearchController extends Controller {
     private function setDepartmentFilter($requestedDepartments,$myDepartments, $idStaff, &$filters){
         if ($filters != "")  $filters .= " and ";
 
-        $requestedNotOwnedDepartments =  $this->generateValidDepartmentList($requestedDepartments, $myDepartments);
-        $requestedOwnedDepartments = $this->generateValidDepartmentList($requestedDepartments, $myDepartments, true);
+        $requestedNotOwnedDepartments =  $this->getRequestedOwnedDepartments($requestedDepartments, $myDepartments);
+        $requestedOwnedDepartments = $this->getRequestedNotOwnedDepartments($requestedDepartments, $myDepartments, true);
         $first = TRUE;
         
         if(!$requestedOwnedDepartments && !$requestedNotOwnedDepartments){
@@ -373,19 +377,20 @@ class SearchController extends Controller {
         };
     }
                        
-    private function generateValidDepartmentList($requestedDepartments, $myDepartments, $allowed = false){
+    private function getRequestedOwnedDepartments($requestedDepartments, $myDepartments){
+        $requestedOwnedDepartments = [];
+        $requestedOwnedDepartments = array_values(array_unique(array_intersect($requestedDepartments, $myDepartments)));
+        
+        return $requestedOwnedDepartments;
+    }
+
+    private function getRequestedNotOwnedDepartments($requestedDepartments, $myDepartments){
         $requestedNotOwnedDepartments = [];
-        
-        if($requestedDepartments == null) $requestedDepartments = [];
-        
+        $requestedOwnedDepartments = [];
         $requestedOwnedDepartments = array_values(array_unique(array_intersect($requestedDepartments, $myDepartments)));
         $requestedNotOwnedDepartments = array_values(array_diff($requestedDepartments, $requestedOwnedDepartments));
         
-        if($allowed){
-            return $requestedOwnedDepartments;
-        }else{
-            return $requestedNotOwnedDepartments;
-        };
+        return $requestedNotOwnedDepartments;
     }
 
     //ORDER

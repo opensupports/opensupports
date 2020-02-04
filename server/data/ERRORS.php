@@ -132,6 +132,10 @@
  * @apiError {String} INVALID_ASSIGNED_FILTER The assigned filter is invalid.
  */
 /**
+ * @apiDefine INVALID_QUERY_FILTER
+ * @apiError {String} INVALID_QUERY_FILTER The query filter is invalid.
+ */
+/**
  * @apiDefine INVALID_ORDER_BY
  * @apiError {String} INVALID_ORDER_BY The order-by is invalid.
  */
@@ -335,6 +339,7 @@ class ERRORS {
     const INVALID_AUTHOR_FILTER = 'INVALID_AUTHOR_FILTER';
     const INVALID_OWNER_FILTER = 'INVALID_OWNER_FILTER';
     const INVALID_ASSIGNED_FILTER = 'INVALID_ASSIGNED_FILTER';
+    const INVALID_QUERY_FILTER = 'INVALID_QUERY_FILTER';
     const INVALID_ORDER_BY = 'INVALID_ORDER_BY';
     const INVALID_TOPIC = 'INVALID_TOPIC';
     const INVALID_SEARCH = 'INVALID_SEARCH';

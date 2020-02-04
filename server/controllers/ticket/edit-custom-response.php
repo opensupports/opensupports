@@ -43,7 +43,7 @@ class EditCustomResponseController extends Controller {
                     'error' => ERRORS::INVALID_CONTENT
                 ],
                 'name' => [
-                    'validation' => DataValidator::notBlank()->length(1, 200),
+                    'validation' => DataValidator::oneOf(DataValidator::notBlank()->length(1, 200),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_NAME
                 ],
             ]

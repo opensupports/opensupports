@@ -32,7 +32,7 @@ describe '/ticket/create' do
         (result['message']).should.equal('INVALID_TITLE')
     end
 
-    it 'should fail if content is too short' do
+    it 'should craete ticket with a short content' do
         result = request('/ticket/create', {
             title: 'Winter is coming',
             content: 'Test',
@@ -42,11 +42,10 @@ describe '/ticket/create' do
             csrf_token: $csrf_token
         })
 
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_CONTENT')
+        (result['status']).should.equal('success')
     end
 
-    it 'should fail if content is very long' do
+    it 'should create ticket with a large content' do
         long_text = ''
         6000.times {long_text << 'a'}
 
@@ -59,8 +58,7 @@ describe '/ticket/create' do
             csrf_token: $csrf_token
         })
 
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_CONTENT')
+        (result['status']).should.equal('success')
 
     end
 
@@ -114,7 +112,7 @@ describe '/ticket/create' do
         Scripts.login('creator@os4.com','creator')
 
         result = request('/ticket/create', {
-            title: 'Winter is coming',
+            title: 'Winter is coming!',
             content: 'The north remembers',
             departmentId: 1,
             language: 'en',
@@ -124,7 +122,7 @@ describe '/ticket/create' do
 
         (result['status']).should.equal('success')
 
-        ticket = $database.getRow('ticket','Winter is coming','title')
+        ticket = $database.getRow('ticket','Winter is coming!','title')
         (ticket['content']).should.equal('The north remembers')
         (ticket['unread']).should.equal('0')
         (ticket['closed']).should.equal('0')
@@ -168,7 +166,7 @@ describe '/ticket/create' do
 
         ticket_number_gap = $database.getRow('setting', 'ticket-gap', 'name')['value'].to_i
 
-        ticket0 = $database.getRow('ticket','Winter is coming','title')['ticket_number'].to_i
+        ticket0 = $database.getRow('ticket','Winter is coming!','title')['ticket_number'].to_i
         ticket1 = $database.getRow('ticket','Winter is coming1','title')['ticket_number'].to_i
         ticket2 = $database.getRow('ticket','Winter is coming2','title')['ticket_number'].to_i
         ticket3 = $database.getRow('ticket','Winter is coming3','title')['ticket_number'].to_i
