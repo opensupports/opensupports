@@ -134,16 +134,15 @@ class SearchController extends Controller {
 
         $query = $this->getSQLQuery($inputs);
         $queryWithOrder = $this->getSQLQueryWithOrder($inputs);
-        throw new Exception($queryWithOrder);
-        $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", [':query' => $inputs['query']])[0]['COUNT(*)'];
+        $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", [':query' => "%" . $inputs['query'] . "%"])[0]['COUNT(*)'];
         $ticketIdList = RedBean::getAll($queryWithOrder, [':query' => "%" . $inputs['query'] . "%"]);
         $ticketList = [];
+        
         foreach ($ticketIdList as $item) {
             $ticket = Ticket::getDataStore($item['id']);
             array_push($ticketList, $ticket->toArray());
         }
         $ticketTableExists  = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticket';");
-        throw new Exception("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2");
         if($ticketTableExists){
             Response::respondSuccess([
                 'tickets' => $ticketList,
@@ -266,9 +265,10 @@ class SearchController extends Controller {
 
     private function setDepartmentFilter($requestedDepartments,$myDepartments, $idStaff, &$filters){
         if ($filters != "")  $filters .= " and ";
+        if (!$requestedDepartments) $requestedDepartments = [];
 
-        $requestedNotOwnedDepartments =  $this->getRequestedOwnedDepartments($requestedDepartments, $myDepartments);
-        $requestedOwnedDepartments = $this->getRequestedNotOwnedDepartments($requestedDepartments, $myDepartments, true);
+        $requestedOwnedDepartments = $this->getRequestedOwnedDepartments($requestedDepartments, $myDepartments);
+        $requestedNotOwnedDepartments =  $this->getRequestedNotOwnedDepartments($requestedDepartments, $myDepartments);
         $first = TRUE;
         
         if(!$requestedOwnedDepartments && !$requestedNotOwnedDepartments){
