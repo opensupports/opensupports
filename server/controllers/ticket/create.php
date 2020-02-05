@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/create Create ticket
- * @apiVersion 4.6.0
+ * @apiVersion 4.6.1
  *
  * @apiName Create ticket
  *
