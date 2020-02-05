@@ -45,7 +45,7 @@ describe '/ticket/create' do
         (result['status']).should.equal('success')
     end
 
-    it 'should create ticket with a large content' do
+    it 'should fail if the ticket has a very large content' do
         long_text = ''
         6000.times {long_text << 'a'}
 
@@ -58,7 +58,8 @@ describe '/ticket/create' do
             csrf_token: $csrf_token
         })
 
-        (result['status']).should.equal('success')
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('INVALID_CONTENT')
 
     end
 
