@@ -43,7 +43,7 @@ class EditArticleController extends Controller {
                     'error' => ERRORS::INVALID_TOPIC
                 ],
                 'title' => [
-                    'validation' => DataValidator::oneOf(DataValidator::notBlank()->length(5, 100),DataValidator::nullType()),
+                    'validation' => DataValidator::oneOf(DataValidator::notBlank()->length(1, 200),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_TITLE
                 ],
                 'content' => [
