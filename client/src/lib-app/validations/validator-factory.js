@@ -4,13 +4,14 @@ import RepeatPasswordValidator from 'lib-app/validations/repeat-password-validat
 import LengthValidator from 'lib-app/validations/length-validator';
 import ListValidator from 'lib-app/validations/list-validator';
 import ImageSizeValidator from 'lib-app/validations/image-size-validator';
+import SpaceValidator from './space-validator';
 
 let validators = {
     'DEFAULT': new Validator(),
     'NAME': new LengthValidator(2, 'ERROR_NAME'),
     'TITLE': new LengthValidator(1, 'ERROR_TITLE'),
     'EMAIL': new EmailValidator(),
-    'TEXT_AREA': new ImageSizeValidator(undefined, new LengthValidator(10, 'ERROR_CONTENT_SHORT')),
+    'TEXT_AREA': new ImageSizeValidator(undefined, new LengthValidator(1, 'ERROR_CONTENT_SHORT')),
     'PASSWORD': new LengthValidator(6, 'ERROR_PASSWORD'),
     'REPEAT_PASSWORD': new RepeatPasswordValidator(),
     'URL': new LengthValidator(5, 'ERROR_URL'),

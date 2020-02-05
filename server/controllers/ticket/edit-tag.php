@@ -41,6 +41,10 @@ class EditTagController extends Controller {
                 'color' => [
                     'validation' => DataValidator::hexRgbColor()->startsWith('#'),
                     'error' => ERRORS::INVALID_COLOR
+                ],
+                'name' => [
+                    'validation' => DataValidator::notBlank()->length(1, 200),
+                    'error' => ERRORS::INVALID_NAME
                 ]
             ]
         ];

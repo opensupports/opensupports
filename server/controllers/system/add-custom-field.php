@@ -37,8 +37,12 @@ class AddCustomFieldController extends Controller {
             'permission' => 'staff_2',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::length(2, 100),
+                    'validation' => DataValidator::notBlank()->length(2, 100),
                     'error' => ERRORS::INVALID_NAME
+                ],
+                'description' => [
+                    'validation' => DataValidator::notBlank()->length(2, 100),
+                    'error' => ERRORS::INVALID_DESCRIPTION
                 ],
                 'type' => [
                     'validation' => DataValidator::oneOf(

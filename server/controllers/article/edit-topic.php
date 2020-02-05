@@ -38,7 +38,12 @@ class EditTopicController extends Controller {
                 'topicId' => [
                     'validation' => DataValidator::dataStoreId('topic'),
                     'error' => ERRORS::INVALID_TOPIC
-                ]
+                ],
+                'name' => [
+                    'validation' => DataValidator::notBlank()->length(1, 200),
+                    'error' => ERRORS::INVALID_NAME
+                ],
+                
             ]
         ];
     }

@@ -18,33 +18,6 @@ describe '/ticket/comment/' do
         (result['message']).should.equal('NO_PERMISSION')
     end
 
-    it 'should fail if content is too short' do
-        result = request('/ticket/comment', {
-            content: 'Test',
-            ticketNumber: @ticketNumber,
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token
-        })
-
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_CONTENT')
-    end
-
-    it 'should fail if content is very long' do
-        long_text = ''
-        6000.times {long_text << 'a'}
-
-        result = request('/ticket/comment', {
-            content: long_text,
-            ticketNumber: @ticketNumber,
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token
-        })
-
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_CONTENT')
-    end
-
     it 'should fail if ticket does not exist' do
         result = request('/ticket/comment', {
             content: 'some comment content',

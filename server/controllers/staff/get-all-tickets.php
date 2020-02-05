@@ -64,7 +64,7 @@ class GetAllTicketsStaffController extends Controller {
         $query .= $this->getStaffDepartmentsQueryFilter();
         $query .= $this->getClosedFilter();
         $query .= "ORDER BY CASE WHEN (title LIKE ?) THEN 1 ELSE 2 END ASC, id DESC LIMIT 10 OFFSET " . (($page-1)*10);
-
+        
         return Ticket::find($query, [
             Controller::request('query') . '%',
             '%' . Controller::request('query') . '%',

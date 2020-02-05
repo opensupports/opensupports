@@ -33,11 +33,11 @@ class RecoverMailTemplateController extends Controller {
             'permission' => 'staff_3',
             'requestData' => [
                 'template' => [
-                    'validation' => DataValidator::length(4),
+                    'validation' => DataValidator::notBlank()->length(4),
                     'error' => ERRORS::INVALID_TEMPLATE
                 ],
                 'language' => [
-                    'validation' => DataValidator::length(2, 2),
+                    'validation' => DataValidator::notBlank()->length(2, 2),
                     'error' => ERRORS::INVALID_LANGUAGE
                 ],
             ]

@@ -37,7 +37,11 @@ class EditDepartmentController extends Controller {
                 'departmentId' => [
                     'validation' => DataValidator::dataStoreId('department'),
                     'error' => ERRORS::INVALID_DEPARTMENT
-                ]
+                ],
+                'name' => [
+                    'validation' => DataValidator::notBlank()->length(1, 200),
+                    'error' => ERRORS::INVALID_NAME
+                ],
             ]
         ];
     }

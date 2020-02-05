@@ -31,7 +31,7 @@ class AddDepartmentController extends Controller {
             'permission' => 'staff_3',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::length(2, 100),
+                    'validation' => DataValidator::notBlank()->length(2, 100),
                     'error' => ERRORS::INVALID_NAME
                 ]
             ]

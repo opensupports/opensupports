@@ -121,7 +121,7 @@ describe 'Custom fields' do
         it 'should success and shows all custom fields' do
             Scripts.createTextCustomField('mocktextfield1','description number 1')
             Scripts.createTextCustomField('mocktextfield2','description number 2')
-            Scripts.createTextCustomField('mocktextfield3',nil)
+            Scripts.createTextCustomField('mocktextfield3','description number 3')
 
             result = request('/system/get-custom-fields', {
                 csrf_userid: $csrf_userid,
@@ -147,7 +147,7 @@ describe 'Custom fields' do
             result['data'][2]['description'].should.equal('description number 2')
             result['data'][3]['name'].should.equal('mocktextfield3')
             result['data'][3]['type'].should.equal('text')
-            result['data'][3]['description'].should.equal('')
+            result['data'][3]['description'].should.equal('description number 3')
         end
     end
 

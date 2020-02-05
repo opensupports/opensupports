@@ -56,7 +56,7 @@ class SignUpController extends Controller {
             'permission' => 'any',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::length(2, 55),
+                    'validation' => DataValidator::notBlank()->length(2, 55),
                     'error' => ERRORS::INVALID_NAME
                 ],
                 'email' => [
@@ -64,7 +64,7 @@ class SignUpController extends Controller {
                     'error' => ERRORS::INVALID_EMAIL
                 ],
                 'password' => [
-                    'validation' => DataValidator::length(5, 200),
+                    'validation' => DataValidator::notBlank()->length(5, 200),
                     'error' => ERRORS::INVALID_PASSWORD
                 ]
             ]
