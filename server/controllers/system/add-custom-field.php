@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/add-custom-field Add a custom field
- * @apiVersion 4.5.0
+ * @apiVersion 4.6.1
  *
  * @apiName Add Custom field
  *
@@ -37,8 +37,12 @@ class AddCustomFieldController extends Controller {
             'permission' => 'staff_2',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::length(2, 100),
+                    'validation' => DataValidator::notBlank()->length(2, 100),
                     'error' => ERRORS::INVALID_NAME
+                ],
+                'description' => [
+                    'validation' => DataValidator::notBlank()->length(2, 100),
+                    'error' => ERRORS::INVALID_DESCRIPTION
                 ],
                 'type' => [
                     'validation' => DataValidator::oneOf(

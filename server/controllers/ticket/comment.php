@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/comment Comment ticket
- * @apiVersion 4.5.0
+ * @apiVersion 4.6.1
  *
  * @apiName Comment ticket
  *
@@ -47,7 +47,7 @@ class CommentController extends Controller {
                 'permission' => 'user',
                 'requestData' => [
                     'content' => [
-                        'validation' => DataValidator::length(20, 5000),
+                        'validation' => DataValidator::content(),
                         'error' => ERRORS::INVALID_CONTENT
                     ],
                     'ticketNumber' => [
@@ -61,7 +61,7 @@ class CommentController extends Controller {
                 'permission' => 'any',
                 'requestData' => [
                     'content' => [
-                        'validation' => DataValidator::length(20, 5000),
+                        'validation' => DataValidator::content(),
                         'error' => ERRORS::INVALID_CONTENT
                     ],
                     'ticketNumber' => [
@@ -83,11 +83,10 @@ class CommentController extends Controller {
         $isAuthor = $this->session->isTicketSession() || $this->ticket->isAuthor($this->user);
         $isOwner = $this->ticket->isOwner($this->user);
         $private = Controller::request('private');
-
         if(!Controller::isStaffLogged() && Controller::isUserSystemEnabled() && !$isAuthor){
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
-
+        
         if(!$this->session->isTicketSession() && !$this->user->canManageTicket($this->ticket)) {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }

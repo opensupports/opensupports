@@ -73,7 +73,7 @@
     "html-to-text": "^4.0.0",
     "keycode": "^2.1.4",
     "localStorage": "^1.0.3",
-    "lodash": "^3.10.0",
+    "lodash": "^4.17.15",
     "messageformat": "^0.2.2",
     "qs": "^6.5.2",
     "quill-image-resize-module-react": "^3.0.0",

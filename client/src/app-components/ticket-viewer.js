@@ -59,10 +59,11 @@ class TicketViewer extends React.Component {
         commentEdited: false,
         commentPrivate: false,
         edit: false,
-        editTitle: false,
         editId: 0,
+        tagSelectorLoading: false,
+        editTitle: false,
         newTitle: this.props.ticket.title,
-        editTitleError: false
+        editTitleError: false,
     };
 
     componentDidMount() {
@@ -176,7 +177,14 @@ class TicketViewer extends React.Component {
                                   onChange={this.onDepartmentDropdownChanged.bind(this)} />
                     </div>
                     <div className="col-md-4">{ticket.author.name}</div>
-                    <div className="col-md-4"> <TagSelector items={this.props.tags} values={this.props.ticket.tags} onRemoveClick={this.removeTag.bind(this)} onTagSelected={this.addTag.bind(this)}/></div>
+                    <div className="col-md-4">
+                        <TagSelector
+                            items={this.props.tags}
+                            values={this.props.ticket.tags}
+                            onRemoveClick={this.removeTag.bind(this)}
+                            onTagSelected={this.addTag.bind(this)}
+                            loading={this.state.tagSelectorLoading}/>
+                    </div>
                 </div>
                 <div className="ticket-viewer__info-row-header row">
                     <div className="col-md-4">{i18n('PRIORITY')}</div>
@@ -185,7 +193,11 @@ class TicketViewer extends React.Component {
                 </div>
                 <div className="ticket-viewer__info-row-values row">
                     <div className="col-md-4">
-                        <DropDown className="ticket-viewer__editable-dropdown" items={priorityList} selectedIndex={priorities[ticket.priority]} onChange={this.onPriorityDropdownChanged.bind(this)} />
+                        <DropDown
+                            className="ticket-viewer__editable-dropdown"
+                            items={priorityList}
+                            selectedIndex={priorities[ticket.priority]}
+                            onChange={this.onPriorityDropdownChanged.bind(this)} />
                     </div>
                     <div className="col-md-4">
                         {this.renderAssignStaffList()}
@@ -510,23 +522,47 @@ class TicketViewer extends React.Component {
     }
 
     addTag(tag) {
+        this.setState({
+            tagSelectorLoading: true,
+        })
         API.call({
             path: '/ticket/add-tag',
             data: {
                 ticketNumber: this.props.ticket.ticketNumber,
                 tagId: tag
             }
-        }).then(this.onTicketModification.bind(this))
+        })
+        .then(() => {
+            this.setState({
+                tagSelectorLoading: false,
+            });
+            this.onTicketModification();
+        })
+        .catch(() => this.setState({
+            tagSelectorLoading: false,
+        }))
     }
 
     removeTag(tag) {
+        this.setState({
+            tagSelectorLoading: true,
+        });
+
         API.call({
             path: '/ticket/remove-tag',
             data: {
                 ticketNumber: this.props.ticket.ticketNumber,
                 tagId: tag
             }
-        }).then(this.onTicketModification.bind(this))
+        }).then(() => {
+            this.setState({
+                tagSelectorLoading: false,
+            });
+
+            this.onTicketModification();
+        }).catch(() => this.setState({
+            tagSelectorLoading: false,
+        }))
     }
 
     onCustomResponsesChanged({index}) {
@@ -635,14 +671,14 @@ class TicketViewer extends React.Component {
             {content: 'None', id: 0}
         ];
 
-        if(_.any(userDepartments, {id: ticketDepartmentId})) {
+        if(_.some(userDepartments, {id: ticketDepartmentId})) {
             staffAssignmentItems.push({content: i18n('ASSIGN_TO_ME'), id: userId});
         }
 
         staffAssignmentItems = staffAssignmentItems.concat(
             _.map(
                 _.filter(staffMembers, ({id, departments}) => {
-                    return (id != userId) && _.any(departments, {id: ticketDepartmentId});
+                    return (id != userId) && _.some(departments, {id: ticketDepartmentId});
                 }),
                 ({id, name}) => ({content: name, id})
             )

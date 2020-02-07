@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/edit Edit staff
- * @apiVersion 4.5.0
+ * @apiVersion 4.6.1
  *
  * @apiName Edit staff
  *
@@ -42,7 +42,7 @@ class EditStaffController extends Controller {
                     'error' => ERRORS::INVALID_EMAIL
                 ],
                 'password' => [
-                    'validation' => DataValidator::oneOf(DataValidator::length(5, 200), DataValidator::falseVal()),
+                    'validation' => DataValidator::oneOf(DataValidator::notBlank()->length(5, 200), DataValidator::falseVal()),
                     'error' => ERRORS::INVALID_PASSWORD
                 ],
                 'level' => [

@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/test-smtp Test SMTP Connection
- * @apiVersion 4.5.0
+ * @apiVersion 4.6.1
  *
  * @apiName Test SMTP Connection
  *
