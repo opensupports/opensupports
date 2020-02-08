@@ -191,6 +191,8 @@ class DropDown extends React.Component {
                 }
             },
             'enter': () => {
+                event.preventDefault();
+
                 if (opened) {
                     this.onIndexSelected(highlightedIndex);
                 } else {
