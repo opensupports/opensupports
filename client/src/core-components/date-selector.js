@@ -11,6 +11,7 @@ class DateSelector extends React.Component {
     render() {
         return (
             <input
+                className="date-selector"
                 type="date"
                 value={this.parseDate(this.props.value)}
                 onChange={event => this.onChangeDate(event.target.value)} />
@@ -21,7 +22,7 @@ class DateSelector extends React.Component {
         const { onChange, } = this.props;
         let date = inputDate;
         if(inputDate !== "") {
-            date = JSON.parse(inputDate.replace(/-/g, ""));
+            date = inputDate.replace(/-/g, "")*1;
         }
         onChange && onChange(date);
     }

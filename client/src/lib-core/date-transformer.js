@@ -29,6 +29,23 @@ export default {
         let newDate = Year.concat(Month.concat(Day));
 
         return newDate*1;
-    }
+    },
 
+    getDefaultDateRange(range = undefined) {
+        let newDateRange = range;
+
+        if(range) {
+            let dateRange = JSON.parse(range);
+            let startDate = dateRange[0];
+            let endDate = dateRange[1];
+            let valid = true;
+            newDateRange = {
+                startDate: startDate,
+                endDate: endDate,
+                valid: valid
+            }
+        }
+
+        return newDateRange;
+    }
 };

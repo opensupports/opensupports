@@ -1,6 +1,22 @@
 @import '../scss/vars';
 
 .ticket-query-filters {
+    &__search-box {
+        width:  100%;
+        padding: 0 50px;
+        margin-bottom: 30px;
+    }
+
+    &__group {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    &__title {
+        padding-bottom: 10px;
+    }
 
     &__container {
         display: flex;

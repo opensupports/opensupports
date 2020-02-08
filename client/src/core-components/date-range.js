@@ -1,23 +1,25 @@
 import React from 'react';
 import _ from 'lodash';
 
-import DateTransformer from 'lib-core/date-transformer';
-
 import DateSelector from './date-selector';
+
+const ItemsSchema = React.PropTypes.shape({
+    startDate: React.PropTypes.number,
+    endDate: React.PropTypes.number,
+    valid: React.PropTypes.bool,
+});
 
 class DateRange extends React.Component {
 
-    static defaultProps = {
-        value: {
-            startDate: 20170101,
-            endDate: DateTransformer.getDateToday(),
-            valid: false,
-        },
+    static propTypes = {
+        defaultValue: ItemsSchema,
+        value: ItemsSchema,
+        onChange: React.PropTypes.func,
     }
 
     render() {
         return (
-            <div>
+            <div className="date-range">
                 <DateSelector
                     value={this.props.value.startDate}
                     onChange={this.onChange.bind(this, 'startDate')} />
@@ -38,8 +40,9 @@ class DateRange extends React.Component {
     }
 
     dateCompare(dateRange) {
-        let startDate = dateRange.startDate === "" ? 20170101 : dateRange.startDate;
-        let endDate = dateRange.endDate === "" ? DateTransformer.getDateToday() : dateRange.endDate;
+        const { defaultValue, } = this.props;
+        let startDate = dateRange.startDate === "" ? defaultValue.startDate : dateRange.startDate;
+        let endDate = dateRange.endDate === "" ? defaultValue.endDate : dateRange.endDate;
         let isValidRange = startDate <= endDate;
         return isValidRange;
     }
