@@ -31,7 +31,8 @@ class SearchBox extends React.Component {
     static propTypes = {
         onSearch: React.PropTypes.func,
         placeholder: React.PropTypes.string,
-        searchOnType: React.PropTypes.bool
+        searchOnType: React.PropTypes.bool,
+        value: React.PropTypes.string
     };
 
     state = {
@@ -44,7 +45,7 @@ class SearchBox extends React.Component {
             <div className={this.getClass()}>
                 <Input
                     className="search-box__text"
-                    value={this.state.value}
+                    value={this.getValue()}
                     placeholder={this.props.placeholder}
                     onChange={this.onChange.bind(this)}
                     onKeyDown={this.onKeyDown.bind(this)} />
@@ -63,6 +64,10 @@ class SearchBox extends React.Component {
         classes[this.props.className] = (this.props.className);
 
         return classNames(classes);
+    }
+
+    getValue() {
+        return (this.props.value !== undefined) ? this.props.value : this.state.value;
     }
 
     onChange(event) {
