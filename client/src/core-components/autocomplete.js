@@ -19,7 +19,7 @@ class Autocomplete extends React.Component {
         onChange: React.PropTypes.func,
         values: ItemsSchema,
         onRemoveClick: React.PropTypes.func,
-        onTagSelected: React.PropTypes.func,
+        onItemSelected: React.PropTypes.func,
         getItemListFromQuery: React.PropTypes.func,
         disabled: React.PropTypes.bool,
     };
@@ -159,12 +159,12 @@ class Autocomplete extends React.Component {
     onChangeDropDown(e) {
         const {
             onChange,
-            onTagSelected,
+            onItemSelected,
         } = this.props;
 
         if(this.getDropdownList().length) {
-            const itemSelected = this.getDropdownList()[e.index];
-            const newList = [...this.getSelectedItems(), itemSelected];
+            const selectedItem = this.getDropdownList()[e.index];
+            const newList = [...this.getSelectedItems(), selectedItem];
 
             this.setState({
                 selectedItems: newList,
@@ -174,7 +174,7 @@ class Autocomplete extends React.Component {
             });
 
             onChange && onChange(newList);
-            onTagSelected && onTagSelected(itemSelected.id);
+            onItemSelected && onItemSelected(selectedItem.id);
             this.searchApi("", newList);
         }
     }
