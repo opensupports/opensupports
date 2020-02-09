@@ -234,7 +234,6 @@ abstract class Controller {
         $fileUploader->setMaxSize($maxSize);
 
         if($fileUploader->upload('file')) {
-
             return $fileUploader;
         } else {
             throw new RequestException(ERRORS::INVALID_FILE);
@@ -248,5 +247,41 @@ abstract class Controller {
 
     public static function isUserSystemEnabled() {
         return Setting::getSetting('user-system-enabled')->getValue();
+    }
+
+    public static function getCustomFieldValues() {
+        $customFields = Customfield::getAll();
+        $customFieldValues = new DataStoreList();
+        foreach($customFields as $customField) {
+            $value = Controller::request('customfield_' . str_replace(' ', '_', $customField->name));
+            if($value !== null) {
+                $customFieldValue = new Customfieldvalue();
+                $customFieldValue->setProperties([
+                    'customfield' => $customField,
+                ]);
+
+                if($customField->type == 'select') {
+                    $ok = false;
+                    foreach($customField->ownCustomfieldoptionList as $option) {
+                        if($option->name == $value) {
+                            $customFieldValue->setProperties([
+                                'customfieldoption' => $option,
+                                'value' => $option->name,
+                            ]);
+                            $ok = true;
+                        }
+                    }
+                    if(!$ok)
+                        throw new RequestException(ERRORS::INVALID_CUSTOM_FIELD_OPTION);
+                } else {
+                    $customFieldValue->setProperties([
+                        'value' => $value,
+                    ]);
+                }
+
+                $customFieldValues->add($customFieldValue);
+            }
+        }
+        return $customFieldValues;
     }
 }

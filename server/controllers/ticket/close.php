@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/close Close ticket
- * @apiVersion 4.3.2
+ * @apiVersion 4.5.0
  *
  * @apiName Close
  *
@@ -61,12 +61,14 @@ class CloseController extends Controller {
 
     public function handler() {
         $this->ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
+        $user = Controller::getLoggedUser();
 
-        if(
-          (Controller::isUserSystemEnabled() || Controller::isStaffLogged()) &&
-          !$this->ticket->isOwner(Controller::getLoggedUser()) &&
-          !$this->ticket->isAuthor(Controller::getLoggedUser())
-        ) {
+        if(!Controller::isStaffLogged() && Controller::isUserSystemEnabled() &&
+           !$user->canManageTicket($this->ticket)){
+            throw new RequestException(ERRORS::NO_PERMISSION);
+        }
+
+        if(Controller::isStaffLogged() && (!$user->canManageTicket($this->ticket))){
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 

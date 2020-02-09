@@ -1,4 +1,4 @@
-import _ from 'lodash';
+const _ = require('lodash');
 
 module.exports = [
     {
@@ -159,6 +159,7 @@ module.exports = [
                     email: 'kurt@currycurrylady.hs',
                     verified: false,
                     sendEmailOnNewTicket: true,
+                    customfields: [],
                     tickets: _.times(13).map(() => {
                         return {
                             ticketNumber: '118551',
@@ -379,6 +380,7 @@ module.exports = [
                     name: 'Haskell Curry',
                     email: 'haskell@lambda.com',
                     sendEmailOnNewTicket: true,
+                    customfields: [],
                     tickets: [
                         {
                             ticketNumber: '445441',

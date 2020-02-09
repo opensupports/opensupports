@@ -14,7 +14,7 @@ module.exports = [
                         'title': 'Support Center',
                         'layout': 'boxed',
                         'time-zone': 3,
-                        'no-reply-email': 'shitr@post.com',
+                        'server-email': 'shitr@post.com',
                         'smtp-host': 'localhost',
                         'smtp-port': '7070',
                         'smtp-user': 'Wesa',
@@ -34,6 +34,7 @@ module.exports = [
                         'automatic-upgrades': 1,
                         'staffLimit': 5,
                         'staffOverLimit': 0,
+                        'tags': [{id:1,name:'bug', color:'#eb144c'},{id: 2,name:'suggestion',color:'#ff6900'}],
                     }
                 };
 
@@ -57,6 +58,7 @@ module.exports = [
                         'user-system-enabled': 1,
                         'staffLimit': 5,
                         'staffOverLimit': 0,
+                        'tags': [{id:1,name:'bug', color:'#eb144c'},{id: 2,name:'suggestion',color:'#ff6900'}],
                     }
                 };
             }
@@ -535,5 +537,10 @@ module.exports = [
                 ]
             };
         }
+    },
+    {
+        path: '/system/get-custom-fields',
+        time: 100,
+        data: []
     }
 ];

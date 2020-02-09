@@ -12,7 +12,14 @@ const TicketList = requireUnit('app-components/ticket-list', {
     'core-components/button': Button,
     'core-components/tooltip': Tooltip,
     'app-components/department-dropdown': DepartmentDropdown,
-    'lib-app/i18n': i18n
+    'lib-app/i18n': i18n,
+    'react-redux': {
+        connect: function() {
+            return function(param) {
+                return param;
+            }
+        }
+    },
 });
 
 describe('TicketList component', function () {
@@ -32,7 +39,8 @@ describe('TicketList component', function () {
             author: {
                 id: 3,
                 name: 'Francisco Villegas'
-            }
+            },
+            tags: []
         };
         let list = _.range(5).map(() => ticket);
 

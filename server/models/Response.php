@@ -5,14 +5,14 @@ class Response {
     private static $failed;
     private static $called = false;
 
-    public static function respondError($errorMsg, $exception = null) {
+    public static function respondError($errorMsg, $exception = null, $data = null) {
         self::$called = true;
         self::$failed = true;
         self::$response = array(
             'status' => 'fail',
             'session_id' => session_id(),
             'message' => $errorMsg,
-            'data' => null
+            'data' => $data
         );
         self::$responseException = $exception;
 

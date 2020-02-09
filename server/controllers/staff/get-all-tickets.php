@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/get-all-tickets Get all tickets according to search
- * @apiVersion 4.3.2
+ * @apiVersion 4.5.0
  *
  * @apiName Get all tickets
  *
@@ -50,7 +50,7 @@ class GetAllTicketsStaffController extends Controller {
             ]);
             return;
         }
-
+        
         Response::respondSuccess([
             'tickets' => $this->getTicketList()->toArray(true),
             'pages' => $this->getTotalPages()

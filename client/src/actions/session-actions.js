@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import API from 'lib-app/api-call';
 import AdminDataActions from 'actions/admin-data-actions';
+import ConfigActions from 'actions/config-actions';
 import sessionStore from 'lib-app/session-store';
 import store from 'app/store';
 
@@ -15,11 +16,13 @@ export default {
                         path: '/user/login',
                         data: _.extend(loginData, {remember: loginData.remember * 1})
                     }).then((result) => {
-                        store.dispatch(this.getUserData(result.data.userId, result.data.token, result.data.staff)).then(() => {
-                            if(result.data.staff) {
-                                store.dispatch(AdminDataActions.retrieveCustomResponses());
-                            }
-                        });
+                        store.dispatch(this.getUserData(result.data.userId, result.data.token, result.data.staff))
+                            .then(() => store.dispatch(ConfigActions.updateData()))
+                            .then(() => {
+                                if(result.data.staff) {
+                                    store.dispatch(AdminDataActions.retrieveCustomResponses());
+                                }
+                            });
 
                         resolve(result);
                     }).catch((result) => {
@@ -54,7 +57,7 @@ export default {
                 }
             }).then((result) => {
                 store.dispatch(this.getUserData(result.data.userId, result.data.token));
-
+                
                 return result;
             })
         };

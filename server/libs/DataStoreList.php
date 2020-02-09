@@ -16,6 +16,11 @@ class DataStoreList implements IteratorAggregate {
         return new ArrayIterator($this->list);
     }
 
+    public function first() {
+        if(count($this->list)) return $this->list[0];
+        else return new NullDataStore();
+    }
+
     public function add(DataStore $dataStore) {
         $this->list[] = $dataStore;
     }

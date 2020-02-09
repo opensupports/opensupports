@@ -1,6 +1,6 @@
 ![OpenSupports](http://www.opensupports.com/logo.png)
 
-[![Build Status](https://travis-ci.org/opensupports/opensupports.svg?branch=master)](https://travis-ci.org/opensupports/opensupports) v4.3.2
+[![Build Status](https://travis-ci.org/opensupports/opensupports.svg?branch=master)](https://travis-ci.org/opensupports/opensupports) v4.5.0
 
 OpenSupports is an open source ticket system built primarily with PHP and ReactJS.
 Please, visit our website for more information: [http://www.opensupports.com/](http://www.opensupports.com/)
@@ -20,28 +20,25 @@ Here is a guide of how to set up the development environment in OpenSupports.
     - `curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -`
     - `sudo apt-get install -y nodejs`
 4. Install npm: `sudo apt-get install npm`
-5. Install gulp: `sudo npm install -g gulp`
-6. Go to client: `cd opensupports/client`
-7. Install dependencies: `npm install`
-8. Rebuild node-sass: `npm rebuild node-sass`
-9. Run: `gulp dev`
+5. Go to client: `cd opensupports/client`
+6. Install dependencies: `npm install`
+7. Rebuild node-sass: `npm rebuild node-sass`
+8. Run: `npm start` (PHP server api it must be running at :8080)
 10. Go to the main app: `http://localhost:3000/app` or to the component demo `http://localhost:3000/demo`
 11. Your browser will automatically be opened and directed to the browser-sync proxy address.
-12. Use `gulp dev --api` to disable fixtures and use the real PHP server api (it must be running at :8080).
+12. Use `npm start-fixtures` to enable fixtures and not require php server to be running.
 
-Now that `gulp dev` is running, the server is up as well and serving files from the `/build` directory. Any changes in the `/src` directory will be automatically processed by Gulp and the changes will be injected to any open browsers pointed at the proxy address.
-
-OpenSupport uses by default the port 3000, but this port could already be used. If this is the case, you can modify this in the file: `client/gulp/config.js`.
+OpenSupport uses by default the port 3000, but this port could already be used. If this is the case, you can modify this in the file: `client/webpack.config.js`.
 
 ##### Production Task
 
-Just as there is a `gulp dev` task for development, there is also a `gulp prod` task for putting the project into a production-ready state. This will run each of the tasks, while also adding the image minification task discussed above.
+Just as there is a task for development, there is also a `npm build` task for putting the project into a production-ready state. This will run each of the tasks, while also adding the image minification task discussed above and the result store in `dist/` folder.
 
 **Reminder:** Notice there is `index.html` and `index.php`. The first one searches the backend server where `config.js` says it, the second one uses `/api` to find the server. If you want to run OpenSupports in a single server, then use `index.php`.
 
 #### Frontend Unit Testing
 1. Do the steps described before.
-2. Install mocha: `sudo npm install -g mocha`
+2. Install mocha: `npm install -g mocha@6.2.0`
 3. Run `npm test` to run the tests.
 
 ### Getting up and running BACK-END (server folder)

@@ -30,5 +30,10 @@ $systemControllerGroup->addController(new CSVImportController);
 $systemControllerGroup->addController(new DisableUserSystemController);
 $systemControllerGroup->addController(new EnableUserSystemController);
 $systemControllerGroup->addController(new TestSMTPController);
+$systemControllerGroup->addController(new TestIMAPController);
+$systemControllerGroup->addController(new EmailPollingController);
+$systemControllerGroup->addController(new AddCustomFieldController);
+$systemControllerGroup->addController(new DeleteCustomFieldController);
+$systemControllerGroup->addController(new GetCustomFieldsController);
 
 $systemControllerGroup->finalize();

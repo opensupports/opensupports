@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /staff/get Get staff
- * @apiVersion 4.3.2
+ * @apiVersion 4.5.0
  *
  * @apiName Get staff
  *
@@ -69,7 +69,7 @@ class GetStaffController extends Controller {
             'level' => $user->level,
             'staff' => true,
             'departments' => $parsedDepartmentList,
-            'tickets' => $user->sharedTicketList->toArray(),
+            'tickets' => $user->sharedTicketList->toArray(true),
             'sendEmailOnNewTicket' => $user->sendEmailOnNewTicket
         ]);
     }

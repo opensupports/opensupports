@@ -6,7 +6,15 @@ abstract class DataStore {
     protected $properties = [];
 
     public static function isTableEmpty() {
-        return (RedBean::count(static::TABLE) === 0);
+        try {
+            return (RedBean::count(static::TABLE) === 0);
+        } catch(\Exception $e) {
+            return true;
+        }
+    }
+
+    public static function getFetchAs() {
+        return [];
     }
 
     public static function getDataStore($value, $property = 'id') {
@@ -112,7 +120,13 @@ abstract class DataStore {
     }
 
     private function parseBeanProp($prop) {
-        $parsedProp = $this->_bean[$prop];
+        $fetchAs = static::getFetchAs();
+
+        if(array_key_exists($prop, $fetchAs)) {
+            $parsedProp = $this->_bean->fetchAs($fetchAs[$prop])[$prop];
+        } else {
+            $parsedProp = $this->_bean[$prop];
+        }
 
         if (strpos($prop, 'List')) {
             $parsedProp = DataStoreList::getList($this->getListType($prop), $parsedProp);
@@ -173,6 +187,7 @@ abstract class DataStore {
 
         $listType = str_replace('List', '', $listType);
         $listType = str_replace('shared', '', $listType);
+        $listType = str_replace('xown', '', $listType);
         $listType = str_replace('own', '', $listType);
 
         return $listType;

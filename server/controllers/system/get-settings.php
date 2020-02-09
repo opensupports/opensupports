@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /system/get-settings Get settings
- * @apiVersion 4.3.2
+ * @apiVersion 4.5.0
  *
  * @apiName Get settings
  *
@@ -33,6 +33,7 @@ class GetSettingsController extends Controller {
         $settingsList = [];
         $captchaValues = Setting::getCaptchaValues();
         $smtpValues = Setting::getSMTPValues();
+        $imapValues = Setting::getIMAPValues();
 
         if(InstallationDoneController::isInstallationDone()) {
             if(Controller::request('allSettings') && Controller::isStaffLogged(3)) {
@@ -53,13 +54,17 @@ class GetSettingsController extends Controller {
                     'smtp-host' => ($smtpValues['isDefault']) ? 'DEFAULT' : $smtpValues['smtp-host'],
                     'smtp-port' => ($smtpValues['isDefault']) ? 'DEFAULT' : $smtpValues['smtp-port'],
                     'smtp-user' => ($smtpValues['isDefault']) ? 'DEFAULT' : $smtpValues['smtp-user'],
-                    'no-reply-email' => ($smtpValues['isDefault']) ? 'DEFAULT' : $smtpValues['no-reply-email'],
+                    'server-email' => ($smtpValues['isDefault']) ? 'DEFAULT' : $smtpValues['server-email'],
+                    'imap-host' => ($imapValues['isDefault']) ? 'DEFAULT' : Setting::getSetting('imap-host')->getValue(),
+                    'imap-user' => ($imapValues['isDefault']) ? 'DEFAULT' : Setting::getSetting('imap-user')->getValue(),
+                    'imap-token' => ($imapValues['isDefault']) ? 'DEFAULT' : Setting::getSetting('imap-token')->getValue(),
                     'registration' => Setting::getSetting('registration')->getValue(),
                     'departments' => Department::getAllDepartmentNames(),
                     'supportedLanguages' => Language::getSupportedLanguages(),
                     'allowedLanguages' => Language::getAllowedLanguages(),
                     'session-prefix' => Setting::getSetting('session-prefix')->getValue(),
                     'mail-template-header-image' => Setting::getSetting('mail-template-header-image')->getValue(),
+                    'tags' => Tag::getAll()->toArray(),
                 ];
             } else {
                 $settingsList = [
@@ -79,6 +84,7 @@ class GetSettingsController extends Controller {
                     'allowedLanguages' => Language::getAllowedLanguages(),
                     'user-system-enabled' => intval(Setting::getSetting('user-system-enabled')->getValue()),
                     'session-prefix' => Setting::getSetting('session-prefix')->getValue(),
+                    'tags' => Tag::getAll()->toArray(),
                 ];
             }
         }

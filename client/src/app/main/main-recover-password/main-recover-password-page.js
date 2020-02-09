@@ -30,7 +30,7 @@ class MainRecoverPasswordPage extends React.Component {
     render() {
         return (
             <div className="main-recover-password-page">
-                <Widget title={i18n('RECOVER_PASSWORD')} className="col-md-4 col-md-offset-4">
+                <Widget title={this.props.location.query.invited ? i18n('SET_UP_PASSWORD') : i18n('RECOVER_PASSWORD')} className="col-md-4 col-md-offset-4">
                     <Form className="recover-password__form" onSubmit={this.onRecoverPasswordSubmit.bind(this)} loading={this.state.loading}>
                         <div className="recover-password__inputs">
                             <FormField placeholder={i18n('NEW_PASSWORD')} name="password" className="recover-password__input" validation="PASSWORD" fieldProps={{password: true}} required/>
@@ -74,7 +74,7 @@ class MainRecoverPasswordPage extends React.Component {
         }).then(this.onPasswordRecovered.bind(this)).catch(this.onPasswordRecoverFail.bind(this));
     }
 
-    onPasswordRecovered(response) {
+    onPasswordRecovered(response = {data: {}}) {
         setTimeout(() => {history.push((response.data.staff*1) ? '/admin' : '/')}, 2000);
         this.setState({
             recoverStatus: 'valid',

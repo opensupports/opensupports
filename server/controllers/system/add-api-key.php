@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/add-api-key Add APIKey
- * @apiVersion 4.3.2
+ * @apiVersion 4.5.0
  *
  * @apiName Add APIKey
  *
@@ -14,10 +14,12 @@ use Respect\Validation\Validator as DataValidator;
  * @apiPermission staff3
  *
  * @apiParam {String} name Name of the new APIKey.
+ * @apiParam {String} type Type of APIKey: "REGISTRATION" or "TICKET_CREATE"
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_NAME
  * @apiUse NAME_ALREADY_USED
+ * @apiUse INVALID_API_KEY_TYPE
  *
  * @apiSuccess {String} data Token of the APIKey.
  *
@@ -34,6 +36,10 @@ class AddAPIKeyController extends Controller {
                 'name' => [
                     'validation' => DataValidator::length(2, 55)->alnum(),
                     'error' => ERRORS::INVALID_NAME
+                ],
+                'type' => [
+                    'validation' => DataValidator::in(APIKey::TYPES),
+                    'error' => ERRORS::INVALID_API_KEY_TYPE
                 ]
             ]
         ];
@@ -43,6 +49,7 @@ class AddAPIKeyController extends Controller {
         $apiInstance = new APIKey();
 
         $name = Controller::request('name');
+        $type = Controller::request('type');
 
         $keyInstance = APIKey::getDataStore($name, 'name');
 
@@ -51,7 +58,8 @@ class AddAPIKeyController extends Controller {
 
             $apiInstance->setProperties([
                 'name' => $name,
-                'token' => $token
+                'token' => $token,
+                'type' => $type,
             ]);
 
             $apiInstance->store();

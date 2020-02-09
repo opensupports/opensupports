@@ -35,9 +35,9 @@ class LoginControllerTest extends TestCase {
 
     public function testShouldCreateSessionAndRespondSuccessIfCredentialsAreValid() {
         Session::mockInstanceFunction('sessionExists', \Mock::stub()->returns(false));
+        Controller::useValueReturn();
 
         $this->loginController->handler();
-
         $this->assertTrue(!!Session::getInstance()->createSession->hasBeenCalledWithArgs('MOCK_ID', false));
         $this->assertTrue(Response::get('respondSuccess')->hasBeenCalledWithArgs(array(
             'userId' => 'MOCK_ID',

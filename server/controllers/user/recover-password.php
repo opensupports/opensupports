@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/recover-password Recover password
- * @apiVersion 4.3.2
+ * @apiVersion 4.5.0
  *
  * @apiName Recover password
  *
@@ -56,10 +56,6 @@ class RecoverPasswordController extends Controller {
     }
 
     public function handler() {
-        if(!Controller::isUserSystemEnabled()) {
-            throw new RequestException(ERRORS::USER_SYSTEM_DISABLED);
-        }
-
         $this->requestData();
         $this->changePassword();
     }
@@ -69,30 +65,38 @@ class RecoverPasswordController extends Controller {
         $this->token = Controller::request('token');
         $this->password = Controller::request('password');
     }
+
     public function changePassword() {
         $recoverPassword = RecoverPassword::getDataStore($this->token, 'token');
 
+        if($recoverPassword->isNull() || $recoverPassword->email !== $this->email) {
+            throw new RequestException(ERRORS::NO_PERMISSION);
+        }
+
+        if(!Controller::isUserSystemEnabled() && !$recoverPassword->staff) {
+            throw new RequestException(ERRORS::USER_SYSTEM_DISABLED);
+        }
+
         if($recoverPassword->staff) {
             $this->user = Staff::getDataStore($this->email, 'email');
-        }else {
+        } else {
             $this->user = User::getDataStore($this->email, 'email');
         }
 
-        if (!$recoverPassword->isNull() && !$this->user->isNull()) {
-            $recoverPassword->delete();
+        if($this->user->isNull()) throw new RequestException(ERRORS::NO_PERMISSION);
 
-            $this->user->setProperties([
-                'password' => Hashing::hashPassword($this->password)
-            ]);
+        $recoverPassword->delete();
 
-            $this->user->store();
+        $this->user->setProperties([
+            'password' => Hashing::hashPassword($this->password)
+        ]);
 
-            $this->sendMail();
-            Response::respondSuccess(['staff' => $recoverPassword->staff]);
-        } else {
-            throw new RequestException(ERRORS::NO_PERMISSION);
-        }
+        $this->user->store();
+
+        $this->sendMail();
+        Response::respondSuccess(['staff' => $recoverPassword->staff]);
     }
+
     public function sendMail() {
         $mailSender = MailSender::getInstance();
 

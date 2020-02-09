@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/get Get my information
- * @apiVersion 4.3.2
+ * @apiVersion 4.5.0
  *
  * @apiName Get my Information
  *
@@ -54,8 +54,10 @@ class GetUserController extends Controller {
         Response::respondSuccess([
             'name' => $user->name,
             'email' => $user->email,
+            'staff' => false,
             'verified' => !$user->verificationToken,
-            'tickets' => $parsedTicketList
+            'tickets' => $parsedTicketList,
+            'customfields' => $user->xownCustomfieldvalueList->toArray(),
         ]);
     }
 }

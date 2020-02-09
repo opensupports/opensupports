@@ -3,12 +3,13 @@ use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {OBJECT} User User
- * @apiVersion 4.3.2
+ * @apiVersion 4.5.0
  * @apiGroup Data Structures
  * @apiParam {String} email The email of the user.
  * @apiParam {Number} id The id of the user.
  * @apiParam {String} name The name of the user.
  * @apiParam {Boolean} verified Indicates if the user has verified the email.
+ * @apiParam {[CustomField](#api-Data_Structures-ObjectCustomfield)[]} customfields Indicates the values for custom fields.
  */
 
 class User extends DataStore {
@@ -29,7 +30,8 @@ class User extends DataStore {
             'tickets',
             'sharedTicketList',
             'verificationToken',
-            'disabled'
+            'disabled',
+            'xownCustomfieldvalueList'
         ];
     }
 
@@ -41,13 +43,18 @@ class User extends DataStore {
         return parent::getDataStore($value, $property);
     }
 
+    public function canManageTicket(Ticket $ticket){
+        return $ticket->isAuthor($this);
+    }
+
     public function toArray() {
         return [
             'email' => $this->email,
             'id' => $this->id,
             'name' => $this->name,
             'verified' => !$this->verificationToken,
-            'disabled' => $this->disabled
+            'disabled' => $this->disabled,
+            'customfields' => $this->xownCustomfieldvalueList->toArray(),
         ];
     }
 }

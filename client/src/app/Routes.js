@@ -33,12 +33,14 @@ import AdminPanelMyAccount from 'app/admin/panel/dashboard/admin-panel-my-accoun
 import AdminPanelMyTickets from 'app/admin/panel/tickets/admin-panel-my-tickets';
 import AdminPanelNewTickets from 'app/admin/panel/tickets/admin-panel-new-tickets';
 import AdminPanelAllTickets from 'app/admin/panel/tickets/admin-panel-all-tickets';
+import AdminPanelSearchTickets from 'app/admin/panel/tickets/admin-panel-search-tickets';
 import AdminPanelViewTicket from 'app/admin/panel/tickets/admin-panel-view-ticket';
 import AdminPanelCustomResponses from 'app/admin/panel/tickets/admin-panel-custom-responses';
 
 import AdminPanelListUsers from 'app/admin/panel/users/admin-panel-list-users';
 import AdminPanelViewUser from 'app/admin/panel/users/admin-panel-view-user';
 import AdminPanelBanUsers from 'app/admin/panel/users/admin-panel-ban-users';
+import AdminPanelCustomFields from 'app/admin/panel/users/admin-panel-custom-fields';
 
 import AdminPanelListArticles from 'app/admin/panel/articles/admin-panel-list-articles';
 import AdminPanelViewArticle from 'app/admin/panel/articles/admin-panel-view-article';
@@ -49,7 +51,8 @@ import AdminPanelViewStaff from 'app/admin/panel/staff/admin-panel-view-staff';
 
 import AdminPanelSystemPreferences from 'app/admin/panel/settings/admin-panel-system-preferences';
 import AdminPanelAdvancedSettings from 'app/admin/panel/settings/admin-panel-advanced-settings';
-import AdminPanelEmailTemplates from 'app/admin/panel/settings/admin-panel-email-templates';
+import AdminPanelEmailSettings from 'app/admin/panel/settings/admin-panel-email-settings';
+import AdminPanelCustomTags from 'app/admin/panel/settings/admin-panel-custom-tags';
 
 // INSTALLATION
 import InstallLayout from 'app/install/install-layout';
@@ -101,7 +104,7 @@ export default (
             <Route path="admin">
                 <IndexRoute component={AdminLoginPage} />
                 <Route path="panel" component={AdminPanelLayout}>
-                    <IndexRedirect to="stats" />
+                    <IndexRedirect to="activity" />
                     <Route path="stats" component={AdminPanelStats} />
                     <Route path="activity" component={AdminPanelActivity} />
                     <Route path="my-account" component={AdminPanelMyAccount} />
@@ -111,6 +114,7 @@ export default (
                         <Route path="my-tickets" component={AdminPanelMyTickets} />
                         <Route path="new-tickets" component={AdminPanelNewTickets} />
                         <Route path="all-tickets" component={AdminPanelAllTickets} />
+                        <Route path="search-tickets" component={AdminPanelSearchTickets} />
                         <Route path="custom-responses" component={AdminPanelCustomResponses} />
                         <Route path="view-ticket/:ticketNumber" component={AdminPanelViewTicket} />
                     </Route>
@@ -120,6 +124,7 @@ export default (
                         <Route path="list-users" component={AdminPanelListUsers} />
                         <Route path="view-user/:userId" component={AdminPanelViewUser} />
                         <Route path="ban-users" component={AdminPanelBanUsers} />
+                        <Route path="custom-fields" component={AdminPanelCustomFields} />
                     </Route>
 
                     <Route path="articles">
@@ -139,7 +144,8 @@ export default (
                         <IndexRedirect to="system-preferences" />
                         <Route path="system-preferences" component={AdminPanelSystemPreferences} />
                         <Route path="advanced-settings" component={AdminPanelAdvancedSettings} />
-                        <Route path="email-templates" component={AdminPanelEmailTemplates} />
+                        <Route path="email-settings" component={AdminPanelEmailSettings} />
+                        <Route path="custom-tags" component={AdminPanelCustomTags} />
                     </Route>
                 </Route>
             </Route>

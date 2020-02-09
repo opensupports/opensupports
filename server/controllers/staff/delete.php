@@ -4,7 +4,7 @@ use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {post} /staff/delete Delete staff
- * @apiVersion 4.3.2
+ * @apiVersion 4.5.0
  *
  * @apiName Delete staff
  *
@@ -52,18 +52,18 @@ class DeleteStaffController extends Controller {
 
         foreach($staff->sharedTicketList as $ticket) {
             $ticket->owner = null;
-            $ticket->true  = true;
+            $ticket->unreadStaff  = true;
             $ticket->store();
         }
-            
+
         foreach($staff->sharedDepartmentList as $department) {
             $department->owners--;
             $department->store();
         }
-        
+
         RedBean::exec('DELETE FROM log WHERE author_staff_id = ?', [$staffId]);
         $staff->delete();
         Response::respondSuccess();
     }
-    
+
 }

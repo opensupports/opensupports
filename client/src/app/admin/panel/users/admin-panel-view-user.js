@@ -20,6 +20,7 @@ class AdminPanelViewUser extends React.Component {
         email: '',
         verified: true,
         tickets: [],
+        customfields: [],
         invalid: false,
         loading: true,
         disabled: false
@@ -64,6 +65,7 @@ class AdminPanelViewUser extends React.Component {
                             {(!this.state.verified) ? this.renderNotVerified() : null}
                         </div>
                     </div>
+                    {this.state.customfields.map(this.renderCustomField.bind(this))}
                     <div className="admin-panel-view-user__action-buttons">
                         <Button
                             className="admin-panel-view-user__action-button"
@@ -98,6 +100,17 @@ class AdminPanelViewUser extends React.Component {
         );
     }
 
+    renderCustomField(customfield) {
+        return (
+            <div className="admin-panel-view-user__info-item">
+                {customfield.customfield}
+                <div className="admin-panel-view-user__info-box">
+                    {customfield.value}
+                </div>
+            </div>
+        );
+    }
+
     getTicketListProps() {
         return {
             type: 'secondary',
@@ -115,6 +128,7 @@ class AdminPanelViewUser extends React.Component {
             verified: result.data.verified,
             tickets: result.data.tickets,
             disabled: result.data.disabled,
+            customfields: result.data.customfields,
             loading: false
         });
     }

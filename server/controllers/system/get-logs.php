@@ -1,9 +1,10 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
+use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {post} /system/get-logs Get logs
- * @apiVersion 4.3.2
+ * @apiVersion 4.5.0
  *
  * @apiName Get logs
  *

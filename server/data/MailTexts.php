@@ -25,6 +25,12 @@ class MailTexts {
               'Hi, {{name}}. You have requested to recover your password.',
               'Use this code in {{url}}/recover-password?email={{to}}&token={{token}} or click the button below.',
           ],
+          'USER_INVITE' => [
+              'You have been invited - OpenSupports',
+              'You have been invited',
+              'Hi, {{name}}. You have been invited to join our support center.',
+              'Use this code in {{url}}/recover-password?email={{to}}&token={{token}}&invited=true or click the button below to set up your password.'
+          ],
           'USER_SYSTEM_DISABLED' => [
               'Access system changed - OpenSupports',
               'Access system changed',
@@ -84,6 +90,12 @@ class MailTexts {
               '恢复密码',
               '喂 {{name}}。 您已要求恢复密码。',
               '使用此代码 {{url}}/recover-password?email={{to}}&token={{token}} 或单击下面的按钮.',
+          ],
+          'USER_INVITE' => [
+              '您已受邀 - OpenSupports',
+              '您已受邀',
+              '你好, {{name}}. 邀请您加入我们的支持中心.',
+              '使用此代码 {{url}}/recover-password?email={{to}}&token={{token}}&invited=true 或单击下面的按钮来设置密码.'
           ],
           'USER_SYSTEM_DISABLED' => [
               '访问系统更改 - OpenSupports',
@@ -145,6 +157,12 @@ class MailTexts {
               'Hallo, {{name}}. Sie haben aufgefordert, Ihr Passwort wiederherzustellen.',
               'Verwenden Sie diesen Code in {{url}}/recover-password?email={{to}}&token={{token}} oder klicken Sie auf die Schaltfläche unten.',
           ],
+          'USER_INVITE' => [
+              'Du bist eingeladen - OpenSupports',
+              'Du bist eingeladen',
+              'Hallo, {{name}}. Sie wurden zu unserem Support-Center eingeladen.',
+              'Verwenden Sie diesen Code in {{url}}/recover-password?email={{to}}&token={{token}}&invited=true oder klicken Sie auf die Schaltfläche unten, um Ihr Passwort einzurichten.'
+          ],
           'USER_SYSTEM_DISABLED' => [
               'Access system changed - OpenSupports',
               'Zugriffssystem geändert',
@@ -204,6 +222,12 @@ class MailTexts {
               'Recuperar contraseña',
               'Hola, {{name}}. Has requerido recuperar tu contraseña.',
               'Usá este codigo en {{url}}/recover-password?email={{to}}&token={{token}} o hacé click en el botón de abajo.',
+          ],
+          'USER_INVITE' => [
+              'Haz sido invitado - OpenSupports',
+              'Haz sido invitado',
+              'Hola, {{name}}. Haz sido invitado a unirte a nuestro sistema de soporte.',
+              'Usa este código en {{url}}/recover-password?email={{to}}&token={{token}}&invited=true o haz click en el botón de abajo para establecer tu contraseña.'
           ],
           'USER_SYSTEM_DISABLED' => [
               'Sistema de acceso cambiado - OpenSupports',
@@ -265,6 +289,12 @@ class MailTexts {
               'Salut, {{name}}. Vous avez demandé à récupérer votre mot de passe.',
               'Utilisez ce code dans {{url}}/recover-password?email={{to}}&token={{token}} ou cliquez sur le bouton ci-dessous.',
           ],
+          'USER_INVITE' => [
+              'You have been invited - OpenSupports',
+              'You have been invited',
+               'Hi, {{name}}. You have been invited to join our support center.',
+              'Use this code in {{url}}/recover-password?email={{to}}&token={{token}}&invited=true or click the button below to set up your password.'
+          ],
           'USER_SYSTEM_DISABLED' => [
               'Système d\'accès modifié - OpenSupports',
               'Système d\'accès modifié',
@@ -324,6 +354,12 @@ class MailTexts {
               'गोपनीय शब्द पुन प्राप्त करे',
               'नमस्ते {{name}}. आपने अपना पासवर्ड पुनर्प्राप्त करने का अनुरोध किया है',
               'इस कोड का उपयोग करें {{url}}/recover-password?email={{to}}&token={{token}} या नीचे दिए गए बटन पर क्लिक करें.',
+          ],
+          'USER_INVITE' => [
+              'आपको आमंत्रित किया गया है - OpenSupports',
+              'आपको आमंत्रित किया गया है',
+              'नमस्ते, {{name}}. आपको हमारे सहायता केंद्र से जुड़ने के लिए आमंत्रित किया गया है.',
+              'इस कोड का उपयोग करें {{url}}/recover-password?email={{to}}&token={{token}}&invited=true या अपना पासवर्ड सेट करने के लिए नीचे दिए गए बटन पर क्लिक करें.'
           ],
           'USER_SYSTEM_DISABLED' => [
               'sistem akses berubah - OpenSupports',
@@ -385,6 +421,12 @@ class MailTexts {
               'Ciao, {{name}}. Hai richiesto di recuperare la tua password.',
               'Clicca sul link {{url}}/recover-password?email={{to}}&token={{token}} o clicca sul pulsante qui sotto.',
           ],
+          'USER_INVITE' => [
+              'Sei stato invitato - OpenSupports',
+              'Sei stato invitato',
+              'Ciao, {{name}}. Sei stato invitato a far parte del nostro centro di supporto.',
+              'Usa questo codice in {{url}}/recover-password?email={{to}}&token={{token}}&invited=true oppure fai clic sul pulsante in basso per impostare la password.'
+          ],
           'USER_SYSTEM_DISABLED' => [
               'Il sistema di accesso è cambiato - OpenSupports',
               'Modifica sistema di accesso',
@@ -444,6 +486,12 @@ class MailTexts {
               'パスワードを回復',
               'こんにちは、{{name}}。 パスワードの回復を要求しました。',
               'でこのコードを使用 {{url}}/recover-password?email={{to}}&token={{token}} 下のボタンをクリックしてください.',
+          ],
+          'USER_INVITE' => [
+              '招待されました - OpenSupports',
+              '招待されました',
+              'こんにちは, {{name}}. サポートセンターに招待されました.',
+              'このコードを {{url}}/recover-password?email={{to}}&token={{token}}&invited=true または、下のボタンをクリックしてパスワードを設定します.'
           ],
           'USER_SYSTEM_DISABLED' => [
               'アクセスシステムが変更されました - OpenSupports',
@@ -505,6 +553,12 @@ class MailTexts {
               'Olá, {{name}}. Você solicitou a recuperação da sua senha.',
               'Use este código em {{url}}/recover-password?email={{to}}&token={{token}} ou clique no botão abaixo.',
           ],
+          'USER_INVITE' => [
+              'Você foi convidado - OpenSupports',
+              'Você foi convidado',
+              'Oi, {{name}}. Você foi convidado a participar do nosso centro de suporte.',
+              'Use este código em {{url}}/recover-password?email={{to}}&token={{token}}&invited=true ou clique no botão abaixo para configurar sua senha.'
+          ],
           'USER_SYSTEM_DISABLED' => [
               'Sistema de acesso alterado - OpenSupports',
               'Sistema de acesso alterado',
@@ -564,6 +618,12 @@ class MailTexts {
               'Восстановить пароль',
               'Здравствуй, {{name}}. Вы запросили восстановить пароль.',
               'Используйте этот код в {{url}}/recover-password?email={{to}}&token={{token}} или нажмите кнопку ниже.',
+          ],
+          'USER_INVITE' => [
+              'Вы были приглашены - OpenSupports',
+              'Вы были приглашены',
+              'Здравствуй, {{name}}. Вас пригласили присоединиться к нашему центру поддержки.',
+              'Используйте этот код в {{url}}/recover-password?email={{to}}&token={{token}}&invited=true или нажмите кнопку ниже, чтобы установить пароль.'
           ],
           'USER_SYSTEM_DISABLED' => [
               'Система доступа изменена - OpenSupports',
@@ -625,6 +685,12 @@ class MailTexts {
               'Merhaba, {{name}}. Şifrenizi geri yüklemenizi istediniz.',
               'Bu kodu şu adreste kullanın {{url}}/recover-password?email={{to}}&token={{token}} veya aşağıdaki butona tıklayın.',
           ],
+          'USER_INVITE' => [
+              'Davet edildin - OpenSupports',
+              'Davet edildin',
+              'Merhaba, {{name}}. Destek merkezimize katılmaya davet edildiniz.',
+              'Bu kodu {{url}}/recover-password?email={{to}}&token={{token}}&invited=true veya şifrenizi ayarlamak için aşağıdaki butona tıklayın.'
+          ],
           'USER_SYSTEM_DISABLED' => [
               'Erişim sistemi değiştirildi - OpenSupports',
               'Erişim sistemi değiştirildi',
@@ -684,6 +750,12 @@ class MailTexts {
               'Recuperar senha',
               'Olá, {{name}}. Você solicitou a recuperação da sua senha.',
               'Use este código em {{url}}/recover-password?email={{to}}&token={{token}} ou clique no botão abaixo.',
+          ],
+          'USER_INVITE' => [
+              'Você foi convidado - OpenSupports',
+              'Você foi convidado',
+              'Oi, {{name}}. Você foi convidado a participar do nosso centro de suporte.',
+              'Use este código em {{url}}/recover-password?email={{to}}&token={{token}}&invited=true ou clique no botão abaixo para configurar sua senha.'
           ],
           'USER_SYSTEM_DISABLED' => [
               'Sistema de acesso alterado - OpenSupports',
@@ -745,6 +817,12 @@ class MailTexts {
               'Γεια σου, {{name}}. Ζητήσατε να ανακτήσετε τον κωδικό πρόσβασής σας.',
               'Χρησιμοποιήστε αυτόν τον κωδικό στο {{url}} / recover-password? Email = {{to}} & token = {{token}} ή κάντε κλικ στο παρακάτω κουμπί.',
           ],
+          'USER_INVITE' => [
+              'Έχετε προσκληθεί - OpenSupports',
+              'Έχετε προσκληθεί',
+              'Γεια σου, {{name}}. Έχετε προσκληθεί να συμμετάσχετε στο κέντρο υποστήριξής μας.',
+              'Χρησιμοποιήστε αυτόν τον κωδικό στο {{url}}/recover-password?email={{to}}&token={{token}}&invited=true ή κάντε κλικ στο παρακάτω κουμπί για να ρυθμίσετε τον κωδικό πρόσβασής σας.'
+          ],
           'USER_SYSTEM_DISABLED' => [
             'Το σύστημα πρόσβασης άλλαξε - OpenSupports',
             'Το σύστημα πρόσβασης άλλαξε',
@@ -805,6 +883,12 @@ class MailTexts {
               'Hallo, {{name}}. U heeft een verzoek gedaan om uw wachtwoord te resetten.',
               'Gebruik deze code {{url}}/recover-password?email={{to}}&token={{token}} of klik op de knop hieronder.'
           ],
+          'USER_INVITE' => [
+              'Je bent uitgenodigd - OpenSupports',
+              'Je bent uitgenodigd',
+              'Hallo, {{name}}. U bent uitgenodigd om lid te worden van ons ondersteuningscentrum.',
+              'Gebruik deze code in {{url}}/recover-password?email={{to}}&token={{token}}&invited=true of klik op de onderstaande knop om uw wachtwoord in te stellen.'
+          ],
           'USER_SYSTEM_DISABLED' => [
             'Toegangssysteem gewijzigd - OpenSupports',
             'Toegang tot incidenten is gewijzigd',
@@ -825,9 +909,9 @@ class MailTexts {
           ],
           'TICKET_RESPONDED' => [
               '#{{ticketNumber}} Nieuw antwoord - OpenSupports',
-              'Το εισιτήριο ανταποκρίθηκε',
-              'Χαίρετε,{{name}}. Έχετε λάβει μια απάντηση στο εισιτήριο με τίτλο <i>{{title}}</i>.',
-              'Κάντε κλικ παρακάτω για να δείτε τη νέα απάντηση.'
+              'Nieuw antwoord',
+              'Hallo, {{name}}. Een incident met onderwerp <i>{{title}}</i> heeft eeb nieuw antwoord.',
+              'U kunt dit incident bekijken via het incidentnummer. Of klik op de knop hieronder.'
           ],
           'TICKET_CLOSED' => [
              '#{{ticketNumber}} Incident gesloten - OpenSupports',
@@ -840,6 +924,72 @@ class MailTexts {
               'Incident is gesloten',
               'Hallo, {{name}}. Een incident met onderwerp <i>{{title}}</i> is gesloten.',
               'U kunt dit incident bekijken via het incidentnummer. Of klik op de knop hieronder.',
+          ],
+        ],
+        'pl' => [
+          'USER_SIGNUP' => [
+              'Signup {{to}} - OpenSupports',
+              'Zweryfikuj swoje konto',
+              'Witamy w naszym centrum pomocy, {{name}}!. Musisz zweryfikować tego maila, aby uzyskać dostęp do swojego konta.',
+              'Użyj kodu weryfikacyjnego{{url}}/tokena weryfikacji/{{to}}/{{verificationToken}} lub kliknij przycisk poniżej.',
+          ],
+          'USER_PASSWORD' => [
+              'Edycja hasła - OpenSupports',
+              'Hasło zostało zmienione',
+              'Hej, {{name}}. Twoje hasło zostało zmienione w panelu Klienta.'
+          ],
+          'USER_EMAIL' => [
+              'Edycja e-mail - OpenSupports',
+              'Mail został zmieniony',
+              'Hej, {{name}}. Twój adres e-mail został zmieniony na {{newemail}} w panelu Klienta.'
+          ],
+          'PASSWORD_FORGOT' => [
+              'Odzyskaj hasło - OpenSupports',
+              'Hasło odzyskane',
+              'Hej, {{name}}. Zażądałeś odzyskania hasła.',
+              'Użyj tego linka {{url}}/recover-password?email={{to}}&token={{token}} lub kliknij przycisk poniżej.',
+          ],
+          'USER_INVITE' => [
+              'Zostałeś zaproszony - OpenSupports',
+              'Zostałeś zaproszony',
+              'Hej, {{name}}. Zaproszono Cię do dołączenia do naszego centrum wsparcia.',
+              'Użyj tego kodu w {{url}}/recover-password?email={{to}}&token={{token}}&invited=true lub kliknij przycisk poniżej, aby ustawić hasło.'
+          ],
+          'USER_SYSTEM_DISABLED' => [
+              'Zmieniono dostęp do systemu - OpenSupports',
+              'Zmieniono dostęp do systemu',
+              'Hello, {{name}}. System dostępu do zgłoszeń uległ zmianie',
+              'Możesz uzyskać dostęp do swoich zgoszeń i sprawdzić je, używając adresu e-mail i numeru zgłoszenia. Kliknij poniższy przyciś, aby zobaczyć swoje zgłoszenia.',
+          ],
+          'USER_SYSTEM_ENABLED' => [
+              'Twporzenie konta - OpenSupports',
+              'Konto zostało utworzone',
+              'Hello, {{name}}. Stworzyliśmy konto, na którym możesz uzyskać dostęp do wysłanych przez Ciebie zgłoszeń.',
+              'Możesz uzyskać dostęp do swojego konta za pomocą tego e-maila <i>({{to}})</i> i hasła poniżej. Zmień hasło zaraz po zalogowaniu',
+          ],
+          'TICKET_CREATED' => [
+              '#{{ticketNumber}} Tworzenie zgłoszenia - OpenSupports',
+              'Zgłoszenie utworzono',
+              'Hello, {{name}}. Wysłałeś nowe zgłoszenie zatytułowane <i>{{title}}</i> do naszego centrum pomocy.',
+              'Możesz uzyskać dostęp do zgłoszenia poprzez jego numer lub kliknij w przycisk poniżej.',
+          ],
+          'TICKET_RESPONDED' => [
+              '#{{ticketNumber}} Nowa odpowiedź - OpenSupports',
+              'Odpowiedź na zgłoszenie',
+              'Hello, {{name}}. Otrzymałeś odpowiedź na zgłoszenie zatytułowane <i>{{title}}</i>.',
+              'Kliknij poniżej, aby zobaczyć nową odpowiedź.'
+          ],
+          'TICKET_CLOSED' => [
+             '#{{ticketNumber}} Zamknięcie zgłoszenia - OpenSupports',
+              'Zgłoszenie zamknięto',
+              'Hello, {{name}}. Zgłoszenie pod tytułem <i>{{title}}</i> zostało zamknięte.',
+              'Możesz uzyskać dostęp do zgłoszenia poprzez jego numer lub kliknij w przycisk poniżej.'
+          ],
+          'TICKET_CREATED_STAFF' => [
+              '#{{ticketNumber}} Utworzono zgłoszenie - OpenSupports',
+              'Zgłoszenie utworzono',
+              'Użytkownik {{name}} utworzył nowe zgłoszenie pod tytułem <i>{{title}}</i>.',
+              'Możesz uzyskać dostęp do zgłoszenia po jego numerze.',
           ],
         ],
     ];

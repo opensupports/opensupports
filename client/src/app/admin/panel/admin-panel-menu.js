@@ -76,7 +76,7 @@ class AdminPanelMenu extends React.Component {
 
     getGroupItemIndex() {
         const group = this.getRoutes()[this.getGroupIndex()];
-        const pathname = this.props.location.pathname;
+        const pathname = this.props.location.pathname + this.props.location.search;
 
         return _.findIndex(group.items, {path: pathname});
     }
@@ -90,19 +90,35 @@ class AdminPanelMenu extends React.Component {
         return (groupIndex === -1) ? 0 : groupIndex;
     }
 
+    getCustomlists() {
+        if(window.customTicketList){
+            return window.customTicketList.map((item, index) => {
+                    return {
+                        name: item.title,
+                        path: '/admin/panel/tickets/search-tickets?custom=' + index,
+                        level: 1
+                    }
+            })
+        } else {
+            return [];
+        }
+    }
+
     getRoutes() {
-        return this.getItemsByFilteredByLevel([
+        const customLists = this.getCustomlists();
+
+        return this.getItemsByFilteredByLevel(_.without([
             {
                 groupName: i18n('DASHBOARD'),
                 path: '/admin/panel',
                 icon: 'tachometer',
                 level: 1,
                 items: this.getItemsByFilteredByLevel([
-                    {
+                    /*{
                         name: i18n('STATISTICS'),
                         path: '/admin/panel/stats',
                         level: 1
-                    },
+                    },*/
                     {
                         name: i18n('LAST_ACTIVITY'),
                         path: '/admin/panel/activity',
@@ -135,10 +151,11 @@ class AdminPanelMenu extends React.Component {
                         name: i18n('CUSTOM_RESPONSES'),
                         path: '/admin/panel/tickets/custom-responses',
                         level: 2
-                    }
+                    },
+                    ...customLists
                 ])
             },
-            {
+            this.props.config['user-system-enabled'] ? {
                 groupName: i18n('USERS'),
                 path: '/admin/panel/users',
                 icon: 'user',
@@ -153,9 +170,14 @@ class AdminPanelMenu extends React.Component {
                         name: i18n('BAN_USERS'),
                         path: '/admin/panel/users/ban-users',
                         level: 1
+                    },
+                    {
+                        name: i18n('CUSTOM_FIELDS'),
+                        path: '/admin/panel/users/custom-fields',
+                        level: 1
                     }
                 ])
-            },
+            } : null,
             {
                 groupName: i18n('ARTICLES'),
                 path: '/admin/panel/articles',
@@ -170,7 +192,6 @@ class AdminPanelMenu extends React.Component {
                 ])
             },
             {
-
                 groupName: i18n('STAFF'),
                 path: '/admin/panel/staff',
                 icon: 'users',
@@ -206,13 +227,18 @@ class AdminPanelMenu extends React.Component {
                         level: 3
                     },
                     {
-                        name: i18n('EMAIL_TEMPLATES'),
-                        path: '/admin/panel/settings/email-templates',
+                        name: i18n('EMAIL_SETTINGS'),
+                        path: '/admin/panel/settings/email-settings',
+                        level: 3
+                    },
+                    {
+                        name: i18n('CUSTOM_TAGS'),
+                        path: '/admin/panel/settings/custom-tags',
                         level: 3
                     }
                 ])
             }
-        ]);
+        ], null));
     }
 
     getItemsByFilteredByLevel(items) {
@@ -222,6 +248,7 @@ class AdminPanelMenu extends React.Component {
 
 export default connect((store) => {
     return {
-        level: store.session.userLevel
+        level: store.session.userLevel,
+        config: store.config
     };
 })(AdminPanelMenu);

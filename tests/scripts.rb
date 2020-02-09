@@ -16,25 +16,33 @@ class Scripts
         })
     end
 
-    def self.createStaff(email, password, name, level='1')
+    def self.createStaff(email, password, name, level='1') # WARNING: NOT USED ANYWHERE
         departments = request('/system/get-settings', {
           csrf_userid: $csrf_userid,
           csrf_token: $csrf_token
-        })['departments']
+        })['data']['departments']
         departments = departments.collect  { |x| x.id }
 
-        response = request('/staff/add', {
+        response = request('/staff/invite', {
             :name => name,
             :email => email,
-            :password => password,
             :level => level,
             :departments => departments.to_string
+        })
+
+        recoverpassword = $database.getRow('recoverpassword', email, 'email')
+
+        response = request('/user/recover-password', {
+            email: email,
+            password: password,
+            token: recoverpassword['token']
         })
 
         if response['status'] === 'fail'
             raise response['message']
         end
     end
+
     def self.deleteStaff(staffId)
         response = request('/staff/delete', {
             staffId: staffId,
@@ -67,16 +75,15 @@ class Scripts
       request('/user/logout')
     end
 
-    def self.createTicket(title = 'Winter is coming')
+    def self.createTicket(title = 'Winter is coming',content = 'The north remembers', department = 1)
         result = request('/ticket/create', {
             title: title,
-            content: 'The north remembers',
-            departmentId: 1,
+            content: content,
+            departmentId: department,
             language: 'en',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
-
         result['data']
     end
 
@@ -90,11 +97,48 @@ class Scripts
         result['data']
     end
 
-    def self.createAPIKey(name)
+    def self.createAPIKey(name, type)
         request('/system/add-api-key', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
-            name: name
+            name: name,
+            type: type
+        })
+    end
+
+    def self.createTextCustomField(name,description)
+        request('/system/add-custom-field', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: name,
+            type: 'text',
+            description: description
+        })
+    end
+
+    def self.createTag(name, color)
+        request('/ticket/create-tag', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: name,
+            color: color
+        })
+    end
+
+    def self.assignTicket(ticketnumber)
+        request('/staff/assign-ticket', {
+            ticketNumber: ticketnumber,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+    end
+
+    def self.commentTicket(ticketnumber,content)
+        request('/ticket/comment', {
+            content: content,
+            ticketNumber: ticketnumber,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
         })
     end
 end

@@ -7,6 +7,11 @@ import API from 'lib-app/api-call';
 import DateTransformer from 'lib-core/date-transformer';
 import Icon from 'core-components/icon';
 import Tooltip from 'core-components/tooltip';
+import TextEditor from 'core-components/text-editor';
+import Button from 'core-components/button';
+import SubmitButton from 'core-components/submit-button';
+import Form from 'core-components/form';
+import FormField from 'core-components/form-field';
 
 class TicketEvent extends React.Component {
     static propTypes = {
@@ -23,6 +28,13 @@ class TicketEvent extends React.Component {
         content: React.PropTypes.string,
         date: React.PropTypes.string,
         private: React.PropTypes.string,
+        edited: React.PropTypes.bool,
+        edit: React.PropTypes.bool,
+        onToggleEdit: React.PropTypes.func
+    };
+
+    state = {
+        content: this.props.content
     };
 
     render() {
@@ -80,6 +92,9 @@ class TicketEvent extends React.Component {
     }
 
     renderComment() {
+        const author = this.props.author;
+        const customFields = (author && author.customfields) || [];
+
         return (
             <div className="ticket-event__comment">
                 <span className="ticket-event__comment-pointer" />
@@ -88,15 +103,42 @@ class TicketEvent extends React.Component {
                     <span className="ticket-event__comment-badge-container">
                         <span className="ticket-event__comment-badge">{i18n((this.props.author.staff) ? 'STAFF' : 'CUSTOMER')}</span>
                     </span>
+                    {customFields.map(this.renderCustomFieldValue.bind(this))}
                     {(this.props.private*1) ? this.renderPrivateBadge() : null}
                 </div>
                 <div className="ticket-event__comment-date">{DateTransformer.transformToString(this.props.date)}</div>
-                <div className="ticket-event__comment-content" dangerouslySetInnerHTML={{__html: this.props.content}}></div>
-                {this.renderFileRow(this.props.file)}
+                {!this.props.edit ? this.renderContent() : this.renderEditField()}
+                {this.renderFooter(this.props.file)}
             </div>
         );
     }
 
+    renderContent() {
+        return (
+            <div  className="ticket-event__comment-content">
+                <div dangerouslySetInnerHTML={{__html: this.props.content}}></div>
+                {((this.props.author.id == this.props.userId && this.props.author.staff == this.props.userStaff) || this.props.userStaff) ? this.renderEditIcon() : null}
+            </div>
+        )
+    }
+    renderEditIcon() {
+        return (
+            <div className="ticket-event__comment-content__edit" >
+                <Icon name="pencil" onClick={this.props.onToggleEdit} />
+            </div>
+        )
+    }
+    renderEditField() {
+        return (
+            <Form loading={this.props.loading} values={{content:this.state.content}} onChange={(form) => {this.setState({content:form.content})}} onSubmit={this.props.onEdit}>
+                <FormField name="content" required field="textarea" validation="TEXT_AREA" fieldProps={{allowImages: this.props.allowAttachments}}/>
+                <div className="ticket-event__submit-edited-comment" >
+                    <SubmitButton  type="secondary" >{i18n('SUBMIT')}</SubmitButton>
+                    <Button size="medium" onClick={this.props.onToggleEdit}>{i18n('CLOSE')}</Button>
+                </div>
+            </Form>
+        );
+    }
     renderAssignment() {
         let assignedTo = this.props.content;
         let authorName = this.props.author.name;
@@ -185,8 +227,9 @@ class TicketEvent extends React.Component {
         );
     }
 
-    renderFileRow(file) {
+    renderFooter(file) {
         let node = null;
+        let edited = null;
 
         if (file) {
             node = <span> {this.getFileLink(file)} <Icon name="paperclip" /> </span>;
@@ -194,11 +237,30 @@ class TicketEvent extends React.Component {
             node = i18n('NO_ATTACHMENT');
         }
 
+        if (this.props.edited && this.props.type === 'COMMENT') {
+            edited = i18n('COMMENT_EDITED');
+        }
+
         return (
-            <div className="ticket-event__file">
-                {node}
+            <div className="ticket-event__items">
+                <div className="ticket-event__edited">
+                    {edited}
+                </div>
+                <div className="ticket-event__file">
+                    {node}
+                </div>
             </div>
-        )
+        );
+    }
+
+    renderCustomFieldValue(customField) {
+        return (
+            <span className="ticket-event__comment-badge-container">
+                <span className="ticket-event__comment-badge">
+                    {customField.customfield}: <span className="ticket-event__comment-badge-value">{customField.value}</span>
+                </span>
+            </span>
+        );
     }
 
     getClass() {

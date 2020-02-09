@@ -1,5 +1,9 @@
 .admin-panel-view-article {
 
+    &__content {
+        word-break: break-word;
+    }
+
     &__edit-buttons {
         text-align: left;
         margin-bottom: 20px;
@@ -19,7 +23,7 @@
         text-align: left;
         margin-bottom: 20px;
     }
-    
+
     &__button {
         margin-right: 20px;
     }

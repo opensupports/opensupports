@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/create Create ticket
- * @apiVersion 4.3.2
+ * @apiVersion 4.5.0
  *
  * @apiName Create ticket
  *
@@ -75,7 +75,7 @@ class CreateController extends Controller {
         if(!Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) {
             $validations['permission'] = 'any';
             $validations['requestData']['captcha'] = [
-                'validation' => DataValidator::captcha(),
+                'validation' => DataValidator::captcha(APIKey::TICKET_CREATE),
                 'error' => ERRORS::INVALID_CAPTCHA
             ];
             $validations['requestData']['email'] = [
@@ -115,10 +115,16 @@ class CreateController extends Controller {
             }
         }
 
-        Log::createLog('CREATE_TICKET', $this->ticketNumber);
         Response::respondSuccess([
             'ticketNumber' => $this->ticketNumber
         ]);
+
+        if(!Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) {
+            $session = Session::getInstance();
+            $session->createTicketSession($this->ticketNumber);
+        }
+        
+        Log::createLog('CREATE_TICKET', $this->ticketNumber);
     }
 
     private function storeTicket() {

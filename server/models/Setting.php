@@ -26,7 +26,7 @@ class Setting extends DataStore {
                 'smtp-port' => $client->getItem('smtp-port'),
                 'smtp-user' => $client->getItem('smtp-user'),
                 'smtp-pass' => $client->getItem('smtp-pass'),
-                'no-reply-email' => $client->getItem('no-reply-email')
+                'server-email' => $client->getItem('server-email')
             ];
         } else {
             return [
@@ -35,7 +35,32 @@ class Setting extends DataStore {
                 'smtp-port' => Setting::getSetting('smtp-port')->getValue(),
                 'smtp-user' => Setting::getSetting('smtp-user')->getValue(),
                 'smtp-pass' => Setting::getSetting('smtp-pass')->getValue(),
-                'no-reply-email' => Setting::getSetting('no-reply-email')->getValue()
+                'server-email' => Setting::getSetting('server-email')->getValue()
+            ];
+        }
+    }
+
+    public static function getIMAPValues() {
+        global $client;
+        $imapHost = Setting::getSetting('imap-host')->getValue();
+
+        if(Controller::isProductionEnv() && $imapHost === 'DEFAULT') {
+            return [
+                'isDefault' => true,
+                'imap-host' => '',
+                'imap-port' => '',
+                'imap-user' => '',
+                'imap-pass' => '',
+                'imap-token' => '',
+            ];
+        } else {
+            return [
+                'isDefault' => false,
+                'imap-host' => $imapHost,
+                'imap-port' => Setting::getSetting('imap-port')->getValue(),
+                'imap-user' => Setting::getSetting('imap-user')->getValue(),
+                'imap-pass' => Setting::getSetting('imap-pass')->getValue(),
+                'imap-token' => Setting::getSetting('imap-token')->getValue(),
             ];
         }
     }

@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/last-events Get last events
- * @apiVersion 4.3.2
+ * @apiVersion 4.5.0
  *
  * @apiName Get last events
  *
@@ -14,10 +14,10 @@ use Respect\Validation\Validator as DataValidator;
  * @apiPermission staff1
  *
  * @apiParam {Number} page The page number.
- * 
+ *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_PAGE
- * 
+ *
  * @apiSuccess {[TicketEvent](#api-Data_Structures-ObjectTicketevent)[]} data Array of last events
  *
  */

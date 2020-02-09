@@ -18,7 +18,8 @@ class Input extends React.Component {
         password: React.PropTypes.bool,
         required: React.PropTypes.bool,
         icon: React.PropTypes.string,
-        error: React.PropTypes.string
+        error: React.PropTypes.string,
+        onIconClick: React.PropTypes.func
     };
 
     static defaultProps = {
@@ -38,7 +39,7 @@ class Input extends React.Component {
         let icon = null;
 
         if (this.props.icon) {
-            icon = <span className="input__icon"><Icon name={this.props.icon} /></span>
+            icon = <span className="input__icon" onClick={this.onIconClick.bind(this)}><Icon name={this.props.icon} /></span>
         }
 
         return icon;
@@ -66,12 +67,21 @@ class Input extends React.Component {
             'input': true,
             'input_with-icon': (this.props.icon),
             'input_errored': (this.props.errored),
+            'input_icon-clickable': (this.props.onIconClick),
             ['input_' + this.props.size]: true,
 
             [this.props.className]: (this.props.className)
         };
 
         return classNames(classes);
+    }
+
+    onIconClick(event) {
+        if(this.props.onIconClick) {
+            event.preventDefault();
+            this.focus();
+            this.props.onIconClick(event);
+        }
     }
 
     focus() {

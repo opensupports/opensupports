@@ -10,6 +10,10 @@ describe'/staff/get-all' do
 
         (result['status']).should.equal('success')
 
+        result['data'][0]['departments'] = result['data'][0]['departments'].sort_by do |department|
+            department['id'].to_i
+        end
+
         (result['data'][0]['name']).should.equal('Emilia Clarke')
         (result['data'][0]['email']).should.equal('staff@opensupports.com')
         (result['data'][0]['profilePic']).should.equal('')
@@ -20,8 +24,8 @@ describe'/staff/get-all' do
         (result['data'][0]['departments'][1]['name']).should.equal('useless private deapartment')
         (result['data'][0]['departments'][2]['id']).should.equal('3')
         (result['data'][0]['departments'][2]['name']).should.equal('Suggestions')
-        (result['data'][0]['assignedTickets']).should.equal(6)
-        (result['data'][0]['closedTickets']).should.equal(0)
+        (result['data'][0]['assignedTickets']).should.equal(10)
+        (result['data'][0]['closedTickets']).should.equal(1)
 
         (result['data'][2]['name']).should.equal('Arya Stark')
         (result['data'][2]['email']).should.equal('ayra2@opensupports.com')

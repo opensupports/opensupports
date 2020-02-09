@@ -17,9 +17,9 @@ describe'system/disable-user-system' do
             row = $database.getRow('user', 1, 'id')
             (row).should.equal(nil)
 
-            numberOftickets= $database.query("SELECT * FROM ticket WHERE author_id IS NULL AND author_email IS NOT NULL AND author_name IS NOT NULL")
+            numberOftickets = $database.query("SELECT * FROM ticket WHERE author_id IS NULL AND author_email IS NOT NULL AND author_name IS NOT NULL")
 
-            (numberOftickets.num_rows).should.equal(40)
+            (numberOftickets.num_rows).should.equal(52)
 
             request('/user/logout')
 
@@ -65,6 +65,35 @@ describe'system/disable-user-system' do
             (result['status']).should.equal('success')
         end
 
+        it 'should be able to comment on ticket as a non-logged user' do
+            result = request('/ticket/create', {
+                title: 'Doubt about Russian language',
+                content: 'Stariy means old in Russian?',
+                departmentId: 1,
+                language: 'en',
+                name: 'Abraham Einstein',
+                email: 'abrahameinstein@opensupports.com'
+            })
+            (result['status']).should.equal('success')
+
+            ticketNumber = result['data']['ticketNumber']
+
+            result = request('/ticket/check', {
+                ticketNumber: ticketNumber,
+                email: 'abrahameinstein@opensupports.com',
+                captcha: 'valid'
+            })
+            token = result['data']['token']
+            (result['status']).should.equal('success');
+
+            result = request('/ticket/comment', {
+                content: 'I actually think it is not like that, but anyways, thanks',
+                ticketNumber: ticketNumber,
+                csrf_token: token
+            })
+            (result['status']).should.equal('success')
+        end
+
         it 'should be able to assign and respond tickets' do
             Scripts.login($staff[:email], $staff[:password], true);
             ticket = $database.getLastRow('ticket');
@@ -84,6 +113,26 @@ describe'system/disable-user-system' do
             (result['status']).should.equal('success')
         end
 
+        it 'should be able to get the latest events as admin' do
+            result = request('/staff/last-events', {
+                page: 1,
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token
+            })
+            (result['status']).should.equal('success')
+            (result['data'].size).should.equal(10)
+        end
+
+        it 'should be able to get system logs as admin' do
+            result = request('/system/get-logs', {
+                page: 1,
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token
+            })
+            (result['status']).should.equal('success')
+            (result['data'].size).should.equal(10)
+        end
+
         it 'should be be able to create a ticket as an admin' do
             result = request('/ticket/create', {
                 title: 'created by staff with user system disabled',
@@ -97,6 +146,21 @@ describe'system/disable-user-system' do
             ticket = $database.getRow('ticket', result['data']['ticketNumber'], 'ticket_number')
             (ticket['author_id']).should.equal(nil)
             (ticket['author_staff_id']).should.equal('1')
+        end
+
+        it 'should be able to create a ticket using api' do
+            api_key = Scripts.createAPIKey('ticketCreateKey', 'TICKET_CREATE')['data']
+            request('/user/logout')
+            result = request('/ticket/create', {
+                email: 'fromapi@testemail.com',
+                name: 'Random user',
+                title: 'created by api',
+                content: 'this ticket was created using anapi key while user system is disabled',
+                departmentId: 1,
+                language: 'en',
+                apiKey: api_key
+            })
+            (result['status']).should.equal('success')
         end
 
         it 'should not disable the user system if it is already disabled 'do
@@ -113,7 +177,36 @@ describe'system/disable-user-system' do
             (result['message']).should.equal('SYSTEM_USER_IS_ALREADY_DISABLED')
         end
 
+        it 'should allow staff members to recover their passwords' do
+            request('/user/logout')
+            result = request('/user/send-recover-password', {
+                email: 'jorah@opensupports.com',
+                staff: true
+            })
+            (result['status']).should.equal('success')
+
+            token = $database.getLastRow('recoverpassword')['token'];
+
+            result = request('/user/recover-password', {
+                email: 'jorah@opensupports.com',
+                password: 's3cur3p455w0rd',
+                token: token
+            })
+            (result['status']).should.equal('success')
+            (result['data']['staff']).should.equal('1')
+
+            result = request('/user/login', {
+                email: 'jorah@opensupports.com',
+                password: 's3cur3p455w0rd',
+                staff: true
+            })
+            (result['status']).should.equal('success')
+            (result['data']['userEmail']).should.equal('jorah@opensupports.com')
+        end
+
         it 'should enable the user system' do
+            request('/user/logout')
+            Scripts.login($staff[:email], $staff[:password], true)
             result = request('/system/enable-user-system', {
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
@@ -127,8 +220,7 @@ describe'system/disable-user-system' do
 
             numberOftickets= $database.query("SELECT * FROM ticket WHERE author_email IS NULL AND author_name IS NULL AND author_id IS NOT NULL"  )
 
-            (numberOftickets.num_rows).should.equal(41)
-
+            (numberOftickets.num_rows).should.equal(55)
         end
 
         it 'should not enable the user system' do
@@ -140,6 +232,5 @@ describe'system/disable-user-system' do
 
             (result['status']).should.equal('fail')
             (result['message']).should.equal('SYSTEM_USER_IS_ALREADY_ENABLED')
-
         end
 end

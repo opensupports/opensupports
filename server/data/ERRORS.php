@@ -11,7 +11,11 @@
  * @apiDefine USER_EXISTS
  * @apiError {String} USER_EXISTS The user already exists.
  */
-/**
+ /**
+  * @apiDefine TAG_EXISTS
+  * @apiError {String} TAG_EXISTS The tag already exists.
+  */
+ /**
  * @apiDefine NO_PERMISSION
  * @apiError {String} NO_PERMISSION You have no permission to perform this operation.
  */
@@ -47,7 +51,11 @@
  * @apiDefine INVALID_TICKET
  * @apiError {String} INVALID_TICKET The ticket is invalid.
  */
-/**
+ /**
+  * @apiDefine INVALID_TAG
+  * @apiError {String} INVALID_TAG The tag is invalid.
+  */
+ /**
  * @apiDefine INIT_SETTINGS_DONE
  * @apiError {String} INIT_SETTINGS_DONE The init settings are already done.
  */
@@ -140,6 +148,10 @@
  * @apiError {String} INVALID_BODY The body is invalid.
  */
 /**
+ * @apiDefine USER_SYSTEM_ENABLED
+ * @apiError {String} USER_SYSTEM_ENABLED The user system is enabled.
+ */
+/**
  * @apiDefine USER_SYSTEM_DISABLED
  * @apiError {String} USER_SYSTEM_DISABLED The user system is disabled.
  */
@@ -203,11 +215,52 @@
  * @apiDefine DEPARTMENT_PRIVATE_TICKETS
  * @apiError {String} DEPARTMENT_PRIVATE_TICKETS There are tickets for in department created by non-staff and it can't be private
  */
+/**
+ * @apiDefine EMAIL_POLLING
+ * @apiError {String} EMAIL_POLLING Email polling was unsuccesful
+ */
+/**
+ * @apiDefine IMAP_CONNECTION
+ * @apiError {String} IMAP_CONNECTION Imap connection was unsuccesfull
+ */
+/**
+* @apiDefine CUSTOM_FIELD_ALREADY_EXISTS
+* @apiError {String} CUSTOM_FIELD_ALREADY_EXISTS Custom field already exists
+*/
+/**
+* @apiDefine INVALID_CUSTOM_FIELD
+* @apiError {String} INVALID_CUSTOM_FIELD Custom field id is invalid
+*/
+/**
+* @apiDefine INVALID_CUSTOM_FIELD_TYPE
+* @apiError {String} INVALID_CUSTOM_FIELD_TYPE The type is invalid
+*/
+/**
+ * @apiDefine INVALID_CUSTOM_FIELD_OPTIONS
+ * @apiError {String} INVALID_CUSTOM_FIELD_OPTIONS Options are not a json array
+ */
+/**
+ * @apiDefine INVALID_CUSTOM_FIELD_OPTION
+ * @apiError {String} INVALID_CUSTOM_FIELD_OPTION Option is not in the list of possibles
+ */
+/**
+ * @apiDefine UNAVAILABLE_STATS
+ * @apiError {String} UNAVAILABLE_STATS Stats are currently unavailable
+ */
+/**
+ * @apiDefine INVALID_COLOR
+ * @apiError {String} INVALID_COLOR The color should be in hexadecimal, preceded by a '#'
+ */
+/**
+ * @apiDefine INVALID_API_KEY_TYPE
+ * @apiError {String} INVALID_API_KEY_TYPE Api key type is not one of the availables
+ */
 
 class ERRORS {
     const INVALID_CREDENTIALS = 'INVALID_CREDENTIALS';
     const SESSION_EXISTS = 'SESSION_EXISTS';
     const USER_EXISTS = 'USER_EXISTS';
+    const TAG_EXISTS = 'TAG_EXISTS';
     const NO_PERMISSION = 'NO_PERMISSION';
     const INVALID_TITLE = 'INVALID_TITLE';
     const INVALID_CONTENT = 'INVALID_CONTENT';
@@ -217,6 +270,7 @@ class ERRORS {
     const INVALID_SETTING = 'INVALID_SETTING';
     const INVALID_DEPARTMENT = 'INVALID_DEPARTMENT';
     const INVALID_TICKET = 'INVALID_TICKET';
+    const INVALID_TAG = 'INVALID_TAG';
     const INIT_SETTINGS_DONE = 'INIT_SETTINGS_DONE';
     const INVALID_OLD_PASSWORD = 'INVALID_OLD_PASSWORD';
     const INVALID_CAPTCHA = 'INVALID_CAPTCHA';
@@ -227,6 +281,15 @@ class ERRORS {
     const INVALID_PRIORITY = 'INVALID_PRIORITY';
     const INVALID_PAGE = 'INVALID_PAGE';
     const INVALID_QUERY = 'INVALID_QUERY';
+    const INVALID_TAG_FILTER = 'INVALID_TAG_FILTER';
+    const INVALID_CLOSED_FILTER = 'INVALID_CLOSED_FILTER';
+    const INVALID_UNREAD_STAFF_FILTER = 'INVALID_UNREAD_STAFF_FILTER';
+    const INVALID_PRIORITY_FILTER = 'INVALID_PRIORITY_FILTER';
+    const INVALID_DATE_RANGE_FILTER = 'INVALID_DATE_RANGE_FILTER';
+    const INVALID_DEPARTMENT_FILTER = 'INVALID_DEPARTMENT_FILTER';
+    const INVALID_AUTHOR_FILTER = 'INVALID_AUTHOR_FILTER';
+    const INVALID_ASSIGNED_FILTER = 'INVALID_ASSIGNED_FILTER';
+    const INVALID_ORDER_BY = 'INVALID_ORDER_BY';
     const INVALID_TOPIC = 'INVALID_TOPIC';
     const INVALID_SEARCH = 'INVALID_SEARCH';
     const INVALID_ORDER = 'INVALID_ORDER';
@@ -241,6 +304,7 @@ class ERRORS {
     const INVALID_TEMPLATE = 'INVALID_TEMPLATE';
     const INVALID_SUBJECT = 'INVALID_SUBJECT';
     const INVALID_BODY = 'INVALID_BODY';
+    const USER_SYSTEM_ENABLED = 'USER_SYSTEM_ENABLED';
     const USER_SYSTEM_DISABLED = 'USER_SYSTEM_DISABLED';
     const SYSTEM_USER_IS_ALREADY_DISABLED = 'SYSTEM_USER_IS_ALREADY_DISABLED';
     const SYSTEM_USER_IS_ALREADY_ENABLED = 'SYSTEM_USER_IS_ALREADY_ENABLED';
@@ -251,6 +315,7 @@ class ERRORS {
     const DATABASE_CREATION = 'DATABASE_CREATION';
     const SMTP_CONNECTION = 'SMTP_CONNECTION';
     const STAFF_LIMIT = 'STAFF_LIMIT';
+    const IMAP_CONNECTION = 'IMAP_CONNECTION';
     const ALREADY_DISABLED = 'ALREADY_DISABLED';
     const ALREADY_ENABLED = 'ALREADY_ENABLED';
     const USER_DISABLED = 'USER_DISABLED';
@@ -258,4 +323,13 @@ class ERRORS {
     const INVALID_TEXT_2 = 'INVALID_TEXT_2';
     const INVALID_TEXT_3 = 'INVALID_TEXT_3';
     const DEPARTMENT_PRIVATE_TICKETS = 'DEPARTMENT_PRIVATE_TICKETS';
+    const EMAIL_POLLING = 'EMAIL_POLLING';
+    const CUSTOM_FIELD_ALREADY_EXISTS = 'CUSTOM_FIELD_ALREADY_EXISTS';
+    const INVALID_CUSTOM_FIELD = 'INVALID_CUSTOM_FIELD';
+    const INVALID_CUSTOM_FIELD_TYPE = 'INVALID_CUSTOM_FIELD_TYPE';
+    const INVALID_CUSTOM_FIELD_OPTIONS = 'INVALID_CUSTOM_FIELD_OPTIONS';
+    const INVALID_CUSTOM_FIELD_OPTION = 'INVALID_CUSTOM_FIELD_OPTION';
+    const UNAVAILABLE_STATS = 'UNAVAILABLE_STATS';
+    const INVALID_COLOR = 'INVALID_COLOR';
+    const INVALID_API_KEY_TYPE = 'INVALID_API_KEY_TYPE';
 }

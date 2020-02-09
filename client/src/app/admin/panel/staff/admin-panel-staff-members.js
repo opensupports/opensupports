@@ -11,7 +11,7 @@ import SessionStore from 'lib-app/session-store';
 import PeopleList from 'app-components/people-list';
 import ModalContainer from 'app-components/modal-container';
 
-import AddStaffModal from 'app/admin/panel/staff/add-staff-modal';
+import InviteStaffModal from 'app/admin/panel/staff/invite-staff-modal';
 
 import Header from 'core-components/header';
 import DropDown from 'core-components/drop-down';
@@ -47,8 +47,8 @@ class AdminPanelStaffMembers extends React.Component {
                 <Header title={i18n('STAFF_MEMBERS')} description={i18n('STAFF_MEMBERS_DESCRIPTION')} />
                 <div className="admin-panel-staff-members__wrapper">
                     <DepartmentDropdown {...this.getDepartmentDropdownProps()} className="admin-panel-staff-members__dropdown" />
-                    <Button onClick={this.onAddNewStaff.bind(this)} size="medium" type="secondary" className="admin-panel-staff-members__button">
-                        <Icon name="user-plus" className=""/> {i18n('ADD_NEW_STAFF')}
+                    <Button onClick={this.onInviteStaff.bind(this)} size="medium" type="secondary" className="admin-panel-staff-members__button">
+                        <Icon name="user-plus" className=""/> {i18n('INVITE_STAFF')}
                     </Button>
                 </div>
                 {(this.props.loading) ? <Loading backgrounded /> : <PeopleList list={this.getStaffList()} page={this.state.page} onPageSelect={(index) => this.setState({page: index+1})} />}
@@ -56,8 +56,8 @@ class AdminPanelStaffMembers extends React.Component {
         );
     }
 
-    onAddNewStaff() {
-        ModalContainer.openModal(<AddStaffModal onSuccess={this.retrieveStaffMembers.bind(this)} />);
+    onInviteStaff() {
+        ModalContainer.openModal(<InviteStaffModal onSuccess={this.retrieveStaffMembers.bind(this)} />);
     }
 
     getDepartmentDropdownProps() {

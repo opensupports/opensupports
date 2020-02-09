@@ -2,7 +2,7 @@
 class MailSender {
     use SingletonTrait;
 
-    private $mailOptions = [];
+    public $mailOptions = [];
     private $mailerInstance;
 
     private function __construct() {
@@ -13,16 +13,15 @@ class MailSender {
             $smtpValues['smtp-port'],
             $smtpValues['smtp-user'],
             $smtpValues['smtp-pass'],
-            $smtpValues['no-reply-email']
+            $smtpValues['server-email']
         );
     }
 
-    public function setConnectionSettings($host, $port, $user, $pass, $noReplyEmail) {
-        $this->mailOptions['from'] = $noReplyEmail;
+    public function setConnectionSettings($host, $user, $pass, $serverEmail) {
+        $this->mailOptions['from'] = $serverEmail;
         $this->mailOptions['fromName'] = 'OpenSupports';
 
         $this->mailOptions['smtp-host'] = $host;
-        $this->mailOptions['smtp-port'] = $port;
         $this->mailOptions['smtp-user'] = $user;
         $this->mailOptions['smtp-pass'] = $pass;
     }
@@ -72,10 +71,9 @@ class MailSender {
             $this->mailerInstance->isSMTP();
             $this->mailerInstance->SMTPAuth = true;
             $this->mailerInstance->Host = $this->mailOptions['smtp-host'];
-            $this->mailerInstance->Port = $this->mailOptions['smtp-port'];
             $this->mailerInstance->Username = $this->mailOptions['smtp-user'];
             $this->mailerInstance->Password = $this->mailOptions['smtp-pass'];
-            $this->mailerInstance->Timeout = 1000;
+            $this->mailerInstance->Timeout = 10;
             $this->mailerInstance->SMTPOptions = [
                 'ssl' => [
                     'verify_peer' => false,

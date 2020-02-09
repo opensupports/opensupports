@@ -28,6 +28,7 @@
 
         <link rel="stylesheet" href="https://s3.amazonaws.com/opensupports/opensupports_<?=$client->getClientVersion(); ?>.css">
         <link rel="icon" type="image/x-icon" href="<?=$url ?>/images/icon.png">
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
         <script src="https://browser.sentry-cdn.com/4.3.4/bundle.min.js" crossorigin="anonymous"></script>
         <script>Sentry.init({ dsn: 'https://f379a7f252da4b6fb5df2c912239d173@sentry.io/1329605' });</script>

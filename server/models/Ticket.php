@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Ticket Ticket
- * @apiVersion 4.3.2
+ * @apiVersion 4.5.0
  * @apiGroup Data Structures
  * @apiParam {Number}  ticketNumber The number of the ticket.
  * @apiParam {String}  title The title of the ticket.
@@ -49,8 +49,19 @@ class Ticket extends DataStore {
             'unreadStaff',
             'language',
             'authorEmail',
-            'authorName'
+            'authorName',
+            'sharedTagList',
+            'editedContent',
+            'editedTitle'
         );
+    }
+
+    public static function getFetchAs() {
+        return [
+            'author' => 'user',
+            'authorStaff' => 'staff',
+            'owner' => 'staff',
+        ];
     }
 
     public static function getTicket($value, $property = 'id') {
@@ -128,7 +139,10 @@ class Ticket extends DataStore {
             'priority' => $this->priority,
             'author' => $this->authorToArray(),
             'owner' => $this->ownerToArray(),
-            'events' => $minimized ? [] : $this->eventsToArray()
+            'events' => $minimized ? [] : $this->eventsToArray(),
+            'tags' => $this->sharedTagList->toArray(true),
+            'edited' => $this->editedContent,
+            'editedTitle' => $this->editedTitle
         ];
     }
 
@@ -141,7 +155,8 @@ class Ticket extends DataStore {
                 'name' => $author->name,
                 'staff' => $author instanceof Staff,
                 'profilePic' => ($author instanceof Staff) ? $author->profilePic : null,
-                'email' => $author->email
+                'email' => $author->email,
+                'customfields' => $author->xownCustomfieldvalueList ? $author->xownCustomfieldvalueList->toArray() : [],
             ];
         } else {
             return [
@@ -178,6 +193,8 @@ class Ticket extends DataStore {
                 'date'=> $ticketEvent->date,
                 'file'=> $ticketEvent->file,
                 'private'=> $ticketEvent->private,
+                'edited' => $ticketEvent->editedContent,
+                'id' => $ticketEvent->id
             ];
 
             $author = $ticketEvent->getAuthor();

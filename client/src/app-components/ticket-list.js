@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import {connect} from 'react-redux';
 
 import i18n from 'lib-app/i18n';
 import DateTransformer from 'lib-core/date-transformer';
@@ -9,8 +10,8 @@ import DepartmentDropdown from 'app-components/department-dropdown';
 import Table from 'core-components/table';
 import Button from 'core-components/button';
 import Tooltip from 'core-components/tooltip';
-import Icon from 'core-components/icon';
 import Checkbox from 'core-components/checkbox';
+import Tag from 'core-components/tag';
 
 class TicketList extends React.Component {
     static propTypes = {
@@ -25,7 +26,8 @@ class TicketList extends React.Component {
             'secondary'
         ]),
         closedTicketsShown: React.PropTypes.bool,
-        onClosedTicketsShownChange: React.PropTypes.func
+        onClosedTicketsShownChange: React.PropTypes.func,
+        onDepartmentChange: React.PropTypes.func,
     };
 
     static defaultProps = {
@@ -71,9 +73,13 @@ class TicketList extends React.Component {
         return {
             departments: this.getDepartments(),
             onChange: (event) => {
+                const departmentId = event.index && this.props.departments[event.index - 1].id;
                 this.setState({
-                    selectedDepartment: event.index && this.props.departments[event.index - 1].id
+                    selectedDepartment: departmentId
                 });
+                if(this.props.onDepartmentChange) {
+                    this.props.onDepartmentChange(departmentId || null);
+                }
             },
             size: 'medium'
         };
@@ -182,9 +188,16 @@ class TicketList extends React.Component {
                 </Tooltip>
             ),
             title: (
-                <Button className="ticket-list__title-link" type="clean" route={{to: this.props.ticketPath + ticket.ticketNumber}}>
-                    {titleText}
-                </Button>
+                <div>
+                    <Button className="ticket-list__title-link" type="clean" route={{to: this.props.ticketPath + ticket.ticketNumber}}>
+                        {titleText}
+                    </Button>
+                    {(ticket.tags || []).map((tagName,index) => {
+                        let tag = _.find(this.props.tags, {name:tagName});
+                        return <Tag size='small' name={tag && tag.name} color={tag && tag.color} key={index} />
+                    })}
+                </div>
+
             ),
             priority: this.getTicketPriority(ticket.priority),
             department: ticket.department.name,
@@ -257,5 +270,8 @@ class TicketList extends React.Component {
     }
 }
 
-
-export default TicketList;
+export default connect((store) => {
+    return {
+        tags: store.config['tags']
+    };
+})(TicketList);

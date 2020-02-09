@@ -1,6 +1,6 @@
 const _ = require('lodash');
-const APIUtils = require('lib-core/APIUtils');
-const SessionStore = require('lib-app/session-store');
+const APIUtils = require('lib-core/APIUtils').default;
+const SessionStore = require('lib-app/session-store').default;
 
 function processData (data, dataAsForm = false) {
     let newData;

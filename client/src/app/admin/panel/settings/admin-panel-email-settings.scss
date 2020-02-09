@@ -1,0 +1,64 @@
+@import "../../../../scss/vars";
+
+.admin-panel-email-settings {
+
+    &__text-area {
+        width: 100%;
+        height: 45px;
+    }
+
+    &__save-button {
+        display: inline-block;
+        float: left;
+    }
+
+    &__optional-buttons {
+        display: inline-block;
+        float: right;
+    }
+
+    &__discard-button {
+        display: inline-block;
+    }
+
+    &__recover-button {
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    &__image-container,
+    &__email-form {
+        background-color: $very-light-grey;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 20px;
+        margin-top: 20px;
+    }
+
+    &__box {
+        text-align: center;
+        background-color: $very-light-grey;
+        padding: 30px;
+        margin-bottom: 30px;
+        flex-basis: 48%;
+    }
+
+    &__servers {
+        display: flex;
+        justify-content: space-evenly;
+        margin-top: 30px;
+    }
+
+    &__server-form-buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__imap-message {
+        margin-top: 10px;
+        padding-left: 40px;
+        text-align: left;
+    }
+}

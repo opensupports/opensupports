@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/edit Edit staff
- * @apiVersion 4.3.2
+ * @apiVersion 4.5.0
  *
  * @apiName Edit staff
  *
@@ -59,7 +59,7 @@ class EditStaffController extends Controller {
 
         if(!$staffId) {
             $this->staffInstance = Controller::getLoggedUser();
-        } else if(Controller::isStaffLogged(3)) {
+        } else if(Controller::isStaffLogged(3) || ((Controller::isStaffLogged() && Controller::getLoggedUser()->id == $staffId)) ) {
             $this->staffInstance = Staff::getDataStore($staffId, 'id');
 
             if($this->staffInstance->isNull()) {

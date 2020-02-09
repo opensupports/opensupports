@@ -1,10 +1,10 @@
 import React              from 'react';
-import ReactDOM           from 'react-dom';
 import _                  from 'lodash';
 import classNames         from 'classnames';
 
 import i18n               from 'lib-app/i18n';
 import API                from 'lib-app/api-call';
+import history            from 'lib-app/history';
 
 import Captcha            from 'app/main/captcha';
 import SubmitButton       from 'core-components/submit-button';
@@ -16,20 +16,30 @@ import Header             from 'core-components/header';
 
 class MainSignUpWidget extends React.Component {
 
+    static propTypes = {
+        className: React.PropTypes.string
+    };
+
     constructor(props) {
         super(props);
 
         this.state = {
             loading: false,
-            email: null
+            email: null,
+            customFields: null
         };
     }
-    static propTypes = {
-        onSuccess: React.PropTypes.func,
-        className: React.PropTypes.string
-    };
+
+    componentDidMount() {
+        API.call({
+            path: '/system/get-custom-fields',
+            data: {}
+        })
+        .then(result => this.setState({customFields: result.data}));
+    }
 
     render() {
+        if(!this.state.customFields) return null;
         return (
             <Widget className={this.getClass()}>
                 <Header title={i18n('SIGN_UP')} description={i18n('SIGN_UP_VIEW_DESCRIPTION')} />
@@ -39,6 +49,7 @@ class MainSignUpWidget extends React.Component {
                         <FormField {...this.getInputProps()} label={i18n('EMAIL')} name="email" validation="EMAIL" required/>
                         <FormField {...this.getInputProps(true)} label={i18n('PASSWORD')} name="password" validation="PASSWORD" required/>
                         <FormField {...this.getInputProps(true)} label={i18n('REPEAT_PASSWORD')} name="repeated-password" validation="REPEAT_PASSWORD" required/>
+                        {this.state.customFields.map(this.renderCustomField.bind(this))}
                     </div>
                     <div className="signup-widget__captcha">
                         <Captcha ref="captcha"/>
@@ -49,6 +60,31 @@ class MainSignUpWidget extends React.Component {
                 {this.renderMessage()}
             </Widget>
         );
+    }
+
+    renderCustomField(customField, key) {
+        if(customField.type === 'text') {
+            return (
+                <FormField {...this.getInputProps()}
+                    name={`customfield_${customField.name}`}
+                    key={key}
+                    label={customField.name}
+                    infoMessage={customField.description}
+                    field="input"/>
+            );
+        } else {
+            const items = customField.options.map(option => ({content: option.name, value: option.name}));
+
+            return (
+                <FormField
+                    name={`customfield_${customField.name}`}
+                    key={key}
+                    label={customField.name}
+                    infoMessage={customField.description}
+                    field="select"
+                    fieldProps={{size:'medium', items}}/>
+            );
+        }
     }
 
     renderMessage() {
@@ -98,9 +134,17 @@ class MainSignUpWidget extends React.Component {
                 loading: true
             });
 
+            const form = _.clone(formState);
+
+            this.state.customFields.forEach(customField => {
+                if(customField.type === 'select') {
+                    form[`customfield_${customField.name}`] = customField.options[form[`customfield_${customField.name}`]].name;
+                }
+            })
+
             API.call({
                 path: '/user/signup',
-                data: _.extend({captcha: captcha.getValue()}, formState)
+                data: _.extend({captcha: captcha.getValue()}, form)
             }).then(this.onSignupSuccess.bind(this)).catch(this.onSignupFail.bind(this));
         }
     }
@@ -109,6 +153,8 @@ class MainSignUpWidget extends React.Component {
         this.setState({
             loading: false,
             message: 'success'
+        }, () => {
+            setTimeout(() => {history.push('/check-ticket')}, 2000);
         });
     }
 

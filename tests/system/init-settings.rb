@@ -17,11 +17,10 @@ describe '/system/init-settings' do
             'user-system-enabled' => true,
             'registration' => true,
             'title' => 'Support Center',
-            'smtp-host' => 'localhost',
-            'smtp-port' => 7070,
-            'smtp-user' => 'noreply@opensupports.com',
-            'smtp-password' => '',
-            'no-reply-email' => 'noreply@opensupports.com',
+            'smtp-host' => 'localhost:7070',
+            'smtp-user' => 'testemail@opensupports.com',
+            'smtp-pass' => 'password',
+            'server-email' => 'testemail@opensupports.com',
             'language' => 'en'
         })
 

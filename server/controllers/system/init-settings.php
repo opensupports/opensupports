@@ -1,10 +1,11 @@
 <?php
+use RedBeanPHP\Facade as RedBean;
 use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /system/init-settings Init settings
- * @apiVersion 4.3.2
+ * @apiVersion 4.5.0
  *
  * @apiName Init settings
  *
@@ -17,7 +18,7 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} language Indicates the default language of the system.
  * @apiParam {String} user-system-enabled Indicates if the user system should be enabled.
  * @apiParam {String} registration Indicates if the registration should be enabled.
- * @apiParam {String} no-reply-email Email from where automated emails will be sent.
+ * @apiParam {String} server-email Email from where automated emails will be sent.
  * @apiParam {String} smtp-host SMTP Server address.
  * @apiParam {String} smtp-port SMTP Server port.
  * @apiParam {String} smtp-user SMTP Authentication User.
@@ -52,6 +53,7 @@ class InitSettingsController extends Controller {
 
     public function handler() {
         if (Setting::isTableEmpty()) {
+            RedBean::exec(file_get_contents('data/db_schema.sql'));
             $this->storeGlobalSettings();
             $this->storeMailTemplates();
             $this->storeLanguages();
@@ -68,11 +70,14 @@ class InitSettingsController extends Controller {
             'language' => Controller::request('language'),
             'recaptcha-public' => (Controller::isProductionEnv()) ? 'DEFAULT' : '',
             'recaptcha-private' => (Controller::isProductionEnv()) ? 'DEFAULT' : '',
-            'no-reply-email' => (Controller::isProductionEnv()) ? 'DEFAULT' : 'noreply@opensupports.com',
+            'server-email' => (Controller::isProductionEnv()) ? 'DEFAULT' : 'noreply@opensupports.com',
             'smtp-host' => (Controller::isProductionEnv()) ? 'DEFAULT' : 'localhost',
             'smtp-port' => (Controller::isProductionEnv()) ? 'DEFAULT' : 7070,
             'smtp-user' => (Controller::isProductionEnv()) ? 'DEFAULT' : 'noreply@opensupports.com',
             'smtp-pass' => (Controller::isProductionEnv()) ? 'DEFAULT' : '',
+            'imap-host' => 'DEFAULT',
+            'imap-user' => 'DEFAULT',
+            'imap-pass' => 'DEFAULT',
             'time-zone' => 0,
             'maintenance-mode' => 0,
             'layout' => 'boxed',
@@ -86,7 +91,8 @@ class InitSettingsController extends Controller {
             'ticket-gap' => Hashing::generateRandomPrime(100000, 999999),
             'ticket-first-number' => Hashing::generateRandomNumber(100000, 999999),
             'session-prefix' => 'opensupports-'.Hashing::generateRandomToken().'_',
-            'mail-template-header-image' => 'https://s3.amazonaws.com/opensupports/logo.png'
+            'mail-template-header-image' => 'https://s3.amazonaws.com/opensupports/logo.png',
+            'imap-token' => '',
         ]);
     }
 
