@@ -183,6 +183,12 @@ class FormField extends React.Component {
                 valid: false,
             };
         }
+        if(field == 'tag-selector') {
+            props.values = value;
+        }
+        if(field == 'autocomplete') {
+            props.values = value;
+        }
         props.value = value;
 
         return props;
@@ -242,7 +248,16 @@ class FormField extends React.Component {
                 }
             };
         }
-
+/*
+        if(field === 'tag-selector' && !decorator) {
+            console.log("asd: ", nativeEvent);
+            event = {
+                target: {
+                    value: nativeEvent
+                }
+            };
+        }
+*/
         onChange && onChange(event);
     }
 
