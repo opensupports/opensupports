@@ -127,8 +127,7 @@ class Autocomplete extends React.Component {
     }
 
     getUnselectedList(list, selectedList) {
-
-        return list.filter(item  => !_.some(selectedList, item));
+        return list.filter(item  => !_.some(selectedList, {id: item.id}));
     }
 
     getSelectedItems() {

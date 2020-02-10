@@ -7,15 +7,8 @@ import TicketQueryList from 'app-components/ticket-query-list';
 
 import Header from 'core-components/header';
 import Message from 'core-components/message';
-import
-    TicketQueryFilters,
-    {
-        TICKET_STATUSES,
-        CLOSED_DROPDOWN_INDEXES,
-        TICKET_PRIORITIES,
-        PRIORITIES_DROPDOWN_INDEXES
-    } from 'app-components/ticket-query-filters';
-import dateTransformer from '../../../../lib-core/date-transformer';
+import TicketQueryFilters from 'app-components/ticket-query-filters';
+import DateTransformer from '../../../../lib-core/date-transformer';
 
 class AdminPanelSearchTickets extends React.Component {
 
@@ -74,70 +67,16 @@ class AdminPanelSearchTickets extends React.Component {
     }
 
     getDefaultDateRange() {
-        return JSON.stringify(this.formDateRangeToFilters([20170101, dateTransformer.getDateToday()]));
+        return JSON.stringify(DateTransformer.formDateRangeToFilters([20170101, DateTransformer.getDateToday()]));
     }
 
     onSubmit(filter) {
         this.setState({
             listData: {
                 ...this.state.listData,
-                filters: this.formValueToFilters(filter),
+                filters: filter,
             }
         });
-    }
-
-    formValueToFilters(form) {
-        let newFormValues = {
-            query: form.query,
-            closed: this.getTicketStatusByDropdownIndex(form.closed),
-            priority: this.getTicketPrioritiesByDropdownIndex(form.priority),
-            departments: JSON.stringify(form.departments),
-            owners: JSON.stringify(form.owners),
-            tags: JSON.stringify(form.tags),
-            dateRange: JSON.stringify(this.formDateRangeToFilters([form.dateRange.startDate, form.dateRange.endDate])),
-            orderBy: form.orderBy !== undefined ? JSON.stringify(form.orderBy) : undefined,
-        };
-
-        return newFormValues;
-    }
-
-    formDateRangeToFilters(dateRange) {
-        return [dateRange[0]*10000, dateRange[1]*10000+2400];
-    }
-
-    getTicketPrioritiesByDropdownIndex(dropdownIndex) {
-        let priorities = TICKET_PRIORITIES.ANY;
-
-        switch(dropdownIndex) {
-            case PRIORITIES_DROPDOWN_INDEXES.LOW:
-                priorities = TICKET_PRIORITIES.LOW;
-                break;
-            case PRIORITIES_DROPDOWN_INDEXES.MEDIUM:
-                priorities = TICKET_PRIORITIES.MEDIUM;
-                break;
-            case PRIORITIES_DROPDOWN_INDEXES.HIGH:
-                priorities = TICKET_PRIORITIES.HIGH;
-                break;
-        }
-
-        return priorities !== undefined ? JSON.stringify(priorities) : priorities;
-    }
-
-    getTicketStatusByDropdownIndex(dropdownIndex) {
-        let status;
-
-        switch(dropdownIndex) {
-            case CLOSED_DROPDOWN_INDEXES.CLOSED:
-                status = TICKET_STATUSES.CLOSED;
-                break;
-            case CLOSED_DROPDOWN_INDEXES.OPENED:
-                status = TICKET_STATUSES.OPENED;
-                break;
-            default:
-                status = TICKET_STATUSES.ANY;
-        }
-
-        return status;
     }
 
     onChangeOrderBy(value) {

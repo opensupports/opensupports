@@ -47,5 +47,9 @@ export default {
         }
 
         return newDateRange;
+    },
+
+    formDateRangeToFilters(dateRange) {
+        return [dateRange[0]*10000, dateRange[1]*10000+2400];
     }
 };

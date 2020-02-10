@@ -9,29 +9,29 @@ import DateTransformer from 'lib-core/date-transformer';
 import Form from 'core-components/form';
 import SubmitButton from 'core-components/submit-button';
 import FormField from 'core-components/form-field';
-import TagSelector from 'core-components/tag-selector';
+import Icon from 'core-components/icon';
 
 
-export const TICKET_STATUSES = {
+const TICKET_STATUSES = {
     ANY: undefined,
     OPENED: 0,
     CLOSED: 1
 };
 
-export const CLOSED_DROPDOWN_INDEXES = {
+const CLOSED_DROPDOWN_INDEXES = {
     ANY: 0,
     OPENED: 1,
     CLOSED: 2
 }
 
-export const TICKET_PRIORITIES = {
+const TICKET_PRIORITIES = {
     ANY: undefined,
     LOW: [0],
     MEDIUM: [1],
     HIGH: [2]
 };
 
-export const PRIORITIES_DROPDOWN_INDEXES = {
+const PRIORITIES_DROPDOWN_INDEXES = {
     ANY: 0,
     LOW: 1,
     MEDIUM: 2,
@@ -110,12 +110,14 @@ class TicketQueryFilters extends React.Component {
                     </div>
                    <div className="ticket-query-filters__container">
                         <span>Tags</span>
-                        <TagSelector
-                            items={this.getTags(this.props.filters.tags)}
-                            values={this.getSelectedTags().map(tag => tag.name)}
-                            onRemoveClick={this.removeTag.bind(this)} 
-                            onTagSelected={this.addTag.bind(this)}
-                            loading={false}/>
+                        <FormField
+                            name="tags"
+                            field="tag-selector"
+                            fieldProps={{
+                                items: this.getTags(this.props.filters.tags),
+                                onRemoveClick: this.removeTag.bind(this),
+                                onTagSelected: this.addTag.bind(this)
+                            }} />
                     </div>
                     <SubmitButton>Filter</SubmitButton>
                 </Form>
@@ -123,73 +125,113 @@ class TicketQueryFilters extends React.Component {
         );
     }
 
-    renderStaffOption(item) {
+    renderDepartmentOption(department) {
         return (
-            <div className="ticket-query-filters__staff-option" key={`staff-option-${item.id}`}>
-                <img className="ticket-query-filters__staff-option__profile-pic" src={this.getStaffProfilePic(item)}/>
-                <span className="ticket-query-filters__staff-option__name">{item.name}</span>
+            <div className="ticket-query-filters__department-option" key={`department-option-${department.id}`}>
+                {department.private*1 ?
+                    <Icon className="ticket-query-filters__department-option__icon" name='user-secret'/> :
+                    null}
+                <span className="ticket-query-filters__department-option__name">{department.name}</span>
             </div>
         );
     }
 
-    renderStaffSelected(item) {
+    renderDeparmentSelected(department) {
         return (
-            <div className="ticket-query-filters__staff-selected" key={`staff-selected-${item.id}`}>
-                <img className="ticket-query-filters__staff-selected__profile-pic" src={this.getStaffProfilePic(item)}/>
-                <span className="ticket-query-filters__staff-selected__name">{item.name}</span>
+            <div className="ticket-query-filters__department-selected" key={`department-selected-${department.id}`}>
+                {department.private*1 ?
+                    <Icon className="ticket-query-filters__department-selected__icon" name='user-secret'/> :
+                    null}
+                <span className="ticket-query-filters__department-selected__name">{department.name}</span>
             </div>
         );
     }
 
-    onSubmitForm() {
-        const { onSubmit, } = this.props;
-        onSubmit && onSubmit(this.state.form)
+    renderStaffOption(staff) {
+        return (
+            <div className="ticket-query-filters__staff-option" key={`staff-option-${staff.id}`}>
+                <img className="ticket-query-filters__staff-option__profile-pic" src={this.getStaffProfilePic(staff)}/>
+                <span className="ticket-query-filters__staff-option__name">{staff.name}</span>
+            </div>
+        );
     }
 
-    onChangeFrom(data) {
-        let newStartDate = data.dateRange.startDate === "" ? 20170101 : data.dateRange.startDate;
-        let newEndDate = data.dateRange.endDate === "" ? DateTransformer.getDateToday() : data.dateRange.endDate;
-        let newData = {
-            ...data,
-            dateRange: {
-                ...data.dateRange,
-                startDate: newStartDate,
-                endDate : newEndDate
-            }
-        }
-
-        this.setState({
-            form: newData,
-        })
-    }
-
-    removeTag(tag) {
-        const { onSubmit, } = this.props;
-        let newTagList = JSON.parse(this.props.filters.tags).filter(item => item !== tag);
-
-        onSubmit && onSubmit({...this.state.form, tags: newTagList});
+    renderStaffSelected(staff) {
+        return (
+            <div className="ticket-query-filters__staff-selected" key={`staff-selected-${staff.id}`}>
+                <img className="ticket-query-filters__staff-selected__profile-pic" src={this.getStaffProfilePic(staff)}/>
+                <span className="ticket-query-filters__staff-selected__name">{staff.name}</span>
+            </div>
+        );
     }
 
     addTag(tag) {
-        const { onSubmit, } = this.props;
-        let newTags = JSON.parse(this.props.filters.tags).concat([tag]);
-        onSubmit && onSubmit({...this.state.form, tags: newTags});
+        let selectedTagsName = this.state.form.tags.concat(this.getSelectedTagsName([tag]));
+
+        this.setState({
+            form: {
+                ...this.state.form,
+                tags: selectedTagsName
+            }
+        });
     }
 
-    transformToFormValue(filters) {
+    dateRangeToFormValue(_dateRange) {
+        const dateRange = JSON.parse(_dateRange);
+
+        return {
+            valid: true,
+            startDate: dateRange[0]/10000,
+            endDate: (dateRange[1]-2400)/10000,
+        };
+    }
+
+    formValueToFilters(form) {
+        let departmentsId = form.departments.map(department => department.id);
+        let dateRangeFilter = [form.dateRange.startDate, form.dateRange.endDate];
         let newFormValues = {
-            ...newFormValues,
-            query: filters.query ? filters.query : "",
-            closed: this.getClosedDropdowIndex(filters.closed),
-            priority: this.getPriorityDropdownIndex(filters.priority),
-            departments: filters.departments ? JSON.parse(filters.departments) : [],
-            owners: filters.owners ? JSON.parse(filters.owners) : [],
-            tags: filters.tags ? JSON.parse(filters.tags) : [],
-            dateRange: this.dateRangeToFormValue(filters.dateRange),
-            orderBy: filters.orderBy ? JSON.parse(filters.orderBy) : undefined,
-        }
+            query: form.query,
+            closed: this.getTicketStatusByDropdownIndex(form.closed),
+            priority: this.getTicketPrioritiesByDropdownIndex(form.priority),
+            departments: form.departments !== undefined ? JSON.stringify(departmentsId) : "[]",
+            owners: JSON.stringify(form.owners),
+            tags: JSON.stringify(this.tagsNametoTagsId(form.tags)),
+            dateRange: JSON.stringify(DateTransformer.formDateRangeToFilters(dateRangeFilter)),
+        };
 
         return newFormValues;
+    }
+
+    getClosedDropdowIndex(status) {
+        let closedDropdownIndex;
+
+        switch(status) {
+            case TICKET_STATUSES.CLOSED:
+                closedDropdownIndex = CLOSED_DROPDOWN_INDEXES.CLOSED;
+                break;
+            case TICKET_STATUSES.OPENED:
+                closedDropdownIndex = CLOSED_DROPDOWN_INDEXES.OPENED;
+                break;
+            default:
+                closedDropdownIndex = CLOSED_DROPDOWN_INDEXES.ANY;
+        }
+
+        return closedDropdownIndex;
+    }
+
+    getDepartmentsItems() {
+        const { departments, } = this.props;
+        let departmentsList = departments.map(department => {
+            return {
+                id: JSON.parse(department.id),
+                name: department.name.toLowerCase(),
+                color: 'gray',
+                contentOnSelected: this.renderDeparmentSelected(department),
+                content: this.renderDepartmentOption(department),
+            }
+        });
+
+        return departmentsList;
     }
 
     getPriorityDropdownIndex(_priority) {
@@ -213,64 +255,6 @@ class TicketQueryFilters extends React.Component {
         return priorityDorpDownIndex;
     }
 
-    getClosedDropdowIndex(status) {
-        let closedDropdownIndex;
-
-        switch(status) {
-            case TICKET_STATUSES.CLOSED:
-                closedDropdownIndex = CLOSED_DROPDOWN_INDEXES.CLOSED;
-                break;
-            case TICKET_STATUSES.OPENED:
-                closedDropdownIndex = CLOSED_DROPDOWN_INDEXES.OPENED;
-                break;
-            default:
-                closedDropdownIndex = CLOSED_DROPDOWN_INDEXES.ANY;
-        }
-
-        return closedDropdownIndex;
-    }
-
-    dateRangeToFormValue(_dateRange) {
-        const dateRange = JSON.parse(_dateRange);
-
-        return {
-            valid: true,
-            startDate: dateRange[0]/10000,
-            endDate: (dateRange[1]-2400)/10000,
-        };
-    }
-
-    getSelectedTags() {
-        let tagList = this.getTags();
-        let tagsSelectedId = JSON.parse(this.props.filters.tags);
-        let selectedTags = tagList.filter(item => _.includes(tagsSelectedId, item.id));
-
-        return selectedTags;
-    }
-
-    getTags() {
-        const { tags, } = this.props;
-        let newTagList = tags.map(tag => {
-            return {
-                id: JSON.parse(tag.id),
-                name: tag.name,
-                color : tag.color
-            }
-        });
-
-        return newTagList;
-    }
-
-    getStatusItems() {
-        let items = [
-            {id: 0, name: 'Any', content: 'Any'},
-            {id: 1, name: 'Opened', content: 'Opened'},
-            {id: 2, name: 'Closed', content: 'Closed'},
-        ];
-
-        return items;
-    }
-
     getPriorityItems() {
         let items = [
             {id: 0, name: 'Any', content: 'Any'},
@@ -282,28 +266,37 @@ class TicketQueryFilters extends React.Component {
         return items;
     }
 
-    getDepartmentsItems() {
-        const { departments, } = this.props;
+    getSelectedDepartments(selectedDepartmentsId) {
+        let selectedDepartments = [];
 
-        let departmentsList = departments.map(department => {
-            return {
-                id: JSON.parse(department.id),
-                name: department.name.toLowerCase(),
-                color: 'gray',
-                //contentOnSelected: this.renderDeparmentSelected(department),
-                content: department.name,
-            }
-        });
-
-        return departmentsList;
-    }
-
-    getSelectedDepartments() {
-        let departments = this.getDepartmentsItems();
-        let selectedDepartmentsId = JSON.parse(this.props.filters.departments);
-        let selectedDepartments = departments.filter(item => _.includes(selectedDepartmentsId, item.id));
+        if(selectedDepartmentsId !== undefined) {
+            let departments = this.getDepartmentsItems();
+            selectedDepartments = departments.filter(item => _.includes(selectedDepartmentsId, item.id));
+        }
 
         return selectedDepartments;
+    }
+
+    getSelectedStaffs(selectedStaffsId) {
+        let selectedStaffs = [];
+        if(selectedStaffsId !== undefined) {
+            let staffs = this.getStaffList();
+            selectedStaffs = staffs.filter(staff => _.includes(selectedStaffsId, staff.id));
+        }
+
+        return selectedStaffs;
+    }
+
+    getSelectedTagsName(selectedTagsId) {
+        let selectedTagsName = [];
+
+        if(selectedTagsId !== undefined) {
+            let tagList = this.getTags();
+            let selectedTags = tagList.filter(item => _.includes(selectedTagsId, item.id));
+            selectedTagsName = selectedTags.map(tag => tag.name);
+        }
+
+        return selectedTagsName;
     }
 
     getStaffList() {
@@ -325,16 +318,125 @@ class TicketQueryFilters extends React.Component {
         return staff.profilePic ? API.getFileLink(staff.profilePic) : (API.getURL() + '/images/profile.png');
     }
 
-    getSelectedStaffs() {
-        let staffs = this.getStaffList();
-        let selectedStaffsId = JSON.parse(this.props.filters.owners);
-        let selectedStaffs = staffs.filter(staff => _.includes(selectedStaffsId, staff.id));
+    getStatusItems() {
+        let items = [
+            {id: 0, name: 'Any', content: 'Any'},
+            {id: 1, name: 'Opened', content: 'Opened'},
+            {id: 2, name: 'Closed', content: 'Closed'},
+        ];
 
-        return selectedStaffs;
+        return items;
+    }
+
+    getTags() {
+        const { tags, } = this.props;
+        let newTagList = tags.map(tag => {
+            return {
+                id: JSON.parse(tag.id),
+                name: tag.name,
+                color : tag.color
+            }
+        });
+
+        return newTagList;
+    }
+
+    getTicketPrioritiesByDropdownIndex(dropdownIndex) {
+        let priorities = TICKET_PRIORITIES.ANY;
+
+        switch(dropdownIndex) {
+            case PRIORITIES_DROPDOWN_INDEXES.LOW:
+                priorities = TICKET_PRIORITIES.LOW;
+                break;
+            case PRIORITIES_DROPDOWN_INDEXES.MEDIUM:
+                priorities = TICKET_PRIORITIES.MEDIUM;
+                break;
+            case PRIORITIES_DROPDOWN_INDEXES.HIGH:
+                priorities = TICKET_PRIORITIES.HIGH;
+                break;
+        }
+
+        return priorities !== undefined ? JSON.stringify(priorities) : priorities;
+    }
+
+    getTicketStatusByDropdownIndex(dropdownIndex) {
+        let status;
+
+        switch(dropdownIndex) {
+            case CLOSED_DROPDOWN_INDEXES.CLOSED:
+                status = TICKET_STATUSES.CLOSED;
+                break;
+            case CLOSED_DROPDOWN_INDEXES.OPENED:
+                status = TICKET_STATUSES.OPENED;
+                break;
+            default:
+                status = TICKET_STATUSES.ANY;
+        }
+
+        return status;
+    }
+
+    onChangeFrom(data) {
+        let newStartDate = data.dateRange.startDate === "" ? 20170101 : data.dateRange.startDate;
+        let newEndDate = data.dateRange.endDate === "" ? DateTransformer.getDateToday() : data.dateRange.endDate;
+        let newData = {
+            ...data,
+            dateRange: {
+                ...data.dateRange,
+                startDate: newStartDate,
+                endDate : newEndDate
+            }
+        }
+
+        this.setState({
+            form: newData,
+        })
+    }
+
+    onSubmitForm() {
+        const { onSubmit, } = this.props;
+        onSubmit && onSubmit(this.formValueToFilters(this.state.form));
+    }
+
+    removeTag(tag) {
+        let tagListName = this.tagsNametoTagsId(this.state.form.tags);
+        let newTagList = tagListName.filter(item => item !== tag);
+        let selectedTags = this.getSelectedTagsName(newTagList);
+
+        this.setState({
+            form: {
+                ...this.state.form,
+                tags: selectedTags
+            }
+        });
     }
 
     retrieveStaffMembers() {
         this.props.dispatch(AdminDataActions.retrieveStaffMembers());
+    }
+
+    tagsNametoTagsId(selectedTagsName) {
+        let tagList = this.getTags();
+        let selectedTags = tagList.filter(item => _.includes(selectedTagsName, item.name));
+        let selectedTagsId = selectedTags.map(tag => tag.id);
+
+        return selectedTagsId;
+
+    }
+
+    transformToFormValue(filters) {
+        let newFormValues = {
+            ...newFormValues,
+            query: filters.query ? filters.query : "",
+            closed: this.getClosedDropdowIndex(filters.closed),
+            priority: this.getPriorityDropdownIndex(filters.priority),
+            departments: this.getSelectedDepartments(JSON.parse(filters.departments)),
+            owners: this.getSelectedStaffs(JSON.parse(filters.owners)),
+            tags: this.getSelectedTagsName(JSON.parse(filters.tags)),
+            dateRange: this.dateRangeToFormValue(filters.dateRange),
+        }
+
+        return newFormValues;
     }
 }
 
