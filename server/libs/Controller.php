@@ -3,9 +3,9 @@ use RedBeanPHP\Facade as RedBean;
 
 abstract class Controller {
     private static $dataRequester;
-    private $staffOverLimit;
-    private $staffLimit;
-    private $automaticUpgrades;
+    protected $staffOverLimit;
+    protected $staffLimit;
+    protected $automaticUpgrades;
 
     public function runStaffLimitFirewall() {
         global $client;
