@@ -26,7 +26,7 @@ class Setting extends DataStore {
                 'smtp-port' => $client->getItem('smtp-port'),
                 'smtp-user' => $client->getItem('smtp-user'),
                 'smtp-pass' => $client->getItem('smtp-pass'),
-                'server-email' => $client->getItem('server-email')
+                'server-email' => $client->getClientEmail()
             ];
         } else {
             return [

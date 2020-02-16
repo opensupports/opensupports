@@ -85,6 +85,10 @@ class Client {
         ]);
     }
 
+    public function getClientEmail() {
+        return $this->getItem($this->getClientId() . '_email');
+    }
+
     public function getClientVersionURL() {
         return $this->getVersionItem($this->getClientVersion());
     }
