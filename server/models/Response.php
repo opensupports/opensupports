@@ -12,7 +12,8 @@ class Response {
             'status' => 'fail',
             'session_id' => session_id(),
             'message' => $errorMsg,
-            'data' => $data
+            'data' => $data,
+            'exception' => $exception ? $exception->__toString() : null
         );
         self::$responseException = $exception;
 
