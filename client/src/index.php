@@ -26,7 +26,6 @@
 
         <title>OpenSupports</title>
 
-        <link rel="stylesheet" href="https://s3.amazonaws.com/opensupports/opensupports_<?=$client->getClientVersion(); ?>.css">
         <link rel="icon" type="image/x-icon" href="<?=$url ?>/images/icon.png">
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
