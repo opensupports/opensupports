@@ -291,20 +291,20 @@ export default {
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': '填写您的问题/意见/建议并提交给我们，我们将尽快处理和答复。信息提交后无法修改，请准确填写。',
-    'TICKET_LIST_DESCRIPTION': '在这里，您可以找到您已发送给我们的所有工单。',
+    'TICKET_LIST_DESCRIPTION': '在这里，您可以找到您提交给我们的所有工单。',
     'TICKETS_DESCRIPTION': '通过我们的支持中心提交工单，并说明您的问题，意见和建议。',
     'ARTICLES_DESCRIPTION': '请查看我们的有关常见问题的指南和说明。',
-    'ACCOUNT_DESCRIPTION': '您的所有工单都存储在您账户的个人资料中。您可以查看发送给我们的所有工单。',
+    'ACCOUNT_DESCRIPTION': '您的所有工单都存储在您账户的个人资料中。您可以查看提交给我们的所有工单。',
     'SUPPORT_CENTER_DESCRIPTION': '欢迎来到我们的支持中心。通过工单系统，您的问题/意见/建议将由我们的工作人员处理和答复。',
     'CUSTOM_RESPONSES_DESCRIPTION': '预设回复是针对常见问题的答复',
-    'CUSTOM_TAGS_DESCRIPTION': '在这里，您可以查看管理工单的自定义标签以更好地识别它们',
+    'CUSTOM_TAGS_DESCRIPTION': '在这里，您可以查看和管理工单的自定义标签以更好地识别它们',
     'MY_TICKETS_DESCRIPTION': '在这里您可以查看您受理的工单。',
     'NEW_TICKETS_DESCRIPTION': '在这里您可以查看所有等待分配受理人的新工单。',
     'ALL_TICKETS_DESCRIPTION': '在这里您可以查看该类型下的所有工单。',
-    'TICKET_VIEW_DESCRIPTION': '此工单已由客户发送。在这里您可以回复或分配工单',
+    'TICKET_VIEW_DESCRIPTION': '此工单已由客户提交。在这里您可以回复或分配工单。',
     'BAN_USERS_DESCRIPTION': '在这里您可以看到禁止的电子邮件列表，您可以取消禁止他们或添加更多的电子邮件到列表中。',
     'LIST_USERS_DESCRIPTION': '这是在此平台中注册的用户列表。您可以搜索特定的人，删除它或禁止它。',
-    'USER_VIEW_DESCRIPTION': '在这里您可以找到有关用户的所有信息和用户发送的所有工单。您也可以删除或禁止它。',
+    'USER_VIEW_DESCRIPTION': '在这里您可以找到有关用户的所有信息和用户提交的所有工单。您也可以删除或禁止它。',
     'DELETE_USER_DESCRIPTION': '用户将无法登录，且所有工单都将被清除。此外，电子邮件不能再使用。',
     'DELETE_TOPIC_DESCRIPTION': '通过删除主题，其上的所有文章将被删除。',
     'SEARCH_TICKETS_DESCRIPTION': '在这里，您可以按关键词查找工单',
@@ -437,6 +437,6 @@ export default {
     'TEST_SMTP_CONNECTION': '测试SMTP连接',
     'SERVER_ERROR': '无法连接到服务器。',
     'EMAIL_SERVER_ADDRESS': '电子邮件服务器地址',
-    'EMAIL_SERVER_ADDRESS_DESCRIPTION': '地址将收到和发送邮件'
+    'EMAIL_SERVER_ADDRESS_DESCRIPTION': '地址将收取和发送邮件'
 };
 
