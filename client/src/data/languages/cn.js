@@ -292,7 +292,7 @@ export default {
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': '填写您的问题/意见/建议并提交给我们，我们将尽快处理和答复。信息提交后无法修改，请准确填写。',
     'TICKET_LIST_DESCRIPTION': '在这里，您可以找到您已发送给我们的所有工单。',
-    'TICKETS_DESCRIPTION': '通过我们的支持中心发送工单，并说明您的问题，意见和建议。',
+    'TICKETS_DESCRIPTION': '通过我们的支持中心提交工单，并说明您的问题，意见和建议。',
     'ARTICLES_DESCRIPTION': '请查看我们的有关常见问题的指南和说明。',
     'ACCOUNT_DESCRIPTION': '您的所有工单都存储在您账户的个人资料中。您可以查看发送给我们的所有工单。',
     'SUPPORT_CENTER_DESCRIPTION': '欢迎来到我们的支持中心。通过工单系统，您的问题/意见/建议将由我们的工作人员处理和答复。',
