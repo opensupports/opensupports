@@ -6,6 +6,7 @@ import configReducer from 'reducers/config-reducer';
 import modalReducer from 'reducers/modal-reducer';
 import articlesReducer from 'reducers/articles-reducer';
 import adminDataReducer from 'reducers/admin-data-reducer';
+import searchFiltersReducer from 'reducers/search-filters-reducer';
 
 export default combineReducers({
     session: sessionReducer,
@@ -13,5 +14,6 @@ export default combineReducers({
     modal: modalReducer,
     articles: articlesReducer,
     adminData: adminDataReducer,
-    routing: routerReducer
+    routing: routerReducer,
+    searchFilters: searchFiltersReducer,
 });

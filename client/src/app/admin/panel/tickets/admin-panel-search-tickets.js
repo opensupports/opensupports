@@ -8,80 +8,32 @@ import TicketQueryList from 'app-components/ticket-query-list';
 import Header from 'core-components/header';
 import Message from 'core-components/message';
 import TicketQueryFilters from 'app-components/ticket-query-filters';
-import DateTransformer from '../../../../lib-core/date-transformer';
+import SearchFiltersActions from 'actions/search-filters-actions';
 
 class AdminPanelSearchTickets extends React.Component {
 
-    state = {
-        listData: this.getList(),
-    }
-
     render() {
+        const { listDataState } = this.props;
         return (
             <div className="admin-panel-all-tickets">
-                <Header title={this.getList().title} description={i18n('SEARCH_TICKETS_DESCRIPTION')} />
-                <TicketQueryFilters
-                    filters={this.state.listData.filters}
-                    onSubmit={filters => this.onSubmit(filters)} />
+                <Header
+                    title={listDataState.title !== undefined ? listDataState.title : i18n('CUSTOM_LIST')}
+                    description={i18n('SEARCH_TICKETS_DESCRIPTION')} />
+                <TicketQueryFilters filters={listDataState.filters} />
                 {
                     (this.props.error) ?
                         <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> :
                         <TicketQueryList
-                            filters={this.state.listData.filters}
+                            filters={listDataState.filters}
                             onChangeOrderBy={this.onChangeOrderBy.bind(this)} />
                 }
             </div>
         );
     }
 
-    getList() {
-        const defaultFilters = {
-            query: "",
-            closed: undefined,
-            priority: undefined,
-            departments: "[]",
-            owners: "[]",
-            tags: "[]",
-            dateRange: this.getDefaultDateRange(),
-            orderBy: undefined,
-        };
-
-        if (
-            window.customTicketList && 
-            this.props.location.query.custom && 
-            window.customTicketList[this.props.location.query.custom*1]
-        ){ 
-            return {
-                title: window.customTicketList[this.props.location.query.custom*1].title,
-                filters: {
-                    ...defaultFilters,
-                    ...window.customTicketList[this.props.location.query.custom*1].filters,
-                }
-            };
-        } else {
-            return {
-                'title': i18n('CUSTOM_LIST'),
-                'filters': defaultFilters,
-            };
-        }
-    }
-
-    getDefaultDateRange() {
-        return JSON.stringify(DateTransformer.formDateRangeToFilters([20170101, DateTransformer.getDateToday()]));
-    }
-
-    onSubmit(filter) {
-        this.setState({
-            listData: {
-                ...this.state.listData,
-                filters: filter,
-            }
-        });
-    }
-
     onChangeOrderBy(value) {
-        const { listData, } = this.state;
-        let orderBy = listData.filters.orderBy ? JSON.parse(listData.filters.orderBy) : {value: ""};
+        const { listDataState, } = this.props;
+        let orderBy = listDataState.filters.orderBy ? JSON.parse(listDataState.filters.orderBy) : {value: ""};
         let newOrderBy = {};
         let newAsc = 0;
         let newValue = value;
@@ -91,18 +43,19 @@ class AdminPanelSearchTickets extends React.Component {
         }
 
         newOrderBy = JSON.stringify({"value": newValue, "asc": newAsc});
-
-        this.setState({
-            listData: {
-                ...this.state.listDate,
-                filters: {...this.state.listData.filters, orderBy: newOrderBy}
+        this.props.dispatch(SearchFiltersActions.changeFilters({
+            ...listDataState,
+            filters: {
+                ...listDataState.filters,
+                orderBy: newOrderBy
             }
-        });
+        }));
     }
 }
 
 export default connect((store) => {
     return {
-        error: store.adminData.allTicketsError
+        error: store.adminData.allTicketsError,
+        listDataState: store.searchFilters.listData
     };
 })(AdminPanelSearchTickets);

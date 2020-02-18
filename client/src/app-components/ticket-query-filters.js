@@ -2,6 +2,9 @@ import React from 'react';
 import _ from 'lodash';
 import {connect}  from 'react-redux';
 import AdminDataActions from 'actions/admin-data-actions';
+import SearchFiltersActions from 'actions/search-filters-actions';
+
+import i18n from 'lib-app/i18n';
 
 import API from 'lib-app/api-call';
 import DateTransformer from 'lib-core/date-transformer';
@@ -12,31 +15,7 @@ import FormField from 'core-components/form-field';
 import Icon from 'core-components/icon';
 
 
-const TICKET_STATUSES = {
-    ANY: undefined,
-    OPENED: 0,
-    CLOSED: 1
-};
-
-const CLOSED_DROPDOWN_INDEXES = {
-    ANY: 0,
-    OPENED: 1,
-    CLOSED: 2
-}
-
-const TICKET_PRIORITIES = {
-    ANY: undefined,
-    LOW: [0],
-    MEDIUM: [1],
-    HIGH: [2]
-};
-
-const PRIORITIES_DROPDOWN_INDEXES = {
-    ANY: 0,
-    LOW: 1,
-    MEDIUM: 2,
-    HIGH: 3
-}
+const DEFAULT_START_DATE = 20170101;
 
 class TicketQueryFilters extends React.Component {
 
@@ -47,61 +26,60 @@ class TicketQueryFilters extends React.Component {
             owners: React.PropTypes.string,
             tags: React.PropTypes.string,
             dateRange: React.PropTypes.string,
-        }),
-        onSubmit: React.PropTypes.func,
-        onChange: React.PropTypes.func,
+        })
     }
-
-    state = {
-        form: this.transformToFormValue(this.props.filters),
-    };
 
     componentDidMount() {
         this.retrieveStaffMembers();
     }
 
+    onChangeFormState(formValues) {
+        this.props.dispatch(SearchFiltersActions.changeForm(formValues));
+    }
+
     render() {
+        const {
+            formState,
+            listDataState
+        } = this.props;
+
         return (
             <div className="ticket-query-filters">
                 <Form
-                    values={this.state.form}
-                    onChange={this.onChangeFrom.bind(this)}
+                    values={this.formToAutocompleteValue(formState)}
+                    onChange={this.onChangeForm.bind(this)}
                     onSubmit={this.onSubmitForm.bind(this)}>
                     <div className="ticket-query-filters__search-box">
                         <FormField name="query" field="search-box" />
                     </div>
                     <div className="ticket-query-filters__group">
                         <div className="ticket-query-filters__container">
-                            <span>Priority</span>
+                            <span>{i18n('PRIORITY')}</span>
                             <FormField name="priority" field="select" fieldProps={{items: this.getPriorityItems()}} />
                         </div>
                         <div className="ticket-query-filters__container">
-                            <span>Date</span>
+                            <span>{i18n('DATE')}</span>
                             <FormField
                                 name="dateRange"
                                 field="date-range"
-                                fieldProps={{
-                                    defaultValue: this.dateRangeToFormValue(
-                                        this.props.filters.dateRange
-                                    ),
-                                }}
+                                fieldProps={{defaultValue: this.dateRangeToFormValue(listDataState.filters.dateRange)}}
                             />
                         </div>
                         <div className="ticket-query-filters__container">
-                            <span>Status</span>
+                            <span>{i18n('STATUS')}</span>
                             <FormField name="closed" field="select" fieldProps={{items: this.getStatusItems()}} />
                         </div>
                     </div>
                     <div className="ticket-query-filters__group">
                         <div className="ticket-query-filters__container">
-                            <span className="ticket-query-filters__title">Departments</span>
+                            <span className="ticket-query-filters__title">{i18n('DEPARTMENTS')}</span>
                             <FormField
                                 name="departments"
                                 field="autocomplete"
                                 fieldProps={{items: this.getDepartmentsItems()}} />
                         </div>
                        <div className="ticket-query-filters__container">
-                            <span className="ticket-query-filters__title">Owners</span>
+                            <span className="ticket-query-filters__title">{i18n('OWNER')}</span>
                             <FormField
                                 name="owners"
                                 field="autocomplete"
@@ -109,17 +87,17 @@ class TicketQueryFilters extends React.Component {
                         </div>
                     </div>
                    <div className="ticket-query-filters__container">
-                        <span>Tags</span>
+                        <span>{i18n('TAGS')}</span>
                         <FormField
                             name="tags"
                             field="tag-selector"
                             fieldProps={{
-                                items: this.getTags(this.props.filters.tags),
+                                items: this.getTags(listDataState.filters.tags),
                                 onRemoveClick: this.removeTag.bind(this),
                                 onTagSelected: this.addTag.bind(this)
                             }} />
                     </div>
-                    <SubmitButton>Filter</SubmitButton>
+                    <SubmitButton>{i18n('SEARCH')}</SubmitButton>
                 </Form>
             </div>
         );
@@ -166,14 +144,10 @@ class TicketQueryFilters extends React.Component {
     }
 
     addTag(tag) {
-        let selectedTagsName = this.state.form.tags.concat(this.getSelectedTagsName([tag]));
+        const { formState } = this.props;
+        let selectedTagsId = formState.tags.concat(this.tagsNametoTagsId(this.getSelectedTagsName([tag])));
 
-        this.setState({
-            form: {
-                ...this.state.form,
-                tags: selectedTagsName
-            }
-        });
+        this.onChangeFormState({...formState, tags: selectedTagsId});
     }
 
     dateRangeToFormValue(_dateRange) {
@@ -184,39 +158,6 @@ class TicketQueryFilters extends React.Component {
             startDate: dateRange[0]/10000,
             endDate: (dateRange[1]-2400)/10000,
         };
-    }
-
-    formValueToFilters(form) {
-        let departmentsId = form.departments.map(department => department.id);
-        let dateRangeFilter = [form.dateRange.startDate, form.dateRange.endDate];
-        let newFormValues = {
-            query: form.query,
-            closed: this.getTicketStatusByDropdownIndex(form.closed),
-            priority: this.getTicketPrioritiesByDropdownIndex(form.priority),
-            departments: form.departments !== undefined ? JSON.stringify(departmentsId) : "[]",
-            owners: JSON.stringify(form.owners),
-            tags: JSON.stringify(this.tagsNametoTagsId(form.tags)),
-            dateRange: JSON.stringify(DateTransformer.formDateRangeToFilters(dateRangeFilter)),
-        };
-
-        return newFormValues;
-    }
-
-    getClosedDropdowIndex(status) {
-        let closedDropdownIndex;
-
-        switch(status) {
-            case TICKET_STATUSES.CLOSED:
-                closedDropdownIndex = CLOSED_DROPDOWN_INDEXES.CLOSED;
-                break;
-            case TICKET_STATUSES.OPENED:
-                closedDropdownIndex = CLOSED_DROPDOWN_INDEXES.OPENED;
-                break;
-            default:
-                closedDropdownIndex = CLOSED_DROPDOWN_INDEXES.ANY;
-        }
-
-        return closedDropdownIndex;
     }
 
     getDepartmentsItems() {
@@ -234,33 +175,12 @@ class TicketQueryFilters extends React.Component {
         return departmentsList;
     }
 
-    getPriorityDropdownIndex(_priority) {
-        let priorityDorpDownIndex = PRIORITIES_DROPDOWN_INDEXES.ANY;
-
-        if(_priority !== undefined) {
-            let priority = JSON.parse(_priority)[0];
-            switch(priority) {
-                case TICKET_PRIORITIES.LOW[0]:
-                    priorityDorpDownIndex = PRIORITIES_DROPDOWN_INDEXES.LOW;
-                    break;
-                case TICKET_PRIORITIES.MEDIUM[0]:
-                    priorityDorpDownIndex = PRIORITIES_DROPDOWN_INDEXES.MEDIUM;
-                    break;
-                case TICKET_PRIORITIES.HIGH[0]:
-                    priorityDorpDownIndex = PRIORITIES_DROPDOWN_INDEXES.HIGH;
-                    break;
-            }
-        }
-
-        return priorityDorpDownIndex;
-    }
-
     getPriorityItems() {
         let items = [
-            {id: 0, name: 'Any', content: 'Any'},
-            {id: 1, name: 'Low', content: 'Low'},
-            {id: 2, name: 'Medium', content: 'Medium'},
-            {id: 3, name: 'High', content: 'High'},
+            {id: 0, name: 'Any', content: i18n('ANY')},
+            {id: 1, name: 'Low', content: i18n('LOW')},
+            {id: 2, name: 'Medium', content: i18n('MEDIUM')},
+            {id: 3, name: 'High', content: i18n('HIGH')},
         ];
 
         return items;
@@ -320,9 +240,9 @@ class TicketQueryFilters extends React.Component {
 
     getStatusItems() {
         let items = [
-            {id: 0, name: 'Any', content: 'Any'},
-            {id: 1, name: 'Opened', content: 'Opened'},
-            {id: 2, name: 'Closed', content: 'Closed'},
+            {id: 0, name: 'Any', content: i18n('ANY')},
+            {id: 1, name: 'Opened', content: i18n('OPENED')},
+            {id: 2, name: 'Closed', content: i18n('CLOSED')},
         ];
 
         return items;
@@ -341,74 +261,37 @@ class TicketQueryFilters extends React.Component {
         return newTagList;
     }
 
-    getTicketPrioritiesByDropdownIndex(dropdownIndex) {
-        let priorities = TICKET_PRIORITIES.ANY;
-
-        switch(dropdownIndex) {
-            case PRIORITIES_DROPDOWN_INDEXES.LOW:
-                priorities = TICKET_PRIORITIES.LOW;
-                break;
-            case PRIORITIES_DROPDOWN_INDEXES.MEDIUM:
-                priorities = TICKET_PRIORITIES.MEDIUM;
-                break;
-            case PRIORITIES_DROPDOWN_INDEXES.HIGH:
-                priorities = TICKET_PRIORITIES.HIGH;
-                break;
-        }
-
-        return priorities !== undefined ? JSON.stringify(priorities) : priorities;
-    }
-
-    getTicketStatusByDropdownIndex(dropdownIndex) {
-        let status;
-
-        switch(dropdownIndex) {
-            case CLOSED_DROPDOWN_INDEXES.CLOSED:
-                status = TICKET_STATUSES.CLOSED;
-                break;
-            case CLOSED_DROPDOWN_INDEXES.OPENED:
-                status = TICKET_STATUSES.OPENED;
-                break;
-            default:
-                status = TICKET_STATUSES.ANY;
-        }
-
-        return status;
-    }
-
-    onChangeFrom(data) {
-        let newStartDate = data.dateRange.startDate === "" ? 20170101 : data.dateRange.startDate;
+    onChangeForm(data) {
+        let newStartDate = data.dateRange.startDate === "" ? DEFAULT_START_DATE : data.dateRange.startDate;
         let newEndDate = data.dateRange.endDate === "" ? DateTransformer.getDateToday() : data.dateRange.endDate;
-        let newData = {
+        let departmentsId = data.departments.map(department => department.id);
+        let staffsId = data.owners.map(staff => staff.id);
+        let tagsName = this.tagsNametoTagsId(data.tags);
+
+        this.onChangeFormState({
             ...data,
+            tags: tagsName,
+            owners: staffsId,
+            departments: departmentsId,
             dateRange: {
                 ...data.dateRange,
                 startDate: newStartDate,
-                endDate : newEndDate
+                endDate: newEndDate
             }
-        }
-
-        this.setState({
-            form: newData,
-        })
+        });
     }
 
     onSubmitForm() {
-        const { onSubmit, } = this.props;
-        onSubmit && onSubmit(this.formValueToFilters(this.state.form));
+        this.props.dispatch(SearchFiltersActions.submitForm(this.props.formState));
     }
 
     removeTag(tag) {
-        let tagListName = this.tagsNametoTagsId(this.state.form.tags);
+        const { formState } = this.props;
+        let tagListName = formState.tags;
         let newTagList = tagListName.filter(item => item !== tag);
-        let selectedTags = this.getSelectedTagsName(newTagList);
+        let selectedTags = this.tagsNametoTagsId(this.getSelectedTagsName(newTagList));
 
-        this.setState({
-            form: {
-                ...this.state.form,
-                tags: selectedTags
-            }
-        });
+        this.onChangeFormState({...formState, tags: selectedTags});
     }
 
     retrieveStaffMembers() {
@@ -421,19 +304,14 @@ class TicketQueryFilters extends React.Component {
         let selectedTagsId = selectedTags.map(tag => tag.id);
 
         return selectedTagsId;
-
     }
 
-    transformToFormValue(filters) {
+    formToAutocompleteValue(form) {
         let newFormValues = {
-            ...newFormValues,
-            query: filters.query ? filters.query : "",
-            closed: this.getClosedDropdowIndex(filters.closed),
-            priority: this.getPriorityDropdownIndex(filters.priority),
-            departments: this.getSelectedDepartments(JSON.parse(filters.departments)),
-            owners: this.getSelectedStaffs(JSON.parse(filters.owners)),
-            tags: this.getSelectedTagsName(JSON.parse(filters.tags)),
-            dateRange: this.dateRangeToFormValue(filters.dateRange),
+            ...form,
+            departments: this.getSelectedDepartments(form.departments),
+            owners: this.getSelectedStaffs(form.owners),
+            tags: this.getSelectedTagsName(form.tags),
         }
 
         return newFormValues;
@@ -442,8 +320,10 @@ class TicketQueryFilters extends React.Component {
 
 export default connect((store) => {
     return {
-        tags: store.config['tags'],
-        departments: store.session.userDepartments,
+        tags: store.config.tags,
+        departments: store.config.departments,
         staffList: store.adminData.staffMembers,
+        formState: store.searchFilters.form,
+        listDataState: store.searchFilters.listData
     };
 })(TicketQueryFilters);
