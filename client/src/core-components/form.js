@@ -81,8 +81,6 @@ class Form extends React.Component {
         if (this.isValidField({type})) {
             let fieldName = props.name;
 
-            //console.log(`FORM -> ${fieldName}`, this.getFormValue()[fieldName], this.getFormValue());
-
             additionalProps = {
                 ref: fieldName,
                 value: this.getFormValue()[fieldName],
@@ -205,7 +203,6 @@ class Form extends React.Component {
     }
 
     getFormValue() {
-        //console.log("this.props.values", this.props.values, " y this.state.form:  ",this.state.form);
         return (this.props.values !== undefined) ? this.props.values : this.state.form;
     }
 

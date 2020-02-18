@@ -248,16 +248,7 @@ class FormField extends React.Component {
                 }
             };
         }
-/*
-        if(field === 'tag-selector' && !decorator) {
-            console.log("asd: ", nativeEvent);
-            event = {
-                target: {
-                    value: nativeEvent
-                }
-            };
-        }
-*/
+
         onChange && onChange(event);
     }
 
