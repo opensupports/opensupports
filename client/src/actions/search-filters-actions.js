@@ -17,4 +17,10 @@ export default {
             payload: filters,
         }
     },
+    setDefaultFormValues() {
+        return {
+            type: 'SET_DEFAULT_FORM_VALUES',
+        }
+    },
+
 };

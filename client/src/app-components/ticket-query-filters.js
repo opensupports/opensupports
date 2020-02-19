@@ -13,6 +13,7 @@ import Form from 'core-components/form';
 import SubmitButton from 'core-components/submit-button';
 import FormField from 'core-components/form-field';
 import Icon from 'core-components/icon';
+import Button from 'core-components/button';
 
 
 const DEFAULT_START_DATE = 20170101;
@@ -97,7 +98,18 @@ class TicketQueryFilters extends React.Component {
                                 onTagSelected: this.addTag.bind(this)
                             }} />
                     </div>
-                    <SubmitButton>{i18n('SEARCH')}</SubmitButton>
+                    <div className="ticket-query-filters__group">
+                        <Button
+                            className="ticket-query-filters__clear-button"
+                            onClick={this.clearFormValues.bind(this)}>
+                                {i18n('CLEAR')}
+                        </Button>
+                        <SubmitButton
+                            color="green"
+                            className="ticket-query-filters__search-button">
+                                {i18n('SEARCH')}
+                        </SubmitButton>
+                    </div>
                 </Form>
             </div>
         );
@@ -296,6 +308,11 @@ class TicketQueryFilters extends React.Component {
 
     retrieveStaffMembers() {
         this.props.dispatch(AdminDataActions.retrieveStaffMembers());
+    }
+
+    clearFormValues(event) {
+        event.preventDefault();
+        this.props.dispatch(SearchFiltersActions.setDefaultFormValues());
     }
 
     tagsNametoTagsId(selectedTagsName) {

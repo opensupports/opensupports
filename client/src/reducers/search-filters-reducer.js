@@ -72,6 +72,7 @@ class searchFiltersReducer extends Reducer {
             'ON_SUBMIT_FORM': this.onSubmitForm.bind(this),
             'CHANGE_FORM': this.onFormChange,
             'CHANGE_FILTERS': this.onFiltersChange.bind(this),
+            'SET_DEFAULT_FORM_VALUES': this.onSetDefaultFormValues.bind(this),
             [LOCATION_CHANGE]: this.onUrlChange.bind(this),
         };
     }
@@ -218,6 +219,10 @@ class searchFiltersReducer extends Reducer {
         return _.extend({}, state, {
             form: payload,
         });
+    }
+
+    onSetDefaultFormValues(state) {
+        return this.onFormChange(state, this.transformToFormValue(this.getList().filters));
     }
 
     onSubmitForm(state, payload) {
