@@ -90,7 +90,7 @@ class searchFiltersReducer extends Reducer {
     formValueToFilters(form) {
         let dateRangeFilter = [form.dateRange.startDate, form.dateRange.endDate];
         let newFiltersValues = {
-            query: form.query,
+            ...form,
             closed: this.getTicketStatusByDropdownIndex(form.closed),
             priority: this.getTicketPrioritiesByDropdownIndex(form.priority),
             departments: form.departments !== undefined ? JSON.stringify(form.departments) : "[]",
@@ -220,7 +220,10 @@ class searchFiltersReducer extends Reducer {
     }
 
     onSetDefaultFormValues(state) {
-        return this.onFormChange(state, this.transformToFormValue(this.getList().filters));
+        let custom = store.getState().routing.locationBeforeTransitions.query.custom;
+        let customDefaultFilters = custom ? window.customTicketList[custom*1].filters : undefined;
+
+        return _.extend({}, state, {form: this.transformToFormValue({...DEFAULT_FILTERS, ...customDefaultFilters})});
     }
 
     onSubmitForm(state, payload) {

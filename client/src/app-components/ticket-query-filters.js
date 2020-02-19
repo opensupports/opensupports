@@ -294,7 +294,12 @@ class TicketQueryFilters extends React.Component {
     }
 
     onSubmitForm() {
-        this.props.dispatch(SearchFiltersActions.submitForm(this.props.formState));
+        const {
+            formState,
+            listDataState,
+            dispatch
+        } = this.props;
+        dispatch(SearchFiltersActions.submitForm({...formState, orderBy: listDataState.filters.orderBy}));
     }
 
     removeTag(tag) {
