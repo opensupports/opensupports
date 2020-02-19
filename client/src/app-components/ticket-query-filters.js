@@ -105,7 +105,7 @@ class TicketQueryFilters extends React.Component {
                                 {i18n('CLEAR')}
                         </Button>
                         <SubmitButton
-                            color="green"
+                            type="secondary"
                             className="ticket-query-filters__search-button">
                                 {i18n('SEARCH')}
                         </SubmitButton>
