@@ -34,7 +34,7 @@ const PRIORITIES_DROPDOWN_INDEXES = {
 };
 
 const DEFAULT_FILTERS = {
-    query: "",
+    query: undefined,
     closed: undefined,
     priority: undefined,
     departments: "[]",
@@ -91,6 +91,7 @@ class searchFiltersReducer extends Reducer {
         let dateRangeFilter = [form.dateRange.startDate, form.dateRange.endDate];
         let newFiltersValues = {
             ...form,
+            query: form.query !== "" ? form.query : undefined,
             closed: this.getTicketStatusByDropdownIndex(form.closed),
             priority: this.getTicketPrioritiesByDropdownIndex(form.priority),
             departments: form.departments !== undefined ? JSON.stringify(form.departments) : "[]",
@@ -234,7 +235,13 @@ class searchFiltersReducer extends Reducer {
         return (
             payload.query.custom ?
                 this.onFiltersChange(state, window.customTicketList[payload.query.custom*1]) :
-                ({listData: {title: undefined, filters: DEFAULT_FILTERS}, form: this.transformToFormValue(DEFAULT_FILTERS)})
+                ({
+                    listData: {
+                        title: undefined,
+                        filters: DEFAULT_FILTERS
+                    },
+                    form: this.transformToFormValue(DEFAULT_FILTERS)
+                })
         );
     }
 
