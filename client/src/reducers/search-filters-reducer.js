@@ -88,7 +88,6 @@ class searchFiltersReducer extends Reducer {
     }
 
     formValueToFilters(form) {
-        let custom = store.getState().routing.locationBeforeTransitions.query.custom;
         let dateRangeFilter = [form.dateRange.startDate, form.dateRange.endDate];
         let newFiltersValues = {
             query: form.query,
@@ -99,10 +98,9 @@ class searchFiltersReducer extends Reducer {
             tags: JSON.stringify(form.tags),
             dateRange: JSON.stringify(DateTransformer.formDateRangeToFilters(dateRangeFilter)),
         };
-        let newTitle = window.customTicketList[custom*1].title;
 
         return {
-            title: newTitle,
+            ...this.getList(),
             filters: newFiltersValues
         };
     }
@@ -208,7 +206,7 @@ class searchFiltersReducer extends Reducer {
     onFiltersChange(state, payload) {
         return _.extend({}, state, {
             listData: {
-                title: payload.title ? payload.title : payload,
+                title: payload.title ? payload.title : undefined,
                 filters: payload.filters ? _.extend({}, DEFAULT_FILTERS, payload.filters) : payload
             },
             form: this.transformToFormValue({...DEFAULT_FILTERS, ...payload.filters})
