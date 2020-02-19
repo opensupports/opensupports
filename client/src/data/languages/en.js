@@ -99,6 +99,7 @@ export default {
     'CHANGE_PASSWORD': 'Change password',
     'NAME': 'Name',
     'SEARCH': 'Search',
+    'CLEAR': 'Clear',
     'SIGNUP_DATE': 'Sign up date',
     'SEARCH_USERS': 'Search users...',
     'SEARCH_EMAIL': 'Search email...',
