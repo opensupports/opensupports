@@ -54,11 +54,11 @@ class TicketQueryFilters extends React.Component {
                         <FormField name="query" field="search-box" />
                     </div>
                     <div className="ticket-query-filters__group">
-                        <div className="ticket-query-filters__container">
+                        <div className="ticket-query-filters__group__container">
                             <span>{i18n('PRIORITY')}</span>
                             <FormField name="priority" field="select" fieldProps={{items: this.getPriorityItems()}} />
                         </div>
-                        <div className="ticket-query-filters__container">
+                        <div className="ticket-query-filters__group__container">
                             <span>{i18n('DATE')}</span>
                             <FormField
                                 name="dateRange"
@@ -66,20 +66,20 @@ class TicketQueryFilters extends React.Component {
                                 fieldProps={{defaultValue: this.dateRangeToFormValue(listDataState.filters.dateRange)}}
                             />
                         </div>
-                        <div className="ticket-query-filters__container">
+                        <div className="ticket-query-filters__group__container">
                             <span>{i18n('STATUS')}</span>
                             <FormField name="closed" field="select" fieldProps={{items: this.getStatusItems()}} />
                         </div>
                     </div>
                     <div className="ticket-query-filters__group">
-                        <div className="ticket-query-filters__container">
+                        <div className="ticket-query-filters__group__container">
                             <span className="ticket-query-filters__title">{i18n('DEPARTMENTS')}</span>
                             <FormField
                                 name="departments"
                                 field="autocomplete"
                                 fieldProps={{items: this.getDepartmentsItems()}} />
                         </div>
-                       <div className="ticket-query-filters__container">
+                       <div className="ticket-query-filters__group__container">
                             <span className="ticket-query-filters__title">{i18n('OWNER')}</span>
                             <FormField
                                 name="owners"
@@ -87,26 +87,30 @@ class TicketQueryFilters extends React.Component {
                                 fieldProps={{items: this.getStaffList()}} />
                         </div>
                     </div>
-                   <div className="ticket-query-filters__container">
-                        <span>{i18n('TAGS')}</span>
-                        <FormField
-                            name="tags"
-                            field="tag-selector"
-                            fieldProps={{
-                                items: this.getTags(listDataState.filters.tags),
-                                onRemoveClick: this.removeTag.bind(this),
-                                onTagSelected: this.addTag.bind(this)
-                            }} />
-                    </div>
                     <div className="ticket-query-filters__group">
+                        <div className="ticket-query-filters__group__container">
+                            <span>{i18n('TAGS')}</span>
+                            <FormField
+                                name="tags"
+                                field="tag-selector"
+                                fieldProps={{
+                                    items: this.getTags(listDataState.filters.tags),
+                                    onRemoveClick: this.removeTag.bind(this),
+                                    onTagSelected: this.addTag.bind(this)
+                                }} />
+                        </div>
+                    </div>
+                    <div className="ticket-query-filters__container">
                         <Button
-                            className="ticket-query-filters__clear-button"
+                            className="ticket-query-filters__container__button ticket-query-filters__container__clear-button"
+                            size= "medium"
                             onClick={this.clearFormValues.bind(this)}>
                                 {i18n('CLEAR')}
                         </Button>
                         <SubmitButton
                             type="secondary"
-                            className="ticket-query-filters__search-button">
+                            size= "medium"
+                            className="ticket-query-filters__container__button ticket-query-filters__container__search-button">
                                 {i18n('SEARCH')}
                         </SubmitButton>
                     </div>
