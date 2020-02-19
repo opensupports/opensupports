@@ -234,7 +234,7 @@ class searchFiltersReducer extends Reducer {
         return (
             payload.query.custom ?
                 this.onFiltersChange(state, window.customTicketList[payload.query.custom*1]) :
-                state
+                ({listData: {title: undefined, filters: DEFAULT_FILTERS}, form: this.transformToFormValue(DEFAULT_FILTERS)})
         );
     }
 

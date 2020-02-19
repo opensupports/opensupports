@@ -143,8 +143,8 @@ class AdminPanelMenu extends React.Component {
                         level: 1
                     },
                     {
-                        name: i18n('ALL_TICKETS'),
-                        path: '/admin/panel/tickets/all-tickets',
+                        name: i18n('SEARCH_TICKETS'),
+                        path: '/admin/panel/tickets/search-tickets',
                         level: 1
                     },
                     {

@@ -15,23 +15,24 @@
         <script>
             window.customTicketList = [
                 {
-                    'title' : 'Custom 0',
+                    'title' : 'Low priority',
                     'filters' : {
                         closed: undefined,
                         priority: "[0]"
                     }
                 },
                 {
-                    'title' : 'Custom 1',
+                    'title' : 'Medium priority',
                     'filters' : {
-                        closed: 0,
-                        priority: "[1]"
+                        closed: undefined,
+                        priority: "[1]",
+                        orderBy: '{"value":"date","asc":0}'
                     }
                 },
                 {
-                    'title' : 'Custom 2',
+                    'title' : 'High priority',
                     'filters' : {
-                        closed: 1,
+                        closed: undefined,
                         priority: "[2]"
                     }
                 },

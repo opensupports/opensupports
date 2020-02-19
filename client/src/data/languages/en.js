@@ -46,7 +46,7 @@ export default {
     'LAST_ACTIVITY': 'Last Activity',
     'MY_TICKETS': 'My Tickets',
     'NEW_TICKETS': 'New Tickets',
-    'ALL_TICKETS': 'All Tickets',
+    'SEARCH_TICKETS': 'Search Tickets',
     'CUSTOM_RESPONSES': 'Custom Responses',
     'CUSTOM_LIST': 'Custom List',
     'CUSTOM_TAGS': 'Custom Tags',
