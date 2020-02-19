@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/edit-comment Edit a comment
- * @apiVersion 4.6.0
+ * @apiVersion 4.6.1
  *
  * @apiName Edit comment
  *
@@ -36,7 +36,7 @@ class EditCommentController extends Controller {
                 'permission' => 'user',
                 'requestData' => [
                     'content' => [
-                        'validation' => DataValidator::length(10, 5000),
+                        'validation' => DataValidator::content(),
                         'error' => ERRORS::INVALID_CONTENT
                     ],
                     'ticketNumber' => [
@@ -50,7 +50,7 @@ class EditCommentController extends Controller {
                 'permission' => 'any',
                 'requestData' => [
                     'content' => [
-                        'validation' => DataValidator::length(10, 5000),
+                        'validation' => DataValidator::content(),
                         'error' => ERRORS::INVALID_CONTENT
                     ],
                     'ticketNumber' => [

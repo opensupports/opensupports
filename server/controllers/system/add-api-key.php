@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/add-api-key Add APIKey
- * @apiVersion 4.6.0
+ * @apiVersion 4.6.1
  *
  * @apiName Add APIKey
  *
@@ -34,7 +34,7 @@ class AddAPIKeyController extends Controller {
             'permission' => 'staff_3',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::length(2, 55)->alnum(),
+                    'validation' => DataValidator::notBlank()->length(2, 55)->alnum(),
                     'error' => ERRORS::INVALID_NAME
                 ],
                 'type' => [

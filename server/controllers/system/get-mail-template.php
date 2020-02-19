@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/get-mail-template Get mail template
- * @apiVersion 4.6.0
+ * @apiVersion 4.6.1
  *
  * @apiName Get mail template
  *
@@ -31,11 +31,11 @@ class GetMailTemplateController extends Controller {
             'permission' => 'staff_3',
             'requestData' => [
                 'template' => [
-                    'validation' => DataValidator::length(4),
+                    'validation' => DataValidator::notBlank()->length(4),
                     'error' => ERRORS::INVALID_TEMPLATE
                 ],
                 'language' => [
-                    'validation' => DataValidator::length(2, 2),
+                    'validation' => DataValidator::notBlank()->length(2, 2),
                     'error' => ERRORS::INVALID_LANGUAGE
                 ],
             ]

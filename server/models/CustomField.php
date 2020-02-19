@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Customfield Customfield
- * @apiVersion 4.6.0
+ * @apiVersion 4.6.1
  * @apiGroup Data Structures
  * @apiParam {Number} id Id of the custom filed.
  * @apiParam {String} name Name of the custom filed.

@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/edit-custom-response Edit custom response
- * @apiVersion 4.6.0
+ * @apiVersion 4.6.1
  *
  * @apiName Edit custom response
  *
@@ -37,7 +37,15 @@ class EditCustomResponseController extends Controller {
                 'id' => [
                     'validation' => DataValidator::dataStoreId('customresponse'),
                     'error' => ERRORS::INVALID_NAME
-                ]
+                ],
+                'content' => [
+                    'validation' => DataValidator::content(),
+                    'error' => ERRORS::INVALID_CONTENT
+                ],
+                'name' => [
+                    'validation' => DataValidator::oneOf(DataValidator::notBlank()->length(1, 200),DataValidator::nullType()),
+                    'error' => ERRORS::INVALID_NAME
+                ],
             ]
         ];
     }

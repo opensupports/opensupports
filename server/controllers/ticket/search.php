@@ -6,7 +6,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/search Search tickets
- * @apiVersion 4.6.0
+ * @apiVersion 4.6.1
  *
  * @apiName Search ticket
  *
@@ -95,6 +95,10 @@ class SearchController extends Controller {
                     'validation' => DataValidator::oneOf(DataValidator::in(['0','1']),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_ASSIGNED_FILTER
                 ],
+                'query' => [
+                    'validation' => DataValidator::oneOf(DataValidator::notBlank(),DataValidator::nullType()),
+                    'error' => ERRORS::INVALID_QUERY_FILTER
+                ],
                 'orderBy' => [
                     'validation' => DataValidator::oneOf(DataValidator::validOrderBy(),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_ORDER_BY
@@ -104,6 +108,12 @@ class SearchController extends Controller {
     }
 
     public function handler() {
+
+        $allowedDepartmentsId = [];
+        foreach (Controller::getLoggedUser()->sharedDepartmentList->toArray() as $department) {
+            array_push($allowedDepartmentsId,$department['id']);
+        }
+
         $inputs = [
             'closed' => Controller::request('closed'),
             'tags' => json_decode(Controller::request('tags')),
@@ -117,14 +127,14 @@ class SearchController extends Controller {
             'query' => Controller::request('query'),
             'orderBy' => json_decode(Controller::request('orderBy'),true),
             'page' => Controller::request('page'),
-            'allowedDepartments' => Controller::getLoggedUser()->sharedDepartmentList->toArray(),
+            'allowedDepartments' => $allowedDepartmentsId,
             'staffId' => Controller::getLoggedUser()->id
         ];
 
 
         $query = $this->getSQLQuery($inputs);
         $queryWithOrder = $this->getSQLQueryWithOrder($inputs);
-        $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", [':query' => $inputs['query']])[0]['COUNT(*)'];
+        $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", [':query' => "%" . $inputs['query'] . "%"])[0]['COUNT(*)'];
         $ticketIdList = RedBean::getAll($queryWithOrder, [':query' => "%" . $inputs['query'] . "%"]);
         $ticketList = [];
         
@@ -133,7 +143,6 @@ class SearchController extends Controller {
             array_push($ticketList, $ticket->toArray());
         }
         $ticketTableExists  = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticket';");
-
         if($ticketTableExists){
             Response::respondSuccess([
                 'tickets' => $ticketList,
@@ -254,13 +263,29 @@ class SearchController extends Controller {
         }
     }
 
-    private function setDepartmentFilter($departments,$allowedDepartments, $idStaff, &$filters){
+    private function setDepartmentFilter($requestedDepartments,$myDepartments, $idStaff, &$filters){
         if ($filters != "")  $filters .= " and ";
-        
-        $validDepartments = $this->generateValidDepartmentList($departments, $allowedDepartments);
+        if (!$requestedDepartments) $requestedDepartments = [];
+
+        $requestedOwnedDepartments = $this->getRequestedOwnedDepartments($requestedDepartments, $myDepartments);
+        $requestedNotOwnedDepartments =  $this->getRequestedNotOwnedDepartments($requestedDepartments, $myDepartments);
         $first = TRUE;
-        if($validDepartments){
-            foreach($validDepartments as $department) {
+        
+        if(!$requestedOwnedDepartments && !$requestedNotOwnedDepartments){
+            foreach($myDepartments as $department) {
+                if($first){
+                    $filters .= " ( ";
+                    $first = FALSE;
+                } else {
+                    $filters .= " or ";
+                }
+                $filters .= "ticket.department_id = " . $department;
+            } 
+            $filters .= ")";
+        } 
+        
+        if($requestedOwnedDepartments){
+            foreach($requestedOwnedDepartments as $department) {
                 if($first){
                     $filters .= " ( ";
                     $first = FALSE;
@@ -269,11 +294,24 @@ class SearchController extends Controller {
                 }
                 $filters .= "ticket.department_id = " . $department;
             }
-            $filters .= " or ";
-        }else{
-            $filters .= "(";
         }
-        $filters .= "ticket.author_staff_id = " . $idStaff . ")";
+        
+        if($requestedNotOwnedDepartments){
+            if($requestedOwnedDepartments) $filters .= " or ";
+            $filters .= "(ticket.author_staff_id = " . $idStaff . " and ";
+            $first = TRUE;
+            foreach($requestedNotOwnedDepartments as $department) {
+                if($first){
+                    $filters .= " ( ";
+                    $first = FALSE;
+                } else {
+                    $filters .= " or ";
+                }
+                $filters .= "ticket.department_id = " . $department;
+            }
+            $filters .= "))";
+        }
+        if($requestedOwnedDepartments) $filters .= " )";
     }
 
     private function setAuthorFilter($authors, &$filters){
@@ -338,21 +376,21 @@ class SearchController extends Controller {
             $filters .= " (ticket.title LIKE :query or ticket.content LIKE :query or ticket.ticket_number LIKE :query". $ticketevent  ." )";
         };
     }
+                       
+    private function getRequestedOwnedDepartments($requestedDepartments, $myDepartments){
+        $requestedOwnedDepartments = [];
+        $requestedOwnedDepartments = array_values(array_unique(array_intersect($requestedDepartments, $myDepartments)));
+        
+        return $requestedOwnedDepartments;
+    }
 
-    private function generateValidDepartmentList($departments, $allowedDepartments){
-        $result = [];
-        $managedDepartments = [];
-        if($departments == null) $departments = [];
-        foreach ($allowedDepartments as $department) {
-             array_push($managedDepartments,$department['id']);
-        }
-        $result = array_intersect($departments,$managedDepartments);
-
-        if(empty($result)) $result =  $managedDepartments;
-
-        $result = array_unique($result);
-
-        return $result;
+    private function getRequestedNotOwnedDepartments($requestedDepartments, $myDepartments){
+        $requestedNotOwnedDepartments = [];
+        $requestedOwnedDepartments = [];
+        $requestedOwnedDepartments = array_values(array_unique(array_intersect($requestedDepartments, $myDepartments)));
+        $requestedNotOwnedDepartments = array_values(array_diff($requestedDepartments, $requestedOwnedDepartments));
+        
+        return $requestedNotOwnedDepartments;
     }
 
     //ORDER
