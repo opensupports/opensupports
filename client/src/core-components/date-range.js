@@ -21,9 +21,11 @@ class DateRange extends React.Component {
         return (
             <div className="date-range">
                 <DateSelector
+                    className="date-range__date-selector"
                     value={this.props.value.startDate}
                     onChange={this.onChange.bind(this, 'startDate')} />
                 <DateSelector
+                    className="date-range__date-selector"
                     value={this.props.value.endDate}
                     onChange={this.onChange.bind(this, 'endDate')} />
             </div>
