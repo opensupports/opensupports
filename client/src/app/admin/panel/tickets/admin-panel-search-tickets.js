@@ -9,6 +9,8 @@ import Header from 'core-components/header';
 import Message from 'core-components/message';
 import TicketQueryFilters from 'app-components/ticket-query-filters';
 import SearchFiltersActions from 'actions/search-filters-actions';
+import Icon from 'core-components/icon';
+import Button from 'core-components/button';
 
 class AdminPanelSearchTickets extends React.Component {
 
@@ -16,9 +18,19 @@ class AdminPanelSearchTickets extends React.Component {
         const { listDataState } = this.props;
         return (
             <div className="admin-panel-all-tickets">
-                <Header
-                    title={listDataState.title !== undefined ? listDataState.title : i18n('CUSTOM_LIST')}
-                    description={i18n('SEARCH_TICKETS_DESCRIPTION')} />
+                <div className="admin-panel-all-tickets__container">
+                    <Header
+                        className="admin-panel-all-tickets__container__header"
+                        title={listDataState.title !== undefined ? listDataState.title : i18n('CUSTOM_LIST')}
+                        description={i18n('SEARCH_TICKETS_DESCRIPTION')} />
+                    <Button
+                        className="admin-panel-all-tickets__container__show-filters-button"
+                        size="auto"
+                        type="tertiary"
+                        onClick={this.onChangeShowFilters.bind(this)}>
+                            <Icon name="filter" />
+                    </Button>
+                </div>
                 <TicketQueryFilters filters={listDataState.filters} />
                 {
                     (this.props.error) ?
@@ -32,7 +44,10 @@ class AdminPanelSearchTickets extends React.Component {
     }
 
     onChangeOrderBy(value) {
-        const { listDataState, } = this.props;
+        const {
+            listDataState,
+            dispatch
+        } = this.props;
         let orderBy = listDataState.filters.orderBy ? JSON.parse(listDataState.filters.orderBy) : {value: ""};
         let newOrderBy = {};
         let newAsc = 0;
@@ -43,7 +58,7 @@ class AdminPanelSearchTickets extends React.Component {
         }
 
         newOrderBy = JSON.stringify({"value": newValue, "asc": newAsc});
-        this.props.dispatch(SearchFiltersActions.changeFilters({
+        dispatch(SearchFiltersActions.changeFilters({
             ...listDataState,
             filters: {
                 ...listDataState.filters,
@@ -51,11 +66,21 @@ class AdminPanelSearchTickets extends React.Component {
             }
         }));
     }
+
+    onChangeShowFilters() {
+        const {
+            showFilters,
+            dispatch
+        } = this.props;
+        dispatch(SearchFiltersActions.changeShowFilters(showFilters));
+    }
+
 }
 
 export default connect((store) => {
     return {
         error: store.adminData.allTicketsError,
-        listDataState: store.searchFilters.listData
+        listDataState: store.searchFilters.listData,
+        showFilters: store.searchFilters.showFilters
     };
 })(AdminPanelSearchTickets);

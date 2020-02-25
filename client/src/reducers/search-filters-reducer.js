@@ -54,6 +54,7 @@ class searchFiltersReducer extends Reducer {
     
     getInitialState() {
         return {
+            showFilters: false,
             listData: this.getList(),
             form: {
                 query: "",
@@ -73,6 +74,7 @@ class searchFiltersReducer extends Reducer {
             'CHANGE_FORM': this.onFormChange,
             'CHANGE_FILTERS': this.onFiltersChange.bind(this),
             'SET_DEFAULT_FORM_VALUES': this.onSetDefaultFormValues.bind(this),
+            'CHANGE_SHOW_FILTERS': this.onChangeShowFilters.bind(this),
             [LOCATION_CHANGE]: this.onUrlChange.bind(this),
         };
     }
@@ -225,6 +227,10 @@ class searchFiltersReducer extends Reducer {
         let customDefaultFilters = custom ? window.customTicketList[custom*1].filters : undefined;
 
         return _.extend({}, state, {form: this.transformToFormValue({...DEFAULT_FILTERS, ...customDefaultFilters})});
+    }
+
+    onChangeShowFilters(state, payload) {
+        return _.extend({}, state, {showFilters: !payload});
     }
 
     onSubmitForm(state, payload) {

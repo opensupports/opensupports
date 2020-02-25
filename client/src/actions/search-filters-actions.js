@@ -22,5 +22,10 @@ export default {
             type: 'SET_DEFAULT_FORM_VALUES',
         }
     },
-
+    changeShowFilters(showFilters) {
+        return {
+            type: 'CHANGE_SHOW_FILTERS',
+            payload: showFilters,
+        }
+    },
 };

@@ -34,10 +34,6 @@ class TicketQueryFilters extends React.Component {
         this.retrieveStaffMembers();
     }
 
-    onChangeFormState(formValues) {
-        this.props.dispatch(SearchFiltersActions.changeForm(formValues));
-    }
-
     render() {
         const {
             formState,
@@ -45,7 +41,7 @@ class TicketQueryFilters extends React.Component {
         } = this.props;
 
         return (
-            <div className="ticket-query-filters">
+            <div className={"ticket-query-filters" + (this.props.showFilters ? "__open" : "") }>
                 <Form
                     values={this.formToAutocompleteValue(formState)}
                     onChange={this.onChangeForm.bind(this)}
@@ -79,7 +75,7 @@ class TicketQueryFilters extends React.Component {
                                 field="autocomplete"
                                 fieldProps={{items: this.getDepartmentsItems()}} />
                         </div>
-                       <div className="ticket-query-filters__group__container">
+                        <div className="ticket-query-filters__group__container">
                             <span className="ticket-query-filters__title">{i18n('OWNER')}</span>
                             <FormField
                                 name="owners"
@@ -297,6 +293,10 @@ class TicketQueryFilters extends React.Component {
         });
     }
 
+    onChangeFormState(formValues) {
+        this.props.dispatch(SearchFiltersActions.changeForm(formValues));
+    }
+
     onSubmitForm() {
         const {
             formState,
@@ -350,6 +350,7 @@ export default connect((store) => {
         departments: store.config.departments,
         staffList: store.adminData.staffMembers,
         formState: store.searchFilters.form,
-        listDataState: store.searchFilters.listData
+        listDataState: store.searchFilters.listData,
+        showFilters: store.searchFilters.showFilters
     };
 })(TicketQueryFilters);

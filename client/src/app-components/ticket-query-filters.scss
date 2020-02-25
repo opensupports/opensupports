@@ -1,6 +1,17 @@
 @import '../scss/vars';
 
 .ticket-query-filters {
+    opacity: 0;
+    max-height: 0;
+    overflow-y: hidden;
+    transition: all 0.4s ease;
+
+    &__open {
+        max-height: 1000px;
+        opacity: 1;
+        transition: all 0.4s ease;
+    }
+
     &__container {
         display: flex;
         flex-direction: row;
