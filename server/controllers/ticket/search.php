@@ -134,8 +134,9 @@ class SearchController extends Controller {
 
         $query = $this->getSQLQuery($inputs);
         $queryWithOrder = $this->getSQLQueryWithOrder($inputs);
-        $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", [':query' => "%" . $inputs['query'] . "%"])[0]['COUNT(*)'];
-        $ticketIdList = RedBean::getAll($queryWithOrder, [':query' => "%" . $inputs['query'] . "%"]);
+        //throw new Exception($queryWithOrder);
+        $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", [':query' => "%" . $inputs['query'] . "%", ':query2' => $inputs['query'] . "%" ])[0]['COUNT(*)'];
+        $ticketIdList = RedBean::getAll($queryWithOrder, [':query' => "%" . $inputs['query'] . "%", ':query2' => $inputs['query'] . "%"]);
         $ticketList = [];
         foreach ($ticketIdList as $item) {
             $ticket = Ticket::getDataStore($item['id']);
@@ -409,9 +410,9 @@ class SearchController extends Controller {
         $ticketEventTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticketevent';");
 
         if($querysearch !== null){
-            $ticketeventOrder =  ( $ticketEventTableExists ? " CASE WHEN (ticketevent.type = 'COMMENT' and ticketevent.content LIKE :query) THEN ticketevent.content END desc," : "");
-            $order .= "CASE WHEN (ticket.ticket_number LIKE :query) THEN ticket.ticket_number END desc,CASE WHEN (ticket.title LIKE :query) THEN ticket.title END desc, CASE WHEN ( ticket.content LIKE :query) THEN ticket.content END desc," . $ticketeventOrder ;
-        }
+            $ticketeventOrder =  ( $ticketEventTableExists ? " WHEN (ticketevent.content LIKE :query) THEN 5 " : "");
+            $order .= "CASE WHEN (ticket.ticket_number LIKE :query) THEN 1 WHEN (ticket.title LIKE :query2) THEN 2 WHEN (ticket.title LIKE :query) THEN 3 WHEN ( ticket.content LIKE :query) THEN 4 " . $ticketeventOrder ."END asc, ";
+       }
     }
 
 }
