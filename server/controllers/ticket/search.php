@@ -137,7 +137,6 @@ class SearchController extends Controller {
         $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", [':query' => "%" . $inputs['query'] . "%"])[0]['COUNT(*)'];
         $ticketIdList = RedBean::getAll($queryWithOrder, [':query' => "%" . $inputs['query'] . "%"]);
         $ticketList = [];
-        
         foreach ($ticketIdList as $item) {
             $ticket = Ticket::getDataStore($item['id']);
             array_push($ticketList, $ticket->toArray());
