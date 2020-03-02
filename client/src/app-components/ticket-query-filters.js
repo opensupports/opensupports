@@ -85,7 +85,7 @@ class TicketQueryFilters extends React.Component {
                     </div>
                     <div className="ticket-query-filters__group">
                         <div className="ticket-query-filters__group__container">
-                            <span>{i18n('TAGS')}</span>
+                            <span className="ticket-query-filters__title">{i18n('TAGS')}</span>
                             <FormField
                                 name="tags"
                                 field="tag-selector"
@@ -93,6 +93,16 @@ class TicketQueryFilters extends React.Component {
                                     items: this.getTags(listDataState.filters.tags),
                                     onRemoveClick: this.removeTag.bind(this),
                                     onTagSelected: this.addTag.bind(this)
+                                }} />
+                        </div>
+                        <div className="ticket-query-filters__group__container">
+                            <span className="ticket-query-filters__title">People</span>
+                            <FormField
+                                name="people"
+                                field="autocomplete"
+                                fieldProps={{
+                                    items: this.getAutocompleteAutors(),
+                                    comparerFunction: this.autorsComparer.bind(this)
                                 }} />
                         </div>
                     </div>
@@ -160,6 +170,41 @@ class TicketQueryFilters extends React.Component {
         let selectedTagsId = formState.tags.concat(this.tagsNametoTagsId(this.getSelectedTagsName([tag])));
 
         this.onChangeFormState({...formState, tags: selectedTagsId});
+    }
+
+    getAutocompleteAutors() {
+        let autorsList = [
+            {id: 1, name: "Asd1", isStaff: true},
+            {id: 2, name: "Asd2", isStaff: true},
+            {id: 3, name: "Asd3", isStaff: true},
+            {id: 4, name: "Asd4", isStaff: true},
+            {id: 5, name: "Asd5", isStaff: true},
+            {id: 6, name: "Asd6", isStaff: true},
+            {id: 7, name: "Asd7", isStaff: true},
+            {id: 1, name: "Zxc1", isStaff: false},
+            {id: 2, name: "Zxc2", isStaff: false},
+            {id: 3, name: "Zxc3", isStaff: false},
+            {id: 4, name: "Zxc4", isStaff: false},
+            {id: 5, name: "Zxc5", isStaff: false},
+            {id: 6, name: "Zxc6", isStaff: false},
+            {id: 7, name: "Zxc7", isStaff: false}
+        ];
+        let autorsAutocompleteList = autorsList.map(autor => ({
+            ...autor,
+            content: autor.name.toLowerCase(),
+            color: "gray"
+        }));
+
+        return autorsAutocompleteList;
+    }
+
+    autorsComparer(autorList, autorSelectedList) {
+        return autorList.filter(item  => !_.some(autorSelectedList, {id: item.id, isStaff: item.isStaff}));
+    }
+
+    clearFormValues(event) {
+        event.preventDefault();
+        this.props.dispatch(SearchFiltersActions.setDefaultFormValues());
     }
 
     dateRangeToFormValue(_dateRange) {
@@ -317,11 +362,6 @@ class TicketQueryFilters extends React.Component {
 
     retrieveStaffMembers() {
         this.props.dispatch(AdminDataActions.retrieveStaffMembers());
-    }
-
-    clearFormValues(event) {
-        event.preventDefault();
-        this.props.dispatch(SearchFiltersActions.setDefaultFormValues());
     }
 
     tagsNametoTagsId(selectedTagsName) {

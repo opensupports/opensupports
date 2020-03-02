@@ -22,6 +22,7 @@ class Autocomplete extends React.Component {
         onItemSelected: React.PropTypes.func,
         getItemListFromQuery: React.PropTypes.func,
         disabled: React.PropTypes.bool,
+        comparerFunction: React.PropTypes.func
     };
 
     id = 1;
@@ -105,8 +106,8 @@ class Autocomplete extends React.Component {
                     name={item.contentOnSelected || item.name}
                     color={item.color}
                     showDeleteButton
-                    onRemoveClick={this.onRemoveClick.bind(this,item.id)}
-                    key={"tagId__" + item.id} />
+                    onRemoveClick={this.onRemoveClick.bind(this, item.id, item.isStaff)}
+                    key={"tagId__" + item.id + (item.isStaff ? "__staff" : null)} />
     }
 
     getDropdownList() {
@@ -127,7 +128,10 @@ class Autocomplete extends React.Component {
     }
 
     getUnselectedList(list, selectedList) {
-        return list.filter(item  => !_.some(selectedList, {id: item.id}));
+        let { comparerFunction } = this.props;
+        return (
+            comparerFunction ? comparerFunction(list, selectedList) : list.filter(item  => !_.some(selectedList, {id: item.id}))
+            );
     }
 
     getSelectedItems() {
@@ -136,12 +140,16 @@ class Autocomplete extends React.Component {
         return (values !== undefined) ? values : this.state.selectedItems;
     }
 
-    onRemoveClick(itemId, event) {
+    onRemoveClick(itemId, isStaffItem, event) {
         const {
             onChange,
             onRemoveClick,
         } = this.props;
-        const newList = this.getSelectedItems().filter(item => item.id != itemId);
+        const newList = this.getSelectedItems().filter(
+            item => {
+                return isStaffItem !== undefined ?
+                    item.isStaff !== isStaffItem || item.id !== itemId :
+                    item.id !== itemId});
         event.preventDefault();
 
         this.setState({
