@@ -4,7 +4,7 @@ namespace CustomValidations;
 
 use Respect\Validation\Rules\AbstractRule;
 
-class ValidBlackList extends AbstractRule {
+class ValidAuthorsBlackList extends AbstractRule {
 
     public function validate($blackList) {
     	if(is_array(json_decode($blackList))){

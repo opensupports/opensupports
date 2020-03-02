@@ -73,5 +73,12 @@ describe '/ticket/get-authors/' do
         (result['status']).should.equal('success')
         (result['data']['authors'].size).should.equal(1)
         (result['data']['authors'][0]['name']).should.equal('eemilia')
+
+        result = request('/ticket/get-authors', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            query: '',
+        })
+        (result['status']).should.equal('success')
     end
 end
