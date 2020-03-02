@@ -39,7 +39,7 @@ class GetAuthorsController extends Controller {
                     'error' => ERRORS::INVALID_QUERY
                 ],
                 'blackList' => [
-                    'validation' => DataValidator::oneOf(DataValidator::notBlank(),DataValidator::nullType(),DataValidator::arrayType()),
+                    'validation' => DataValidator::oneOf(DataValidator::validBlackList(),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_BLACK_LIST
                 ]
             ]
