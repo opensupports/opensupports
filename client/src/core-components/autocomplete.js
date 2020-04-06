@@ -131,7 +131,7 @@ class Autocomplete extends React.Component {
         let { comparerFunction } = this.props;
         return (
             comparerFunction ? comparerFunction(list, selectedList) : list.filter(item  => !_.some(selectedList, {id: item.id}))
-            );
+        );
     }
 
     getSelectedItems() {
@@ -256,7 +256,7 @@ class Autocomplete extends React.Component {
         const { getItemListFromQuery, } = this.props;
 
         if(getItemListFromQuery !== undefined) {
-            getItemListFromQuery(query, blacklist.map(item => item.id))
+            getItemListFromQuery(query, blacklist.map(item => {return {id: item.id, staff: item.isStaff}}))
             .then(result => {
                 this.setState({
                     itemsFromQuery: result,

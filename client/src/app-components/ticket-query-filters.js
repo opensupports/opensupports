@@ -101,7 +101,7 @@ class TicketQueryFilters extends React.Component {
                                 name="people"
                                 field="autocomplete"
                                 fieldProps={{
-                                    items: this.getAutocompleteAutors(),
+                                    getItemListFromQuery: this.getAuthors.bind(this),
                                     comparerFunction: this.autorsComparer.bind(this)
                                 }} />
                         </div>
@@ -123,6 +123,27 @@ class TicketQueryFilters extends React.Component {
                 </Form>
             </div>
         );
+    }
+
+    getAuthors(query, blacklist = []) {
+        query = query === "" ? undefined : query;
+        return API.call({
+            path: '/ticket/get-authors',
+            data: {
+                query: query,
+                blackList: JSON.stringify(blacklist)
+            }
+        }).then(r => {
+            return r.data.authors.map(author => {
+                return {
+                    name: author.name,
+                    color: "gray",
+                    id: author.id*1,
+                    isStaff: author.profilePic !== undefined ? true : false,
+                    content: author.profilePic !== undefined ? this.renderStaffOption(author) : author.name,
+                    contentOnSelected: author.profilePic !== undefined ? this.renderStaffSelected(author) : author.name
+                }});
+        });
     }
 
     renderDepartmentOption(department) {
@@ -170,32 +191,6 @@ class TicketQueryFilters extends React.Component {
         let selectedTagsId = formState.tags.concat(this.tagsNametoTagsId(this.getSelectedTagsName([tag])));
 
         this.onChangeFormState({...formState, tags: selectedTagsId});
-    }
-
-    getAutocompleteAutors() {
-        let autorsList = [
-            {id: 1, name: "Asd1", isStaff: true},
-            {id: 2, name: "Asd2", isStaff: true},
-            {id: 3, name: "Asd3", isStaff: true},
-            {id: 4, name: "Asd4", isStaff: true},
-            {id: 5, name: "Asd5", isStaff: true},
-            {id: 6, name: "Asd6", isStaff: true},
-            {id: 7, name: "Asd7", isStaff: true},
-            {id: 1, name: "Zxc1", isStaff: false},
-            {id: 2, name: "Zxc2", isStaff: false},
-            {id: 3, name: "Zxc3", isStaff: false},
-            {id: 4, name: "Zxc4", isStaff: false},
-            {id: 5, name: "Zxc5", isStaff: false},
-            {id: 6, name: "Zxc6", isStaff: false},
-            {id: 7, name: "Zxc7", isStaff: false}
-        ];
-        let autorsAutocompleteList = autorsList.map(autor => ({
-            ...autor,
-            content: autor.name.toLowerCase(),
-            color: "gray"
-        }));
-
-        return autorsAutocompleteList;
     }
 
     autorsComparer(autorList, autorSelectedList) {
