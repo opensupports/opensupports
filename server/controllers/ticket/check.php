@@ -54,20 +54,28 @@ class CheckTicketController extends Controller {
     }
 
     public function handler() {
-        if (Controller::isUserSystemEnabled() || Controller::isStaffLogged()) {
+        if(Session::getInstance()->sessionExists())  throw new Exception(ERRORS::SESSION_EXISTS);
+        if (Controller::isLoginMandatory() || Controller::isStaffLogged() || Controller::isUserLogged()){
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
-
         $email = Controller::request('email');
-        $ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
+        $ticketNumber = Controller::request('ticketNumber');
+        $ticket = Ticket::getByTicketNumber($ticketNumber);
 
         if($ticket->authorEmail === $email) {
+            
             $session = Session::getInstance();
-            $session->createTicketSession($ticket->ticketNumber);
+            $user = User::getUser($email,'email');
 
+            if (Session::getInstance()->sessionExists()) {
+                throw new RequestException(ERRORS::SESSION_EXISTS);
+            }
+
+            $session->createSession($user->id,false,$ticketNumber);
             Response::respondSuccess([
                 'token' => $session->getToken(),
-                'ticketNumber' => $ticket->ticketNumber
+                'userID' => $session->getUserId(),
+                'ticketNumber' => $session->getTicketNumber()
             ]);
         } else {
             throw new RequestException(ERRORS::NO_PERMISSION);

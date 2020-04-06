@@ -50,16 +50,12 @@ class LoginController extends Controller {
     }
 
     public function handler() {
-        if(!Controller::isUserSystemEnabled() && !Controller::request('staff')) {
-            throw new RequestException(ERRORS::USER_SYSTEM_DISABLED);
-        }
 
         if ($this->isAlreadyLoggedIn()) {
             throw new RequestException(ERRORS::SESSION_EXISTS);
         }
-
         $this->clearOldRememberTokens();
-
+        
         if ($this->checkInputCredentials() || $this->checkRememberToken()) {
             if($this->userInstance->verificationToken !== null) {
                 throw new RequestException(ERRORS::UNVERIFIED_USER);
@@ -81,7 +77,7 @@ class LoginController extends Controller {
             throw new RequestException(ERRORS::INVALID_CREDENTIALS);
         }
     }
-
+    
     private function isAlreadyLoggedIn() {
         return Session::getInstance()->sessionExists();
     }

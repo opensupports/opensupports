@@ -149,6 +149,10 @@ abstract class Controller {
         return Setting::getSetting('user-system-enabled')->getValue();
     }
 
+    public static function isLoginMandatory() {
+        return Setting::getSetting('mandatory-login')->getValue();
+    }
+
     public static function getCustomFieldValues() {
         $customFields = Customfield::getAll();
         $customFieldValues = new DataStoreList();

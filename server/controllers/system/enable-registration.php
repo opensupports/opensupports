@@ -17,6 +17,7 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_PASSWORD
+ * @apiUse MANDATORY_LOGIN_IS_DESACTIVATED
  *
  * @apiSuccess {Object} data Empty object
  *

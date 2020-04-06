@@ -71,8 +71,7 @@ class CreateController extends Controller {
                 ]
             ]
         ];
-
-        if(!Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) {
+        if (!Controller::isLoginMandatory() && !Controller::isStaffLogged() && !Controller::isUserLogged()) {
             $validations['permission'] = 'any';
             $validations['requestData']['captcha'] = [
                 'validation' => DataValidator::captcha(APIKey::TICKET_CREATE),
@@ -83,7 +82,7 @@ class CreateController extends Controller {
                 'error' => ERRORS::INVALID_EMAIL
             ];
             $validations['requestData']['name'] = [
-                'validation' => DataValidator::notBlank()->length(2, 40),
+                'validation' => DataValidator::notBlank()->length(2, 55),
                 'error' => ERRORS::INVALID_NAME
             ];
         }
@@ -98,13 +97,22 @@ class CreateController extends Controller {
         $this->language = Controller::request('language');
         $this->email = Controller::request('email');
         $this->name = Controller::request('name');
-
+        
         if(!Controller::isStaffLogged() && Department::getDataStore($this->departmentId)->private){
             throw new Exception(ERRORS::INVALID_DEPARTMENT);
         }
+        
+        if(!Staff::getUser($this->email,'email')->isNull() || $this->isEmailInvalid()) {
+            throw new Exception(ERRORS::INVALID_EMAIL);
+        }
+        
+        if(!Controller::isLoginMandatory() && !Controller::isStaffLogged() && !Controller::isUserLogged()  && !User::getUser($this->email, 'email')->email){
+            $this->createNewUser();
+        }
+        
         $this->storeTicket();
 
-        if(!Controller::isUserSystemEnabled()) {
+        if(!Controller::isLoginMandatory() && !Controller::isUserLogged()) {
             $this->sendMail();
         }
 
@@ -114,22 +122,43 @@ class CreateController extends Controller {
                 $this->sendMailStaff($staff->email);
             }
         }
+        
+        Log::createLog('CREATE_TICKET', $this->ticketNumber);
 
         Response::respondSuccess([
             'ticketNumber' => $this->ticketNumber
         ]);
-
-        if(!Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) {
-            $session = Session::getInstance();
-            $session->createTicketSession($this->ticketNumber);
-        }
-        
-        Log::createLog('CREATE_TICKET', $this->ticketNumber);
+           
     }
 
+    private function isEmailInvalid(){
+        return  (Session::getInstance()->sessionExists() && User::getUser(Session::getInstance()->getUserId(),'id')  &&  $this->email && !(User::getUser(Session::getInstance()->getUserId(),'id')->email == $this->email));
+    }
+
+    private function createNewUser() {
+        
+        $signupController = new SignUpController(true);
+        
+        Controller::setDataRequester(function ($key) {
+            switch ($key) {
+                case 'email':
+                    return $this->email;
+                case 'password':
+                    return Hashing::generateRandomToken();
+                case 'name':
+                    return $this->name;
+                case 'indirectSignUp' : 
+                    return true;
+            }
+
+            return null;
+        });
+        $signupController->validations();
+        $signupController->handler();
+    }
     private function storeTicket() {
         $department = Department::getDataStore($this->departmentId);
-        $author = Controller::getLoggedUser();
+        $author = $this->getAuthor();
         $ticket = new Ticket();
 
         $fileUploader = FileUploader::getInstance();
@@ -153,12 +182,9 @@ class CreateController extends Controller {
         ));
 
         $ticket->setAuthor($author);
+        $author->sharedTicketList->add($ticket);
 
-        if(Controller::isUserSystemEnabled() || Controller::isStaffLogged()) {
-            $author->sharedTicketList->add($ticket);
-        }
-
-        if(Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) {
+        if(!Controller::isStaffLogged()) {
             $author->tickets++;
 
             $this->email = $author->email;
@@ -169,6 +195,14 @@ class CreateController extends Controller {
         $ticket->store();
 
         $this->ticketNumber = $ticket->ticketNumber;
+    }
+
+    private function getAuthor() {
+        if(Controller::getLoggedUser()->email) { 
+            return Controller::getLoggedUser();
+        }else{
+            return User::getUser($this->email, 'email');
+        }
     }
 
     private function sendMail() {

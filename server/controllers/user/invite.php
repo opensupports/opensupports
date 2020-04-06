@@ -64,9 +64,6 @@ class InviteUserController extends Controller {
     }
 
     public function handler() {
-        if (!Controller::isUserSystemEnabled()) {
-            throw new RequestException(ERRORS::USER_SYSTEM_DISABLED);
-        }
 
         $this->storeRequestData();
 

@@ -21,7 +21,8 @@ describe '/system/init-settings' do
             'smtp-user' => 'testemail@opensupports.com',
             'smtp-pass' => 'password',
             'server-email' => 'testemail@opensupports.com',
-            'language' => 'en'
+            'language' => 'en',
+            'mandatory-login' => true
         })
 
         (result['status']).should.equal('success')

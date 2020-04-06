@@ -73,10 +73,6 @@ class RecoverPasswordController extends Controller {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
-        if(!Controller::isUserSystemEnabled() && !$recoverPassword->staff) {
-            throw new RequestException(ERRORS::USER_SYSTEM_DISABLED);
-        }
-
         if($recoverPassword->staff) {
             $this->user = Staff::getDataStore($this->email, 'email');
         } else {
@@ -88,7 +84,8 @@ class RecoverPasswordController extends Controller {
         $recoverPassword->delete();
 
         $this->user->setProperties([
-            'password' => Hashing::hashPassword($this->password)
+            'password' => Hashing::hashPassword($this->password),
+            'neverLogged' => null
         ]);
 
         $this->user->store();

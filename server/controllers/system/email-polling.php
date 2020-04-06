@@ -29,8 +29,8 @@ class EmailPollingController extends Controller {
         if(Controller::request('token') !== Setting::getSetting('imap-token')->getValue())
             throw new RequestException(ERRORS::INVALID_TOKEN);
 
-        if(Controller::isUserSystemEnabled())
-            throw new RequestException(ERRORS::USER_SYSTEM_ENABLED);
+        
+        throw new RequestException(ERRORS::USER_SYSTEM_ENABLED);
 
         $this->mailbox = new \PhpImap\Mailbox(
             Setting::getSetting('imap-host')->getValue(),

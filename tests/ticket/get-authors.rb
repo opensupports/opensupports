@@ -1,6 +1,6 @@
 describe '/ticket/get-authors/' do
     
-    it 'should fail if a user is loged' do
+    it 'should fail if a user is logged' do
         request('/user/logout')
         Scripts.login('tyrion@opensupports.com', 'tyrionl')
         

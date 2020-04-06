@@ -26,6 +26,7 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} allow-attachments Indicates if files can be attached to tickets and comments.
  * @apiParam {String} title Title of the support center
  * @apiParam {String} url Url of the frontend client.
+ * @apiParam {Boolean} mandatory-login Indicates if the login is mandatory.
  *
  * @apiUse INVALID_LANGUAGE
  * @apiUse INIT_SETTINGS_DONE
@@ -92,6 +93,7 @@ class InitSettingsController extends Controller {
             'session-prefix' => 'opensupports-'.Hashing::generateRandomToken().'_',
             'mail-template-header-image' => 'https://s3.amazonaws.com/opensupports/logo.png',
             'imap-token' => '',
+            'mandatory-login' => !!Controller::request('mandatory-login'),
         ]);
     }
 

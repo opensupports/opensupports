@@ -35,15 +35,13 @@ class EnableUserSystemController extends Controller {
 
     public function handler() {
         $password = Controller::request('password');
+        throw new RequestException(ERRORS::SYSTEM_USER_IS_ALREADY_ENABLED);
 
         if(!Hashing::verifyPassword($password, Controller::getLoggedUser()->password)) {
             throw new RequestException(ERRORS::INVALID_PASSWORD);
 
         }
 
-        if(Controller::isUserSystemEnabled()) {
-            throw new RequestException(ERRORS::SYSTEM_USER_IS_ALREADY_ENABLED);
-        }
 
         $userSystemEnabled = Setting::getSetting('user-system-enabled');
         $userSystemEnabled->value = 1 ;

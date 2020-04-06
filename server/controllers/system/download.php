@@ -57,7 +57,7 @@ class DownloadController extends Controller {
                     }
                     break;
                 case FileManager::PERMISSION_ARTICLE:
-                    if(Controller::isUserSystemEnabled() && !$session->sessionExists()) {
+                    if(!$session->sessionExists()) {
                         return Response::respond403();
                     }
                     break;
