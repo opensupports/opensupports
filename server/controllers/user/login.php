@@ -50,7 +50,6 @@ class LoginController extends Controller {
     }
 
     public function handler() {
-
         if ($this->isAlreadyLoggedIn()) {
             throw new RequestException(ERRORS::SESSION_EXISTS);
         }

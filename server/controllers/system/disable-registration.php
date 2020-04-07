@@ -16,6 +16,7 @@
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_PASSWORD
+ * @apiUse MANDATORY_LOGIN_IS_DESACTIVATED
  *
  * @apiSuccess {Object} data Empty object
  *
@@ -39,7 +40,9 @@ class DisableRegistrationController extends Controller {
             throw new RequestException(ERRORS::INVALID_PASSWORD);
             return;
         }
-
+        if(!Setting::getSetting('mandatory-login')->getValue()) { 
+            throw new Exception(ERRORS::MANDATORY_LOGIN_IS_DESACTIVATED);
+        }
         $registrationRow = Setting::getSetting('registration');
 
         $registrationRow->value = false;

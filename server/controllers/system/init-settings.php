@@ -86,7 +86,6 @@ class InitSettingsController extends Controller {
             'title' => Controller::request('title') ? Controller::request('title') : 'Support Center',
             'url' => Controller::request('url')  ? Controller::request('url') : ('http://' . $_SERVER['HTTP_HOST']),
             'registration' => !!Controller::request('registration'),
-            'user-system-enabled' => !!Controller::request('user-system-enabled'),
             'last-stat-day' => date('YmdHi', strtotime(' -12 day ')),
             'ticket-gap' => Hashing::generateRandomPrime(100000, 999999),
             'ticket-first-number' => Hashing::generateRandomNumber(100000, 999999),

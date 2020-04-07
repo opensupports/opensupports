@@ -14,7 +14,6 @@ describe '/system/init-settings' do
 
     it 'should initialize correctly' do
         result = request('/system/init-settings', {
-            'user-system-enabled' => true,
             'registration' => true,
             'title' => 'Support Center',
             'smtp-host' => 'localhost:7070',

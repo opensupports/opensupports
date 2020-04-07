@@ -31,6 +31,19 @@ describe'system/mandatory-login' do
             (row['value']).should.equal('0') 
         end
 
+        it 'should fail trying to disable registration' do
+            result = request('/system/disable-registration', {
+                "csrf_userid" => $csrf_userid,
+                "csrf_token" => $csrf_token,
+                "password" => "staff"
+            })
+
+            (result['status']).should.equal('fail')
+            (result['message']).should.equal('MANDATORY_LOGIN_IS_DESACTIVATED')
+            row = $database.getRow('setting', 'registration', 'name')
+
+            (row['value']).should.equal('1') 
+        end
         
         
         it 'should allow a creator creates a ticket and create him a user' do
