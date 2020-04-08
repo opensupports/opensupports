@@ -14,7 +14,7 @@
  *
  * @apiParam {String} allowedLanguages The list of languages allowed.
  * @apiParam {String} supportedLanguages The list of languages supported.
- * @apiParam {Setting} setting A setting can be any of the following: language, recaptcha-public, recaptcha-private, server-email, smtp-host, smtp-port, smtp-user, smtp-pass, time-zone, maintenance-mode, layout, allow-attachments, max-size, title, url,mandatory-login.
+ * @apiParam {Setting} setting A setting can be any of the following: language, recaptcha-public, recaptcha-private, server-email, smtp-host, smtp-port, smtp-user, smtp-pass, time-zone, maintenance-mode, layout, allow-attachments, max-size, title, url.
  *
  * @apiUse NO_PERMISSION
  *
@@ -53,8 +53,7 @@ class EditSettingsController extends Controller {
             'max-size',
             'title',
             'url',
-            'mail-template-header-image',
-            'mandatory-login'
+            'mail-template-header-image'
         ];
 
         foreach($settings as $setting) {

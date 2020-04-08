@@ -18,10 +18,23 @@ describe'system/mandatory-login' do
         Scripts.login($staff[:email], $staff[:password], true)
 
         it 'should disable the mandatory login' do
-            result = request('/system/edit-settings', {
+            result = request('/system/disable-mandatory-login', {
                 "csrf_userid" => $csrf_userid,
                 "csrf_token" => $csrf_token,
-                "mandatory-login" => 0
+                "password" => "invalidPassword"
+            })
+
+            (result['status']).should.equal('fail')
+            (result['message']).should.equal('INVALID_PASSWORD')
+
+            row = $database.getRow('setting', 'mandatory-login', 'name')
+
+            (row['value']).should.equal('1') 
+
+            result = request('/system/disable-mandatory-login', {
+                "csrf_userid" => $csrf_userid,
+                "csrf_token" => $csrf_token,
+                "password" => "staff"
             })
 
             (result['status']).should.equal('success')
@@ -303,5 +316,35 @@ describe'system/mandatory-login' do
                 ticketNumber: $ticket2['ticket_number'],
             })
             (result['status']).should.equal('success')
+        end
+
+        request('/user/logout')
+        Scripts.login($staff[:email], $staff[:password], true)
+
+        it 'should allow staff enable the mandatory login' do
+            result = request('/system/enable-mandatory-login', {
+                "csrf_userid" => $csrf_userid,
+                "csrf_token" => $csrf_token,
+                "password" => "invalidPassword"
+            })
+
+            (result['status']).should.equal('fail')
+            (result['message']).should.equal('INVALID_PASSWORD')
+
+            row = $database.getRow('setting', 'mandatory-login', 'name')
+
+            (row['value']).should.equal('0') 
+
+            result = request('/system/enable-mandatory-login', {
+                "csrf_userid" => $csrf_userid,
+                "csrf_token" => $csrf_token,
+                "password" => "staff"
+            })
+
+            (result['status']).should.equal('success')
+
+            row = $database.getRow('setting', 'mandatory-login', 'name')
+
+            (row['value']).should.equal('1') 
         end
 end
