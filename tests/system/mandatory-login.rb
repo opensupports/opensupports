@@ -16,6 +16,31 @@ describe'system/mandatory-login' do
 
         request('/user/logout')
         Scripts.login($staff[:email], $staff[:password], true)
+        
+        it 'should fail trying to disable mandatory login when registration is off' do
+            request('/system/disable-registration', {
+                "csrf_userid" => $csrf_userid,
+                "csrf_token" => $csrf_token,
+                "password" => "staff"
+            })
+            result = request('/system/disable-mandatory-login', {
+                "csrf_userid" => $csrf_userid,
+                "csrf_token" => $csrf_token,
+                "password" => "staff"
+            })
+
+            (result['status']).should.equal('fail')
+            (result['message']).should.equal('REGISTRATION_IS_DESACTIVATED')
+            row = $database.getRow('setting', 'mandatory-login', 'name')
+
+            (row['value']).should.equal('1') 
+
+            request('/system/enable-registration', {
+                "csrf_userid" => $csrf_userid,
+                "csrf_token" => $csrf_token,
+                "password" => "staff"
+            })
+        end 
 
         it 'should disable the mandatory login' do
             result = request('/system/disable-mandatory-login', {
@@ -44,7 +69,7 @@ describe'system/mandatory-login' do
             (row['value']).should.equal('0') 
         end
 
-        it 'should fail trying to disable registration' do
+        it 'should fail trying to disable registration if mandatory login is false' do
             result = request('/system/disable-registration', {
                 "csrf_userid" => $csrf_userid,
                 "csrf_token" => $csrf_token,
