@@ -188,10 +188,6 @@
  * @apiError {String} UNVERIFIED_USER The user is not verified.
  */
 /**
- * @apiDefine UNACTIVATED_USER
- * @apiError {String} UNACTIVATED_USER The user is not activated.
- */
-/**
  * @apiDefine INVALID_TEMPLATE
  * @apiError {String} INVALID_TEMPLATE The template is invalid.
  */

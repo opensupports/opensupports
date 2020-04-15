@@ -42,12 +42,11 @@ class DisableMandatoryLoginController extends Controller {
         
         if(!Hashing::verifyPassword($password, Controller::getLoggedUser()->password)) {
             throw new RequestException(ERRORS::INVALID_PASSWORD);
-            return;
         }
         
         $mandatoryLoginRow = Setting::getSetting('mandatory-login');
 
-        $mandatoryLoginRow->value = false;
+        $mandatoryLoginRow->value = 0;
         $mandatoryLoginRow->store();
 
         Response::respondSuccess();

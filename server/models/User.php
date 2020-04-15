@@ -9,17 +9,17 @@ use RedBeanPHP\Facade as RedBean;
  * @apiParam {Number} id The id of the user.
  * @apiParam {String} name The name of the user.
  * @apiParam {Boolean} verified Indicates if the user has verified the email.
- * @apiParam {Boolean} neverLogged Indicates if the user had logged at least one time.
+ * @apiParam {Boolean} notRegistered Indicates if the user had logged at least one time.
  * @apiParam {[CustomField](#api-Data_Structures-ObjectCustomfield)[]} customfields Indicates the values for custom fields.
  */
 
 class User extends DataStore {
     const TABLE = 'user';
-
+    public $ticketNumber = null;
     public static function authenticate($userEmail, $userPassword) {
         $user = User::getUser($userEmail, 'email');
 
-        return ($user && Hashing::verifyPassword($userPassword, $user->password) && !$user->neverLogged) ? $user : new NullDataStore();
+        return ($user && Hashing::verifyPassword($userPassword, $user->password) && !$user->notRegistered) ? $user : new NullDataStore();
     }
 
     public static function getProps() {
@@ -33,7 +33,7 @@ class User extends DataStore {
             'verificationToken',
             'disabled',
             'xownCustomfieldvalueList',
-            'neverLogged'
+            'notRegistered'
         ];
     }
 
@@ -47,8 +47,10 @@ class User extends DataStore {
 
     public function canManageTicket(Ticket $ticket){
         $ticketNumberInstanceValidation = true;
-        if(Session::getInstance()->getTicketNumber()) {
-            $ticketNumberInstanceValidation = Session::getInstance()->getTicketNumber() == $ticket->ticketNumber  ;
+        //$ticketNumberInstanceValidation = $this->ticketNumber == $ticket->ticketNumber;
+
+        if($this->ticketNumber) {
+            $ticketNumberInstanceValidation = $this->ticketNumber == $ticket->ticketNumber;
         }
 
         return ($ticket->isAuthor($this) && $ticketNumberInstanceValidation);
@@ -62,7 +64,7 @@ class User extends DataStore {
             'verified' => !$this->verificationToken,
             'disabled' => $this->disabled,
             'customfields' => $this->xownCustomfieldvalueList->toArray(),
-            'neverLogged' => $this->neverLogged
+            'notRegistered' => $this->notRegistered
         ];
     }
 }

@@ -132,7 +132,10 @@ class CreateController extends Controller {
     }
 
     private function isEmailInvalid(){
-        return  (Session::getInstance()->sessionExists() && User::getUser(Session::getInstance()->getUserId(),'id')  &&  $this->email && !(User::getUser(Session::getInstance()->getUserId(),'id')->email == $this->email));
+        $session = Session::getInstance();
+        $sessionUser = User::getUser($session->getUserId() ,'id');
+
+        return  ($session->sessionExists() && $sessionUser  &&  $this->email && !($sessionUser->email == $this->email));
     }
 
     private function createNewUser() {

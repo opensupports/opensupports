@@ -96,6 +96,8 @@ abstract class DataStore {
     public function __set($prop, $value) {
         if (in_array($prop, static::getProps())) {
             $this->properties[$prop] = $value;
+        } else if(property_exists($this, $prop)){
+            $this->{$prop} = $value;
         } else {
             throw new Exception("Invalid prop: $prop");
         }

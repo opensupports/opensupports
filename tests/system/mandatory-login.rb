@@ -82,7 +82,20 @@ describe'system/mandatory-login' do
 
             (row['value']).should.equal('1') 
         end
-        
+        it 'should allow Staff invite Users when Mandatory-login is off' do
+            result = request('/user/invite', {
+                "csrf_userid" => $csrf_userid,
+                "csrf_token" => $csrf_token,
+                email: 'inviteduser@opensupports.com',
+                name: 'inviteduser'
+            })
+            (result['status']).should.equal('success')
+            (result['data']['userEmail']).should.equal('inviteduser@opensupports.com')
+           
+            $row =  $database.getRow('recoverpassword','inviteduser@opensupports.com','email')
+            ($row['email']).should.equal('inviteduser@opensupports.com')
+
+        end
         
         it 'should allow a creator creates a ticket and create him a user' do
             request('/user/logout')
@@ -93,14 +106,14 @@ describe'system/mandatory-login' do
                 title: 'ticket created without login',
                 content: 'THis is a content created without login',
                 departmentId: 1   
-            })
+            }) 
             $ticketRow = $database.getRow('ticket','ticket created without login','title')
             $userRow = $database.getRow('user','nonuser@os4.com','email')
 
             (result['status']).should.equal('success')
             (result['data']['ticketNumber']).should.equal($ticketRow['ticket_number'].to_i)
             ($userRow['email']).should.equal('nonuser@os4.com')
-            ($userRow['never_logged']).should.equal('1')
+            ($userRow['not_registered']).should.equal('1')
             ($userRow['tickets']).should.equal('1')
         end
 
@@ -329,15 +342,15 @@ describe'system/mandatory-login' do
             $ticket3 = $database.getRow('ticket', 'ticket created to see ifcreator can handle 2 tickets', 'content')
             
             result = request('/ticket/get', {
-                csrf_userid: $csrf_userid,
-                csrf_token: $csrf_token,
+                csrf_userid: $sessionUserId,
+                csrf_token: $sessionToken,
                 ticketNumber: $ticket3['ticket_number'],
             })
             (result['status']).should.equal('success')
             
             result = request('/ticket/get', {
-                csrf_userid: $csrf_userid,
-                csrf_token: $csrf_token,
+                csrf_userid: $sessionUserId,
+                csrf_token: $sessionToken,
                 ticketNumber: $ticket2['ticket_number'],
             })
             (result['status']).should.equal('success')
