@@ -87,7 +87,7 @@ class SignUpController extends Controller {
 
         $user = User::getUser($this->userEmail, 'email');
         
-        if (!$user->isNull() && !$user->neverLogged) {
+        if (!$user->isNull() && !$user->notRegistered) {
             throw new RequestException(ERRORS::USER_EXISTS);
         }
         $banRow = Ban::getDataStore($this->userEmail,'email');
@@ -138,7 +138,7 @@ class SignUpController extends Controller {
             'email' => $this->userEmail,
             'password' => Hashing::hashPassword($this->userPassword),
             'verificationToken' => (MailSender::getInstance()->isConnected()) ? $this->verificationToken : null,
-            'neverLogged' => Controller::request('indirectSignUp') ?  true : null,
+            'notRegistered' => Controller::request('indirectSignUp') ?  true : null,
             'xownCustomfieldvalueList' => $this->getCustomFieldValues()
         ]);
 

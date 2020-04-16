@@ -188,10 +188,6 @@
  * @apiError {String} UNVERIFIED_USER The user is not verified.
  */
 /**
- * @apiDefine UNACTIVATED_USER
- * @apiError {String} UNACTIVATED_USER The user is not activated.
- */
-/**
  * @apiDefine INVALID_TEMPLATE
  * @apiError {String} INVALID_TEMPLATE The template is invalid.
  */
@@ -307,6 +303,10 @@
  * @apiDefine MANDATORY_LOGIN_IS_DESACTIVATED
  * @apiError {String} MANDATORY_LOGIN_IS_DESACTIVATED Mandatory login is disactivated
  */
+/**
+ * @apiDefine REGISTRATION_IS_DESACTIVATED
+ * @apiError {String} REGISTRATION_IS_DESACTIVATED Registration is disactivated
+ */
 
 class ERRORS {
     const INVALID_CREDENTIALS = 'INVALID_CREDENTIALS';
@@ -386,4 +386,5 @@ class ERRORS {
     const INVALID_COLOR = 'INVALID_COLOR';
     const INVALID_API_KEY_TYPE = 'INVALID_API_KEY_TYPE';
     const MANDATORY_LOGIN_IS_DESACTIVATED = 'MANDATORY_LOGIN_IS_DESACTIVATED';
+    const REGISTRATION_IS_DESACTIVATED = 'REGISTRATION_IS_DESACTIVATED';
 }

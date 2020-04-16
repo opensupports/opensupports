@@ -84,7 +84,7 @@ class RecoverPasswordController extends Controller {
 
         $this->user->setProperties([
             'password' => Hashing::hashPassword($this->password),
-            'neverLogged' => null
+            'notRegistered' => null
         ]);
 
         $this->user->store();

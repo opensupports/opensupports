@@ -30,7 +30,7 @@ class Session {
             $this->store($key, $value);
     }
 
-    public function createSession($userId, $staff = false, $ticketNumber= false) {
+    public function createSession($userId, $staff = false, $ticketNumber = null) {
         $this->store('userId', $userId);
         $this->store('staff', $staff);
         $this->store('ticketNumber', $ticketNumber);

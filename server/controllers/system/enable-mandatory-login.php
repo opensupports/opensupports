@@ -42,7 +42,7 @@ class EnableMandatoryLoginController extends Controller {
         
         $mandatoryLoginRow = Setting::getSetting('mandatory-login');
 
-        $mandatoryLoginRow->value = true;
+        $mandatoryLoginRow->value = 1;
         $mandatoryLoginRow->store();
 
         Response::respondSuccess();
