@@ -17,6 +17,7 @@ import Listing from 'core-components/listing';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
+import Checkbox from 'core-components/checkbox';
 
 class AdminPanelAdvancedSettings extends React.Component {
 
@@ -43,12 +44,12 @@ class AdminPanelAdvancedSettings extends React.Component {
                 <div className="row">
                     <div className="col-md-12">
                         <div className="col-md-6">
-                            <div className="admin-panel-advanced-settings__user-system-enabled">
-                                <span className="admin-panel-advanced-settings__text">
-                                    {i18n('ENABLE_USER_SYSTEM')} <InfoTooltip text={i18n('ENABLE_USER_SYSTEM_DESCRIPTION')} />
-                                </span>
-                                <ToggleButton className="admin-panel-advanced-settings__toggle-button" value={this.props.config['user-system-enabled']} onChange={this.onToggleButtonUserSystemChange.bind(this)}/>
-                            </div>
+                            <Checkbox
+                                label={i18n('ENABLE_MANDATORY_LOGIN')}
+                                value={this.props.config['mandatory-login']}
+                                onChange={this.onToggleButtonUserSystemChange.bind(this)}
+                                wrapInLabel
+                            />
                         </div>
                         <div className="col-md-6">
                             <div className="admin-panel-advanced-settings__registration">
@@ -192,7 +193,7 @@ class AdminPanelAdvancedSettings extends React.Component {
 
     onAreYouSureUserSystemOk(password) {
         API.call({
-            path: this.props.config['user-system-enabled'] ? '/system/disable-user-system' : '/system/enable-user-system',
+            path: this.props.config['mandatory-login'] ? '/system/disable-mandatory-login' : '/system/enable-mandatory-login',
             data: {
                 password: password
             }
@@ -200,7 +201,7 @@ class AdminPanelAdvancedSettings extends React.Component {
             this.setState({
                 messageType: 'success',
                 messageTitle: null,
-                messageContent: this.props.config['user-system-enabled'] ? i18n('USER_SYSTEM_DISABLED') : i18n('USER_SYSTEM_ENABLED')
+                messageContent: this.props.config['mandatory-login'] ? i18n('MANDATORY_LOGIN_DISABLED') : i18n('MANDATORY_LOGIN_ENABLED')
             });
             this.props.dispatch(ConfigActions.updateData());
         }).catch(() => this.setState({messageType: 'error', messageTitle: null, messageContent: i18n('ERROR_UPDATING_SETTINGS')}));
