@@ -47,7 +47,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                             <Checkbox
                                 label={i18n('ENABLE_MANDATORY_LOGIN')}
                                 value={this.props.config['mandatory-login']}
-                                onChange={this.onToggleButtonUserSystemChange.bind(this)}
+                                onChange={this.onCheckboxButtonUserSystemChange.bind(this)}
                                 wrapInLabel
                             />
                         </div>
@@ -183,7 +183,7 @@ class AdminPanelAdvancedSettings extends React.Component {
         });
     }
 
-    onToggleButtonUserSystemChange() {
+    onCheckboxButtonUserSystemChange() {
         AreYouSure.openModal(null, this.onAreYouSureUserSystemOk.bind(this), 'secure');
     }
 
