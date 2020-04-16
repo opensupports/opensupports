@@ -11,13 +11,20 @@ import Message                 from 'core-components/message';
 class MainHomePage extends React.Component {
     
     render() {
+        const {
+            config,
+            mandatoryLogin
+        } = this.props;
         return (
             <div className="main-home-page">
                 {this.renderMessage()}
-                {(this.props.config['user-system-enabled']) ? this.renderLoginWidget() : null}
-                <div className={this.getPortalClass()}>
-                    <MainHomePagePortal type={((this.props.config['user-system-enabled']) ? 'default' : 'complete')}/>
-                </div>
+                {(config['mandatory-login']) || mandatoryLogin.showLoginForm ? this.renderLoginWidget() : null}
+                {!mandatoryLogin.showLoginForm ?
+                    <div className={this.getPortalClass()}>
+                        <MainHomePagePortal type={((config['mandatory-login']) ? 'default' : 'complete')}/>
+                    </div>:
+                    null
+                }
             </div>
         );
     }
@@ -35,8 +42,8 @@ class MainHomePage extends React.Component {
 
     renderLoginWidget() {
         return (
-            <div className="col-md-4 main-home-page__login-widget">
-                <MainHomePageLoginWidget />
+            <div className={this.getLoginWidgetClass()}>
+                <MainHomePageLoginWidget className='login-widget__test'/>
             </div>
         );
     }
@@ -57,11 +64,23 @@ class MainHomePage extends React.Component {
         );
     }
 
-    getPortalClass() {
+    getLoginWidgetClass() {
+        const { config } = this.props;
         let classes = {
-            'main-home-page__portal-wrapper': true,
-            'col-md-8': (this.props.config['user-system-enabled'] && this.props.config['layout'] === 'boxed'),
-            'col-md-10 col-md-offset-1' : (!this.props.config['user-system-enabled'])
+            'col-md-4': config['mandatory-login'],
+            'main-home-page__login-widget': config['mandatory-login'],
+            'main-home-page__center': !config['mandatory-login']
+        };
+
+        return classNames(classes);
+    }
+
+    getPortalClass() {
+        const { config } = this.props;
+        let classes = {
+            'main-home-page__portal-wrapper': config['mandatory-login'],
+            'col-md-8': config['layout'] === 'boxed',
+            'col-md-10 col-md-offset-1' : false
         };
 
         return classNames(classes);
@@ -71,6 +90,7 @@ class MainHomePage extends React.Component {
 export default connect((store) => {
     return {
         session: store.session,
-        config: store.config
+        config: store.config,
+        mandatoryLogin: store.mandatoryLogin
     };
 })(MainHomePage);

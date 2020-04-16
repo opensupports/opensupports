@@ -20,7 +20,6 @@ use RedBeanPHP\Facade as RedBean;
  * @apiParam {Number} userId The id of the user to login.
  * @apiParam {String} rememberToken Token to login automatically. It replaces the password.
  *
- * @apiUse USER_SYSTEM_DISABLED
  * @apiUse SESSION_EXISTS
  * @apiUse UNVERIFIED_USER
  * @apiUse INVALID_CREDENTIALS

@@ -17,6 +17,7 @@ import Listing from 'core-components/listing';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
+import Checkbox from 'core-components/checkbox';
 
 class AdminPanelAdvancedSettings extends React.Component {
 
@@ -36,24 +37,33 @@ class AdminPanelAdvancedSettings extends React.Component {
     }
 
     render() {
+        const { config } = this.props;
         return (
             <div className="admin-panel-advanced-settings">
                 <Header title={i18n('ADVANCED_SETTINGS')} description={i18n('ADVANCED_SETTINGS_DESCRIPTION')}/>
                 {(this.state.messageType) ? this.renderMessage() : null}
                 <div className="row">
                     <div className="col-md-12">
-                        <div className="col-md-6">
-                            <div className="admin-panel-advanced-settings__user-system-enabled">
-                                <span className="admin-panel-advanced-settings__text">
-                                    {i18n('ENABLE_USER_SYSTEM')} <InfoTooltip text={i18n('ENABLE_USER_SYSTEM_DESCRIPTION')} />
-                                </span>
-                                <ToggleButton className="admin-panel-advanced-settings__toggle-button" value={this.props.config['user-system-enabled']} onChange={this.onToggleButtonUserSystemChange.bind(this)}/>
-                            </div>
+                        <div className="col-md-6 admin-panel-advanced-settings__mandatory-login">
+                            <Checkbox
+                                label={i18n('ENABLE_MANDATORY_LOGIN')}
+                                disabled={!config['registration']}
+                                className="admin-panel-advanced-settings__mandatory-login__checkbox"
+                                value={config['mandatory-login']}
+                                onChange={this.onCheckboxMandatoryLoginChange.bind(this)}
+                                wrapInLabel
+                            />
                         </div>
                         <div className="col-md-6">
                             <div className="admin-panel-advanced-settings__registration">
-                                <span className="admin-panel-advanced-settings__text">{i18n('ENABLE_USER_REGISTRATION')}</span>
-                                <ToggleButton className="admin-panel-advanced-settings__toggle-button" value={this.props.config['registration']} onChange={this.onToggleButtonRegistrationChange.bind(this)}/>
+                                <Checkbox
+                                    label={i18n('ENABLE_USER_REGISTRATION')}
+                                    disabled={!config['mandatory-login']}
+                                    className="admin-panel-advanced-settings__registration__checkbox"
+                                    value={config['registration']}
+                                    onChange={this.onCheckboxRegistrationChange.bind(this)}
+                                    wrapInLabel
+                                />
                             </div>
                         </div>
                     </div>
@@ -182,17 +192,21 @@ class AdminPanelAdvancedSettings extends React.Component {
         });
     }
 
-    onToggleButtonUserSystemChange() {
+    onCheckboxMandatoryLoginChange() {
         AreYouSure.openModal(null, this.onAreYouSureUserSystemOk.bind(this), 'secure');
     }
 
-    onToggleButtonRegistrationChange() {
+    onCheckboxRegistrationChange() {
         AreYouSure.openModal(null, this.onAreYouSureRegistrationOk.bind(this), 'secure');
     }
 
     onAreYouSureUserSystemOk(password) {
+        const {
+            config,
+            dispatch
+        } = this.props;
         API.call({
-            path: this.props.config['user-system-enabled'] ? '/system/disable-user-system' : '/system/enable-user-system',
+            path: config['mandatory-login'] ? '/system/disable-mandatory-login' : '/system/enable-mandatory-login',
             data: {
                 password: password
             }
@@ -200,15 +214,19 @@ class AdminPanelAdvancedSettings extends React.Component {
             this.setState({
                 messageType: 'success',
                 messageTitle: null,
-                messageContent: this.props.config['user-system-enabled'] ? i18n('USER_SYSTEM_DISABLED') : i18n('USER_SYSTEM_ENABLED')
+                messageContent: config['mandatory-login'] ? i18n('MANDATORY_LOGIN_DISABLED') : i18n('MANDATORY_LOGIN_ENABLED')
             });
-            this.props.dispatch(ConfigActions.updateData());
+            dispatch(ConfigActions.updateData());
         }).catch(() => this.setState({messageType: 'error', messageTitle: null, messageContent: i18n('ERROR_UPDATING_SETTINGS')}));
     }
 
     onAreYouSureRegistrationOk(password) {
+        const {
+            config,
+            dispatch
+        } = this.props;
         API.call({
-            path: this.props.config['registration'] ? '/system/disable-registration' : '/system/enable-registration',
+            path: config['registration'] ? '/system/disable-registration' : '/system/enable-registration',
             data: {
                 password: password
             }
@@ -216,9 +234,9 @@ class AdminPanelAdvancedSettings extends React.Component {
             this.setState({
                 messageType: 'success',
                 messageTitle: null,
-                messageContent: this.props.config['registration'] ? i18n('REGISTRATION_DISABLED') : i18n('REGISTRATION_ENABLED')
+                messageContent: config['registration'] ? i18n('REGISTRATION_DISABLED') : i18n('REGISTRATION_ENABLED')
             });
-            this.props.dispatch(ConfigActions.updateData());
+            dispatch(ConfigActions.updateData());
         }).catch(() => this.setState({messageType: 'error', messageTitle: null, messageContent: i18n('ERROR_UPDATING_SETTINGS')}));
     }
 

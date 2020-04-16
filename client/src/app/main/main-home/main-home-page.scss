@@ -1,5 +1,10 @@
 .main-home-page {
 
+    &__center {
+        display: flex;
+        justify-content: center;
+    }
+
     &__message {
         margin-bottom: 20px;
         margin-left: 20px;

@@ -20,7 +20,6 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiUse INVALID_EMAIL
  * @apiUse INVALID_PASSWORD
- * @apiUse USER_SYSTEM_DISABLED
  * @apiUse NO_PERMISSION
  *
  * @apiSuccess {Object} data Empty object

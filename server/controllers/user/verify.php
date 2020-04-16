@@ -17,7 +17,6 @@ use Respect\Validation\Validator as DataValidator;
  * @apiParam {String} token The validation token sent by email to the user.
  *
  * @apiUse INVALID_EMAIL
- * @apiUse USER_SYSTEM_DISABLED
  * @apiUse INVALID_TOKEN
  *
  * @apiSuccess {Object} data Empty object

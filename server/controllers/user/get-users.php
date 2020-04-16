@@ -21,7 +21,6 @@ use Respect\Validation\Validator as DataValidator;
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_PAGE
  * @apiUse INVALID_ORDER
- * @apiUse USER_SYSTEM_DISABLED
  *
  * @apiSuccess {Object} data
  * @apiSuccess {[User](#api-Data_Structures-ObjectUser)[]} data.users Array of users found

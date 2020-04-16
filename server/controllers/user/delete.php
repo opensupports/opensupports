@@ -18,7 +18,6 @@ use RedBeanPHP\Facade as RedBean;
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_USER
- * @apiUse USER_SYSTEM_DISABLED
  *
  * @apiSuccess {Object} data Empty object
  *

@@ -52,7 +52,7 @@ class MainCheckTicketPage extends React.Component {
     getClass() {
         let classes = {
             'main-check-ticket-page': true,
-            'col-md-10 col-md-offset-1': (!this.props.config['user-system-enabled'])
+            'col-md-10 col-md-offset-1': false
         };
 
         return classNames(classes);
