@@ -38,6 +38,7 @@ class CommentController extends Controller {
     private $ticket;
     private $content;
     private $session;
+    private $imagePaths;
 
     public function validations() {
         $this->session = Session::getInstance();
@@ -119,12 +120,12 @@ class CommentController extends Controller {
     private function storeComment() {
         $fileUploader = FileUploader::getInstance();
         $fileUploader->setPermission(FileManager::PERMISSION_TICKET, $this->ticket->ticketNumber);
-        $imagePaths = $this->uploadImages(Controller::isStaffLogged());
+        $this->imagePaths = $this->uploadImages(Controller::isStaffLogged());
         $fileUploader = $this->uploadFile(Controller::isStaffLogged());
 
         $comment = Ticketevent::getEvent(Ticketevent::COMMENT);
         $comment->setProperties(array(
-            'content' => $this->replaceWithImagePaths($imagePaths, $this->content),
+            'content' => $this->replaceWithImagePaths($this->imagePaths, $this->content),
             'file' => ($fileUploader instanceof FileUploader) ? $fileUploader->getFileName() : null,
             'date' => Date::getCurrentDate(),
             'private' => (Controller::isStaffLogged() && Controller::request('private')) ? 1 : 0
@@ -164,7 +165,7 @@ class CommentController extends Controller {
           'name' => $name,
           'title' => $this->ticket->title,
           'ticketNumber' => $this->ticket->ticketNumber,
-          'content' => $this->content,
+          'content' => $this->replaceWithImagePaths($this->imagePaths, $this->content),
           'url' => $url
         ]);
 
