@@ -13,7 +13,7 @@ import brazilLanguage     from 'data/languages/br';
 import greekLanguage      from 'data/languages/gr';
 import dutchLanguage      from 'data/languages/nl';
 import polishLanguage     from 'data/languages/pl';
-import bosnianLanguage     from 'data/languages/bs';
+import bosnianLanguage     from 'data/languages/ba';
 
 export default {
     'en': {
@@ -76,7 +76,7 @@ export default {
         name: 'Polish',
         data: polishLanguage
     },
-    'bs': {
+    'ba': {
         name: 'Bosnian',
         data: bosnianLanguage
     },

@@ -992,7 +992,7 @@ class MailTexts {
               'Możesz uzyskać dostęp do zgłoszenia po jego numerze.',
           ],
         ],
-        'en' => [
+        'ba' => [
           'USER_SIGNUP' => [
               'Registrujte se {{to}} - OpenSupports',
               'Verifikujte vaš nalog',
