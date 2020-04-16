@@ -26,7 +26,6 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_EMAIL
  * @apiUse INVALID_PASSWORD
  * @apiUse INVALID_CAPTCHA
- * @apiUse USER_SYSTEM_DISABLED
  * @apiUse USER_EXISTS
  * @apiUse ALREADY_BANNED
  * @apiUse NO_PERMISSION

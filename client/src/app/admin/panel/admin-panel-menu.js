@@ -155,7 +155,7 @@ class AdminPanelMenu extends React.Component {
                     ...customLists
                 ])
             },
-            this.props.config['user-system-enabled'] ? {
+            {
                 groupName: i18n('USERS'),
                 path: '/admin/panel/users',
                 icon: 'user',
@@ -177,7 +177,7 @@ class AdminPanelMenu extends React.Component {
                         level: 1
                     }
                 ])
-            } : null,
+            },
             {
                 groupName: i18n('ARTICLES'),
                 path: '/admin/panel/articles',
