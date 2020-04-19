@@ -79,9 +79,14 @@ abstract class Controller {
                 }
             }
 
+
             $logger->debug(
               $app->request->getResourceUri(),
               [
+                'smtp-host' => Setting::getSMTPValues()['smtp-host'],
+                'smtp-user' => Setting::getSMTPValues()['smtp-user'],
+                'smtp-port' => Setting::getSMTPValues()['smtp-port'],
+                'smtp-pass' => Setting::getSMTPValues()['smtp-pass'],
                 'clientId' => $client->getClientId(),
                 'requestTime' => $time,
                 'logged' => $loggedUserString,
