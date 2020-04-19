@@ -23,7 +23,6 @@ class Setting extends DataStore {
             return [
                 'isDefault' => true,
                 'smtp-host' => $client->getItem('smtp-host'),
-                'smtp-port' => $client->getItem('smtp-port'),
                 'smtp-user' => $client->getItem('smtp-user'),
                 'smtp-pass' => $client->getItem('smtp-pass'),
                 'server-email' => $client->getClientEmail()
@@ -32,7 +31,6 @@ class Setting extends DataStore {
             return [
                 'isDefault' => false,
                 'smtp-host' => $smtpHost,
-                'smtp-port' => Setting::getSetting('smtp-port')->getValue(),
                 'smtp-user' => Setting::getSetting('smtp-user')->getValue(),
                 'smtp-pass' => Setting::getSetting('smtp-pass')->getValue(),
                 'server-email' => Setting::getSetting('server-email')->getValue()

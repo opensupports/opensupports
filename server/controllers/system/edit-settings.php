@@ -14,7 +14,7 @@
  *
  * @apiParam {String} allowedLanguages The list of languages allowed.
  * @apiParam {String} supportedLanguages The list of languages supported.
- * @apiParam {Setting} setting A setting can be any of the following: language, recaptcha-public, recaptcha-private, server-email, smtp-host, smtp-port, smtp-user, smtp-pass, time-zone, maintenance-mode, layout, allow-attachments, max-size, title, url.
+ * @apiParam {Setting} setting A setting can be any of the following: language, recaptcha-public, recaptcha-private, server-email, smtp-host, smtp-user, smtp-pass, time-zone, maintenance-mode, layout, allow-attachments, max-size, title, url.
  *
  * @apiUse NO_PERMISSION
  *

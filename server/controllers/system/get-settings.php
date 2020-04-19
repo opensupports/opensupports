@@ -52,7 +52,6 @@ class GetSettingsController extends Controller {
                     'url' => Setting::getSetting('url')->getValue(),
                     'title' => Setting::getSetting('title')->getValue(),
                     'smtp-host' => ($smtpValues['isDefault']) ? 'DEFAULT' : $smtpValues['smtp-host'],
-                    'smtp-port' => ($smtpValues['isDefault']) ? 'DEFAULT' : $smtpValues['smtp-port'],
                     'smtp-user' => ($smtpValues['isDefault']) ? 'DEFAULT' : $smtpValues['smtp-user'],
                     'server-email' => ($smtpValues['isDefault']) ? 'DEFAULT' : $smtpValues['server-email'],
                     'imap-host' => ($imapValues['isDefault']) ? 'DEFAULT' : Setting::getSetting('imap-host')->getValue(),

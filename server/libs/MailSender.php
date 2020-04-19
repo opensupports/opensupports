@@ -10,7 +10,6 @@ class MailSender {
 
         $this->setConnectionSettings(
             $smtpValues['smtp-host'],
-            $smtpValues['smtp-port'],
             $smtpValues['smtp-user'],
             $smtpValues['smtp-pass'],
             $smtpValues['server-email']

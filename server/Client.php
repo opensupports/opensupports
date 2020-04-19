@@ -59,7 +59,6 @@ class Client {
             'recaptcha-public' => $this->getItem('recaptcha-public'),
             'recaptcha-private' => $this->getItem('recaptcha-private'),
             'smtp-host' => $this->getItem('smtp-host'),
-            'smtp-port' => $this->getItem('smtp-port'),
             'smtp-user' => $this->getItem('smtp-user'),
             'smtp-pass' => $this->getItem('smtp-pass')
         ];

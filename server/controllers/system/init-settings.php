@@ -20,7 +20,6 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} registration Indicates if the registration should be enabled.
  * @apiParam {String} server-email Email from where automated emails will be sent.
  * @apiParam {String} smtp-host SMTP Server address.
- * @apiParam {String} smtp-port SMTP Server port.
  * @apiParam {String} smtp-user SMTP Authentication User.
  * @apiParam {String} smtp-pass SMTP Authentication Password.
  * @apiParam {String} allow-attachments Indicates if files can be attached to tickets and comments.
@@ -72,7 +71,6 @@ class InitSettingsController extends Controller {
             'recaptcha-private' => (Controller::isProductionEnv()) ? 'DEFAULT' : '',
             'server-email' => (Controller::isProductionEnv()) ? 'DEFAULT' : 'noreply@opensupports.com',
             'smtp-host' => (Controller::isProductionEnv()) ? 'DEFAULT' : 'localhost',
-            'smtp-port' => (Controller::isProductionEnv()) ? 'DEFAULT' : 7070,
             'smtp-user' => (Controller::isProductionEnv()) ? 'DEFAULT' : 'noreply@opensupports.com',
             'smtp-pass' => (Controller::isProductionEnv()) ? 'DEFAULT' : '',
             'imap-host' => 'DEFAULT',
