@@ -51,8 +51,8 @@ class MailSender {
         $mailerInstance->Body = $this->mailOptions['body'];
         $mailerInstance->isHTML(true);
 
-        if ($this->isConnected()) {
-            $mailerInstance->send();
+        if (!$this->isConnected() || !$mailerInstance->send()) {
+            throw new Exception($mailerInstance->ErrorInfo);
         }
     }
 
@@ -62,7 +62,7 @@ class MailSender {
 
     private function getMailerInstance() {
         if(!($this->mailerInstance instanceof PHPMailer)) {
-            $this->mailerInstance = new PHPMailer();
+            $this->mailerInstance = new PHPMailer(true);
 
             $this->mailerInstance->From = $this->mailOptions['from'];
             $this->mailerInstance->FromName = $this->mailOptions['fromName'];
