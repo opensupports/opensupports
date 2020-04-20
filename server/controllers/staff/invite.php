@@ -71,27 +71,6 @@ class InviteStaffController extends Controller {
 
         if(!$staffRow->isNull()) throw new RequestException(ERRORS::ALREADY_A_STAFF);
 
-        if($staffRow->isNull()) {
-            $staff->setProperties([
-                'name'=> $this->name,
-                'email' => $this->email,
-                'password'=> Hashing::hashPassword($this->password),
-                'profilePic' => $this->profilePic,
-                'level' => $this->level,
-                'sharedDepartmentList' => $this->getDepartmentList()
-
-            ]);
-
-            $this->addOwner();
-
-            Log::createLog('ADD_STAFF', $this->name);
-
-            Response::respondSuccess([
-                'id' => $staff->store()
-            ]);
-            return;
-        }
-
         $staff = new Staff();
         $staff->setProperties([
             'name'=> $this->name,
