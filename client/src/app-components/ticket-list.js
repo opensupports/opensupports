@@ -72,7 +72,7 @@ class TicketList extends React.Component {
     }
 
     renderMessage() {
-        switch (this.getParameterByName('message')) {
+        switch (this.getQueryVariable('message')) {
             case 'success':
                 return  <Message className="create-ticket-form__message" type="success">{i18n('TICKET_SENT')}</Message>
             case 'fail':
@@ -121,11 +121,18 @@ class TicketList extends React.Component {
         return departments;
     }
 
-    getParameterByName(name) {
-        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-        let regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    getQueryVariable(variable) {
+        let query = window.location.search.substring(1);
+        let vars = query.split("&");
+
+        for (let i=0; i < vars.length; i++) {
+            let pair = vars[i].split("=");
+            if(pair[0] == variable) {
+                return pair[1];
+            }
+        }
+
+        return false;
     }
 
     getTableHeaders() {
