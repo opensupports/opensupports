@@ -5,7 +5,7 @@ import classNames from 'classnames';
 class Tag extends React.Component {
 
     static propTypes = {
-        name: React.PropTypes.string,
+        name: React.PropTypes.node,
         color: React.PropTypes.string,
         showDeleteButton: React.PropTypes.bool,
         onRemoveClick: React.PropTypes.func,
