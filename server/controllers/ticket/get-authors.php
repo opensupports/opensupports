@@ -35,11 +35,11 @@ class GetAuthorsController extends Controller {
             'permission' => 'staff_1',
             'requestData' => [
                 'query' => [
-                    'validation' => DataValidator::oneOf(DataValidator::notBlank(),DataValidator::nullType()),
+                    'validation' => DataValidator::oneOf(DataValidator::stringType(),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_QUERY
                 ],
                 'blackList' => [
-                    'validation' => DataValidator::oneOf(DataValidator::notBlank(),DataValidator::nullType(),DataValidator::arrayType()),
+                    'validation' => DataValidator::oneOf(DataValidator::validAuthorsBlackList(),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_BLACK_LIST
                 ]
             ]
@@ -49,25 +49,25 @@ class GetAuthorsController extends Controller {
     public function handler() {
         $query = Controller::request('query');
 
-        $idAuthorsQuery =  "SELECT id,name,level FROM staff " . $this->GenerateAuthorsIdQuery($query) . " LIMIT 10";
-        $authorsIdList = RedBean::getAll($idAuthorsQuery, [':query' => "%" .$query . "%",':query2' => $query . "%"] );
-        $authorsList = [];
+        $authorsQuery =  "SELECT id,name,level FROM staff " . $this->generateAuthorsIdQuery($query) . " LIMIT 10";
+        $authorsMatch = RedBean::getAll($authorsQuery, [':query' => "%" .$query . "%",':queryAtBeginning' => $query . "%"] );
+        $authors = [];
         
-        foreach($authorsIdList as $item) {
-            if($item['level'] >=1 && $item['level'] <= 3){
-                $author = Staff::getDataStore($item['id']*1);
+        foreach($authorsMatch as $authorMatch) {
+            if($authorMatch['level'] >=1 && $authorMatch['level'] <= 3){
+                $author = Staff::getDataStore($authorMatch['id']*1);
             } else {
-                $author = User::getDataStore($item['id']*1);
+                $author = User::getDataStore($authorMatch['id']*1);
             }
-            array_push($authorsList, $author->toArray());
+            array_push($authors, $author->toArray());
         }
         Response::respondSuccess([
-            'authors' => $authorsList
+            'authors' => $authors
         ]);
     }
     public function generateAuthorsIdQuery($query) {
         if ($query){      
-            return "WHERE name LIKE :query " . $this->generateStaffBlackListQuery() . " UNION SELECT id,name,signup_date FROM user WHERE name LIKE :query " . $this->generateUserBlackListQuery() . " ORDER BY CASE WHEN (name LIKE :query2) THEN 1 ELSE 2 END ASC ";
+            return "WHERE name LIKE :query " . $this->generateStaffBlackListQuery() . " UNION SELECT id,name,signup_date FROM user WHERE name LIKE :query " . $this->generateUserBlackListQuery() . " ORDER BY CASE WHEN (name LIKE :queryAtBeginning) THEN 1 ELSE 2 END ASC ";
         } else {
             return "WHERE 1=1 ". $this->generateStaffBlackListQuery() . " UNION SELECT id,name,signup_date FROM user WHERE 1=1". $this->generateUserBlackListQuery() ." ORDER BY id";
         } 
