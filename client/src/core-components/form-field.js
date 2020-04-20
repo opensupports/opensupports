@@ -164,7 +164,6 @@ class FormField extends React.Component {
             placeholder: placeholder,
             key: 'nativeField',
             onChange: this.onChange.bind(this),
-            onSearch: this.onChange.bind(this),
             onBlur: onBlur,
             ref: 'nativeField',
             required: required
@@ -172,9 +171,6 @@ class FormField extends React.Component {
 
         if(field === 'select') {
             props.selectedIndex = value;
-        }
-        if(field == 'search-box') {
-            props.searchOnType = true;
         }
         if(field == 'date-range') {
             props.value = {

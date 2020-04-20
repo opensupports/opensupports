@@ -47,7 +47,7 @@ class TicketQueryFilters extends React.Component {
                     onChange={this.onChangeForm.bind(this)}
                     onSubmit={this.onSubmitForm.bind(this)}>
                     <div className="ticket-query-filters__search-box">
-                        <FormField name="query" field="search-box" />
+                        <FormField name="query" field="search-box" fieldProps={{onSearch: this.onSubmitForm.bind(this)}}/>
                     </div>
                     <div className="ticket-query-filters__group">
                         <div className="ticket-query-filters__group__container">

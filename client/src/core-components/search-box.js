@@ -30,6 +30,7 @@ class SearchBox extends React.Component {
 
     static propTypes = {
         onSearch: React.PropTypes.func,
+        onChange: React.PropTypes.func,
         placeholder: React.PropTypes.string,
         searchOnType: React.PropTypes.bool,
         value: React.PropTypes.string
@@ -57,32 +58,49 @@ class SearchBox extends React.Component {
     }
 
     getClass() {
+        const { className } = this.props;
         let classes = {
             'search-box': true
         };
 
-        classes[this.props.className] = (this.props.className);
+        classes[className] = (className);
 
         return classNames(classes);
     }
 
     getValue() {
-        return (this.props.value !== undefined) ? this.props.value : this.state.value;
+        const { value } = this.props;
+
+        return (value !== undefined) ? value : this.state.value;
     }
 
     onChange(event) {
+        const {
+            searchOnType,
+            onSearch,
+            onChange
+        } = this.props;
+
         this.setState({
             value: event.target.value
         });
 
-        if (this.props.searchOnType && this.props.onSearch) {
-            this.props.onSearch(event.target.value);
+        onChange && onChange(event.target.value);
+
+        if (searchOnType && onSearch) {
+            onSearch(event.target.value);
         }
     }
 
     onKeyDown(event) {
-        if(keyCode(event) === 'enter' && this.props.onSearch && !this.props.searchOnType) {
-            this.props.onSearch(this.state.value);
+        const {
+            onSearch,
+            searchOnType
+        } = this.props;
+
+        if(keyCode(event) === 'enter' && onSearch && !searchOnType) {
+            onSearch(this.state.value);
+            event.preventDefault();
         }
     }
 }
