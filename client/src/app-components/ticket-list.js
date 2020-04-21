@@ -13,6 +13,7 @@ import Tooltip from 'core-components/tooltip';
 import Checkbox from 'core-components/checkbox';
 import Tag from 'core-components/tag';
 import Icon from 'core-components/icon';
+import Message from 'core-components/message';
 
 class TicketList extends React.Component {
     static propTypes = {
@@ -49,6 +50,7 @@ class TicketList extends React.Component {
         return (
             <div className="ticket-list">
                 <div className="ticket-list__filters">
+                    {this.props.type === 'primary' ? this.renderMessage() : null}
                     {
                         (this.props.type === 'secondary' && this.props.showDepartmentDropdown) ?
                             this.renderDepartmentsDropDown() :
@@ -77,6 +79,17 @@ class TicketList extends React.Component {
                 <DepartmentDropdown {...this.getDepartmentDropdownProps()} />
             </div>
         );
+    }
+
+    renderMessage() {
+        switch (this.getQueryVariable('message')) {
+            case 'success':
+                return  <Message className="create-ticket-form__message" type="success">{i18n('TICKET_SENT')}</Message>
+            case 'fail':
+                return <Message className="create-ticket-form__message" type="error">{i18n('TICKET_SENT_ERROR')}</Message>;
+            default:
+                return null;
+        }
     }
 
     getDepartmentDropdownProps() {
@@ -122,6 +135,20 @@ class TicketList extends React.Component {
         });
 
         return departments;
+    }
+
+    getQueryVariable(variable) {
+        let query = window.location.search.substring(1);
+        let vars = query.split("&");
+
+        for (let i=0; i < vars.length; i++) {
+            let pair = vars[i].split("=");
+            if(pair[0] == variable) {
+                return pair[1];
+            }
+        }
+
+        return false;
     }
 
     getTableHeaders() {
