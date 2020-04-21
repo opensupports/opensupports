@@ -49,9 +49,11 @@ class TicketList extends React.Component {
         return (
             <div className="ticket-list">
                 <div className="ticket-list__filters">
-                    {(this.props.type === 'secondary' && this.props.showDepartmentDropdown) ?
-                        this.renderDepartmentsDropDown() :
-                        null}
+                    {
+                        (this.props.type === 'secondary' && this.props.showDepartmentDropdown) ?
+                            this.renderDepartmentsDropDown() :
+                            null
+                    }
                     {this.props.onClosedTicketsShownChange ? this.renderFilterCheckbox() : null}
                 </div>
                 <Table {...this.getTableProps()} />
@@ -102,13 +104,13 @@ class TicketList extends React.Component {
         } = this.props;
 
         return {
-            loading: loading,
+            loading,
             headers: this.getTableHeaders(),
             rows: this.getTableRows(),
             pageSize: 10,
-            page: page,
-            pages: pages,
-            onPageChange: onPageChange
+            page,
+            pages,
+            onPageChange
         };
     }
 
@@ -144,7 +146,7 @@ class TicketList extends React.Component {
                     key: 'date',
                     value:  <div>
                                 {i18n('DATE')}
-                                {this.renderIcon('date')}
+                                {this.renderSortArrow('date')}
                             </div>,
                     className: 'ticket-list__date col-md-2'
                 }
@@ -180,7 +182,7 @@ class TicketList extends React.Component {
                     key: 'date',
                     value:  <div>
                                 {i18n('DATE')}
-                                {this.renderIcon('date')}
+                                {this.renderSortArrow('date')}
                             </div>,
                     className: 'ticket-list__date col-md-2'
                 }
@@ -188,40 +190,37 @@ class TicketList extends React.Component {
         }
     }
 
-    renderIcon(header) {
+    renderSortArrow(header) {
         const {
             orderBy,
             showOrderArrows,
             onChangeOrderBy
         } = this.props;
+        let arrowIcon;
 
         if(showOrderArrows) {
-            return (
+            arrowIcon = (
                 <Icon
-                    name={`arrow-${orderBy !== undefined ? this.getIconName(header, orderBy) : "down"}`}
+                    name={`arrow-${this.getIconName(header, orderBy)}`}
                     className="ticket-list__order-icon"
-                    color={orderBy ? this.getIconColor(header, orderBy) : "white"}
-                    onClick={() => onChangeOrderBy(header)} />
+                    color={this.getIconColor(header, orderBy)}
+                    onClick={() => onChangeOrderBy(header)}
+                />
             );
+        } else {
+            arrowIcon = null;
         }
+
+        return arrowIcon;
     }
-
     getIconName(header, orderBy) {
-        let name = "down";
-        orderBy = JSON.parse(orderBy);
-
-        if(orderBy.value === header) {
-            name = orderBy.asc === 0 ? "down" : "up";
-        }
+        let name = (orderBy && orderBy.value === header && orderBy.asc) ? "up" : "down";
 
         return name;
     }
 
     getIconColor(header, orderBy) {
-        let color = "white";
-
-        orderBy = JSON.parse(orderBy);
-        color = orderBy.value === header ? "gray" : "white";
+        let color = (orderBy && orderBy.value === header) ? "gray" : "white";
 
         return color;
     }

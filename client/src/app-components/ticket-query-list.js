@@ -79,10 +79,12 @@ class TicketQueryList extends React.Component {
         } = this.state;
         const {
             filters,
-            onChangeOrderBy
+            onChangeOrderBy,
+            userId
         } = this.props;
+
         return {
-            userId: this.props.userId,
+            userId: userId,
             ticketPath: '/admin/panel/tickets/view-ticket/',
             tickets,
             page,
@@ -92,7 +94,7 @@ class TicketQueryList extends React.Component {
             showDepartmentDropdown: false,
             closedTicketsShown: false,
             onPageChange:this.onPageChange.bind(this),
-            orderBy: filters.orderBy,
+            orderBy: filters.orderBy ? JSON.parse(filters.orderBy) : filters.orderBy,
             showOrderArrows: true,
             onChangeOrderBy: onChangeOrderBy,
         };
@@ -102,6 +104,6 @@ class TicketQueryList extends React.Component {
 
 export default connect((store) => {
     return {
-        userId: store.session.userId
+        userId: store.session.userId*1
     };
 })(TicketQueryList);
