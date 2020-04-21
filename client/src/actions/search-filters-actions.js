@@ -1,30 +1,31 @@
 export default {
     submitForm(form) {
         return {
-            type: 'ON_SUBMIT_FORM',
+            type: 'SEARCH_FILTERS_ON_SUBMIT_FORM',
             payload: form,
         }
     },
     changeForm(form) {
         return {
-            type: 'CHANGE_FORM',
+            type: 'SEARCH_FILTERS_CHANGE_FORM',
             payload: form,
         }
     },
     changeFilters(filters) {
         return {
-            type: 'CHANGE_FILTERS',
+            type: 'SEARCH_FILTERS_CHANGE_FILTERS',
             payload: filters,
         }
     },
     setDefaultFormValues() {
         return {
-            type: 'SET_DEFAULT_FORM_VALUES',
+            type: 'SEARCH_FILTERS_SET_DEFAULT_FORM_VALUES',
+            payload: {},
         }
     },
     changeShowFilters(showFilters) {
         return {
-            type: 'CHANGE_SHOW_FILTERS',
+            type: 'SEARCH_FILTERS_CHANGE_SHOW_FILTERS',
             payload: showFilters,
         }
     },

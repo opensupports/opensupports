@@ -70,11 +70,11 @@ class searchFiltersReducer extends Reducer {
 
     getTypeHandlers() {
         return {
-            'ON_SUBMIT_FORM': this.onSubmitForm.bind(this),
-            'CHANGE_FORM': this.onFormChange,
-            'CHANGE_FILTERS': this.onFiltersChange.bind(this),
-            'SET_DEFAULT_FORM_VALUES': this.onSetDefaultFormValues.bind(this),
-            'CHANGE_SHOW_FILTERS': this.onChangeShowFilters.bind(this),
+            'SEARCH_FILTERS_ON_SUBMIT_FORM': this.onSubmitForm.bind(this),
+            'SEARCH_FILTERS_CHANGE_FORM': this.onFormChange,
+            'SEARCH_FILTERS_CHANGE_FILTERS': this.onFiltersChange.bind(this),
+            'SEARCH_FILTERS_SET_DEFAULT_FORM_VALUES': this.onSetDefaultFormValues.bind(this),
+            'SEARCH_FILTERS_CHANGE_SHOW_FILTERS': this.onChangeShowFilters.bind(this),
             [LOCATION_CHANGE]: this.onUrlChange.bind(this),
         };
     }
