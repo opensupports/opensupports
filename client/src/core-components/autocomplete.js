@@ -256,7 +256,10 @@ class Autocomplete extends React.Component {
         const { getItemListFromQuery, } = this.props;
 
         if(getItemListFromQuery !== undefined) {
-            getItemListFromQuery(query, blacklist.map(item => {return {id: item.id, staff: item.isStaff}}))
+            getItemListFromQuery(
+                query,
+                blacklist.map(item => {return item.isStaff ? {id: item.id, staff: item.isStaff} : item.id})
+            )
             .then(result => {
                 this.setState({
                     itemsFromQuery: result,
