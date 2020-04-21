@@ -87,7 +87,7 @@ describe('TicketList component', function () {
             },
             {
                 key: 'date',
-                value: i18n('DATE'),
+            value: <div>{i18n('DATE')}{null}</div>,
                 className: 'ticket-list__date col-md-2'
             }
         ]);
@@ -163,7 +163,7 @@ describe('TicketList component', function () {
                 },
                 {
                     key: 'date',
-                    value: i18n('DATE'),
+                value: <div>{i18n('DATE')}{null}</div>,
                     className: 'ticket-list__date col-md-2'
                 }
             ]);

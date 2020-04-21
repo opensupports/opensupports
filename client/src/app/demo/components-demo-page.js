@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 
 const React = require('react');
 // const LineChart = require("react-chartjs-2").Line;
@@ -265,4 +265,4 @@ let DemoPage = React.createClass({
 	}
 });
 
-export default DemoPage;
+export default DemoPage;*/
