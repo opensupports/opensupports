@@ -8,6 +8,7 @@ class Language extends DataStore {
         'es',
         'de',
         'fr',
+        'id',
         'pt',
         'jp',
         'ru',
