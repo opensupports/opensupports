@@ -24,12 +24,16 @@
     &__buttons {
         margin-top: 10px;
         padding-bottom: 10px;
-        text-align: right;
+        width: 100%;
+        display: inline-flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
     }
 
     &__yes-button,
     &__no-button {
-        display: inline-block;
+        display: block;
         margin-right: 10px;
     }
 

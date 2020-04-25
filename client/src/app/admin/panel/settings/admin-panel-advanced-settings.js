@@ -191,7 +191,7 @@ class AdminPanelAdvancedSettings extends React.Component {
     }
 
     onAreYouSureUserSystemOk(password) {
-        API.call({
+        return API.call({
             path: this.props.config['user-system-enabled'] ? '/system/disable-user-system' : '/system/enable-user-system',
             data: {
                 password: password
@@ -207,7 +207,7 @@ class AdminPanelAdvancedSettings extends React.Component {
     }
 
     onAreYouSureRegistrationOk(password) {
-        API.call({
+        return API.call({
             path: this.props.config['registration'] ? '/system/disable-registration' : '/system/enable-registration',
             data: {
                 password: password
