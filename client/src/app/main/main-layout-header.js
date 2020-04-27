@@ -97,12 +97,7 @@ class MainLayoutHeader extends React.Component {
     }
 
     changeShowLoginForm(showLoginForm = true) {
-        const {
-            dispatch,
-            mandatoryLogin
-        } = this.props;
-        console.log("click: ", mandatoryLogin.showLoginForm);
-        dispatch(mandatoryLoginActions.changeShowLoginForm(showLoginForm))
+        this.props.dispatch(mandatoryLoginActions.changeShowLoginForm(showLoginForm))
     }
 }
 
