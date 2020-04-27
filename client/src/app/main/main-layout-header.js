@@ -6,7 +6,7 @@ import ConfigActions      from 'actions/config-actions';
 
 import LanguageSelector   from 'app-components/language-selector';
 import Button             from 'core-components/button';
-import mandatoryLoginActions from '../../actions/mandatory-login-actions';
+import loginFormActions from '../../actions/login-form-actions';
 
 class MainLayoutHeader extends React.Component {
 
@@ -38,7 +38,7 @@ class MainLayoutHeader extends React.Component {
                 <div className="main-layout-header__login-links">
                     <Button
                     type="clean"
-                    onClick={this.changeShowLoginForm.bind(this, false)}
+                    onClick={this.onHideLoginForm.bind(this)}
                     route={{to:'/'}}>
                         {i18n('HOME')}
                     </Button>
@@ -48,7 +48,7 @@ class MainLayoutHeader extends React.Component {
                         </Button> :
                         null}
                     {!config['mandatory-login'] ?
-                        <Button type="clean" onClick={this.changeShowLoginForm.bind(this)} route={{to:'/'}}>
+                        <Button type="clean" onClick={this.onShowLoginForm.bind(this)} route={{to:'/'}}>
                             {i18n('LOG_IN')}
                         </Button> :
                         null}
@@ -64,7 +64,7 @@ class MainLayoutHeader extends React.Component {
             <div className="main-layout-header__login-links">
                 <Button
                     type="clean"
-                    onClick={this.changeShowLoginForm.bind(this, false)}
+                    onClick={this.onHideLoginForm.bind(this)}
                     route={{to:'/'}}>
                         {i18n('HOME')}
                 </Button>
@@ -73,7 +73,7 @@ class MainLayoutHeader extends React.Component {
                         <Button type="clean" route={{to:'/signup'}}>{i18n('SIGN_UP')}</Button>
                         <Button
                             type="clean"
-                            onClick={this.changeShowLoginForm.bind(this)}
+                            onClick={this.onShowLoginForm.bind(this)}
                             route={{to:'/'}}>
                                 {i18n('LOG_IN')}
                         </Button>
@@ -96,8 +96,12 @@ class MainLayoutHeader extends React.Component {
         this.props.dispatch(ConfigActions.changeLanguage(event.target.value));
     }
 
-    changeShowLoginForm(showLoginForm = true) {
-        this.props.dispatch(mandatoryLoginActions.changeShowLoginForm(showLoginForm))
+    onShowLoginForm() {
+        this.props.dispatch(loginFormActions.showLoginForm())
+    }
+
+    onHideLoginForm() {
+        this.props.dispatch(loginFormActions.hideLoginForm())
     }
 }
 
@@ -105,6 +109,5 @@ export default connect((store) => {
     return {
         session: store.session,
         config: store.config,
-        mandatoryLogin: store.mandatoryLogin
     };
 })(MainLayoutHeader);

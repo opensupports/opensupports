@@ -13,13 +13,13 @@ class MainHomePage extends React.Component {
     render() {
         const {
             config,
-            mandatoryLogin
+            loginForm
         } = this.props;
         return (
             <div className="main-home-page">
                 {this.renderMessage()}
-                {(config['mandatory-login']) || mandatoryLogin.showLoginForm ? this.renderLoginWidget() : null}
-                {!mandatoryLogin.showLoginForm ?
+                {(config['mandatory-login']) || loginForm.loginFormShown ? this.renderLoginWidget() : null}
+                {!loginForm.loginFormShown ?
                     <div className={this.getPortalClass()}>
                         <MainHomePagePortal type={((config['mandatory-login']) ? 'default' : 'complete')}/>
                     </div>:
@@ -80,7 +80,6 @@ class MainHomePage extends React.Component {
         let classes = {
             'main-home-page__portal-wrapper': config['mandatory-login'],
             'col-md-8': config['layout'] === 'boxed',
-            'col-md-10 col-md-offset-1' : false
         };
 
         return classNames(classes);
@@ -91,6 +90,6 @@ export default connect((store) => {
     return {
         session: store.session,
         config: store.config,
-        mandatoryLogin: store.mandatoryLogin
+        loginForm: store.loginForm
     };
 })(MainHomePage);

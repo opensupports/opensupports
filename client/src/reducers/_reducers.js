@@ -6,12 +6,12 @@ import configReducer from 'reducers/config-reducer';
 import modalReducer from 'reducers/modal-reducer';
 import articlesReducer from 'reducers/articles-reducer';
 import adminDataReducer from 'reducers/admin-data-reducer';
-import mandatoryLoginReducer from './mandatory-login-reducer';
+import loginFormReducer from './login-form-reducer';
 
 export default combineReducers({
     session: sessionReducer,
     config: configReducer,
-    mandatoryLogin: mandatoryLoginReducer,
+    loginForm: loginFormReducer,
     modal: modalReducer,
     articles: articlesReducer,
     adminData: adminDataReducer,
