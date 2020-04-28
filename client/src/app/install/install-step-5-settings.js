@@ -42,8 +42,8 @@ class InstallStep5Settings extends React.Component {
                         </SubmitButton>
                     </div>
                     <div className="install-step-5__buttons">
-                        <SubmitButton className="install-step-5__next" size="medium" type="secondary">{i18n('NEXT')}</SubmitButton>
-                        <Button className="install-step-5__previous" size="medium" onClick={this.onPreviousClick.bind(this)}>{i18n('PREVIOUS')}</Button>
+                        <SubmitButton className="install-step-5__next" size="extra-small" type="secondary">{i18n('NEXT')}</SubmitButton>
+                        <Button className="install-step-5__previous" size="extra-small" onClick={this.onPreviousClick.bind(this)}>{i18n('PREVIOUS')}</Button>
                     </div>
                 </Form>
             </div>
