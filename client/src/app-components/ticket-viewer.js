@@ -712,7 +712,6 @@ export default connect((store) => {
         staffMembers: store.adminData.staffMembers,
         staffMembersLoaded: store.adminData.staffMembersLoaded,
         allowAttachments: store.config['allow-attachments'],
-        userSystemEnabled: store.config['user-system-enabled'],
         userLevel: store.session.userLevel,
         tags: store.config['tags']
     };
