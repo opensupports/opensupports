@@ -148,10 +148,6 @@ abstract class Controller {
         return str_replace(array_map(function($index) { return "IMAGE_PATH_$index"; }, array_keys($imagePaths)), $imagePaths, $content);
     }
 
-    public static function isUserSystemEnabled() {
-        return Setting::getSetting('user-system-enabled')->getValue();
-    }
-
     public static function isLoginMandatory() {
         return Setting::getSetting('mandatory-login')->getValue();
     }
