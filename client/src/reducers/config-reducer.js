@@ -56,7 +56,7 @@ class ConfigReducer extends Reducer {
 
     onUserSystemSettingsChange(state, payload) {
         return _.extend({}, state, {
-            'user-system-enabled': !!(payload['user-system-enabled'] * 1),
+            'mandatory-login': !!(payload['mandatory-login'] * 1),
             'registration': !!(payload['registration'] * 1)
         });
     }

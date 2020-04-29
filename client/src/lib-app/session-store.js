@@ -58,7 +58,7 @@ class SessionStore {
         this.setItem('layout', configs.layout);
         this.setItem('title', configs.title);
         this.setItem('registration', configs.registration);
-        this.setItem('user-system-enabled', configs['user-system-enabled']);
+        this.setItem('mandatory-login', configs['mandatory-login']);
         this.setItem('allow-attachments', configs['allow-attachments']);
         this.setItem('maintenance-mode', configs['maintenance-mode']);
         this.setItem('max-size', configs['max-size']);
@@ -76,7 +76,7 @@ class SessionStore {
             layout: this.getItem('layout'),
             title: this.getItem('title'),
             registration: (this.getItem('registration') * 1),
-            'user-system-enabled': (this.getItem('user-system-enabled') * 1),
+            'mandatory-login': (this.getItem('mandatory-login') * 1),
             'allow-attachments': (this.getItem('allow-attachments') * 1),
             'maintenance-mode': (this.getItem('maintenance-mode') * 1),
             'max-size': this.getItem('max-size'),
