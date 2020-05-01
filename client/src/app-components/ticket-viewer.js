@@ -428,7 +428,7 @@ class TicketViewer extends React.Component {
             }));
         }
 
-        APICallPromise.then(this.onTicketModification.bind(this));
+        return APICallPromise.then(this.onTicketModification.bind(this));
     }
 
     onReopenClick() {
