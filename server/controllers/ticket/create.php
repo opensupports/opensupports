@@ -229,7 +229,8 @@ class CreateController extends Controller {
             'to' => $email,
             'name' => $this->name,
             'ticketNumber' => $this->ticketNumber,
-            'title' => $this->title
+            'title' => $this->title,
+            'url' => Setting::getSetting('url')->getValue()
         ]);
 
         $mailSender->send();
