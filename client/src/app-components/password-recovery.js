@@ -27,7 +27,7 @@ class PasswordRecovery extends React.Component {
     render() {
         const { renderLogo, formProps, onBackToLoginClick } = this.props;
         return (
-            <Widget {...this.props} className={this.getClass()} title={!renderLogo && i18n('RECOVER_PASSWORD')}>
+            <Widget className={this.getClass()} title={!renderLogo && i18n('RECOVER_PASSWORD')}>
                 {this.renderLogo()}
                 <Form {...formProps}>
                     <div className="password-recovery__inputs">

@@ -16,7 +16,7 @@ class FormField extends React.Component {
     };
 
     static propTypes = {
-        decorator: React.PropTypes.oneOfType(React.PropTypes.func, React.PropTypes.string),
+        decorator: React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.string]),
         validation: React.PropTypes.string,
         onChange: React.PropTypes.func,
         onBlur: React.PropTypes.func,
