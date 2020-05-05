@@ -42,7 +42,10 @@ class EditStaffController extends Controller {
                     'error' => ERRORS::INVALID_EMAIL
                 ],
                 'password' => [
-                    'validation' => DataValidator::oneOf(DataValidator::notBlank()->length(5, 200), DataValidator::falseVal()),
+                    'validation' => DataValidator::oneOf(DataValidator::notBlank()->length(
+                        LengthConfig::MIN_LENGTH_PASSWORD,
+                        LengthConfig::MAX_LENGTH_PASSWORD
+                    ), DataValidator::falseVal()),
                     'error' => ERRORS::INVALID_PASSWORD
                 ],
                 'level' => [

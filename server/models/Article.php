@@ -26,7 +26,7 @@ class Article extends DataStore {
     public function toArray() {
         return [
             'id' => $this->id,
-            'title' => $this->title,
+            'name' => $this->title,
             'content' => $this->content,
             'lastEdited' => $this->lastEdited,
             'position' => $this->position
