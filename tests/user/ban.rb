@@ -3,7 +3,7 @@ describe '/user/ban' do
     request('/user/logout')
     result = request('/user/login', {
         email: 'staff@opensupports.com',
-        password: 'staff',
+        password: 'password',
         staff: true
     })
 

@@ -28,7 +28,7 @@ describe 'Article path' do
 
     it 'should create article' do
         result = request('/article/add', {
-            title: 'Some article',
+            name: 'Some article',
             content: 'This is an article about server management.',
             topicId: @topic_id,
             position: 1,
@@ -108,7 +108,7 @@ describe 'Article path' do
 
     it 'should retrieve all articles' do
         request('/article/add', {
-            title: 'Some article',
+            name: 'Some article',
             content: 'This is an article about server management.',
             topicId: @topic_id,
             position: 1,
@@ -134,7 +134,7 @@ describe 'Article path' do
         (result['data'][2]['iconColor']).should.equal('blue')
         (result['data'][2]['private']).should.equal('0')
 
-        (result['data'][0]['articles'][0]['title']).should.equal('Some article')
+        (result['data'][0]['articles'][0]['name']).should.equal('Some article')
         (result['data'][0]['articles'][0]['content']).should.equal('This is an article about server management.')
         (result['data'][0]['articles'][0]['position']).should.equal('1')
 

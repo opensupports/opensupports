@@ -79,7 +79,7 @@ describe '/ticket/create' do
     end
     it 'should fail if an user tries to create a ticket with a private department' do
         request('/user/logout')
-        Scripts.login('staff@opensupports.com', 'staff', true)
+        Scripts.login('staff@opensupports.com', 'password', true)
 
         result = request('/system/add-department', {
             csrf_userid: $csrf_userid,
