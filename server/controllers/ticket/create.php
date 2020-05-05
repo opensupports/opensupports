@@ -54,7 +54,7 @@ class CreateController extends Controller {
             'permission' => 'user',
             'requestData' => [
                 'title' => [
-                    'validation' => DataValidator::notBlank()->length(1, 200),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_TITLE, LengthConfig::MAX_LENGTH_TITLE),
                     'error' => ERRORS::INVALID_TITLE
                 ],
                 'content' => [
