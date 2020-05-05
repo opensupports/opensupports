@@ -106,7 +106,7 @@ class TopicViewer extends React.Component {
         return (
             <li {...props}>
                 <Link {...this.getArticleLinkProps(article, index)}>
-                    {article.title}
+                    {article.name}
                 </Link>
                 {(this.props.editable) ? <Icon className="topic-viewer__grab-icon" name="arrows" ref={'grab-' + index}/> : null}
             </li>
@@ -191,7 +191,7 @@ class TopicViewer extends React.Component {
                     if(index === currentIndex) {
                         articles.push({
                             id: article.id,
-                            title: 'X',
+                            name: 'X',
                             hidden: true
                         });
                     }
@@ -199,7 +199,7 @@ class TopicViewer extends React.Component {
                     if(index === currentIndex) {
                         articles.push({
                             id: article.id,
-                            title: 'X',
+                            name: 'X',
                             hidden: true
                         });
                     }

@@ -61,7 +61,7 @@ class DashboardArticlePage extends React.Component {
     renderArticlePreview(article) {
         return (
             <div className="dashboard-article-page__article">
-                <Header title={article.title}/>
+                <Header title={article.name}/>
 
                 <div className="dashboard-article-page__article-content ql-editor">
                     <div dangerouslySetInnerHTML={{__html: article.content}}/>
@@ -117,8 +117,8 @@ class DashboardArticlePage extends React.Component {
             items.push({content: topic.name, url: (_.startsWith(this.props.location.pathname, '/article/')) ? '/articles' : '/dashboard/articles'});
         }
 
-        if(article && article.title) {
-            items.push({content: article.title});
+        if(article && article.name) {
+            items.push({content: article.name});
         }
 
         return items;

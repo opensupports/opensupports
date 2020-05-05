@@ -14,7 +14,7 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiPermission staff2
  *
- * @apiParam {String} title Title of the new article.
+ * @apiParam {String} name Name of the new article.
  * @apiParam {String} content Content of the new article.
  * @apiParam {Number} position Position of the new article.
  * @apiParam {Number} topicId Id of the articles's topic.
@@ -39,8 +39,11 @@ class AddArticleController extends Controller {
         return [
             'permission' => 'staff_2',
             'requestData' => [
-                'title' => [
-                    'validation' => DataValidator::notBlank()->length(1, 100),
+                'name' => [
+                    'validation' => DataValidator::notBlank()->length(
+                        LengthConfig::MIN_LENGTH_NAME,
+                        LengthConfig::MAX_LENGTH_NAME
+                    ),
                     'error' => ERRORS::INVALID_NAME
                 ],
                 'content' => [
@@ -64,7 +67,7 @@ class AddArticleController extends Controller {
 
         $article = new Article();
         $article->setProperties([
-            'title' => Controller::request('title'),
+            'title' => Controller::request('name'),
             'content' => $this->replaceWithImagePaths($imagePaths, $content),
             'lastEdited' => Date::getCurrentDate(),
             'position' => Controller::request('position') || 1

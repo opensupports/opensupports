@@ -97,7 +97,7 @@ class DashboardListArticlesPage extends React.Component {
             _.forEach(topic.articles, (article) => {
                 articles.push({
                     id: article.id,
-                    title: article.title,
+                    name: article.name,
                     content: article.content,
                     topic: topic.name
                 });
@@ -108,7 +108,7 @@ class DashboardListArticlesPage extends React.Component {
     }
 
     isQueryInTitle(article, query) {
-        return _.includes(article.title.toLowerCase(), query.toLowerCase());
+        return _.includes(article.name.toLowerCase(), query.toLowerCase());
     }
 
     isQueryInContent(article, query) {
