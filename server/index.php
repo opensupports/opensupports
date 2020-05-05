@@ -1,5 +1,6 @@
 <?php
 @include 'config.php';
+@include 'data/length-config.php';
 require_once 'vendor/autoload.php';
 
 // REDBEAN CONFIGURATION
