@@ -4,7 +4,7 @@ import API from 'lib-app/api-call';
 import AdminDataActions from 'actions/admin-data-actions';
 import ConfigActions from 'actions/config-actions';
 import sessionStore from 'lib-app/session-store';
-import store from 'app/store';
+const store = require('app/store');
 
 export default {
 
