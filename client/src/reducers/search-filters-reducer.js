@@ -70,13 +70,58 @@ class searchFiltersReducer extends Reducer {
 
     getTypeHandlers() {
         return {
-            'SEARCH_FILTERS_ON_SUBMIT_FORM': this.onSubmitForm.bind(this),
-            'SEARCH_FILTERS_CHANGE_FORM': this.onFormChange,
             'SEARCH_FILTERS_CHANGE_FILTERS': this.onFiltersChange.bind(this),
-            'SEARCH_FILTERS_SET_DEFAULT_FORM_VALUES': this.onSetDefaultFormValues.bind(this),
+            'SEARCH_FILTERS_CHANGE_FORM': this.onFormChange,
             'SEARCH_FILTERS_CHANGE_SHOW_FILTERS': this.onChangeShowFilters.bind(this),
+            'SEARCH_FILTERS_SET_DEFAULT_FORM_VALUES': this.onSetDefaultFormValues.bind(this),
+            'SEARCH_FILTERS_ON_SUBMIT_FORM': this.onSubmitForm.bind(this),
             [LOCATION_CHANGE]: this.onUrlChange.bind(this),
         };
+    }
+
+    onFiltersChange(state, payload) {
+        return _.extend({}, state, {
+            listData: {
+                title: payload.title ? payload.title : undefined,
+                filters: payload.filters ? _.extend({}, DEFAULT_FILTERS, payload.filters) : payload
+            },
+            form: this.transformToFormValue({...DEFAULT_FILTERS, ...payload.filters})
+        });
+    }
+
+    onFormChange(state, payload) {
+        return _.extend({}, state, {
+            form: payload,
+        });
+    }
+
+    onChangeShowFilters(state, payload) {
+        return _.extend({}, state, {showFilters: !payload});
+    }
+
+    onSetDefaultFormValues(state) {
+        let custom = store.getState().routing.locationBeforeTransitions.query.custom;
+        let customDefaultFilters = custom ? window.customTicketList[custom*1].filters : undefined;
+
+        return _.extend({}, state, {form: this.transformToFormValue({...DEFAULT_FILTERS, ...customDefaultFilters})});
+    }
+
+    onSubmitForm(state, payload) {
+        return this.onFiltersChange(state, this.formValueToFilters(payload));
+    }
+
+    onUrlChange(state, payload) {
+        return (
+            payload.query.custom ?
+                this.onFiltersChange(state, window.customTicketList[payload.query.custom*1]) :
+                ({
+                    listData: {
+                        title: undefined,
+                        filters: DEFAULT_FILTERS
+                    },
+                    form: this.transformToFormValue(DEFAULT_FILTERS)
+                })
+        );
     }
 
     dateRangeToFormValue(_dateRange) {
@@ -204,51 +249,6 @@ class searchFiltersReducer extends Reducer {
         }
 
         return status;
-    }
-
-    onFiltersChange(state, payload) {
-        return _.extend({}, state, {
-            listData: {
-                title: payload.title ? payload.title : undefined,
-                filters: payload.filters ? _.extend({}, DEFAULT_FILTERS, payload.filters) : payload
-            },
-            form: this.transformToFormValue({...DEFAULT_FILTERS, ...payload.filters})
-        });
-    }
-
-    onFormChange(state, payload) {
-        return _.extend({}, state, {
-            form: payload,
-        });
-    }
-
-    onSetDefaultFormValues(state) {
-        let custom = store.getState().routing.locationBeforeTransitions.query.custom;
-        let customDefaultFilters = custom ? window.customTicketList[custom*1].filters : undefined;
-
-        return _.extend({}, state, {form: this.transformToFormValue({...DEFAULT_FILTERS, ...customDefaultFilters})});
-    }
-
-    onChangeShowFilters(state, payload) {
-        return _.extend({}, state, {showFilters: !payload});
-    }
-
-    onSubmitForm(state, payload) {
-        return this.onFiltersChange(state, this.formValueToFilters(payload));
-    }
-
-    onUrlChange(state, payload) {
-        return (
-            payload.query.custom ?
-                this.onFiltersChange(state, window.customTicketList[payload.query.custom*1]) :
-                ({
-                    listData: {
-                        title: undefined,
-                        filters: DEFAULT_FILTERS
-                    },
-                    form: this.transformToFormValue(DEFAULT_FILTERS)
-                })
-        );
     }
 
     transformToFormValue(filters) {
