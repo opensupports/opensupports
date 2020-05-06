@@ -115,9 +115,7 @@ class CreateController extends Controller {
             }
         }
 
-        Response::respondSuccess([
-            'ticketNumber' => $this->ticketNumber
-        ]);
+        Response::respondSuccess();
 
         if(!Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) {
             $session = Session::getInstance();
