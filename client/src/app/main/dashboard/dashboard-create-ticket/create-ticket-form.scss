@@ -1,5 +1,13 @@
 .create-ticket-form {
 
+    &__hide {
+        display: none;
+    }
+
+    &__show {
+        
+    }
+
     &__file {
         text-align: left;
     }

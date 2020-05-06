@@ -33,10 +33,8 @@ class DashboardCreateTicketPage extends React.Component {
     }
 
     onCreateTicketSuccess(result, email, message) {
-        if((this.props.location.pathname !== '/create-ticket')) {
+        if(this.props.location.pathname !== '/create-ticket') {
             history.push(`/dashboard?message=${message}`);
-        } else {
-            setTimeout(() => {history.push('/check-ticket/' + result.data.ticketNumber + '/' + email)}, 1000);
         }
     }
 

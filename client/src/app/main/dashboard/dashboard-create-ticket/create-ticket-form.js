@@ -29,6 +29,7 @@ class CreateTicketForm extends React.Component {
     };
 
     state = {
+        display: false,
         loading: false,
         message: null,
         form: {
@@ -112,6 +113,7 @@ class CreateTicketForm extends React.Component {
 
     getFormProps() {
         return {
+            className:`create-ticket-form__${this.state.display ? "hide" : "show"}`,
             loading: this.state.loading,
             onSubmit: this.onSubmit.bind(this),
             values: this.state.form,
@@ -143,6 +145,7 @@ class CreateTicketForm extends React.Component {
     onTicketSuccess(email, result) {
         let message = 'success'
         this.setState({
+            display: true,
             loading: false,
             message: message
         }, () => {
