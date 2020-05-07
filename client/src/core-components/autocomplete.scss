@@ -8,13 +8,14 @@
     &__drop-down {
         .drop-down__current-item {
             cursor: text;
-            background-color: $very-light-grey;
+            background-color: white;
             border: 1px solid $grey;
             min-height: 38px;
 
-            &:focus {
+            &:focus-within {
                 outline: none;
                 border-color: $primary-blue;
+                background-color: white;
             }
         }
 
