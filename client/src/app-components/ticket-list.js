@@ -273,7 +273,7 @@ class TicketList extends React.Component {
             ),
             title: (
                 <div>
-                    <Icon name={this.getStatusIconType(ticket.closed)} />
+                    {ticket.closed ? <Icon name="lock" /> : null}
                     <Button className="ticket-list__title-link" type="clean" route={{to: this.props.ticketPath + ticket.ticketNumber}}>
                         {titleText}
                     </Button>
@@ -291,10 +291,6 @@ class TicketList extends React.Component {
             unread: this.isTicketUnread(ticket),
             highlighted: this.isTicketUnread(ticket)
         };
-    }
-
-    getStatusIconType(status) {
-        return status ? "lock" : "unlock-alt";
     }
 
     getTicketPriority(priority) {
