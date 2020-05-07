@@ -273,7 +273,7 @@ class TicketList extends React.Component {
             ),
             title: (
                 <div>
-                    {ticket.closed ? <Icon name="lock" /> : null}
+                    {ticket.closed ? <Icon size="sm" name="lock" /> : null}
                     <Button className="ticket-list__title-link" type="clean" route={{to: this.props.ticketPath + ticket.ticketNumber}}>
                         {titleText}
                     </Button>
