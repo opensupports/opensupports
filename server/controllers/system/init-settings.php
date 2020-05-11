@@ -16,7 +16,6 @@ DataValidator::with('CustomValidations', true);
  * @apiPermission any
  *
  * @apiParam {String} language Indicates the default language of the system.
- * @apiParam {String} user-system-enabled Indicates if the user system should be enabled.
  * @apiParam {String} registration Indicates if the registration should be enabled.
  * @apiParam {String} server-email Email from where automated emails will be sent.
  * @apiParam {String} smtp-host SMTP Server address.
