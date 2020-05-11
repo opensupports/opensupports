@@ -17,7 +17,7 @@ DataValidator::with('CustomValidations', true);
  *
  * 
  * @apiParam {String} query A string to find into a ticket to make a custom search.
- * @apiParam {Object[]} blackList A array of objects {id,staff} with id and boolean to eliminate the authors of the new list.
+ * @apiParam {Object[]} blackList A array of objects {id, isStaff} with id and boolean to eliminate the authors of the new list.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_QUERY
@@ -96,7 +96,7 @@ class GetAuthorsController extends Controller {
         $idList = [];
         if($blackList){
             foreach ($blackList as $item) {
-                if($staff == $item->staff)  array_push($idList, $item->id);
+                if($staff == $item->isStaff)  array_push($idList, $item->id);
             }
         }
             return $idList;

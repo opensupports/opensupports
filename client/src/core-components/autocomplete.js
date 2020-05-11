@@ -42,7 +42,8 @@ class Autocomplete extends React.Component {
         this.setTimeout = _.throttle((query) => {
             let id = ++this.id;
 
-            getItemListFromQuery(query, this.getSelectedItems().map(item => item.id))
+            getItemListFromQuery(query,this.getSelectedItems().map(
+                item => {return item.isStaff !== undefined ? {isStaff: item.isStaff, id: item.id} : item.id}))
             .then(result => {
                 if(id === this.id)
                 this.setState({
@@ -256,10 +257,8 @@ class Autocomplete extends React.Component {
         const { getItemListFromQuery, } = this.props;
 
         if(getItemListFromQuery !== undefined) {
-            getItemListFromQuery(
-                query,
-                blacklist.map(item => {return item.isStaff ? {id: item.id, staff: item.isStaff} : item.id})
-            )
+            getItemListFromQuery(query, blacklist.map(
+                item => {return item.isStaff !== undefined ? {id: item.id, isStaff: item.isStaff} : item.id}))
             .then(result => {
                 this.setState({
                     itemsFromQuery: result,
