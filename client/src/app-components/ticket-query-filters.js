@@ -96,9 +96,9 @@ class TicketQueryFilters extends React.Component {
                                 }} />
                         </div>
                         <div className="ticket-query-filters__group__container">
-                            <span className="ticket-query-filters__title">People</span>
+                            <span className="ticket-query-filters__title">Authors</span>
                             <FormField
-                                name="people"
+                                name="authors"
                                 field="autocomplete"
                                 fieldProps={{
                                     getItemListFromQuery: this.getAuthors.bind(this),
@@ -318,6 +318,9 @@ class TicketQueryFilters extends React.Component {
         let newEndDate = data.dateRange.endDate === "" ? DateTransformer.getDateToday() : data.dateRange.endDate;
         let departmentsId = data.departments.map(department => department.id);
         let staffsId = data.owners.map(staff => staff.id);
+        let authorsListFilter = data.authors ?
+            data.authors.map(person  => {return {id: person.id, isStaff: person.isStaff}}) :
+            [];
         let tagsName = this.tagsNametoTagsId(data.tags);
 
         this.onChangeFormState({
@@ -325,6 +328,7 @@ class TicketQueryFilters extends React.Component {
             tags: tagsName,
             owners: staffsId,
             departments: departmentsId,
+            authors: authorsListFilter,
             dateRange: {
                 ...data.dateRange,
                 startDate: newStartDate,
@@ -373,6 +377,8 @@ class TicketQueryFilters extends React.Component {
             departments: this.getSelectedDepartments(form.departments),
             owners: this.getSelectedStaffs(form.owners),
             tags: this.getSelectedTagsName(form.tags),
+            authors: form.authors && form.authors.length !== 0 ?
+                form.authors.map(author => {return {...author, content: 'asd', color: 'red'}}) : form.authors
         }
 
         return newFormValues;

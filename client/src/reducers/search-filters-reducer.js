@@ -42,6 +42,7 @@ const DEFAULT_FILTERS = {
     tags: "[]",
     dateRange: getDefaultDateRangeForFilters(),
     orderBy: undefined,
+    authors: "[]",
 };
 
 function getDefaultDateRangeForFilters() {
@@ -63,7 +64,8 @@ class searchFiltersReducer extends Reducer {
                 departments: [],
                 owners: [],
                 tags: [],
-                dateRange: {valid: true, startDate: DEFAULT_START_DATE, endDate: DateTransformer.getDateToday()},    
+                authors: [],
+                dateRange: {valid: true, startDate: DEFAULT_START_DATE, endDate: DateTransformer.getDateToday()}
             }
         };
     }
@@ -79,13 +81,13 @@ class searchFiltersReducer extends Reducer {
         };
     }
 
-    onFiltersChange(state, payload) {
+    onFiltersChange(state, payload, submited = false) {
         return _.extend({}, state, {
             listData: {
                 title: payload.title ? payload.title : undefined,
                 filters: payload.filters ? _.extend({}, DEFAULT_FILTERS, payload.filters) : payload
             },
-            form: this.transformToFormValue({...DEFAULT_FILTERS, ...payload.filters})
+            form: submited ? state.form :  this.transformToFormValue({...DEFAULT_FILTERS, ...payload.filters})
         });
     }
 
@@ -107,7 +109,7 @@ class searchFiltersReducer extends Reducer {
     }
 
     onSubmitForm(state, payload) {
-        return this.onFiltersChange(state, this.formValueToFilters(payload));
+        return this.onFiltersChange(state, this.formValueToFilters(payload), true);
     }
 
     onUrlChange(state, payload) {
@@ -145,6 +147,7 @@ class searchFiltersReducer extends Reducer {
             owners: JSON.stringify(form.owners),
             tags: JSON.stringify(form.tags),
             dateRange: JSON.stringify(DateTransformer.formDateRangeToFilters(dateRangeFilter)),
+            authors: form.authors ? JSON.stringify(form.authors) : "[]"
         };
 
         return {
@@ -253,7 +256,7 @@ class searchFiltersReducer extends Reducer {
 
     transformToFormValue(filters) {
         let newFormValues = {
-            ...newFormValues,
+            ...filters,
             query: filters.query ? filters.query : "",
             closed: this.getClosedDropdowIndex(filters.closed),
             priority: this.getPriorityDropdownIndex(filters.priority),
@@ -261,6 +264,7 @@ class searchFiltersReducer extends Reducer {
             owners: JSON.parse(filters.owners),
             tags: JSON.parse(filters.tags),
             dateRange: this.dateRangeToFormValue(filters.dateRange),
+            authors: filters.authors ? JSON.parse(filters.authors) : []
         }
 
         return newFormValues;

@@ -22,11 +22,8 @@ class TicketQueryList extends React.Component {
         this.getTickets();
     }
 
-    componentDidUpdate(prevProps) {
-
-        if (JSON.stringify(this.props.filters) !== JSON.stringify(prevProps.filters)) {
-            this.getTickets();
-        }
+    componentWillReceiveProps(nextProps) {
+        this.getTickets(nextProps.filters);
     }
 
     render() {
@@ -41,7 +38,7 @@ class TicketQueryList extends React.Component {
         );
     }
 
-    getTickets() {
+    getTickets(filters) {
         this.setState({
             loading:true
         })
@@ -49,7 +46,7 @@ class TicketQueryList extends React.Component {
             path: '/ticket/search',
             data: {
                 page : this.state.page,
-                ...this.props.filters
+                ...filters
             }
         }).then((result) => {
             this.setState({
@@ -67,7 +64,7 @@ class TicketQueryList extends React.Component {
     }
 
     onPageChange(event) {
-        this.setState({page: event.target.value}, () => this.getTickets());
+        this.setState({page: event.target.value}, () => this.getTickets(this.props.filters));
     }
 
     getTicketListProps () {
