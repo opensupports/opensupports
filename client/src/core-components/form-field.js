@@ -229,6 +229,14 @@ class FormField extends React.Component {
             };
         }
 
+        if(field === 'tag-selector' && !decorator) {
+            event = {
+                target: {
+                    value: nativeEvent
+                }
+            };
+        }
+
         if(field === 'search-box' && !decorator) {
             event = {
                 target: {
