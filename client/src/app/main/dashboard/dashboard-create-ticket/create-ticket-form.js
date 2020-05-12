@@ -141,12 +141,13 @@ class CreateTicketForm extends React.Component {
     }
 
     onTicketSuccess(email, result) {
+        let message = 'success'
         this.setState({
             loading: false,
-            message: 'success'
+            message: message
         }, () => {
             if(this.props.onSuccess) {
-                this.props.onSuccess(result, email);
+                this.props.onSuccess(result, email, message);
             }
         });
     }

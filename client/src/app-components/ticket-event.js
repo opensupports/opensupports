@@ -115,7 +115,7 @@ class TicketEvent extends React.Component {
 
     renderContent() {
         return (
-            <div  className="ticket-event__comment-content">
+            <div  className="ticket-event__comment-content ql-editor">
                 <div dangerouslySetInnerHTML={{__html: this.props.content}}></div>
                 {((this.props.author.id == this.props.userId && this.props.author.staff == this.props.userStaff) || this.props.userStaff) ? this.renderEditIcon() : null}
             </div>
