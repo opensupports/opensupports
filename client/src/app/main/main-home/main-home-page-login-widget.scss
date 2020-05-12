@@ -2,6 +2,7 @@
 
     &__container {
         height: 361px;
+        width: 324px;
     }
 
     &__inputs {
@@ -17,4 +18,14 @@
     &__message {
         margin-top: 18px;
     }
-}
+  
+  @media screen and (min-width: 379px) {
+      .login-widget__container {
+          min-width: 324px;
+      }
+  }
+  @media screen and (max-width: 409px) {
+      .login-widget__container {
+          min-width: 313px;
+      }
+  }}

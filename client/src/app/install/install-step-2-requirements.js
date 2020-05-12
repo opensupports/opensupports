@@ -38,13 +38,13 @@ class InstallStep2Requirements extends React.Component {
                 </div>
                 <Table {...this.getTableProps()} />
                 <div className="install-step-2__buttons">
+                    <div className="install-step-2__previous">
+                        <Button size="extra-small" onClick={this.onPreviousClick.bind(this)}>{i18n('PREVIOUS')}</Button>
+                    </div>
                     <div className="install-step-2__next">
-                        <Button disabled={!this.isAllOk()} size="medium" type="secondary" onClick={() => history.push('/install/step-3')}>
+                        <Button disabled={!this.isAllOk()} size="extra-small" type="secondary" onClick={() => history.push('/install/step-3')}>
                             {i18n('NEXT')}
                         </Button>
-                    </div>
-                    <div className="install-step-2__previous">
-                        <Button size="medium" onClick={this.onPreviousClick.bind(this)}>{i18n('PREVIOUS')}</Button>
                     </div>
                 </div>
             </div>

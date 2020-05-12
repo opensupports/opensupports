@@ -32,43 +32,22 @@ class TicketGetController extends Controller {
 
     public function validations() {
         $session = Session::getInstance();
-
-        if (Controller::isUserSystemEnabled() || Controller::isStaffLogged()) {
-            return [
-                'permission' => 'user',
-                'requestData' => [
-                    'ticketNumber' => [
-                        'validation' => DataValidator::validTicketNumber(),
-                        'error' => ERRORS::INVALID_TICKET
-                    ]
+        return [
+            'permission' => 'any',
+            'requestData' => [
+                'ticketNumber' => [
+                    'validation' => DataValidator::validTicketNumber(),
+                    'error' => ERRORS::INVALID_TICKET
                 ]
-            ];
-        } else {
-            return [
-                'permission' => 'any',
-                'requestData' => [
-                    'ticketNumber' => [
-                        'validation' => DataValidator::equals($session->getTicketNumber()),
-                        'error' => ERRORS::INVALID_TICKET
-                    ],
-                    'csrf_token' => [
-                        'validation' => DataValidator::equals($session->getToken()),
-                        'error' => ERRORS::INVALID_TOKEN
-                    ]
-                ]
-            ];
-        }
+            ]
+        ];
     }
 
     public function handler() {
         $this->ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
-
-        if(Controller::isUserSystemEnabled() || Controller::isStaffLogged()) {
-            if ($this->shouldDenyPermission()) {
-                throw new RequestException(ERRORS::NO_PERMISSION);
-            } else {
-                Response::respondSuccess($this->ticket->toArray());
-            }
+        
+        if ($this->shouldDenyPermission()) {
+            throw new RequestException(ERRORS::NO_PERMISSION);
         } else {
             Response::respondSuccess($this->ticket->toArray());
         }
@@ -76,8 +55,6 @@ class TicketGetController extends Controller {
 
     private function shouldDenyPermission() {
         $user = Controller::getLoggedUser();
-
-        return (!Controller::isStaffLogged() && (Controller::isUserSystemEnabled() && !$user->canManageTicket($this->ticket))) ||
-               (Controller::isStaffLogged() && !$user->canManageTicket($this->ticket));
+        return !$user->canManageTicket($this->ticket);
     }
 }

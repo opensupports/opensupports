@@ -51,10 +51,6 @@ class SendRecoverPasswordController extends Controller {
     public function handler() {
         $this->staff = Controller::request('staff');
 
-        if(!Controller::isUserSystemEnabled() && !$this->staff) {
-            throw new RequestException(ERRORS::USER_SYSTEM_DISABLED);
-        }
-
         $email = Controller::request('email');
 
         if($this->staff){

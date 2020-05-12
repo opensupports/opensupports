@@ -200,14 +200,6 @@
  * @apiError {String} INVALID_BODY The body is invalid.
  */
 /**
- * @apiDefine USER_SYSTEM_ENABLED
- * @apiError {String} USER_SYSTEM_ENABLED The user system is enabled.
- */
-/**
- * @apiDefine USER_SYSTEM_DISABLED
- * @apiError {String} USER_SYSTEM_DISABLED The user system is disabled.
- */
-/**
  * @apiDefine SYSTEM_USER_IS_ALREADY_DISABLED
  * @apiError {String} SYSTEM_USER_IS_ALREADY_DISABLED The system user is already disabled.
  */
@@ -307,6 +299,14 @@
  * @apiDefine INVALID_API_KEY_TYPE
  * @apiError {String} INVALID_API_KEY_TYPE Api key type is not one of the availables
  */
+/**
+ * @apiDefine MANDATORY_LOGIN_IS_DESACTIVATED
+ * @apiError {String} MANDATORY_LOGIN_IS_DESACTIVATED Mandatory login is disactivated
+ */
+/**
+ * @apiDefine REGISTRATION_IS_DESACTIVATED
+ * @apiError {String} REGISTRATION_IS_DESACTIVATED Registration is disactivated
+ */
 
 class ERRORS {
     const INVALID_CREDENTIALS = 'INVALID_CREDENTIALS';
@@ -360,8 +360,6 @@ class ERRORS {
     const INVALID_TEMPLATE = 'INVALID_TEMPLATE';
     const INVALID_SUBJECT = 'INVALID_SUBJECT';
     const INVALID_BODY = 'INVALID_BODY';
-    const USER_SYSTEM_ENABLED = 'USER_SYSTEM_ENABLED';
-    const USER_SYSTEM_DISABLED = 'USER_SYSTEM_DISABLED';
     const SYSTEM_USER_IS_ALREADY_DISABLED = 'SYSTEM_USER_IS_ALREADY_DISABLED';
     const SYSTEM_USER_IS_ALREADY_ENABLED = 'SYSTEM_USER_IS_ALREADY_ENABLED';
     const INVALID_PERIOD = 'INVALID_PERIOD';
@@ -387,4 +385,6 @@ class ERRORS {
     const UNAVAILABLE_STATS = 'UNAVAILABLE_STATS';
     const INVALID_COLOR = 'INVALID_COLOR';
     const INVALID_API_KEY_TYPE = 'INVALID_API_KEY_TYPE';
+    const MANDATORY_LOGIN_IS_DESACTIVATED = 'MANDATORY_LOGIN_IS_DESACTIVATED';
+    const REGISTRATION_IS_DESACTIVATED = 'REGISTRATION_IS_DESACTIVATED';
 }

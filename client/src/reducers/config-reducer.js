@@ -46,7 +46,7 @@ class ConfigReducer extends Reducer {
         return _.extend({}, state, payload.data, {
             language: currentLanguage || payload.data.language || 'en',
             registration: !!(payload.data.registration * 1),
-            'user-system-enabled': !!(payload.data['user-system-enabled']* 1),
+            'mandatory-login': !!(payload.data['mandatory-login']* 1),
             'allow-attachments': !!(payload.data['allow-attachments']* 1),
             'maintenance-mode': !!(payload.data['maintenance-mode']* 1),
             departments: payload.data.departments && payload.data.departments.map(department => _.extend({}, department, {private: department.private * 1})),
@@ -56,7 +56,7 @@ class ConfigReducer extends Reducer {
 
     onUserSystemSettingsChange(state, payload) {
         return _.extend({}, state, {
-            'user-system-enabled': !!(payload['user-system-enabled'] * 1),
+            'mandatory-login': !!(payload['mandatory-login'] * 1),
             'registration': !!(payload['registration'] * 1)
         });
     }

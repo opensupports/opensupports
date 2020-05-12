@@ -18,7 +18,6 @@ use RedBeanPHP\Facade as RedBean;
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_USER
- * @apiUse USER_SYSTEM_DISABLED
  *
  * @apiSuccess {Object} data Empty object
  *
@@ -43,9 +42,6 @@ class DeleteUserController extends Controller {
     }
 
     public function handler() {
-        if(!Controller::isUserSystemEnabled()) {
-            throw new RequestException(ERRORS::USER_SYSTEM_DISABLED);
-        }
         
         $userId = Controller::request('userId');
         $user = User::getDataStore($userId);
@@ -56,7 +52,7 @@ class DeleteUserController extends Controller {
         foreach($user->sharedTicketList as $ticket) {
             $ticket->delete();
         }
-
+        
         $user->delete();
 
         Response::respondSuccess();

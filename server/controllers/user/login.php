@@ -20,8 +20,6 @@ use RedBeanPHP\Facade as RedBean;
  * @apiParam {Number} userId The id of the user to login.
  * @apiParam {String} rememberToken Token to login automatically. It replaces the password.
  *
- * @apiUse USER_SYSTEM_DISABLED
- * @apiUse SESSION_EXISTS
  * @apiUse UNVERIFIED_USER
  * @apiUse INVALID_CREDENTIALS
  *
@@ -50,16 +48,8 @@ class LoginController extends Controller {
     }
 
     public function handler() {
-        if(!Controller::isUserSystemEnabled() && !Controller::request('staff')) {
-            throw new RequestException(ERRORS::USER_SYSTEM_DISABLED);
-        }
-
-        if ($this->isAlreadyLoggedIn()) {
-            throw new RequestException(ERRORS::SESSION_EXISTS);
-        }
-
         $this->clearOldRememberTokens();
-
+        
         if ($this->checkInputCredentials() || $this->checkRememberToken()) {
             if($this->userInstance->verificationToken !== null) {
                 throw new RequestException(ERRORS::UNVERIFIED_USER);
@@ -80,10 +70,6 @@ class LoginController extends Controller {
         } else {
             throw new RequestException(ERRORS::INVALID_CREDENTIALS);
         }
-    }
-
-    private function isAlreadyLoggedIn() {
-        return Session::getInstance()->sessionExists();
     }
 
     private function checkInputCredentials() {
