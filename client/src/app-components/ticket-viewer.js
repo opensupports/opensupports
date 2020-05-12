@@ -635,7 +635,7 @@ class TicketViewer extends React.Component {
             path: '/ticket/comment',
             dataAsForm: true,
             data: _.extend({
-                ticketNumber: this.props.ticket.ticketNumber
+                ticketNumber: this.props.ticket.ticketNumber,
             }, formState, {private: formState.private ? 1 : 0}, TextEditor.getContentFormData(formState.content))
         }).then(this.onCommentSuccess.bind(this), this.onCommentFail.bind(this));
     }

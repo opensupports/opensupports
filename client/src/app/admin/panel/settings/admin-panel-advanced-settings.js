@@ -105,7 +105,9 @@ class AdminPanelAdvancedSettings extends React.Component {
 
     renderMessage() {
         return (
-            <Message type={this.state.messageType} title={this.state.messageTitle}>{this.state.messageContent}</Message>
+            <Message className="admin-panel-advanced-settings__message" type={this.state.messageType} title={this.state.messageTitle}>
+              {this.state.messageContent}
+            </Message>
         );
     }
 

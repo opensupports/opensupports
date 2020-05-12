@@ -16,7 +16,7 @@ class MainHomePage extends React.Component {
             loginForm
         } = this.props;
         return (
-            <div className="main-home-page">
+            <div className="main-home-page row">
                 {this.renderMessage()}
                 {(config['mandatory-login']) || loginForm.loginFormShown ? this.renderLoginWidget() : null}
                 {!loginForm.loginFormShown ?
@@ -43,7 +43,7 @@ class MainHomePage extends React.Component {
     renderLoginWidget() {
         return (
             <div className={this.getLoginWidgetClass()}>
-                <MainHomePageLoginWidget className='login-widget__test'/>
+                <MainHomePageLoginWidget />
             </div>
         );
     }
@@ -78,8 +78,9 @@ class MainHomePage extends React.Component {
     getPortalClass() {
         const { config } = this.props;
         let classes = {
-            'main-home-page__portal-wrapper': config['mandatory-login'],
-            'col-md-8': config['layout'] === 'boxed',
+            'main-home-page__portal-wrapper': true,
+            'col-md-8': (this.props.config['mandatory-login'] && this.props.config['layout'] === 'boxed'),
+            'col-md-10 col-md-offset-1' : (!this.props.config['mandatory-login'])
         };
 
         return classNames(classes);

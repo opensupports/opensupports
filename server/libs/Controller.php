@@ -72,7 +72,7 @@ abstract class Controller {
             return Staff::getUser($session->getUserId());
         } else {
             $user = User::getUser($session->getUserId());
-            if($session->getTicketNumber())$user->ticketNumber = $session->getTicketNumber();
+            if($session->getTicketNumber()) $user->ticketNumber = $session->getTicketNumber();
 
             return $user;
         }

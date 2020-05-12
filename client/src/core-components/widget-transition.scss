@@ -8,5 +8,8 @@
         -webkit-transform: translate3d(0,0,0);
         visibility: visible;
         backface-visibility: hidden;
+        display: inline-block;
+        position: absolute;
+        left: 0;
     }
 }

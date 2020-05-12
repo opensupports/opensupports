@@ -47,7 +47,6 @@ class User extends DataStore {
 
     public function canManageTicket(Ticket $ticket){
         $ticketNumberInstanceValidation = true;
-        //$ticketNumberInstanceValidation = $this->ticketNumber == $ticket->ticketNumber;
 
         if($this->ticketNumber) {
             $ticketNumberInstanceValidation = $this->ticketNumber == $ticket->ticketNumber;

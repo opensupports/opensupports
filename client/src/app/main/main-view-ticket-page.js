@@ -12,12 +12,20 @@ class MainViewTicketPage extends React.Component {
         return (
             <div className="main-view-ticket-page">
                 <Widget>
-                    <AdminPanelViewTicket {...this.props} avoidSeen assignmentAllowed={false} />
+                    <AdminPanelViewTicket
+                      {...this.props}
+                      avoidSeen
+                      editable={false}
+                      assignmentAllowed={false}
+                      onRetrieveFail={this.onRetrieveFail.bind(this)} />
                 </Widget>
             </div>
         );
     }
 
+    onRetrieveFail() {
+      setTimeout(() => {history.push('/check-ticket')}, 2000);
+    }
 }
 
 

@@ -6,9 +6,10 @@ class SessionStore {
         this.storage = LocalStorage;
     }
 
-    createSession(userId, token) {
+    createSession(userId, token, ticketNumber = '') {
         this.setItem('userId', userId);
         this.setItem('token', token);
+        this.setItem('ticketNumber', ticketNumber);
     }
 
     getSessionData() {
@@ -19,12 +20,17 @@ class SessionStore {
     }
 
     isLoggedIn() {
-        return !!this.getItem('userId');
+        return !!this.getItem('userId') && !this.getItem('ticketNumber');
+    }
+
+    isLoggedInWithTicket() {
+      return !!this.getItem('userId') && this.getItem('ticketNumber');
     }
 
     closeSession() {
         this.removeItem('userId');
         this.removeItem('token');
+        this.removeItem('ticketNumber');
 
         this.clearRememberData();
         this.clearUserData();

@@ -57,16 +57,17 @@ class CommentController extends Controller {
     }
 
     public function handler() {
-        $this->requestData();
+        $ticketNumber = Controller::request('ticketNumber');
+        $this->ticket = Ticket::getByTicketNumber($ticketNumber);
+        $this->content = Controller::request('content', true);
+        $this->user = Controller::getLoggedUser();
+
         $ticketAuthor = $this->ticket->authorToArray();
-        $isAuthor = $this->session->isTicketSession() || $this->ticket->isAuthor($this->user);
+        $isAuthor = $this->ticket->isAuthor($this->user);
         $isOwner = $this->ticket->isOwner($this->user);
         $private = Controller::request('private');
-        if(!Controller::isStaffLogged() && !$isAuthor){
-            throw new RequestException(ERRORS::NO_PERMISSION);
-        }
-        
-        if(!$this->session->isTicketSession() && !$this->user->canManageTicket($this->ticket)) {
+
+        if(!$this->user->canManageTicket($this->ticket)) {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
@@ -75,6 +76,7 @@ class CommentController extends Controller {
         if(!$isAuthor && !$private) {
             $this->sendMail($ticketAuthor);
         }
+
         if($this->ticket->owner && !$isOwner) {
             $this->sendMail([
                 'email' => $this->ticket->owner->email,
@@ -86,13 +88,6 @@ class CommentController extends Controller {
         Log::createLog('COMMENT', $this->ticket->ticketNumber);
 
         Response::respondSuccess();
-    }
-
-    private function requestData() {
-        $ticketNumber = Controller::request('ticketNumber');
-        $this->ticket = Ticket::getByTicketNumber($ticketNumber);
-        $this->content = Controller::request('content', true);
-        $this->user = Controller::getLoggedUser();
     }
 
     private function storeComment() {
@@ -131,7 +126,7 @@ class CommentController extends Controller {
 
         $url = Setting::getSetting('url')->getValue();
 
-        if(!Controller::isLoginMandatory() && !Controller::isStaffLogged() && !Controller::isUserLogged()){
+        if(!Controller::isLoginMandatory() && !$isStaff){
             $url .= '/check-ticket/' . $this->ticket->ticketNumber;
             $url .= '/' . $email;
         }

@@ -170,11 +170,11 @@ describe'system/mandatory-login' do
             })
 
             (result['status']).should.equal('success')
-            (result['data']['userID']).should.equal($userRow['id'])
+            (result['data']['userId']).should.equal($userRow['id'])
             (result['data']['ticketNumber']).should.equal($ticketRow['ticket_number'])
             
             $sessionToken = result['data']['token']
-            $sessionId = result['data']['userID']
+            $sessionId = result['data']['userId']
             $sessionTicketNumber = result['data']['ticketNumber']
         end
 
@@ -280,8 +280,7 @@ describe'system/mandatory-login' do
             (result['message']).should.equal('NO_PERMISSION')
         end
 
-        it 'should fail if  the creator tries to check another ticket with a existent session' do
-
+        it 'should re-login if the creator tries to check another ticket with a existent session' do
             $ticketRow = $database.getRow('ticket','ticket2 created without login','title')
             
             result = request('/ticket/check', {
@@ -289,17 +288,16 @@ describe'system/mandatory-login' do
                 ticketNumber: $ticketRow['ticket_number']
             })
 
-            (result['status']).should.equal('fail')
-            (result['message']).should.equal('SESSION_EXISTS')
-
+            (result['status']).should.equal('success')
         end  
+
         it 'should fail if  the creator tries to login with email used to create tickets' do
             result = request('/user/login', {
                 email: 'nonuser@os4.com'
             })
 
             (result['status']).should.equal('fail')
-            (result['message']).should.equal('SESSION_EXISTS')
+            (result['message']).should.equal('INVALID_CREDENTIALS')
 
             request('/user/logout')
 

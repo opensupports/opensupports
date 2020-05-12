@@ -13,7 +13,7 @@ class MainLayoutHeader extends React.Component {
     render() {
         return (
             <div className="main-layout-header">
-                {true ? this.renderAccessLinks() : this.renderHomeLink()}
+                {this.renderAccessLinks()}
                 <LanguageSelector {...this.getLanguageSelectorProps()} />
             </div>
         );
@@ -57,30 +57,6 @@ class MainLayoutHeader extends React.Component {
         }
 
         return result;
-    }
-
-    renderHomeLink() {
-        return (
-            <div className="main-layout-header__login-links">
-                <Button
-                    type="clean"
-                    onClick={this.onHideLoginForm.bind(this)}
-                    route={{to:'/'}}>
-                        {i18n('HOME')}
-                </Button>
-                {(!!(this.props.config['registration'] * 1)) ?
-                    <div className="main-layout-header__login-links">
-                        <Button type="clean" route={{to:'/signup'}}>{i18n('SIGN_UP')}</Button>
-                        <Button
-                            type="clean"
-                            onClick={this.onShowLoginForm.bind(this)}
-                            route={{to:'/'}}>
-                                {i18n('LOG_IN')}
-                        </Button>
-                    </div>: 
-                    null}
-            </div>
-        );
     }
 
     getLanguageSelectorProps() {
