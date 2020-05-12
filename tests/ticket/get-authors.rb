@@ -25,7 +25,7 @@ describe '/ticket/get-authors/' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             query: 'hello world',
-            blackList: [{'staff':2,'id':2}]
+            blackList: [{'isStaff':2,'id':2}]
         })
 
         (result['status']).should.equal('fail')
@@ -35,7 +35,7 @@ describe '/ticket/get-authors/' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             query: 'hello world',
-            blackList: [{'staff':'level two','id':2}]
+            blackList: [{'isStaff':'level two','id':2}]
         })
 
         (result['status']).should.equal('fail')
@@ -45,7 +45,7 @@ describe '/ticket/get-authors/' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             query: 'hello world',
-            blackList: [{'staff':1,'id':'four'}]
+            blackList: [{'isStaff':1,'id':'four'}]
         })
 
         (result['status']).should.equal('fail')
@@ -68,7 +68,7 @@ describe '/ticket/get-authors/' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             query: 'emilia',
-            blackList: '[{"staff":1,"id":1}]'
+            blackList: '[{"isStaff":1,"id":1}]'
         })
         (result['status']).should.equal('success')
         (result['data']['authors'].size).should.equal(1)
