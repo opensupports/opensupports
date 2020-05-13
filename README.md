@@ -65,7 +65,7 @@ Once you've installed dependencies for frontend and backend, you can run `./buil
 ##### BACKEND API RUBY TESTING
 
 1. Go to tests folder: `cd opensupports/tests`
-2. Run `make install` to install ruby and its the required dependencies
+2. Run `make build` to install ruby container and its required dependencies
 
 - `make run` for running tests (database will be cleared)
 - `make clear` for clearing database

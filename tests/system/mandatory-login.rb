@@ -113,8 +113,8 @@ describe'system/mandatory-login' do
             (result['status']).should.equal('success')
             (result['data']['ticketNumber']).should.equal($ticketRow['ticket_number'].to_i)
             ($userRow['email']).should.equal('nonuser@os4.com')
-            ($userRow['not_registered']).should.equal('1')
-            ($userRow['tickets']).should.equal('1')
+            ($userRow['not_registered']).should.equal(1)
+            ($userRow['tickets']).should.equal(1)
         end
 
         it 'should allow the creator creates another ticket and not create another user' do
@@ -133,7 +133,7 @@ describe'system/mandatory-login' do
             (result['status']).should.equal('success')
             (result['data']['ticketNumber']).should.equal($ticketRow['ticket_number'].to_i)
             ($userRow['email']).should.equal('nonuser@os4.com')
-            ($userRow['tickets']).should.equal('2')
+            ($userRow['tickets']).should.equal(2)
 
         end
 
@@ -170,8 +170,8 @@ describe'system/mandatory-login' do
             })
 
             (result['status']).should.equal('success')
-            (result['data']['userId']).should.equal($userRow['id'])
-            (result['data']['ticketNumber']).should.equal($ticketRow['ticket_number'])
+            (result['data']['userId']).should.equal($userRow['id'].to_s)
+            (result['data']['ticketNumber']).should.equal($ticketRow['ticket_number'].to_s)
             
             $sessionToken = result['data']['token']
             $sessionId = result['data']['userId']
@@ -257,7 +257,7 @@ describe'system/mandatory-login' do
             
             ($ticketRow['title']).should.equal('new title of ticket created without login')
             ($ticketRow['content']).should.equal('this is the first edited-comment without login')
-            ($ticketRow['closed']).should.equal('1')
+            ($ticketRow['closed']).should.equal(1)
             
             result = request('/ticket/delete', {
                 csrf_token: $sessionToken,

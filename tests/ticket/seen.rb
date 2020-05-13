@@ -15,7 +15,7 @@ describe '/ticket/seen' do
                     })
             (result['status']).should.equal('success')
             ticket = $database.getRow('ticket', 1, 'id')
-            (ticket['unread_staff']).should.equal('0')
+            (ticket['unread_staff']).should.equal(0)
 
         end
     end
@@ -48,7 +48,7 @@ describe '/ticket/seen' do
 
             (result['status']).should.equal('success')
             ticket = $database.getRow('ticket', 1, 'id')
-            (ticket['unread']).should.equal('0')
+            (ticket['unread']).should.equal(0)
         end
     end
 

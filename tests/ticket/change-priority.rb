@@ -18,7 +18,7 @@ describe '/ticket/change-priority' do
 
         ticket = $database.getRow('ticket', 1 , 'id')
         (ticket['priority']).should.equal('high')
-        (ticket['unread']).should.equal('1')
+        (ticket['unread']).should.equal(1)
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('PRIORITY_CHANGED')
@@ -38,7 +38,7 @@ describe '/ticket/change-priority' do
 
         ticket = $database.getRow('ticket', 1 , 'id')
         (ticket['priority']).should.equal('medium')
-        (ticket['unread']).should.equal('1')
+        (ticket['unread']).should.equal(1)
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('PRIORITY_CHANGED')
@@ -58,7 +58,7 @@ describe '/ticket/change-priority' do
 
         ticket = $database.getRow('ticket', 1 , 'id')
         (ticket['priority']).should.equal('low')
-        (ticket['unread']).should.equal('1')
+        (ticket['unread']).should.equal(1)
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('PRIORITY_CHANGED')

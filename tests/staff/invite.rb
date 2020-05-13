@@ -28,10 +28,10 @@ describe'/staff/invite' do
         (row['name']).should.equal('Tyrion Lannister')
         (row['email']).should.equal('tyrion@opensupports.com')
         (row['profile_pic']).should.equal('')
-        (row['level']).should.equal('2')
+        (row['level']).should.equal(2)
 
         row = $database.getRow('department', 1, 'id')
-        (row['owners']).should.equal('4')
+        (row['owners']).should.equal(4)
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('INVITE')
@@ -52,6 +52,6 @@ describe'/staff/invite' do
         (result['message']).should.equal('ALREADY_A_STAFF')
 
         row = $database.getRow('department', 1, 'id')
-        (row['owners']).should.equal('4')
+        (row['owners']).should.equal(4)
     end
 end

@@ -65,31 +65,31 @@ describe'system/edit-settings' do
         (result['status']).should.equal('success')
 
         row = $database.getRow('language', 'en', 'code')
-        (row['supported']).should.equal('1')
+        (row['supported']).should.equal(1)
 
         row = $database.getRow('language', 'pt', 'code')
-        (row['supported']).should.equal('1')
+        (row['supported']).should.equal(1)
 
         row = $database.getRow('language', 'jp', 'code')
-        (row['supported']).should.equal('1')
+        (row['supported']).should.equal(1)
 
         row = $database.getRow('language', 'ru', 'code')
-        (row['supported']).should.equal('1')
+        (row['supported']).should.equal(1)
 
         row = $database.getRow('language', 'en', 'code')
-        (row['allowed']).should.equal('1')
+        (row['allowed']).should.equal(1)
 
         row = $database.getRow('language', 'pt', 'code')
-        (row['allowed']).should.equal('1')
+        (row['allowed']).should.equal(1)
 
         row = $database.getRow('language', 'jp', 'code')
-        (row['allowed']).should.equal('1')
+        (row['allowed']).should.equal(1)
 
         row = $database.getRow('language', 'ru', 'code')
-        (row['allowed']).should.equal('1')
+        (row['allowed']).should.equal(1)
 
         row = $database.getRow('language', 'de', 'code')
-        (row['allowed']).should.equal('1')
+        (row['allowed']).should.equal(1)
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('EDIT_SETTINGS')
