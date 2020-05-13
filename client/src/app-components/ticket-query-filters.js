@@ -101,7 +101,7 @@ class TicketQueryFilters extends React.Component {
                                 name="authors"
                                 field="autocomplete"
                                 fieldProps={{
-                                    getItemListFromQuery: this.getAuthors.bind(this),
+                                    getItemListFromQuery: this.searchAuthors.bind(this),
                                     comparerFunction: this.autorsComparer.bind(this)
                                 }} />
                         </div>
@@ -125,10 +125,10 @@ class TicketQueryFilters extends React.Component {
         );
     }
 
-    getAuthors(query, blacklist = []) {
+    searchAuthors(query, blacklist = []) {
         query = query === "" ? undefined : query;
         return API.call({
-            path: '/ticket/get-authors',
+            path: '/ticket/search-authors',
             data: {
                 query: query,
                 blackList: JSON.stringify(blacklist)
@@ -377,12 +377,34 @@ class TicketQueryFilters extends React.Component {
             departments: this.getSelectedDepartments(form.departments),
             owners: this.getSelectedStaffs(form.owners),
             tags: this.getSelectedTagsName(form.tags),
-            authors: form.authors && form.authors.length !== 0 ?
-                form.authors.map(author => {return {...author, content: 'asd', color: 'red'}}) : form.authors
         }
 
         return newFormValues;
     }
+
+    getAuthors(authors) {
+        authors = authors ? authors : [];
+        setTimeout(() => {
+            return API.call({
+                path: '/ticket/get-authors',
+                data: {
+                    list: JSON.stringify(authors)
+                }
+            }).then(r => {
+                console.log("data:", r);
+                return r.data.map(author => {
+                    return {
+                        name: author.name,
+                        color: "gray",
+                        id: author.id*1,
+                        isStaff: author.profilePic !== undefined ? true : false,
+                        content: author.profilePic !== undefined ? this.renderStaffOption(author) : author.name,
+                        contentOnSelected: author.profilePic !== undefined ? this.renderStaffSelected(author) : author.name
+                    }});
+            });
+        }, 2000);
+    }
+
 }
 
 export default connect((store) => {

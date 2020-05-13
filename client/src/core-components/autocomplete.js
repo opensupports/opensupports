@@ -37,24 +37,8 @@ class Autocomplete extends React.Component {
     };
 
     componentDidMount() {
-        const { getItemListFromQuery, } = this.props;
-
         this.throttleItemsQuery = _.throttle((query) => {
-            let id = ++this.id;
-
-            getItemListFromQuery(query,this.getSelectedItems().map(
-                item => {return item.isStaff !== undefined ? {isStaff: item.isStaff, id: item.id} : item.id}
-            ))
-            .then(result => {
-                if(id === this.id)
-                this.setState({
-                    itemsFromQuery: result,
-                    loading: false,
-                });
-            })
-            .catch(() => this.setState({
-                loading: false,
-            }));
+            this.searchApi(query);
         }, 300, {leading: false});
 
         this.searchApi("");
@@ -62,7 +46,7 @@ class Autocomplete extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         const valueToBlackList = nextProps.values ? nextProps.values : [];
-        const valueDefined =this.props.value ? this.props.value : []
+        const valueDefined =this.props.values ? this.props.values : [];
         nextProps.getItemListFromQuery && valueToBlackList.length !== valueDefined.length && this.searchApi("", valueToBlackList);
     }
 
@@ -168,6 +152,7 @@ class Autocomplete extends React.Component {
 
         onChange && onChange(newList);
         onRemoveClick && onRemoveClick(itemId);
+        this.searchApi("", newList);
     }
 
     onChangeDropDown(e) {
@@ -189,6 +174,8 @@ class Autocomplete extends React.Component {
 
             onChange && onChange(newList);
             onItemSelected && onItemSelected(selectedItem.id);
+            console.log("selectedItems: ", newList);
+            //this.searchApi("", newList);
         }
     }
 
@@ -247,6 +234,7 @@ class Autocomplete extends React.Component {
                 highlightedIndex: 0,
             });
             onChange && onChange(newList);
+            this.searchApi("", newList);
 
             if(this.getSelectedItems().length) {
                 const itemId = this.getSelectedItems()[lastSelectedItemsIndex].id;
@@ -257,24 +245,24 @@ class Autocomplete extends React.Component {
     }
 
     searchApi(query, blacklist=this.getSelectedItems()) {
-        const { getItemListFromQuery, } = this.props;
+        const { getItemListFromQuery } = this.props;
+        let id = ++this.id;
 
-        if(getItemListFromQuery !== undefined) {
-            getItemListFromQuery(query, blacklist.map(
-                item => {return item.isStaff !== undefined ? {id: item.id, isStaff: item.isStaff} : item.id}
-            ))
-            .then(result => {
-                this.setState({
-                    itemsFromQuery: result,
-                    loading: false,
-                });
-            })
-            .catch(() => {
-                this.setState({
-                    loading: false,
-                });
+        getItemListFromQuery && console.log("this.props.values: ", this.props.values, this.state.selectedItems);
+        getItemListFromQuery && console.log("blacklist: ", blacklist);
+        getItemListFromQuery && getItemListFromQuery(query, blacklist.map(
+            item => {return item.isStaff !== undefined ? {isStaff: item.isStaff, id: item.id} : item.id}
+        ))
+        .then(result => {
+            if(id === this.id)
+            this.setState({
+                itemsFromQuery: result,
+                loading: false,
             });
-        }
+        })
+        .catch(() => this.setState({
+            loading: false,
+        }));
     }
 }
 
