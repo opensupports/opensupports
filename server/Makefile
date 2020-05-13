@@ -7,9 +7,9 @@ build:
 	@docker pull phpmyadmin/phpmyadmin
 	@docker pull munkyboy/fakesmtp
 	@docker build -t opensupports-srv . || echo "A${red}An error occurred${reset}"
+	@docker network create os-net || true
 
 install:
-	@docker network create os-net || true
 	@docker exec -it opensupports-srv bash -c "cd /var/www/html && composer install" || echo "${red}Please execute 'make run' first${reset}"
 	@docker exec -it opensupports-db bash -c "mysql -u root -e \"CREATE DATABASE IF NOT EXISTS development;\" " || echo "${red}Please execute 'make run' first${reset}"
 
@@ -20,7 +20,7 @@ run: stop
 	@docker run -d --network os-net --name opensupports-srv -p 8080:80 --link opensupports-db:mysql --rm -e LOG_STDOUT=true -e LOG_STDERR=true -e LOG_LEVEL=debug -v ${PWD}:/var/www/html opensupports-srv
 
 test:
-	@./run-tests.sh
+	@docker exec -it opensupports-srv bash -c "cd /var/www/html && ./run-tests.sh"
 
 log:
 	@docker attach opensupports-srv || echo "${red}Please execute 'make run' first${reset}"

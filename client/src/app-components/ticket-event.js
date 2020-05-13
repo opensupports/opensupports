@@ -7,7 +7,6 @@ import API from 'lib-app/api-call';
 import DateTransformer from 'lib-core/date-transformer';
 import Icon from 'core-components/icon';
 import Tooltip from 'core-components/tooltip';
-import TextEditor from 'core-components/text-editor';
 import Button from 'core-components/button';
 import SubmitButton from 'core-components/submit-button';
 import Form from 'core-components/form';

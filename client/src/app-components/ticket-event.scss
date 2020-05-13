@@ -97,6 +97,7 @@
             padding: 28px 10px;
             text-align: left;
             position:relative;
+            overflow-y: initial;
 
             &:hover {
                 .ticket-event__comment-content__edit {
