@@ -23,7 +23,8 @@ class Input extends React.Component {
     };
 
     static defaultProps = {
-        size: 'small'
+        size: 'small',
+        value: ''
     };
 
     render() {

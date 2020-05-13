@@ -65,12 +65,15 @@ class TicketList extends React.Component {
 
 
     renderFilterCheckbox() {
-        return <Checkbox
-                    className="ticket-list__checkbox"
-                    label={i18n("SHOW_CLOSED_TICKETS")}
-                    value={this.props.closedTicketsShown}
-                    onChange={this.props.onClosedTicketsShownChange}
-                    wrapInLabel />
+        return (
+            <Checkbox
+                className="ticket-list__checkbox"
+                label={i18n("SHOW_CLOSED_TICKETS")}
+                value={this.props.closedTicketsShown}
+                onChange={this.props.onClosedTicketsShownChange}
+                wrapInLabel
+            />
+        );
     }
 
     renderDepartmentsDropDown() {

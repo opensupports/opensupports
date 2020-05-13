@@ -101,6 +101,7 @@ export default {
     },
 
     initSession() {
+        console.log('sessionStore.isLoggedIn()', sessionStore.isLoggedIn());
         return {
             type: 'CHECK_SESSION',
             payload: new Promise((resolve, reject) => {

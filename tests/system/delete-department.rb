@@ -85,14 +85,14 @@ describe 'system/delete-department' do
             ticket2 = $database.getRow('ticket', ticket2, 'ticket_number')
             ticket3 = $database.getRow('ticket', ticket3, 'ticket_number')
 
-            (ticket1['department_id']).should.equal('3')
+            (ticket1['department_id']).should.equal(3)
             (ticket1['owner_id']).should.equal(nil)
 
-            (ticket2['department_id']).should.equal('3')
+            (ticket2['department_id']).should.equal(3)
             (ticket2['owner_id']).should.equal(nil)
 
-            (ticket3['department_id']).should.equal('3')
-            (ticket3['owner_id']).should.equal($csrf_userid)
+            (ticket3['department_id']).should.equal(3)
+            (ticket3['owner_id']).should.equal($csrf_userid.to_i)
 
             lastLog = $database.getLastRow('log')
             (lastLog['type']).should.equal('DELETE_DEPARTMENT')

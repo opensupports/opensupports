@@ -42,53 +42,33 @@ class CommentController extends Controller {
 
     public function validations() {
         $this->session = Session::getInstance();
-
-        if (Controller::isUserSystemEnabled() || Controller::isStaffLogged()) {
-            return [
-                'permission' => 'user',
-                'requestData' => [
-                    'content' => [
-                        'validation' => DataValidator::content(),
-                        'error' => ERRORS::INVALID_CONTENT
-                    ],
-                    'ticketNumber' => [
-                        'validation' => DataValidator::validTicketNumber(),
-                        'error' => ERRORS::INVALID_TICKET
-                    ]
+        return [
+            'permission' => 'user',
+            'requestData' => [
+                'content' => [
+                    'validation' => DataValidator::content(),
+                    'error' => ERRORS::INVALID_CONTENT
+                ],
+                'ticketNumber' => [
+                    'validation' => DataValidator::validTicketNumber(),
+                    'error' => ERRORS::INVALID_TICKET
                 ]
-            ];
-        } else {
-            return [
-                'permission' => 'any',
-                'requestData' => [
-                    'content' => [
-                        'validation' => DataValidator::content(),
-                        'error' => ERRORS::INVALID_CONTENT
-                    ],
-                    'ticketNumber' => [
-                        'validation' => DataValidator::equals($this->session->getTicketNumber()),
-                        'error' => ERRORS::INVALID_TICKET
-                    ],
-                    'csrf_token' => [
-                        'validation' => DataValidator::equals($this->session->getToken()),
-                        'error' => ERRORS::INVALID_TOKEN
-                    ]
-                ]
-            ];
-        }
+            ]
+        ];
     }
 
     public function handler() {
-        $this->requestData();
+        $ticketNumber = Controller::request('ticketNumber');
+        $this->ticket = Ticket::getByTicketNumber($ticketNumber);
+        $this->content = Controller::request('content', true);
+        $this->user = Controller::getLoggedUser();
+
         $ticketAuthor = $this->ticket->authorToArray();
-        $isAuthor = $this->session->isTicketSession() || $this->ticket->isAuthor($this->user);
+        $isAuthor = $this->ticket->isAuthor($this->user);
         $isOwner = $this->ticket->isOwner($this->user);
         $private = Controller::request('private');
-        if(!Controller::isStaffLogged() && Controller::isUserSystemEnabled() && !$isAuthor){
-            throw new RequestException(ERRORS::NO_PERMISSION);
-        }
-        
-        if(!$this->session->isTicketSession() && !$this->user->canManageTicket($this->ticket)) {
+
+        if(!$this->user->canManageTicket($this->ticket)) {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
@@ -97,6 +77,7 @@ class CommentController extends Controller {
         if(!$isAuthor && !$private) {
             $this->sendMail($ticketAuthor);
         }
+
         if($this->ticket->owner && !$isOwner) {
             $this->sendMail([
                 'email' => $this->ticket->owner->email,
@@ -108,13 +89,6 @@ class CommentController extends Controller {
         Log::createLog('COMMENT', $this->ticket->ticketNumber);
 
         Response::respondSuccess();
-    }
-
-    private function requestData() {
-        $ticketNumber = Controller::request('ticketNumber');
-        $this->ticket = Ticket::getByTicketNumber($ticketNumber);
-        $this->content = Controller::request('content', true);
-        $this->user = Controller::getLoggedUser();
     }
 
     private function storeComment() {
@@ -134,11 +108,9 @@ class CommentController extends Controller {
             $this->ticket->unread = !$this->ticket->isAuthor($this->user);
             $this->ticket->unreadStaff = !$this->ticket->isOwner($this->user);
             $comment->authorStaff = $this->user;
-        } else if(Controller::isUserSystemEnabled()) {
-            $this->ticket->unreadStaff = true;
-            $comment->authorUser = $this->user;
         } else {
             $this->ticket->unreadStaff = true;
+            $comment->authorUser = $this->user;
         }
 
         $this->ticket->addEvent($comment);
@@ -154,11 +126,10 @@ class CommentController extends Controller {
 
         $url = Setting::getSetting('url')->getValue();
 
-        if(!Controller::isUserSystemEnabled() && !$isStaff) {
-          $url .= '/check-ticket/' . $this->ticket->ticketNumber;
-          $url .= '/' . $email;
+        if(!Controller::isLoginMandatory() && !$isStaff){
+            $url .= '/check-ticket/' . $this->ticket->ticketNumber;
+            $url .= '/' . $email;
         }
-
         $mailSender->setTemplate(MailTemplate::TICKET_RESPONDED, [
           'to' => $email,
           'name' => $name,

@@ -18,7 +18,6 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_USER
- * @apiUse USER_SYSTEM_DISABLED
  *
  * @apiSuccess {Object} data Information about an user
  * @apiSuccess {String} data.name Name of the user
@@ -46,10 +45,7 @@ class GetUserByIdController extends Controller {
     }
 
     public function handler() {
-        if(!Controller::isUserSystemEnabled()) {
-            throw new RequestException(ERRORS::USER_SYSTEM_DISABLED);
-        }
-
+    
         $userId = Controller::request('userId');
         $user = User::getDataStore($userId);
         $staff = Controller::getLoggedUser();

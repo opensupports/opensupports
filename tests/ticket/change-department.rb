@@ -46,8 +46,8 @@ describe '/ticket/change-department' do
         (result['status']).should.equal('success')
 
         ticket = $database.getRow('ticket', 1 , 'id')
-        (ticket['unread']).should.equal('1')
-        (ticket['department_id']).should.equal('4')
+        (ticket['unread']).should.equal(1)
+        (ticket['department_id']).should.equal(4)
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('DEPARTMENT_CHANGED')
@@ -74,8 +74,8 @@ describe '/ticket/change-department' do
           (result['status']).should.equal('success')
 
           ticket = $database.getRow('ticket', 1 , 'id')
-          (ticket['unread']).should.equal('1')
-          (ticket['department_id']).should.equal('3')
+          (ticket['unread']).should.equal(1)
+          (ticket['department_id']).should.equal(3)
           (ticket['owner_id']).should.equal(nil)
 
           lastLog = $database.getLastRow('log')
@@ -94,7 +94,7 @@ describe '/ticket/change-department' do
         })
 
         (result['status']).should.equal('success')
-        (ticket['department_id']).should.equal('1')
+        (ticket['department_id']).should.equal(1)
 
         request('/staff/edit', {
             csrf_userid: $csrf_userid,
