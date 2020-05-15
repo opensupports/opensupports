@@ -40,7 +40,6 @@ class GetAuthorsController extends Controller {
         ];
     }
     public function handler() {
-        
         $dataStores = [];
         $authors = $this->cutDuplicatedValues(json_decode(Controller::request('authors')));
         
@@ -48,17 +47,15 @@ class GetAuthorsController extends Controller {
             foreach ($authors as $author) {
                 $item  = [];
                 if($author->isStaff){
-                    $item = Staff::getUser($author->id)->toArray();
+                    $item = Staff::getUser($author->id)->toArray(true);
                 }else{
-                    $item = User::getUser($author->id)->toArray();
+                    $item = User::getUser($author->id)->toArray(true);
                 }
                 array_push($dataStores,$item);
             }
         }
 
-        Response::respondSuccess([
-            $dataStores
-        ]);
+        Response::respondSuccess($dataStores);
     }
     public function cutDuplicatedValues($list){
         $duplicatedNumbers = [];

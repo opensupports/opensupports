@@ -59,7 +59,7 @@ class SearchAuthorsController extends Controller {
             } else {
                 $author = User::getDataStore($authorMatch['id']*1);
             }
-            array_push($authors, $author->toArray());
+            array_push($authors, $author->toArray(true));
         }
         Response::respondSuccess([
             'authors' => $authors

@@ -74,9 +74,9 @@ describe '/ticket/get-authors/' do
         })
 
         (result['status']).should.equal('success')
-        (result['data'][0][0]['email']).should.equal(userauthor['email'])
-        (result['data'][0][0]['id']).should.equal(userauthor['id'])
-        (result['data'][0][0]['name']).should.equal(userauthor['name'])
+        (result['data'][0]['email']).should.equal(userauthor['email'])
+        (result['data'][0]['id']).should.equal(userauthor['id'])
+        (result['data'][0]['name']).should.equal(userauthor['name'])
     end
 
     it 'should succed if you try to get a staff' do
@@ -92,9 +92,9 @@ describe '/ticket/get-authors/' do
         })
 
         (result['status']).should.equal('success')
-        (result['data'][0][0]['email']).should.equal(staffauthor['email'])
-        (result['data'][0][0]['id']).should.equal(staffauthor['id'])
-        (result['data'][0][0]['name']).should.equal(staffauthor['name'])
+        (result['data'][0]['email']).should.equal(staffauthor['email'])
+        (result['data'][0]['id']).should.equal(staffauthor['id'])
+        (result['data'][0]['name']).should.equal(staffauthor['name'])
     end
     it 'should succed if you try to get a staff and a user' do
         userauthor = $database.getRow('user', 'userauthor@os4.com', 'email')
@@ -112,12 +112,12 @@ describe '/ticket/get-authors/' do
         })
 
         (result['status']).should.equal('success')
-        (result['data'][0][0]['email']).should.equal(staffauthor['email'])
-        (result['data'][0][0]['id']).should.equal(staffauthor['id'])
-        (result['data'][0][0]['name']).should.equal(staffauthor['name'])
-        (result['data'][0][1]['email']).should.equal(userauthor['email'])
-        (result['data'][0][1]['id']).should.equal(userauthor['id'])
-        (result['data'][0][1]['name']).should.equal(userauthor['name'])
+        (result['data'][0]['email']).should.equal(staffauthor['email'])
+        (result['data'][0]['id']).should.equal(staffauthor['id'])
+        (result['data'][0]['name']).should.equal(staffauthor['name'])
+        (result['data'][1]['email']).should.equal(userauthor['email'])
+        (result['data'][1]['id']).should.equal(userauthor['id'])
+        (result['data'][1]['name']).should.equal(userauthor['name'])
 
     end
     it 'should succed if you try to get a author without duplicate' do
@@ -134,9 +134,9 @@ describe '/ticket/get-authors/' do
             authors: authorsstring 
         })
         (result['status']).should.equal('success')
-        (result['data'][0][0]['email']).should.equal(staffauthor['email'])
-        (result['data'][0][0]['id']).should.equal(staffauthor['id'])
-        (result['data'][0][0]['name']).should.equal(staffauthor['name'])
+        (result['data'][0]['email']).should.equal(staffauthor['email'])
+        (result['data'][0]['id']).should.equal(staffauthor['id'])
+        (result['data'][0]['name']).should.equal(staffauthor['name'])
         (result['data'].size).should.equal(1)
     end
 end

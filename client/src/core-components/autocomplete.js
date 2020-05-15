@@ -41,13 +41,7 @@ class Autocomplete extends React.Component {
             this.searchApi(query);
         }, 300, {leading: false});
 
-        this.searchApi("");
-    }
-
-    componentWillReceiveProps(nextProps) {
-        const valueToBlackList = nextProps.values ? nextProps.values : [];
-        const valueDefined =this.props.values ? this.props.values : [];
-        nextProps.getItemListFromQuery && valueToBlackList.length !== valueDefined.length && this.searchApi("", valueToBlackList);
+        this.searchApi('');
     }
 
     render() {
@@ -79,6 +73,7 @@ class Autocomplete extends React.Component {
                             className="autocomplete__input"
                             ref={input => this.input = input}
                             value={this.state.inputValue}
+                            onFocus={() => this.searchApi('')}
                             onKeyDown={e => this.onKeyDown(e)}
                             onChange={e => this.onChangeInput(e.target.value)}
                             style={this.span ? {width: inputWidth} : {}} />

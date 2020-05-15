@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import queryString from 'query-string';
 
 import { LOCATION_CHANGE } from 'react-router-redux'
 import Reducer from 'reducers/reducer';
@@ -82,6 +83,21 @@ class searchFiltersReducer extends Reducer {
     }
 
     onFiltersChange(state, payload, submited = false) {
+        if(!payload.preventHistoryChange) {
+          let filters = payload.filters ? payload.filters : payload;
+          filters  = {...queryString.parse(window.location.search), ...filters};
+  
+          const query = Object.keys(filters).reduce(function (query, filter) {
+            const value = filters[filter];
+            if (!value || !value.length || value === '[]') return query;
+            else if(typeof value == 'string') return query + `&${filter}=${value}`;
+            else return query + `&${filter}=${JSON.stringify(value)}`;
+          }, '').slice(1);
+          history.pushState(null, '', `?${query}`);
+        }
+
+        console.log('submited', payload, this.transformToFormValue({...DEFAULT_FILTERS, ...payload.filters}));
+
         return _.extend({}, state, {
             listData: {
                 title: payload.title ? payload.title : undefined,
@@ -109,7 +125,7 @@ class searchFiltersReducer extends Reducer {
     }
 
     onSubmitForm(state, payload) {
-        return this.onFiltersChange(state, this.formValueToFilters(payload), true);
+        return this.onFiltersChange(_.extend({}, state, {form: payload}), this.formValueToFilters(payload), true);
     }
 
     onUrlChange(state, payload) {
@@ -133,26 +149,6 @@ class searchFiltersReducer extends Reducer {
             valid: true,
             startDate: dateRange[0]/10000,
             endDate: (dateRange[1]-2400)/10000,
-        };
-    }
-
-    formValueToFilters(form) {
-        let dateRangeFilter = [form.dateRange.startDate, form.dateRange.endDate];
-        let newFiltersValues = {
-            ...form,
-            query: form.query !== "" ? form.query : undefined,
-            closed: this.getTicketStatusByDropdownIndex(form.closed),
-            priority: this.getTicketPrioritiesByDropdownIndex(form.priority),
-            departments: form.departments !== undefined ? JSON.stringify(form.departments) : "[]",
-            owners: JSON.stringify(form.owners),
-            tags: JSON.stringify(form.tags),
-            dateRange: JSON.stringify(DateTransformer.formDateRangeToFilters(dateRangeFilter)),
-            authors: form.authors ? JSON.stringify(form.authors) : "[]"
-        };
-
-        return {
-            ...this.getList(),
-            filters: newFiltersValues
         };
     }
 
@@ -254,8 +250,30 @@ class searchFiltersReducer extends Reducer {
         return status;
     }
 
+
+    formValueToFilters(form) {
+        const authors = form.authors ? form.authors.map(author => ({id: author.id, isStaff: author.isStaff})) : [];
+        const dateRangeFilter = [form.dateRange.startDate, form.dateRange.endDate];
+        const newFiltersValues = {
+            ...form,
+            query: form.query !== "" ? form.query : undefined,
+            closed: this.getTicketStatusByDropdownIndex(form.closed),
+            priority: this.getTicketPrioritiesByDropdownIndex(form.priority),
+            departments: form.departments !== undefined ? JSON.stringify(form.departments) : "[]",
+            owners: JSON.stringify(form.owners),
+            tags: JSON.stringify(form.tags),
+            dateRange: JSON.stringify(DateTransformer.formDateRangeToFilters(dateRangeFilter)),
+            authors: JSON.stringify(authors),
+        };
+
+        return {
+            ...this.getList(),
+            filters: newFiltersValues
+        };
+    }
+
     transformToFormValue(filters) {
-        let newFormValues = {
+        return {
             ...filters,
             query: filters.query ? filters.query : "",
             closed: this.getClosedDropdowIndex(filters.closed),
@@ -265,9 +283,7 @@ class searchFiltersReducer extends Reducer {
             tags: JSON.parse(filters.tags),
             dateRange: this.dateRangeToFormValue(filters.dateRange),
             authors: filters.authors ? JSON.parse(filters.authors) : []
-        }
-
-        return newFormValues;
+        };
     }
 }
 export default searchFiltersReducer.getInstance();

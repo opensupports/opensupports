@@ -1,6 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 import {connect}  from 'react-redux';
+import queryString from 'query-string';
+
 import AdminDataActions from 'actions/admin-data-actions';
 import SearchFiltersActions from 'actions/search-filters-actions';
 
@@ -14,6 +16,7 @@ import SubmitButton from 'core-components/submit-button';
 import FormField from 'core-components/form-field';
 import Icon from 'core-components/icon';
 import Button from 'core-components/button';
+import searchFiltersActions from '../actions/search-filters-actions';
 
 
 const DEFAULT_START_DATE = 20170101;
@@ -32,6 +35,7 @@ class TicketQueryFilters extends React.Component {
 
     componentDidMount() {
         this.retrieveStaffMembers();
+        this.initFiltersFromParams();
     }
 
     render() {
@@ -139,7 +143,8 @@ class TicketQueryFilters extends React.Component {
                     name: author.name,
                     color: "gray",
                     id: author.id*1,
-                    isStaff: author.profilePic !== undefined ? true : false,
+                    profilePic: author.profilePic,
+                    isStaff: author.profilePic * 1,
                     content: author.profilePic !== undefined ? this.renderStaffOption(author) : author.name,
                     contentOnSelected: author.profilePic !== undefined ? this.renderStaffSelected(author) : author.name
                 }});
@@ -318,17 +323,16 @@ class TicketQueryFilters extends React.Component {
         let newEndDate = data.dateRange.endDate === "" ? DateTransformer.getDateToday() : data.dateRange.endDate;
         let departmentsId = data.departments.map(department => department.id);
         let staffsId = data.owners.map(staff => staff.id);
-        let authorsListFilter = data.authors ?
-            data.authors.map(person  => {return {id: person.id, isStaff: person.isStaff}}) :
-            [];
         let tagsName = this.tagsNametoTagsId(data.tags);
+
+        console.log('change fomr', data.authors);
 
         this.onChangeFormState({
             ...data,
             tags: tagsName,
             owners: staffsId,
             departments: departmentsId,
-            authors: authorsListFilter,
+            authors: data.authors || [],
             dateRange: {
                 ...data.dateRange,
                 startDate: newStartDate,
@@ -363,6 +367,28 @@ class TicketQueryFilters extends React.Component {
         this.props.dispatch(AdminDataActions.retrieveStaffMembers());
     }
 
+    initFiltersFromParams() {
+      const search = window.location.search;
+      const filters = queryString.parse(window.location.search);
+      if(search && !filters.custom) {
+        if(filters.authors) {
+          console.log('filters.authors', filters.authors);
+          this.getAuthorsFromAPI(filters.authors).then((authors) => {
+            console.log('auhtors result', authors);
+            this.props.dispatch(searchFiltersActions.changeFilters({
+              filters: {
+                ...filters,
+                authors: JSON.stringify(authors),
+              },
+              preventHistoryChange: true,
+            }));
+          });  
+        } else {
+          this.props.dispatch(searchFiltersActions.changeFilters({filters, preventHistoryChange: true}));
+        }
+      }
+    }
+
     tagsNametoTagsId(selectedTagsName) {
         let tagList = this.getTags();
         let selectedTags = tagList.filter(item => _.includes(selectedTagsName, item.name));
@@ -372,37 +398,48 @@ class TicketQueryFilters extends React.Component {
     }
 
     formToAutocompleteValue(form) {
+        console.log('parsing form ', form);
         let newFormValues = {
             ...form,
             departments: this.getSelectedDepartments(form.departments),
             owners: this.getSelectedStaffs(form.owners),
             tags: this.getSelectedTagsName(form.tags),
+            authors: this.getAuthors(form.authors),
         }
 
         return newFormValues;
     }
 
-    getAuthors(authors) {
-        authors = authors ? authors : [];
-        setTimeout(() => {
-            return API.call({
-                path: '/ticket/get-authors',
-                data: {
-                    list: JSON.stringify(authors)
-                }
-            }).then(r => {
-                console.log("data:", r);
-                return r.data.map(author => {
-                    return {
-                        name: author.name,
-                        color: "gray",
-                        id: author.id*1,
-                        isStaff: author.profilePic !== undefined ? true : false,
-                        content: author.profilePic !== undefined ? this.renderStaffOption(author) : author.name,
-                        contentOnSelected: author.profilePic !== undefined ? this.renderStaffSelected(author) : author.name
-                    }});
-            });
-        }, 2000);
+    getAuthors(authors = []) {
+        return authors.map(author => ({
+            name: author.name,
+            color: "gray",
+            id: author.id*1,
+            isStaff: author.isStaff*1,
+            profilePic: author.profilePic,
+            content: author.profilePic !== undefined ? this.renderStaffOption(author) : author.name,
+            contentOnSelected: author.profilePic !== undefined ? this.renderStaffSelected(author) : author.name
+        }));
+    }
+
+    getAuthorsFromAPI(authors = '') {
+        return API.call({
+            path: '/ticket/get-authors',
+            data: {
+                authors,
+            }
+        }).then(r => {
+            return r.data.map((author) => ({...author, isStaff: !!author.profilePic}));
+            // return r.data.map(author => {
+            //     return {
+            //         name: author.name,
+            //         color: "gray",
+            //         id: author.id*1,
+            //         isStaff: author.profilePic !== undefined ? true : false,
+            //         content: author.profilePic !== undefined ? this.renderStaffOption(author) : author.name,
+            //         contentOnSelected: author.profilePic !== undefined ? this.renderStaffSelected(author) : author.name
+            //     }});
+        });
     }
 
 }
