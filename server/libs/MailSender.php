@@ -67,7 +67,7 @@ class MailSender {
 
             $this->mailerInstance->isSMTP();
             $this->mailerInstance->Host = $this->mailOptions['smtp-host'];
-            if($this->mailerInstance->Username !== '') {
+            if($this->mailOptions['smtp-user'] !== '') {
                 $this->mailerInstance->SMTPAuth = true;
                 $this->mailerInstance->Username = $this->mailOptions['smtp-user'];
                 $this->mailerInstance->Password = $this->mailOptions['smtp-pass'];
