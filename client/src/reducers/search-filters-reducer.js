@@ -50,6 +50,18 @@ function getDefaultDateRangeForFilters() {
     return JSON.stringify(DateTransformer.formDateRangeToFilters([20170101, DateTransformer.getDateToday()]));
 }
 
+function setFiltersInURL(filters) {
+  filters = {...queryString.parse(window.location.search), ...filters};
+  
+  const query = Object.keys(filters).reduce(function (query, filter) {
+    const value = filters[filter];
+    if (value === undefined || value === null || value === '' || value === '[]') return query;
+    else if(typeof value == 'string') return query + `&${filter}=${value}`;
+    else return query + `&${filter}=${JSON.stringify(value)}`;
+  }, '').slice(1);
+  history.pushState(null, '', `?${query}`);
+}
+
 const DEFAULT_START_DATE = 20170101;
 
 class searchFiltersReducer extends Reducer {
@@ -59,7 +71,7 @@ class searchFiltersReducer extends Reducer {
             showFilters: true,
             listData: this.getList(),
             form: {
-                query: "",
+                query: "asd",
                 closed: 0,
                 priority: 0,
                 departments: [],
@@ -85,18 +97,8 @@ class searchFiltersReducer extends Reducer {
     onFiltersChange(state, payload, submited = false) {
         if(!payload.preventHistoryChange) {
           let filters = payload.filters ? payload.filters : payload;
-          filters  = {...queryString.parse(window.location.search), ...filters};
-  
-          const query = Object.keys(filters).reduce(function (query, filter) {
-            const value = filters[filter];
-            if (!value || !value.length || value === '[]') return query;
-            else if(typeof value == 'string') return query + `&${filter}=${value}`;
-            else return query + `&${filter}=${JSON.stringify(value)}`;
-          }, '').slice(1);
-          history.pushState(null, '', `?${query}`);
+          setFiltersInURL(filters);
         }
-
-        console.log('submited', payload, this.transformToFormValue({...DEFAULT_FILTERS, ...payload.filters}));
 
         return _.extend({}, state, {
             listData: {
@@ -129,16 +131,19 @@ class searchFiltersReducer extends Reducer {
     }
 
     onUrlChange(state, payload) {
+        if (payload.pathname !== '/admin/panel/tickets/search-tickets') return state;
+
         return (
-            payload.query.custom ?
-                this.onFiltersChange(state, window.customTicketList[payload.query.custom*1]) :
-                ({
-                    listData: {
-                        title: undefined,
-                        filters: DEFAULT_FILTERS
-                    },
-                    form: this.transformToFormValue(DEFAULT_FILTERS)
-                })
+          payload.query.custom ?
+            this.onFiltersChange(state, window.customTicketList[payload.query.custom*1]) :
+            {
+              ...state,
+              listData: {
+                title: undefined,
+                filters: DEFAULT_FILTERS
+              },
+              form: this.transformToFormValue(DEFAULT_FILTERS)
+            }
         );
     }
 

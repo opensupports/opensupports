@@ -47,7 +47,7 @@ class TicketQueryFilters extends React.Component {
         return (
             <div className={"ticket-query-filters" + (this.props.showFilters ? "__open" : "") }>
                 <Form
-                    values={this.formToAutocompleteValue(formState)}
+                    values={this.getFormValue(formState)}
                     onChange={this.onChangeForm.bind(this)}
                     onSubmit={this.onSubmitForm.bind(this)}>
                     <div className="ticket-query-filters__search-box">
@@ -130,7 +130,7 @@ class TicketQueryFilters extends React.Component {
     }
 
     searchAuthors(query, blacklist = []) {
-        query = query === "" ? undefined : query;
+        console.log('blacklist search', blacklist);
         return API.call({
             path: '/ticket/search-authors',
             data: {
@@ -318,29 +318,6 @@ class TicketQueryFilters extends React.Component {
         return newTagList;
     }
 
-    onChangeForm(data) {
-        let newStartDate = data.dateRange.startDate === "" ? DEFAULT_START_DATE : data.dateRange.startDate;
-        let newEndDate = data.dateRange.endDate === "" ? DateTransformer.getDateToday() : data.dateRange.endDate;
-        let departmentsId = data.departments.map(department => department.id);
-        let staffsId = data.owners.map(staff => staff.id);
-        let tagsName = this.tagsNametoTagsId(data.tags);
-
-        console.log('change fomr', data.authors);
-
-        this.onChangeFormState({
-            ...data,
-            tags: tagsName,
-            owners: staffsId,
-            departments: departmentsId,
-            authors: data.authors || [],
-            dateRange: {
-                ...data.dateRange,
-                startDate: newStartDate,
-                endDate: newEndDate
-            }
-        });
-    }
-
     onChangeFormState(formValues) {
         this.props.dispatch(SearchFiltersActions.changeForm(formValues));
     }
@@ -370,11 +347,9 @@ class TicketQueryFilters extends React.Component {
     initFiltersFromParams() {
       const search = window.location.search;
       const filters = queryString.parse(window.location.search);
-      if(search && !filters.custom) {
+      if(search) {
         if(filters.authors) {
-          console.log('filters.authors', filters.authors);
           this.getAuthorsFromAPI(filters.authors).then((authors) => {
-            console.log('auhtors result', authors);
             this.props.dispatch(searchFiltersActions.changeFilters({
               filters: {
                 ...filters,
@@ -397,17 +372,36 @@ class TicketQueryFilters extends React.Component {
         return selectedTagsId;
     }
 
-    formToAutocompleteValue(form) {
-        console.log('parsing form ', form);
-        let newFormValues = {
+    onChangeForm(data) {
+      let newStartDate = data.dateRange.startDate === "" ? DEFAULT_START_DATE : data.dateRange.startDate;
+      let newEndDate = data.dateRange.endDate === "" ? DateTransformer.getDateToday() : data.dateRange.endDate;
+      let departmentsId = data.departments.map(department => department.id);
+      let staffsId = data.owners.map(staff => staff.id);
+      let tagsName = this.tagsNametoTagsId(data.tags);
+      let authors = data.authors.map(({name, id, isStaff, profilePic, color}) => ({name, id: id*1, isStaff, profilePic, color}));
+
+      this.onChangeFormState({
+          ...data,
+          tags: tagsName,
+          owners: staffsId,
+          departments: departmentsId,
+          authors: authors,
+          dateRange: {
+              ...data.dateRange,
+              startDate: newStartDate,
+              endDate: newEndDate
+          }
+      });
+    }
+
+    getFormValue(form) {
+        return {
             ...form,
             departments: this.getSelectedDepartments(form.departments),
             owners: this.getSelectedStaffs(form.owners),
             tags: this.getSelectedTagsName(form.tags),
             authors: this.getAuthors(form.authors),
         }
-
-        return newFormValues;
     }
 
     getAuthors(authors = []) {
@@ -429,13 +423,14 @@ class TicketQueryFilters extends React.Component {
                 authors,
             }
         }).then(r => {
-            return r.data.map((author) => ({...author, isStaff: !!author.profilePic * 1}));
+            return r.data.map((author) => ({...author, isStaff: author.isStaff * 1}));
         });
     }
 
 }
 
 export default connect((store) => {
+  console.log(' store.searchFilters.showFilters',  store.searchFilters.showFilters);
     return {
         tags: store.config.tags,
         departments: store.config.departments,
