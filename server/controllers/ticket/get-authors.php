@@ -41,7 +41,7 @@ class GetAuthorsController extends Controller {
     }
     public function handler() {
         $dataStores = [];
-        $authors = $this->cutDuplicatedValues(json_decode(Controller::request('authors')));
+        $authors = json_decode(Controller::request('authors'));
         
         if($authors){
             foreach ($authors as $author) {
@@ -56,16 +56,5 @@ class GetAuthorsController extends Controller {
         }
 
         Response::respondSuccess($dataStores);
-    }
-    public function cutDuplicatedValues($list){
-        $duplicatedNumbers = [];
-        $uniqueList = [];
-        foreach ($list as $item) {
-            if (!in_array($item->id, $duplicatedNumbers)){
-                array_push($uniqueList, $item);
-                array_push($duplicatedNumbers,$item->id);
-            }
-        }
-        return $uniqueList;
     }
 }

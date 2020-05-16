@@ -56,7 +56,7 @@ class searchFiltersReducer extends Reducer {
     
     getInitialState() {
         return {
-            showFilters: false,
+            showFilters: true,
             listData: this.getList(),
             form: {
                 query: "",

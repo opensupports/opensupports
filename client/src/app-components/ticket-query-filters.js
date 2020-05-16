@@ -144,7 +144,7 @@ class TicketQueryFilters extends React.Component {
                     color: "gray",
                     id: author.id*1,
                     profilePic: author.profilePic,
-                    isStaff: author.profilePic * 1,
+                    isStaff: author.isStaff * 1,
                     content: author.profilePic !== undefined ? this.renderStaffOption(author) : author.name,
                     contentOnSelected: author.profilePic !== undefined ? this.renderStaffSelected(author) : author.name
                 }});
@@ -429,16 +429,7 @@ class TicketQueryFilters extends React.Component {
                 authors,
             }
         }).then(r => {
-            return r.data.map((author) => ({...author, isStaff: !!author.profilePic}));
-            // return r.data.map(author => {
-            //     return {
-            //         name: author.name,
-            //         color: "gray",
-            //         id: author.id*1,
-            //         isStaff: author.profilePic !== undefined ? true : false,
-            //         content: author.profilePic !== undefined ? this.renderStaffOption(author) : author.name,
-            //         contentOnSelected: author.profilePic !== undefined ? this.renderStaffSelected(author) : author.name
-            //     }});
+            return r.data.map((author) => ({...author, isStaff: !!author.profilePic * 1}));
         });
     }
 

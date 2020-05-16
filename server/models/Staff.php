@@ -59,7 +59,8 @@ class Staff extends DataStore {
                 'id' => $this->id,
                 'name' => $this->name,
                 'email' => $this->email,
-                'profilePic' => $this->profilePic
+                'profilePic' => $this->profilePic,
+                'isStaff' => 1
             ];
         }
 

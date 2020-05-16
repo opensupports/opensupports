@@ -60,7 +60,8 @@ class User extends DataStore {
             return [
                 'id' => $this->id,
                 'name' => $this->name,
-                'email' => $this->email
+                'email' => $this->email,
+                'isStaff' => 0
             ];
         }
 
