@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
 import {connect}  from 'react-redux';
-import queryString from 'query-string';
 
 import AdminDataActions from 'actions/admin-data-actions';
 import SearchFiltersActions from 'actions/search-filters-actions';
@@ -10,13 +9,13 @@ import i18n from 'lib-app/i18n';
 
 import API from 'lib-app/api-call';
 import DateTransformer from 'lib-core/date-transformer';
+import searchTicketsApi from '../lib-app/search-tickets-api';
 
 import Form from 'core-components/form';
 import SubmitButton from 'core-components/submit-button';
 import FormField from 'core-components/form-field';
 import Icon from 'core-components/icon';
 import Button from 'core-components/button';
-import searchFiltersActions from '../actions/search-filters-actions';
 
 
 const DEFAULT_START_DATE = 20170101;
@@ -35,7 +34,7 @@ class TicketQueryFilters extends React.Component {
 
     componentDidMount() {
         this.retrieveStaffMembers();
-        this.initFiltersFromParams();
+        searchTicketsApi.initFiltersFromParams(this.props.dispatch);
     }
 
     render() {
@@ -130,7 +129,6 @@ class TicketQueryFilters extends React.Component {
     }
 
     searchAuthors(query, blacklist = []) {
-        console.log('blacklist search', blacklist);
         return API.call({
             path: '/ticket/search-authors',
             data: {
@@ -344,26 +342,6 @@ class TicketQueryFilters extends React.Component {
         this.props.dispatch(AdminDataActions.retrieveStaffMembers());
     }
 
-    initFiltersFromParams() {
-      const search = window.location.search;
-      const filters = queryString.parse(window.location.search);
-      if(search) {
-        if(filters.authors) {
-          this.getAuthorsFromAPI(filters.authors).then((authors) => {
-            this.props.dispatch(searchFiltersActions.changeFilters({
-              filters: {
-                ...filters,
-                authors: JSON.stringify(authors),
-              },
-              preventHistoryChange: true,
-            }));
-          });  
-        } else {
-          this.props.dispatch(searchFiltersActions.changeFilters({filters, preventHistoryChange: true}));
-        }
-      }
-    }
-
     tagsNametoTagsId(selectedTagsName) {
         let tagList = this.getTags();
         let selectedTags = tagList.filter(item => _.includes(selectedTagsName, item.name));
@@ -415,18 +393,6 @@ class TicketQueryFilters extends React.Component {
             contentOnSelected: author.profilePic !== undefined ? this.renderStaffSelected(author) : author.name
         }));
     }
-
-    getAuthorsFromAPI(authors = '') {
-        return API.call({
-            path: '/ticket/get-authors',
-            data: {
-                authors,
-            }
-        }).then(r => {
-            return r.data.map((author) => ({...author, isStaff: author.isStaff * 1}));
-        });
-    }
-
 }
 
 export default connect((store) => {
