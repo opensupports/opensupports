@@ -4,8 +4,10 @@ import {connect} from 'react-redux';
 
 import {dispatch} from 'app/store';
 import i18n from 'lib-app/i18n';
+import searchTicketsApi from '../../../lib-app/search-tickets-api';
 
 import Menu from 'core-components/menu';
+import searchFiltersActions from '../../../actions/search-filters-actions';
 
 class AdminPanelMenu extends React.Component {
     static contextTypes = {
@@ -70,8 +72,10 @@ class AdminPanelMenu extends React.Component {
 
     onGroupItemClick(index) {
         const group = this.getRoutes()[this.getGroupIndex()];
+        const item = group.items[index];
 
-        this.context.router.push(group.items[index].path);
+        this.context.router.push(item.path);
+        item.onItemClick && item.onItemClick();
     }
 
     getGroupItemIndex() {
@@ -93,11 +97,24 @@ class AdminPanelMenu extends React.Component {
     getCustomlists() {
         if(window.customTicketList){
             return window.customTicketList.map((item, index) => {
-                    return {
-                        name: item.title,
-                        path: '/admin/panel/tickets/search-tickets?custom=' + index,
-                        level: 1
+                return {
+                    name: item.title,
+                    path: '/admin/panel/tickets/search-tickets?custom=' + index,
+                    level: 1,
+                    onItemClick: () => {
+                        searchTicketsApi.getAuthorsFromAPI(item.filters.authors).then(authors => {
+                            this.props.dispatch(searchFiltersActions.changeCustomListFilters(
+                                {
+                                    title: item.title,
+                                    filters: {
+                                        ...item.filters,
+                                        authors: JSON.stringify(authors)
+                                    }
+                                }
+                            ))
+                        });
                     }
+                }
             })
         } else {
             return [];
@@ -145,7 +162,10 @@ class AdminPanelMenu extends React.Component {
                     {
                         name: i18n('SEARCH_TICKETS'),
                         path: '/admin/panel/tickets/search-tickets',
-                        level: 1
+                        level: 1,
+                        onItemClick: () => {
+                            this.props.dispatch(searchFiltersActions.setDefaultFormValues());
+                        }
                     },
                     {
                         name: i18n('CUSTOM_RESPONSES'),

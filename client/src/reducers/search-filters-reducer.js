@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import queryString from 'query-string';
 
-import { LOCATION_CHANGE } from 'react-router-redux'
 import Reducer from 'reducers/reducer';
 import store from 'app/store';
 
@@ -71,7 +70,7 @@ class searchFiltersReducer extends Reducer {
             showFilters: true,
             listData: this.getList(),
             form: {
-                query: "asd",
+                query: "",
                 closed: 0,
                 priority: 0,
                 departments: [],
@@ -90,20 +89,38 @@ class searchFiltersReducer extends Reducer {
             'SEARCH_FILTERS_CHANGE_SHOW_FILTERS': this.onChangeShowFilters.bind(this),
             'SEARCH_FILTERS_SET_DEFAULT_FORM_VALUES': this.onSetDefaultFormValues.bind(this),
             'SEARCH_FILTERS_ON_SUBMIT_FORM': this.onSubmitForm.bind(this),
-            [LOCATION_CHANGE]: this.onUrlChange.bind(this),
+            'SEARCH_FILTERS_CHANGE_CUSTOM_LIST_FILTERS': this.onCustomListFiltersChange.bind(this),
         };
     }
 
     onFiltersChange(state, payload, submited = false) {
+        const authorsListFilters = payload.filters.authors ? JSON.parse(payload.filters.authors) : undefined;
+        const filtersWithCorrectAuthorsList = (
+            (authorsListFilters && authorsListFilters.length && authorsListFilters[0].name) ?
+                {
+                    ...payload.filters,
+                    authors: JSON.stringify(
+                        authorsListFilters.map(author => ({id: author.id*1, isStaff: author.isStaff}))
+                    )
+                } :
+                payload.filters
+        );
+
         if(!payload.preventHistoryChange) {
-          let filters = payload.filters ? payload.filters : payload;
+          let filters = payload.filters ? filtersWithCorrectAuthorsList : payload;
           setFiltersInURL(filters);
         }
 
         return _.extend({}, state, {
             listData: {
                 title: payload.title ? payload.title : undefined,
-                filters: payload.filters ? _.extend({}, DEFAULT_FILTERS, payload.filters) : payload
+                filters: payload.filters ?
+                    _.extend(
+                        {},
+                        DEFAULT_FILTERS,
+                        filtersWithCorrectAuthorsList
+                    ) :
+                    payload
             },
             form: submited ? state.form :  this.transformToFormValue({...DEFAULT_FILTERS, ...payload.filters})
         });
@@ -120,30 +137,42 @@ class searchFiltersReducer extends Reducer {
     }
 
     onSetDefaultFormValues(state) {
-        let custom = store.getState().routing.locationBeforeTransitions.query.custom;
-        let customDefaultFilters = custom ? window.customTicketList[custom*1].filters : undefined;
-
-        return _.extend({}, state, {form: this.transformToFormValue({...DEFAULT_FILTERS, ...customDefaultFilters})});
+        return (
+            _.extend(
+                {},
+                state,
+                {form: this.transformToFormValue(DEFAULT_FILTERS)},
+                this.onSubmitForm(state, this.transformToFormValue(DEFAULT_FILTERS))
+            )
+        );
     }
 
     onSubmitForm(state, payload) {
         return this.onFiltersChange(_.extend({}, state, {form: payload}), this.formValueToFilters(payload), true);
     }
 
-    onUrlChange(state, payload) {
-        if (payload.pathname !== '/admin/panel/tickets/search-tickets') return state;
+    onCustomListFiltersChange(state, payload) {
+        const customTicketListFilters = payload;
+        const customTicketListdateRangeFilter = customTicketListFilters.filters.dateRange;
+        const newFiltersWithDefaultDateRange = {
+            title: customTicketListFilters.title,
+            filters: {
+                ...customTicketListFilters.filters,
+                dateRange: customTicketListdateRangeFilter ? customTicketListdateRangeFilter : getDefaultDateRangeForFilters()
+            }
+        }
 
         return (
-          payload.query.custom ?
-            this.onFiltersChange(state, window.customTicketList[payload.query.custom*1]) :
-            {
-              ...state,
-              listData: {
-                title: undefined,
-                filters: DEFAULT_FILTERS
-              },
-              form: this.transformToFormValue(DEFAULT_FILTERS)
-            }
+            payload ?
+                this.onFiltersChange(state, newFiltersWithDefaultDateRange) :
+                {
+                    ...state,
+                    listData: {
+                        title: undefined,
+                        filters: DEFAULT_FILTERS
+                    },
+                    form: this.transformToFormValue(DEFAULT_FILTERS)
+                }
         );
     }
 
@@ -257,7 +286,7 @@ class searchFiltersReducer extends Reducer {
 
 
     formValueToFilters(form) {
-        const authors = form.authors ? form.authors.map(author => ({id: author.id, isStaff: author.isStaff})) : [];
+        const authors = form.authors ? form.authors.map(author => ({id: author.id*1, isStaff: author.isStaff})) : [];
         const dateRangeFilter = [form.dateRange.startDate, form.dateRange.endDate];
         const newFiltersValues = {
             ...form,

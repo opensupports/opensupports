@@ -17,6 +17,12 @@ export default {
             payload: filters,
         }
     },
+    changeCustomListFilters(customListIndex){
+        return {
+            type: 'SEARCH_FILTERS_CHANGE_CUSTOM_LIST_FILTERS',
+            payload: customListIndex,
+        }
+    },
     setDefaultFormValues() {
         return {
             type: 'SEARCH_FILTERS_SET_DEFAULT_FORM_VALUES',
