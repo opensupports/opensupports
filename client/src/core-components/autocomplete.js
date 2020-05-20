@@ -169,8 +169,6 @@ class Autocomplete extends React.Component {
 
             onChange && onChange(newList);
             onItemSelected && onItemSelected(selectedItem.id);
-            console.log("selectedItems: ", newList);
-            //this.searchApi("", newList);
         }
     }
 
@@ -243,8 +241,6 @@ class Autocomplete extends React.Component {
         const { getItemListFromQuery } = this.props;
         let id = ++this.id;
 
-        getItemListFromQuery && console.log("this.props.values: ", this.props.values, this.state.selectedItems);
-        getItemListFromQuery && console.log("blacklist: ", blacklist);
         getItemListFromQuery && getItemListFromQuery(query, blacklist.map(
             item => {return item.isStaff !== undefined ? {isStaff: item.isStaff, id: item.id} : item.id}
         ))
