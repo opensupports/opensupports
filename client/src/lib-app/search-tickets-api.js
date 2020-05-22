@@ -17,20 +17,21 @@ export default {
 
     initFiltersFromParams(dispatch) {
         const search = window.location.search;
-        let filters = queryString.parse(window.location.search);
+        let filters = queryString.parse(search);
+        const customTicketsList = window.customTicketList[filters.custom*1];
+        const customTicketsListFilters = customTicketsList ? customTicketsList.filters : undefined;
         filters = {
             ...filters,
             closed: filters.closed ? filters.closed*1 : undefined,
             priority: filters.priority ? filters.priority*1 : undefined,
-        }
-        const custom = window.customTicketList[queryString.parse(search).custom*1]; 
+        };
         if(search) {
             if(filters.authors) {
                 this.getAuthorsFromAPI(filters.authors).then((authors) => {
                     dispatch(searchFiltersActions.changeFilters({
-                        title: custom.title,
+                        title: customTicketsList ? customTicketsList.title : undefined,
                         filters: {
-                            ...custom.filters,
+                            ...customTicketsListFilters,
                             ...filters,
                             authors: JSON.stringify(authors),
                         },
