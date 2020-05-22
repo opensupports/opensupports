@@ -8,6 +8,7 @@ import searchTicketsApi from '../../../lib-app/search-tickets-api';
 
 import Menu from 'core-components/menu';
 import searchFiltersActions from '../../../actions/search-filters-actions';
+import queryString from 'query-string';
 
 class AdminPanelMenu extends React.Component {
     static contextTypes = {
@@ -79,10 +80,25 @@ class AdminPanelMenu extends React.Component {
     }
 
     getGroupItemIndex() {
+        const { location } = this.props;
+        const search = window.location.search;
+        const filtersInURL = queryString.parse(search);
         const group = this.getRoutes()[this.getGroupIndex()];
-        const pathname = this.props.location.pathname + this.props.location.search;
+        const pathname = location.pathname + location.search;
+        const SEARCH_TICKETS_PATH = '/admin/panel/tickets/search-tickets';
 
-        return _.findIndex(group.items, {path: pathname});
+        return (
+            _.findIndex(
+                group.items,
+                (item) => {
+                    if(location.pathname === SEARCH_TICKETS_PATH) {
+                        const customTicketsListNumber = queryString.parse(item.path.slice(SEARCH_TICKETS_PATH.length)).custom;
+                        return item.path.includes(SEARCH_TICKETS_PATH) && customTicketsListNumber === filtersInURL.custom;
+                    }
+                    return item.path === pathname;
+                }
+            )
+        );
     }
 
     getGroupIndex() {
