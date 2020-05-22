@@ -37,12 +37,12 @@ const DEFAULT_FILTERS = {
     query: undefined,
     closed: undefined,
     priority: undefined,
-    departments: "[]",
-    owners: "[]",
-    tags: "[]",
+    departments: '[]',
+    owners: '[]',
+    tags: '[]',
     dateRange: getDefaultDateRangeForFilters(),
     orderBy: undefined,
-    authors: "[]",
+    authors: '[]',
 };
 
 function getDefaultDateRangeForFilters() {
@@ -70,7 +70,7 @@ class searchFiltersReducer extends Reducer {
             showFilters: true,
             listData: this.getList(),
             form: {
-                query: "",
+                query: '',
                 closed: 0,
                 priority: 0,
                 departments: [],
@@ -290,10 +290,10 @@ class searchFiltersReducer extends Reducer {
         const dateRangeFilter = [form.dateRange.startDate, form.dateRange.endDate];
         const newFiltersValues = {
             ...form,
-            query: form.query !== "" ? form.query : undefined,
+            query: form.query !== '' ? form.query : undefined,
             closed: this.getTicketStatusByDropdownIndex(form.closed),
             priority: this.getTicketPrioritiesByDropdownIndex(form.priority),
-            departments: form.departments !== undefined ? JSON.stringify(form.departments) : "[]",
+            departments: form.departments !== undefined ? JSON.stringify(form.departments) : '[]',
             owners: JSON.stringify(form.owners),
             tags: JSON.stringify(form.tags),
             dateRange: JSON.stringify(DateTransformer.formDateRangeToFilters(dateRangeFilter)),
@@ -309,7 +309,7 @@ class searchFiltersReducer extends Reducer {
     transformToFormValue(filters) {
         return {
             ...filters,
-            query: filters.query ? filters.query : "",
+            query: filters.query ? filters.query : '',
             closed: this.getClosedDropdowIndex(filters.closed),
             priority: this.getPriorityDropdownIndex(filters.priority),
             departments: JSON.parse(filters.departments),
