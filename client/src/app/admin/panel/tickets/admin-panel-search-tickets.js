@@ -36,7 +36,7 @@ class AdminPanelSearchTickets extends React.Component {
                     (this.props.error) ?
                         <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> :
                         <TicketQueryList
-                            filters={listDataState.filters}
+                            listDataState={listDataState}
                             onChangeOrderBy={this.onChangeOrderBy.bind(this)} />
                 }
             </div>

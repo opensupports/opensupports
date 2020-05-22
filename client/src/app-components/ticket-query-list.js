@@ -7,6 +7,7 @@ import {connect}  from 'react-redux';
 
 import TicketList from 'app-components/ticket-list';
 import Message from 'core-components/message';
+import searchFiltersActions from '../actions/search-filters-actions';
 
 class TicketQueryList extends React.Component {
 
@@ -23,7 +24,7 @@ class TicketQueryList extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.getTickets(nextProps.filters);
+        this.getTickets(nextProps.listDataState.filters);
     }
 
     render() {
@@ -44,10 +45,7 @@ class TicketQueryList extends React.Component {
         })
         API.call({
             path: '/ticket/search',
-            data: {
-                page : this.state.page,
-                ...filters
-            }
+            data: filters
         }).then((result) => {
             this.setState({
                 tickets: result.data.tickets,
@@ -64,7 +62,23 @@ class TicketQueryList extends React.Component {
     }
 
     onPageChange(event) {
-        this.setState({page: event.target.value}, () => this.getTickets(this.props.filters));
+        const {
+            dispatch,
+            listDataState
+        } = this.props;
+
+        this.setState({
+            page: event.target.value
+        });
+
+        dispatch(searchFiltersActions.changeFilters({
+            ...listDataState,
+            filters: {
+                ...listDataState.filters,
+                page: JSON.stringify(event.target.value)
+            },
+            filtersNoChangeAuthors: true
+        }));
     }
 
     getTicketListProps () {
@@ -75,7 +89,7 @@ class TicketQueryList extends React.Component {
             tickets
         } = this.state;
         const {
-            filters,
+            listDataState,
             onChangeOrderBy,
             userId
         } = this.props;
@@ -91,7 +105,7 @@ class TicketQueryList extends React.Component {
             showDepartmentDropdown: false,
             closedTicketsShown: false,
             onPageChange:this.onPageChange.bind(this),
-            orderBy: filters.orderBy ? JSON.parse(filters.orderBy) : filters.orderBy,
+            orderBy: listDataState.filters.orderBy ? JSON.parse(listDataState.filters.orderBy) : listDataState.filters.orderBy,
             showOrderArrows: true,
             onChangeOrderBy: onChangeOrderBy,
         };

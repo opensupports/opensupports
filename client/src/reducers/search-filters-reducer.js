@@ -43,6 +43,7 @@ const DEFAULT_FILTERS = {
     dateRange: getDefaultDateRangeForFilters(),
     orderBy: undefined,
     authors: '[]',
+    page: '1'
 };
 
 function getDefaultDateRangeForFilters() {
@@ -77,6 +78,7 @@ class searchFiltersReducer extends Reducer {
                 owners: [],
                 tags: [],
                 authors: [],
+                page: 1,
                 dateRange: {valid: true, startDate: DEFAULT_START_DATE, endDate: DateTransformer.getDateToday()}
             }
         };
@@ -301,6 +303,7 @@ class searchFiltersReducer extends Reducer {
                 tags: JSON.stringify(form.tags),
                 dateRange: JSON.stringify(DateTransformer.formDateRangeToFilters(dateRangeFilter)),
                 authors: JSON.stringify(authors),
+                page: JSON.stringify(form.page)
             },
             filtersNoChangeAuthors
         };
@@ -316,7 +319,8 @@ class searchFiltersReducer extends Reducer {
             owners: JSON.parse(filters.owners),
             tags: JSON.parse(filters.tags),
             dateRange: this.dateRangeToFormValue(filters.dateRange),
-            authors: filters.authors ? JSON.parse(filters.authors) : []
+            authors: filters.authors ? JSON.parse(filters.authors) : [],
+            page: JSON.parse(filters.page)
         };
     }
 }
