@@ -93,7 +93,7 @@ class searchFiltersReducer extends Reducer {
         };
     }
 
-    onFiltersChange(state, payload, submited = false) {
+    onFiltersChange(state, payload) {
         const authorsListFilters = payload.filters.authors ? JSON.parse(payload.filters.authors) : undefined;
         const filtersWithCorrectAuthorsList = (
             (authorsListFilters && authorsListFilters.length && authorsListFilters[0].name) ?
@@ -122,7 +122,7 @@ class searchFiltersReducer extends Reducer {
                     ) :
                     payload
             },
-            form: submited ? state.form :  this.transformToFormValue({...DEFAULT_FILTERS, ...payload.filters})
+            form: payload.filtersNoChangeAuthors ? state.form : this.transformToFormValue({...DEFAULT_FILTERS, ...payload.filters})
         });
     }
 
@@ -148,7 +148,7 @@ class searchFiltersReducer extends Reducer {
     }
 
     onSubmitForm(state, payload) {
-        return this.onFiltersChange(_.extend({}, state, {form: payload}), this.formValueToFilters(payload), true);
+        return this.onFiltersChange(_.extend({}, state, {form: payload}), this.formValueToFilters(payload, true));
     }
 
     onCustomListFiltersChange(state, payload) {
@@ -285,24 +285,24 @@ class searchFiltersReducer extends Reducer {
     }
 
 
-    formValueToFilters(form) {
+    formValueToFilters(form, filtersNoChangeAuthors = false) {
         const authors = form.authors ? form.authors.map(author => ({id: author.id*1, isStaff: author.isStaff})) : [];
         const dateRangeFilter = [form.dateRange.startDate, form.dateRange.endDate];
-        const newFiltersValues = {
-            ...form,
-            query: form.query !== '' ? form.query : undefined,
-            closed: this.getTicketStatusByDropdownIndex(form.closed),
-            priority: this.getTicketPrioritiesByDropdownIndex(form.priority),
-            departments: form.departments !== undefined ? JSON.stringify(form.departments) : '[]',
-            owners: JSON.stringify(form.owners),
-            tags: JSON.stringify(form.tags),
-            dateRange: JSON.stringify(DateTransformer.formDateRangeToFilters(dateRangeFilter)),
-            authors: JSON.stringify(authors),
-        };
 
         return {
             ...this.getList(),
-            filters: newFiltersValues
+            filters: {
+                ...form,
+                query: form.query !== '' ? form.query : undefined,
+                closed: this.getTicketStatusByDropdownIndex(form.closed),
+                priority: this.getTicketPrioritiesByDropdownIndex(form.priority),
+                departments: form.departments !== undefined ? JSON.stringify(form.departments) : '[]',
+                owners: JSON.stringify(form.owners),
+                tags: JSON.stringify(form.tags),
+                dateRange: JSON.stringify(DateTransformer.formDateRangeToFilters(dateRangeFilter)),
+                authors: JSON.stringify(authors),
+            },
+            filtersNoChangeAuthors
         };
     }
 

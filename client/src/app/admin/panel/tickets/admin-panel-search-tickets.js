@@ -2,7 +2,6 @@ import React from 'react';
 import {connect}  from 'react-redux';
 
 import i18n from 'lib-app/i18n';
-import searchTicketsApi from '../../../../lib-app/search-tickets-api';
 
 import TicketQueryList from 'app-components/ticket-query-list';
 
@@ -59,16 +58,14 @@ class AdminPanelSearchTickets extends React.Component {
         }
 
         newOrderBy = JSON.stringify({"value": newValue, "asc": newAsc});
-        searchTicketsApi.getAuthorsFromAPI(listDataState.filters.authors).then(authors => {
-            dispatch(SearchFiltersActions.changeFilters({
-                ...listDataState,
-                filters: {
-                    ...listDataState.filters,
-                    authors: JSON.stringify(authors),
-                    orderBy: newOrderBy
-                }
-            }));
-        });
+        dispatch(SearchFiltersActions.changeFilters({
+            ...listDataState,
+            filters: {
+                ...listDataState.filters,
+                orderBy: newOrderBy
+            },
+            filtersNoChangeAuthors: true
+        }));
     }
 
     onChangeShowFilters() {
