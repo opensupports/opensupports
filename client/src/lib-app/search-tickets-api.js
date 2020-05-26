@@ -15,32 +15,24 @@ export default {
         });
     },
 
-    initFiltersFromParams(dispatch) {
-        const search = window.location.search;
+    initFiltersFromParams(dispatch, search = window.location.search) {
         let filters = queryString.parse(search);
         const customTicketsList = window.customTicketList[filters.custom*1];
         const customTicketsListFilters = customTicketsList ? customTicketsList.filters : undefined;
-        filters = {
-            ...filters,
-            closed: filters.closed ? filters.closed*1 : undefined,
-            priority: filters.priority ? filters.priority*1 : undefined,
-        };
-        if(search) {
-            if(filters.authors) {
-                this.getAuthorsFromAPI(filters.authors).then((authors) => {
-                    dispatch(searchFiltersActions.changeFilters({
-                        title: customTicketsList ? customTicketsList.title : undefined,
-                        filters: {
-                            ...customTicketsListFilters,
-                            ...filters,
-                            authors: JSON.stringify(authors),
-                        },
-                        preventHistoryChange: true,
-                    }));
-                });  
-            } else {
-                dispatch(searchFiltersActions.changeFilters({filters, preventHistoryChange: true}));
-            }
+
+        if(customTicketsListFilters && customTicketsListFilters.authors) {
+            this.getAuthorsFromAPI(customTicketsListFilters.authors).then((authors) => {
+                dispatch(searchFiltersActions.changeFilters({
+                    title: customTicketsList ? customTicketsList.title : undefined,
+                    filters: {
+                        ...customTicketsListFilters,
+                        ...filters,
+                        authors: JSON.stringify(authors),
+                    },
+                }));
+            });
+        } else {
+            dispatch(searchFiltersActions.changeFilters({filters}));
         }
     }
 }

@@ -118,17 +118,8 @@ class AdminPanelMenu extends React.Component {
                     path: '/admin/panel/tickets/search-tickets?custom=' + index,
                     level: 1,
                     onItemClick: () => {
-                        searchTicketsApi.getAuthorsFromAPI(item.filters.authors).then(authors => {
-                            this.props.dispatch(searchFiltersActions.changeCustomListFilters(
-                                {
-                                    title: item.title,
-                                    filters: {
-                                        ...item.filters,
-                                        authors: JSON.stringify(authors)
-                                    }
-                                }
-                            ))
-                        });
+                        searchTicketsApi.initFiltersFromParams(this.props.dispatch);
+                        this.props.dispatch(searchFiltersActions.retrieveSearchTickets({page: 1}, item.filters));
                     }
                 }
             })
@@ -180,7 +171,8 @@ class AdminPanelMenu extends React.Component {
                         path: '/admin/panel/tickets/search-tickets',
                         level: 1,
                         onItemClick: () => {
-                            this.props.dispatch(searchFiltersActions.setDefaultFormValues());
+                            searchTicketsApi.initFiltersFromParams(this.props.dispatch);
+                            this.props.dispatch(searchFiltersActions.retrieveSearchTickets({page: 1}));
                         }
                     },
                     {

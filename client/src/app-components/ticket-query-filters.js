@@ -2,7 +2,6 @@ import React from 'react';
 import _ from 'lodash';
 import {connect}  from 'react-redux';
 
-import AdminDataActions from 'actions/admin-data-actions';
 import SearchFiltersActions from 'actions/search-filters-actions';
 
 import i18n from 'lib-app/i18n';
@@ -18,6 +17,34 @@ import Icon from 'core-components/icon';
 import Button from 'core-components/button';
 
 
+const TICKET_STATUSES = {
+    ANY: undefined,
+    OPENED: 0,
+    CLOSED: 1
+};
+
+const CLOSED_DROPDOWN_INDEXES = {
+    ANY: 0,
+    OPENED: 1,
+    CLOSED: 2
+}
+
+const TICKET_PRIORITIES = {
+    ANY: undefined,
+    LOW: [0],
+    MEDIUM: [1],
+    HIGH: [2]
+};
+
+const PRIORITIES_DROPDOWN_INDEXES = {
+    ANY: 0,
+    LOW: 1,
+    MEDIUM: 2,
+    HIGH: 3
+};
+
+const INITIAL_PAGE = 1;
+
 const DEFAULT_START_DATE = 20170101;
 
 class TicketQueryFilters extends React.Component {
@@ -32,15 +59,10 @@ class TicketQueryFilters extends React.Component {
         })
     }
 
-    componentDidMount() {
-        this.retrieveStaffMembers();
-        searchTicketsApi.initFiltersFromParams(this.props.dispatch);
-    }
-
     render() {
         const {
             formState,
-            listDataState
+            filters
         } = this.props;
 
         return (
@@ -62,7 +84,7 @@ class TicketQueryFilters extends React.Component {
                             <FormField
                                 name="dateRange"
                                 field="date-range"
-                                fieldProps={{defaultValue: this.dateRangeToFormValue(listDataState.filters.dateRange)}}
+                                fieldProps={{defaultValue: this.dateRangeToFormValue(filters.dateRange)}}
                             />
                         </div>
                         <div className="ticket-query-filters__group__container">
@@ -93,7 +115,7 @@ class TicketQueryFilters extends React.Component {
                                 name="tags"
                                 field="tag-selector"
                                 fieldProps={{
-                                    items: this.getTags(listDataState.filters.tags),
+                                    items: this.getTags(filters.tags),
                                     onRemoveClick: this.removeTag.bind(this),
                                     onTagSelected: this.addTag.bind(this)
                                 }} />
@@ -323,10 +345,15 @@ class TicketQueryFilters extends React.Component {
     onSubmitForm() {
         const {
             formState,
-            listDataState,
+            filters,
             dispatch
         } = this.props;
-        dispatch(SearchFiltersActions.submitForm({...formState, orderBy: listDataState.filters.orderBy}));
+        const filtersWithCompleteAuthorsList = this.formValueToFilters(
+            {...formState, orderBy: filters.orderBy},
+            true
+        );
+        dispatch(SearchFiltersActions.submitForm(filtersWithCompleteAuthorsList));
+        dispatch(SearchFiltersActions.retrieveSearchTickets({page: INITIAL_PAGE},filtersWithCompleteAuthorsList.filters));
     }
 
     removeTag(tag) {
@@ -336,10 +363,6 @@ class TicketQueryFilters extends React.Component {
         let selectedTags = this.tagsNametoTagsId(this.getSelectedTagsName(newTagList));
 
         this.onChangeFormState({...formState, tags: selectedTags});
-    }
-
-    retrieveStaffMembers() {
-        this.props.dispatch(AdminDataActions.retrieveStaffMembers());
     }
 
     tagsNametoTagsId(selectedTagsName) {
@@ -393,8 +416,63 @@ class TicketQueryFilters extends React.Component {
             contentOnSelected: author.profilePic !== undefined ? this.renderStaffSelected(author) : author.name
         }));
     }
-}
 
+    getTicketPrioritiesByDropdownIndex(dropdownIndex) {
+        let priorities = TICKET_PRIORITIES.ANY;
+
+        switch(dropdownIndex) {
+            case PRIORITIES_DROPDOWN_INDEXES.LOW:
+                priorities = TICKET_PRIORITIES.LOW;
+                break;
+            case PRIORITIES_DROPDOWN_INDEXES.MEDIUM:
+                priorities = TICKET_PRIORITIES.MEDIUM;
+                break;
+            case PRIORITIES_DROPDOWN_INDEXES.HIGH:
+                priorities = TICKET_PRIORITIES.HIGH;
+                break;
+        }
+
+        return priorities !== undefined ? JSON.stringify(priorities) : priorities;
+    }
+
+    getTicketStatusByDropdownIndex(dropdownIndex) {
+        let status;
+
+        switch(dropdownIndex) {
+            case CLOSED_DROPDOWN_INDEXES.CLOSED:
+                status = TICKET_STATUSES.CLOSED;
+                break;
+            case CLOSED_DROPDOWN_INDEXES.OPENED:
+                status = TICKET_STATUSES.OPENED;
+                break;
+            default:
+                status = TICKET_STATUSES.ANY;
+        }
+
+        return status;
+    }
+
+    formValueToFilters(form, hasAllAuthorsInfo = false) {
+        const authors = form.authors ? form.authors.map(author => ({id: author.id*1, isStaff: author.isStaff})) : [];
+        const dateRangeFilter = [form.dateRange.startDate, form.dateRange.endDate];
+
+        return {
+            filters: {
+                ...form,
+                query: form.query !== '' ? form.query : undefined,
+                closed: this.getTicketStatusByDropdownIndex(form.closed),
+                priority: this.getTicketPrioritiesByDropdownIndex(form.priority),
+                departments: form.departments !== undefined ? JSON.stringify(form.departments) : '[]',
+                owners: JSON.stringify(form.owners),
+                tags: JSON.stringify(form.tags),
+                dateRange: JSON.stringify(DateTransformer.formDateRangeToFilters(dateRangeFilter)),
+                authors: JSON.stringify(authors),
+            },
+            hasAllAuthorsInfo
+        };
+    }
+
+}
 export default connect((store) => {
   console.log(' store.searchFilters.showFilters',  store.searchFilters.showFilters);
     return {
@@ -402,7 +480,7 @@ export default connect((store) => {
         departments: store.config.departments,
         staffList: store.adminData.staffMembers,
         formState: store.searchFilters.form,
-        listDataState: store.searchFilters.listData,
+        filters: store.searchFilters.listConfig.filters,
         showFilters: store.searchFilters.showFilters
     };
 })(TicketQueryFilters);

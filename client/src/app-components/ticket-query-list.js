@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
 
-import API from 'lib-app/api-call';
 import i18n from 'lib-app/i18n';
 import {connect}  from 'react-redux';
 
@@ -19,14 +18,6 @@ class TicketQueryList extends React.Component {
         loading: true
     };
 
-    componentDidMount() {
-        this.getTickets();
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.getTickets(nextProps.listDataState.filters);
-    }
-
     render() {
         return (
             <div>
@@ -39,73 +30,42 @@ class TicketQueryList extends React.Component {
         );
     }
 
-    getTickets(filters) {
-        this.setState({
-            loading:true
-        })
-        API.call({
-            path: '/ticket/search',
-            data: filters
-        }).then((result) => {
-            this.setState({
-                tickets: result.data.tickets,
-                page: result.data.page,
-                pages: result.data.pages,
-                error: null,
-                loading: false
-            })
-        }).catch((result) => this.setState({
-            loading: false,
-            error: result.message
-        }));
-
-    }
-
     onPageChange(event) {
         const {
             dispatch,
-            listDataState
+            ticketQueryListState,
+            filters
         } = this.props;
 
-        this.setState({
-            page: event.target.value
-        });
-
-        dispatch(searchFiltersActions.changeFilters({
-            ...listDataState,
-            filters: {
-                ...listDataState.filters,
-                page: JSON.stringify(event.target.value)
+        dispatch(searchFiltersActions.retrieveSearchTickets(
+            {
+                ...ticketQueryListState,
+                page: event.target.value
             },
-            filtersNoChangeAuthors: true
-        }));
+            filters
+        ));
     }
 
     getTicketListProps () {
         const {
-            page,
-            pages,
-            loading,
-            tickets
-        } = this.state;
-        const {
-            listDataState,
+            filters,
             onChangeOrderBy,
-            userId
+            userId,
+            ticketQueryListState
         } = this.props;
 
         return {
             userId: userId,
             ticketPath: '/admin/panel/tickets/view-ticket/',
-            tickets,
-            page,
-            pages,
-            loading,
+            tickets: ticketQueryListState.tickets,
+            page: ticketQueryListState.page,
+            pages: ticketQueryListState.pages,
+            loading: ticketQueryListState.loading,
             type: 'secondary',
             showDepartmentDropdown: false,
             closedTicketsShown: false,
             onPageChange:this.onPageChange.bind(this),
-            orderBy: listDataState.filters.orderBy ? JSON.parse(listDataState.filters.orderBy) : listDataState.filters.orderBy,
+            orderBy: filters.orderBy ? JSON.parse(filters.orderBy) : filters.orderBy,
             showOrderArrows: true,
             onChangeOrderBy: onChangeOrderBy,
         };
@@ -115,6 +75,8 @@ class TicketQueryList extends React.Component {
 
 export default connect((store) => {
     return {
-        userId: store.session.userId*1
+        userId: store.session.userId*1,
+        filters: store.searchFilters.listConfig.filters,
+        ticketQueryListState: store.searchFilters.ticketQueryListState
     };
 })(TicketQueryList);

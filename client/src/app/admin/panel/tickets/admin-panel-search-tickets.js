@@ -4,24 +4,32 @@ import {connect}  from 'react-redux';
 import i18n from 'lib-app/i18n';
 
 import TicketQueryList from 'app-components/ticket-query-list';
+import AdminDataActions from 'actions/admin-data-actions';
+import searchTicketsApi from '../../../../lib-app/search-tickets-api';
+import searchFiltersActions from '../../../../actions/search-filters-actions';
 
 import Header from 'core-components/header';
 import Message from 'core-components/message';
 import TicketQueryFilters from 'app-components/ticket-query-filters';
-import SearchFiltersActions from 'actions/search-filters-actions';
 import Icon from 'core-components/icon';
 import Button from 'core-components/button';
 
 class AdminPanelSearchTickets extends React.Component {
 
+    componentDidMount() {
+        this.retrieveStaffMembers();
+        searchTicketsApi.initFiltersFromParams(this.props.dispatch);
+        this.getTickets();
+    }
+
     render() {
-        const { listDataState } = this.props;
+        const { listConfig } = this.props;
         return (
             <div className="admin-panel-all-tickets">
                 <div className="admin-panel-all-tickets__container">
                     <Header
                         className="admin-panel-all-tickets__container__header"
-                        title={listDataState.title !== undefined ? listDataState.title : i18n('CUSTOM_LIST')}
+                        title={listConfig.title !== undefined ? listConfig.title : i18n('CUSTOM_LIST')}
                         description={i18n('SEARCH_TICKETS_DESCRIPTION')} />
                     <Button
                         className="admin-panel-all-tickets__container__show-filters-button"
@@ -31,24 +39,36 @@ class AdminPanelSearchTickets extends React.Component {
                             <Icon name="filter" />
                     </Button>
                 </div>
-                <TicketQueryFilters filters={listDataState.filters} />
+                <TicketQueryFilters />
                 {
                     (this.props.error) ?
                         <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> :
                         <TicketQueryList
-                            listDataState={listDataState}
                             onChangeOrderBy={this.onChangeOrderBy.bind(this)} />
                 }
             </div>
         );
     }
 
+    getTickets() {
+        const {
+            dispatch,
+            ticketQueryListState,
+            listConfig
+        } = this.props;
+        dispatch(searchFiltersActions.retrieveSearchTickets(
+            ticketQueryListState,
+            listConfig.filters
+        ));
+    }
+
     onChangeOrderBy(value) {
         const {
-            listDataState,
+            listConfig,
+            ticketQueryListState,
             dispatch
         } = this.props;
-        let orderBy = listDataState.filters.orderBy ? JSON.parse(listDataState.filters.orderBy) : {value: ""};
+        let orderBy = listConfig.filters.orderBy ? JSON.parse(listConfig.filters.orderBy) : {value: ""};
         let newOrderBy = {};
         let newAsc = 0;
         let newValue = value;
@@ -59,13 +79,14 @@ class AdminPanelSearchTickets extends React.Component {
 
         newOrderBy = JSON.stringify({"value": newValue, "asc": newAsc});
         dispatch(SearchFiltersActions.changeFilters({
-            ...listDataState,
+            ...listConfig,
             filters: {
-                ...listDataState.filters,
+                ...listConfig.filters,
                 orderBy: newOrderBy
             },
-            filtersNoChangeAuthors: true
+            completeAuthorsFormat: true
         }));
+        dispatch(SearchFiltersActions.retrieveSearchTickets(ticketQueryListState, {...listConfig.filters, orderBy: newOrderBy}));
     }
 
     onChangeShowFilters() {
@@ -76,12 +97,17 @@ class AdminPanelSearchTickets extends React.Component {
         dispatch(SearchFiltersActions.changeShowFilters(showFilters));
     }
 
+    retrieveStaffMembers() {
+        this.props.dispatch(AdminDataActions.retrieveStaffMembers());
+    }
+
 }
 
 export default connect((store) => {
     return {
         error: store.adminData.allTicketsError,
-        listDataState: store.searchFilters.listData,
+        listConfig: store.searchFilters.listConfig,
+        ticketQueryListState: store.searchFilters.ticketQueryListState,
         showFilters: store.searchFilters.showFilters
     };
 })(AdminPanelSearchTickets);
