@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import {dispatch} from 'app/store';
 import i18n from 'lib-app/i18n';
-import searchTicketsApi from '../../../lib-app/search-tickets-api';
+import searchTicketsUtils from '../../../lib-app/search-tickets-utils';
 
 import Menu from 'core-components/menu';
 import searchFiltersActions from '../../../actions/search-filters-actions';
@@ -118,7 +118,7 @@ class AdminPanelMenu extends React.Component {
                     path: '/admin/panel/tickets/search-tickets?custom=' + index,
                     level: 1,
                     onItemClick: () => {
-                        searchTicketsApi.initFiltersFromParams(this.props.dispatch);
+                        searchTicketsUtils.initFiltersFromParams(this.props.dispatch);
                         this.props.dispatch(searchFiltersActions.retrieveSearchTickets({page: 1}, item.filters));
                     }
                 }
@@ -171,7 +171,7 @@ class AdminPanelMenu extends React.Component {
                         path: '/admin/panel/tickets/search-tickets',
                         level: 1,
                         onItemClick: () => {
-                            searchTicketsApi.initFiltersFromParams(this.props.dispatch);
+                            searchTicketsUtils.initFiltersFromParams(this.props.dispatch);
                             this.props.dispatch(searchFiltersActions.retrieveSearchTickets({page: 1}));
                         }
                     },

@@ -8,7 +8,6 @@ import i18n from 'lib-app/i18n';
 
 import API from 'lib-app/api-call';
 import DateTransformer from 'lib-core/date-transformer';
-import searchTicketsApi from '../lib-app/search-tickets-api';
 
 import Form from 'core-components/form';
 import SubmitButton from 'core-components/submit-button';

@@ -5,7 +5,7 @@ import i18n from 'lib-app/i18n';
 
 import TicketQueryList from 'app-components/ticket-query-list';
 import AdminDataActions from 'actions/admin-data-actions';
-import searchTicketsApi from '../../../../lib-app/search-tickets-api';
+import searchTicketsUtils from '../../../../lib-app/search-tickets-utils';
 import searchFiltersActions from '../../../../actions/search-filters-actions';
 
 import Header from 'core-components/header';
@@ -18,7 +18,7 @@ class AdminPanelSearchTickets extends React.Component {
 
     componentDidMount() {
         this.retrieveStaffMembers();
-        searchTicketsApi.initFiltersFromParams(this.props.dispatch);
+        searchTicketsUtils.initFiltersFromParams(this.props.dispatch);
         this.getTickets();
     }
 
