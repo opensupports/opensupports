@@ -3,7 +3,9 @@ describe '/ticket/get-authors/' do
     Scripts.login($staff[:email], $staff[:password], true)
     Scripts.createUser('userauthor@os4.com', 'passwordofuserauthor', 'userauthorname')    
     
-    it 'should fail if the list is invalid' do
+    it 'should fail if a user is logged' do
+        request('/user/logout')
+        Scripts.login('tyrion@opensupports.com', 'tyrionl')
         result = request('/ticket/get-authors', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,

@@ -13,7 +13,6 @@ const steps = [
     'LANGUAGE',
     'SERVER_REQUIREMENTS',
     'DATABASE_CONFIGURATION',
-    'USER_SYSTEM',
     'SETTINGS',
     'ADMIN_SETUP',
     'COMPLETED'

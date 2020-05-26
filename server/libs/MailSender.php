@@ -66,10 +66,12 @@ class MailSender {
             $this->mailerInstance->CharSet = 'UTF-8';
 
             $this->mailerInstance->isSMTP();
-            $this->mailerInstance->SMTPAuth = true;
             $this->mailerInstance->Host = $this->mailOptions['smtp-host'];
-            $this->mailerInstance->Username = $this->mailOptions['smtp-user'];
-            $this->mailerInstance->Password = $this->mailOptions['smtp-pass'];
+            if($this->mailOptions['smtp-user'] !== '') {
+                $this->mailerInstance->SMTPAuth = true;
+                $this->mailerInstance->Username = $this->mailOptions['smtp-user'];
+                $this->mailerInstance->Password = $this->mailOptions['smtp-pass'];
+            }
             $this->mailerInstance->Timeout = 10;
             $this->mailerInstance->SMTPOptions = [
                 'ssl' => [

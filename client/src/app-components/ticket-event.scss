@@ -84,7 +84,7 @@
             border: 2px solid $light-grey;
             border-bottom: none;
             padding: 12px;
-            font-size: 10.6px;
+            font-size: 12.5px;
             font-family: helvetica;
             background-color: $light-grey;
 
@@ -94,9 +94,10 @@
             background-color: white;
             border: 2px solid $very-light-grey;
             border-top: none;
-            padding: 20px 10px;
+            padding: 28px 10px;
             text-align: left;
             position:relative;
+            overflow-y: initial;
 
             &:hover {
                 .ticket-event__comment-content__edit {

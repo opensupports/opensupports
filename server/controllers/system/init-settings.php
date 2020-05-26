@@ -16,7 +16,6 @@ DataValidator::with('CustomValidations', true);
  * @apiPermission any
  *
  * @apiParam {String} language Indicates the default language of the system.
- * @apiParam {String} user-system-enabled Indicates if the user system should be enabled.
  * @apiParam {String} registration Indicates if the registration should be enabled.
  * @apiParam {String} server-email Email from where automated emails will be sent.
  * @apiParam {String} smtp-host SMTP Server address.
@@ -26,6 +25,7 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} allow-attachments Indicates if files can be attached to tickets and comments.
  * @apiParam {String} title Title of the support center
  * @apiParam {String} url Url of the frontend client.
+ * @apiParam {Boolean} mandatory-login Indicates if the login is mandatory.
  *
  * @apiUse INVALID_LANGUAGE
  * @apiUse INIT_SETTINGS_DONE
@@ -85,13 +85,13 @@ class InitSettingsController extends Controller {
             'title' => Controller::request('title') ? Controller::request('title') : 'Support Center',
             'url' => Controller::request('url')  ? Controller::request('url') : ('http://' . $_SERVER['HTTP_HOST']),
             'registration' => !!Controller::request('registration'),
-            'user-system-enabled' => !!Controller::request('user-system-enabled'),
             'last-stat-day' => date('YmdHi', strtotime(' -12 day ')),
             'ticket-gap' => Hashing::generateRandomPrime(100000, 999999),
             'ticket-first-number' => Hashing::generateRandomNumber(100000, 999999),
             'session-prefix' => 'opensupports-'.Hashing::generateRandomToken().'_',
             'mail-template-header-image' => 'https://s3.amazonaws.com/opensupports/logo.png',
             'imap-token' => '',
+            'mandatory-login' => !!Controller::request('mandatory-login'),
         ]);
     }
 

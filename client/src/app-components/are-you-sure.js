@@ -6,6 +6,7 @@ import ModalContainer from 'app-components/modal-container';
 import Button from 'core-components/button';
 import Input from 'core-components/input';
 import Icon from 'core-components/icon';
+import Loading from 'core-components/loading'
 
 
 class AreYouSure extends React.Component {
@@ -24,6 +25,7 @@ class AreYouSure extends React.Component {
     };
 
     state = {
+        loading: false,
         password: ''
     };
 
@@ -39,6 +41,7 @@ class AreYouSure extends React.Component {
     }
 
     render() {
+        const { loading } = this.state;
         return (
             <div className="are-you-sure" role="dialog" aria-labelledby="are-you-sure__header" aria-describedby="are-you-sure__description">
                 <div className="are-you-sure__header" id="are-you-sure__header">
@@ -54,13 +57,20 @@ class AreYouSure extends React.Component {
                 <span className="separator" />
                 <div className="are-you-sure__buttons">
                     <div className="are-you-sure__no-button">
-                        <Button type="link" size="auto" onClick={this.onNo.bind(this)} tabIndex="2">
+                        <Button disabled={loading} type="link" size="auto" onClick={this.onNo.bind(this)} tabIndex="2">
                             {i18n('CANCEL')}
                         </Button>
                     </div>
                     <div className="are-you-sure__yes-button">
-                        <Button type="secondary" size="small" onClick={this.onYes.bind(this)} ref="yesButton" tabIndex="2">
-                            {i18n('YES')}
+                        <Button
+                            type="secondary"
+                            size="small"
+                            onClick={this.onYes.bind(this)}
+                            ref="yesButton"
+                            tabIndex="2"
+                            disabled={loading}
+                        >
+                            {loading ? <Loading /> : i18n('YES')}
                         </Button>
                     </div>
                 </div>
@@ -69,8 +79,23 @@ class AreYouSure extends React.Component {
     }
 
     renderPassword() {
+        const {
+            password,
+            loading
+        } = this.state;
         return (
-            <Input className="are-you-sure__password" password placeholder="password" name="password" ref="password" size="medium" value={this.state.password} onChange={this.onPasswordChange.bind(this)} onKeyDown={this.onInputKeyDown.bind(this)}/>
+            <Input
+                className="are-you-sure__password"
+                password
+                placeholder="password"
+                name="password"
+                ref="password"
+                size="medium"
+                value={password}
+                onChange={this.onPasswordChange.bind(this)}
+                onKeyDown={this.onInputKeyDown.bind(this)}
+                disabled={loading}
+            />
         );
     }
 
@@ -87,16 +112,52 @@ class AreYouSure extends React.Component {
     }
 
     onYes() {
-        if (this.props.type === 'secure' && !this.state.password) {
+        const {
+            password,
+        } = this.state;
+        const {
+            type,
+            onYes
+        } = this.props;
+
+        if(type === 'secure' && !password) {
             this.refs.password.focus()
         }
 
-        if (this.props.type === 'default' || this.state.password) {
-            this.closeModal();
-
-            if (this.props.onYes) {
-                this.props.onYes(this.state.password);
+        if(type === 'default' || password) {
+            if(onYes) {
+                const result = onYes(password);
+                if(this.isPromise(result)) {
+                    this.setState({
+                        loading: true
+                    });
+                    result
+                        .then(() => {
+                            this.setState({
+                                loading: false
+                            });
+                            this.closeModal();
+                        })
+                        .catch(() => {
+                            this.setState({
+                                loading: false,
+                            });
+                            this.closeModal();
+                        })
+                } else {
+                    this.closeModal();
+                }
+            } else {
+                this.closeModal();
             }
+        }
+    }
+
+    isPromise(object) {
+        if(Promise && Promise.resolve) {
+            return Promise.resolve(object) == object;
+        } else {
+            throw "Promise not supported in your environment"
         }
     }
 

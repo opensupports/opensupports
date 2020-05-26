@@ -57,7 +57,8 @@ class GetSettingsController extends Controller {
                     'allowedLanguages' => Language::getAllowedLanguages(),
                     'session-prefix' => Setting::getSetting('session-prefix')->getValue(),
                     'mail-template-header-image' => Setting::getSetting('mail-template-header-image')->getValue(),
-                    'tags' => Tag::getAll()->toArray()
+                    'tags' => Tag::getAll()->toArray(),
+                    'mandatory-login' => Setting::getSetting('mandatory-login')->getValue(),
                 ];
             } else {
                 $settingsList = [
@@ -73,9 +74,9 @@ class GetSettingsController extends Controller {
                     'departments' => Controller::isStaffLogged() ? Department::getAllDepartmentNames() : Department::getPublicDepartmentNames(),
                     'supportedLanguages' => Language::getSupportedLanguages(),
                     'allowedLanguages' => Language::getAllowedLanguages(),
-                    'user-system-enabled' => intval(Setting::getSetting('user-system-enabled')->getValue()),
                     'session-prefix' => Setting::getSetting('session-prefix')->getValue(),
-                    'tags' => Tag::getAll()->toArray()
+                    'tags' => Tag::getAll()->toArray(),
+                    'mandatory-login' => Setting::getSetting('mandatory-login')->getValue(),
                 ];
             }
         }

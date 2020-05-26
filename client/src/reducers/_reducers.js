@@ -7,10 +7,12 @@ import modalReducer from 'reducers/modal-reducer';
 import articlesReducer from 'reducers/articles-reducer';
 import adminDataReducer from 'reducers/admin-data-reducer';
 import searchFiltersReducer from 'reducers/search-filters-reducer';
+import loginFormReducer from './login-form-reducer';
 
 export default combineReducers({
     session: sessionReducer,
     config: configReducer,
+    loginForm: loginFormReducer,
     modal: modalReducer,
     articles: articlesReducer,
     adminData: adminDataReducer,

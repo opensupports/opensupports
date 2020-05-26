@@ -14,7 +14,7 @@ describe'system/add-department' do
             row = $database.getRow('department', 4, 'id')
 
             (row['name']).should.equal('Tech support')
-            (row['private']).should.equal("0")
+            (row['private']).should.equal(0)
 
             lastLog = $database.getLastRow('log')
             (lastLog['type']).should.equal('ADD_DEPARTMENT')
@@ -32,7 +32,7 @@ describe'system/add-department' do
             row = $database.getRow('department', 6, 'id')
 
             (row['name']).should.equal('new department')
-            (row['private']).should.equal("0")
+            (row['private']).should.equal(0)
 
             lastLog = $database.getLastRow('log')
             (lastLog['type']).should.equal('ADD_DEPARTMENT')
@@ -49,7 +49,7 @@ describe'system/add-department' do
             (result['status']).should.equal('success')
 
             row = $database.getRow('department', 'a private department', 'name')
-            (row['private']).should.equal('1')
+            (row['private']).should.equal(1)
 
             lastLog = $database.getLastRow('log')
             (lastLog['type']).should.equal('ADD_DEPARTMENT')

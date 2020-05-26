@@ -6,46 +6,57 @@ import ConfigActions      from 'actions/config-actions';
 
 import LanguageSelector   from 'app-components/language-selector';
 import Button             from 'core-components/button';
+import loginFormActions from '../../actions/login-form-actions';
 
 class MainLayoutHeader extends React.Component {
 
     render() {
         return (
             <div className="main-layout-header">
-                {(this.props.config['user-system-enabled']) ? this.renderAccessLinks() : this.renderHomeLink()}
+                {this.renderAccessLinks()}
                 <LanguageSelector {...this.getLanguageSelectorProps()} />
             </div>
         );
     }
     
     renderAccessLinks() {
+        const {
+            session,
+            config
+        } = this.props;
         let result;
         
-        if (this.props.session.logged) {
+        if (session.logged) {
             result = (
                 <div className="main-layout-header__login-links">
                     {i18n('WELCOME')}, 
-                    <span className="main-layout-header__user-name"> {this.props.session.userName}</span>
+                    <span className="main-layout-header__user-name"> {session.userName}</span>
                 </div>
             );
         } else {
             result = (
                 <div className="main-layout-header__login-links">
-                    <Button type="clean" route={{to:'/'}}>{i18n('LOG_IN')}</Button>
-                    {(!!(this.props.config['registration'] * 1)) ? <Button type="clean" route={{to:'/signup'}}>{i18n('SIGN_UP')}</Button> : null}
+                    <Button
+                    type="clean"
+                    onClick={this.onHideLoginForm.bind(this)}
+                    route={{to:'/'}}>
+                        {i18n('HOME')}
+                    </Button>
+                    {(config['registration'] * 1) ?
+                        <Button type="clean" route={{to:'/signup'}}>
+                            {i18n('SIGN_UP')}
+                        </Button> :
+                        null}
+                    {!config['mandatory-login'] ?
+                        <Button type="clean" onClick={this.onShowLoginForm.bind(this)} route={{to:'/'}}>
+                            {i18n('LOG_IN')}
+                        </Button> :
+                        null}
                 </div>
             );
         }
 
         return result;
-    }
-
-    renderHomeLink() {
-        return (
-            <div className="main-layout-header__login-links">
-                <Button type="clean" route={{to:'/'}}>{i18n('HOME')}</Button>
-            </div>
-        );
     }
 
     getLanguageSelectorProps() {
@@ -60,11 +71,19 @@ class MainLayoutHeader extends React.Component {
     changeLanguage(event) {
         this.props.dispatch(ConfigActions.changeLanguage(event.target.value));
     }
+
+    onShowLoginForm() {
+        this.props.dispatch(loginFormActions.showLoginForm())
+    }
+
+    onHideLoginForm() {
+        this.props.dispatch(loginFormActions.hideLoginForm())
+    }
 }
 
 export default connect((store) => {
     return {
         session: store.session,
-        config: store.config
+        config: store.config,
     };
 })(MainLayoutHeader);
