@@ -78,15 +78,15 @@ class AdminPanelSearchTickets extends React.Component {
         }
 
         newOrderBy = JSON.stringify({"value": newValue, "asc": newAsc});
-        dispatch(SearchFiltersActions.changeFilters({
+        dispatch(searchFiltersActions.changeFilters({
             ...listConfig,
             filters: {
                 ...listConfig.filters,
                 orderBy: newOrderBy
             },
-            completeAuthorsFormat: true
+            hasAllAuthorsInfo: true
         }));
-        dispatch(SearchFiltersActions.retrieveSearchTickets(ticketQueryListState, {...listConfig.filters, orderBy: newOrderBy}));
+        dispatch(searchFiltersActions.retrieveSearchTickets(ticketQueryListState, {...listConfig.filters, orderBy: newOrderBy}));
     }
 
     onChangeShowFilters() {
@@ -94,7 +94,7 @@ class AdminPanelSearchTickets extends React.Component {
             showFilters,
             dispatch
         } = this.props;
-        dispatch(SearchFiltersActions.changeShowFilters(showFilters));
+        dispatch(searchFiltersActions.changeShowFilters(showFilters));
     }
 
     retrieveStaffMembers() {
