@@ -2,36 +2,10 @@ import _ from 'lodash';
 import queryString from 'query-string';
 
 import Reducer from 'reducers/reducer';
-import store from 'app/store';
 
 import DateTransformer from 'lib-core/date-transformer';
+import searchTicketsUtils from '../lib-app/search-tickets-utils';
 
-
-const TICKET_STATUSES = {
-    ANY: undefined,
-    OPENED: 0,
-    CLOSED: 1
-};
-
-const CLOSED_DROPDOWN_INDEXES = {
-    ANY: 0,
-    OPENED: 1,
-    CLOSED: 2
-}
-
-const TICKET_PRIORITIES = {
-    ANY: undefined,
-    LOW: [0],
-    MEDIUM: [1],
-    HIGH: [2]
-};
-
-const PRIORITIES_DROPDOWN_INDEXES = {
-    ANY: 0,
-    LOW: 1,
-    MEDIUM: 2,
-    HIGH: 3
-};
 
 const DEFAULT_FILTERS = {
     query: undefined,
@@ -181,7 +155,9 @@ class searchFiltersReducer extends Reducer {
                     ) :
                     payload
             },
-            form: payload.hasAllAuthorsInfo ? state.form : this.transformToFormValue({...DEFAULT_FILTERS, ...payload.filters})
+            form: payload.hasAllAuthorsInfo ?
+                state.form :
+                searchTicketsUtils.transformToFormValue({...DEFAULT_FILTERS, ...payload.filters})
         });
     }
 
@@ -200,7 +176,7 @@ class searchFiltersReducer extends Reducer {
             _.extend(
                 {},
                 state,
-                {form: this.transformToFormValue(DEFAULT_FILTERS)},
+                {form: searchTicketsUtils.transformToFormValue(DEFAULT_FILTERS)},
             )
         );
     }
@@ -233,33 +209,6 @@ class searchFiltersReducer extends Reducer {
     //     }
     // }
 
-    dateRangeToFormValue(_dateRange) {
-        const dateRange = JSON.parse(_dateRange);
-
-        return {
-            valid: true,
-            startDate: dateRange[0]/10000,
-            endDate: (dateRange[1]-2400)/10000,
-        };
-    }
-
-    getClosedDropdowIndex(status) {
-        let closedDropdownIndex;
-
-        switch(status) {
-            case TICKET_STATUSES.CLOSED:
-                closedDropdownIndex = CLOSED_DROPDOWN_INDEXES.CLOSED;
-                break;
-            case TICKET_STATUSES.OPENED:
-                closedDropdownIndex = CLOSED_DROPDOWN_INDEXES.OPENED;
-                break;
-            default:
-                closedDropdownIndex = CLOSED_DROPDOWN_INDEXES.ANY;
-        }
-
-        return closedDropdownIndex;
-    }
-
     getListConfig() {
         let custom = queryString.parse(window.location.search).custom;
         if(
@@ -280,41 +229,6 @@ class searchFiltersReducer extends Reducer {
                 'filters': DEFAULT_FILTERS,
             };
         }
-    }
-
-    getPriorityDropdownIndex(_priority) {
-        let priorityDorpDownIndex = PRIORITIES_DROPDOWN_INDEXES.ANY;
-
-        if(_priority !== undefined) {
-            let priority = JSON.parse(_priority)[0];
-            switch(priority) {
-                case TICKET_PRIORITIES.LOW[0]:
-                    priorityDorpDownIndex = PRIORITIES_DROPDOWN_INDEXES.LOW;
-                    break;
-                case TICKET_PRIORITIES.MEDIUM[0]:
-                    priorityDorpDownIndex = PRIORITIES_DROPDOWN_INDEXES.MEDIUM;
-                    break;
-                case TICKET_PRIORITIES.HIGH[0]:
-                    priorityDorpDownIndex = PRIORITIES_DROPDOWN_INDEXES.HIGH;
-                    break;
-            }
-        }
-
-        return priorityDorpDownIndex;
-    }
-
-    transformToFormValue(filters) {
-        return {
-            ...filters,
-            query: filters.query ? filters.query : '',
-            closed: this.getClosedDropdowIndex(filters.closed),
-            priority: this.getPriorityDropdownIndex(filters.priority),
-            departments: JSON.parse(filters.departments),
-            owners: JSON.parse(filters.owners),
-            tags: JSON.parse(filters.tags),
-            dateRange: this.dateRangeToFormValue(filters.dateRange),
-            authors: filters.authors ? JSON.parse(filters.authors) : [],
-        };
     }
 }
 export default searchFiltersReducer.getInstance();

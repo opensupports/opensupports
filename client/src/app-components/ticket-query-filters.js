@@ -14,33 +14,8 @@ import SubmitButton from 'core-components/submit-button';
 import FormField from 'core-components/form-field';
 import Icon from 'core-components/icon';
 import Button from 'core-components/button';
+import searchTicketsUtils from '../lib-app/search-tickets-utils';
 
-
-const TICKET_STATUSES = {
-    ANY: undefined,
-    OPENED: 0,
-    CLOSED: 1
-};
-
-const CLOSED_DROPDOWN_INDEXES = {
-    ANY: 0,
-    OPENED: 1,
-    CLOSED: 2
-}
-
-const TICKET_PRIORITIES = {
-    ANY: undefined,
-    LOW: [0],
-    MEDIUM: [1],
-    HIGH: [2]
-};
-
-const PRIORITIES_DROPDOWN_INDEXES = {
-    ANY: 0,
-    LOW: 1,
-    MEDIUM: 2,
-    HIGH: 3
-};
 
 const INITIAL_PAGE = 1;
 
@@ -61,11 +36,12 @@ class TicketQueryFilters extends React.Component {
     render() {
         const {
             formState,
-            filters
+            filters,
+            showFilters
         } = this.props;
 
         return (
-            <div className={"ticket-query-filters" + (this.props.showFilters ? "__open" : "") }>
+            <div className={"ticket-query-filters" + (showFilters ? "__open" : "") }>
                 <Form
                     values={this.getFormValue(formState)}
                     onChange={this.onChangeForm.bind(this)}
@@ -347,7 +323,7 @@ class TicketQueryFilters extends React.Component {
             filters,
             dispatch
         } = this.props;
-        const filtersWithCompleteAuthorsList = this.formValueToFilters(
+        const filtersWithCompleteAuthorsList = searchTicketsUtils.formValueToFilters(
             {...formState, orderBy: filters.orderBy},
             true
         );
@@ -416,62 +392,8 @@ class TicketQueryFilters extends React.Component {
         }));
     }
 
-    getTicketPrioritiesByDropdownIndex(dropdownIndex) {
-        let priorities = TICKET_PRIORITIES.ANY;
-
-        switch(dropdownIndex) {
-            case PRIORITIES_DROPDOWN_INDEXES.LOW:
-                priorities = TICKET_PRIORITIES.LOW;
-                break;
-            case PRIORITIES_DROPDOWN_INDEXES.MEDIUM:
-                priorities = TICKET_PRIORITIES.MEDIUM;
-                break;
-            case PRIORITIES_DROPDOWN_INDEXES.HIGH:
-                priorities = TICKET_PRIORITIES.HIGH;
-                break;
-        }
-
-        return priorities !== undefined ? JSON.stringify(priorities) : priorities;
-    }
-
-    getTicketStatusByDropdownIndex(dropdownIndex) {
-        let status;
-
-        switch(dropdownIndex) {
-            case CLOSED_DROPDOWN_INDEXES.CLOSED:
-                status = TICKET_STATUSES.CLOSED;
-                break;
-            case CLOSED_DROPDOWN_INDEXES.OPENED:
-                status = TICKET_STATUSES.OPENED;
-                break;
-            default:
-                status = TICKET_STATUSES.ANY;
-        }
-
-        return status;
-    }
-
-    formValueToFilters(form, hasAllAuthorsInfo = false) {
-        const authors = form.authors ? form.authors.map(author => ({id: author.id*1, isStaff: author.isStaff})) : [];
-        const dateRangeFilter = [form.dateRange.startDate, form.dateRange.endDate];
-
-        return {
-            filters: {
-                ...form,
-                query: form.query !== '' ? form.query : undefined,
-                closed: this.getTicketStatusByDropdownIndex(form.closed),
-                priority: this.getTicketPrioritiesByDropdownIndex(form.priority),
-                departments: form.departments !== undefined ? JSON.stringify(form.departments) : '[]',
-                owners: JSON.stringify(form.owners),
-                tags: JSON.stringify(form.tags),
-                dateRange: JSON.stringify(DateTransformer.formDateRangeToFilters(dateRangeFilter)),
-                authors: JSON.stringify(authors),
-            },
-            hasAllAuthorsInfo
-        };
-    }
-
 }
+
 export default connect((store) => {
   console.log(' store.searchFilters.showFilters',  store.searchFilters.showFilters);
     return {
