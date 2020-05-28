@@ -50,29 +50,36 @@ export default {
         if(customTicketsListFilters) {
             if(customTicketsListFilters.authors) {
                 return this.getAuthorsFromAPI(customTicketsListFilters.authors).then((authors) => {
-                    return {
+                    return this.listConfigToListConfigWithCorrectClosedFilters({
                         title: customTicketsList ? customTicketsList.title : undefined,
                         filters: {
                             ...customTicketsListFilters,
                             ...urlFilters,
                             authors: JSON.stringify(authors),
-                        },
-                    };
+                        }
+                    });
                 });
             } else {
-                return new Promise(resolve => resolve({
+                return new Promise(resolve => resolve(this.listConfigToListConfigWithCorrectClosedFilters({
                     title: customTicketsList ? customTicketsList.title : undefined,
                     filters: {
                         ...customTicketsListFilters,
                         ...urlFilters,
-                    },
-                }));
+                    }
+                })));
             }
         } else {
-            return new Promise(resolve => resolve({
-                filters: urlFilters
-            }));
+            return new Promise(resolve => resolve(this.listConfigToListConfigWithCorrectClosedFilters({filters: urlFilters})));
         }
+    },
+    listConfigToListConfigWithCorrectClosedFilters(listConfig){
+        return {
+            ...listConfig,
+            filters: {
+                ...listConfig.filters,
+                closed: listConfig.filters.closed ? listConfig.filters.closed*1 : undefined
+            }
+        };
     },
     getClosedDropdowIndex(status) {
         let closedDropdownIndex;
