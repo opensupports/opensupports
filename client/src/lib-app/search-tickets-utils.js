@@ -43,54 +43,52 @@ export default {
         });
     },
     getFiltersFromParams(search = window.location.search) {
-        const urlFilters = queryString.parse(search);
+        let urlFilters = queryString.parse(search);
         const customTicketsList = window.customTicketList[urlFilters.custom*1];
         const customTicketsListFilters = customTicketsList ? customTicketsList.filters : undefined;
+
+        if(urlFilters.closed !== undefined) {
+            urlFilters = {
+                ...urlFilters.filters,
+                closed: urlFilters.closed*1
+            }
+        }
 
         if(customTicketsListFilters) {
             if(customTicketsListFilters.authors) {
                 return this.getAuthorsFromAPI(customTicketsListFilters.authors).then((authors) => {
-                    return this.listConfigToListConfigWithCorrectClosedFilters({
+                    return {
                         title: customTicketsList ? customTicketsList.title : undefined,
                         filters: {
                             ...customTicketsListFilters,
                             ...urlFilters,
                             authors: JSON.stringify(authors),
                         }
-                    });
+                    };
                 });
             } else {
-                return new Promise(resolve => resolve(this.listConfigToListConfigWithCorrectClosedFilters({
+                return new Promise(resolve => resolve({
                     title: customTicketsList ? customTicketsList.title : undefined,
                     filters: {
                         ...customTicketsListFilters,
                         ...urlFilters,
                     }
-                })));
+                }));
             }
         } else {
             if(urlFilters.authors) {
                 return this.getAuthorsFromAPI(urlFilters.authors).then((authors) => {
-                    return this.listConfigToListConfigWithCorrectClosedFilters({
+                    return {
                         filters: {
                             ...urlFilters,
                             authors: JSON.stringify(authors),
                         }
-                    });
+                    };
                 });
             } else {
-                return new Promise(resolve => resolve(this.listConfigToListConfigWithCorrectClosedFilters({filters: urlFilters})));
+                return new Promise(resolve => resolve({filters: urlFilters}));
             }
         }
-    },
-    listConfigToListConfigWithCorrectClosedFilters(listConfig){
-        return {
-            ...listConfig,
-            filters: {
-                ...listConfig.filters,
-                closed: listConfig.filters.closed ? listConfig.filters.closed*1 : undefined
-            }
-        };
     },
     getClosedDropdowIndex(status) {
         let closedDropdownIndex;
