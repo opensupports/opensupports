@@ -69,7 +69,18 @@ export default {
                 })));
             }
         } else {
-            return new Promise(resolve => resolve(this.listConfigToListConfigWithCorrectClosedFilters({filters: urlFilters})));
+            if(urlFilters.authors) {
+                return this.getAuthorsFromAPI(urlFilters.authors).then((authors) => {
+                    return this.listConfigToListConfigWithCorrectClosedFilters({
+                        filters: {
+                            ...urlFilters,
+                            authors: JSON.stringify(authors),
+                        }
+                    });
+                });
+            } else {
+                return new Promise(resolve => resolve(this.listConfigToListConfigWithCorrectClosedFilters({filters: urlFilters})));
+            }
         }
     },
     listConfigToListConfigWithCorrectClosedFilters(listConfig){
