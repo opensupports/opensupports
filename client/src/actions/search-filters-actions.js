@@ -49,4 +49,10 @@ export default {
             payload: showFilters,
         }
     },
+    changeIsPreviousPathnameSearchTickets(isPreviousPathnameSearchTickets) {
+        return {
+            type: 'SEARCH_FILTERS_ON_CHANGE_IS_PREVIOUS_PATHNAME_SEARCH_TICKETS',
+            payload: isPreviousPathnameSearchTickets
+        }
+    }
 };

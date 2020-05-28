@@ -75,6 +75,8 @@ class AdminPanelMenu extends React.Component {
         const group = this.getRoutes()[this.getGroupIndex()];
         const item = group.items[index];
 
+        const isPathSearchTickets = window.location.pathname === '/admin/panel/tickets/search-tickets';
+        this.props.dispatch(searchFiltersActions.changeIsPreviousPathnameSearchTickets(isPathSearchTickets));
         this.context.router.push(item.path);
         item.onItemClick && item.onItemClick();
     }
@@ -118,8 +120,10 @@ class AdminPanelMenu extends React.Component {
                     path: '/admin/panel/tickets/search-tickets?custom=' + index,
                     level: 1,
                     onItemClick: () => {
-                        searchTicketsUtils.initFiltersFromParams(this.props.dispatch);
-                        this.props.dispatch(searchFiltersActions.retrieveSearchTickets({page: 1}, item.filters));
+                        searchTicketsUtils.getFiltersFromParams().then((listConfig) => {
+                            this.props.dispatch(searchFiltersActions.changeFilters(listConfig));
+                            this.props.dispatch(searchFiltersActions.retrieveSearchTickets({page: 1}, item.filters));
+                        });
                     }
                 }
             })
@@ -171,7 +175,7 @@ class AdminPanelMenu extends React.Component {
                         path: '/admin/panel/tickets/search-tickets',
                         level: 1,
                         onItemClick: () => {
-                            searchTicketsUtils.initFiltersFromParams(this.props.dispatch);
+                            this.props.dispatch(searchFiltersActions.changeFilters({}));
                             this.props.dispatch(searchFiltersActions.retrieveSearchTickets({page: 1}));
                         }
                     },

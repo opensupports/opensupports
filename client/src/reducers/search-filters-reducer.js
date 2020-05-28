@@ -63,7 +63,8 @@ class searchFiltersReducer extends Reducer {
                 pages: 0,
                 error: null,
                 loading: false
-            }
+            },
+            isPreviousPathnameSearchTickets: true,
         };
     }
 
@@ -78,6 +79,7 @@ class searchFiltersReducer extends Reducer {
             'SEARCH_FILTERS_CHANGE_SHOW_FILTERS': this.onChangeShowFilters.bind(this),
             'SEARCH_FILTERS_SET_DEFAULT_FORM_VALUES': this.onSetDefaultFormValues.bind(this),
             'SEARCH_FILTERS_ON_SUBMIT_FORM': this.onSubmitForm.bind(this),
+            'SEARCH_FILTERS_ON_CHANGE_IS_PREVIOUS_PATHNAME_SEARCH_TICKETS': this.onChangeIsPreviousPathnameSearchTickets.bind(this),
             // 'SEARCH_FILTERS_CHANGE_CUSTOM_LIST_FILTERS': this.onCustomListFiltersChange.bind(this),
         };
     }
@@ -127,7 +129,7 @@ class searchFiltersReducer extends Reducer {
     }
 
     onFiltersChange(state, payload) {
-        const authorsListFilters = payload.filters.authors ? JSON.parse(payload.filters.authors) : undefined;
+        const authorsListFilters = (payload.filters && payload.filters.authors) ? JSON.parse(payload.filters.authors) : undefined;
         const filtersWithCompleteAuthorsList = (
             (authorsListFilters && authorsListFilters.length && authorsListFilters[0].name) ?
                 {
@@ -145,7 +147,7 @@ class searchFiltersReducer extends Reducer {
         }
 
         return _.extend({}, state, {
-            listData: {
+            listConfig: {
                 title: payload.title ? payload.title : undefined,
                 filters: payload.filters ?
                     _.extend(
@@ -153,7 +155,7 @@ class searchFiltersReducer extends Reducer {
                         DEFAULT_FILTERS,
                         filtersWithCompleteAuthorsList
                     ) :
-                    payload
+                    DEFAULT_FILTERS
             },
             form: payload.hasAllAuthorsInfo ?
                 state.form :
@@ -185,6 +187,10 @@ class searchFiltersReducer extends Reducer {
         return this.onFiltersChange(state, {...this.getListConfig(), ...payload});
     }
 
+    onChangeIsPreviousPathnameSearchTickets(state, payload) {
+        return _.extend({}, state, {isPreviousPathnameSearchTickets: payload});
+    }
+
     // onCustomListFiltersChange(state, payload) {
     //     if (payload) {
     //         const customTicketListFilters = payload;
@@ -210,7 +216,7 @@ class searchFiltersReducer extends Reducer {
     // }
 
     getListConfig() {
-        let custom = queryString.parse(window.location.search).custom;
+        const custom = queryString.parse(window.location.search).custom;
         if(
             window.customTicketList &&
             custom &&

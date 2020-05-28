@@ -42,24 +42,36 @@ export default {
             return r.data.map((author) => ({...author, isStaff: author.isStaff * 1}));
         });
     },
-    initFiltersFromParams(dispatch, search = window.location.search) {
-        let filters = queryString.parse(search);
-        const customTicketsList = window.customTicketList[filters.custom*1];
+    getFiltersFromParams(search = window.location.search) {
+        const urlFilters = queryString.parse(search);
+        const customTicketsList = window.customTicketList[urlFilters.custom*1];
         const customTicketsListFilters = customTicketsList ? customTicketsList.filters : undefined;
 
-        if(customTicketsListFilters && customTicketsListFilters.authors) {
-            this.getAuthorsFromAPI(customTicketsListFilters.authors).then((authors) => {
-                dispatch(searchFiltersActions.changeFilters({
+        if(customTicketsListFilters) {
+            if(customTicketsListFilters.authors) {
+                return this.getAuthorsFromAPI(customTicketsListFilters.authors).then((authors) => {
+                    return {
+                        title: customTicketsList ? customTicketsList.title : undefined,
+                        filters: {
+                            ...customTicketsListFilters,
+                            ...urlFilters,
+                            authors: JSON.stringify(authors),
+                        },
+                    };
+                });
+            } else {
+                return new Promise(resolve => resolve({
                     title: customTicketsList ? customTicketsList.title : undefined,
                     filters: {
                         ...customTicketsListFilters,
-                        ...filters,
-                        authors: JSON.stringify(authors),
+                        ...urlFilters,
                     },
                 }));
-            });
+            }
         } else {
-            dispatch(searchFiltersActions.changeFilters({filters}));
+            return new Promise(resolve => resolve({
+                filters: urlFilters
+            }));
         }
     },
     getClosedDropdowIndex(status) {

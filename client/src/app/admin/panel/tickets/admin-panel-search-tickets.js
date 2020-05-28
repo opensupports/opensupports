@@ -18,8 +18,12 @@ class AdminPanelSearchTickets extends React.Component {
 
     componentDidMount() {
         this.retrieveStaffMembers();
-        searchTicketsUtils.initFiltersFromParams(this.props.dispatch);
-        this.getTickets();
+        if(this.props.isPreviousPathnameSearchTickets) {
+            searchTicketsUtils.getFiltersFromParams().then(listConfig => {
+                this.props.dispatch(searchFiltersActions.changeFilters(listConfig));
+                this.getTickets(listConfig);
+            });
+        }
     }
 
     render() {
@@ -50,11 +54,10 @@ class AdminPanelSearchTickets extends React.Component {
         );
     }
 
-    getTickets() {
+    getTickets(listConfig) {
         const {
             dispatch,
             ticketQueryListState,
-            listConfig
         } = this.props;
         dispatch(searchFiltersActions.retrieveSearchTickets(
             ticketQueryListState,
@@ -108,6 +111,7 @@ export default connect((store) => {
         error: store.adminData.allTicketsError,
         listConfig: store.searchFilters.listConfig,
         ticketQueryListState: store.searchFilters.ticketQueryListState,
-        showFilters: store.searchFilters.showFilters
+        showFilters: store.searchFilters.showFilters,
+        isPreviousPathnameSearchTickets: store.searchFilters.isPreviousPathnameSearchTickets
     };
 })(AdminPanelSearchTickets);
