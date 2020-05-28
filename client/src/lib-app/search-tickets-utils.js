@@ -49,19 +49,22 @@ export default {
 
         if(urlFilters.closed !== undefined) {
             urlFilters = {
-                ...urlFilters.filters,
+                ...urlFilters,
                 closed: urlFilters.closed*1
             }
         }
 
         if(customTicketsListFilters) {
-            if(customTicketsListFilters.authors) {
-                return this.getAuthorsFromAPI(customTicketsListFilters.authors).then((authors) => {
+            const newFilters = {
+                ...customTicketsListFilters,
+                ...urlFilters
+            };
+            if(newFilters.authors) {
+                return this.getAuthorsFromAPI(newFilters.authors).then((authors) => {
                     return {
                         title: customTicketsList ? customTicketsList.title : undefined,
                         filters: {
-                            ...customTicketsListFilters,
-                            ...urlFilters,
+                            ...newFilters,
                             authors: JSON.stringify(authors),
                         }
                     };
@@ -69,10 +72,7 @@ export default {
             } else {
                 return new Promise(resolve => resolve({
                     title: customTicketsList ? customTicketsList.title : undefined,
-                    filters: {
-                        ...customTicketsListFilters,
-                        ...urlFilters,
-                    }
+                    filters: newFilters
                 }));
             }
         } else {
