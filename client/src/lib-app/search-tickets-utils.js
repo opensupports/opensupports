@@ -1,5 +1,4 @@
 import queryString from 'query-string';
-import searchFiltersActions from '../actions/search-filters-actions';
 
 import API from 'lib-app/api-call';
 import DateTransformer from 'lib-core/date-transformer';

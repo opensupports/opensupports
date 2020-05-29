@@ -80,7 +80,6 @@ class searchFiltersReducer extends Reducer {
             'SEARCH_FILTERS_SET_DEFAULT_FORM_VALUES': this.onSetDefaultFormValues.bind(this),
             'SEARCH_FILTERS_ON_SUBMIT_FORM': this.onSubmitForm.bind(this),
             'SEARCH_FILTERS_ON_CHANGE_IS_PREVIOUS_PATHNAME_SEARCH_TICKETS': this.onChangeIsPreviousPathnameSearchTickets.bind(this),
-            // 'SEARCH_FILTERS_CHANGE_CUSTOM_LIST_FILTERS': this.onCustomListFiltersChange.bind(this),
         };
     }
 
@@ -179,30 +178,6 @@ class searchFiltersReducer extends Reducer {
     onChangeIsPreviousPathnameSearchTickets(state, payload) {
         return _.extend({}, state, {isPreviousPathnameSearchTickets: payload});
     }
-
-    // onCustomListFiltersChange(state, payload) {
-    //     if (payload) {
-    //         const customTicketListFilters = payload;
-    //         const customTicketListdateRangeFilter = customTicketListFilters.filters.dateRange;
-    //         const newFiltersWithDefaultDateRange = {
-    //             title: customTicketListFilters.title,
-    //             filters: {
-    //                 ...customTicketListFilters.filters,
-    //                 dateRange: customTicketListdateRangeFilter ? customTicketListdateRangeFilter : getDefaultDateRangeForFilters()
-    //             }
-    //         }
-    //         return this.onFiltersChange(state, newFiltersWithDefaultDateRange);
-    //     } else {
-    //         return {
-    //             ...state,
-    //             listData: {
-    //                 title: undefined,
-    //                 filters: DEFAULT_FILTERS
-    //             },
-    //             form: this.transformToFormValue(DEFAULT_FILTERS)
-    //         }
-    //     }
-    // }
 
     getListConfig() {
         const custom = queryString.parse(window.location.search).custom;
