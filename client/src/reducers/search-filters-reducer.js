@@ -29,7 +29,7 @@ function setFiltersInURL(filters) {
     ...filters,
     dateRange: filters.dateRange ? filters.dateRange : getDefaultDateRangeForFilters()
   };
-  
+
   const query = Object.keys(filters).reduce(function (query, filter) {
     const value = filters[filter];
     if (value === undefined || value === null || value === '' || value === '[]') return query;
@@ -129,21 +129,10 @@ class searchFiltersReducer extends Reducer {
     }
 
     onFiltersChange(state, payload) {
-        const authorsListFilters = (payload.filters && payload.filters.authors) ? JSON.parse(payload.filters.authors) : undefined;
-        const filtersWithCompleteAuthorsList = (
-            (authorsListFilters && authorsListFilters.length && authorsListFilters[0].name) ?
-                {
-                    ...payload.filters,
-                    authors: JSON.stringify(
-                        authorsListFilters.map(author => ({id: author.id*1, isStaff: author.isStaff}))
-                    )
-                } :
-                payload.filters
-        );
+        const filtesForAPI = searchTicketsUtils.prepareFiltersForAPI(payload.filters);
 
         if(!payload.preventHistoryChange) {
-          let filters = payload.filters ? filtersWithCompleteAuthorsList : payload;
-          setFiltersInURL(filters);
+          setFiltersInURL(filtesForAPI);
         }
 
         return _.extend({}, state, {
@@ -153,7 +142,7 @@ class searchFiltersReducer extends Reducer {
                     _.extend(
                         {},
                         DEFAULT_FILTERS,
-                        filtersWithCompleteAuthorsList
+                        filtesForAPI
                     ) :
                     DEFAULT_FILTERS
             },

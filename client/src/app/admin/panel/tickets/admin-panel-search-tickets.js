@@ -21,7 +21,12 @@ class AdminPanelSearchTickets extends React.Component {
         if(this.props.isPreviousPathnameSearchTickets) {
             searchTicketsUtils.getFiltersFromParams().then(listConfig => {
                 this.props.dispatch(searchFiltersActions.changeFilters(listConfig));
-                this.getTickets(listConfig);
+                this.getTickets(
+                    {
+                        ...listConfig,
+                        filters: searchTicketsUtils.prepareFiltersForAPI(listConfig.filters)
+                    }
+                );
             });
         }
     }

@@ -47,13 +47,6 @@ export default {
         const customTicketsList = window.customTicketList[urlFilters.custom*1];
         const customTicketsListFilters = customTicketsList ? customTicketsList.filters : undefined;
 
-        if(urlFilters.closed !== undefined) {
-            urlFilters = {
-                ...urlFilters,
-                closed: urlFilters.closed*1
-            }
-        }
-
         if(customTicketsListFilters) {
             const newFilters = {
                 ...customTicketsListFilters,
@@ -89,6 +82,28 @@ export default {
                 return new Promise(resolve => resolve({filters: urlFilters}));
             }
         }
+    },
+    prepareFiltersForAPI(filters){
+        const authorsListFilters = (filters && filters.authors) ? JSON.parse(filters.authors) : undefined;
+        let filtersForAPI = (
+            (authorsListFilters && authorsListFilters.length && authorsListFilters[0].name) ?
+                {
+                    ...filters,
+                    authors: JSON.stringify(
+                        authorsListFilters.map(author => ({id: author.id*1, isStaff: author.isStaff}))
+                    )
+                } :
+                filters
+        );
+
+        if(filtersForAPI && filtersForAPI.closed !== undefined) {
+            filtersForAPI = {
+                ...filtersForAPI,
+                closed: filtersForAPI.closed*1
+            }
+        }
+
+        return filtersForAPI ? filtersForAPI : {};
     },
     getClosedDropdowIndex(status) {
         let closedDropdownIndex;
@@ -130,7 +145,7 @@ export default {
         return {
             ...filters,
             query: filters.query ? filters.query : '',
-            closed: this.getClosedDropdowIndex(filters.closed),
+            closed: this.getClosedDropdowIndex(filters.closed*1),
             priority: this.getPriorityDropdownIndex(filters.priority),
             departments: JSON.parse(filters.departments),
             owners: JSON.parse(filters.owners),
