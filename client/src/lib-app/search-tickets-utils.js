@@ -102,7 +102,15 @@ export default {
             }
         }
 
+        filtersForAPI = {
+            ...filtersForAPI,
+            dateRange: filtersForAPI.dateRange ?  filtersForAPI.dateRange : this.getDefaultDateRangeForFilters()
+        }
+
         return filtersForAPI ? filtersForAPI : {};
+    },
+    getDefaultDateRangeForFilters() {
+        return JSON.stringify(DateTransformer.formDateRangeToFilters([20170101, DateTransformer.getDateToday()]));
     },
     getClosedDropdowIndex(status) {
         let closedDropdownIndex;

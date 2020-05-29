@@ -122,7 +122,7 @@ class AdminPanelMenu extends React.Component {
                     onItemClick: () => {
                         searchTicketsUtils.getFiltersFromParams().then((listConfig) => {
                             this.props.dispatch(searchFiltersActions.changeFilters(listConfig));
-                            this.props.dispatch(searchFiltersActions.retrieveSearchTickets({page: 1}, item.filters));
+                            this.props.dispatch(searchFiltersActions.retrieveSearchTickets({page: 1}, searchTicketsUtils.prepareFiltersForAPI(item.filters)));
                         });
                     }
                 }
@@ -175,8 +175,8 @@ class AdminPanelMenu extends React.Component {
                         path: '/admin/panel/tickets/search-tickets',
                         level: 1,
                         onItemClick: () => {
-                            this.props.dispatch(searchFiltersActions.changeFilters({}));
-                            this.props.dispatch(searchFiltersActions.retrieveSearchTickets({page: 1}));
+                            this.props.dispatch(searchFiltersActions.changeFilters({filters: {}}));
+                            this.props.dispatch(searchFiltersActions.retrieveSearchTickets({page: 1}, searchTicketsUtils.prepareFiltersForAPI({})));
                         }
                     },
                     {

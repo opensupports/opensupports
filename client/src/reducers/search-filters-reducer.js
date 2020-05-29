@@ -6,6 +6,7 @@ import Reducer from 'reducers/reducer';
 import DateTransformer from 'lib-core/date-transformer';
 import searchTicketsUtils from '../lib-app/search-tickets-utils';
 
+const DEFAULT_START_DATE = 20170101;
 
 const DEFAULT_FILTERS = {
     query: undefined,
@@ -14,20 +15,15 @@ const DEFAULT_FILTERS = {
     departments: '[]',
     owners: '[]',
     tags: '[]',
-    dateRange: getDefaultDateRangeForFilters(),
+    dateRange: searchTicketsUtils.getDefaultDateRangeForFilters(),
     orderBy: undefined,
     authors: '[]',
 };
-
-function getDefaultDateRangeForFilters() {
-    return JSON.stringify(DateTransformer.formDateRangeToFilters([20170101, DateTransformer.getDateToday()]));
-}
 
 function setFiltersInURL(filters) {
   filters = {
     ...queryString.parse(window.location.search),
     ...filters,
-    dateRange: filters.dateRange ? filters.dateRange : getDefaultDateRangeForFilters()
   };
 
   const query = Object.keys(filters).reduce(function (query, filter) {
@@ -39,7 +35,6 @@ function setFiltersInURL(filters) {
   history.pushState(null, '', `?${query}`);
 }
 
-const DEFAULT_START_DATE = 20170101;
 
 class searchFiltersReducer extends Reducer {
     

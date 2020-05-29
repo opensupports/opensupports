@@ -1,7 +1,7 @@
 import API from 'lib-app/api-call';
 
 export default {
-    retrieveSearchTickets(ticketQueryListState, filters = undefined) {
+    retrieveSearchTickets(ticketQueryListState, filters = {}) {
         return {
             type: 'SEARCH_TICKETS',
             payload: API.call({
