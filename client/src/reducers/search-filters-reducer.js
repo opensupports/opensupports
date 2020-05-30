@@ -20,21 +20,6 @@ const DEFAULT_FILTERS = {
     authors: '[]',
 };
 
-function setFiltersInURL(filters) {
-  filters = {
-    ...queryString.parse(window.location.search),
-    ...filters,
-  };
-
-  const query = Object.keys(filters).reduce(function (query, filter) {
-    const value = filters[filter];
-    if (value === undefined || value === null || value === '' || value === '[]') return query;
-    else if(typeof value == 'string') return query + `&${filter}=${value}`;
-    else return query + `&${filter}=${JSON.stringify(value)}`;
-  }, '').slice(1);
-  history.pushState(null, '', `?${query}`);
-}
-
 
 class searchFiltersReducer extends Reducer {
     
@@ -79,6 +64,8 @@ class searchFiltersReducer extends Reducer {
     }
 
     onSearchTicketsRetrieved(state, payload) {
+        const page = payload.data.page;
+        searchTicketsUtils.setFiltersInURL({page: page});
         return (
             _.extend(
                 {},
@@ -86,7 +73,7 @@ class searchFiltersReducer extends Reducer {
                 {ticketQueryListState: {
                     ...state.ticketQueryListState,
                     tickets: payload.data.tickets,
-                    page: payload.data.page,
+                    page: page,
                     pages: payload.data.pages,
                     error: null,
                     loading: false
@@ -126,7 +113,7 @@ class searchFiltersReducer extends Reducer {
         const filtesForAPI = searchTicketsUtils.prepareFiltersForAPI(payload.filters);
 
         if(!payload.preventHistoryChange) {
-          setFiltersInURL(filtesForAPI);
+            searchTicketsUtils.setFiltersInURL(filtesForAPI);
         }
 
         return _.extend({}, state, {

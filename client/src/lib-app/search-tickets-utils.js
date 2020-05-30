@@ -43,6 +43,7 @@ export default {
     },
     getFiltersFromParams(search = window.location.search) {
         let urlFilters = queryString.parse(search);
+        delete urlFilters.page;
         const customTicketsList = window.customTicketList[urlFilters.custom*1];
         const customTicketsListFilters = customTicketsList ? customTicketsList.filters : undefined;
 
@@ -111,6 +112,20 @@ export default {
     },
     getDefaultDateRangeForFilters() {
         return JSON.stringify(DateTransformer.formDateRangeToFilters([20170101, DateTransformer.getDateToday()]));
+    },
+    setFiltersInURL(filters) {
+        filters = {
+            ...queryString.parse(window.location.search),
+            ...filters,
+        };
+
+        const query = Object.keys(filters).reduce(function (query, filter) {
+            const value = filters[filter];
+            if (value === undefined || value === null || value === '' || value === '[]') return query;
+            else if(typeof value == 'string') return query + `&${filter}=${value}`;
+            else return query + `&${filter}=${JSON.stringify(value)}`;
+        }, '').slice(1);
+        history.pushState(null, '', `?${query}`);
     },
     getClosedDropdowIndex(status) {
         let closedDropdownIndex;

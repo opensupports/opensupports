@@ -10,6 +10,9 @@ import Menu from 'core-components/menu';
 import searchFiltersActions from '../../../actions/search-filters-actions';
 import queryString from 'query-string';
 
+const INITIAL_PAGE = 1;
+
+
 class AdminPanelMenu extends React.Component {
     static contextTypes = {
         router: React.PropTypes.object
@@ -122,7 +125,10 @@ class AdminPanelMenu extends React.Component {
                     onItemClick: () => {
                         searchTicketsUtils.getFiltersFromParams().then((listConfig) => {
                             this.props.dispatch(searchFiltersActions.changeFilters(listConfig));
-                            this.props.dispatch(searchFiltersActions.retrieveSearchTickets({page: 1}, searchTicketsUtils.prepareFiltersForAPI(item.filters)));
+                            this.props.dispatch(searchFiltersActions.retrieveSearchTickets(
+                                {page: INITIAL_PAGE},
+                                searchTicketsUtils.prepareFiltersForAPI(item.filters)
+                            ));
                         });
                     }
                 }
@@ -176,7 +182,7 @@ class AdminPanelMenu extends React.Component {
                         level: 1,
                         onItemClick: () => {
                             this.props.dispatch(searchFiltersActions.changeFilters({filters: {}}));
-                            this.props.dispatch(searchFiltersActions.retrieveSearchTickets({page: 1}, searchTicketsUtils.prepareFiltersForAPI({})));
+                            this.props.dispatch(searchFiltersActions.retrieveSearchTickets({page: INITIAL_PAGE}, searchTicketsUtils.prepareFiltersForAPI({})));
                         }
                     },
                     {

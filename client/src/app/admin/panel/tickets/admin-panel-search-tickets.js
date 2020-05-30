@@ -7,6 +7,7 @@ import TicketQueryList from 'app-components/ticket-query-list';
 import AdminDataActions from 'actions/admin-data-actions';
 import searchTicketsUtils from '../../../../lib-app/search-tickets-utils';
 import searchFiltersActions from '../../../../actions/search-filters-actions';
+import queryString from 'query-string';
 
 import Header from 'core-components/header';
 import Message from 'core-components/message';
@@ -65,7 +66,10 @@ class AdminPanelSearchTickets extends React.Component {
             ticketQueryListState,
         } = this.props;
         dispatch(searchFiltersActions.retrieveSearchTickets(
-            ticketQueryListState,
+            {
+                ...ticketQueryListState,
+                page: queryString.parse(window.location.search).page*1
+            },
             listConfig.filters
         ));
     }

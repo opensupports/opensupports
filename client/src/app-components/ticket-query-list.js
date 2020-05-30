@@ -7,6 +7,7 @@ import {connect}  from 'react-redux';
 import TicketList from 'app-components/ticket-list';
 import Message from 'core-components/message';
 import searchFiltersActions from '../actions/search-filters-actions';
+import queryString from 'query-string';
 
 class TicketQueryList extends React.Component {
 
@@ -53,12 +54,16 @@ class TicketQueryList extends React.Component {
             userId,
             ticketQueryListState
         } = this.props;
+        const page = {
+            ...ticketQueryListState,
+            ...queryString.parse(window.location.search)
+        }.page*1;
 
         return {
             userId: userId,
             ticketPath: '/admin/panel/tickets/view-ticket/',
             tickets: ticketQueryListState.tickets,
-            page: ticketQueryListState.page,
+            page: page,
             pages: ticketQueryListState.pages,
             loading: ticketQueryListState.loading,
             type: 'secondary',
