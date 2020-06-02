@@ -33,8 +33,8 @@ class InstallStep3Database extends React.Component {
                     <FormField name="dbUser" label={i18n('DATABASE_USER')} fieldProps={{size: 'large'}} required/>
                     <FormField name="dbPassword" label={i18n('DATABASE_PASSWORD')} fieldProps={{size: 'large', password: true}}/>
                     <div className="install-step-3__buttons">
-                        <Button className="install-step-3__previous" disabled={loading} size="extra-small" onClick={this.onPreviousClick.bind(this)}>{i18n('PREVIOUS')}</Button>
-                        <SubmitButton className="install-step-3__next" size="extra-small" type="secondary">{i18n('NEXT')}</SubmitButton>
+                        <Button className="install-step-3__previous" disabled={loading} size="medium" onClick={this.onPreviousClick.bind(this)}>{i18n('PREVIOUS')}</Button>
+                        <SubmitButton className="install-step-3__next" size="medium" type="secondary">{i18n('NEXT')}</SubmitButton>
                     </div>
                 </Form>
             </div>
