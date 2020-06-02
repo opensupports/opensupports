@@ -110,10 +110,10 @@ class searchFiltersReducer extends Reducer {
     }
 
     onFiltersChange(state, payload) {
-        const filtesForAPI = searchTicketsUtils.prepareFiltersForAPI(payload.filters);
+        const filtersForAPI = searchTicketsUtils.prepareFiltersForAPI(payload.filters);
 
         if(!payload.preventHistoryChange) {
-            searchTicketsUtils.setFiltersInURL(filtesForAPI);
+            searchTicketsUtils.setFiltersInURL(filtersForAPI);
         }
 
         return _.extend({}, state, {
@@ -123,7 +123,7 @@ class searchFiltersReducer extends Reducer {
                     _.extend(
                         {},
                         DEFAULT_FILTERS,
-                        filtesForAPI
+                        filtersForAPI
                     ) :
                     DEFAULT_FILTERS
             },
