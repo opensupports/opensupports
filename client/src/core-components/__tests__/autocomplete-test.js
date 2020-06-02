@@ -105,7 +105,7 @@ describe('Autocomplete component with external api', function () {
                 expect(selectedList.length).to.equal(1);
                 expect(selectedList[0].name).to.equal("argentina");
                 expect(selectedList[0].id).to.equal(10);
-            }, 360);
+            }, 400);
         });
 
         it('should sinc', function() {
