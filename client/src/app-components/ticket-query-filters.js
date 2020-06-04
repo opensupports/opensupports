@@ -121,6 +121,7 @@ class TicketQueryFilters extends React.Component {
                         </SubmitButton>
                     </div>
                 </Form>
+                <span className="separator" />
             </div>
         );
     }
@@ -396,7 +397,6 @@ class TicketQueryFilters extends React.Component {
 }
 
 export default connect((store) => {
-  console.log(' store.searchFilters.showFilters',  store.searchFilters.showFilters);
     return {
         tags: store.config.tags,
         departments: store.config.departments,
