@@ -113,11 +113,13 @@ export default {
     getDefaultDateRangeForFilters() {
         return JSON.stringify(DateTransformer.formDateRangeToFilters([20170101, DateTransformer.getDateToday()]));
     },
-    setFiltersInURL(filters) {
+    setFiltersInURL(filters, shouldRemoveCustomParam = false) {
         filters = {
             ...queryString.parse(window.location.search),
             ...filters,
         };
+
+        if(shouldRemoveCustomParam) delete filters.custom;
 
         const query = Object.keys(filters).reduce(function (query, filter) {
             const value = filters[filter];

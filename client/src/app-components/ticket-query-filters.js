@@ -321,14 +321,15 @@ class TicketQueryFilters extends React.Component {
         const {
             formState,
             filters,
-            dispatch
+            dispatch,
+            formEdited,
         } = this.props;
-        const filtersWithCompleteAuthorsList = searchTicketsUtils.formValueToFilters(
+        const listConfigWithCompleteAuthorsList = searchTicketsUtils.formValueToFilters(
             {...formState, orderBy: filters.orderBy},
             true
         );
-        dispatch(SearchFiltersActions.submitForm(filtersWithCompleteAuthorsList));
-        dispatch(SearchFiltersActions.retrieveSearchTickets({page: INITIAL_PAGE},filtersWithCompleteAuthorsList.filters));
+        dispatch(SearchFiltersActions.retrieveSearchTickets({page: INITIAL_PAGE},listConfigWithCompleteAuthorsList.filters));
+        if (formEdited) dispatch(SearchFiltersActions.submitForm(listConfigWithCompleteAuthorsList));
     }
 
     removeTag(tag) {
@@ -402,6 +403,7 @@ export default connect((store) => {
         staffList: store.adminData.staffMembers,
         formState: store.searchFilters.form,
         filters: store.searchFilters.listConfig.filters,
-        showFilters: store.searchFilters.showFilters
+        showFilters: store.searchFilters.showFilters,
+        formEdited: store.searchFilters.formEdited,
     };
 })(TicketQueryFilters);

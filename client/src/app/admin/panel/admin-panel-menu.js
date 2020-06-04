@@ -78,8 +78,6 @@ class AdminPanelMenu extends React.Component {
         const group = this.getRoutes()[this.getGroupIndex()];
         const item = group.items[index];
 
-        const isPathSearchTickets = window.location.pathname === '/admin/panel/tickets/search-tickets';
-        this.props.dispatch(searchFiltersActions.changeIsPreviousPathnameSearchTickets(isPathSearchTickets));
         this.context.router.push(item.path);
         item.onItemClick && item.onItemClick();
     }
@@ -123,13 +121,20 @@ class AdminPanelMenu extends React.Component {
                     path: '/admin/panel/tickets/search-tickets?custom=' + index,
                     level: 1,
                     onItemClick: () => {
-                        searchTicketsUtils.getFiltersFromParams().then((listConfig) => {
-                            this.props.dispatch(searchFiltersActions.changeFilters(listConfig));
-                            this.props.dispatch(searchFiltersActions.retrieveSearchTickets(
-                                {page: INITIAL_PAGE},
-                                searchTicketsUtils.prepareFiltersForAPI(item.filters)
-                            ));
-                        });
+                        const {
+                            location,
+                            dispatch
+                        } = this.props;
+
+                        if(location.pathname.includes('/search-tickets')) {
+                            searchTicketsUtils.getFiltersFromParams().then((listConfig) => {
+                                dispatch(searchFiltersActions.changeFilters(listConfig));
+                                dispatch(searchFiltersActions.retrieveSearchTickets(
+                                    {page: INITIAL_PAGE},
+                                    searchTicketsUtils.prepareFiltersForAPI(item.filters)
+                                ));
+                            });
+                        }
                     }
                 }
             })
@@ -181,8 +186,15 @@ class AdminPanelMenu extends React.Component {
                         path: '/admin/panel/tickets/search-tickets',
                         level: 1,
                         onItemClick: () => {
-                            this.props.dispatch(searchFiltersActions.changeFilters({filters: {}}));
-                            this.props.dispatch(searchFiltersActions.retrieveSearchTickets({page: INITIAL_PAGE}, searchTicketsUtils.prepareFiltersForAPI({})));
+                            const {
+                                location,
+                                dispatch
+                            } = this.props;
+
+                            if(location.pathname.includes('/search-tickets')) {
+                                dispatch(searchFiltersActions.changeFilters({filters: {}}));
+                                dispatch(searchFiltersActions.retrieveSearchTickets({page: INITIAL_PAGE},searchTicketsUtils.prepareFiltersForAPI({})));
+                            }
                         }
                     },
                     {
@@ -287,6 +299,7 @@ class AdminPanelMenu extends React.Component {
 export default connect((store) => {
     return {
         level: store.session.userLevel,
-        config: store.config
+        config: store.config,
+        searchFilters: store.searchFilters,
     };
 })(AdminPanelMenu);

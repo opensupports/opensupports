@@ -15,11 +15,14 @@ import TicketQueryFilters from 'app-components/ticket-query-filters';
 import Icon from 'core-components/icon';
 import Button from 'core-components/button';
 
+const INITIAL_PAGE = 1;
+
 class AdminPanelSearchTickets extends React.Component {
 
     componentDidMount() {
+        const SEARCH_TICKETS_PATH = '/search-tickets';
         this.retrieveStaffMembers();
-        if(this.props.isPreviousPathnameSearchTickets) {
+        if(document.referrer.includes(SEARCH_TICKETS_PATH) || document.referrer === "") {
             searchTicketsUtils.getFiltersFromParams().then(listConfig => {
                 this.props.dispatch(searchFiltersActions.changeFilters(listConfig));
                 this.getTickets(
@@ -68,7 +71,7 @@ class AdminPanelSearchTickets extends React.Component {
         dispatch(searchFiltersActions.retrieveSearchTickets(
             {
                 ...ticketQueryListState,
-                page: queryString.parse(window.location.search).page*1
+                page: (queryString.parse(window.location.search).page || INITIAL_PAGE)*1
             },
             listConfig.filters
         ));
@@ -121,6 +124,5 @@ export default connect((store) => {
         listConfig: store.searchFilters.listConfig,
         ticketQueryListState: store.searchFilters.ticketQueryListState,
         showFilters: store.searchFilters.showFilters,
-        isPreviousPathnameSearchTickets: store.searchFilters.isPreviousPathnameSearchTickets
     };
 })(AdminPanelSearchTickets);

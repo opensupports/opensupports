@@ -44,7 +44,7 @@ class searchFiltersReducer extends Reducer {
                 error: null,
                 loading: false
             },
-            isPreviousPathnameSearchTickets: true,
+            formEdited: false,
         };
     }
 
@@ -59,7 +59,6 @@ class searchFiltersReducer extends Reducer {
             'SEARCH_FILTERS_CHANGE_SHOW_FILTERS': this.onChangeShowFilters.bind(this),
             'SEARCH_FILTERS_SET_DEFAULT_FORM_VALUES': this.onSetDefaultFormValues.bind(this),
             'SEARCH_FILTERS_ON_SUBMIT_FORM': this.onSubmitForm.bind(this),
-            'SEARCH_FILTERS_ON_CHANGE_IS_PREVIOUS_PATHNAME_SEARCH_TICKETS': this.onChangeIsPreviousPathnameSearchTickets.bind(this),
         };
     }
 
@@ -113,7 +112,7 @@ class searchFiltersReducer extends Reducer {
         const filtersForAPI = searchTicketsUtils.prepareFiltersForAPI(payload.filters);
 
         if(!payload.preventHistoryChange) {
-            searchTicketsUtils.setFiltersInURL(filtersForAPI);
+            searchTicketsUtils.setFiltersInURL(filtersForAPI, !payload.title);
         }
 
         return _.extend({}, state, {
@@ -127,6 +126,7 @@ class searchFiltersReducer extends Reducer {
                     ) :
                     DEFAULT_FILTERS
             },
+            formEdited: false,
             form: payload.hasAllAuthorsInfo ?
                 state.form :
                 searchTicketsUtils.transformToFormValue({...DEFAULT_FILTERS, ...payload.filters})
@@ -136,6 +136,7 @@ class searchFiltersReducer extends Reducer {
     onFormChange(state, payload) {
         return _.extend({}, state, {
             form: payload,
+            formEdited: true,
         });
     }
 
@@ -148,17 +149,22 @@ class searchFiltersReducer extends Reducer {
             _.extend(
                 {},
                 state,
-                {form: searchTicketsUtils.transformToFormValue(DEFAULT_FILTERS)},
+                {
+                    form: searchTicketsUtils.transformToFormValue(DEFAULT_FILTERS),
+                    formEdited: true,
+                },
             )
         );
     }
 
     onSubmitForm(state, payload) {
-        return this.onFiltersChange(state, {...this.getListConfig(), ...payload});
-    }
+        let customList = {
+            ...this.getListConfig(),
+            ...payload,
+            title: null,
+        };
 
-    onChangeIsPreviousPathnameSearchTickets(state, payload) {
-        return _.extend({}, state, {isPreviousPathnameSearchTickets: payload});
+        return this.onFiltersChange(state, customList);
     }
 
     getListConfig() {
