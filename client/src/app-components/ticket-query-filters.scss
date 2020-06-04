@@ -4,12 +4,12 @@
     opacity: 0;
     max-height: 0;
     overflow-y: hidden;
-    transition: all 0.4s ease;
+    transition: all 0.2s ease;
 
     &__open {
         max-height: 1000px;
         opacity: 1;
-        transition: all 0.4s ease;
+        transition: all 0.2s ease;
     }
 
     &__container {
