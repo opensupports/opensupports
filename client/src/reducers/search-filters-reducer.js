@@ -127,6 +127,7 @@ class searchFiltersReducer extends Reducer {
                     DEFAULT_FILTERS
             },
             formEdited: false,
+            showFilters: !payload.title,
             form: payload.hasAllAuthorsInfo ?
                 state.form :
                 searchTicketsUtils.transformToFormValue({...DEFAULT_FILTERS, ...payload.filters})
