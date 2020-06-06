@@ -53,8 +53,12 @@ class EditSettingsController extends Controller {
             'max-size',
             'title',
             'url',
-            'mail-template-header-image'
+            'mail-template-header-image',
+            'default-is-locked',
+            'default-department-id'
         ];
+
+        $this->IsDefaultDepartmentValid();
 
         foreach($settings as $setting) {
             if(Controller::request($setting)!==null) {
@@ -63,6 +67,7 @@ class EditSettingsController extends Controller {
                 $settingInstance->store();
             }
         }
+
 
         if(Controller::request('allowedLanguages') || Controller::request('supportedLanguages')) {
             $this->handleLanguages();
@@ -90,5 +95,23 @@ class EditSettingsController extends Controller {
             $language->store();
         }
 
+    }
+    public function IsDefaultDepartmentValid() {
+        
+        $departmentId = Controller::request('default-department-id');
+
+        if($departmentId){
+            $Publicdepartments = Department::getPublicDepartmentNames();
+            
+            $isValid = false;
+            
+            foreach($Publicdepartments as $department) {
+                if($department['id'] == $departmentId){ 
+                    $isValid = true;
+                }
+            }
+
+            if(!$isValid) throw new Exception(ERRORS::INVALID_DEFAULT_DEPARTMENT);
+        }
     }
 }

@@ -141,4 +141,20 @@ class Scripts
             csrf_token: $csrf_token
         })
     end
+    
+    def self.createDepartment(nameDepartment = 'validnameDepartment')
+        request('/system/add-department', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                name: nameDepartment
+        })
+    end
+
+    def self.updateLockedDepartmentSetting(value = 1)
+        request('/system/edit-settings', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            "default-is-locked" => value 
+        })
+    end
 end

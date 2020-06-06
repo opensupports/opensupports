@@ -220,6 +220,14 @@
  * @apiError {String} INVALID_FILE The file is invalid or max size exceeded.
  */
 /**
+ * @apiDefine INVALID_DEFAULT_DEPARTMENT
+ * @apiError {String} INVALID_DEFAULT_DEPARTMENT The default department id is invalid.
+ */
+/**
+ * @apiDefine CAN_NOT_DELETE_DEFAULT_DEPARTMENT
+ * @apiError {String} CAN_NOT_DELETE_DEFAULT_DEPARTMENT The default department can not be deleted.
+ */
+/**
  * @apiDefine DATABASE_CONNECTION
  * @apiError {String} DATABASE_CONNECTION It's a database connection error.
  */
@@ -365,6 +373,8 @@ class ERRORS {
     const INVALID_PERIOD = 'INVALID_PERIOD';
     const NAME_ALREADY_USED = 'NAME_ALREADY_USED';
     const INVALID_FILE = 'INVALID_FILE';
+    const INVALID_DEFAULT_DEPARTMENT = 'INVALID_DEFAULT_DEPARTMENT';
+    const CAN_NOT_DELETE_DEFAULT_DEPARTMENT = 'CAN_NOT_DELETE_DEFAULT_DEPARTMENT';
     const DATABASE_CONNECTION = 'DATABASE_CONNECTION';
     const DATABASE_CREATION = 'DATABASE_CREATION';
     const SMTP_CONNECTION = 'SMTP_CONNECTION';
