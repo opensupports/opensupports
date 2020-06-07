@@ -25,7 +25,7 @@ class GetAllArticlesController extends Controller {
 
     public function validations() {
         return [
-            'permission' => (Controller::isUserSystemEnabled()) ? 'user' : 'any',
+            'permission' => (Controller::isLoginMandatory()) ? 'user' : 'any',
             'requestData' => []
         ];
     }

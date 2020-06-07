@@ -14,8 +14,8 @@ describe '/ticket/re-open' do
         (result['status']).should.equal('success')
 
         ticket = $database.getRow('ticket', 1 , 'id')
-        (ticket['closed']).should.equal('0')
-        (ticket['unread']).should.equal('1')
+        (ticket['closed']).should.equal(0)
+        (ticket['unread']).should.equal(1)
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('RE_OPEN')
@@ -45,7 +45,7 @@ describe '/ticket/re-open' do
         (result['status']).should.equal('success')
 
         ticket = $database.getRow('ticket', 'contentoftheticketthatisgoingtosucces' , 'content')
-        (ticket['closed']).should.equal('0')
+        (ticket['closed']).should.equal(0)
 
         request('/staff/edit', {
             csrf_userid: $csrf_userid,
@@ -76,7 +76,7 @@ describe '/ticket/re-open' do
         (result['status']).should.equal('success')
 
         ticket = $database.getRow('ticket', 'tickettoreopen', 'title')
-        (ticket['closed']).should.equal('0')
+        (ticket['closed']).should.equal(0)
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('RE_OPEN')

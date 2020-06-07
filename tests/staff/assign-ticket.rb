@@ -20,15 +20,15 @@ describe '/staff/assign-ticket' do
 
         ticket = $database.getRow('ticket', 1 , 'id')
 
-        (ticket['owner_id']).should.equal('1')
+        (ticket['owner_id']).should.equal(1)
 
-        (ticket['unread']).should.equal('1')
+        (ticket['unread']).should.equal(1)
 
         staff_ticket = $database.getRow('staff_ticket', 1 , 'ticket_id')
 
-        (staff_ticket['staff_id']).should.equal('1')
+        (staff_ticket['staff_id']).should.equal(1)
 
-        (staff_ticket['ticket_id']).should.equal('1')
+        (staff_ticket['ticket_id']).should.equal(1)
     end
     it 'should assign ticket if a staff choose another to assing a ticket ' do
         staffId = $database.getRow('staff','ayra2@opensupports.com','email')['id']
@@ -46,7 +46,7 @@ describe '/staff/assign-ticket' do
 
         (ticket['owner_id']).should.equal(staffId)
 
-        (ticket['unread']).should.equal('1')
+        (ticket['unread']).should.equal(1)
     end
 
     it 'should fail if ticket is already owned' do

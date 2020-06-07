@@ -97,8 +97,8 @@ describe 'Custom fields' do
             ($database.getRow('customfieldoption', 'option2', 'name')['customfield_id']).should.equal(custom_field_row_id)
             ($database.getRow('customfieldoption', 'option3', 'name')['customfield_id']).should.equal(custom_field_row_id)
 
-            quantity_of_options = $database.query("SELECT COUNT(*) as qt FROM customfieldoption WHERE customfield_id='#{custom_field_row_id}'").fetch_hash['qt']
-            (quantity_of_options).should.equal("3")
+            quantity_of_options = $database.query("SELECT COUNT(*) as qt FROM customfieldoption WHERE customfield_id='#{custom_field_row_id}'").first['qt']
+            (quantity_of_options).should.equal(3)
         end
 
         it 'should fail if field name already exists' do

@@ -65,12 +65,12 @@ describe '/ticket/get/' do
 
 
         (result['status']).should.equal('success')
-        (result['data']['ticketNumber']).should.equal(ticket['ticket_number'])
+        (result['data']['ticketNumber']).should.equal(ticket['ticket_number'].to_s)
         (result['data']['title']).should.equal(ticket['title'])
         (result['data']['content']).should.equal(ticket['content'])
         (result['data']['department']['id']).should.equal('1')
         (result['data']['department']['name']).should.equal($database.getRow('department', 1)['name'])
-        (result['data']['date']).should.equal(ticket['date'])
+        (result['data']['date'].to_i).should.equal(ticket['date'])
         (result['data']['file']).should.equal(ticket['file'])
         (result['data']['language']).should.equal(ticket['language'])
         (result['data']['unread']).should.equal(false)
@@ -98,7 +98,7 @@ describe '/ticket/get/' do
         })
 
         (result['status']).should.equal('success')
-        (result['data']['ticketNumber']).should.equal(ticket['ticket_number'])
+        (result['data']['ticketNumber']).should.equal(ticket['ticket_number'].to_s)
         (result['data']['title']).should.equal('titleofticket87')
         (result['data']['content']).should.equal('contentoftheticket87')
 
@@ -123,7 +123,7 @@ describe '/ticket/get/' do
         })
 
         (result['status']).should.equal('success')
-        (result['data']['ticketNumber']).should.equal(ticket['ticket_number'])
+        (result['data']['ticketNumber'].to_i).should.equal(ticket['ticket_number'])
         (result['data']['title']).should.equal('titleoftheticket107')
         (result['data']['content']).should.equal('contentoftheticket107')
     end

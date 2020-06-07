@@ -32,7 +32,7 @@ describe '/ticket/edit-title' do
 
         (result['status']).should.equal('success')
         (ticket['title']).should.equal('Valar dohaeris')
-        (ticket['edited_title']).should.equal('1')
+        (ticket['edited_title']).should.equal(1)
     end
 
     it 'should change the title of the ticket if staff is logged' do
@@ -50,8 +50,7 @@ describe '/ticket/edit-title' do
 
         (result['status']).should.equal('success')
         (ticket['title']).should.equal('Valar dohaeris by Staff')
-        (ticket['edited_title']).should.equal('1')
-
+        (ticket['edited_title']).should.equal(1)
     end
 
     it 'should not change the title if the user is not the author' do

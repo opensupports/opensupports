@@ -49,10 +49,16 @@ describe('sessionStore library', function () {
     });
 
     it('should inform if it is logged in', function () {
-        LocalStorageMock.getItem = stub().returns('TOKEN');
+        LocalStorageMock.getItem = function (key) {
+          if (key == `${root}_userId`) return 'USER_ID';
+          if (key == `${root}_ticketNumber`) return '';
+        };
         expect(sessionStore.isLoggedIn()).to.equal(true);
 
-        LocalStorageMock.getItem = stub().returns(null);
+        LocalStorageMock.getItem = function (key) {
+          if (key == 'userId') return 'USER_ID';
+          if (key == 'ticketNumber') return 'TICKET_NUMBER';
+        };
         expect(sessionStore.isLoggedIn()).to.equal(false);
     });
 

@@ -1,14 +1,14 @@
 <?php
 
 /**
- * @api {post} /system/disable-registration Disable registration
+ * @api {post} /system/disable-mandatory-login Disable mandatory Login
  * @apiVersion 4.6.1
  *
- * @apiName Disable registration
+ * @apiName Disable Mandatory Login
  *
  * @apiGroup System
  *
- * @apiDescription This path disables the registration.
+ * @apiDescription This path disables the mandatory Login.
  *
  * @apiPermission staff3
  *
@@ -16,14 +16,14 @@
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_PASSWORD
- * @apiUse MANDATORY_LOGIN_IS_DESACTIVATED
+ * @apiUse REGISTRATION_IS_DESACTIVATED
  *
  * @apiSuccess {Object} data Empty object
  *
  */
 
-class DisableRegistrationController extends Controller {
-    const PATH = '/disable-registration';
+class DisableMandatoryLoginController extends Controller {
+    const PATH = '/disable-mandatory-login';
     const METHOD = 'POST';
 
     public function validations() {
@@ -35,18 +35,19 @@ class DisableRegistrationController extends Controller {
     
     public function handler() {
         $password = Controller::request('password');
-
+       
+        if(!Setting::getSetting('registration')->getValue()) { 
+            throw new Exception(ERRORS::REGISTRATION_IS_DESACTIVATED);
+        }
+        
         if(!Hashing::verifyPassword($password, Controller::getLoggedUser()->password)) {
             throw new RequestException(ERRORS::INVALID_PASSWORD);
-            return;
         }
-        if(!Setting::getSetting('mandatory-login')->getValue()) { 
-            throw new Exception(ERRORS::MANDATORY_LOGIN_IS_DESACTIVATED);
-        }
-        $registrationRow = Setting::getSetting('registration');
+        
+        $mandatoryLoginRow = Setting::getSetting('mandatory-login');
 
-        $registrationRow->value = false;
-        $registrationRow->store();
+        $mandatoryLoginRow->value = 0;
+        $mandatoryLoginRow->store();
 
         Response::respondSuccess();
     }

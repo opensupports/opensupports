@@ -1,7 +1,9 @@
 $agent = Mechanize.new
 
+$apiURL = ENV['API_URL'] || 'http://localhost:8080'
+
 def plainRequest(path, data = {}, method = 'POST')
-    uri = 'http://localhost:8080' + path
+    uri = $apiURL + path
 
     if method == 'POST'
         @response = $agent.post(uri, data)
@@ -13,7 +15,7 @@ def plainRequest(path, data = {}, method = 'POST')
 end
 
 def request(path, data = {})
-    uri = 'http://localhost:8080' + path
+    uri = $apiURL + path
     response = $agent.post(uri, data)
 
     return JSON.parse(response.body)
@@ -25,7 +27,13 @@ class Database
         mysqlPort = ENV['MYSQL_PORT'] || '3306'
         mysqlUser = ENV['MYSQL_USER'] || 'root'
         mysqlPass = ENV['MYSQL_PASSWORD'] || ''
-        @connection = Mysql.new(mysqlHost, mysqlUser,  mysqlPass, 'development', mysqlPort.to_i)
+        @connection = Mysql2::Client.new(
+            host: mysqlHost,
+            username: mysqlUser,
+            password: mysqlPass,
+            port: mysqlPort.to_i,
+            database: 'development'
+        )
     end
 
     def close()
@@ -35,13 +43,13 @@ class Database
     def getRow(table, value, field = 'id')
         queryResponse = @connection.query("select * from #{table} where #{field}='#{value.to_s}'")
 
-        return queryResponse.fetch_hash
+        return queryResponse.first
     end
 
     def getLastRow(table)
         queryResponse = @connection.query("select * from #{table} order by id desc limit 1")
 
-        return queryResponse.fetch_hash
+        return queryResponse.first
     end
 
     def query(query_string)

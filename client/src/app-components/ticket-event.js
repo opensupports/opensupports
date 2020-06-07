@@ -7,7 +7,6 @@ import API from 'lib-app/api-call';
 import DateTransformer from 'lib-core/date-transformer';
 import Icon from 'core-components/icon';
 import Tooltip from 'core-components/tooltip';
-import TextEditor from 'core-components/text-editor';
 import Button from 'core-components/button';
 import SubmitButton from 'core-components/submit-button';
 import Form from 'core-components/form';
@@ -115,7 +114,7 @@ class TicketEvent extends React.Component {
 
     renderContent() {
         return (
-            <div  className="ticket-event__comment-content">
+            <div  className="ticket-event__comment-content ql-editor">
                 <div dangerouslySetInnerHTML={{__html: this.props.content}}></div>
                 {((this.props.author.id == this.props.userId && this.props.author.staff == this.props.userStaff) || this.props.userStaff) ? this.renderEditIcon() : null}
             </div>

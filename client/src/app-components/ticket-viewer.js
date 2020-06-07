@@ -635,7 +635,7 @@ class TicketViewer extends React.Component {
             path: '/ticket/comment',
             dataAsForm: true,
             data: _.extend({
-                ticketNumber: this.props.ticket.ticketNumber
+                ticketNumber: this.props.ticket.ticketNumber,
             }, formState, {private: formState.private ? 1 : 0}, TextEditor.getContentFormData(formState.content))
         }).then(this.onCommentSuccess.bind(this), this.onCommentFail.bind(this));
     }
@@ -712,7 +712,6 @@ export default connect((store) => {
         staffMembers: store.adminData.staffMembers,
         staffMembersLoaded: store.adminData.staffMembersLoaded,
         allowAttachments: store.config['allow-attachments'],
-        userSystemEnabled: store.config['user-system-enabled'],
         userLevel: store.session.userLevel,
         tags: store.config['tags']
     };

@@ -21,7 +21,7 @@ describe 'File Upload and Download' do
         ticket = $database.getLastRow('ticket')
 
         (ticket['file'].include? 'upload_3_.txt').should.equal(true)
-        (ticket['file'].include? ('' + ticket['ticket_number'] + '_')).should.equal(true)
+        (ticket['file'].include? ('' + ticket['ticket_number'].to_s + '_')).should.equal(true)
         (File.exist? ('../server/files/' + ticket['file'])).should.equal(true)
     end
 

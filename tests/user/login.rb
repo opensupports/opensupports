@@ -22,14 +22,13 @@ describe '/user/login' do
         (result['status']).should.equal('success')
     end
 
-    it 'should fail if already logged in' do
+    it 'should not fail if already logged in' do
         result = request('/user/login', {
             email: @loginEmail,
             password: @loginPass
         })
 
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('SESSION_EXISTS')
+        (result['status']).should.equal('success')
     end
 
     it 'should login staff member' do

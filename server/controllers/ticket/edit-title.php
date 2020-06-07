@@ -45,35 +45,16 @@ class EditTitleController extends Controller {
                         'validation' => DataValidator::validTicketNumber(),
                         'error' => ERRORS::INVALID_TICKET
                     ]
-                ]
-            ];
-        } else {
-            return [
-                'permission' => 'any',
-                'requestData' => [
-                    'title' => [
-                        'validation' => DataValidator::notBlank()->length(1, 200),
-                        'error' => ERRORS::INVALID_TITLE
-                    ],
-                    'ticketNumber' => [
-                        'validation' => DataValidator::validTicketNumber(),
-                        'error' => ERRORS::INVALID_TICKET
-                    ],
-                    'csrf_token' => [
-                        'validation' => DataValidator::equals(Session::getInstance()->getToken()),
-                        'error' => ERRORS::INVALID_TOKEN
-                    ]
-                ]
-            ];
-        }
-    }
+              ]
+          ];
+      }
 
     public function handler() {
         $user = Controller::getLoggedUser();
         $newtitle = Controller::request('title');
         $ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
 
-        if(Controller::isUserSystemEnabled() && !$user->canManageTicket($ticket)) {
+        if(!$user->canManageTicket($ticket)) {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
