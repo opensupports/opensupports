@@ -150,7 +150,7 @@ class Scripts
         })
     end
 
-    def self.updateLockedDepartmentSetting(value = 1)
+    def self.updateLockedDepartmentSetting(value = 0)
         request('/system/edit-settings', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
