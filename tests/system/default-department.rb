@@ -222,5 +222,27 @@ describe '/system/default-department' do
         
         (row['department_id']).should.equal(1)
     end
-    
+    it 'should create ticket on default leanguage if user does not pass language'do
+        $database.query('update setting set value="ru" where name="language";')
+        
+        request('/user/logout')
+        Scripts.login('user@os4.com', 'loginpass')
+
+        result = request('/ticket/create', {
+            title: 'Danny Dragon',
+            content: 'They do not get to choose',
+            departmentId: 1,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        ticket = $database.getRow('ticket', 'Danny Dragon', 'title')
+        defaultLanguage = $database.getRow('setting', 'language', 'name') 
+        
+        
+        (ticket['language']).should.equal(defaultLanguage['value'])
+        result['status'].should.equal('success')
+        
+        $database.query('update setting set value="en" where name="language";')
+    end
 end

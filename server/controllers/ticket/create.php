@@ -66,7 +66,7 @@ class CreateController extends Controller {
                     'error' => ERRORS::INVALID_DEPARTMENT
                 ],
                 'language' => [
-                    'validation' => DataValidator::in(Language::getSupportedLanguages()),
+                    'validation' => DataValidator::oneOf(DataValidator::in(Language::getSupportedLanguages()), DataValidator::nullType()),
                     'error' => ERRORS::INVALID_LANGUAGE
                 ]
             ]
@@ -163,6 +163,8 @@ class CreateController extends Controller {
     private function storeTicket() {
         $department = Department::getDataStore($this->getCorrectDepartmentId());
         $author = $this->getAuthor();
+        $this->language = $this->getCorrectLanguage();
+
         $ticket = new Ticket();
 
         $fileUploader = FileUploader::getInstance();
@@ -201,6 +203,14 @@ class CreateController extends Controller {
         $this->ticketNumber = $ticket->ticketNumber;
     }
 
+    private function getCorrectLanguage() {
+        if( Controller::request('language') ){
+            return $this->language;
+        }else{
+            return Setting::getSetting('language')->getValue();
+        }
+    }
+    
     private function getCorrectDepartmentId(){
         $defaultDepartmentId = Setting::getSetting('default-department-id')->getValue();
         $isLocked = Setting::getSetting('default-is-locked')->getValue();
