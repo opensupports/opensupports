@@ -21,11 +21,13 @@ class CreateTicketForm extends React.Component {
 
     static propTypes = {
         userLogged: React.PropTypes.bool,
+        isStaff: React.PropTypes.bool,
         onSuccess: React.PropTypes.func,
     };
 
     static defaultProps = {
-        userLogged: true
+        userLogged: true,
+        isStaff: false
     };
 
     state = {
@@ -49,14 +51,18 @@ class CreateTicketForm extends React.Component {
                     {(!this.props.userLogged) ? this.renderEmailAndName() : null}
                     <FormField label={i18n('TITLE')} name="title" validation="TITLE" required field="input" fieldProps={{size: 'large'}}/>
                     <div className="row">
-                        <FormField className="col-md-5" label={i18n('DEPARTMENT')} name="departmentIndex" field="select" decorator={DepartmentDropdown} fieldProps={{
-                            departments: SessionStore.getDepartments(),
-                            size: 'medium'
-                        }} />
-                        <FormField className="col-md-5" label={i18n('LANGUAGE')} name="language" field="select" decorator={LanguageSelector} fieldProps={{
-                            type: 'supported',
-                            size: 'medium'
-                        }}/>
+                        {!this.props.isDefaultDepartmentLocked || this.props.isStaff ?
+                            <FormField className="col-md-5" label={i18n('DEPARTMENT')} name="departmentIndex" field="select" decorator={DepartmentDropdown} fieldProps={{
+                                departments: SessionStore.getDepartments(),
+                                size: 'medium'
+                            }} /> : null
+                        }    
+                        {!this.props.onlyOneSupportedLanguage ?  
+                            <FormField className="col-md-5" label={i18n('LANGUAGE')} name="language" field="select" decorator={LanguageSelector} fieldProps={{
+                                type: 'supported',
+                                size: 'medium'
+                            }}/> : null
+                        }
                     </div>
                     <FormField
                         label={i18n('CONTENT')}
@@ -162,9 +168,10 @@ class CreateTicketForm extends React.Component {
 
 export default connect((store) => {
     const { language, supportedLanguages } = store.config;
-
     return {
         language: _.includes(supportedLanguages, language) ? language : supportedLanguages[0],
+        onlyOneSupportedLanguage: supportedLanguages.length == 1 ? true : false,
+        isDefaultDepartmentLocked: store.config['default-is-locked']*1 ? true : false,
         allowAttachments: store.config['allow-attachments']
     };
 })(CreateTicketForm);
