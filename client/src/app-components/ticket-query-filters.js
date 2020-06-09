@@ -45,9 +45,9 @@ class TicketQueryFilters extends React.Component {
                 <Form
                     values={this.getFormValue(formState)}
                     onChange={this.onChangeForm.bind(this)}
-                    onSubmit={this.onSubmitForm.bind(this)}>
+                    onSubmit={this.onSubmitListConfig.bind(this)}>
                     <div className="ticket-query-filters__search-box">
-                        <FormField name="query" field="search-box" fieldProps={{onSearch: this.onSubmitForm.bind(this)}}/>
+                        <FormField name="query" field="search-box" fieldProps={{onSearch: this.onSubmitListConfig.bind(this)}}/>
                     </div>
                     <div className="ticket-query-filters__group">
                         <div className="ticket-query-filters__group__container">
@@ -318,19 +318,18 @@ class TicketQueryFilters extends React.Component {
         this.props.dispatch(SearchFiltersActions.changeForm(formValues));
     }
 
-    onSubmitForm() {
+    onSubmitListConfig() {
         const {
             formState,
             filters,
             dispatch,
             formEdited,
         } = this.props;
-        const listConfigWithCompleteAuthorsList = searchTicketsUtils.formValueToFilters(
-            {...formState, orderBy: filters.orderBy},
+        const listConfigWithCompleteAuthorsList = searchTicketsUtils.formValueToListConfig(
+            {...formState, orderBy: filters.orderBy, page: 1},
             true
         );
-        dispatch(SearchFiltersActions.retrieveSearchTickets({page: INITIAL_PAGE},listConfigWithCompleteAuthorsList.filters));
-        if (formEdited) dispatch(SearchFiltersActions.submitForm(listConfigWithCompleteAuthorsList));
+        if(formEdited) dispatch(SearchFiltersActions.submitListConfig(listConfigWithCompleteAuthorsList));
     }
 
     removeTag(tag) {

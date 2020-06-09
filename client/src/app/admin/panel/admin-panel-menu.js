@@ -2,7 +2,6 @@ import React from 'react';
 import _ from 'lodash';
 import {connect} from 'react-redux';
 
-import {dispatch} from 'app/store';
 import i18n from 'lib-app/i18n';
 import searchTicketsUtils from '../../../lib-app/search-tickets-utils';
 
@@ -118,24 +117,8 @@ class AdminPanelMenu extends React.Component {
             return window.customTicketList.map((item, index) => {
                 return {
                     name: item.title,
-                    path: '/admin/panel/tickets/search-tickets?custom=' + index,
+                    path: `/admin/panel/tickets/search-tickets?custom=${index}&page=${INITIAL_PAGE}`,
                     level: 1,
-                    onItemClick: () => {
-                        const {
-                            location,
-                            dispatch
-                        } = this.props;
-
-                        if(location.pathname.includes('/search-tickets')) {
-                            searchTicketsUtils.getFiltersFromParams().then((listConfig) => {
-                                dispatch(searchFiltersActions.changeFilters(listConfig));
-                                dispatch(searchFiltersActions.retrieveSearchTickets(
-                                    {page: INITIAL_PAGE},
-                                    searchTicketsUtils.prepareFiltersForAPI(item.filters)
-                                ));
-                            });
-                        }
-                    }
                 }
             })
         } else {
@@ -183,19 +166,8 @@ class AdminPanelMenu extends React.Component {
                     },
                     {
                         name: i18n('SEARCH_TICKETS'),
-                        path: '/admin/panel/tickets/search-tickets',
+                        path: `/admin/panel/tickets/search-tickets?dateRange=${searchTicketsUtils.getDefaultDateRangeForFilters()}&page=${INITIAL_PAGE}`,
                         level: 1,
-                        onItemClick: () => {
-                            const {
-                                location,
-                                dispatch
-                            } = this.props;
-
-                            if(location.pathname.includes('/search-tickets')) {
-                                dispatch(searchFiltersActions.changeFilters({filters: {}}));
-                                dispatch(searchFiltersActions.retrieveSearchTickets({page: INITIAL_PAGE},searchTicketsUtils.prepareFiltersForAPI({})));
-                            }
-                        }
                     },
                     {
                         name: i18n('CUSTOM_RESPONSES'),

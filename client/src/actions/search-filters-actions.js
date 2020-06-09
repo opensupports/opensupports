@@ -1,4 +1,6 @@
 import API from 'lib-app/api-call';
+import searchTicketsUtils from 'lib-app/search-tickets-utils';
+import history from 'lib-app/history';
 
 export default {
     retrieveSearchTickets(ticketQueryListState, filters = {}) {
@@ -13,10 +15,15 @@ export default {
             })
         }
     },
-    submitForm(form) {
+    submitListConfig(listConfig) {
+        const filtersForAPI = searchTicketsUtils.prepareFiltersForAPI(listConfig.filters);
+        const currentPath = history.getCurrentLocation().pathname;
+        const urlQuery = searchTicketsUtils.getFiltersForURL(filtersForAPI, true);
+        urlQuery && history.push(`${currentPath}${urlQuery}`);
+
         return {
-            type: 'SEARCH_FILTERS_ON_SUBMIT_FORM',
-            payload: form,
+            type: 'SEARCH_FILTERS_ON_SUBMIT_LIST_CONFIG',
+            payload: listConfig,
         }
     },
     changeForm(form) {
@@ -25,10 +32,15 @@ export default {
             payload: form,
         }
     },
-    changeFilters(filters) {
+    changeFilters(listConfig) {
+        const filtersForAPI = searchTicketsUtils.prepareFiltersForAPI(listConfig.filters);
+        const currentPath = history.getCurrentLocation().pathname;
+        const urlQuery = searchTicketsUtils.getFiltersForURL(filtersForAPI, false);
+        urlQuery && history.push(`${currentPath}${urlQuery}`);
+
         return {
             type: 'SEARCH_FILTERS_CHANGE_FILTERS',
-            payload: filters,
+            payload: {...listConfig, filtersForAPI},
         }
     },
     setDefaultFormValues() {
@@ -41,6 +53,17 @@ export default {
         return {
             type: 'SEARCH_FILTERS_CHANGE_SHOW_FILTERS',
             payload: showFilters,
+        }
+    },
+    changePage(listConfigWithPage) {
+        const filtersForAPI = searchTicketsUtils.prepareFiltersForAPI(listConfigWithPage.filters);
+        const currentPath = history.getCurrentLocation().pathname;
+        const urlQuery = searchTicketsUtils.getFiltersForURL(filtersForAPI, false);
+        urlQuery && history.push(`${currentPath}${urlQuery}`);
+
+        return {
+            type: 'SEARCH_FILTERS_CHANGE_PAGE',
+            payload: {...listConfigWithPage, filtersForAPI},
         }
     },
 };

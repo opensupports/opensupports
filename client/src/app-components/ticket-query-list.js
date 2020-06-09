@@ -34,17 +34,15 @@ class TicketQueryList extends React.Component {
     onPageChange(event) {
         const {
             dispatch,
-            ticketQueryListState,
             filters
         } = this.props;
 
-        dispatch(searchFiltersActions.retrieveSearchTickets(
-            {
-                ...ticketQueryListState,
+        dispatch(searchFiltersActions.changePage({
+            filters: {
+                ...filters,
                 page: event.target.value
-            },
-            filters
-        ));
+            }
+        }));
     }
 
     getTicketListProps () {

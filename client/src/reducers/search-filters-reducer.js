@@ -54,17 +54,17 @@ class searchFiltersReducer extends Reducer {
             'SEARCH_TICKETS_REJECTED': this.onSearchTicketsRejected.bind(this),
             'SEARCH_TICKETS_PENDING': this.onSearchTicketsPending.bind(this),
 
+            'SEARCH_FILTERS_CHANGE_PAGE': this.onPageChange.bind(this),
             'SEARCH_FILTERS_CHANGE_FILTERS': this.onFiltersChange.bind(this),
             'SEARCH_FILTERS_CHANGE_FORM': this.onFormChange,
             'SEARCH_FILTERS_CHANGE_SHOW_FILTERS': this.onChangeShowFilters.bind(this),
             'SEARCH_FILTERS_SET_DEFAULT_FORM_VALUES': this.onSetDefaultFormValues.bind(this),
-            'SEARCH_FILTERS_ON_SUBMIT_FORM': this.onSubmitForm.bind(this),
+            'SEARCH_FILTERS_ON_SUBMIT_LIST_CONFIG': this.onSubmitListConfig.bind(this),
         };
     }
 
     onSearchTicketsRetrieved(state, payload) {
         const page = payload.data.page;
-        searchTicketsUtils.setFiltersInURL({page: page});
         return (
             _.extend(
                 {},
@@ -108,13 +108,24 @@ class searchFiltersReducer extends Reducer {
         );
     }
 
+    onPageChange(state, payload) {
+        return (
+            _.extend(
+                {},
+                state,
+                {
+                    ticketQueryListState: {
+                        ...state.ticketQueryListState,
+                        page: payload.filters.page
+                    },
+                    formEdited: true,
+                }
+            )
+        );
+    }
+
     onFiltersChange(state, payload) {
-        const filtersForAPI = searchTicketsUtils.prepareFiltersForAPI(payload.filters);
-
-        if(!payload.preventHistoryChange) {
-            searchTicketsUtils.setFiltersInURL(filtersForAPI, !payload.title);
-        }
-
+        console.log('onFiltersChange payload: ', payload);
         return _.extend({}, state, {
             listConfig: {
                 title: payload.title ? payload.title : undefined,
@@ -122,11 +133,11 @@ class searchFiltersReducer extends Reducer {
                     _.extend(
                         {},
                         DEFAULT_FILTERS,
-                        filtersForAPI
+                        payload.filtersForAPI
                     ) :
                     DEFAULT_FILTERS
             },
-            formEdited: false,
+            formEdited: state.ticketQueryListState.page !== 1,
             showFilters: !payload.title,
             form: payload.hasAllAuthorsInfo ?
                 state.form :
@@ -158,7 +169,7 @@ class searchFiltersReducer extends Reducer {
         );
     }
 
-    onSubmitForm(state, payload) {
+    onSubmitListConfig(state, payload) {
         let customList = {
             ...this.getListConfig(),
             ...payload,

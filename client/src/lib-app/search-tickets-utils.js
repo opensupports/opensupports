@@ -1,8 +1,8 @@
 import queryString from 'query-string';
+import _ from 'lodash';
 
-import API from 'lib-app/api-call';
 import DateTransformer from 'lib-core/date-transformer';
-
+import API from 'lib-app/api-call';
 
 const TICKET_STATUSES = {
     ANY: undefined,
@@ -113,13 +113,14 @@ export default {
     getDefaultDateRangeForFilters() {
         return JSON.stringify(DateTransformer.formDateRangeToFilters([20170101, DateTransformer.getDateToday()]));
     },
-    setFiltersInURL(filters, shouldRemoveCustomParam = false) {
+    getFiltersForURL(filters, shouldRemoveCustomParam = false) {
         filters = {
             ...queryString.parse(window.location.search),
             ...filters,
         };
 
         if(shouldRemoveCustomParam) delete filters.custom;
+        filters = (filters.custom !== undefined) ? {custom: filters.custom, page: (filters.page !== undefined) ? filters.page : undefined} : filters;
 
         const query = Object.keys(filters).reduce(function (query, filter) {
             const value = filters[filter];
@@ -127,7 +128,10 @@ export default {
             else if(typeof value == 'string') return query + `&${filter}=${value}`;
             else return query + `&${filter}=${JSON.stringify(value)}`;
         }, '').slice(1);
-        history.pushState(null, '', `?${query}`);
+
+        if(!_.isEqual(queryString.parse(`?${query}`), queryString.parse(window.location.search))) {
+            return `?${query}`;
+        }
     },
     getClosedDropdowIndex(status) {
         let closedDropdownIndex;
@@ -211,7 +215,7 @@ export default {
 
         return status;
     },
-    formValueToFilters(form, hasAllAuthorsInfo = false) {
+    formValueToListConfig(form, hasAllAuthorsInfo = false) {
         const authors = form.authors ? form.authors.map(author => ({id: author.id*1, isStaff: author.isStaff})) : [];
         const dateRangeFilter = [form.dateRange.startDate, form.dateRange.endDate];
 
