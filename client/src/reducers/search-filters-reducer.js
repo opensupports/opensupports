@@ -59,7 +59,7 @@ class searchFiltersReducer extends Reducer {
             'SEARCH_FILTERS_CHANGE_FORM': this.onFormChange,
             'SEARCH_FILTERS_CHANGE_SHOW_FILTERS': this.onChangeShowFilters.bind(this),
             'SEARCH_FILTERS_SET_DEFAULT_FORM_VALUES': this.onSetDefaultFormValues.bind(this),
-            'SEARCH_FILTERS_ON_SUBMIT_LIST_CONFIG': this.onSubmitListConfig.bind(this),
+            'SEARCH_FILTERS_SET_LOADING_IN_TRUE': this.onSetLoadingInTrue.bind(this)
         };
     }
 
@@ -96,6 +96,7 @@ class searchFiltersReducer extends Reducer {
     }
 
     onSearchTicketsPending(state, payload) {
+        console.log("...pending");
         return (
             _.extend(
                 {},
@@ -106,6 +107,21 @@ class searchFiltersReducer extends Reducer {
                 }}
             )
         );
+    }
+
+    onSetLoadingInTrue(state, payload) {
+        return (
+            _.extend(
+                {},
+                state,
+                {
+                    ticketQueryListState: {
+                        ...state.ticketQueryListState,
+                        loading: true
+                    }
+                }
+            )
+        )
     }
 
     onPageChange(state, payload) {
@@ -125,7 +141,6 @@ class searchFiltersReducer extends Reducer {
     }
 
     onFiltersChange(state, payload) {
-        console.log('onFiltersChange payload: ', payload);
         return _.extend({}, state, {
             listConfig: {
                 title: payload.title ? payload.title : undefined,
@@ -136,6 +151,10 @@ class searchFiltersReducer extends Reducer {
                         payload.filtersForAPI
                     ) :
                     DEFAULT_FILTERS
+            },
+            ticketQueryListState: {
+                ...state.ticketQueryListState,
+                loading: true
             },
             formEdited: state.ticketQueryListState.page !== 1,
             showFilters: !payload.title,
@@ -167,16 +186,6 @@ class searchFiltersReducer extends Reducer {
                 },
             )
         );
-    }
-
-    onSubmitListConfig(state, payload) {
-        let customList = {
-            ...this.getListConfig(),
-            ...payload,
-            title: null,
-        };
-
-        return this.onFiltersChange(state, customList);
     }
 
     getListConfig() {

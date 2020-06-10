@@ -8,6 +8,7 @@ import i18n from 'lib-app/i18n';
 
 import API from 'lib-app/api-call';
 import DateTransformer from 'lib-core/date-transformer';
+import history from 'lib-app/history';
 
 import Form from 'core-components/form';
 import SubmitButton from 'core-components/submit-button';
@@ -322,14 +323,18 @@ class TicketQueryFilters extends React.Component {
         const {
             formState,
             filters,
-            dispatch,
             formEdited,
         } = this.props;
         const listConfigWithCompleteAuthorsList = searchTicketsUtils.formValueToListConfig(
             {...formState, orderBy: filters.orderBy, page: 1},
             true
         );
-        if(formEdited) dispatch(SearchFiltersActions.submitListConfig(listConfigWithCompleteAuthorsList));
+        if(formEdited) {
+            const filtersForAPI = searchTicketsUtils.prepareFiltersForAPI(listConfigWithCompleteAuthorsList.filters);
+            const currentPath = window.location.pathname;
+            const urlQuery = searchTicketsUtils.getFiltersForURL(filtersForAPI, true);
+            urlQuery && history.push(`${currentPath}${urlQuery}`);
+        }
     }
 
     removeTag(tag) {

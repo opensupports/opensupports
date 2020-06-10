@@ -8,7 +8,7 @@ import TicketQueryList from 'app-components/ticket-query-list';
 import AdminDataActions from 'actions/admin-data-actions';
 import searchTicketsUtils from '../../../../lib-app/search-tickets-utils';
 import searchFiltersActions from '../../../../actions/search-filters-actions';
-import history, {getPrevUrl, setPrevUrl} from 'lib-app/history';
+import history from 'lib-app/history';
 
 import Header from 'core-components/header';
 import Message from 'core-components/message';
@@ -21,8 +21,8 @@ const INITIAL_PAGE = 1;
 const SEARCH_TICKETS_PATH = '/search-tickets';
 
 function updateSearchTicketsFromURL() {
-    const currentPathName = history.getCurrentLocation().pathname;
-    const currentSearch = history.getCurrentLocation().search;
+    const currentPathName = window.location.pathname;
+    const currentSearch = window.location.search;
     const currentPath = `${currentPathName}${currentSearch}`;
     if(currentPath.includes(SEARCH_TICKETS_PATH)) {
         searchTicketsUtils.getFiltersFromParams().then((listConfig) => {
@@ -38,8 +38,8 @@ function updateSearchTicketsFromURL() {
     }
 }
 
-history.listen(x => {
-    console.log("history.listen", getPrevUrl());
+history.listen(() => {
+    store.dispatch(searchFiltersActions.setLoadingInTrue());
     updateSearchTicketsFromURL();
 });
 

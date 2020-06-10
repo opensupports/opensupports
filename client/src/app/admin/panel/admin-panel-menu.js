@@ -6,7 +6,6 @@ import i18n from 'lib-app/i18n';
 import searchTicketsUtils from '../../../lib-app/search-tickets-utils';
 
 import Menu from 'core-components/menu';
-import searchFiltersActions from '../../../actions/search-filters-actions';
 import queryString from 'query-string';
 
 const INITIAL_PAGE = 1;
