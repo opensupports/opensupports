@@ -134,6 +134,7 @@ class SearchController extends Controller {
 
         $query = $this->getSQLQuery($inputs);
         $queryWithOrder = $this->getSQLQueryWithOrder($inputs);
+        throw new Exception($queryWithOrder);
         $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", [':query' => "%" . $inputs['query'] . "%", ':queryAtBeginning' => $inputs['query'] . "%" ])[0]['COUNT(*)'];
         $ticketIdList = RedBean::getAll($queryWithOrder, [':query' => "%" . $inputs['query'] . "%", ':queryAtBeginning' => $inputs['query'] . "%"]);
         $ticketList = [];
@@ -172,7 +173,6 @@ class SearchController extends Controller {
         $query = $this->getSQLQuery($inputs);
         $order = "";
         $query = "SELECT" . " ticket.id " . $query;
-
         $this->setQueryOrder($inputs, $order);
         $inputs['page'] ?  $page =  $inputs['page'] : $page  = 1 ;
         $query .= $order ." LIMIT 10 OFFSET " . (($page-1)*10);
@@ -314,7 +314,7 @@ class SearchController extends Controller {
     }
 
     private function setAuthorFilter($authors, &$filters){
-        if($authors !== null){
+        if($authors){
             $first = TRUE;
             if ($filters != "")  $filters .= " and ";
 
@@ -327,7 +327,7 @@ class SearchController extends Controller {
                     $filters .= " or ";
                 }
 
-                if($author['staff']){
+                if($author['isStaff']){
                     $filters .= "ticket.author_staff_id  = " . $author['id'];
                 } else {
                     $filters .= "ticket.author_id = " . $author['id'];
@@ -397,7 +397,7 @@ class SearchController extends Controller {
         $order =  " ORDER BY ";
         if(array_key_exists('query',$inputs)) $this->setStringOrder($inputs['query'], $order);
         if(array_key_exists('orderBy',$inputs)) $this->setEspecificOrder($inputs['orderBy'], $order);
-        $order .=  "ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.priority desc, ticket.date desc ";
+        $order .=  "ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.priority desc, ticket.date desc, ticket.id desc";
     }
     private function setEspecificOrder($orderBy, &$order){
         if($orderBy !== null){

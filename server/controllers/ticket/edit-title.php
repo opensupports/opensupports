@@ -30,8 +30,7 @@ class EditTitleController extends Controller {
     const METHOD = 'POST';
 
     public function validations() {
-        if(Controller::isUserSystemEnabled()){
-            return [
+        return [
                 'permission' => 'user',
                 'requestData' => [
                     'title' => [
@@ -46,8 +45,7 @@ class EditTitleController extends Controller {
                         'error' => ERRORS::INVALID_TICKET
                     ]
               ]
-          ];
-        }
+        ];
     }
 
     public function handler() {

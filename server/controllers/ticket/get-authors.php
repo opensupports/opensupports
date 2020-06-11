@@ -96,7 +96,7 @@ class GetAuthorsController extends Controller {
         $idList = [];
         if($blackList){
             foreach ($blackList as $item) {
-                if($staff == $item->staff)  array_push($idList, $item->id);
+                if($staff == $item->isStaff)  array_push($idList, $item->id);
             }
         }
             return $idList;
