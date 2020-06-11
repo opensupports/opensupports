@@ -47,7 +47,8 @@ class EditTitleController extends Controller {
                     ]
               ]
           ];
-      }
+        }
+    }
 
     public function handler() {
         $user = Controller::getLoggedUser();
