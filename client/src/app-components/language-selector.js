@@ -26,7 +26,7 @@ class LanguageSelector extends React.Component {
 
     render() {
         return (
-            <DropDown {...this.getProps()}/>
+            <DropDown {...this.getProps()} />
         );
     }
 

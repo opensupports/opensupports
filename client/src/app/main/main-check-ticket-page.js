@@ -33,14 +33,14 @@ class MainCheckTicketPage extends React.Component {
                     <Form {...this.getFormProps()}>
                         <div className="main-check-ticket-page__inputs">
                             <div className="main-check-ticket-page__input">
-                                <FormField name="email" label={i18n('EMAIL')} validation="EMAIL" required fieldProps={{size: 'large'}}/>
+                                <FormField name="email" label={i18n('EMAIL')} validation="EMAIL" required fieldProps={{size: 'large'}} />
                             </div>
                             <div className="main-check-ticket-page__input">
-                                <FormField name="ticketNumber" label={i18n('TICKET_NUMBER')} validation="DEFAULT" required fieldProps={{size: 'large'}}/>
+                                <FormField name="ticketNumber" label={i18n('TICKET_NUMBER')} validation="DEFAULT" required fieldProps={{size: 'large'}} />
                             </div>
                         </div>
                         <div className="main-check-ticket-page__captcha">
-                            <Captcha ref="captcha"/>
+                            <Captcha ref="captcha" />
                         </div>
                         <SubmitButton>{i18n('CHECK_TICKET')}</SubmitButton>
                     </Form>

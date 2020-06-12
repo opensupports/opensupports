@@ -15,8 +15,8 @@ describe('Form component', function () {
         form = TestUtils.renderIntoDocument(
             <Form {...props} onSubmit={onSubmit}>
                 <div>
-                    <FormField name="first" value="value1" required/>
-                    <FormField name="second" value="value2" required validation="CUSTOM"/>
+                    <FormField name="first" value="value1" required />
+                    <FormField name="second" value="value2" required validation="CUSTOM" />
                 </div>
                 <FormField name="third" value="value3" />
             </Form>
@@ -138,8 +138,8 @@ describe('Form component', function () {
                 form = reRenderIntoDocument(
                     <Form errors={errors}>
                         <div>
-                            <FormField name="first" value="value1" required/>
-                            <FormField name="second" value="value2" required validation="CUSTOM"/>
+                            <FormField name="first" value="value1" required />
+                            <FormField name="second" value="value2" required validation="CUSTOM" />
                         </div>
                         <FormField name="third" value="value3" />
                     </Form>

@@ -74,10 +74,10 @@ class AdminPanelViewArticle extends React.Component {
                     </Button>
                 </div>
                 <div className="admin-panel-view-article__article">
-                    <Header title={article.name}/>
+                    <Header title={article.name} />
 
                     <div className="admin-panel-view-article__article-content ql-editor">
-                        <div dangerouslySetInnerHTML={{__html: MentionsParser.parse(article.content)}}/>
+                        <div dangerouslySetInnerHTML={{__html: MentionsParser.parse(article.content)}} />
                     </div>
                     <div className="admin-panel-view-article__last-edited">
                         {i18n('LAST_EDITED_IN', {date: DateTransformer.transformToString(article.lastEdited)})}
@@ -97,7 +97,7 @@ class AdminPanelViewArticle extends React.Component {
                     </Button>
                 </div>
                 <FormField name="name" label={i18n('TITLE')} validation="NAME" />
-                <FormField name="content" label={i18n('CONTENT')} validation="TEXT_AREA" field="textarea" fieldProps={{allowImages: this.props.allowAttachments}}/>
+                <FormField name="content" label={i18n('CONTENT')} validation="TEXT_AREA" field="textarea" fieldProps={{allowImages: this.props.allowAttachments}} />
             </Form>
         );
     }

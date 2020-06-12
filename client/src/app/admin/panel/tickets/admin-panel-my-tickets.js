@@ -36,10 +36,10 @@ class AdminPanelMyTickets extends React.Component {
         return (
             <div className="admin-panel-my-tickets">
                 <Header title={i18n('MY_TICKETS')} description={i18n('MY_TICKETS_DESCRIPTION')} />
-                {(this.props.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketList {...this.getProps()}/>}
+                {(this.props.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketList {...this.getProps()} />}
                 <div style={{textAlign: 'right', marginTop: 10}}>
                     <Button onClick={this.onCreateTicket.bind(this)} type="secondary" size="medium">
-                        <Icon size="sm" name="plus"/> {i18n('CREATE_TICKET')}
+                        <Icon size="sm" name="plus" /> {i18n('CREATE_TICKET')}
                     </Button>
                 </div>
             </div>

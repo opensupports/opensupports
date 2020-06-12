@@ -33,7 +33,7 @@ class CheckBox extends React.Component {
                 <span {...this.getIconProps()}>
                     {getIcon((this.getValue()) ? 'check-square' : 'square', 'lg') }
                 </span>
-                <input {...this.getProps()}/>
+                <input {...this.getProps()} />
                 {(this.props.label) ? this.renderLabel() : null}
             </Wrapper>
         );

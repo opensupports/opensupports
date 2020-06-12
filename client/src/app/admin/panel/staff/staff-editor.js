@@ -80,21 +80,21 @@ class StaffEditor extends React.Component {
                             <label className={this.getPictureWrapperClass()}>
                                 <div className="staff-editor__card-pic-background"></div>
                                 <img className="staff-editor__card-pic" src={(this.props.profilePic) ? API.getFileLink(this.props.profilePic) : (API.getURL() + '/images/profile.png')} />
-                                {(this.state.loadingPicture) ? <Loading className="staff-editor__card-pic-loading" size="large"/> : <Icon className="staff-editor__card-pic-icon" name="upload" size="4x"/>}
-                                <input className="staff-editor__image-uploader" type="file" multiple={false} accept="image/x-png,image/gif,image/jpeg" onChange={this.onProfilePicChange.bind(this)}/>
+                                {(this.state.loadingPicture) ? <Loading className="staff-editor__card-pic-loading" size="large" /> : <Icon className="staff-editor__card-pic-icon" name="upload" size="4x" />}
+                                <input className="staff-editor__image-uploader" type="file" multiple={false} accept="image/x-png,image/gif,image/jpeg" onChange={this.onProfilePicChange.bind(this)} />
                             </label>
                         </div>
                     </div>
                     <div className="col-md-8">
                         <div className="staff-editor__form">
                             <Form className="staff-editor__update-email" values={{email: this.state.email}} onChange={form => this.setState({email: form.email})} onSubmit={this.onSubmit.bind(this, 'EMAIL')}>
-                                <FormField name="email" validation="EMAIL" required label={i18n('EMAIL')} fieldProps={{size: 'large'}}/>
+                                <FormField name="email" validation="EMAIL" required label={i18n('EMAIL')} fieldProps={{size: 'large'}} />
                                 <SubmitButton size="medium" className="staff-editor__submit-button">{i18n('UPDATE_EMAIL')}</SubmitButton>
                             </Form>
                             <span className="separator staff-editor__separator" />
                             <Form className="staff-editor__update-password" onSubmit={this.onSubmit.bind(this, 'PASSWORD')}>
-                                <FormField name="password" validation="PASSWORD" required label={i18n('PASSWORD')} fieldProps={{size: 'large', password: true}}/>
-                                <FormField name="rpassword" validation="REPEAT_PASSWORD" required label={i18n('REPEAT_PASSWORD')} fieldProps={{size: 'large', password: true}}/>
+                                <FormField name="password" validation="PASSWORD" required label={i18n('PASSWORD')} fieldProps={{size: 'large', password: true}} />
+                                <FormField name="rpassword" validation="REPEAT_PASSWORD" required label={i18n('REPEAT_PASSWORD')} fieldProps={{size: 'large', password: true}} />
                                 <SubmitButton size="medium" className="staff-editor__submit-button">{i18n('UPDATE_PASSWORD')}</SubmitButton>
                             </Form>
                             {(this.props.myAccount) ? this.renderSendEmailOnNewTicketForm() : this.renderLevelForm()}
@@ -153,7 +153,7 @@ class StaffEditor extends React.Component {
     renderSendEmailOnNewTicketForm() {
         return (
             <div>
-                <span className="separator staff-editor__separator"/>
+                <span className="separator staff-editor__separator" />
                 <Form className="staff-editor__update-email-setting" values={{sendEmailOnNewTicket: this.state.sendEmailOnNewTicket}} onChange={form => this.setState({sendEmailOnNewTicket: form.sendEmailOnNewTicket})} onSubmit={this.onSubmit.bind(this, 'SEND_EMAIL_ON_NEW_TICKET')}>
                     <FormField name="sendEmailOnNewTicket" label={i18n('SEND_EMAIL_ON_NEW_TICKET')} field="checkbox" fieldProps={{size: 'large'}} />
                     <SubmitButton size="medium" className="staff-editor__submit-button">{i18n('UPDATE')}</SubmitButton>
@@ -165,7 +165,7 @@ class StaffEditor extends React.Component {
     renderLevelForm() {
         return (
             <div>
-                <span className="separator staff-editor__separator"/>
+                <span className="separator staff-editor__separator" />
                 <Form className="staff-editor__update-level" values={{level: this.state.level}} onChange={form => this.setState({level: form.level})} onSubmit={this.onSubmit.bind(this, 'LEVEL')}>
                     <FormField name="level" label={i18n('LEVEL')} field="select" infoMessage={this.getStaffLevelInfo()} fieldProps={{
                         items: [{content: i18n('LEVEL_1')}, {content: i18n('LEVEL_2')}, {content: i18n('LEVEL_3')}],
@@ -197,7 +197,7 @@ class StaffEditor extends React.Component {
 
     renderStaffStats() {
         // return (
-        //     <Stats staffId={this.props.staffId} type="staff"/>
+        //     <Stats staffId={this.props.staffId} type="staff" />
         // );
 
         return null;
@@ -206,10 +206,10 @@ class StaffEditor extends React.Component {
     renderTickets() {
         return (
             <div>
-                <span className="separator"/>
+                <span className="separator" />
                 <div className="staff-editor__tickets">
                     <div className="staff-editor__tickets-title">{i18n('TICKETS')}</div>
-                    <TicketList {...this.getTicketListProps()}/>
+                    <TicketList {...this.getTicketListProps()} />
                 </div>
             </div>
         );
@@ -218,7 +218,7 @@ class StaffEditor extends React.Component {
     renderDelete() {
         return (
             <div>
-                <span className="separator"/>
+                <span className="separator" />
                 <div className="staff-editor__delete">
                     <div className="staff-editor__delete-title">
                         {i18n('DELETE_STAFF_MEMBER')}
@@ -266,7 +266,7 @@ class StaffEditor extends React.Component {
     getDepartments() {
         return SessionStore.getDepartments().map(department => {
             if(department.private * 1){
-                return <span> {department.name} <Icon name='user-secret'/> </span>
+                return <span> {department.name} <Icon name='user-secret' /> </span>
             } else {
                 return department.name;
             }

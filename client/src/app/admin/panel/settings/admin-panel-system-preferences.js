@@ -36,13 +36,13 @@ class AdminPanelSystemPreferences extends React.Component {
     render() {
         return (
             <div className="admin-panel-system-preferences">
-                <Header title={i18n('SYSTEM_PREFERENCES')} description={i18n('SYSTEM_PREFERENCES_DESCRIPTION')}/>
+                <Header title={i18n('SYSTEM_PREFERENCES')} description={i18n('SYSTEM_PREFERENCES_DESCRIPTION')} />
                 <Form values={this.state.values} onChange={this.onFormChange.bind(this)} onSubmit={this.onSubmit.bind(this)} loading={this.state.loading}>
                     <div className="row">
                         <div className="col-md-12">
                             <div className="admin-panel-system-preferences__maintenance">
                                 <span>{i18n('MAINTENANCE_MODE')} <InfoTooltip text={i18n('MAINTENANCE_MODE_INFO')} /></span>
-                                <FormField className="admin-panel-system-preferences__maintenance-field" name="maintenance-mode" decorator={ToggleButton}/>
+                                <FormField className="admin-panel-system-preferences__maintenance-field" name="maintenance-mode" decorator={ToggleButton} />
                             </div>
                         </div>
                     </div>
@@ -53,12 +53,12 @@ class AdminPanelSystemPreferences extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-md-6">
-                            <FormField label={i18n('SUPPORT_CENTER_URL')} fieldProps={{size: 'large'}} name="url" validation="URL" required/>
+                            <FormField label={i18n('SUPPORT_CENTER_URL')} fieldProps={{size: 'large'}} name="url" validation="URL" required />
                             <FormField label={i18n('SUPPORT_CENTER_LAYOUT')} fieldProps={{size: 'large', items: [{content: i18n('BOXED')}, {content: i18n('FULL_WIDTH')}]}} field="select" name="layout" />
                         </div>
                         <div className="col-md-6">
-                            <FormField label={i18n('SUPPORT_CENTER_TITLE')} fieldProps={{size: 'large'}} name="title" validation="TITLE" required/>
-                            <FormField label={i18n('DEFAULT_TIMEZONE')} fieldProps={{size: 'large'}} name="time-zone"/>
+                            <FormField label={i18n('SUPPORT_CENTER_TITLE')} fieldProps={{size: 'large'}} name="title" validation="TITLE" required />
+                            <FormField label={i18n('DEFAULT_TIMEZONE')} fieldProps={{size: 'large'}} name="time-zone" />
                         </div>
                     </div>
                     <div className="row">
@@ -69,11 +69,11 @@ class AdminPanelSystemPreferences extends React.Component {
                             <div className="row admin-panel-system-preferences__languages">
                                 <div className="col-md-6 admin-panel-system-preferences__languages-allowed">
                                     <div>{i18n('ALLOWED_LANGUAGES')} <InfoTooltip text={i18n('ALLOWED_LANGUAGES_INFO')} /></div>
-                                    <FormField name="allowedLanguages" field="checkbox-group" fieldProps={{items: this.getLanguageList()}} validation="LIST" required/>
+                                    <FormField name="allowedLanguages" field="checkbox-group" fieldProps={{items: this.getLanguageList()}} validation="LIST" required />
                                 </div>
                                 <div className="col-md-6 admin-panel-system-preferences__languages-supported">
                                     <div>{i18n('SUPPORTED_LANGUAGES')} <InfoTooltip text={i18n('SUPPORTED_LANGUAGES_INFO')} /></div>
-                                    <FormField name="supportedLanguages" field="checkbox-group" fieldProps={{items: this.getLanguageList()}} validation="LIST" required/>
+                                    <FormField name="supportedLanguages" field="checkbox-group" fieldProps={{items: this.getLanguageList()}} validation="LIST" required />
                                 </div>
                             </div>
                         </div>
@@ -82,15 +82,15 @@ class AdminPanelSystemPreferences extends React.Component {
                                 type: 'custom',
                                 customList: (this.state.values.supportedLanguages && this.state.values.supportedLanguages.length) ? this.state.values.supportedLanguages.map(index => languageKeys[index]) : undefined
                             }} />
-                            <FormField label={i18n('RECAPTCHA_PUBLIC_KEY')} fieldProps={{size: 'large'}} name="reCaptchaKey"/>
-                            <FormField label={i18n('RECAPTCHA_PRIVATE_KEY')} fieldProps={{size: 'large'}} name="reCaptchaPrivate"/>
+                            <FormField label={i18n('RECAPTCHA_PUBLIC_KEY')} fieldProps={{size: 'large'}} name="reCaptchaKey" />
+                            <FormField label={i18n('RECAPTCHA_PRIVATE_KEY')} fieldProps={{size: 'large'}} name="reCaptchaPrivate" />
                             <div className="admin-panel-system-preferences__file-attachments">
                                 <span>{i18n('ALLOW_FILE_ATTACHMENTS')}</span>
-                                <FormField className="admin-panel-system-preferences__file-attachments-field" name="allow-attachments" decorator={ToggleButton}/>
+                                <FormField className="admin-panel-system-preferences__file-attachments-field" name="allow-attachments" decorator={ToggleButton} />
                             </div>
                             <div className="admin-panel-system-preferences__max-size">
                                 <span>{i18n('MAX_SIZE_MB')}</span>
-                                <FormField className="admin-panel-system-preferences__max-size-field" fieldProps={{size: 'small'}} name="max-size"/>
+                                <FormField className="admin-panel-system-preferences__max-size-field" fieldProps={{size: 'small'}} name="max-size" />
                             </div>
                         </div>
                     </div>

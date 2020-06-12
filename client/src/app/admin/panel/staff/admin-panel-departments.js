@@ -45,15 +45,15 @@ class AdminPanelDepartments extends React.Component {
                 <Header title={i18n('DEPARTMENTS')} description={i18n('DEPARTMENTS_DESCRIPTION')} />
                 <div className="row">
                     <div className="col-md-4">
-                        <Listing {...this.getListingProps()}/>
+                        <Listing {...this.getListingProps()} />
                     </div>
                     <div className="col-md-8">
                         {(this.state.errorMessage) ? <Message type="error">{i18n(this.state.errorMessage)}</Message> : null}
                         <Form {...this.getFormProps()}>
                             <div>
-                                <FormField className="admin-panel-departments__name" label={i18n('NAME')} name="name" validation="NAME" required fieldProps={{size: 'large'}}/>
+                                <FormField className="admin-panel-departments__name" label={i18n('NAME')} name="name" validation="NAME" required fieldProps={{size: 'large'}} />
                                 <div className="admin-panel-departments__private-option">
-                                    <FormField label={i18n('PRIVATE')} name="private" field="checkbox"/>
+                                    <FormField label={i18n('PRIVATE')} name="private" field="checkbox" />
                                     <InfoTooltip className="admin-panel-departments__info-tooltip" text={i18n('PRIVATE_DEPARTMENT_DESCRIPTION')} />
                                 </div>
                             </div>
@@ -93,7 +93,7 @@ class AdminPanelDepartments extends React.Component {
                 {i18n('WILL_DELETE_DEPARTMENT')}
                 <div className="admin-panel-departments__transfer-tickets">
                     <span className="admin-panel-departments__transfer-tickets-title">{i18n('TRANSFER_TICKETS_TO')}</span>
-                    <DepartmentDropDown className="admin-panel-departments__transfer-tickets-drop-down" departments={this.getDropDownDepartments()} onChange={(event) => this.setState({selectedDropDownIndex: event.index})} size="medium"/>
+                    <DepartmentDropDown className="admin-panel-departments__transfer-tickets-drop-down" departments={this.getDropDownDepartments()} onChange={(event) => this.setState({selectedDropDownIndex: event.index})} size="medium" />
                 </div>
             </div>
         );
@@ -108,10 +108,10 @@ class AdminPanelDepartments extends React.Component {
                     content: (
                         <span>
                             {department.name}
-                            {department.private*1 ? <Icon className="admin-panel-departments__private-icon" name='user-secret'/> : null }
+                            {department.private*1 ? <Icon className="admin-panel-departments__private-icon" name='user-secret' /> : null }
                             {(!department.owners) ? (
                                 <span className="admin-panel-departments__warning">
-                                    <InfoTooltip type="warning" text={i18n('NO_STAFF_ASSIGNED')}/>
+                                    <InfoTooltip type="warning" text={i18n('NO_STAFF_ASSIGNED')} />
                                 </span>
                             ) : null}
                         </span>

@@ -67,7 +67,7 @@ class TicketList extends React.Component {
                 value={this.props.closedTicketsShown}
                 onChange={this.props.onClosedTicketsShownChange}
                 wrapInLabel
-            />
+           />
         );
     }
 
@@ -218,7 +218,7 @@ class TicketList extends React.Component {
 
         return {
             number: (
-                <Tooltip content={<TicketInfo ticket={ticket}/>} openOnHover>
+                <Tooltip content={<TicketInfo ticket={ticket} />} openOnHover>
                     {'#' + ticket.ticketNumber}
                 </Tooltip>
             ),

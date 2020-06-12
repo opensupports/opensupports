@@ -19,7 +19,7 @@ class StatsChart extends React.Component {
     render() {
         return (
             <div>
-                <Line data={this.getChartData()} options={this.getChartOptions()} width={800} height={400} redraw/>
+                <Line data={this.getChartData()} options={this.getChartOptions()} width={800} height={400} redraw />
             </div>
         );
     }

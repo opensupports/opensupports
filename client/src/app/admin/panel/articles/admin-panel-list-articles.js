@@ -9,9 +9,9 @@ class AdminPanelListArticles extends React.Component {
     render() {
         return (
             <div className="admin-panel-list-articles">
-                <Header title={i18n('LIST_ARTICLES')} description={i18n('LIST_ARTICLES_DESCRIPTION')}/>
+                <Header title={i18n('LIST_ARTICLES')} description={i18n('LIST_ARTICLES_DESCRIPTION')} />
                 <div className="admin-panel-list-articles__list">
-                    <ArticlesList editable/>
+                    <ArticlesList editable />
                 </div>
             </div>
         );

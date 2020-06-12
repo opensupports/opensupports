@@ -51,7 +51,7 @@ class Stats extends React.Component {
     render() {
         return (
             <div className={this.getClass()}>
-                <DropDown {...this.getDropDownProps()}/>
+                <DropDown {...this.getDropDownProps()} />
                 <ToggleList {...this.getToggleListProps()} />
                 <StatsChart {...this.getStatsChartProps()} />
                 <div className="stats__disable-box">

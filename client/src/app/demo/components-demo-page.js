@@ -90,19 +90,19 @@ let DemoPage = React.createClass({
                     values={['suggestion','bug', 'tag4']}
                     onRemoveClick={(e)  => console.log('deleted click', e)}
                     onTagSelected={(e)  => console.log('selected click', e)}
-                />
+               />
             )
         },
         {
             title: 'Input',
             render: (
-                <Input placeholder="placeholder" error="No anda"/>
+                <Input placeholder="placeholder" error="No anda" />
             )
         },
         {
             title: 'Input wrapped in a label',
             render: (
-                <Input placeholder="placeholder" label="This is a label" icon="user"/>
+                <Input placeholder="placeholder" label="This is a label" icon="user" />
             )
         },
         {
@@ -130,25 +130,25 @@ let DemoPage = React.createClass({
         {
             title: 'Secondary Menu',
             render: (
-                <Menu items={secondaryMenuItems} type="secondary"/>
+                <Menu items={secondaryMenuItems} type="secondary" />
             )
         },
         {
             title: 'Navigation Menu',
             render: (
-                <Menu items={secondaryMenuItems} type="navigation"/>
+                <Menu items={secondaryMenuItems} type="navigation" />
             )
         },
         {
             title: 'Horizontal Menu',
             render: (
-                <Menu items={secondaryMenuItems.slice(0, 3)} type="horizontal"/>
+                <Menu items={secondaryMenuItems.slice(0, 3)} type="horizontal" />
             )
         },
         {
             title: 'HorizontalList Menu',
             render: (
-                <Menu items={dropDownItems.slice(0, 3)} type="horizontal-list"/>
+                <Menu items={dropDownItems.slice(0, 3)} type="horizontal-list" />
             )
         },
         {
@@ -219,7 +219,7 @@ let DemoPage = React.createClass({
                     else if(a.title1 > b.title1)
                         ans = 1;
                     return ans;
-                }}/>
+                }} />
             )
         },
         {

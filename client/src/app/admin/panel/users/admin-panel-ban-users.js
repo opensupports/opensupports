@@ -41,7 +41,7 @@ class AdminPanelBanUsers extends React.Component {
         return (
             <div>
                 <div className="admin-panel-ban-users__email-list col-md-6">
-                    <SearchBox className="admin-panel-ban-users__search" onSearch={this.onSearch.bind(this)} searchOnType placeholder={i18n('SEARCH_EMAIL')}/>
+                    <SearchBox className="admin-panel-ban-users__search" onSearch={this.onSearch.bind(this)} searchOnType placeholder={i18n('SEARCH_EMAIL')} />
                     <Table {...this.getTableProps()} />
                 </div>
                 <div className="admin-panel-ban-users__ban-email col-md-6">
@@ -49,7 +49,7 @@ class AdminPanelBanUsers extends React.Component {
                         {i18n('BAN_NEW_EMAIL')}
                     </span>
                     <Form {...this.getFormProps()}>
-                        <FormField className="admin-panel-ban-users__input" placeholder="email" name="email" validation="EMAIL" required fieldProps={{size: 'large'}}/>
+                        <FormField className="admin-panel-ban-users__input" placeholder="email" name="email" validation="EMAIL" required fieldProps={{size: 'large'}} />
                         <SubmitButton>{i18n('BAN_EMAIL')}</SubmitButton>
                     </Form>
                     {this.renderMessage()}

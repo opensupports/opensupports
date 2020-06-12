@@ -22,7 +22,7 @@ class InfoTooltip extends React.Component {
             <div className={this.getClass()}>
                 <Tooltip content={this.renderText()} openOnHover>
                     <span className="info-tooltip__icon">
-                        <Icon name={name}/>
+                        <Icon name={name} />
                     </span>
                 </Tooltip>
             </div>

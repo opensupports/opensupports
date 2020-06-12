@@ -37,7 +37,7 @@ class AdminPanelAllTickets extends React.Component {
                 <div className="admin-panel-all-tickets__search-box">
                     <SearchBox onSearch={this.onSearch.bind(this)} />
                 </div>
-                {(this.props.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketList {...this.getTicketListProps()}/>}
+                {(this.props.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketList {...this.getTicketListProps()} />}
             </div>
         );
     }

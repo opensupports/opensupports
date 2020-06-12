@@ -61,7 +61,7 @@ class AdminPanelCustomResponses extends React.Component {
         return (
             <div className="row">
                 <div className="col-md-3">
-                    <Listing {...this.getListingProps()}/>
+                    <Listing {...this.getListingProps()} />
                 </div>
                 {this.state.showForm ?  this.renderForm() : null}
             </div>
@@ -71,7 +71,7 @@ class AdminPanelCustomResponses extends React.Component {
     renderLoading() {
         return (
             <div className="admin-panel-custom-responses__loading">
-                <Loading backgrounded size="large"/>
+                <Loading backgrounded size="large" />
             </div>
         );
     }
@@ -82,7 +82,7 @@ class AdminPanelCustomResponses extends React.Component {
                 <Form {...this.getFormProps()}>
                     <div className="row">
                         <div className="col-md-7">
-                            <FormField label={i18n('TITLE')} name="title" validation="TITLE" required fieldProps={{size: 'large'}}/>
+                            <FormField label={i18n('TITLE')} name="title" validation="TITLE" required fieldProps={{size: 'large'}} />
                         </div>
                         <div className="col-md-5">
                             <FormField label={i18n('LANGUAGE')} name="language" field="input" decorator={LanguageSelector} fieldProps={{size: 'medium'}} />
@@ -143,7 +143,7 @@ class AdminPanelCustomResponses extends React.Component {
                     <span>
                         {item.name}
                         <span className="admin-panel-custom-responses__item-flag">
-                            <Icon name={(item.language != 'en') ? item.language : 'us'}/>
+                            <Icon name={(item.language != 'en') ? item.language : 'us'} />
                         </span>
                     </span>
                 )

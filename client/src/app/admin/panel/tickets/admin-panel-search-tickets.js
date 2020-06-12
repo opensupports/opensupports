@@ -14,7 +14,7 @@ class AdminPanelSearchTickets extends React.Component {
         return (
             <div className="admin-panel-all-tickets">
                 <Header title={this.getList().title} description={i18n('SEARCH_TICKETS_DESCRIPTION')} />
-                {(this.props.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketQueryList customList ={this.getList()}/>}
+                {(this.props.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketQueryList customList ={this.getList()} />}
             </div>
         );
     }

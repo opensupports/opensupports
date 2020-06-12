@@ -24,19 +24,19 @@ class InstallStep4UserSystem extends React.Component {
         const { form } = this.state
         return (
             <div className="install-step-4">
-                <Header title={i18n('STEP_TITLE', {title: i18n('USER_SYSTEM'), current: 4, total: 7})} description={i18n('STEP_4_DESCRIPTION')}/>
+                <Header title={i18n('STEP_TITLE', {title: i18n('USER_SYSTEM'), current: 4, total: 7})} description={i18n('STEP_4_DESCRIPTION')} />
                 <Form onSubmit={this.onSubmit.bind(this)} values={form} onChange={this.onChange.bind(this)}>
                     <div className="install-step-4__container">
                         <FormField
                             name="mandatory-login"
                             label={i18n('ENABLE_MANDATORY_LOGIN')}
                             decorator={ToggleButton}
-                            fieldProps={{disabled: !form['registration']}}/>
+                            fieldProps={{disabled: !form['registration']}} />
                         <FormField
                             name="registration"
                             label={i18n('ENABLE_USER_REGISTRATION')}
                             decorator={ToggleButton}
-                            fieldProps={{disabled: !form['mandatory-login']}}/>
+                            fieldProps={{disabled: !form['mandatory-login']}} />
                     </div>
                     <div className="install-step-4__buttons">
                         <SubmitButton className="install-step-4__next" size="extra-small" type="secondary">{i18n('NEXT')}</SubmitButton>

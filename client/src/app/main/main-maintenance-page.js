@@ -8,7 +8,7 @@ class MainMaintenancePage extends React.Component {
         return (
             <div className="main-maintenance-page">
                 <div className="main-maintenance-page__icon">
-                    <Icon name="wrench" size="4x"/>
+                    <Icon name="wrench" size="4x" />
                 </div>
                 <div className="main-maintenance-page__title">
                     {i18n('MAINTENANCE_MODE')}

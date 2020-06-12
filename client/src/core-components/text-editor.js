@@ -70,7 +70,7 @@ class TextEditor extends React.Component {
               onBlur={this.onBlur.bind(this)}
               ref="editor"
               value={this.props.value}
-          />
+         />
         );
     }
 

@@ -11,9 +11,9 @@ describe('MentionsParser library', function () {
         );
 
         expect(mentionsParser.parse(
-            'This is an example without mentions <img src=\'/image.png\' /> abc <br/>',
+            'This is an example without mentions <img src=\'/image.png\' /> abc <br />',
         )).to.equal(
-            'This is an example without mentions <img src=\'/image.png\' /> abc <br/>',
+            'This is an example without mentions <img src=\'/image.png\' /> abc <br />',
         );
     });
 

@@ -36,7 +36,7 @@ describe('Login/Recover Widget', function () {
 
         function renderComponent(props = {session: {pending: false, failed: false}}) {
             component = reRenderIntoDocument(
-                <MainHomePageLoginWidget dispatch={dispatch} {...props}/>
+                <MainHomePageLoginWidget dispatch={dispatch} {...props} />
             );
             widgetTransition = TestUtils.scryRenderedComponentsWithType(component, WidgetTransition)[0];
             loginWidget = TestUtils.scryRenderedComponentsWithType(component, Widget)[0];

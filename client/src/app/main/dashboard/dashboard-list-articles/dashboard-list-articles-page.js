@@ -33,7 +33,7 @@ class DashboardListArticlesPage extends React.Component {
         return (
             <div className={this.getClass()}>
                 <Wrapper>
-                    <Header title={i18n('LIST_ARTICLES')} description={i18n('LIST_ARTICLES_DESCRIPTION')}/>
+                    <Header title={i18n('LIST_ARTICLES')} description={i18n('LIST_ARTICLES_DESCRIPTION')} />
                     <SearchBox className="dashboard-list-articles-page__search-box" onSearch={this.onSearch.bind(this)} searchOnType />
                     {(!this.state.showSearchResults) ? this.renderArticleList() : this.renderSearchResults()}
                 </Wrapper>
@@ -45,7 +45,7 @@ class DashboardListArticlesPage extends React.Component {
         let articlePath = (this.props.location.pathname == '/articles') ? '/article/' : '/dashboard/article/';
         
         return (
-            <ArticlesList editable={false} articlePath={articlePath} retrieveOnMount={false}/>
+            <ArticlesList editable={false} articlePath={articlePath} retrieveOnMount={false} />
         );
     }
 

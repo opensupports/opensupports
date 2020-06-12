@@ -45,12 +45,12 @@ class InviteUserWidget extends React.Component {
                 <Header title={i18n('INVITE_USER')} description={i18n('INVITE_USER_VIEW_DESCRIPTION')} />
                 <Form {...this.getFormProps()}>
                     <div className="invite-user-widget__inputs">
-                        <FormField {...this.getInputProps()} label={i18n('FULL_NAME')} name="name" validation="NAME" required/>
-                        <FormField {...this.getInputProps()} label={i18n('EMAIL')} name="email" validation="EMAIL" required/>
+                        <FormField {...this.getInputProps()} label={i18n('FULL_NAME')} name="name" validation="NAME" required />
+                        <FormField {...this.getInputProps()} label={i18n('EMAIL')} name="email" validation="EMAIL" required />
                         {this.state.customFields.map(this.renderCustomField.bind(this))}
                     </div>
                     <div className="invite-user-widget__captcha">
-                        <Captcha ref="captcha"/>
+                        <Captcha ref="captcha" />
                     </div>
                     <SubmitButton type="primary">{i18n('INVITE_USER')}</SubmitButton>
                 </Form>
@@ -68,7 +68,7 @@ class InviteUserWidget extends React.Component {
                     key={key}
                     label={customField.name}
                     infoMessage={customField.description}
-                    field="input"/>
+                    field="input" />
             );
         } else {
             const items = customField.options.map(option => ({content: option.name, value: option.name}));
@@ -80,7 +80,7 @@ class InviteUserWidget extends React.Component {
                     label={customField.name}
                     infoMessage={customField.description}
                     field="select"
-                    fieldProps={{size:'medium', items}}/>
+                    fieldProps={{size:'medium', items}} />
             );
         }
     }

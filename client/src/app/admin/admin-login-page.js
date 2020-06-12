@@ -48,7 +48,7 @@ class AdminLoginPage extends React.Component {
         return (
             <div>
                 <Widget className="admin-login-page__content">
-                    <div className="admin-login-page__image"><img width="100%" src={API.getURL() + '/images/logo.png'} alt="OpenSupports Admin Panel"/></div>
+                    <div className="admin-login-page__image"><img width="100%" src={API.getURL() + '/images/logo.png'} alt="OpenSupports Admin Panel" /></div>
                     <div className="admin-login-page__login-form">
                         <Form onSubmit={this.onLoginFormSubmit.bind(this)} loading={this.props.session.pending}>
                             <FormField name="email" label={i18n('EMAIL')} field="input" validation="EMAIL" fieldProps={{size:'large'}} required />
@@ -69,7 +69,7 @@ class AdminLoginPage extends React.Component {
     renderPasswordRecovery() {
         return (
             <div>
-                <PasswordRecovery recoverSent={this.state.recoverSent} formProps={this.getRecoverFormProps()} onBackToLoginClick={this.onBackToLoginClick.bind(this)} renderLogo={true}/>
+                <PasswordRecovery recoverSent={this.state.recoverSent} formProps={this.getRecoverFormProps()} onBackToLoginClick={this.onBackToLoginClick.bind(this)} renderLogo={true} />
             </div>
         );
     }

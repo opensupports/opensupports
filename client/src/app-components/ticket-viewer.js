@@ -93,7 +93,7 @@ class TicketViewer extends React.Component {
                         edit={this.state.edit && this.state.editId == 0}
                         onToggleEdit={this.onToggleEdit.bind(this, 0)}
                         allowAttachments={this.props.allowAttachments}
-                    />
+                   />
                 </div>
                 <div className="ticket-viewer__comments">
                     {ticket.events && ticket.events.map(this.renderTicketEvent.bind(this))}
@@ -112,7 +112,7 @@ class TicketViewer extends React.Component {
                 <span className="ticket-viewer__number">#{ticketNumber}</span>
                 <span className="ticket-viewer__title">{title}</span>
                 <span className="ticket-viewer__flag">
-                    <Icon name={(language === 'en') ? 'us' : language}/>
+                    <Icon name={(language === 'en') ? 'us' : language} />
                 </span>
                 {((author.id == userId && author.staff == userStaff) || userStaff) ? this.renderEditTitleOption() : null}
                 {editedTitle ? this.renderEditedTitleText() : null }
@@ -183,7 +183,7 @@ class TicketViewer extends React.Component {
                             values={this.props.ticket.tags}
                             onRemoveClick={this.removeTag.bind(this)}
                             onTagSelected={this.addTag.bind(this)}
-                            loading={this.state.tagSelectorLoading}/>
+                            loading={this.state.tagSelectorLoading} />
                     </div>
                 </div>
                 <div className="ticket-viewer__info-row-header row">
@@ -280,7 +280,7 @@ class TicketViewer extends React.Component {
                 className="ticket-viewer__editable-dropdown" items={items}
                 selectedIndex={selectedIndex}
                 onChange={this.onAssignmentChange.bind(this)}
-                />
+               />
         );
     }
 
@@ -299,7 +299,7 @@ class TicketViewer extends React.Component {
                 onToggleEdit={this.onToggleEdit.bind(this, options.id)}
                 key={index}
                 allowAttachments={this.props.allowAttachments}
-            />
+           />
         );
     }
 
@@ -315,8 +315,8 @@ class TicketViewer extends React.Component {
                         </div>
                     </div>
                     <div className="ticket-viewer__response-field row">
-                        <FormField name="content" validation="TEXT_AREA" required field="textarea" fieldProps={{allowImages: this.props.allowAttachments}}/>
-                        {(this.props.allowAttachments) ? <FormField name="file" field="file"/> : null}
+                        <FormField name="content" validation="TEXT_AREA" required field="textarea" fieldProps={{allowImages: this.props.allowAttachments}} />
+                        {(this.props.allowAttachments) ? <FormField name="file" field="file" /> : null}
                         <div className="ticket-viewer__response-buttons">
                             <SubmitButton type="secondary">{i18n('RESPOND_TICKET')}</SubmitButton>
                             <div>
@@ -347,7 +347,7 @@ class TicketViewer extends React.Component {
 
             customResponsesNode = (
                 <div className="ticket-viewer__response-custom">
-                    <DropDown items={customResponses} size="medium" onChange={this.onCustomResponsesChanged.bind(this)}/>
+                    <DropDown items={customResponses} size="medium" onChange={this.onCustomResponsesChanged.bind(this)} />
                 </div>
             );
         }
@@ -359,7 +359,7 @@ class TicketViewer extends React.Component {
         if (this.props.userStaff) {
             return (
                 <div className="ticket-viewer__response-private">
-                    <FormField label={i18n('PRIVATE')} name="private" field="checkbox"/>
+                    <FormField label={i18n('PRIVATE')} name="private" field="checkbox" />
                     <InfoTooltip className="ticket-viewer__response-private-info" text={i18n('PRIVATE_RESPONSE_DESCRIPTION')} />
                 </div>
             );

@@ -26,7 +26,7 @@ describe('Recover Password form', function () {
 
     beforeEach(function () {
         component = TestUtils.renderIntoDocument(
-            <MainRecoverPasswordPage location={{query}}/>
+            <MainRecoverPasswordPage location={{query}} />
         );
         recoverForm = TestUtils.scryRenderedComponentsWithType(component, Form)[0];
         inputs = TestUtils.scryRenderedComponentsWithType(component, Input);

@@ -68,10 +68,10 @@ class Table extends React.Component {
         return (
             <span className="table__header-arrows">
                 <span className="table__header-arrow-up" onClick={onArrowUp}>
-                    <Icon name="arrow-up"/>
+                    <Icon name="arrow-up" />
                 </span>
                 <span className="table__header-arrow-down" onClick={onArrowDown}>
-                    <Icon name="arrow-down"/>
+                    <Icon name="arrow-down" />
                 </span>
             </span>
         );
@@ -108,14 +108,14 @@ class Table extends React.Component {
 
     renderNavigation() {
         return (
-            <Pagination className="table__navigation" page={this.getPageNumber()} pages={this.getPages()} onChange={this.onNavigationChange.bind(this)} tabbable/>
+            <Pagination className="table__navigation" page={this.getPageNumber()} pages={this.getPages()} onChange={this.onNavigationChange.bind(this)} tabbable />
         );
     }
 
     renderLoading() {
         return (
             <div className="table__loading-wrapper">
-                <Loading className="table__loading" backgrounded size="large"/>
+                <Loading className="table__loading" backgrounded size="large" />
             </div>
         )
     }

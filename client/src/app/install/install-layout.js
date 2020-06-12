@@ -26,7 +26,7 @@ class InstallLayout extends React.Component {
                 <Widget className="install-layout">
                     <div className="install-layout__header row">
                         <div className="install-layout__header-logo col-md-4">
-                            <img width="100%" src={API.getURL() + '/images/logo.png'} alt="OpenSupports Installation"/>
+                            <img width="100%" src={API.getURL() + '/images/logo.png'} alt="OpenSupports Installation" />
                         </div>
                         <div className="install-layout__header-text  col-md-8">
                             <div className="install-layout__header-title">
@@ -37,7 +37,7 @@ class InstallLayout extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <span className="separator"/>
+                    <span className="separator" />
                     <div className="install-layout__body row">
                         <div className="col-md-3">
                             <ul className="install-layout__steps">
@@ -69,7 +69,7 @@ class InstallLayout extends React.Component {
 
         return (
             <li className={classNames(classes)} key={index}>
-                <Icon name={icon} size="sm" className="install-layout__step-icon"/>
+                <Icon name={icon} size="sm" className="install-layout__step-icon" />
                 <span className="install-layout__step-text">
                     {index+1}. {i18n(key)}
                 </span>

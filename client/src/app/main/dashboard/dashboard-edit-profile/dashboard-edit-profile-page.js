@@ -45,15 +45,15 @@ class DashboardEditProfilePage extends React.Component {
                 <Header title={i18n('EDIT_PROFILE')} description={i18n('EDIT_PROFILE_VIEW_DESCRIPTION')} />
                 <div className="edit-profile-page__title">{i18n('EDIT_EMAIL')}</div>
                 <Form loading={this.state.loadingEmail} onSubmit={this.onSubmitEditEmail.bind(this)}>
-                    <FormField name="newEmail" label={i18n('NEW_EMAIL')} field="input" validation="EMAIL" fieldProps={{size:'large'}} required/>
+                    <FormField name="newEmail" label={i18n('NEW_EMAIL')} field="input" validation="EMAIL" fieldProps={{size:'large'}} required />
                     <SubmitButton>{i18n('CHANGE_EMAIL')}</SubmitButton>
                     {this.renderMessageEmail()}
                 </Form>
                 <div className="edit-profile-page__title">{i18n('EDIT_PASSWORD')}</div>
                 <Form loading={this.state.loadingPass} onSubmit={this.onSubmitEditPassword.bind(this)}>
-                    <FormField name="oldPassword" label={i18n('OLD_PASSWORD')} field="input" validation="PASSWORD" fieldProps={{password:true, size:'large'}} required/>
-                    <FormField name="password" label={i18n('NEW_PASSWORD')} field="input" validation="PASSWORD" fieldProps={{password:true, size:'large'}} required/>
-                    <FormField name="repeatNewPassword" label={i18n('REPEAT_NEW_PASSWORD')} field="input" validation="REPEAT_PASSWORD" fieldProps={{password:true ,size:'large'}} required/>
+                    <FormField name="oldPassword" label={i18n('OLD_PASSWORD')} field="input" validation="PASSWORD" fieldProps={{password:true, size:'large'}} required />
+                    <FormField name="password" label={i18n('NEW_PASSWORD')} field="input" validation="PASSWORD" fieldProps={{password:true, size:'large'}} required />
+                    <FormField name="repeatNewPassword" label={i18n('REPEAT_NEW_PASSWORD')} field="input" validation="REPEAT_PASSWORD" fieldProps={{password:true ,size:'large'}} required />
                     <SubmitButton>{i18n('CHANGE_PASSWORD')}</SubmitButton>
                     {this.renderMessagePass()}
                 </Form>
@@ -82,7 +82,7 @@ class DashboardEditProfilePage extends React.Component {
         if(customField.type === 'text') {
             return (
                 <div className="edit-profile-page__custom-field" key={key}>
-                    <FormField name={customField.name} label={customField.name} infoMessage={customField.description} field="input" fieldProps={{size:'small'}}/>
+                    <FormField name={customField.name} label={customField.name} infoMessage={customField.description} field="input" fieldProps={{size:'small'}} />
                 </div>
             );
         } else {
@@ -90,7 +90,7 @@ class DashboardEditProfilePage extends React.Component {
 
             return (
                 <div className="edit-profile-page__custom-field" key={key}>
-                    <FormField name={customField.name} label={customField.name} infoMessage={customField.description} field="select" fieldProps={{size:'small', items}}/>
+                    <FormField name={customField.name} label={customField.name} infoMessage={customField.description} field="select" fieldProps={{size:'small', items}} />
                 </div>
             );
         }

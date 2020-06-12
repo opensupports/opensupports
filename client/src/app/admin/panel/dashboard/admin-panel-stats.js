@@ -9,13 +9,13 @@ class AdminPanelStats extends React.Component {
     render() {
         // return (
         //     <div className="admin-panel-stats">
-        //         <Header title={i18n('STATISTICS')} description={i18n('STATISTICS_DESCRIPTION')}/>
-        //          <Stats type="general"/>
+        //         <Header title={i18n('STATISTICS')} description={i18n('STATISTICS_DESCRIPTION')} />
+        //          <Stats type="general" />
         //     </div>
         // );
         return (
             <div className="admin-panel-stats">
-                <Header title={i18n('STATISTICS')} description={i18n('STATISTICS_DESCRIPTION')}/>
+                <Header title={i18n('STATISTICS')} description={i18n('STATISTICS_DESCRIPTION')} />
             </div>
         )
     }

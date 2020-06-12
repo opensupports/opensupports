@@ -34,7 +34,7 @@ class TagSelector extends React.Component {
     renderTagOption(item) {
         return (
             <div className="tag-selector__tag-option" key={`tag-option-${item.id}`}>
-                <span className="tag-selector__tag-option-square" style={{backgroundColor:item.color}}/>
+                <span className="tag-selector__tag-option-square" style={{backgroundColor:item.color}} />
                 <span className="tag-selector__tag-option-name" >{item.name}</span>
             </div>
         );

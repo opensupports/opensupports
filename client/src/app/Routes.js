@@ -69,31 +69,31 @@ export default (
         <Route component={App}>
             <Route path='/' component={MainLayout}>
                 <IndexRoute component={MainHomePage} />
-                <Route path='signup' component={MainSignUpPage}/>
-                <Route path='verify-token/:email/:token' component={MainVerifyTokenPage}/>
-                <Route path='recover-password' component={MainRecoverPasswordPage}/>
-                <Route path='maintenance' component={MainMaintenancePage}/>
+                <Route path='signup' component={MainSignUpPage} />
+                <Route path='verify-token/:email/:token' component={MainVerifyTokenPage} />
+                <Route path='recover-password' component={MainRecoverPasswordPage} />
+                <Route path='maintenance' component={MainMaintenancePage} />
 
-                <Route path='create-ticket' component={DashboardCreateTicketPage}/>
-                <Route path='check-ticket(/:ticketNumber/:email)' component={MainCheckTicketPage}/>
-                <Route path='view-ticket/:ticketNumber' component={MainViewTicketPage}/>
-                <Route path='articles' component={DashboardListArticlesPage}/>
-                <Route path='article/:articleId' component={DashboardArticlePage}/>
+                <Route path='create-ticket' component={DashboardCreateTicketPage} />
+                <Route path='check-ticket(/:ticketNumber/:email)' component={MainCheckTicketPage} />
+                <Route path='view-ticket/:ticketNumber' component={MainViewTicketPage} />
+                <Route path='articles' component={DashboardListArticlesPage} />
+                <Route path='article/:articleId' component={DashboardArticlePage} />
 
                 <Route path='dashboard' component={DashboardLayout}>
                     <IndexRoute component={DashboardListTicketsPage} />
-                    <Route path='articles' component={DashboardListArticlesPage}/>
+                    <Route path='articles' component={DashboardListArticlesPage} />
 
-                    <Route path='create-ticket' component={DashboardCreateTicketPage}/>
-                    <Route path='edit-profile' component={DashboardEditProfilePage}/>
+                    <Route path='create-ticket' component={DashboardCreateTicketPage} />
+                    <Route path='edit-profile' component={DashboardEditProfilePage} />
 
-                    <Route path='article/:articleId' component={DashboardArticlePage}/>
-                    <Route path='ticket/:ticketNumber' component={DashboardTicketPage}/>
+                    <Route path='article/:articleId' component={DashboardArticlePage} />
+                    <Route path='ticket/:ticketNumber' component={DashboardTicketPage} />
                 </Route>
             </Route>
             <Route path="install" component={InstallLayout}>
                 <IndexRedirect to="step-1" />
-                <Route path="step-1" component={InstallStep1Language}/>
+                <Route path="step-1" component={InstallStep1Language} />
                 <Route path="step-2" component={InstallStep2Requirements} />
                 <Route path="step-3" component={InstallStep3Database} />
                 <Route path="step-4" component={InstallStep4UserSystem} />

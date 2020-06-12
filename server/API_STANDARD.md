@@ -54,7 +54,7 @@ For example
 ```
 /article/add
 title = 'article title'
-content = 'this is an article <img src="IMAGE_PATH_0"/> with two images <img src="IMAGE_PATH_1"/>'
+content = 'this is an article <img src="IMAGE_PATH_0" /> with two images <img src="IMAGE_PATH_1" />'
 position = 1
 topicId = 1
 images = 2

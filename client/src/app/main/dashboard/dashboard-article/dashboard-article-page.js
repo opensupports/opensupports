@@ -44,7 +44,7 @@ class DashboardArticlePage extends React.Component {
             <div className={this.getClass()}>
                 <Wrapper>
                     <div className="dashboard-article-page__breadcrumb">
-                        <BreadCrumb items={this.getBreadCrumbItems()}/>
+                        <BreadCrumb items={this.getBreadCrumbItems()} />
                     </div>
                     {(this.props.loading) ? <Loading /> : this.renderContent()}
                 </Wrapper>
@@ -61,10 +61,10 @@ class DashboardArticlePage extends React.Component {
     renderArticlePreview(article) {
         return (
             <div className="dashboard-article-page__article">
-                <Header title={article.name}/>
+                <Header title={article.name} />
 
                 <div className="dashboard-article-page__article-content ql-editor">
-                    <div dangerouslySetInnerHTML={{__html: article.content}}/>
+                    <div dangerouslySetInnerHTML={{__html: article.content}} />
                 </div>
                 <div className="dashboard-article-page__last-edited">
                     {i18n('LAST_EDITED_IN', {date: DateTransformer.transformToString(article.lastEdited)})}

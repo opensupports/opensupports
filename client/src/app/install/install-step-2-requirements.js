@@ -30,7 +30,7 @@ class InstallStep2Requirements extends React.Component {
     render() {
         return (
             <div className="install-step-2">
-                <Header title={i18n('STEP_TITLE', {title: i18n('SERVER_REQUIREMENTS'), current: 2, total: 7})} description={i18n('STEP_2_DESCRIPTION')}/>
+                <Header title={i18n('STEP_TITLE', {title: i18n('SERVER_REQUIREMENTS'), current: 2, total: 7})} description={i18n('STEP_2_DESCRIPTION')} />
                 <div className="install-step-2__refresh">
                     <Button className="install-step-2__refresh-button" type="secondary" size="medium" onClick={this.retrieveRequirements.bind(this)}>
                         <Icon className="install-step-2__refresh-icon" name="refresh" /> {i18n('REFRESH')}

@@ -20,7 +20,7 @@ class InstallStep7Completed extends React.Component {
     render() {
         return (
             <div className="install-step-7">
-                <Header title={i18n('STEP_TITLE', {title: i18n('COMPLETED'), current: 7, total: 7})} description={i18n('STEP_7_DESCRIPTION')}/>
+                <Header title={i18n('STEP_TITLE', {title: i18n('COMPLETED'), current: 7, total: 7})} description={i18n('STEP_7_DESCRIPTION')} />
                 <Message title={i18n('INSTALLATION_COMPLETED')} type="success">
                     {i18n('INSTALLATION_COMPLETED_DESCRIPTION')}
                 </Message>

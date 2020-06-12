@@ -71,7 +71,7 @@ class TicketEvent extends React.Component {
     renderIcon() {
         return (
             <div className="ticket-event__icon">
-                <Icon {...this.getIconProps()}/>
+                <Icon {...this.getIconProps()} />
             </div>
         );
     }
@@ -130,7 +130,7 @@ class TicketEvent extends React.Component {
     renderEditField() {
         return (
             <Form loading={this.props.loading} values={{content:this.state.content}} onChange={(form) => {this.setState({content:form.content})}} onSubmit={this.props.onEdit}>
-                <FormField name="content" required field="textarea" validation="TEXT_AREA" fieldProps={{allowImages: this.props.allowAttachments}}/>
+                <FormField name="content" required field="textarea" validation="TEXT_AREA" fieldProps={{allowImages: this.props.allowAttachments}} />
                 <div className="ticket-event__submit-edited-comment" >
                     <SubmitButton  type="secondary" >{i18n('SUBMIT')}</SubmitButton>
                     <Button size="medium" onClick={this.props.onToggleEdit}>{i18n('CLOSE')}</Button>

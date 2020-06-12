@@ -25,7 +25,7 @@ class DashboardListTicketsPage extends React.Component {
         return (
             <div className="dashboard-ticket-list">
                 <Header title={i18n('TICKET_LIST')} description={i18n('TICKET_LIST_DESCRIPTION')} />
-                <TicketList tickets={this.props.tickets} type="primary"/>
+                <TicketList tickets={this.props.tickets} type="primary" />
             </div>
         );
     }

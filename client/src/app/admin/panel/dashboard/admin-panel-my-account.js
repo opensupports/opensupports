@@ -15,7 +15,7 @@ class AdminPanelMyAccount extends React.Component {
         return (
             <div className="admin-panel-view-staff">
                 <Header title={i18n('MY_ACCOUNT')} description={i18n('MY_ACCOUNT_DESCRIPTION')} />
-                <StaffEditor {...this.getEditorProps()}/>
+                <StaffEditor {...this.getEditorProps()} />
             </div>
         );
     }

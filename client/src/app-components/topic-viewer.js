@@ -50,11 +50,11 @@ class TopicViewer extends React.Component {
         return (
             <div className="topic-viewer">
                 <div className="topic-viewer__header">
-                    <Icon className="topic-viewer__icon" name={this.props.icon} color={this.props.iconColor}/>
+                    <Icon className="topic-viewer__icon" name={this.props.icon} color={this.props.iconColor} />
                     <span className="topic-viewer__title">{this.props.name}</span>
                     {(this.props.editable) ? this.renderEditButton() : null}
                     {(this.props.editable) ? this.renderDeleteButton() : null}
-                    {this.props.private*1 ? <Icon className="topic-viewer__private" name='user-secret' color='grey'/> : null}
+                    {this.props.private*1 ? <Icon className="topic-viewer__private" name='user-secret' color='grey' /> : null}
 
                 </div>
                 <ul className="topic-viewer__list">
@@ -108,7 +108,7 @@ class TopicViewer extends React.Component {
                 <Link {...this.getArticleLinkProps(article, index)}>
                     {article.name}
                 </Link>
-                {(this.props.editable) ? <Icon className="topic-viewer__grab-icon" name="arrows" ref={'grab-' + index}/> : null}
+                {(this.props.editable) ? <Icon className="topic-viewer__grab-icon" name="arrows" ref={'grab-' + index} /> : null}
             </li>
         );
     }
@@ -149,7 +149,7 @@ class TopicViewer extends React.Component {
         };
 
         return (
-            <ArticleAddModal {...props}/>
+            <ArticleAddModal {...props} />
         );
     }
 

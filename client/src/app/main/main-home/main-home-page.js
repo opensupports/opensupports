@@ -21,7 +21,7 @@ class MainHomePage extends React.Component {
                 {(config['mandatory-login']) || loginForm.loginFormShown ? this.renderLoginWidget() : null}
                 {!loginForm.loginFormShown ?
                     <div className={this.getPortalClass()}>
-                        <MainHomePagePortal type={((config['mandatory-login']) ? 'default' : 'complete')}/>
+                        <MainHomePagePortal type={((config['mandatory-login']) ? 'default' : 'complete')} />
                     </div>:
                     null
                 }

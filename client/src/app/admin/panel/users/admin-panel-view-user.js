@@ -82,7 +82,7 @@ class AdminPanelViewUser extends React.Component {
                 <span className="separator" />
                 <div className="admin-panel-view-user__tickets">
                     <div className="admin-panel-view-user__tickets-title">{i18n('TICKETS')}</div>
-                    <TicketList {...this.getTicketListProps()}/>
+                    <TicketList {...this.getTicketListProps()} />
                 </div>
             </div>
         );
