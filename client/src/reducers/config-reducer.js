@@ -33,6 +33,7 @@ class ConfigReducer extends Reducer {
     }
 
     onInitConfigs(state, payload) {
+        console.log("departemssSSSSSSSSSSSSSSSSSSs: ", payload.data);
         let currentLanguage = sessionStore.getItem('language');
 
         if(payload.data.allowedLanguages && !_.includes(payload.data.allowedLanguages, currentLanguage)) {
@@ -50,7 +51,9 @@ class ConfigReducer extends Reducer {
             'allow-attachments': !!(payload.data['allow-attachments']* 1),
             'maintenance-mode': !!(payload.data['maintenance-mode']* 1),
             departments: payload.data.departments && payload.data.departments.map(department => _.extend({}, department, {private: department.private * 1})),
-            initDone: true
+            initDone: true,
+            'default-department-id': payload.data['default-department-id'],
+            'default-is-locked': payload.data['default-is-locked'],
         });
     }
 

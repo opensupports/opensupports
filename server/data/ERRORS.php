@@ -268,6 +268,10 @@
  * @apiError {String} DEPARTMENT_PRIVATE_TICKETS There are tickets for in department created by non-staff and it can't be private
  */
 /**
+ * @apiDefine DEFAULT_DEPARTMENT_CAN_NOT_BE_PRIVATE
+ * @apiError {String} DEFAULT_DEPARTMENT_CAN_NOT_BE_PRIVATE Default Department can not be private
+ */
+/**
  * @apiDefine EMAIL_POLLING
  * @apiError {String} EMAIL_POLLING Email polling was unsuccesful
  */
@@ -386,6 +390,7 @@ class ERRORS {
     const INVALID_TEXT_2 = 'INVALID_TEXT_2';
     const INVALID_TEXT_3 = 'INVALID_TEXT_3';
     const DEPARTMENT_PRIVATE_TICKETS = 'DEPARTMENT_PRIVATE_TICKETS';
+    const DEFAULT_DEPARTMENT_CAN_NOT_BE_PRIVATE = 'DEFAULT_DEPARTMENT_CAN_NOT_BE_PRIVATE';
     const EMAIL_POLLING = 'EMAIL_POLLING';
     const CUSTOM_FIELD_ALREADY_EXISTS = 'CUSTOM_FIELD_ALREADY_EXISTS';
     const INVALID_CUSTOM_FIELD = 'INVALID_CUSTOM_FIELD';

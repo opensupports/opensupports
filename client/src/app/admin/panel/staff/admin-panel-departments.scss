@@ -18,6 +18,32 @@
         display:inline-block;
         margin-left: 10px;
     }
+    &__default-departments-container {
+        &__form {
+            text-align: left;
+            &__fields {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: flex-start;
+                padding-bottom: 10px;
+
+                &__lock-option {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+
+                    &__info-tooltip {
+                        padding-left: 5px;
+                    }
+                }    
+            }
+            &__button {
+                min-width: 156px;
+            }
+        }
+    }
 
     &__optional-buttons {
         float: right;
@@ -49,7 +75,13 @@
     &__private-icon {
         margin-left: 5px;
     }
-    &__info-tooltip {
+    &__default-icon {
+        color:  lightgrey;
+        font-style: italic;
+        text-transform: lowercase;
+        margin-left: 3px;
+    }
+        &__info-tooltip {
         margin-left: 2px;
     }
 }

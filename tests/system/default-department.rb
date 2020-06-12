@@ -77,6 +77,23 @@ describe '/system/default-department' do
         (result['status']).should.equal('fail')
         (result['message']).should.equal('CAN_NOT_DELETE_DEFAULT_DEPARTMENT')
     end
+    it 'should fail if try to edit default department into private' do
+        request('/user/logout')
+        Scripts.login('staff@opensupports.com', 'staff', true)
+        defaultDepartmentId = $database.getRow('setting', 'default-department-id', 'name')
+        department = $database.getRow('department',defaultDepartmentId['value'],'id')
+        
+        result = request('/system/edit-department', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            departmentId: department['id'],
+            name: department['name'],
+            private: true
+        })
+        
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('DEFAULT_DEPARTMENT_CAN_NOT_BE_PRIVATE')
+    end
 
     it 'should create ticket in default department if Staff does not give department with locked on' do
         request('/user/logout')

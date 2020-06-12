@@ -53,6 +53,10 @@ class EditDepartmentController extends Controller {
 
         $departmentInstance = Department::getDataStore($departmentId);
 
+        if($departmentId == Setting::getSetting('default-department-id')->getValue()){
+            throw new RequestException(ERRORS::DEFAULT_DEPARTMENT_CAN_NOT_BE_PRIVATE);
+        }
+        
         if($private && Ticket::count(' author_id IS NOT NULL AND department_id = ? ', [$departmentId])) {
             throw new RequestException(ERRORS::DEPARTMENT_PRIVATE_TICKETS);
         }
