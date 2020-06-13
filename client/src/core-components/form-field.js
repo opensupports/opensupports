@@ -194,7 +194,8 @@ class FormField extends React.Component {
         return [
             'textarea',
             'checkbox-group',
-            'file'
+            'file',
+            'date-range'
         ];
     }
 
