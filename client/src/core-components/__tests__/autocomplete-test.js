@@ -105,7 +105,7 @@ describe('Autocomplete component with external api', function () {
                 expect(selectedList.length).to.equal(1);
                 expect(selectedList[0].name).to.equal("argentina");
                 expect(selectedList[0].id).to.equal(10);
-            }, 360);
+            }, 400);
         });
 
         it('should sinc', function() {
@@ -150,7 +150,7 @@ describe('Autocomplete component with external api', function () {
 
                     expect(autocompleteDropdown.props.opened).to.equal(true);
                     expect(autocompleteDropdown.props.items.length).to.equal(0); 
-                }, 360);
+                }, 400);
             }, 25);
         });
 
@@ -227,9 +227,9 @@ describe('Autocomplete component with external api', function () {
                         expect(autocompleteDropdown.props.items[0].name).to.equal("anguilla");
                         expect(autocompleteDropdown.props.items[0].id).to.equal(7);
                         expect(selectedList.length).to.equal(1);
-                    }, 360);
-                },360);
-            }, 360);
+                    }, 400);
+                },400);
+            }, 400);
         });
 
         it("should delete item if click is pressed", function() {
@@ -274,8 +274,8 @@ describe('Autocomplete component with external api', function () {
                     expect(autocompleteDropdown.props.items[0].name).to.equal("angola");
                     expect(autocompleteDropdown.props.items[0].id).to.equal(6);
                     expect(selectedList.length).to.equal(0);
-                }, 360);
-            }, 360);
+                }, 400);
+            }, 400);
         });
     });
 
