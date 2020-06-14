@@ -20,6 +20,10 @@ import store from 'app/store';
 const INITIAL_PAGE = 1;
 const SEARCH_TICKETS_PATH = '/search-tickets';
 
+function retrieveStaffMembers() {
+    store.dispatch(AdminDataActions.retrieveStaffMembers());
+}
+
 function updateSearchTicketsFromURL() {
     const currentPathName = window.location.pathname;
     const currentSearch = window.location.search;
@@ -35,6 +39,7 @@ function updateSearchTicketsFromURL() {
                 searchTicketsUtils.prepareFiltersForAPI(listConfig.filters)
             ));
         });
+        retrieveStaffMembers();
     }
 }
 
@@ -107,10 +112,6 @@ class AdminPanelSearchTickets extends React.Component {
             dispatch
         } = this.props;
         dispatch(searchFiltersActions.changeShowFilters(showFilters));
-    }
-
-    retrieveStaffMembers() {
-        this.props.dispatch(AdminDataActions.retrieveStaffMembers());
     }
 
 }
