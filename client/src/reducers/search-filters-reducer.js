@@ -96,7 +96,6 @@ class searchFiltersReducer extends Reducer {
     }
 
     onSearchTicketsPending(state, payload) {
-        console.log("...pending");
         return (
             _.extend(
                 {},
