@@ -39,7 +39,7 @@ class InstallStep4UserSystem extends React.Component {
                             fieldProps={{disabled: !form['mandatory-login']}} />
                     </div>
                     <div className="install-step-4__buttons">
-                        <SubmitButton className="install-step-4__next" size="extra-small" type="secondary">{i18n('NEXT')}</SubmitButton>
+                        <SubmitButton className="install-step-4__next" size="medium" type="secondary">{i18n('NEXT')}</SubmitButton>
                     </div>
                 </Form>
             </div>

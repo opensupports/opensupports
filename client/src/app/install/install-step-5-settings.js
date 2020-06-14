@@ -42,22 +42,22 @@ class InstallStep5Settings extends React.Component {
                         <FormField name="smtp-host" label={i18n('SMTP_SERVER')} fieldProps={{size: 'large'}} />
                         <FormField name="smtp-user" label={i18n('SMTP_USER')} fieldProps={{size: 'large'}} />
                         <FormField name="smtp-pass" label={i18n('SMTP_PASSWORD')} fieldProps={{size: 'large', password: true}} />
-                        <SubmitButton className="install-step-5__test-connection" size="extra-small" onClick={this.onTestSMTPClick.bind(this)} disabled={loading}>
+                        <SubmitButton className="install-step-5__test-connection" size="medium" onClick={this.onTestSMTPClick.bind(this)} disabled={loading}>
                             {i18n('TEST_SMTP_CONNECTION')}
                         </SubmitButton>
                     </div>
                     <div className="install-step-5__buttons">
-                        <SubmitButton className="install-step-5__next" size="extra-small" type="secondary">
-                                {i18n('NEXT')}
-                        </SubmitButton>
                         <Button
                             className="install-step-5__previous"
-                            size="extra-small"
+                            size="medium"
                             disabled={loading}
                             onClick={this.onPreviousClick.bind(this)}
                         >
                                 {i18n('PREVIOUS')}
                         </Button>
+                        <SubmitButton className="install-step-5__next" size="medium" type="secondary">
+                                {i18n('NEXT')}
+                        </SubmitButton>
                     </div>
                 </Form>
             </div>

@@ -6,7 +6,8 @@
         margin: 15px 0;
 
         &-button {
-            width: 120px;
+            min-width: 120px;
+            width: auto;
             position: relative;
             text-align: right;
         }
