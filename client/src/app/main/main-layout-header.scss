@@ -5,6 +5,9 @@
     border-radius: 4px 4px 0 0;
     width: 100%;
     position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 
     &__user-name {
         color: $primary-red;
@@ -20,7 +23,6 @@
 
     &__languages {
         display: inline-block;
-        float: right;
         position: relative;
         top: 5px;
         margin: 0 6px;
@@ -29,6 +31,19 @@
     @media screen and (max-width: 500px) {
         .main-layout-header__languages {
             float: none;
+        }
+    }
+
+    @media (max-width: 363px) {
+        .main-layout-header__login-links{
+           padding: 8px 0 0 0;
+        }
+    }
+
+    @media (max-width: 350px) {
+        .main-layout-header__languages {
+            margin: 0 3px;
+            left: unset;
         }
     }
 }
