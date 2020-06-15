@@ -168,7 +168,6 @@ class CreateTicketForm extends React.Component {
 }
 
 export default connect((store) => {
-    console.log("creat-ticket-fom sotre.config", store.config);
     const { language, supportedLanguages } = store.config;
     return {
         language: _.includes(supportedLanguages, language) ? language : supportedLanguages[0],
