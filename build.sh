@@ -15,27 +15,25 @@ rm -rf files/
 mv files2 files
 cd ..
 mkdir api
-mv server/index.php api
-mv server/.htaccess api
-mv server/composer.json api
-mv server/composer.lock api
-mv server/controllers api
-mv server/data api
-mv server/libs api
-mv server/models api
-mv server/vendor api
-mv server/files api
-cp server/config.php api
+cp -r -f server/index.php api
+cp -r -f server/.htaccess api
+cp -r -f server/composer.json api
+cp -r -f server/composer.lock api
+cp -r -f server/controllers api
+cp -r -f server/data api
+cp -r -f server/libs api
+cp -r -f server/models api
+cp -r -f server/vendor api
+cp -r -f server/files api
+cp -r -f server/config.php api
 chmod -R 755 .
-cp client/src/index.php client/build
-echo "3/3 Generating zip..."
+cp -r -f client/src/index.php client/build
+echo "3/3 Generating dist..."
 cd client/build
-zip opensupports_dev.zip index.php
-zip -u opensupports_dev.zip .htaccess
-zip -u opensupports_dev.zip bundle.js
-zip -ur opensupports_dev.zip images
-mv opensupports_dev.zip ../..
+mkdir ../../dist
+cp -r -f index.php ../../dist
+cp -r -f .htaccess ../../dist
+cp -r -f bundle.js ../../dist
+cp -r -f images ../../dist
 cd ../..
-zip -ur opensupports_dev.zip api
-mkdir dist
-mv opensupports_dev.zip dist
+cp -r -f api dist
