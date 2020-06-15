@@ -38,11 +38,10 @@ class ConfigReducer extends Reducer {
         if(payload.data.allowedLanguages && !_.includes(payload.data.allowedLanguages, currentLanguage)) {
             currentLanguage = payload.data.language;
         }
-
         sessionStore.storeConfigs(_.extend({}, payload.data, {
             language: currentLanguage || payload.data.language
         }));
-
+        
         return _.extend({}, state, payload.data, {
             language: currentLanguage || payload.data.language || 'en',
             registration: !!(payload.data.registration * 1),

@@ -69,7 +69,10 @@ class SessionStore {
         this.setItem('maintenance-mode', configs['maintenance-mode']);
         this.setItem('max-size', configs['max-size']);
         this.setItem('tags', JSON.stringify(configs['tags']));
-
+        this.setItem('max-size', configs['max-size']);
+        this.setItem('tags', JSON.stringify(configs['tags']));
+        this.setItem('default-is-locked', configs['default-is-locked']);
+        this.setItem('default-department-id',  configs['default-department-id']);
     }
 
     getConfigs() {
@@ -86,7 +89,10 @@ class SessionStore {
             'allow-attachments': (this.getItem('allow-attachments') * 1),
             'maintenance-mode': (this.getItem('maintenance-mode') * 1),
             'max-size': this.getItem('max-size'),
-            'tags': JSON.parse(this.getItem('tags'))
+            'tags': JSON.parse(this.getItem('tags')),
+            'default-is-locked': this.getItem('default-is-locked'),
+            'default-department-id':  this.getItem('default-department-id')
+            
         };
     }
 

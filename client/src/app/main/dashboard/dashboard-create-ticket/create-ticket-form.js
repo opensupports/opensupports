@@ -51,7 +51,7 @@ class CreateTicketForm extends React.Component {
                     {(!this.props.userLogged) ? this.renderEmailAndName() : null}
                     <FormField label={i18n('TITLE')} name="title" validation="TITLE" required field="input" fieldProps={{size: 'large'}}/>
                     <div className="row">
-                        {!this.props.isDefaultDepartmentLocked || this.props.isStaff ?
+                        {!(this.props.isDefaultDepartmentLocked*1) || this.props.isStaff ?
                             <FormField className="col-md-5" label={i18n('DEPARTMENT')} name="departmentIndex" field="select" decorator={DepartmentDropdown} fieldProps={{
                                 departments: SessionStore.getDepartments(),
                                 size: 'medium'
