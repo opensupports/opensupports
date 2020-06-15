@@ -62,11 +62,11 @@ class CreateController extends Controller {
                     'error' => ERRORS::INVALID_CONTENT
                 ],
                 'departmentId' => [
-                    'validation' => DataValidator::dataStoreId('department'),
+                    'validation' => DataValidator::oneOf(DataValidator::dataStoreId('department'), DataValidator::nullType()),
                     'error' => ERRORS::INVALID_DEPARTMENT
                 ],
                 'language' => [
-                    'validation' => DataValidator::in(Language::getSupportedLanguages()),
+                    'validation' => DataValidator::oneOf(DataValidator::in(Language::getSupportedLanguages()), DataValidator::nullType()),
                     'error' => ERRORS::INVALID_LANGUAGE
                 ]
             ]
@@ -159,9 +159,12 @@ class CreateController extends Controller {
         $signupController->validations();
         $signupController->handler();
     }
+
     private function storeTicket() {
-        $department = Department::getDataStore($this->departmentId);
+        $department = Department::getDataStore($this->getCorrectDepartmentId());
         $author = $this->getAuthor();
+        $this->language = $this->getCorrectLanguage();
+
         $ticket = new Ticket();
 
         $fileUploader = FileUploader::getInstance();
@@ -198,6 +201,26 @@ class CreateController extends Controller {
         $ticket->store();
 
         $this->ticketNumber = $ticket->ticketNumber;
+    }
+
+    private function getCorrectLanguage() {
+        if($this->language){
+            return $this->language;
+        }else{
+            return Setting::getSetting('language')->getValue();
+        }
+    }
+    
+    private function getCorrectDepartmentId(){
+        $defaultDepartmentId = Setting::getSetting('default-department-id')->getValue();
+        $isLocked = Setting::getSetting('default-is-locked')->getValue();
+        $validDepartment = Department::getDataStore($defaultDepartmentId)->id; 
+        if (Controller::isStaffLogged()) {
+            if ($this->departmentId) $validDepartment = $this->departmentId;
+        } else {
+            if (!$isLocked && $this->departmentId) $validDepartment = $this->departmentId;
+        }
+        return $validDepartment;
     }
 
     private function getAuthor() {

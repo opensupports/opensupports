@@ -49,8 +49,11 @@ class DeleteDepartmentController extends Controller {
     }
 
     public function handler() {
+        
         $this->departmentId = Controller::request('departmentId');
         $this->transferDepartmentId = Controller::request('transferDepartmentId');
+        
+        $this->checkDepartmentIdDefault();
 
         if ($this->departmentId === $this->transferDepartmentId) {
             throw new RequestException(ERRORS::SAME_DEPARTMENT);
@@ -107,5 +110,10 @@ class DeleteDepartmentController extends Controller {
             $ticket->department = $newDepartment;
             $ticket->store();
         }
+    }
+    public function checkDepartmentIdDefault() {
+        $defaultDepartment = Setting::getSetting('default-department-id');
+
+        if ($defaultDepartment && $this->departmentId == $defaultDepartment->value) throw new Exception(ERRORS::CAN_NOT_DELETE_DEFAULT_DEPARTMENT);
     }
 }
