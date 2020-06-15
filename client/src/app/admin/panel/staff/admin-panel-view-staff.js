@@ -32,7 +32,14 @@ class AdminPanelViewStaff extends React.Component {
     }
 
     getProps() {
-        return _.extend({}, this.state.userData, {
+        const { userData } = this.state;
+        const userDataWithNumericLevel = {
+            ...userData,
+            level: userData.level*1,
+            sendEmailOnNewTicket: userData.sendEmailOnNewTicket === "1" ? true : false
+        };
+
+        return _.extend({}, userDataWithNumericLevel, {
             staffId: this.props.params.staffId * 1,
             onDelete: this.onDelete.bind(this),
             onChange: this.retrieveStaff.bind(this)

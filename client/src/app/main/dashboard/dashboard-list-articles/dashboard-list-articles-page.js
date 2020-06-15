@@ -127,7 +127,7 @@ export default connect((store) => {
     return {
         isLogged: store.session.logged,
         config: store.config,
-        topics: store.articles.topics,
+        topics: store.articles.topics.map((topic) => {return {...topic, private: topic.private === "1" ? true : false}}),
         loading: store.articles.loading
     };
 })(DashboardListArticlesPage);

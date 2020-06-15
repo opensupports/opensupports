@@ -85,6 +85,6 @@ class TicketQueryList extends React.Component {
 
 export default connect((store) => {
     return {
-        userId: store.session.userId
+        userId: store.session.userId*1
     };
 })(TicketQueryList);

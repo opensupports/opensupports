@@ -126,10 +126,15 @@ class AdminPanelDepartments extends React.Component {
     }
 
     getFormProps() {
+        const {
+            form,
+            errors,
+            formLoading,
+        } = this.state;
         return {
-            values: this.state.form,
-            errors: this.state.errors,
-            loading: this.state.formLoading,
+            values: {...form, private: form.private ? true : false},
+            errors: errors,
+            loading: formLoading,
             onChange: (form) => {this.setState({form, edited: true})},
             onValidateErrors: (errors) => {this.setState({errors})},
             onSubmit: this.onFormSubmit.bind(this)

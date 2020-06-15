@@ -51,18 +51,30 @@ class AdminPanelAllTickets extends React.Component {
     }
 
     getTicketListProps() {
+        const {
+            userId,
+            departments,
+            tickets,
+            loading,
+            pages
+        } = this.props;
+        const {
+            page,
+            closedTicketsShown
+        } = this.state;
+
         return {
-            userId: this.props.userId,
+            userId,
             showDepartmentDropdown: false,
-            departments: this.props.departments,
-            tickets: this.props.tickets,
+            departments,
+            tickets,
             type: 'secondary',
-            loading: this.props.loading,
+            loading,
             ticketPath: '/admin/panel/tickets/view-ticket/',
             onPageChange: this.onPageChange.bind(this),
-            page: this.state.page,
-            pages: this.props.pages,
-            closedTicketsShown: this.state.closedTicketsShown,
+            page,
+            pages,
+            closedTicketsShown: closedTicketsShown ? true : false,
             onClosedTicketsShownChange: this.onClosedTicketsShownChange.bind(this)
         };
     }
@@ -92,7 +104,7 @@ class AdminPanelAllTickets extends React.Component {
 
 export default connect((store) => {
     return {
-        userId: store.session.userId,
+        userId: store.session.userId*1,
         departments: store.session.userDepartments,
         tickets: store.adminData.allTickets,
         pages: store.adminData.allTicketsPages,
