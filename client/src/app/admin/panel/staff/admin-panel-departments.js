@@ -221,13 +221,8 @@ class AdminPanelDepartments extends React.Component {
 
     getDefaultDepartmentFormProps() {
         const {
-            defaultDepartment,
             formLoading
         } = this.state;
-        const {
-            defaultDepartmentId,
-            defaultDepartmentLocked
-        } = this.props;
 
         return {
             values: {
