@@ -28,6 +28,7 @@ class CreateTicketForm extends React.Component {
     static defaultProps = {
         userLogged: true,
         isStaff: false
+        //,departmentIndex: this.props.defaultDepartmentId 
     };
 
     state = {
@@ -167,11 +168,13 @@ class CreateTicketForm extends React.Component {
 }
 
 export default connect((store) => {
+    console.log("creat-ticket-fom sotre.config", store.config);
     const { language, supportedLanguages } = store.config;
     return {
         language: _.includes(supportedLanguages, language) ? language : supportedLanguages[0],
         onlyOneSupportedLanguage: supportedLanguages.length == 1 ? true : false,
         isDefaultDepartmentLocked: store.config['default-is-locked'],
-        allowAttachments: store.config['allow-attachments']
+        allowAttachments: store.config['allow-attachments'],
+        defaultDepartmentId: store.config['default-department-id']
     };
 })(CreateTicketForm);

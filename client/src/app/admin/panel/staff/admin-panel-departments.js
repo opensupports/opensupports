@@ -27,7 +27,7 @@ function getPublicDepartmentList(){
 
 function getPublicDepartmentIndexFromDepartmentId(departmentId) {
     const departments = getPublicDepartmentList();
-    const departmentIndex = _.findIndex(departments, department  => department.id*1 === departmentId );
+    const departmentIndex = _.findIndex(departments, department  => department.id == departmentId );
 
     return (departmentIndex !== -1) ? departmentIndex : 0;
 }
@@ -49,7 +49,8 @@ class AdminPanelDepartments extends React.Component {
             language: 'en',
             private: 0,
         },
-        defaultDepartment: ""
+        defaultDepartment: this.props.defaultDepartmentId,
+        defaultDepartmentLocked: this.props.defaultDepartmentLocked * 1,
     };
 
     render() {
@@ -90,12 +91,12 @@ class AdminPanelDepartments extends React.Component {
                         {(selectedIndex !== -1 && this.props.departments.length) ? this.renderOptionalButtons() : null}
                     </div>
                 </div>
-                {this.renderDefaultDepartment()}
+                {this.renderDefaultDepartmentForm()}
             </div>
         );
     }
     
-    renderDefaultDepartment() {
+    renderDefaultDepartmentForm() {
         const {
             defaultDepartmentError,
             formLoading
@@ -229,20 +230,16 @@ class AdminPanelDepartments extends React.Component {
         } = this.props;
 
         return {
-            values: ( 
-                defaultDepartment ===  "" ?
-                    {
-                        defaultDepartment: getPublicDepartmentIndexFromDepartmentId(defaultDepartmentId),
-                        locked: defaultDepartmentLocked
-                    } :
-                    defaultDepartment
-
-            ),
-            onChange: (defaultDepartment) => {
+            values: {
+                defaultDepartment: getPublicDepartmentIndexFromDepartmentId(this.state.defaultDepartment),
+                locked: this.state.defaultDepartmentLocked,
+            },
+            onChange: (formValue) => {
                 this.setState({
                     edited: true,
-                    defaultDepartment,
-                    defaultDepartmentError: null
+                    defaultDepartmentError: null,
+                    defaultDepartment: getPublicDepartmentList()[formValue.defaultDepartment].id,
+                    defaultDepartmentLocked: formValue.locked,
                 });
             },
             onSubmit: this.onDefaultDepartmentFormSubmit.bind(this),
@@ -258,7 +255,7 @@ class AdminPanelDepartments extends React.Component {
         }
     }
 
-    onDefaultDepartmentFormSubmit(defaultDepartment) {
+    onDefaultDepartmentFormSubmit(formValue) {
         let publicDepartments = getPublicDepartmentList();
 
         this.setState({formLoading: true, edited: false});
@@ -266,10 +263,11 @@ class AdminPanelDepartments extends React.Component {
         API.call({
             path: '/system/edit-settings',
             data: {
-                'default-department-id': this.getCurrentDepartment(publicDepartments, defaultDepartment.defaultDepartment).id,
-                'default-is-locked': defaultDepartment.locked ? 1 : 0
+                'default-department-id': this.getCurrentDepartment(publicDepartments, formValue.defaultDepartment).id,
+                'default-is-locked': formValue.locked ? 1 : 0
             }
         }).then(() => {
+            this.retrieveDepartments();
             this.setState({formLoading: false, errorMessage: false, defaultDepartmentError: false});
         }).catch(result => this.setState({formLoading: false, defaultDepartmentError: result.message}));
     }
