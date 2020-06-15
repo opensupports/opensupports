@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect}  from 'react-redux';
 
-import AdminPanelCustomTagsModal from 'app/admin/panel/tickets/admin-panel-custom-tags-modal';
+import AdminPanelCustomTagsModal from 'app/admin/panel/settings/admin-panel-custom-tags-modal';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -97,6 +97,6 @@ class AdminPanelCustomTags extends React.Component {
 
 export default connect((store) => {
     return {
-        tags: store.config['tags']
+        tags: store.config['tags'].map((tag) => {return {...tag, id: tag.id*1}})
     };
 })(AdminPanelCustomTags);
