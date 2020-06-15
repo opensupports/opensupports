@@ -12,5 +12,5 @@ RUN sed -i "5s/.*/Listen 8080/" /etc/apache2/ports.conf
 
 COPY ./dist/. /var/www/html/
 
-RUN cd /var/www/html && composer install
+RUN cd /var/www/html/api && composer install
 
