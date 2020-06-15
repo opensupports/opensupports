@@ -77,6 +77,7 @@ describe '/system/default-department' do
         (result['status']).should.equal('fail')
         (result['message']).should.equal('CAN_NOT_DELETE_DEFAULT_DEPARTMENT')
     end
+    
     it 'should fail if try to edit default department into private' do
         request('/user/logout')
         Scripts.login('staff@opensupports.com', 'staff', true)
@@ -113,6 +114,7 @@ describe '/system/default-department' do
         (row['department_id']).should.equal(setting['value'].to_i)
         
     end
+
     it 'should create ticket in default department if staff does not give department with locked off'do
         request('/user/logout')
         Scripts.login('staff@opensupports.com', 'staff', true)
@@ -131,6 +133,7 @@ describe '/system/default-department' do
         setting = $database.getRow('setting', 'default-department-id','name')
         (row['department_id']).should.equal(setting['value'].to_i)
     end
+
     it 'should create ticket in selected department if staff give department and lockd is off'do
         request('/user/logout')
         Scripts.login('staff@opensupports.com', 'staff', true)
@@ -167,9 +170,9 @@ describe '/system/default-department' do
         row = $database.getRow('ticket', 'Night King4', 'title')
         
         (row['department_id']).should.equal(1)
-        end
+    end
         
-        it 'should create ticket on default department if user does not give department and locked is on' do
+    it 'should create ticket on default department if user does not give department and locked is on' do
         
         request('/user/logout')
         Scripts.login('staff@opensupports.com', 'staff', true)
@@ -192,9 +195,9 @@ describe '/system/default-department' do
         setting = $database.getRow('setting', 'default-department-id','name')
         
         (row['department_id']).should.equal(setting['value'].to_i) 
-        end
+    end
 
-        it 'should create ticket on default department if user does not give department and locked is off'do
+    it 'should create ticket on default department if user does not give department and locked is off'do
         
         request('/user/logout')
         Scripts.login('staff@opensupports.com', 'staff', true)
@@ -239,6 +242,7 @@ describe '/system/default-department' do
         
         (row['department_id']).should.equal(1)
     end
+
     it 'should create ticket on default leanguage if user does not pass language'do
         $database.query('update setting set value="ru" where name="language";')
         
