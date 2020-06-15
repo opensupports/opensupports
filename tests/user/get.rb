@@ -34,7 +34,6 @@ describe '/user/get' do
         })
 
         ticket = $database.getRow('ticket', @ticketNumber, 'ticket_number')
-
         (result['status']).should.equal('success')
         (result['data']['name']).should.equal('User Get')
         (result['data']['email']).should.equal('user_get@os4.com')

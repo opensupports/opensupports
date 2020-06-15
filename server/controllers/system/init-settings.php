@@ -26,7 +26,8 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} title Title of the support center
  * @apiParam {String} url Url of the frontend client.
  * @apiParam {Boolean} mandatory-login Indicates if the login is mandatory.
- *
+ * @apiParam {Number} default-department-id Indicates the id of the default department
+ * @apiParam {Boolean} locked-department Indicates if the default department is locked or not
  * @apiUse INVALID_LANGUAGE
  * @apiUse INIT_SETTINGS_DONE
  *
@@ -90,8 +91,10 @@ class InitSettingsController extends Controller {
             'ticket-first-number' => Hashing::generateRandomNumber(100000, 999999),
             'session-prefix' => 'opensupports-'.Hashing::generateRandomToken().'_',
             'mail-template-header-image' => 'https://s3.amazonaws.com/opensupports/logo.png',
+            'default-department-id' => 1,
+            'default-is-locked' => false,
             'imap-token' => '',
-            'mandatory-login' => !!Controller::request('mandatory-login'),
+            'mandatory-login' => !!Controller::request('mandatory-login')
         ]);
     }
 
@@ -119,7 +122,6 @@ class InitSettingsController extends Controller {
     private function storeSettings($settings) {
         foreach ($settings as $settingName => $settingValue) {
             $setting = new Setting();
-
             $setting->setProperties([
                 'name' => $settingName,
                 'value' => $settingValue
@@ -151,6 +153,7 @@ class InitSettingsController extends Controller {
         foreach ($departments as $departmentName) {
             $department = new Department();
             $department->name = $departmentName;
+            $department->private = 0;
             $department->store();
         }
     }

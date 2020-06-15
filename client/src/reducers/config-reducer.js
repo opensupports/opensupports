@@ -38,11 +38,10 @@ class ConfigReducer extends Reducer {
         if(payload.data.allowedLanguages && !_.includes(payload.data.allowedLanguages, currentLanguage)) {
             currentLanguage = payload.data.language;
         }
-
         sessionStore.storeConfigs(_.extend({}, payload.data, {
             language: currentLanguage || payload.data.language
         }));
-
+        
         return _.extend({}, state, payload.data, {
             language: currentLanguage || payload.data.language || 'en',
             registration: !!(payload.data.registration * 1),
@@ -50,7 +49,9 @@ class ConfigReducer extends Reducer {
             'allow-attachments': !!(payload.data['allow-attachments']* 1),
             'maintenance-mode': !!(payload.data['maintenance-mode']* 1),
             departments: payload.data.departments && payload.data.departments.map(department => _.extend({}, department, {private: department.private * 1})),
-            initDone: true
+            initDone: true,
+            'default-department-id': payload.data['default-department-id'],
+            'default-is-locked': payload.data['default-is-locked'],
         });
     }
 
