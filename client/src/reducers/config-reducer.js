@@ -33,7 +33,6 @@ class ConfigReducer extends Reducer {
     }
 
     onInitConfigs(state, payload) {
-        console.log("departemssSSSSSSSSSSSSSSSSSSs: ", payload.data);
         let currentLanguage = sessionStore.getItem('language');
 
         if(payload.data.allowedLanguages && !_.includes(payload.data.allowedLanguages, currentLanguage)) {

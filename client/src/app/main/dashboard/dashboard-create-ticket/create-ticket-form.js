@@ -171,7 +171,7 @@ export default connect((store) => {
     return {
         language: _.includes(supportedLanguages, language) ? language : supportedLanguages[0],
         onlyOneSupportedLanguage: supportedLanguages.length == 1 ? true : false,
-        isDefaultDepartmentLocked: store.config['default-is-locked']*1 ? true : false,
+        isDefaultDepartmentLocked: store.config['default-is-locked'],
         allowAttachments: store.config['allow-attachments']
     };
 })(CreateTicketForm);

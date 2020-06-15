@@ -17,18 +17,17 @@ import Listing from 'core-components/listing';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
-import DropDown from 'core-components/drop-down';
 import Icon from 'core-components/icon';
 import Message from 'core-components/message';
 import Loading from 'core-components/loading'
 
-function getDefaultDepartmentList(){
-    return _.filter(SessionStore.getDepartments(), function(item) { return item.private != 1})
+function getPublicDepartmentList(){
+    return _.filter(SessionStore.getDepartments(),item => item.private != 1)
 }
 
-function getDepartmentIndexFromDepartmentId(departmentId) {
-    const departments = getDefaultDepartmentList();
-    const departmentIndex = _.findIndex(departments, (department) => { return (department.id*1 === departmentId)});
+function getPublicDepartmentIndexFromDepartmentId(departmentId) {
+    const departments = getPublicDepartmentList();
+    const departmentIndex = _.findIndex(departments, department  => department.id*1 === departmentId );
 
     return (departmentIndex !== -1) ? departmentIndex : 0;
 }
@@ -44,13 +43,13 @@ class AdminPanelDepartments extends React.Component {
         edited: false,
         errorMessage: null,
         errors: {},
-        errorOfDefaultMessage: null,
+        defaultDepartmentError: null,
         form: {
             title: '',
             language: 'en',
             private: 0,
         },
-        defaultDepartmentFormValue: ""
+        defaultDepartment: ""
     };
 
     render() {
@@ -98,17 +97,17 @@ class AdminPanelDepartments extends React.Component {
     
     renderDefaultDepartment() {
         const {
-            errorOfDefaultMessage,
+            defaultDepartmentError,
             formLoading
         } = this.state
 
         return (
             <div className="admin-panel-departments__default-departments-container">
                 <span className="separator" />
-                {(errorOfDefaultMessage !== null) ?
-                    ((!errorOfDefaultMessage) ?
+                {(defaultDepartmentError !== null) ?
+                    ((!defaultDepartmentError) ?
                         <Message type="success">{i18n('SETTINGS_UPDATED')}</Message> :
-                        <Message type="error">{i18n(errorOfDefaultMessage)}</Message>) :
+                        <Message type="error">{i18n(defaultDepartmentError)}</Message>) :
                     null}
                 <Form {...this.getDefaultDepartmentFormProps()} className="admin-panel-departments__default-departments-container__form">
                     <div className="admin-panel-departments__default-departments-container__form__fields" >
@@ -118,7 +117,7 @@ class AdminPanelDepartments extends React.Component {
                             name="defaultDepartment"
                             field="select"
                             decorator={DepartmentDropdown}
-                            fieldProps={{ departments: getDefaultDepartmentList() , size: 'medium' }}
+                            fieldProps={{ departments: getPublicDepartmentList() , size: 'medium' }}
                         />
                         <div className="admin-panel-departments__default-departments-container__form__fields__lock-option">
                             <FormField label={i18n('LOCK_DEPARTMENT_DESCRIPTION')} name="locked" field="checkbox"/>
@@ -221,29 +220,29 @@ class AdminPanelDepartments extends React.Component {
 
     getDefaultDepartmentFormProps() {
         const {
-            defaultDepartmentFormValue,
+            defaultDepartment,
             formLoading
         } = this.state;
         const {
             defaultDepartmentId,
-            locked
+            defaultDepartmentLocked
         } = this.props;
 
         return {
             values: ( 
-                defaultDepartmentFormValue ===  "" ?
+                defaultDepartment ===  "" ?
                     {
-                        defaultDepartment: getDepartmentIndexFromDepartmentId(defaultDepartmentId),
-                        locked: locked
+                        defaultDepartment: getPublicDepartmentIndexFromDepartmentId(defaultDepartmentId),
+                        locked: defaultDepartmentLocked
                     } :
-                    defaultDepartmentFormValue
+                    defaultDepartment
 
             ),
-            onChange: (defaultDepartmentFormValue) => {
+            onChange: (defaultDepartment) => {
                 this.setState({
                     edited: true,
-                    defaultDepartmentFormValue,
-                    errorOfDefaultMessage: null
+                    defaultDepartment,
+                    defaultDepartmentError: null
                 });
             },
             onSubmit: this.onDefaultDepartmentFormSubmit.bind(this),
@@ -259,20 +258,20 @@ class AdminPanelDepartments extends React.Component {
         }
     }
 
-    onDefaultDepartmentFormSubmit(defaultDepartmentFormValue) {
-        let publicDepartments = _.filter(SessionStore.getDepartments(), function(item) { return item.private != 1} ); 
+    onDefaultDepartmentFormSubmit(defaultDepartment) {
+        let publicDepartments = getPublicDepartmentList();
 
         this.setState({formLoading: true, edited: false});
 
         API.call({
             path: '/system/edit-settings',
             data: {
-                'default-department-id': this.getCurrentDepartment(publicDepartments, defaultDepartmentFormValue.defaultDepartment).id,
-                'default-is-locked': defaultDepartmentFormValue.locked ? 1 : 0
+                'default-department-id': this.getCurrentDepartment(publicDepartments, defaultDepartment.defaultDepartment).id,
+                'default-is-locked': defaultDepartment.locked ? 1 : 0
             }
         }).then(() => {
-            this.setState({formLoading: false, errorMessage: false, errorOfDefaultMessage: false});
-        }).catch(result => this.setState({formLoading: false, errorOfDefaultMessage: result.message}));
+            this.setState({formLoading: false, errorMessage: false, defaultDepartmentError: false});
+        }).catch(result => this.setState({formLoading: false, defaultDepartmentError: result.message}));
     }
 
     onFormSubmit(form) {
@@ -287,9 +286,9 @@ class AdminPanelDepartments extends React.Component {
                     private: form.private ? 1 : 0
                 }
             }).then(() => {
-                this.setState({formLoading: false,errorMessage: false, errorOfDefaultMessage: null});
+                this.setState({formLoading: false,errorMessage: false, defaultDepartmentError: null});
                 this.retrieveDepartments();
-            }).catch(result => this.setState({formLoading: false, errorMessage: result.message, errorOfDefaultMessage: null}));
+            }).catch(result => this.setState({formLoading: false, errorMessage: result.message, defaultDepartmentError: null}));
         } else {
             API.call({
                 path: '/system/add-department',
@@ -298,12 +297,12 @@ class AdminPanelDepartments extends React.Component {
                     private: form.private ? 1 : 0
                 }
             }).then(() => {
-                this.setState({formLoading: false,errorMessage: false, errorOfDefaultMessage: null});
+                this.setState({formLoading: false,errorMessage: false, defaultDepartmentError: null});
                 this.retrieveDepartments();
                 this.onItemChange(-1);
             }).catch(() => {
                 this.onItemChange.bind(this, -1)
-                this.setState({errorOfDefaultMessage: null});
+                this.setState({defaultDepartmentError: null});
             });
         }
     }
@@ -330,9 +329,9 @@ class AdminPanelDepartments extends React.Component {
         }).then(() => {
             this.retrieveDepartments();
             this.onItemChange(-1);
-            this.setState({errorOfDefaultMessage: null});
+            this.setState({defaultDepartmentError: null});
         })
-        .catch(result => this.setState({errorMessage: result.message, errorOfDefaultMessage: null}));
+        .catch(result => this.setState({errorMessage: result.message, defaultDepartmentError: null}));
     }
 
     updateForm(index) {
@@ -349,7 +348,7 @@ class AdminPanelDepartments extends React.Component {
             form,
             errorMessage: null,
             errors: {},
-            errorOfDefaultMessage: null
+            defaultDepartmentError: null
         });
     }
 
@@ -381,7 +380,7 @@ class AdminPanelDepartments extends React.Component {
 export default connect((store) => {
     return {
         defaultDepartmentId: store.config['default-department-id']*1,
-        locked: store.config['default-is-locked']*1,
+        defaultDepartmentLocked: store.config['default-is-locked']*1,
         departments: store.config.departments
     };
 })(AdminPanelDepartments);

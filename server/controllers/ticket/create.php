@@ -204,7 +204,7 @@ class CreateController extends Controller {
     }
 
     private function getCorrectLanguage() {
-        if( Controller::request('language') ){
+        if($this->language){
             return $this->language;
         }else{
             return Setting::getSetting('language')->getValue();

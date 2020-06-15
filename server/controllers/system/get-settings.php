@@ -61,7 +61,6 @@ class GetSettingsController extends Controller {
                     'mandatory-login' => Setting::getSetting('mandatory-login')->getValue(),
                     'default-department-id' => Setting::getSetting('default-department-id')->getValue(),
                     'default-is-locked' => Setting::getSetting('default-is-locked')->getValue()
-
                 ];
             } else {
                 $settingsList = [

@@ -53,7 +53,7 @@ class EditDepartmentController extends Controller {
 
         $departmentInstance = Department::getDataStore($departmentId);
 
-        if($departmentId == Setting::getSetting('default-department-id')->getValue()){
+        if($private && $departmentId == Setting::getSetting('default-department-id')->getValue()){
             throw new RequestException(ERRORS::DEFAULT_DEPARTMENT_CAN_NOT_BE_PRIVATE);
         }
         
