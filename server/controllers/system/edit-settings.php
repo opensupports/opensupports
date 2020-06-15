@@ -64,6 +64,7 @@ class EditSettingsController extends Controller {
             'default-is-locked',
             'default-department-id'
         ];
+        $this->checkDefaultDepartmentValid();
 
         foreach($settings as $setting) {
             if(Controller::request($setting)!==null) {
@@ -100,4 +101,24 @@ class EditSettingsController extends Controller {
             $language->store();
         }
     }
+
+    public function checkDefaultDepartmentValid() {
+                
+        $departmentId = Controller::request('default-department-id');
+
+        if($departmentId){
+            $Publicdepartments = Department::getPublicDepartmentNames();
+            
+            $isValid = false;
+            
+            foreach($Publicdepartments as $department) {
+                if($department['id'] == $departmentId){ 
+                    $isValid = true;
+                }
+            }
+
+            if(!$isValid) throw new Exception(ERRORS::INVALID_DEFAULT_DEPARTMENT);
+        }
+    }
+        
 }
