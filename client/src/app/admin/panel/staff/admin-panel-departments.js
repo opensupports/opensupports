@@ -25,7 +25,7 @@ function getPublicDepartmentList(){
     return _.filter(SessionStore.getDepartments(),item => item.private != 1)
 }
 
-function getPublicDepartmentIndexFromDepartmentId(departmentId) {
+export const getPublicDepartmentIndexFromDepartmentId = (departmentId) => {
     const departments = getPublicDepartmentList();
     const departmentIndex = _.findIndex(departments, department  => department.id == departmentId );
 

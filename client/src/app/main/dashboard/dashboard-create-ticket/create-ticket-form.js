@@ -7,8 +7,9 @@ import i18n               from 'lib-app/i18n';
 import API                from 'lib-app/api-call';
 import SessionStore       from 'lib-app/session-store';
 import LanguageSelector   from 'app-components/language-selector';
-import Captcha            from 'app/main/captcha';
 import DepartmentDropdown from 'app-components/department-dropdown';
+import Captcha            from 'app/main/captcha';
+import {getPublicDepartmentIndexFromDepartmentId} from 'app/admin/panel/staff/admin-panel-departments';
 
 import Header             from 'core-components/header';
 import TextEditor         from 'core-components/text-editor';
@@ -18,7 +19,7 @@ import SubmitButton       from 'core-components/submit-button';
 import Message            from 'core-components/message';
 
 class CreateTicketForm extends React.Component {
-
+    
     static propTypes = {
         userLogged: React.PropTypes.bool,
         isStaff: React.PropTypes.bool,
@@ -28,7 +29,6 @@ class CreateTicketForm extends React.Component {
     static defaultProps = {
         userLogged: true,
         isStaff: false
-        //,departmentIndex: this.props.defaultDepartmentId 
     };
 
     state = {
@@ -37,7 +37,7 @@ class CreateTicketForm extends React.Component {
         form: {
             title: '',
             content: TextEditor.createEmpty(),
-            departmentIndex: 0,
+            departmentIndex: getPublicDepartmentIndexFromDepartmentId(this.props.defaultDepartmentId),
             email: '',
             name: '',
             language: this.props.language
