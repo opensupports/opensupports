@@ -222,13 +222,15 @@ class AdminPanelDepartments extends React.Component {
 
     getDefaultDepartmentFormProps() {
         const {
-            formLoading
+            formLoading,
+            defaultDepartment,
+            defaultDepartmentLocked
         } = this.state;
 
         return {
             values: {
-                defaultDepartment: getPublicDepartmentIndexFromDepartmentId(this.state.defaultDepartment),
-                locked: this.state.defaultDepartmentLocked,
+                defaultDepartment: getPublicDepartmentIndexFromDepartmentId(defaultDepartment),
+                locked: defaultDepartmentLocked ? true : false,
             },
             onChange: (formValue) => {
                 this.setState({
