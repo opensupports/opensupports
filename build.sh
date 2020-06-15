@@ -1,4 +1,6 @@
 echo "1/3 Building frontend..."
+rm -r -f api
+rm -r -f dist
 cd client
 npm install
 npm run build
