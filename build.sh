@@ -1,5 +1,6 @@
 echo "1/3 Building frontend..."
 cd client
+npm install
 npm run build
 rm build/index.html
 echo "2/3 Creating api folder..."
