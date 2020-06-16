@@ -45,7 +45,7 @@ class AdminPanelDepartments extends React.Component {
         errors: {},
         defaultDepartmentError: null,
         form: {
-            title: '',
+            name: '',
             language: 'en',
             private: 0,
         },
@@ -279,7 +279,7 @@ class AdminPanelDepartments extends React.Component {
                     private: form.private ? 1 : 0
                 }
             }).then(() => {
-                this.setState({formLoading: false,errorMessage: false, defaultDepartmentError: null});
+                this.setState({formLoading: false, errorMessage: false, defaultDepartmentError: null});
                 this.retrieveDepartments();
             }).catch(result => this.setState({formLoading: false, errorMessage: result.message, defaultDepartmentError: null}));
         } else {
@@ -295,7 +295,7 @@ class AdminPanelDepartments extends React.Component {
                 this.onItemChange(-1);
             }).catch(() => {
                 this.onItemChange.bind(this, -1)
-                this.setState({defaultDepartmentError: null});
+                this.setState({formLoading: false, defaultDepartmentError: null});
             });
         }
     }
