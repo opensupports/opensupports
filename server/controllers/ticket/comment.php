@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/comment Comment ticket
- * @apiVersion 4.6.1
+ * @apiVersion 4.7.0
  *
  * @apiName Comment ticket
  *

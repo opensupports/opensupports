@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /user/edit-custom-fields Edit custom field values
- * @apiVersion 4.6.1
+ * @apiVersion 4.7.0
  *
  * @apiName Edit custom field values
  *

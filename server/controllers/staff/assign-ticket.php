@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /staff/assign-ticket Assign ticket
- * @apiVersion 4.6.1
+ * @apiVersion 4.7.0
  *
  * @apiName Assign ticket
  *
