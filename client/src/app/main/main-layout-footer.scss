@@ -3,7 +3,7 @@
 .main-layout-footer {
     background-color: $primary-blue;
     text-align: center;
-    height: 32px;
+    min-height: 32px;
     width: 100%;
 
     &__powered,
@@ -36,5 +36,18 @@
             float: left;
             padding-left: 20px;
         }
+    }
+
+    @media screen and (max-width: 415px) {
+        &_admin-panel {
+            .main-layout-footer {
+                &__powered,
+                &__extra-link {
+                    float: unset;
+                    padding: 5px;
+                }
+            }
+        }
+
     }
 }
