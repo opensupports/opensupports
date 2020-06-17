@@ -177,7 +177,7 @@ export default {
     'ALL_NOTIFICATIONS': 'Alle Benachrichtigungen',
     'VERIFY_SUCCESS': 'Benutzer bestätigt.',
     'VERIFY_FAILED': 'Benutzer konnte nicht bestätigt werden',
-    'ENABLE_MANDATORY_LOGIN': 'Mandatory Login für Kunden',
+    'ENABLE_MANDATORY_LOGIN': 'Obligatorisches Login für Kunden',
     'ENABLE_USER_SYSTEM': 'Benutzersystem für Kunden nutzen',
     'ENABLE_USER_REGISTRATION': 'Benutzerregistrierung aktivieren.',
     'INCLUDE_USERS_VIA_CSV': 'Benutzer über CSV-Datei einbinden',
