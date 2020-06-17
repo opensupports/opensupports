@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/add-department Add department
- * @apiVersion 4.6.1
+ * @apiVersion 4.7.0
  *
  * @apiName Add department
  *

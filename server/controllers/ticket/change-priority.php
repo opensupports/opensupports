@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /ticket/change-priority Change priority
- * @apiVersion 4.6.1
+ * @apiVersion 4.7.0
  *
  * @apiName Change priority
  *
