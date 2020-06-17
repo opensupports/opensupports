@@ -109,7 +109,7 @@ class TextEditor extends React.Component {
                     ['bold', 'italic', 'underline','strike'],
                     [{'list': 'ordered'}, {'list': 'bullet'}],
                     ['blockquote', 'code-block' ],
-                    (this.props.allowImages) ? ['link', 'image'] : ['link']
+                    (this.props.allowImages) ? ['link', 'image', 'video'] : ['link']
                 ],
             },
             ImageResize: {parchment: Quill.import('parchment')},

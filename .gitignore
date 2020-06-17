@@ -11,3 +11,4 @@ server/.dbdata
 server/.fakemail
 server/apidoc
 dist/
+api/
