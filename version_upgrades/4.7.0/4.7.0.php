@@ -5,16 +5,56 @@ use RedBeanPHP\Facade as RedBean;
 print 'Begin update v4.7.0...' . PHP_EOL;
 
 // Update User table
-print '[1/3] Updating user table...' . PHP_EOL;
+
+
+print '[1/4] Updating user table...' . PHP_EOL;
+
+
 if ($mysql->query("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'user' AND COLUMN_NAME = 'not_registered' AND TABLE_SCHEMA = '$mysql_db'")->num_rows == 0) {
     $mysql->query("ALTER TABLE user ADD not_registered tinyint(1)");
     $mysql->query("UPDATE setting SET not_registered = false ");
 } else {
     print '-not_registered column already exists' . PHP_EOL;
 }
+if(!Setting::getSetting('user-system-enabled')->isNull() && !Setting::getSetting('user-system-enabled')->getValue() ) {
+    $ticketList = Ticket::getAll();
+
+    foreach($ticketList as $ticket) {
+        if($ticket->authorStaff) {
+            continue;
+        }
+
+        $userInstance = User::getDataStore($ticket->authorEmail, 'email');
+
+        if($userInstance->isNull()) {
+            
+            $userInstance = new User();
+
+            $password = Hashing::generateRandomToken();
+
+            $userInstance->setProperties([
+                'name' => $ticket->authorName,
+                'signupDate' => Date::getCurrentDate(),
+                'tickets' => 0,
+                'email' => $ticket->authorEmail,
+                'password' => Hashing::hashPassword($password),
+                'not_registered' => 1,
+                'verificationToken' => null
+            ]);
+
+            $userInstance->store();
+        }
+
+        $userInstance->tickets = $userInstance->tickets + 1;
+        $userInstance->sharedTicketList->add($ticket);
+        $userInstance->store();
+    }
+} else {
+    print '-The tickets created already have owner Users' . PHP_EOL;
+}
 
 // Update mailtemplate table
-print '[2/3] Updating mailtemplate table...' . PHP_EOL;
+print '[2/4] Updating mailtemplate table...' . PHP_EOL;
 if ($mysql->query("SELECT * FROM mailtemplate WHERE template='USER_SYSTEM_DISABLED' ")->num_rows != 0) {
     $mysql->query("DELETE FROM mailtemplate WHERE template='USER_SYSTEM_DISABLED' ");
 } else {
@@ -27,8 +67,17 @@ if ($mysql->query("SELECT * FROM mailtemplate WHERE template='USER_SYSTEM_ENABLE
     print '-user_system_enabled template is already deleted' . PHP_EOL;
 }
 
+// Update Department table
+print '[3/4] Updating department table...' . PHP_EOL;
+if ($mysql->query("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'department' AND COLUMN_NAME = 'private' AND TABLE_SCHEMA = '$mysql_db'")->num_rows == 0) {
+    $mysql->query("ALTER TABLE department ADD private tinyint(1)");
+    $mysql->query("UPDATE department SET private = 0 ");
+} else {
+    print 'private column already exists' . PHP_EOL;
+}
+
 // Update setting table
-print '[3/3] Updating setting table...' . PHP_EOL;
+print '[4/4] Updating setting table...' . PHP_EOL;
 if ($mysql->query("SELECT * FROM setting WHERE name='mandatory-login' ")->num_rows == 0) {
     $userSystemEnabled = $mysql->query("SELECT * FROM setting WHERE name='user-system-enabled'");
     if($userSystemEnabled->fetch_array(MYSQLI_ASSOC)['value']){
@@ -39,11 +88,11 @@ if ($mysql->query("SELECT * FROM setting WHERE name='mandatory-login' ")->num_ro
 } else {
     print '-Mandatory-login already exists' . PHP_EOL;
 }
-
 if ($mysql->query("SELECT * FROM setting WHERE name='default-department-id' ")->num_rows == 0) {
-    $publicDepartment = $mysql->query("SELECT * FROM department WHERE private= false");
+    $publicDepartment = $mysql->query("SELECT * FROM department WHERE private= 0 OR private IS NULL");
     if($publicDepartment->num_rows != 0){
-        $query = "INSERT into setting VALUES(NULL, 'default-department-id', ". $publicDepartment->fetch_array(MYSQLI_ASSOC)['value'] . " )";
+        $query = "INSERT into setting VALUES(NULL, 'default-department-id', ". $publicDepartment->fetch_array(MYSQLI_BOTH)[0]['value'] . " )";
+		
         $mysql->query($query);
     }else{
         print '-Fail DEFAULT-DEPARTMENT-ID update. A public department is required';
@@ -65,3 +114,4 @@ if ($mysql->query("SELECT * FROM setting WHERE name='user-system-enabled' ")->nu
 }
 
 print 'Update Completed!' . PHP_EOL;
+
