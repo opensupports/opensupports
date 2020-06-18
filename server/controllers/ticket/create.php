@@ -91,6 +91,14 @@ class CreateController extends Controller {
     }
 
     public function handler() {
+        
+        ///
+        $session = Session::getInstance();
+        if($session->isTicketSession())  {
+            $session->closeSession();
+        }
+        ///
+
         $this->title = Controller::request('title');
         $this->content = Controller::request('content', true);
         $this->departmentId = Controller::request('departmentId');

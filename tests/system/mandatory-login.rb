@@ -178,20 +178,6 @@ describe'system/mandatory-login' do
             $sessionTicketNumber = result['data']['ticketNumber']
         end
 
-        it 'should fail if the creator creates a ticket using  a diferent email of the session' do
-            result = request('/ticket/create', {
-                email: 'nonuser2@os4.com',
-                language: 'en',
-                name: 'nonuser2',
-                title: 'ticket3 created without login',
-                content: 'THis is the third content created without login',
-                departmentId: 1   
-            })
-
-            (result['status']).should.equal('fail')
-            (result['message']).should.equal('INVALID_EMAIL')
-        end
-
         it 'should allow the creator get the ticket checked' do
             result = request('/ticket/get', {
                 csrf_token: $sessionToken,
