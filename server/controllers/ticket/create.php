@@ -95,7 +95,7 @@ class CreateController extends Controller {
         ///
         $session = Session::getInstance();
         if($session->isTicketSession())  {
-            $session->closeSession();
+            $session->clearSessionData();
         }
         ///
 
