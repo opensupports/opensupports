@@ -67,11 +67,16 @@ class CheckBox extends React.Component {
     }
 
     getClass() {
+        const {
+            className,
+            disabled
+        } = this.props;
         let classes = {
             'checkbox': true,
             'checkbox_checked': this.getValue(),
+            'checkbox_disabled': disabled,
 
-            [this.props.className]: (this.props.className)
+            [className]: (className)
         };
 
         return classNames(classes);

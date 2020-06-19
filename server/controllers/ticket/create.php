@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/create Create ticket
- * @apiVersion 4.6.1
+ * @apiVersion 4.7.0
  *
  * @apiName Create ticket
  *
@@ -91,6 +91,14 @@ class CreateController extends Controller {
     }
 
     public function handler() {
+        
+        ///
+        $session = Session::getInstance();
+        if($session->isTicketSession())  {
+            $session->closeSession();
+        }
+        ///
+
         $this->title = Controller::request('title');
         $this->content = Controller::request('content', true);
         $this->departmentId = Controller::request('departmentId');
