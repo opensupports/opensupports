@@ -33,7 +33,7 @@ class TicketGetController extends Controller {
     public function validations() {
         $session = Session::getInstance();
         return [
-            'permission' => 'any',
+            'permission' => 'user',
             'requestData' => [
                 'ticketNumber' => [
                     'validation' => DataValidator::validTicketNumber(),
