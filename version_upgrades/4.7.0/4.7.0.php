@@ -12,7 +12,7 @@ print '[1/4] Updating user table...' . PHP_EOL;
 
 if ($mysql->query("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'user' AND COLUMN_NAME = 'not_registered' AND TABLE_SCHEMA = '$mysql_db'")->num_rows == 0) {
     $mysql->query("ALTER TABLE user ADD not_registered tinyint(1)");
-    $mysql->query("UPDATE setting SET not_registered = false ");
+    $mysql->query("UPDATE user SET not_registered = null ");
 } else {
     print '-not_registered column already exists' . PHP_EOL;
 }
@@ -84,6 +84,7 @@ if ($mysql->query("SELECT * FROM setting WHERE name='mandatory-login' ")->num_ro
         $mysql->query("INSERT into setting VALUES(NULL, 'mandatory-login', '1')");
     }else{
         $mysql->query("INSERT into setting VALUES(NULL, 'mandatory-login', '0')");
+        $mysql->query("UPDATE setting SET value=1 where name='registration'");
     }
 } else {
     print '-Mandatory-login already exists' . PHP_EOL;
@@ -91,7 +92,7 @@ if ($mysql->query("SELECT * FROM setting WHERE name='mandatory-login' ")->num_ro
 if ($mysql->query("SELECT * FROM setting WHERE name='default-department-id' ")->num_rows == 0) {
     $publicDepartment = $mysql->query("SELECT * FROM department WHERE private= 0 OR private IS NULL");
     if($publicDepartment->num_rows != 0){
-        $query = "INSERT into setting VALUES(NULL, 'default-department-id', ". $publicDepartment->fetch_array(MYSQLI_BOTH)[0]['value'] . " )";
+        $query = "INSERT into setting VALUES(NULL, 'default-department-id', ". $publicDepartment->fetch_array(MYSQLI_BOTH)['id'] . " )";
 		
         $mysql->query($query);
     }else{
@@ -110,7 +111,7 @@ if ($mysql->query("SELECT * FROM setting WHERE name='default-is-locked' ")->num_
 if ($mysql->query("SELECT * FROM setting WHERE name='user-system-enabled' ")->num_rows != 0) {
     $mysql->query("DELETE FROM setting WHERE name='user-system-enabled' ");
 } else {
-    print '-User-system-enabled is realready deleted' . PHP_EOL;
+    print '-User-system-enabled is already deleted' . PHP_EOL;
 }
 
 print 'Update Completed!' . PHP_EOL;
