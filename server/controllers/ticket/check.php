@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/check Check ticket
- * @apiVersion 4.6.1
+ * @apiVersion 4.7.0
  *
  * @apiName Check ticket
  *
@@ -54,6 +54,14 @@ class CheckTicketController extends Controller {
     }
 
     public function handler() {
+
+        ///
+        $session = Session::getInstance();
+        if($session->isTicketSession())  {
+            $session->closeSession();
+        }
+        ///
+        
         if (Controller::isLoginMandatory()) {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }

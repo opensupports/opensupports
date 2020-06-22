@@ -2,7 +2,7 @@
 use RedBeanPHP\Facade as RedBean;
 /**
  * @api {OBJECT} Log Log
- * @apiVersion 4.6.1
+ * @apiVersion 4.7.0
  * @apiGroup Data Structures
  * @apiParam {String} type The type of the log.
  * @apiParam {String} to Object where the action was performed.
