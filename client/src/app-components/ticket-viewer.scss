@@ -61,15 +61,41 @@
         margin-left: 10px;
     }
 
-    &__info-row-header {
+    &__info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
         background-color: $light-grey;
-        font-weight: bold;
-    }
+        margin: 0 -15px;
+        padding: 0 15px;
 
-    &__info-row-values {
-        background-color: $light-grey;
-        color: $secondary-blue;
-        padding-bottom: 10px;
+        &-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            min-width: 150px;
+            max-width: 250px;
+        }
+
+        &-container-editable {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            min-width: 300px;
+        }
+
+        &-header {
+            font-weight: bold;
+        }
+
+        &-value {
+            color: $secondary-blue;
+            padding-bottom: 10px;
+
+        }
     }
 
     &__editable-dropdown {
@@ -136,4 +162,28 @@
     &__delete-button {
         margin-left: 10px;
     }
+
+    @media screen and (max-width: 1151px) {
+        .ticket-viewer__info  {
+            &-container {
+                width: 200px;
+                min-width: unset;
+                max-width: unset;
+            }
+
+            &-container-editable {
+                min-width: 250px;
+                max-width: 300px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        .ticket-viewer__info  {
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
 }
