@@ -108,7 +108,7 @@ class TicketViewer extends React.Component {
         const {ticketNumber, title, author, editedTitle, language} = ticket;
 
         return(
-            <div className="ticket-viewer__header row">
+            <div className="ticket-viewer__header">
                 <span className="ticket-viewer__number">#{ticketNumber}</span>
                 <span className="ticket-viewer__title">{title}</span>
                 <span className="ticket-viewer__flag">
@@ -136,7 +136,7 @@ class TicketViewer extends React.Component {
 
     renderEditableTitle(){
         return(
-            <div className="ticket-viewer__header row">
+            <div className="ticket-viewer__header">
                 <div className="ticket-viewer__edit-title-box">
                     <FormField className="ticket-viewer___input-edit-title" error={this.state.editTitleError}  value={this.state.newTitle} field='input' onChange={(e) => this.setState({newTitle: e.target.value })} />
                 </div>
