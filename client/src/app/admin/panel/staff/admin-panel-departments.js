@@ -95,7 +95,7 @@ class AdminPanelDepartments extends React.Component {
             </div>
         );
     }
-    
+
     renderDefaultDepartmentForm() {
         const {
             defaultDepartmentError,
@@ -213,7 +213,8 @@ class AdminPanelDepartments extends React.Component {
             onChange: (form) => {this.setState({form, edited: true})},
             onValidateErrors: (errors) => {this.setState({errors})},
             onSubmit: this.onFormSubmit.bind(this),
-            loading: formLoading
+            loading: formLoading,
+            className: 'admin-panel-departments__form'
         };
     }
 
