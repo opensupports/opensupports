@@ -59,7 +59,7 @@ class AdminPanelSearchTickets extends React.Component {
                 <div className="admin-panel-all-tickets__container">
                     <Header
                         className="admin-panel-all-tickets__container__header"
-                        title={listConfig.title !== undefined ? listConfig.title : i18n('CUSTOM_LIST')}
+                        title={listConfig.title !== undefined ? listConfig.title : i18n('SEARCH_TICKETS')}
                         description={i18n('SEARCH_TICKETS_DESCRIPTION')} />
                     <Button
                         className="admin-panel-all-tickets__container__show-filters-button"
