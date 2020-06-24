@@ -44,7 +44,7 @@ export default {
     getFiltersFromParams(search = window.location.search) {
         let urlFilters = queryString.parse(search);
         delete urlFilters.page;
-        const customTicketsList = window.customTicketList[urlFilters.custom*1];
+        const customTicketsList = (urlFilters.custom && window.customTicketList) ? window.customTicketList[urlFilters.custom*1] : undefined;
         const customTicketsListFilters = customTicketsList ? customTicketsList.filters : undefined;
 
         if(customTicketsListFilters) {
