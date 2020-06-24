@@ -4,8 +4,8 @@ use RedBeanPHP\Facade as RedBean;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /ticket/get-authors get authors
- * @apiVersion 4.6.1
+ * @api {post} /ticket/get-authors Get authors of tickets
+ * @apiVersion 4.7.0
  *
  * @apiName Get authors
  *

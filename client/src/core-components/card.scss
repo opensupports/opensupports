@@ -24,6 +24,12 @@
         bottom: 17px;
     }
 
+    @media (max-width: 1060px) {
+        .button {
+            width: 80%;
+        }
+    }
+
     &_red {
         background-color: $primary-red;
     }

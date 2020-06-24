@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /system/get-settings Get settings
- * @apiVersion 4.6.1
+ * @apiVersion 4.7.0
  *
  * @apiName Get settings
  *
@@ -59,6 +59,8 @@ class GetSettingsController extends Controller {
                     'mail-template-header-image' => Setting::getSetting('mail-template-header-image')->getValue(),
                     'tags' => Tag::getAll()->toArray(),
                     'mandatory-login' => Setting::getSetting('mandatory-login')->getValue(),
+                    'default-department-id' => Setting::getSetting('default-department-id')->getValue(),
+                    'default-is-locked' => Setting::getSetting('default-is-locked')->getValue()
                 ];
             } else {
                 $settingsList = [
@@ -77,6 +79,8 @@ class GetSettingsController extends Controller {
                     'session-prefix' => Setting::getSetting('session-prefix')->getValue(),
                     'tags' => Tag::getAll()->toArray(),
                     'mandatory-login' => Setting::getSetting('mandatory-login')->getValue(),
+                    'default-department-id' => Setting::getSetting('default-department-id')->getValue(),
+                    'default-is-locked' => Setting::getSetting('default-is-locked')->getValue()
                 ];
             }
         }
