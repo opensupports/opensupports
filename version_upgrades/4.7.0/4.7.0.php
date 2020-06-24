@@ -16,7 +16,8 @@ if ($mysql->query("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '
 } else {
     print '-not_registered column already exists' . PHP_EOL;
 }
-if(!Setting::getSetting('user-system-enabled')->isNull() && !Setting::getSetting('user-system-enabled')->getValue() ) {
+
+if(!Setting::getSetting('user-system-enabled')->isNull() && !Setting::getSetting('user-system-enabled')->getValue()) {
     $ticketList = Ticket::getAll();
 
     foreach($ticketList as $ticket) {
@@ -25,6 +26,7 @@ if(!Setting::getSetting('user-system-enabled')->isNull() && !Setting::getSetting
         }
 
         $userInstance = User::getDataStore($ticket->authorEmail, 'email');
+        $ticketInstance = Ticket::getByTicketNumber($ticket->ticketNumber);
 
         if($userInstance->isNull()) {
             
@@ -38,16 +40,19 @@ if(!Setting::getSetting('user-system-enabled')->isNull() && !Setting::getSetting
                 'tickets' => 0,
                 'email' => $ticket->authorEmail,
                 'password' => Hashing::hashPassword($password),
-                'not_registered' => 1,
+                'notRegistered' => 1,
                 'verificationToken' => null
             ]);
 
             $userInstance->store();
         }
-
+		
         $userInstance->tickets = $userInstance->tickets + 1;
         $userInstance->sharedTicketList->add($ticket);
         $userInstance->store();
+        
+        $ticketInstance->author = $userInstance;
+        $ticketInstance->store();
     }
 } else {
     print '-The tickets created already have owner Users' . PHP_EOL;
@@ -115,4 +120,6 @@ if ($mysql->query("SELECT * FROM setting WHERE name='user-system-enabled' ")->nu
 }
 
 print 'Update Completed!' . PHP_EOL;
+
+
 
