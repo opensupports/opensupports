@@ -100,6 +100,10 @@
  * @apiError {String} INVALID_BLACK_LIST The black list is invalid.
  */
 /**
+ * @apiDefine INVALID_LIST
+ * @apiError {String} INVALID_LIST The list is invalid.
+ */
+/**
  * @apiDefine INVALID_TAG_FILTER
  * @apiError {String} INVALID_TAG_FILTER The tag filter is invalid.
  */
@@ -346,6 +350,7 @@ class ERRORS {
     const INVALID_PRIORITY = 'INVALID_PRIORITY';
     const INVALID_PAGE = 'INVALID_PAGE';
     const INVALID_QUERY = 'INVALID_QUERY';
+    const INVALID_LIST = 'INVALID_LIST';
     const INVALID_BLACK_LIST = 'INVALID_BLACK_LIST';
     const INVALID_TAG_FILTER = 'INVALID_TAG_FILTER';
     const INVALID_CLOSED_FILTER = 'INVALID_CLOSED_FILTER';

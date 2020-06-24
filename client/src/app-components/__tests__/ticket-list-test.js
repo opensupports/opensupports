@@ -69,58 +69,33 @@ describe('TicketList component', function () {
         renderTicketList();
         expect(table[0].props.loading).to.equal(false);
         expect(table[0].props.pageSize).to.equal(10);
-        expect(table[0].props.headers).to.deep.equal([
+        expect(table[0].props.headers[0]).to.deep.equal(
             {
                 key: 'number',
                 value: i18n('NUMBER'),
                 className: 'ticket-list__number col-md-1'
-            },
+            });
+        expect(table[0].props.headers[1]).to.deep.equal(
             {
                 key: 'title',
                 value: i18n('TITLE'),
                 className: 'ticket-list__title col-md-6'
-            },
+            });
+        expect(table[0].props.headers[2]).to.deep.equal(
             {
                 key: 'department',
                 value: i18n('DEPARTMENT'),
                 className: 'ticket-list__department col-md-3'
-            },
-            {
-                key: 'date',
-                value: i18n('DATE'),
-                className: 'ticket-list__date col-md-2'
-            }
-        ]);
+            });
+        expect(table[0].props.headers[3].key).to.equal('date');
+        expect(table[0].props.headers[3].value.props.children[0]).to.equal(i18n('DATE'));
+        expect(table[0].props.headers[3].value.props.children[1]).to.equal(null);
+        expect(table[0].props.headers[3].className).to.equal('ticket-list__date col-md-2');
     });
 
     it('should pass loading to Table', function () {
         renderTicketList({loading: true});
         expect(table[0].props.loading).to.equal(true);
-    });
-
-    it('should pass correct compare function to Table', function () {
-        let minCompare = table[0].props.comp;
-
-        let row1 = {
-            closed: false,
-            unread: false,
-            date: '20160405'
-        };
-        let row2 = {
-            closed: false,
-            unread: false,
-            date: '20160406'
-        };
-        expect(minCompare(row1, row2)).to.equal(1);
-
-        row1.unread = true;
-        expect(minCompare(row1, row2)).to.equal(-1);
-
-        row2.unread = true;
-        expect(minCompare(row1, row2)).to.equal(1);
-
-        row2.date = '20160401';
-        expect(minCompare(row1, row2)).to.equal(-1);
     });
 
     describe('when using secondary type', function () {
@@ -135,38 +110,40 @@ describe('TicketList component', function () {
         });
 
         it('should pass correct props to Table', function () {
-            expect(table[0].props.headers).to.deep.equal([
+            expect(table[0].props.headers[0]).to.deep.equal(
                 {
                     key: 'number',
                     value: i18n('NUMBER'),
                     className: 'ticket-list__number col-md-1'
-                },
+                });
+            expect(table[0].props.headers[1]).to.deep.equal(
                 {
                     key: 'title',
                     value: i18n('TITLE'),
                     className: 'ticket-list__title col-md-4'
-                },
+                });
+            expect(table[0].props.headers[2]).to.deep.equal(
                 {
                     key: 'priority',
                     value: i18n('PRIORITY'),
                     className: 'ticket-list__priority col-md-1'
-                },
+                });
+            expect(table[0].props.headers[3]).to.deep.equal(
                 {
                     key: 'department',
                     value: i18n('DEPARTMENT'),
                     className: 'ticket-list__department col-md-2'
-                },
+                });
+            expect(table[0].props.headers[4]).to.deep.equal(
                 {
                     key: 'author',
                     value: i18n('AUTHOR'),
                     className: 'ticket-list__author col-md-2'
-                },
-                {
-                    key: 'date',
-                    value: i18n('DATE'),
-                    className: 'ticket-list__date col-md-2'
-                }
-            ]);
+                });
+            expect(table[0].props.headers[5].key).to.equal('date');
+            expect(table[0].props.headers[5].value.props.children[0]).to.equal(i18n('DATE'));
+            expect(table[0].props.headers[5].value.props.children[1]).to.equal(null);
+            expect(table[0].props.headers[5].className).to.equal('ticket-list__date col-md-2');
         });
 
         it('should pass correct props to dropdown', function () {

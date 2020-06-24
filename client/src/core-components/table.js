@@ -10,7 +10,7 @@ class Table extends React.Component {
     static propTypes = {
         headers: React.PropTypes.arrayOf(React.PropTypes.shape({
             key: React.PropTypes.string,
-            value: React.PropTypes.string,
+            value: React.PropTypes.node,
             className: React.PropTypes.string
         })),
         rows: React.PropTypes.arrayOf(React.PropTypes.object),
@@ -97,18 +97,26 @@ class Table extends React.Component {
         };
 
         return (
-
             <td className={classNames(classes)} key={key}>{row[key]}</td>
         );
     }
 
     renderPagination() {
-        return (this.props.pages || (this.props.pageSize && this.props.rows.length > this.props.pageSize)) ? this.renderNavigation() : null
+        return (
+            (this.props.pages || (this.props.pageSize && this.props.rows.length > this.props.pageSize)) ?
+                this.renderNavigation() :
+                null
+        )
     }
 
     renderNavigation() {
         return (
-            <Pagination className="table__navigation" page={this.getPageNumber()} pages={this.getPages()} onChange={this.onNavigationChange.bind(this)} tabbable/>
+            <Pagination
+                className="table__navigation"
+                page={this.getPageNumber()}
+                pages={this.getPages()}
+                onChange={this.onNavigationChange.bind(this)}
+                tabbable />
         );
     }
 
