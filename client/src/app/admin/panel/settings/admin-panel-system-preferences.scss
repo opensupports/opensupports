@@ -57,22 +57,24 @@
             &__form-fields {
                 padding: 0;
 
-                &__input {
+                &__input, &__select {
                     padding: 0 15px;
-                }
-
-                &__select {
-                    .form-field__label {
-                        padding: 3px 15px;
-                    }
                 }
             }
         }
     }
 
     @media screen and (max-width: 415px) {
-        .admin-panel-system-preferences__container__button {
-            margin: 10px;
+        .admin-panel-system-preferences {
+            &__container__button {
+                margin: 10px;
+            }
+
+            &__languages {
+                &-allowed, &-supported {
+                    display: unset;
+                }
+            }
         }
     }
 }
