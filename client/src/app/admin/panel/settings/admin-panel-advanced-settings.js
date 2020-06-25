@@ -94,7 +94,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                         <div className="col-md-4">
                             <Listing {...this.getListingProps()} />
                         </div>
-                        <div className="col-md-8">
+                        <div className="col-md-8 admin-panel-advanced-settings__api-keys__container">
                             {(this.state.selectedAPIKey === -1) ? this.renderNoKey() : this.renderKey()}
                         </div>
                     </div>
@@ -123,7 +123,7 @@ class AdminPanelAdvancedSettings extends React.Component {
         let currentAPIKey = this.state.APIKeys[this.state.selectedAPIKey];
 
         return (
-            <div className="admin-panel-advanced-settings__api-keys-info">
+            <div className="admin-panel-advanced-settings__api-keys__container-info">
                 <div className="admin-panel-advanced-settings__api-keys-subtitle">{i18n('NAME_OF_KEY')}</div>
                 <div className="admin-panel-advanced-settings__api-keys-data">{currentAPIKey.name}</div>
                 <div className="admin-panel-advanced-settings__api-keys-subtitle">{i18n('KEY')}</div>

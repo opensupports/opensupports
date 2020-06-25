@@ -17,33 +17,21 @@
         border-top-left-radius: 4px;
         color: white;
         display: inline-block;
-        height: 32px;
-        padding: 5px 20px 0 10px;
+        min-height: 32px;
+        width: 100%;
+        padding: 5px 170px 5px 10px;
+
+        &__button {
+            margin: 5px;
+        }
+
     }
 
     &__languages {
-        display: inline-block;
-        position: relative;
-        top: 5px;
+        right: 5px;
+        position: absolute;
+        bottom: 0;
         margin: 0 6px;
     }
 
-    @media screen and (max-width: 500px) {
-        .main-layout-header__languages {
-            float: none;
-        }
-    }
-
-    @media (max-width: 363px) {
-        .main-layout-header__login-links{
-           padding: 8px 0 0 0;
-        }
-    }
-
-    @media (max-width: 350px) {
-        .main-layout-header__languages {
-            margin: 0 3px;
-            left: unset;
-        }
-    }
 }

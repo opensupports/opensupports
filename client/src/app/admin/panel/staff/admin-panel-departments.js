@@ -70,11 +70,11 @@ class AdminPanelDepartments extends React.Component {
                     <div className="col-md-8">
                         {(errorMessage) ? <Message type="error">{i18n(errorMessage)}</Message> : null}
                         <Form {...this.getFormProps()}>
-                            <div>
-                                <FormField className="admin-panel-departments__name" label={i18n('NAME')} name="name" validation="NAME" required fieldProps={{size: 'large'}}/>
+                            <div className="admin-panel-departments__container">
+                                <FormField className="admin-panel-departments__container__name" label={i18n('NAME')} name="name" validation="NAME" required fieldProps={{size: 'large'}}/>
                                 <div className="admin-panel-departments__private-option">
                                     <FormField label={i18n('PRIVATE')} name="private" field="checkbox"/>
-                                    <InfoTooltip className="admin-panel-departments__info-tooltip" text={i18n('PRIVATE_DEPARTMENT_DESCRIPTION')} />
+                                    <InfoTooltip className="admin-panel-departments__container__info-tooltip" text={i18n('PRIVATE_DEPARTMENT_DESCRIPTION')} />
                                 </div>
                             </div>
                             <SubmitButton
@@ -95,7 +95,7 @@ class AdminPanelDepartments extends React.Component {
             </div>
         );
     }
-    
+
     renderDefaultDepartmentForm() {
         const {
             defaultDepartmentError,
@@ -120,9 +120,7 @@ class AdminPanelDepartments extends React.Component {
                             decorator={DepartmentDropdown}
                             fieldProps={{ departments: getPublicDepartmentList() , size: 'medium' }}
                         />
-                        <div className="admin-panel-departments__default-departments-container__form__fields__lock-option">
-                            <FormField label={i18n('LOCK_DEPARTMENT_DESCRIPTION')} name="locked" field="checkbox"/>
-                        </div>
+                        <FormField className="admin-panel-departments__default-departments-container__form__fields__checkbox" label={i18n('LOCK_DEPARTMENT_DESCRIPTION')} name="locked" field="checkbox"/>
                     </div>
                     <SubmitButton
                         className="admin-panel-departments__default-departments-container__form__button"
@@ -215,7 +213,8 @@ class AdminPanelDepartments extends React.Component {
             onChange: (form) => {this.setState({form, edited: true})},
             onValidateErrors: (errors) => {this.setState({errors})},
             onSubmit: this.onFormSubmit.bind(this),
-            loading: formLoading
+            loading: formLoading,
+            className: 'admin-panel-departments__form'
         };
     }
 

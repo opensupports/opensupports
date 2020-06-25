@@ -37,18 +37,19 @@ class MainLayoutHeader extends React.Component {
             result = (
                 <div className="main-layout-header__login-links">
                     <Button
+                    className="main-layout-header__login-links__button"
                     type="clean"
                     onClick={this.onHideLoginForm.bind(this)}
                     route={{to:'/'}}>
                         {i18n('HOME')}
                     </Button>
                     {(config['registration'] * 1) ?
-                        <Button type="clean" route={{to:'/signup'}}>
+                        <Button className="main-layout-header__login-links__button" type="clean" route={{to:'/signup'}}>
                             {i18n('SIGN_UP')}
                         </Button> :
                         null}
                     {!config['mandatory-login'] ?
-                        <Button type="clean" onClick={this.onShowLoginForm.bind(this)} route={{to:'/'}}>
+                        <Button className="main-layout-header__login-links__button" type="clean" onClick={this.onShowLoginForm.bind(this)} route={{to:'/'}}>
                             {i18n('LOG_IN')}
                         </Button> :
                         null}
