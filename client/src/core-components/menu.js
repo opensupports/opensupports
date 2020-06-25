@@ -130,13 +130,13 @@ class Menu extends React.Component {
     }
 
     onItemClick(index) {
+        const { onItemClick } = this.props;
+
         this.setState({
             selectedIndex: index
         });
 
-        if (this.props.onItemClick) {
-            this.props.onItemClick(index);
-        }
+        onItemClick && onItemClick(index);
     }
 }
 
