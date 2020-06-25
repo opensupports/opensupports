@@ -48,7 +48,7 @@ class TicketQueryFilters extends React.Component {
                     onChange={this.onChangeForm.bind(this)}
                     onSubmit={this.onSubmitListConfig.bind(this)}>
                     <div className="ticket-query-filters__search-box">
-                        <FormField name="query" field="search-box" fieldProps={{onSearch: this.onSubmitListConfig.bind(this)}}/>
+                        <FormField name="query" field="search-box" fieldProps={{onSearch: this.onSubmitListConfig.bind(this)}} />
                     </div>
                     <div className="ticket-query-filters__group">
                         <div className="ticket-query-filters__group__container">
@@ -56,8 +56,7 @@ class TicketQueryFilters extends React.Component {
                             <FormField
                                 name="dateRange"
                                 field="date-range"
-                                fieldProps={{defaultValue: this.dateRangeToFormValue(filters.dateRange)}}
-                            />
+                                fieldProps={{defaultValue: this.dateRangeToFormValue(filters.dateRange)}} />
                         </div>
                         <div className="ticket-query-filters__group__container">
                             <span>{i18n('STATUS')}</span>
