@@ -151,17 +151,6 @@ class TicketViewer extends React.Component {
         const ticket = this.props.ticket;
         const departments = this.getDepartmentsForTransfer();
 
-        const priorities = {
-            'low': 0,
-            'medium': 1,
-            'high': 2
-        };
-        const priorityList = [
-            {content: i18n('LOW')},
-            {content: i18n('MEDIUM')},
-            {content: i18n('HIGH')}
-        ];
-
         return (
             <div className="ticket-viewer__headers">
                 <div className="ticket-viewer__info">
@@ -193,16 +182,6 @@ class TicketViewer extends React.Component {
 
                 <div className="ticket-viewer__info">
                     <div className="ticket-viewer__info-container-editable">
-                        <div className="ticket-viewer__info-header">{i18n('PRIORITY')}</div>
-                        <div className="ticket-viewer__info-value">
-                            <DropDown
-                                className="ticket-viewer__editable-dropdown"
-                                items={priorityList}
-                                selectedIndex={priorities[ticket.priority]}
-                                onChange={this.onPriorityDropdownChanged.bind(this)} />
-                        </div>
-                    </div>
-                    <div className="ticket-viewer__info-container-editable">
                         <div className="ticket-viewer__info-header">{i18n('OWNER')}</div>
                         <div className="ticket-viewer__info-value">
                             {this.renderAssignStaffList()}
@@ -224,11 +203,6 @@ class TicketViewer extends React.Component {
 
     renderHeaders() {
         const ticket = this.props.ticket;
-        const priorities = {
-            'low': 'LOW',
-            'medium': 'MEDIUM',
-            'high': 'HIGH'
-        };
 
         return (
             <div className="ticket-viewer__headers">
@@ -250,12 +224,6 @@ class TicketViewer extends React.Component {
                     </div>
                 </div>
                 <div className="ticket-viewer__info">
-                    <div className="ticket-viewer__info-container">
-                        <div className="ticket-viewer__info-header">{i18n('PRIORITY')}</div>
-                        <div className="ticket-viewer__info-value">
-                            {i18n(priorities[this.props.ticket.priority || 'low'])}
-                        </div>
-                    </div>
                     <div className="ticket-viewer__info-container">
                         <div className="ticket-viewer__info-header">{i18n('OWNER')}</div>
                         <div className="ticket-viewer__info-value">
@@ -417,10 +385,6 @@ class TicketViewer extends React.Component {
         AreYouSure.openModal(null, this.changeDepartment.bind(this, event.index));
     }
 
-    onPriorityDropdownChanged(event) {
-        AreYouSure.openModal(null, this.changePriority.bind(this, event.index));
-    }
-
     onAssignmentChange(event) {
         AreYouSure.openModal(null, this.assingTo.bind(this, event.index));
     }
@@ -518,22 +482,6 @@ class TicketViewer extends React.Component {
             data: {
                 ticketNumber: this.props.ticket.ticketNumber,
                 departmentId: this.getDepartmentsForTransfer()[index].id
-            }
-        }).then(this.onTicketModification.bind(this));
-    }
-
-    changePriority(index) {
-        const priorities = [
-            'low',
-            'medium',
-            'high'
-        ];
-
-        API.call({
-            path: '/ticket/change-priority',
-            data: {
-                ticketNumber: this.props.ticket.ticketNumber,
-                priority: priorities[index]
             }
         }).then(this.onTicketModification.bind(this));
     }

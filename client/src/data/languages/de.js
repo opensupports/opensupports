@@ -61,7 +61,6 @@ export default {
     'ADVANCED_SETTINGS': 'Erweiterte Einstellungen',
     'EMAIL_TEMPLATES': 'E-Mail-Vorlagen',
     'FILTERS_CUSTOM_FIELDS': 'Filter und benutzerdefinierte Felder',
-    'PRIORITY': 'Priorität',
     'NUMBER': 'Nummer',
     'HIGH': 'Hoch',
     'MEDIUM': 'Mittel',
@@ -238,7 +237,6 @@ export default {
     'ACTIVITY_CREATE_TICKET': 'Ticket erstellt',
     'ACTIVITY_RE_OPEN': 'Ticket wieder geöffnet',
     'ACTIVITY_DEPARTMENT_CHANGED': 'Abteilung des Tickets wurde geändert.',
-    'ACTIVITY_PRIORITY_CHANGED': 'Priorität des Tickets wurde geändert.',
     'ACTIVITY_EDIT_COMMENT': 'Kommentar von Ticket bearbeitet',
 
     'ACTIVITY_EDIT_SETTINGS': 'Einstellungen',
@@ -439,7 +437,6 @@ export default {
     'ACTIVITY_CREATE_TICKET_THIS': 'hat dieses Ticket erstellt',
     'ACTIVITY_RE_OPEN_THIS': 'hat dieses Ticket wieder geöffnet',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'hat die Abteilung dieses Tickets geändert',
-    'ACTIVITY_PRIORITY_CHANGED_THIS': 'hat die Priorität dieses Tickets geändert',
     'DATE_PREFIX': 'am',
     'LEFT_EMPTY_DATABASE': 'Leer lassen für automatische Datenbankerstellung.',
     'REMEMBER_ME': 'Merken',

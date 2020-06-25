@@ -37,12 +37,6 @@ describe 'Ticket Events' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
-        request('/ticket/change-priority', {
-            priority: 'medium',
-            ticketNumber: ticketNumber,
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token
-        })
         request('/ticket/change-department', {
             departmentId: 3,
             ticketNumber: ticketNumber,
@@ -92,27 +86,22 @@ describe 'Ticket Events' do
         (result['data']['events'][3]['author']['name']).should.equal('Emilia Clarke')
         (result['data']['events'][3]['author']['staff']).should.equal(true)
 
-        (result['data']['events'][4]['type']).should.equal('PRIORITY_CHANGED')
-        (result['data']['events'][4]['content']).should.equal('medium')
+        (result['data']['events'][4]['type']).should.equal('DEPARTMENT_CHANGED')
+        (result['data']['events'][4]['content']).should.equal('Suggestions')
         (result['data']['events'][4]['author']['name']).should.equal('Emilia Clarke')
         (result['data']['events'][4]['author']['staff']).should.equal(true)
 
-        (result['data']['events'][5]['type']).should.equal('DEPARTMENT_CHANGED')
-        (result['data']['events'][5]['content']).should.equal('Suggestions')
+        (result['data']['events'][5]['type']).should.equal('CLOSE')
         (result['data']['events'][5]['author']['name']).should.equal('Emilia Clarke')
         (result['data']['events'][5]['author']['staff']).should.equal(true)
 
-        (result['data']['events'][6]['type']).should.equal('CLOSE')
-        (result['data']['events'][6]['author']['name']).should.equal('Emilia Clarke')
-        (result['data']['events'][6]['author']['staff']).should.equal(true)
+        (result['data']['events'][6]['type']).should.equal('RE_OPEN')
+        (result['data']['events'][6]['author']['name']).should.equal('Tyrion Lannister')
+        (result['data']['events'][6]['author']['staff']).should.equal(false)
 
-        (result['data']['events'][7]['type']).should.equal('RE_OPEN')
+        (result['data']['events'][7]['type']).should.equal('COMMENT')
+        (result['data']['events'][7]['content']).should.equal('This is a comment made by a regular user')
         (result['data']['events'][7]['author']['name']).should.equal('Tyrion Lannister')
         (result['data']['events'][7]['author']['staff']).should.equal(false)
-
-        (result['data']['events'][8]['type']).should.equal('COMMENT')
-        (result['data']['events'][8]['content']).should.equal('This is a comment made by a regular user')
-        (result['data']['events'][8]['author']['name']).should.equal('Tyrion Lannister')
-        (result['data']['events'][8]['author']['staff']).should.equal(false)
     end
 end

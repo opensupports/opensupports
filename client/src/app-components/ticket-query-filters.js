@@ -52,10 +52,6 @@ class TicketQueryFilters extends React.Component {
                     </div>
                     <div className="ticket-query-filters__group">
                         <div className="ticket-query-filters__group__container">
-                            <span>{i18n('PRIORITY')}</span>
-                            <FormField name="priority" field="select" fieldProps={{items: this.getPriorityItems()}} />
-                        </div>
-                        <div className="ticket-query-filters__group__container">
                             <span>{i18n('DATE')}</span>
                             <FormField
                                 name="dateRange"
@@ -227,17 +223,6 @@ class TicketQueryFilters extends React.Component {
         });
 
         return departmentsList;
-    }
-
-    getPriorityItems() {
-        let items = [
-            {id: 0, name: 'Any', content: i18n('ANY')},
-            {id: 1, name: 'Low', content: i18n('LOW')},
-            {id: 2, name: 'Medium', content: i18n('MEDIUM')},
-            {id: 3, name: 'High', content: i18n('HIGH')},
-        ];
-
-        return items;
     }
 
     getSelectedDepartments(selectedDepartmentsId) {

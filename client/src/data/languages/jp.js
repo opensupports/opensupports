@@ -61,7 +61,6 @@ export default {
     'ADVANCED_SETTINGS': '高度な設定',
     'EMAIL_TEMPLATES': 'メールテンプレート',
     'FILTERS_CUSTOM_FIELDS': 'フィルタとカスタムフィールド',
-    'PRIORITY': '優先',
     'NUMBER': '数',
     'HIGH': '高い',
     'MEDIUM': 'ミディアム',
@@ -238,7 +237,6 @@ export default {
     'ACTIVITY_CREATE_TICKET': 'これは、作成されました',
     'ACTIVITY_RE_OPEN': 'チケットがもう一度開かれた',
     'ACTIVITY_DEPARTMENT_CHANGED': '部署が変更されました',
-    'ACTIVITY_PRIORITY_CHANGED': '私たちは、チケットの優先順位を変更する必要があります',
     'ACTIVITY_EDIT_COMMENT': 'チケットのコメントを編集しました',
 
     'ACTIVITY_EDIT_SETTINGS': '編集した設定',
@@ -439,7 +437,6 @@ export default {
     'ACTIVITY_CREATE_TICKET_THIS': 'がこのチケットを作成しました',
     'ACTIVITY_RE_OPEN_THIS': 'がこのチケットを再開しました',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'はこのチケットの部門を ',
-    'ACTIVITY_PRIORITY_CHANGED_THIS': 'がこのチケットの優先順位を',
     'DATE_PREFIX': 'に',
     'LEFT_EMPTY_DATABASE': '自動データベース作成のために空のままにする',
     'REMEMBER_ME': '覚えている',
