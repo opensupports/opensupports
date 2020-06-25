@@ -158,14 +158,10 @@ class TicketViewer extends React.Component {
                         <div className="ticket-viewer__info-header">{i18n('DEPARTMENT')}</div>
                         <div className="ticket-viewer__info-value">
                             <DepartmentDropdown className="ticket-viewer__editable-dropdown"
-                                    departments={departments}
-                                    selectedIndex={_.findIndex(departments, {id: this.props.ticket.department.id})}
-                                    onChange={this.onDepartmentDropdownChanged.bind(this)} />
+                                departments={departments}
+                                selectedIndex={_.findIndex(departments, {id: this.props.ticket.department.id})}
+                                onChange={this.onDepartmentDropdownChanged.bind(this)} />
                         </div>
-                    </div>
-                    <div className="ticket-viewer__info-container-editable">
-                        <div className="ticket-viewer__info-header">{i18n('AUTHOR')}</div>
-                        <div className="ticket-viewer__info-value">{ticket.author.name}</div>
                     </div>
                     <div className="ticket-viewer__info-container-editable">
                         <div className="ticket-viewer__info-header">{i18n('TAGS')}</div>
@@ -178,14 +174,17 @@ class TicketViewer extends React.Component {
                                 loading={this.state.tagSelectorLoading}/>
                         </div>
                     </div>
-                </div>
-
-                <div className="ticket-viewer__info">
                     <div className="ticket-viewer__info-container-editable">
                         <div className="ticket-viewer__info-header">{i18n('OWNER')}</div>
                         <div className="ticket-viewer__info-value">
                             {this.renderAssignStaffList()}
                         </div>
+                    </div>
+                </div>
+                <div className="ticket-viewer__info">
+                <div className="ticket-viewer__info-container-editable">
+                        <div className="ticket-viewer__info-header">{i18n('AUTHOR')}</div>
+                        <div className="ticket-viewer__info-value">{ticket.author.name}</div>
                     </div>
                     <div className="ticket-viewer__info-container-editable">
                         <div className="ticket-viewer__info-header">{i18n('STATUS')}</div>
