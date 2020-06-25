@@ -15,5 +15,47 @@ export default {
         let min = date.substring(10, 12);
 
         return d + " " + month[m] + " " + y + " at " + hr + ":" + min;
-    }
+    },
+    getDate(date) {
+        return date < 10 ? `0${date}` : `${date}`;
+    },
+    getDateToday() {
+        let today = new Date();
+        let Year = `${today.getFullYear()}`;
+        let Month = this.getDate(today.getMonth()+1);
+        let Day = this.getDate(today.getDate());
+        let newDate = Year.concat(Month.concat(Day));
+
+        return newDate*1;
+    },
+    getDefaultDateRange(range = undefined) {
+        let newDateRange = range;
+
+        if(range) {
+            let dateRange = JSON.parse(range);
+            let startDate = dateRange[0];
+            let endDate = dateRange[1];
+            let valid = true;
+            newDateRange = {
+                startDate: startDate,
+                endDate: endDate,
+                valid: valid
+            }
+        }
+
+        return newDateRange;
+    },
+    formDateRangeToFilters(dateRange) {
+        return [dateRange[0]*10000, dateRange[1]*10000+2400];
+    },
+    dateRangeToFormValue(_dateRange) {
+        const dateRange = JSON.parse(_dateRange);
+
+        return {
+            valid: true,
+            startDate: dateRange[0]/10000,
+            endDate: (dateRange[1]-2400)/10000,
+        };
+    },
+
 };

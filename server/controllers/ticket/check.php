@@ -54,14 +54,6 @@ class CheckTicketController extends Controller {
     }
 
     public function handler() {
-
-        ///
-        $session = Session::getInstance();
-        if($session->isTicketSession())  {
-            $session->closeSession();
-        }
-        ///
-        
         if (Controller::isLoginMandatory()) {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }

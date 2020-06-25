@@ -25,7 +25,8 @@ class TagSelector extends React.Component {
                     items={items}
                     values={values}
                     onRemoveClick={this.props.onRemoveClick}
-                    onTagSelected={this.props.onTagSelected}
+                    onChange={this.props.onChange}
+                    onItemSelected={this.props.onTagSelected}
                     disabled={this.props.loading} />
             </div>
         );

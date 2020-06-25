@@ -55,7 +55,16 @@ class User extends DataStore {
         return ($ticket->isAuthor($this) && $ticketNumberInstanceValidation);
     }
 
-    public function toArray() {
+    public function toArray($minimal = false) {
+        if($minimal) {
+            return [
+                'id' => $this->id,
+                'name' => $this->name,
+                'email' => $this->email,
+                'isStaff' => 0
+            ];
+        }
+
         return [
             'email' => $this->email,
             'id' => $this->id,
