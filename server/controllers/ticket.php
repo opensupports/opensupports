@@ -15,7 +15,6 @@ $ticketControllers->addController(new GetCustomResponsesController);
 $ticketControllers->addController(new ChangeDepartmentController);
 $ticketControllers->addController(new CloseController);
 $ticketControllers->addController(new ReOpenController);
-// $ticketControllers->addController(new ChangePriorityController);
 $ticketControllers->addController(new SeenController);
 $ticketControllers->addController(new DeleteController);
 $ticketControllers->addController(new CreateTagController);
