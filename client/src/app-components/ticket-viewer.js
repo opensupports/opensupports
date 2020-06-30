@@ -432,14 +432,14 @@ class TicketViewer extends React.Component {
         let APICallPromise = new Promise(resolve => resolve());
 
         if(owner) {
-            APICallPromise.then(() => API.call({
+            APICallPromise = APICallPromise.then(() => API.call({
                 path: '/staff/un-assign-ticket',
                 data: { ticketNumber }
             }));
         }
 
         if(id !== 0) {
-            APICallPromise.then(() => API.call({
+            APICallPromise = APICallPromise.then(() => API.call({
                 path: '/staff/assign-ticket',
                 data: { ticketNumber, staffId: id }
             }));
