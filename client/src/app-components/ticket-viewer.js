@@ -513,13 +513,18 @@ class TicketViewer extends React.Component {
     }
 
     changeDepartment(index) {
+        const {
+            userId,
+            userDepartments,
+            ticket
+        } = this.props;
         API.call({
             path: '/ticket/change-department',
             data: {
-                ticketNumber: this.props.ticket.ticketNumber,
+                ticketNumber: ticket.ticketNumber,
                 departmentId: this.getDepartmentsForTransfer()[index].id
             }
-        }).then(this.onTicketModification.bind(this));
+        }).then((_.some(userDepartments, {id: this.getDepartmentsForTransfer()[index].id}) || (userId === ticket.author.id)) ? this.onTicketModification.bind(this) : history.goBack());
     }
 
     changePriority(index) {
