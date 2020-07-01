@@ -36,7 +36,7 @@ class AdminPanelViewStaff extends React.Component {
         const userDataWithNumericLevel = {
             ...userData,
             level: userData.level*1,
-            sendEmailOnNewTicket: userData.sendEmailOnNewTicket === "1" ? true : false
+            sendEmailOnNewTicket: userData.sendEmailOnNewTicket === "1"
         };
 
         return _.extend({}, userDataWithNumericLevel, {

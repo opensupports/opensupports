@@ -89,7 +89,7 @@ class ArticlesList extends React.Component {
 
 export default connect((store) => {
     return {
-        topics: store.articles.topics.map((topic) => {return {...topic, private: topic.private === "1" ? true : false}}),
+        topics: store.articles.topics.map((topic) => {return {...topic, private: topic.private === "1"}}),
         errored: store.articles.errored,
         loading: store.articles.loading
     };

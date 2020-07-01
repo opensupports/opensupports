@@ -210,7 +210,7 @@ class AdminPanelDepartments extends React.Component {
         } = this.state;
 
         return {
-            values: {...form, private: form.private ? true : false},
+            values: {...form, private: !!form.private},
             errors: errors,
             loading: formLoading,
             onChange: (form) => {this.setState({form, edited: true})},
