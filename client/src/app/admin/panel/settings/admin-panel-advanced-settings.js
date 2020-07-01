@@ -178,7 +178,7 @@ class AdminPanelAdvancedSettings extends React.Component {
 
     onDeleteKeyClick() {
         AreYouSure.openModal(null, () => {
-            API.call({
+            return API.call({
                 path: '/system/delete-api-key',
                 data: {
                     name: this.state.APIKeys[this.state.selectedAPIKey].name
@@ -195,19 +195,19 @@ class AdminPanelAdvancedSettings extends React.Component {
     }
 
     onCheckboxMandatoryLoginChange() {
-        AreYouSure.openModal(null, this.onAreYouSureUserSystemOk.bind(this), 'secure');
+        AreYouSure.openModal(null, this.onAreYouSureMandatoryLoginOk.bind(this), 'secure');
     }
 
     onCheckboxRegistrationChange() {
         AreYouSure.openModal(null, this.onAreYouSureRegistrationOk.bind(this), 'secure');
     }
 
-    onAreYouSureUserSystemOk(password) {
+    onAreYouSureMandatoryLoginOk(password) {
         const {
             config,
             dispatch
         } = this.props;
-        API.call({
+        return API.call({
             path: config['mandatory-login'] ? '/system/disable-mandatory-login' : '/system/enable-mandatory-login',
             data: {
                 password: password
@@ -227,7 +227,7 @@ class AdminPanelAdvancedSettings extends React.Component {
             config,
             dispatch
         } = this.props;
-        API.call({
+        return API.call({
             path: config['registration'] ? '/system/disable-registration' : '/system/enable-registration',
             data: {
                 password: password
@@ -247,7 +247,7 @@ class AdminPanelAdvancedSettings extends React.Component {
     }
 
     onAreYouSureCSVOk(file, password) {
-        API.call({
+        return API.call({
             path: '/system/csv-import',
             dataAsForm: true,
             data: {
@@ -290,7 +290,7 @@ class AdminPanelAdvancedSettings extends React.Component {
     }
 
     onAreYouSureDeleteAllUsersOk(password) {
-        API.call({
+        return API.call({
             path: '/system/delete-all-users',
             data: {
                 password: password

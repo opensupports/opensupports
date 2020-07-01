@@ -80,7 +80,7 @@ class AdminPanelCustomTags extends React.Component {
     }
 
     deleteCustomTag(tagId) {
-        API.call({
+        return API.call({
             path: '/ticket/delete-tag',
             data: {
                 tagId,

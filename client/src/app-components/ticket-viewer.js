@@ -483,7 +483,7 @@ class TicketViewer extends React.Component {
     }
 
     reopenTicket() {
-        API.call({
+        return API.call({
             path: '/ticket/re-open',
             data: {
                 ticketNumber: this.props.ticket.ticketNumber
@@ -492,7 +492,7 @@ class TicketViewer extends React.Component {
     }
 
     closeTicket() {
-        API.call({
+        return API.call({
             path: '/ticket/close',
             data: {
                 ticketNumber: this.props.ticket.ticketNumber
@@ -501,7 +501,7 @@ class TicketViewer extends React.Component {
     }
 
     deleteTicket() {
-        API.call({
+        return API.call({
             path: '/ticket/delete',
             data: {
                 ticketNumber: this.props.ticket.ticketNumber
@@ -513,7 +513,7 @@ class TicketViewer extends React.Component {
     }
 
     changeDepartment(index) {
-        API.call({
+        return API.call({
             path: '/ticket/change-department',
             data: {
                 ticketNumber: this.props.ticket.ticketNumber,
@@ -529,7 +529,7 @@ class TicketViewer extends React.Component {
             'high'
         ];
 
-        API.call({
+        return API.call({
             path: '/ticket/change-priority',
             data: {
                 ticketNumber: this.props.ticket.ticketNumber,
