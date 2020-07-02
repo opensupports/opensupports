@@ -95,7 +95,21 @@ describe '/staff/supervisor-user-list' do
         
         (result['status']).should.equal('fail')
         (result['message']).should.equal('INVALID_USER')
+    end
 
+    it'should fail if supervisor is included in user-id-List'do
+        request('/user/logout')
+        Scripts.login($staff[:email], $staff[:password], true)
+        
+        result = request('/user/edit-user-list', {
+            userIdList: "[30,31,29]",
+            userId:  supervisor['id'],
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('SUPERVISOR_CAN_NOT_SELECT_HIMSELF')
     end
     
     it'should create supervisor user'do
