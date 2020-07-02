@@ -741,13 +741,13 @@ class TicketViewer extends React.Component {
 
 export default connect((store) => {
     return {
-        userId: store.session.userId,
+        userId: store.session.userId*1,
         userStaff: store.session.staff,
         userDepartments: store.session.userDepartments,
         staffMembers: store.adminData.staffMembers,
         staffMembersLoaded: store.adminData.staffMembersLoaded,
         allowAttachments: store.config['allow-attachments'],
-        userLevel: store.session.userLevel,
+        userLevel: store.session.userLevel*1,
         tags: store.config['tags']
     };
 })(TicketViewer);
