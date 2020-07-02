@@ -59,6 +59,7 @@ class Input extends React.Component {
         delete props.inputType;
         delete props.errored;
         delete props.password;
+        delete props.onIconClick;
 
         return props;
     }

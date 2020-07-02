@@ -10,7 +10,7 @@ class CheckBox extends React.Component {
 
     static propTypes = {
         alignment: React.PropTypes.string,
-        label: React.PropTypes.string,
+        label: React.PropTypes.node,
         value: React.PropTypes.bool,
         wrapInLabel: React.PropTypes.bool,
         onChange: React.PropTypes.func
