@@ -86,24 +86,33 @@ class AdminPanelSearchTickets extends React.Component {
             ticketQueryListState,
             dispatch
         } = this.props;
-        let orderBy = listConfig.filters.orderBy ? JSON.parse(listConfig.filters.orderBy) : {value: ""};
+        const orderBy = listConfig.filters.orderBy ? JSON.parse(listConfig.filters.orderBy) : {value: ""};
+        const newValue = value;
         let newOrderBy = {};
         let newAsc = 0;
-        let newValue = value;
 
         if(value === orderBy.value) {
             newAsc = orderBy.asc === 0 ? 1 : 0;
         }
         newOrderBy = JSON.stringify({"value": newValue, "asc": newAsc});
-        dispatch(searchFiltersActions.changeFilters({
+
+        const newListConfig = {
             ...listConfig,
             filters: {
                 ...listConfig.filters,
                 orderBy: newOrderBy
             },
             hasAllAuthorsInfo: true
-        }));
-        dispatch(searchFiltersActions.retrieveSearchTickets(ticketQueryListState, {...listConfig.filters, orderBy: newOrderBy}));
+        };
+        const currentPath = window.location.pathname;
+        const urlQuery = searchTicketsUtils.getFiltersForURL(newListConfig.filters);
+
+        if(!newListConfig.title) {
+            (urlQuery && history.push(`${currentPath}${urlQuery}`))
+        } else {
+            dispatch(searchFiltersActions.changeFilters(newListConfig));
+            dispatch(searchFiltersActions.retrieveSearchTickets(ticketQueryListState, newListConfig.filters));
+        }
     }
 
     onChangeShowFilters() {
