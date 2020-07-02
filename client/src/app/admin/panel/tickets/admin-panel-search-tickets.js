@@ -55,14 +55,14 @@ class AdminPanelSearchTickets extends React.Component {
     render() {
         const { listConfig } = this.props;
         return (
-            <div className="admin-panel-all-tickets">
-                <div className="admin-panel-all-tickets__container">
+            <div className="admin-panel-search-tickets">
+                <div className="admin-panel-search-tickets__container">
                     <Header
-                        className="admin-panel-all-tickets__container__header"
+                        className="admin-panel-search-tickets__container__header"
                         title={listConfig.title !== undefined ? listConfig.title : i18n('SEARCH_TICKETS')}
                         description={i18n('SEARCH_TICKETS_DESCRIPTION')} />
                     <Button
-                        className="admin-panel-all-tickets__container__show-filters-button"
+                        className="admin-panel-search-tickets__container__show-filters-button"
                         size="auto"
                         type="tertiary"
                         onClick={this.onChangeShowFilters.bind(this)}>
