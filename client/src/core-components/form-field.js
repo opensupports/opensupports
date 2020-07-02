@@ -148,43 +148,53 @@ class FormField extends React.Component {
 
     getFieldProps() {
         const {
+            fieldProps,
             error,
             name,
+            placeholder,
             onBlur,
             required,
-            placeholder,
             field,
-            fieldProps,
-            value
+            value,
+            decorator
         } = this.props;
+
         let props = _.extend({}, fieldProps, {
             disabled: this.isDisabled(),
             errored: !!error,
-            name: name,
-            placeholder: placeholder,
+            name,
+            placeholder,
             key: 'nativeField',
             onChange: this.onChange.bind(this),
-            onBlur: onBlur,
+            onBlur,
             ref: 'nativeField',
-            required: required
+            required
         });
 
         if(field === 'select') {
             props.selectedIndex = value;
         }
-        if(field == 'date-range') {
+
+        if(decorator === 'textarea') {
+            delete props.errored;
+        }
+
+        if(field === 'date-range') {
             props.value = {
                 startDate: value[0],
                 endDate: value[1],
                 valid: false,
             };
         }
-        if(field == 'tag-selector') {
+        
+        if(field === 'tag-selector') {
             props.values = value;
         }
-        if(field == 'autocomplete') {
+        
+        if(field === 'autocomplete') {
             props.values = value;
         }
+        
         props.value = value;
 
         return props;

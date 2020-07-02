@@ -204,12 +204,13 @@ class AdminPanelDepartments extends React.Component {
         const {
             form,
             errors,
-            formLoading
-        } = this.state
+            formLoading,
+        } = this.state;
 
         return {
-            values: form,
+            values: {...form, private: !!form.private},
             errors: errors,
+            loading: formLoading,
             onChange: (form) => {this.setState({form, edited: true})},
             onValidateErrors: (errors) => {this.setState({errors})},
             onSubmit: this.onFormSubmit.bind(this),
@@ -220,13 +221,15 @@ class AdminPanelDepartments extends React.Component {
 
     getDefaultDepartmentFormProps() {
         const {
-            formLoading
+            formLoading,
+            defaultDepartment,
+            defaultDepartmentLocked
         } = this.state;
 
         return {
             values: {
-                defaultDepartment: getPublicDepartmentIndexFromDepartmentId(this.state.defaultDepartment),
-                locked: this.state.defaultDepartmentLocked,
+                defaultDepartment: getPublicDepartmentIndexFromDepartmentId(defaultDepartment),
+                locked: defaultDepartmentLocked ? true : false,
             },
             onChange: (formValue) => {
                 this.setState({
