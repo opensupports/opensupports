@@ -70,7 +70,8 @@ class GetStaffController extends Controller {
             'staff' => true,
             'departments' => $parsedDepartmentList,
             'tickets' => $user->sharedTicketList->toArray(true),
-            'sendEmailOnNewTicket' => $user->sendEmailOnNewTicket
+            'sendEmailOnNewTicket' => $user->sendEmailOnNewTicket,
+            'userList' => $user->sharedUserList->toArray()
         ]);
     }
 }

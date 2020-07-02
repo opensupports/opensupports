@@ -66,6 +66,7 @@ class GetUserByIdController extends Controller {
             'verified' => !$user->verificationToken,
             'disabled' => !!$user->disabled,
             'customfields' => $user->xownCustomfieldvalueList->toArray(),
+            'userList' => $user->sharedUserList->toArray()
         ]);
     }
 }
