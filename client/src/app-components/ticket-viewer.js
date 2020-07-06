@@ -481,7 +481,6 @@ class TicketViewer extends React.Component {
             userDepartments,
             ticket
         } = this.props;
-
         return API.call({
             path: '/ticket/change-department',
             data: {
