@@ -46,28 +46,6 @@ describe '/ticket/search' do
         (result['message']).should.equal('INVALID_UNREAD_STAFF_FILTER')
     end
 
-    it 'should fail if the priority values are invalid' do
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            priority: "[0,1,5,6]"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_PRIORITY_FILTER')
-    end
-
-    it 'should fail if the priority' do
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            priority: "[0,1,),hi]"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_PRIORITY_FILTER')
-    end
-
     it 'should fail if the dateRange values are invalid' do
         result = request('/ticket/search', {
             csrf_userid: $csrf_userid,

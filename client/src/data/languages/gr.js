@@ -61,7 +61,6 @@
     'ADVANCED_SETTINGS': 'Προηγμένες Ρυθμίσεις',
     'EMAIL_TEMPLATES': 'Πρότυπα Ηλεκτρονικού Ταχυδρομείου',
     'FILTERS_CUSTOM_FIELDS': 'Φίλτρα και Προσαρμοσμένα Πεδία',
-    'PRIORITY': 'Προτεραιότητα',
     'NUMBER': 'Αριθμός',
     'HIGH': 'Υψηλός',
     'MEDIUM': 'Μέτριος',
@@ -238,7 +237,6 @@
     'ACTIVITY_CREATE_TICKET': 'δημιουργημένο εισιτήριο',
     'ACTIVITY_RE_OPEN': 'ανοιγμένο ξανά εισιτήριο',
     'ACTIVITY_DEPARTMENT_CHANGED': 'αλλαγή τμήματος εισιτηρίου',
-    'ACTIVITY_PRIORITY_CHANGED': 'αλλαγή προτεραιότητας εισιτηρίου',
     'ACTIVITY_EDIT_COMMENT': 'επεξεργαστεί ένα σχόλιο του εισιτηρίου',
 
     'ACTIVITY_EDIT_SETTINGS': 'τροποποιημένες ρυθμίσεις',
@@ -439,7 +437,6 @@
     'ACTIVITY_CREATE_TICKET_THIS': 'δημιουργήθηκε αυτό το εισιτήριο',
     'ACTIVITY_RE_OPEN_THIS': 'άνοιξε εκ νέου αυτό το εισιτήριο',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'άλλαξε το τμήμα αυτού του εισιτηρίου',
-    'ACTIVITY_PRIORITY_CHANGED_THIS': 'αλλαγή της προτεραιότητας αυτού του εισιτηρίου',
     'DATE_PREFIX': 'ενεργό',
     'LEFT_EMPTY_DATABASE': 'Αφέθηκε κενό για αυτόματη δημιουργία βάσης δεδομένων',
     'DEFAULT_PORT': 'Αφήστε κενό για 3306 ως προεπιλογή',

@@ -61,7 +61,6 @@ export default {
     'ADVANCED_SETTINGS': 'Configurações avançadas',
     'EMAIL_TEMPLATES': 'Modelos de e-mail',
     'FILTERS_CUSTOM_FIELDS': 'Filtros e campos personalizados',
-    'PRIORITY': 'Prioridade',
     'NUMBER': 'Número',
     'HIGH': 'Alto',
     'MEDIUM': 'Médio',
@@ -238,7 +237,6 @@ export default {
     'ACTIVITY_CREATE_TICKET': 'Bilhete criado',
     'ACTIVITY_RE_OPEN': 'Bilhete reaberto',
     'ACTIVITY_DEPARTMENT_CHANGED': 'Mudou departamento de bilhete',
-    'ACTIVITY_PRIORITY_CHANGED': 'Prioridade alterada do bilhete',
     'ACTIVITY_EDIT_COMMENT': 'editado um comentário de bilhete',
 
     'ACTIVITY_EDIT_SETTINGS': 'Configurações editadas',
@@ -439,7 +437,6 @@ export default {
     'ACTIVITY_CREATE_TICKET_THIS': 'criado este bilhete',
     'ACTIVITY_RE_OPEN_THIS': 'reaberto este bilhete',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'departamento alterado deste bilhete para',
-    'ACTIVITY_PRIORITY_CHANGED_THIS': 'alterou a prioridade deste bilhete para',
     'DATE_PREFIX': 'em',
     'LEFT_EMPTY_DATABASE': 'Esquerda vazia para criação automática de banco de dados',
     'REMEMBER_ME': 'Lembrar',
