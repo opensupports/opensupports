@@ -19,7 +19,6 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {Number[]} tags The ids of the tags to make a custom search.
  * @apiParam {Number} closed The status of closed 1 or 0 to make a custom search.
  * @apiParam {Number} unreadStaff The status of unread_staff 1 or 0 to make a custom search.
- * @apiParam {Number[]} priority The values of priority to make a custom search.
  * @apiParam {Number[]} dateRange The numbers of the range of date to make a custom search.
  * @apiParam {Number[]} departments The ids of the departments to make a custom search.
  * @apiParam {Object[]} authors A object {id,staff} with id and boolean to make a custom search.
@@ -33,7 +32,6 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_TAG_FILTER
  * @apiUse INVALID_CLOSED_FILTER
  * @apiUse INVALID_UNREAD_STAFF_FILTER
- * @apiUse INVALID_PRIORITY_FILTER
  * @apiUse INVALID_DATE_RANGE_FILTER
  * @apiUse INVALID_DEPARTMENT_FILTER
  * @apiUse INVALID_AUTHOR_FILTER
@@ -70,10 +68,6 @@ class SearchController extends Controller {
                 'unreadStaff' => [
                     'validation' => DataValidator::oneOf(DataValidator::in(['0','1']),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_UNREAD_STAFF_FILTER
-                ],
-                'priority' => [
-                    'validation' => DataValidator::oneOf(DataValidator::validPriorities(),DataValidator::nullType()),
-                    'error' => ERRORS::INVALID_PRIORITY_FILTER
                 ],
                 'dateRange' => [
                     'validation' => DataValidator::oneOf(DataValidator::validDateRange(),DataValidator::nullType()),
@@ -118,7 +112,6 @@ class SearchController extends Controller {
             'closed' => Controller::request('closed'),
             'tags' => json_decode(Controller::request('tags')),
             'unreadStaff' => Controller::request('unreadStaff'),
-            'priority' => json_decode(Controller::request('priority')),
             'dateRange' => json_decode(Controller::request('dateRange')),
             'departments' => json_decode(Controller::request('departments')),
             'authors' => json_decode(Controller::request('authors'),true),
@@ -185,7 +178,6 @@ class SearchController extends Controller {
         if(array_key_exists('closed',$inputs)) $this->setClosedFilter($inputs['closed'], $filters);
         if(array_key_exists('assigned',$inputs)) $this->setAssignedFilter($inputs['assigned'], $filters);
         if(array_key_exists('unreadStaff',$inputs)) $this->setSeenFilter($inputs['unreadStaff'], $filters);
-        if(array_key_exists('priority',$inputs)) $this->setPriorityFilter($inputs['priority'], $filters);
         if(array_key_exists('dateRange',$inputs)) $this->setDateFilter($inputs['dateRange'], $filters);
         if(array_key_exists('departments',$inputs) && array_key_exists('allowedDepartments',$inputs) && array_key_exists('staffId',$inputs)){
             $this->setDepartmentFilter($inputs['departments'],$inputs['allowedDepartments'], $inputs['staffId'], $filters);
@@ -223,33 +215,6 @@ class SearchController extends Controller {
             if ($filters != "")  $filters .= " and ";
             $filters .= "ticket.unread_staff = " . $unreadStaff;
         }
-    }
-    private function setPriorityFilter($priorities, &$filters){
-        if($priorities){
-            $first = TRUE;
-            if ($filters != "")  $filters .= " and ";
-            foreach(array_unique($priorities) as $priority) {
-
-                if($first){
-                    $filters .= " ( ";
-                    $first = FALSE;
-                } else {
-                    $filters .= " or ";
-                }
-
-                if($priority == 0){
-                    $filters .= "ticket.priority = 'low'";
-                }elseif($priority == 1){
-                    $filters .= "ticket.priority = 'medium'";
-                }elseif($priority == 2){
-                    $filters .= "ticket.priority = 'high'";
-                }
-
-
-            }
-            $priorities != "" ? $filters .= ") " : null;
-        }
-
     }
 
     private function setDateFilter($dateRange, &$filters){
@@ -397,7 +362,7 @@ class SearchController extends Controller {
         $order =  " ORDER BY ";
         if(array_key_exists('query',$inputs)) $this->setStringOrder($inputs['query'], $order);
         if(array_key_exists('orderBy',$inputs)) $this->setEspecificOrder($inputs['orderBy'], $order);
-        $order .=  "ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.priority desc, ticket.date desc, ticket.id desc";
+        $order .=  "ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.date desc, ticket.id desc";
     }
     private function setEspecificOrder($orderBy, &$order){
         if($orderBy !== null){

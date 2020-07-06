@@ -61,7 +61,6 @@ export default {
     'ADVANCED_SETTINGS': 'एडवांस सेटिंग',
     'EMAIL_TEMPLATES': 'ईमेल टेम्पलेट्स',
     'FILTERS_CUSTOM_FIELDS': 'फिल्टर और कस्टम फील्ड्स',
-    'PRIORITY': 'प्राथमिकता',
     'NUMBER': 'संख्या',
     'HIGH': 'उच्च',
     'MEDIUM': 'मध्यम',
@@ -238,7 +237,6 @@ export default {
     'ACTIVITY_CREATE_TICKET': 'बनाया टिकट',
     'ACTIVITY_RE_OPEN': 'फिर से खोल टिकट',
     'ACTIVITY_DEPARTMENT_CHANGED': 'टिकट के बदले विभाग',
-    'ACTIVITY_PRIORITY_CHANGED': 'टिकट के बदले प्राथमिकता',
     'ACTIVITY_EDIT_COMMENT': 'टिकट की एक टिप्पणी संपादित',
 
     'ACTIVITY_EDIT_SETTINGS': 'संपादित सेटिंग्स',
@@ -439,7 +437,6 @@ export default {
     'ACTIVITY_CREATE_TICKET_THIS': 'यह टिकट बनाया',
     'ACTIVITY_RE_OPEN_THIS': 'इस टिकट को फिर से खोल दिया',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'इस टिकट का विभाग बदल दिया गया',
-    'ACTIVITY_PRIORITY_CHANGED_THIS': 'इस टिकट की प्राथमिकता को बदल दिया',
     'DATE_PREFIX': 'को',
     'LEFT_EMPTY_DATABASE': 'स्वचालित डेटाबेस निर्माण के लिए खाली छोड़ दिया',
     'REMEMBER_ME': 'मुझे याद रखना',

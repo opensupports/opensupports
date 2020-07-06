@@ -61,7 +61,6 @@ export default {
     'ADVANCED_SETTINGS': '高級設置',
     'EMAIL_TEMPLATES': '電子郵件模板',
     'FILTERS_CUSTOM_FIELDS': '過濾器和自定義字段',
-    'PRIORITY': '優先',
     'NUMBER': '數',
     'HIGH': '高',
     'MEDIUM': '中間',
@@ -238,7 +237,6 @@ export default {
     'ACTIVITY_CREATE_TICKET': '創建的票',
     'ACTIVITY_RE_OPEN': '重開機票',
     'ACTIVITY_DEPARTMENT_CHANGED': '改變機票',
-    'ACTIVITY_PRIORITY_CHANGED': '更改票的優先級',
     'ACTIVITY_EDIT_COMMENT': '编辑票的评论',
 
     'ACTIVITY_EDIT_SETTINGS': '編輯設置',
@@ -439,7 +437,6 @@ export default {
     'ACTIVITY_CREATE_TICKET_THIS': '創建了這張票',
     'ACTIVITY_RE_OPEN_THIS': '重新打開這張票',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': '改變這張票的部門 ',
-    'ACTIVITY_PRIORITY_CHANGED_THIS': '將此票的優先級更改為',
     'DATE_PREFIX': '在',
     'LEFT_EMPTY_DATABASE': '留空为自动创建数据库',
     'DEFAULT_PORT': '默认为空，为3306',
