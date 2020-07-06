@@ -325,7 +325,7 @@ class StaffEditor extends React.Component {
     }
 
     onDeleteClick() {
-        API.call({
+        return API.call({
             path: '/staff/delete',
             data: {
                 staffId: this.props.staffId

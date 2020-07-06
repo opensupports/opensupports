@@ -395,14 +395,14 @@ class TicketViewer extends React.Component {
         let APICallPromise = new Promise(resolve => resolve());
 
         if(owner) {
-            APICallPromise.then(() => API.call({
+            APICallPromise = APICallPromise.then(() => API.call({
                 path: '/staff/un-assign-ticket',
                 data: { ticketNumber }
             }));
         }
 
         if(id !== 0) {
-            APICallPromise.then(() => API.call({
+            APICallPromise = APICallPromise.then(() => API.call({
                 path: '/staff/assign-ticket',
                 data: { ticketNumber, staffId: id }
             }));
@@ -446,7 +446,7 @@ class TicketViewer extends React.Component {
     }
 
     reopenTicket() {
-        API.call({
+        return API.call({
             path: '/ticket/re-open',
             data: {
                 ticketNumber: this.props.ticket.ticketNumber
@@ -455,7 +455,7 @@ class TicketViewer extends React.Component {
     }
 
     closeTicket() {
-        API.call({
+        return API.call({
             path: '/ticket/close',
             data: {
                 ticketNumber: this.props.ticket.ticketNumber
@@ -464,7 +464,7 @@ class TicketViewer extends React.Component {
     }
 
     deleteTicket() {
-        API.call({
+        return API.call({
             path: '/ticket/delete',
             data: {
                 ticketNumber: this.props.ticket.ticketNumber
@@ -476,7 +476,7 @@ class TicketViewer extends React.Component {
     }
 
     changeDepartment(index) {
-        API.call({
+        return API.call({
             path: '/ticket/change-department',
             data: {
                 ticketNumber: this.props.ticket.ticketNumber,
