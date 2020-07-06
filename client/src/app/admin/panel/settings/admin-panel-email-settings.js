@@ -150,7 +150,11 @@ class AdminPanelEmailSettings extends React.Component {
                             <FormField name="imap-host" label={i18n('IMAP_SERVER')} fieldProps={{size: 'large'}}/>
                             <FormField name="imap-user" label={i18n('IMAP_USER')} fieldProps={{size: 'large'}}/>
                             <FormField name="imap-pass" label={i18n('IMAP_PASSWORD')} fieldProps={{size: 'large'}}/>
-                            <FormField name="imap-token" label={i18n('IMAP_TOKEN')} infoMessage={i18n('IMAP_TOKEN_DESCRIPTION')} fieldProps={{size: 'large', icon: 'refresh', onIconClick: this.generateImapToken.bind(this)}}/>
+                            <FormField
+                                name="imap-token"
+                                label={i18n('IMAP_TOKEN')}
+                                infoMessage={i18n('IMAP_TOKEN_DESCRIPTION')}
+                                fieldProps={{size: 'large', icon: 'refresh', onIconClick: this.generateImapToken.bind(this)}}/>
                             <div className="admin-panel-email-settings__server-form-buttons">
                                 <SubmitButton className="admin-panel-email-settings__submit" type="secondary"
                                               size="small">{i18n('SAVE')}</SubmitButton>
@@ -438,7 +442,7 @@ class AdminPanelEmailSettings extends React.Component {
     recoverEmailTemplate() {
         const {selectedIndex, language, templates} = this.state;
 
-        API.call({
+        return API.call({
             path: '/system/recover-mail-template',
             data: {
                 template: templates[selectedIndex],
@@ -454,7 +458,7 @@ class AdminPanelEmailSettings extends React.Component {
             loadingForm: true,
         });
 
-        API.call({
+        return API.call({
             path: '/system/get-mail-template',
             data: {template: this.state.templates[index], language}
         }).then((result) => this.setState({
@@ -482,20 +486,20 @@ class AdminPanelEmailSettings extends React.Component {
             path: '/system/get-settings',
             data: {allSettings: 1}
         }).then(result => this.setState({
-            headerImage: result.data['mail-template-header-image'],
+            headerImage: result.data['mail-template-header-image'] || '',
             emailForm: {
-                ['server-email']: result.data['server-email'],
+                ['server-email']: result.data['server-email'] || '',
             },
             smtpForm: {
-                ['smtp-host']: result.data['smtp-host'],
-                ['smtp-user']: result.data['smtp-user'],
+                ['smtp-host']: result.data['smtp-host'] || '',
+                ['smtp-user']: result.data['smtp-user'] || '',
                 ['smtp-pass']: 'HIDDEN',
             },
             imapForm: {
-                ['imap-host']: result.data['imap-host'],
-                ['imap-user']: result.data['imap-user'],
+                ['imap-host']: result.data['imap-host'] || '',
+                ['imap-user']: result.data['imap-user'] || '',
                 ['imap-pass']: 'HIDDEN',
-                ['imap-token']: result.data['imap-token'],
+                ['imap-token']: result.data['imap-token'] || '',
             },
         }));
     }
