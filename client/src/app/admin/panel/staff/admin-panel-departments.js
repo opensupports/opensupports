@@ -315,7 +315,7 @@ class AdminPanelDepartments extends React.Component {
     }
 
     deleteDepartment() {
-        API.call({
+        return API.call({
             path: '/system/delete-department',
             data: {
                 departmentId: this.getCurrentDepartment(this.props.departments).id,
