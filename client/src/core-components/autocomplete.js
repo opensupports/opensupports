@@ -106,7 +106,7 @@ class Autocomplete extends React.Component {
         if(items !== undefined) {
             const list = this.getUnselectedList(items, this.getSelectedItems());
 
-            dropdownList = list.filter(s => _.includes(s.name, this.state.inputValue));
+            dropdownList = list.filter(s => _.includes(s.name.toLowerCase(), this.state.inputValue.toLowerCase()));
         } else {
             dropdownList = this.getUnselectedList(this.state.itemsFromQuery, this.getSelectedItems());
         }
