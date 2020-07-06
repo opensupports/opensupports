@@ -108,7 +108,7 @@ class TicketViewer extends React.Component {
         const {ticketNumber, title, author, editedTitle, language} = ticket;
 
         return(
-            <div className="ticket-viewer__header row">
+            <div className="ticket-viewer__header">
                 <span className="ticket-viewer__number">#{ticketNumber}</span>
                 <span className="ticket-viewer__title">{title}</span>
                 <span className="ticket-viewer__flag">
@@ -136,7 +136,7 @@ class TicketViewer extends React.Component {
 
     renderEditableTitle(){
         return(
-            <div className="ticket-viewer__header row">
+            <div className="ticket-viewer__header">
                 <div className="ticket-viewer__edit-title-box">
                     <FormField className="ticket-viewer___input-edit-title" error={this.state.editTitleError}  value={this.state.newTitle} field='input' onChange={(e) => this.setState({newTitle: e.target.value })} />
                 </div>
@@ -164,49 +164,58 @@ class TicketViewer extends React.Component {
 
         return (
             <div className="ticket-viewer__headers">
-                <div className="ticket-viewer__info-row-header row">
-                    <div className="col-md-4">{i18n('DEPARTMENT')}</div>
-                    <div className="col-md-4">{i18n('AUTHOR')}</div>
-                    <div className="col-md-4">{i18n('TAGS')}</div>
+                <div className="ticket-viewer__info">
+                    <div className="ticket-viewer__info-container-editable">
+                        <div className="ticket-viewer__info-header">{i18n('DEPARTMENT')}</div>
+                        <div className="ticket-viewer__info-value">
+                            <DepartmentDropdown className="ticket-viewer__editable-dropdown"
+                                    departments={departments}
+                                    selectedIndex={_.findIndex(departments, {id: this.props.ticket.department.id})}
+                                    onChange={this.onDepartmentDropdownChanged.bind(this)} />
+                        </div>
+                    </div>
+                    <div className="ticket-viewer__info-container-editable">
+                        <div className="ticket-viewer__info-header">{i18n('AUTHOR')}</div>
+                        <div className="ticket-viewer__info-value">{ticket.author.name}</div>
+                    </div>
+                    <div className="ticket-viewer__info-container-editable">
+                        <div className="ticket-viewer__info-header">{i18n('TAGS')}</div>
+                        <div className="ticket-viewer__info-value">
+                            <TagSelector
+                                items={this.props.tags}
+                                values={this.props.ticket.tags}
+                                onRemoveClick={this.removeTag.bind(this)}
+                                onTagSelected={this.addTag.bind(this)}
+                                loading={this.state.tagSelectorLoading}/>
+                        </div>
+                    </div>
                 </div>
-                <div className="ticket-viewer__info-row-values row">
-                    <div className="col-md-4">
-                        <DepartmentDropdown className="ticket-viewer__editable-dropdown"
-                                  departments={departments}
-                                  selectedIndex={_.findIndex(departments, {id: this.props.ticket.department.id})}
-                                  onChange={this.onDepartmentDropdownChanged.bind(this)} />
+
+                <div className="ticket-viewer__info">
+                    <div className="ticket-viewer__info-container-editable">
+                        <div className="ticket-viewer__info-header">{i18n('PRIORITY')}</div>
+                        <div className="ticket-viewer__info-value">
+                            <DropDown
+                                className="ticket-viewer__editable-dropdown"
+                                items={priorityList}
+                                selectedIndex={priorities[ticket.priority]}
+                                onChange={this.onPriorityDropdownChanged.bind(this)} />
+                        </div>
                     </div>
-                    <div className="col-md-4">{ticket.author.name}</div>
-                    <div className="col-md-4">
-                        <TagSelector
-                            items={this.props.tags}
-                            values={this.props.ticket.tags}
-                            onRemoveClick={this.removeTag.bind(this)}
-                            onTagSelected={this.addTag.bind(this)}
-                            loading={this.state.tagSelectorLoading}/>
+                    <div className="ticket-viewer__info-container-editable">
+                        <div className="ticket-viewer__info-header">{i18n('OWNER')}</div>
+                        <div className="ticket-viewer__info-value">
+                            {this.renderAssignStaffList()}
+                        </div>
                     </div>
-                </div>
-                <div className="ticket-viewer__info-row-header row">
-                    <div className="col-md-4">{i18n('PRIORITY')}</div>
-                    <div className="col-md-4">{i18n('OWNER')}</div>
-                    <div className="col-md-4">{i18n('STATUS')}</div>
-                </div>
-                <div className="ticket-viewer__info-row-values row">
-                    <div className="col-md-4">
-                        <DropDown
-                            className="ticket-viewer__editable-dropdown"
-                            items={priorityList}
-                            selectedIndex={priorities[ticket.priority]}
-                            onChange={this.onPriorityDropdownChanged.bind(this)} />
-                    </div>
-                    <div className="col-md-4">
-                        {this.renderAssignStaffList()}
-                    </div>
-                    <div className="col-md-4">
-                        {ticket.closed ?
-                        <Button type='secondary' size="extra-small" onClick={this.onReopenClick.bind(this)}>
-                            {i18n('RE_OPEN')}
-                        </Button> : i18n('OPENED')}
+                    <div className="ticket-viewer__info-container-editable">
+                        <div className="ticket-viewer__info-header">{i18n('STATUS')}</div>
+                            <div className="ticket-viewer__info-value">
+                            {ticket.closed ?
+                            <Button type='secondary' size="extra-small" onClick={this.onReopenClick.bind(this)}>
+                                {i18n('RE_OPEN')}
+                            </Button> : i18n('OPENED')}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -223,33 +232,41 @@ class TicketViewer extends React.Component {
 
         return (
             <div className="ticket-viewer__headers">
-                <div className="ticket-viewer__info-row-header row">
-                    <div className="ticket-viewer__department col-md-4">{i18n('DEPARTMENT')}</div>
-                    <div className="ticket-viewer__author col-md-4">{i18n('AUTHOR')}</div>
-                    <div className="ticket-viewer__date col-md-4">{i18n('TAGS')}</div>
-                </div>
-                <div className="ticket-viewer__info-row-values row">
-                    <div className="ticket-viewer__department col-md-4">{ticket.department.name}</div>
-                    <div className="ticket-viewer__author col-md-4">{ticket.author.name}</div>
-                    <div className="col-md-4">{ticket.tags.length ? ticket.tags.map((tagName,index) => {
-                        let tag = _.find(this.props.tags, {name:tagName});
-                        return <Tag name={tag && tag.name} color={tag && tag.color} key={index} />
-                    }) : i18n('NONE')}</div>
-                </div>
-                <div className="ticket-viewer__info-row-header row">
-                    <div className="ticket-viewer__department col-md-4">{i18n('PRIORITY')}</div>
-                    <div className="ticket-viewer__author col-md-4">{i18n('OWNER')}</div>
-                    <div className="ticket-viewer__date col-md-4">{i18n('STATUS')}</div>
-                </div>
-                <div className="ticket-viewer__info-row-values row">
-                    <div className="col-md-4">
-                        {i18n(priorities[this.props.ticket.priority || 'low'])}
+                <div className="ticket-viewer__info">
+                    <div className="ticket-viewer__info-container">
+                        <div className="ticket-viewer__info-header">{i18n('DEPARTMENT')}</div>
+                        <div className="ticket-viewer__info-value">{ticket.department.name}</div>
                     </div>
-                    <div className="col-md-4">
-                        {this.renderOwnerNode()}
+                        <div className="ticket-viewer__info-container">
+                            <div className="ticket-viewer__info-header">{i18n('AUTHOR')}</div>
+                            <div className="ticket-viewer__info-value">{ticket.author.name}</div>
                     </div>
-                    <div className="col-md-4">
-                        {i18n((this.props.ticket.closed) ? 'CLOSED' : 'OPENED')}
+                    <div className="ticket-viewer__info-container">
+                        <div className="ticket-viewer__info-header">{i18n('TAGS')}</div>
+                        <div className="ticket-viewer__info-value">{ticket.tags.length ? ticket.tags.map((tagName,index) => {
+                            let tag = _.find(this.props.tags, {name:tagName});
+                            return <Tag name={tag && tag.name} color={tag && tag.color} key={index} />
+                        }) : i18n('NONE')}</div>
+                    </div>
+                </div>
+                <div className="ticket-viewer__info">
+                    <div className="ticket-viewer__info-container">
+                        <div className="ticket-viewer__info-header">{i18n('PRIORITY')}</div>
+                        <div className="ticket-viewer__info-value">
+                            {i18n(priorities[this.props.ticket.priority || 'low'])}
+                        </div>
+                    </div>
+                    <div className="ticket-viewer__info-container">
+                        <div className="ticket-viewer__info-header">{i18n('OWNER')}</div>
+                        <div className="ticket-viewer__info-value">
+                            {this.renderOwnerNode()}
+                        </div>
+                    </div>
+                    <div className="ticket-viewer__info-container">
+                        <div className="ticket-viewer__info-header">{i18n('STATUS')}</div>
+                        <div className="ticket-viewer__info-value">
+                            {i18n((this.props.ticket.closed) ? 'CLOSED' : 'OPENED')}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -706,13 +723,13 @@ class TicketViewer extends React.Component {
 
 export default connect((store) => {
     return {
-        userId: store.session.userId,
+        userId: store.session.userId*1,
         userStaff: store.session.staff,
         userDepartments: store.session.userDepartments,
         staffMembers: store.adminData.staffMembers,
         staffMembersLoaded: store.adminData.staffMembersLoaded,
         allowAttachments: store.config['allow-attachments'],
-        userLevel: store.session.userLevel,
+        userLevel: store.session.userLevel*1,
         tags: store.config['tags']
     };
 })(TicketViewer);

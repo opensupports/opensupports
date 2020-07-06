@@ -6,7 +6,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/search Search tickets
- * @apiVersion 4.6.1
+ * @apiVersion 4.7.0
  *
  * @apiName Search ticket
  *
@@ -314,7 +314,7 @@ class SearchController extends Controller {
     }
 
     private function setAuthorFilter($authors, &$filters){
-        if($authors !== null){
+        if($authors){
             $first = TRUE;
             if ($filters != "")  $filters .= " and ";
 
@@ -327,7 +327,7 @@ class SearchController extends Controller {
                     $filters .= " or ";
                 }
 
-                if($author['staff']){
+                if($author['isStaff']){
                     $filters .= "ticket.author_staff_id  = " . $author['id'];
                 } else {
                     $filters .= "ticket.author_id = " . $author['id'];
@@ -397,7 +397,7 @@ class SearchController extends Controller {
         $order =  " ORDER BY ";
         if(array_key_exists('query',$inputs)) $this->setStringOrder($inputs['query'], $order);
         if(array_key_exists('orderBy',$inputs)) $this->setEspecificOrder($inputs['orderBy'], $order);
-        $order .=  "ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.priority desc, ticket.date desc ";
+        $order .=  "ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.priority desc, ticket.date desc, ticket.id desc";
     }
     private function setEspecificOrder($orderBy, &$order){
         if($orderBy !== null){

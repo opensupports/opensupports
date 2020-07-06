@@ -1,0 +1,14 @@
+
+.admin-panel-search-tickets {
+
+    &__container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        &__show-filters-button {
+            position: relative;
+            transition: all 0.4s ease;
+        }
+    }
+}

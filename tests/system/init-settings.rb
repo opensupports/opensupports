@@ -28,6 +28,12 @@ describe '/system/init-settings' do
 
         lang = $database.getRow('setting', 'language', 'name')
         (lang['value']).should.equal('en')
+        
+        default = $database.getRow('setting', 'default-department-id', 'name')
+        (default['value']).should.equal('1')
+
+        locked = $database.getRow('setting', 'default-is-locked', 'name')
+        (locked['value']).should.equal('0')
 
         result = request('/system/init-admin', {
             name: 'Emilia Clarke',

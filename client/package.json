@@ -77,6 +77,7 @@
     "messageformat": "^0.2.2",
     "moment": "^2.27.0",
     "qs": "^6.5.2",
+    "query-string": "^6.12.1",
     "quill-image-resize-module-react": "^3.0.0",
     "random-string": "^0.2.0",
     "react": "^15.4.2",

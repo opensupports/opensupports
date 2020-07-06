@@ -2,10 +2,14 @@ import React from 'react';
 import _ from 'lodash';
 import {connect} from 'react-redux';
 
-import {dispatch} from 'app/store';
 import i18n from 'lib-app/i18n';
+import searchTicketsUtils from '../../../lib-app/search-tickets-utils';
 
 import Menu from 'core-components/menu';
+import queryString from 'query-string';
+
+const INITIAL_PAGE = 1;
+
 
 class AdminPanelMenu extends React.Component {
     static contextTypes = {
@@ -70,15 +74,32 @@ class AdminPanelMenu extends React.Component {
 
     onGroupItemClick(index) {
         const group = this.getRoutes()[this.getGroupIndex()];
+        const item = group.items[index];
 
-        this.context.router.push(group.items[index].path);
+        this.context.router.push(item.path);
+        item.onItemClick && item.onItemClick();
     }
 
     getGroupItemIndex() {
+        const { location } = this.props;
+        const search = window.location.search;
+        const filtersInURL = queryString.parse(search);
         const group = this.getRoutes()[this.getGroupIndex()];
-        const pathname = this.props.location.pathname + this.props.location.search;
+        const pathname = location.pathname + location.search;
+        const SEARCH_TICKETS_PATH = '/admin/panel/tickets/search-tickets';
 
-        return _.findIndex(group.items, {path: pathname});
+        return (
+            _.findIndex(
+                group.items,
+                (item) => {
+                    if(location.pathname === SEARCH_TICKETS_PATH) {
+                        const customTicketsListNumber = queryString.parse(item.path.slice(SEARCH_TICKETS_PATH.length)).custom;
+                        return item.path.includes(SEARCH_TICKETS_PATH) && customTicketsListNumber === filtersInURL.custom;
+                    }
+                    return item.path === pathname;
+                }
+            )
+        );
     }
 
     getGroupIndex() {
@@ -93,11 +114,11 @@ class AdminPanelMenu extends React.Component {
     getCustomlists() {
         if(window.customTicketList){
             return window.customTicketList.map((item, index) => {
-                    return {
-                        name: item.title,
-                        path: '/admin/panel/tickets/search-tickets?custom=' + index,
-                        level: 1
-                    }
+                return {
+                    name: item.title,
+                    path: `/admin/panel/tickets/search-tickets?custom=${index}&page=${INITIAL_PAGE}`,
+                    level: 1,
+                }
             })
         } else {
             return [];
@@ -143,9 +164,9 @@ class AdminPanelMenu extends React.Component {
                         level: 1
                     },
                     {
-                        name: i18n('ALL_TICKETS'),
-                        path: '/admin/panel/tickets/all-tickets',
-                        level: 1
+                        name: i18n('SEARCH_TICKETS'),
+                        path: `/admin/panel/tickets/search-tickets?dateRange=${searchTicketsUtils.getDefaultDateRangeForFilters()}&page=${INITIAL_PAGE}`,
+                        level: 1,
                     },
                     {
                         name: i18n('CUSTOM_RESPONSES'),
@@ -249,6 +270,7 @@ class AdminPanelMenu extends React.Component {
 export default connect((store) => {
     return {
         level: store.session.userLevel,
-        config: store.config
+        config: store.config,
+        searchFilters: store.searchFilters,
     };
 })(AdminPanelMenu);

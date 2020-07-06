@@ -16,7 +16,7 @@ class TagSelector extends React.Component {
     };
 
     render() {
-        const items = this.props.items.map(tag => ({...tag, content: this.renderTagOption(tag)}));
+        const items = this.props.items.map(tag => ({...tag, content: this.renderTagOption(tag), id: tag.id*1}));
         const values = items.filter(item => _.includes(this.props.values, item.name));
 
         return (
@@ -25,7 +25,8 @@ class TagSelector extends React.Component {
                     items={items}
                     values={values}
                     onRemoveClick={this.props.onRemoveClick}
-                    onTagSelected={this.props.onTagSelected}
+                    onChange={this.props.onChange}
+                    onItemSelected={this.props.onTagSelected}
                     disabled={this.props.loading} />
             </div>
         );

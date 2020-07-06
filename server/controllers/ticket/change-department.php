@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/change-department Change department
- * @apiVersion 4.6.1
+ * @apiVersion 4.7.0
  *
  * @apiName Change department
  *

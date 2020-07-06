@@ -77,7 +77,7 @@ class AdminPanelMyTickets extends React.Component {
     onCreateTicket() {
         ModalContainer.openModal(
             <div>
-                <CreateTicketForm onSuccess={this.onCreateTicketSuccess.bind(this)} />
+                <CreateTicketForm isStaff={true} onSuccess={this.onCreateTicketSuccess.bind(this)} />
                 <div style={{textAlign: 'center'}}>
                     <Button onClick={ModalContainer.closeModal} type="link">{i18n('CLOSE')}</Button>
                 </div>
@@ -97,7 +97,7 @@ class AdminPanelMyTickets extends React.Component {
 
 export default connect((store) => {
     return {
-        userId: store.session.userId,
+        userId: store.session.userId*1,
         departments: store.session.userDepartments,
         tickets: store.adminData.myTickets,
         page: store.adminData.myTicketsPage,

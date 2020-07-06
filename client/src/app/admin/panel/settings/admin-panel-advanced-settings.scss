@@ -27,7 +27,7 @@
             text-align: left;
         }
 
-        &-info {
+        &__container-info {
             text-align: left;
         }
 
@@ -58,4 +58,32 @@
     &__message {
       margin-bottom: 20px;
     }
+
+    @media screen and (max-width: 415px) {
+        .admin-panel-advanced-settings {
+            &__api-keys {
+
+                &-button {
+                    margin-bottom: 30px;
+                    width: 150px;
+                }
+
+                &__container {
+                    padding: 30px 0;
+
+                    &-info {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                }
+
+                &-subtitle {
+                    margin: 10px 0 0 0;
+                }
+            }
+        }
+    }
+
 }

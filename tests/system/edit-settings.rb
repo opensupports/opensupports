@@ -12,7 +12,8 @@ describe'system/edit-settings' do
             "allow-attachments" => 1,
             "max-size" => 2,
             "language" => 'en',
-            "server-email" => 'testemail@hotmail.com'
+            "server-email" => 'testemail@hotmail.com',
+            "default-is-locked" => 1
         })
 
         (result['status']).should.equal('success')
@@ -34,7 +35,8 @@ describe'system/edit-settings' do
 
         row = $database.getRow('setting', 'server-email', 'name')
         (row['value']).should.equal('testemail@hotmail.com')
-
+        row = $database.getRow('setting', 'default-is-locked', 'name')
+        (row['value']).should.equal('1')
         request('/user/logout')
     end
     it 'should fail if supported languages are invalid' do
@@ -94,6 +96,8 @@ describe'system/edit-settings' do
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('EDIT_SETTINGS')
 
+
+        Scripts.updateLockedDepartmentSetting(0);
         request('/user/logout')
     end
 end

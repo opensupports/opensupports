@@ -100,6 +100,10 @@
  * @apiError {String} INVALID_BLACK_LIST The black list is invalid.
  */
 /**
+ * @apiDefine INVALID_LIST
+ * @apiError {String} INVALID_LIST The list is invalid.
+ */
+/**
  * @apiDefine INVALID_TAG_FILTER
  * @apiError {String} INVALID_TAG_FILTER The tag filter is invalid.
  */
@@ -220,6 +224,14 @@
  * @apiError {String} INVALID_FILE The file is invalid or max size exceeded.
  */
 /**
+ * @apiDefine INVALID_DEFAULT_DEPARTMENT
+ * @apiError {String} INVALID_DEFAULT_DEPARTMENT The default department id is invalid.
+ */
+/**
+ * @apiDefine CAN_NOT_DELETE_DEFAULT_DEPARTMENT
+ * @apiError {String} CAN_NOT_DELETE_DEFAULT_DEPARTMENT The default department can not be deleted.
+ */
+/**
  * @apiDefine DATABASE_CONNECTION
  * @apiError {String} DATABASE_CONNECTION It's a database connection error.
  */
@@ -258,6 +270,10 @@
 /**
  * @apiDefine DEPARTMENT_PRIVATE_TICKETS
  * @apiError {String} DEPARTMENT_PRIVATE_TICKETS There are tickets for in department created by non-staff and it can't be private
+ */
+/**
+ * @apiDefine DEFAULT_DEPARTMENT_CAN_NOT_BE_PRIVATE
+ * @apiError {String} DEFAULT_DEPARTMENT_CAN_NOT_BE_PRIVATE Default Department can not be private
  */
 /**
  * @apiDefine EMAIL_POLLING
@@ -334,6 +350,7 @@ class ERRORS {
     const INVALID_PRIORITY = 'INVALID_PRIORITY';
     const INVALID_PAGE = 'INVALID_PAGE';
     const INVALID_QUERY = 'INVALID_QUERY';
+    const INVALID_LIST = 'INVALID_LIST';
     const INVALID_BLACK_LIST = 'INVALID_BLACK_LIST';
     const INVALID_TAG_FILTER = 'INVALID_TAG_FILTER';
     const INVALID_CLOSED_FILTER = 'INVALID_CLOSED_FILTER';
@@ -365,6 +382,8 @@ class ERRORS {
     const INVALID_PERIOD = 'INVALID_PERIOD';
     const NAME_ALREADY_USED = 'NAME_ALREADY_USED';
     const INVALID_FILE = 'INVALID_FILE';
+    const INVALID_DEFAULT_DEPARTMENT = 'INVALID_DEFAULT_DEPARTMENT';
+    const CAN_NOT_DELETE_DEFAULT_DEPARTMENT = 'CAN_NOT_DELETE_DEFAULT_DEPARTMENT';
     const DATABASE_CONNECTION = 'DATABASE_CONNECTION';
     const DATABASE_CREATION = 'DATABASE_CREATION';
     const SMTP_CONNECTION = 'SMTP_CONNECTION';
@@ -376,6 +395,7 @@ class ERRORS {
     const INVALID_TEXT_2 = 'INVALID_TEXT_2';
     const INVALID_TEXT_3 = 'INVALID_TEXT_3';
     const DEPARTMENT_PRIVATE_TICKETS = 'DEPARTMENT_PRIVATE_TICKETS';
+    const DEFAULT_DEPARTMENT_CAN_NOT_BE_PRIVATE = 'DEFAULT_DEPARTMENT_CAN_NOT_BE_PRIVATE';
     const EMAIL_POLLING = 'EMAIL_POLLING';
     const CUSTOM_FIELD_ALREADY_EXISTS = 'CUSTOM_FIELD_ALREADY_EXISTS';
     const INVALID_CUSTOM_FIELD = 'INVALID_CUSTOM_FIELD';

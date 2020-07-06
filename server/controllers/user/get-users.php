@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /user/get-users Get users list
- * @apiVersion 4.6.1
+ * @apiVersion 4.7.0
  *
  * @apiName Get users list
  *

@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Staff Staff
- * @apiVersion 4.6.1
+ * @apiVersion 4.7.0
  * @apiGroup Data Structures
  * @apiParam {String} name Name of the staff member.
  * @apiParam {String} email Email of the staff member.
@@ -53,7 +53,17 @@ class Staff extends DataStore {
         return $this->sharedDepartmentList->includesId($ticket->departmentId) || $this->id === $ticket->authorStaffId;
     }
 
-    public function toArray() {
+    public function toArray($minimal = false) {
+        if($minimal) {
+            return [
+                'id' => $this->id,
+                'name' => $this->name,
+                'email' => $this->email,
+                'profilePic' => $this->profilePic,
+                'isStaff' => 1
+            ];
+        }
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -62,7 +72,7 @@ class Staff extends DataStore {
             'level' => $this->level,
             'departments' => $this->sharedDepartmentList->toArray(),
             'tickets' => $this->sharedTicketList->toArray(),
-            'lastLogin' => $this->lastLogin ,
+            'lastLogin' => $this->lastLogin,
             'sendEmailOnNewTicket' => $this->sendEmailOnNewTicket
         ];
     }
