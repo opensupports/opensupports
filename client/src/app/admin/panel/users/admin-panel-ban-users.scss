@@ -33,4 +33,33 @@
     &__form-message {
         margin-top: 20px;
     }
+
+    @media screen and (max-width: 415px) {
+        .admin-panel-ban-users {
+            &__input {
+                display: unset;
+            }
+
+            &__submit-button {
+                margin: 20px 0;
+            }
+
+            &__ban-email {
+                margin-top: 40px;
+            }
+
+            &__email-row {
+                text-align: unset;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            &__un-ban-button {
+                float: unset;
+                margin: 15px 0;
+            }
+        }
+    }
 }

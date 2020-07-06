@@ -61,7 +61,6 @@ export default {
     'ADVANCED_SETTINGS': 'Opciones Avanzadas',
     'EMAIL_TEMPLATES': 'Plantillas de Correo Electrónico',
     'FILTERS_CUSTOM_FIELDS': 'Filtros y Campos Personalizados',
-    'PRIORITY': 'Prioridad',
     'NUMBER': 'Número',
     'HIGH': 'Alta',
     'MEDIUM': 'Media',
@@ -238,7 +237,6 @@ export default {
     'ACTIVITY_CREATE_TICKET': 'creó el ticket',
     'ACTIVITY_RE_OPEN': 'reabrió el ticket',
     'ACTIVITY_DEPARTMENT_CHANGED': 'cambió el departamento del ticket',
-    'ACTIVITY_PRIORITY_CHANGED': 'cambió la prioridad del ticket',
     'ACTIVITY_EDIT_COMMENT': 'editó un comentario del ticket',
 
     'ACTIVITY_EDIT_SETTINGS': 'editó las preferencias',
@@ -439,7 +437,6 @@ export default {
     'ACTIVITY_CREATE_TICKET_THIS': 'creó este ticket',
     'ACTIVITY_RE_OPEN_THIS': 'reabrió este ticket',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'cambió el departamento de este ticket a ',
-    'ACTIVITY_PRIORITY_CHANGED_THIS': 'cambió la prioridad de este ticket a ',
     'DATE_PREFIX': 'el día',
     'LEFT_EMPTY_DATABASE': 'Dejar vacío para la creación automática de bases de datos',
     'REMEMBER_ME': 'Recordarme',

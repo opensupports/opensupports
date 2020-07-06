@@ -12,7 +12,7 @@
         display: flex;
         align-items:center;
         justify-content:center;
-        position: relative;
+
         &:hover {
             .ticket-viewer__edit-title-icon {
                 color: $grey;
@@ -23,13 +23,13 @@
     &__edited-title-text {
         font-style: italic;
         font-size: 14px;
-        margin-left: 10px;
+        margin: 0 10px;
     }
 
     &__edit-title-icon {
-        position: absolute;
         color: #414A59;
         right: 12px;
+        margin: 0 10px;
         &:hover {
             cursor:pointer;
         }
@@ -49,27 +49,52 @@
 
     &__number {
         color: white;
-        margin-right: 10px;
+        margin-right: 30px;
         font-size: 14px;
     }
 
     &__title {
-        display: inline-block;
+        max-width: 375px;
     }
 
     &__flag {
-        margin-left: 10px;
+        margin-left: 30px;
     }
 
-    &__info-row-header {
+    &__info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
         background-color: $light-grey;
-        font-weight: bold;
-    }
+        padding: 0 15px 30px 15px;
 
-    &__info-row-values {
-        background-color: $light-grey;
-        color: $secondary-blue;
-        padding-bottom: 10px;
+        &-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            min-width: 150px;
+            max-width: 250px;
+        }
+
+        &-container-editable {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            min-width: 300px;
+        }
+
+        &-header {
+            font-weight: bold;
+        }
+
+        &-value {
+            color: $secondary-blue;
+            padding-bottom: 10px;
+
+        }
     }
 
     &__editable-dropdown {
@@ -135,5 +160,40 @@
     }
     &__delete-button {
         margin-left: 10px;
+    }
+
+    @media screen and (max-width: 1151px) {
+        .ticket-viewer__info  {
+            &-container {
+                width: 200px;
+                min-width: unset;
+                max-width: unset;
+            }
+
+            &-container-editable {
+                min-width: 250px;
+                max-width: 300px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        .ticket-viewer__info  {
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
+    @media screen and (max-width: 571px) {
+        .ticket-viewer {
+            &__number, &__edit-title-icon {
+                margin: 0 5px;
+            }
+
+            &__flag {
+                padding: 0 10px;
+            }
+        }
     }
 }

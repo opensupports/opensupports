@@ -35,7 +35,6 @@ describe('TicketList component', function () {
                 id: 1,
                 name: 'Sales Support'
             },
-            priority: 'low',
             author: {
                 id: 3,
                 name: 'Francisco Villegas'
@@ -124,26 +123,20 @@ describe('TicketList component', function () {
                 });
             expect(table[0].props.headers[2]).to.deep.equal(
                 {
-                    key: 'priority',
-                    value: i18n('PRIORITY'),
-                    className: 'ticket-list__priority col-md-1'
-                });
-            expect(table[0].props.headers[3]).to.deep.equal(
-                {
                     key: 'department',
                     value: i18n('DEPARTMENT'),
                     className: 'ticket-list__department col-md-2'
                 });
-            expect(table[0].props.headers[4]).to.deep.equal(
+            expect(table[0].props.headers[3]).to.deep.equal(
                 {
                     key: 'author',
                     value: i18n('AUTHOR'),
                     className: 'ticket-list__author col-md-2'
                 });
-            expect(table[0].props.headers[5].key).to.equal('date');
-            expect(table[0].props.headers[5].value.props.children[0]).to.equal(i18n('DATE'));
-            expect(table[0].props.headers[5].value.props.children[1]).to.equal(null);
-            expect(table[0].props.headers[5].className).to.equal('ticket-list__date col-md-2');
+            expect(table[0].props.headers[4].key).to.equal('date');
+            expect(table[0].props.headers[4].value.props.children[0]).to.equal(i18n('DATE'));
+            expect(table[0].props.headers[4].value.props.children[1]).to.equal(null);
+            expect(table[0].props.headers[4].className).to.equal('ticket-list__date col-md-2');
         });
 
         it('should pass correct props to dropdown', function () {

@@ -1,6 +1,14 @@
 @import "../../../../scss/vars";
 
 .admin-panel-email-settings {
+    &__loading {
+        min-height: 361px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: $grey;
+    }
 
     &__text-area {
         width: 100%;

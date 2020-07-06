@@ -61,7 +61,6 @@ export default {
     'ADVANCED_SETTINGS': 'Réglages avancés',
     'EMAIL_TEMPLATES': 'Modèles de courrier électronique',
     'FILTERS_CUSTOM_FIELDS': 'Filtres et champs personnalisés',
-    'PRIORITY': 'Priorité',
     'NUMBER': 'Nombre',
     'HIGH': 'Haute',
     'MEDIUM': 'Moyenne',
@@ -238,7 +237,6 @@ export default {
     'ACTIVITY_CREATE_TICKET': 'ticket créé',
     'ACTIVITY_RE_OPEN': 'ticket réouvert',
     'ACTIVITY_DEPARTMENT_CHANGED': 'a changé de département le ticket',
-    'ACTIVITY_PRIORITY_CHANGED': 'a changé la priorité du ticket',
     'ACTIVITY_EDIT_COMMENT': 'édité un commentaire du billet',
 
     'ACTIVITY_EDIT_SETTINGS': 'a modifié les paramètres',
@@ -439,7 +437,6 @@ export default {
     'ACTIVITY_CREATE_TICKET_THIS': 'a créé ce ticket',
     'ACTIVITY_RE_OPEN_THIS': 'a réouvert ce ticket',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'a changé le département de ce ticket pour',
-    'ACTIVITY_PRIORITY_CHANGED_THIS': 'a changé la priorité de ce ticket pour',
     'DATE_PREFIX': 'le',
     'LEFT_EMPTY_DATABASE': 'Laisser vide pour la création automatique de la base de données',
     'DEFAULT_PORT': 'Laisser vide pour 3306 par défaut',

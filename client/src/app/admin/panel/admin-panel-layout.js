@@ -29,7 +29,7 @@ class AdminPanel extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-md-12 admin-panel-layout__content">
-                            <Widget>
+                            <Widget className='admin-panel-layout__content__widget'>
                                 {this.props.children}
                             </Widget>
                         </div>
