@@ -61,7 +61,6 @@ export default {
     'ADVANCED_SETTINGS': 'Расширенные настройки',
     'EMAIL_TEMPLATES': 'Шаблоны электронных сообщений',
     'FILTERS_CUSTOM_FIELDS': 'Фильтры и настраиваемых полей',
-    'PRIORITY': 'приоритет',
     'NUMBER': 'Число',
     'HIGH': 'Высокая',
     'MEDIUM': 'средний',
@@ -238,7 +237,6 @@ export default {
     'ACTIVITY_CREATE_TICKET': 'создал билет',
     'ACTIVITY_RE_OPEN': 'возобновлено билет на',
     'ACTIVITY_DEPARTMENT_CHANGED': 'Измененный отдел билета',
-    'ACTIVITY_PRIORITY_CHANGED': 'Измененный приоритет билета',
     'ACTIVITY_EDIT_COMMENT': 'редактировал комментарий билета',
 
     'ACTIVITY_EDIT_SETTINGS': 'отредактированные настройки',
@@ -439,7 +437,6 @@ export default {
     'ACTIVITY_CREATE_TICKET_THIS': 'создал этот билет',
     'ACTIVITY_RE_OPEN_THIS': 'снова открыт этот билет',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'изменен отдел этого билета на',
-    'ACTIVITY_PRIORITY_CHANGED_THIS': 'изменил приоритет этого билета на',
     'DATE_PREFIX': '',
     'LEFT_EMPTY_DATABASE': 'Пусто для автоматического создания базы данных',
     'REMEMBER_ME': 'Запомнить',

@@ -18,7 +18,6 @@ class ActivityRow extends React.Component {
             'CREATE_TICKET',
             'RE_OPEN',
             'DEPARTMENT_CHANGED',
-            'PRIORITY_CHANGED',
             'EDIT_TITLE',
             'EDIT_COMMENT',
 
@@ -59,7 +58,6 @@ class ActivityRow extends React.Component {
             'CREATE_TICKET',
             'RE_OPEN',
             'DEPARTMENT_CHANGED',
-            'PRIORITY_CHANGED',
             'COMMENT_EDITED',
             'EDIT_TITLE',
             'EDIT_COMMENT',
@@ -115,7 +113,6 @@ class ActivityRow extends React.Component {
             'CREATE_TICKET': 'ticket',
             'RE_OPEN': 'unlock-alt',
             'DEPARTMENT_CHANGED': 'exchange',
-            'PRIORITY_CHANGED': 'exclamation',
             'EDIT_TITLE': 'edit',
             'EDIT_COMMENT': 'edit',
 

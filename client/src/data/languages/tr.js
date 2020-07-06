@@ -61,7 +61,6 @@ export default {
     'ADVANCED_SETTINGS': 'Gelişmiş Ayarlar',
     'EMAIL_TEMPLATES': 'E-posta Şablonları',
     'FILTERS_CUSTOM_FIELDS': 'Filtreler ve Özel Alanlar',
-    'PRIORITY': 'Öncelik',
     'NUMBER': 'Numara',
     'HIGH': 'Yüksek',
     'MEDIUM': 'Orta',
@@ -238,7 +237,6 @@ export default {
     'ACTIVITY_CREATE_TICKET': 'Bilet yarattı',
     'ACTIVITY_RE_OPEN': 'Yeniden açılan bilet',
     'ACTIVITY_DEPARTMENT_CHANGED': 'Değiştirilen bilet dairesi',
-    'ACTIVITY_PRIORITY_CHANGED': 'Biletin önceliği değiştirildi',
     'ACTIVITY_EDIT_COMMENT': 'Bilet bir yorum düzenlenmiş',
 
     'ACTIVITY_EDIT_SETTINGS': 'Düzenlenmiş ayarlar',
@@ -439,7 +437,6 @@ export default {
     'ACTIVITY_CREATE_TICKET_THIS': 'bu bilet oluşturuldu',
     'ACTIVITY_RE_OPEN_THIS': 'bu bilet yeniden açıldı',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'bu biletin bölümünü değiştir',
-    'ACTIVITY_PRIORITY_CHANGED_THIS': 'bu biletin önceliğini değiştirildi',
     'DATE_PREFIX': 'tarihinde',
     'LEFT_EMPTY_DATABASE': 'Otomatik veritabanı oluşturulması için boş bırakıldı',
     'REMEMBER_ME': 'Hatırlamak',

@@ -48,20 +48,15 @@ class TicketQueryFilters extends React.Component {
                     onChange={this.onChangeForm.bind(this)}
                     onSubmit={this.onSubmitListConfig.bind(this)}>
                     <div className="ticket-query-filters__search-box">
-                        <FormField name="query" field="search-box" fieldProps={{onSearch: this.onSubmitListConfig.bind(this)}}/>
+                        <FormField name="query" field="search-box" fieldProps={{onSearch: this.onSubmitListConfig.bind(this)}} />
                     </div>
                     <div className="ticket-query-filters__group">
-                        <div className="ticket-query-filters__group__container">
-                            <span>{i18n('PRIORITY')}</span>
-                            <FormField name="priority" field="select" fieldProps={{items: this.getPriorityItems()}} />
-                        </div>
                         <div className="ticket-query-filters__group__container">
                             <span>{i18n('DATE')}</span>
                             <FormField
                                 name="dateRange"
                                 field="date-range"
-                                fieldProps={{defaultValue: this.dateRangeToFormValue(filters.dateRange)}}
-                            />
+                                fieldProps={{defaultValue: this.dateRangeToFormValue(filters.dateRange)}} />
                         </div>
                         <div className="ticket-query-filters__group__container">
                             <span>{i18n('STATUS')}</span>
@@ -227,17 +222,6 @@ class TicketQueryFilters extends React.Component {
         });
 
         return departmentsList;
-    }
-
-    getPriorityItems() {
-        let items = [
-            {id: 0, name: 'Any', content: i18n('ANY')},
-            {id: 1, name: 'Low', content: i18n('LOW')},
-            {id: 2, name: 'Medium', content: i18n('MEDIUM')},
-            {id: 3, name: 'High', content: i18n('HIGH')},
-        ];
-
-        return items;
     }
 
     getSelectedDepartments(selectedDepartmentsId) {

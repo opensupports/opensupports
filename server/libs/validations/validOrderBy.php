@@ -7,7 +7,7 @@ use Respect\Validation\Rules\AbstractRule;
 class ValidOrderBy extends AbstractRule {
     public function validate($orderBy) {
         if(is_object(json_decode($orderBy))){
-        	$values =["closed","owner_id","unread_staff","priority","date"];
+        	$values =["closed","owner_id","unread_staff","date"];
 
             $object = json_decode($orderBy);
 

@@ -108,7 +108,6 @@ module.exports = [
                     unread: false,
                     unreadStaff: true,
                     closed: false,
-                    priority: 'medium',
                     tags: [],
                     author: {
                         id: '3',
@@ -170,17 +169,6 @@ module.exports = [
                                 name: 'Haskell Curry',
                                 steve: 'haskell@lambda.com',
                                 staff: false
-                            }
-                        },
-                        {
-                            type: 'PRIORITY_CHANGED',
-                            date: '201504131002',
-                            content: 'MEDIUM',
-                            author: {
-                                name: 'Emilia Clarke',
-                                email: 'jobs@steve.com',
-                                profilePic: 'http://www.opensupports.com/profilepic.jpg',
-                                staff: true
                             }
                         },
                         {
