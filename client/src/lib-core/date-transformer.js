@@ -1,19 +1,13 @@
-let month = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+import * as moment from 'moment';
 
 export default {
-    transformToString(date, expressive = true) {
-        date += ''; // Transform to string
-        let y = date.substring(0, 4);
-        let m = date.substring(4, 6);
-        let d = date.substring(6, 8);
-        m = (m[0] - '0') * 10 + (m[1] - '0');
+    transformToString(dateNumber, expressive = true) {
+        
+        let localDate = new Date();
+        let localUTCMins = localDate.getTimezoneOffset();
 
-        if(!expressive)
-            return d + " " + month[m] + " " + y;
-
-        let hr = date.substring(8, 10);
-        let min = date.substring(10, 12);
-
-        return d + " " + month[m] + " " + y + " at " + hr + ":" + min;
+        dateNumber += '';
+        let date = moment(dateNumber, 'YYYYMMDDhhmm').subtract(localUTCMins, 'minutes').format("D MMMM YYYY, HH:mm");
+        return date;
     }
 };
