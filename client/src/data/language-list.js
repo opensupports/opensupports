@@ -21,7 +21,7 @@ export default {
         data: englishLanguage
     },
     'ar': {
-        name: 'عربي',
+        name: 'Arabic',
         data: arabicLanguage
     },
     'es': {
