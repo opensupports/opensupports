@@ -1,1329 +1,439 @@
-"Signed in as": "تسجيل دخولك"
-"Your Profile": "ملفك الشخصي"
-"Create Ticket": "إنشاء تذكرة"
-"Create Agent": "إنشاء مساعد"
-"Create Customer": "إنشاء مستخدم"
-"Sign Out": "خروج"
-"Apps": "تطبيقات"
-"Integrate apps as per your needs to get things done faster than ever": "دمج التطبيقات حسب احتياجاتك لإنجاز الأمور بشكل أسرع من أي وقت مضى"
-"Explore Apps": "استكشاف التطبيقات"
-"Form Builder": "منشئ النموذج"
-"Knowledgebase": "قاعدة المعرفة"
-"Knowledgebase is a source of rigid and complex information which helps Customers to help themselves": "قاعدة المعرفة هي مصدر معلومات جامدة ومعقدة تساعد العملاء على مساعدة أنفسهم"
-"Articles": "مقالات"
-"Categories": "التصنيفات"
-"Folders": "المجلدات"
-"FOLDERS": "المجلدات"
-"Productivity": "إنتاجية"
-"Automate your processes by creating set of rules and presets to respond faster to the tickets": "أتمتة عملياتك من خلال إنشاء مجموعة من القواعد والإعدادات المسبقة للاستجابة بشكل أسرع للتذاكر"
-"Prepared Responses": "ردود جاهزة"
-"Saved Replies": "الردود المحفوظة"
-"Edit Saved Reply": "تحرير الرد المحفوظ"
-"Ticket Types": "أنواع التذاكر"
-"Workflows": "سير العمل"
-"Settings": "الإعدادات"
-"Manage your Brand Identity, Company Information and other details at a glance": "إدارة هوية العلامة التجارية الخاصة بك , معلومات الشركة وتفاصيل أخرى في لمحة"
-"Branding": "العلامة التجارية"
-"Custom Fields": "الحقول المخصصة"
-"Email Settings": "إعدادات البريد الإلكتروني"
-"Email Templates": "قوالب البريد الإلكتروني"
-"Mailbox": "صندوق بريد"
-"Spam Settings": "إعدادات البريد العشوائي"
-"Swift Mailer": "سويفت ميلر"
-"Tags": "العلامات"
-"Users": "المستخدمون"
-"Control your Groups, Teams, Agents and Customers": "السيطرة على مجموعاتك , فرق , المساعد والمستخدمين"
-"Agents": "المساعدون"
-"Customers": "الزبائن"
-"Groups": "مجموعات"
-"Privileges": "امتيازات"
-"Teams": "فرق"
-"Applications": "التطبيقات"
-"ECommerce Order Syncronization": "تزامن أمر التجارة الإلكترونية"
-"Import ecommerce order details to your support tickets from different available platforms": "استيراد تفاصيل طلب التجارة الإلكترونية إلى تذاكر الدعم الخاصة بك من منصات مختلفة متاحة"
-"Search": "بحث"
-"Sort By": "صنف حسب"
-"Sort By": "صنف حسب"
-"Status": "الحالة"
-"Created At": "أنشئت في"
-"Name": "اسم"
-"All": "الكل"
-"Published": "نشرت"
-"Draft": "مشروع"
-"New Folder": "ملف جديد"
-"Create Knowledgebase Folder": "إنشاء مجلد Knowledgebase"
-"You did not add any folder to your Knowledgebase yet, Create your first Folder and start adding Categories/Articles to make your customers help themselves.": "لم تقم بإضافة أي مجلد إلى قاعدة المعارف الخاصة بك حتى الآن , قم بإنشاء المجلد الأول وابدأ في إضافة فئات / مقالات لجعل عملائك يساعدون أنفسهم."
-"Clear Filters": "مرشحات واضحة"
-"Back": "عودة"
-"Open": "افتح"
-"Pending": "قيد الانتظار"
-"Answered": "أجاب"
-"Resolved": "تم الحل"
-"Closed": "مغلق"
-"Spam": "بريد مؤذي"
-"New": "جديد"
-"UnAssigned": "غير مخصص"
-"UnAnswered": "بلا إجابة"
-"My Tickets": "تذاكري"
-"Starred": "مميزة بنجمة"
-"Trashed": "محطم"
-"New Label": "تسمية جديدة"
-"Tickets": "التذاكر"
-"Ticket Id": "معرف التذكرة"
-"Last Replied": "رد آخر"
-"Assign To": "يسند إلى"
-"After Reply": "بعد الرد"
-"Customer Email": "البريد الإلكتروني للعميل"
-"Customer Name": "اسم الزبون"
-"Assets Visibility": "رؤية الأصول"
-"Channel/Source": "القناة / المصدر"
-"Channel": "قناة"
-"Website": "موقع الكتروني"
-"Timestamp": "الطابع الزمني"
-"TimeStamp": "الطابع الزمني"
-"Team": "الفريق"
-"Type": "نوع"
-"Replies": "الردود"
-"Agent": "المساعد"
-"ID": "هوية شخصية"
-"Subject": "موضوع"
-"Filter View": "عرض التصفية"
-"Save set of filters as a preset to stay more productive": "احفظ مجموعة الفلاتر كإعداد مسبق للبقاء أكثر إنتاجية"
-"Saved Filters": "الفلاتر المحفوظة"
-"No saved filter created": "لم يتم إنشاء فلتر محفوظ"
-"Customer": "الزبون"
-"Priority": "أفضلية"
-"Tag": "بطاقة شعار"
-"Source": "مصدر"
-"Before": "قبل"
-"After": "بعد"
-"Replies less than": "الردود أقل من"
-"Replies more than": "الردود أكثر من"
-"Clear All": "امسح الكل"
-"Account": "الحساب"
-"Profile": "الملف الشخصي"
-"Upload a Profile Image (100px x 100px)<br> in PNG or JPG Format": "تحميل صورة ملف شخصي (100 بكسل × 100 بكسل) <br> بتنسيق PNG أو JPG"
-"First Name": "الاسم الاول"
-"Last Name": "اسم العائلة"
-"Email": "البريد الإلكتروني"
-"Contact Number": "رقم الاتصال"
-"Timezone": "وحدة زمنية"
-"Africa/Abidjan": "إفريقيا / أبيدجان"
-"Africa/Accra": "إفريقيا / أكرا"
-"Africa/Addis_Ababa": "أفريقيا / Addis_Ababa"
-"Africa/Algiers": "أفريقيا / الجزائر"
-"Africa/Asmara": "إفريقيا / أسمرة"
-"Africa/Bamako": "إفريقيا / باماكو"
-"Africa/Bangui": "أفريقيا / بانغي"
-"Africa/Banjul": "إفريقيا / بانجول"
-"Africa/Bissau": "إفريقيا / بيساو"
-"Africa/Blantyre": "أفريقيا / بلانتير"
-"Africa/Brazzaville": "إفريقيا / برازافيل"
-"Africa/Bujumbura": "إفريقيا / بوجمبورا"
-"Africa/Cairo": "إفريقيا / القاهرة"
-"Africa/Casablanca": "إفريقيا / الدار البيضاء"
-"Africa/Ceuta": "إفريقيا / سبتة"
-"Africa/Conakry": "إفريقيا / كوناكري"
-"Africa/Dakar": "إفريقيا / داكار"
-"Africa/Dar_es_Salaam": "أفريقيا / Dar_es_Salaam"
-"Africa/Djibouti": "إفريقيا / جيبوتي"
-"Africa/Douala": "إفريقيا / دوالا"
-"Africa/El_Aaiun": "أفريقيا / العيون"
-"Africa/Freetown": "إفريقيا / فريتاون"
-"Africa/Gaborone": "أفريقيا / غابورون"
-"Africa/Harare": "أفريقيا / هراري"
-"Africa/Johannesburg": "افريقيا / جوهانسبرغ"
-"Africa/Juba": "أفريقيا / جوبا"
-"Africa/Kampala": "إفريقيا / كمبالا"
-"Africa/Khartoum": "إفريقيا / الخرطوم"
-"Africa/Kigali": "أفريقيا / كيغالي"
-"Africa/Kinshasa": "إفريقيا / كينشاسا"
-"Africa/Lagos": "أفريقيا / لاغوس"
-"Africa/Libreville": "إفريقيا / ليبرفيل"
-"Africa/Lome": "إفريقيا / لومي"
-"Africa/Luanda": "إفريقيا / لواندا"
-"Africa/Lubumbashi": "إفريقيا / لوبومباشي"
-"Africa/Lusaka": "إفريقيا / لوساكا"
-"Africa/Malabo": "إفريقيا / مالابو"
-"Africa/Maputo": "إفريقيا / مابوتو"
-"Africa/Maseru": "إفريقيا / ماسيرو"
-"Africa/Mbabane": "إفريقيا / مباباني"
-"Africa/Mogadishu": "أفريقيا / مقديشو"
-"Africa/Monrovia": "إفريقيا / مونروفيا"
-"Africa/Nairobi": "أفريقيا / نيروبي"
-"Africa/Ndjamena": "إفريقيا / نجامينا"
-"Africa/Niamey": "إفريقيا / نيامي"
-"Africa/Nouakchott": "إفريقيا / نواكشوط"
-"Africa/Ouagadougou": "إفريقيا / واغادوغو"
-"Africa/Porto-Novo": "إفريقيا / بورتو نوفو"
-"Africa/Sao_Tome": "إفريقيا / ساو تومي"
-"Africa/Tripoli": "إفريقيا / طرابلس"
-"Africa/Tunis": "أفريقيا / تونس"
-"Africa/Windhoek": "إفريقيا / ويندهوك"
-"America/Adak": "أمريكا / أداك"
-"America/Anchorage": "أمريكا / مرسى"
-"America/Anguilla": "أمريكا / أنغيلا"
-"America/Antigua": "أمريكا / أنتيغوا"
-"America/Araguaina": "أمريكا / أراغوينا"
-"America/Argentina/Buenos_Aires": "أمريكا / الأرجنتين / بيونس آيرس"
-"America/Argentina/Catamarca": "أمريكا / الأرجنتين / كاتاماركا"
-"America/Argentina/Cordoba": "أمريكا / الأرجنتين / كوردوبا"
-"America/Argentina/Jujuy": "أمريكا / الأرجنتين / خوخوي"
-"America/Argentina/La_Rioja": "أمريكا / الأرجنتين / La_Rioja"
-"America/Argentina/Mendoza": "أمريكا / الأرجنتين / مندوزا"
-"America/Argentina/Rio_Gallegos": "أمريكا / الأرجنتين / Rio_Gallegos"
-"America/Argentina/Salta": "أمريكا / الأرجنتين / سالتا"
-"America/Argentina/San_Juan": "أمريكا / الأرجنتين / San_Juan"
-"America/Argentina/San_Luis": "أمريكا / الأرجنتين / San_Luis"
-"America/Argentina/Tucuman": "أمريكا / الأرجنتين / توكومان"
-"America/Argentina/Ushuaia": "أمريكا / الأرجنتين / أوشوايا"
-"America/Aruba": "أمريكا / أروبا"
-"America/Asuncion": "أمريكا / أسونسيون"
-"America/Atikokan": "أمريكا / Atikokan"
-"America/Bahia": "أمريكا / باهيا"
-"America/Bahia_Banderas": "أمريكا / Bahia_Banderas"
-"America/Barbados": "أمريكا / بربادوس"
-"America/Belem": "أمريكا / بيليم"
-"America/Belize": "أمريكا / بليز"
-"America/Blanc-Sablon": "أمريكا / بلون سابلون"
-"America/Boa_Vista": "أمريكا / بوا فيستا"
-"America/Bogota": "أمريكا / بوغوتا"
-"America/Boise": "أمريكا / بويز"
-"America/Cambridge_Bay": "أمريكا / خليج كامبريدج"
-"America/Campo_Grande": "أمريكا / Campo_Grande"
-"America/Cancun": "أمريكا / كانكون"
-"America/Caracas": "أمريكا / كاراكاس"
-"America/Cayenne": "أمريكا / كاين"
-"America/Cayman": "أمريكا / كايمان"
-"America/Chicago": "أمريكا / شيكاغو"
-"America/Chihuahua": "أمريكا / تشيهواهوا"
-"America/Costa_Rica": "أمريكا / كوستاريكا"
-"America/Creston": "أمريكا / كريستون"
-"America/Cuiaba": "أمريكا / كويابا"
-"America/Curacao": "أمريكا / كوراكاو"
-"America/Danmarkshavn": "أمريكا / دانماركشافن"
-"America/Dawson": "أمريكا / داوسون"
-"America/Dawson_Creek": "أمريكا / Dawson_Creek"
-"America/Denver": "أمريكا / دنفر"
-"America/Detroit": "أمريكا / ديترويت"
-"America/Dominica": "أمريكا / دومينيكا"
-"America/Edmonton": "أمريكا / أدمنتون"
-"America/Eirunepe": "أمريكا / من Eirunepe"
-"America/El_Salvador": "أمريكا / السلفادور"
-"America/Fort_Nelson": "أمريكا / Fort_Nelson"
-"America/Fortaleza": "أمريكا / فورتاليزا"
-"America/Glace_Bay": "أمريكا / خليج جلاس"
-"America/Godthab": "أمريكا / غودتاب"
-"America/Goose_Bay": "أمريكا / خليج غوس"
-"America/Grand_Turk": "أمريكا / غراند ترك"
-"America/Grenada": "أمريكا / غرينادا"
-"America/Guadeloupe": "أمريكا / غوادلوب"
-"America/Guatemala": "أمريكا / غواتيمالا"
-"America/Guayaquil": "أمريكا / غواياكيل"
-"America/Guyana": "أمريكا / غيانا"
-"America/Halifax": "أمريكا / هاليفاكس"
-"America/Havana": "أمريكا / هافانا"
-"America/Hermosillo": "أمريكا / هيرموسيلو"
-"America/Indiana/Indianapolis": "أمريكا / إنديانا / إنديانابوليس"
-"America/Indiana/Knox": "أمريكا / إنديانا / نوكس"
-"America/Indiana/Marengo": "أمريكا / إنديانا / مارينغو"
-"America/Indiana/Petersburg": "أمريكا / إنديانا / بطرسبرج"
-"America/Indiana/Tell_City": "أمريكا / إنديانا / Tell_City"
-"America/Indiana/Vevay": "أمريكا / إنديانا / فيفاي"
-"America/Indiana/Vincennes": "أمريكا / إنديانا / فينسين"
-"America/Indiana/Winamac": "أمريكا / إنديانا / Winamac"
-"America/Inuvik": "أمريكا / إنوفيك"
-"America/Iqaluit": "أمريكا / إكالويت"
-"America/Jamaica": "أمريكا / جامايكا"
-"America/Juneau": "أمريكا / جونو"
-"America/Kentucky/Louisville": "أمريكا / كنتاكي / لويزفيل"
-"America/Kentucky/Monticello": "أمريكا / كنتاكي / مونتيسيلو"
-"America/Kralendijk": "أمريكا / كرالينديجك"
-"America/La_Paz": "أمريكا / لا باز"
-"America/Lima": "أمريكا / ليما"
-"America/Los_Angeles": "أمريكا / Los_Angeles"
-"America/Lower_Princes": "أمريكا / Lower_Princes"
-"America/Maceio": "أمريكا / ماسيو"
-"America/Managua": "أمريكا / ماناغوا"
-"America/Manaus": "أمريكا / ماناوس"
-"America/Marigot": "أمريكا / ماريجوت"
-"America/Martinique": "أمريكا / مارتينيك"
-"America/Matamoros": "أمريكا / ماتاموروس"
-"America/Mazatlan": "أمريكا / مازاتلان"
-"America/Menominee": "أمريكا / مينوميني"
-"America/Merida": "أمريكا / ميريدا"
-"America/Metlakatla": "أمريكا / ميتلاكاتلا"
-"America/Mexico_City": "أمريكا / Mexico_City"
-"America/Miquelon": "أمريكا / ميكلون"
-"America/Moncton": "أمريكا / مونكتون"
-"America/Monterrey": "أمريكا / مونتيري"
-"America/Montevideo": "أمريكا / مونتيفيديو"
-"America/Montserrat": "أمريكا / مونتسيرات"
-"America/Nassau": "أمريكا / ناسو"
-"America/New_York": "أمريكا / نيويورك"
-"America/Nipigon": "أمريكا / نيبجون"
-"America/Nome": "أمريكا / نومي"
-"America/Noronha": "أمريكا / نورونها"
-"America/North_Dakota/Beulah": "أمريكا / داكوتا الشمالية / بيولا"
-"America/North_Dakota": "أمريكا / داكوتا الشمالية"
-"America/Ojinaga": "أمريكا / أوهيناغا"
-"America/Panama": "أمريكا / بنما"
-"America/Pangnirtung": "أمريكا / بانجنيرتونج"
-"America/Paramaribo": "أمريكا / باراماريبو"
-"America/Phoenix": "أمريكا / فينكس"
-"America/Port-au-Prince": "أمريكا / بورت أو برنس"
-"America/Port_of_Spain": "أمريكا / بورت اوف سبين"
-"America/Porto_Velho": "أمريكا / بورتو فاليو"
-"America/Puerto_Rico": "أمريكا / بورتوريكو"
-"America/Punta_Arenas": "أمريكا / Punta_Arenas"
-"America/Rainy_River": "أمريكا / نهر الراني"
-"America/Rankin_Inlet": "أمريكا / رانكين إنليت"
-"America/Recife": "أمريكا / ريسيفي"
-"America/Regina": "أمريكا / ريجينا"
-"America/Resolute": "أمريكا / حازم"
-"America/Rio_Branco": "أمريكا / ريو برانكو"
-"America/Santarem": "أمريكا / سانتاريم"
-"America/Santiago": "أمريكا / سانتياغو"
-"America/Santo_Domingo": "أمريكا / سانتو دومينغو"
-"America/Sao_Paulo": "أمريكا / ساو باولو"
-"America/Scoresbysund": "أمريكا / سكورسبيسوند"
-"America/Sitka": "أمريكا / سيتكا"
-"America/St_Barthelemy": "أمريكا / St_Barthelemy"
-"America/St_Johns": "أمريكا / سانت جونز"
-"America/St_Kitts": "أمريكا / St_Kitts"
-"America/St_Lucia": "أمريكا / سانت لوسيا"
-"America/St_Thomas": "أمريكا / سانت توماس"
-"America/St_Vincent": "أمريكا / سانت فنسنت"
-"America/Swift_Current": "أمريكا / سويفت كرنت"
-"America/Tegucigalpa": "أمريكا / تيغوسيغالبا"
-"America/Thule": "أمريكا / ثول"
-"America/Thunder_Bay": "أمريكا / خليج ثندر"
-"America/Tijuana": "أمريكا / تيخوانا"
-"America/Toronto": "أمريكا / تورونتو"
-"America/Tortola": "أمريكا / تورتولا"
-"America/Vancouver": "أمريكا / فانكوفر"
-"America/Whitehorse": "أمريكا / وايت هورس"
-"America/Winnipeg": "أمريكا / وينيبيغ"
-"America/Yakutat": "أمريكا / من Yakutat"
-"America/Yellowknife": "أمريكا / يلونايف"
-"Antarctica/Casey": "أنتاركتيكا / كاسي"
-"Antarctica/Davis": "أنتاركتيكا / ديفيس"
-"Antarctica/DumontDUrville": "أنتاركتيكا / دومونت دورفيل"
-"Antarctica/Macquarie": "أنتاركتيكا / ماكواري"
-"Antarctica/McMurdo": "أنتاركتيكا / ماكموردو"
-"Antarctica/Mawson": "أنتاركتيكا / ماوسون"
-"Antarctica/Palmer": "أنتاركتيكا / بالمر"
-"Antarctica/Rothera": "أنتاركتيكا / روثيرا"
-"Antarctica/Syowa": "أنتاركتيكا / سيووا"
-"Antarctica/Troll": "أنتاركتيكا / ترول"
-"Antarctica/Vostok": "أنتاركتيكا / فوستوك"
-"Arctic/Longyearbyen": "القطب الشمالي / ونجييربين"
-"Asia/Aden": "آسيا / عدن"
-"Asia/Almaty": "آسيا / ألماتي"
-"Asia/Amman": "آسيا / عمان"
-"Asia/Anadyr": "آسيا / أنادير"
-"Asia/Aqtau": "آسيا / أقتاو"
-"Asia/Aqtobe": "آسيا / أكتوب"
-"Asia/Ashgabat": "آسيا / عشق أباد"
-"Asia/Atyrau": "آسيا / أتيراو"
-"Asia/Baghdad": "آسيا / بغداد"
-"Asia/Bahrain": "آسيا / البحرين"
-"Asia/Baku": "آسيا / باكو"
-"Asia/Bangkok": "آسيا / بانكوك"
-"Asia/Barnaul": "آسيا / بارناول"
-"Asia/Beirut": "آسيا / بيروت"
-"Asia/Bishkek": "آسيا / بيشكيك"
-"Asia/Brunei": "آسيا / بروناي"
-"Asia/Chita": "آسيا / تشيتا"
-"Asia/Choibalsan": "آسيا / شويبالسان"
-"Asia/Colombo": "آسيا / كولومبو"
-"Asia/Damascus": "آسيا / دمشق"
-"Asia/Dhaka": "آسيا / دكا"
-"Asia/Dili": "آسيا / ديلي"
-"Asia/Dubai": "آسيا / دبي"
-"Asia/Dushanbe": "آسيا / دوشانبي"
-"Asia/Famagusta": "آسيا / فاماغوستا"
-"Asia/Gaza": "آسيا / غزة"
-"Asia/Hebron": "آسيا / الخليل"
-"Asia/Ho_Chi_Minh": "آسيا / Ho_Chi_Minh"
-"Asia/Hong_Kong": "آسيا / هونغ كونغ"
-"Asia/Hovd": "آسيا / هوود"
-"Asia/Irkutsk": "آسيا / إيركوتسك"
-"Asia/Jakarta": "آسيا / جاكرتا"
-"Asia/Jayapura": "آسيا / جايابورا"
-"Asia/Jerusalem": "آسيا / القدس"
-"Asia/Kabul": "آسيا / كابول"
-"Asia/Kamchatka": "آسيا / كامتشاتكا"
-"Asia/Karachi": "آسيا / كراتشي"
-"Asia/Kathmandu": "آسيا / كاتماندو"
-"Asia/Khandyga": "آسيا / Khandyga"
-"Asia/Kolkata": "آسيا / كلكتا"
-"Asia/Krasnoyarsk": "آسيا / كراسنويارسك"
-"Asia/Kuala_Lumpur": "آسيا / Kuala_Lumpur"
-"Asia/Kuching": "آسيا / كوتشينغ"
-"Asia/Kuwait": "آسيا / الكويت"
-"Asia/Macau": "آسيا / ماكاو"
-"Asia/Magadan": "آسيا / ماغادان"
-"Asia/Makassar": "آسيا / ماكاسار"
-"Asia/Manila": "آسيا / مانيلا"
-"Asia/Muscat": "آسيا / مسقط"
-"Asia/Nicosia": "آسيا / نيقوسيا"
-"Asia/Novokuznetsk": "آسيا / نوفوكوزنتسك"
-"Asia/Novosibirsk": "آسيا / نوفوسيبيرسك"
-"Asia/Omsk": "آسيا / أومسك"
-"Asia/Oral": "آسيا / عن طريق الفم"
-"Asia/Phnom_Penh": "آسيا / Phnom_Penh"
-"Asia/Pontianak": "آسيا / بونتياناك"
-"Asia/Pyongyang": "آسيا / بيونغ يانغ"
-"Asia/Qatar": "آسيا / قطر"
-"Asia/Qostanay": "آسيا / كوستاناي"
-"Asia/Qyzylorda": "آسيا / كيزيلورودا"
-"Asia/Riyadh": "آسيا / الرياض"
-"Asia/Sakhalin": "آسيا / ساخالين"
-"Asia/Samarkand": "آسيا / سمرقند"
-"Asia/Seoul": "آسيا / سيول"
-"Asia/Shanghai": "آسيا / شنغهاي"
-"Asia/Singapore": "آسيا / سنغافورة"
-"Asia/Srednekolymsk": "آسيا / سريدنكوليمسك"
-"Asia/Taipei": "آسيا / تايبيه"
-"Asia/Tashkent": "آسيا / طشقند"
-"Asia/Tbilisi": "آسيا / تبليسي"
-"Asia/Tehran": "آسيا / طهران"
-"Asia/Thimphu": "آسيا / تيمفو"
-"Asia/Tokyo": "آسيا / طوكيو"
-"Asia/Tomsk": "آسيا / تومسك"
-"Asia/Ulaanbaatar": "آسيا / أولان باتور"
-"Asia/Urumqi": "آسيا / أورومتشي"
-"Asia/Ust-Nera": "آسيا / أوست-نيرا"
-"Asia/Vientiane": "آسيا / فينتيان"
-"Asia/Vladivostok": "آسيا / فلاديفوستوك"
-"Asia/Yakutsk": "آسيا / ياكوتسك"
-"Asia/Yangon": "آسيا / يانغون"
-"Asia/Yekaterinburg": "آسيا / يكاترينبورغ"
-"Asia/Yerevan": "آسيا / يريفان"
-"Atlantic/Azores": "الأطلسي / الأزور"
-"Atlantic/Bermuda": "الأطلسي / برمودا"
-"Atlantic/Canary": "الأطلسي / الكناري"
-"Atlantic/Cape_Verde": "الأطلسي / Cape_Verde"
-"Atlantic/Faroe": "الأطلسي / فارو"
-"Atlantic/Madeira": "الأطلسي / ماديرا"
-"Atlantic/Reykjavik": "الأطلسي / ريكيافيك"
-"Atlantic/South_Georgia": "الأطلسي / جورجيا الجنوبية"
-"Atlantic/St_Helena": "الأطلسي / سانت هيلينا"
-"Atlantic/Stanley": "الأطلسي / ستانلي"
-"Australia/Adelaide": "أستراليا / أديليد"
-"Australia/Brisbane": "أستراليا / بريسبان"
-"Australia/Broken_Hill": "أستراليا / بروكن هيل"
-"Australia/Currie": "أستراليا / كوري"
-"Australia/Darwin": "أستراليا / داروين"
-"Australia/Eucla": "أستراليا / أوكلا"
-"Australia/Hobart": "أستراليا / هوبارت"
-"Australia/Lindeman": "أستراليا / ليندمان"
-"Australia/Lord_Howe": "أستراليا / لورد هو"
-"Australia/Melbourne": "استراليا / ملبورن"
-"Australia/Perth": "أستراليا / بيرث"
-"Australia/Sydney": "أستراليا / سيدني"
-"Europe/Amsterdam": "أوروبا / أمستردام"
-"Europe/Andorra": "أوروبا / أندورا"
-"Europe/Astrakhan": "أوروبا / استراخان"
-"Europe/Athens": "أوروبا / أثينا"
-"Europe/Belgrade": "أوروبا / بلغراد"
-"Europe/Berlin": "أوروبا / برلين"
-"Europe/Bratislava": "أوروبا / براتيسلافا"
-"Europe/Brussels": "أوروبا / بروكسل"
-"Europe/Bucharest": "أوروبا / بوخارست"
-"Europe/Budapest": "أوروبا / بودابست"
-"Europe/Busingen": "أوروبا / Busingen"
-"Europe/Chisinau": "أوروبا / كيشيناو"
-"Europe/Copenhagen": "أوروبا / كوبنهاجن"
-"Europe/Dublin": "أوروبا / دبلن"
-"Europe/Gibraltar": "أوروبا / جبل طارق"
-"Europe/Guernsey": "أوروبا / غيرنسي"
-"Europe/Helsinki": "أوروبا / هلسنكي"
-"Europe/Isle_of_Man": "أوروبا / Isle_of_Man"
-"Europe/Istanbul": "أوروبا / اسطنبول"
-"Europe/Jersey": "أوروبا / جيرسي"
-"Europe/Kaliningrad": "أوروبا / كالينينغراد"
-"Europe/Kiev": "أوروبا / كييف"
-"Europe/Kirov": "أوروبا / كيروف"
-"Europe/Lisbon": "أوروبا / لشبونة"
-"Europe/Ljubljana": "أوروبا / ليوبليانا"
-"Europe/London": "أوروبا / لندن"
-"Europe/Luxembourg": "أوروبا / لوكسمبورغ"
-"Europe/Madrid": "أوروبا / مدريد"
-"Europe/Malta": "أوروبا / مالطا"
-"Europe/Mariehamn": "أوروبا / ماريهامن"
-"Europe/Minsk": "أوروبا / مينسك"
-"Europe/Monaco": "أوروبا / موناكو"
-"Europe/Moscow": "أوروبا / موسكو"
-"Europe/Oslo": "أوروبا / أوسلو"
-"Europe/Paris": "أوروبا / باريس"
-"Europe/Podgorica": "أوروبا / بودغوريتشا"
-"Europe/Prague": "أوروبا / براغ"
-"Europe/Riga": "أوروبا / ريغا"
-"Europe/Rome": "أوروبا / روما"
-"Europe/Samara": "أوروبا / سمارة"
-"Europe/San_Marino": "أوروبا / سان مارينو"
-"Europe/Sarajevo": "أوروبا / سراييفو"
-"Europe/Saratov": "أوروبا / ساراتوف"
-"Europe/Simferopol": "أوروبا / سيمفيروبول"
-"Europe/Skopje": "أوروبا / سكوبي"
-"Europe/Sofia": "أوروبا / صوفيا"
-"Europe/Stockholm": "أوروبا / ستوكهولم"
-"Europe/Tallinn": "أوروبا / تالين"
-"Europe/Tirane": "أوروبا / تيرانا"
-"Europe/Ulyanovsk": "أوروبا / أوليانوفسك"
-"Europe/Uzhgorod": "أوروبا / أوزجورود"
-"Europe/Vaduz": "أوروبا / فادوز"
-"Europe/Vatican": "أوروبا / الفاتيكان"
-"Europe/Vienna": "أوروبا / فيينا"
-"Europe/Vilnius": "أوروبا / فيلنيوس"
-"Europe/Volgograd": "أوروبا / فولغوغراد"
-"Europe/Warsaw": "أوروبا / وارسو"
-"Europe/Zagreb": "أوروبا / زغرب"
-"Europe/Zaporozhye": "أوروبا / زابوروجي"
-"Europe/Zurich": "أوروبا / زيوريخ"
-"Indian/Antananarivo": "الهندي / أنتاناناريفو"
-"Indian/Chagos": "الهندي / تشاغوس"
-"Indian/Christmas": "الهندي / عيد الميلاد"
-"Indian/Cocos": "الهندي / كوكوس"
-"Indian/Comoro": "الهندي / جزر القمر"
-"Indian/Kerguelen": "الهندية / كيرغولن"
-"Indian/Mahe": "الهندي / ماهي"
-"Indian/Maldives": "الهندي / جزر المالديف"
-"Indian/Mauritius": "الهندي / موريشيوس"
-"Indian/Mayotte": "الهندي / مايوت"
-"Indian/Reunion": "الهندي / ريونيون"
-"Pacific/Apia": "المحيط الهادئ / آبيا"
-"Pacific/Auckland": "المحيط الهادئ / أوكلاند"
-"Pacific/Bougainville": "المحيط الهادئ / بوغانفيل"
-"Pacific/Chatham": "المحيط الهادئ / تشاتام"
-"Pacific/Chuuk": "المحيط الهادئ / شوك"
-"Pacific/Easter": "المحيط الهادئ / عيد الفصح"
-"Pacific/Efate": "المحيط الهادئ / إيفات"
-"Pacific/Enderbury": "المحيط الهادئ / إندربري"
-"Pacific/Fakaofo": "المحيط الهادئ / فاكاوفو"
-"Pacific/Fiji": "المحيط الهادئ / فيجي"
-"Pacific/Funafuti": "المحيط الهادئ / فونافوتي"
-"Pacific/Galapagos": "المحيط الهادي / غالاباغوس"
-"Pacific/Gambier": "المحيط الهادئ / جامبير"
-"Pacific/Guadalcanal": "المحيط الهادئ / القنال"
-"Pacific/Guam": "المحيط الهادئ / غوام"
-"Pacific/Honolulu": "المحيط الهادئ / هونولولو"
-"Pacific/Kiritimati": "المحيط الهادئ / كيريتيماتي"
-"Pacific/Kosrae": "المحيط الهادئ / كوسراي"
-"Pacific/Kwajalein": "المحيط الهادئ / كواجالين"
-"Pacific/Majuro": "المحيط الهادئ / ماجورو"
-"Pacific/Marquesas": "المحيط الهادئ / الماركيز"
-"Pacific/Midway": "المحيط الهادئ / ميدواي"
-"Pacific/Nauru": "المحيط الهادئ / ناورو"
-"Pacific/Niue": "المحيط الهادئ / نيوي"
-"Pacific/Norfolk": "المحيط الهادئ / نورفولك"
-"Pacific/Noumea": "المحيط الهادئ / نوميا"
-"Pacific/Pago_Pago": "المحيط الهادئ / باغو باغو"
-"Pacific/Palau": "المحيط الهادئ / بالاو"
-"Pacific/Pitcairn": "المحيط الهادئ / بيتكيرن"
-"Pacific/Pohnpei": "المحيط الهادئ / بوهنباي"
-"Pacific/Port_Moresby": "المحيط الهادئ / بور مورسبي"
-"Pacific/Rarotonga": "المحيط الهادئ / راروتونغا"
-"Pacific/Saipan": "المحيط الهادئ / سايبان"
-"Pacific/Tahiti": "المحيط الهادئ / تاهيتي"
-"Pacific/Tarawa": "المحيط الهادئ / تاراوا"
-"Pacific/Tongatapu": "المحيط الهادئ / تونجاتابو"
-"Pacific/Wake": "المحيط الهادئ / ويك"
-"Pacific/Wallis": "المحيط الهادئ / واليس"
-"UTC": "التوقيت العالمي"
-"Time Format": "تنسيق الوقت"
-"Choose your default timezone": "اختر منطقتك الزمنية الافتراضية"
-"Signature": "التوقيع"
-"User signature will be append at the bottom of ticket reply box": "سيتم إلحاق توقيع المستخدم أسفل مربع الرد على التذكرة"
-"Password": "كلمه السر"
-"Password will remain same if you are not entering something in this field": "ستظل كلمة المرور كما هي إذا لم تقم بإدخال شيء في هذا المجال"
-"Confirm Password": "تأكيد كلمة المرور"
-"Save Changes": "حفظ التغييرات"
-"SAVE CHANGES": "احفظ التغييرات"
-"CREATE TICKET": "إنشاء تذكرة"
-"Customer full name": "الاسم الكامل للمستخدم"
-"Customer email address": "عنوان البريد الإلكتروني للمستخدم"
-"Select Type": "اختر صنف"
-"Support": "الدعم"
-"Choose ticket type": "اختر نوع التذكرة"
-"Ticket subject": "موضوع التذكرة"
-"Message": "رسالة"
-"Query Message": "رسالة الاستعلام"
-"Add Attachment": "إضافة مرفق"
-"This field is mandatory": "هذا الحقل إلزامي"
-"General": "جنرال لواء"
-"Designation": "تعيين"
-"Contant Number": "رقم المتصل"
-"User signature will be append in the bottom of ticket reply box": "سيتم إلحاق توقيع المستخدم في الجزء السفلي من مربع الرد على التذكرة"
-"Account Status": "حالة الحساب"
-"Account is Active": "الحساب نشط"
-"Assigning group(s) to user to view tickets regardless assignment.": "تعيين مجموعة (مجموعات) للمستخدم لعرض التذاكر بغض النظر عن التعيين."
-"Default": "إفتراضي"
-"Select All": "اختر الكل"
-"Remove All": "حذف الكل"
-"Assigning team(s) to user to view tickets regardless assignment.": "تعيين فريق (فرق) للمستخدم لعرض التذاكر بغض النظر عن المهمة."
-"No Team added !": "لم تتم إضافة فريق!"
-"Permission": "الإذن"
-"Role": "وظيفة"
-"Administrator": "مدير"
-"Select agent role": "حدد دور المساعد"
-"Add Customer": "أضف مستخدم"
-"Action": "عمل"
-"Account Owner": "مالك حساب"
-"Active": "نشيط"
-"Edit": "تعديل"
-"Delete": "حذف"
-"Disabled": "معاق"
-"New Group": "مجموعة جديدة"
-"Default Privileges": "الامتيازات الافتراضية"
-"New Privileges": "امتيازات جديدة"
-"NEW PRIVILEGE": "امتياز جديد"
-"New Privilege": "امتياز جديد"
-"New Team": "فريق جديد"
-"No Record Found": "لا يوجد سجلات"
-"Order Synchronization": "تزامن النظام"
-"Easily integrate different ecommerce platforms with your helpdesk which can then be later used to swiftly integrate ecommerce order details with your support tickets.": "قم بدمج منصات التجارة الإلكترونية المختلفة بسهولة مع مكتب المساعدة الخاص بك والذي يمكن استخدامه فيما بعد لدمج تفاصيل طلب التجارة الإلكترونية بسرعة مع تذاكر الدعم الخاصة بك."
-"BigCommerce": "BigCommerce"
-"No channels have been added.": "لم تتم إضافة قنوات."
-"Add BigCommerce Store": "إضافة متجر BigCommerce"
-"ADD BIGCOMMERCE STORE": "أضف متجر BIGCOMMERCE"
-"Mangento": "مانجينتو"
-"Add Magento Store": "إضافة متجر MHelpero"
-"OpenCart": "OpenCart"
-"Add OpenCart Store": "أضف متجر OpenCart"
-"ADD OPENCART STORE": "أضف متجر OpenCart"
-"Shopify": "Shopify"
-"Add Shopify Store": "أضف متجر Shopify"
-"ADD SHOPIFY STORE": "أضف متجر SHOPIFY"
-"Integrate a new BigCommerce store": "دمج متجر BigCommerce جديد"
-"Your BigCommerce Store Name": "اسم متجر BigCommerce الخاص بك"
-"Your BigCommerce Store Hash": "تجزئة متجر BigCommerce الخاص بك"
-"Your BigCommerce Api Token": "رمز BigCommerce Api Token الخاص بك"
-"Your BigCommerce Api Client ID": "معرّف عميل BigCommerce Api"
-"Enable Channel": "تمكين القناة"
-"Add Store": "إضافة متجر"
-"ADD STORE": "أضف متجر"
-"Integrate a new Magento store": "دمج متجر MHelpero جديد"
-"Your Magento Api Username": "اسم مستخدم MHelpero Api الخاص بك"
-"Your Magento Api Password": "كلمة المرور الخاصة بك MHelpero Api"
-"Integrate a new OpenCart store": "دمج متجر OpenCart جديد"
-"Your OpenCart Api Key": "مفتاح OpenCart Api الخاص بك"
-"Your Shopify Store Name": "اسم المتجر الخاص بك Shopify"
-"Your Shopify Api Key": "مفتاح Shopify Api الخاص بك"
-"Your Shopify Api Password": "كلمة المرور Shopify Api"
-"Easily embed custom form to help generate helpdesk tickets.": "تضمين نموذج مخصص بسهولة للمساعدة في إنشاء تذاكر مكتب المساعدة."
-"Form-Builder": "منشئ النموذج"
-"Add Formbuilder": "إضافة Formbuilder"
-"ADD FORMBUILDER": "إضافة FORMBUILDER"
-"No FormBuilder have been added.": "لم تتم إضافة FormBuilder."
-"Create a New Custom Form Below": "إنشاء نموذج مخصص جديد أدناه"
-"Form Name": "اسم النموذج"
-"It will be shown in the list of created forms": "سيتم عرضه في قائمة النماذج التي تم إنشاؤها"
-"MANDATORY FIELDS": "الحقول الإلزامية"
-"These fields will be visible in form and cant be edited": "ستكون هذه الحقول مرئية في الشكل ولا يمكن تحريرها"
-"Reply": "الرد"
-"OPTIONAL FIELDS": "الحقول الاختيارية"
-"Select These Fields to Add in your Form": "حدد هذه الحقول لإضافتها في النموذج الخاص بك"
-"GDPR": "اللائحة العامة لحماية البيانات"
-"Order": "طلب"
-"Categorybuilder": "فئة الفئات"
-"File": "ملف"
-"Add Form": "إضافة نموذج"
-"ADD FORM": "إضافة نموذج"
-"UPDATE FORM": "نموذج التحديث"
-"Update Form": "نموذج التحديث"
-"Embed": "تضمين"
-"EMBED": "EMBED"
-"EMBED FORMBUILDER": "مغمدة FORMUILDER"
-"Embed Formbuilder": "تضمين Formbuilder"
-"Visit": "يزور"
-"VISIT": "يزور"
-"Code": "الشفرة"
-"Total Ticket(s)": "إجمالي التذاكر (التذاكر)"
-"Ticket Count": "عدد التذاكر"
-"SwiftMailer Configurations": "تكوينات SwiftMailer"
-"No swiftmailer configurations found": "لم يتم العثور على تكوينات swiftmailer"
-"CREATE CONFIGURATION": "إنشاء التكوين"
-"Add configuration": "أضف التكوين"
-"Update configuration": "تحديث التكوين"
-"Mailer ID": "معرف البريد"
-"Mailer ID - Leave blank to automatically create id": "معرف البريد - اتركه فارغًا لإنشاء معرف تلقائيًا"
-"Transport Type": "نوع النقل"
-"SMTP": "SMTP"
-"Enable Delivery": "تمكين التسليم"
-"Server": "الخادم"
-"Port": "ميناء"
-"Encryption Mode": "وضع التشفير"
-"ssl": "SSL"
-"tsl": "TSL"
-"None": "لا يوجد"
-"Authentication Mode": "وضع مصادقة"
-"login": "تسجيل الدخول"
-"Plain": "عادي"
-"CRAM-MD5": "CRAM-MD5"
-"Sender Address": "عنوان المرسل"
-"Delivery Address": "عنوان التسليم"
-"Block Spam": "حظر البريد العشوائي"
-"Black list": "القائمة السوداء"
-"Comma (,) separated values (Eg. support@example.com, @example.com, 68.98.31.226)": "قيم مفصولة بفواصل (,) (على سبيل المثال ، support@example.com, @ example.com , 68.98.31.226)"
-"White list": "قائمة بيضاء"
-"Mailbox Settings": "إعدادات صندوق البريد"
-"No mailbox configurations found": "لم يتم العثور على تكوينات صندوق البريد"
-"NEW MAILBOX": "البريد الإلكتروني الجديد"
-"New Mailbox": "صندوق بريد جديد"
-"Update Mailbox": "تحديث صندوق البريد"
-"Add Mailbox": "أضف صندوق بريد"
-"Mailbox ID - Leave blank to automatically create id": "معرف صندوق البريد - اتركه فارغًا لإنشاء معرف تلقائيًا"
-"Mailbox Name": "اسم صندوق البريد"
-"Enable Mailbox": "تمكين صندوق البريد"
-"Incoming Mail (IMAP) Server": "خادم البريد الوارد (IMAP)"
-"Configure your imap settings which will be used to fetch emails from your mailbox.": "تكوين إعدادات imap الخاصة بك والتي سيتم استخدامها لجلب رسائل البريد الإلكتروني من صندوق البريد الخاص بك."
-"Transport": "المواصلات"
-"IMAP": "الوصول عبر IMAP"
-"Gmail": "Gmail"
-"Yahoo": "ياهو"
-"Host": "مضيف"
-"IMAP Host": "مضيف IMAP"
-"Email address": "عنوان البريد الالكترونى"
-"Associated Password": "كلمة المرور المرتبطة"
-"Outgoing Mail (SMTP) Server": "خادم البريد الصادر (SMTP)"
-"Select a valid Swift Mailer configuration which will be used to send emails through your mailbox.": "حدد تكوين Swift Mailer صالحًا والذي سيتم استخدامه لإرسال رسائل البريد الإلكتروني من خلال صندوق البريد الخاص بك."
-"Swift Mailer ID": "Swift Mailer ID"
-"None Selected": "لم يتم التحديد"
-"Create Mailbox": "إنشاء صندوق بريد"
-"CREATE MAILBOX": "إنشاء صندوق بريد"
-"New Template": "قالب جديد"
-"NEW TEMPLATE": "قالب جديد"
-"Customer Forgot Password": "المستخدم نسيت كلمة المرور"
-"Customer Account Created": "تم إنشاء حساب المستخدم"
-"Ticket generated success mail to customer": "أنتجت التذكرة بريدًا ناجحًا للمستخدم"
-"Customer Reply To The Agent": "رد المستخدم على المساعد"
-"Ticket will be created with current ticket's customer": "سيتم إنشاء التذكرة بواسطة مستخدم التذكرة الحالي"
-"Ticket Assign": "تعيين التذكرة"
-"Agent Forgot Password": "مساعد نسيت كلمة المرور"
-"Agent Account Created": "تم إنشاء حساب مساعد"
-"Ticket generated by customer": "التذكرة التي تم إنشاؤها بواسطة المستخدم"
-"Agent Reply To The Customer ticket": "الرد المساعد على تذكرة المستخدم"
-"Email template name": "اسم قالب البريد الإلكتروني"
-"Email template subject": "موضوع قالب البريد الإلكتروني"
-"Template For": "نموذج لـ"
-"Nothing Selected": "لا شيء محدد"
-"email template will be used for work related with selected option": "سيتم استخدام قالب البريد الإلكتروني للعمل المتعلق بالخيار المحدد"
-"Email template body": "نص قالب البريد الإلكتروني"
-"Body": "الجسم"
-"placeholders": "العناصر النائبة"
-"Ticket Subject": "موضوع التذكرة"
-"Ticket Message": "رسالة تذكرة"
-"Ticket Attachments": "مرفقات التذاكر"
-"Ticket Tags": "علامات التذكرة"
-"Ticket Source": "مصدر التذكرة"
-"Ticket Status": "حالة التذكرة"
-"Ticket Priority": "أولوية التذكرة"
-"Ticket Group": "مجموعة التذاكر"
-"Ticket Team": "فريق التذاكر"
-"Ticket Thread Message": "رسالة موضوع التذكرة"
-"Ticket Customer Name": "اسم مستخدم التذكرة"
-"Ticket Customer Email": "البريد الإلكتروني لمستخدم التذكرة"
-"Ticket Agent Name": "اسم مساعد التذكرة"
-"Ticket Agent Email": "مساعد البريد الإلكتروني للتذكرة"
-"Ticket Agent Link": "رابط مساعد التذكرة"
-"Ticket Customer Link": "رابط مستخدم تذكرة"
-"Last Collaborator Name": "اسم المتعاون الأخير"
-"Last Collaborator Email": "آخر بريد إلكتروني للمتعاون"
-"Agent/ Customer Name": "المساعد / اسم المستخدم"
-"Account Validation Link": "رابط التحقق من الحساب"
-"Password Forgot Link": "نسيت كلمة المرور"
-"Company Name": "اسم الشركة"
-"Company Logo": "شعار الشركة"
-"Company URL": "عنوان URL للشركة"
-"Swiftmailer id (Select from drop down)": "معرف Swiftmailer (اختر من القائمة المنسدلة)"
-"PROCEED": "تقدم"
-"Proceed": "تقدم"
-"Theme Color": "لون الموضوع"
-"Customer Created": "تم إنشاء المستخدم"
-"Agent Created": "تم إنشاء المساعد"
-"Ticket Created": "إنشاء تذكرة"
-"Agent Replied on Ticket": "رد المساعد على التذكرة"
-"Customer Replied on Ticket": "رد المستخدم على التذكرة"
-"Workflow Status": "حالة سير العمل"
-"Workflow is Active": "سير العمل نشط"
-"Events": "الأحداث"
-"An event automatically triggers to check conditions and perform a respective pre-defined set of actions": "يتم تشغيل الحدث تلقائيًا للتحقق من الشروط وتنفيذ مجموعة محددة من الإجراءات المحددة مسبقًا"
-"Select an Event": "حدد حدثًا"
-"Add More": "أضف المزيد"
-"Conditions": "الظروف"
-"Conditions are set of rules which checks for specific scenarios and are triggered on specific occasions": "الشروط عبارة عن مجموعة من القواعد التي تتحقق من سيناريوهات محددة ويتم تشغيلها في مناسبات معينة"
-"Subject or Description": "الموضوع أو الوصف"
-"Actions": "أجراءات"
-"An action not only reduces the workload but also makes it quite easier for ticket automation": "لا يقلل الإجراء من عبء العمل فحسب ، بل يجعله أسهل أيضًا في أتمتة التذاكر"
-"Select an Action": "حدد إجراء"
-"Add Note": "اضف ملاحظة"
-"Mail to Agent": "البريد إلى المساعد"
-"Mail to Customer": "إرسال بريد إلى المستخدم"
-"Mail to group": "البريد للمجموعة"
-"Mail to last collaborator": "بريد إلى آخر متعاون"
-"Mail to team": "إرسال بريد إلى الفريق"
-"Mark Spam": "صنف هذه الرسالة كرسالة مزعجة"
-"Assign to agent": "تعيين مساعد"
-"Assign to group": "تعيين للمجموعة"
-"Set Priority As": "تعيين الأولوية باسم"
-"Set Status As": "تعيين الحالة باسم"
-"Set Tag As": "تعيين علامة باسم"
-"Assign to Team": "تعيين للفريق"
-"Set Type As": "تعيين النوع باسم"
-"Add Workflow": "أضف سير العمل"
-"ADD WORKFLOW": "إضافة تدفق العمل"
-"Ticket Type code": "رمز نوع التذكرة"
-"Ticket Type description": "وصف نوع التذكرة"
-"Type Status": "اكتب الحالة"
-"Type is Active": "النوع نشط"
-"Add Save Reply": "أضف حفظ الرد"
-"Saved reply name": "اسم الرد المحفوظ"
-"Share saved reply with user(s) in these group(s)": "مشاركة الرد المحفوظ مع المستخدم (المستخدمين) في هذه المجموعة (المجموعات)"
-"Share saved reply with user(s) in these teams(s)": "مشاركة الرد المحفوظ مع المستخدمين في هذه الفرق"
-"Saved reply Body": "نص الرد المحفوظ"
-"New Prepared Response": "استجابة محضرة جديدة"
-"Prepared Response Status": "حالة الاستجابة المعدة"
-"Prepared Response is Active": "الاستجابة المعدة نشطة"
-"Share prepared response with user(s) in these group(s)": "مشاركة رد جاهز مع المستخدم (المستخدمين) في هذه المجموعة (المجموعات)"
-"Share prepared response with user(s) in these teams(s)": "مشاركة الرد الجاهز مع المستخدم (المستخدمين) في هذه الفرق (الفرق)"
-"ADD PREPARED RESPONSE": "أضف استجابة تحضيرية"
-"Add Prepared Response": "أضف استجابة جاهزة"
-"Folder Name is shown upfront at Knowledge Base": "يظهر اسم المجلد مقدمًا في Knowledge Base"
-"A small text about the folder helps user to navigate more easily": "نص صغير حول المجلد يساعد المستخدم على التنقل بسهولة أكبر"
-"Publish": "ينشر"
-"Choose appropriate status": "اختر الحالة المناسبة"
-"Folder Image": "صورة المجلد"
-"An image is worth a thousands words and makes folder more accessible": "الصورة تساوي آلاف الكلمات وتجعل الوصول إلى المجلد أكثر سهولة"
-"Add Category": "إضافة فئة"
-"Category Name is shown upfront at Knowledge Base": "يظهر اسم الفئة مقدمًا في Knowledge Base"
-"A small text about the category helps user to navigate more easily": "نص صغير عن الفئة يساعد المستخدم على التنقل بسهولة أكبر"
-"Using Category Order, you can decide which category should display first": "باستخدام ترتيب الفئات , يمكنك تحديد الفئة التي يجب عرضها أولاً"
-"Sorting": "فرز"
-"Ascending Order (A-Z)": "ترتيب تصاعدي (أ-ي)"
-"Descending Order (Z-A)": "ترتيب تنازلي (ي-أ)"
-"Based on Popularity": "بناء على الشعبية"
-"Article of this category will display according to selected option": "سيتم عرض مقالة هذه الفئة وفقًا للخيار المحدد"
-"Article": "مقالة - سلعة"
-"Title": "عنوان"
-"View": "رأي"
-"Make as Starred": "اجعله مميز بنجمة"
-"Yes": "نعم"
-"No": "لا"
-"Stared": "يحدق"
-"Revisions": "التنقيحات"
-"Related Articles": "مقالات ذات صلة"
-"Delete Article": "تحذف المادة"
-"Content": "المحتوى"
-"Slug": "سبيكة"
-"Slug is the url identity of this article.": "Slug هو هوية عنوان url لهذه المقالة."
-"Meta Title": "عنوان الفوقية"
-"Title tags and meta descriptions are bits of HTML code in the header of a web page. They help search engines understand the content on a page. A pages title tag and meta description are usually shown whenever that page appears in search engine results": "علامات العنوان والأوصاف التعريفية هي أجزاء من كود HTML في رأس صفحة الويب. تساعد محركات البحث على فهم المحتوى على الصفحة. عادة ما يتم عرض علامة عنوان الصفحات ووصف التعريف كلما ظهرت هذه الصفحة في نتائج محرك البحث"
-"Meta Keywords": "كلمات دلالية"
-"Meta Description": "ميتا الوصف"
-"Description": "وصف"
-"Team Status": "حالة الفريق"
-"Team is Active": "الفريق نشط"
-"Edit Privilege": "تحرير الامتياز"
-"Can create ticket": "يمكن إنشاء تذكرة"
-"Can edit ticket": "يمكن تحرير التذكرة"
-"Can delete ticket": "يمكن حذف التذكرة"
-"Can restore trashed ticket": "يمكن استعادة تذكرة المهملات"
-"Can assign ticket": "يمكن تعيين تذكرة"
-"Can assign ticket group": "يمكن تعيين مجموعة التذاكر"
-"Can update ticket status": "يمكن تحديث حالة التذكرة"
-"Can update ticket priority": "يمكن تحديث أولوية التذكرة"
-"Can update ticket type": "يمكن تحديث نوع التذكرة"
-"Can add internal notes to ticket": "يمكن إضافة ملاحظات داخلية للتذكرة"
-"Can edit thread/notes": "يمكن تحرير الموضوع / الملاحظات"
-"Can lock/unlock thread": "يمكن قفل / فتح الموضوع"
-"Can add collaborator to ticket": "يمكن إضافة متعاون إلى التذكرة"
-"Can delete collaborator from ticket": "يمكن حذف المتعاون من التذكرة"
-"Can delete thread/notes": "يمكن حذف الموضوع / الملاحظات"
-"Can apply prepared response on ticket": "يمكن تطبيق رد جاهز على التذكرة"
-"Can add ticket tags": "يمكن إضافة بطاقات تذكرة"
-"Can delete ticket tags": "يمكن حذف بطاقات التذكرة"
-"Can kick other ticket users": "يمكن ركلة مستخدمي التذاكر الآخرين"
-"Can manage email templates": "يمكن إدارة قوالب البريد الإلكتروني"
-"Can manage groups": "يمكن إدارة المجموعات"
-"Can manage Sub-Groups/ Teams": "يمكن إدارة المجموعات الفرعية / الفرق"
-"Can manage agents": "يمكن إدارة المساعدين"
-"Can manage agent privileges": "يمكن إدارة امتيازات المساعد"
-"Can manage ticket types": "يمكن إدارة أنواع التذاكر"
-"Can manage ticket custom fields": "يمكن إدارة الحقول المخصصة للتذكرة"
-"Can manage customers": "يمكن إدارة المستخدمين"
-"Can manage Prepared Responses": "يمكن إدارة الردود الجاهزة"
-"Can manage Automatic workflow": "يمكن إدارة سير العمل التلقائي"
-"Can manage tags": "يمكن إدارة العلامات"
-"Can manage knowledgebase": "يمكن إدارة قاعدة المعرفة"
-"Can manage Groups Saved Reply": "يمكن إدارة رد المجموعات المحفوظة"
-"Add Privilege": "إضافة امتياز"
-"Choose set of privileges which will be available to the agent.": "اختر مجموعة الامتيازات التي ستكون متاحة للمساعد."
-"Advanced": "المتقدمة"
-"Privilege Name must have characters only": "يجب أن يحتوي اسم الامتياز على أحرف فقط"
-"Maximum character length is 50": "الحد الأقصى لطول الأحرف هو 50"
-"Open Tickets": "تذاكر مفتوحة"
-"New Customer": "مستخدم جديد"
-"New Agent": "مساعد جديد"
-"Total Article(s)": "مجموع المادة (المواد)"
-"Please specify a valid email address": "يرجى تحديد عنوان بريد إلكتروني صالح"
-"Please enter the password associated with your email address": "يرجى إدخال كلمة المرور المرتبطة بعنوان بريدك الإلكتروني"
-"Please enter your server host address": "يرجى إدخال عنوان مضيف الخادم الخاص بك"
-"Please specify a port number to connect with your mail server": "يرجى تحديد رقم منفذ للاتصال بخادم البريد الخاص بك"
-"Success ! Branding details saved successfully.": "نجاح ! تم حفظ تفاصيل العلامة التجارية بنجاح."
-"Success ! Time details saved successfully.": "نجاح ! تم حفظ تفاصيل الوقت بنجاح."
-"Spam setting saved successfully.": "تم حفظ إعداد البريد العشوائي بنجاح."
-"Please specify a valid name for your mailbox.": "يرجى تحديد اسم صالح لصندوق البريد الخاص بك."
-"Please select a valid swift-mailer configuration.": "الرجاء تحديد تكوين بريد سريع صالح."
-"Please specify a valid host address.": "يرجى تحديد عنوان مضيف صالح."
-"Please specify a valid email address.": "يرجى تحديد عنوان بريد إلكتروني صالح."
-"Please enter the associated account password.": "يرجى إدخال كلمة مرور الحساب المرتبطة."
-"New Saved Reply": "رد محفوظ جديد"
-"New Category": "فئة جديدة"
-"Folder": "مجلد"
-"Category": "الفئة"
-"Created": "خلقت"
-"All Articles": "جميع المقالات"
-"Viewed": "تمت المشاهدة"
-"New Article": "مادة جديدة"
-"Thank you for your feedback!": "شكرا لك على ملاحظاتك!"
-"Was this article helpful?": "هل كان المقال مساعدا؟!"
-"Helpdesk": "مكتب المساعدة"
-"Support Center": "مركز الدعم"
-"Mailboxes": "صناديق البريد"
-"By": "بواسطة"
-"Search Tickets": "تذاكر البحث"
-"Customer Information": "معلومات المستخدم"
-"Total Replies": "إجمالي الردود"
-"Filter With": "التصفية باستخدام"
-"Type email to add": "اكتب البريد الإلكتروني لإضافته"
-"Collaborators": "المتعاونين"
-"Labels": "تسميات"
-"Group": "مجموعة"
-"Stay on ticket": "ابق على التذكرة"
-"Redirect to list": "إعادة التوجيه إلى القائمة"
-"Nothing interesting here...": "لا يوجد شيء مثير للاهتمام هنا ..."
-"Previous Ticket": "التذكرة السابقة"
-"Next Ticket": "التذكرة التالية"
-"Forward": "إلى الأمام"
-"Note": "ملحوظة"
-"Write a reply": "اكتب الرد"
-"Created Ticket": "تذكرة تم إنشاؤها"
-"All Threads": "كل المواضيع"
-"Forwards": "إلى الأمام"
-"Notes": "ملاحظات"
-"Pinned": "تم التثبيت"
-"Edit Ticket": "تحرير التذكرة"
-"Print Ticket": "طباعة تذكرة"
-"Mark as Spam": "علامة كدعاية"
-"Mark as Closed": "وضع علامة مغلق"
-"Delete Ticket": "حذف التذكرة"
-"View order details from different eCommerce channels": "عرض تفاصيل الطلب من قنوات التجارة الإلكترونية المختلفة"
-"ECOMMERCE CHANNELS": "قنوات ECOMMERCE"
-"Select channel": "حدد القناة"
-"Order Id": "رقم التعريف الخاص بالطلب"
-"Fetch Order": "إحضار أمر"
-"No orders have been integrated to this ticket yet.": "لم يتم دمج أي أوامر لهذه التذكرة حتى الآن."
-"Enter your credentials below to gain access to your helpdesk account.": "أدخل بيانات الاعتماد الخاصة بك أدناه للوصول إلى حساب مكتب المساعدة الخاص بك."
-"Keep me logged in": "أبقني متصل"
-"Forgot Password?": "هل نسيت كلمة المرور؟"
-"Log in to your": "تسجيل الدخول إلى حسابك"
-"Sign In": "تسجيل الدخول"
-"Edit Customer": "تحرير العضو"
-"Update": "تحديث"
-"Discard": "تجاهل"
-"Cancel": "إلغاء"
-"Not Assigned": "غيرمعتمد"
-"Submit": "إرسال"
-"Submit And Open": "إرسال وفتح"
-"Submit And Pending": "إرسال وانتظار"
-"Submit And Answered": "أرسل وأجاب"
-"Submit And Resolved": "إرسال وحل"
-"Submit And Closed": "إرسال وإغلاق"
-"Choose a Color": "اختيار اللون"
-"Create": "خلق"
-"Edit Label": "تحرير التسمية"
-"Add Label": "أضف تسمية"
-"To": "إلى"
-"Ticket": "تذكرة"
-"Your browser does not support JavaScript or You disabled JavaScript, Please enable those !": "متصفحك لا يدعم جافا سكريبت أو قمت بتعطيل جافا سكريبت " " الرجاء تمكينها!"
-"Confirm Action": "تأكيد الإجراء"
-"Confirm": "تؤكد"
-"No result found": "لم يتم العثور على نتائج"
-"ticket delivery status": "حالة تسليم التذاكر"
-"Warning! Select valid image file.": "تحذير! حدد ملف صورة صالح."
-"Error": "خطأ"
-"Save": "حفظ"
-"SEO": "تحسين محركات البحث"
-"Edit Saved Filter": "تحرير عامل التصفية المحفوظ"
-"Type atleast 2 letters": "اكتب على الأقل حرفين"
-"Remove Label": "إزالة التسمية"
-"New Saved Filter": "فلتر محفوظ جديد"
-"Is Default": "افتراضي"
-"Remove Saved Filter": "إزالة عامل التصفية المحفوظ"
-"Ticket Info": "معلومات التذكرة"
-"Last Replied Agent": "اخر رد مساعد"
-"created Ticket": "إنشاء تذكرة"
-"Uploaded Files": "الملفات التي يتم تحميلها"
-"Download (as .zip)": "تحميل كملف مضغوط)"
-"made last reply": "قدم الرد الأخير"
-"N/A": "لا يوجد"
-"Unassigned": "غير معين"
-"Label": "ضع الكلمة المناسبة"
-"Assigned to me": "تعيين لي"
-"Search Query": "استعلام بحث"
-"Searching": "يبحث"
-"Saved Filter": "مرشح محفوظ"
-"No Label Created": "لم يتم إنشاء تسمية"
-"Label with same name already exist.": "يوجد تصنيف بنفس الاسم بالفعل."
-"Create New": "خلق جديد إبداع جديد"
-"Mail status": "حالة البريد"
-"replied": "رد"
-"added note": "تمت إضافة ملاحظة"
-"forwarded": "أحيلت"
-"TO": "إلى"
-"CC": "نسخة"
-"BCC": "نسخة مخفية الوجهة"
-"Locked": "مقفل"
-"Edit Thread": "تحرير الموضوع"
-"Delete Thread": "حذف موضوع"
-"Unpin Thread": "إلغاء تثبيت الخيط"
-"Pin Thread": "دبوس الموضوع"
-"Unlock Thread": "فتح الموضوع"
-"Lock Thread": "قفل الخيط"
-"Translate Thread": "ترجمة الموضوع"
-"Language": "لغة"
-"English": "الإنجليزية"
-"French": "فرنسي"
-"Italian": "إيطالي"
-"Arabic": "عربى"
-"German": "ألمانية"
-"Spanish": "الأسبانية"
-"Turkish": "اللغة التركية"
-"Danish": "دانماركي"
-"System": "النظام"
-"Open in Files": "فتح في الملفات"
-"Email address is invalid": "عنوان البريد الإلكتروني غير صالح"
-"Tag with same name already exist": "توجد بالفعل علامة بنفس الاسم"
-"Text length should be less than 20 charactors": "يجب أن يكون طول النص أقل من 20 حرفًا"
-"Label with same name already exist": "يوجد تصنيف بنفس الاسم بالفعل"
-"Agent Name": "اسم المساعد"
-"Agent Email": "البريد الإلكتروني المساعد"
-"open": "افتح"
-"Currently active agents on ticket": "المساعدون النشطون حاليًا على التذكرة"
-"Edit Customer Information": "تحرير معلومات المستخدم"
-"Restore": "استعادة"
-"Delete Forever": "مسح لللابد"
-"Add Team": "أضف فريق"
-"delete": "حذف"
-"You did not have any folder for current filter(s).": "ليس لديك أي مجلد لعوامل التصفية الحالية."
-"Add Folder": "أضف المجلد"
-"This field must have valid characters only": "يجب أن يحتوي هذا الحقل على أحرف صالحة فقط"
-"Can edit task": "يمكن تحرير المهمة"
-"Can create task": "يمكن أن تخلق مهمة"
-"Can delete task": "يمكن حذف المهمة"
-"Can add member to task": "يمكن إضافة عضو إلى المهمة"
-"Can remove member from task": "يمكن إزالة العضو من المهمة"
-"Agent Privileges": "امتيازات المساعد"
-"Agent Privilege represents overall permissions in System.": "يمثل امتياز المساعد الأذونات العامة في النظام."
-"Ticket View": "عرض التذكرة"
-"User can view tickets based on selected scope.": "يمكن للمستخدم عرض التذاكر على أساس النطاق المحدد."
-"If individual access then user can View assigned Ticket(s) only, If Team access then user can view all Ticket(s) in team(s) he belongs to and so on": "إذا كان حق الوصول الفردي ، فيمكن للمستخدم عرض التذكرة (التذاكر) المعينة فقط ""
-"Global Access": "الوصول العالمي"
-"Group Access": "وصول المجموعة"
-"Team Access": "وصول الفريق"
-"Individual Access": "الوصول الفردي"
-"This field must have characters only": "يجب أن يحتوي هذا الحقل على أحرف فقط"
-"Maximum character length is 40": "الحد الأقصى لطول الأحرف هو 40"
-"This is not a valid email address": "هذا ليس عنوان بريد إلكتروني صالح"
-"Password must contains 8 Characters": "يجب أن تحتوي كلمة المرور على 8 أحرف"
-"The passwords does not match": "كلمتا المرور غير متطابقتين"
-"Enabled": "ممكّن"
-"Create Configuration": "إنشاء تكوين"
-"Swift Mailer Settings": "إعدادات Swift Mailer"
-"Username": "اسم المستخدم"
-"Please select a swiftmailer id": "يرجى تحديد معرف swiftmailer"
-"Please enter a valid e-mail id": "يرجى إدخال معرف بريد إلكتروني صالح"
-"Please enter a mailer id": "يرجى إدخال معرف مرسل"
-"Email Id": "عنوان الايميل"
-"Are you sure? You want to perform this action.": "هل أنت واثق؟ تريد تنفيذ هذا الإجراء."
-"Reorder": "إعادة ترتيب"
-"New Workflow": "سير عمل جديد"
-"OR": "أو"
-"AND": "و"
-"Please enter a valid name.": "رجاء ادخل اسما صحيحا."
-"Please select a value.": "من فضلك إختر قيمة."
-"Please add a value.": "يرجى إضافة قيمة."
-"This field is required": "هذه الخانة مطلوبه"
-"or": "أو"
-"and": "و"
-"Select a Condition": "حدد شرطًا"
-"Loading...": "جار التحميل..."
-"Select Option": "حدد الخيار"
-"Inactive": "غير نشط"
-"New Type": "نوع جديد"
-"Placeholders": "العناصر النائبة"
-"Ticket Link": "رابط التذكرة"
-"Id": "هوية شخصية"
-"Preview": "معاينة"
-"Sort Order": "امر ترتيب"
-"This field must be a number": "يجب أن يكون هذا الحقل رقمًا"
-"User": "المستعمل"
-"Edit Group": "تحرير المجموعة"
-"Group Status": "حالة المجموعة"
-"Group is Active": "المجموعة نشطة"
-"Add Group": "أضف مجموعة"
-"Contact number is invalid": "رقم الاتصال غير صالح"
-"Edit Agent": "تحرير المساعد"
-"No Privilege added, Please add Privilege(s) first !": "لم تتم إضافة امتياز " " الرجاء إضافة الامتيازات (الامتيازات) أولاً!"
-"Edit Email Template": "تحرير قالب البريد الإلكتروني"
-"Edit Workflow": "تحرير سير العمل"
-"Save Workflow": "حفظ سير العمل"
-"Edit Ticket Type": "تحرير نوع التذكرة"
-"Add Ticket Type": "أضف نوع التذكرة"
-"Date Released": "تاريخ الاصدار"
-"Free": "مجانا"
-"Premium": "الممتازة"
-"Installed": "المثبتة"
-"Installed Applications": "التطبيقات المثبتة"
-"Apps Dashboard": "لوحة تحكم التطبيقات"
-"Nothing Interesting here": "لا يوجد شيء مثير للاهتمام هنا"
-"No Categories Added": "لم تتم إضافة فئات"
-"ticket": "تذكرة"
-"Add Email Template": "أضف قالب البريد الإلكتروني"
-"This field contain 100 characters only": "يحتوي هذا الحقل على 100 حرف فقط"
-"This field contain characters only": "يحتوي هذا الحقل على أحرف فقط"
-"Name length must not be greater than 200 !!": "يجب ألا يزيد طول الاسم عن 200 !!"
-"Warning! Correct all field values first!": "تحذير! تصحيح جميع قيم الحقول أولاً!"
-"Warning ! This is not a valid request": "تحذير ! هذا ليس طلبًا صالحًا"
-"Success ! Tag removed successfully.": "نجاح ! تمت إزالة العلامة بنجاح."
-"Success ! Tags Saved successfully.": "نجاح ! تم حفظ العلامات بنجاح."
-"Success ! Revision restored successfully.": "نجاح ! تمت استعادة المراجعة بنجاح."
-"Success ! Categories updated successfully.": "نجاح ! تم تحديث الفئات بنجاح."
-"Success ! Article Related removed successfully.": "نجاح ! تمت إزالة المقالة ذات الصلة بنجاح."
-"Success ! Article Related is already added.": "نجاح ! تمت إضافة المادة ذات الصلة بالفعل."
-"Success ! Cannot add self as relative article.": "نجاح ! لا يمكن إضافة الذات كمقالة نسبية."
-"Success ! Article Related updated successfully.": "نجاح ! تم تحديث المقالة المتعلقة بنجاح."
-"Success ! Articles removed successfully.": "نجاح ! تمت إزالة المقالات بنجاح."
-"Success ! Article status updated successfully.": "نجاح ! تم تحديث حالة المقالة بنجاح."
-"Success ! Article star updated successfully.": "نجاح ! تم تحديث نجمة المقالة بنجاح."
-"Success! Article updated successfully": "نجاح! تم تحديث المقالة بنجاح"
-"Success ! Category sort  order updated successfully.": "نجاح ! تم تحديث ترتيب فرز الفئات بنجاح."
-"Success ! Category status updated successfully.": "نجاح ! تم تحديث حالة الفئة بنجاح."
-"Success ! Folders updated successfully.": "نجاح ! تم تحديث المجلدات بنجاح."
-"Success ! Categories removed successfully.": "نجاح ! تمت إزالة الفئات بنجاح."
-"Success ! Category updated successfully.": "نجاح ! تم تحديث الفئة بنجاح."
-"Error ! Category is not exist.": "خطأ! الفئة غير موجودة."
-"Warning ! Customer Login disabled by admin.": "تحذير ! تم تعطيل تسجيل دخول المستخدم من قبل المشرف."
-"This Email is not registered with us.": "هذا البريد الإلكتروني غير مسجل لدينا."
-"Your password has been updated successfully.": "لقد تم تحديث كلمة السر الخاصة بك بنجاح."
-"Password dont match.": "كلمة المرور لا تتطابق."
-"Error ! Profile image is not valid, please upload a valid format": "خطأ! صورة الملف الشخصي غير صالحة , يرجى تحميل تنسيق صالح"
-"Success! Folder has been added successfully.": "نجاح! تمت إضافة المجلد بنجاح."
-"Folder updated successfully.": "تم تحديث المجلد بنجاح."
-"Success ! Folder status updated successfully.": "نجاح ! تم تحديث حالة المجلد بنجاح."
-"Error ! Folder is not exist.": "خطأ! المجلد غير موجود."
-"Success ! Folder updated successfully.": "نجاح ! تم تحديث المجلد بنجاح."
-"Error ! Folder does not exist.": "خطأ! المجلد غير موجود."
-"Success ! Folder deleted successfully.": "نجاح ! تم حذف المجلد بنجاح."
-"Warning ! Folder does not exists!": "تحذير ! المجلد غير موجود!"
-"Warning ! Cannot create ticket, given email is blocked by admin.": "تحذير ! لا يمكن إنشاء تذكرة " تم حظر البريد الإلكتروني المحدد من قبل المشرف."
-"Success ! Ticket has been created successfully.": "نجاح ! تم إنشاء التذكرة بنجاح."
-"Warning ! Can not create ticket, invalid details.": "تحذير ! لا يمكن إنشاء تذكرة " تفاصيل غير صالحة."
-"Warning ! Post size can not exceed 25MB": "تحذير ! لا يمكن أن يتجاوز حجم المشاركة 25 ميغابايت"
-"Create Ticket Request": "إنشاء طلب تذكرة"
-"Success ! Reply added successfully.": "نجاح ! تمت إضافة الرد بنجاح."
-"Warning ! Reply field can not be blank.": "تحذير ! لا يمكن ترك حقل الرد فارغًا."
-"Success ! Rating has been successfully added.": "نجاح ! تمت إضافة التقييم بنجاح."
-"Warning ! Invalid rating.": "تحذير ! تصنيف غير صالح."
-"Error ! Can not add customer as a collaborator.": "خطأ! لا يمكن إضافة المستخدم كمتعاون."
-"Success ! Collaborator added successfully.": "نجاح ! تمت إضافة المتعاون بنجاح."
-"Error ! Collaborator is already added.": "خطأ! تمت إضافة المتعاون بالفعل."
-"Success ! Collaborator removed successfully.": "نجاح ! تمت إزالة المتعاون بنجاح."
-"Error ! Invalid Collaborator.": "خطأ! متعاون غير صالح."
-"An unexpected error occurred. Please try again later.": "حدث خطأ غير متوقع. الرجاء معاودة المحاولة في وقت لاحق."
-"Feedback saved successfully.": "تم حفظ التعليقات بنجاح."
-"Feedback updated successfully.": "تم تحديث التعليقات بنجاح."
-"Invalid feedback provided.": "تم تقديم تعليقات غير صالحة."
-"Article not found.": "المادة غير موجودة."
-"You need to login to your account before can perform this action.": "تحتاج إلى تسجيل الدخول إلى حسابك قبل أن تتمكن من تنفيذ هذا الإجراء."
-"Warning! Please add valid Actions!": "تحذير! يرجى إضافة إجراءات صالحة!"
-"Warning! In Free Plan you can not change Events!": "تحذير! في الخطة المجانية لا يمكنك تغيير الأحداث!"
-"Success! Prepared Response has been updated successfully.": "نجاح! تم تحديث الرد الجاهز بنجاح."
-"Success! Prepared Response has been added successfully.": "نجاح! تمت إضافة الرد الجاهز بنجاح."
-"Warning  This is not a valid request": "تحذير هذا ليس طلبًا صالحًا"
-"Use Default Colors": "استخدم الألوان الافتراضية"
-"Masonry": "البناء"
-"Popular Article": "مقال شائع"
-"Manage Ticket Custom Fields": "إدارة الحقول المخصصة للتذكرة"
-"You dont have premission to edit this Prepared response": "ليس لديك تصريح لتعديل هذا الرد الجاهز"
-"Save Prepared Response": "حفظ الاستجابة الجاهزة"
-"Success ! Prepared response removed successfully.": "نجاح ! تمت إزالة الرد الجاهز بنجاح."
-"Warning! You are not allowed to perform this action.": "تحذير! لا يسمح لك بتنفيذ هذا الإجراء."
-"Success! Workflow has been updated successfully.": "نجاح! تم تحديث سير العمل بنجاح."
-"Success! Workflow has been added successfully.": "نجاح! تمت إضافة سير العمل بنجاح."
-"Success! Order has been updated successfully.": "نجاح! تم تحديث الطلب بنجاح."
-"Success! Workflow has been removed successfully.": "نجاح! تمت إزالة سير العمل بنجاح."
-"Mailbox successfully created.": "تم إنشاء صندوق البريد بنجاح."
-"Mailbox successfully updated.": "تم تحديث صندوق البريد بنجاح."
-"Warning ! Bad request !": "تحذير ! اقتراح غير جيد !"
-"Error! Given current password is incorrect.": "خطأ! بالنظر إلى كلمة المرور الحالية غير صحيحة."
-"Success ! Profile update successfully.": "نجاح ! تم تحديث الملف الشخصي بنجاح."
-"Error ! User with same email is already exist.": "خطأ! المستخدم بنفس البريد الإلكتروني موجود بالفعل."
-"Success ! Agent updated successfully.": "نجاح ! تم تحديث المساعد بنجاح."
-"Success ! Agent removed successfully.": "نجاح ! تمت إزالة المساعد بنجاح."
-"Warning ! You are allowed to remove account owners account.": "تحذير ! مسموح لك بإزالة حساب أصحاب الحساب."
-"Error ! Invalid user id.": "خطأ! هوية مستخدم غير صالحه."
-"Success ! Filter has been saved successfully.": "النجاح! تم حفظ الفلتر بنجاح."
-"Success ! Filter has been updated successfully.": "النجاح! تم تحديث الفلتر بنجاح."
-"Success ! Filter has been removed successfully.": "النجاح! تمت إزالة التصفية بنجاح."
-"Please check your mail for password update.": "الرجاء التحقق من البريد الخاص بك للحصول على تحديث كلمة المرور."
-"This Email address is not registered with us.": "عنوان البريد الإلكتروني هذا غير مسجل معنا."
-"Success ! Customer saved successfully.": "النجاح! تم حفظ العميل بنجاح."
-"Error ! User with same email already exist.": "خطأ! مستخدم لديه نفس البريد الإلكتروني موجود بالفعل."
-"Success ! Customer information updated successfully.": "النجاح! تم تحديث معلومات العميل بنجاح."
-"Success ! Customer updated successfully.": "النجاح! تم تحديث العميل بنجاح."
-"Error ! Customer with same email already exist.": "خطأ! العميل مع نفس البريد الإلكتروني موجود بالفعل."
-"unstarred Action Completed successfully": "تم تنفيذ الإجراء غير النجم بنجاح"
-"starred Action Completed successfully": "اكتمل العمل بنجاح"
-"Success ! Customer removed successfully.": "النجاح! تمت إزالة العميل بنجاح."
-"Error ! Invalid customer id.": "خطأ! معرف عميل غير صالح."
-"Success! Template has been updated successfully.": "نجاح! تم تحديث القالب بنجاح."
-"Success! Template has been added successfully.": "نجاح! تمت إضافة القالب بنجاح."
-"Success! Template has been deleted successfully.": "نجاح! تم حذف القالب بنجاح."
-"Warning! resource not found.": "تحذير! الموارد غير موجود."
-"Warning! You can not remove predefined email template which is being used in workflow(s).": "تحذير! لا يمكنك إزالة قالب البريد الإلكتروني المحدد مسبقًا والذي يتم استخدامه في سير العمل."
-"Success ! Email settings are updated successfully.": "نجاح ! تم تحديث إعدادات البريد الإلكتروني بنجاح."
-"Success ! Group information updated successfully.": "نجاح ! تم تحديث معلومات المجموعة بنجاح."
-"Success ! Group information saved successfully.": "نجاح ! تم حفظ معلومات المجموعة بنجاح."
-"Support Group removed successfully.": "تمت إزالة مجموعة الدعم بنجاح."
-"SAVE": "حفظ"
-"Howdy! ": "مرحبًا!"
-"New Ticket Request ": "طلب تذكرة جديدة"
-"Ticket Requests ": "طلبات التذاكر"
-"Tickets have been updated successfully": "تم تحديث التذاكر بنجاح"
-"Please check your mail for password update": "يرجى التحقق من بريدك للحصول على تحديث كلمة المرور"
-"This email address is not registered with us": "عنوان البريد الإلكتروني هذا غير مسجل لدينا"
-"You have already update password using this link if you wish to change password again click on forget password link here from login page": "لقد قمت بالفعل بتحديث كلمة المرور باستخدام هذا الرابط إذا كنت ترغب في تغيير كلمة المرور مرة أخرى ، انقر فوق رابط نسيت كلمة المرور هنا من صفحة تسجيل الدخول"
-"Your password has been successfully updated. Login using updated password": "لقد تم تحديث كلمة السر الخاصة بك بنجاح. تسجيل الدخول باستخدام كلمة المرور المحدثة"
-"Please try again, The passwords do not match": "يرجى المحاولة مرة أخرى , لا تتطابق كلمات المرور"
-"Support Privilege removed successfully": "تمت إزالة امتياز الدعم بنجاح"
-"Success! Reply has been updated successfully.": "نجاح! تم تحديث الرد بنجاح."
-"Success! Reply has been added successfully.": "نجاح! تمت إضافة الرد بنجاح."
-"Privilege updated successfully.": "تم تحديث الامتياز بنجاح."
-"Success! Saved Reply has been deleted successfully.": "نجاح! تم حذف الرد المحفوظ بنجاح."
-"SwiftMailer configuration created successfully.": "تم إنشاء تهيئة SwiftMailer بنجاح."
-"SwiftMailer configuration updated successfully.": "تم تحديث تهيئة SwiftMailer بنجاح."
-"Swiftmailer configuration removed successfully.": "تمت إزالة تهيئة Swiftmailer بنجاح."
-"No swiftmailer configurations found for mailer id:": "لم يتم العثور على تكوينات swiftmailer لمعرف البريد:"
-"Success ! Team information saved successfully.": "نجاح ! تم حفظ معلومات الفريق بنجاح."
-"Success ! Team information updated successfully.": "نجاح ! تم تحديث معلومات الفريق بنجاح."
-"Support Team removed successfully.": "تمت إزالة فريق الدعم بنجاح."
-"Reply content cannot be left blank.": "لا يمكن ترك محتوى الرد فارغًا."
-"Reply added to the ticket and forwarded successfully.": "تمت إضافة الرد على التذكرة وإعادة توجيهه بنجاح."
-"Success ! Thread updated successfully.": "نجاح ! تم تحديث سلسلة المحادثات بنجاح."
-"Success ! Thread removed successfully.": "نجاح ! تمت إزالة الموضوع بنجاح."
-"Success ! Thread pinned successfully.": "نجاح ! تم تثبيت سلسلة المحادثات بنجاح."
-"Success ! unpinned removed successfully.": "نجاح ! تمت إزالة التثبيت بنجاح."
-"Could not create ticket, invalid details.": "تعذر إنشاء تذكرة " تفاصيل غير صالحة."
-"Success! Ticket type saved successfully.": "نجاح! تم حفظ نوع التذكرة بنجاح."
-"Success! Ticket type updated successfully.": "نجاح! تم تحديث نوع التذكرة بنجاح."
-"Success ! Ticket moved to trash successfully.": "نجاح ! تم نقل التذكرة إلى سلة المهملات بنجاح."
-"Success ! Ticket has been updated successfully.": "نجاح ! تم تحديث التذكرة بنجاح."
-"Unable to retrieve priority details": "تعذر استرداد تفاصيل الأولوية"
-"Ticket support group updated successfully": "تم تحديث مجموعة دعم التذاكر بنجاح"
-"Ticket support team updated successfully": "تم تحديث فريق دعم التذاكر بنجاح"
-"Ticket assigned to support group ": "تم تعيين التذكرة لدعم المجموعة"
-"Success ! Ticket to label removed successfully.": "نجاح ! تمت إزالة تذكرة التسمية بنجاح."
-"Success ! Tag added successfully.": "نجاح ! تمت إضافة العلامة بنجاح."
-"Success ! Tag updated successfully.": "نجاح ! تم تحديث العلامة بنجاح."
-"Error ! Customer can not be added as collaborator.": "خطأ! لا يمكن إضافة المستخدم كمتعاون."
-"Success ! Tag unassigned successfully.": "نجاح ! تم إلغاء تحديد العلامة بنجاح."
-"Error ! Invalid tag.": "خطأ! علامة غير صالحة."
-"Mailbox configuration removed successfully.": "تمت إزالة تكوين صندوق البريد بنجاح."
-"visit our website": "قم بزيارة موقعنا"
-"Cookie Usage Policy": "سياسة استخدام ملفات تعريف الارتباط"
-"cookie": "بسكويت"
-"cookies": "بسكويت"
-"HELP": "مساعدة"
-"Home": "الصفحة الرئيسية"
-"Cookie Policy": "سياسة ملفات الارتباط"
-"Prev": "السابق"
-"Ticket query message": "رسالة الاستعلام عن التذكرة"
-"Select type": "اختر صنف"
-"Search KnowledgeBase": "البحث في KnowledgeBase"
-"You cant merge an account with itself.": "لا يمكنك دمج حساب مع نفسه."
-"Edit Profile": "تعديل الملف الشخصي"
-"Customer Login": "تسجيل دخول المستخدم"
-"Contact Us": "اتصل بنا"
-"If you have ever contacted our support previously, your account would have already been created.": "إذا سبق لك أن اتصلت بدعمنا سابقًا ، فسيتم إنشاء حسابك بالفعل."
-"support": "الدعم"
-"HelpDesk": "مكتب المساعدة"
-"Enter search keyword": "أدخل كلمة البحث"
-"Browse via Folders": "تصفح عبر المجلدات"
-"Looking for something that is queried generally? Choose a relevant folder from below to explore possible solutions": "هل تبحث عن شيء يتم الاستعلام عنه بشكل عام؟ اختر مجلدًا ذا صلة من الأسفل لاستكشاف الحلول الممكنة"
-"Unable to find an answer?": "غير قادر على إيجاد إجابة؟"
-"Looking for anything specific article which resides in general queries? Just browse the various relevant folders and categories and then you will find the desired article.": "هل تبحث عن أي شيء محدد موجود في الاستفسارات العامة؟ ما عليك سوى تصفح المجلدات والفئات المختلفة ذات الصلة ، ثم ستجد المقالة المطلوبة."
-"Popular Articles": "المواد شعبية"
-"Here are some of the most popular articles, which helped number of users to get their queries and questions resolved.": "فيما يلي بعض المقالات الأكثر شيوعًا , التي ساعدت عددًا من المستخدمين على حل استفساراتهم وأسئلتهم."
-"Browse via Categories": "تصفح عبر الفئات"
-"Looking for something specific? Choose a relevant category from below to explore possible solutions": "تبحث عن شيء معين؟ اختر فئة مناسبة من أدناه لاستكشاف الحلول الممكنة"
-"No Categories Found!": "لم يتم العثور على فئات!"
-"Powered by": "مشغل بواسطة"
-"Forgot Password": "هل نسيت كلمة المرور"
-"Enter your email address and we will send you an email with instructions to update your login credentials.": "أدخل عنوان بريدك الإلكتروني وسنرسل لك بريدًا إلكترونيًا يحتوي على تعليمات لتحديث بيانات اعتماد تسجيل الدخول الخاصة بك."
-"Send Mail": "ارسل بريد"
-"Status": "الحالة"
-"Sign In to %websitename%": "تسجيل الدخول إلى٪ websitename٪"
-"Enter your name": "أدخل أسمك"
-"Enter your email": "أدخل بريدك الإلكتروني"
-"Learn more about %deliveryStatus%.": "تعرف على المزيد حول٪ deliveryStatus٪."
-"To know more about how our privacy policy works, please %websiteLink%.": "لمعرفة المزيد حول كيفية عمل سياسة الخصوصية الخاصة بنا " الرجاء٪ websiteLink٪."
-"Some of our site pages utilize %cookies% and other tracking technologies. A %cookie% is a small text file that may be used, for example, to collect information about site activity. Some cookies and other technologies may serve to recall personal information previously indicated by a site user. You may block cookies, or delete existing cookies, by adjusting the appropriate setting on your browser. Please consult the %help% menu of your browser to learn how to do this. If you block or delete %cookies% you may find the usefulness of our site to be impaired.": "تستخدم بعض صفحات موقعنا٪ ملفات تعريف الارتباط٪ وتقنيات التتبع الأخرى. ملف تعريف الارتباط٪ هو ملف نصي صغير يمكن استخدامه , على سبيل المثال , لجمع معلومات حول نشاط الموقع. قد تعمل بعض ملفات تعريف الارتباط والتقنيات الأخرى على استدعاء المعلومات الشخصية التي سبق أن أشار إليها مستخدم الموقع. يمكنك حظر ملفات تعريف الارتباط , أو حذف ملفات تعريف الارتباط الموجودة " " عن طريق ضبط الإعداد المناسب على المستعرض الخاص بك. يرجى الرجوع إلى قائمة٪ help٪ في متصفحك لمعرفة كيفية القيام بذلك. إذا قمت بحظر أو حذف٪ cookies٪ فقد تجد فائدة موقعنا ضعيفة."
-"This field contain maximum 40 charectures.": "يحتوي هذا الحقل على 40 مشاركة بحد أقصى."
-"This field contain maximum 50 charectures.": "يحتوي هذا الحقل على 50 حالة مشاركة بحد أقصى."
-"Time": "زمن"
-"Links": "الروابط"
-"Broadcast Message": "رسالة البث"
-"Wide Logo": "شعار واسع"
-"Upload an Image (200px x 48px) in</br> PNG or JPG Format": "قم بتحميل صورة (200 بكسل × 48 بكسل) بتنسيق </br> PNG أو JPG"
-"It will be shown as Logo on Knowledgebase and Helpdesk": "سيتم عرضه كشعار في Knowledgebase و Helpdesk"
-"Website Status": "حالة الموقع"
-"Enable front end website and knowledgebase for customer(s)": "تمكين موقع الويب الأمامي وقاعدة المعرفة للمستخدم (المستخدمين)"
-"Brand Color": "لون العلامة التجارية"
-"Page Background Color": "لون خلفية الصفحة"
-"Header Background Color": "لون خلفية الرأس"
-"Banner Background Color": "لون خلفية البانر"
-"Page Link Color": "لون ارتباط الصفحة"
-"Page Link Hover Color": "لون رابط الصفحة"
-"Article Text Color": "لون نص المقالة"
-"Tag Line": "سطر العلامة"
-"Hi! how can we help?": "مرحبا! كيف يمكن أن نساعد؟"
-"Layout": "نسق"
-"Ticket Create Option": "خيار إنشاء تذكرة"
-"Login Required To Create Tickets": "مطلوب تسجيل الدخول لإنشاء تذاكر"
-"Remove Customer Login/Signin Button": "إزالة زر تسجيل دخول / تسجيل دخول المستخدم"
-"Disable Customer Login": "تعطيل تسجيل دخول المستخدم"
-"Meta Description (Recommended)": "وصف ميتا (مستحسن)"
-"Meta Keywords (Recommended)": "الكلمات الفوقية (مستحسن)"
-"Header Link": "رابط العنوان"
-"URL (with http:// or https://)": "URL (مع http: // أو https: //)"
-"Footer Link": "رابط التذييل"
-"Custom CSS (Optional)": "CSS مخصص (اختياري)"
-"It will be add to the frontend knowledgebase only": "ستتم إضافته إلى قاعدة المعرفة بالواجهة الأمامية فقط"
-"Custom Javascript (Optional)": "جافا سكريبت مخصص (اختياري)"
-"Broadcast message content to show on helpdesk": "بث محتوى الرسالة لإظهاره في مكتب المساعدة"
-"From": "من عند"
-"Time duration between which message will be displayed(if applicable)": "المدة الزمنية التي سيتم خلالها عرض الرسالة (إن أمكن)"
-"Broadcasting Status": "حالة البث"
-"Broadcasting is Active": "البث نشط"
-"Choose a default company timezone": "اختر المنطقة الزمنية الافتراضية للشركة"
-"Date Time Format": "تنسيق الوقت والتاريخ"
-"Choose a format to convert date to specified date time format": "اختر تنسيقًا لتحويل التاريخ إلى تنسيق وقت التاريخ المحدد"
-"An empty file is not allowed.": "لا يسمح بملف فارغ."
-"File size must not be greater than 200KB !!": "يجب ألا يكون حجم الملف أكبر من 200 كيلو بايت !!"
-"Please upload valid Image file (Only JPEG, JPG, PNG allowed)!!": "يرجى تحميل ملف صورة صالح (فقط JPEG , JPG , PNG مسموح به) !!"
-"'comma , separated'": "فاصلة , مفصولة"
-"Provide a valid url(with protocol)": "أدخل عنوان URL صالحًا (مع البروتوكول)"
+export default {
+	'WELCOME':'أهلا بك',
+	'TICKETS':'التذاكر',
+	'ARTICLES':'مقالات',
+	'ACCOUNT':'الحساب',
+	'SUBMIT':'إرسال',
+	'EMAIL':'البريد الإلكتروني',
+	'DEFAULT':'إفتراضي',
+	'PASSWORD':'كلمه السر',
+	'REPEAT_PASSWORD':'اعد كلمة السر',
+	'LOG_IN':'تسجيل الدخول',
+	'SIGN_UP':'سجل',
+	'FORGOT_PASSWORD':'نسيت رقمك السري؟',
+	'RECOVER_PASSWORD':'إستعادة كلمة المرور',
+	'SET_UP_PASSWORD':'قم بإعداد كلمة المرور الخاصة بك',
+	'RECOVER_SENT':'تم إرسال بريد إلكتروني مع تعليمات الاسترداد.',
+	'NEW_EMAIL':'بريد إلكتروني جديد',
+	'FULL_NAME':'الاسم الكامل',
+	'OLD_PASSWORD':'كلمة المرور القديمة',
+	'NEW_PASSWORD':'كلمة سر جديدة',
+	'REPEAT_NEW_PASSWORD':'كرر كلمة المرور الجديدة',
+	'BACK_LOGIN_FORM':'العودة إلى نموذج تسجيل الدخول',
+	'VIEW_ARTICLES':'عرض المقالات',
+	'EDIT_PROFILE':'تعديل الملف الشخصي',
+	'CLOSE_SESSION':'اغلق الموسم',
+	'CREATE_TICKET':'إنشاء تذكرة',
+	'TICKET_LIST':'قائمة التذاكر',
+	'SUPPORT_CENTER':'مركز الدعم',
+	'DEPARTMENT':'قسم',
+	'DEFAULT_DEPARTMENT':'القسم الافتراضي',
+	'AUTHOR':'مؤلف',
+	'DATE':'تاريخ',
+	'RESPOND':'رد',
+	'RESPOND_TICKET':'الرد على التذكرة',
+	'CLOSE_TICKET':'إغلاق التذكرة',
+	'DELETE_TICKET':'حذف التذكرة',
+	'NO_ATTACHMENT':'لا يوجد ملف مرفق',
+	'STAFF':'العاملين',
+	'CUSTOMER':'الزبون',
+	'YES':'نعم',
+	'NO':'لا',
+	'CANCEL':'إلغاء',
+	'MY_ACCOUNT':'حسابي',
+	'DASHBOARD':'لوحة القيادة',
+	'USERS':'المستخدمون',
+	'SETTINGS':'الإعدادات',
+	'STATISTICS':'الإحصاء',
+	'LAST_ACTIVITY':'النشاط الاخير',
+	'MY_TICKETS':'تذاكري',
+	'NEW_TICKETS':'تذاكر جديدة',
+	'SEARCH_TICKETS':'تذاكر البحث',
+	'CUSTOM_RESPONSES':'الردود المخصصة',
+	'CUSTOM_LIST':'قائمة مخصصة',
+	'CUSTOM_TAGS':'العلامات المخصصة',
+	'TAGS':'العلامات',
+	'LIST_USERS':'سرد المستخدمين',
+	'BAN_USERS':'حظر المستخدمين',
+	'LIST_ARTICLES':'قائمة المقالات',
+	'STAFF_MEMBERS':'طاقم العمل',
+	'DEPARTMENTS':'الأقسام',
+	'SYSTEM_PREFERENCES':'تفضيلات النظام',
+	'ADVANCED_SETTINGS':'إعدادات متقدمة',
+	'EMAIL_TEMPLATES':'قوالب البريد الإلكتروني',
+	'FILTERS_CUSTOM_FIELDS':'الفلاتر والحقول المخصصة',
+	'PRIORITY':'أفضلية',
+	'NUMBER':'رقم',
+	'HIGH':'عالي',
+	'MEDIUM':'متوسط',
+	'LOW':'منخفض',
+	'TITLE':'عنوان',
+	'CONTENT':'المحتوى',
+	'SAVE':'حفظ',
+	'DISCARD_CHANGES':'تجاهل التغييرات',
+	'DELETE':'حذف',
+	'LANGUAGE':'لغة',
+	'OWNER':'صاحب',
+	'OWNED':'مملوكة',
+	'STATUS':'الحالة',
+	'NONE':'لا يوجد',
+	'ANY':'أي',
+	'OPENED':'افتتح',
+	'CLOSED':'مغلق',
+	'CLOSE':'قريب',
+	'RE_OPEN':'إعادة الفتح',
+	'ASSIGN_TO_ME':'تعيين لي',
+	'UN_ASSIGN':'إلغاء التعيين',
+	'VIEW_TICKET':'عرض التذكرة',
+	'VIEW_TICKET_DESCRIPTION':'تحقق من حالة التذكرة باستخدام رقم التذكرة والبريد الإلكتروني.',
+	'SELECT_CUSTOM_RESPONSE':'حدد استجابة مخصصة ...',
+	'WARNING':'تحذير',
+	'INFO':'معلومات',
+	'ALL_DEPARTMENTS':'جميع الإدارات',
+	'EMAIL_BANNED':'تم حظر البريد الإلكتروني',
+	'UN_BAN':'تعطيل الحظر',
+	'BAN_NEW_EMAIL':'حظر البريد الإلكتروني الجديد',
+	'BAN_EMAIL':'حظر البريد الإلكتروني',
+	'EDIT_EMAIL':'تحرير البريد الإلكتروني',
+	'EDIT_PASSWORD':'تحرير كلمة المرور',
+	'EDIT_TITLE':'تحرير العنوان',
+	'CHANGE_EMAIL':'تغيير الايميل',
+	'CHANGE_PASSWORD':'غير كلمة السر',
+	'NAME':'اسم',
+	'SEARCH':'بحث',
+	'CLEAR':'واضح',
+	'SIGNUP_DATE':'موعد التسجيل',
+	'SEARCH_USERS':'البحث عن مستخدمين ...',
+	'SEARCH_EMAIL':'ابحث عن البريد الألكتروني...',
+	'USER_VIEW_TITLE':'المستخدم # {userId}',
+	'EDIT_TOPIC':'تحرير الموضوع',
+	'ADD_TOPIC':'إضافة موضوع',
+	'ICON':'أيقونة',
+	'COLOR':'اللون',
+	'ADD_NEW_ARTICLE':'أضف مقال جديد',
+	'ADD_ARTICLE':'أضف مقال',
+	'LAST_EDITED_IN':'تم إجراء آخر تحرير في {date}',
+	'EDIT':'تعديل',
+	'ADD_CUSTOM_TAG':'أضف علامة مخصصة',
+	'EDIT_CUSTOM_TAG':'تحرير علامة مخصصة',
+	'NO_RESULTS':'لا نتائج',
+	'DELETE_AND_BAN':'حذف وحظر',
+	'STAFF_LEVEL':'مستوى الموظفين',
+	'ASSIGNED':'تعيين',
+	'ASSIGNED_TICKETS':'تم تعيين {تذاكر} تذاكر',
+	'CLOSED_TICKETS':'{تذاكر} تذاكر مغلقة',
+	'LAST_LOGIN':'آخر تسجيل دخول',
+	'ADD_NEW_STAFF':'إضافة موظفين جدد',
+	'ADD_STAFF':'إضافة موظفين',
+	'LEVEL':'مستوى',
+	'LEVEL_1':'المستوى 1 (التذاكر)',
+	'LEVEL_2':'المستوى 2 (تذاكر + مقالات)',
+	'LEVEL_3':'المستوى 3 (التذاكر + المقالات + الموظفون)',
+	'LEVEL_1_DESCRIPTION':'يمكن فقط الرد على التذاكر وإدارة المستخدمين.',
+	'LEVEL_2_DESCRIPTION':'يمكنه القيام بكل ما يفعله المستوى 1 ، ويمكنه إنشاء مقالات أو تحريرها ويمكنه إنشاء ردود مخصصة.',
+	'LEVEL_3_DESCRIPTION':'يمكنه القيام بكل ما يفعله المستوى 2 ، ويمكنه إنشاء أو تحرير الموظفين ويمكنه إدارة النظام بأكمله.',
+	'UPDATE_EMAIL':'تحديث البريد الإلكتروني',
+	'UPDATE_PASSWORD':'تطوير كلمة السر',
+	'UPDATE_LEVEL':'مستوى التحديث',
+	'UPDATE_DEPARTMENTS':'تحديث الأقسام',
+	'EDIT_STAFF':'تحرير موظف',
+	'ADD_DEPARTMENT':'إضافة قسم',
+	'UPDATE_DEPARTMENT':'قسم التحديث',
+	'UPDATE_DEFAULT_DEPARTMENT':'تحديث القسم الافتراضي',
+	'TRANSFER_TICKETS_TO':'تذاكر نقل إلى',
+	'COMMENTS':'تعليقات',
+	'DELETE_STAFF_MEMBER':'حذف موظف',
+	'MAINTENANCE_MODE':'نمط الصيانة',
+	'MAINTENANCE_MODE_INFO':'سيعطل النظام مؤقتًا للمستخدمين العاديين.',
+	'RECOVER_DEFAULT':'استعادة الافتراضي',
+	'SUPPORT_CENTER_URL':'عنوان URL لمركز الدعم',
+	'SUPPORT_CENTER_TITLE':'عنوان مركز الدعم',
+	'SUPPORT_CENTER_LAYOUT':'تخطيط مركز الدعم',
+	'DEFAULT_TIMEZONE':'المنطقة الزمنية الافتراضية (GMT)',
+	'NOREPLY_EMAIL':'البريد الإلكتروني Noreply',
+	'SMTP_USER':'مستخدم SMTP',
+	'SMTP_SERVER':'خادم SMTP',
+	'SMTP_PASSWORD':'كلمة مرور SMTP',
+	'IMAP_USER':'مستخدم IMAP',
+	'IMAP_SERVER':'خادم IMAP',
+	'IMAP_PASSWORD':'كلمة مرور IMAP',
+	'IMAP_TOKEN':'رمز IMAP',
+	'IMAP_TOKEN_DESCRIPTION':'استخدم هذا الرمز المميز لمصادقة طلب الاقتراع.',
+	'PORT':'ميناء',
+	'RECAPTCHA_PUBLIC_KEY':'مفتاح Recaptcha العام',
+	'RECAPTCHA_PRIVATE_KEY':'مفتاح Recaptcha الخاص',
+	'ALLOW_FILE_ATTACHMENTS':'السماح بمرفقات الملفات',
+	'MAX_SIZE_MB':'الحجم الأقصى (ميغا بايت)',
+	'UPDATE_SETTINGS':'تحديث الاعدادات',
+	'DEFAULT_LANGUAGE':'اللغة الافتراضية',
+	'SUPPORTED_LANGUAGES':'اللغات المدعومة',
+	'SUPPORTED_LANGUAGES_INFO':'اللغات المدعومة هي اللغات التي يمكن كتابة التذاكر بها.',
+	'ALLOWED_LANGUAGES':'اللغات المسموح بها',
+	'ALLOWED_LANGUAGES_INFO':'اللغات المسموح بها هي اللغات التي يمكن للمستخدم استخدامها.',
+	'SETTINGS_UPDATED':'تم تحديث الإعدادات',
+	'ON':'على',
+	'OFF':'إيقاف',
+	'BOXED':'وضع في صندوق',
+	'FULL_WIDTH':'العرض الكامل',
+	'LOAD_MORE':'تحميل المزيد',
+	'MY_NOTIFICATIONS':'الإشعارات الخاصة بي',
+	'ALL_NOTIFICATIONS':'جميع الإخطارات',
+	'VERIFY_SUCCESS':'تم التحقق من المستخدم',
+	'VERIFY_FAILED':'لا يمكن التحقق',
+	'ENABLE_MANDATORY_LOGIN':'تسجيل دخول إلزامي للعملاء',
+	'ENABLE_USER_REGISTRATION':'تمكين تسجيل المستخدم',
+	'INCLUDE_USERS_VIA_CSV':'ضمّن المستخدمين عبر ملف CSV',
+	'BACKUP_DATABASE':'قاعدة بيانات النسخ الاحتياطي',
+	'DELETE_ALL_USERS':'حذف جميع المستخدمين',
+	'PLEASE_CONFIRM_PASSWORD':'يرجى تأكيد كلمة المرور الخاصة بك لإجراء هذه التغييرات',
+	'REGISTRATION_API_KEYS':'مفاتيح API للتسجيل',
+	'NAME_OF_KEY':'اسم المفتاح',
+	'KEY':'مفتاح',
+	'ADD_API_KEY':'إضافة مفتاح API',
+	'NO_KEY_SELECTED':'لم يتم تحديد مفتاح',
+	'CHECK_TICKET':'تحقق تذكرة',
+	'ACTIVITY':'نشاط',
+	'HOME':'الصفحة الرئيسية',
+	'TICKET_NUMBER':'رقم التذكرة',
+	'NEXT':'التالى',
+	'SUBJECT':'موضوع',
+	'SEND_EMAIL_ON_NEW_TICKET':'إرسال بريد إلكتروني على تذكرة جديدة',
+	'STAFF_UPDATED':'تم تحديث الموظف',
+	'UPDATE':'تحديث',
+	'NEVER':'أبدا',
+	'HIMSELF':'نفسه',
+	'ADD_USER':'أضف مستخدم',
+	'INVITE_USER':'دعوة المستخدم',
+	'INVITE_STAFF':'دعوة الموظفين',
+	'UPLOAD_FILE':'رفع ملف',
+	'PRIVATE':'نشر',
+	'LOCKED':'مقفل',
+	'ENABLE_USER':'تمكين المستخدم',
+	'DISABLE_USER':'تعطيل المستخدم',
+	'SHOW_CLOSED_TICKETS':'إظهار التذاكر المغلقة',
+	'IMAGE_HEADER_URL':'عنوان URL لرأس الصورة',
+	'IMAGE_HEADER_DESCRIPTION':'الصورة التي سيتم استخدامها كعنوان للبريد الإلكتروني',
+	'EMAIL_SETTINGS':'إعدادات البريد الإلكتروني',
+	'ADDITIONAL_FIELDS':'تحرير الحقول الإضافية',
+	'NEW_CUSTOM_FIELD':'حقل مخصص جديد',
+	'TYPE':'نوع',
+	'SELECT_INPUT':'حدد الإدخال',
+	'TEXT_INPUT':'إدخال النص',
+	'OPTION':'الخيار {index}',
+	'OPTIONS':'خيارات',
+	'FIELD_DESCRIPTION':'وصف الحقل (اختياري)',
+	'DESCRIPTION_ADD_CUSTOM_TAG':'هنا يمكنك إضافة علامة مخصصة جديدة',
+	'DESCRIPTION_EDIT_CUSTOM_TAG':'هنا يمكنك تعديل علامة مخصصة',
+	'CUSTOM_FIELDS':'الحقول المخصصة',
+	'CHART_CREATE_TICKET':'تم إنشاء التذاكر',
+	'CHART_CLOSE':'تم إغلاق التذاكر',
+	'CHART_SIGNUP':'الاشتراكات',
+	'CHART_COMMENT':'الردود',
+	'CHART_ASSIGN':'تعيين',
+	'ACTIVITY_COMMENT':'علق تذكرة',
+	'ACTIVITY_ASSIGN':'التذكرة المخصصة',
+	'ACTIVITY_UN_ASSIGN':'تذكرة غير محددة',
+	'ACTIVITY_CLOSE':'تذكرة مغلقة',
+	'ACTIVITY_CREATE_TICKET':'تذكرة تم إنشاؤها',
+	'ACTIVITY_RE_OPEN':'تذكرة أعيد فتحها',
+	'ACTIVITY_DEPARTMENT_CHANGED':'تغيير قسم التذاكر',
+	'ACTIVITY_PRIORITY_CHANGED':'تغيير أولوية التذكرة',
+	'ACTIVITY_EDIT_COMMENT':'تحرير تعليق تذكرة',
+	'ACTIVITY_EDIT_TITLE':'العنوان المحرر للتذكرة',
+	'ACTIVITY_EDIT_SETTINGS':'تحرير الإعدادات',
+	'ACTIVITY_SIGNUP':'اشترك',
+	'ACTIVITY_INVITE':'مستخدم مدعو',
+	'ACTIVITY_ADD_TOPIC':'أضاف موضوع',
+	'ACTIVITY_ADD_ARTICLE':'إضافة مقال',
+	'ACTIVITY_DELETE_TOPIC':'الموضوع المحذوف',
+	'ACTIVITY_DELETE_ARTICLE':'مقال محذوف',
+	'ACTIVITY_EDIT_ARTICLE':'مقال منقح',
+	'ACTIVITY_ADD_STAFF':'إضافة موظفين',
+	'ACTIVITY_ADD_DEPARTMENT':'إضافة قسم',
+	'ACTIVITY_DELETE_DEPARTMENT':'قسم محذوف',
+	'ACTIVITY_EDIT_DEPARTMENT':'قسم محرر',
+	'ACTIVITY_ADD_CUSTOM_RESPONSE':'إضافة استجابة مخصصة',
+	'ACTIVITY_DELETE_CUSTOM_RESPONSE':'استجابة مخصصة محذوفة',
+	'ACTIVITY_EDIT_CUSTOM_RESPONSE':'تحرير رد مخصص',
+	'ACTIVITY_BAN_USER':'مستخدم محظور',
+	'ACTIVITY_DELETE_USER':'مستخدم محذوف',
+	'ACTIVITY_UN_BAN_USER':'مستخدم غير محظور',
+	'SERVER_REQUIREMENTS':'متطلبات الخادم',
+	'DATABASE_CONFIGURATION':'تكوين قاعدة البيانات',
+	'ADMIN_SETUP':'إعداد المسؤول',
+	'COMPLETED':'منجز',
+	'INSTALL_HEADER_TITLE':'معالج تثبيت OpenSupports',
+	'INSTALL_HEADER_DESCRIPTION':'سيساعدك هذا المعالج في تكوين OpenSupports وتثبيته على موقع الويب الخاص بك',
+	'SELECT_LANGUAGE':'اختار اللغة',
+	'REQUIREMENT':'المتطلبات',
+	'VALUE':'القيمة',
+	'REFRESH':'تحديث',
+	'USER_SYSTEM':'نظام المستخدم',
+	'PREVIOUS':'السابق',
+	'DATABASE_HOST':'خادم MySQL',
+	'DATABASE_PORT':'منفذ خادم MySQL',
+	'DATABASE_NAME':'اسم قاعدة بيانات MySQL',
+	'DATABASE_USER':'مستخدم MySQL',
+	'DATABASE_PASSWORD':'كلمة مرور MySQL',
+	'ADMIN_NAME':'اسم حساب المسؤول',
+	'ADMIN_EMAIL':'البريد الإلكتروني لحساب المسؤول',
+	'ADMIN_PASSWORD':'كلمة مرور حساب المسؤول',
+	'ADMIN_PASSWORD_DESCRIPTION':'يرجى تذكر كلمة المرور هذه. هناك حاجة للوصول إلى لوحة المشرف. يمكنك تغييره لاحقًا.',
+	'INSTALLATION_COMPLETED':'اكتمل التثبيت.',
+	'INSTALLATION_COMPLETED_DESCRIPTION':'تم الانتهاء من تثبيت OpenSupports. إعادة التوجيه إلى لوحة المشرف ...',
+	'STEP_TITLE':'الخطوة {current} من {total} - {title}',
+	'STEP_1_DESCRIPTION':'حدد لغتك المفضلة لمعالج التثبيت.',
+	'STEP_2_DESCRIPTION':'فيما يلي متطلبات تشغيل OpenSupports. يرجى التأكد من أن جميع المتطلبات ع',
+	'STEP_3_DESCRIPTION':'يرجى ملء تكوين قاعدة بيانات MySQL.',
+	'STEP_4_DESCRIPTION':'يرجى تحديد تفضيلات نظام المستخدم الخاص بك.',
+	'STEP_5_DESCRIPTION':'يرجى ملء تفضيلات النظام العامة الخاصة بك.',
+	'STEP_6_DESCRIPTION':'يرجى تكوين حساب المسؤول.',
+	'STEP_7_DESCRIPTION':'اكتمال التثبيت.',
+	'CREATE_TICKET_DESCRIPTION':'هذا نموذج لإنشاء تذاكر. املأ النموذج وارسل لنا مشاكلك / شكوك / اقتراحاتك. اوو',
+	'TICKET_LIST_DESCRIPTION':'هنا يمكنك العثور على قائمة بجميع التذاكر التي أرسلتها إلى فريق الدعم لدينا.',
+	'TICKETS_DESCRIPTION':'أرسل تذكرة عبر مركز الدعم الخاص بنا واحصل على رد على شكوكك واقتراحاتك ومشكلاتك',
+	'ARTICLES_DESCRIPTION':'ألق نظرة على مقالاتنا حول المشكلات الشائعة والأدلة والوثائق.',
+	'ACCOUNT_DESCRIPTION':'يتم تخزين جميع التذاكر الخاصة بك في ملف تعريف حسابك. تتبع جميع التذاكر التي ترسلها إلى موظفينا',
+	'SUPPORT_CENTER_DESCRIPTION':'مرحبًا بك في مركز الدعم الخاص بنا. يمكنك الاتصال بنا من خلال نظام تذاكر. سوف تذاكر ب',
+	'CUSTOM_RESPONSES_DESCRIPTION':'الاستجابات المخصصة هي استجابات تلقائية للمشكلات الشائعة',
+	'CUSTOM_TAGS_DESCRIPTION':'هنا يمكنك عرض إدارة العلامات المخصصة للتذاكر للتعرف عليها بشكل أفضل',
+	'MY_TICKETS_DESCRIPTION':'هنا يمكنك عرض التذاكر التي أنت مسؤول عنها.',
+	'NEW_TICKETS_DESCRIPTION':'هنا يمكنك عرض جميع التذاكر الجديدة التي لم يتم تعيينها من قبل أي شخص.',
+	'ALL_TICKETS_DESCRIPTION':'هنا يمكنك عرض تذاكر الأقسام التي تم تعيينها لك.',
+	'SEARCH_TICKETS_DESCRIPTION':'هنا يمكنك البحث عن التذاكر عن طريق مرشحات محددة',
+	'TICKET_VIEW_DESCRIPTION':'تم إرسال هذه التذكرة من قبل العملاء. هنا يمكنك الرد أو تعيين التذكرة',
+	'BAN_USERS_DESCRIPTION':'هنا يمكنك رؤية قائمة برسائل البريد الإلكتروني المحظورة ، ويمكنك إلغاء حظرها أو إضافة المزيد من رسائل البريد الإلكتروني إلى القائمة.',
+	'LIST_USERS_DESCRIPTION':'هذه هي قائمة المستخدمين المسجلين في هذا النظام الأساسي. يمكنك البحث عن شخص معين',
+	'USER_VIEW_DESCRIPTION':'هنا يمكنك العثور على جميع المعلومات حول المستخدم وجميع التذاكر التي يرسلها المستخدم. يمكنك أيضا',
+	'DELETE_USER_DESCRIPTION':'لن يتمكن المستخدم من تسجيل الدخول في السن وسيتم مسح جميع تذاكره. أيضا ، لا يمكن للبريد الإلكتروني ب',
+	'DELETE_TOPIC_DESCRIPTION':'عن طريق حذف الموضوع ، سيتم مسح جميع المقالات الموجودة عليه.',
+	'EDIT_TOPIC_DESCRIPTION':'هنا يمكنك تغيير الاسم والرمز ولون الرمز للموضوع.',
+	'ADD_ARTICLE_DESCRIPTION':'هنا يمكنك إضافة مقالة ستكون متاحة لكل مستخدم. ستتم إضافته داخل الفئة',
+	'LIST_ARTICLES_DESCRIPTION':'هذه قائمة بالمقالات التي تتضمن معلومات حول خدماتنا.',
+	'ADD_TOPIC_DESCRIPTION':'هنا يمكنك إضافة موضوع يعمل كفئة للمقالات.',
+	'DELETE_ARTICLE_DESCRIPTION':'ستقوم بحذف هذه المقالة إلى الأبد.',
+	'STAFF_MEMBERS_DESCRIPTION':'هنا يمكنك أن ترى من هم أعضاء فريقك.',
+	'ADD_STAFF_DESCRIPTION':'هنا يمكنك إضافة أعضاء فريقك إلى فرقك.',
+	'EDIT_STAFF_DESCRIPTION':'هنا يمكنك تعديل المعلومات حول أحد الموظفين.',
+	'MY_ACCOUNT_DESCRIPTION':'هنا يمكنك تحرير معلومات عنك.',
+	'DEPARTMENTS_DESCRIPTION':'القسم هو مجموعة حيث يمكن أن تذهب التذاكر. يتم استخدامها لتصنيف التذاكر. يمكنك assig',
+	'MAINTENANCE_MODE_DESCRIPTION':'نظام الدعم في وضع الصيانة ، وبالتالي فهو غير متوفر في الوقت الحالي. سنعود كما سو',
+	'EMAIL_TEMPLATES_DESCRIPTION':'هنا يمكنك تعديل قوالب رسائل البريد الإلكتروني التي سيتم إرسالها إلى المستخدمين. تذكر أن الزوجي',
+	'SYSTEM_PREFERENCES_DESCRIPTION':'هنا يمكنك تعديل تفضيلات النظام.',
+	'VERIFY_SUCCESS_DESCRIPTION':'تم التحقق من المستخدم بشكل صحيح. يمكنك تسجيل الدخول الآن.',
+	'VERIFY_FAILED_DESCRIPTION':'لا يمكن أن يتم التحقق.',
+	'STATISTICS_DESCRIPTION':'هنا يمكنك عرض الإحصائيات المتعلقة بالتذاكر والاشتراكات.',
+	'ADVANCED_SETTINGS_DESCRIPTION':'هنا يمكنك تغيير الإعدادات المتقدمة لنظامك. يرجى توخي الحذر ، التغييرات التي تقوم بها',
+	'MANDATORY_LOGIN_DISABLED':'تم تعطيل تسجيل الدخول الإلزامي',
+	'MANDATORY_LOGIN_ENABLED':'تم تمكين تسجيل الدخول الإلزامي',
+	'REGISTRATION_DISABLED':'تم تعطيل التسجيل',
+	'REGISTRATION_ENABLED':'تم تمكين التسجيل',
+	'ADD_API_KEY_DESCRIPTION':'أدخل الاسم وسيتم إنشاء مفتاح واجهة برمجة تطبيقات تسجيل.',
+	'SIGN_UP_VIEW_DESCRIPTION':'هنا يمكنك إنشاء حساب لمركز الدعم الخاص بنا. مطلوب لإرسال التذاكر وحد ذاتها',
+	'EDIT_PROFILE_VIEW_DESCRIPTION':'هنا يمكنك تعديل تفضيلات المستخدم الخاصة بك.',
+	'ENABLE_USER_SYSTEM_DESCRIPTION':'تمكين / تعطيل استخدام نظام المستخدم. إذا قمت بتعطيله ، سيتم حذف جميع المستخدمين ولكن',
+	'CSV_DESCRIPTION':'يجب أن يحتوي ملف CSV على 3 أعمدة: البريد الإلكتروني وكلمة المرور والاسم. لا يوجد حد في عدد الصفوف. سيتم إنشاؤه في',
+	'SMTP_SERVER_DESCRIPTION':'يسمح تكوين خادم SMTP للتطبيق بإرسال رسائل. إذا لم تقم بتكوينه ، ن',
+	'IMAP_SERVER_DESCRIPTION':'يسمح تكوين خادم IMAP للتطبيق بإنشاء تذاكر من رسائل البريد الإلكتروني المرسلة إلى',
+	'ENABLE_USER_DESCRIPTION':'يسمح هذا الإجراء للمستخدم بتسجيل الدخول وإنشاء التذاكر.',
+	'DISABLE_USER_DESCRIPTION':'سيتم تعطيل المستخدم ولن يتمكن من تسجيل الدخول وإنشاء التذاكر.',
+	'PRIVATE_RESPONSE_DESCRIPTION':'لن يشاهد هذا الرد إلا من قبل الموظفين',
+	'PRIVATE_TOPIC_DESCRIPTION':'سيشاهد هذا الموضوع فقط من قبل الموظفين',
+	'PRIVATE_DEPARTMENT_DESCRIPTION':'سوف يرى هذا القسم فقط من قبل الموظفين',
+	'LOCK_DEPARTMENT_DESCRIPTION':'السماح للمستخدمين بإنشاء تذاكر فقط في القسم الافتراضي',
+	'EMAIL_SETTINGS_DESCRIPTION':'هنا يمكنك تعديل إعدادات استقبال وإرسال البريد الإلكتروني لعملائك.',
+	'IMAP_POLLING_DESCRIPTION':'لن يتم فحص البريد الوارد تلقائيًا بواسطة OpenSupports. يجب عليك تقديم طلب ما بعد',
+	'NEW_CUSTOM_FIELD_DESCRIPTION':'هنا يمكنك إنشاء حقل مخصص لمستخدم ، يمكن أن يكون مربع نص فارغ أو مجموعة ثابتة o',
+	'CUSTOM_FIELDS_DESCRIPTION':'يتم تعريف الحقول المخصصة حقول إضافية يستطيع المستخدمون ملؤها لتقديم المزيد من المعلومات حول',
+	'INVITE_USER_VIEW_DESCRIPTION':'هنا يمكنك دعوة مستخدم للانضمام إلى نظام الدعم الخاص بنا ، سيحتاج فقط إلى تقديم كلمة المرور الخاصة به',
+	'INVITE_STAFF_DESCRIPTION':'هنا يمكنك دعوة أعضاء فريقك إلى فرقك.',
+	'EMAIL_OR_PASSWORD':'البريد الإلكتروني أو كلمة المرور غير صالحة',
+	'EMAIL_NOT_EXIST':'البريد الإلكتروني غير موجود',
+	'ERROR_EMPTY':'قيمة غير صالحة',
+	'ERROR_PASSWORD':'رمز مرور خاطئ',
+	'ERROR_NAME':'اسم غير صالح',
+	'ERROR_TITLE':'العنوان غير صالح',
+	'ERROR_EMAIL':'بريد إلكتروني خاطئ',
+	'ERROR_CONTENT_SHORT':'المحتوى قصير جدًا',
+	'PASSWORD_NOT_MATCH':'كلمة السر غير متطابقة',
+	'INVALID_RECOVER':'استعادة البيانات غير صالحة',
+	'TICKET_SENT_ERROR':'حدث خطأ أثناء محاولة إنشاء التذكرة.',
+	'TICKET_COMMENT_ERROR':'حدث خطأ أثناء محاولة إضافة التعليق.',
+	'NO_PERMISSION':'ليس لديك إذن للوصول إلى هذه الصفحة.',
+	'INVALID_USER':'معرف المستخدم غير صالح',
+	'INVALID_TITLE':'عنوان غير صالح',
+	'INVALID_NAME':'اسم غير صالح',
+	'ERROR_RETRIEVING_TICKETS':'حدث خطأ أثناء محاولة استرداد التذاكر.',
+	'ERROR_RETRIEVING_USERS':'حدث خطأ أثناء محاولة استرداد المستخدمين.',
+	'ERROR_RETRIEVING_BAN_LIST':'حدث خطأ أثناء محاولة استرداد قائمة رسائل البريد الإلكتروني المحظورة.',
+	'ERROR_BANNING_EMAIL':'حدث خطأ أثناء محاولة حظر البريد الإلكتروني.',
+	'ERROR_RETRIEVING_ARTICLES':'حدث خطأ أثناء محاولة استرداد المقالات.',
+	'ERROR_LIST':'حدد واحدًا على الأقل',
+	'ERROR_URL':'URL غير صالح',
+	'UNVERIFIED_EMAIL':'لم يتم التحقق من البريد الإلكتروني حتى الآن',
+	'ERROR_UPDATING_SETTINGS':'حدث خطأ أثناء محاولة تحديث الإعدادات',
+	'INVALID_EMAIL_OR_TICKET_NUMBER':'البريد الإلكتروني أو رقم التذكرة غير صالح',
+	'INVALID_FILE':'ملف غير صالح',
+	'ERRORS_FOUND':'العثور على أخطاء',
+	'ERROR_IMAGE_SIZE':'لا يمكن أن يكون حجم الصورة أكبر من {الحجم} ميغابايت',
+	'USER_DISABLED':'هذا الحساب معطل.',
+	'INVALID_SYNTAX':'بناء جملة غير صالح.',
+	'DEPARTMENT_PRIVATE_TICKETS':'يحتوي هذا القسم على تذاكر تم إنشاؤها من قبل غير الموظفين ولا يمكن أن تكون خاصة',
+	'DEFAULT_DEPARTMENT_CAN_NOT_BE_PRIVATE':'لا يمكن أن يكون القسم الافتراضي خاصًا',
+	'CURRENTLY_UNAVAILABLE':'غير متاح حاليا',
+	'CAN_NOT_DELETE_DEFAULT_DEPARTMENT':'لا يمكن حذف القسم الافتراضي',
+	'INVALID_DEFAULT_DEPARTMENT':'اختيار القسم الافتراضي غير صالح',
+	'SIGNUP_SUCCESS':'لقد سجلت بنجاح في نظام الدعم لدينا.',
+	'INVITE_USER_SUCCESS':'لقد قمت بدعوة مستخدم جديد بنجاح في نظام الدعم الخاص بنا',
+	'TICKET_SENT':'تم إنشاء التذكرة بنجاح.',
+	'VALID_RECOVER':'تم استرداد كلمة المرور بنجاح',
+	'EMAIL_EXISTS':'البريد الالكتروني موجود بالفعل',
+	'ARE_YOU_SURE':'أكد الإجراء',
+	'EMAIL_WILL_CHANGE':'سيتم تغيير البريد الإلكتروني الحالي',
+	'PASSWORD_WILL_CHANGE':'سيتم تغيير كلمة المرور الحالية',
+	'EMAIL_CHANGED':'تم تغيير البريد الإلكتروني بنجاح',
+	'PASSWORD_CHANGED':'تم تغيير كلمة المرور بنجاح',
+	'OLD_PASSWORD_INCORRECT':'كلمة سر قديمة ليست صحيحة',
+	'WILL_LOSE_CHANGES':'لم تقم بحفظ. ستفقد التغييرات الخاصة بك.',
+	'WILL_DELETE_CUSTOM_RESPONSE':'سيتم حذف الاستجابة المخصصة.',
+	'WILL_DELETE_DEPARTMENT':'سيتم حذف القسم. سيتم نقل جميع التذاكر إلى القسم المختار.',
+	'NO_STAFF_ASSIGNED':'لم يتم تعيين أي موظف لهذا القسم.',
+	'NO_DEPARTMENT_ASSIGNED':'لم يتم تعيين قسم تذاكر لك.',
+	'LEVEL_UPDATED':'تم تحديث المستوى بنجاح.',
+	'DEPARTMENTS_UPDATED':'تم تحديث الأقسام بنجاح.',
+	'FAILED_EDIT_STAFF':'حدث خطأ أثناء محاولة تحرير موظف.',
+	'EMAIL_BANNED_SUCCESSFULLY':'تم حظر البريد الإلكتروني بنجاح',
+	'WILL_DELETE_STAFF':'سيتم حذف هذا الموظف ولن يتم تعيين جميع تذاكره.',
+	'WILL_RECOVER_EMAIL_TEMPLATE':'سيتم استرداد قالب البريد الإلكتروني هذا إلى قيمته الافتراضية على هذه اللغة.',
+	'SUCCESS_IMPORTING_CSV_DESCRIPTION':'تم استيراد ملف CSV بنجاح',
+	'SUCCESS_DELETING_ALL_USERS':'تم حذف المستخدمين بنجاح',
+	'SUCCESSFUL_CONNECTION':'اتصال ناجح',
+	'UNSUCCESSFUL_CONNECTION':'اتصال غير ناجح',
+	'SERVER_CREDENTIALS_WORKING':'بيانات اعتماد الخادم تعمل بشكل صحيح',
+	'DELETE_CUSTOM_FIELD_SURE':'قد يستخدم بعض المستخدمين هذا المجال. هل أنت متأكد أنك تريد حذف ذلك؟',
+	'TITLE_EDITED':'(تم تعديل العنوان)',
+	'COMMENT_EDITED':'(تم تعديل التعليق)',
+	'LAST_7_DAYS':'اخر 7 ايام',
+	'LAST_30_DAYS':'آخر 30 يومًا',
+	'LAST_90_DAYS':'آخر 90 يومًا',
+	'LAST_365_DAYS':'365 يومًا الأخيرة',
+	'TEST':'اختبار',
+	'ACTIVITY_COMMENT_THIS':'علق على هذه التذكرة',
+	'ACTIVITY_ASSIGN_THIS':'تم تعيين هذه التذكرة إلى',
+	'ACTIVITY_UN_ASSIGN_THIS':'لم يتم تعيين هذه التذكرة إلى',
+	'ACTIVITY_CLOSE_THIS':'أغلقت هذه التذكرة',
+	'ACTIVITY_CREATE_TICKET_THIS':'أنشأت هذه التذكرة',
+	'ACTIVITY_RE_OPEN_THIS':'أعاد فتح هذه التذكرة',
+	'ACTIVITY_DEPARTMENT_CHANGED_THIS':'قسم غيرت هذه التذكرة إلى',
+	'ACTIVITY_PRIORITY_CHANGED_THIS':'تم تغيير أولوية هذه التذكرة إلى',
+	'DATE_PREFIX':'على',
+	'LEFT_EMPTY_DATABASE':'اتركه فارغًا لإنشاء قاعدة بيانات تلقائية',
+	'DEFAULT_PORT':'اتركه فارغًا لـ 3306 كافتراضي',
+	'REMEMBER_ME':'تذكرنى',
+	'EMAIL_LOWERCASE':'البريد الإلكتروني',
+	'PASSWORD_LOWERCASE':'كلمه السر',
+	'TEST_SMTP_CONNECTION':'اختبار اتصال SMTP',
+	'SERVER_ERROR':'لا يمكن الاتصال بالسيرفر.',
+	'EMAIL_SERVER_ADDRESS':'عنوان خادم البريد الإلكتروني',
+	'EMAIL_SERVER_ADDRESS_DESCRIPTION':'العنوان الذي سيتم استلام الرسائل وإرسالها'
+};
