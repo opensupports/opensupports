@@ -488,7 +488,7 @@ class TicketViewer extends React.Component {
                 ticketNumber: ticket.ticketNumber,
                 departmentId: this.getDepartmentsForTransfer()[index].id
             }
-        }).then((_.some(userDepartments, {id: this.getDepartmentsForTransfer()[index].id}) || (userId === ticket.author.id)) ? this.onTicketModification.bind(this) : history.goBack());
+        }).then((_.some(userDepartments, {id: this.getDepartmentsForTransfer()[index].id}) || (userId === (ticket.author.id*1))) ? this.onTicketModification.bind(this) : history.goBack());
     }
 
     addTag(tag) {
