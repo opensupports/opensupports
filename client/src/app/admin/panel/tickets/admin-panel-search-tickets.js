@@ -19,6 +19,8 @@ import store from 'app/store';
 
 const INITIAL_PAGE = 1;
 const SEARCH_TICKETS_PATH = '/search-tickets';
+const SEARCH_TICKETS_SEARCH = `?dateRange=${searchTicketsUtils.getDefaultDateRangeForFilters()}&page=${INITIAL_PAGE}`;
+const SEARCH_TICKETS_CUSTOM_SEARCH = 'custom=';
 
 function retrieveStaffMembers() {
     store.dispatch(AdminDataActions.retrieveStaffMembers());
@@ -30,6 +32,14 @@ function updateSearchTicketsFromURL() {
     const currentPath = `${currentPathName}${currentSearch}`;
     if(currentPath.includes(SEARCH_TICKETS_PATH)) {
         searchTicketsUtils.getFiltersFromParams().then((listConfig) => {
+            const showFilters = (
+                (currentSearch === SEARCH_TICKETS_SEARCH) ?
+                    false :
+                    currentSearch.includes(SEARCH_TICKETS_CUSTOM_SEARCH) ?
+                        true :
+                        undefined
+            );
+            if(showFilters !== undefined) store.dispatch(searchFiltersActions.changeShowFilters(showFilters));
             store.dispatch(searchFiltersActions.changeFilters(listConfig));
             store.dispatch(searchFiltersActions.retrieveSearchTickets(
                 {

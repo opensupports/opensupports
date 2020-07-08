@@ -138,9 +138,6 @@ class searchFiltersReducer extends Reducer {
     }
 
     onFiltersChange(state, payload) {
-        const newOrderBy = payload.filtersForAPI.orderBy;
-        const defaultOrderBy = this.getListConfig().filters.orderBy;
-
         return _.extend({}, state, {
             listConfig: {
                 title: payload.title ? payload.title : undefined,
@@ -157,7 +154,7 @@ class searchFiltersReducer extends Reducer {
                 loading: true
             },
             formEdited: state.ticketQueryListState.page !== 1,
-            showFilters: (newOrderBy === defaultOrderBy) ? !payload.title : state.showFilters,
+            showFilters: state.showFilters,
             form: payload.hasAllAuthorsInfo ?
                 state.form :
                 searchTicketsUtils.transformToFormValue({...DEFAULT_FILTERS, ...payload.filters})
