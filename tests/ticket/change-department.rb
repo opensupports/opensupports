@@ -103,4 +103,153 @@ describe '/ticket/change-department' do
             staffId: 1
         })
     end
+    it 'should not unassing ticket if owner does have the new ticket department and staff does not have it' do
+        request('/user/logout')
+        Scripts.login($staff[:email], $staff[:password], true)
+
+        result = request('/staff/edit', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            departments: '[1, 2]',
+            staffId: 1
+        })
+        (result['status']).should.equal('success')
+
+        result = request('/staff/invite', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: 'Jon Snow',
+            email: 'jon_snow@opensupports.com',
+            level: 2,
+            profilePic: '',
+            departments: '[1, 3]'
+        })
+
+        (result['status']).should.equal('success')
+
+        Scripts.createTicket('title of the ticket to change department', 'this is the content of the ticket to change department', 1)
+
+        staffId = $database.getRow('staff','jon_snow@opensupports.com','email')['id']
+        ticket = $database.getRow('ticket', 'title of the ticket to change department', 'title')
+
+        (ticket['owner_id']).should.equal(nil)
+
+        result = request('/staff/assign-ticket', {
+            ticketNumber: ticket['ticket_number'],
+            staffId: staffId,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        (result['status']).should.equal('success')
+
+        ticket = $database.getRow('ticket', 'title of the ticket to change department', 'title')
+
+        (ticket['owner_id']).should.equal(staffId)
+
+        result = request('/ticket/change-department', {
+            ticketNumber: ticket['ticket_number'],
+            departmentId: 3,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        (result['status']).should.equal('success')
+
+        ticket = $database.getRow('ticket', 'title of the ticket to change department', 'title')
+
+        (ticket['owner_id']).should.equal(staffId)
+
+        result = request('/staff/un-assign-ticket', {
+            ticketNumber: ticket['ticket_number'],
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        (result['status']).should.equal('success')
+
+        ticket = $database.getRow('ticket', 'title of the ticket to change department', 'title')
+
+        (ticket['owner_id']).should.equal(nil)
+
+        result = request('/ticket/delete', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            ticketNumber: ticket['ticket_number']
+        })
+
+        (result['status']).should.equal('success')
+
+        staff = $database.getRow('staff', 'jon_snow@opensupports.com', 'email')
+        Scripts.deleteStaff(staff['id'])
+    end
+    it 'should unassing ticket if owner does not have the new ticket department' do
+        request('/user/logout')
+        Scripts.login($staff[:email], $staff[:password], true)
+
+        result = request('/staff/edit', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            departments: '[1, 2, 3]',
+            staffId: 1
+        })
+        (result['status']).should.equal('success')
+
+        result = request('/staff/invite', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: 'Oberyn',
+            email: 'Oberyn_martel@opensupports.com',
+            level: 2,
+            profilePic: '',
+            departments: '[1, 2]'
+        })
+
+        (result['status']).should.equal('success')
+
+        Scripts.createTicket('title of the ticket to change department', 'this is the content of the ticket to change department', 1)
+
+        staffId = $database.getRow('staff','Oberyn_martel@opensupports.com','email')['id']
+        ticket = $database.getRow('ticket', 'title of the ticket to change department', 'title')
+
+        (ticket['owner_id']).should.equal(nil)
+
+        result = request('/staff/assign-ticket', {
+            ticketNumber: ticket['ticket_number'],
+            staffId: staffId,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        (result['status']).should.equal('success')
+
+        ticket = $database.getRow('ticket', 'title of the ticket to change department', 'title')
+
+        (ticket['owner_id']).should.equal(staffId)
+
+        result = request('/ticket/change-department', {
+            ticketNumber: ticket['ticket_number'],
+            departmentId: 3,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        (result['status']).should.equal('success')
+
+        ticket = $database.getRow('ticket', 'title of the ticket to change department', 'title')
+
+        (ticket['owner_id']).should.equal(nil)
+
+        result = request('/ticket/delete', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            ticketNumber: ticket['ticket_number']
+        })
+
+        (result['status']).should.equal('success')
+
+        staff = $database.getRow('staff', 'Oberyn_martel@opensupports.com', 'email')
+
+        Scripts.deleteStaff(staff['id'])
+    end
 end

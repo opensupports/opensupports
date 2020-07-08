@@ -61,10 +61,12 @@ class ChangeDepartmentController extends Controller {
         }
 
         if($ticket->owner && !$ticket->owner->sharedDepartmentList->includesId($department->id)) {
-            $unAssignTicketController = new UnAssignStaffController($ticket->owner);
+            $unAssignTicketController = new UnAssignStaffController($user);
             $unAssignTicketController->validate();
             $unAssignTicketController->handler();
         }
+
+        $ticket = Ticket::getByTicketNumber($ticketNumber);
 
         $event = Ticketevent::getEvent(Ticketevent::DEPARTMENT_CHANGED);
         $event->setProperties(array(
