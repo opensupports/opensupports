@@ -157,7 +157,7 @@ class DashboardEditProfilePage extends React.Component {
         this.setState({
             loadingEmail: true
         });
-        API.call({
+        return API.call({
             path: "/user/edit-email",
             data: {
                 newEmail: formState.newEmail
@@ -179,7 +179,7 @@ class DashboardEditProfilePage extends React.Component {
         this.setState({
             loadingPass: true
         });
-        API.call({
+        return API.call({
             path: "/user/edit-password",
             data: {
                 oldPassword: formState.oldPassword,

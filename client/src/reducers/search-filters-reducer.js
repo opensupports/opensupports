@@ -11,7 +11,6 @@ const DEFAULT_START_DATE = 20170101;
 const DEFAULT_FILTERS = {
     query: undefined,
     closed: undefined,
-    priority: undefined,
     departments: '[]',
     owners: '[]',
     tags: '[]',
@@ -30,7 +29,6 @@ class searchFiltersReducer extends Reducer {
             form: {
                 query: '',
                 closed: 0,
-                priority: 0,
                 departments: [],
                 owners: [],
                 tags: [],

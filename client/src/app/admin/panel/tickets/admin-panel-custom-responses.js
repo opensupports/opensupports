@@ -203,7 +203,7 @@ class AdminPanelCustomResponses extends React.Component {
     }
 
     deleteCustomResponse() {
-        API.call({
+        return API.call({
             path: '/ticket/delete-custom-response',
             data: {
                 id: this.props.items[this.state.selectedIndex].id

@@ -122,37 +122,6 @@ class SearchControllerTest extends TestCase {
         );
     }
 
-    public function testPriorityFilter() {
-
-        $this->assertEquals(
-            $this->searchController->getSQLQuery([
-                'tags' => []
-            ]),
-            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) GROUP BY ticket.id'
-        );
-
-        $this->assertEquals(
-            $this->searchController->getSQLQuery([
-                'tags' => [1]
-            ]),
-            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  ( tag_ticket.tag_id  = 1) GROUP BY ticket.id'
-        );
-
-        $this->assertEquals(
-            $this->searchController->getSQLQuery([
-                'tags' => [2,3]
-            ]),
-            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  ( tag_ticket.tag_id  = 2 or tag_ticket.tag_id  = 3) GROUP BY ticket.id'
-        );
-
-        $this->assertEquals(
-            $this->searchController->getSQLQuery([
-                'tags' => [1,2,3]
-            ]),
-            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  ( tag_ticket.tag_id  = 1 or tag_ticket.tag_id  = 2 or tag_ticket.tag_id  = 3) GROUP BY ticket.id'
-        );
-    }
-
     public function testdateRangeFilter() {
         $this->assertEquals(
             $this->searchController->getSQLQuery([
@@ -275,7 +244,7 @@ class SearchControllerTest extends TestCase {
             $this->searchController->getSQLQueryWithOrder([
                 'page' => 1
             ]),
-            "SELECT ticket.id FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) GROUP BY ticket.id ORDER BY ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.priority desc, ticket.date desc, ticket.id desc LIMIT 10 OFFSET 0"
+            "SELECT ticket.id FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) GROUP BY ticket.id ORDER BY ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.date desc, ticket.id desc LIMIT 10 OFFSET 0"
         );
 
         $this->assertEquals(
@@ -283,7 +252,7 @@ class SearchControllerTest extends TestCase {
                 'page' => 1,
                 'query' => 'stark'
             ]),
-            "SELECT ticket.id FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  (ticket.title LIKE :query or ticket.content LIKE :query or ticket.ticket_number LIKE :query or (ticketevent.type = 'COMMENT' and ticketevent.content LIKE :query) ) GROUP BY ticket.id ORDER BY CASE WHEN (ticket.ticket_number LIKE :query) THEN 1 WHEN (ticket.title LIKE :queryAtBeginning) THEN 2 WHEN (ticket.title LIKE :query) THEN 3 WHEN ( ticket.content LIKE :query) THEN 4  WHEN (ticketevent.content LIKE :query) THEN 5 END asc, ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.priority desc, ticket.date desc, ticket.id desc LIMIT 10 OFFSET 0"
+            "SELECT ticket.id FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  (ticket.title LIKE :query or ticket.content LIKE :query or ticket.ticket_number LIKE :query or (ticketevent.type = 'COMMENT' and ticketevent.content LIKE :query) ) GROUP BY ticket.id ORDER BY CASE WHEN (ticket.ticket_number LIKE :query) THEN 1 WHEN (ticket.title LIKE :queryAtBeginning) THEN 2 WHEN (ticket.title LIKE :query) THEN 3 WHEN ( ticket.content LIKE :query) THEN 4  WHEN (ticketevent.content LIKE :query) THEN 5 END asc, ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.date desc, ticket.id desc LIMIT 10 OFFSET 0"
         );
 
         $this->assertEquals(
@@ -291,7 +260,7 @@ class SearchControllerTest extends TestCase {
                 'page' => 1,
                 'orderBy' => ['value' => 'closed', 'asc' => 1]
             ]),
-            "SELECT ticket.id FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) GROUP BY ticket.id ORDER BY ticket.closed asc,ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.priority desc, ticket.date desc, ticket.id desc LIMIT 10 OFFSET 0"
+            "SELECT ticket.id FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) GROUP BY ticket.id ORDER BY ticket.closed asc,ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.date desc, ticket.id desc LIMIT 10 OFFSET 0"
         );
     }
 }

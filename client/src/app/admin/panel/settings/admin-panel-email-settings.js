@@ -442,7 +442,7 @@ class AdminPanelEmailSettings extends React.Component {
     recoverEmailTemplate() {
         const {selectedIndex, language, templates} = this.state;
 
-        API.call({
+        return API.call({
             path: '/system/recover-mail-template',
             data: {
                 template: templates[selectedIndex],
@@ -458,7 +458,7 @@ class AdminPanelEmailSettings extends React.Component {
             loadingForm: true,
         });
 
-        API.call({
+        return API.call({
             path: '/system/get-mail-template',
             data: {template: this.state.templates[index], language}
         }).then((result) => this.setState({

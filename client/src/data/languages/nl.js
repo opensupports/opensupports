@@ -61,7 +61,6 @@ export default {
     'ADVANCED_SETTINGS': 'Geavanceerde Instellingen',
     'EMAIL_TEMPLATES': 'E-mail Templates',
     'FILTERS_CUSTOM_FIELDS': 'Filters en Aangepaste Velden',
-    'PRIORITY': 'Prioriteit',
     'NUMBER': 'Nummer',
     'HIGH': 'Hoog',
     'MEDIUM': 'Midden',
@@ -238,7 +237,6 @@ export default {
     'ACTIVITY_CREATE_TICKET': 'heeft een incident aangemaakt',
     'ACTIVITY_RE_OPEN': 'heeft een incident heropend',
     'ACTIVITY_DEPARTMENT_CHANGED': 'heeft de afdeling van incident veranderd',
-    'ACTIVITY_PRIORITY_CHANGED': 'heeft de prioriteit van incident veranderd',
     'ACTIVITY_EDIT_COMMENT': 'bewerkt een reactie van het biljet',
 
     'ACTIVITY_EDIT_SETTINGS': 'Heeft instellingen aangepast',
@@ -439,7 +437,6 @@ export default {
     'ACTIVITY_CREATE_TICKET_THIS': 'heeft dit incident aangemaakt',
     'ACTIVITY_RE_OPEN_THIS': 'heeft dit incident heropend',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'Verander de afdeling van het incident naar ',
-    'ACTIVITY_PRIORITY_CHANGED_THIS': 'Verander de prioriteit van het incident naar ',
     'DATE_PREFIX': 'Op',
     'LEFT_EMPTY_DATABASE': 'Laat leeg voor automatische database vulling',
     'DEFAULT_PORT': 'Laat leeg voor 3306 als standaard',

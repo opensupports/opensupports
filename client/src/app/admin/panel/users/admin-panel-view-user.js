@@ -145,7 +145,7 @@ class AdminPanelViewUser extends React.Component {
     }
 
     disableUser() {
-        API.call({
+        return API.call({
             path: this.state.disabled ? '/user/enable' : '/user/disable',
             data: {
                 userId: this.props.params.userId
@@ -154,7 +154,7 @@ class AdminPanelViewUser extends React.Component {
     }
 
     deleteUser() {
-        API.call({
+        return API.call({
             path: '/user/delete',
             data: {
                 userId: this.props.params.userId
