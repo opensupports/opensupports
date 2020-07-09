@@ -5,17 +5,18 @@ import {connect}  from 'react-redux';
 import SearchFiltersActions from 'actions/search-filters-actions';
 
 import i18n from 'lib-app/i18n';
-
 import API from 'lib-app/api-call';
-import DateTransformer from 'lib-core/date-transformer';
 import history from 'lib-app/history';
+import searchTicketsUtils from 'lib-app/search-tickets-utils';
+
+import DateTransformer from 'lib-core/date-transformer';
 
 import Form from 'core-components/form';
 import SubmitButton from 'core-components/submit-button';
 import FormField from 'core-components/form-field';
 import Icon from 'core-components/icon';
 import Button from 'core-components/button';
-import searchTicketsUtils from '../lib-app/search-tickets-utils';
+import Loading from 'core-components/loading';
 
 
 const INITIAL_PAGE = 1;
@@ -38,12 +39,14 @@ class TicketQueryFilters extends React.Component {
         const {
             formState,
             filters,
-            showFilters
+            showFilters,
+            ticketQueryListState
         } = this.props;
 
         return (
             <div className={"ticket-query-filters" + (showFilters ? "__open" : "") }>
                 <Form
+                    loading={ticketQueryListState.loading}
                     values={this.getFormValue(formState)}
                     onChange={this.onChangeForm.bind(this)}
                     onSubmit={this.onSubmitListConfig.bind(this)}>
@@ -106,13 +109,16 @@ class TicketQueryFilters extends React.Component {
                         <Button
                             className="ticket-query-filters__container__button ticket-query-filters__container__clear-button"
                             size= "medium"
+                            disabled={ticketQueryListState.loading}
                             onClick={this.clearFormValues.bind(this)}>
-                                {i18n('CLEAR')}
+                                {ticketQueryListState.loading ?
+                                    <Loading />
+                                    : i18n('CLEAR')}
                         </Button>
                         <SubmitButton
+                            className="ticket-query-filters__container__button ticket-query-filters__container__search-button"
                             type="secondary"
-                            size= "medium"
-                            className="ticket-query-filters__container__button ticket-query-filters__container__search-button">
+                            size= "medium">
                                 {i18n('SEARCH')}
                         </SubmitButton>
                     </div>
@@ -393,5 +399,6 @@ export default connect((store) => {
         filters: store.searchFilters.listConfig.filters,
         showFilters: store.searchFilters.showFilters,
         formEdited: store.searchFilters.formEdited,
+        ticketQueryListState: store.searchFilters.ticketQueryListState,
     };
 })(TicketQueryFilters);
