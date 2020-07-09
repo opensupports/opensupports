@@ -35,9 +35,7 @@ function updateSearchTicketsFromURL() {
             const showFilters = (
                 (currentSearch === SEARCH_TICKETS_SEARCH) ?
                     false :
-                    currentSearch.includes(SEARCH_TICKETS_CUSTOM_SEARCH) ?
-                        true :
-                        undefined
+                    queryString.parse(currentSearch).custom
             );
             if(showFilters !== undefined) store.dispatch(searchFiltersActions.changeShowFilters(showFilters));
             store.dispatch(searchFiltersActions.changeFilters(listConfig));
