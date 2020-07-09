@@ -7,14 +7,14 @@
     &__drop-down {
         .drop-down__current-item {
             cursor: text;
-            background-color: white;
+            background-color: $very-light-grey;
             border: 1px solid $grey;
             min-height: 38px;
 
             &:focus-within {
                 outline: none;
                 border-color: $primary-blue;
-                background-color: white;
+                background-color: $very-light-grey;
             }
         }
 
