@@ -64,6 +64,7 @@ class TicketViewer extends React.Component {
         editTitle: false,
         newTitle: this.props.ticket.title,
         editTitleError: false,
+        editStatus: false,
     };
 
     componentDidMount() {
@@ -112,7 +113,7 @@ class TicketViewer extends React.Component {
                 <span className="ticket-viewer__number">#{ticketNumber}</span>
                 <span className="ticket-viewer__title">{title}</span>
                 <span className="ticket-viewer__flag">
-                    <Icon name={(language === 'en') ? 'us' : language}/>
+                    <Icon name={(language === 'en') ? 'us' : language} />
                 </span>
                 {((author.id == userId && author.staff == userStaff) || userStaff) ? this.renderEditTitleOption() : null}
                 {editedTitle ? this.renderEditedTitleText() : null }
@@ -134,6 +135,14 @@ class TicketViewer extends React.Component {
         )
     }
 
+    renderEditStatusOption() {
+        return(
+            <span className="ticket-viewer__edit-icon">
+                <Icon name="pencil" onClick={() => this.setState({editStatus: true})} />
+            </span>
+        )
+    }
+
     renderEditableTitle(){
         return(
             <div className="ticket-viewer__header">
@@ -148,54 +157,79 @@ class TicketViewer extends React.Component {
     }
 
     renderEditableHeaders() {
-        const ticket = this.props.ticket;
+        const { userStaff, ticket } = this.props;
         const departments = this.getDepartmentsForTransfer();
 
         return (
             <div className="ticket-viewer__headers">
                 <div className="ticket-viewer__info">
                     <div className="ticket-viewer__info-container-editable">
-                        <div className="ticket-viewer__info-header">{i18n('DEPARTMENT')}</div>
-                        <div className="ticket-viewer__info-value">
-                            <DepartmentDropdown className="ticket-viewer__editable-dropdown"
-                                departments={departments}
-                                selectedIndex={_.findIndex(departments, {id: this.props.ticket.department.id})}
-                                onChange={this.onDepartmentDropdownChanged.bind(this)} />
+                        <div className="ticket-viewer__info-container-editable__group">
+                            <div className="ticket-viewer__info-header">{i18n('DEPARTMENT')}</div>
+                            <div className="ticket-viewer__info-value">
+                                <DepartmentDropdown className="ticket-viewer__editable-dropdown"
+                                    departments={departments}
+                                    selectedIndex={_.findIndex(departments, {id: this.props.ticket.department.id})}
+                                    onChange={this.onDepartmentDropdownChanged.bind(this)} />
+                            </div>
                         </div>
                     </div>
                     <div className="ticket-viewer__info-container-editable">
-                        <div className="ticket-viewer__info-header">{i18n('TAGS')}</div>
-                        <div className="ticket-viewer__info-value">
-                            <TagSelector
-                                items={this.props.tags}
-                                values={this.props.ticket.tags}
-                                onRemoveClick={this.removeTag.bind(this)}
-                                onTagSelected={this.addTag.bind(this)}
-                                loading={this.state.tagSelectorLoading}/>
+                        <div className="ticket-viewer__info-container-editable__group">
+                            <div className="ticket-viewer__info-header">{i18n('TAGS')}</div>
+                            <div className="ticket-viewer__info-value">
+                                <TagSelector
+                                    items={this.props.tags}
+                                    values={this.props.ticket.tags}
+                                    onRemoveClick={this.removeTag.bind(this)}
+                                    onTagSelected={this.addTag.bind(this)}
+                                    loading={this.state.tagSelectorLoading} />
+                            </div>
                         </div>
                     </div>
                     <div className="ticket-viewer__info-container-editable">
-                        <div className="ticket-viewer__info-header">{i18n('OWNER')}</div>
-                        <div className="ticket-viewer__info-value">
-                            {this.renderAssignStaffList()}
+                        <div className="ticket-viewer__info-container-editable__group">
+                            <div className="ticket-viewer__info-header">{i18n('OWNER')}</div>
+                            <div className="ticket-viewer__info-value">
+                                {this.renderAssignStaffList()}
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className="ticket-viewer__info">
-                <div className="ticket-viewer__info-container-editable">
-                        <div className="ticket-viewer__info-header">{i18n('AUTHOR')}</div>
-                        <div className="ticket-viewer__info-value">{ticket.author.name}</div>
-                    </div>
                     <div className="ticket-viewer__info-container-editable">
-                        <div className="ticket-viewer__info-header">{i18n('STATUS')}</div>
-                            <div className="ticket-viewer__info-value">
-                            {ticket.closed ?
-                            <Button type='secondary' size="extra-small" onClick={this.onReopenClick.bind(this)}>
-                                {i18n('RE_OPEN')}
-                            </Button> : i18n('OPENED')}
+                        <div className="ticket-viewer__info-container-editable__group">
+                            <div className="ticket-viewer__info-header">{i18n('AUTHOR')}</div>
+                            <div className="ticket-viewer__info-value">{ticket.author.name}</div>
                         </div>
                     </div>
+                    <div className="ticket-viewer__info-container-editable">
+                        <div className="ticket-viewer__info-container-editable__group">
+                            <div className="ticket-viewer__info-header">{i18n('STATUS')}</div>
+                            <div className="ticket-viewer__info-value">
+                                {this.state.editStatus ? this.renderEditStatus() : (ticket.closed ? i18n('CLOSED') : i18n('OPENED'))}
+                            </div>
+                        </div>
+                        {userStaff ? this.renderEditStatusOption() : null}
+                    </div>
                 </div>
+            </div>
+        );
+    }
+
+    renderEditStatus() {
+        return  (
+            <div className="ticket-viewer__edit-status__buttons">
+                <Button disabled={this.state.editTitleLoading} type='link' size="medium" onClick={() => this.setState({editStatus: false})}>
+                    {i18n('CANCEL')}
+                </Button>
+                {this.props.ticket.closed ?
+                    <Button disabled={this.state.editTitleLoading} type='secondary' size="medium" onClick={this.onReopenClick.bind(this)}>
+                        {i18n('RE_OPEN')}
+                    </Button> :
+                    <Button disabled={this.state.editTitleLoading} type='secondary' size="medium" onClick={this.onCloseTicketClick.bind(this)}>
+                        {i18n('CLOSE')}
+                    </Button>}
             </div>
         );
     }
@@ -299,12 +333,11 @@ class TicketViewer extends React.Component {
                         </div>
                     </div>
                     <div className="ticket-viewer__response-field row">
-                        <FormField name="content" validation="TEXT_AREA" required field="textarea" fieldProps={{allowImages: this.props.allowAttachments}}/>
-                        {(this.props.allowAttachments) ? <FormField name="file" field="file"/> : null}
+                        <FormField name="content" validation="TEXT_AREA" required field="textarea" fieldProps={{allowImages: this.props.allowAttachments}} />
+                        {(this.props.allowAttachments) ? <FormField name="file" field="file" /> : null}
                         <div className="ticket-viewer__response-buttons">
                             <SubmitButton type="secondary">{i18n('RESPOND_TICKET')}</SubmitButton>
                             <div>
-                                <Button size="medium" onClick={this.onCloseTicketClick.bind(this)}>{i18n('CLOSE_TICKET')}</Button>
                                 {(this.showDeleteButton())? <Button className="ticket-viewer__delete-button" size="medium" onClick={this.onDeleteTicketClick.bind(this)}>{i18n('DELETE_TICKET')}</Button> : null}
                             </div>
                         </div>
@@ -331,7 +364,7 @@ class TicketViewer extends React.Component {
 
             customResponsesNode = (
                 <div className="ticket-viewer__response-custom">
-                    <DropDown items={customResponses} size="medium" onChange={this.onCustomResponsesChanged.bind(this)}/>
+                    <DropDown items={customResponses} size="medium" onChange={this.onCustomResponsesChanged.bind(this)} />
                 </div>
             );
         }
@@ -343,7 +376,7 @@ class TicketViewer extends React.Component {
         if (this.props.userStaff) {
             return (
                 <div className="ticket-viewer__response-private">
-                    <FormField label={i18n('PRIVATE')} name="private" field="checkbox"/>
+                    <FormField label={i18n('PRIVATE')} name="private" field="checkbox" />
                     <InfoTooltip className="ticket-viewer__response-private-info" text={i18n('PRIVATE_RESPONSE_DESCRIPTION')} />
                 </div>
             );
@@ -412,10 +445,18 @@ class TicketViewer extends React.Component {
     }
 
     onReopenClick() {
+        this.setState({
+            editStatus: false
+        });
+
         AreYouSure.openModal(null, this.reopenTicket.bind(this));
     }
 
     onCloseTicketClick(event) {
+        this.setState({
+            editStatus: false
+        });
+
         event.preventDefault();
         AreYouSure.openModal(null, this.closeTicket.bind(this));
     }
