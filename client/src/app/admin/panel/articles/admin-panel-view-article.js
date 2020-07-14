@@ -153,7 +153,7 @@ class AdminPanelViewArticle extends React.Component {
     }
 
     onArticleDeleted(article) {
-        API.call({
+        return API.call({
             path: '/article/delete',
             data: {
                 articleId: article.id

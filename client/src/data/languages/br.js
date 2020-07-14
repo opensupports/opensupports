@@ -61,7 +61,6 @@ export default {
     'ADVANCED_SETTINGS': 'Configurações avançadas',
     'EMAIL_TEMPLATES': 'Modelos de e-mail',
     'FILTERS_CUSTOM_FIELDS': 'Filtros e campos personalizados',
-    'PRIORITY': 'Prioridade',
     'NUMBER': 'Número',
     'HIGH': 'Alto',
     'MEDIUM': 'Médio',
@@ -238,7 +237,6 @@ export default {
     'ACTIVITY_CREATE_TICKET': 'Chamado criado',
     'ACTIVITY_RE_OPEN': 'Chamado reaberto',
     'ACTIVITY_DEPARTMENT_CHANGED': 'Mudou departamento do Chamado',
-    'ACTIVITY_PRIORITY_CHANGED': 'Prioridade alterada do Chamado',
     'ACTIVITY_EDIT_COMMENT': 'editado um comentário de bilhete',
 
     'ACTIVITY_EDIT_SETTINGS': 'Configurações editadas',
@@ -439,7 +437,6 @@ export default {
     'ACTIVITY_CREATE_TICKET_THIS': 'criou este chamado',
     'ACTIVITY_RE_OPEN_THIS': 'reabriu este chamado',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'departamento deste chamado alterado para',
-    'ACTIVITY_PRIORITY_CHANGED_THIS': 'alterou a prioridade deste chamado para',
     'DATE_PREFIX': 'em',
     'LEFT_EMPTY_DATABASE': 'Deixe vazio para criação automática do banco de dados',
     'DEFAULT_PORT': 'Deixar vazio para 3306 como padrão',

@@ -58,7 +58,6 @@ export default {
     'ADVANCED_SETTINGS': 'Ustawienia zaawansowane',
     'EMAIL_TEMPLATES': 'Szablony emaili',
     'FILTERS_CUSTOM_FIELDS': 'Filtry i pola własne',
-    'PRIORITY': 'Priorytet',
     'NUMBER': 'Numer',
     'HIGH': 'Wysoki',
     'MEDIUM': 'Średni',
@@ -230,7 +229,6 @@ export default {
     'ACTIVITY_CREATE_TICKET': 'utworzył zgłoszenie',
     'ACTIVITY_RE_OPEN': 'ponownie otworzył zgłoszenie',
     'ACTIVITY_DEPARTMENT_CHANGED': 'zmienił dział zgłoszenia',
-    'ACTIVITY_PRIORITY_CHANGED': 'zmienił priorytet zgłoszenia',
     'ACTIVITY_EDIT_COMMENT': 'edytowany komentarz biletu',
 
     'ACTIVITY_EDIT_SETTINGS': 'zmienił ustawienia',
@@ -420,7 +418,6 @@ export default {
     'ACTIVITY_CREATE_TICKET_THIS': 'utworzył to zgłoszenie',
     'ACTIVITY_RE_OPEN_THIS': 'otworzył ponownie to zgłoszenie',
     'ACTIVITY_DEPARTMENT_CHANGED_THIS': 'zmienił dział tego zgłoszenia ',
-    'ACTIVITY_PRIORITY_CHANGED_THIS': 'zmienił priorytet tego zgłoszenia na',
     'DATE_PREFIX': 'w dniu',
     'LEFT_EMPTY_DATABASE': 'Pozostaw puste, by utworzyć bazę danych automatycznie',
     'DEFAULT_PORT': 'Pozostaw puste dla 3306 jako domyślny',
