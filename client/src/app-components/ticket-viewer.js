@@ -24,6 +24,7 @@ import InfoTooltip        from 'core-components/info-tooltip';
 import DepartmentDropdown from 'app-components/department-dropdown';
 import TagSelector        from 'core-components/tag-selector';
 import Tag                from 'core-components/tag';
+import Loading from 'core-components/loading';
 
 class TicketViewer extends React.Component {
     static propTypes = {
@@ -64,6 +65,7 @@ class TicketViewer extends React.Component {
         editTitle: false,
         newTitle: this.props.ticket.title,
         editTitleError: false,
+        editTitleLoading: false,
         editStatus: false,
     };
 
@@ -147,11 +149,21 @@ class TicketViewer extends React.Component {
         return(
             <div className="ticket-viewer__header">
                 <div className="ticket-viewer__edit-title-box">
-                    <FormField className="ticket-viewer___input-edit-title" error={this.state.editTitleError}  value={this.state.newTitle} field='input' onChange={(e) => this.setState({newTitle: e.target.value })} />
+                    <FormField
+                        className="ticket-viewer___input-edit-title"
+                        error={this.state.editTitleError}
+                        value={this.state.newTitle}
+                        field='input'
+                        onChange={(e) => this.setState({newTitle: e.target.value})} />
                 </div>
-                <Button type='secondary' size="extra-small" onClick={this.changeTitle.bind(this)}>
-                    {i18n('EDIT_TITLE')}
-                </Button>
+                <div className="ticket-viewer__edit-title__buttons">
+                    <Button disabled={this.state.editTitleLoading} type='primary' size="medium" onClick={() => this.setState({editTitle: false})}>
+                        {this.state.editTitleLoading ? <Loading /> : <Icon name="times" />}
+                    </Button>
+                    <Button disabled={this.state.editTitleLoading} type='secondary' size="medium" onClick={this.changeTitle.bind(this)}>
+                        {this.state.editTitleLoading ? <Loading /> : <Icon name="check" />}
+                    </Button>
+                </div>
             </div>
         )
     }
@@ -167,7 +179,8 @@ class TicketViewer extends React.Component {
                         <div className="ticket-viewer__info-container-editable__group">
                             <div className="ticket-viewer__info-header">{i18n('DEPARTMENT')}</div>
                             <div className="ticket-viewer__info-value">
-                                <DepartmentDropdown className="ticket-viewer__editable-dropdown"
+                                <DepartmentDropdown
+                                    className="ticket-viewer__editable-dropdown"
                                     departments={departments}
                                     selectedIndex={_.findIndex(departments, {id: this.props.ticket.department.id})}
                                     onChange={this.onDepartmentDropdownChanged.bind(this)} />
@@ -467,6 +480,9 @@ class TicketViewer extends React.Component {
     }
 
     changeTitle(){
+        this.setState({
+            editTitleLoading: true
+        });
         API.call({
             path: '/ticket/edit-title',
             data: {
@@ -476,12 +492,14 @@ class TicketViewer extends React.Component {
         }).then(() => {
             this.setState({
                 editTitle: false,
-                editTitleError: false
+                editTitleError: false,
+                editTitleLoading: false
             });
             this.onTicketModification();
         }).catch((result) => {
             this.setState({
-                editTitleError: i18n(result.message)
+                editTitleError: i18n(result.message),
+                editTitleLoading: false
             })
         });
     }
