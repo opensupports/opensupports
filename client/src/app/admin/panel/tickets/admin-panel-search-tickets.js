@@ -20,7 +20,7 @@ import Button from 'core-components/button';
 
 const INITIAL_PAGE = 1;
 const SEARCH_TICKETS_PATH = '/search-tickets';
-const SEARCH_TICKETS_QUERY = `?dateRange=${searchTicketsUtils.getDefaultDateRangeForFilters()}&page=${INITIAL_PAGE}`;
+const SEARCH_TICKETS_INITIAL_QUERY = `?dateRange=${searchTicketsUtils.getDefaultDateRangeForFilters()}&page=${INITIAL_PAGE}&useInitialValues=true`;
 
 function retrieveStaffMembers() {
     store.dispatch(AdminDataActions.retrieveStaffMembers());
@@ -33,15 +33,16 @@ function updateSearchTicketsFromURL() {
 
     if(currentPath.includes(SEARCH_TICKETS_PATH)) {
         searchTicketsUtils.getFiltersFromParams().then((listConfig) => {
-            const showFilters = (currentSearch !== SEARCH_TICKETS_QUERY) && queryString.parse(currentSearch).custom;
+            const currentSearchObject = queryString.parse(currentSearch);
+            const showFilters = (currentSearch !== SEARCH_TICKETS_INITIAL_QUERY) && currentSearchObject.custom;
 
-            if(showFilters !== undefined) store.dispatch(searchFiltersActions.changeShowFilters(showFilters));
+            (showFilters !== undefined) && currentSearchObject.useInitialValues && store.dispatch(searchFiltersActions.changeShowFilters(showFilters));
 
             store.dispatch(searchFiltersActions.changeFilters(listConfig));
             store.dispatch(searchFiltersActions.retrieveSearchTickets(
                 {
                     ...store.getState().searchFilters.ticketQueryListState,
-                    page: (queryString.parse(currentSearch).page || INITIAL_PAGE)*1
+                    page: (currentSearchObject.page || INITIAL_PAGE)*1
                 },
                 searchTicketsUtils.prepareFiltersForAPI(listConfig.filters)
             ));
@@ -90,7 +91,6 @@ class AdminPanelSearchTickets extends React.Component {
     onChangeOrderBy(value) {
         const {
             listConfig,
-            ticketQueryListState,
             dispatch
         } = this.props;
         const orderBy = listConfig.filters.orderBy ? JSON.parse(listConfig.filters.orderBy) : {value: ""};
@@ -103,23 +103,7 @@ class AdminPanelSearchTickets extends React.Component {
         }
         newOrderBy = JSON.stringify({"value": newValue, "asc": newAsc});
 
-        const newListConfig = {
-            ...listConfig,
-            filters: {
-                ...listConfig.filters,
-                orderBy: newOrderBy
-            },
-            hasAllAuthorsInfo: true
-        };
-        const currentPath = window.location.pathname;
-        const urlQuery = searchTicketsUtils.getFiltersForURL(newListConfig.filters);
-
-        if(!newListConfig.title) {
-            (urlQuery && history.push(`${currentPath}${urlQuery}`))
-        } else {
-            dispatch(searchFiltersActions.changeFilters(newListConfig));
-            dispatch(searchFiltersActions.retrieveSearchTickets(ticketQueryListState, newListConfig.filters));
-        }
+        dispatch(searchFiltersActions.changeOrderBy({...listConfig.filters, orderBy: newOrderBy}));
     }
 
     onChangeShowFilters() {

@@ -38,10 +38,8 @@ class TicketQueryList extends React.Component {
         } = this.props;
 
         dispatch(searchFiltersActions.changePage({
-            filters: {
-                ...filters,
-                page: event.target.value
-            }
+            ...filters,
+            page: event.target.value
         }));
     }
 
