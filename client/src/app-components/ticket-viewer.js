@@ -148,7 +148,7 @@ class TicketViewer extends React.Component {
                         onChange={(e) => this.setState({newTitle: e.target.value})} />
                 </div>
                 <div className="ticket-viewer__edit-title__buttons">
-                    <Button disabled={this.state.editTitleLoading} type='primary' size="medium" onClick={() => this.setState({editTitle: false})}>
+                    <Button disabled={this.state.editTitleLoading} type='primary' size="medium" onClick={() => this.setState({editTitle: false, newTitle: this.props.ticket.title})}>
                         {this.state.editTitleLoading ? <Loading /> : <Icon name="times" />}
                     </Button>
                     <Button disabled={this.state.editTitleLoading} type='secondary' size="medium" onClick={this.changeTitle.bind(this)}>
