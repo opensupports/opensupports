@@ -76,7 +76,7 @@ class DeleteDepartmentController extends Controller {
 
     public function transferDepartmentTickets() {
         $tickets = Ticket::find('department_id = ?', [$this->departmentId]);
-        $newDepartment = Department::getDataStore($this->transferDepartmentId);;
+        $newDepartment = Department::getDataStore($this->transferDepartmentId);
 
         foreach($tickets as $ticket) {
             $staffOwner = $ticket->owner;
