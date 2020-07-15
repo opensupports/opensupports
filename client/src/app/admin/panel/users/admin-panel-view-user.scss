@@ -45,6 +45,11 @@
         flex-direction: column;
         align-items:flex-start; 
     }
+
+    &__supervised-users-message {
+        margin-top: 20px
+    }
+    
     &__submit-button {
         margin-top: 20px;
     }
@@ -52,4 +57,5 @@
     &__unverified {
         margin-left: 15px;
     }
+    
 }

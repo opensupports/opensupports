@@ -25,7 +25,8 @@ class AdminPanelViewUser extends React.Component {
         invalid: false,
         loading: true,
         disabled: false,
-        userList: []
+        userList: [],
+        message: ''
     };
 
     componentDidMount() {
@@ -98,8 +99,8 @@ class AdminPanelViewUser extends React.Component {
                         >
                             {i18n('UPDATE')}
                         </Button>
-
                     </div>
+                    {this.renderSupervisedUserMessage()}
                 </div>
                 <span className="separator" />
                 <div className="admin-panel-view-user__tickets">
@@ -109,7 +110,24 @@ class AdminPanelViewUser extends React.Component {
             </div>
         );
     }
-    
+    renderSupervisedUserMessage(){
+        if(this.state.message) {
+            if(this.state.message != 'success'){
+                return(
+                    <div className="admin-panel-view-user__supervised-users-message">
+                            <Message type="error">{i18n(this.state.message)}</Message>
+                    </div>
+                )
+            }else{
+                return(
+                    <div className= "admin-panel-view-user__supervised-users-message">
+                            <Message type="success">{i18n('SUPERVISED_USERS_UPDATED')}</Message>
+                    </div>
+                )
+            }
+        }
+    }
+
     onClickSupervisorUserButton(){
         this.setState({
             loading: true
@@ -126,14 +144,14 @@ class AdminPanelViewUser extends React.Component {
                 userId: this.props.params.userId
             }
         }).then(r => {
-            
             this.setState({
-                loading: false
+                loading: false,
+                message: 'success'
             })
         }).catch((r) => {
-            console.log(r);
             this.setState({
-                loading: false
+                loading: false,
+                message: r.message
             })
         });
     }

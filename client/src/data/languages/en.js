@@ -200,6 +200,7 @@ export default {
     'SUBJECT': 'Subject',
     'SEND_EMAIL_ON_NEW_TICKET': 'Send email on new ticket',
     'STAFF_UPDATED': 'Staff member has been updated',
+    'SUPERVISED_USERS_UPDATED': 'Supervised users updated',
     'UPDATE': 'Update',
     'NEVER': 'Never',
     'HIMSELF': 'himself',
@@ -392,6 +393,7 @@ export default {
     'CURRENTLY_UNAVAILABLE': 'Currently unavailable',
     'CAN_NOT_DELETE_DEFAULT_DEPARTMENT': 'Default department can not be deleted',
     'INVALID_DEFAULT_DEPARTMENT': 'Default department choosen is invalid',
+    'SUPERVISOR_CAN_NOT_SELECT_HIMSELF': 'Supervisor can not select himself',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',
