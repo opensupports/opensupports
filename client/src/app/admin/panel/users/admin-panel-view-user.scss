@@ -34,6 +34,21 @@
         text-align: left;
     }
 
+    &__supervised-users-header {
+        font-size: $font-size--md;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    &__supervised-users-content {
+        display:flex;
+        flex-direction: column;
+        align-items:flex-start; 
+    }
+    &__submit-button {
+        margin-top: 20px;
+    }
+
     &__unverified {
         margin-left: 15px;
     }

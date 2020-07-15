@@ -116,7 +116,8 @@ class SessionReducer extends Reducer {
             userDepartments: userData.departments,
             userTickets: userData.tickets,
             userSendEmailOnNewTicket: userData.sendEmailOnNewTicket * 1,
-            userCustomFields: userData.customfields
+            userCustomFields: userData.customfields,
+            userUsers: userData.users
         });
     }
 
