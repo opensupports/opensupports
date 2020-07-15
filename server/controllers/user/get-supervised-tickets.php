@@ -88,18 +88,18 @@ class GetSupervisedTicketController extends Controller {
     }
 
     public function createAuthorsArray(){
-        $supervisedUserList = array_unique(json_decode(Controller::request('supervised_users')));
+        $supervisedUserList = json_decode(Controller::request('supervised_users'));
         $user = Controller::getLoggedUser();
         $showOwnTickets = Controller::request('showOwnTickets') ? Controller::request('showOwnTickets') : 0;
         $authors = [];
 
         if(!empty($supervisedUserList)){
-            foreach($supervisedUserList as $supervised){ 
+            foreach(array_unique($supervisedUserList) as $supervised){ 
                 array_push($authors,['id'=> $supervised,'isStaff'=> 0]);
             }
         }
 
-        if(!in_array($user->id, $supervisedUserList) && $showOwnTickets){
+        if( !empty($supervisedUserList) && !in_array( $user->id, $supervisedUserList) && $showOwnTickets){
             array_push($authors,['id'=> $user->id*1,'isStaff'=> 0]);
         }
         return $authors;

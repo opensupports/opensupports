@@ -34,7 +34,7 @@ class EditUserListController extends Controller {
             'permission' => 'staff_1',
             'requestData' => [
                 'userIdList' => [
-                    'validation' => DataValidator::ValidUsersId(),
+                    'validation' => DataValidator::validUsersId(),
                     'error' => ERRORS::INVALID_LIST
                 ],
                 'userId' => [

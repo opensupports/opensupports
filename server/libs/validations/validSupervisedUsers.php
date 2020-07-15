@@ -4,7 +4,7 @@ namespace CustomValidations;
 
 use Respect\Validation\Rules\AbstractRule;
 
-class validSupervisedUsers extends AbstractRule {
+class ValidSupervisedUsers extends AbstractRule {
     public function validate($authors) {
     	if(is_array(json_decode($authors))){
 			foreach (json_decode($authors) as $authorItem) {

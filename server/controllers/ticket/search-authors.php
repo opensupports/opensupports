@@ -5,7 +5,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/search-authors search authors of tickets
- * @apiVersion 4.6.1
+ * @apiVersion 4.7
  *
  * @apiName Search authors
  *
@@ -41,6 +41,10 @@ class SearchAuthorsController extends Controller {
                 'blackList' => [
                     'validation' => DataValidator::oneOf(DataValidator::validAuthorsBlackList(),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_BLACK_LIST
+                ],
+                'searchUsers' => [
+                    'validation' => DataValidator::oneOf(DataValidator::in(['0','1']),DataValidator::nullType()),
+                    'error' => ERRORS::INVALID_USER_SEARCH_OPTION
                 ]
             ]
         ];
@@ -48,21 +52,27 @@ class SearchAuthorsController extends Controller {
 
     public function handler() {
         $query = Controller::request('query');
+        $searchUser = Controller::request('searchUsers') ? Controller::request('searchUsers') : 0;
 
-        $authorsQuery =  "SELECT id,name,level FROM staff " . $this->generateAuthorsIdQuery($query) . " LIMIT 10";
-        $authorsMatch = RedBean::getAll($authorsQuery, [':query' => "%" .$query . "%",':queryAtBeginning' => $query . "%"] );
-        $authors = [];
+        if(!$searchUser){
+            $sqlQuery =  "SELECT id,name,level FROM staff " . $this->generateAuthorsIdQuery($query) . " LIMIT 10";
+        }else{
+            $sqlQuery = "SELECT id FROM user " . $this->generateUsersIdQuery($query) . " LIMIT 10";
+        }
         
-        foreach($authorsMatch as $authorMatch) {
-            if($authorMatch['level'] >=1 && $authorMatch['level'] <= 3){
-                $author = Staff::getDataStore($authorMatch['id']*1);
+        $dataStoresMatch = RedBean::getAll($sqlQuery, [':query' => "%" .$query . "%",':queryAtBeginning' => $query . "%"] );
+        
+        $list = [];
+        foreach($dataStoresMatch as $dataStoreMatch) {
+            if(!$searchUser && $dataStoreMatch['level'] >=1 && $dataStoreMatch['level'] <= 3){
+                $dataStore = Staff::getDataStore($dataStoreMatch['id']*1);
             } else {
-                $author = User::getDataStore($authorMatch['id']*1);
+                $dataStore = User::getDataStore($dataStoreMatch['id']*1);
             }
-            array_push($authors, $author->toArray(true));
+            array_push($list, $dataStore->toArray(true));
         }
         Response::respondSuccess([
-            'authors' => $authors
+            (!$searchUser ? 'authors' : 'users') => $list
         ]);
     }
     public function generateAuthorsIdQuery($query) {
@@ -72,7 +82,14 @@ class SearchAuthorsController extends Controller {
             return "WHERE 1=1 ". $this->generateStaffBlackListQuery() . " UNION SELECT id,name,signup_date FROM user WHERE 1=1". $this->generateUserBlackListQuery() ." ORDER BY id";
         } 
     }
-    
+    public function generateUsersIdQuery($query) {
+        if ($query){      
+            return "WHERE name LIKE :query " . $this->generateUserBlackListQuery() . " ORDER BY CASE WHEN (name LIKE :queryAtBeginning) THEN 1 ELSE 2 END ASC ";
+        } else {
+            return "WHERE 1=1 ". $this->generateUserBlackListQuery() ." ORDER BY id";
+        } 
+    }
+
     public function generateStaffBlackListQuery(){
         $StaffBlackList = $this->getBlackListFiltered();
         return $this->generateBlackListQuery($StaffBlackList);
