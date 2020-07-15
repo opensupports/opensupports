@@ -57,7 +57,14 @@ class AdminPanelCustomTags extends React.Component {
     renderTag(tag, index) {
         return (
             <div key={index} className="admin-panel-custom-tags__tag-container" >
-                <Tag color={tag.color} name={tag.name} onEditClick={this.openEditTagModal.bind(this, tag.id, tag.name, tag.color)} onRemoveClick={this.onDeleteClick.bind(this, tag.id)} size='large' showEditButton showDeleteButton />
+                <Tag
+                    color={tag.color}
+                    name={tag.name}
+                    onEditClick={this.openEditTagModal.bind(this, tag.id, tag.name, tag.color)}
+                    onRemoveClick={this.onDeleteClick.bind(this, tag.id)}
+                    size='large'
+                    showEditButton
+                    showDeleteButton />
             </div>
         )
     }
