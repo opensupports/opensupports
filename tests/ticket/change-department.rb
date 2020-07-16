@@ -103,7 +103,7 @@ describe '/ticket/change-department' do
             staffId: 1
         })
     end
-    it 'should not unassing ticket if owner does have the new ticket department and staff does not have it' do
+    it 'should not unassing ticket if owner has the new ticket department and staff does not have it' do
         request('/user/logout')
         Scripts.login($staff[:email], $staff[:password], true)
 
@@ -183,7 +183,7 @@ describe '/ticket/change-department' do
         staff = $database.getRow('staff', 'jon_snow@opensupports.com', 'email')
         Scripts.deleteStaff(staff['id'])
     end
-    it 'should unassing ticket if owner does not have the new ticket department' do
+    it 'should unassing ticket if owner has not the new ticket department' do
         request('/user/logout')
         Scripts.login($staff[:email], $staff[:password], true)
 
