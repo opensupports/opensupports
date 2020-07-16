@@ -213,6 +213,7 @@ export default {
     'ENABLE_USER': 'Enable User',
     'DISABLE_USER': 'Disable User',
     'SHOW_CLOSED_TICKETS': 'Show Closed Tickets',
+    'SHOW_MY_TICKETS': 'Show my tickets',
     'IMAGE_HEADER_URL': 'Image header URL',
     'IMAGE_HEADER_DESCRIPTION': 'Image that will be used as header of the email',
     'EMAIL_SETTINGS': 'Email Settings',
@@ -393,6 +394,7 @@ export default {
     'CURRENTLY_UNAVAILABLE': 'Currently unavailable',
     'CAN_NOT_DELETE_DEFAULT_DEPARTMENT': 'Default department can not be deleted',
     'INVALID_DEFAULT_DEPARTMENT': 'Default department choosen is invalid',
+    'INVALID_SUPERVISED_USERS': 'Invalid supervised users',
     'SUPERVISOR_CAN_NOT_SELECT_HIMSELF': 'Supervisor can not select himself',
 
     //MESSAGES

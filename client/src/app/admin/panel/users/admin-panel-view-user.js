@@ -138,7 +138,7 @@ class AdminPanelViewUser extends React.Component {
         });
         
         API.call({
-            path: '/user/edit-user-list',
+            path: '/user/edit-supervised-list',
             data: {
                 userIdList: JSON.stringify(userIdList),
                 userId: this.props.params.userId
