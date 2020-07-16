@@ -30,6 +30,7 @@ function updateSearchTicketsFromURL() {
     const currentPathName = window.location.pathname;
     const currentSearch = window.location.search;
     const currentPath = `${currentPathName}${currentSearch}`;
+    const previousPathIsSearchTickets = store.getState().searchFilters.previousPathIsSearchTickets;
 
     if(currentPath.includes(SEARCH_TICKETS_PATH)) {
         searchTicketsUtils.getFiltersFromParams().then((listConfig) => {
@@ -47,7 +48,13 @@ function updateSearchTicketsFromURL() {
                 searchTicketsUtils.prepareFiltersForAPI(listConfig.filters)
             ));
         });
-        retrieveStaffMembers();
+
+        if(!previousPathIsSearchTickets) {
+            store.dispatch(searchFiltersActions.changePreviousPathIsSearchTickets(!previousPathIsSearchTickets));
+            retrieveStaffMembers();
+        }
+    } else {
+        previousPathIsSearchTickets && store.dispatch(searchFiltersActions.changePreviousPathIsSearchTickets(!previousPathIsSearchTickets));
     }
 }
 
@@ -122,5 +129,6 @@ export default connect((store) => {
         listConfig: store.searchFilters.listConfig,
         ticketQueryListState: store.searchFilters.ticketQueryListState,
         showFilters: store.searchFilters.showFilters,
+        previousPathIsSearchTickets: store.searchFilters.previousPathIsSearchTickets,
     };
 })(AdminPanelSearchTickets);

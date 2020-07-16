@@ -47,6 +47,12 @@ export default {
             payload: showFilters
         }
     },
+    changePreviousPathIsSearchTickets(previousPathIsSearchTickets) {
+        return {
+            type: 'SEARCH_FILTERS_CHANGE_PREVIOUS_PATH_IS_SEARCH_TICKETS',
+            payload: previousPathIsSearchTickets
+        }
+    },
     changePage(filtersWithPage) {
         const filtersForAPI = searchTicketsUtils.prepareFiltersForAPI(filtersWithPage);
         const currentPath = window.location.pathname;
