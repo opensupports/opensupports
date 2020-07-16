@@ -76,7 +76,6 @@ class User extends DataStore {
             'verified' => !$this->verificationToken,
             'disabled' => $this->disabled,
             'customfields' => $this->xownCustomfieldvalueList->toArray(),
-            //'users' => $this->sharedUserList->toArray(),
             'notRegistered' => $this->notRegistered
         ];
     }

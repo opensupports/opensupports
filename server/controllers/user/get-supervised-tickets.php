@@ -13,7 +13,7 @@ use Respect\Validation\Validator as DataValidator;
 *
 * @apiPermission user
 *
-* @apiParam {Object[]} supervised_users arrays of users Ids. //fijate el objectese
+* @apiParam {id[]} supervisedUsers arrays of users Ids.
 * @apiParam {boolean} showOwnTickets boolean to show or not own tickets.
 * @apiParam {Number} page The number of the page of the tickets.
 *
@@ -35,7 +35,7 @@ class GetSupervisedTicketController extends Controller {
         return [
             'permission' => 'user',
             'requestData' => [
-                'supervised_users' => [
+                'supervisedUsers' => [
                     'validation' => DataValidator::oneOf(DataValidator::validSupervisedUsers(),DataValidator::nullType()),
                     'error' => ERRORS:: INVALID_SUPERVISED_USERS
                 ],
@@ -48,9 +48,13 @@ class GetSupervisedTicketController extends Controller {
     }
     private $authors;
     private $page;
+    private $showOwnTickets;
+    private $supervisedUserList;
+
     public function handler() {
-        
         $this->page = Controller::request('page') ? Controller::request('page') : 1;
+        $this->showOwnTickets = Controller::request('showOwnTickets') ? true : false;
+        $this->supervisedUserList = Controller::request('supervisedUsers')?  json_decode(Controller::request('supervisedUsers')) : []; 
         $this->authors = $this->createAuthorsArray();
         
         if(!$this->shouldUserHandleSupervisedUsers()){
@@ -70,15 +74,19 @@ class GetSupervisedTicketController extends Controller {
 
             return null;
         });
-        $searchresult = $searchController->handler();
+        
+        if(empty($this->authors)) {
+            Response::respondSuccess([]);
+        }else{
+            $searchController->handler();
+        }        
     }
     
     public function  shouldUserHandleSupervisedUsers() {
         $user = Controller::getLoggedUser();
-        $supervisedUserList = json_decode(Controller::request('supervised_users'));
-
-        if(!empty($supervisedUserList)){
-                foreach($supervisedUserList as $supevisedUser) {
+        
+        if(!empty($this->supervisedUserList)){
+                foreach($this->supervisedUserList as $supevisedUser) {
                     if(!$user->sharedUserList->includesId($supevisedUser) && $supevisedUser != $user->id){
                         return false; 
                     }
@@ -88,18 +96,17 @@ class GetSupervisedTicketController extends Controller {
     }
 
     public function createAuthorsArray(){
-        $supervisedUserList = json_decode(Controller::request('supervised_users'));
         $user = Controller::getLoggedUser();
-        $showOwnTickets = Controller::request('showOwnTickets') ? Controller::request('showOwnTickets') : 0;
+        
         $authors = [];
-
-        if(!empty($supervisedUserList)){
-            foreach(array_unique($supervisedUserList) as $supervised){ 
+        
+        if(!empty($this->supervisedUserList)){
+            foreach(array_unique($this->supervisedUserList) as $supervised){ 
                 array_push($authors,['id'=> $supervised,'isStaff'=> 0]);
             }
-        }
-
-        if( !empty($supervisedUserList) && !in_array( $user->id, $supervisedUserList) && $showOwnTickets){
+        };
+        
+        if(!in_array( $user->id, $this->supervisedUserList) && $this->showOwnTickets){
             array_push($authors,['id'=> $user->id*1,'isStaff'=> 0]);
         }
         return $authors;

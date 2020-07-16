@@ -35,7 +35,7 @@ describe '/staff/supervisor-user-list' do
         request('/user/logout')
         Scripts.login('supervisor@opensupports.com', 'passwordOfSupervisor')
         
-        result = request('/user/edit-user-list', {
+        result = request('/user/edit-supervised-list', {
             userIdList: "[30,31,32]",
             userId: supervisor['id'],
             csrf_userid: $csrf_userid,
@@ -51,7 +51,7 @@ describe '/staff/supervisor-user-list' do
         request('/user/logout')
         Scripts.login($staff[:email], $staff[:password], true)
         
-        result = request('/user/edit-user-list', {
+        result = request('/user/edit-supervised-list', {
             userIdList: "1",
             userId: supervisor['id'],
             csrf_userid: $csrf_userid,
@@ -61,7 +61,7 @@ describe '/staff/supervisor-user-list' do
         (result['status']).should.equal('fail')
         (result['message']).should.equal('INVALID_LIST')
 
-        result = request('/user/edit-user-list', {
+        result = request('/user/edit-supervised-list', {
             userIdList: "array",
             userId: supervisor['id'],
             csrf_userid: $csrf_userid,
@@ -71,7 +71,7 @@ describe '/staff/supervisor-user-list' do
         (result['status']).should.equal('fail')
         (result['message']).should.equal('INVALID_LIST')
 
-        result = request('/user/edit-user-list', {
+        result = request('/user/edit-supervised-list', {
             userIdList: "[30,31,32,666666]",
             userId: supervisor['id'],
             csrf_userid: $csrf_userid,
@@ -86,7 +86,7 @@ describe '/staff/supervisor-user-list' do
         request('/user/logout')
         Scripts.login($staff[:email], $staff[:password], true)
         
-        result = request('/user/edit-user-list', {
+        result = request('/user/edit-supervised-list', {
             userIdList: "[30,31,32]",
             userId:  666,
             csrf_userid: $csrf_userid,
@@ -101,7 +101,7 @@ describe '/staff/supervisor-user-list' do
         request('/user/logout')
         Scripts.login($staff[:email], $staff[:password], true)
         
-        result = request('/user/edit-user-list', {
+        result = request('/user/edit-supervised-list', {
             userIdList: "[30,31,29]",
             userId:  supervisor['id'],
             csrf_userid: $csrf_userid,
@@ -116,7 +116,7 @@ describe '/staff/supervisor-user-list' do
         request('/user/logout')
         Scripts.login($staff[:email], $staff[:password], true)
         
-        result = request('/user/edit-user-list', {
+        result = request('/user/edit-supervised-list', {
             userIdList: "[30,31,32]",
             userId:  supervisor['id'],
             csrf_userid: $csrf_userid,
@@ -163,7 +163,7 @@ describe '/staff/supervisor-user-list' do
         request('/user/logout')
         Scripts.login($staff[:email], $staff[:password], true)
         
-        request('/user/edit-user-list', {
+        request('/user/edit-supervised-list', {
             userIdList: "[30]",
             userId:  supervisor['id'],
             csrf_userid: $csrf_userid,

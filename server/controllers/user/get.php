@@ -58,7 +58,7 @@ class GetUserController extends Controller {
             'verified' => !$user->verificationToken,
             'tickets' => $parsedTicketList,
             'customfields' => $user->xownCustomfieldvalueList->toArray(),
-            'users' => $user->sharedUserList->toArray()
+            'users' => $user->sharedUserList->toArray() ? $user->sharedUserList->toArray() : null
         ]);
     }
 }

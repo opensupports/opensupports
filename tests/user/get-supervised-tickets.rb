@@ -15,7 +15,7 @@ describe '/user/get-supervised-tickets' do
         request('/user/logout')
         Scripts.login($staff[:email], $staff[:password], true)
         
-        result = request('/user/edit-user-list', {
+        result = request('/user/edit-supervised-list', {
             userIdList: "[30,32,31]",
             userId:  supervisor['id'],
             csrf_userid: $csrf_userid,
@@ -28,7 +28,7 @@ describe '/user/get-supervised-tickets' do
         Scripts.login('supervisor@opensupports.com', 'passwordOfSupervisor')
         
         result = request('/user/get-supervised-tickets', {
-            supervised_users: "[1000,30]",
+            supervisedUsers: "[1000,30]",
             showOwnTickets: 1,
             page: 1,
             csrf_userid: $csrf_userid,
@@ -39,19 +39,7 @@ describe '/user/get-supervised-tickets' do
         (result['message']).should.equal('INVALID_SUPERVISED_USERS')
         
         result = request('/user/get-supervised-tickets', {
-            supervised_users: "[32,30,1]",
-            showOwnTickets: 1,
-            page: 1,
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token
-        })
-        
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_SUPERVISED_USERS')
-
-        
-        result = request('/user/get-supervised-tickets', {
-            supervised_users: "32",
+            supervisedUsers: "[32,30,1]",
             showOwnTickets: 1,
             page: 1,
             csrf_userid: $csrf_userid,
@@ -61,8 +49,9 @@ describe '/user/get-supervised-tickets' do
         (result['status']).should.equal('fail')
         (result['message']).should.equal('INVALID_SUPERVISED_USERS')
 
+        
         result = request('/user/get-supervised-tickets', {
-            supervised_users: "hello",
+            supervisedUsers: "32",
             showOwnTickets: 1,
             page: 1,
             csrf_userid: $csrf_userid,
@@ -73,7 +62,18 @@ describe '/user/get-supervised-tickets' do
         (result['message']).should.equal('INVALID_SUPERVISED_USERS')
 
         result = request('/user/get-supervised-tickets', {
-            supervised_users: "[{'id' :29 , 'staff' true}]",
+            supervisedUsers: "hello",
+            showOwnTickets: 1,
+            page: 1,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('INVALID_SUPERVISED_USERS')
+
+        result = request('/user/get-supervised-tickets', {
+            supervisedUsers: "[{'id' :29 , 'staff' true}]",
             showOwnTickets: 1,
             page: 1,
             csrf_userid: $csrf_userid,
@@ -86,7 +86,7 @@ describe '/user/get-supervised-tickets' do
     
     it 'should return the tickets of the authors searched' do
         result = request('/user/get-supervised-tickets', {
-            supervised_users: "[30,32,31]",
+            supervisedUsers: "[30,32,31]",
             showOwnTickets: 0,
             page: 1,
             csrf_userid: $csrf_userid,
@@ -101,7 +101,7 @@ describe '/user/get-supervised-tickets' do
     end
     it 'should return the tickets of the authors searched including logged user' do
         result = request('/user/get-supervised-tickets', {
-            supervised_users: "[30,32]",
+            supervisedUsers: "[30,32]",
             showOwnTickets: 1,
             page: 1,
             csrf_userid: $csrf_userid,
@@ -115,7 +115,7 @@ describe '/user/get-supervised-tickets' do
         (result['data']['tickets'][2]['title']).should.equal(ticketsupervisor['title']) 
 
         result = request('/user/get-supervised-tickets', {
-            supervised_users: "[30,32,29]",
+            supervisedUsers: "[30,32,29]",
             page: 1,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
@@ -126,5 +126,60 @@ describe '/user/get-supervised-tickets' do
         (result['data']['tickets'][0]['title']).should.equal(ticketuser3['title']) 
         (result['data']['tickets'][1]['title']).should.equal(ticketuser1['title']) 
         (result['data']['tickets'][2]['title']).should.equal(ticketsupervisor['title']) 
+    end
+    
+    it 'should return empty list if supervised users is empty and show own tickets off' do
+        result = request('/user/get-supervised-tickets', {
+            supervisedUsers: "[]",
+            showOwnTickets: 0,
+            page: 1,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        
+        (result['status']).should.equal('success')
+        (result['data']).should.equal([])  
+    end
+
+    it 'should if supervised Users tryes to handle supervisor-ticket' do
+        request('/user/logout')
+        Scripts.login('usersupervised1@opensupports.com', 'usersupervised1')
+        
+        result = request('/user/get-supervised-tickets', {
+            supervisedUsers: "[29]",
+            page: 1,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('INVALID_SUPERVISED_USERS')  
+
+        request('/user/logout')
+        Scripts.login('usersupervised2@opensupports.com', 'usersupervised2')
+        
+        result = request('/user/get-supervised-tickets', {
+            supervisedUsers: "[29]",
+            page: 1,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('INVALID_SUPERVISED_USERS')  
+
+        request('/user/logout')
+        Scripts.login('usersupervised3@opensupports.com', 'usersupervised3')
+        
+        result = request('/user/get-supervised-tickets', {
+            supervisedUsers: "[29]",
+            page: 1,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('INVALID_SUPERVISED_USERS')  
+
     end
 end

@@ -2,7 +2,7 @@
 use Respect\Validation\Validator as DataValidator;
 
 /**
- * @api {post} /user/edit-user-list Edit user list
+ * @api {post} /user/edit-supervised-list Edit user list
  * @apiVersion 4.7.0
  *
  * @apiName Edit user list
@@ -26,7 +26,7 @@ use Respect\Validation\Validator as DataValidator;
  */
 
 class EditUserListController extends Controller {
-    const PATH = '/edit-user-list';
+    const PATH = '/edit-supervised-list';
     const METHOD = 'POST';
 
     public function validations() {
@@ -49,7 +49,7 @@ class EditUserListController extends Controller {
         $userIdList = $this->getUserIdListCleared();
 
         $superUser = User::getDataStore(Controller::request('userId'));
-        $this->clearSharedUserList();
+        $this->clearsharedUserList();
 
         foreach ($userIdList as $userId) {
             $user = User::getDataStore($userId);
@@ -71,7 +71,7 @@ class EditUserListController extends Controller {
         return $clearedList;
     }
 
-    public function clearSharedUserList() {
+    public function clearsharedUserList() {
         $superUser = User::getDataStore(Controller::request('userId'));
 
         foreach (User::getAll() as $user) {
