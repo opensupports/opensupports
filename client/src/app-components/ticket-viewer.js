@@ -76,6 +76,7 @@ class TicketViewer extends React.Component {
 
     render() {
         const ticket = this.props.ticket;
+
         return (
             <div className="ticket-viewer">
                 {this.state.editTitle ? this.renderEditableTitle() : this.renderTitleHeader()}
@@ -94,8 +95,7 @@ class TicketViewer extends React.Component {
                         file={ticket.file}
                         edit={this.state.edit && this.state.editId == 0}
                         onToggleEdit={this.onToggleEdit.bind(this, 0)}
-                        allowAttachments={this.props.allowAttachments}
-                    />
+                        allowAttachments={this.props.allowAttachments} />
                 </div>
                 <div className="ticket-viewer__comments">
                     {ticket.events && ticket.events.map(this.renderTicketEvent.bind(this))}
@@ -267,8 +267,7 @@ class TicketViewer extends React.Component {
 
     renderAssignStaffList() {
         const items = this.getStaffAssignmentItems();
-        const ownerId = this.props.ticket.owner && this.props.ticket.owner.id;
-
+        const ownerId = this.props.ticket.owner && this.props.ticket.owner.id*1;
         let selectedIndex = _.findIndex(items, {id: ownerId});
         selectedIndex = (selectedIndex !== -1) ? selectedIndex : 0;
 
@@ -662,7 +661,7 @@ class TicketViewer extends React.Component {
                 _.filter(staffMembers, ({id, departments}) => {
                     return (id != userId) && _.some(departments, {id: ticketDepartmentId});
                 }),
-                ({id, name}) => ({content: name, id})
+                ({id, name}) => ({content: name, id: id*1})
             )
         );
 
@@ -675,8 +674,8 @@ class TicketViewer extends React.Component {
 
     showDeleteButton() {
         if(!this.props.ticket.owner) {
-            if(this.props.userLevel == 3) return true;
-            if(this.props.userId == this.props.ticket.author.id) {
+            if(this.props.userLevel === 3) return true;
+            if(this.props.userId == this.props.ticket.author.id*1) {
                 if((this.props.userStaff && this.props.ticket.author.staff) || (!this.props.userStaff && !this.props.ticket.author.staff)){
                     return true;
                 }
