@@ -51,6 +51,8 @@ class GetUserController extends Controller {
             $parsedTicketList[] = $ticket->toArray(true);
         }
 
+        $supervisedRelation = SupervisedRelation::getDataStore($user->supervisedrelation_id);
+        
         Response::respondSuccess([
             'name' => $user->name,
             'email' => $user->email,
@@ -58,7 +60,7 @@ class GetUserController extends Controller {
             'verified' => !$user->verificationToken,
             'tickets' => $parsedTicketList,
             'customfields' => $user->xownCustomfieldvalueList->toArray(),
-            'users' => $user->sharedUserList->toArray() ? $user->sharedUserList->toArray() : null
+            'users' => !$supervisedRelation->isNull() ? $supervisedRelation->sharedUserList->toArray() : null
         ]);
     }
 }

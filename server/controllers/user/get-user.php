@@ -57,7 +57,8 @@ class GetUserByIdController extends Controller {
                 $tickets->add($ticket);
             }
         }
-
+        $supervisedRelation = SupervisedRelation::getDataStore($user->supervisedrelation_id);
+        
         Response::respondSuccess([
             'name' => $user->name,
             'email' => $user->email,
@@ -66,7 +67,7 @@ class GetUserByIdController extends Controller {
             'verified' => !$user->verificationToken,
             'disabled' => !!$user->disabled,
             'customfields' => $user->xownCustomfieldvalueList->toArray(),
-            'userList' => $user->sharedUserList->toArray()
+            'userList' => !$supervisedRelation->isNull() ? $supervisedRelation->sharedUserList->toArray() : []
         ]);
     }
 }

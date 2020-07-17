@@ -140,6 +140,52 @@ describe '/user/get-supervised-tickets' do
         (result['status']).should.equal('success')
         (result['data']).should.equal([])  
     end
+    it 'should works propertly if 2 supervisors has the same users' do
+        request('/user/logout')
+        Scripts.login($staff[:email], $staff[:password], true)
+        Scripts.createUser('supervisor2@opensupports.com', 'usersupervised2', 'supervisor Guy2')
+        supervisor2 = $database.getRow('user', 'supervisor2@opensupports.com', 'email')
+    
+        result = request('/user/edit-supervised-list', {
+            userIdList: "[30,32,31]",
+            userId:  supervisor2['id'],
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        Scripts.login('supervisor@opensupports.com', 'passwordOfSupervisor')
+        result = request('/user/get-supervised-tickets', {
+            supervisedUsers: "[30,32,31]",
+            showOwnTickets: 0,
+            page: 1,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        
+        (result['status']).should.equal('success')
+        (result['data']['tickets'].size).should.equal(3)
+        (result['data']['tickets'][0]['title']).should.equal(ticketuser3['title'])
+        (result['data']['tickets'][1]['title']).should.equal(ticketuser2['title'])
+        (result['data']['tickets'][2]['title']).should.equal(ticketuser1['title'])  
+        Scripts.logout()
+        
+        Scripts.login('supervisor2@opensupports.com', 'usersupervised2')
+        result = request('/user/get-supervised-tickets', {
+            supervisedUsers: "[30,32,31]",
+            showOwnTickets: 0,
+            page: 1,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        
+        (result['status']).should.equal('success')
+        (result['data']['tickets'].size).should.equal(3)
+        (result['data']['tickets'][0]['title']).should.equal(ticketuser3['title'])
+        (result['data']['tickets'][1]['title']).should.equal(ticketuser2['title'])
+        (result['data']['tickets'][2]['title']).should.equal(ticketuser1['title'])  
+        Scripts.logout()
+    
+    end
 
     it 'should if supervised Users tryes to handle supervisor-ticket' do
         request('/user/logout')

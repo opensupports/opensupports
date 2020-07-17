@@ -25,7 +25,7 @@ use Respect\Validation\Validator as DataValidator;
  *
  */
 
-class EditUserListController extends Controller {
+class EditSupervisedListController extends Controller {
     const PATH = '/edit-supervised-list';
     const METHOD = 'POST';
 
@@ -47,19 +47,28 @@ class EditUserListController extends Controller {
 
     public function handler() {
         $userIdList = $this->getUserIdListCleared();
-
         $superUser = User::getDataStore(Controller::request('userId'));
+        $supervisedRelation = SupervisedRelation::getDataStore($superUser->supervisedrelation_id);
+        
         $this->clearsharedUserList();
 
+        if($this->shouldCreateANewSuperRelation($supervisedRelation,$superUser)){
+            $superUser->supervisedrelation = new SupervisedRelation();
+        }
+        
         foreach ($userIdList as $userId) {
             $user = User::getDataStore($userId);
+
+            $superUser->supervisedrelation->sharedUserList->add($user);
             
-            $superUser->sharedUserList->add($user);
-            $superUser->store();
         }
 
+        $superUser->supervisedrelation->store();
+        $superUser->store();
+        
         Response::respondSuccess();
     }
+    
     public function getUserIdListCleared(){
         $clearedList = array_unique(json_decode(Controller::request('userIdList')));
         $superUser = User::getDataStore(Controller::request('userId'));
@@ -70,13 +79,27 @@ class EditUserListController extends Controller {
 
         return $clearedList;
     }
+    public function shouldCreateANewSuperRelation($supervisedRelation,$superUser){
+        
+        if($supervisedRelation->isNull()) return true;
+        if(!$supervisedRelation->id)  return true;  
+        if(!$superUser->supervisedrelation) return true;
+        if($superUser->supervisedrelation_id != $supervisedRelation->id) return true;
+        return false;
+    }
 
     public function clearsharedUserList() {
-        $superUser = User::getDataStore(Controller::request('userId'));
 
-        foreach (User::getAll() as $user) {
-            $superUser->sharedUserList->remove($user);
-            $superUser->store();
+        $superUser = User::getDataStore(Controller::request('userId'));
+        $supervisedRelation = SupervisedRelation::getDataStore($superUser->supervisedrelation_id);
+        
+        if(!$supervisedRelation->isNull()){
+            
+            foreach (User::getAll() as $user) {
+                $supervisedRelation->sharedUserList->remove($user);
+            }
+            
+            $supervisedRelation->store();
         }
     }
 }

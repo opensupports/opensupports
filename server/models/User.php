@@ -34,7 +34,8 @@ class User extends DataStore {
             'disabled',
             'xownCustomfieldvalueList',
             'notRegistered',
-            'sharedUserList'
+            'sharedUserList',
+            'supervisedrelation'
         ];
     }
 
@@ -49,12 +50,15 @@ class User extends DataStore {
     public function canManageTicket(Ticket $ticket){
         $ticketNumberInstanceValidation = true;
         $ticketOfSupervisedUser = false;
+        $supervisedRelation = SupervisedRelation::getDataStore($this->supervisedrelation_id);
 
         if($this->ticketNumber) {
             $ticketNumberInstanceValidation = $this->ticketNumber == $ticket->ticketNumber;
         }
-        foreach( $this->sharedUserList as $user){
-            if($ticket->isAuthor($user)) $ticketOfSupervisedUser = true;
+        if(!$supervisedRelation->isNull()){
+            foreach( $supervisedRelation->sharedUserList as $user){
+                if($ticket->isAuthor($user)) $ticketOfSupervisedUser = true;
+            }
         }
         return (($ticket->isAuthor($this) || $ticketOfSupervisedUser) && $ticketNumberInstanceValidation);
     }
@@ -76,7 +80,8 @@ class User extends DataStore {
             'verified' => !$this->verificationToken,
             'disabled' => $this->disabled,
             'customfields' => $this->xownCustomfieldvalueList->toArray(),
-            'notRegistered' => $this->notRegistered
+            'notRegistered' => $this->notRegistered,
+            'supervisedrelation' => $this->supervisedrelation
         ];
     }
 }
