@@ -23,7 +23,9 @@ class DashboardListTicketsPage extends React.Component {
     };
     
     state = {
-        tickets: this.props.tickets,
+        tickets: [],
+        pages: 1,
+        page: 1,
         form:{
             users: [],
             ownTickets: true
@@ -33,6 +35,7 @@ class DashboardListTicketsPage extends React.Component {
 
     componentDidMount() {
         this.retrieveUserData();
+        this.updateTicketList({users: [], ownTickets: true});
     }
 
     render() {
@@ -40,7 +43,7 @@ class DashboardListTicketsPage extends React.Component {
             <div className="dashboard-ticket-list">
                 <Header title={i18n('TICKET_LIST')} description={i18n('TICKET_LIST_DESCRIPTION')} />
                 {this.props.userUsers ? this.showSupervisorOptions() : null}
-                <TicketList tickets={this.state.tickets} type="primary"/>
+                <TicketList onPageChange={this.onPageChange.bind(this)} page={this.state.page} pages={this.state.pages} tickets={this.state.tickets} type="primary"/>
                 {this.state.message ? <Message type="error" >{i18n(this.state.message)}</Message> : null}
             </div>
         );
@@ -48,7 +51,9 @@ class DashboardListTicketsPage extends React.Component {
     retrieveUserData() {
         this.props.dispatch(SessionActions.getUserData());
     }
-
+    onPageChange(e){
+        this.updateTicketList({...this.state.form, page: e.target.value});
+    }
     showSupervisorOptions(){
         return(
             <Form className="dashboard-ticket-list__supervisor-form" values={this.state.form} onChange={this.onFormChange.bind(this)}>
@@ -78,7 +83,7 @@ class DashboardListTicketsPage extends React.Component {
         });
     }
 
-    updateTicketList(object = []){
+    updateTicketList(object = {}){
         
         let usersIds = object.users.map((item) => {
             return item.id
@@ -87,12 +92,15 @@ class DashboardListTicketsPage extends React.Component {
         API.call({
             path: 'user/get-supervised-tickets',
             data: {
+                page: object.page,
                 showOwnTickets: object.ownTickets*1,
                 supervisedUsers: JSON.stringify(usersIds)
             }
         }).then((r) => {
             this.setState({
                 tickets: r.data.tickets,
+                pages: r.data.pages,
+                page: r.data.page,
                 message: ''
             })
         }).catch((r) => {
@@ -108,7 +116,6 @@ class DashboardListTicketsPage extends React.Component {
 
 export default connect((store) => {
     return {
-        tickets: store.session.userTickets,
         userId: store.session.userId,
         userUsers: store.session.userUsers
     };
