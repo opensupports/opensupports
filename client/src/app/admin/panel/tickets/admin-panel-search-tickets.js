@@ -7,7 +7,6 @@ import i18n from 'lib-app/i18n';
 import history from 'lib-app/history';
 import searchTicketsUtils from 'lib-app/search-tickets-utils';
 
-import AdminDataActions from 'actions/admin-data-actions';
 import searchFiltersActions from 'actions/search-filters-actions';
 
 import TicketQueryList from 'app-components/ticket-query-list';
@@ -22,15 +21,10 @@ const INITIAL_PAGE = 1;
 const SEARCH_TICKETS_PATH = '/search-tickets';
 const SEARCH_TICKETS_INITIAL_QUERY = `?dateRange=${searchTicketsUtils.getDefaultDateRangeForFilters()}&page=${INITIAL_PAGE}&useInitialValues=true`;
 
-function retrieveStaffMembers() {
-    store.dispatch(AdminDataActions.retrieveStaffMembers());
-}
-
 function updateSearchTicketsFromURL() {
     const currentPathName = window.location.pathname;
     const currentSearch = window.location.search;
     const currentPath = `${currentPathName}${currentSearch}`;
-    const previousPathIsSearchTickets = store.getState().searchFilters.previousPathIsSearchTickets;
 
     if(currentPath.includes(SEARCH_TICKETS_PATH)) {
         searchTicketsUtils.getFiltersFromParams().then((listConfig) => {
@@ -49,12 +43,6 @@ function updateSearchTicketsFromURL() {
             ));
         });
 
-        if(!previousPathIsSearchTickets) {
-            store.dispatch(searchFiltersActions.changePreviousPathIsSearchTickets(!previousPathIsSearchTickets));
-            retrieveStaffMembers();
-        }
-    } else {
-        previousPathIsSearchTickets && store.dispatch(searchFiltersActions.changePreviousPathIsSearchTickets(!previousPathIsSearchTickets));
     }
 }
 
@@ -129,6 +117,5 @@ export default connect((store) => {
         listConfig: store.searchFilters.listConfig,
         ticketQueryListState: store.searchFilters.ticketQueryListState,
         showFilters: store.searchFilters.showFilters,
-        previousPathIsSearchTickets: store.searchFilters.previousPathIsSearchTickets,
     };
 })(AdminPanelSearchTickets);

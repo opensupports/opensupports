@@ -43,7 +43,6 @@ class searchFiltersReducer extends Reducer {
                 loading: false
             },
             formEdited: false,
-            previousPathIsSearchTickets: false,
         };
     }
 
@@ -63,7 +62,6 @@ class searchFiltersReducer extends Reducer {
 
             'SEARCH_FILTERS_CHANGE_SHOW_FILTERS': this.onChangeShowFilters,
             'SEARCH_FILTERS_SET_LOADING_IN_TRUE': this.onSetLoadingInTrue,
-            'SEARCH_FILTERS_CHANGE_PREVIOUS_PATH_IS_SEARCH_TICKETS': this.onPreviousPathIsSearchTicketsChange
         };
     }
 
@@ -122,18 +120,6 @@ class searchFiltersReducer extends Reducer {
                         ...state.ticketQueryListState,
                         loading: true
                     }
-                }
-            )
-        )
-    }
-
-    onPreviousPathIsSearchTicketsChange(state, payload) {
-        return (
-            _.extend(
-                {},
-                state,
-                {
-                    previousPathIsSearchTickets: payload
                 }
             )
         )
