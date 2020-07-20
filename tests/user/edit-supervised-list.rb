@@ -109,7 +109,7 @@ describe '/staff/supervisor-user-list' do
         })
         
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('SUPERVISOR_CAN_NOT_SELECT_HIMSELF')
+        (result['message']).should.equal('SUPERVISOR_CAN_NOT_SUPERVISE_HIMSELF')
     end
     
     it'should create supervisor user'do
