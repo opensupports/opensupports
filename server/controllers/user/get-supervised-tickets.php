@@ -14,7 +14,7 @@ use Respect\Validation\Validator as DataValidator;
 * @apiPermission user
 *
 * @apiParam {id[]} supervisedUsers arrays of users Ids.
-* @apiParam {boolean} showOwnTickets boolean to show or not own tickets.
+* @apiParam {boolean} showOwnTickets boolean to show or not current logged user tickets.
 * @apiParam {Number} page The number of the page of the tickets.
 *
 * @apiUse NO_PERMISSION
@@ -36,7 +36,7 @@ class GetSupervisedTicketController extends Controller {
             'permission' => 'user',
             'requestData' => [
                 'supervisedUsers' => [
-                    'validation' => DataValidator::oneOf(DataValidator::validSupervisedUsers(),DataValidator::nullType()),
+                    'validation' => DataValidator::oneOf(DataValidator::validUsersId(),DataValidator::nullType()),
                     'error' => ERRORS:: INVALID_SUPERVISED_USERS
                 ],
                 'page' => [
@@ -53,11 +53,11 @@ class GetSupervisedTicketController extends Controller {
 
     public function handler() {
         $this->page = Controller::request('page') ? Controller::request('page') : 1;
-        $this->showOwnTickets = Controller::request('showOwnTickets') ? true : false;
+        $this->showOwnTickets = (bool)Controller::request('showOwnTickets');
         $this->supervisedUserList = Controller::request('supervisedUsers')?  json_decode(Controller::request('supervisedUsers')) : []; 
         $this->authors = $this->createAuthorsArray();
         
-        if(!$this->shouldUserHandleSupervisedUsers()){
+        if(!$this->canUserHandleSupervisedUsers()){
             throw new Exception(ERRORS::INVALID_SUPERVISED_USERS);
         }
         
@@ -82,18 +82,16 @@ class GetSupervisedTicketController extends Controller {
         }        
     }
     
-    public function  shouldUserHandleSupervisedUsers() {
+    public function  canUserHandleSupervisedUsers() {
         $user = Controller::getLoggedUser();
+        if(!$user->supervisedrelation && $this->supervisedUserList) return false;
         
-        if(!empty($this->supervisedUserList)){
-            
-            if($user->supervisedrelation) return false;
-            
-                foreach($this->supervisedUserList as $supevisedUser) {
-                    if(!$user->supervisedrelation->sharedUserList->includesId($supevisedUser) && $supevisedUser != $user->id){
-                        return false; 
-                    }
-                } 
+        if(!empty($this->supervisedUserList)){    
+            foreach($this->supervisedUserList as $supevisedUser) {
+                if(!$user->supervisedrelation->sharedUserList->includesId($supevisedUser) && $supevisedUser != $user->id){
+                    return false; 
+                }
+            } 
         }
         return true;
     }

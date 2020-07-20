@@ -57,7 +57,6 @@ class GetUserByIdController extends Controller {
                 $tickets->add($ticket);
             }
         }
-        
         Response::respondSuccess([
             'name' => $user->name,
             'email' => $user->email,
@@ -66,7 +65,7 @@ class GetUserByIdController extends Controller {
             'verified' => !$user->verificationToken,
             'disabled' => !!$user->disabled,
             'customfields' => $user->xownCustomfieldvalueList->toArray(),
-            'userList' => $user->supervisedrelation ? $supervisedRelation->sharedUserList->toArray() : []
+            'userList' => $user->supervisedrelation  ? $user->supervisedrelation->sharedUserList->toArray() : []    
         ]);
     }
 }

@@ -49,7 +49,7 @@ DataValidator::with('CustomValidations', true);
 class SearchController extends Controller {
     const PATH = '/search';
     const METHOD = 'POST';
-    private $supervisor;
+    private $ignoreDeparmentFilter;
 
     public function validations() {
         return [
@@ -104,8 +104,8 @@ class SearchController extends Controller {
     }
 
     public function handler() {
-        $this->supervisor = Controller::request('supervisor') ? Controller::request('supervisor') : 0;
-        
+        $this->ignoreDeparmentFilter = (bool)Controller::request('supervisor');
+
         $allowedDepartmentsId = [];
         foreach (Controller::getLoggedUser()->sharedDepartmentList->toArray() as $department) {
             array_push($allowedDepartmentsId,$department['id']);
@@ -182,7 +182,7 @@ class SearchController extends Controller {
         if(array_key_exists('unreadStaff',$inputs)) $this->setSeenFilter($inputs['unreadStaff'], $filters);
         if(array_key_exists('dateRange',$inputs)) $this->setDateFilter($inputs['dateRange'], $filters);
         if(array_key_exists('departments',$inputs) && array_key_exists('allowedDepartments',$inputs) && array_key_exists('staffId',$inputs)){
-            if(!$this->supervisor) $this->setDepartmentFilter($inputs['departments'],$inputs['allowedDepartments'], $inputs['staffId'], $filters);  
+            if(!$this->ignoreDeparmentFilter) $this->setDepartmentFilter($inputs['departments'],$inputs['allowedDepartments'], $inputs['staffId'], $filters);  
         }
         if(array_key_exists('authors',$inputs)) $this->setAuthorFilter($inputs['authors'], $filters);
         if(array_key_exists('owners',$inputs)) $this->setOwnerFilter($inputs['owners'], $filters);

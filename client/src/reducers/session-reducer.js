@@ -106,7 +106,6 @@ class SessionReducer extends Reducer {
     onUserDataRetrieved(state, payload) {
         let userData = payload.data;
         sessionStore.storeUserData(payload.data);
-
         return _.extend({}, state, {
             staff: userData.staff,
             userName: userData.name,

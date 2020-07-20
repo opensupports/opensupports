@@ -72,14 +72,14 @@ class SearchAuthorsController extends Controller {
             array_push($list, $dataStore->toArray(true));
         }
         Response::respondSuccess([
-            (!$searchUser ? 'authors' : 'users') => $list
+            'authors' => $list
         ]);
     }
     public function generateAuthorsIdQuery($query) {
         if ($query){      
-            return "SELECT id, level FROM staff WHERE name LIKE :query " . $this->generateStaffBlackListQuery() . " UNION SELECT id,name FROM user WHERE name LIKE :query " . $this->generateUserBlackListQuery() . " ORDER BY CASE WHEN (name LIKE :queryAtBeginning) THEN 1 ELSE 2 END ASC  LIMIT 10";
+            return "SELECT id,name, level FROM staff WHERE name LIKE :query " . $this->generateStaffBlackListQuery() . " UNION SELECT id,name,signup_date FROM user WHERE name LIKE :query " . $this->generateUserBlackListQuery() . " ORDER BY CASE WHEN (name LIKE :queryAtBeginning) THEN 1 ELSE 2 END ASC  LIMIT 10";
         } else {
-            return "SELECT id, level FROM staff WHERE 1=1 ". $this->generateStaffBlackListQuery() . " UNION SELECT id,name FROM user WHERE 1=1". $this->generateUserBlackListQuery() ." ORDER BY id LIMIT 10";
+            return "SELECT id,name, level FROM staff WHERE 1=1 ". $this->generateStaffBlackListQuery() . " UNION SELECT id,name,signup_date FROM user WHERE 1=1". $this->generateUserBlackListQuery() ." ORDER BY id LIMIT 10";
         } 
     }
     public function generateUsersIdQuery($query) {
