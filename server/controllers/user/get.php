@@ -38,6 +38,7 @@ class GetUserController extends Controller {
     }
 
     public function handler() {
+        
         if (Controller::isStaffLogged()) {
             throw new RequestException(ERRORS::INVALID_CREDENTIALS);
             return;
@@ -50,8 +51,6 @@ class GetUserController extends Controller {
         foreach($ticketList as $ticket) {
             $parsedTicketList[] = $ticket->toArray(true);
         }
-
-        $supervisedRelation = SupervisedRelation::getDataStore($user->supervisedrelation_id);
         
         Response::respondSuccess([
             'name' => $user->name,
@@ -60,7 +59,7 @@ class GetUserController extends Controller {
             'verified' => !$user->verificationToken,
             'tickets' => $parsedTicketList,
             'customfields' => $user->xownCustomfieldvalueList->toArray(),
-            'users' => !$supervisedRelation->isNull() ? $supervisedRelation->sharedUserList->toArray() : null
+            'users' => $user->supervisedrelation ? $user->supervisedrelation->sharedUserList->toArray() : null
         ]);
     }
 }

@@ -50,13 +50,12 @@ class User extends DataStore {
     public function canManageTicket(Ticket $ticket){
         $ticketNumberInstanceValidation = true;
         $ticketOfSupervisedUser = false;
-        $supervisedRelation = SupervisedRelation::getDataStore($this->supervisedrelation_id);
-
+        
         if($this->ticketNumber) {
             $ticketNumberInstanceValidation = $this->ticketNumber == $ticket->ticketNumber;
         }
-        if(!$supervisedRelation->isNull()){
-            foreach( $supervisedRelation->sharedUserList as $user){
+        if($this->supervisedrelation){
+            foreach( $this->supervisedrelation->sharedUserList as $user){
                 if($ticket->isAuthor($user)) $ticketOfSupervisedUser = true;
             }
         }

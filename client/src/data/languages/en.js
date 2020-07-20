@@ -395,7 +395,7 @@ export default {
     'CAN_NOT_DELETE_DEFAULT_DEPARTMENT': 'Default department can not be deleted',
     'INVALID_DEFAULT_DEPARTMENT': 'Default department choosen is invalid',
     'INVALID_SUPERVISED_USERS': 'Invalid supervised users',
-    'SUPERVISOR_CAN_NOT_SELECT_HIMSELF': 'Supervisor can not select himself',
+    'SUPERVISOR_CAN_NOT_SUPERVISE_HIMSELF': 'Supervisor can not supervise himself',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',

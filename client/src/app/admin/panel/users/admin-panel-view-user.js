@@ -170,12 +170,12 @@ class AdminPanelViewUser extends React.Component {
                 searchUsers: 1
             }
         }).then(r => {
-            return r.data.users.map(users => {
+            return r.data.authors.map(author => {
                 return {
-                    name: users.name,
+                    name: author.name,
                     color: "gray",
-                    id: users.id*1,
-                    content: <div>{users.name}</div>,
+                    id: author.id*1,
+                    content: <div>{author.name}</div>,
                     isStaff: false
                 }});
         }).catch((r) => {

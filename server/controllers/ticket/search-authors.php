@@ -55,9 +55,9 @@ class SearchAuthorsController extends Controller {
         $searchUser = Controller::request('searchUsers') ? Controller::request('searchUsers') : 0;
 
         if(!$searchUser){
-            $sqlQuery =  "SELECT id,name,level FROM staff " . $this->generateAuthorsIdQuery($query) . " LIMIT 10";
+            $sqlQuery =  $this->generateAuthorsIdQuery($query);
         }else{
-            $sqlQuery = "SELECT id FROM user " . $this->generateUsersIdQuery($query) . " LIMIT 10";
+            $sqlQuery = $this->generateUsersIdQuery($query);
         }
         
         $dataStoresMatch = RedBean::getAll($sqlQuery, [':query' => "%" .$query . "%",':queryAtBeginning' => $query . "%"] );
@@ -77,16 +77,16 @@ class SearchAuthorsController extends Controller {
     }
     public function generateAuthorsIdQuery($query) {
         if ($query){      
-            return "WHERE name LIKE :query " . $this->generateStaffBlackListQuery() . " UNION SELECT id,name,signup_date FROM user WHERE name LIKE :query " . $this->generateUserBlackListQuery() . " ORDER BY CASE WHEN (name LIKE :queryAtBeginning) THEN 1 ELSE 2 END ASC ";
+            return "SELECT id, level FROM staff WHERE name LIKE :query " . $this->generateStaffBlackListQuery() . " UNION SELECT id,name FROM user WHERE name LIKE :query " . $this->generateUserBlackListQuery() . " ORDER BY CASE WHEN (name LIKE :queryAtBeginning) THEN 1 ELSE 2 END ASC  LIMIT 10";
         } else {
-            return "WHERE 1=1 ". $this->generateStaffBlackListQuery() . " UNION SELECT id,name,signup_date FROM user WHERE 1=1". $this->generateUserBlackListQuery() ." ORDER BY id";
+            return "SELECT id, level FROM staff WHERE 1=1 ". $this->generateStaffBlackListQuery() . " UNION SELECT id,name FROM user WHERE 1=1". $this->generateUserBlackListQuery() ." ORDER BY id LIMIT 10";
         } 
     }
     public function generateUsersIdQuery($query) {
         if ($query){      
-            return "WHERE name LIKE :query " . $this->generateUserBlackListQuery() . " ORDER BY CASE WHEN (name LIKE :queryAtBeginning) THEN 1 ELSE 2 END ASC ";
+            return "SELECT id FROM user WHERE name LIKE :query " . $this->generateUserBlackListQuery() . " ORDER BY CASE WHEN (name LIKE :queryAtBeginning) THEN 1 ELSE 2 END ASC LIMIT 10";
         } else {
-            return "WHERE 1=1 ". $this->generateUserBlackListQuery() ." ORDER BY id";
+            return "SELECT id FROM user WHERE 1=1 ". $this->generateUserBlackListQuery() ." ORDER BY id LIMIT 10";
         } 
     }
 

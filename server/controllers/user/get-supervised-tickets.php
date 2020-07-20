@@ -86,11 +86,11 @@ class GetSupervisedTicketController extends Controller {
         $user = Controller::getLoggedUser();
         
         if(!empty($this->supervisedUserList)){
-            $supervisedRelation = SupervisedRelation::getDataStore($user->supervisedrelation_id);
-            if($supervisedRelation->isNull()) return false;
+            
+            if($user->supervisedrelation) return false;
             
                 foreach($this->supervisedUserList as $supevisedUser) {
-                    if(!$supervisedRelation->sharedUserList->includesId($supevisedUser) && $supevisedUser != $user->id){
+                    if(!$user->supervisedrelation->sharedUserList->includesId($supevisedUser) && $supevisedUser != $user->id){
                         return false; 
                     }
                 } 

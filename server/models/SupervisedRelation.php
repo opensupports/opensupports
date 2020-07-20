@@ -1,5 +1,5 @@
 <?php
-class SupervisedRelation extends DataStore {
+class Supervisedrelation extends DataStore {
     const TABLE = 'supervisedrelation';
 
     public static function getProps() {
