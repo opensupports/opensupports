@@ -19,7 +19,7 @@ use Respect\Validation\Validator as DataValidator;
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_LIST
  * @apiUse INVALID_USER
- * @apiUse SUPERVISOR_CAN_NOT_SELECT_HIMSELF
+ * @apiUse SUPERVISOR_CAN_NOT_SUPERVISE_HIMSELF
  * 
  * @apiSuccess {Object} data Empty object
  *
@@ -48,15 +48,13 @@ class EditSupervisedListController extends Controller {
     public function handler() {
         $userIdList = $this->getUserIdListCleared();
         $superUser = User::getDataStore(Controller::request('userId'));
-        $supervisedRelation = SupervisedRelation::getDataStore($superUser->supervisedrelation_id);
         
-        $this->clearsharedUserList();
-
-        if($this->shouldCreateANewSuperRelation($supervisedRelation,$superUser)){
-            $superUser->supervisedrelation = new SupervisedRelation();
+        if(!$superUser->supervisedrelation) {
+            $superUser->supervisedrelation = new Supervisedrelation();
         }
-        
-        foreach ($userIdList as $userId) {
+
+        $superUser->supervisedrelation->sharedUserList->clear();
+        foreach($userIdList as $userId) {
             $user = User::getDataStore($userId);
 
             $superUser->supervisedrelation->sharedUserList->add($user);
@@ -74,32 +72,10 @@ class EditSupervisedListController extends Controller {
         $superUser = User::getDataStore(Controller::request('userId'));
 
         foreach ($clearedList as $item) {
-            if($item == $superUser->id) throw new Exception(ERRORS::SUPERVISOR_CAN_NOT_SELECT_HIMSELF);
+            if($item == $superUser->id) throw new Exception(ERRORS::SUPERVISOR_CAN_NOT_SUPERVISE_HIMSELF);
         }
 
         return $clearedList;
     }
-    public function shouldCreateANewSuperRelation($supervisedRelation,$superUser){
-        
-        if($supervisedRelation->isNull()) return true;
-        if(!$supervisedRelation->id)  return true;  
-        if(!$superUser->supervisedrelation) return true;
-        if($superUser->supervisedrelation_id != $supervisedRelation->id) return true;
-        return false;
-    }
 
-    public function clearsharedUserList() {
-
-        $superUser = User::getDataStore(Controller::request('userId'));
-        $supervisedRelation = SupervisedRelation::getDataStore($superUser->supervisedrelation_id);
-        
-        if(!$supervisedRelation->isNull()){
-            
-            foreach (User::getAll() as $user) {
-                $supervisedRelation->sharedUserList->remove($user);
-            }
-            
-            $supervisedRelation->store();
-        }
-    }
 }
