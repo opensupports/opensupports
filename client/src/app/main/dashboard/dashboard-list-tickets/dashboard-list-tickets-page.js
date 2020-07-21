@@ -88,7 +88,7 @@ class DashboardListTicketsPage extends React.Component {
         let usersIds = users.map((item) => {
             return item.id
         })
-        this.setState({loading:true})
+        this.setState({loading: true})
         API.call({
             path: 'user/get-supervised-tickets',
             data: {
@@ -102,13 +102,13 @@ class DashboardListTicketsPage extends React.Component {
                 pages: r.data.pages,
                 page: r.data.page,
                 message: '',
-                loading:false
+                loading: false
             })
         }).catch((r) => {
             this.setState({
                 tickets: [],
                 message: r.message,
-                loading:false
+                loading: false
             })
         });
         
