@@ -4,7 +4,6 @@ import queryString from 'query-string';
 import store from 'app/store';
 
 import i18n from 'lib-app/i18n';
-import history from 'lib-app/history';
 import searchTicketsUtils from 'lib-app/search-tickets-utils';
 
 import searchFiltersActions from 'actions/search-filters-actions';
@@ -21,7 +20,7 @@ const INITIAL_PAGE = 1;
 const SEARCH_TICKETS_PATH = '/search-tickets';
 const SEARCH_TICKETS_INITIAL_QUERY = `?dateRange=${searchTicketsUtils.getDefaultDateRangeForFilters()}&page=${INITIAL_PAGE}&useInitialValues=true`;
 
-function updateSearchTicketsFromURL() {
+export function updateSearchTicketsFromURL() {
     const currentPathName = window.location.pathname;
     const currentSearch = window.location.search;
     const currentPath = `${currentPathName}${currentSearch}`;
@@ -45,11 +44,6 @@ function updateSearchTicketsFromURL() {
 
     }
 }
-
-history.listen(() => {
-    store.dispatch(searchFiltersActions.setLoadingInTrue());
-    updateSearchTicketsFromURL();
-});
 
 updateSearchTicketsFromURL();
 
