@@ -393,7 +393,7 @@ class TicketViewer extends React.Component {
     }
 
     onDepartmentDropdownChanged(event) {
-        AreYouSure.openModal(null, this.changeDepartment.bind(this, event.index));
+        AreYouSure.openModal(null, this.changeDepartment.bind(this, this.getDepartmentsForTransfer()[event.index].id));
     }
 
     onAssignmentChange(event) {
@@ -492,14 +492,20 @@ class TicketViewer extends React.Component {
         });
     }
 
-    changeDepartment(index) {
+    changeDepartment(departmentId) {
+        const {
+            userId,
+            userDepartments,
+            ticket
+        } = this.props;
+
         return API.call({
             path: '/ticket/change-department',
             data: {
-                ticketNumber: this.props.ticket.ticketNumber,
-                departmentId: this.getDepartmentsForTransfer()[index].id
+                ticketNumber: ticket.ticketNumber,
+                departmentId
             }
-        }).then(this.onTicketModification.bind(this));
+        }).then((_.some(userDepartments, {id: departmentId}) || (userId === (ticket.author.id*1))) ? this.onTicketModification.bind(this) : history.goBack());
     }
 
     addTag(tag) {
