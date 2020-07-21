@@ -1,0 +1,12 @@
+.dashboard-ticket-list {
+
+    &__supervisor-form {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        &-checkbox {
+            margin-left: 20px;
+        }
+    }
+}

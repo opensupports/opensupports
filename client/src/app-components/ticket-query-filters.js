@@ -92,7 +92,7 @@ class TicketQueryFilters extends React.Component {
                                 }} />
                         </div>
                         <div className="ticket-query-filters__group__container">
-                            <span className="ticket-query-filters__title">Authors</span>
+                            <span className="ticket-query-filters__title">{i18n('AUTHORS')}</span>
                             <FormField
                                 name="authors"
                                 field="autocomplete"

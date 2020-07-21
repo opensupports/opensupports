@@ -55,7 +55,7 @@ class UnAssignStaffController extends Controller {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
-        if($owner && ($ticket->isOwner($user) || $user->level > 2)) {
+        if($owner) {
             if(!$ticket->isAuthor($owner)) {
                 $owner->sharedTicketList->remove($ticket);
                 $owner->store();
