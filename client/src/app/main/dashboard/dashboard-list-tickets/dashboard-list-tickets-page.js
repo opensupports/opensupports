@@ -89,7 +89,7 @@ class DashboardListTicketsPage extends React.Component {
         })
 
         API.call({
-            path: 'user/get-supervised-tickets',
+            path: '/user/get-supervised-tickets',
             data: {
                 page,
                 showOwnTickets: ownTickets*1,
