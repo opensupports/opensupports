@@ -44,7 +44,7 @@ class DashboardListTicketsPage extends React.Component {
             <div className="dashboard-ticket-list">
                 <Header title={i18n('TICKET_LIST')} description={i18n('TICKET_LIST_DESCRIPTION')} />
                 {this.props.userUsers.length ? this.showSupervisorOptions() : null}
-                <TicketList loading={this.state.loading}onPageChange={this.onPageChange.bind(this)} page={this.state.page} pages={this.state.pages} tickets={this.state.tickets} type="primary"/>
+                <TicketList loading={this.state.loading} onPageChange={this.onPageChange.bind(this)} page={this.state.page} pages={this.state.pages} tickets={this.state.tickets} type="primary"/>
                 {this.state.message ? <Message type="error" >{i18n(this.state.message)}</Message> : null}
             </div>
         );
