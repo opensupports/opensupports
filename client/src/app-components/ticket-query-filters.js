@@ -53,28 +53,28 @@ class TicketQueryFilters extends React.Component {
                     <div className="ticket-query-filters__search-box">
                         <FormField name="query" field="search-box" fieldProps={{onSearch: this.onSubmitListConfig.bind(this)}} />
                     </div>
-                    <div className="ticket-query-filters__group">
-                        <div className="ticket-query-filters__group__container">
+                    <div className="ticket-query-filters__row">
+                        <div className="ticket-query-filters__row__filter">
                             <span>{i18n('DATE')}</span>
                             <FormField
                                 name="dateRange"
                                 field="date-range"
                                 fieldProps={{defaultValue: this.dateRangeToFormValue(filters.dateRange)}} />
                         </div>
-                        <div className="ticket-query-filters__group__container">
+                        <div className="ticket-query-filters__row__filter">
                             <span>{i18n('STATUS')}</span>
                             <FormField name="closed" field="select" fieldProps={{items: this.getStatusItems()}} />
                         </div>
                     </div>
-                    <div className="ticket-query-filters__group">
-                        <div className="ticket-query-filters__group__container">
+                    <div className="ticket-query-filters__row">
+                        <div className="ticket-query-filters__row__filter">
                             <span className="ticket-query-filters__title">{i18n('DEPARTMENTS')}</span>
                             <FormField
                                 name="departments"
                                 field="autocomplete"
                                 fieldProps={{items: this.getDepartmentsItems()}} />
                         </div>
-                        <div className="ticket-query-filters__group__container">
+                        <div className="ticket-query-filters__row__filter">
                             <span className="ticket-query-filters__title">{i18n('OWNER')}</span>
                             <FormField
                                 name="owners"
@@ -82,8 +82,8 @@ class TicketQueryFilters extends React.Component {
                                 fieldProps={{items: this.getStaffList()}} />
                         </div>
                     </div>
-                    <div className="ticket-query-filters__group">
-                        <div className="ticket-query-filters__group__container">
+                    <div className="ticket-query-filters__row">
+                        <div className="ticket-query-filters__row__filter">
                             <span className="ticket-query-filters__title">{i18n('TAGS')}</span>
                             <FormField
                                 name="tags"
@@ -94,7 +94,7 @@ class TicketQueryFilters extends React.Component {
                                     onTagSelected: this.addTag.bind(this)
                                 }} />
                         </div>
-                        <div className="ticket-query-filters__group__container">
+                        <div className="ticket-query-filters__row__filter">
                             <span className="ticket-query-filters__title">{i18n('AUTHORS')}</span>
                             <FormField
                                 name="authors"
