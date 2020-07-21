@@ -14,6 +14,7 @@
  * @apiParam {Boolean}  unread Indicates if the user has already read the last comment.
  * @apiParam {Boolean}  unreadStaff Indicates if the staff has already read the last comment.
  * @apiParam {Boolean}  closed Indicates if the ticket is closed.
+ * @apiParam {String}  priority The priority of the ticket. It can be LOW, MEDIUM or HIGH.
  * @apiParam {Object}  author The author of the ticket.
  * @apiParam {Number}  author.id The id of the author of the ticket.
  * @apiParam {String}  author.name The author's name of the ticket.
@@ -40,6 +41,7 @@ class Ticket extends DataStore {
             'date',
             'unread',
             'closed',
+            'priority',
             'author',
             'authorStaff',
             'owner',
@@ -88,6 +90,7 @@ class Ticket extends DataStore {
 
     public function getDefaultProps() {
         return array(
+            'priority' => 'low',
             'unread' => false,
             'unreadStaff' => true,
             'ticketNumber' => $this->generateUniqueTicketNumber()
@@ -133,6 +136,7 @@ class Ticket extends DataStore {
             'unread' => !!$this->unread,
             'unreadStaff' => !!$this->unreadStaff,
             'closed' => !!$this->closed,
+            'priority' => $this->priority,
             'author' => $this->authorToArray(),
             'owner' => $this->ownerToArray(),
             'events' => $minimized ? [] : $this->eventsToArray(),

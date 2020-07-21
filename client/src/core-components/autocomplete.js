@@ -159,7 +159,6 @@ class Autocomplete extends React.Component {
         if(this.getDropdownList().length) {
             const selectedItem = this.getDropdownList()[e.index];
             const newList = [...this.getSelectedItems(), selectedItem];
-
             this.setState({
                 selectedItems: newList,
                 inputValue: "",
