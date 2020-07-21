@@ -192,7 +192,7 @@ class searchFiltersReducer extends Reducer {
     }
 
     onChangeShowFilters(state, payload) {
-        return _.extend({}, state, {showFilters: !payload});
+        return _.extend({}, state, {showFilters: payload});
     }
 
     onSetDefaultFormValues(state) {
