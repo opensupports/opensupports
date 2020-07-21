@@ -99,14 +99,19 @@ export default {
     getDefaultDateRangeForFilters() {
         return JSON.stringify(DateTransformer.formDateRangeToFilters([20170101, DateTransformer.getDateToday()]));
     },
-    getFiltersForURL(filters, shouldRemoveCustomParam = false, shouldRemoveUseInitialValuesParam = false) {
+    getFiltersForURL(filtersWithShouldRemoveParams) {
+        const shouldRemoveCustomParam = filtersWithShouldRemoveParams.shouldRemoveCustomParam ? filtersWithShouldRemoveParams.shouldRemoveCustomParam : false;
+        const shouldRemoveUseInitialValuesParam = filtersWithShouldRemoveParams.shouldRemoveUseInitialValuesParam ? filtersWithShouldRemoveParams.shouldRemoveUseInitialValuesParam : false;
+        let filters = filtersWithShouldRemoveParams.filters;
+
         filters = {
             ...queryString.parse(window.location.search),
             ...filters,
         };
 
-        shouldRemoveCustomParam && delete filters.custom;
-        shouldRemoveUseInitialValuesParam && delete filters.useInitialValues;
+        if(shouldRemoveCustomParam) delete filters.custom;
+        if(shouldRemoveUseInitialValuesParam) delete filters.useInitialValues;
+
         filters = (filters.custom !== undefined) ? {custom: filters.custom, orderBy: filters.orderBy, page: (filters.page !== undefined) ? filters.page : undefined} : filters;
 
         const query = Object.keys(filters).reduce(function (query, filter) {

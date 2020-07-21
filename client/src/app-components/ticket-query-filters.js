@@ -322,7 +322,11 @@ class TicketQueryFilters extends React.Component {
         if(formEdited) {
             const filtersForAPI = searchTicketsUtils.prepareFiltersForAPI(listConfigWithCompleteAuthorsList.filters);
             const currentPath = window.location.pathname;
-            const urlQuery = searchTicketsUtils.getFiltersForURL(filtersForAPI, true, true);
+            const urlQuery = searchTicketsUtils.getFiltersForURL({
+                filters: filtersForAPI,
+                shouldRemoveCustomParam: true,
+                shouldRemoveUseInitialValuesParam: true
+            });
             urlQuery && history.push(`${currentPath}${urlQuery}`);
         }
     }

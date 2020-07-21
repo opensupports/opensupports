@@ -50,7 +50,11 @@ export default {
     changePage(filtersWithPage) {
         const filtersForAPI = searchTicketsUtils.prepareFiltersForAPI(filtersWithPage);
         const currentPath = window.location.pathname;
-        const urlQuery = searchTicketsUtils.getFiltersForURL(filtersForAPI, false, true);
+        const urlQuery = searchTicketsUtils.getFiltersForURL({
+            filters: filtersForAPI,
+            shouldRemoveCustomParam: false,
+            shouldRemoveUseInitialValuesParam: true
+        });
         urlQuery && history.push(`${currentPath}${urlQuery}`);
 
         return {
@@ -61,7 +65,11 @@ export default {
     changeOrderBy(filtersWithOrderBy) {
         const filtersForAPI = searchTicketsUtils.prepareFiltersForAPI(filtersWithOrderBy);
         const currentPath = window.location.pathname;
-        const urlQuery = searchTicketsUtils.getFiltersForURL(filtersForAPI, false, true);
+        const urlQuery = searchTicketsUtils.getFiltersForURL({
+            filters: filtersForAPI,
+            shouldRemoveCustomParam: false,
+            shouldRemoveUseInitialValuesParam: true
+        });
         urlQuery && history.push(`${currentPath}${urlQuery}`);
 
         return {
