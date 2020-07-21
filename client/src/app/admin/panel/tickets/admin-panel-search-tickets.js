@@ -27,16 +27,16 @@ export function updateSearchTicketsFromURL() {
 
     if(currentPath.includes(SEARCH_TICKETS_PATH)) {
         searchTicketsUtils.getFiltersFromParams().then((listConfig) => {
-            const currentSearchObject = queryString.parse(currentSearch);
-            const showFilters = (currentSearch !== SEARCH_TICKETS_INITIAL_QUERY) && currentSearchObject.custom;
+            const currentSearchParams = queryString.parse(currentSearch);
+            const showFilters = (currentSearch !== SEARCH_TICKETS_INITIAL_QUERY) && currentSearchParams.custom;
 
-            (showFilters !== undefined) && currentSearchObject.useInitialValues && store.dispatch(searchFiltersActions.changeShowFilters(showFilters));
+            (showFilters !== undefined) && currentSearchParams.useInitialValues && store.dispatch(searchFiltersActions.changeShowFilters(showFilters));
 
             store.dispatch(searchFiltersActions.changeFilters(listConfig));
             store.dispatch(searchFiltersActions.retrieveSearchTickets(
                 {
                     ...store.getState().searchFilters.ticketQueryListState,
-                    page: (currentSearchObject.page || INITIAL_PAGE)*1
+                    page: (currentSearchParams.page || INITIAL_PAGE)*1
                 },
                 searchTicketsUtils.prepareFiltersForAPI(listConfig.filters)
             ));
