@@ -112,7 +112,13 @@ export default {
         if(shouldRemoveCustomParam) delete filters.custom;
         if(shouldRemoveUseInitialValuesParam) delete filters.useInitialValues;
 
-        filters = (filters.custom !== undefined) ? {custom: filters.custom, orderBy: filters.orderBy, page: (filters.page !== undefined) ? filters.page : undefined} : filters;
+        filters = (filters.custom !== undefined) ?
+            {
+                custom: filters.custom,
+                orderBy: filters.orderBy,
+                page: (filters.page !== undefined) ? filters.page : undefined
+            } :
+            filters;
 
         const query = Object.keys(filters).reduce(function (query, filter) {
             const value = filters[filter];
