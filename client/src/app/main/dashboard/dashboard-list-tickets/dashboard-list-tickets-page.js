@@ -30,7 +30,8 @@ class DashboardListTicketsPage extends React.Component {
             users: [],
             ownTickets: true
         },
-        message: ''
+        message: '',
+        loading: false
     };
 
     componentDidMount() {
@@ -43,7 +44,7 @@ class DashboardListTicketsPage extends React.Component {
             <div className="dashboard-ticket-list">
                 <Header title={i18n('TICKET_LIST')} description={i18n('TICKET_LIST_DESCRIPTION')} />
                 {this.props.userUsers.length ? this.showSupervisorOptions() : null}
-                <TicketList onPageChange={this.onPageChange.bind(this)} page={this.state.page} pages={this.state.pages} tickets={this.state.tickets} type="primary"/>
+                <TicketList loading={this.state.loading}onPageChange={this.onPageChange.bind(this)} page={this.state.page} pages={this.state.pages} tickets={this.state.tickets} type="primary"/>
                 {this.state.message ? <Message type="error" >{i18n(this.state.message)}</Message> : null}
             </div>
         );
@@ -87,7 +88,7 @@ class DashboardListTicketsPage extends React.Component {
         let usersIds = users.map((item) => {
             return item.id
         })
-
+        this.setState({loading:true})
         API.call({
             path: 'user/get-supervised-tickets',
             data: {
@@ -100,12 +101,14 @@ class DashboardListTicketsPage extends React.Component {
                 tickets: r.data.tickets,
                 pages: r.data.pages,
                 page: r.data.page,
-                message: ''
+                message: '',
+                loading:false
             })
         }).catch((r) => {
             this.setState({
                 tickets: [],
-                message: r.message
+                message: r.message,
+                loading:false
             })
         });
         
