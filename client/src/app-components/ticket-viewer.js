@@ -9,6 +9,7 @@ import API   from 'lib-app/api-call';
 import SessionStore       from 'lib-app/session-store';
 import MentionsParser     from 'lib-app/mentions-parser';
 import history from 'lib-app/history';
+import searchTicketsUtils from 'lib-app/search-tickets-utils';
 
 import TicketEvent        from 'app-components/ticket-event';
 import AreYouSure         from 'app-components/are-you-sure';
@@ -176,7 +177,7 @@ class TicketViewer extends React.Component {
             <div className="ticket-viewer__headers">
                 <div className="ticket-viewer__info">
                     <div className="ticket-viewer__info-container-editable">
-                        <div className="ticket-viewer__info-container-editable__group">
+                        <div className="ticket-viewer__info-container-editable__column">
                             <div className="ticket-viewer__info-header">{i18n('DEPARTMENT')}</div>
                             <div className="ticket-viewer__info-value">
                                 <DepartmentDropdown
@@ -188,7 +189,7 @@ class TicketViewer extends React.Component {
                         </div>
                     </div>
                     <div className="ticket-viewer__info-container-editable">
-                        <div className="ticket-viewer__info-container-editable__group">
+                        <div className="ticket-viewer__info-container-editable__column">
                             <div className="ticket-viewer__info-header">{i18n('TAGS')}</div>
                             <div className="ticket-viewer__info-value">
                                 <TagSelector
@@ -201,7 +202,7 @@ class TicketViewer extends React.Component {
                         </div>
                     </div>
                     <div className="ticket-viewer__info-container-editable">
-                        <div className="ticket-viewer__info-container-editable__group">
+                        <div className="ticket-viewer__info-container-editable__column">
                             <div className="ticket-viewer__info-header">{i18n('OWNER')}</div>
                             <div className="ticket-viewer__info-value">
                                 {this.renderAssignStaffList()}
@@ -211,13 +212,17 @@ class TicketViewer extends React.Component {
                 </div>
                 <div className="ticket-viewer__info">
                     <div className="ticket-viewer__info-container-editable">
-                        <div className="ticket-viewer__info-container-editable__group">
+                        <div className="ticket-viewer__info-container-editable__column">
                             <div className="ticket-viewer__info-header">{i18n('AUTHOR')}</div>
-                            <div className="ticket-viewer__info-value">{ticket.author.name}</div>
+                            <div className="ticket-viewer__info-value">
+                                <span className="ticket-viewer__info-author-name" onClick={this.searchTicketsWithAuthor.bind(this, ticket.author)}>
+                                    {ticket.author.name}
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div className="ticket-viewer__info-container-editable">
-                        <div className="ticket-viewer__info-container-editable__group">
+                        <div className="ticket-viewer__info-container-editable__column">
                             <div className="ticket-viewer__info-header">{i18n('STATUS')}</div>
                             <div className="ticket-viewer__info-value">
                                 {this.state.editStatus ? this.renderEditStatus() : (ticket.closed ? i18n('CLOSED') : i18n('OPENED'))}
@@ -401,6 +406,14 @@ class TicketViewer extends React.Component {
         return (
             <Message className="ticket-viewer__message" type="error">{i18n('TICKET_COMMENT_ERROR')}</Message>
         );
+    }
+
+    searchTicketsWithAuthor(ticketAuthor) {
+        const SEARCH_TICKETS_PATH = '/admin/panel/tickets/search-tickets';
+        const filters = {authors: [{id: ticketAuthor.id*1, isStaff: ticketAuthor.staff*1}]};
+        const urlQuery = searchTicketsUtils.getFiltersForURL(filters);
+
+        history.push(`${SEARCH_TICKETS_PATH}${urlQuery}`);
     }
 
     getCommentFormProps() {

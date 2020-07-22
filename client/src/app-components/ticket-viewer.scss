@@ -113,7 +113,7 @@
                 }
             }
 
-            &__group {
+            &__column {
                 display: flex;
                 flex-direction: column;
                 justify-content: space-around;
@@ -130,6 +130,12 @@
             color: $secondary-blue;
             padding-bottom: 10px;
             width: 100%;
+        }
+
+        &-author-name {
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
 
