@@ -22,6 +22,7 @@ export default {
                             .then(() => {
                                 if(result.data.staff) {
                                     store.dispatch(AdminDataActions.retrieveCustomResponses());
+                                    store.dispatch(AdminDataActions.retrieveStaffMembers());
                                 }
                             });
 

@@ -5,17 +5,18 @@ import {connect}  from 'react-redux';
 import SearchFiltersActions from 'actions/search-filters-actions';
 
 import i18n from 'lib-app/i18n';
-
 import API from 'lib-app/api-call';
-import DateTransformer from 'lib-core/date-transformer';
 import history from 'lib-app/history';
+import searchTicketsUtils from 'lib-app/search-tickets-utils';
+
+import DateTransformer from 'lib-core/date-transformer';
 
 import Form from 'core-components/form';
 import SubmitButton from 'core-components/submit-button';
 import FormField from 'core-components/form-field';
 import Icon from 'core-components/icon';
 import Button from 'core-components/button';
-import searchTicketsUtils from '../lib-app/search-tickets-utils';
+import Loading from 'core-components/loading';
 
 
 const INITIAL_PAGE = 1;
@@ -38,40 +39,42 @@ class TicketQueryFilters extends React.Component {
         const {
             formState,
             filters,
-            showFilters
+            showFilters,
+            ticketQueryListState
         } = this.props;
 
         return (
             <div className={"ticket-query-filters" + (showFilters ? "__open" : "") }>
                 <Form
+                    loading={ticketQueryListState.loading}
                     values={this.getFormValue(formState)}
                     onChange={this.onChangeForm.bind(this)}
                     onSubmit={this.onSubmitListConfig.bind(this)}>
                     <div className="ticket-query-filters__search-box">
                         <FormField name="query" field="search-box" fieldProps={{onSearch: this.onSubmitListConfig.bind(this)}} />
                     </div>
-                    <div className="ticket-query-filters__group">
-                        <div className="ticket-query-filters__group__container">
+                    <div className="ticket-query-filters__row">
+                        <div className="ticket-query-filters__row__filter">
                             <span>{i18n('DATE')}</span>
                             <FormField
                                 name="dateRange"
                                 field="date-range"
                                 fieldProps={{defaultValue: this.dateRangeToFormValue(filters.dateRange)}} />
                         </div>
-                        <div className="ticket-query-filters__group__container">
+                        <div className="ticket-query-filters__row__filter">
                             <span>{i18n('STATUS')}</span>
                             <FormField name="closed" field="select" fieldProps={{items: this.getStatusItems(), className: 'ticket-query-filters__group__container__status-drop-down'}} />
                         </div>
                     </div>
-                    <div className="ticket-query-filters__group">
-                        <div className="ticket-query-filters__group__container">
+                    <div className="ticket-query-filters__row">
+                        <div className="ticket-query-filters__row__filter">
                             <span className="ticket-query-filters__title">{i18n('DEPARTMENTS')}</span>
                             <FormField
                                 name="departments"
                                 field="autocomplete"
                                 fieldProps={{items: this.getDepartmentsItems()}} />
                         </div>
-                        <div className="ticket-query-filters__group__container">
+                        <div className="ticket-query-filters__row__filter">
                             <span className="ticket-query-filters__title">{i18n('OWNER')}</span>
                             <FormField
                                 name="owners"
@@ -79,8 +82,8 @@ class TicketQueryFilters extends React.Component {
                                 fieldProps={{items: this.getStaffList()}} />
                         </div>
                     </div>
-                    <div className="ticket-query-filters__group">
-                        <div className="ticket-query-filters__group__container">
+                    <div className="ticket-query-filters__row">
+                        <div className="ticket-query-filters__row__filter">
                             <span className="ticket-query-filters__title">{i18n('TAGS')}</span>
                             <FormField
                                 name="tags"
@@ -91,7 +94,7 @@ class TicketQueryFilters extends React.Component {
                                     onTagSelected: this.addTag.bind(this)
                                 }} />
                         </div>
-                        <div className="ticket-query-filters__group__container">
+                        <div className="ticket-query-filters__row__filter">
                             <span className="ticket-query-filters__title">{i18n('AUTHORS')}</span>
                             <FormField
                                 name="authors"
@@ -106,13 +109,16 @@ class TicketQueryFilters extends React.Component {
                         <Button
                             className="ticket-query-filters__container__button ticket-query-filters__container__clear-button"
                             size= "medium"
+                            disabled={ticketQueryListState.loading}
                             onClick={this.clearFormValues.bind(this)}>
-                                {i18n('CLEAR')}
+                                {ticketQueryListState.loading ?
+                                    <Loading />
+                                    : i18n('CLEAR')}
                         </Button>
                         <SubmitButton
+                            className="ticket-query-filters__container__button ticket-query-filters__container__search-button"
                             type="secondary"
-                            size= "medium"
-                            className="ticket-query-filters__container__button ticket-query-filters__container__search-button">
+                            size= "medium">
                                 {i18n('SEARCH')}
                         </SubmitButton>
                     </div>
@@ -316,7 +322,11 @@ class TicketQueryFilters extends React.Component {
         if(formEdited) {
             const filtersForAPI = searchTicketsUtils.prepareFiltersForAPI(listConfigWithCompleteAuthorsList.filters);
             const currentPath = window.location.pathname;
-            const urlQuery = searchTicketsUtils.getFiltersForURL(filtersForAPI, true);
+            const urlQuery = searchTicketsUtils.getFiltersForURL({
+                filters: filtersForAPI,
+                shouldRemoveCustomParam: true,
+                shouldRemoveUseInitialValuesParam: true
+            });
             urlQuery && history.push(`${currentPath}${urlQuery}`);
         }
     }
@@ -393,5 +403,6 @@ export default connect((store) => {
         filters: store.searchFilters.listConfig.filters,
         showFilters: store.searchFilters.showFilters,
         formEdited: store.searchFilters.formEdited,
+        ticketQueryListState: store.searchFilters.ticketQueryListState,
     };
 })(TicketQueryFilters);

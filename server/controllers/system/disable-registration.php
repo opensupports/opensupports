@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /system/disable-registration Disable registration
- * @apiVersion 4.7.0
+ * @apiVersion 4.8.0
  *
  * @apiName Disable registration
  *

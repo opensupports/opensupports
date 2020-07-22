@@ -25,7 +25,7 @@ class Autocomplete extends React.Component {
         comparerFunction: React.PropTypes.func
     };
 
-    id = 1;
+    searchApiRequestId = 1;
 
     state = {
         selectedItems: [],
@@ -238,17 +238,18 @@ class Autocomplete extends React.Component {
 
     searchApi(query, blacklist=this.getSelectedItems()) {
         const { getItemListFromQuery } = this.props;
-        let id = ++this.id;
+        let id = ++this.searchApiRequestId;
 
         getItemListFromQuery && getItemListFromQuery(query, blacklist.map(
             item => {return item.isStaff !== undefined ? {isStaff: item.isStaff, id: item.id} : item.id}
         ))
         .then(result => {
-            if(id === this.id)
-            this.setState({
-                itemsFromQuery: result,
-                loading: false,
-            });
+            if (id === this.searchApiRequestId){
+                this.setState({
+                    itemsFromQuery: result,
+                    loading: false,
+                });
+            }
         })
         .catch(() => this.setState({
             loading: false,

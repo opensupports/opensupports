@@ -3,7 +3,7 @@ use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {post} /system/installation-done Installation done
- * @apiVersion 4.7.0
+ * @apiVersion 4.8.0
  *
  * @apiName Installation done
  *

@@ -42,13 +42,13 @@
         }
     }
 
-    &__group {
+    &__row {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
         align-items: flex-start;
 
-        &__container {
+        &__filter {
             display: flex;
             flex-direction: column;
             align-items: start;

@@ -116,7 +116,7 @@ class AdminPanelMenu extends React.Component {
             return window.customTicketList.map((item, index) => {
                 return {
                     name: item.title,
-                    path: `/admin/panel/tickets/search-tickets?custom=${index}&page=${INITIAL_PAGE}`,
+                    path: `/admin/panel/tickets/search-tickets?custom=${index}&page=${INITIAL_PAGE}&useInitialValues=true`,
                     level: 1,
                 }
             })
@@ -165,7 +165,7 @@ class AdminPanelMenu extends React.Component {
                     },
                     {
                         name: i18n('SEARCH_TICKETS'),
-                        path: `/admin/panel/tickets/search-tickets?dateRange=${searchTicketsUtils.getDefaultDateRangeForFilters()}&page=${INITIAL_PAGE}`,
+                        path: `/admin/panel/tickets/search-tickets?page=${INITIAL_PAGE}&useInitialValues=true`,
                         level: 1,
                     },
                     {
