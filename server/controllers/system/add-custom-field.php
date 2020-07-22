@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/add-custom-field Add a custom field
- * @apiVersion 4.7.0
+ * @apiVersion 4.8.0
  *
  * @apiName Add Custom field
  *
