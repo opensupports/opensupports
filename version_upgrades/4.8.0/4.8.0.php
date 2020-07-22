@@ -1,5 +1,5 @@
 <?php
-require_once '../mysql_connect.php';
+//require_once '../mysql_connect.php';
 use RedBeanPHP\Facade as RedBean;
 
 print 'Begin update v4.8.0...' . PHP_EOL;
@@ -8,41 +8,37 @@ print 'Begin update v4.8.0...' . PHP_EOL;
 print '[1/3] Updating ticket table...'. PHP_EOL; 
 if($mysql->query("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ticket' AND COLUMN_NAME = 'priority' AND TABLE_SCHEMA = '$mysql_db'")->num_rows != 0){
     
-    $tagInstance = new Tag();
-    $tagInstance->setProperties([
+    $tagHigh = new Tag();
+    $tagHigh->setProperties([
         'name' => 'High',
         'color' => '#eb144c'
     ]);
-    $tagInstance->store();
+    $tagHigh->store();
 
-    $tagInstance = new Tag();
-    $tagInstance->setProperties([
+    $tagMedium = new Tag();
+    $tagMedium->setProperties([
         'name' => 'Medium',
         'color' => '#0693e3'
     ]);
-    $tagInstance->store();
+    $tagMedium->store();
 
-    $tagInstance = new Tag();
-    $tagInstance->setProperties([
+    $tagLow = new Tag();
+    $tagLow->setProperties([
         'name' => 'Low',
         'color' => '#00d084'
     ]);
-    $tagInstance->store();
+    $tagLow->store();
     
     $ticketList = Ticket::getAll();
     foreach($ticketList as $ticket) {
-        $tagL = Tag::getDataStore('Low', 'name');
-        $tagM = Tag::getDataStore('Medium', 'name');
-        $tagH = Tag::getDataStore('High', 'name');
-
         if($ticket->priority == "low") {
-            $ticket->sharedTagList->add($tagL);
+            $ticket->sharedTagList->add($tagLow);
         }
         if($ticket->priority == "medium") {
-            $ticket->sharedTagList->add($tagM);
+            $ticket->sharedTagList->add($tagMedium);
         }
         if($ticket->priority == "high") {
-            $ticket->sharedTagList->add($tagH);
+            $ticket->sharedTagList->add($tagHigh);
         }
         $ticket->store();
     }
