@@ -410,10 +410,17 @@ class TicketViewer extends React.Component {
 
     searchTicketsWithAuthor(ticketAuthor) {
         const SEARCH_TICKETS_PATH = '/admin/panel/tickets/search-tickets';
-        const filters = {authors: [{id: ticketAuthor.id*1, isStaff: ticketAuthor.staff*1}]};
-        const urlQuery = searchTicketsUtils.getFiltersForURL(filters);
+        const filters = {
+            authors: [
+                {
+                    id: ticketAuthor.id*1,
+                    isStaff: ticketAuthor.staff*1
+                }
+            ]
+        };
+        const urlQuery = searchTicketsUtils.getFiltersForURL({filters});
 
-        history.push(`${SEARCH_TICKETS_PATH}${urlQuery}`);
+        urlQuery && history.push(`${SEARCH_TICKETS_PATH}${urlQuery}`);
     }
 
     getCommentFormProps() {
@@ -709,11 +716,11 @@ class TicketViewer extends React.Component {
         const {staffMembers, userDepartments, userId, ticket} = this.props;
         const ticketDepartmentId = ticket.department.id;
         let staffAssignmentItems = [
-            {content: 'None', id: 0}
+            {content: i18n('NONE'), contentOnSelected: i18n('NONE'), id: 0}
         ];
 
         if(_.some(userDepartments, {id: ticketDepartmentId})) {
-            staffAssignmentItems.push({content: i18n('ASSIGN_TO_ME'), id: userId});
+            staffAssignmentItems.push({content: i18n('ASSIGN_TO_ME'), contentOnSelected: i18n('ASSIGNED_TO_ME'), id: userId});
         }
 
         staffAssignmentItems = staffAssignmentItems.concat(
@@ -721,7 +728,7 @@ class TicketViewer extends React.Component {
                 _.filter(staffMembers, ({id, departments}) => {
                     return (id != userId) && _.some(departments, {id: ticketDepartmentId});
                 }),
-                ({id, name}) => ({content: name, id: id*1})
+                ({id, name}) => ({content: name, contentOnSelected: name, id: id*1})
             )
         );
 

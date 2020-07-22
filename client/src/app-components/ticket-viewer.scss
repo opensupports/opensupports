@@ -30,10 +30,14 @@
         right: 12px;
         margin: 0 10px;
         color: $light-grey;
+
+        &:hover {
+            cursor:pointer;
+        }
     }
 
     &__edit-title-icon {
-        color: #414A59;
+        color: $primary-blue;
         right: 12px;
         margin: 0 10px;
 
@@ -109,7 +113,7 @@
 
             &:hover {
                 .ticket-viewer__edit-icon {
-                    color: #414A59;
+                    color: $primary-blue;
                 }
             }
 
