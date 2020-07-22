@@ -15,7 +15,7 @@ export default {
             payload: API.call({
                 path: '/ticket/search',
                 data: {
-                     ...filters,
+                    ...filters,
                     page: ticketQueryListState.page
                 }
             })
@@ -47,15 +47,34 @@ export default {
             payload: showFilters
         }
     },
-    changePage(listConfigWithPage) {
-        const filtersForAPI = searchTicketsUtils.prepareFiltersForAPI(listConfigWithPage.filters);
+    changePage(filtersWithPage) {
+        const filtersForAPI = searchTicketsUtils.prepareFiltersForAPI(filtersWithPage);
         const currentPath = window.location.pathname;
-        const urlQuery = searchTicketsUtils.getFiltersForURL(filtersForAPI, false);
+        const urlQuery = searchTicketsUtils.getFiltersForURL({
+            filters: filtersForAPI,
+            shouldRemoveCustomParam: false,
+            shouldRemoveUseInitialValuesParam: true
+        });
         urlQuery && history.push(`${currentPath}${urlQuery}`);
 
         return {
             type: 'SEARCH_FILTERS_CHANGE_PAGE',
-            payload: {...listConfigWithPage, filtersForAPI}
+            payload: {...filtersWithPage, ...filtersForAPI}
+        }
+    },
+    changeOrderBy(filtersWithOrderBy) {
+        const filtersForAPI = searchTicketsUtils.prepareFiltersForAPI(filtersWithOrderBy);
+        const currentPath = window.location.pathname;
+        const urlQuery = searchTicketsUtils.getFiltersForURL({
+            filters: filtersForAPI,
+            shouldRemoveCustomParam: false,
+            shouldRemoveUseInitialValuesParam: true
+        });
+        urlQuery && history.push(`${currentPath}${urlQuery}`);
+
+        return {
+            type: 'SEARCH_FILTERS_CHANGE_ORDER_BY',
+            payload: {...filtersWithOrderBy, ...filtersForAPI}
         }
     },
 };
