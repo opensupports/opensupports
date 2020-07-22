@@ -1,5 +1,5 @@
 <?php
-//require_once '../mysql_connect.php';
+require_once '../mysql_connect.php';
 use RedBeanPHP\Facade as RedBean;
 
 print 'Begin update v4.8.0...' . PHP_EOL;
