@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/get-custom-fields Get custom fields
- * @apiVersion 4.7.0
+ * @apiVersion 4.8.0
  *
  * @apiName Get all Custom field items
  *
