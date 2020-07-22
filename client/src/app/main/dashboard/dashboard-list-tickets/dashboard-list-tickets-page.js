@@ -21,7 +21,9 @@ class DashboardListTicketsPage extends React.Component {
     static defaultProps = {
         tickets: []
     };
-    
+
+    id = 0;
+
     state = {
         tickets: [],
         pages: 1,
@@ -84,7 +86,8 @@ class DashboardListTicketsPage extends React.Component {
         });
     }
 
-    updateTicketList({users, page, ownTickets}) {    
+    updateTicketList({users, page, ownTickets}) { 
+        let id = ++this.id;   
         let usersIds = users.map((item) => {
             return item.id
         })
@@ -97,13 +100,14 @@ class DashboardListTicketsPage extends React.Component {
                 supervisedUsers: JSON.stringify(usersIds)
             }
         }).then((r) => {
-            this.setState({
-                tickets: r.data.tickets,
-                pages: r.data.pages,
-                page: r.data.page,
-                message: '',
-                loading: false
-            })
+            if(id === this.id)
+                this.setState({
+                    tickets: r.data.tickets,
+                    pages: r.data.pages,
+                    page: r.data.page,
+                    message: '',
+                    loading: false
+                })
         }).catch((r) => {
             this.setState({
                 tickets: [],

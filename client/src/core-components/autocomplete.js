@@ -245,10 +245,10 @@ class Autocomplete extends React.Component {
         ))
         .then(result => {
             if(id === this.id)
-            this.setState({
-                itemsFromQuery: result,
-                loading: false,
-            });
+                this.setState({
+                    itemsFromQuery: result,
+                    loading: false,
+                });
         })
         .catch(() => this.setState({
             loading: false,
