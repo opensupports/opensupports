@@ -22,7 +22,7 @@ class DashboardListTicketsPage extends React.Component {
         tickets: []
     };
 
-    id = 0;
+    updateTicketListRequestId = 0;
 
     state = {
         tickets: [],
@@ -87,7 +87,7 @@ class DashboardListTicketsPage extends React.Component {
     }
 
     updateTicketList({users, page, ownTickets}) { 
-        let id = ++this.id;   
+        let id = ++this.updateTicketListRequestId;   
         let usersIds = users.map((item) => {
             return item.id
         })
@@ -100,7 +100,7 @@ class DashboardListTicketsPage extends React.Component {
                 supervisedUsers: JSON.stringify(usersIds)
             }
         }).then((r) => {
-            if(id === this.id)
+            if (id === this.updateTicketListRequestId){
                 this.setState({
                     tickets: r.data.tickets,
                     pages: r.data.pages,
@@ -108,6 +108,7 @@ class DashboardListTicketsPage extends React.Component {
                     message: '',
                     loading: false
                 })
+            }
         }).catch((r) => {
             this.setState({
                 tickets: [],
