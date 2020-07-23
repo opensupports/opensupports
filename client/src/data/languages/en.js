@@ -121,7 +121,6 @@ export default {
     'DELETE_AND_BAN': 'Delete and ban',
     'STAFF_LEVEL': 'Staff Level',
     'ASSIGNED': 'Assigned',
-    'ASSIGNED_TO_ME': 'Assigned to me',
     'ASSIGNED_TICKETS': '{tickets} assigned tickets',
     'CLOSED_TICKETS': '{tickets} closed tickets',
     'LAST_LOGIN': 'Last login',

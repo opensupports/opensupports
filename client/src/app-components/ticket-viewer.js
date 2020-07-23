@@ -69,6 +69,7 @@ class TicketViewer extends React.Component {
         editTitleLoading: false,
         editStatus: false,
         editTags: false,
+        editOwner: false,
     };
 
     componentDidMount() {
@@ -210,9 +211,10 @@ class TicketViewer extends React.Component {
                         <div className="ticket-viewer__info-container-editable__column">
                             <div className="ticket-viewer__info-header">{i18n('OWNER')}</div>
                             <div className="ticket-viewer__info-value">
-                                {this.renderAssignStaffList()}
+                                {this.renderOwnerNode()}
                             </div>
                         </div>
+                        {userStaff ? this.renderEditOption("Owner") : null}
                     </div>
                 </div>
                 <div className="ticket-viewer__info">
@@ -246,15 +248,17 @@ class TicketViewer extends React.Component {
             ticket
         } = this.props;
 
-        return <div>
-            <TagSelector
-                items={tags}
-                values={ticket.tags}
-                onRemoveClick={this.removeTag.bind(this)}
-                onTagSelected={this.addTag.bind(this)}
-                loading={this.state.tagSelectorLoading} />
-            {this.renderCancelButton("Tags")}
-        </div>
+        return (
+            <div className="ticket-viewer__edit-tags">
+                <TagSelector
+                    items={tags}
+                    values={ticket.tags}
+                    onRemoveClick={this.removeTag.bind(this)}
+                    onTagSelected={this.addTag.bind(this)}
+                    loading={this.state.tagSelectorLoading} />
+                {this.renderCancelButton("Tags")}
+            </div>
+        );
     }
 
     renderEditStatus() {
@@ -328,8 +332,8 @@ class TicketViewer extends React.Component {
     renderOwnerNode() {
         let ownerNode = null;
 
-        if (this.props.assignmentAllowed) {
-            ownerNode = this.renderAssignStaffList();
+        if (this.props.assignmentAllowed && this.state.editOwner) {
+            ownerNode = this.renderEditOwner();
         } else {
             ownerNode = (this.props.ticket.owner) ? this.props.ticket.owner.name : i18n('NONE')
         }
@@ -337,18 +341,22 @@ class TicketViewer extends React.Component {
         return ownerNode;
     }
 
-    renderAssignStaffList() {
+    renderEditOwner() {
         const items = this.getStaffAssignmentItems();
-        const ownerId = this.props.ticket.owner && this.props.ticket.owner.id*1;
+        const { ticket } = this.props;
+        const ownerId = ticket.owner && ticket.owner.id*1;
         let selectedIndex = _.findIndex(items, {id: ownerId});
         selectedIndex = (selectedIndex !== -1) ? selectedIndex : 0;
 
         return (
-            <DropDown
-                className="ticket-viewer__editable-dropdown" items={items}
-                selectedIndex={selectedIndex}
-                onChange={this.onAssignmentChange.bind(this)}
-                />
+            <div className="ticket-viewer__edit-owner">
+                <DropDown
+                    className="ticket-viewer__editable-dropdown" items={items}
+                    selectedIndex={selectedIndex}
+                    onChange={this.onAssignmentChange.bind(this)}
+                    />
+                {this.renderCancelButton("Owner")}
+            </div>
         );
     }
 
@@ -746,26 +754,48 @@ class TicketViewer extends React.Component {
     }
 
     getStaffAssignmentItems() {
-        const {staffMembers, userDepartments, userId, ticket} = this.props;
+        const {
+            staffMembers,
+            userDepartments,
+            userId,
+            ticket
+        } = this.props;
         const ticketDepartmentId = ticket.department.id;
+        const FIRST_ITEM = 0;
         let staffAssignmentItems = [
             {content: i18n('NONE'), contentOnSelected: i18n('NONE'), id: 0}
         ];
 
         if(_.some(userDepartments, {id: ticketDepartmentId})) {
-            staffAssignmentItems.push({content: i18n('ASSIGN_TO_ME'), contentOnSelected: i18n('ASSIGNED_TO_ME'), id: userId});
+            staffAssignmentItems.push({
+                content: i18n('ASSIGN_TO_ME'),
+                contentOnSelected: this.getStaffList({onlyMe: true})[FIRST_ITEM].name,
+                id: userId
+            });
         }
 
         staffAssignmentItems = staffAssignmentItems.concat(
             _.map(
-                _.filter(staffMembers, ({id, departments}) => {
-                    return (id != userId) && _.some(departments, {id: ticketDepartmentId});
-                }),
+                this.getStaffList({onlyMe: false}),
                 ({id, name}) => ({content: name, contentOnSelected: name, id: id*1})
             )
         );
 
         return staffAssignmentItems;
+    }
+
+    getStaffList(onlyMeObject) {
+        const {
+            userId,
+            staffMembers,
+            ticket
+        } = this.props;
+
+        return _.filter(staffMembers, ({id, departments}) => {
+            const idComparer = onlyMeObject.onlyMe ? (id == userId) : (id != userId);
+
+            return idComparer && _.some(departments, {id: ticket.department.id});
+        })
     }
 
     getDepartmentsForTransfer() {
