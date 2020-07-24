@@ -141,6 +141,12 @@
                 cursor: pointer;
             }
         }
+
+        &-owner-name {
+            &:hover {
+                cursor: pointer;
+            }
+        }
     }
 
     &__editable-dropdown {

@@ -73,38 +73,51 @@ class TicketViewer extends React.Component {
     };
 
     componentDidMount() {
-        if(!this.props.staffMembersLoaded && this.props.userStaff) {
-            this.props.dispatch(AdminDataActions.retrieveStaffMembers());
+        const {
+            staffMembersLoaded,
+            userStaff,
+            dispatch
+        } = this.props;
+
+        if(!staffMembersLoaded && userStaff) {
+            dispatch(AdminDataActions.retrieveStaffMembers());
         }
     }
 
     render() {
-        const ticket = this.props.ticket;
+        const {
+            ticket,
+            userStaff,
+            userId,
+            editable,
+            allowAttachments,
+            assignmentAllowed
+        } = this.props;
 
         return (
             <div className="ticket-viewer">
                 {this.state.editTitle ? this.renderEditableTitle() : this.renderTitleHeader()}
-                {this.props.editable ? this.renderEditableHeaders() : this.renderHeaders()}
+                {editable ? this.renderEditableHeaders() : this.renderHeaders()}
                 <div className="ticket-viewer__content">
                     <TicketEvent
                         loading={this.state.loading}
                         type="COMMENT"
                         author={ticket.author}
-                        content={this.props.userStaff ? MentionsParser.parse(ticket.content) : ticket.content}
-                        userStaff={this.props.userStaff}
-                        userId={this.props.userId}
+                        content={userStaff ? MentionsParser.parse(ticket.content) : ticket.content}
+                        userStaff={userStaff}
+                        userId={userId}
                         date={ticket.date}
                         onEdit={this.onEdit.bind(this,0)}
                         edited={ticket.edited}
                         file={ticket.file}
                         edit={this.state.edit && this.state.editId == 0}
                         onToggleEdit={this.onToggleEdit.bind(this, 0)}
-                        allowAttachments={this.props.allowAttachments} />
+                        allowAttachments={allowAttachments} />
                 </div>
                 <div className="ticket-viewer__comments">
                     {ticket.events && ticket.events.map(this.renderTicketEvent.bind(this))}
                 </div>
-                {(!this.props.ticket.closed && (this.props.editable || !this.props.assignmentAllowed)) ? this.renderResponseField() : (this.showDeleteButton())? <Button size="medium" onClick={this.onDeleteTicketClick.bind(this)}>{i18n('DELETE_TICKET')}</Button> : null}
+                {(!ticket.closed && (editable || !assignmentAllowed)) ? this.renderResponseField() : (this.showDeleteButton())? <Button size="medium" onClick={this.onDeleteTicketClick.bind(this)}>{i18n('DELETE_TICKET')}</Button> : null}
             </div>
         );
     }
@@ -178,6 +191,14 @@ class TicketViewer extends React.Component {
     renderEditableHeaders() {
         const { userStaff, ticket } = this.props;
         const departments = this.getDepartmentsForTransfer();
+        const filtersOnlyWithAuthor = {
+            authors: [
+                {
+                    id: ticket.author.id*1,
+                    isStaff: ticket.author.staff*1
+                }
+            ]
+        };
 
         return (
             <div className="ticket-viewer__headers">
@@ -189,7 +210,7 @@ class TicketViewer extends React.Component {
                                 <DepartmentDropdown
                                     className="ticket-viewer__editable-dropdown"
                                     departments={departments}
-                                    selectedIndex={_.findIndex(departments, {id: this.props.ticket.department.id})}
+                                    selectedIndex={_.findIndex(departments, {id: ticket.department.id})}
                                     onChange={this.onDepartmentDropdownChanged.bind(this)} />
                             </div>
                         </div>
@@ -222,7 +243,7 @@ class TicketViewer extends React.Component {
                         <div className="ticket-viewer__info-container-editable__column">
                             <div className="ticket-viewer__info-header">{i18n('AUTHOR')}</div>
                             <div className="ticket-viewer__info-value">
-                                <span className="ticket-viewer__info-author-name" onClick={this.searchTicketsWithAuthor.bind(this, ticket.author)}>
+                                <span className="ticket-viewer__info-author-name" onClick={this.searchTickets.bind(this, filtersOnlyWithAuthor)}>
                                     {ticket.author.name}
                                 </span>
                             </div>
@@ -307,7 +328,7 @@ class TicketViewer extends React.Component {
                     <div className="ticket-viewer__info-container">
                         <div className="ticket-viewer__info-header">{i18n('STATUS')}</div>
                         <div className="ticket-viewer__info-value">
-                            {i18n((this.props.ticket.closed) ? 'CLOSED' : 'OPENED')}
+                            {i18n((ticket.closed) ? 'CLOSED' : 'OPENED')}
                         </div>
                     </div>
                 </div>
@@ -316,26 +337,38 @@ class TicketViewer extends React.Component {
     }
 
     renderTags() {
-        const { ticket } = this.props;
-        const tags = (
+        const {
+            ticket,
+            tags
+        } = this.props;
+        const TAGS = (
             ticket.tags.length ?
                 ticket.tags.map((tagName, index) => {
-                    const tag = _.find(this.props.tags, {name: tagName});
+                    const tag = _.find(tags, {name: tagName});
                     return <Tag name={tag && tag.name} color={tag && tag.color} key={index} />
                 }) :
                 i18n('NONE')
         );
 
-        return tags;
+        return TAGS;
     }
 
     renderOwnerNode() {
+        const {
+            assignmentAllowed,
+            ticket
+        } = this.props;
+        const filtersOnlyWithOwner = ticket.owner && {owners: [ticket.owner.id*1]};
         let ownerNode = null;
 
-        if (this.props.assignmentAllowed && this.state.editOwner) {
+        if(assignmentAllowed && this.state.editOwner) {
             ownerNode = this.renderEditOwner();
         } else {
-            ownerNode = (this.props.ticket.owner) ? this.props.ticket.owner.name : i18n('NONE')
+            ownerNode = (
+                <span className="ticket-viewer__info-owner-name" onClick={this.searchTickets.bind(this, filtersOnlyWithOwner)}>
+                    {(ticket.owner) ? ticket.owner.name : i18n('NONE')}
+                </span>
+            );
         }
 
         return ownerNode;
@@ -361,25 +394,34 @@ class TicketViewer extends React.Component {
     }
 
     renderTicketEvent(options, index) {
-        if (this.props.userStaff && typeof options.content === 'string') {
+        const {
+            userStaff,
+            ticket,
+            userId,
+            allowAttachments
+        } = this.props;
+
+        if(userStaff && typeof options.content === 'string') {
             options.content = MentionsParser.parse(options.content);
         }
+
         return (
             <TicketEvent
                 {...options}
-                author={(!_.isEmpty(options.author)) ? options.author : this.props.ticket.author}
-                userStaff={this.props.userStaff}
-                userId={this.props.userId}
+                author={(!_.isEmpty(options.author)) ? options.author : ticket.author}
+                userStaff={userStaff}
+                userId={userId}
                 onEdit={this.onEdit.bind(this, options.id)}
                 edit={this.state.edit && this.state.editId == options.id}
                 onToggleEdit={this.onToggleEdit.bind(this, options.id)}
                 key={index}
-                allowAttachments={this.props.allowAttachments}
-            />
+                allowAttachments={allowAttachments} />
         );
     }
 
     renderResponseField() {
+        const { allowAttachments } = this.props;
+
         return (
             <div className="ticket-viewer__response">
                 <Form {...this.getCommentFormProps()}>
@@ -391,8 +433,8 @@ class TicketViewer extends React.Component {
                         </div>
                     </div>
                     <div className="ticket-viewer__response-field row">
-                        <FormField name="content" validation="TEXT_AREA" required field="textarea" fieldProps={{allowImages: this.props.allowAttachments}} />
-                        {(this.props.allowAttachments) ? <FormField name="file" field="file" /> : null}
+                        <FormField name="content" validation="TEXT_AREA" required field="textarea" fieldProps={{allowImages: allowAttachments}} />
+                        {allowAttachments ? <FormField name="file" field="file" /> : null}
                         <div className="ticket-viewer__response-buttons">
                             <SubmitButton type="secondary">{i18n('RESPOND_TICKET')}</SubmitButton>
                             <div>
@@ -409,7 +451,7 @@ class TicketViewer extends React.Component {
     renderCustomResponses() {
         let customResponsesNode = null;
 
-        if (this.props.customResponses && this.props.editable) {
+        if(this.props.customResponses && this.props.editable) {
             let customResponses = this.props.customResponses.map((customResponse) => {
                 return {
                     content: customResponse.name
@@ -431,7 +473,7 @@ class TicketViewer extends React.Component {
     }
 
     renderPrivate() {
-        if (this.props.userStaff) {
+        if(this.props.userStaff) {
             return (
                 <div className="ticket-viewer__response-private">
                     <FormField label={i18n('PRIVATE')} name="private" field="checkbox" />
@@ -449,17 +491,9 @@ class TicketViewer extends React.Component {
         );
     }
 
-    searchTicketsWithAuthor(ticketAuthor) {
+    searchTickets(filters) {
         const SEARCH_TICKETS_PATH = '/admin/panel/tickets/search-tickets';
-        const filters = {
-            authors: [
-                {
-                    id: ticketAuthor.id*1,
-                    isStaff: ticketAuthor.staff*1
-                }
-            ]
-        };
-        const urlQuery = searchTicketsUtils.getFiltersForURL({filters});
+        const urlQuery = filters && searchTicketsUtils.getFiltersForURL({filters});
 
         urlQuery && history.push(`${SEARCH_TICKETS_PATH}${urlQuery}`);
     }
@@ -748,14 +782,14 @@ class TicketViewer extends React.Component {
     }
 
     onTicketModification() {
-        if (this.props.onChange) {
-            this.props.onChange();
+        const { onChange } = this.props;
+        if(onChange) {
+            onChange();
         }
     }
 
     getStaffAssignmentItems() {
         const {
-            staffMembers,
             userDepartments,
             userId,
             ticket
@@ -803,14 +837,22 @@ class TicketViewer extends React.Component {
     }
 
     showDeleteButton() {
-        if(!this.props.ticket.owner) {
-            if(this.props.userLevel === 3) return true;
-            if(this.props.userId == this.props.ticket.author.id*1) {
-                if((this.props.userStaff && this.props.ticket.author.staff) || (!this.props.userStaff && !this.props.ticket.author.staff)){
+        const {
+            ticket,
+            userLevel,
+            userId,
+            userStaff
+        } = this.props;
+
+        if(!ticket.owner) {
+            if(userLevel === 3) return true;
+            if(userId == ticket.author.id*1) {
+                if((userStaff && ticket.author.staff) || (!userStaff && !ticket.author.staff)){
                     return true;
                 }
             }
         }
+
         return false;
     }
 }
