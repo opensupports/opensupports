@@ -129,7 +129,6 @@ class SearchController extends Controller {
 
         $query = $this->getSQLQuery($inputs);
         $queryWithOrder = $this->getSQLQueryWithOrder($inputs);
-        throw new Exception($queryWithOrder);
         $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", [':query' => "%" . $inputs['query'] . "%", ':queryAtBeginning' => $inputs['query'] . "%" ])[0]['COUNT(*)'];
         $ticketIdList = RedBean::getAll($queryWithOrder, [':query' => "%" . $inputs['query'] . "%", ':queryAtBeginning' => $inputs['query'] . "%"]);
         $ticketList = [];
