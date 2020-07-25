@@ -218,9 +218,9 @@ class TicketViewer extends React.Component {
                         <div className="ticket-viewer__info-container-editable__column">
                             <div className="ticket-viewer__info-header">{i18n('AUTHOR')}</div>
                             <div className="ticket-viewer__info-value">
-                                <span className="ticket-viewer__info-author-name" onClick={this.searchTickets.bind(this, filtersOnlyWithAuthor)}>
+                                <a className="ticket-viewer__info-author-name" href={this.searchTickets(filtersOnlyWithAuthor)}>
                                     {ticket.author.name}
-                                </span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -336,17 +336,21 @@ class TicketViewer extends React.Component {
         const filtersOnlyWithOwner = ticket.owner && {owners: [ticket.owner.id*1]};
         let ownerNode = null;
 
-        if(assignmentAllowed && this.state.editOwner) {
-            ownerNode = this.renderEditOwner();
+        if(assignmentAllowed && ticket.owner) {
+            ownerNode = (
+                <a className="ticket-viewer__info-owner-name" href={this.searchTickets(filtersOnlyWithOwner)}>
+                    {ticket.owner.name}
+                </a>
+            );
         } else {
             ownerNode = (
-                <span className="ticket-viewer__info-owner-name" onClick={this.searchTickets.bind(this, filtersOnlyWithOwner)}>
+                <span className="ticket-viewer__info-owner-name">
                     {(ticket.owner) ? ticket.owner.name : i18n('NONE')}
                 </span>
             );
         }
 
-        return ownerNode;
+        return (assignmentAllowed && this.state.editOwner) ? this.renderEditOwner() : ownerNode;
     }
 
     renderEditOwner() {
@@ -511,7 +515,7 @@ class TicketViewer extends React.Component {
         const SEARCH_TICKETS_PATH = '/admin/panel/tickets/search-tickets';
         const urlQuery = filters && searchTicketsUtils.getFiltersForURL({filters});
 
-        urlQuery && history.push(`${SEARCH_TICKETS_PATH}${urlQuery}`);
+        return urlQuery && `${SEARCH_TICKETS_PATH}${urlQuery}`;
     }
 
     getCommentFormProps() {
