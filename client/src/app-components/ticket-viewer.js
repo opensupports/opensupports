@@ -70,6 +70,7 @@ class TicketViewer extends React.Component {
         editStatus: false,
         editTags: false,
         editOwner: false,
+        editDepartment: false,
     };
 
     componentDidMount() {
@@ -139,32 +140,6 @@ class TicketViewer extends React.Component {
         )
     }
 
-    renderEditedTitleText(){
-        return(
-            <div className="ticket-viewer__edited-title-text"> {i18n('TITLE_EDITED')} </div>
-        )
-    }
-    
-    renderEditTitleOption() {
-        return(
-            <span className="ticket-viewer__edit-title-icon">
-                <Icon name="pencil" onClick={() => this.setState({editTitle: true})} />
-            </span>
-        )
-    }
-
-    renderEditOption(option) {
-        return(
-            <span className="ticket-viewer__edit-icon">
-                <Icon name="pencil" onClick={() => this.setState({["edit"+option]: true})} />
-            </span>
-        );
-    }
-
-    renderCancelButton(option) {
-        return <Button type='link' size="medium" onClick={() => this.setState({["edit"+option]: false})}>{i18n('CANCEL')}</Button>
-    }
-
     renderEditableTitle(){
         return(
             <div className="ticket-viewer__header">
@@ -190,7 +165,6 @@ class TicketViewer extends React.Component {
 
     renderEditableHeaders() {
         const { userStaff, ticket } = this.props;
-        const departments = this.getDepartmentsForTransfer();
         const filtersOnlyWithAuthor = {
             authors: [
                 {
@@ -207,13 +181,14 @@ class TicketViewer extends React.Component {
                         <div className="ticket-viewer__info-container-editable__column">
                             <div className="ticket-viewer__info-header">{i18n('DEPARTMENT')}</div>
                             <div className="ticket-viewer__info-value">
-                                <DepartmentDropdown
-                                    className="ticket-viewer__editable-dropdown"
-                                    departments={departments}
-                                    selectedIndex={_.findIndex(departments, {id: ticket.department.id})}
-                                    onChange={this.onDepartmentDropdownChanged.bind(this)} />
+                                {
+                                    this.state.editDepartment ?
+                                        this.renderEditDepartment() :
+                                        ticket.department.name
+                                }
                             </div>
                         </div>
+                        {userStaff ? this.renderEditOption("Department") : null}
                     </div>
                     <div className="ticket-viewer__info-container-editable">
                         <div className="ticket-viewer__info-container-editable__column">
@@ -386,11 +361,52 @@ class TicketViewer extends React.Component {
                 <DropDown
                     className="ticket-viewer__editable-dropdown" items={items}
                     selectedIndex={selectedIndex}
-                    onChange={this.onAssignmentChange.bind(this)}
-                    />
+                    onChange={this.onAssignmentChange.bind(this)} />
                 {this.renderCancelButton("Owner")}
             </div>
         );
+    }
+
+    renderEditDepartment() {
+        const { ticket } = this.props;
+        const departments = this.getDepartmentsForTransfer();
+
+        return  (
+            <div className="ticket-viewer__edit-owner">
+                <DepartmentDropdown
+                    className="ticket-viewer__editable-dropdown"
+                    departments={departments}
+                    selectedIndex={_.findIndex(departments, {id: ticket.department.id})}
+                    onChange={this.onDepartmentDropdownChanged.bind(this)} />
+                {this.renderCancelButton("Department")}
+            </div>
+        );
+    }
+
+    renderEditTitleOption() {
+        return(
+            <span className="ticket-viewer__edit-title-icon">
+                <Icon name="pencil" onClick={() => this.setState({editTitle: true})} />
+            </span>
+        )
+    }
+
+    renderEditOption(option) {
+        return(
+            <span className="ticket-viewer__edit-icon">
+                <Icon name="pencil" onClick={() => this.setState({["edit"+option]: true})} />
+            </span>
+        );
+    }
+
+    renderEditedTitleText(){
+        return(
+            <div className="ticket-viewer__edited-title-text"> {i18n('TITLE_EDITED')} </div>
+        )
+    }
+
+    renderCancelButton(option) {
+        return <Button type='link' size="medium" onClick={() => this.setState({["edit"+option]: false})}>{i18n('CANCEL')}</Button>
     }
 
     renderTicketEvent(options, index) {
