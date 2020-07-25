@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/edit-title Edit title of a ticket
- * @apiVersion 4.6.1
+ * @apiVersion 4.8.0
  *
  * @apiName Edit title
  *

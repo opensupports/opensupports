@@ -23,8 +23,6 @@ class EmailPollingController extends Controller {
     }
 
     public function handler() {
-        throw new RequestException(ERRORS::NO_PERMISSION);
-        
         $commentController = new CommentController();
         $createController = new CreateController();
         $defaultLanguage = Setting::getSetting('language')->getValue();

@@ -12,6 +12,7 @@ import Header from 'core-components/header';
 import Button from 'core-components/button';
 import Message from 'core-components/message';
 import InfoTooltip from 'core-components/info-tooltip';
+import Autocomplete from 'core-components/autocomplete';
 
 class AdminPanelViewUser extends React.Component {
 
@@ -23,7 +24,9 @@ class AdminPanelViewUser extends React.Component {
         customfields: [],
         invalid: false,
         loading: true,
-        disabled: false
+        disabled: false,
+        userList: [],
+        message: ''
     };
 
     componentDidMount() {
@@ -80,11 +83,117 @@ class AdminPanelViewUser extends React.Component {
                     </div>
                 </div>
                 <span className="separator" />
+                <div className="admin-panel-view-user">
+                    <div className="admin-panel-view-user__supervised-users-header">{i18n('SUPERVISED_USER')}</div>
+                    <div className="admin-panel-view-user__supervised-users-content">
+                        <Autocomplete
+                            onChange={this.onChangeValues.bind(this)}
+                            getItemListFromQuery={this.searchUsers} 
+                            values={this.transformUserListToAutocomplete()}
+                        />
+                        <Button
+                            disabled = {this.state.loading}
+                            className="admin-panel-view-user__submit-button"
+                            onClick={this.onClickSupervisorUserButton.bind(this)}
+                            size="medium"
+                        >
+                            {i18n('UPDATE')}
+                        </Button>
+                    </div>
+                    {this.renderSupervisedUserMessage()}
+                </div>
+                <span className="separator" />
                 <div className="admin-panel-view-user__tickets">
                     <div className="admin-panel-view-user__tickets-title">{i18n('TICKETS')}</div>
                     <TicketList {...this.getTicketListProps()} />
                 </div>
             </div>
+        );
+    }
+    renderSupervisedUserMessage(){
+        if(this.state.message) {
+            if(this.state.message != 'success'){
+                return(
+                    <div className="admin-panel-view-user__supervised-users-message">
+                            <Message type="error">{i18n(this.state.message)}</Message>
+                    </div>
+                )
+            }else{
+                return(
+                    <div className= "admin-panel-view-user__supervised-users-message">
+                            <Message type="success">{i18n('SUPERVISED_USERS_UPDATED')}</Message>
+                    </div>
+                )
+            }
+        }
+    }
+
+    onClickSupervisorUserButton(){
+        this.setState({
+            loading: true
+        });
+        
+        const userIdList = this.state.userList.map((item) => {
+            return item.id;
+        });
+        
+        API.call({
+            path: '/user/edit-supervised-list',
+            data: {
+                userIdList: JSON.stringify(userIdList),
+                userId: this.props.params.userId
+            }
+        }).then(r => {
+            this.setState({
+                loading: false,
+                message: 'success'
+            })
+        }).catch((r) => {
+            this.setState({
+                loading: false,
+                message: r.message
+            })
+        });
+    }
+
+    onChangeValues(newList) {
+        this.setState({
+            userList: newList
+        });
+    }
+    searchUsers(query, blacklist = []) {
+        return API.call({
+            path: '/ticket/search-authors',
+            data: {
+                query: query,
+                blackList: JSON.stringify(blacklist),
+                searchUsers: 1
+            }
+        }).then(r => {
+            return r.data.authors.map(author => {
+                return {
+                    name: author.name,
+                    color: "gray",
+                    id: author.id*1,
+                    content: <div>{author.name}</div>,
+                    isStaff: false
+                }});
+        }).catch((r) => {
+            console.log(r);
+        });
+    }
+
+    transformUserListToAutocomplete() {
+        return(
+            this.state.userList.map((user) => {
+                return ({
+                    id: user.id*1,
+                    name: user.name,
+                    content: <div>{user.name}</div>,
+                    color: 'grey',
+                    isStaff: false
+                });
+            })
         );
     }
 
@@ -129,7 +238,8 @@ class AdminPanelViewUser extends React.Component {
             tickets: result.data.tickets,
             disabled: result.data.disabled,
             customfields: result.data.customfields,
-            loading: false
+            loading: false,
+            userList: result.data.userList
         });
     }
 
@@ -145,7 +255,7 @@ class AdminPanelViewUser extends React.Component {
     }
 
     disableUser() {
-        API.call({
+        return API.call({
             path: this.state.disabled ? '/user/enable' : '/user/disable',
             data: {
                 userId: this.props.params.userId
@@ -154,7 +264,7 @@ class AdminPanelViewUser extends React.Component {
     }
 
     deleteUser() {
-        API.call({
+        return API.call({
             path: '/user/delete',
             data: {
                 userId: this.props.params.userId

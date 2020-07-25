@@ -3,7 +3,7 @@ use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {OBJECT} MailTemplate MailTemplate
- * @apiVersion 4.6.1
+ * @apiVersion 4.8.0
  * @apiGroup Data Structures
  * @apiParam {String} type The type of the mail template.
  * @apiParam {String} subject The subject of the mail template.

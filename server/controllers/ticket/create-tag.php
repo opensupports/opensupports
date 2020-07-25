@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/create-tag Create tag
- * @apiVersion 4.6.1
+ * @apiVersion 4.8.0
  *
  * @apiName Create tag
  *

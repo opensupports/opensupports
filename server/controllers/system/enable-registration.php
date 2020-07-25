@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/enable-registration Enable registration
- * @apiVersion 4.6.1
+ * @apiVersion 4.8.0
  *
  * @apiName Enable registration 
  *

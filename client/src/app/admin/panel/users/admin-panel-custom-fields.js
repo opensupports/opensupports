@@ -85,7 +85,7 @@ class AdminPanelCustomFields extends React.Component {
     }
 
     deleteCustomField(id) {
-        API.call({
+        return API.call({
             path: '/system/delete-custom-field',
             data: {id}
         })

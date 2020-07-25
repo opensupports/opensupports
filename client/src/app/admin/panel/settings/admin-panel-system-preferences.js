@@ -52,9 +52,9 @@ class AdminPanelSystemPreferences extends React.Component {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-6">
-                            <FormField label={i18n('SUPPORT_CENTER_URL')} fieldProps={{size: 'large'}} name="url" validation="URL" required />
-                            <FormField label={i18n('SUPPORT_CENTER_LAYOUT')} fieldProps={{size: 'large', items: [{content: i18n('BOXED')}, {content: i18n('FULL_WIDTH')}]}} field="select" name="layout" />
+                        <div className="col-md-6 admin-panel-system-preferences__form-fields">
+                            <FormField className="admin-panel-system-preferences__form-fields__input" label={i18n('SUPPORT_CENTER_URL')} fieldProps={{size: 'large'}} name="url" validation="URL" required/>
+                            <FormField className="admin-panel-system-preferences__form-fields__select" label={i18n('SUPPORT_CENTER_LAYOUT')} fieldProps={{size: 'large', items: [{content: i18n('BOXED')}, {content: i18n('FULL_WIDTH')}]}} field="select" name="layout" />
                         </div>
                         <div className="col-md-6">
                             <FormField label={i18n('SUPPORT_CENTER_TITLE')} fieldProps={{size: 'large'}} name="title" validation="TITLE" required />
@@ -99,12 +99,12 @@ class AdminPanelSystemPreferences extends React.Component {
                             <span className="separator" />
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row admin-panel-system-preferences__container">
                         <div className="col-md-4 col-md-offset-2">
-                            <SubmitButton type="secondary">{i18n('UPDATE_SETTINGS')}</SubmitButton>
+                            <SubmitButton className="admin-panel-system-preferences__container__button" type="secondary">{i18n('UPDATE_SETTINGS')}</SubmitButton>
                         </div>
                         <div className="col-md-4">
-                            <Button onClick={this.onDiscardChangesSubmit.bind(this)}>{i18n('DISCARD_CHANGES')}</Button>
+                            <Button className="admin-panel-system-preferences__container__button" onClick={this.onDiscardChangesSubmit.bind(this)}>{i18n('DISCARD_CHANGES')}</Button>
                         </div>
                     </div>
                 </Form>

@@ -166,7 +166,7 @@ class TopicViewer extends React.Component {
     }
 
     onDeleteClick() {
-        API.call({
+        return API.call({
             path: '/article/delete-topic',
             data: {
                 topicId: this.props.id

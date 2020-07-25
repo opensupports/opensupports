@@ -12,6 +12,7 @@ import Button from 'core-components/button';
 import Tooltip from 'core-components/tooltip';
 import Checkbox from 'core-components/checkbox';
 import Tag from 'core-components/tag';
+import Icon from 'core-components/icon';
 import Message from 'core-components/message';
 
 class TicketList extends React.Component {
@@ -50,7 +51,11 @@ class TicketList extends React.Component {
             <div className="ticket-list">
                 <div className="ticket-list__filters">
                     {this.props.type === 'primary' ? this.renderMessage() : null}
-                    {(this.props.type === 'secondary' && this.props.showDepartmentDropdown) ? this.renderDepartmentsDropDown() : null}
+                    {
+                        (this.props.type === 'secondary' && this.props.showDepartmentDropdown) ?
+                            this.renderDepartmentsDropDown() :
+                            null
+                    }
                     {this.props.onClosedTicketsShownChange ? this.renderFilterCheckbox() : null}
                 </div>
                 <Table {...this.getTableProps()} />
@@ -107,15 +112,21 @@ class TicketList extends React.Component {
     }
 
     getTableProps() {
+        const {
+            loading,
+            page,
+            pages,
+            onPageChange,
+        } = this.props;
+
         return {
-            loading: this.props.loading,
+            loading,
             headers: this.getTableHeaders(),
             rows: this.getTableRows(),
             pageSize: 10,
-            comp: this.compareFunction,
-            page: this.props.page,
-            pages: this.props.pages,
-            onPageChange: this.props.onPageChange
+            page,
+            pages,
+            onPageChange
         };
     }
 
@@ -163,7 +174,10 @@ class TicketList extends React.Component {
                 },
                 {
                     key: 'date',
-                    value: i18n('DATE'),
+                    value:  <div>
+                                {i18n('DATE')}
+                                {this.renderSortArrow('date')}
+                            </div>,
                     className: 'ticket-list__date col-md-2'
                 }
             ];
@@ -180,11 +194,6 @@ class TicketList extends React.Component {
                     className: 'ticket-list__title col-md-4'
                 },
                 {
-                    key: 'priority',
-                    value: i18n('PRIORITY'),
-                    className: 'ticket-list__priority col-md-1'
-                },
-                {
                     key: 'department',
                     value: i18n('DEPARTMENT'),
                     className: 'ticket-list__department col-md-2'
@@ -196,11 +205,49 @@ class TicketList extends React.Component {
                 },
                 {
                     key: 'date',
-                    value: i18n('DATE'),
+                    value:  <div>
+                                {i18n('DATE')}
+                                {this.renderSortArrow('date')}
+                            </div>,
                     className: 'ticket-list__date col-md-2'
                 }
             ];
         }
+    }
+
+    renderSortArrow(header) {
+        const {
+            orderBy,
+            showOrderArrows,
+            onChangeOrderBy
+        } = this.props;
+        let arrowIcon;
+
+        if(showOrderArrows) {
+            arrowIcon = (
+                <Icon
+                    name={`arrow-${this.getIconName(header, orderBy)}`}
+                    className="ticket-list__order-icon"
+                    color={this.getIconColor(header, orderBy)}
+                    onClick={() => onChangeOrderBy(header)}
+                />
+            );
+        } else {
+            arrowIcon = null;
+        }
+
+        return arrowIcon;
+    }
+    getIconName(header, orderBy) {
+        let name = (orderBy && orderBy.value === header && orderBy.asc) ? "up" : "down";
+
+        return name;
+    }
+
+    getIconColor(header, orderBy) {
+        let color = (orderBy && orderBy.value === header) ? "gray" : "white";
+
+        return color;
     }
 
     getTableRows() {
@@ -224,6 +271,7 @@ class TicketList extends React.Component {
             ),
             title: (
                 <div>
+                    {ticket.closed ? <Icon size="sm" name="lock" /> : null}
                     <Button className="ticket-list__title-link" type="clean" route={{to: this.props.ticketPath + ticket.ticketNumber}}>
                         {titleText}
                     </Button>
@@ -234,62 +282,12 @@ class TicketList extends React.Component {
                 </div>
 
             ),
-            priority: this.getTicketPriority(ticket.priority),
             department: ticket.department.name,
             author: ticket.author.name,
             date: DateTransformer.transformToString(ticket.date, false),
             unread: this.isTicketUnread(ticket),
             highlighted: this.isTicketUnread(ticket)
         };
-    }
-
-    getTicketPriority(priority) {
-        if(priority == 'high'){
-            return (
-                <span className="ticket-list__priority-high">{i18n('HIGH')}</span>
-            );
-        }
-        if(priority == 'medium'){
-            return (
-                <span className="ticket-list__priority-medium">{i18n('MEDIUM')}</span>
-            );
-        }
-        if(priority == 'low'){
-            return (
-                <span className="ticket-list__priority-low">{i18n('LOW')}</span>
-            );
-        }
-    }
-
-    compareFunction(row1, row2) {
-        if (row1.closed == row2.closed) {
-            if (row1.unread == row2.unread) {
-                let s1 = row1.date;
-                let s2 = row2.date;
-
-                let y1 = s1.substring(0, 4);
-                let y2 = s2.substring(0, 4);
-
-                if (y1 == y2) {
-                    let m1 = s1.substring(4, 6);
-                    let m2 = s2.substring(4, 6);
-
-                    if (m1 == m2) {
-                        let d1 = s1.substring(6, 8);
-                        let d2 = s2.substring(6, 8);
-
-                        if (d1 == d2) {
-                            return 0;
-                        }
-                        return d1 > d2 ? -1 : 1;
-                    }
-                    return m1 > m2 ? -1 : 1;
-                }
-                return y1 > y2 ? -1 : 1;
-            }
-            return row1.unread ? -1 : 1;
-        }
-        return row1.closed ? -1 : 1;
     }
 
     isTicketUnread(ticket) {

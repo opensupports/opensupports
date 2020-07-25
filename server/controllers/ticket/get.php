@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 /**
  * @api {post} /ticket/get Get ticket
- * @apiVersion 4.6.1
+ * @apiVersion 4.8.0
  *
  * @apiName Get ticket
  *
@@ -33,7 +33,7 @@ class TicketGetController extends Controller {
     public function validations() {
         $session = Session::getInstance();
         return [
-            'permission' => 'any',
+            'permission' => 'user',
             'requestData' => [
                 'ticketNumber' => [
                     'validation' => DataValidator::validTicketNumber(),

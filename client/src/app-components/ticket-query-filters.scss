@@ -1,0 +1,96 @@
+@import '../scss/vars';
+
+.ticket-query-filters {
+    opacity: 0;
+    max-height: 0;
+    overflow-y: hidden;
+    transition: all 0.2s ease;
+
+    &__open {
+        max-height: 1000px;
+        opacity: 1;
+        transition: all 0.2s ease;
+    }
+
+    &__container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        &__button {
+            margin: 0 10px;
+        }
+    }
+
+    &__department-option {
+        &__name {
+            margin-left: 10px;
+        }
+    }
+
+    &__department-selected {
+        display: inline-block;
+        border-radius: 3px;
+        margin-left: 5px;
+        padding: 1px;
+        font-size: 13px;
+        cursor: default;
+
+        &__icon {
+            padding-right: 5px;
+        }
+    }
+
+    &__row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-start;
+
+        &__filter {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            margin-bottom: 30px;
+        }
+    
+    }
+
+    &__search-box {
+        width:  100%;
+        padding: 0 50px;
+        margin-bottom: 30px;
+    }
+
+    &__staff-option {
+        &__profile-pic {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+        }
+
+        &__name {
+            margin-left: 10px;
+        }
+    }
+
+    &__staff-selected {
+        display: inline-block;
+        border-radius: 3px;
+        margin-left: 5px;
+        padding: 1px;
+        font-size: 13px;
+        cursor: default;
+
+        &__profile-pic {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+    }
+
+    &__title {
+        padding-bottom: 10px;
+    }
+}

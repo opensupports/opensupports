@@ -24,6 +24,7 @@ import InfoTooltip        from 'core-components/info-tooltip';
 import DepartmentDropdown from 'app-components/department-dropdown';
 import TagSelector        from 'core-components/tag-selector';
 import Tag                from 'core-components/tag';
+import Loading from 'core-components/loading';
 
 class TicketViewer extends React.Component {
     static propTypes = {
@@ -64,6 +65,7 @@ class TicketViewer extends React.Component {
         editTitle: false,
         newTitle: this.props.ticket.title,
         editTitleError: false,
+        editTitleLoading: false,
     };
 
     componentDidMount() {
@@ -74,6 +76,7 @@ class TicketViewer extends React.Component {
 
     render() {
         const ticket = this.props.ticket;
+
         return (
             <div className="ticket-viewer">
                 {this.state.editTitle ? this.renderEditableTitle() : this.renderTitleHeader()}
@@ -92,8 +95,7 @@ class TicketViewer extends React.Component {
                         file={ticket.file}
                         edit={this.state.edit && this.state.editId == 0}
                         onToggleEdit={this.onToggleEdit.bind(this, 0)}
-                        allowAttachments={this.props.allowAttachments}
-                   />
+                        allowAttachments={this.props.allowAttachments} />
                 </div>
                 <div className="ticket-viewer__comments">
                     {ticket.events && ticket.events.map(this.renderTicketEvent.bind(this))}
@@ -108,7 +110,7 @@ class TicketViewer extends React.Component {
         const {ticketNumber, title, author, editedTitle, language} = ticket;
 
         return(
-            <div className="ticket-viewer__header row">
+            <div className="ticket-viewer__header">
                 <span className="ticket-viewer__number">#{ticketNumber}</span>
                 <span className="ticket-viewer__title">{title}</span>
                 <span className="ticket-viewer__flag">
@@ -136,13 +138,23 @@ class TicketViewer extends React.Component {
 
     renderEditableTitle(){
         return(
-            <div className="ticket-viewer__header row">
+            <div className="ticket-viewer__header">
                 <div className="ticket-viewer__edit-title-box">
-                    <FormField className="ticket-viewer___input-edit-title" error={this.state.editTitleError}  value={this.state.newTitle} field='input' onChange={(e) => this.setState({newTitle: e.target.value })} />
+                    <FormField
+                        className="ticket-viewer___input-edit-title"
+                        error={this.state.editTitleError}
+                        value={this.state.newTitle}
+                        field='input'
+                        onChange={(e) => this.setState({newTitle: e.target.value})} />
                 </div>
-                <Button type='secondary' size="extra-small" onClick={this.changeTitle.bind(this)}>
-                    {i18n('EDIT_TITLE')}
-                </Button>
+                <div className="ticket-viewer__edit-title__buttons">
+                    <Button disabled={this.state.editTitleLoading} type='primary' size="medium" onClick={() => this.setState({editTitle: false, newTitle: this.props.ticket.title})}>
+                        {this.state.editTitleLoading ? <Loading /> : <Icon name="times" />}
+                    </Button>
+                    <Button disabled={this.state.editTitleLoading} type='secondary' size="medium" onClick={this.changeTitle.bind(this)}>
+                        {this.state.editTitleLoading ? <Loading /> : <Icon name="check" />}
+                    </Button>
+                </div>
             </div>
         )
     }
@@ -151,62 +163,50 @@ class TicketViewer extends React.Component {
         const ticket = this.props.ticket;
         const departments = this.getDepartmentsForTransfer();
 
-        const priorities = {
-            'low': 0,
-            'medium': 1,
-            'high': 2
-        };
-        const priorityList = [
-            {content: i18n('LOW')},
-            {content: i18n('MEDIUM')},
-            {content: i18n('HIGH')}
-        ];
-
         return (
             <div className="ticket-viewer__headers">
-                <div className="ticket-viewer__info-row-header row">
-                    <div className="col-md-4">{i18n('DEPARTMENT')}</div>
-                    <div className="col-md-4">{i18n('AUTHOR')}</div>
-                    <div className="col-md-4">{i18n('TAGS')}</div>
+                <div className="ticket-viewer__info">
+                    <div className="ticket-viewer__info-container-editable">
+                        <div className="ticket-viewer__info-header">{i18n('DEPARTMENT')}</div>
+                        <div className="ticket-viewer__info-value">
+                            <DepartmentDropdown
+                                className="ticket-viewer__editable-dropdown"
+                                departments={departments}
+                                selectedIndex={_.findIndex(departments, {id: this.props.ticket.department.id})}
+                                onChange={this.onDepartmentDropdownChanged.bind(this)} />
+                        </div>
+                    </div>
+                    <div className="ticket-viewer__info-container-editable">
+                        <div className="ticket-viewer__info-header">{i18n('TAGS')}</div>
+                        <div className="ticket-viewer__info-value">
+                            <TagSelector
+                                items={this.props.tags}
+                                values={this.props.ticket.tags}
+                                onRemoveClick={this.removeTag.bind(this)}
+                                onTagSelected={this.addTag.bind(this)}
+                                loading={this.state.tagSelectorLoading}/>
+                        </div>
+                    </div>
+                    <div className="ticket-viewer__info-container-editable">
+                        <div className="ticket-viewer__info-header">{i18n('OWNER')}</div>
+                        <div className="ticket-viewer__info-value">
+                            {this.renderAssignStaffList()}
+                        </div>
+                    </div>
                 </div>
-                <div className="ticket-viewer__info-row-values row">
-                    <div className="col-md-4">
-                        <DepartmentDropdown className="ticket-viewer__editable-dropdown"
-                                  departments={departments}
-                                  selectedIndex={_.findIndex(departments, {id: this.props.ticket.department.id})}
-                                  onChange={this.onDepartmentDropdownChanged.bind(this)} />
+                <div className="ticket-viewer__info">
+                <div className="ticket-viewer__info-container-editable">
+                        <div className="ticket-viewer__info-header">{i18n('AUTHOR')}</div>
+                        <div className="ticket-viewer__info-value">{ticket.author.name}</div>
                     </div>
-                    <div className="col-md-4">{ticket.author.name}</div>
-                    <div className="col-md-4">
-                        <TagSelector
-                            items={this.props.tags}
-                            values={this.props.ticket.tags}
-                            onRemoveClick={this.removeTag.bind(this)}
-                            onTagSelected={this.addTag.bind(this)}
-                            loading={this.state.tagSelectorLoading} />
-                    </div>
-                </div>
-                <div className="ticket-viewer__info-row-header row">
-                    <div className="col-md-4">{i18n('PRIORITY')}</div>
-                    <div className="col-md-4">{i18n('OWNER')}</div>
-                    <div className="col-md-4">{i18n('STATUS')}</div>
-                </div>
-                <div className="ticket-viewer__info-row-values row">
-                    <div className="col-md-4">
-                        <DropDown
-                            className="ticket-viewer__editable-dropdown"
-                            items={priorityList}
-                            selectedIndex={priorities[ticket.priority]}
-                            onChange={this.onPriorityDropdownChanged.bind(this)} />
-                    </div>
-                    <div className="col-md-4">
-                        {this.renderAssignStaffList()}
-                    </div>
-                    <div className="col-md-4">
-                        {ticket.closed ?
-                        <Button type='secondary' size="extra-small" onClick={this.onReopenClick.bind(this)}>
-                            {i18n('RE_OPEN')}
-                        </Button> : i18n('OPENED')}
+                    <div className="ticket-viewer__info-container-editable">
+                        <div className="ticket-viewer__info-header">{i18n('STATUS')}</div>
+                            <div className="ticket-viewer__info-value">
+                            {ticket.closed ?
+                            <Button type='secondary' size="extra-small" onClick={this.onReopenClick.bind(this)}>
+                                {i18n('RE_OPEN')}
+                            </Button> : i18n('OPENED')}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -215,41 +215,38 @@ class TicketViewer extends React.Component {
 
     renderHeaders() {
         const ticket = this.props.ticket;
-        const priorities = {
-            'low': 'LOW',
-            'medium': 'MEDIUM',
-            'high': 'HIGH'
-        };
 
         return (
             <div className="ticket-viewer__headers">
-                <div className="ticket-viewer__info-row-header row">
-                    <div className="ticket-viewer__department col-md-4">{i18n('DEPARTMENT')}</div>
-                    <div className="ticket-viewer__author col-md-4">{i18n('AUTHOR')}</div>
-                    <div className="ticket-viewer__date col-md-4">{i18n('TAGS')}</div>
-                </div>
-                <div className="ticket-viewer__info-row-values row">
-                    <div className="ticket-viewer__department col-md-4">{ticket.department.name}</div>
-                    <div className="ticket-viewer__author col-md-4">{ticket.author.name}</div>
-                    <div className="col-md-4">{ticket.tags.length ? ticket.tags.map((tagName,index) => {
-                        let tag = _.find(this.props.tags, {name:tagName});
-                        return <Tag name={tag && tag.name} color={tag && tag.color} key={index} />
-                    }) : i18n('NONE')}</div>
-                </div>
-                <div className="ticket-viewer__info-row-header row">
-                    <div className="ticket-viewer__department col-md-4">{i18n('PRIORITY')}</div>
-                    <div className="ticket-viewer__author col-md-4">{i18n('OWNER')}</div>
-                    <div className="ticket-viewer__date col-md-4">{i18n('STATUS')}</div>
-                </div>
-                <div className="ticket-viewer__info-row-values row">
-                    <div className="col-md-4">
-                        {i18n(priorities[this.props.ticket.priority || 'low'])}
+                <div className="ticket-viewer__info">
+                    <div className="ticket-viewer__info-container">
+                        <div className="ticket-viewer__info-header">{i18n('DEPARTMENT')}</div>
+                        <div className="ticket-viewer__info-value">{ticket.department.name}</div>
                     </div>
-                    <div className="col-md-4">
-                        {this.renderOwnerNode()}
+                        <div className="ticket-viewer__info-container">
+                            <div className="ticket-viewer__info-header">{i18n('AUTHOR')}</div>
+                            <div className="ticket-viewer__info-value">{ticket.author.name}</div>
                     </div>
-                    <div className="col-md-4">
-                        {i18n((this.props.ticket.closed) ? 'CLOSED' : 'OPENED')}
+                    <div className="ticket-viewer__info-container">
+                        <div className="ticket-viewer__info-header">{i18n('TAGS')}</div>
+                        <div className="ticket-viewer__info-value">{ticket.tags.length ? ticket.tags.map((tagName,index) => {
+                            let tag = _.find(this.props.tags, {name:tagName});
+                            return <Tag name={tag && tag.name} color={tag && tag.color} key={index} />
+                        }) : i18n('NONE')}</div>
+                    </div>
+                </div>
+                <div className="ticket-viewer__info">
+                    <div className="ticket-viewer__info-container">
+                        <div className="ticket-viewer__info-header">{i18n('OWNER')}</div>
+                        <div className="ticket-viewer__info-value">
+                            {this.renderOwnerNode()}
+                        </div>
+                    </div>
+                    <div className="ticket-viewer__info-container">
+                        <div className="ticket-viewer__info-header">{i18n('STATUS')}</div>
+                        <div className="ticket-viewer__info-value">
+                            {i18n((this.props.ticket.closed) ? 'CLOSED' : 'OPENED')}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -270,8 +267,7 @@ class TicketViewer extends React.Component {
 
     renderAssignStaffList() {
         const items = this.getStaffAssignmentItems();
-        const ownerId = this.props.ticket.owner && this.props.ticket.owner.id;
-
+        const ownerId = this.props.ticket.owner && this.props.ticket.owner.id*1;
         let selectedIndex = _.findIndex(items, {id: ownerId});
         selectedIndex = (selectedIndex !== -1) ? selectedIndex : 0;
 
@@ -397,11 +393,7 @@ class TicketViewer extends React.Component {
     }
 
     onDepartmentDropdownChanged(event) {
-        AreYouSure.openModal(null, this.changeDepartment.bind(this, event.index));
-    }
-
-    onPriorityDropdownChanged(event) {
-        AreYouSure.openModal(null, this.changePriority.bind(this, event.index));
+        AreYouSure.openModal(null, this.changeDepartment.bind(this, this.getDepartmentsForTransfer()[event.index].id));
     }
 
     onAssignmentChange(event) {
@@ -415,14 +407,14 @@ class TicketViewer extends React.Component {
         let APICallPromise = new Promise(resolve => resolve());
 
         if(owner) {
-            APICallPromise.then(() => API.call({
+            APICallPromise = APICallPromise.then(() => API.call({
                 path: '/staff/un-assign-ticket',
                 data: { ticketNumber }
             }));
         }
 
         if(id !== 0) {
-            APICallPromise.then(() => API.call({
+            APICallPromise = APICallPromise.then(() => API.call({
                 path: '/staff/assign-ticket',
                 data: { ticketNumber, staffId: id }
             }));
@@ -446,6 +438,9 @@ class TicketViewer extends React.Component {
     }
 
     changeTitle(){
+        this.setState({
+            editTitleLoading: true
+        });
         API.call({
             path: '/ticket/edit-title',
             data: {
@@ -455,18 +450,20 @@ class TicketViewer extends React.Component {
         }).then(() => {
             this.setState({
                 editTitle: false,
-                editTitleError: false
+                editTitleError: false,
+                editTitleLoading: false
             });
             this.onTicketModification();
         }).catch((result) => {
             this.setState({
-                editTitleError: i18n(result.message)
+                editTitleError: i18n(result.message),
+                editTitleLoading: false
             })
         });
     }
 
     reopenTicket() {
-        API.call({
+        return API.call({
             path: '/ticket/re-open',
             data: {
                 ticketNumber: this.props.ticket.ticketNumber
@@ -475,7 +472,7 @@ class TicketViewer extends React.Component {
     }
 
     closeTicket() {
-        API.call({
+        return API.call({
             path: '/ticket/close',
             data: {
                 ticketNumber: this.props.ticket.ticketNumber
@@ -484,7 +481,7 @@ class TicketViewer extends React.Component {
     }
 
     deleteTicket() {
-        API.call({
+        return API.call({
             path: '/ticket/delete',
             data: {
                 ticketNumber: this.props.ticket.ticketNumber
@@ -495,30 +492,20 @@ class TicketViewer extends React.Component {
         });
     }
 
-    changeDepartment(index) {
-        API.call({
+    changeDepartment(departmentId) {
+        const {
+            userId,
+            userDepartments,
+            ticket
+        } = this.props;
+
+        return API.call({
             path: '/ticket/change-department',
             data: {
-                ticketNumber: this.props.ticket.ticketNumber,
-                departmentId: this.getDepartmentsForTransfer()[index].id
+                ticketNumber: ticket.ticketNumber,
+                departmentId
             }
-        }).then(this.onTicketModification.bind(this));
-    }
-
-    changePriority(index) {
-        const priorities = [
-            'low',
-            'medium',
-            'high'
-        ];
-
-        API.call({
-            path: '/ticket/change-priority',
-            data: {
-                ticketNumber: this.props.ticket.ticketNumber,
-                priority: priorities[index]
-            }
-        }).then(this.onTicketModification.bind(this));
+        }).then((_.some(userDepartments, {id: departmentId}) || (userId === (ticket.author.id*1))) ? this.onTicketModification.bind(this) : history.goBack());
     }
 
     addTag(tag) {
@@ -680,7 +667,7 @@ class TicketViewer extends React.Component {
                 _.filter(staffMembers, ({id, departments}) => {
                     return (id != userId) && _.some(departments, {id: ticketDepartmentId});
                 }),
-                ({id, name}) => ({content: name, id})
+                ({id, name}) => ({content: name, id: id*1})
             )
         );
 
@@ -693,8 +680,8 @@ class TicketViewer extends React.Component {
 
     showDeleteButton() {
         if(!this.props.ticket.owner) {
-            if(this.props.userLevel == 3) return true;
-            if(this.props.userId == this.props.ticket.author.id) {
+            if(this.props.userLevel === 3) return true;
+            if(this.props.userId == this.props.ticket.author.id*1) {
                 if((this.props.userStaff && this.props.ticket.author.staff) || (!this.props.userStaff && !this.props.ticket.author.staff)){
                     return true;
                 }
@@ -706,13 +693,13 @@ class TicketViewer extends React.Component {
 
 export default connect((store) => {
     return {
-        userId: store.session.userId,
+        userId: store.session.userId*1,
         userStaff: store.session.staff,
         userDepartments: store.session.userDepartments,
         staffMembers: store.adminData.staffMembers,
         staffMembersLoaded: store.adminData.staffMembersLoaded,
         allowAttachments: store.config['allow-attachments'],
-        userLevel: store.session.userLevel,
+        userLevel: store.session.userLevel*1,
         tags: store.config['tags']
     };
 })(TicketViewer);

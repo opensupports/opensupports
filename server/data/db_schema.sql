@@ -349,7 +349,6 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `ticket_number` int(11) unsigned DEFAULT NULL,
   `unread` tinyint(1) unsigned DEFAULT NULL,
-  `priority` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `unread_staff` tinyint(1) unsigned DEFAULT NULL,
   `title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `content` text COLLATE utf8mb4_unicode_ci,

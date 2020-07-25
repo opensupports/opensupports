@@ -49,8 +49,8 @@ class AdminPanelBanUsers extends React.Component {
                         {i18n('BAN_NEW_EMAIL')}
                     </span>
                     <Form {...this.getFormProps()}>
-                        <FormField className="admin-panel-ban-users__input" placeholder="email" name="email" validation="EMAIL" required fieldProps={{size: 'large'}} />
-                        <SubmitButton>{i18n('BAN_EMAIL')}</SubmitButton>
+                        <FormField className="admin-panel-ban-users__input" placeholder="email" name="email" validation="EMAIL" required fieldProps={{size: 'large'}}/>
+                        <SubmitButton className="admin-panel-ban-users__submit-button">{i18n('BAN_EMAIL')}</SubmitButton>
                     </Form>
                     {this.renderMessage()}
                 </div>

@@ -30,8 +30,10 @@ class SearchBox extends React.Component {
 
     static propTypes = {
         onSearch: React.PropTypes.func,
+        onChange: React.PropTypes.func,
         placeholder: React.PropTypes.string,
-        searchOnType: React.PropTypes.bool
+        searchOnType: React.PropTypes.bool,
+        value: React.PropTypes.string
     };
 
     state = {
@@ -42,7 +44,12 @@ class SearchBox extends React.Component {
     render() {
         return (
             <div className={this.getClass()}>
-                <Input className="search-box__text" value={this.state.value} placeholder={this.props.placeholder} onChange={this.onChange.bind(this)} onKeyDown={this.onKeyDown.bind(this)} />
+                <Input
+                    className="search-box__text"
+                    value={this.getValue()}
+                    placeholder={this.props.placeholder}
+                    onChange={this.onChange.bind(this)}
+                    onKeyDown={this.onKeyDown.bind(this)} />
                 <span className="search-box__icon">
                     <Icon name="search" />
                 </span>
@@ -51,28 +58,49 @@ class SearchBox extends React.Component {
     }
 
     getClass() {
+        const { className } = this.props;
         let classes = {
             'search-box': true
         };
 
-        classes[this.props.className] = (this.props.className);
+        classes[className] = (className);
 
         return classNames(classes);
     }
 
+    getValue() {
+        const { value } = this.props;
+
+        return (value !== undefined) ? value : this.state.value;
+    }
+
     onChange(event) {
+        const {
+            searchOnType,
+            onSearch,
+            onChange
+        } = this.props;
+
         this.setState({
             value: event.target.value
         });
 
-        if (this.props.searchOnType && this.props.onSearch) {
-            this.props.onSearch(event.target.value);
+        onChange && onChange(event.target.value);
+
+        if (searchOnType && onSearch) {
+            onSearch(event.target.value);
         }
     }
 
     onKeyDown(event) {
-        if(keyCode(event) === 'enter' && this.props.onSearch && !this.props.searchOnType) {
-            this.props.onSearch(this.state.value);
+        const {
+            onSearch,
+            searchOnType
+        } = this.props;
+
+        if(keyCode(event) === 'enter' && onSearch && !searchOnType) {
+            onSearch(this.state.value);
+            event.preventDefault();
         }
     }
 }

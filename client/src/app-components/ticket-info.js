@@ -35,14 +35,6 @@ class TicketInfo extends React.Component {
                             {(this.props.ticket.closed) ? 'closed' : 'open'}
                         </span>
                     </div>
-                    <div className="ticket-info__properties__priority">
-                        <span className="ticket-info__properties__label">
-                            {i18n('PRIORITY')}:
-                        </span>
-                        <span className={this.getPriorityClass()}>
-                            {this.props.ticket.priority}
-                        </span>
-                    </div>
                     <div className="ticket-info__properties__owner">
                         <span className="ticket-info__properties__label">
                             {i18n('OWNED')}:
@@ -80,15 +72,6 @@ class TicketInfo extends React.Component {
         }
     }
 
-    getPriorityClass() {
-        let priorityClasses = {
-            'low': 'ticket-info__properties__badge-green',
-            'medium': 'ticket-info__properties__badge-blue',
-            'high': 'ticket-info__properties__badge-red'
-        };
-
-        return priorityClasses[this.props.ticket.priority];
-    }
 }
 
 export default TicketInfo;

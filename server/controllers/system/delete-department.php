@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /system/delete-department Delete department
- * @apiVersion 4.6.1
+ * @apiVersion 4.8.0
  *
  * @apiName Delete department
  *
@@ -49,8 +49,11 @@ class DeleteDepartmentController extends Controller {
     }
 
     public function handler() {
+        
         $this->departmentId = Controller::request('departmentId');
         $this->transferDepartmentId = Controller::request('transferDepartmentId');
+        
+        $this->checkDepartmentIdDefault();
 
         if ($this->departmentId === $this->transferDepartmentId) {
             throw new RequestException(ERRORS::SAME_DEPARTMENT);
@@ -73,7 +76,7 @@ class DeleteDepartmentController extends Controller {
 
     public function transferDepartmentTickets() {
         $tickets = Ticket::find('department_id = ?', [$this->departmentId]);
-        $newDepartment = Department::getDataStore($this->transferDepartmentId);;
+        $newDepartment = Department::getDataStore($this->transferDepartmentId);
 
         foreach($tickets as $ticket) {
             $staffOwner = $ticket->owner;
@@ -107,5 +110,10 @@ class DeleteDepartmentController extends Controller {
             $ticket->department = $newDepartment;
             $ticket->store();
         }
+    }
+    public function checkDepartmentIdDefault() {
+        $defaultDepartment = Setting::getSetting('default-department-id');
+
+        if ($defaultDepartment && $this->departmentId == $defaultDepartment->value) throw new Exception(ERRORS::CAN_NOT_DELETE_DEFAULT_DEPARTMENT);
     }
 }

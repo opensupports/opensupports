@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /system/enable-mandatory-login Enable mandatory Login
- * @apiVersion 4.6.1
+ * @apiVersion 4.8.0
  *
  * @apiName Enable Mandatory Login
  *

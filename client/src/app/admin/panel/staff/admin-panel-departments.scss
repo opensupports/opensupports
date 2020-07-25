@@ -7,16 +7,43 @@
     }
 
     &__update-name-button {
-        float: left;
         min-width: 156px;
     }
 
-    &__name {
-        display:inline-block;margin-right: 101px;
+    &__container{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 460px;
+
+        &__info-tooltip {
+            margin-left: 2px;
+        }
     }
-    &__private-option {
-        display:inline-block;
-        margin-left: 10px;
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+
+    &__default-departments-container {
+        &__form {
+            text-align: left;
+            &__fields {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: flex-start;
+                padding-bottom: 10px;
+            }
+            &__button {
+                min-width: 156px;
+            }
+        }
     }
 
     &__optional-buttons {
@@ -49,7 +76,43 @@
     &__private-icon {
         margin-left: 5px;
     }
-    &__info-tooltip {
-        margin-left: 2px;
+    &__default-icon {
+        color:  lightgrey;
+        font-style: italic;
+        text-transform: lowercase;
+        margin-left: 3px;
     }
+
+    @media screen and (max-width: 415px) {
+        .admin-panel-departments  {
+            &__container{
+                display: unset;
+                width: 100%;
+
+                &__name {
+                    margin: 30px;
+                }
+
+                &__private-option {
+                    margin: 10px;
+                }
+            }
+
+            &__update-name-button {
+                float: unset;
+                margin: 15px;
+            }
+
+            &__default-departments-container__form__fields {
+
+                &__checkbox {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+            }
+        }
+    }
+
 }

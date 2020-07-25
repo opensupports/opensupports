@@ -10,7 +10,7 @@
     }
 
     &__icon {
-        color: $light-grey;
+        color: $medium-grey;
         outline: none;
 
         &:focus {
@@ -28,6 +28,16 @@
 
             &:focus {
                 color: lighten($primary-red, 5%);;
+            }
+        }
+    }
+
+    &_disabled {
+        .checkbox__icon {
+            color: $light-grey;
+
+            &:focus {
+                color: $light-grey;
             }
         }
     }

@@ -103,10 +103,7 @@ class AdminPanelCustomTagsModal extends React.Component {
             }
         }).then(() => {
             this.context.closeModal();
-            this.setState({
-                loading: false,
-                errors: {}
-            });
+
             if(this.props.onTagChange) {
                 this.props.onTagChange();
             }
@@ -135,10 +132,6 @@ class AdminPanelCustomTagsModal extends React.Component {
             }
         }).then(() => {
             this.context.closeModal();
-            this.setState({
-                loading: false,
-                errors: {}
-            });
 
             if(this.props.onTagCreated) {
                 this.props.onTagCreated();

@@ -3,7 +3,7 @@ use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {OBJECT} User User
- * @apiVersion 4.6.1
+ * @apiVersion 4.8.0
  * @apiGroup Data Structures
  * @apiParam {String} email The email of the user.
  * @apiParam {Number} id The id of the user.
@@ -33,7 +33,9 @@ class User extends DataStore {
             'verificationToken',
             'disabled',
             'xownCustomfieldvalueList',
-            'notRegistered'
+            'notRegistered',
+            'sharedUserList',
+            'supervisedrelation'
         ];
     }
 
@@ -47,15 +49,29 @@ class User extends DataStore {
 
     public function canManageTicket(Ticket $ticket){
         $ticketNumberInstanceValidation = true;
-
+        $ticketOfSupervisedUser = false;
+        
         if($this->ticketNumber) {
             $ticketNumberInstanceValidation = $this->ticketNumber == $ticket->ticketNumber;
         }
-
-        return ($ticket->isAuthor($this) && $ticketNumberInstanceValidation);
+        if($this->supervisedrelation){
+            foreach( $this->supervisedrelation->sharedUserList as $user){
+                if($ticket->isAuthor($user)) $ticketOfSupervisedUser = true;
+            }
+        }
+        return (($ticket->isAuthor($this) || $ticketOfSupervisedUser) && $ticketNumberInstanceValidation);
     }
 
-    public function toArray() {
+    public function toArray($minimal = false) {
+        if($minimal) {
+            return [
+                'id' => $this->id,
+                'name' => $this->name,
+                'email' => $this->email,
+                'isStaff' => 0
+            ];
+        }
+
         return [
             'email' => $this->email,
             'id' => $this->id,
@@ -63,7 +79,8 @@ class User extends DataStore {
             'verified' => !$this->verificationToken,
             'disabled' => $this->disabled,
             'customfields' => $this->xownCustomfieldvalueList->toArray(),
-            'notRegistered' => $this->notRegistered
+            'notRegistered' => $this->notRegistered,
+            'supervisedrelation' => $this->supervisedrelation
         ];
     }
 }

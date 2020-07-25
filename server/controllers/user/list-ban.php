@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /user/list-ban Get ban list
- * @apiVersion 4.6.1
+ * @apiVersion 4.8.0
  *
  * @apiName Get ban list
  *

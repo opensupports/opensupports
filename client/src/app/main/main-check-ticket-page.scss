@@ -21,4 +21,22 @@
         height: 78px;
         width: 304px;
     }
+
+    @media screen and (max-width: 415px) {
+        .main-check-ticket-page {
+            &__inputs {
+                display: unset;
+            }
+
+            &__input {
+                width: 300px;
+                margin: 0;
+                display: unset;
+            }
+
+            &__form {
+                width: 280px;
+            }
+        }
+    }
 }

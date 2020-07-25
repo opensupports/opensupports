@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect}  from 'react-redux';
 
-import AdminPanelCustomTagsModal from 'app/admin/panel/tickets/admin-panel-custom-tags-modal';
+import AdminPanelCustomTagsModal from 'app/admin/panel/settings/admin-panel-custom-tags-modal';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -57,7 +57,14 @@ class AdminPanelCustomTags extends React.Component {
     renderTag(tag, index) {
         return (
             <div key={index} className="admin-panel-custom-tags__tag-container" >
-                <Tag color={tag.color} name={tag.name} onEditClick={this.openEditTagModal.bind(this, tag.id, tag.name, tag.color)} onRemoveClick={this.onDeleteClick.bind(this, tag.id)} size='large' showEditButton showDeleteButton />
+                <Tag
+                    color={tag.color}
+                    name={tag.name}
+                    onEditClick={this.openEditTagModal.bind(this, tag.id, tag.name, tag.color)}
+                    onRemoveClick={this.onDeleteClick.bind(this, tag.id)}
+                    size='large'
+                    showEditButton
+                    showDeleteButton />
             </div>
         )
     }
@@ -80,7 +87,7 @@ class AdminPanelCustomTags extends React.Component {
     }
 
     deleteCustomTag(tagId) {
-        API.call({
+        return API.call({
             path: '/ticket/delete-tag',
             data: {
                 tagId,
@@ -97,6 +104,6 @@ class AdminPanelCustomTags extends React.Component {
 
 export default connect((store) => {
     return {
-        tags: store.config['tags']
+        tags: store.config['tags'].map((tag) => {return {...tag, id: tag.id*1}})
     };
 })(AdminPanelCustomTags);
