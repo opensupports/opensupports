@@ -110,6 +110,7 @@ class AdminPanelViewUser extends React.Component {
             </div>
         );
     }
+
     renderSupervisedUserMessage(){
         if(this.state.message) {
             if(this.state.message != 'success'){
@@ -161,6 +162,7 @@ class AdminPanelViewUser extends React.Component {
             userList: newList
         });
     }
+
     searchUsers(query, blacklist = []) {
         return API.call({
             path: '/ticket/search-authors',
