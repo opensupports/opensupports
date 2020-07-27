@@ -7,7 +7,7 @@ describe '/user/get-users' do
 
     result = request('/user/login', {
         email: 'staff@opensupports.com',
-        password: 'password',
+        password: 'staff123',
         staff: true
     })
 

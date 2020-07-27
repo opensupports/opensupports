@@ -3,7 +3,7 @@ describe 'Enable/disable user' do
 
     describe '/user/disable' do
         request('/user/logout');
-        Scripts.login('staff@opensupports.com', 'password', true);
+        Scripts.login('staff@opensupports.com', 'staff123', true);
 
         it 'should disable user' do
             result = request('/user/disable', {
@@ -40,7 +40,7 @@ describe 'Enable/disable user' do
 
     describe '/user/enable' do
         request('/user/logout');
-        Scripts.login('staff@opensupports.com', 'password', true);
+        Scripts.login('staff@opensupports.com', 'staff123', true);
 
         it 'should enable user' do
             result = request('/user/enable', {

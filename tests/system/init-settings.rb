@@ -18,7 +18,7 @@ describe '/system/init-settings' do
             'title' => 'Support Center',
             'smtp-host' => 'localhost:7070',
             'smtp-user' => 'testemail@opensupports.com',
-            'smtp-pass' => 'password',
+            'smtp-pass' => 'staff123',
             'server-email' => 'testemail@opensupports.com',
             'language' => 'en',
             'mandatory-login' => true

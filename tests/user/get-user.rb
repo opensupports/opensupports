@@ -3,7 +3,7 @@ describe '/user/get-user' do
     request('/user/logout')
     result = request('/user/login', {
         email: 'staff@opensupports.com',
-        password: 'password',
+        password: 'staff123',
         staff: true
     })
 

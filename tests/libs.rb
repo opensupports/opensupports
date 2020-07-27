@@ -154,5 +154,5 @@ $database = Database.new
 
 $staff = {
     :email => 'staff@opensupports.com',
-    :password => 'password'
+    :password => 'staff123'
 }

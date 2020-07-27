@@ -1,6 +1,6 @@
 
 describe 'CustomResponses' do
-    Scripts.login('staff@opensupports.com', 'password', true)
+    Scripts.login('staff@opensupports.com', 'staff123', true)
 
     describe '/ticket/add-custom-responses/' do
         it 'should create custom response' do
