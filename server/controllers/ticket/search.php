@@ -50,6 +50,9 @@ class SearchController extends Controller {
     const PATH = '/search';
     const METHOD = 'POST';
     private $ignoreDeparmentFilter;
+    private $ticketTableExists;
+    private $tagsTableExists;
+    private $ticketEventTableExists;
 
     public function validations() {
         return [
@@ -104,7 +107,11 @@ class SearchController extends Controller {
     }
 
     public function handler() {
+        ///$t1 = microtime(true);
         $this->ignoreDeparmentFilter = (bool)Controller::request('supervisor');
+        $this->ticketTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticket';");  /// ~0.602 seconds
+        $this->tagsTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'tag_ticket';");
+        $this->ticketEventTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticketevent';");
 
         $allowedDepartmentsId = [];
         foreach (Controller::getLoggedUser()->sharedDepartmentList->toArray() as $department) {
@@ -126,18 +133,17 @@ class SearchController extends Controller {
             'allowedDepartments' => $allowedDepartmentsId,
             'staffId' => Controller::getLoggedUser()->id
         ];
-        /// All code until this comment takes ~0.001 seconds
-        $query = $this->getSQLQuery($inputs); /// ~2.402 seconds
-        $queryWithOrder = $this->getSQLQueryWithOrder($inputs, $query); /// ~3.103 seconds
-        $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", [':query' => "%" . $inputs['query'] . "%", ':queryAtBeginning' => $inputs['query'] . "%" ])[0]['COUNT(*)']; /// ~0.001 seconds
-        $ticketIdList = RedBean::getAll($queryWithOrder, [':query' => "%" . $inputs['query'] . "%", ':queryAtBeginning' => $inputs['query'] . "%"]); /// ~0.000 seconds
+        $query = $this->getSQLQuery($inputs);
+        $queryWithOrder = $this->getSQLQueryWithOrder($inputs, $query);
+        $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", [':query' => "%" . $inputs['query'] . "%", ':queryAtBeginning' => $inputs['query'] . "%" ])[0]['COUNT(*)'];
+        $ticketIdList = RedBean::getAll($queryWithOrder, [':query' => "%" . $inputs['query'] . "%", ':queryAtBeginning' => $inputs['query'] . "%"]);
         $ticketList = [];
         foreach ($ticketIdList as $item) {
             $ticket = Ticket::getDataStore($item['id']);
             array_push($ticketList, $ticket->toArray());
-        } /// Until here ~0.015 seconds
-        $ticketTableExists  = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticket';"); /// ~0.602 seconds
-        if($ticketTableExists){
+        }
+        if($this->ticketTableExists){
+            ///echo '(handler: ' . (microtime(true) - $t1) . ")";
             Response::respondSuccess([
                 'tickets' => $ticketList,
                 'pages' => ceil($totalCount / 10),
@@ -146,21 +152,18 @@ class SearchController extends Controller {
         }else{
             Response::respondSuccess([]);
         }
-    } /// The whole function ~5.793 seconds
+    } /// The whole function ~1.93762321472166
 
     public function getSQLQuery($inputs) {
-        /// $sqlQueryTime = microtime(true);
-        $tagsTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'tag_ticket';");
-        $ticketEventTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticketevent';");
-
-        $taglistQuery = ( $tagsTableExists ? " LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id" : '');
-        $ticketeventlistQuery = ( $ticketEventTableExists ? " LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id" : '');
+        ///$sqlQueryTime = microtime(true);
+        $taglistQuery = ( $this->tagsTableExists ? " LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id" : '');
+        $ticketeventlistQuery = ( $this->ticketEventTableExists ? " LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id" : '');
 
         $query = "FROM (ticket" . $taglistQuery . $ticketeventlistQuery .")";
         $filters = "";
         $this->setQueryFilters($inputs, $filters);
         $query .= $filters . " GROUP BY ticket.id";
-        /// echo "(getSQLQuery: " . (microtime(true) - $sqlQueryTime) . ")";
+        ///echo "(getSQLQuery: " . (microtime(true) - $sqlQueryTime) . ")";
         return $query;
     }
 
@@ -191,9 +194,7 @@ class SearchController extends Controller {
     }
 
     private function setTagFilter($tagList, &$filters){
-        $tagsTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'tag_ticket';");
-
-        if($tagList && $tagsTableExists){
+        if($tagList && $this->tagsTableExists){
             $filters != "" ? $filters .= " and " : null;
 
             foreach($tagList as $key => $tag) {
@@ -334,11 +335,9 @@ class SearchController extends Controller {
     }
 
     private function setStringFilter($search, &$filters){
-        $ticketEventTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticketevent';");
-
         if($search !== null){
             if ($filters != "")  $filters .= " and ";
-            $ticketevent = ( $ticketEventTableExists ? " or (ticketevent.type = 'COMMENT' and ticketevent.content LIKE :query)" : "");
+            $ticketevent = ( $this->ticketEventTableExists ? " or (ticketevent.type = 'COMMENT' and ticketevent.content LIKE :query)" : "");
             $filters .= " (ticket.title LIKE :query or ticket.content LIKE :query or ticket.ticket_number LIKE :query". $ticketevent  ." )";
         };
     }
@@ -373,10 +372,8 @@ class SearchController extends Controller {
         };
     }
     private function setStringOrder($querysearch, &$order){
-        $ticketEventTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticketevent';");
-
         if($querysearch !== null){
-            $ticketeventOrder =  ( $ticketEventTableExists ? " WHEN (ticketevent.content LIKE :query) THEN 5 " : "");
+            $ticketeventOrder =  ( $this->ticketEventTableExists ? " WHEN (ticketevent.content LIKE :query) THEN 5 " : "");
             $order .= "CASE WHEN (ticket.ticket_number LIKE :query) THEN 1 WHEN (ticket.title LIKE :queryAtBeginning) THEN 2 WHEN (ticket.title LIKE :query) THEN 3 WHEN ( ticket.content LIKE :query) THEN 4 " . $ticketeventOrder ."END asc, ";
        }
     }
