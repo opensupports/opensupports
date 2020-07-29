@@ -126,17 +126,17 @@ class SearchController extends Controller {
             'allowedDepartments' => $allowedDepartmentsId,
             'staffId' => Controller::getLoggedUser()->id
         ];
-
-        $query = $this->getSQLQuery($inputs);
-        $queryWithOrder = $this->getSQLQueryWithOrder($inputs);
-        $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", [':query' => "%" . $inputs['query'] . "%", ':queryAtBeginning' => $inputs['query'] . "%" ])[0]['COUNT(*)'];
-        $ticketIdList = RedBean::getAll($queryWithOrder, [':query' => "%" . $inputs['query'] . "%", ':queryAtBeginning' => $inputs['query'] . "%"]);
+        /// All code until this comment takes ~0.001 seconds
+        $query = $this->getSQLQuery($inputs); /// ~2.402 seconds
+        $queryWithOrder = $this->getSQLQueryWithOrder($inputs, $query); /// ~3.103 seconds
+        $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", [':query' => "%" . $inputs['query'] . "%", ':queryAtBeginning' => $inputs['query'] . "%" ])[0]['COUNT(*)']; /// ~0.001 seconds
+        $ticketIdList = RedBean::getAll($queryWithOrder, [':query' => "%" . $inputs['query'] . "%", ':queryAtBeginning' => $inputs['query'] . "%"]); /// ~0.000 seconds
         $ticketList = [];
         foreach ($ticketIdList as $item) {
             $ticket = Ticket::getDataStore($item['id']);
             array_push($ticketList, $ticket->toArray());
-        }
-        $ticketTableExists  = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticket';");
+        } /// Until here ~0.015 seconds
+        $ticketTableExists  = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticket';"); /// ~0.602 seconds
         if($ticketTableExists){
             Response::respondSuccess([
                 'tickets' => $ticketList,
@@ -146,10 +146,10 @@ class SearchController extends Controller {
         }else{
             Response::respondSuccess([]);
         }
-
-    }
+    } /// The whole function ~5.793 seconds
 
     public function getSQLQuery($inputs) {
+        /// $sqlQueryTime = microtime(true);
         $tagsTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'tag_ticket';");
         $ticketEventTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticketevent';");
 
@@ -160,11 +160,11 @@ class SearchController extends Controller {
         $filters = "";
         $this->setQueryFilters($inputs, $filters);
         $query .= $filters . " GROUP BY ticket.id";
+        /// echo "(getSQLQuery: " . (microtime(true) - $sqlQueryTime) . ")";
         return $query;
     }
 
-    public function getSQLQueryWithOrder($inputs) {
-        $query = $this->getSQLQuery($inputs);
+    public function getSQLQueryWithOrder($inputs, $query) {
         $order = "";
         $query = "SELECT" . " ticket.id " . $query;
 
