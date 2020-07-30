@@ -38,7 +38,6 @@ class GetSettingsController extends Controller {
                     'language' => Setting::getSetting('language')->getValue(),
                     'reCaptchaKey' => Setting::getSetting('recaptcha-public')->getValue(),
                     'reCaptchaPrivate' => Setting::getSetting('recaptcha-private')->getValue(),
-                    'time-zone' => Setting::getSetting('time-zone')->getValue(),
                     'maintenance-mode' => intval(Setting::getSetting('maintenance-mode')->getValue()),
                     'layout' => Setting::getSetting('layout')->getValue(),
                     'allow-attachments' => intval(Setting::getSetting('allow-attachments')->getValue()),
@@ -66,7 +65,6 @@ class GetSettingsController extends Controller {
                 $settingsList = [
                     'language' => Setting::getSetting('language')->getValue(),
                     'reCaptchaKey' => Setting::getSetting('recaptcha-public')->getValue(),
-                    'time-zone' => Setting::getSetting('time-zone')->getValue(),
                     'maintenance-mode' => intval(Setting::getSetting('maintenance-mode')->getValue()),
                     'layout' => Setting::getSetting('layout')->getValue(),
                     'allow-attachments' => intval(Setting::getSetting('allow-attachments')->getValue()),

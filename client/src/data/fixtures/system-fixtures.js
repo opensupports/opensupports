@@ -13,7 +13,6 @@ module.exports = [
                         'url': 'http://www.opensupports.com/support',
                         'title': 'Support Center',
                         'layout': 'boxed',
-                        'time-zone': 3,
                         'server-email': 'shitr@post.com',
                         'smtp-host': 'localhost',
                         'smtp-port': '7070',
