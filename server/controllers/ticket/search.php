@@ -107,11 +107,10 @@ class SearchController extends Controller {
     }
 
     public function handler() {
-        ///$t1 = microtime(true);
         $this->ignoreDeparmentFilter = (bool)Controller::request('supervisor');
-        $this->ticketTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticket';");  /// ~0.602 seconds
-        $this->tagsTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'tag_ticket';");
-        $this->ticketEventTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticketevent';");
+        $this->ticketTableExists = !empty(RedBean::getAll("SHOW TABLES LIKE 'ticket';"));
+        $this->tagsTableExists = !empty(RedBean::getAll("SHOW TABLES LIKE 'tag_ticket';"));
+        $this->ticketEventTableExists = !empty(RedBean::getAll("SHOW TABLES LIKE 'ticketevent';"));
 
         $allowedDepartmentsId = [];
         foreach (Controller::getLoggedUser()->sharedDepartmentList->toArray() as $department) {
@@ -143,7 +142,6 @@ class SearchController extends Controller {
             array_push($ticketList, $ticket->toArray());
         }
         if($this->ticketTableExists){
-            ///echo '(handler: ' . (microtime(true) - $t1) . ")";
             Response::respondSuccess([
                 'tickets' => $ticketList,
                 'pages' => ceil($totalCount / 10),
@@ -152,10 +150,9 @@ class SearchController extends Controller {
         }else{
             Response::respondSuccess([]);
         }
-    } /// The whole function ~1.93762321472166
+    }
 
     public function getSQLQuery($inputs) {
-        ///$sqlQueryTime = microtime(true);
         $taglistQuery = ( $this->tagsTableExists ? " LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id" : '');
         $ticketeventlistQuery = ( $this->ticketEventTableExists ? " LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id" : '');
 
@@ -163,7 +160,6 @@ class SearchController extends Controller {
         $filters = "";
         $this->setQueryFilters($inputs, $filters);
         $query .= $filters . " GROUP BY ticket.id";
-        ///echo "(getSQLQuery: " . (microtime(true) - $sqlQueryTime) . ")";
         return $query;
     }
 
