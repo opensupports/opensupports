@@ -18,10 +18,6 @@ import Button from 'core-components/button';
 import searchTicketsUtils from '../lib-app/search-tickets-utils';
 
 
-const INITIAL_PAGE = 1;
-
-const DEFAULT_START_DATE = 20170101;
-
 class TicketQueryFilters extends React.Component {
 
     static propTypes = {
@@ -56,7 +52,7 @@ class TicketQueryFilters extends React.Component {
                             <FormField
                                 name="dateRange"
                                 field="date-range"
-                                fieldProps={{defaultValue: this.dateRangeToFormValue(filters.dateRange)}} />
+                                fieldProps={{defaultValue: DateTransformer.UTCRangeToLocalDateRange(filters.dateRange)}} />
                         </div>
                         <div className="ticket-query-filters__group__container">
                             <span>{i18n('STATUS')}</span>
@@ -199,16 +195,6 @@ class TicketQueryFilters extends React.Component {
         this.props.dispatch(SearchFiltersActions.setDefaultFormValues());
     }
 
-    dateRangeToFormValue(_dateRange) {
-        const dateRange = JSON.parse(_dateRange);
-
-        return {
-            valid: true,
-            startDate: dateRange[0]/10000,
-            endDate: (dateRange[1]-2400)/10000,
-        };
-    }
-
     getDepartmentsItems() {
         const { departments, } = this.props;
         let departmentsList = departments.map(department => {
@@ -339,8 +325,8 @@ class TicketQueryFilters extends React.Component {
     }
 
     onChangeForm(data) {
-      let newStartDate = data.dateRange.startDate === "" ? DEFAULT_START_DATE : data.dateRange.startDate;
-      let newEndDate = data.dateRange.endDate === "" ? DateTransformer.getDateToday() : data.dateRange.endDate;
+      let newStartDate = data.dateRange.startDate === "" ? DateTransformer.getDefaultUTCStartDate() : data.dateRange.startDate;
+      let newEndDate = data.dateRange.endDate === "" ? DateTransformer.getDefaultUTCEndDate() : data.dateRange.endDate;
       let departmentsId = data.departments.map(department => department.id);
       let staffsId = data.owners.map(staff => staff.id);
       let tagsName = this.tagsNametoTagsId(data.tags);

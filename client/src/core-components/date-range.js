@@ -33,6 +33,8 @@ class DateRange extends React.Component {
     }
 
     onChange(date, dateValue) {
+        dateValue = dateValue*10000;
+        dateValue = date === "startDate" ? dateValue : dateValue+2359;
         const value = _.clone(this.props.value);
         value[date] = dateValue;
         value.valid =

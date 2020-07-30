@@ -2,6 +2,7 @@ import moment from 'moment';
 
 const stringDateFormat = 'YYYYMMDDHHmm';
 const localUTCMins = new Date().getTimezoneOffset();
+const DEFAULT_UTC_START_DATE = 201701010000;
 
 export default {
     stringDateToMoment(date) {
@@ -15,6 +16,26 @@ export default {
     },
     localDateToUTCDate(date) {
         return this.momentToStringDate(this.stringDateToMoment(date).add(localUTCMins, 'minutes'));
+    },
+    UTCRangeToLocalRange(range) {
+        range = JSON.parse(range);
+
+        const localRange = [
+            JSON.parse(this.UTCDateToLocalDate(JSON.stringify(range[0]))),
+            JSON.parse(this.UTCDateToLocalDate(JSON.stringify(range[1])))
+        ];
+
+        return JSON.stringify(localRange);
+    },
+    localRangeToUTCRange(range) {
+        range = JSON.parse(range);
+
+        const UTCRange = [
+            JSON.parse(this.localDateToUTCDate(JSON.stringify(range[0]))),
+            JSON.parse(this.localDateToUTCDate(JSON.stringify(range[1])))
+        ];
+
+        return JSON.stringify(UTCRange);
     },
     transformToString(date, expressive = true) {
         const momentDateLocal = this.stringDateToMoment(this.UTCDateToLocalDate(date));
@@ -33,33 +54,22 @@ export default {
 
         return newDate*1;
     },
-    getDefaultDateRange(range = undefined) {
-        let newDateRange = range;
-
-        if(range) {
-            let dateRange = JSON.parse(range);
-            let startDate = dateRange[0];
-            let endDate = dateRange[1];
-            let valid = true;
-            newDateRange = {
-                startDate: startDate,
-                endDate: endDate,
-                valid: valid
-            }
-        }
-
-        return newDateRange;
+    getDefaultUTCRange() {
+        return JSON.stringify([DEFAULT_UTC_START_DATE, this.getDefaultUTCEndDate()]);
     },
-    formDateRangeToFilters(dateRange) {
-        return [dateRange[0]*10000, dateRange[1]*10000+2400];
+    getDefaultUTCStartDate() {
+        return DEFAULT_UTC_START_DATE
     },
-    dateRangeToFormValue(_dateRange) {
-        const dateRange = JSON.parse(_dateRange);
+    getDefaultUTCEndDate() {
+        return (this.getDateToday()*10000)+2359;
+    },
+    UTCRangeToLocalDateRange(UTCDateRangeFilter) {
+        const localDateRange = JSON.parse(this.UTCRangeToLocalRange(UTCDateRangeFilter));
 
         return {
             valid: true,
-            startDate: dateRange[0]/10000,
-            endDate: (dateRange[1]-2400)/10000,
-        };
+            startDate: localDateRange[0],
+            endDate: localDateRange[1],
+        }
     },
 };

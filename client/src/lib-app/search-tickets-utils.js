@@ -81,6 +81,7 @@ export default {
                 } :
                 filters
         );
+        const dateRange = filtersForAPI.dateRange;
 
         if(filtersForAPI && filtersForAPI.closed !== undefined) {
             filtersForAPI = {
@@ -91,13 +92,10 @@ export default {
 
         filtersForAPI = {
             ...filtersForAPI,
-            dateRange: filtersForAPI.dateRange ?  filtersForAPI.dateRange : this.getDefaultDateRangeForFilters()
+            dateRange: dateRange ? dateRange : DateTransformer.getDefaultUTCRange()
         }
 
         return filtersForAPI ? filtersForAPI : {};
-    },
-    getDefaultDateRangeForFilters() {
-        return JSON.stringify(DateTransformer.formDateRangeToFilters([20170101, DateTransformer.getDateToday()]));
     },
     getFiltersForURL(filters, shouldRemoveCustomParam = false) {
         filters = {
@@ -143,7 +141,7 @@ export default {
             departments: JSON.parse(filters.departments),
             owners: JSON.parse(filters.owners),
             tags: JSON.parse(filters.tags),
-            dateRange: DateTransformer.dateRangeToFormValue(filters.dateRange),
+            dateRange: DateTransformer.UTCRangeToLocalDateRange(filters.dateRange),
             authors: filters.authors ? JSON.parse(filters.authors) : [],
         };
     },
@@ -165,7 +163,7 @@ export default {
     },
     formValueToListConfig(form, hasAllAuthorsInfo = false) {
         const authors = form.authors ? form.authors.map(author => ({id: author.id*1, isStaff: author.isStaff})) : [];
-        const dateRangeFilter = [form.dateRange.startDate, form.dateRange.endDate];
+        const localRange = [form.dateRange.startDate, form.dateRange.endDate];
 
         return {
             filters: {
@@ -175,7 +173,7 @@ export default {
                 departments: form.departments !== undefined ? JSON.stringify(form.departments) : '[]',
                 owners: JSON.stringify(form.owners),
                 tags: JSON.stringify(form.tags),
-                dateRange: JSON.stringify(DateTransformer.formDateRangeToFilters(dateRangeFilter)),
+                dateRange: DateTransformer.localRangeToUTCRange(JSON.stringify(localRange)),
                 authors: JSON.stringify(authors),
             },
             hasAllAuthorsInfo
