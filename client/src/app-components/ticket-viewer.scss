@@ -26,13 +26,32 @@
         margin: 0 10px;
     }
 
-    &__edit-title-icon {
-        color: #414A59;
+    &__edit-icon {
         right: 12px;
         margin: 0 10px;
+        color: $light-grey;
+
         &:hover {
             cursor:pointer;
         }
+    }
+
+    &__edit-title-icon {
+        color: $primary-blue;
+        right: 12px;
+        margin: 0 10px;
+
+        &:hover {
+            cursor:pointer;
+        }
+    }
+
+    &__edit-status__buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
     }
 
     &___input-edit-title {
@@ -87,10 +106,24 @@
 
         &-container-editable {
             display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start;
             min-width: 300px;
+
+            &:hover {
+                .ticket-viewer__edit-icon {
+                    color: $primary-blue;
+                }
+            }
+
+            &__column {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                min-width: 170px;
+            }
         }
 
         &-header {
@@ -100,7 +133,7 @@
         &-value {
             color: $secondary-blue;
             padding-bottom: 10px;
-
+            width: 100%;
         }
     }
 
