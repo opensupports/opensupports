@@ -61,7 +61,7 @@ import InstallStep3Database from 'app/install/install-step-3-database';
 import InstallStep4UserSystem from 'app/install/install-step-4-user-system';
 import InstallStep5Settings from 'app/install/install-step-5-settings';
 import InstallStep6Admin from 'app/install/install-step-6-admin';
-import InstallStep7Completed from 'app/install/install-step-7-completed';
+import InstallCompleted from 'app/install/install-completed';
 
 export default (
     <Router history={history}>
@@ -98,7 +98,7 @@ export default (
                 <Route path="step-4" component={InstallStep4UserSystem} />
                 <Route path="step-5" component={InstallStep5Settings} />
                 <Route path="step-6" component={InstallStep6Admin} />
-                <Route path="step-7" component={InstallStep7Completed} />
+                <Route path="completed" component={InstallCompleted} />
             </Route>
             <Route path="admin">
                 <IndexRoute component={AdminLoginPage} />
