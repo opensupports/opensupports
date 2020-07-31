@@ -242,7 +242,10 @@ class Autocomplete extends React.Component {
         let id = ++this.searchApiRequestId;
 
         getItemListFromQuery && getItemListFromQuery(query, blacklist.map(
-            item => {return item.isStaff !== undefined ? {isStaff: item.isStaff, id: item.id} : item.id}
+            item => {
+                this.setState({loading: true});
+                return item.isStaff !== undefined ? {isStaff: item.isStaff, id: item.id} : item.id
+            }
         ))
         .then(result => {
             if (id === this.searchApiRequestId){
