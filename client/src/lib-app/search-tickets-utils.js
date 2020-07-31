@@ -97,14 +97,26 @@ export default {
 
         return filtersForAPI ? filtersForAPI : {};
     },
-    getFiltersForURL(filters, shouldRemoveCustomParam = false) {
+    getFiltersForURL(filtersWithShouldRemoveParams) {
+        const shouldRemoveCustomParam = filtersWithShouldRemoveParams.shouldRemoveCustomParam ? filtersWithShouldRemoveParams.shouldRemoveCustomParam : false;
+        const shouldRemoveUseInitialValuesParam = filtersWithShouldRemoveParams.shouldRemoveUseInitialValuesParam ? filtersWithShouldRemoveParams.shouldRemoveUseInitialValuesParam : false;
+        let filters = filtersWithShouldRemoveParams.filters;
+
         filters = {
             ...queryString.parse(window.location.search),
             ...filters,
         };
 
         if(shouldRemoveCustomParam) delete filters.custom;
-        filters = (filters.custom !== undefined) ? {custom: filters.custom, page: (filters.page !== undefined) ? filters.page : undefined} : filters;
+        if(shouldRemoveUseInitialValuesParam) delete filters.useInitialValues;
+
+        filters = (filters.custom !== undefined) ?
+            {
+                custom: filters.custom,
+                orderBy: filters.orderBy,
+                page: (filters.page !== undefined) ? filters.page : undefined
+            } :
+            filters;
 
         const query = Object.keys(filters).reduce(function (query, filter) {
             const value = filters[filter];

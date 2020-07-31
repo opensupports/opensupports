@@ -6,7 +6,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/search Search tickets
- * @apiVersion 4.7.0
+ * @apiVersion 4.8.0
  *
  * @apiName Search ticket
  *
@@ -27,6 +27,7 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {Number} page The number of the page of the tickets.
  * @apiParam {Object} orderBy A object {value, asc}with string and boolean to make a especific order of the  search.
  * @apiParam {Number[]} owners The ids of the owners to make a custom search.
+ * @apiParam {Boolean} supervisor Boolean to deteminate if a super-user is making the call.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TAG_FILTER
@@ -48,6 +49,7 @@ DataValidator::with('CustomValidations', true);
 class SearchController extends Controller {
     const PATH = '/search';
     const METHOD = 'POST';
+    private $ignoreDeparmentFilter;
 
     public function validations() {
         return [
@@ -102,6 +104,7 @@ class SearchController extends Controller {
     }
 
     public function handler() {
+        $this->ignoreDeparmentFilter = (bool)Controller::request('supervisor');
 
         $allowedDepartmentsId = [];
         foreach (Controller::getLoggedUser()->sharedDepartmentList->toArray() as $department) {
@@ -123,7 +126,6 @@ class SearchController extends Controller {
             'allowedDepartments' => $allowedDepartmentsId,
             'staffId' => Controller::getLoggedUser()->id
         ];
-
 
         $query = $this->getSQLQuery($inputs);
         $queryWithOrder = $this->getSQLQueryWithOrder($inputs);
@@ -180,7 +182,7 @@ class SearchController extends Controller {
         if(array_key_exists('unreadStaff',$inputs)) $this->setSeenFilter($inputs['unreadStaff'], $filters);
         if(array_key_exists('dateRange',$inputs)) $this->setDateFilter($inputs['dateRange'], $filters);
         if(array_key_exists('departments',$inputs) && array_key_exists('allowedDepartments',$inputs) && array_key_exists('staffId',$inputs)){
-            $this->setDepartmentFilter($inputs['departments'],$inputs['allowedDepartments'], $inputs['staffId'], $filters);
+            if(!$this->ignoreDeparmentFilter) $this->setDepartmentFilter($inputs['departments'],$inputs['allowedDepartments'], $inputs['staffId'], $filters);  
         }
         if(array_key_exists('authors',$inputs)) $this->setAuthorFilter($inputs['authors'], $filters);
         if(array_key_exists('owners',$inputs)) $this->setOwnerFilter($inputs['owners'], $filters);

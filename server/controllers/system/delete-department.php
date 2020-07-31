@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /system/delete-department Delete department
- * @apiVersion 4.7.0
+ * @apiVersion 4.8.0
  *
  * @apiName Delete department
  *
@@ -76,7 +76,7 @@ class DeleteDepartmentController extends Controller {
 
     public function transferDepartmentTickets() {
         $tickets = Ticket::find('department_id = ?', [$this->departmentId]);
-        $newDepartment = Department::getDataStore($this->transferDepartmentId);;
+        $newDepartment = Department::getDataStore($this->transferDepartmentId);
 
         foreach($tickets as $ticket) {
             $staffOwner = $ticket->owner;

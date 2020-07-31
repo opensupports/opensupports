@@ -4,7 +4,7 @@ use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {post} /staff/delete Delete staff
- * @apiVersion 4.7.0
+ * @apiVersion 4.8.0
  *
  * @apiName Delete staff
  *

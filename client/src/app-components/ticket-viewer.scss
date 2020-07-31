@@ -36,17 +36,24 @@
     }
 
     &___input-edit-title {
-         color: black;
-         align-items:center;
-         justify-content: center;
-         margin-bottom: 6px;
-         margin-right: 6px;
+        color: black;
+        align-items:center;
+        justify-content: center;
+        margin-bottom: 6px;
+        margin-right: 6px;
 
-         .input__text {
-             height: 25px;
-         }
+        .input__text {
+            height: 25px;
+        }
     }
 
+    &__edit-title__buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 160px;
+    }
     &__number {
         color: white;
         margin-right: 30px;
