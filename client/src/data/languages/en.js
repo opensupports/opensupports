@@ -285,7 +285,7 @@ export default {
     'ADMIN_EMAIL': 'Admin account email',
     'ADMIN_PASSWORD': 'Admin account password',
     'ADMIN_PASSWORD_DESCRIPTION': 'Please remember this password. It is needed for accessing the admin panel. You can change it later.',
-    'INSTALLATION_COMPLETED': 'Installation completed.',
+    'INSTALLATION_COMPLETED_TITLE': 'Installation completed',
     'INSTALLATION_COMPLETED_DESCRIPTION': 'The installation of OpenSupports is completed. Redirecting to admin panel...',
 
     'STEP_TITLE': 'Step {current} of {total} - {title}',
