@@ -168,6 +168,7 @@ class Autocomplete extends React.Component {
 
             onChange && onChange(newList);
             onItemSelected && onItemSelected(selectedItem.id);
+            this.searchApi("", newList);
         }
     }
 
