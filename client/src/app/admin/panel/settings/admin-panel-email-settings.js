@@ -132,7 +132,7 @@ class AdminPanelEmailSettings extends React.Component {
                               values={this.state.smtpForm} loading={this.state.smtpLoading}>
                             <FormField name="smtp-host" label={i18n('SMTP_SERVER')} fieldProps={{size: 'large'}} />
                             <FormField name="smtp-user" label={i18n('SMTP_USER')} fieldProps={{size: 'large'}} />
-                            <FormField name="smtp-pass" label={i18n('SMTP_PASSWORD')} fieldProps={{size: 'large'}} />
+                            <FormField name="smtp-pass" label={i18n('SMTP_PASSWORD')} fieldProps={{size: 'large', autoComplete: 'off'}} />
                             <div className="admin-panel-email-settings__server-form-buttons">
                                 <SubmitButton className="admin-panel-email-settings__submit" type="secondary"
                                               size="small">{i18n('SAVE')}</SubmitButton>
@@ -149,7 +149,7 @@ class AdminPanelEmailSettings extends React.Component {
                               values={this.state.imapForm} loading={this.state.imapLoading}>
                             <FormField name="imap-host" label={i18n('IMAP_SERVER')} fieldProps={{size: 'large'}} />
                             <FormField name="imap-user" label={i18n('IMAP_USER')} fieldProps={{size: 'large'}} />
-                            <FormField name="imap-pass" label={i18n('IMAP_PASSWORD')} fieldProps={{size: 'large'}} />
+                            <FormField name="imap-pass" label={i18n('IMAP_PASSWORD')} fieldProps={{size: 'large', autoComplete: 'off'}} />
                             <FormField
                                 name="imap-token"
                                 label={i18n('IMAP_TOKEN')}

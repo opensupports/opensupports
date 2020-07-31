@@ -63,7 +63,7 @@ class TicketQueryFilters extends React.Component {
                         </div>
                         <div className="ticket-query-filters__row__filter">
                             <span>{i18n('STATUS')}</span>
-                            <FormField name="closed" field="select" fieldProps={{items: this.getStatusItems()}} />
+                            <FormField name="closed" field="select" fieldProps={{items: this.getStatusItems(), className: 'ticket-query-filters__group__container__status-drop-down'}} />
                         </div>
                     </div>
                     <div className="ticket-query-filters__row">
