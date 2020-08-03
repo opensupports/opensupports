@@ -50,9 +50,6 @@ class SearchController extends Controller {
     const PATH = '/search';
     const METHOD = 'POST';
     private $ignoreDeparmentFilter;
-    private $ticketTableExists;
-    private $tagsTableExists;
-    private $ticketEventTableExists;
 
     public function validations() {
         return [
@@ -108,9 +105,6 @@ class SearchController extends Controller {
 
     public function handler() {
         $this->ignoreDeparmentFilter = (bool)Controller::request('supervisor');
-        $this->ticketTableExists = !empty(RedBean::getAll("SHOW TABLES LIKE 'ticket';"));
-        $this->tagsTableExists = !empty(RedBean::getAll("SHOW TABLES LIKE 'tag_ticket';"));
-        $this->ticketEventTableExists = !empty(RedBean::getAll("SHOW TABLES LIKE 'ticketevent';"));
 
         $allowedDepartmentsId = [];
         foreach (Controller::getLoggedUser()->sharedDepartmentList->toArray() as $department) {
@@ -141,20 +135,16 @@ class SearchController extends Controller {
             $ticket = Ticket::getDataStore($item['id']);
             array_push($ticketList, $ticket->toArray());
         }
-        if($this->ticketTableExists){
-            Response::respondSuccess([
-                'tickets' => $ticketList,
-                'pages' => ceil($totalCount / 10),
-                'page' => $inputs['page'] ? ($inputs['page']*1) : 1
-            ]);
-        }else{
-            Response::respondSuccess([]);
-        }
+        Response::respondSuccess([
+            'tickets' => $ticketList,
+            'pages' => ceil($totalCount / 10),
+            'page' => $inputs['page'] ? ($inputs['page']*1) : 1
+        ]);
     }
 
     public function getSQLQuery($inputs) {
-        $taglistQuery = ( $this->tagsTableExists ? " LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id" : '');
-        $ticketeventlistQuery = ( $this->ticketEventTableExists ? " LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id" : '');
+        $taglistQuery = " LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id";
+        $ticketeventlistQuery = " LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id";
 
         $query = "FROM (ticket" . $taglistQuery . $ticketeventlistQuery .")";
         $filters = "";
@@ -190,7 +180,7 @@ class SearchController extends Controller {
     }
 
     private function setTagFilter($tagList, &$filters){
-        if($tagList && $this->tagsTableExists){
+        if($tagList){
             $filters != "" ? $filters .= " and " : null;
 
             foreach($tagList as $key => $tag) {
@@ -333,7 +323,7 @@ class SearchController extends Controller {
     private function setStringFilter($search, &$filters){
         if($search !== null){
             if ($filters != "")  $filters .= " and ";
-            $ticketevent = ( $this->ticketEventTableExists ? " or (ticketevent.type = 'COMMENT' and ticketevent.content LIKE :query)" : "");
+            $ticketevent = " or (ticketevent.type = 'COMMENT' and ticketevent.content LIKE :query)";
             $filters .= " (ticket.title LIKE :query or ticket.content LIKE :query or ticket.ticket_number LIKE :query". $ticketevent  ." )";
         };
     }
@@ -369,7 +359,7 @@ class SearchController extends Controller {
     }
     private function setStringOrder($querysearch, &$order){
         if($querysearch !== null){
-            $ticketeventOrder =  ( $this->ticketEventTableExists ? " WHEN (ticketevent.content LIKE :query) THEN 5 " : "");
+            $ticketeventOrder =  " WHEN (ticketevent.content LIKE :query) THEN 5 ";
             $order .= "CASE WHEN (ticket.ticket_number LIKE :query) THEN 1 WHEN (ticket.title LIKE :queryAtBeginning) THEN 2 WHEN (ticket.title LIKE :query) THEN 3 WHEN ( ticket.content LIKE :query) THEN 4 " . $ticketeventOrder ."END asc, ";
        }
     }
