@@ -2,9 +2,9 @@ describe '/ticket/comment/' do
     Scripts.createUser('commenter@os4.com', 'commenter', 'Commenter')
     Scripts.login('commenter@os4.com', 'commenter')
 
-    result = Scripts.createTicket
-
-    @ticketNumber = result['ticketNumber']
+    Scripts.createTicket('Winter came and it was a disappointment','The fandom remembers')
+    ticket = $database.getRow('ticket', 'Winter came and it was a disappointment' , 'title')
+    @ticketNumber = ticket['ticket_number']
 
     it 'should fail if invalid token is passed' do
         result = request('/ticket/comment', {

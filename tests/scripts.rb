@@ -84,7 +84,6 @@ class Scripts
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
-        result['data']
     end
 
     def self.closeTicket(ticketNumber)
@@ -97,12 +96,15 @@ class Scripts
         result['data']
     end
 
-    def self.createAPIKey(name, type)
+    def self.createAPIKey(name, canCreateUsers=0, canCreateTickets=0, canCommentTickets=0,  shouldReturnTicketNumber=0)
         request('/system/add-api-key', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             name: name,
-            type: type
+            canCreateUsers: canCreateUsers,
+            canCreateTickets: canCreateTickets,
+            canCommentTickets: canCommentTickets,
+            shouldReturnTicketNumber: shouldReturnTicketNumber
         })
     end
 
