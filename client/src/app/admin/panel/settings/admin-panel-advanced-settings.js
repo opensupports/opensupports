@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import ConfigActions from 'actions/config-actions';
 import API from 'lib-app/api-call';
 import i18n from 'lib-app/i18n';
-import ToggleButton from 'app-components/toggle-button';
 import AreYouSure from 'app-components/are-you-sure';
 import ModalContainer from 'app-components/modal-container';
 
