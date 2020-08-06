@@ -228,7 +228,11 @@ export default {
     'DESCRIPTION_ADD_CUSTOM_TAG': 'here you can add a new custom tag',
     'DESCRIPTION_EDIT_CUSTOM_TAG': 'here you can edit a custom tag',
     'CUSTOM_FIELDS': 'Custom fields',
-
+    'PERMISSIONS': 'Permissions',
+    'TICKET_CREATION_PERMISSION': 'Ticket creation permission',
+    'TICKET_COMMENT_PERMISSION': 'Ticket comment permission',
+    'TICKET_NUMBER_RETURN_PERMISSION' : 'Ticket number return permission',
+    'USER_CREATION_PERMISSION': 'User creation permission',
     'CHART_CREATE_TICKET': 'Tickets created',
     'CHART_CLOSE': 'Tickets closed',
     'CHART_SIGNUP': 'Signups',
@@ -396,6 +400,7 @@ export default {
     'INVALID_DEFAULT_DEPARTMENT': 'Default department choosen is invalid',
     'INVALID_SUPERVISED_USERS': 'Invalid supervised users',
     'SUPERVISOR_CAN_NOT_SUPERVISE_HIMSELF': 'Supervisor can not supervise himself',
+    'NAME_ALREADY_USED': 'Name already used',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',

@@ -26,10 +26,9 @@ class AdminPanelAdvancedSettings extends React.Component {
         messageTitle: null,
         messageType: '',
         messageContent: '',
-        keyName: '',
-        keyCode: '',
         selectedAPIKey: -1,
-        APIKeys: []
+        APIKeys: [],
+        error: ''
     };
 
     componentDidMount() {
@@ -95,7 +94,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                             <Listing {...this.getListingProps()} />
                         </div>
                         <div className="col-md-8 admin-panel-advanced-settings__api-keys__container">
-                            {(this.state.selectedAPIKey === -1) ? this.renderNoKey() : this.renderKey()}
+                            {this.state.error ? <Message type="error">{i18n(this.state.error)}</Message> : (this.state.selectedAPIKey === -1) ? this.renderNoKey() : this.renderKey()}
                         </div>
                     </div>
                 </div>
@@ -121,13 +120,21 @@ class AdminPanelAdvancedSettings extends React.Component {
 
     renderKey() {
         let currentAPIKey = this.state.APIKeys[this.state.selectedAPIKey];
-
         return (
             <div className="admin-panel-advanced-settings__api-keys__container-info">
                 <div className="admin-panel-advanced-settings__api-keys-subtitle">{i18n('NAME_OF_KEY')}</div>
                 <div className="admin-panel-advanced-settings__api-keys-data">{currentAPIKey.name}</div>
                 <div className="admin-panel-advanced-settings__api-keys-subtitle">{i18n('KEY')}</div>
                 <div className="admin-panel-advanced-settings__api-keys-data">{currentAPIKey.token}</div>
+                <div className="admin-panel-advanced-settings__api-keys-subtitle">{i18n('PERMISSIONS')}</div>
+                <div className="admin-panel-advanced-settings__api-keys__permissions">
+                    <FormField className="admin-panel-advanced-settings__api-keys__permissions__item" value={currentAPIKey.canCreateTickets*1} label={i18n('TICKET_CREATION_PERMISSION')} field='checkbox'/>
+                    <FormField value={currentAPIKey.shouldReturnTicketNumber*1} label={i18n('TICKET_NUMBER_RETURN_PERMISSION')} field='checkbox'/>
+                </div>
+                <div className="admin-panel-advanced-settings__api-keys__permissions" >
+                    <FormField className="admin-panel-advanced-settings__api-keys__permissions__item" value={currentAPIKey.canCommentTickets*1} label={i18n('TICKET_COMMENT_PERMISSION')} field='checkbox'/>
+                    <FormField value={currentAPIKey.canCreateUser*1} label={i18n('USER_CREATION_PERMISSION')} field='checkbox'/>
+                </div>
                 <Button className="admin-panel-advanced-settings__api-keys-button" size="medium" onClick={this.onDeleteKeyClick.bind(this)}>
                     {i18n('DELETE')}
                 </Button>
@@ -146,7 +153,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                 };
             }),
             selectedIndex: this.state.selectedAPIKey,
-            onChange: index => this.setState({selectedAPIKey: index}),
+            onChange: index => this.setState({selectedAPIKey: index, error:''}),
             onAddClick: this.openAPIKeyModal.bind(this)
         };
     }
@@ -156,24 +163,47 @@ class AdminPanelAdvancedSettings extends React.Component {
             <Form className="admin-panel-advanced-settings__api-keys-modal" onSubmit={this.addAPIKey.bind(this)}>
                 <Header title={i18n('ADD_API_KEY')} description={i18n('ADD_API_KEY_DESCRIPTION')}/>
                 <FormField name="name" label={i18n('NAME_OF_KEY')} validation="DEFAULT" required fieldProps={{size: 'large'}}/>
-                <SubmitButton type="secondary">{i18n('SUBMIT')}</SubmitButton>
+                <div className="admin-panel-advanced-settings__api-keys__permissions">
+                    <FormField className = "admin-panel-advanced-settings__api-keys__permissions__item" name="createTicketPermission" label={i18n('TICKET_CREATION_PERMISSION')}   field='checkbox'/>
+                    <FormField name="ticketNumberPermission" label={i18n('TICKET_NUMBER_RETURN_PERMISSION')}  field='checkbox'/>
+                </div>
+                <div className="admin-panel-advanced-settings__api-keys__permissions" >
+                    <FormField className = "admin-panel-advanced-settings__api-keys__permissions__item" name="commentTicketPermission" label={i18n('TICKET_COMMENT_PERMISSION')}  field='checkbox'/>
+                    <FormField name="userPermission" label={i18n('USER_CREATION_PERMISSION')}   field='checkbox'/>
+                </div>
+                <SubmitButton className="admin-panel-advanced-settings__api-keys-modal__submit-button" type="secondary">{i18n('SUBMIT')}</SubmitButton>
             </Form>
         );
     }
 
-    addAPIKey({name}) {
+    addAPIKey({name,userPermission,createTicketPermission,commentTicketPermission,ticketNumberPermission}) {
         ModalContainer.closeModal();
+        this.setState({
+            error: ''
+        })
         API.call({
             path: '/system/add-api-key',
-            data: {name, type: 'REGISTRATION'}
-        }).then(this.getAllKeys.bind(this));
+            data: {
+                name,
+                canCreateUsers: userPermission*1,
+                canCreateTickets: createTicketPermission*1,
+                canCommentTickets: commentTicketPermission*1,
+                shouldReturnTicketNumber: ticketNumberPermission*1
+            }
+        }).then(this.getAllKeys.bind(this)).catch((result) =>{
+            this.setState({
+                error: result.message
+            })
+        });
     }
 
     getAllKeys() {
         API.call({
             path: '/system/get-api-keys',
             data: {}
-        }).then(this.onRetrieveSuccess.bind(this));
+        }).then(this.onRetrieveSuccess.bind(this)).catch((result)=> {
+            console.log(result.message)
+        });
     }
 
     onDeleteKeyClick() {
@@ -189,8 +219,9 @@ class AdminPanelAdvancedSettings extends React.Component {
 
     onRetrieveSuccess(result) {
         this.setState({
-            APIKeys: result.data.filter(key => key['type'] === 'REGISTRATION'),
-            selectedAPIKey: -1
+            APIKeys: result.data,
+            selectedAPIKey: -1,
+            error: null
         });
     }
 

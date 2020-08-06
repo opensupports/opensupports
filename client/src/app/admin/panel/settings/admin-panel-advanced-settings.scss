@@ -45,8 +45,21 @@
             padding: 5px 0;
         }
 
+        &__permissions {
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 20px;
+            &__item {
+                margin-right: 25px;
+            }
+        }
+        
         &-modal {
             min-width: 500px;
+
+            &__submit-button {
+                margin-top: 20px;
+            }
         }
 
         &-none {

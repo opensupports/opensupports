@@ -50,7 +50,6 @@ class AddAPIKeyController extends Controller {
         $canCreateTickets = (bool)Controller::request('canCreateTickets');
         $canCommentTickets = (bool)Controller::request('canCommentTickets');
         $shouldReturnTicketNumber = (bool)Controller::request('shouldReturnTicketNumber');
-
         $keyInstance = APIKey::getDataStore($name, 'name');
 
         if($keyInstance->isNull()){

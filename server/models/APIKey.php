@@ -31,7 +31,7 @@ class APIKey extends DataStore {
         return [
             'name' => $this->name,
             'token' => $this->token,
-            'canCreateUser' => $this->canCreateUser,
+            'canCreateUser' => $this->canCreateUsers,
             'canCreateTickets' => $this->canCreateTickets,
             'canCommentTickets' => $this->canCommentTickets,
             'shouldReturnTicketNumber' => $this->shouldReturnTicketNumber
