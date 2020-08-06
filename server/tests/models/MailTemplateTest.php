@@ -46,7 +46,7 @@ class MailTemplateTest extends TestCase {
             'userName' => 'Cersei Lannister',
         ]);
 
-        $this->assertEquals($resultSubject, 'Welcoming to cersei@opensupports.com');
+        $this->assertEquals('Welcoming to cersei@opensupports.com', $resultSubject);
         $this->assertContains('Welcome, Cersei Lannister to our team', $resultBody);
     }
 
