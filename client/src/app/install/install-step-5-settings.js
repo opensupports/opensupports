@@ -31,7 +31,7 @@ class InstallStep5Settings extends React.Component {
 
         return (
             <div className="install-step-5">
-                <Header title={i18n('STEP_TITLE', {title: i18n('SETTINGS'), current: 5, total: 7})} description={i18n('STEP_5_DESCRIPTION')}/>
+                <Header title={i18n('STEP_TITLE', {title: i18n('SETTINGS'), current: 5, total: 6})} description={i18n('STEP_5_DESCRIPTION')} />
                 {this.renderMessage()}
                 <Form loading={loading} onSubmit={this.onSubmit.bind(this)} value={form} onChange={(form) => this.setState({form})}>
                     <FormField name="title" label={i18n('TITLE')} fieldProps={{size: 'large'}} required/>
