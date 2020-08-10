@@ -1,7 +1,7 @@
 describe'/system/disable-registration' do
     request('/user/logout')
     Scripts.login($staff[:email], $staff[:password], true)
-    api_key = Scripts.createAPIKey('registrationKey', 1,0,0,0)['data']
+    api_key = Scripts.createAPIKey('registrationKey', canCreateUsers = 1)['data']
 
     it 'should not disable registration if password is not correct' do
         result= request('/system/disable-registration', {

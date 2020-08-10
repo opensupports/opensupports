@@ -1,13 +1,12 @@
 describe '/system/apikey-permissions' do
     request('/user/logout')
    
-    request('/user/logout')
     Scripts.login($staff[:email], $staff[:password], true)
     
-    apikeycanCreateUsersToken = Scripts.createAPIKey('create users',1,0,0,0)['data']
-    apikeycanCreateTickets = Scripts.createAPIKey('create tickets',0,1,0,0)['data']
-    apikeycanCommentTickets = Scripts.createAPIKey('comment tickets',0,0,1,0)['data']
-    apikeycanCreateandReturnTickets = Scripts.createAPIKey('create and return tickets',0,1,0,1)['data']
+    apikeycanCreateUsersToken = Scripts.createAPIKey('create users',canCreateUsers=1, canCreateTickets=0, canCommentTickets=0,  shouldReturnTicketNumber=0)['data']
+    apikeycanCreateTickets = Scripts.createAPIKey('create tickets',canCreateUsers=0, canCreateTickets=1, canCommentTickets=0,  shouldReturnTicketNumber=0)['data']
+    apikeycanCommentTickets = Scripts.createAPIKey('comment tickets',canCreateUsers=0, canCreateTickets=0, canCommentTickets=1,  shouldReturnTicketNumber=0)['data']
+    apikeycanCreateandReturnTickets = Scripts.createAPIKey('create and return tickets',canCreateUsers=0, canCreateTickets=1, canCommentTickets=0,  shouldReturnTicketNumber=1)['data']
     
     it 'should fail ticket create if the apikey does not have create ticket permission' do
         result = request('/ticket/create', {
