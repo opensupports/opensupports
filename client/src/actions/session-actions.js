@@ -54,7 +54,7 @@ export default {
                 data: {
                     userId: rememberData.userId,
                     rememberToken: rememberData.token,
-                    staff: rememberData.isStaff,
+                    staff: (rememberData.isStaff === "true") ? 1 : 0,
                     remember: 1,
                 }
             }).then((result) => {

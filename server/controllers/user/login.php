@@ -149,7 +149,7 @@ class LoginController extends Controller {
 
             $sessionCookie = new SessionCookie();
             $sessionCookie->setProperties(array(
-                'isStaff' => Controller::request('staff'),
+                'isStaff' => !!Controller::request('staff'),
                 'user' => $this->userInstance instanceof User ? $this->userInstance : null,
                 'staff' => $this->userInstance instanceof Staff ? $this->userInstance : null,
                 'token' => $this->rememberToken,
