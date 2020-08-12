@@ -6,6 +6,7 @@ describe '/user/ban' do
         password: 'staff',
         staff: true
     })
+    (result['status']).should.equal('success')
 
     $csrf_userid = result['data']['userId']
     $csrf_token = result['data']['token']
