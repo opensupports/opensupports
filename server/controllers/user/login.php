@@ -61,6 +61,7 @@ class LoginController extends Controller {
 
             $this->createUserSession();
             $this->createRememberToken();
+
             if(Controller::request('staff')) {
                 $this->userInstance->lastLogin = Date::getCurrentDate();
                 $this->userInstance->store();
@@ -116,12 +117,14 @@ class LoginController extends Controller {
         $rememberToken = Controller::request('rememberToken');
         $userInstance = new NullDataStore();
 
-        if ($rememberToken) {
+        if($rememberToken) {
             $sessionCookie = SessionCookie::getDataStore($rememberToken, 'token');
             $userId = Controller::request('userId');
+            $isStaff = Controller::request('staff');
+            $loggedInstance = $isStaff ? $sessionCookie->staff : $sessionCookie->user;
 
-            if (!$sessionCookie->isNull() && $userId === $sessionCookie->user->id) {
-                $userInstance = $sessionCookie->user;
+            if ((!$sessionCookie->isNull()) && ($userId === $loggedInstance->id) && ($isStaff === $sessionCookie->isStaff)) {
+                $userInstance = $loggedInstance;
                 $sessionCookie->delete();
             }
         }
@@ -146,7 +149,9 @@ class LoginController extends Controller {
 
             $sessionCookie = new SessionCookie();
             $sessionCookie->setProperties(array(
-                'user' => $this->userInstance,
+                'isStaff' => Controller::request('staff'),
+                'user' => $this->userInstance instanceof User ? $this->userInstance : null,
+                'staff' => $this->userInstance instanceof Staff ? $this->userInstance : null,
                 'token' => $this->rememberToken,
                 'ip' => $_SERVER['REMOTE_ADDR'],
                 'creationDate' =>  Date::getCurrentDate(),
