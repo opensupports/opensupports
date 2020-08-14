@@ -2,7 +2,6 @@ import moment from 'moment';
 
 const stringDateFormat = 'YYYYMMDDHHmm';
 const localUTCMins = new Date().getTimezoneOffset();
-const DEFAULT_UTC_START_DATE = 201701010000;
 
 export default {
     stringDateToMoment(date) {
@@ -11,34 +10,22 @@ export default {
     momentToStringDate(date) {
         return date.format(stringDateFormat);
     },
-    UTCDateToLocalDate(date) {
-        return this.momentToStringDate(this.stringDateToMoment(date).subtract(localUTCMins, 'minutes'));
+    UTCDateToLocalNumericDate(date) {
+        return JSON.parse(this.momentToStringDate(this.stringDateToMoment(date).subtract(localUTCMins, 'minutes')));
     },
-    localDateToUTCDate(date) {
-        return this.momentToStringDate(this.stringDateToMoment(date).add(localUTCMins, 'minutes'));
+    localDateToUTCNumericDate(date) {
+        return JSON.parse(this.momentToStringDate(this.stringDateToMoment(date).add(localUTCMins, 'minutes')));
     },
-    UTCRangeToLocalRange(range) {
-        range = JSON.parse(range);
+    rangeTransformer(range, trasformerFunctionKey) {
+        const trasformerDateFunction = {
+            UTCToLocal: this.UTCDateToLocalNumericDate.bind(this),
+            localToUTC: this.localDateToUTCNumericDate.bind(this)
+        }[trasformerFunctionKey];
 
-        const localRange = [
-            JSON.parse(this.UTCDateToLocalDate(JSON.stringify(range[0]))),
-            JSON.parse(this.UTCDateToLocalDate(JSON.stringify(range[1])))
-        ];
-
-        return JSON.stringify(localRange);
-    },
-    localRangeToUTCRange(range) {
-        range = JSON.parse(range);
-
-        const UTCRange = [
-            JSON.parse(this.localDateToUTCDate(JSON.stringify(range[0]))),
-            JSON.parse(this.localDateToUTCDate(JSON.stringify(range[1])))
-        ];
-
-        return JSON.stringify(UTCRange);
+        return range.map((date) => {return trasformerDateFunction(JSON.stringify(date))});
     },
     transformToString(date, expressive = true) {
-        const momentDateLocal = this.stringDateToMoment(this.UTCDateToLocalDate(date));
+        const momentDateLocal = this.stringDateToMoment(JSON.stringify(this.UTCDateToLocalNumericDate(date)));
         if (expressive) momentDateLocal.format('D MMMM YYYY')
         return momentDateLocal.format('D MMMM YYYY, HH:mm');
     },
@@ -53,23 +40,5 @@ export default {
         let newDate = Year.concat(Month.concat(Day));
 
         return newDate*1;
-    },
-    getDefaultUTCRange() {
-        return JSON.stringify([DEFAULT_UTC_START_DATE, this.getDefaultUTCEndDate()]);
-    },
-    getDefaultUTCStartDate() {
-        return DEFAULT_UTC_START_DATE
-    },
-    getDefaultUTCEndDate() {
-        return (this.getDateToday()*10000)+2359;
-    },
-    UTCRangeToLocalDateRange(UTCDateRangeFilter) {
-        const localDateRange = JSON.parse(this.UTCRangeToLocalRange(UTCDateRangeFilter));
-
-        return {
-            valid: true,
-            startDate: localDateRange[0],
-            endDate: localDateRange[1],
-        }
     },
 };

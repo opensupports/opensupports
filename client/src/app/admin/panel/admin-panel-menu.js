@@ -3,7 +3,7 @@ import _ from 'lodash';
 import {connect} from 'react-redux';
 
 import i18n from 'lib-app/i18n';
-import DateTransformer from 'lib-core/date-transformer';
+import searchTicketsUtils from 'lib-app/search-tickets-utils';
 
 import Menu from 'core-components/menu';
 import queryString from 'query-string';
@@ -165,7 +165,7 @@ class AdminPanelMenu extends React.Component {
                     },
                     {
                         name: i18n('SEARCH_TICKETS'),
-                        path: `/admin/panel/tickets/search-tickets?dateRange=${DateTransformer.getDefaultUTCRange()}&page=${INITIAL_PAGE}`,
+                        path: `/admin/panel/tickets/search-tickets?dateRange=${searchTicketsUtils.getDefaultUTCRange()}&page=${INITIAL_PAGE}`,
                         level: 1,
                     },
                     {

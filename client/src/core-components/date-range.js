@@ -33,20 +33,22 @@ class DateRange extends React.Component {
     }
 
     onChange(date, dateValue) {
-        dateValue = dateValue*10000;
-        dateValue = date === "startDate" ? dateValue : dateValue+2359;
+        if(dateValue !== "") {
+            dateValue = dateValue*10000;
+            dateValue = (date === "startDate") ? dateValue : dateValue+2359;    
+        } else {
+            dateValue = 0;
+        }
         const value = _.clone(this.props.value);
         value[date] = dateValue;
-        value.valid =
-            value.startDate !== 0 &&
-            value.endDate !== 0 && this.dateCompare({startDate: value.startDate, endDate: value.endDate});
+        value.valid = this.dateCompare({startDate: value.startDate, endDate: value.endDate});
         this.props.onChange(value);
     }
 
     dateCompare(dateRange) {
-        const { defaultValue, } = this.props;
-        let startDate = dateRange.startDate === "" ? defaultValue.startDate : dateRange.startDate;
-        let endDate = dateRange.endDate === "" ? defaultValue.endDate : dateRange.endDate;
+        const { defaultValue } = this.props;
+        const startDate = dateRange.startDate ? dateRange.startDate : defaultValue.startDate;
+        const endDate = dateRange.endDate ? dateRange.endDate : defaultValue.endDate;
         let isValidRange = startDate <= endDate;
         return isValidRange;
     }

@@ -55,7 +55,7 @@ class TicketQueryFilters extends React.Component {
                             <FormField
                                 name="dateRange"
                                 field="date-range"
-                                fieldProps={{defaultValue: DateTransformer.UTCRangeToLocalDateRange(filters.dateRange)}} />
+                                fieldProps={{defaultValue: formState.dateRange}} />
                         </div>
                         <div className="ticket-query-filters__row__filter">
                             <span>{i18n('STATUS')}</span>
@@ -305,7 +305,8 @@ class TicketQueryFilters extends React.Component {
             {...formState, orderBy: filters.orderBy, page: 1},
             true
         );
-        if(formEdited) {
+
+        if(formEdited && formState.dateRange.valid) {
             const filtersForAPI = searchTicketsUtils.prepareFiltersForAPI(listConfigWithCompleteAuthorsList.filters);
             const currentPath = window.location.pathname;
             const urlQuery = searchTicketsUtils.getFiltersForURL({
@@ -335,25 +336,25 @@ class TicketQueryFilters extends React.Component {
     }
 
     onChangeForm(data) {
-      let newStartDate = data.dateRange.startDate === "" ? DateTransformer.getDefaultUTCStartDate() : data.dateRange.startDate;
-      let newEndDate = data.dateRange.endDate === "" ? DateTransformer.getDefaultUTCEndDate() : data.dateRange.endDate;
-      let departmentsId = data.departments.map(department => department.id);
-      let staffsId = data.owners.map(staff => staff.id);
-      let tagsName = this.tagsNametoTagsId(data.tags);
-      let authors = data.authors.map(({name, id, isStaff, profilePic, color}) => ({name, id: id*1, isStaff, profilePic, color}));
+        const newStartDate = data.dateRange.startDate ? data.dateRange.startDate : searchTicketsUtils.getDefaultLocalStartDate();
+        const newEndDate = data.dateRange.endDate ? data.dateRange.endDate : searchTicketsUtils.getDefaultlocalEndDate();
+        const departmentsId = data.departments.map(department => department.id);
+        const staffsId = data.owners.map(staff => staff.id);
+        const tagsName = this.tagsNametoTagsId(data.tags);
+        const authors = data.authors.map(({name, id, isStaff, profilePic, color}) => ({name, id: id*1, isStaff, profilePic, color}));
 
-      this.onChangeFormState({
-          ...data,
-          tags: tagsName,
-          owners: staffsId,
-          departments: departmentsId,
-          authors: authors,
-          dateRange: {
-              ...data.dateRange,
-              startDate: newStartDate,
-              endDate: newEndDate
-          }
-      });
+        this.onChangeFormState({
+            ...data,
+            tags: tagsName,
+            owners: staffsId,
+            departments: departmentsId,
+            authors: authors,
+            dateRange: {
+                ...data.dateRange,
+                startDate: newStartDate,
+                endDate: newEndDate
+            }
+        });
     }
 
     getFormValue(form) {

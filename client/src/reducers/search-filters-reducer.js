@@ -3,7 +3,6 @@ import queryString from 'query-string';
 
 import Reducer from 'reducers/reducer';
 
-import DateTransformer from 'lib-core/date-transformer';
 import searchTicketsUtils from '../lib-app/search-tickets-utils';
 
 const DEFAULT_FILTERS = {
@@ -12,7 +11,7 @@ const DEFAULT_FILTERS = {
     departments: '[]',
     owners: '[]',
     tags: '[]',
-    dateRange: DateTransformer.getDefaultUTCRange(),
+    dateRange: searchTicketsUtils.getDefaultUTCRange(),
     orderBy: undefined,
     authors: '[]',
 };
@@ -33,8 +32,8 @@ class searchFiltersReducer extends Reducer {
                 authors: [],
                 dateRange: {
                     valid: true,
-                    startDate: JSON.parse(DateTransformer.UTCDateToLocalDate(DateTransformer.getDefaultUTCStartDate())),
-                    endDate: JSON.parse(DateTransformer.UTCDateToLocalDate(DateTransformer.getDefaultUTCEndDate()))
+                    startDate: searchTicketsUtils.getDefaultLocalStartDate(),
+                    endDate: searchTicketsUtils.getDefaultlocalEndDate()
                 }
             },
             ticketQueryListState : {

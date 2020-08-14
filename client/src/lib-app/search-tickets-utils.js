@@ -4,6 +4,8 @@ import _ from 'lodash';
 import DateTransformer from 'lib-core/date-transformer';
 import API from 'lib-app/api-call';
 
+const DEFAULT_UTC_START_DATE = 201701010000;
+
 const TICKET_STATUSES = {
     ANY: undefined,
     OPENED: 0,
@@ -92,7 +94,7 @@ export default {
 
         filtersForAPI = {
             ...filtersForAPI,
-            dateRange: dateRange ? dateRange : DateTransformer.getDefaultUTCRange()
+            dateRange: dateRange ? dateRange : this.getDefaultUTCRange()
         }
 
         return filtersForAPI ? filtersForAPI : {};
@@ -146,6 +148,13 @@ export default {
         return closedDropdownIndex;
     },
     transformToFormValue(filters) {
+        const localDateRange = DateTransformer.rangeTransformer(JSON.parse(filters.dateRange), "UTCToLocal");
+        const newDateRange = {
+            valid: true,
+            startDate: localDateRange[0],
+            endDate: localDateRange[1],
+        };
+
         return {
             ...filters,
             query: filters.query ? filters.query : '',
@@ -153,7 +162,7 @@ export default {
             departments: JSON.parse(filters.departments),
             owners: JSON.parse(filters.owners),
             tags: JSON.parse(filters.tags),
-            dateRange: DateTransformer.UTCRangeToLocalDateRange(filters.dateRange),
+            dateRange: newDateRange,
             authors: filters.authors ? JSON.parse(filters.authors) : [],
         };
     },
@@ -185,11 +194,25 @@ export default {
                 departments: form.departments !== undefined ? JSON.stringify(form.departments) : '[]',
                 owners: JSON.stringify(form.owners),
                 tags: JSON.stringify(form.tags),
-                dateRange: DateTransformer.localRangeToUTCRange(JSON.stringify(localRange)),
+                dateRange: JSON.stringify(DateTransformer.rangeTransformer(localRange, "localToUTC")),
                 authors: JSON.stringify(authors),
             },
             hasAllAuthorsInfo
         };
+    },
+    getDefaultUTCRange() {
+        return JSON.stringify([DEFAULT_UTC_START_DATE, this.getDefaultUTCEndDate()]);
+    },
+    getDefaultUTCStartDate() {
+        return DEFAULT_UTC_START_DATE
+    },
+    getDefaultUTCEndDate() {
+        return (DateTransformer.getDateToday()*10000)+2359;
+    },
+    getDefaultLocalStartDate() {
+        return DateTransformer.UTCDateToLocalNumericDate(this.getDefaultUTCStartDate())
+    },
+    getDefaultlocalEndDate() {
+        return DateTransformer.UTCDateToLocalNumericDate(this.getDefaultUTCEndDate())
     }
-
 }
