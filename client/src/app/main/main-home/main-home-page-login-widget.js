@@ -1,12 +1,10 @@
 import React      from 'react';
-import ReactDOM   from 'react-dom';
 import {connect}  from 'react-redux';
 import classNames from 'classnames';
 import _          from 'lodash';
 
 import SessionActions from 'actions/session-actions';
 import API         from 'lib-app/api-call';
-import focus       from 'lib-core/focus';
 import i18n        from 'lib-app/i18n';
 
 import PasswordRecovery from 'app-components/password-recovery';
@@ -45,9 +43,27 @@ class MainHomePageLoginWidget extends React.Component {
     }
 
     renderLogin() {
+        const defaultGoogleHandler = (response) => {
+            console.log(response);
+        }
+
+        gapi.load('auth2', () => {
+            gapi.auth2.init({client_id: '50174278643-gtvjdpm5rmkv75lf3jsp95iv77a2usgu.apps.googleusercontent.com'})
+            gapi.signin2.render('google-oauth-id', {
+                scope: 'email',
+                width: 200,
+                height: 30,
+                longtitle: true,
+                theme: 'dark',
+                onsuccess: defaultGoogleHandler,
+                onfailure: defaultGoogleHandler
+            })
+        })
+
         return (
             <Widget className="main-home-page__widget" title={i18n('LOG_IN')} ref="loginWidget">
                 <Form {...this.getLoginFormProps()}>
+                    <div id="google-oauth-id">Loading Google Login ...</div>
                     <div className="login-widget__inputs">
                         <FormField placeholder={i18n('EMAIL_LOWERCASE')} name="email" className="login-widget__input" validation="EMAIL" required/>
                         <FormField placeholder={i18n('PASSWORD_LOWERCASE')} name="password" className="login-widget__input" required fieldProps={{password: true}}/>
