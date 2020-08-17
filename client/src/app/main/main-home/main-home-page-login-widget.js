@@ -43,6 +43,17 @@ class MainHomePageLoginWidget extends React.Component {
     }
 
     renderLogin() {
+        const onGoogleLoginSuccess = (googleUser) => {
+            let id_token = googleUser.getAuthResponse().id_token;
+            
+            API.call({
+                path: '/user/login',
+                data: {
+                    'googleId': id_token
+                }
+            }).then(() => {}).catch(() => {});
+        }
+
         const defaultGoogleHandler = (response) => {
             console.log(response);
         }
@@ -55,7 +66,7 @@ class MainHomePageLoginWidget extends React.Component {
                 height: 30,
                 longtitle: true,
                 theme: 'dark',
-                onsuccess: defaultGoogleHandler,
+                onsuccess: onGoogleLoginSuccess,
                 onfailure: defaultGoogleHandler
             })
         })

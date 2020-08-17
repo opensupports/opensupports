@@ -19,6 +19,7 @@ use RedBeanPHP\Facade as RedBean;
  * @apiParam {Boolean} remember Indicates if the session wants to be remembered.
  * @apiParam {Number} userId The id of the user to login.
  * @apiParam {String} rememberToken Token to login automatically. It replaces the password.
+ * @apiParam {String} googleId Token to log in with Google.
  *
  * @apiUse UNVERIFIED_USER
  * @apiUse INVALID_CREDENTIALS
@@ -49,6 +50,28 @@ class LoginController extends Controller {
 
     public function handler() {
         $this->clearOldRememberTokens();
+
+        if ($this->checkGoogleLogin()) {
+
+            $client = new Google_Client(['client_id' => '50174278643-gtvjdpm5rmkv75lf3jsp95iv77a2usgu.apps.googleusercontent.com']);  // Specify the CLIENT_ID of the app that accesses the backend
+            $payload = $client->verifyIdToken(Controller::request('googleId'));
+            if ($payload) {
+                $userid = $payload['sub'];
+                ob_start();
+                var_dump($payload);
+                $result = ob_get_clean();
+                Response::respondSuccess(array('googleUserData' => $result));
+                return;
+            } else {
+                echo "Invalid token" . PHP_EOL;
+            }
+            
+
+            Response::respondSuccess(array(
+                'userId' => -1,
+            ));
+            return;
+        }
         
         if ($this->checkInputCredentials() || $this->checkRememberToken()) {
             if($this->userInstance->verificationToken !== null) {
@@ -71,6 +94,10 @@ class LoginController extends Controller {
         } else {
             throw new RequestException(ERRORS::INVALID_CREDENTIALS);
         }
+    }
+
+    private function checkGoogleLogin() {
+        return !!Controller::request('googleId');
     }
 
     private function checkInputCredentials() {
