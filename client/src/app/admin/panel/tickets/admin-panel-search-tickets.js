@@ -18,7 +18,7 @@ import Button from 'core-components/button';
 
 const INITIAL_PAGE = 1;
 const SEARCH_TICKETS_PATH = '/search-tickets';
-const SEARCH_TICKETS_INITIAL_QUERY = `?dateRange=${searchTicketsUtils.getDefaultUTCRange()}&page=${INITIAL_PAGE}&useInitialValues=true`;
+const SEARCH_TICKETS_INITIAL_QUERY = `?page=${INITIAL_PAGE}&useInitialValues=true`;
 
 export function updateSearchTicketsFromURL() {
     const currentPathName = window.location.pathname;
