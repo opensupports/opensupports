@@ -9,8 +9,6 @@ import API from 'lib-app/api-call';
 import history from 'lib-app/history';
 import searchTicketsUtils from 'lib-app/search-tickets-utils';
 
-import DateTransformer from 'lib-core/date-transformer';
-
 import Form from 'core-components/form';
 import SubmitButton from 'core-components/submit-button';
 import FormField from 'core-components/form-field';

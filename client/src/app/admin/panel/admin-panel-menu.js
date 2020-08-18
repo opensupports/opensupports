@@ -165,7 +165,7 @@ class AdminPanelMenu extends React.Component {
                     },
                     {
                         name: i18n('SEARCH_TICKETS'),
-                        path: `/admin/panel/tickets/search-tickets?dateRange=${searchTicketsUtils.getDefaultUTCRange()}&page=${INITIAL_PAGE}`,
+                        path: `/admin/panel/tickets/search-tickets?dateRange=${searchTicketsUtils.getDefaultUTCRange()}&page=${INITIAL_PAGE}&useInitialValues=true`,
                         level: 1,
                     },
                     {
