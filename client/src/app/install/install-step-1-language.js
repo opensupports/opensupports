@@ -14,7 +14,7 @@ class InstallStep1Language extends React.Component {
     render() {
         return (
             <div className="install-step-1">
-                <Header title={i18n('STEP_TITLE', {title: i18n('SELECT_LANGUAGE'), current: 1, total: 7})} description={i18n('STEP_1_DESCRIPTION')}/>
+                <Header title={i18n('STEP_TITLE', {title: i18n('SELECT_LANGUAGE'), current: 1, total: 6})} description={i18n('STEP_1_DESCRIPTION')} />
                 <LanguageSelector {...this.getLanguageSelectorProps()} />
                 <div className="install-step-1__button">
                     <Button size="medium" type="secondary" onClick={() => history.push('/install/step-2')}>

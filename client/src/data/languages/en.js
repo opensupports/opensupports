@@ -285,7 +285,7 @@ export default {
     'ADMIN_EMAIL': 'Admin account email',
     'ADMIN_PASSWORD': 'Admin account password',
     'ADMIN_PASSWORD_DESCRIPTION': 'Please remember this password. It is needed for accessing the admin panel. You can change it later.',
-    'INSTALLATION_COMPLETED': 'Installation completed.',
+    'INSTALLATION_COMPLETED_TITLE': 'Installation completed',
     'INSTALLATION_COMPLETED_DESCRIPTION': 'The installation of OpenSupports is completed. Redirecting to admin panel...',
 
     'STEP_TITLE': 'Step {current} of {total} - {title}',
@@ -295,7 +295,6 @@ export default {
     'STEP_4_DESCRIPTION': 'Please select your user system preferences.',
     'STEP_5_DESCRIPTION': 'Please fill your general system preferences.',
     'STEP_6_DESCRIPTION': 'Please configure the administrator account.',
-    'STEP_7_DESCRIPTION': 'Installation is completed.',
 
     //VIEW DESCRIPTIONS
     'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
