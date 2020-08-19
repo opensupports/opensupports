@@ -95,7 +95,7 @@ class SessionReducer extends Reducer {
             sessionStore.storeRememberData({
                 token: resultData.rememberToken,
                 userId: resultData.userId,
-                isStaff: resultData.staff,
+                isStaff: resultData.staff ? 1 : 0,
                 expiration: resultData.rememberExpiration
             });
         }

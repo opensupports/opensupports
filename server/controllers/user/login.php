@@ -120,12 +120,15 @@ class LoginController extends Controller {
         if($rememberToken) {
             $sessionCookie = SessionCookie::getDataStore($rememberToken, 'token');
             $userId = Controller::request('userId');
-            $isStaff = Controller::request('staff');
-            $loggedInstance = $isStaff ? $sessionCookie->staff : $sessionCookie->user;
+            $isStaff = !!Controller::request('staff');
 
-            if ((!$sessionCookie->isNull()) && ($userId === $loggedInstance->id) && ($isStaff === $sessionCookie->isStaff)) {
-                $userInstance = $loggedInstance;
-                $sessionCookie->delete();
+            if(!$sessionCookie->isNull()) {
+                $loggedInstance = $isStaff ? $sessionCookie->staff : $sessionCookie->user;
+
+                if(($userId == $loggedInstance->id) && ($isStaff == $sessionCookie->isStaff)) {
+                    $userInstance = $loggedInstance;
+                    $sessionCookie->delete();
+                }
             }
         }
 

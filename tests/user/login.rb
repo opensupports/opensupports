@@ -89,7 +89,6 @@ describe '/user/login' do
         (result['status']).should.equal('success')
 
         @rememberToken = result['data']['rememberToken']
-        puts result['data']
         @staffId = result['data']['userId']
 
         request('/user/logout', {})
