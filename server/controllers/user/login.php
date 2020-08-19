@@ -52,20 +52,22 @@ class LoginController extends Controller {
         $this->clearOldRememberTokens();
 
         if ($this->checkGoogleLogin()) {
-
             $client = new Google_Client(['client_id' => '50174278643-gtvjdpm5rmkv75lf3jsp95iv77a2usgu.apps.googleusercontent.com']);  // Specify the CLIENT_ID of the app that accesses the backend
             $payload = $client->verifyIdToken(Controller::request('googleId'));
             if ($payload) {
-                $userid = $payload['sub'];
-                ob_start();
-                var_dump($payload);
-                $result = ob_get_clean();
-                Response::respondSuccess(array('googleUserData' => $result));
+                // $userid = $payload['sub'];
+                // ob_start();
+                // var_dump($payload);
+                // $result = ob_get_clean();
+                
+                $this->userInstance = User::getUser($payload['email'], 'email');
+
+                Session::getInstance()->createSession($this->userInstance->id, false);
+                Response::respondSuccess($this->getUserData());
                 return;
             } else {
                 echo "Invalid token" . PHP_EOL;
             }
-            
 
             Response::respondSuccess(array(
                 'userId' => -1,

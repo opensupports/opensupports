@@ -24,7 +24,9 @@ class MainHomePageLoginWidget extends React.Component {
         recoverFormErrors: {},
         recoverSent: false,
         loadingLogin: false,
-        loadingRecover: false
+        loadingRecover: false,
+
+        sent: false
     };
 
     componentDidUpdate(prevProps) {
@@ -43,17 +45,6 @@ class MainHomePageLoginWidget extends React.Component {
     }
 
     renderLogin() {
-        const onGoogleLoginSuccess = (googleUser) => {
-            let id_token = googleUser.getAuthResponse().id_token;
-            
-            API.call({
-                path: '/user/login',
-                data: {
-                    'googleId': id_token
-                }
-            }).then(() => {}).catch(() => {});
-        }
-
         const defaultGoogleHandler = (response) => {
             console.log(response);
         }
@@ -66,7 +57,7 @@ class MainHomePageLoginWidget extends React.Component {
                 height: 30,
                 longtitle: true,
                 theme: 'dark',
-                onsuccess: onGoogleLoginSuccess,
+                onsuccess: this.onGoogleLoginSuccess.bind(this),
                 onfailure: defaultGoogleHandler
             })
         })
@@ -151,6 +142,15 @@ class MainHomePageLoginWidget extends React.Component {
 
     onLoginFormSubmit(formState) {
         this.props.dispatch(SessionActions.login(formState));
+    }
+
+    onGoogleLoginSuccess(googleUser) {
+        if (!this.state.sent) {
+            let id_token = googleUser.getAuthResponse().id_token;
+            console.log(id_token);
+            this.props.dispatch(SessionActions.login({'googleId': id_token, 'remember': 1}));
+            this.setState({sent: true});
+        }
     }
 
     onForgotPasswordSubmit(formState) {
