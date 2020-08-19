@@ -32,9 +32,9 @@ If applicable, add screenshots to help explain your problem.
 
 **OpenSupports (please complete the following information):**
  - OpenSupports version: [e.g. 4.8]
- - Have you upgraded to this version? (yes/no)
+ - Is it a fresh install or have you upgraded to this version?: [e.g. FRESH / UPGRADED]
 
-**Smartphone (please complete the following information):**
+**Smartphone (please complete the following information if applicable):**
  - Device: [e.g. iPhone6]
  - OS: [e.g. iOS8.1]
  - Browser [e.g. stock browser, safari]
