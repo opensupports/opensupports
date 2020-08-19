@@ -200,9 +200,7 @@ class AdminPanelAdvancedSettings extends React.Component {
         API.call({
             path: '/system/get-api-keys',
             data: {}
-        }).then(this.onRetrieveSuccess.bind(this)).catch((result)=> {
-            console.log(result.message)
-        });
+        }).then(this.onRetrieveSuccess.bind(this))
     }
 
     onDeleteKeyClick() {
