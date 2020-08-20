@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import {connect} from 'react-redux';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -12,6 +13,8 @@ import SubmitButton from 'core-components/submit-button';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 
+const VIEW_USER_PATH = "/admin/panel/users/view-user/";
+const VIEW_STAFF_PATH = "/admin/panel/staff/view-staff/";
 class TicketEvent extends React.Component {
     static propTypes = {
         type: React.PropTypes.oneOf([
@@ -89,25 +92,53 @@ class TicketEvent extends React.Component {
     }
 
     renderComment() {
-        const author = this.props.author;
+        const {
+            author,
+            date,
+            edit,
+            file
+        } = this.props;
         const customFields = (author && author.customfields) || [];
 
         return (
             <div className="ticket-event__comment">
                 <span className="ticket-event__comment-pointer" />
                 <div className="ticket-event__comment-author">
-                    <span className="ticket-event__comment-author-name">{this.props.author.name}</span>
+                    {this.renderCommentAuthor()}
                     <span className="ticket-event__comment-badge-container">
-                        <span className="ticket-event__comment-badge">{i18n((this.props.author.staff) ? 'STAFF' : 'CUSTOMER')}</span>
+                        <span className="ticket-event__comment-badge">{i18n((author.staff) ? 'STAFF' : 'CUSTOMER')}</span>
                     </span>
                     {customFields.map(this.renderCustomFieldValue.bind(this))}
                     {(this.props.private*1) ? this.renderPrivateBadge() : null}
                 </div>
-                <div className="ticket-event__comment-date">{DateTransformer.transformToString(this.props.date)}</div>
-                {!this.props.edit ? this.renderContent() : this.renderEditField()}
-                {this.renderFooter(this.props.file)}
+                <div className="ticket-event__comment-date">{DateTransformer.transformToString(date)}</div>
+                {!edit ? this.renderContent() : this.renderEditField()}
+                {this.renderFooter(file)}
             </div>
         );
+    }
+
+    renderCommentAuthor() {
+        const {
+            author,
+            level
+        } = this.props;
+        const commentAutorClass = "ticket-event__comment-author-name";
+        let commentAuthor;
+
+        if(level === "3") {
+            commentAuthor = (
+                <a className={commentAutorClass} href={((author.staff) ? VIEW_STAFF_PATH : VIEW_USER_PATH)+author.id}>
+                    {author.name}
+                </a>
+            );
+        } else if(level && !author.staff) {
+            commentAuthor = <a className={commentAutorClass} href={VIEW_USER_PATH+author.id}>{author.name}</a>;
+        } else {
+            commentAuthor = <span className={commentAutorClass}>{author.name}</span>;
+        }
+
+        return commentAuthor;
     }
 
     renderContent() {
@@ -306,4 +337,7 @@ class TicketEvent extends React.Component {
     }
 }
 
-export default TicketEvent;
+export default connect((store) => {
+    return { level: store.session.userLevel };
+})(TicketEvent);
+
