@@ -392,15 +392,7 @@ describe '/ticket/search' do
 
             for ticket in tickets
                 ticketOwnerId = ticket['owner']['id']
-                if ticketOwnerId === ownerId1
-                    ticketOwnerId.should.equal(ownerId1)
-                elsif ticketOwnerId === ownerId2
-                    ticketOwnerId.should.equal(ownerId2)
-                elsif ticketOwnerId === ownerId3
-                    ticketOwnerId.should.equal(ownerId3)
-                else
-                    1.should.equal(0)
-                end
+                (ownerIdList2.include?(ticketOwnerId)).should.equal(true)
             end
 
             result = request('/ticket/search', {
@@ -415,13 +407,7 @@ describe '/ticket/search' do
 
             for ticket in tickets
                 ticketOwnerId = ticket['owner']['id']
-                if ticketOwnerId === ownerId1
-                    ticketOwnerId.should.equal(ownerId1)
-                elsif ticketOwnerId === ownerId3
-                    ticketOwnerId.should.equal(ownerId3)
-                else
-                    1.should.equal(0)
-                end
+                (ownerIdList3.include?(ticketOwnerId)).should.equal(true)
             end
         end
     end
@@ -533,11 +519,8 @@ describe '/ticket/search' do
         (tickets.length()).should.equal(2)
 
         for ticket in tickets
-            if ticket['tags'].length() === 2
-                (ticket['tags']).should.equal([tagNameOfId2, tagNameOfId3])
-            else
-                (ticket['tags']).should.equal([tagNameOfId2])
-            end
+            ticketTags = ticket['tags']
+            (ticketTags.include?(tagNameOfId2)).should.equal(true)
         end
 
 
@@ -553,11 +536,8 @@ describe '/ticket/search' do
         (tickets.length()).should.equal(2)
 
         for ticket in tickets
-            if ticket['tags'].length() === 2
-                (ticket['tags']).should.equal([tagNameOfId2, tagNameOfId3])
-            else
-                (ticket['tags']).should.equal([tagNameOfId3])
-            end
+            ticketTags = ticket['tags']
+            (ticketTags.include?(tagNameOfId3)).should.equal(true)
         end
 
 
@@ -570,15 +550,12 @@ describe '/ticket/search' do
         (result['status']).should.equal('success')
 
         for ticket in tickets
-            if ticket['tags'].length() === 2
-                (ticket['tags']).should.equal([tagNameOfId2, tagNameOfId3])
-            elsif ticket['tags'] === [tagNameOfId3]
-                (ticket['tags']).should.equal([tagNameOfId3])
-            elsif ticket['tags'] === [tagNameOfId2]
-                (ticket['tags']).should.equal([tagNameOfId2])
-            else
-                1.shoul.equal(0)
-            end
+            ticketTags = ticket['tags']
+            (
+                (ticketTags.include?(tagNameOfId2) && ticketTags.include?(tagNameOfId3)) ||
+                ticketTags.include?(tagNameOfId3) ||
+                ticketTags.include?(tagNameOfId2)
+            ).should.equal(true)
         end
     end
 
@@ -602,8 +579,8 @@ describe '/ticket/search' do
 
     it 'should success if the authors are valid' do
         authorId1 = 1
-        authorId2 = 1
-        authorId3 = 1
+        authorId2 = 2
+        authorId3 = 8
 
         authorIsStaff1 = 1
         authorIsStaff2 = 1
@@ -655,19 +632,13 @@ describe '/ticket/search' do
             for ticket in tickets
                 ticketAuthor = ticket['author']
                 ticketAuthorId = ticketAuthor['id']
+                ticketAutorIsStaff = ticketAuthor['staff']
 
-                if ticketAuthorId === authorId1
-                    (ticketAuthor['id']).should.equal(authorId1)
-                    (ticketAuthor['staff']).should.equal(authorIsStaff1)
-                elsif ticketAuthorId === authorId2
-                    (ticketAuthor['id']).should.equal(authorId2)
-                    (ticketAuthor['staff']).should.equal(authorIsStaff2)
-                elsif ticketAuthorId === authorId3
-                    (ticketAuthor['id']).should.equal(authorId3)
-                    (ticketAuthor['staff']).should.equal(authorIsStaff3)
-                else
-                    1.shoul.equal(0)
-                end
+                (
+                    (ticketAuthorId === authorId1 && ticketAutorIsStaff === authorIsStaff1) ||
+                    (ticketAuthorId === authorId2 && ticketAutorIsStaff === authorIsStaff2) ||
+                    (ticketAuthorId === authorId3 && ticketAutorIsStaff === authorIsStaff3)
+                ).should.equal(true)
             end
 
             result = request('/ticket/search', {
@@ -842,8 +813,9 @@ describe '/ticket/search' do
             currentTicketClosedValue = (tickets != []) ? ((tickets.first())['closed'] ? 1 : 0) : nil
 
             for ticket in tickets
-                ((ticket['closed'] ? 1 : 0) <= currentTicketClosedValue).should.equal(true)
-                currentTicketClosedValue = ticket['closed'] ? 1 : 0
+                ticketStatus = ticket['closed']
+                ((ticketStatus ? 1 : 0) <= currentTicketClosedValue).should.equal(true)
+                currentTicketClosedValue = ticketStatus ? 1 : 0
             end
 
             result = request('/ticket/search', {
@@ -858,8 +830,9 @@ describe '/ticket/search' do
             currentTicketClosedValue = (tickets != []) ? ((tickets.first())['closed'] ? 1 : 0) : nil
 
             for ticket in tickets
-                ((ticket['closed'] ? 1 : 0) >= currentTicketClosedValue).should.equal(true)
-                currentTicketClosedValue = ticket['closed'] ? 1 : 0
+                ticketStatus = ticket['closed']
+                ((ticketStatus ? 1 : 0) >= currentTicketClosedValue).should.equal(true)
+                currentTicketClosedValue = ticketStatus ? 1 : 0
             end
 
             result = request('/ticket/search', {

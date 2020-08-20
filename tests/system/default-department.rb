@@ -243,7 +243,7 @@ describe '/system/default-department' do
         (row['department_id']).should.equal(1)
     end
 
-    it 'should create ticket on default leanguage if user does not pass language'do
+    it 'should create ticket on default language if user does not pass language'do
         $database.query('update setting set value="ru" where name="language";')
         
         request('/user/logout')
