@@ -54,25 +54,20 @@ class LoginController extends Controller {
         if ($this->checkGoogleLogin()) {
             $client = new Google_Client(['client_id' => '50174278643-gtvjdpm5rmkv75lf3jsp95iv77a2usgu.apps.googleusercontent.com']);  // Specify the CLIENT_ID of the app that accesses the backend
             $payload = $client->verifyIdToken(Controller::request('googleId'));
-            if ($payload) {
-                // $userid = $payload['sub'];
-                // ob_start();
-                // var_dump($payload);
-                // $result = ob_get_clean();
-                
+            if ($payload) {                
                 $this->userInstance = User::getUser($payload['email'], 'email');
 
-                Session::getInstance()->createSession($this->userInstance->id, false);
-                Response::respondSuccess($this->getUserData());
-                return;
+                if ($this->userInstance->isNull()) {
+                    // Here I should create a new user with this email...
+                    throw new Exception("Creating of new user by Google login yet to be done");
+                } else {
+                    Session::getInstance()->createSession($this->userInstance->id, false);
+                    Response::respondSuccess($this->getUserData());
+                    return;
+                }
             } else {
-                echo "Invalid token" . PHP_EOL;
+                throw new Exception("Invalid GoogleID token");
             }
-
-            Response::respondSuccess(array(
-                'userId' => -1,
-            ));
-            return;
         }
         
         if ($this->checkInputCredentials() || $this->checkRememberToken()) {
