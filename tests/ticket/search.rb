@@ -377,7 +377,7 @@ describe '/ticket/search' do
             tickets = result['data']['tickets']
 
             for ticket in tickets
-                (ticket['owner']['id']).should.equal(ownerId1)
+                (ownerIdList1.include?(ticket['owner']['id'])).should.equal(true)
             end
 
             result = request('/ticket/search', {
@@ -391,8 +391,7 @@ describe '/ticket/search' do
             tickets = result['data']['tickets']
 
             for ticket in tickets
-                ticketOwnerId = ticket['owner']['id']
-                (ownerIdList2.include?(ticketOwnerId)).should.equal(true)
+                (ownerIdList2.include?(ticket['owner']['id'])).should.equal(true)
             end
 
             result = request('/ticket/search', {
@@ -406,8 +405,7 @@ describe '/ticket/search' do
             tickets = result['data']['tickets']
 
             for ticket in tickets
-                ticketOwnerId = ticket['owner']['id']
-                (ownerIdList3.include?(ticketOwnerId)).should.equal(true)
+                (ownerIdList3.include?(ticket['owner']['id'])).should.equal(true)
             end
         end
     end
@@ -560,19 +558,65 @@ describe '/ticket/search' do
     end
 
     it 'should success if the departments are valid' do
+        departmentId1 = 1
+        departmentId2 = 2
+        departmentId3 = 7
+
+        departmentFilter1 = [departmentId1]
+        departmentFilter2 = [departmentId2]
+        departmentFilter3 = [departmentId2, departmentId1, departmentId3]
+
+        departmentId1 = departmentId1.to_s
+        departmentId2 = departmentId2.to_s
+        departmentId3 = departmentId3.to_s
+
+        departmentFilter1 = departmentFilter1.to_json
+        departmentFilter2 = departmentFilter2.to_json
+        departmentFilter3 = departmentFilter3.to_json
+
         for page in $pages
             result = request('/ticket/search', {
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
                 page: page,
-                departments: "[1]"
+                departments: departmentFilter1
             })
             (result['status']).should.equal('success')
 
             tickets = result['data']['tickets']
 
             for ticket in tickets
-                (ticket['department']['id']).should.equal('1')
+                (ticket['department']['id']).should.equal(departmentId1)
+            end
+
+
+            result = request('/ticket/search', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                page: page,
+                departments: departmentFilter2
+            })
+            (result['status']).should.equal('success')
+
+            tickets = result['data']['tickets']
+
+            for ticket in tickets
+                (ticket['department']['id']).should.equal(departmentId2)
+            end
+
+
+            result = request('/ticket/search', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                page: page,
+                departments: departmentFilter3
+            })
+            (result['status']).should.equal('success')
+
+            tickets = result['data']['tickets']
+
+            for ticket in tickets
+                (departmentFilter3.include?(ticket['department']['id'])).should.equal(true)
             end
         end
     end
