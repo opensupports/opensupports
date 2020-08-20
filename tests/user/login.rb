@@ -9,7 +9,6 @@ describe '/user/login' do
             email: @loginEmail,
             password: 'some_incorrect_password'
         })
-
         (result['status']).should.equal('fail')
     end
 
@@ -18,7 +17,6 @@ describe '/user/login' do
             email: @loginEmail,
             password: @loginPass
         })
-
         (result['status']).should.equal('success')
     end
 
@@ -27,7 +25,6 @@ describe '/user/login' do
             email: @loginEmail,
             password: @loginPass
         })
-
         (result['status']).should.equal('success')
     end
 
@@ -36,21 +33,20 @@ describe '/user/login' do
         result = request('/user/login', {
             email: $staff[:email],
             password: $staff[:password],
-            staff: true
+            staff: 1
         })
-
         (result['status']).should.equal('success')
         (result['data']['staff']).should.equal(true)
     end
 
-    it 'should work with remember token' do
+    it 'should work autologin user with remember token' do
         request('/user/logout', {})
         result = request('/user/login', {
             email: @loginEmail,
             password: @loginPass,
+            staff: 0,
             remember: 1
         })
-
         (result['status']).should.equal('success')
 
         @rememberToken = result['data']['rememberToken']
@@ -60,12 +56,15 @@ describe '/user/login' do
         result = request('/user/login', {
             userId: @userId,
             rememberToken: '12abc',
+            staff: 0,
             remember: 1
         })
         (result['status']).should.equal('fail')
+
         result = request('/user/login', {
             userId: 1,
             rememberToken: @rememberToken,
+            staff: 0,
             remember: 1
         })
         (result['status']).should.equal('fail')
@@ -73,8 +72,49 @@ describe '/user/login' do
         result = request('/user/login', {
             userId: @userId,
             rememberToken: @rememberToken,
+            staff: 0,
             remember: 1
         })
         (result['status']).should.equal('success')
     end
+
+    it 'should work autologin staff with remember token' do
+        request('/user/logout', {})
+        result = request('/user/login', {
+            email: $staff[:email],
+            password: $staff[:password],
+            staff: 1,
+            remember: 1
+        })
+        (result['status']).should.equal('success')
+
+        @rememberToken = result['data']['rememberToken']
+        @staffId = result['data']['userId']
+
+        request('/user/logout', {})
+        result = request('/user/login', {
+            userId: @staffId,
+            rememberToken: '12abc',
+            staff: 1,
+            remember: 1
+        })
+        (result['status']).should.equal('fail')
+
+        result = request('/user/login', {
+            userId: 3,
+            rememberToken: @rememberToken,
+            staff: 1,
+            remember: 1
+        })
+        (result['status']).should.equal('fail')
+
+        result = request('/user/login', {
+            userId: @staffId,
+            rememberToken: @rememberToken,
+            staff: 1,
+            remember: 1
+        })
+        (result['status']).should.equal('success')
+    end
+
 end

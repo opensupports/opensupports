@@ -48,9 +48,10 @@ class SessionStore {
         return JSON.parse(this.getItem('departments'));
     }
 
-    storeRememberData({token, userId, expiration}) {
+    storeRememberData({token, userId, expiration, isStaff}) {
         this.setItem('rememberData-token', token);
         this.setItem('rememberData-userId', userId);
+        this.setItem('rememberData-isStaff', isStaff);
         this.setItem('rememberData-expiration', expiration);
     }
 
@@ -106,6 +107,7 @@ class SessionStore {
         return {
             token: this.getItem('rememberData-token'),
             userId: this.getItem('rememberData-userId'),
+            isStaff: this.getItem('rememberData-isStaff'),
             expiration: this.getItem('rememberData-expiration')
         };
     }
@@ -113,6 +115,7 @@ class SessionStore {
     clearRememberData() {
         this.removeItem('rememberData-token');
         this.removeItem('rememberData-userId');
+        this.removeItem('rememberData-isStaff');
         this.removeItem('rememberData-expiration');
     }
 
