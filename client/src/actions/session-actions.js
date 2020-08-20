@@ -71,6 +71,8 @@ export default {
             payload: API.call({
                 path: '/user/logout',
                 data: {}
+            }).then(() => {
+                gapi.auth2.getAuthInstance().signOut();
             })
         };
     },
