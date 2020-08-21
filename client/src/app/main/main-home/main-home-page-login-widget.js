@@ -24,9 +24,7 @@ class MainHomePageLoginWidget extends React.Component {
         recoverFormErrors: {},
         recoverSent: false,
         loadingLogin: false,
-        loadingRecover: false,
-
-        sent: false
+        loadingRecover: false
     };
 
     componentDidUpdate(prevProps) {
@@ -149,12 +147,9 @@ class MainHomePageLoginWidget extends React.Component {
     }
 
     onGoogleLoginSuccess(googleUser) {
-        if (!this.state.sent) {
-            let id_token = googleUser.getAuthResponse().id_token;
-            console.log(id_token);
-            this.props.dispatch(SessionActions.login({'googleId': id_token, 'remember': 1}));
-            this.setState({sent: true});
-        }
+        let id_token = googleUser.getAuthResponse().id_token;
+        console.log(id_token);
+        this.props.dispatch(SessionActions.login({'googleId': id_token, 'remember': 1}));
     }
 
     onForgotPasswordSubmit(formState) {
