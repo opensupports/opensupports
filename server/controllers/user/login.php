@@ -52,19 +52,18 @@ class LoginController extends Controller {
         $this->clearOldRememberTokens();
 
         if ($this->checkGoogleLogin()) {
-            $client = new Google_Client(['client_id' => '50174278643-gtvjdpm5rmkv75lf3jsp95iv77a2usgu.apps.googleusercontent.com']);  // Specify the CLIENT_ID of the app that accesses the backend
+            $client = new Google_Client(['client_id' => '50174278643-gtvjdpm5rmkv75lf3jsp95iv77a2usgu.apps.googleusercontent.com']);
             $payload = $client->verifyIdToken(Controller::request('googleId'));
             if ($payload) {                
                 $this->userInstance = User::getUser($payload['email'], 'email');
 
                 if ($this->userInstance->isNull()) {
-                    // Here I should create a new user with this email...
-                    throw new Exception("Creating of new user by Google login yet to be done");
-                } else {
-                    Session::getInstance()->createSession($this->userInstance->id, false);
-                    Response::respondSuccess($this->getUserData());
-                    return;
+                    $this->userInstance = $this->createGoogleUser($payload);
                 }
+
+                Session::getInstance()->createSession($this->userInstance->id, false);
+                Response::respondSuccess($this->getUserData());
+                return;
             } else {
                 throw new Exception("Invalid GoogleID token");
             }
@@ -95,6 +94,32 @@ class LoginController extends Controller {
 
     private function checkGoogleLogin() {
         return !!Controller::request('googleId');
+    }
+
+    private function createGoogleUser($payload) {
+        Controller::setDataRequester(function ($key) use ($payload) {
+            switch ($key) {
+                case 'email':
+                    return $payload['email'];
+                case 'password':
+                    return Hashing::generateRandomToken();
+                case 'name':
+                    return $payload['name'];
+            }
+
+            return null;
+        });
+
+        $signupController = new SignUpController(true);
+
+        try {
+            $signupController->validate();
+            $signupController->handler();
+        } catch (\Exception $exception) {
+            throw new Exception("OpenSupports doesn't accept this Google account, failed validations: " . $exception);
+        }
+
+        return User::getUser($payload['email'], 'email');
     }
 
     private function checkInputCredentials() {
