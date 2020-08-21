@@ -52,8 +52,8 @@ class MainHomePageLoginWidget extends React.Component {
         return (
             <Widget className="main-home-page__widget" title={i18n('LOG_IN')} ref="loginWidget">
                 <Form {...this.getLoginFormProps()}>
-                    <div id="google-oauth-id">Loading Google Login ...</div>
                     <div className="login-widget__inputs">
+                        <div id="google-oauth-id">Loading Google Login ...</div>
                         <FormField placeholder={i18n('EMAIL_LOWERCASE')} name="email" className="login-widget__input" validation="EMAIL" required/>
                         <FormField placeholder={i18n('PASSWORD_LOWERCASE')} name="password" className="login-widget__input" required fieldProps={{password: true}}/>
                         <FormField name="remember" label={i18n('REMEMBER_ME')} className="login-widget__input" field="checkbox"/>
