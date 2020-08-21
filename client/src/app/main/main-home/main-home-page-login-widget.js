@@ -35,6 +35,10 @@ class MainHomePageLoginWidget extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.renderGoogleButton();
+    }
+
     render() {
         return (
             <WidgetTransition sideToShow={this.state.sideToShow} className={classNames('login-widget__container', this.props.className)}>
@@ -45,7 +49,6 @@ class MainHomePageLoginWidget extends React.Component {
     }
 
     renderLogin() {
-        this.renderGoogleButton();
         return (
             <Widget className="main-home-page__widget" title={i18n('LOG_IN')} ref="loginWidget">
                 <Form {...this.getLoginFormProps()}>
@@ -67,10 +70,6 @@ class MainHomePageLoginWidget extends React.Component {
     }
 
     renderGoogleButton() {
-        const defaultGoogleHandler = (response) => {
-            console.log(response);
-        }
-
         gapi.load('auth2', () => {
             gapi.auth2.init({client_id: '50174278643-gtvjdpm5rmkv75lf3jsp95iv77a2usgu.apps.googleusercontent.com'})
             gapi.signin2.render('google-oauth-id', {
@@ -80,7 +79,9 @@ class MainHomePageLoginWidget extends React.Component {
                 longtitle: true,
                 theme: 'dark',
                 onsuccess: this.onGoogleLoginSuccess.bind(this),
-                onfailure: defaultGoogleHandler
+                onfailure: (response) => {
+                    console.log(response);
+                }
             })
         })
     }

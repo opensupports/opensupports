@@ -68,13 +68,13 @@ export default {
     logout() {
         return {
             type: 'LOGOUT',
-            payload: API.call({
-                path: '/user/logout',
-                data: {}
-            }).then(() => {
-                gapi.auth2.getAuthInstance().signOut();
-            })
-        };
+            payload: Promise.resolve()
+                .then(() => gapi.auth2.getAuthInstance().signOut())
+                .then(() => API.call({
+                    path: '/user/logout',
+                    data: {}
+                }))
+        }
     },
 
     getUserData(userId, token, staff) {
