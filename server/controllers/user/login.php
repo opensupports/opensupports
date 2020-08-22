@@ -54,7 +54,7 @@ class LoginController extends Controller {
         if ($this->checkGoogleLogin()) {
             $client = new Google_Client(['client_id' => '50174278643-gtvjdpm5rmkv75lf3jsp95iv77a2usgu.apps.googleusercontent.com']);
             $payload = $client->verifyIdToken(Controller::request('googleId'));
-            if ($payload) {                
+            if ($payload && $payload['email_verified']) {
                 $this->userInstance = User::getUser($payload['email'], 'email');
 
                 if ($this->userInstance->isNull()) {
@@ -65,7 +65,7 @@ class LoginController extends Controller {
                 Response::respondSuccess($this->getUserData());
                 return;
             } else {
-                throw new Exception("Invalid GoogleID token");
+                throw new Exception("Invalid GoogleID token or unverified Google account");
             }
         }
         
