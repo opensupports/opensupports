@@ -38,8 +38,8 @@ class DataStoreTest extends TestCase {
         $this->instance->store();
         $newInstance = new DataStoreMock($this->instance->getBeanInstance());
 
-        $this->assertEquals($newInstance->prop1, 0);
-        $this->assertEquals($newInstance->prop2, 'hello');
+        $this->assertEquals(0, $newInstance->prop1);
+        $this->assertEquals('hello', $newInstance->prop2);
     }
 
     public function testDataStoreCustomData() {
@@ -47,9 +47,9 @@ class DataStoreTest extends TestCase {
             'prop3' => 'EXTRA_DATA'
         ));
 
-        $this->assertEquals($this->instance->prop1, 0);
-        $this->assertEquals($this->instance->prop2, 'hello');
-        $this->assertEquals($this->instance->prop3, 'EXTRA_DATA');
+        $this->assertEquals(0, $this->instance->prop1);
+        $this->assertEquals('hello', $this->instance->prop2);
+        $this->assertEquals('EXTRA_DATA', $this->instance->prop3);
     }
 
     public function testStore() {
@@ -64,7 +64,7 @@ class DataStoreTest extends TestCase {
 
         $dataStoreIntance = DataStoreMock::getDataStore('ID_VALUE');
 
-        $this->assertEquals($dataStoreIntance->prop1, 'TEST_VALUE');
+        $this->assertEquals('TEST_VALUE', $dataStoreIntance->prop1);
 
         $this->assertTrue(RedBean::get('findOne')->hasBeenCalledWithArgs(
             'MOCK_TABLE',
