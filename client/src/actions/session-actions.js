@@ -69,7 +69,7 @@ export default {
         return {
             type: 'LOGOUT',
             payload: Promise.resolve()
-                .then(() => gapi.auth2.getAuthInstance().signOut())
+                .then(() => gapi && gapi.auth2 && gapi.auth2.getAuthInstance().signOut())
                 .then(() => API.call({
                     path: '/user/logout',
                     data: {}
