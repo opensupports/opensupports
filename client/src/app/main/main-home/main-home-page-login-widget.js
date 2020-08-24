@@ -68,7 +68,7 @@ class MainHomePageLoginWidget extends React.Component {
     }
 
     renderGoogleButton() {
-        gapi.load('auth2', () => {
+        window.gapi.load('auth2', () => {
             gapi.auth2.init({client_id: '50174278643-gtvjdpm5rmkv75lf3jsp95iv77a2usgu.apps.googleusercontent.com'})
             gapi.signin2.render('google-oauth-id', {
                 scope: 'email',
