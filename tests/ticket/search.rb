@@ -14,430 +14,198 @@ describe '/ticket/search' do
     $pages = 1..10
 
     it 'should fail if the page is invalid' do
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: -1
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_PAGE')
+        pageFilterList = [-1, '-1', 'one']
 
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: "-1"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_PAGE')
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: "one"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_PAGE')
+        for pageFilter in pageFilterList
+            result = request('/ticket/search', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                page: pageFilter
+            })
+            (result['status']).should.equal('fail')
+            (result['message']).should.equal('INVALID_PAGE')
+        end
     end
 
     it 'should fail if the tags are invalid' do
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            tags: "[1,11,111,1111,11111,111111,1111111,11111111]"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_TAG_FILTER')
+        tagsFilterList = [
+            '[1, 11, 111, 1111, 11111, 111111, 1111111, 11111111]',
+            '[-1]',
+            'this is not a tag id list',
+            2,
+            '{tags: "[2, 3]"}'
+        ]
 
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            tags: "[-1]"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_TAG_FILTER')
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            tags: "this is not a tag id list"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_TAG_FILTER')
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            tags: 2
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_TAG_FILTER')
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            tags: '{tags: "[2,3]"}'
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_TAG_FILTER')
+        for tagsFilter in tagsFilterList
+            result = request('/ticket/search', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                page: 1,
+                tags: tagsFilter
+            })
+            (result['status']).should.equal('fail')
+            (result['message']).should.equal('INVALID_TAG_FILTER')
+        end
     end
 
     it 'should fail if the closed value is invalid' do
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            closed: 3
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_CLOSED_FILTER')
+        closedFilterList = [3, -1, '-1', '&123']
 
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            closed: -1
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_CLOSED_FILTER')
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            closed: "-1"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_CLOSED_FILTER')
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            closed: "&123"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_CLOSED_FILTER')
+        for closedFilter in closedFilterList
+            result = request('/ticket/search', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                page: 1,
+                closed: closedFilter
+            })
+            (result['status']).should.equal('fail')
+            (result['message']).should.equal('INVALID_CLOSED_FILTER')
+        end
     end
 
     it 'should fail if the unreadStaff value is invalid' do
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            unreadStaff: 3
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_UNREAD_STAFF_FILTER')
+        unreadStaffFilterList = [3, 'hola', -1, {unreadStaff: 1}]
 
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            unreadStaff: "hola"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_UNREAD_STAFF_FILTER')
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            unreadStaff: -1
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_UNREAD_STAFF_FILTER')
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            unreadStaff: {unreadStaff: 1}
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_UNREAD_STAFF_FILTER')
+        for unreadStaffFilter in unreadStaffFilterList
+            result = request('/ticket/search', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                page: 1,
+                unreadStaff: unreadStaffFilter
+            })
+            (result['status']).should.equal('fail')
+            (result['message']).should.equal('INVALID_UNREAD_STAFF_FILTER')
+        end
     end
 
     it 'should fail if the dateRange values are invalid' do
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            dateRange: "[11,69,()) ]"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_DATE_RANGE_FILTER')
+        dateRangeFilterList = ['[11, 69, ())]', '[startDate, endDate]', '[500, 123]']
 
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            dateRange: "[startDate,endDate]"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_DATE_RANGE_FILTER')
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            dateRange: "[500,123]"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_DATE_RANGE_FILTER')
+        for dateRangeFilter in dateRangeFilterList
+            result = request('/ticket/search', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                page: 1,
+                dateRange: dateRangeFilter
+            })
+            (result['status']).should.equal('fail')
+            (result['message']).should.equal('INVALID_DATE_RANGE_FILTER')
+        end
     end
 
     it 'should fail if the departments are invalid' do
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            departments: "[-1,-2,99]"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_DEPARTMENT_FILTER')
+        departmentFilterList = ['[-1,-2,99]', '1', 'departmentId1', '']
 
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            departments: "1"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_DEPARTMENT_FILTER')
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            departments: "departmentId1"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_DEPARTMENT_FILTER')
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            departments: ""
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_DEPARTMENT_FILTER')
+        for departmentFilter in departmentFilterList
+            result = request('/ticket/search', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                page: 1,
+                departments: departmentFilter
+            })
+            (result['status']).should.equal('fail')
+            (result['message']).should.equal('INVALID_DEPARTMENT_FILTER')
+        end
     end
 
     it 'should fail if the authors are invalid' do
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            authors: "[{id:30001, staff: 1},{id:30,staff: 3}]"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_AUTHOR_FILTER')
+        authorsFilterList = [
+            '[{id:30001, staff: 1},{id:30,staff: 3}]',
+            '[{id:"delete all)", staff: 1},{id:30,staff: 3}]',
+            '1, 2, 3',
+            '[1, 2, 3]'
+        ]
 
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            authors: "[{id:'delete all)', staff: 1},{id:30,staff: 3}]"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_AUTHOR_FILTER')
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            authors: "1, 2, 3"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_AUTHOR_FILTER')
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            authors: "[1, 2, 3]"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_AUTHOR_FILTER')
+        for authorsFilter in authorsFilterList
+            result = request('/ticket/search', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                page: 1,
+                authors: authorsFilter
+            })
+            (result['status']).should.equal('fail')
+            (result['message']).should.equal('INVALID_AUTHOR_FILTER')
+        end
     end
 
     it 'should fail if the assigned value is invalid' do
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            assigned: 3
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_ASSIGNED_FILTER')
+        assignedFilterList = [3, 11113, '[1]', 'assigned?']
 
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            assigned: 11113
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_ASSIGNED_FILTER')
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            assigned: "[1]"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_ASSIGNED_FILTER')
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            assigned: "assigned?"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_ASSIGNED_FILTER')
+        for assignedFilter in assignedFilterList
+            result = request('/ticket/search', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                page: 1,
+                assigned: assignedFilter
+            })
+            (result['status']).should.equal('fail')
+            (result['message']).should.equal('INVALID_ASSIGNED_FILTER')
+        end
     end
 
     it 'should fail if the owners are invalid' do
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            owners: "[{id: 1}]"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_OWNER_FILTER')
+        ownersFilterList = ['[{id: 1}]', '[30, 25]', 'ownerList', -1, '{1, 3}']
 
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            owners: "[30, 25]"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_OWNER_FILTER')
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            owners: "ownerList"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_OWNER_FILTER')
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            owners: -1
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_OWNER_FILTER')
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            owners: "{1, 3}"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_OWNER_FILTER')
+        for ownersFilter in ownersFilterList
+            result = request('/ticket/search', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                page: 1,
+                owners: ownersFilter
+            })
+            (result['status']).should.equal('fail')
+            (result['message']).should.equal('INVALID_OWNER_FILTER')
+        end
     end
 
     it 'should success if the owners are valid' do
-        ownerId1 = 8
-        ownerId2 = 1
-        ownerId3 = 2
+        ownerIdList = [8, 1, 2]
 
-        ownerIdList1 = [ownerId1].to_json
-        ownerIdList2 = [ownerId2, ownerId3, ownerId1].to_json
-        ownerIdList3 = [ownerId3, ownerId1].to_json
+        ownerIdFilterList = [
+            [ownerIdList[0]],
+            [ownerIdList[1], ownerIdList[2], ownerIdList[0]],
+            [ownerIdList[2], ownerIdList[0]]
+        ]
 
-        ownerId1 = ownerId1.to_s
-        ownerId2 = ownerId2.to_s
-        ownerId3 = ownerId3.to_s
+        ownerIdFilterList = ownerIdFilterList.map { |ownerFilter| ownerFilter.to_json }
 
         for page in $pages
-            result = request('/ticket/search', {
-                csrf_userid: $csrf_userid,
-                csrf_token: $csrf_token,
-                page: page,
-                owners: ownerIdList1
-            })
-            (result['status']).should.equal('success')
+            for ownerFilter in ownerIdFilterList
+                result = request('/ticket/search', {
+                    csrf_userid: $csrf_userid,
+                    csrf_token: $csrf_token,
+                    page: page,
+                    owners: ownerFilter
+                })
+                (result['status']).should.equal('success')
 
-            tickets = result['data']['tickets']
+                tickets = result['data']['tickets']
 
-            for ticket in tickets
-                (ownerIdList1.include?(ticket['owner']['id'])).should.equal(true)
-            end
-
-            result = request('/ticket/search', {
-                csrf_userid: $csrf_userid,
-                csrf_token: $csrf_token,
-                page: page,
-                owners: ownerIdList2
-            })
-            (result['status']).should.equal('success')
-
-            tickets = result['data']['tickets']
-
-            for ticket in tickets
-                (ownerIdList2.include?(ticket['owner']['id'])).should.equal(true)
-            end
-
-            result = request('/ticket/search', {
-                csrf_userid: $csrf_userid,
-                csrf_token: $csrf_token,
-                page: page,
-                owners: ownerIdList3
-            })
-            (result['status']).should.equal('success')
-
-            tickets = result['data']['tickets']
-
-            for ticket in tickets
-                (ownerIdList3.include?(ticket['owner']['id'])).should.equal(true)
+                for ticket in tickets
+                    (ownerFilter.include?(ticket['owner']['id'])).should.equal(true)
+                end
             end
         end
     end
 
     it 'should success if the closed value is valid' do
+        closedFilterList = [1, 0]
+
         for page in $pages
-            result = request('/ticket/search', {
-                csrf_userid: $csrf_userid,
-                csrf_token: $csrf_token,
-                page: page,
-                closed: 1
-            })
-            (result['status']).should.equal('success')
+            for closedFilter in closedFilterList
+                result = request('/ticket/search', {
+                    csrf_userid: $csrf_userid,
+                    csrf_token: $csrf_token,
+                    page: page,
+                    closed: closedFilter
+                })
+                (result['status']).should.equal('success')
 
-            tickets = result['data']['tickets']
+                tickets = result['data']['tickets']
 
-            for ticket in tickets
-                (ticket['closed']).should.equal(true)
-            end
-
-            result = request('/ticket/search', {
-                csrf_userid: $csrf_userid,
-                csrf_token: $csrf_token,
-                page: page,
-                closed: 0
-            })
-            (result['status']).should.equal('success')
-
-            tickets = result['data']['tickets']
-
-            for ticket in tickets
-                (ticket['closed']).should.equal(false)
+                for ticket in tickets
+                    (ticket['closed']).should.equal(closedFilter === 1)
+                end
             end
         end
     end
@@ -454,6 +222,9 @@ describe '/ticket/search' do
     end
 
     it 'should success if the tags are valid' do
+        ticketNumberList1 = [@ticketNumber1, @ticketNumber3]
+        ticketNumberList2 = [@ticketNumber2, @ticketNumber3]
+
         result = request('/ticket/get-tags', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
@@ -463,62 +234,54 @@ describe '/ticket/search' do
         tags = result['data']
 
         for tag in tags
-            if tag['id'] === "2"
+            if tag['id'] === '2'
                 tagNameOfId2 = tag['name']
             end
-            if tag['id'] === "3"
+            if tag['id'] === '3'
                 tagNameOfId3 = tag['name']
             end
         end
 
-        result = request('/ticket/add-tag', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            tagId: 2,
-            ticketNumber: @ticketNumber1
-        })
-        (result['status']).should.equal('success')
+        for ticketNumber in ticketNumberList1
+            result = request('/ticket/add-tag', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                tagId: 2,
+                ticketNumber: ticketNumber
+            })
+            (result['status']).should.equal('success')
+        end
 
-        result = request('/ticket/add-tag', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            tagId: 3,
-            ticketNumber: @ticketNumber2
-        })
-        (result['status']).should.equal('success')
+        for ticketNumber in ticketNumberList2
+            result = request('/ticket/add-tag', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                tagId: 3,
+                ticketNumber: ticketNumber
+            })
+            (result['status']).should.equal('success')
+        end
 
-        result = request('/ticket/add-tag', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            tagId: 2,
-            ticketNumber: @ticketNumber3
-        })
-        (result['status']).should.equal('success')
+        tagObjectList = [
+            {'tagIdFilter' => '[2]', 'tagName' => tagNameOfId2},
+            {'tagIdFilter' => '[3]', 'tagName' => tagNameOfId3},
+        ]
 
-        result = request('/ticket/add-tag', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            tagId: 3,
-            ticketNumber: @ticketNumber3
-        })
-        (result['status']).should.equal('success')
+        for tagObject in tagObjectList
+            result = request('/ticket/search', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                page: 1,
+                tags: tagObject['tagIdFilter']
+            })
+            (result['status']).should.equal('success')
 
+            tickets = result['data']['tickets']
 
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            tags: "[2]"
-        })
-        (result['status']).should.equal('success')
-
-        tickets = result['data']['tickets']
-
-        (tickets.length()).should.equal(2)
-
-        for ticket in tickets
-            ticketTags = ticket['tags']
-            (ticketTags.include?(tagNameOfId2)).should.equal(true)
+            for ticket in tickets
+                ticketTags = ticket['tags']
+                (ticketTags.include?(tagObject['tagName'])).should.equal(true)
+            end
         end
 
 
@@ -526,24 +289,7 @@ describe '/ticket/search' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             page: 1,
-            tags: "[3]"
-        })
-        (result['status']).should.equal('success')
-
-        tickets = result['data']['tickets']
-        (tickets.length()).should.equal(2)
-
-        for ticket in tickets
-            ticketTags = ticket['tags']
-            (ticketTags.include?(tagNameOfId3)).should.equal(true)
-        end
-
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            tags: "[2, 3]"
+            tags: '[2, 3]'
         })
         (result['status']).should.equal('success')
 
@@ -558,291 +304,159 @@ describe '/ticket/search' do
     end
 
     it 'should success if the departments are valid' do
-        departmentId1 = 1
-        departmentId2 = 2
-        departmentId3 = 7
+        departmentIdList = [1, 2, 7]
 
-        departmentFilter1 = [departmentId1]
-        departmentFilter2 = [departmentId2]
-        departmentFilter3 = [departmentId2, departmentId1, departmentId3]
+        departmentIdFilterList = [
+            [departmentIdList[0]],
+            [departmentIdList[1]],
+            [departmentIdList[1], departmentIdList[0], departmentIdList[2]]
+        ]
 
-        departmentId1 = departmentId1.to_s
-        departmentId2 = departmentId2.to_s
-        departmentId3 = departmentId3.to_s
-
-        departmentFilter1 = departmentFilter1.to_json
-        departmentFilter2 = departmentFilter2.to_json
-        departmentFilter3 = departmentFilter3.to_json
+        departmentIdFilterList = departmentIdFilterList.map { |departmentFilter| departmentFilter.to_json }
 
         for page in $pages
-            result = request('/ticket/search', {
-                csrf_userid: $csrf_userid,
-                csrf_token: $csrf_token,
-                page: page,
-                departments: departmentFilter1
-            })
-            (result['status']).should.equal('success')
+            for departmentFilter in departmentIdFilterList
+                result = request('/ticket/search', {
+                    csrf_userid: $csrf_userid,
+                    csrf_token: $csrf_token,
+                    page: page,
+                    departments: departmentFilter
+                })
+                (result['status']).should.equal('success')
 
-            tickets = result['data']['tickets']
+                tickets = result['data']['tickets']
 
-            for ticket in tickets
-                (ticket['department']['id']).should.equal(departmentId1)
-            end
-
-
-            result = request('/ticket/search', {
-                csrf_userid: $csrf_userid,
-                csrf_token: $csrf_token,
-                page: page,
-                departments: departmentFilter2
-            })
-            (result['status']).should.equal('success')
-
-            tickets = result['data']['tickets']
-
-            for ticket in tickets
-                (ticket['department']['id']).should.equal(departmentId2)
-            end
-
-
-            result = request('/ticket/search', {
-                csrf_userid: $csrf_userid,
-                csrf_token: $csrf_token,
-                page: page,
-                departments: departmentFilter3
-            })
-            (result['status']).should.equal('success')
-
-            tickets = result['data']['tickets']
-
-            for ticket in tickets
-                (departmentFilter3.include?(ticket['department']['id'])).should.equal(true)
+                for ticket in tickets
+                    (departmentFilter.include?(ticket['department']['id'])).should.equal(true)
+                end
             end
         end
     end
 
     it 'should success if the authors are valid' do
-        authorId1 = 1
-        authorId2 = 2
-        authorId3 = 8
+        authorIdList = [1, 2, 8]
 
-        authorIsStaff1 = 1
-        authorIsStaff2 = 1
-        authorIsStaff3 = 0
+        authorIsStaffList = [true, true, false]
 
-        authorsFilter1 = [{"id": authorId1, "isStaff": authorIsStaff1}]
-        authorsFilter2 = [{"id": authorId2, "isStaff": authorIsStaff2}, {"id": authorId3, "isStaff": authorId3}, {"id": authorId1, "isStaff": authorIsStaff1}]
-        authorsFilter3 = []
+        authorsFilterList = [
+            [],
+            [{'id' => authorIdList[0], 'isStaff' => authorIsStaffList[0]}],
+            [
+                {'id' => authorIdList[1], 'isStaff' => authorIsStaffList[1]},
+                {'id' => authorIdList[2], 'isStaff' => authorIsStaffList[2]},
+                {'id' => authorIdList[0], 'isStaff' => authorIsStaffList[0]}
+            ]
+        ]
 
-
-        authorId1 = authorId1.to_s
-        authorId2 = authorId2.to_s
-        authorId3 = authorId3.to_s
-
-        authorIsStaff1 = authorIsStaff1 === 1
-        authorIsStaff2 = authorIsStaff2 === 1
-        authorIsStaff3 = authorIsStaff3 === 1
-
-        authorsFilter1 = authorsFilter1.to_json
-        authorsFilter2 = authorsFilter2.to_json
+        authorsFilterList = authorsFilterList.map { |authorsFilter| authorsFilter.to_json }
+        authorIdList = authorIdList.map { |authorId| authorId.to_s }
 
         for page in $pages
-            result = request('/ticket/search', {
-                csrf_userid: $csrf_userid,
-                csrf_token: $csrf_token,
-                page: page,
-                authors: authorsFilter1
-            })
-            (result['status']).should.equal('success')
+            for authorsFilter in authorsFilterList
+                result = request('/ticket/search', {
+                    csrf_userid: $csrf_userid,
+                    csrf_token: $csrf_token,
+                    page: page,
+                    authors: authorsFilter
+                })
+                (result['status']).should.equal('success')
 
-            tickets = result['data']['tickets']
+                if authorsFilter != '[]'
+                    tickets = result['data']['tickets']
 
-            for ticket in tickets
-                ticketAuthor = ticket['author']
-                (ticketAuthor['id']).should.equal(authorId1)
-                (ticketAuthor['staff']).should.equal(authorIsStaff1)
+                    for ticket in tickets
+                        ticketAuthor = ticket['author']
+                        author = (JSON.parse(authorsFilter)).find { |author| author['id'].to_s === ticketAuthor['id'] }
+                        (author['isStaff']).should.equal(ticketAuthor['staff'])
+                    end
+                end
             end
-
-            result = request('/ticket/search', {
-                csrf_userid: $csrf_userid,
-                csrf_token: $csrf_token,
-                page: page,
-                authors: authorsFilter1
-            })
-            (result['status']).should.equal('success')
-
-            tickets = result['data']['tickets']
-
-            for ticket in tickets
-                ticketAuthor = ticket['author']
-                ticketAuthorId = ticketAuthor['id']
-                ticketAutorIsStaff = ticketAuthor['staff']
-
-                (
-                    (ticketAuthorId === authorId1 && ticketAutorIsStaff === authorIsStaff1) ||
-                    (ticketAuthorId === authorId2 && ticketAutorIsStaff === authorIsStaff2) ||
-                    (ticketAuthorId === authorId3 && ticketAutorIsStaff === authorIsStaff3)
-                ).should.equal(true)
-            end
-
-            result = request('/ticket/search', {
-                csrf_userid: $csrf_userid,
-                csrf_token: $csrf_token,
-                page: page,
-                authors: authorsFilter3
-            })
-            (result['status']).should.equal('success')
         end
     end
 
     it 'should fail if the orderBy values are invalid' do
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            orderBy: "{value: 'closeddd', asc: 11}"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_ORDER_BY')
+        orderByFilterList = ['{value: "closeddd", asc: 11}', '', 'orderBy', -1]
 
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            orderBy: ""
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_ORDER_BY')
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            orderBy: "orderBy"
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_ORDER_BY')
-
-        result = request('/ticket/search', {
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token,
-            page: 1,
-            orderBy: -1
-        })
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_ORDER_BY')
+        for orderByFilter in orderByFilterList
+            result = request('/ticket/search', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                page: 1,
+                orderBy: orderByFilter
+            })
+            (result['status']).should.equal('fail')
+            (result['message']).should.equal('INVALID_ORDER_BY')
+        end
     end
 
     it 'should success if the unreadStaff value is valid' do
-        unreadStaffNumber1 = 1
-        unreadStaffNumber2 = 0
-
-        unreadStaffBool1 = unreadStaffNumber1 === 1
-        unreadStaffBool2 = unreadStaffNumber2 === 1
+        unreadStaffList = [1, 0]
 
         for page in $pages
-            result = request('/ticket/search', {
-                csrf_userid: $csrf_userid,
-                csrf_token: $csrf_token,
-                page: page,
-                unreadStaff: unreadStaffNumber1
-            })
-            (result['status']).should.equal('success')
+            for unreadStaff in unreadStaffList
+                result = request('/ticket/search', {
+                    csrf_userid: $csrf_userid,
+                    csrf_token: $csrf_token,
+                    page: page,
+                    unreadStaff: unreadStaff
+                })
+                (result['status']).should.equal('success')
 
-            tickets = result['data']['tickets']
+                tickets = result['data']['tickets']
 
-            for ticket in tickets
-                ticket['unreadStaff'].should.equal(unreadStaffBool1)
-            end
-
-            result = request('/ticket/search', {
-                csrf_userid: $csrf_userid,
-                csrf_token: $csrf_token,
-                page: page,
-                unreadStaff: unreadStaffNumber2
-            })
-            (result['status']).should.equal('success')
-
-            tickets = result['data']['tickets']
-
-            for ticket in tickets
-                ticket['unreadStaff'].should.equal(unreadStaffBool2)
+                for ticket in tickets
+                    ticket['unreadStaff'].should.equal(unreadStaff === 1)
+                end
             end
         end
     end
 
     it 'should success if the assigned value is valid' do
-        assignedNumber1 = 1
-        assignedNumber2 = 0
-
-        assignedBool1 = assignedNumber1 === 1
-        assignedBool2 = assignedNumber2 === 1
+        assignedFilterList = [1, 0]
 
         for page in $pages
-            result = request('/ticket/search', {
-                csrf_userid: $csrf_userid,
-                csrf_token: $csrf_token,
-                page: page,
-                assigned: assignedNumber1
-            })
-            (result['status']).should.equal('success')
+            for assignedFilter in assignedFilterList
+                result = request('/ticket/search', {
+                    csrf_userid: $csrf_userid,
+                    csrf_token: $csrf_token,
+                    page: page,
+                    assigned: assignedFilter
+                })
+                (result['status']).should.equal('success')
 
-            tickets = result['data']['tickets']
+                tickets = result['data']['tickets']
 
-            for ticket in tickets
-                (ticket['owner'] != nil).should.equal(assignedBool1)
-            end
-
-            result = request('/ticket/search', {
-                csrf_userid: $csrf_userid,
-                csrf_token: $csrf_token,
-                page: page,
-                assigned: assignedNumber2
-            })
-            (result['status']).should.equal('success')
-
-            tickets = result['data']['tickets']
-
-            for ticket in tickets
-                (ticket['owner'] != nil).should.equal(assignedBool2)
+                for ticket in tickets
+                    (ticket['owner'] != nil).should.equal(assignedFilter === 1)
+                end
             end
         end
     end
 
     it 'should fail if the dateRange values are valid' do
+        dateRangeList = [[0, 1], [201701010000,202001081735], [201701010000,201701010001]]
+
+        dateRangeFilterList = dateRangeList.map { |dateRange| dateRange.to_json }
+
         for page in $pages
-            result = request('/ticket/search', {
-                csrf_userid: $csrf_userid,
-                csrf_token: $csrf_token,
-                page: page,
-                dateRange: "[0,1]"
-            })
-            (result['status']).should.equal('success')
-
-            result = request('/ticket/search', {
-                csrf_userid: $csrf_userid,
-                csrf_token: $csrf_token,
-                page: page,
-                dateRange: "[201701010000,202001081735]"
-            })
-            (result['status']).should.equal('success')
-
-            result = request('/ticket/search', {
-                csrf_userid: $csrf_userid,
-                csrf_token: $csrf_token,
-                page: page,
-                dateRange: "[201701010000,201701010001]"
-            })
-            (result['status']).should.equal('success')
+            for dateRangeFilter in dateRangeFilterList
+                result = request('/ticket/search', {
+                    csrf_userid: $csrf_userid,
+                    csrf_token: $csrf_token,
+                    page: page,
+                    dateRange: dateRangeFilter
+                })
+                (result['status']).should.equal('success')
+            end
         end
     end
 
-    it 'should fail if the orderBy values are invalid' do
-        orderByClosedDesc = {value: 'closed', asc: 0}.to_json
-        orderByClosedAsc = {value: 'closed', asc: 1}.to_json
+    it 'should success if the orderBy values are valid' do
+        orderByClosedDesc = '{"value": "closed", "asc": 0}'
+        orderByClosedAsc = '{"value": "closed", "asc": 1}'
 
-        orderByOwnerIdDesc = {value: 'owner_id', asc: 0}.to_json
-        orderByOwnerIdAsc = {value: 'owner_id', asc: 1}.to_json
+        orderByOwnerIdDesc = '{"value": "owner_id", "asc": 0}'
+        orderByOwnerIdAsc = '{"value": "owner_id", "asc": 1}'
 
         for page in $pages
             result = request('/ticket/search', {
@@ -890,12 +504,12 @@ describe '/ticket/search' do
             tickets = result['data']['tickets']
             firstTicket = tickets.first()
             firstTicketOwner = firstTicket ? firstTicket['owner'] : nil
-            firstTicketOwnerId = firstTicketOwner ? firstTicketOwner['id'] : "-1"
+            firstTicketOwnerId = firstTicketOwner ? firstTicketOwner['id'] : '-1'
             currentTicketOwnerIdValue = (tickets != []) ? firstTicketOwnerId: nil
 
             for ticket in tickets
                 ticketOwner = ticket['owner']
-                ticketOwnerId = ticketOwner ? ticketOwner['id'] : "-1"
+                ticketOwnerId = ticketOwner ? ticketOwner['id'] : '-1'
 
                 (ticketOwnerId <= currentTicketOwnerIdValue).should.equal(true)
 
@@ -913,12 +527,12 @@ describe '/ticket/search' do
             tickets = result['data']['tickets']
             firstTicket = tickets.first()
             firstTicketOwner = firstTicket ? firstTicket['owner'] : nil
-            firstTicketOwnerId = firstTicketOwner ? firstTicketOwner['id'] : "-1"
+            firstTicketOwnerId = firstTicketOwner ? firstTicketOwner['id'] : '-1'
             currentTicketOwnerIdValue = (tickets != []) ? firstTicketOwnerId: nil
 
             for ticket in tickets
                 ticketOwner = ticket['owner']
-                ticketOwnerId = ticketOwner ? ticketOwner['id'] : "-1"
+                ticketOwnerId = ticketOwner ? ticketOwner['id'] : '-1'
 
                 (ticketOwnerId >= currentTicketOwnerIdValue).should.equal(true)
 
