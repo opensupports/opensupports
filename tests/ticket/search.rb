@@ -158,7 +158,7 @@ describe '/ticket/search' do
         end
     end
 
-    it 'should success if the owners are valid' do
+    it 'should get tickets from the owner passaged' do
         ownerIdList = [8, 1, 2]
 
         ownerIdFilterList = [
@@ -188,7 +188,7 @@ describe '/ticket/search' do
         end
     end
 
-    it 'should success if the closed value is valid' do
+    it 'should get tickets from the closed passaged' do
         closedFilterList = [1, 0]
 
         for page in $pages
@@ -210,7 +210,7 @@ describe '/ticket/search' do
         end
     end
 
-    it 'should success if the page is valid' do
+    it 'should get tickets from the page passaged' do
         for page in $pages
             result = request('/ticket/search', {
                 csrf_userid: $csrf_userid,
@@ -221,7 +221,7 @@ describe '/ticket/search' do
         end
     end
 
-    it 'should success if the tags are valid' do
+    it 'should get tickets from the tags passaged' do
         ticketNumberList1 = [@ticketNumber1, @ticketNumber3]
         ticketNumberList2 = [@ticketNumber2, @ticketNumber3]
 
@@ -303,7 +303,7 @@ describe '/ticket/search' do
         end
     end
 
-    it 'should success if the departments are valid' do
+    it 'should get tickets from the departments passaged' do
         departmentIdList = [1, 2, 7]
 
         departmentIdFilterList = [
@@ -333,7 +333,7 @@ describe '/ticket/search' do
         end
     end
 
-    it 'should success if the authors are valid' do
+    it 'should get tickets from the authors passaged' do
         authorIdList = [1, 2, 8]
 
         authorIsStaffList = [true, true, false]
@@ -389,7 +389,7 @@ describe '/ticket/search' do
         end
     end
 
-    it 'should success if the unreadStaff value is valid' do
+    it 'should get tickets from the unreadStaff passaged' do
         unreadStaffList = [1, 0]
 
         for page in $pages
@@ -411,7 +411,7 @@ describe '/ticket/search' do
         end
     end
 
-    it 'should success if the assigned value is valid' do
+    it 'should get tickets from the assigned passaged' do
         assignedFilterList = [1, 0]
 
         for page in $pages
@@ -433,7 +433,7 @@ describe '/ticket/search' do
         end
     end
 
-    it 'should fail if the dateRange values are valid' do
+    it 'should success if the dateRange values are valid' do
         dateRangeList = [[0, 1], [201701010000,202001081735], [201701010000,201701010001]]
 
         dateRangeFilterList = dateRangeList.map { |dateRange| dateRange.to_json }
@@ -451,7 +451,7 @@ describe '/ticket/search' do
         end
     end
 
-    it 'should success if the orderBy values are valid' do
+    it 'should get tickets from the orderBy passaged' do
         orderByClosedDesc = '{"value": "closed", "asc": 0}'
         orderByClosedAsc = '{"value": "closed", "asc": 1}'
 
