@@ -160,13 +160,11 @@ describe '/ticket/search' do
 
     it 'should get tickets from the owner passaged' do
         ownerIdList = [8, 1, 2]
-
         ownerIdFilterList = [
             [ownerIdList[0]],
             [ownerIdList[1], ownerIdList[2], ownerIdList[0]],
             [ownerIdList[2], ownerIdList[0]]
         ]
-
         ownerIdFilterList = ownerIdFilterList.map { |ownerFilter| ownerFilter.to_json }
 
         for page in $pages
@@ -210,7 +208,7 @@ describe '/ticket/search' do
         end
     end
 
-    it 'should get tickets from the page passaged' do
+    it 'should success if the page is valid' do
         for page in $pages
             result = request('/ticket/search', {
                 csrf_userid: $csrf_userid,
@@ -284,7 +282,6 @@ describe '/ticket/search' do
             end
         end
 
-
         result = request('/ticket/search', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
@@ -305,13 +302,11 @@ describe '/ticket/search' do
 
     it 'should get tickets from the departments passaged' do
         departmentIdList = [1, 2, 7]
-
         departmentIdFilterList = [
             [departmentIdList[0]],
             [departmentIdList[1]],
             [departmentIdList[1], departmentIdList[0], departmentIdList[2]]
         ]
-
         departmentIdFilterList = departmentIdFilterList.map { |departmentFilter| departmentFilter.to_json }
 
         for page in $pages
@@ -335,9 +330,7 @@ describe '/ticket/search' do
 
     it 'should get tickets from the authors passaged' do
         authorIdList = [1, 2, 8]
-
         authorIsStaffList = [true, true, false]
-
         authorsFilterList = [
             [],
             [{'id' => authorIdList[0], 'isStaff' => authorIsStaffList[0]}],
@@ -347,7 +340,6 @@ describe '/ticket/search' do
                 {'id' => authorIdList[0], 'isStaff' => authorIsStaffList[0]}
             ]
         ]
-
         authorsFilterList = authorsFilterList.map { |authorsFilter| authorsFilter.to_json }
         authorIdList = authorIdList.map { |authorId| authorId.to_s }
 
@@ -541,7 +533,7 @@ describe '/ticket/search' do
         end
     end
 
-    it 'should success if the query values are invalid' do
+    it 'should fail if the query values are invalid' do
         queryList = ['', '  ', '   ']
 
         for page in $pages
@@ -569,6 +561,82 @@ describe '/ticket/search' do
                     query: query
                 })
                 (result['status']).should.equal('success')
+            end
+        end
+    end
+
+    it 'should get tickets from the assigned and the author passaged' do
+        assignedFilterList = [1, 0]
+        authorIdList = [1, 2, 8]
+        authorIsStaffList = [true, true, false]
+        authorsFilterList = [
+            [],
+            [{'id' => authorIdList[0], 'isStaff' => authorIsStaffList[0]}],
+            [
+                {'id' => authorIdList[1], 'isStaff' => authorIsStaffList[1]},
+                {'id' => authorIdList[2], 'isStaff' => authorIsStaffList[2]},
+                {'id' => authorIdList[0], 'isStaff' => authorIsStaffList[0]}
+            ]
+        ]
+        authorsFilterList = authorsFilterList.map { |authorsFilter| authorsFilter.to_json }
+        authorIdList = authorIdList.map { |authorId| authorId.to_s }
+
+        for page in $pages
+            for authorsFilter in authorsFilterList
+                for assignedFilter in assignedFilterList
+                    result = request('/ticket/search', {
+                        csrf_userid: $csrf_userid,
+                        csrf_token: $csrf_token,
+                        page: page,
+                        assigned: assignedFilter,
+                        authors: authorsFilter
+                    })
+                    (result['status']).should.equal('success')
+
+                    if authorsFilter != '[]'
+                        tickets = result['data']['tickets']
+
+                        for ticket in tickets
+                            ticketAuthor = ticket['author']
+                            author = (JSON.parse(authorsFilter)).find { |author| author['id'].to_s === ticketAuthor['id'] }
+                            (author['isStaff']).should.equal(ticketAuthor['staff'])
+                            (ticket['owner'] != nil).should.equal(assignedFilter === 1)
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    it 'should get tickets from the closed and the owners passaged' do
+        closedFilterList = [1, 0]
+        ownerIdList = [8, 1, 2]
+        ownerIdFilterList = [
+            [ownerIdList[0]],
+            [ownerIdList[1], ownerIdList[2], ownerIdList[0]],
+            [ownerIdList[2], ownerIdList[0]]
+        ]
+        ownerIdFilterList = ownerIdFilterList.map { |ownerFilter| ownerFilter.to_json }
+
+        for page in $pages
+            for ownerFilter in ownerIdFilterList
+                for closedFilter in closedFilterList
+                    result = request('/ticket/search', {
+                        csrf_userid: $csrf_userid,
+                        csrf_token: $csrf_token,
+                        page: page,
+                        closed: closedFilter,
+                        owners: ownerFilter
+                    })
+                    (result['status']).should.equal('success')
+
+                    tickets = result['data']['tickets']
+
+                    for ticket in tickets
+                        (ticket['closed']).should.equal(closedFilter === 1)
+                        (ownerFilter.include?(ticket['owner']['id'])).should.equal(true)
+                    end
+                end
             end
         end
     end
