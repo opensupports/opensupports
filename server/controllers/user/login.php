@@ -65,7 +65,7 @@ class LoginController extends Controller {
                 Response::respondSuccess($this->getUserData());
                 return;
             } else {
-                throw new Exception("Invalid GoogleID token or unverified Google account");
+                throw new Exception(ERRORS::INVALID_GOOGLE_ID);
             }
         }
         
@@ -116,7 +116,7 @@ class LoginController extends Controller {
             $signupController->validate();
             $signupController->handler();
         } catch (\Exception $exception) {
-            throw new Exception("OpenSupports doesn't accept this Google account, failed validations: " . $exception);
+            throw new RequestException(ERRORS::INVALID_CREDENTIALS);
         }
 
         return User::getUser($payload['email'], 'email');

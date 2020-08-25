@@ -148,7 +148,6 @@ class MainHomePageLoginWidget extends React.Component {
 
     onGoogleLoginSuccess(googleUser) {
         let id_token = googleUser.getAuthResponse().id_token;
-        console.log(id_token);
         this.props.dispatch(SessionActions.login({'googleId': id_token, 'remember': 1}));
     }
 

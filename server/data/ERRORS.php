@@ -321,7 +321,15 @@
   */
 /**
  * @apiDefine INVALID_SUPERVISED_USERS
- * @apiError {String} INVALID_SUPERVISED_USERS supervised users are invalid
+ * @apiError {String} INVALID_SUPERVISED_USERS Supervised users are invalid
+ */
+/**
+ * @apiDefine INVALID_USER_SEARCH_OPTION
+ * @apiError {String} INVALID_USER_SEARCH_OPTION User search options are invalid
+ */
+/**
+ * @apiDefine INVALID_GOOGLE_ID
+ * @apiError {String} INVALID_GOOGLE_ID The Google client id set by webmasters is incorrect, or the google account trying to login was not verified
  */
 
 class ERRORS {
@@ -408,4 +416,5 @@ class ERRORS {
     const REGISTRATION_IS_DESACTIVATED = 'REGISTRATION_IS_DESACTIVATED';
     const INVALID_SUPERVISED_USERS = 'INVALID_SUPERVISED_USERS';
     const INVALID_USER_SEARCH_OPTION = 'INVALID_USER_SEARCH_OPTION';
+    const INVALID_GOOGLE_ID = 'INVALID_GOOGLE_ID';
 }
