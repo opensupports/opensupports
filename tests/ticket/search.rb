@@ -540,4 +540,36 @@ describe '/ticket/search' do
             end
         end
     end
+
+    it 'should success if the query values are invalid' do
+        queryList = ['', '  ', '   ']
+
+        for page in $pages
+            for query in queryList
+                result = request('/ticket/search', {
+                    csrf_userid: $csrf_userid,
+                    csrf_token: $csrf_token,
+                    page: page,
+                    query: query
+                })
+                (result['status']).should.equal('fail')
+            end
+        end
+    end
+
+    it 'should success if the query values are valid' do
+        queryList = ['Hola?', '223121', '1', 'xD']
+
+        for page in $pages
+            for query in queryList
+                result = request('/ticket/search', {
+                    csrf_userid: $csrf_userid,
+                    csrf_token: $csrf_token,
+                    page: page,
+                    query: query
+                })
+                (result['status']).should.equal('success')
+            end
+        end
+    end
 end
