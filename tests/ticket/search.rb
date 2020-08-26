@@ -560,6 +560,9 @@ describe '/ticket/search' do
                     page: page,
                     query: query
                 })
+                if result['status'] === 'fail'
+                    puts "Esto es result #{result}"
+                end
                 (result['status']).should.equal('success')
             end
         end
