@@ -10,7 +10,7 @@ build:
 	@docker network create os-net || true
 
 install:
-	@docker exec -it opensupports-srv bash -c "cd /var/www/html && composer install" || echo "${red}Please execute 'make run' first${reset}"
+	@docker exec -it opensupports-srv bash -c "cd /var/www/html && composer update && composer install" || echo "${red}Please execute 'make run' first${reset}"
 	@docker exec -it opensupports-db bash -c "mysql -u root -e \"CREATE DATABASE IF NOT EXISTS development;\" " || echo "${red}Please execute 'make run' first${reset}"
 
 run: stop
