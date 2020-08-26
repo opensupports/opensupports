@@ -27,6 +27,13 @@ class Log extends DataStore {
         ];
     }
 
+    public static function getFetchAs() {
+        return [
+            'authorUser' => 'user',
+            'authorStaff' => 'staff',
+        ];
+    }
+
     public static function createLog($type, $to, $author = null) {
         $session = Session::getInstance();
         $authorName = '';

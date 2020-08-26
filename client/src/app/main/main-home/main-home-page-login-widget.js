@@ -1,12 +1,10 @@
 import React      from 'react';
-import ReactDOM   from 'react-dom';
 import {connect}  from 'react-redux';
 import classNames from 'classnames';
 import _          from 'lodash';
 
 import SessionActions from 'actions/session-actions';
 import API         from 'lib-app/api-call';
-import focus       from 'lib-core/focus';
 import i18n        from 'lib-app/i18n';
 
 import PasswordRecovery from 'app-components/password-recovery';
@@ -35,6 +33,10 @@ class MainHomePageLoginWidget extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.renderGoogleButton();
+    }
+
     render() {
         return (
             <WidgetTransition sideToShow={this.state.sideToShow} className={classNames('login-widget__container', this.props.className)}>
@@ -49,6 +51,7 @@ class MainHomePageLoginWidget extends React.Component {
             <Widget className="main-home-page__widget" title={i18n('LOG_IN')} ref="loginWidget">
                 <Form {...this.getLoginFormProps()}>
                     <div className="login-widget__inputs">
+                        <div id="google-oauth-id">Loading Google Login ...</div>
                         <FormField placeholder={i18n('EMAIL_LOWERCASE')} name="email" className="login-widget__input" validation="EMAIL" required/>
                         <FormField placeholder={i18n('PASSWORD_LOWERCASE')} name="password" className="login-widget__input" required fieldProps={{password: true}}/>
                         <FormField name="remember" label={i18n('REMEMBER_ME')} className="login-widget__input" field="checkbox"/>
@@ -62,6 +65,23 @@ class MainHomePageLoginWidget extends React.Component {
                 </Button>
             </Widget>
         );
+    }
+
+    renderGoogleButton() {
+        window.gapi.load('auth2', () => {
+            gapi.auth2.init({client_id: '50174278643-gtvjdpm5rmkv75lf3jsp95iv77a2usgu.apps.googleusercontent.com'})
+            gapi.signin2.render('google-oauth-id', {
+                scope: 'email',
+                width: 200,
+                height: 30,
+                longtitle: true,
+                theme: 'dark',
+                onsuccess: this.onGoogleLoginSuccess.bind(this),
+                onfailure: (response) => {
+                    console.log(response);
+                }
+            })
+        })
     }
 
     renderPasswordRecovery() {
@@ -124,6 +144,12 @@ class MainHomePageLoginWidget extends React.Component {
 
     onLoginFormSubmit(formState) {
         this.props.dispatch(SessionActions.login(formState));
+    }
+
+    onGoogleLoginSuccess(googleUser) {
+        let id_token = googleUser.getAuthResponse().id_token;
+        console.log(id_token);
+        this.props.dispatch(SessionActions.login({'googleId': id_token, 'remember': 1}));
     }
 
     onForgotPasswordSubmit(formState) {

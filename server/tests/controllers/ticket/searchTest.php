@@ -240,26 +240,29 @@ class SearchControllerTest extends TestCase {
         );
     }
     public function testQueryWithOrder() {
+        $inputs1 = [
+            'page' => 1
+        ];
+        $inputs2 = [
+            'page' => 1,
+            'query' => 'stark'
+        ];
+        $inputs3 = [
+            'page' => 1,
+            'orderBy' => ['value' => 'closed', 'asc' => 1]
+        ];
         $this->assertEquals(
-            $this->searchController->getSQLQueryWithOrder([
-                'page' => 1
-            ]),
+            $this->searchController->getSQLQueryWithOrder($inputs1, $this->searchController->getSQLQuery($inputs1)),
             "SELECT ticket.id FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) GROUP BY ticket.id ORDER BY ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.date desc, ticket.id desc LIMIT 10 OFFSET 0"
         );
 
         $this->assertEquals(
-            $this->searchController->getSQLQueryWithOrder([
-                'page' => 1,
-                'query' => 'stark'
-            ]),
+            $this->searchController->getSQLQueryWithOrder($inputs2, $this->searchController->getSQLQuery($inputs2)),
             "SELECT ticket.id FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  (ticket.title LIKE :query or ticket.content LIKE :query or ticket.ticket_number LIKE :query or (ticketevent.type = 'COMMENT' and ticketevent.content LIKE :query) ) GROUP BY ticket.id ORDER BY CASE WHEN (ticket.ticket_number LIKE :query) THEN 1 WHEN (ticket.title LIKE :queryAtBeginning) THEN 2 WHEN (ticket.title LIKE :query) THEN 3 WHEN ( ticket.content LIKE :query) THEN 4  WHEN (ticketevent.content LIKE :query) THEN 5 END asc, ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.date desc, ticket.id desc LIMIT 10 OFFSET 0"
         );
 
         $this->assertEquals(
-            $this->searchController->getSQLQueryWithOrder([
-                'page' => 1,
-                'orderBy' => ['value' => 'closed', 'asc' => 1]
-            ]),
+            $this->searchController->getSQLQueryWithOrder($inputs3, $this->searchController->getSQLQuery($inputs3)),
             "SELECT ticket.id FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) GROUP BY ticket.id ORDER BY ticket.closed asc,ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.date desc, ticket.id desc LIMIT 10 OFFSET 0"
         );
     }
