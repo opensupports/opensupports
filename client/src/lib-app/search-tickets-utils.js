@@ -207,7 +207,7 @@ export default {
         return DEFAULT_UTC_START_DATE
     },
     getDefaultUTCEndDate() {
-        return (DateTransformer.getDateToday()*10000)+2359;
+        return DateTransformer.localDateToUTCNumericDate(JSON.stringify((DateTransformer.getDateToday()*10000)+2359));
     },
     getDefaultLocalStartDate() {
         return DateTransformer.UTCDateToLocalNumericDate(this.getDefaultUTCStartDate())
