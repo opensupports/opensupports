@@ -814,13 +814,11 @@ class TicketViewer extends React.Component {
             userId,
             ticket
         } = this.props;
-        const ticketDepartmentId = ticket.department.id;
-        const FIRST_ITEM = 0;
         let staffAssignmentItems = [
             {content: i18n('NONE'), contentOnSelected: i18n('NONE'), id: 0}
         ];
 
-        if(_.some(userDepartments, {id: ticketDepartmentId})) {
+        if(_.some(userDepartments, {id: ticket.department.id})) {
             staffAssignmentItems.push({
                 content: i18n('ASSIGN_TO_ME'),
                 contentOnSelected: this.getCurrentStaff().name,
@@ -857,9 +855,7 @@ class TicketViewer extends React.Component {
             ticket
         } = this.props;
 
-        return _.find(staffMembers, ({id, departments}) => {
-            return (id == userId) && _.some(departments, {id: ticket.department.id});
-        });
+        return _.find(staffMembers, ({id}) => {return id == userId});
     }
 
     getDepartmentsForTransfer() {
