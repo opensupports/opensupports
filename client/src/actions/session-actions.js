@@ -54,11 +54,11 @@ export default {
                 data: {
                     userId: rememberData.userId,
                     rememberToken: rememberData.token,
+                    staff: rememberData.isStaff,
                     remember: 1,
-                    isAutomatic: 1
                 }
             }).then((result) => {
-                store.dispatch(this.getUserData(result.data.userId, result.data.token));
+                store.dispatch(this.getUserData(result.data.userId, result.data.token, result.data.staff));
                 
                 return result;
             })
@@ -68,11 +68,13 @@ export default {
     logout() {
         return {
             type: 'LOGOUT',
-            payload: API.call({
-                path: '/user/logout',
-                data: {}
-            })
-        };
+            payload: Promise.resolve()
+                .then(() => gapi && gapi.auth2 && gapi.auth2.getAuthInstance().signOut())
+                .then(() => API.call({
+                    path: '/user/logout',
+                    data: {}
+                }))
+        }
     },
 
     getUserData(userId, token, staff) {

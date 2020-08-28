@@ -194,8 +194,12 @@ class FormField extends React.Component {
         if(field === 'autocomplete') {
             props.values = value;
         }
-        
-        props.value = value;
+
+        if(field === 'checkbox') {
+            props.value = !!value;
+        } else {
+            props.value = value;
+        }
 
         return props;
     }

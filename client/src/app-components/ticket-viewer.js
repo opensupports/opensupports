@@ -814,23 +814,21 @@ class TicketViewer extends React.Component {
             userId,
             ticket
         } = this.props;
-        const ticketDepartmentId = ticket.department.id;
-        const FIRST_ITEM = 0;
         let staffAssignmentItems = [
             {content: i18n('NONE'), contentOnSelected: i18n('NONE'), id: 0}
         ];
 
-        if(_.some(userDepartments, {id: ticketDepartmentId})) {
+        if(_.some(userDepartments, {id: ticket.department.id})) {
             staffAssignmentItems.push({
                 content: i18n('ASSIGN_TO_ME'),
-                contentOnSelected: this.getStaffList({onlyMe: true})[FIRST_ITEM].name,
+                contentOnSelected: this.getCurrentStaff().name,
                 id: userId
             });
         }
 
         staffAssignmentItems = staffAssignmentItems.concat(
             _.map(
-                this.getStaffList({onlyMe: false}),
+                this.getStaffList(),
                 ({id, name}) => ({content: name, contentOnSelected: name, id: id*1})
             )
         );
@@ -838,7 +836,7 @@ class TicketViewer extends React.Component {
         return staffAssignmentItems;
     }
 
-    getStaffList(onlyMeObject) {
+    getStaffList() {
         const {
             userId,
             staffMembers,
@@ -846,10 +844,18 @@ class TicketViewer extends React.Component {
         } = this.props;
 
         return _.filter(staffMembers, ({id, departments}) => {
-            const idComparer = onlyMeObject.onlyMe ? (id == userId) : (id != userId);
-
-            return idComparer && _.some(departments, {id: ticket.department.id});
+            return (id != userId) && _.some(departments, {id: ticket.department.id});
         })
+    }
+
+    getCurrentStaff() {
+        const {
+            userId,
+            staffMembers,
+            ticket
+        } = this.props;
+
+        return _.find(staffMembers, ({id}) => {return id == userId});
     }
 
     getDepartmentsForTransfer() {

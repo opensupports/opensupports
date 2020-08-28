@@ -61,7 +61,13 @@ describe '/ticket/add-tag' do
             tagId: 3,
             ticketNumber: ticket['ticket_number']
         })
+        (result['status']).should.equal('success')
 
+        result = request('/ticket/delete', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            ticketNumber: ticket['ticket_number']
+        })
         (result['status']).should.equal('success')
     end
 
@@ -105,4 +111,11 @@ describe '/ticket/add-tag' do
         (result['status']).should.equal('fail')
         (result['message']).should.equal('TAG_EXISTS')
     end
+
+    result = request('/ticket/delete', {
+        csrf_userid: $csrf_userid,
+        csrf_token: $csrf_token,
+        ticketNumber: @ticketNumber
+    })
+    (result['status']).should.equal('success')
 end
