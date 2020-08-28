@@ -4,6 +4,8 @@ import _ from 'lodash';
 import DateTransformer from 'lib-core/date-transformer';
 import API from 'lib-app/api-call';
 
+const DEFAULT_UTC_START_DATE = 201701010000;
+
 const TICKET_STATUSES = {
     ANY: undefined,
     OPENED: 0,
@@ -81,6 +83,7 @@ export default {
                 } :
                 filters
         );
+        const dateRange = filtersForAPI.dateRange;
 
         if(filtersForAPI && filtersForAPI.closed !== undefined) {
             filtersForAPI = {
@@ -91,13 +94,10 @@ export default {
 
         filtersForAPI = {
             ...filtersForAPI,
-            dateRange: filtersForAPI.dateRange ?  filtersForAPI.dateRange : this.getDefaultDateRangeForFilters()
+            dateRange: dateRange ? dateRange : this.getDefaultUTCRange()
         }
 
         return filtersForAPI ? filtersForAPI : {};
-    },
-    getDefaultDateRangeForFilters() {
-        return JSON.stringify(DateTransformer.formDateRangeToFilters([20170101, DateTransformer.getDateToday()]));
     },
     getFiltersForURL(filtersWithShouldRemoveParams) {
         const shouldRemoveCustomParam = filtersWithShouldRemoveParams.shouldRemoveCustomParam ? filtersWithShouldRemoveParams.shouldRemoveCustomParam : false;
@@ -148,6 +148,13 @@ export default {
         return closedDropdownIndex;
     },
     transformToFormValue(filters) {
+        const localDateRange = DateTransformer.rangeTransformer(JSON.parse(filters.dateRange), "UTCToLocal");
+        const newDateRange = {
+            valid: true,
+            startDate: localDateRange[0],
+            endDate: localDateRange[1],
+        };
+
         return {
             ...filters,
             query: filters.query ? filters.query : '',
@@ -155,7 +162,7 @@ export default {
             departments: JSON.parse(filters.departments),
             owners: JSON.parse(filters.owners),
             tags: JSON.parse(filters.tags),
-            dateRange: DateTransformer.dateRangeToFormValue(filters.dateRange),
+            dateRange: newDateRange,
             authors: filters.authors ? JSON.parse(filters.authors) : [],
         };
     },
@@ -177,7 +184,7 @@ export default {
     },
     formValueToListConfig(form, hasAllAuthorsInfo = false) {
         const authors = form.authors ? form.authors.map(author => ({id: author.id*1, isStaff: author.isStaff})) : [];
-        const dateRangeFilter = [form.dateRange.startDate, form.dateRange.endDate];
+        const localRange = [form.dateRange.startDate, form.dateRange.endDate];
 
         return {
             filters: {
@@ -187,11 +194,25 @@ export default {
                 departments: form.departments !== undefined ? JSON.stringify(form.departments) : '[]',
                 owners: JSON.stringify(form.owners),
                 tags: JSON.stringify(form.tags),
-                dateRange: JSON.stringify(DateTransformer.formDateRangeToFilters(dateRangeFilter)),
+                dateRange: JSON.stringify(DateTransformer.rangeTransformer(localRange, "localToUTC")),
                 authors: JSON.stringify(authors),
             },
             hasAllAuthorsInfo
         };
+    },
+    getDefaultUTCRange() {
+        return JSON.stringify([DEFAULT_UTC_START_DATE, this.getDefaultUTCEndDate()]);
+    },
+    getDefaultUTCStartDate() {
+        return DEFAULT_UTC_START_DATE
+    },
+    getDefaultUTCEndDate() {
+        return DateTransformer.localDateToUTCNumericDate(JSON.stringify((DateTransformer.getDateToday()*10000)+2359));
+    },
+    getDefaultLocalStartDate() {
+        return DateTransformer.UTCDateToLocalNumericDate(this.getDefaultUTCStartDate())
+    },
+    getDefaultlocalEndDate() {
+        return DateTransformer.UTCDateToLocalNumericDate(this.getDefaultUTCEndDate())
     }
-
 }

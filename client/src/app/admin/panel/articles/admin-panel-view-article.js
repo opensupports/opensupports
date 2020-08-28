@@ -97,7 +97,7 @@ class AdminPanelViewArticle extends React.Component {
                     </Button>
                 </div>
                 <FormField name="title" label={i18n('TITLE')} />
-                <FormField name="content" label={i18n('CONTENT')} field="textarea" fieldProps={{allowImages: this.props.allowAttachments}}/>
+                <FormField name="content" label={i18n('CONTENT')} field="textarea" validation="TEXT_AREA" required  fieldProps={{allowImages: this.props.allowAttachments}}/>     
             </Form>
         );
     }

@@ -109,7 +109,7 @@ class StaffEditor extends React.Component {
                     <div className="col-md-4">
                         <div className="staff-editor__departments">
                             <div className="staff-editor__departments-title">{i18n('DEPARTMENTS')}</div>
-                            {(!this.props.myAccount) ? this.renderDepartmentsForm() : this.renderDepartmentsInfo()}
+                            {(this.props.myAccount && this.props.level !== 3)  ? this.renderDepartmentsInfo() : this.renderDepartmentsForm()}
                         </div>
                     </div>
                     <div className="col-md-8">
@@ -193,7 +193,7 @@ class StaffEditor extends React.Component {
     renderDepartmentsInfo() {
         return (
             <Form values={{departments: this.state.departments}}>
-                <FormField name="departments" field="checkbox-group" fieldProps={{items: this.getDepartments()}} />
+                <FormField name="departments" field="checkbox-group" fieldProps={{items: this.getDepartments().filter((department,index) => this.state.departments.includes(index))}} />
             </Form>
         );
     }
@@ -262,7 +262,6 @@ class StaffEditor extends React.Component {
                 departmentIndexes.push(index);
             }
         });
-
         return departmentIndexes;
     }
 

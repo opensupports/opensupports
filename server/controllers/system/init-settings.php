@@ -78,7 +78,6 @@ class InitSettingsController extends Controller {
             'smtp-host' => Controller::request('smtp-host'),
             'smtp-user' => Controller::request('smtp-user'),
             'smtp-pass' => Controller::request('smtp-pass'),
-            'time-zone' => 0,
             'maintenance-mode' => 0,
             'layout' => 'boxed',
             'allow-attachments' => !!Controller::request('allow-attachments'),
