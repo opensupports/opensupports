@@ -129,6 +129,8 @@ class TicketQueryFilters extends React.Component {
     }
 
     searchAuthors(query, blacklist = []) {
+        blacklist = blacklist.map(item => {return {isStaff: item.isStaff, id: item.id}});
+
         return API.call({
             path: '/ticket/search-authors',
             data: {
