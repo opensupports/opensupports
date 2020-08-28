@@ -35,11 +35,6 @@ describe('Login/Recover Widget', function () {
         let dispatch = stub();
 
         function renderComponent(props = {session: {pending: false, failed: false}}) {
-            window.gapi = {
-                load() {
-                    return null;
-                }
-            };
             component = reRenderIntoDocument(
                 <MainHomePageLoginWidget dispatch={dispatch} {...props}/>
             );
@@ -121,11 +116,6 @@ describe('Login/Recover Widget', function () {
         let dispatch = stub();
 
         beforeEach(function () {
-            window.gapi = {
-                load() {
-                    return null;
-                }
-            };
             component = TestUtils.renderIntoDocument(
                 <MainHomePageLoginWidget dispatch={dispatch} session={{pending: false, failed: false}} />
             );
