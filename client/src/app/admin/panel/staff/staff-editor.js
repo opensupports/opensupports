@@ -1,6 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
 import classNames from 'classnames';
+import {connect} from 'react-redux';
+
+import AdminDataActions from 'actions/admin-data-actions';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -312,6 +315,7 @@ class StaffEditor extends React.Component {
                 departments: (eventType === 'DEPARTMENTS') ? (departments && JSON.stringify(departments)) : null,
             }
         }).then(() => {
+            this.retrieveStaffMembers();
             window.scrollTo(0,0);
             this.setState({message: eventType});
 
@@ -361,6 +365,10 @@ class StaffEditor extends React.Component {
             this.setState({message: 'FAIL', loadingPicture: false});
         });
     }
+
+    retrieveStaffMembers() {
+        this.props.dispatch(AdminDataActions.retrieveStaffMembers());
+    }
 }
 
-export default StaffEditor;
+export default connect()(StaffEditor);
