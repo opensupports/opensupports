@@ -564,7 +564,7 @@ describe '/ticket/search' do
     #             if result['status'] === 'fail'
     #                 puts "Esto es result #{result}"
     #             end
-                # result = {
+                # result is {
                 #     "status"=>"fail",
                 #     "message"=>"SQLSTATE[42000]: Syntax error or access violation: 1055 Expression #1 of ORDER BY clause is not in GROUP BY clause and contains nonaggregated column 'development.ticketevent.content' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by",
                 #     "data"=>nil
