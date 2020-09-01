@@ -102,11 +102,15 @@ export default {
     getFiltersForURL(filtersWithShouldRemoveParams) {
         const shouldRemoveCustomParam = filtersWithShouldRemoveParams.shouldRemoveCustomParam ? filtersWithShouldRemoveParams.shouldRemoveCustomParam : false;
         const shouldRemoveUseInitialValuesParam = filtersWithShouldRemoveParams.shouldRemoveUseInitialValuesParam ? filtersWithShouldRemoveParams.shouldRemoveUseInitialValuesParam : false;
-        let filters = filtersWithShouldRemoveParams.filters;
+        const currentSearchParams = queryString.parse(window.location.search);
+        let filters = {
+            ...currentSearchParams,
+            ...filtersWithShouldRemoveParams.filters,
+        };
 
         filters = {
-            ...queryString.parse(window.location.search),
             ...filters,
+            query: filters.query ? encodeURIComponent(filters.query) : filters.query
         };
 
         if(shouldRemoveCustomParam) delete filters.custom;
@@ -127,7 +131,7 @@ export default {
             else return query + `&${filter}=${JSON.stringify(value)}`;
         }, '').slice(1);
 
-        if(!_.isEqual(queryString.parse(`?${query}`), queryString.parse(window.location.search))) {
+        if(!_.isEqual(queryString.parse(`?${query}`), currentSearchParams)) {
             return `?${query}`;
         }
     },
