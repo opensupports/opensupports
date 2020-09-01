@@ -21,7 +21,7 @@ class InstallStep6Admin extends React.Component {
     render() {
         return (
             <div className="install-step-6">
-                <Header title={i18n('STEP_TITLE', {title: i18n('ADMIN_SETUP'), current: 6, total: 7})} description={i18n('STEP_6_DESCRIPTION')} />
+                <Header title={i18n('STEP_TITLE', {title: i18n('ADMIN_SETUP'), current: 6, total: 6})} description={i18n('STEP_6_DESCRIPTION')} />
                 {this.renderMessage()}
                 <Form onSubmit={this.onSubmit.bind(this)}>
                     <FormField name="name" validation="NAME" label={i18n('ADMIN_NAME')} fieldProps={{size: 'large'}} required />
@@ -57,7 +57,7 @@ class InstallStep6Admin extends React.Component {
                 path: '/system/init-admin',
                 data: form
             })
-                .then(() => history.push('/install/step-7'))
+                .then(() => history.push('/install/completed'))
                 .catch(({message}) => this.setState({
                     loading: false,
                     error: true,

@@ -1,6 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
 import classNames from 'classnames';
+import {connect} from 'react-redux';
+
+import AdminDataActions from 'actions/admin-data-actions';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -106,7 +109,7 @@ class StaffEditor extends React.Component {
                     <div className="col-md-4">
                         <div className="staff-editor__departments">
                             <div className="staff-editor__departments-title">{i18n('DEPARTMENTS')}</div>
-                            {(!this.props.myAccount) ? this.renderDepartmentsForm() : this.renderDepartmentsInfo()}
+                            {(this.props.myAccount && this.props.level !== 3)  ? this.renderDepartmentsInfo() : this.renderDepartmentsForm()}
                         </div>
                     </div>
                     <div className="col-md-8">
@@ -190,7 +193,7 @@ class StaffEditor extends React.Component {
     renderDepartmentsInfo() {
         return (
             <Form values={{departments: this.state.departments}}>
-                <FormField name="departments" field="checkbox-group" fieldProps={{items: this.getDepartments()}} />
+                <FormField name="departments" field="checkbox-group" fieldProps={{items: this.getDepartments().filter((department,index) => this.state.departments.includes(index))}} />
             </Form>
         );
     }
@@ -259,7 +262,6 @@ class StaffEditor extends React.Component {
                 departmentIndexes.push(index);
             }
         });
-
         return departmentIndexes;
     }
 
@@ -312,6 +314,7 @@ class StaffEditor extends React.Component {
                 departments: (eventType === 'DEPARTMENTS') ? (departments && JSON.stringify(departments)) : null,
             }
         }).then(() => {
+            this.retrieveStaffMembers();
             window.scrollTo(0,0);
             this.setState({message: eventType});
 
@@ -361,6 +364,10 @@ class StaffEditor extends React.Component {
             this.setState({message: 'FAIL', loadingPicture: false});
         });
     }
+
+    retrieveStaffMembers() {
+        this.props.dispatch(AdminDataActions.retrieveStaffMembers());
+    }
 }
 
-export default StaffEditor;
+export default connect()(StaffEditor);

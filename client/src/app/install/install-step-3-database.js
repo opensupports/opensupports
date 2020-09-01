@@ -24,7 +24,7 @@ class InstallStep3Database extends React.Component {
         const { loading } = this.state;
         return (
             <div className="install-step-3">
-                <Header title={i18n('STEP_TITLE', {title: i18n('DATABASE_CONFIGURATION'), current: 3, total: 7})} description={i18n('STEP_3_DESCRIPTION')} />
+                <Header title={i18n('STEP_TITLE', {title: i18n('DATABASE_CONFIGURATION'), current: 3, total: 6})} description={i18n('STEP_3_DESCRIPTION')} />
                 {this.renderMessage()}
                 <Form loading={loading} onSubmit={this.onSubmit.bind(this)}>
                     <FormField name="dbHost" label={i18n('DATABASE_HOST')} fieldProps={{size: 'large'}} required />

@@ -52,6 +52,8 @@ class GetSupervisedTicketController extends Controller {
     private $supervisedUserList;
 
     public function handler() {
+        if(Controller::isStaffLogged()) throw new RequestException(ERRORS::NO_PERMISSION);
+
         $this->page = Controller::request('page') ? Controller::request('page') : 1;
         $this->showOwnTickets = (bool)Controller::request('showOwnTickets');
         $this->supervisedUserList = Controller::request('supervisedUsers')?  json_decode(Controller::request('supervisedUsers')) : []; 
@@ -66,7 +68,7 @@ class GetSupervisedTicketController extends Controller {
             switch ($key) {
                 case 'authors':
                     return json_encode($this->authors);
-                case 'page' : 
+                case 'page' :
                     return $this->page*1;
                 case 'supervisor':
                     return 1;
@@ -77,12 +79,12 @@ class GetSupervisedTicketController extends Controller {
         
         if(empty($this->authors)) {
             Response::respondSuccess([]);
-        }else{
+        } else {
             $searchController->handler();
-        }        
+        }
     }
     
-    public function  canUserHandleSupervisedUsers() {
+    public function canUserHandleSupervisedUsers() {
         $user = Controller::getLoggedUser();
         if(!$user->supervisedrelation && $this->supervisedUserList) return false;
         
@@ -103,12 +105,12 @@ class GetSupervisedTicketController extends Controller {
         
         if(!empty($this->supervisedUserList)){
             foreach(array_unique($this->supervisedUserList) as $supervised){ 
-                array_push($authors,['id'=> $supervised,'isStaff'=> 0]);
+                array_push($authors, ['id' => $supervised, 'isStaff' => 0]);
             }
         };
         
         if(!in_array( $user->id, $this->supervisedUserList) && $this->showOwnTickets){
-            array_push($authors,['id'=> $user->id*1,'isStaff'=> 0]);
+            array_push($authors, ['id' => $user->id*1, 'isStaff' => 0]);
         }
         return $authors;
     }

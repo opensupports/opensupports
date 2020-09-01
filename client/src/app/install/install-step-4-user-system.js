@@ -24,7 +24,7 @@ class InstallStep4UserSystem extends React.Component {
         const { form } = this.state
         return (
             <div className="install-step-4">
-                <Header title={i18n('STEP_TITLE', {title: i18n('USER_SYSTEM'), current: 4, total: 7})} description={i18n('STEP_4_DESCRIPTION')} />
+                <Header title={i18n('STEP_TITLE', {title: i18n('USER_SYSTEM'), current: 4, total: 6})} description={i18n('STEP_4_DESCRIPTION')} />
                 <Form onSubmit={this.onSubmit.bind(this)} values={form} onChange={this.onChange.bind(this)}>
                     <div className="install-step-4__container">
                         <FormField

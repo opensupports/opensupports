@@ -1,20 +1,33 @@
-let month = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+import moment from 'moment';
+
+const stringDateFormat = 'YYYYMMDDHHmm';
+const localUTCMins = new Date().getTimezoneOffset();
 
 export default {
+    stringDateToMoment(date) {
+        return moment(`${date}`, stringDateFormat);
+    },
+    momentToStringDate(date) {
+        return date.format(stringDateFormat);
+    },
+    UTCDateToLocalNumericDate(date) {
+        return JSON.parse(this.momentToStringDate(this.stringDateToMoment(date).subtract(localUTCMins, 'minutes')));
+    },
+    localDateToUTCNumericDate(date) {
+        return JSON.parse(this.momentToStringDate(this.stringDateToMoment(date).add(localUTCMins, 'minutes')));
+    },
+    rangeTransformer(range, trasformerFunctionKey) {
+        const trasformerDateFunction = {
+            UTCToLocal: this.UTCDateToLocalNumericDate.bind(this),
+            localToUTC: this.localDateToUTCNumericDate.bind(this)
+        }[trasformerFunctionKey];
+
+        return range.map((date) => {return trasformerDateFunction(JSON.stringify(date))});
+    },
     transformToString(date, expressive = true) {
-        date += ''; // Transform to string
-        let y = date.substring(0, 4);
-        let m = date.substring(4, 6);
-        let d = date.substring(6, 8);
-        m = (m[0] - '0') * 10 + (m[1] - '0');
-
-        if(!expressive)
-            return d + " " + month[m] + " " + y;
-
-        let hr = date.substring(8, 10);
-        let min = date.substring(10, 12);
-
-        return d + " " + month[m] + " " + y + " at " + hr + ":" + min;
+        const momentDateLocal = this.stringDateToMoment(JSON.stringify(this.UTCDateToLocalNumericDate(date)));
+        if (expressive) momentDateLocal.format('D MMMM YYYY')
+        return momentDateLocal.format('D MMMM YYYY, HH:mm');
     },
     getDate(date) {
         return date < 10 ? `0${date}` : `${date}`;
@@ -28,34 +41,4 @@ export default {
 
         return newDate*1;
     },
-    getDefaultDateRange(range = undefined) {
-        let newDateRange = range;
-
-        if(range) {
-            let dateRange = JSON.parse(range);
-            let startDate = dateRange[0];
-            let endDate = dateRange[1];
-            let valid = true;
-            newDateRange = {
-                startDate: startDate,
-                endDate: endDate,
-                valid: valid
-            }
-        }
-
-        return newDateRange;
-    },
-    formDateRangeToFilters(dateRange) {
-        return [dateRange[0]*10000, dateRange[1]*10000+2400];
-    },
-    dateRangeToFormValue(_dateRange) {
-        const dateRange = JSON.parse(_dateRange);
-
-        return {
-            valid: true,
-            startDate: dateRange[0]/10000,
-            endDate: (dateRange[1]-2400)/10000,
-        };
-    },
-
 };

@@ -67,11 +67,9 @@ class EditStaffController extends Controller {
 
             if($this->staffInstance->isNull()) {
                 throw new RequestException(ERRORS::INVALID_STAFF);
-                return;
             }
         } else {
             throw new RequestException(ERRORS::NO_PERMISSION);
-            return;
         }
 
         if(Controller::request('departments')) {
