@@ -145,7 +145,7 @@ class EmailPollingController extends Controller {
         $mailsIds = $this->mailbox->searchMailbox('ALL');
 
         foreach($mailsIds as $mailId) {
-            $this->mailbox->deleteMail($mailId);
+            $this->mailbox->moveMail($mailId, 'INBOX.Trash');
         }
 
         $this->mailbox->expungeDeletedMails();
