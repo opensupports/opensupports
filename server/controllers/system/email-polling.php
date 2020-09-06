@@ -85,7 +85,7 @@ class EmailPollingController extends Controller {
                 if($email->isReply()) {
                     if($email->getTicket()->authorToArray()['email'] === $email->getSender()) {
                         $session->clearSessionData();
-                        $session->createSession(User::getUser($email->getSender(), 'mail')->toArray(true)['id'], false, $email->getTicket()->ticketNumber);
+                        $session->createSession(User::getUser($email->getSender(), 'mail')->id, false, $email->getTicketNumber());
 
                         $commentController->handler();
                     }
