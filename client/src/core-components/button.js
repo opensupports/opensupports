@@ -48,7 +48,7 @@ class Button extends React.Component {
     render() {
         return (
             <button {...this.getProps()}>
-                {(this.props.iconName) ? <Icon size="sm" name={this.props.iconName}/> : this.props.children}
+                {(this.props.iconName) ? <Icon size="sm" name={this.props.iconName} /> : this.props.children}
             </button>
         );
     }

@@ -42,7 +42,7 @@ class AdminPanelCustomTagsModal extends React.Component {
                     errors={this.state.errors}
                     onValidateErrors={errors => this.setState({errors})}
                     loading={this.state.loading}>
-                    <FormField name="name" label={i18n('NAME')} fieldProps={{size: 'large'}}/>
+                    <FormField name="name" label={i18n('NAME')} fieldProps={{size: 'large'}} />
                     <FormField name="color" label={i18n('COLOR')} decorator={ColorSelector} />
                     <div className='admin-panel-custom-tags-modal__actions'>
                         <SubmitButton  type="secondary" size="small">

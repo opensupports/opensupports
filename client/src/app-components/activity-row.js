@@ -65,7 +65,7 @@ class ActivityRow extends React.Component {
 
         return (
             <div className="activity-row">
-                <Icon {...this.getIconProps()} className="activity-row__icon"/>
+                <Icon {...this.getIconProps()} className="activity-row__icon" />
                 <span>
                     {this.renderAuthorName()}
                 </span>

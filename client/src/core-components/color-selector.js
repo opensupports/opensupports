@@ -38,7 +38,7 @@ class ColorSelector extends React.Component {
 
     renderTooltipColor(color, index) {
         return (
-            <span className="color-selector__tooltip-color" onClick={this.onColorClick.bind(this, color)} style={{backgroundColor: color}} key={index}/>
+            <span className="color-selector__tooltip-color" onClick={this.onColorClick.bind(this, color)} style={{backgroundColor: color}} key={index} />
         );
     }
 

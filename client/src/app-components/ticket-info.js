@@ -16,7 +16,7 @@ class TicketInfo extends React.Component {
                 <div className="ticket-info__title">
                     {this.props.ticket.title}
                     <span className="ticket-info__flag">
-                        <Icon name={(this.props.ticket.language === 'en') ? 'us' : this.props.ticket.language}/>
+                        <Icon name={(this.props.ticket.language === 'en') ? 'us' : this.props.ticket.language} />
                     </span>
                 </div>
                 <div className="ticket-info__description">

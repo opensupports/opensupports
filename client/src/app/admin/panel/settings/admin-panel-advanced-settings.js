@@ -40,7 +40,7 @@ class AdminPanelAdvancedSettings extends React.Component {
         const { config } = this.props;
         return (
             <div className="admin-panel-advanced-settings">
-                <Header title={i18n('ADVANCED_SETTINGS')} description={i18n('ADVANCED_SETTINGS_DESCRIPTION')}/>
+                <Header title={i18n('ADVANCED_SETTINGS')} description={i18n('ADVANCED_SETTINGS_DESCRIPTION')} />
                 {(this.state.messageType) ? this.renderMessage() : null}
                 <div className="row">
                     <div className="col-md-12">
@@ -52,7 +52,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                                 value={config['mandatory-login']}
                                 onChange={this.onCheckboxMandatoryLoginChange.bind(this)}
                                 wrapInLabel
-                            />
+                           />
                         </div>
                         <div className="col-md-6">
                             <div className="admin-panel-advanced-settings__registration">
@@ -63,7 +63,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                                     value={config['registration']}
                                     onChange={this.onCheckboxRegistrationChange.bind(this)}
                                     wrapInLabel
-                                />
+                               />
                             </div>
                         </div>
                     </div>
@@ -75,7 +75,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                             <div className="admin-panel-advanced-settings__text">
                                 {i18n('INCLUDE_USERS_VIA_CSV')} <InfoTooltip text={i18n('CSV_DESCRIPTION')} />
                             </div>
-                            <FileUploader className="admin-panel-advanced-settings__button" text="Upload" onChange={this.onImportCSV.bind(this)}/>
+                            <FileUploader className="admin-panel-advanced-settings__button" text="Upload" onChange={this.onImportCSV.bind(this)} />
                         </div>
                         <div className="col-md-4">
                             <div className="admin-panel-advanced-settings__text">{i18n('BACKUP_DATABASE')}</div>
@@ -154,8 +154,8 @@ class AdminPanelAdvancedSettings extends React.Component {
     openAPIKeyModal() {
         ModalContainer.openModal(
             <Form className="admin-panel-advanced-settings__api-keys-modal" onSubmit={this.addAPIKey.bind(this)}>
-                <Header title={i18n('ADD_API_KEY')} description={i18n('ADD_API_KEY_DESCRIPTION')}/>
-                <FormField name="name" label={i18n('NAME_OF_KEY')} validation="DEFAULT" required fieldProps={{size: 'large'}}/>
+                <Header title={i18n('ADD_API_KEY')} description={i18n('ADD_API_KEY_DESCRIPTION')} />
+                <FormField name="name" label={i18n('NAME_OF_KEY')} validation="DEFAULT" required fieldProps={{size: 'large'}} />
                 <SubmitButton type="secondary">{i18n('SUBMIT')}</SubmitButton>
             </Form>
         );

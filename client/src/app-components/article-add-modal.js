@@ -30,8 +30,8 @@ class ArticleAddModal extends React.Component {
             <div className="article-add-modal">
                 <Header title={i18n('ADD_ARTICLE')} description={i18n('ADD_ARTICLE_DESCRIPTION', {category: this.props.topicName})} />
                 <Form onSubmit={this.onAddNewArticleFormSubmit.bind(this)} loading={this.state.loading}>
-                    <FormField name="title" label={i18n('TITLE')} field="input" fieldProps={{size: 'large'}} validation="TITLE" required/>
-                    <FormField name="content" label={i18n('CONTENT')} field="textarea" validation="TEXT_AREA" required fieldProps={{allowImages: this.props.allowAttachments}}/>
+                    <FormField name="title" label={i18n('TITLE')} field="input" fieldProps={{size: 'large'}} validation="TITLE" required />
+                    <FormField name="content" label={i18n('CONTENT')} field="textarea" validation="TEXT_AREA" required fieldProps={{allowImages: this.props.allowAttachments}} />
                     <SubmitButton type="secondary">{i18n('ADD_ARTICLE')}</SubmitButton>
                     <Button className="article-add-modal__cancel-button" type="link" onClick={(event) => {
                         event.preventDefault();

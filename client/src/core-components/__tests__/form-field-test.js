@@ -23,7 +23,7 @@ describe('FormField component', function () {
         };
         
         component = reRenderIntoDocument(
-            <FormField {...props}/>
+            <FormField {...props} />
         );
         innerField = TestUtils.scryRenderedComponentsWithType(component, fields[props.field])[0];
     }

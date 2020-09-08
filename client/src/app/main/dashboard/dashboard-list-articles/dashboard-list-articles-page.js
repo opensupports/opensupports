@@ -33,7 +33,7 @@ class DashboardListArticlesPage extends React.Component {
         return (
             <div className={this.getClass()}>
                 <Wrapper>
-                    <Header title={i18n('LIST_ARTICLES')} description={i18n('LIST_ARTICLES_DESCRIPTION')}/>
+                    <Header title={i18n('LIST_ARTICLES')} description={i18n('LIST_ARTICLES_DESCRIPTION')} />
                     <SearchBox
                         className="dashboard-list-articles-page__search-box"
                         onSearch={this.onSearch.bind(this)}
@@ -48,7 +48,7 @@ class DashboardListArticlesPage extends React.Component {
         let articlePath = (this.props.location.pathname == '/articles') ? '/article/' : '/dashboard/article/';
         
         return (
-            <ArticlesList editable={false} articlePath={articlePath} retrieveOnMount={false}/>
+            <ArticlesList editable={false} articlePath={articlePath} retrieveOnMount={false} />
         );
     }
 
@@ -112,7 +112,7 @@ class DashboardListArticlesPage extends React.Component {
             _.forEach(topic.articles, (article) => {
                 articles.push({
                     id: article.id,
-                    title: article.title,
+                    name: article.name,
                     content: article.content,
                     topic: topic.name
                 });
@@ -123,7 +123,7 @@ class DashboardListArticlesPage extends React.Component {
     }
 
     isQueryInTitle(article, query) {
-        return _.includes(article.title.toLowerCase(), query.toLowerCase());
+        return _.includes(article.name.toLowerCase(), query.toLowerCase());
     }
 
     isQueryInContent(article, query) {

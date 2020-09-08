@@ -74,10 +74,10 @@ class AdminPanelViewArticle extends React.Component {
                     </Button>
                 </div>
                 <div className="admin-panel-view-article__article">
-                    <Header title={article.title}/>
+                    <Header title={article.name} />
 
                     <div className="admin-panel-view-article__article-content ql-editor">
-                        <div dangerouslySetInnerHTML={{__html: MentionsParser.parse(article.content)}}/>
+                        <div dangerouslySetInnerHTML={{__html: MentionsParser.parse(article.content)}} />
                     </div>
                     <div className="admin-panel-view-article__last-edited">
                         {i18n('LAST_EDITED_IN', {date: DateTransformer.transformToString(article.lastEdited)})}
@@ -96,8 +96,8 @@ class AdminPanelViewArticle extends React.Component {
                         {i18n('CANCEL')}
                     </Button>
                 </div>
-                <FormField name="title" label={i18n('TITLE')} />
-                <FormField name="content" label={i18n('CONTENT')} field="textarea" validation="TEXT_AREA" required  fieldProps={{allowImages: this.props.allowAttachments}}/>     
+                <FormField name="name" label={i18n('TITLE')} validation="NAME" />
+                <FormField name="content" label={i18n('CONTENT')} field="textarea" validation="TEXT_AREA" required  fieldProps={{allowImages: this.props.allowAttachments}} />
             </Form>
         );
     }
@@ -118,7 +118,7 @@ class AdminPanelViewArticle extends React.Component {
         this.setState({
             editable: true,
             form: {
-                title: article.title,
+                name: article.name,
                 content: TextEditor.getEditorStateFromHTML(article.content)
             }
         });
@@ -134,7 +134,7 @@ class AdminPanelViewArticle extends React.Component {
             dataAsForm: true,
             data: _.extend(TextEditor.getContentFormData(form.content), {
                 articleId: this.findArticle().id,
-                title: form.title
+                name: form.name
             })
         }).then(() => {
             this.props.dispatch(ArticlesActions.retrieveArticles());

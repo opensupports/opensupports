@@ -21,7 +21,7 @@ class MainHomePagePortal extends React.Component {
                 </div>
                 <div className="main-home-page-portal__cards">
                     <div className="main-home-page-portal__card col-md-4">
-                        <Card {...this.getTicketsCardProps()}/>
+                        <Card {...this.getTicketsCardProps()} />
                     </div>
                     <div className="main-home-page-portal__card col-md-4">
                         <Card {...((this.props.type === 'complete') ? this.getViewTicketCardProps() : this.getAccountCardProps())} />

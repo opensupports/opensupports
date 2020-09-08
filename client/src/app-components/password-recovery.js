@@ -36,7 +36,7 @@ class PasswordRecovery extends React.Component {
                 {this.renderLogo()}
                 <Form {...formProps}>
                     <div className="password-recovery__inputs">
-                        <FormField ref="email" placeholder={i18n('EMAIL_LOWERCASE')} name="email" className="password-recovery__input" validation="EMAIL" required/>
+                        <FormField ref="email" placeholder={i18n('EMAIL_LOWERCASE')} name="email" className="password-recovery__input" validation="EMAIL" required />
                     </div>
                     <div className="password-recovery__submit-button">
                         <SubmitButton type="primary">{i18n('RECOVER_PASSWORD')}</SubmitButton>
@@ -61,7 +61,7 @@ class PasswordRecovery extends React.Component {
         let logo = null;
 
         if (this.props.renderLogo) {
-            logo = (<div className="password-recovery__image"><img width="100%" src={API.getURL() + '/images/logo.png'} alt="OpenSupports Login Panel"/></div>);
+            logo = (<div className="password-recovery__image"><img width="100%" src={API.getURL() + '/images/logo.png'} alt="OpenSupports Login Panel" /></div>);
         }
 
         return logo;

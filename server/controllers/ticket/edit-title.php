@@ -31,17 +31,20 @@ class EditTitleController extends Controller {
 
     public function validations() {
         return [
-            'permission' => 'user',
-            'requestData' => [
-                'title' => [
-                    'validation' => DataValidator::notBlank()->length(1, 200),
-                    'error' => ERRORS::INVALID_TITLE
-                ],
-                'ticketNumber' => [
-                    'validation' => DataValidator::validTicketNumber(),
-                    'error' => ERRORS::INVALID_TICKET
-                ]
-            ]
+                'permission' => 'user',
+                'requestData' => [
+                    'title' => [
+                        'validation' => DataValidator::notBlank()->length(
+                            LengthConfig::MIN_LENGTH_TITLE,
+                            LengthConfig::MAX_LENGTH_TITLE
+                        ),
+                        'error' => ERRORS::INVALID_TITLE
+                    ],
+                    'ticketNumber' => [
+                        'validation' => DataValidator::validTicketNumber(),
+                        'error' => ERRORS::INVALID_TICKET
+                    ]
+              ]
         ];
     }
 

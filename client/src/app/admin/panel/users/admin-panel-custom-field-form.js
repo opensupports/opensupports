@@ -36,9 +36,9 @@ class AdminPanelCustomFieldForm extends React.Component {
                         values={this.state.addForm}
                         onChange={this.onAddFormChange.bind(this)}
                         onSubmit={this.onSubmit.bind(this)}>
-                        <FormField name="name" validation="NAME" label={i18n('NAME')} field="input" fieldProps={{size: 'large'}} required/>
-                        <FormField name="description" label={i18n('FIELD_DESCRIPTION')} field="input" fieldProps={{size: 'large'}}/>
-                        <FormField name="type" label={i18n('TYPE')} field="select" fieldProps={{size: 'large', items: [{content: i18n('TEXT_INPUT')}, {content: i18n('SELECT_INPUT')}]}} required/>
+                        <FormField name="name" validation="NAME" label={i18n('NAME')} field="input" fieldProps={{size: 'large'}} required />
+                        <FormField name="description" label={i18n('FIELD_DESCRIPTION')} field="input" fieldProps={{size: 'large'}} />
+                        <FormField name="type" label={i18n('TYPE')} field="select" fieldProps={{size: 'large', items: [{content: i18n('TEXT_INPUT')}, {content: i18n('SELECT_INPUT')}]}} required />
                         {this.state.addForm.type ? this.renderOptionFormFields() : null}
                         {this.state.error ? this.renderErrorMessage() : null}
                         <div className="admin-panel-custom-field-form__buttons">
@@ -72,8 +72,8 @@ class AdminPanelCustomFieldForm extends React.Component {
     renderFormOption(option, index) {
         return (
             <div key={index} className="admin-panel-custom-field-form__option">
-                <FormField className="admin-panel-custom-field-form__option-field" name={`option_${index}`} label={i18n('OPTION', {index: index+1})} type="input"/>
-                <Button className="admin-panel-custom-field-form__option-delete-button" size="medium" iconName="times" onClick={this.onDeleteOptionClick.bind(this, index)}/>
+                <FormField className="admin-panel-custom-field-form__option-field" name={`option_${index}`} label={i18n('OPTION', {index: index+1})} type="input" />
+                <Button className="admin-panel-custom-field-form__option-delete-button" size="medium" iconName="times" onClick={this.onDeleteOptionClick.bind(this, index)} />
             </div>
         );
     }

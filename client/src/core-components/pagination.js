@@ -23,7 +23,7 @@ class Pagination extends React.Component {
 
     render() {
         return (
-            <Menu {...this.getProps()}/>
+            <Menu {...this.getProps()} />
         );
     }
 

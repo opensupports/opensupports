@@ -24,8 +24,8 @@ class TicketQueryList extends React.Component {
             <div>
                 {
                     (this.state.error) ?
-                    <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> :
-                    <TicketList {...this.getTicketListProps()}/>
+                        <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> :
+                        <TicketList {...this.getTicketListProps()} />
                 }
             </div>
         );

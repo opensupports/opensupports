@@ -26,7 +26,7 @@ class DashboardCreateTicketPage extends React.Component {
                 <Wrapper>
                     <CreateTicketForm
                         userLogged={(this.props.location.pathname !== '/create-ticket')}
-                        onSuccess={this.onCreateTicketSuccess.bind(this)}/>
+                        onSuccess={this.onCreateTicketSuccess.bind(this)} />
                 </Wrapper>
             </div>
         );

@@ -48,10 +48,10 @@ class AdminPanelListUsers extends React.Component {
         return (
             <div>
                 <SearchBox className="admin-panel-list-users__search-box" placeholder={i18n('SEARCH_USERS')} onSearch={this.onSearch.bind(this)} />
-                <Table {...this.getTableProps()}/>
+                <Table {...this.getTableProps()} />
                 <div style={{textAlign: 'right', marginTop: 10}}>
                     <Button onClick={this.onInviteUser.bind(this)} type="secondary" size="medium">
-                        <Icon size="sm" name="plus"/> {i18n('INVITE_USER')}
+                        <Icon size="sm" name="plus" /> {i18n('INVITE_USER')}
                     </Button>
                 </div>
             </div>

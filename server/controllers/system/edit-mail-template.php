@@ -46,15 +46,18 @@ class EditMailTemplateController extends Controller {
             'permission' => 'staff_3',
             'requestData' => [
                 'template' => [
-                    'validation' => DataValidator::notBlank()->length(4),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_TEMPLATE),
                     'error' => ERRORS::INVALID_TEMPLATE
                 ],
                 'language' => [
-                    'validation' => DataValidator::notBlank()->length(2,2),
+                    'validation' => DataValidator::notBlank()->length(
+                        LengthConfig::MIN_LENGTH_LANGUAGE,
+                        LengthConfig::MAX_LENGTH_LANGUAGE
+                    ),
                     'error' => ERRORS::INVALID_LANGUAGE
                 ],
                 'subject' => [
-                    'validation' => DataValidator::notBlank()->length(4),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_SUBJECT),
                     'error' => ERRORS::INVALID_SUBJECT
                 ],
             ]

@@ -50,7 +50,7 @@ class CreateTicketForm extends React.Component {
                 <Header title={i18n('CREATE_TICKET')} description={i18n('CREATE_TICKET_DESCRIPTION')} />
                 <Form {...this.getFormProps()}>
                     {(!this.props.userLogged) ? this.renderEmailAndName() : null}
-                    <FormField label={i18n('TITLE')} name="title" validation="TITLE" required field="input" fieldProps={{size: 'large'}}/>
+                    <FormField label={i18n('TITLE')} name="title" validation="TITLE" required field="input" fieldProps={{size: 'large'}} />
                     <div className="row">
                         {!(this.props.isDefaultDepartmentLocked*1) || this.props.isStaff ?
                             <FormField className="col-md-5" label={i18n('DEPARTMENT')} name="departmentIndex" field="select" decorator={DepartmentDropdown} fieldProps={{
@@ -62,7 +62,7 @@ class CreateTicketForm extends React.Component {
                             <FormField className="col-md-5" label={i18n('LANGUAGE')} name="language" field="select" decorator={LanguageSelector} fieldProps={{
                                 type: 'supported',
                                 size: 'medium'
-                            }}/> : null
+                            }} /> : null
                         }
                     </div>
                     <FormField
@@ -84,8 +84,8 @@ class CreateTicketForm extends React.Component {
     renderEmailAndName() {
         return (
             <div className="row">
-                <FormField className="col-md-6" label={i18n('EMAIL')} name="email" validation="EMAIL" required field="input" fieldProps={{size: 'large'}}/>
-                <FormField className="col-md-6" label={i18n('FULL_NAME')} name="name" validation="NAME" required field="input" fieldProps={{size: 'large'}}/>
+                <FormField className="col-md-6" label={i18n('EMAIL')} name="email" validation="EMAIL" required field="input" fieldProps={{size: 'large'}} />
+                <FormField className="col-md-6" label={i18n('FULL_NAME')} name="name" validation="NAME" required field="input" fieldProps={{size: 'large'}} />
             </div>
         );
     }
@@ -101,7 +101,7 @@ class CreateTicketForm extends React.Component {
     renderCaptcha() {
         return (
             <div className="create-ticket-form__captcha">
-                <Captcha ref="captcha"/>
+                <Captcha ref="captcha" />
             </div>
         );
     }

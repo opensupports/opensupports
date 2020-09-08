@@ -27,7 +27,7 @@ class DashboardTicketPage extends React.Component {
 
         return (
             <div className="dashboard-ticket-page">
-                {(ticket || error) ? this.renderContent() : <Loading className="dashboard-ticket-page__loading" backgrounded/>}
+                {(ticket || error) ? this.renderContent() : <Loading className="dashboard-ticket-page__loading" backgrounded />}
             </div>
         );
     }
@@ -43,7 +43,7 @@ class DashboardTicketPage extends React.Component {
             );
         } else {
             return (
-                <TicketViewer ticket={ticket} onChange={this.retrieveTicketData.bind(this)}/>
+                <TicketViewer ticket={ticket} onChange={this.retrieveTicketData.bind(this)} />
             );
         }
 

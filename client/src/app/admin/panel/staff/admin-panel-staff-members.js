@@ -48,7 +48,7 @@ class AdminPanelStaffMembers extends React.Component {
                 <div className="admin-panel-staff-members__wrapper">
                     <DepartmentDropdown {...this.getDepartmentDropdownProps()} className="admin-panel-staff-members__dropdown" />
                     <Button onClick={this.onInviteStaff.bind(this)} size="medium" type="secondary" className="admin-panel-staff-members__button">
-                        <Icon name="user-plus" className=""/> {i18n('INVITE_STAFF')}
+                        <Icon name="user-plus" className="" /> {i18n('INVITE_STAFF')}
                     </Button>
                 </div>
                 {(this.props.loading) ? <Loading backgrounded /> : <PeopleList list={this.getStaffList()} page={this.state.page} onPageSelect={(index) => this.setState({page: index+1})} />}

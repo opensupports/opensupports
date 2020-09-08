@@ -26,7 +26,7 @@ class Listing extends React.Component {
                     {this.props.title}
                 </div>
                 <div className="listing__menu">
-                    <Menu tabbable type="secondary" selectedIndex={this.props.selectedIndex} items={this.props.items} onItemClick={this.props.onChange}/>
+                    <Menu tabbable type="secondary" selectedIndex={this.props.selectedIndex} items={this.props.items} onItemClick={this.props.onChange} />
                 </div>
                 {(this.props.enableAddNew) ? this.renderAddButton() : null}
             </div>
@@ -37,7 +37,7 @@ class Listing extends React.Component {
         return (
             <div className="listing__add">
                 <Button type="secondary" size="auto" className="listing__add-button" onClick={this.props.onAddClick}>
-                    <Icon name="plus-circle"/> {this.props.addNewText}
+                    <Icon name="plus-circle" /> {this.props.addNewText}
                 </Button>
             </div>
         );

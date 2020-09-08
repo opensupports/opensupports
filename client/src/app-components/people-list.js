@@ -36,7 +36,7 @@ class PeopleList extends React.Component {
                     </StaggeredMotion>
                 </div>
                 <div className="people-list__pagination">
-                    <Menu type="navigation" items={pages} selectedIndex={this.props.page - 1} onItemClick={this.props.onPageSelect} tabbable/>
+                    <Menu type="navigation" items={pages} selectedIndex={this.props.page - 1} onItemClick={this.props.onPageSelect} tabbable />
                 </div>
             </div>
         );

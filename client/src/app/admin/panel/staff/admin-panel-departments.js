@@ -65,7 +65,7 @@ class AdminPanelDepartments extends React.Component {
                 <Header title={i18n('DEPARTMENTS')} description={i18n('DEPARTMENTS_DESCRIPTION')} />
                 <div className="row">
                     <div className="col-md-4">
-                        <Listing {...this.getListingProps()}/>
+                        <Listing {...this.getListingProps()} />
                     </div>
                     <div className="col-md-8">
                         {(errorMessage) ? <Message type="error">{i18n(errorMessage)}</Message> : null}
@@ -73,7 +73,7 @@ class AdminPanelDepartments extends React.Component {
                             <div className="admin-panel-departments__container">
                                 <FormField className="admin-panel-departments__container__name" label={i18n('NAME')} name="name" validation="NAME" required fieldProps={{size: 'large'}}/>
                                 <div className="admin-panel-departments__private-option">
-                                    <FormField label={i18n('PRIVATE')} name="private" field="checkbox"/>
+                                    <FormField label={i18n('PRIVATE')} name="private" field="checkbox" />
                                     <InfoTooltip className="admin-panel-departments__container__info-tooltip" text={i18n('PRIVATE_DEPARTMENT_DESCRIPTION')} />
                                 </div>
                             </div>
@@ -182,11 +182,11 @@ class AdminPanelDepartments extends React.Component {
                     content: (
                         <span>
                             {department.name}
-                            {department.private*1 ? <Icon className="admin-panel-departments__private-icon" name='user-secret'/> : null }
+                            {department.private*1 ? <Icon className="admin-panel-departments__private-icon" name='user-secret' /> : null }
                             {department.id == defaultDepartmentId ? <spam className="admin-panel-departments__default-icon"> {i18n('DEFAULT')} </spam> : null }
                             {(!department.owners) ? (
                                 <span className="admin-panel-departments__warning">
-                                    <InfoTooltip type="warning" text={i18n('NO_STAFF_ASSIGNED')}/>
+                                    <InfoTooltip type="warning" text={i18n('NO_STAFF_ASSIGNED')} />
                                 </span>
                             ) : null}
                         </span>

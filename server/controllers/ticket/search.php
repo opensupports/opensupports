@@ -156,7 +156,6 @@ class SearchController extends Controller {
     public function getSQLQueryWithOrder($inputs, $query) {
         $order = "";
         $query = "SELECT" . " ticket.id " . $query;
-
         $this->setQueryOrder($inputs, $order);
         $inputs['page'] ?  $page =  $inputs['page'] : $page  = 1 ;
         $query .= $order ." LIMIT 10 OFFSET " . (($page-1)*10);

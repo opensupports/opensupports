@@ -19,7 +19,7 @@ class FileUploader extends React.Component {
     render() {
         return (
             <label className="file-uploader">
-                <input className="file-uploader__input" type="file" multiple={false} accept={this.getMimeTypes()} onChange={this.onChange.bind(this)}/>
+                <input className="file-uploader__input" type="file" multiple={false} accept={this.getMimeTypes()} onChange={this.onChange.bind(this)} />
                 <span className="file-uploader__custom" tabIndex="0">
                     <Icon className="file-uploader__icon" name="upload" /> {this.props.text}
                 </span>

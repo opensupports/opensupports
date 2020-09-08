@@ -66,7 +66,7 @@ class AddStaffModal extends React.Component {
     getDepartments() {
         return SessionStore.getDepartments().map(department => {
             if(department.private*1){
-                return <spam>{department.name} <Icon name='user-secret'/> </spam>
+                return <spam>{department.name} <Icon name='user-secret' /> </spam>
             } else {
                 return department.name;
             }

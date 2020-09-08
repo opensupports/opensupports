@@ -31,12 +31,12 @@ class InstallStep4UserSystem extends React.Component {
                             name="mandatory-login"
                             label={i18n('ENABLE_MANDATORY_LOGIN')}
                             decorator={ToggleButton}
-                            fieldProps={{disabled: !form['registration']}}/>
+                            fieldProps={{disabled: !form['registration']}} />
                         <FormField
                             name="registration"
                             label={i18n('ENABLE_USER_REGISTRATION')}
                             decorator={ToggleButton}
-                            fieldProps={{disabled: !form['mandatory-login']}}/>
+                            fieldProps={{disabled: !form['mandatory-login']}} />
                     </div>
                     <div className="install-step-4__buttons">
                         <SubmitButton className="install-step-4__next" size="medium" type="secondary">{i18n('NEXT')}</SubmitButton>

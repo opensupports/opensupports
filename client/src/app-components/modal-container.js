@@ -52,7 +52,7 @@ class ModalContainer extends React.Component {
     renderModal() {
         const {content, noPadding, outsideClick} = this.props.modal;
         return (
-            <Modal content={content} noPadding={noPadding} outsideClick={outsideClick} onOutsideClick={this.closeModal.bind(this)}/>
+            <Modal content={content} noPadding={noPadding} outsideClick={outsideClick} onOutsideClick={this.closeModal.bind(this)} />
         );
     }
 

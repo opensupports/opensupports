@@ -37,8 +37,8 @@ class Tooltip extends React.Component {
     renderMessage(animation) {
         return (
             <div className="tooltip__animated-container" style={animation}>
-                <span className="tooltip__pointer-shadow"/>
-                <span className="tooltip__pointer"/>
+                <span className="tooltip__pointer-shadow" />
+                <span className="tooltip__pointer" />
                 <div className="tooltip__message">
                     {this.props.content}
                 </div>

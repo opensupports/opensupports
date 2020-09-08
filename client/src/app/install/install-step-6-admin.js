@@ -24,9 +24,9 @@ class InstallStep6Admin extends React.Component {
                 <Header title={i18n('STEP_TITLE', {title: i18n('ADMIN_SETUP'), current: 6, total: 6})} description={i18n('STEP_6_DESCRIPTION')} />
                 {this.renderMessage()}
                 <Form onSubmit={this.onSubmit.bind(this)}>
-                    <FormField name="name" validation="NAME" label={i18n('ADMIN_NAME')} fieldProps={{size: 'large'}} required/>
-                    <FormField name="email" validation="EMAIL" label={i18n('ADMIN_EMAIL')} fieldProps={{size: 'large'}} required/>
-                    <FormField name="password" validation="PASSWORD" label={i18n('ADMIN_PASSWORD')} infoMessage={i18n('ADMIN_PASSWORD_DESCRIPTION')} fieldProps={{size: 'large', autoComplete: 'off'}} required/>
+                    <FormField name="name" validation="NAME" label={i18n('ADMIN_NAME')} fieldProps={{size: 'large'}} required />
+                    <FormField name="email" validation="EMAIL" label={i18n('ADMIN_EMAIL')} fieldProps={{size: 'large'}} required />
+                    <FormField name="password" validation="PASSWORD" label={i18n('ADMIN_PASSWORD')} infoMessage={i18n('ADMIN_PASSWORD_DESCRIPTION')} fieldProps={{size: 'large', autoComplete: 'off'}} required />
                     <div className="install-step-6__buttons">
                         <SubmitButton className="install-step-6__next" size="medium" type="secondary">{i18n('NEXT')}</SubmitButton>
                     </div>

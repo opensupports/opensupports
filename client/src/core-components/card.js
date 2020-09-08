@@ -16,7 +16,7 @@ class Card extends React.Component{
     render() {
         return (
             <div className={this.getClass()}>
-                <div className="card__icon"><Icon name={this.props.icon} size="5x"/></div>
+                <div className="card__icon"><Icon name={this.props.icon} size="5x" /></div>
                 <div className="card__title">{this.props.title}</div>
                 <div className="card__description">{this.props.description}</div>
                 {(this.props.buttonText) ? this.renderButton() : null}

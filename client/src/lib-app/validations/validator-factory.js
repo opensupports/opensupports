@@ -6,15 +6,34 @@ import ListValidator from 'lib-app/validations/list-validator';
 import ImageSizeValidator from 'lib-app/validations/image-size-validator';
 import SpaceValidator from './space-validator';
 
+const MIN_LENGTH_NAME = 1;
+const MAX_LENGTH_NAME = 200;
+
+const MIN_LENGTH_TITLE = 1;
+const MAX_LENGTH_TITLE = 200;
+
+const MIN_LENGTH_TEXT_AREA = 1;
+const MAX_LENGTH_TEXT_AREA = 10000;
+
+const MIN_LENGTH_PASSWORD = 6;
+const MAX_LENGTH_PASSWORD = 200;
+
+const MIN_LENGTH_URL = 5;
+const MAX_LENGTH_URL = 200;
+
 let validators = {
     'DEFAULT': new Validator(),
-    'NAME': new LengthValidator(2, 'ERROR_NAME'),
-    'TITLE': new LengthValidator(1, 'ERROR_TITLE'),
+    'NAME': new LengthValidator(MIN_LENGTH_NAME, MAX_LENGTH_NAME, 'ERROR_NAME'),
+    'TITLE': new LengthValidator(MIN_LENGTH_TITLE, MAX_LENGTH_TITLE, 'ERROR_TITLE'),
     'EMAIL': new EmailValidator(),
-    'TEXT_AREA': new ImageSizeValidator(undefined, new LengthValidator(1, 'ERROR_CONTENT_SHORT')),
-    'PASSWORD': new LengthValidator(6, 'ERROR_PASSWORD'),
+    'TEXT_AREA': new ImageSizeValidator(undefined, new LengthValidator(
+        MIN_LENGTH_TEXT_AREA,
+        MAX_LENGTH_TEXT_AREA,
+        'ERROR_CONTENT_LENGTH'
+    )),
+    'PASSWORD': new LengthValidator(MIN_LENGTH_PASSWORD, MAX_LENGTH_PASSWORD, 'ERROR_PASSWORD'),
     'REPEAT_PASSWORD': new RepeatPasswordValidator(),
-    'URL': new LengthValidator(5, 'ERROR_URL'),
+    'URL': new LengthValidator(MIN_LENGTH_URL, MAX_LENGTH_URL, 'ERROR_URL'),
     'LIST': new ListValidator()
 };
 

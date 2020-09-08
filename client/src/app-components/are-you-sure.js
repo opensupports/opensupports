@@ -31,7 +31,7 @@ class AreYouSure extends React.Component {
 
     static openModal(description, onYes, type = 'default') {
         ModalContainer.openModal(
-            <AreYouSure description={description} onYes={onYes} type={type}/>,
+            <AreYouSure description={description} onYes={onYes} type={type} />,
             true
         );
     }
@@ -48,7 +48,7 @@ class AreYouSure extends React.Component {
                     {i18n('ARE_YOU_SURE')}
                 </div>
                 <span className="are-you-sure__close-icon" onClick={this.onNo.bind(this)}>
-                    <Icon name="times" size="2x"/>
+                    <Icon name="times" size="2x" />
                 </span>
                 <div className="are-you-sure__description" id="are-you-sure__description">
                     {this.props.description || (this.props.type === 'secure' && i18n('PLEASE_CONFIRM_PASSWORD'))}
@@ -95,7 +95,7 @@ class AreYouSure extends React.Component {
                 onChange={this.onPasswordChange.bind(this)}
                 onKeyDown={this.onInputKeyDown.bind(this)}
                 disabled={loading}
-            />
+           />
         );
     }
 

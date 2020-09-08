@@ -27,7 +27,7 @@ class Tag extends React.Component {
     renderEditButton() {
         return (
             <span onClick={this.props.onEditClick} className="tag__edit" >
-                <Icon name="pencil" size="small"/>
+                <Icon name="pencil" size="small" />
             </span>
         );
     }
@@ -35,7 +35,7 @@ class Tag extends React.Component {
     renderRemoveButton() {
         return (
             <span onClick={this.props.onRemoveClick} className="tag__remove" >
-                <Icon name="times-circle" size="small"/>
+                <Icon name="times-circle" size="small" />
             </span>
         );
     }
