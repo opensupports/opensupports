@@ -59,7 +59,7 @@ class MainHomePageLoginWidget extends React.Component {
                 <Button className="login-widget__forgot-password" type="link" onClick={this.onForgotPasswordClick.bind(this)} onMouseDown={(event) => {event.preventDefault()}}>
                     {i18n('FORGOT_PASSWORD')}
                 </Button>
-                <SocialLoginOptions loginOptionsList={["Google", "Facebook", "LinkedIn"]} />
+                <SocialLoginOptions googleLoginOption facebookLoginOption linkedInLoginOption />
             </Widget>
         );
     }

@@ -1,36 +1,71 @@
 import React      from 'react';
-import classNames from 'classnames';
-
 
 class SocialLoginOptions extends React.Component {
     static propTypes = {
-        loginOptionsList: React.PropTypes.array,
+        googleLoginOption: React.PropTypes.bool,
+        facebookLoginOption: React.PropTypes.bool,
+        linkedInLoginOption: React.PropTypes.bool,
     };
 
     static defaultProps = {
-        loginOptionsList: []
+        googleLoginOption: false,
+        facebookLoginOption: false,
+        linkedInLoginOption: false,
     };
 
     render() {
+        const {
+            googleLoginOption,
+            facebookLoginOption,
+            linkedInLoginOption
+        } = this.props;
+
         return (
             <div className="social-login-options" >
-                {this.renderLoginOptionsButtons()}
+                {googleLoginOption ? this.renderGoogleLoginOptionsButton() : null}
+                {facebookLoginOption ? this.renderFacebookLoginOptionsButton() : null}
+                {linkedInLoginOption ? this.renderLinkedInLoginOptionsButton() : null}
             </div>
         );
     }
 
-    renderLoginOptionsButtons() {
-        const { loginOptionsList } = this.props;
+    renderGoogleLoginOptionsButton() {
+        const { googleLoginOption } = this.props;
+        const googleTitle = "Google";
 
-        return loginOptionsList.map((socialLoginOption) => {
-            return (
-                <button
-                    className="social-login-options__buttons"
-                    onClick={() => alert(socialLoginOption)}>
-                        {socialLoginOption}
-                </button>
-            );
-        });
+        return (
+            <button
+                className="social-login-options__buttons social-login-options__google-button"
+                onClick={() => alert(googleTitle)}>
+                    {googleTitle}
+            </button>
+        );
+    }
+
+    renderFacebookLoginOptionsButton() {
+        const { facebookLoginOption } = this.props;
+        const facebookTitle = "Facebook";
+
+        return (
+            <button
+                className="social-login-options__buttons social-login-options__facebook-button"
+                onClick={() => alert(facebookTitle)}>
+                    {facebookTitle}
+            </button>
+        );
+    }
+
+    renderLinkedInLoginOptionsButton() {
+        const { linkedInLoginOption } = this.props;
+        const linkedInTitle = "LinkedIn";
+
+        return (
+            <button
+                className="social-login-options__buttons social-login-options__linkedin-button"
+                onClick={() => alert(linkedInTitle)}>
+                    {linkedInTitle}
+            </button>
+        );
     }
 }
 
