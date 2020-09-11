@@ -49,15 +49,31 @@ class StatsController extends Controller {
     }
 
     public function getNumberOfUnsolvedTickets() {
-        return (int) RedBean::getCell('SELECT COUNT(*) FROM ticket WHERE closed="0"');
+        return (int) RedBean::getCell('SELECT COUNT(*) FROM ticket WHERE closed=0');
     }
 
     public function getNumberOfSolvedTickets() {
-        return (int) RedBean::getCell('SELECT COUNT(*) FROM ticket WHERE closed="1"');
+        return (int) RedBean::getCell('SELECT COUNT(*) FROM ticket WHERE closed=1');
     }
 
     public function getNumberOfInstantTickets() {
-        return 0;
+        return (int) RedBean::getCell("
+            SELECT 
+                COUNT(*)
+            FROM
+                (SELECT 
+                    COUNT(*)
+                FROM
+                    ticketevent
+                JOIN ticket ON ticket.id = ticketevent.ticket_id
+                WHERE
+                    ticketevent.type = 'COMMENT'
+                        AND ticketevent.author_staff_id
+                        AND private = 0
+                        AND closed = 1
+                GROUP BY ticket_id
+                HAVING COUNT(*) = 1) AS Z;
+        ");
     }
 
     public function getNumberOfReopenedTickets() {
