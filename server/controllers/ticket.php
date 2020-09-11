@@ -26,6 +26,5 @@ $ticketControllers->addController(new RemoveTagController);
 $ticketControllers->addController(new SearchController);
 $ticketControllers->addController(new SearchAuthorsController);
 $ticketControllers->addController(new GetAuthorsController);
-$ticketControllers->addController(new StatsController);
 
 $ticketControllers->finalize();

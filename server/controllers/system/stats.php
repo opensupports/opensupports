@@ -37,8 +37,8 @@ class StatsController extends Controller {
     public function handler() {
         Response::respondSuccess([
             'created' => $this->getNumberOfCreatedTickets(),
-            'unsolved' => $this->getNumberOfUnsolvedTickets(),
-            'solved' => $this->getNumberOfSolvedTickets(),
+            'open' => $this->getNumberOfOpenTickets(),
+            'closed' => $this->getNumberOfClosedTickets(),
             'instant' => $this->getNumberOfInstantTickets(),
             'reopened' => $this->getNumberOfReopenedTickets()
         ]);
@@ -48,11 +48,11 @@ class StatsController extends Controller {
         return (int) RedBean::getCell('SELECT COUNT(*) FROM ticket');
     }
 
-    public function getNumberOfUnsolvedTickets() {
+    public function getNumberOfOpenTickets() {
         return (int) RedBean::getCell('SELECT COUNT(*) FROM ticket WHERE closed=0');
     }
 
-    public function getNumberOfSolvedTickets() {
+    public function getNumberOfClosedTickets() {
         return (int) RedBean::getCell('SELECT COUNT(*) FROM ticket WHERE closed=1');
     }
 

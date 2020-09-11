@@ -450,5 +450,15 @@ export default {
     'TEST_SMTP_CONNECTION': 'Test SMTP connection',
     'SERVER_ERROR': 'Can not connect to server.',
     'EMAIL_SERVER_ADDRESS': 'Email server address',
-    'EMAIL_SERVER_ADDRESS_DESCRIPTION': 'Address where mails will be received and sent'
+    'EMAIL_SERVER_ADDRESS_DESCRIPTION': 'Address where mails will be received and sent',
+    'CREATED': 'Created',
+    'CREATED_DESCRIPTION': 'Created tickets during the selected time range',
+    'OPEN': 'Open',
+    'OPEN_DESCRIPTION': 'Open tickets created during the selected time range',
+    'CLOSED': 'Closed',
+    'CLOSED_DESCRIPTION': 'Closed tickets created during the selected time range',
+    'INSTANT': 'Instant',
+    'INSTANT_DESCRIPTION': 'Percentage of tickets closed after a single staff reply over the total of tickets closed',
+    'REOPENED': 'Reopened',
+    'REOPENED_DESCRIPTION': 'Percentage of tickets that were reopened over the total of tickets created'
 };

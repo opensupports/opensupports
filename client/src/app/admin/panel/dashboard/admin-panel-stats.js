@@ -3,6 +3,7 @@ import React from 'react';
 import i18n from 'lib-app/i18n';
 // import Stats from 'app-components/stats';
 import Header from 'core-components/header';
+import Tooltip from 'core-components/tooltip';
 import API from 'lib-app/api-call';
 
 class AdminPanelStats extends React.Component {
@@ -14,7 +15,7 @@ class AdminPanelStats extends React.Component {
 
     componentDidMount() {
         API.call({
-            path: '/ticket/stats',
+            path: '/system/stats',
             data: {}
         }).then(({data}) => {
             this.setState({ticketData: data, loading: false}, () => {
@@ -41,12 +42,14 @@ class AdminPanelStats extends React.Component {
     }
 
     renderTicketData() {
-        const {created, unsolved, solved, instant, reopened} = this.state.ticketData;
-        const renderCard = (label, value, isPercentage) => {
+        const {created, open, closed, instant, reopened} = this.state.ticketData;
+        const renderCard = (label, description, value, isPercentage) => {
             const displayValue = isPercentage ? value.toFixed(2) : value;
             return (
                 <div className="admin-panel-stats__card-list__card">
-                    {label}
+                    <Tooltip content={description} openOnHover>
+                        {label}
+                    </Tooltip>
                     <div className="admin-panel-stats__card-list__container">
                         {displayValue}{isPercentage ? "%" : ""}
                     </div>
@@ -56,11 +59,11 @@ class AdminPanelStats extends React.Component {
 
         return (
             <div className="admin-panel-stats__card-list">
-                {renderCard("Created", created, false)}
-                {renderCard("Unsolved", unsolved, false)}
-                {renderCard("Solved", solved, false)}
-                {renderCard("Instant", instant / solved, true)}
-                {renderCard("Reopened", reopened / created, true)}
+                {renderCard(i18n('CREATED'), i18n('CREATED_DESCRIPTION'), created, false)}
+                {renderCard(i18n('OPEN'), i18n('OPEN_DESCRIPTION'), open, false)}
+                {renderCard(i18n('CLOSED'), i18n('CLOSED_DESCRIPTION'), closed, false)}
+                {renderCard(i18n('INSTANT'), i18n('INSTANT_DESCRIPTION'), 100*instant / closed, true)}
+                {renderCard(i18n('REOPENED'), i18n('REOPENED_DESCRIPTION'), 100*reopened / created, true)}
             </div>
         )
     }

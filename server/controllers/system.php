@@ -35,5 +35,6 @@ $systemControllerGroup->addController(new EmailPollingController);
 $systemControllerGroup->addController(new AddCustomFieldController);
 $systemControllerGroup->addController(new DeleteCustomFieldController);
 $systemControllerGroup->addController(new GetCustomFieldsController);
+$systemControllerGroup->addController(new StatsController);
 
 $systemControllerGroup->finalize();
