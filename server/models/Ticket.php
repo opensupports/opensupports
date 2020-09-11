@@ -232,6 +232,6 @@ class Ticket extends DataStore {
     }
 
     public function isClosed() {
-        return $this->last_closed_at;
+        return $this->closed;
     }
 }
