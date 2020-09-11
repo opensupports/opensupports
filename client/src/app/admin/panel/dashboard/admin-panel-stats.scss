@@ -1,0 +1,25 @@
+@import "../../../../scss/vars";
+
+.admin-panel-stats {
+    
+    &__card-list {
+        display: flex;
+        justify-content: space-between;
+
+        &__card {
+            width: 19%;
+            transition: 0.3s;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            padding: 10px;
+
+            &:hover {
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            }
+        }
+
+        &__container {
+            font-size: $font-size--lg;
+            padding: 16px;
+        }
+    }
+}

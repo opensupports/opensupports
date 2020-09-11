@@ -32,7 +32,6 @@ class AdminPanelStats extends React.Component {
         //          <Stats type="general"/>
         //     </div>
         // );
-        console.log('IS IT LOADING?: ', this.state.loading);
         return (
             <div className="admin-panel-stats">
                 <Header title={i18n('STATISTICS')} description={i18n('STATISTICS_DESCRIPTION')}/>
@@ -42,13 +41,26 @@ class AdminPanelStats extends React.Component {
     }
 
     renderTicketData() {
+        const {created, unsolved, solved, instant, reopened} = this.state.ticketData;
+        const renderCard = (label, value, isPercentage) => {
+            const displayValue = isPercentage ? value.toFixed(2) : value;
+            return (
+                <div className="admin-panel-stats__card-list__card">
+                    {label}
+                    <div className="admin-panel-stats__card-list__container">
+                        {displayValue}{isPercentage ? "%" : ""}
+                    </div>
+                </div>
+            );
+        }
+
         return (
-            <div>
-                <div>Created: {this.state.ticketData.created}</div>
-                <div>Unsolved: {this.state.ticketData.unsolved}</div>
-                <div>Solved: {this.state.ticketData.solved}</div>
-                <div>Instant: {this.state.ticketData.instant}</div>
-                <div>Reopened: {this.state.ticketData.reopened}</div>
+            <div className="admin-panel-stats__card-list">
+                {renderCard("Created", created, false)}
+                {renderCard("Unsolved", unsolved, false)}
+                {renderCard("Solved", solved, false)}
+                {renderCard("Instant", instant / solved, true)}
+                {renderCard("Reopened", reopened / created, true)}
             </div>
         )
     }
