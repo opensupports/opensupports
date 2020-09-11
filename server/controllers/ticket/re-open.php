@@ -48,6 +48,10 @@ class ReOpenController extends Controller {
 
         $this->markAsUnread();
         $this->addReopenEvent();
+
+        if ($this->ticket->closed) {
+            $this->ticket->reopened = true;
+        }
         $this->ticket->closed = false;
 
         $this->ticket->store();

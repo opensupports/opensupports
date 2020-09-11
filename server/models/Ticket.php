@@ -42,6 +42,7 @@ class Ticket extends DataStore {
             'closed',
             'first_closed_at',
             'last_closed_at',
+            'reopened',
             'author',
             'authorStaff',
             'owner',
