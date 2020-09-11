@@ -248,6 +248,11 @@ class AdminPanelMenu extends React.Component {
                         level: 3
                     },
                     {
+                        name: i18n('AUTHENTICATION_SETTINGS'),
+                        path: '/admin/panel/settings/authentication-settings',
+                        level: 3
+                    },
+                    {
                         name: i18n('EMAIL_SETTINGS'),
                         path: '/admin/panel/settings/email-settings',
                         level: 3

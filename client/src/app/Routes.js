@@ -50,6 +50,7 @@ import AdminPanelViewStaff from 'app/admin/panel/staff/admin-panel-view-staff';
 
 import AdminPanelSystemPreferences from 'app/admin/panel/settings/admin-panel-system-preferences';
 import AdminPanelAdvancedSettings from 'app/admin/panel/settings/admin-panel-advanced-settings';
+import AdminPanelAuthenticationSettings from 'app/admin/panel/settings/admin-panel-authentication-settings';
 import AdminPanelEmailSettings from 'app/admin/panel/settings/admin-panel-email-settings';
 import AdminPanelCustomTags from 'app/admin/panel/settings/admin-panel-custom-tags';
 
@@ -142,6 +143,7 @@ export default (
                         <IndexRedirect to="system-preferences" />
                         <Route path="system-preferences" component={AdminPanelSystemPreferences} />
                         <Route path="advanced-settings" component={AdminPanelAdvancedSettings} />
+                        <Route path="authentication-settings" component={AdminPanelAuthenticationSettings} />
                         <Route path="email-settings" component={AdminPanelEmailSettings} />
                         <Route path="custom-tags" component={AdminPanelCustomTags} />
                     </Route>
