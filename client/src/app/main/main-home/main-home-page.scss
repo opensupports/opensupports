@@ -1,4 +1,8 @@
 .main-home-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
 
     &__center {
         display: flex;
@@ -9,5 +13,11 @@
         margin-bottom: 20px;
         margin-left: 20px;
         margin-right: 20px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .main-home-page {
+        display: unset;
     }
 }
