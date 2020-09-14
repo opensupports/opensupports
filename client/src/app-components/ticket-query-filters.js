@@ -145,24 +145,13 @@ class TicketQueryFilters extends React.Component {
         });
     }
 
-    renderDepartmentOption(department) {
+    renderDepartmentItem(department, type) {
         return (
-            <div className="ticket-query-filters__department-option" key={`department-option-${department.id}`}>
+            <div className={`ticket-query-filters__department-${type}`} key={`department-${type}-${department.id}`}>
                 {department.private*1 ?
-                    <Icon className="ticket-query-filters__department-option__icon" name='user-secret'/> :
+                    <Icon className={`ticket-query-filters__department-${type}__icon`} name='user-secret'/> :
                     null}
-                <span className="ticket-query-filters__department-option__name">{department.name}</span>
-            </div>
-        );
-    }
-
-    renderDeparmentSelected(department) {
-        return (
-            <div className="ticket-query-filters__department-selected" key={`department-selected-${department.id}`}>
-                {department.private*1 ?
-                    <Icon className="ticket-query-filters__department-selected__icon" name='user-secret'/> :
-                    null}
-                <span className="ticket-query-filters__department-selected__name">{department.name}</span>
+                <span className={`ticket-query-filters__department-${type}__name`}>{department.name}</span>
             </div>
         );
     }
@@ -208,8 +197,8 @@ class TicketQueryFilters extends React.Component {
                 id: JSON.parse(department.id),
                 name: department.name.toLowerCase(),
                 color: 'gray',
-                contentOnSelected: this.renderDeparmentSelected(department),
-                content: this.renderDepartmentOption(department),
+                contentOnSelected: this.renderDepartmentItem(department, "selected"),
+                content: this.renderDepartmentItem(department, "option"),
             }
         });
 
