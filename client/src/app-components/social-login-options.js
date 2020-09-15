@@ -21,7 +21,7 @@ class SocialLoginOptions extends React.Component {
         } = this.props;
 
         return (
-            <div className="social-login-options" >
+            <div className="social-login-options">
                 {googleLoginOption ? this.renderGoogleLoginOptionsButton() : null}
                 {facebookLoginOption ? this.renderFacebookLoginOptionsButton() : null}
                 {linkedInLoginOption ? this.renderLinkedInLoginOptionsButton() : null}
@@ -30,7 +30,6 @@ class SocialLoginOptions extends React.Component {
     }
 
     renderGoogleLoginOptionsButton() {
-        const { googleLoginOption } = this.props;
         const googleTitle = "Google";
 
         return (
@@ -43,7 +42,6 @@ class SocialLoginOptions extends React.Component {
     }
 
     renderFacebookLoginOptionsButton() {
-        const { facebookLoginOption } = this.props;
         const facebookTitle = "Facebook";
 
         return (
@@ -56,7 +54,6 @@ class SocialLoginOptions extends React.Component {
     }
 
     renderLinkedInLoginOptionsButton() {
-        const { linkedInLoginOption } = this.props;
         const linkedInTitle = "LinkedIn";
 
         return (
