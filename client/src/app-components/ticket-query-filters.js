@@ -156,20 +156,11 @@ class TicketQueryFilters extends React.Component {
         );
     }
 
-    renderStaffOption(staff) {
+    renderStaffItem(staff, type) {
         return (
-            <div className="ticket-query-filters__staff-option" key={`staff-option-${staff.id}`}>
-                <img className="ticket-query-filters__staff-option__profile-pic" src={this.getStaffProfilePic(staff)}/>
-                <span className="ticket-query-filters__staff-option__name">{staff.name}</span>
-            </div>
-        );
-    }
-
-    renderStaffSelected(staff) {
-        return (
-            <div className="ticket-query-filters__staff-selected" key={`staff-selected-${staff.id}`}>
-                <img className="ticket-query-filters__staff-selected__profile-pic" src={this.getStaffProfilePic(staff)}/>
-                <span className="ticket-query-filters__staff-selected__name">{staff.name}</span>
+            <div className={`ticket-query-filters__staff-${type}`} key={`staff-${type}-${staff.id}`}>
+                <img className={`ticket-query-filters__staff-${type}__profile-pic`} src={this.getStaffProfilePic(staff)}/>
+                <span className={`ticket-query-filters__staff-${type}__name`}>{staff.name}</span>
             </div>
         );
     }
@@ -245,8 +236,8 @@ class TicketQueryFilters extends React.Component {
                 id: JSON.parse(staff.id),
                 name: staff.name.toLowerCase(),
                 color: 'gray',
-                contentOnSelected: this.renderStaffSelected(staff),
-                content: this.renderStaffOption(staff),
+                contentOnSelected: this.renderStaffItem(staff, "selected"),
+                content: this.renderStaffItem(staff, "option"),
             }
         });
 
