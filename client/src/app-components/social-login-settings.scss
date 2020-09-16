@@ -1,0 +1,17 @@
+.social-login-settings {
+    background-color: $very-light-grey;
+    width: 45%;
+    padding: 20px;
+    margin-top: 20px;
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+        &__key {
+            padding: 5px 0;
+        }
+    }
+}
