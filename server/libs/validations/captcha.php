@@ -6,8 +6,10 @@ use Respect\Validation\Rules\AbstractRule;
 
 class Captcha extends AbstractRule {
     private $dataStoreName;
-    
+    private $apiKeyPermissionType;
+
     public function __construct($apiKeyPermissionType = '') {
+        $this->apiKeyPermissionType = $apiKeyPermissionType;
         if (in_array($apiKeyPermissionType, \APIKey::TYPES)) {
             $this->apiKeyType = $apiKeyPermissionType;
         } else if($apiKeyPermissionType) {
@@ -22,10 +24,10 @@ class Captcha extends AbstractRule {
         if (!$reCaptchaPrivateKey) return true;
 
         if (!$apiKey->isNull()){
-            switch ($apiKeyPermissionType) {
+            switch ($this->apiKeyPermissionType) {
                 case 'TICKET_CREATE_PERMISSION':
                     return $apiKey->canCreateUsers;
-                case 'USER_CREATE_PERMISSION' : 
+                case 'USER_CREATE_PERMISSION': 
                     return $apiKey->canCommentTickets;
                 case 'TICKET_COMMENT_PERMISSION':
                     return $apiKey->canCreateTickets;

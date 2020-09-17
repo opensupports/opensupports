@@ -99,10 +99,6 @@ class SignUpController extends Controller {
         if (!Setting::getSetting('registration')->value && $apiKey->isNull() && !Controller::isStaffLogged(2) && !$this->csvImported) {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
-
-        if(Controller::request('apiKey') && ($apiKey->isNUll() || !$apiKey->canCreateUsers)) {
-            throw new Exception(ERRORS::INVALID_API_KEY_PERMISSION);
-        }
         
         $userId = $this->createNewUserAndRetrieveId();
 

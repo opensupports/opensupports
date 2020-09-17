@@ -189,11 +189,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                 canCommentTickets: commentTicketPermission*1,
                 shouldReturnTicketNumber: ticketNumberPermission*1
             }
-        }).then(this.getAllKeys.bind(this)).catch((result) =>{
-            this.setState({
-                error: result.message
-            })
-        });
+        }).then(this.getAllKeys.bind(this));
     }
 
     getAllKeys() {

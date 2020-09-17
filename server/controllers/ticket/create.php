@@ -106,10 +106,6 @@ class CreateController extends Controller {
         $this->name = Controller::request('name');
         $this->apiKey = APIKey::getDataStore(Controller::request('apiKey'), 'token');
         
-        if(Controller::request('apiKey') && ($this->apiKey->isNUll() || !$this->apiKey->canCreateTickets) ) {
-            throw new Exception(ERRORS::INVALID_API_KEY_PERMISSION);
-        }
-
         if(!Controller::isStaffLogged() && Department::getDataStore($this->departmentId)->private) {
             throw new Exception(ERRORS::INVALID_DEPARTMENT);
         }
@@ -137,17 +133,13 @@ class CreateController extends Controller {
         
         Log::createLog('CREATE_TICKET', $this->ticketNumber);
         
-        
-        
-        if(!$this->apiKey->isNULL() && $this->apiKey->shouldReturnTicketNumber){
+        if(!$this->apiKey->isNull() && $this->apiKey->shouldReturnTicketNumber){
             Response::respondSuccess([
                 'ticketNumber' => $this->ticketNumber
             ]);
         }else{
             Response::respondSuccess();
         }
-        
-           
     }
 
     private function isEmailInvalid(){
