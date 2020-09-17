@@ -30,7 +30,6 @@ use RedBeanPHP\Facade as RedBean;
 class StatsController extends Controller {
     const PATH = '/stats';
     const METHOD = 'POST';
-    private $dateRange;
 
     public function validations() {
         return [
@@ -49,8 +48,6 @@ class StatsController extends Controller {
     }
 
     public function handler() {
-        $this->dateRange = json_decode(Controller::request('dateRange'));
-
         Response::respondSuccess([
             'created' => $this->getNumberOfCreatedTickets(),
             'open' => $this->getNumberOfOpenTickets(),
@@ -61,9 +58,10 @@ class StatsController extends Controller {
     }
 
     private function addDateRangeFilter($hasPreviousCondition) {
-        if ($this->dateRange === NULL) return " ";
+        $dateRange = json_decode(Controller::request('dateRange'));
+        if ($dateRange === NULL) return " ";
         $sql = $hasPreviousCondition ? " AND " : " WHERE ";
-        $sql .= " ticket.date >= {$this->dateRange[0]} AND ticket.date <= {$this->dateRange[1]} ";
+        $sql .= " ticket.date >= {$dateRange[0]} AND ticket.date <= {$dateRange[1]} ";
         return $sql;
     }
 
