@@ -5,6 +5,7 @@ import i18n from 'lib-app/i18n';
 import Header from 'core-components/header';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
+import Checkbox from 'core-components/checkbox';
 
 class SocialLoginSettings extends React.Component {
 
@@ -31,13 +32,17 @@ class SocialLoginSettings extends React.Component {
                 const plataformNameLowerCase = plataform.name.toLowerCase();
 
                 return (
-                    <FormField
-                        key={index}
-                        name={`${plataformNameLowerCase}-key`}
-                        className={`social-login-settings__form__key social-login-settings__form__${plataformNameLowerCase}-key`}
-                        label={`${plataform.name} Key`}
-                        fieldProps={{size: 'large'}}
-                        infoMessage="" />
+                    <div className={`social-login-settings__form__${plataformNameLowerCase}-container`} key={index}>
+                        <Checkbox
+                            label={`${plataform.name} Login`}
+                            wrapInLabel />
+                        <FormField
+                            name={`${plataformNameLowerCase}-key`}
+                            className={`social-login-settings__form__${plataformNameLowerCase}-container__${plataformNameLowerCase}-key`}
+                            label={`${plataform.name} Key`}
+                            fieldProps={{size: 'large'}}
+                            infoMessage="" />
+                    </div>
                 );
             })
         )

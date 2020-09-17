@@ -1,6 +1,6 @@
 .social-login-settings {
     background-color: $very-light-grey;
-    width: 45%;
+    width: 70%;
     padding: 20px;
     margin-top: 20px;
 
@@ -10,7 +10,14 @@
         justify-content: space-between;
         align-items: center;
 
-        &__key {
+        &__google-container,
+        &__facebook-container,
+        &__linkedin-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
             padding: 5px 0;
         }
     }
