@@ -22,4 +22,23 @@
             padding: 16px;
         }
     }
+
+    &__department-option { // Duplicated from ticket-query-filters, please purge
+        &__name {
+            margin-left: 10px;
+        }
+    }
+
+    &__department-selected { // Duplicated from ticket-query-filters, please purge
+        display: inline-block;
+        border-radius: 3px;
+        margin-left: 5px;
+        padding: 1px;
+        font-size: 13px;
+        cursor: default;
+
+        &__icon {
+            padding-right: 5px;
+        }
+    }
 }
