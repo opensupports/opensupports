@@ -35,20 +35,21 @@ class AdminPanelStats extends React.Component {
         return (
             <div className="admin-panel-stats">
                 <Header title={i18n('STATISTICS')} description={i18n('STATISTICS_DESCRIPTION')}/>
-                <Form
-                    loading={this.state.loading}
-                    values={this.state.form}
-                    onChange={this.onFormChange.bind(this)}
-                    onSubmit={this.onFormSubmit}>
-                    <FormField
-                        name="dateRange"
-                        field="date-range"
-                        fieldProps={{defaultValue: this.state.form.dateRange}}/>
-                    <FormField
-                        name="departments"
-                        field="autocomplete"
-                        fieldProps={{items: this.getDepartmentsItems()}} />
+                <Form loading={this.state.loading} values={this.state.form} onChange={this.onFormChange.bind(this)} onSubmit={this.onFormSubmit}>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <FormField name="dateRange" label={i18n('DATE')} field="date-range" fieldProps={{defaultValue: this.state.form.dateRange}}/>
+                        </div>
+                        <div className="col-md-6">
+                            <FormField name="departments" label={i18n('DEPARTMENTS')} field="autocomplete" fieldProps={{items: this.getDepartmentsItems()}} />
+                        </div>
+                    </div>
                 </Form>
+                <div className="row">
+                    <div className="col-md-12">
+                        <span className="separator" />
+                    </div>
+                </div>
                 {this.state.loading ? "Loading..." : this.renderTicketData()}
             </div>
         )
