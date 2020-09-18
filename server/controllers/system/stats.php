@@ -48,6 +48,7 @@ class StatsController extends Controller {
     }
 
     public function handler() {
+        $this->addDepartmentsFilter(false);
         Response::respondSuccess([
             'created' => $this->getNumberOfCreatedTickets(),
             'open' => $this->getNumberOfOpenTickets(),
@@ -57,32 +58,51 @@ class StatsController extends Controller {
         ]);
     }
 
-    private function addDateRangeFilter($hasPreviousCondition) {
+    // This function assumes there is a previous condition (previous WHERE)
+    private function addDateRangeFilter() {
         $dateRange = json_decode(Controller::request('dateRange'));
         if ($dateRange === NULL) return " ";
-        $sql = $hasPreviousCondition ? " AND " : " WHERE ";
-        $sql .= " ticket.date >= {$dateRange[0]} AND ticket.date <= {$dateRange[1]} ";
+        $sql = " AND ticket.date >= {$dateRange[0]} AND ticket.date <= {$dateRange[1]} ";
         return $sql;
     }
 
-    private function addDepartmentsFilter($hasPreviousCondition) {
-
+    // This function assumes there is a previous condition (previous WHERE)
+    private function addDepartmentsFilter() {
+        $departments = json_decode(Controller::request('departments'));
+        if ($departments === NULL) return " ";
+        $sql = " AND ";
+        for ($i = 0; $i < count($departments); ++$i) {
+            $departmentId = $departments[$i];
+            $departments[$i] = " ticket.department_id={$departmentId} ";
+        }
+        $sql .= '(' . join(" OR ", $departments) . ')';
+        return $sql;
     }
 
     public function getNumberOfCreatedTickets() {
-        return (int) RedBean::getCell('SELECT COUNT(*) FROM ticket' . $this->addDateRangeFilter(false));
+        return (int) RedBean::getCell('SELECT COUNT(*) FROM ticket WHERE 1=1' . 
+            $this->addDateRangeFilter() .
+            $this->addDepartmentsFilter()
+        );
     }
 
     public function getNumberOfOpenTickets() {
-        return (int) RedBean::getCell('SELECT COUNT(*) FROM ticket WHERE closed=0' . $this->addDateRangeFilter(true));
+        return (int) RedBean::getCell('SELECT COUNT(*) FROM ticket WHERE closed=0' . 
+            $this->addDateRangeFilter() .
+            $this->addDepartmentsFilter()
+        );
     }
 
     public function getNumberOfClosedTickets() {
-        return (int) RedBean::getCell('SELECT COUNT(*) FROM ticket WHERE closed=1' . $this->addDateRangeFilter(true));
+        return (int) RedBean::getCell('SELECT COUNT(*) FROM ticket WHERE closed=1' . 
+            $this->addDateRangeFilter() .
+            $this->addDepartmentsFilter()
+        );
     }
 
     public function getNumberOfInstantTickets() {
-        $dateRangeFilter = $this->addDateRangeFilter(true);
+        $dateRangeFilter = $this->addDateRangeFilter();
+        $departmentsFilter = $this->addDepartmentsFilter();
         return (int) RedBean::getCell("
             SELECT 
                 COUNT(*)
@@ -98,12 +118,16 @@ class StatsController extends Controller {
                         AND private = 0
                         AND closed = 1
                         {$dateRangeFilter}
+                        {$departmentsFilter}
                 GROUP BY ticket_id
                 HAVING COUNT(*) = 1) AS Z;
         ");
     }
 
     public function getNumberOfReopenedTickets() {
-        return (int) RedBean::getCell('SELECT COUNT(*) FROM ticket WHERE reopened=1' . $this->addDateRangeFilter(true));
+        return (int) RedBean::getCell('SELECT COUNT(*) FROM ticket WHERE reopened=1' . 
+            $this->addDateRangeFilter() .
+            $this->addDepartmentsFilter()
+        );
     }
 }
