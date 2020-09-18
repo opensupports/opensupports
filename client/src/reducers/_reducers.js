@@ -8,6 +8,7 @@ import articlesReducer from 'reducers/articles-reducer';
 import adminDataReducer from 'reducers/admin-data-reducer';
 import searchFiltersReducer from 'reducers/search-filters-reducer';
 import loginFormReducer from 'reducers/login-form-reducer';
+import sociaLoginReducer from 'reducers/social-login-reducer';
 
 export default combineReducers({
     session: sessionReducer,
@@ -18,4 +19,5 @@ export default combineReducers({
     adminData: adminDataReducer,
     routing: routerReducer,
     searchFilters: searchFiltersReducer,
+    sociaLoginReducer: sociaLoginReducer,
 });
