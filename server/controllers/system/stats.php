@@ -69,7 +69,7 @@ class StatsController extends Controller {
     // This function assumes there is a previous condition (previous WHERE)
     private function addDepartmentsFilter() {
         $departments = json_decode(Controller::request('departments'));
-        if ($departments === NULL) return " ";
+        if ($departments === NULL || empty($departments)) return " ";
         $sql = " AND ";
         for ($i = 0; $i < count($departments); ++$i) {
             $departmentId = $departments[$i];

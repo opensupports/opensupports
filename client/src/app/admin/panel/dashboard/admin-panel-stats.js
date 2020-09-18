@@ -17,7 +17,8 @@ class AdminPanelStats extends React.Component {
             dateRange: {
                 startDate: 202009130000,
                 endDate: 202009132359
-            }
+            },
+            departments: []
         },
         ticketData: {}
     };
@@ -30,6 +31,7 @@ class AdminPanelStats extends React.Component {
         console.warn('DEPARTMENTS: ', this.props.departments);
         console.warn('TAGS: ', this.props.departments);
         console.warn('STAFF LIST: ', this.props.staffList);
+        console.warn('FORM STATE: ', this.state.form);
         return (
             <div className="admin-panel-stats">
                 <Header title={i18n('STATISTICS')} description={i18n('STATISTICS_DESCRIPTION')}/>
@@ -81,7 +83,8 @@ class AdminPanelStats extends React.Component {
             data: {
                 dateRange: "[" + this.state.form.dateRange.startDate.toString() + 
                            "," + this.state.form.dateRange.endDate.toString() + 
-                           "]"
+                           "]",
+                departments: "[" + this.state.form.departments.map((department) => department.id).join(',') + "]"
             }
         }).then(({data}) => {
             this.setState({ticketData: data, loading: false}, () => {
