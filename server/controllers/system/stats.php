@@ -76,7 +76,7 @@ class StatsController extends Controller {
         ]);
     }
 
-    // This function assumes there is a previous condition (previous WHERE)
+    // This function assumes there is a previous condition
     private function addDateRangeFilter() {
         $dateRange = json_decode(Controller::request('dateRange'));
         if ($dateRange === NULL) return " ";
@@ -84,7 +84,7 @@ class StatsController extends Controller {
         return $sql;
     }
 
-    // This function assumes there is a previous condition (previous WHERE)
+    // This function assumes there is a previous condition
     private function addDepartmentsFilter() {
         $departments = json_decode(Controller::request('departments'));
         if ($departments === NULL || empty($departments)) return " ";
@@ -97,12 +97,18 @@ class StatsController extends Controller {
         return $sql;
     }
 
-    // This function assumes there is a previous condition (previous WHERE)
+    // This function assumes there is a previous condition
     private function addTagsFilter() {
-        // $tags = json_decode(Controller::request('tags'));
-        // if ($tags === NULL || empty($tags)) return " ";
-        // $sql = " AND ";
-        return " ";
+        $tags = json_decode(Controller::request('tags'));
+        if ($tags === NULL || empty($tags)) return " ";
+        $sql = " AND ";
+        for ($i = 0; $i < count($tags); ++$i) {
+            $tagId = $tags[$i];
+            $tags[$i] = " tag_ticket.tag_id={$tagId} ";
+        }
+        $sql .= '(' . join(" OR ", $tags) . ')';
+        return $sql;
+        // return " ";
     }
 
     public function getNumberOfCreatedTickets() {
@@ -113,6 +119,7 @@ class StatsController extends Controller {
                 (SELECT COUNT(*) FROM {$this->table} WHERE 1=1
                     {$this->dateRangeFilter}
                     {$this->departmentsFilter}
+                    {$this->tagsFilter}
                 {$this->groupBy}) AS Z;
         ");
     }
@@ -125,6 +132,7 @@ class StatsController extends Controller {
                 (SELECT COUNT(*) FROM {$this->table} WHERE closed=0
                     {$this->dateRangeFilter}
                     {$this->departmentsFilter}
+                    {$this->tagsFilter}
                 {$this->groupBy}) AS Z;
         ");
     }
@@ -137,6 +145,7 @@ class StatsController extends Controller {
                 (SELECT COUNT(*) FROM {$this->table} WHERE closed=1
                     {$this->dateRangeFilter}
                     {$this->departmentsFilter}
+                    {$this->tagsFilter}
                 {$this->groupBy}) AS Z;
         ");
     }
@@ -157,6 +166,7 @@ class StatsController extends Controller {
                         AND closed = 1
                         {$this->dateRangeFilter}
                         {$this->departmentsFilter}
+                        {$this->tagsFilter}
                 {$this->groupBy}
                 HAVING COUNT(*) = 1) AS Z;
         ");
@@ -170,6 +180,7 @@ class StatsController extends Controller {
                 (SELECT COUNT(*) FROM {$this->table} WHERE reopened=1
                     {$this->dateRangeFilter}
                     {$this->departmentsFilter}
+                    {$this->tagsFilter}
                 {$this->groupBy}) AS Z;
         ");
     }
