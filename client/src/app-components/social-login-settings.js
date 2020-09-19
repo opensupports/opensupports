@@ -1,4 +1,7 @@
 import React from 'react';
+import {connect} from 'react-redux';
+
+import SocialLoginActions from 'actions/social-login-actions';
 
 import i18n from 'lib-app/i18n';
 
@@ -21,12 +24,16 @@ class SocialLoginSettings extends React.Component {
     }
 
     renderSettings() {
+        const {
+            socialLogin,
+            dispatch
+        } = this.props;
         const socialLoginPlataforms = [
             {name: "Google"},
             {name: "Facebook"},
             {name: "LinkedIn"}
         ];
-        
+
         return (
             socialLoginPlataforms.map((plataform, index) => {
                 const plataformNameLowerCase = plataform.name.toLowerCase();
@@ -35,6 +42,8 @@ class SocialLoginSettings extends React.Component {
                     <div className={`social-login-settings__form__${plataformNameLowerCase}-container`} key={index}>
                         <Checkbox
                             label={`${plataform.name} Login`}
+                            value={socialLogin[`show${plataform.name}LoginButton`]}
+                            onChange={(event) => {dispatch(SocialLoginActions[`changeShow${plataform.name}LoginButton`](event.target.checked))}}
                             wrapInLabel />
                         <FormField
                             name={`${plataformNameLowerCase}-key`}
@@ -49,4 +58,8 @@ class SocialLoginSettings extends React.Component {
     }
 }
 
-export default SocialLoginSettings;
+export default connect((store) => {
+    return {
+        socialLogin: store.socialLogin
+    };
+})(SocialLoginSettings);
