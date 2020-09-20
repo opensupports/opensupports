@@ -29,7 +29,7 @@ class AdminPanelStats extends React.Component {
 
     render() {
         console.warn('DEPARTMENTS: ', this.props.departments);
-        console.warn('TAGS: ', this.props.departments);
+        console.warn('TAGS: ', this.props.tags);
         console.warn('STAFF LIST: ', this.props.staffList);
         console.warn('FORM STATE: ', this.state.form);
         return (
@@ -39,9 +39,12 @@ class AdminPanelStats extends React.Component {
                     <div className="row">
                         <div className="col-md-6">
                             <FormField name="dateRange" label={i18n('DATE')} field="date-range" fieldProps={{defaultValue: this.state.form.dateRange}}/>
+                            {/* <FormField name="tags" label={i18n('TAGS')} field="autocomplete" fieldProps={{items: this.getTagItems()}} /> */}
+                            <FormField name="tags" label={i18n('TAGS')} field="tag-selector" fieldProps={{items: this.getTagItems()}} />
                         </div>
                         <div className="col-md-6">
                             <FormField name="departments" label={i18n('DEPARTMENTS')} field="autocomplete" fieldProps={{items: this.getDepartmentsItems()}} />
+                            <FormField name="owners" label={i18n('OWNER')} field="autocomplete" fieldProps={{items: this.getStaffItems()}} />
                         </div>
                     </div>
                 </Form>
@@ -53,6 +56,20 @@ class AdminPanelStats extends React.Component {
                 {this.state.loading ? "Loading..." : this.renderTicketData()}
             </div>
         )
+    }
+
+    getTagItems() {
+        return this.props.tags.map((tag) => {
+            return {
+                id: JSON.parse(tag.id),
+                name: tag.name,
+                color : tag.color
+            }
+        });
+    }
+
+    getStaffItems() {
+        return [];
     }
 
     getDepartmentsItems() {
