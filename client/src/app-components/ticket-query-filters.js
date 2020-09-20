@@ -139,8 +139,8 @@ class TicketQueryFilters extends React.Component {
                     id: author.id*1,
                     profilePic: author.profilePic,
                     isStaff: author.isStaff * 1,
-                    content: author.profilePic !== undefined ? this.renderStaffOption(author) : author.name,
-                    contentOnSelected: author.profilePic !== undefined ? this.renderStaffSelected(author) : author.name
+                    content: author.profilePic !== undefined ? this.renderStaffItem(author, "option") : author.name,
+                    contentOnSelected: author.profilePic !== undefined ? this.renderStaffItem(author, "selected") : author.name
                 }});
         });
     }
@@ -354,8 +354,8 @@ class TicketQueryFilters extends React.Component {
             id: author.id*1,
             isStaff: author.isStaff*1,
             profilePic: author.profilePic,
-            content: author.profilePic !== undefined ? this.renderStaffOption(author) : author.name,
-            contentOnSelected: author.profilePic !== undefined ? this.renderStaffSelected(author) : author.name
+            content: author.profilePic !== undefined ? this.renderStaffItem(author, 'option') : author.name,
+            contentOnSelected: author.profilePic !== undefined ? this.renderStaff(author, 'selected') : author.name
         }));
     }
 
