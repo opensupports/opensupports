@@ -13,7 +13,7 @@ class AdminPanelStats extends React.Component {
 
     state = {
         loading: true,
-        form: {
+        rawForm: {
             dateRange: {
                 startDate: 202009130000,
                 endDate: 202009132359
@@ -31,10 +31,10 @@ class AdminPanelStats extends React.Component {
         return (
             <div className="admin-panel-stats">
                 <Header title={i18n('STATISTICS')} description={i18n('STATISTICS_DESCRIPTION')}/>
-                <Form loading={this.state.loading} values={this.state.form} onChange={this.onFormChange.bind(this)} onSubmit={this.onFormSubmit}>
+                <Form loading={this.state.loading} values={this.getForm()} onChange={this.onFormChange.bind(this)} onSubmit={this.onFormSubmit}>
                     <div className="row">
                         <div className="col-md-6">
-                            <FormField name="dateRange" label={i18n('DATE')} field="date-range" fieldProps={{defaultValue: this.state.form.dateRange}}/>
+                            <FormField name="dateRange" label={i18n('DATE')} field="date-range" fieldProps={{defaultValue: this.state.rawForm.dateRange}}/>
                             {/* <FormField name="tags" label={i18n('TAGS')} field="autocomplete" fieldProps={{items: this.getTagItems()}} /> */}
                             <FormField name="tags" label={i18n('TAGS')} field="tag-selector" fieldProps={{items: this.getTagItems()}} />
                         </div>
@@ -52,6 +52,16 @@ class AdminPanelStats extends React.Component {
                 {this.state.loading ? "Loading..." : this.renderTicketData()}
             </div>
         )
+    }
+
+    getForm() {
+        const { rawForm } = this.state;
+        console.warn(rawForm);
+        console.warn(rawForm.tags);
+        return {
+            ...rawForm,
+            tags: rawForm.tags ? rawForm.tags.map((tag) => tag.name) : []
+        };
     }
 
     getTagItems() {
@@ -92,13 +102,14 @@ class AdminPanelStats extends React.Component {
     }
 
     retrieveStats() {
+        const { rawForm } = this.state;
         API.call({
             path: '/system/stats',
             data: {
-                dateRange: "[" + this.state.form.dateRange.startDate.toString() + 
-                           "," + this.state.form.dateRange.endDate.toString() + 
+                dateRange: "[" + rawForm.dateRange.startDate.toString() + 
+                           "," + rawForm.dateRange.endDate.toString() + 
                            "]",
-                departments: "[" + this.state.form.departments.map((department) => department.id).join(',') + "]"
+                departments: "[" + rawForm.departments.map((department) => department.id).join(',') + "]"
             }
         }).then(({data}) => {
             this.setState({ticketData: data, loading: false}, () => {
@@ -110,7 +121,7 @@ class AdminPanelStats extends React.Component {
     }
 
     onFormChange(newFormState) {
-        this.setState({form: newFormState}, () => {
+        this.setState({rawForm: newFormState}, () => {
             this.retrieveStats();
         });
     }
