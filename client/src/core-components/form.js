@@ -181,9 +181,6 @@ class Form extends React.Component {
     }
 
     isValidField(node) {
-        console.warn('FormField: ', FormField);
-        console.warn('node.type: ', node.type);
-        console.warn('Equals?: ', node.type === FormField);
         return node.type === FormField;
     }
 

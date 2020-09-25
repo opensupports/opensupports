@@ -28,10 +28,6 @@ class AdminPanelStats extends React.Component {
     }
 
     render() {
-        console.warn('DEPARTMENTS: ', this.props.departments);
-        console.warn('TAGS: ', this.props.tags);
-        console.warn('STAFF LIST: ', this.props.staffList);
-        console.warn('FORM STATE: ', this.state.form);
         return (
             <div className="admin-panel-stats">
                 <Header title={i18n('STATISTICS')} description={i18n('STATISTICS_DESCRIPTION')}/>
