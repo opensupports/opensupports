@@ -34,7 +34,8 @@ class TagSelector extends React.Component {
     }
 
     onChange(tags) {
-        this.props.onChange(tags.map(tag => tag.name));
+        const { onChange } = this.props;
+        onChange && onChange(tags.map(tag => tag.name));
     }
 
     renderTagOption(item) {

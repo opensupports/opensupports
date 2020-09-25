@@ -244,10 +244,17 @@ class TicketViewer extends React.Component {
             ticket
         } = this.props;
 
+        console.warn(ticket.tags);
+
         return (
             <div className="ticket-viewer__edit-tags">
                 <TagSelector
-                    items={tags}
+                    items={tags.map((tag) => {
+                        return {
+                            ...tag,
+                            id: tag.id*1
+                        }
+                    })}
                     values={ticket.tags}
                     onRemoveClick={this.removeTag.bind(this)}
                     onTagSelected={this.addTag.bind(this)}
