@@ -19,6 +19,7 @@ class AdminPanelStats extends React.Component {
                 endDate: 202009132359
             },
             departments: [],
+            owners: [],
             tags: []
         },
         ticketData: {}
@@ -128,6 +129,7 @@ class AdminPanelStats extends React.Component {
             data: {
                 dateRange: "[" + startDate.toString() + "," + endDate.toString() + "]",
                 departments: "[" + rawForm.departments.map(department => department.id) + "]",
+                owners: "[" + rawForm.owners.map(owner => owner.id) + "]",
                 tags: "[" + this.getSelectedTagIds() + "]"
             }
         }).then(({data}) => {
