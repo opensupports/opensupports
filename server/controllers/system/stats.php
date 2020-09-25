@@ -18,11 +18,13 @@ use RedBeanPHP\Facade as RedBean;
  * @apiParam {Number[]} tags The ids of the tags for the custom stats.
  * @apiParam {Number[]} dateRange The array with start and end date of the range for the custom stats.
  * @apiParam {Number[]} departments The ids of the departments for the custom stats.
+ * @apiParam {Number[]} owners The ids of the owners for the custom stats.
  * 
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_PERIOD
  * @apiUse INVALID_DEPARTMENT_FILTER
  * @apiUse INVALID_DATE_RANGE_FILTER
+ * @apiUse INVALID_OWNER_FILTER
  *
  * @apiSuccess {[StatList](#api-Data_Structures-ObjectStatlist)[]} data Array of the stats
  *
@@ -37,6 +39,7 @@ class StatsController extends Controller {
     private $dateRangeFilter;
     private $departmentsFilter;
     private $tagsFilter;
+    private $ownersFilter;
 
     public function validations() {
         return [
@@ -51,8 +54,12 @@ class StatsController extends Controller {
                     'error' => ERRORS::INVALID_DEPARTMENT_FILTER
                 ],
                 'tags' => [
-                    'validation' => DataValidator::oneOf(DataValidator::validTagsId(),DataValidator::nullType()),
+                    'validation' => DataValidator::oneOf(DataValidator::validTagsId(), DataValidator::nullType()),
                     'error' => ERRORS::INVALID_TAG_FILTER
+                ],
+                'owners' => [
+                    'validation' => DataValidator::oneOf(DataValidator::validOwnersId(), DataValidator::nullType()),
+                    'error' => ERRORS::INVALID_OWNER_FILTER
                 ],
             ]
         ];
@@ -65,8 +72,8 @@ class StatsController extends Controller {
         $this->dateRangeFilter = $this->addDateRangeFilter();
         $this->departmentsFilter = $this->addDepartmentsFilter();
         $this->tagsFilter = $this->addTagsFilter();
+        $this->ownersFilter = $this->addOwnersFilter();
 
-        $this->addDepartmentsFilter(false);
         Response::respondSuccess([
             'created' => $this->getNumberOfCreatedTickets(),
             'open' => $this->getNumberOfOpenTickets(),
@@ -108,7 +115,19 @@ class StatsController extends Controller {
         }
         $sql .= '(' . join(" OR ", $tags) . ')';
         return $sql;
-        // return " ";
+    }
+
+    // This function assumes there is a previous condition
+    private function addOwnersFilter() {
+        $owners = json_decode(Controller::request('owners'));
+        if ($owners === NULL || empty($owners)) return " ";
+        $sql = " AND ";
+        for ($i = 0; $i < count($owners); ++$i) {
+            $ownerId = $owners[$i];
+            $owners[$i] = " ticket.owner_id={$ownerId} ";
+        }
+        $sql .= '(' . join(" OR ", $owners) . ')';
+        return $sql;
     }
 
     public function getNumberOfCreatedTickets() {
@@ -120,6 +139,7 @@ class StatsController extends Controller {
                     {$this->dateRangeFilter}
                     {$this->departmentsFilter}
                     {$this->tagsFilter}
+                    {$this->ownersFilter}
                 {$this->groupBy}) AS Z;
         ");
     }
@@ -133,6 +153,7 @@ class StatsController extends Controller {
                     {$this->dateRangeFilter}
                     {$this->departmentsFilter}
                     {$this->tagsFilter}
+                    {$this->ownersFilter}
                 {$this->groupBy}) AS Z;
         ");
     }
@@ -146,6 +167,7 @@ class StatsController extends Controller {
                     {$this->dateRangeFilter}
                     {$this->departmentsFilter}
                     {$this->tagsFilter}
+                    {$this->ownersFilter}
                 {$this->groupBy}) AS Z;
         ");
     }
@@ -167,6 +189,7 @@ class StatsController extends Controller {
                         {$this->dateRangeFilter}
                         {$this->departmentsFilter}
                         {$this->tagsFilter}
+                        {$this->ownersFilter}
                 {$this->groupBy}
                 HAVING COUNT(*) = 1) AS Z;
         ");
@@ -181,6 +204,7 @@ class StatsController extends Controller {
                     {$this->dateRangeFilter}
                     {$this->departmentsFilter}
                     {$this->tagsFilter}
+                    {$this->ownersFilter}
                 {$this->groupBy}) AS Z;
         ");
     }

@@ -70,7 +70,31 @@ class AdminPanelStats extends React.Component {
     }
 
     getStaffItems() {
-        return [];
+        const getStaffProfilePic = (staff) => {
+            return staff.profilePic ? API.getFileLink(staff.profilePic) : (API.getURL() + '/images/profile.png');
+        }
+
+        const renderStaffItem = (staff, style) => {
+            return (
+                <div className={`admin-panel-stats__staff-${style}`} key={`staff-${style}-${staff.id}`}>
+                    <img className={`admin-panel-stats__staff-${style}__profile-pic`} src={getStaffProfilePic(staff)}/>
+                    <span className={`admin-panel-stats__staff-${style}__name`}>{staff.name}</span>
+                </div>
+            )
+        };
+
+        const { staffList } = this.props;
+        let newStaffList = staffList.map(staff => {
+            return {
+                id: JSON.parse(staff.id),
+                name: staff.name.toLowerCase(),
+                color: 'gray',
+                contentOnSelected: renderStaffItem(staff, 'selected'),
+                content: renderStaffItem(staff, 'option'),
+            }
+        });
+
+        return newStaffList;
     }
 
     getDepartmentsItems() {
