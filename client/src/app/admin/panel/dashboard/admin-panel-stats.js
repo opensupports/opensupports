@@ -18,7 +18,8 @@ class AdminPanelStats extends React.Component {
                 startDate: 202009130000,
                 endDate: 202009132359
             },
-            departments: []
+            departments: [],
+            tags: []
         },
         ticketData: {}
     };
@@ -35,7 +36,6 @@ class AdminPanelStats extends React.Component {
                     <div className="row">
                         <div className="col-md-6">
                             <FormField name="dateRange" label={i18n('DATE')} field="date-range" fieldProps={{defaultValue: this.state.rawForm.dateRange}}/>
-                            {/* <FormField name="tags" label={i18n('TAGS')} field="autocomplete" fieldProps={{items: this.getTagItems()}} /> */}
                             <FormField name="tags" label={i18n('TAGS')} field="tag-selector" fieldProps={{items: this.getTagItems()}} />
                         </div>
                         <div className="col-md-6">
@@ -56,11 +56,9 @@ class AdminPanelStats extends React.Component {
 
     getForm() {
         const { rawForm } = this.state;
-        console.warn(rawForm);
-        console.warn(rawForm.tags);
         return {
             ...rawForm,
-            tags: rawForm.tags ? rawForm.tags.map((tag) => tag.name) : []
+            tags: rawForm.tags.map((tag) => tag.name)
         };
     }
 
@@ -109,7 +107,8 @@ class AdminPanelStats extends React.Component {
                 dateRange: "[" + rawForm.dateRange.startDate.toString() + 
                            "," + rawForm.dateRange.endDate.toString() + 
                            "]",
-                departments: "[" + rawForm.departments.map((department) => department.id).join(',') + "]"
+                departments: "[" + rawForm.departments.map(department => department.id).join(',') + "]",
+                tags: "[" + rawForm.tags.map(tag => tag.id) + "]"
             }
         }).then(({data}) => {
             this.setState({ticketData: data, loading: false}, () => {
