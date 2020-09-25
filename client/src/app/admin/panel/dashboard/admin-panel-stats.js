@@ -107,27 +107,20 @@ class AdminPanelStats extends React.Component {
                 tags: "[" + this.getSelectedTagIds() + "]"
             }
         }).then(({data}) => {
-            this.setState({ticketData: data, loading: false}, () => {
-                // console.log('DATA AFTER CALL TO /system/stats:', this.state);
-            });
+            this.setState({ticketData: data, loading: false});
         }).catch((error) => {
-            // console.error('ERROR: ', error);
+            if (showLogs) console.error('ERROR: ', error);
         })
     }
 
     onFormChange(newFormState) {
-        console.trace('New Tags: ', newFormState.tags);
-        console.warn('Current Form: ', this.state.rawForm);
-
-        this.setState({
-            rawForm: {...newFormState}
-        }, () => {
+        this.setState({rawForm: newFormState}, () => {
             this.retrieveStats();
         });
     }
 
     onFormSubmit() {
-        
+        this.retrieveStats();
     }
 
     renderTicketData() {
