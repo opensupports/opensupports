@@ -244,12 +244,10 @@ class TicketViewer extends React.Component {
             ticket
         } = this.props;
 
-        console.warn(ticket.tags);
-
         return (
             <div className="ticket-viewer__edit-tags">
                 <TagSelector
-                    items={tags.map((tag) => {
+                    items={tags.map((tag) => { // hack ot make tag.id a number... fix
                         return {
                             ...tag,
                             id: tag.id*1
