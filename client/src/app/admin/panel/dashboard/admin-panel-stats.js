@@ -32,7 +32,7 @@ class AdminPanelStats extends React.Component {
         return (
             <div className="admin-panel-stats">
                 <Header title={i18n('STATISTICS')} description={i18n('STATISTICS_DESCRIPTION')}/>
-                <Form loading={this.state.loading} values={this.getForm()} onChange={this.onFormChange.bind(this)} onSubmit={this.onFormSubmit}>
+                <Form loading={this.state.loading} values={this.state.rawForm} onChange={this.onFormChange.bind(this)} onSubmit={this.onFormSubmit}>
                     <div className="row">
                         <div className="col-md-6">
                             <FormField name="dateRange" label={i18n('DATE')} field="date-range" fieldProps={{defaultValue: this.state.rawForm.dateRange}}/>
@@ -54,14 +54,6 @@ class AdminPanelStats extends React.Component {
         )
     }
 
-    getForm() {
-        const { rawForm } = this.state;
-        return {
-            ...rawForm,
-            tags: rawForm.tags.map((tag) => tag.name)
-        };
-    }
-
     getTagItems() {
         return this.props.tags.map((tag) => {
             return {
@@ -70,6 +62,11 @@ class AdminPanelStats extends React.Component {
                 color : tag.color
             }
         });
+    }
+
+    getSelectedTagIds() {
+        return this.props.tags.filter(tag => _.includes(this.state.rawForm.tags, tag.name))
+                              .map(tag => tag.id);
     }
 
     getStaffItems() {
@@ -101,26 +98,30 @@ class AdminPanelStats extends React.Component {
 
     retrieveStats() {
         const { rawForm } = this.state;
+        const { startDate, endDate } = rawForm.dateRange;
         API.call({
             path: '/system/stats',
             data: {
-                dateRange: "[" + rawForm.dateRange.startDate.toString() + 
-                           "," + rawForm.dateRange.endDate.toString() + 
-                           "]",
-                departments: "[" + rawForm.departments.map(department => department.id).join(',') + "]",
-                tags: "[" + rawForm.tags.map(tag => tag.id) + "]"
+                dateRange: "[" + startDate.toString() + "," + endDate.toString() + "]",
+                departments: "[" + rawForm.departments.map(department => department.id) + "]",
+                tags: "[" + this.getSelectedTagIds() + "]"
             }
         }).then(({data}) => {
             this.setState({ticketData: data, loading: false}, () => {
-                console.log('DATA AFTER CALL TO /system/stats:', this.state);
+                // console.log('DATA AFTER CALL TO /system/stats:', this.state);
             });
         }).catch((error) => {
-            console.error('ERROR: ', error);
+            // console.error('ERROR: ', error);
         })
     }
 
     onFormChange(newFormState) {
-        this.setState({rawForm: newFormState}, () => {
+        console.trace('New Tags: ', newFormState.tags);
+        console.warn('Current Form: ', this.state.rawForm);
+
+        this.setState({
+            rawForm: {...newFormState}
+        }, () => {
             this.retrieveStats();
         });
     }
@@ -131,6 +132,7 @@ class AdminPanelStats extends React.Component {
 
     renderTicketData() {
         const {created, open, closed, instant, reopened} = this.state.ticketData;
+
         const renderCard = (label, description, value, isPercentage) => {
             const displayValue = isNaN(value) ? "-" : (isPercentage ? value.toFixed(2) : value);
             return (
