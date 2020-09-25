@@ -15,7 +15,9 @@
 
 input[type=date] {
     outline: none;
-    padding-left: 7px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 2px;
 
     &::-webkit-clear-button {
         -webkit-appearance: none;
