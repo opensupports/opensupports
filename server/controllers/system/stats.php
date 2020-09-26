@@ -74,12 +74,15 @@ class StatsController extends Controller {
         $this->tagsFilter = $this->addTagsFilter();
         $this->ownersFilter = $this->addOwnersFilter();
 
+        // var_dump($this->getNumberOfCreatedTicketsByHour());
+
         Response::respondSuccess([
             'created' => $this->getNumberOfCreatedTickets(),
             'open' => $this->getNumberOfOpenTickets(),
             'closed' => $this->getNumberOfClosedTickets(),
             'instant' => $this->getNumberOfInstantTickets(),
-            'reopened' => $this->getNumberOfReopenedTickets()
+            'reopened' => $this->getNumberOfReopenedTickets(),
+            'created_by_date' => $this->getNumberOfCreatedTicketsByHour()
         ]);
     }
 
@@ -207,5 +210,32 @@ class StatsController extends Controller {
                     {$this->ownersFilter}
                 {$this->groupBy}) AS Z;
         ");
+    }
+
+    // Returns 
+    public function getNumberOfCreatedTicketsByHour() {
+        $result = RedBean::getAll("
+            SELECT 
+                VALID_TICKETS.HOUR_DAY, COUNT(RAW_CNT) AS CNT
+            FROM
+                (SELECT 
+                    COUNT(*) AS RAW_CNT,
+                    ticket.date % 10000 DIV 100 AS HOUR_DAY
+                FROM {$this->table} WHERE 1=1
+                    {$this->dateRangeFilter}
+                    {$this->departmentsFilter}
+                    {$this->tagsFilter}
+                    {$this->ownersFilter}
+                {$this->groupBy}) AS VALID_TICKETS
+            GROUP BY VALID_TICKETS.HOUR_DAY;
+        ");
+
+        $ans = array_fill(0, 24, 0);
+        for ($i = 0; $i < count($result); ++$i) {
+            $hour = (int)$result[$i]["HOUR_DAY"];
+            $cnt  = (int)$result[$i]["CNT"];
+            $ans[$hour] = $cnt;
+        }
+        return $ans;
     }
 }
