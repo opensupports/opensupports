@@ -1,5 +1,7 @@
 import React from 'react';
-import {connect}  from 'react-redux';
+import { connect }  from 'react-redux';
+import { Bar } from 'react-chartjs-2';
+
 
 import i18n from 'lib-app/i18n';
 import Header from 'core-components/header';
@@ -35,11 +37,11 @@ class AdminPanelStats extends React.Component {
                 <Header title={i18n('STATISTICS')} description={i18n('STATISTICS_DESCRIPTION')}/>
                 <Form loading={this.state.loading} values={this.state.rawForm} onChange={this.onFormChange.bind(this)} onSubmit={this.onFormSubmit}>
                     <div className="row">
-                        <div className="col-md-6">
+                        <div className="col-sm-6">
                             <FormField name="dateRange" label={i18n('DATE')} field="date-range" fieldProps={{defaultValue: this.state.rawForm.dateRange}}/>
                             <FormField name="tags" label={i18n('TAGS')} field="tag-selector" fieldProps={{items: this.getTagItems()}} />
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-sm-6">
                             <FormField name="departments" label={i18n('DEPARTMENTS')} field="autocomplete" fieldProps={{items: this.getDepartmentsItems()}} />
                             <FormField name="owners" label={i18n('OWNER')} field="autocomplete" fieldProps={{items: this.getStaffItems()}} />
                         </div>
@@ -50,7 +52,60 @@ class AdminPanelStats extends React.Component {
                         <span className="separator" />
                     </div>
                 </div>
-                {this.state.loading ? "Loading..." : this.renderTicketData()}
+                {this.state.loading ? "Loading..." : this.renderStatistics()}
+            </div>
+        )
+    }
+    
+    renderStatistics() {
+        const primaryBlueWithTransparency = (alpha) => `rgba(32,184,197,${alpha})`;
+        const data = {
+            labels: Array.from(Array(24).keys()),
+            datasets: [
+                {
+                    label: 'Created Tickets By Hour',
+                    backgroundColor: primaryBlueWithTransparency(0.2),
+                    borderColor: primaryBlueWithTransparency(1),
+                    borderWidth: 1,
+                    hoverBackgroundColor: primaryBlueWithTransparency(0.4),
+                    hoverBorderColor: primaryBlueWithTransparency(1),
+                    data: this.state.ticketData.created_by_date
+                }
+            ]
+        };
+
+        return (
+            <div>
+                {this.renderTicketData()}
+                <Bar data={data}/>
+            </div>
+        );
+    }
+
+    renderTicketData() {
+        const {created, open, closed, instant, reopened} = this.state.ticketData;
+
+        const renderCard = (label, description, value, isPercentage) => {
+            const displayValue = isNaN(value) ? "-" : (isPercentage ? value.toFixed(2) : value);
+            return (
+                <div className="admin-panel-stats__card-list__card">
+                    <Tooltip content={description} openOnHover>
+                        {label}
+                    </Tooltip>
+                    <div className="admin-panel-stats__card-list__container">
+                        {displayValue}{isPercentage && !isNaN(value) ? "%" : ""}
+                    </div>
+                </div>
+            );
+        }
+
+        return (
+            <div className="admin-panel-stats__card-list">
+                {renderCard(i18n('CREATED'), i18n('CREATED_DESCRIPTION'), created, false)}
+                {renderCard(i18n('OPEN'), i18n('OPEN_DESCRIPTION'), open, false)}
+                {renderCard(i18n('CLOSED'), i18n('CLOSED_DESCRIPTION'), closed, false)}
+                {renderCard(i18n('INSTANT'), i18n('INSTANT_DESCRIPTION'), 100*instant / closed, true)}
+                {renderCard(i18n('REOPENED'), i18n('REOPENED_DESCRIPTION'), 100*reopened / created, true)}
             </div>
         )
     }
@@ -147,34 +202,6 @@ class AdminPanelStats extends React.Component {
 
     onFormSubmit() {
         this.retrieveStats();
-    }
-
-    renderTicketData() {
-        const {created, open, closed, instant, reopened} = this.state.ticketData;
-
-        const renderCard = (label, description, value, isPercentage) => {
-            const displayValue = isNaN(value) ? "-" : (isPercentage ? value.toFixed(2) : value);
-            return (
-                <div className="admin-panel-stats__card-list__card">
-                    <Tooltip content={description} openOnHover>
-                        {label}
-                    </Tooltip>
-                    <div className="admin-panel-stats__card-list__container">
-                        {displayValue}{isPercentage && !isNaN(value) ? "%" : ""}
-                    </div>
-                </div>
-            );
-        }
-
-        return (
-            <div className="admin-panel-stats__card-list">
-                {renderCard(i18n('CREATED'), i18n('CREATED_DESCRIPTION'), created, false)}
-                {renderCard(i18n('OPEN'), i18n('OPEN_DESCRIPTION'), open, false)}
-                {renderCard(i18n('CLOSED'), i18n('CLOSED_DESCRIPTION'), closed, false)}
-                {renderCard(i18n('INSTANT'), i18n('INSTANT_DESCRIPTION'), 100*instant / closed, true)}
-                {renderCard(i18n('REOPENED'), i18n('REOPENED_DESCRIPTION'), 100*reopened / created, true)}
-            </div>
-        )
     }
 }
 
