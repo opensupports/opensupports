@@ -74,15 +74,14 @@ class StatsController extends Controller {
         $this->tagsFilter = $this->addTagsFilter();
         $this->ownersFilter = $this->addOwnersFilter();
 
-        // var_dump($this->getNumberOfCreatedTicketsByHour());
-
         Response::respondSuccess([
             'created' => $this->getNumberOfCreatedTickets(),
             'open' => $this->getNumberOfOpenTickets(),
             'closed' => $this->getNumberOfClosedTickets(),
             'instant' => $this->getNumberOfInstantTickets(),
             'reopened' => $this->getNumberOfReopenedTickets(),
-            'created_by_date' => $this->getNumberOfCreatedTicketsByHour()
+            'created_by_date' => $this->getNumberOfCreatedTicketsByHour(),
+            'average_first_reply' => $this->getAverageFirstReply()
         ]);
     }
 
@@ -212,7 +211,7 @@ class StatsController extends Controller {
         ");
     }
 
-    // Returns 
+    // Returns an array of size 24 with the number of tickets created for each hour
     public function getNumberOfCreatedTicketsByHour() {
         $result = RedBean::getAll("
             SELECT 
@@ -237,5 +236,28 @@ class StatsController extends Controller {
             $ans[$hour] = $cnt;
         }
         return $ans;
+    }
+
+    // Returns the number of seconds, on average, that a ticket waits for the first reply of a staff
+    public function getAverageFirstReply() {
+        return (int) RedBean::getCell("
+            SELECT AVG(SECS)
+            FROM (
+                SELECT 
+                    ticket.id,
+                    UNIX_TIMESTAMP(STR_TO_DATE(CONVERT(MIN(ticketevent.date), CHAR), '%Y%m%d%H%i')) - 
+                    UNIX_TIMESTAMP(STR_TO_DATE(CONVERT(ticket.date, CHAR), '%Y%m%d%H%i')) AS SECS
+                FROM
+                    ticket
+                        LEFT JOIN
+                    ticketevent ON ticket.id = ticketevent.ticket_id
+                        LEFT JOIN
+                    tag_ticket ON ticket.id = tag_ticket.ticket_id
+                WHERE
+                    ticketevent.type = 'COMMENT'
+                        AND ticketevent.author_staff_id
+                        AND private = 0
+                GROUP BY ticket.id) AS Z;
+        ");
     }
 }
