@@ -227,7 +227,7 @@ class SearchController extends Controller {
         if(!$requestedOwnedDepartments && !$requestedNotOwnedDepartments){
             foreach($myDepartments as $department) {
                 if($first){
-                    $filters .= " ( ";
+                    $filters .= "(ticket.author_staff_id = " . $idStaff . " or ";
                     $first = FALSE;
                 } else {
                     $filters .= " or ";
