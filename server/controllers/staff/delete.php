@@ -46,8 +46,7 @@ class DeleteStaffController extends Controller {
         $staff = Staff::getDataStore($staffId);
 
         if($staffId === Controller::getLoggedUser()->id) {
-            throw new RequestException(ERRORS::INVALID_STAFF);
-            return;
+            throw new RequestException(ERRORS::YOU_CAN_NOT_DELETE_YOURSELF);
         }
 
         foreach($staff->sharedTicketList as $ticket) {
