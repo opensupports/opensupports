@@ -20,5 +20,14 @@
             width: 100%;
             padding: 5px 0;
         }
+
+        &__container {
+            padding-top: 15px;
+            width: 50%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
     }
 }

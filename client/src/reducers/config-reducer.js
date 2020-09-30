@@ -41,7 +41,7 @@ class ConfigReducer extends Reducer {
         sessionStore.storeConfigs(_.extend({}, payload.data, {
             language: currentLanguage || payload.data.language
         }));
-        
+
         return _.extend({}, state, payload.data, {
             language: currentLanguage || payload.data.language || 'en',
             registration: !!(payload.data.registration * 1),
@@ -52,6 +52,9 @@ class ConfigReducer extends Reducer {
             initDone: true,
             'default-department-id': payload.data['default-department-id'],
             'default-is-locked': payload.data['default-is-locked'],
+            'enable-google-login': !!(payload.data['enable-goole-login']*1),
+            'enable-facebook-login': !!(payload.data['enable-facebook-login']*1),
+            'enable-linkedin-login': !!(payload.data['enable-linkedin-login']*1),
         });
     }
 

@@ -61,7 +61,10 @@ class EditSettingsController extends Controller {
             'url',
             'mail-template-header-image',
             'default-is-locked',
-            'default-department-id'
+            'default-department-id',
+            'enable-google-login',
+            'enable-facebook-login',
+            'enable-linkedin-login'
         ];
         $this->checkDefaultDepartmentValid();
 

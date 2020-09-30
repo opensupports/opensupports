@@ -73,7 +73,10 @@ class SessionStore {
         this.setItem('max-size', configs['max-size']);
         this.setItem('tags', JSON.stringify(configs['tags']));
         this.setItem('default-is-locked', configs['default-is-locked']);
-        this.setItem('default-department-id',  configs['default-department-id']);
+        this.setItem('default-department-id', configs['default-department-id']);
+        this.setItem('enable-google-login', configs['enable-google-login']);
+        this.setItem('enable-facebook-login', configs['enable-facebook-login']);
+        this.setItem('enable-linkedin-login', configs['enable-linkedin-login']);
     }
 
     getConfigs() {
@@ -92,8 +95,10 @@ class SessionStore {
             'max-size': this.getItem('max-size'),
             'tags': JSON.parse(this.getItem('tags')),
             'default-is-locked': this.getItem('default-is-locked'),
-            'default-department-id':  this.getItem('default-department-id')
-            
+            'default-department-id': this.getItem('default-department-id'),
+            'enable-google-login': this.getItem('enable-google-login')*1,
+            'enable-facebook-login': this.getItem('enable-facebook-login')*1,
+            'enable-linkedin-login': this.getItem('enable-linkedin-login')*1
         };
     }
 
