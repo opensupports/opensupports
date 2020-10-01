@@ -18,7 +18,7 @@ class SocialLoginSettings extends React.Component {
         loading: true,
         message: null,
         values: {
-            "enable-google-login": true,
+            "enable-google-login": false,
             "enable-facebook-login": false,
             "enable-linkedin-login": false,
             "google-key": "",
@@ -43,10 +43,10 @@ class SocialLoginSettings extends React.Component {
                     loading={this.state.loading}>
                         {this.renderSettings()}
                         <div className="social-login-settings__form__container">
-                            <SubmitButton className="social-login-settings__container__submit-button" size= "medium" type="secondary">
+                            <SubmitButton className="social-login-settings__container__submit-button" size="medium" type="secondary">
                                 {i18n('UPDATE_SETTINGS')}
                             </SubmitButton>
-                            <Button className="social-login-settings__container__discard-button" size= "medium" onClick={this.onDiscardChangesSubmit.bind(this)}>
+                            <Button className="social-login-settings__container__discard-button" size="medium" onClick={this.onDiscardChangesSubmit.bind(this)}>
                                 {i18n('DISCARD_CHANGES')}
                             </Button>
                         </div>
@@ -72,7 +72,7 @@ class SocialLoginSettings extends React.Component {
                         <FormField
                             name={`enable-${plataformNameLowerCase}-login`}
                             className={`${socialLoginContainerClassName}__${plataformNameLowerCase}-checkbox`}
-                            label={`${plataform.name} Login`}
+                            label={`Enable ${plataform.name} Login`}
                             field="checkbox" />
                         <FormField
                             name={`${plataformNameLowerCase}-key`}

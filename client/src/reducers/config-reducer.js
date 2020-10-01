@@ -52,7 +52,7 @@ class ConfigReducer extends Reducer {
             initDone: true,
             'default-department-id': payload.data['default-department-id'],
             'default-is-locked': payload.data['default-is-locked'],
-            'enable-google-login': !!(payload.data['enable-goole-login']*1),
+            'enable-google-login': !!(payload.data['enable-google-login']*1),
             'enable-facebook-login': !!(payload.data['enable-facebook-login']*1),
             'enable-linkedin-login': !!(payload.data['enable-linkedin-login']*1),
         });

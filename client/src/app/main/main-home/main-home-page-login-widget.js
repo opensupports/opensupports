@@ -44,6 +44,8 @@ class MainHomePageLoginWidget extends React.Component {
     }
 
     renderLogin() {
+        const { config } = this.props;
+
         return (
             <Widget className="main-home-page__widget" title={i18n('LOG_IN')} ref="loginWidget">
                 <Form {...this.getLoginFormProps()}>
@@ -59,7 +61,10 @@ class MainHomePageLoginWidget extends React.Component {
                 <Button className="login-widget__forgot-password" type="link" onClick={this.onForgotPasswordClick.bind(this)} onMouseDown={(event) => {event.preventDefault()}}>
                     {i18n('FORGOT_PASSWORD')}
                 </Button>
-                <SocialLoginOptions googleLoginOption facebookLoginOption linkedInLoginOption />
+                <SocialLoginOptions
+                    googleLoginOption={config['enable-google-login']}
+                    facebookLoginOption={config['enable-facebook-login']}
+                    linkedInLoginOption={config['enable-linkedin-login']} />
             </Widget>
         );
     }
@@ -183,6 +188,7 @@ class MainHomePageLoginWidget extends React.Component {
 
 export default connect((store) => {
     return {
+        config: store.config,
         session: store.session
     };
 })(MainHomePageLoginWidget);
