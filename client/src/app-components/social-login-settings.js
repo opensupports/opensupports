@@ -87,7 +87,12 @@ class SocialLoginSettings extends React.Component {
 
     onFormChange(form) {
         this.setState({
-            values: form
+            values: {
+                ...form,
+                "google-key": form["enable-google-login"] ? form["google-key"] : "",
+                "facebook-key": form["enable-facebook-login"] ? form["facebook-key"] : "",
+                "linkedin-key": form["enable-linkedin-login"] ? form["linkedin-key"] : ""
+            }
         })
     }
 
