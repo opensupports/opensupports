@@ -93,8 +93,8 @@ class AdminPanelStats extends React.Component {
         return (
             <div>
                 {this.renderTicketData()}
-                <Bar data={ticketsByHoursChartData}/>
-                <HorizontalBar data={ticketsByWeekdayChartData}/>
+                <Bar data={ticketsByHoursChartData} legend={{onClick: null}}/> {/* Weird, but if you only set the legend here, it changes that of the HorizontalBar next too*/}
+                <HorizontalBar data={ticketsByWeekdayChartData} legend={{onClick: null}}/>
             </div>
         );
     }
