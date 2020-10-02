@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect }  from 'react-redux';
-import { Bar } from 'react-chartjs-2';
+import { Bar, HorizontalBar } from 'react-chartjs-2';
 
 
 import i18n from 'lib-app/i18n';
@@ -58,12 +58,12 @@ class AdminPanelStats extends React.Component {
     }
     
     renderStatistics() {
-        const primaryBlueWithTransparency = (alpha) => `rgba(32,184,197,${alpha})`;
-        const data = {
+        const primaryBlueWithTransparency = (alpha) => `rgba(32, 184, 197, ${alpha})`;
+        const ticketsByHoursChartData = {
             labels: Array.from(Array(24).keys()),
             datasets: [
                 {
-                    label: 'Created Tickets By Hour',
+                    label: 'Created Tickets by Hour',
                     backgroundColor: primaryBlueWithTransparency(0.2),
                     borderColor: primaryBlueWithTransparency(1),
                     borderWidth: 1,
@@ -74,10 +74,27 @@ class AdminPanelStats extends React.Component {
             ]
         };
 
+        const primaryGreenWithTransparency = (alpha) => `rgba(130, 202, 156, ${alpha})`;
+        const ticketsByWeekdayChartData = {
+            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], // Add i18n
+            datasets: [
+                {
+                    label: 'Created Tickets by Weekday',
+                    backgroundColor: primaryGreenWithTransparency(0.2),
+                    borderColor: primaryGreenWithTransparency(1),
+                    borderWidth: 1,
+                    hoverBackgroundColor: primaryGreenWithTransparency(0.4),
+                    hoverBorderColor: primaryGreenWithTransparency(1),
+                    data: this.state.ticketData.created_by_weekday
+                }
+            ]
+        }
+
         return (
             <div>
                 {this.renderTicketData()}
-                <Bar data={data}/>
+                <Bar data={ticketsByHoursChartData}/>
+                <HorizontalBar data={ticketsByWeekdayChartData}/>
             </div>
         );
     }
