@@ -81,6 +81,7 @@ class StatsController extends Controller {
             'instant' => $this->getNumberOfInstantTickets(),
             'reopened' => $this->getNumberOfReopenedTickets(),
             'created_by_date' => $this->getNumberOfCreatedTicketsByHour(),
+            'created_by_weekday' => $this->getNumberOfCreatedTicketsByWeekday(),
             'average_first_reply' => $this->getAverageFirstReply()
         ]);
     }
@@ -235,6 +236,33 @@ class StatsController extends Controller {
             $cnt  = (int)$result[$i]["CNT"];
             $ans[$hour] = $cnt;
         }
+        return $ans;
+    }
+
+    // Returns an array of size 7 with the number of tickets created by weekday (0 - monday, ..., 6 - sunday)
+    public function getNumberOfCreatedTicketsByWeekday() {
+        $result = RedBean::getAll("
+            SELECT 
+                VALID_TICKETS.WEEK_DAY, COUNT(RAW_CNT) AS CNT
+            FROM
+                (SELECT 
+                    COUNT(*) AS RAW_CNT, WEEKDAY(STR_TO_DATE(CONVERT(ticket.date, CHAR), '%Y%m%d%H%i')) AS WEEK_DAY
+                FROM {$this->table} WHERE 1 = 1
+                    {$this->dateRangeFilter}
+                    {$this->departmentsFilter}
+                    {$this->tagsFilter}
+                    {$this->ownersFilter}
+                {$this->groupBy}) AS VALID_TICKETS
+            GROUP BY VALID_TICKETS.WEEK_DAY;
+        ");
+
+        $ans = array_fill(0, 7, 0);
+        for ($i = 0; $i < count($result); ++$i) {
+            $hour = (int)$result[$i]["WEEK_DAY"];
+            $cnt  = (int)$result[$i]["CNT"];
+            $ans[$hour] = $cnt;
+        }
+
         return $ans;
     }
 
