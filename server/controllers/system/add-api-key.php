@@ -16,7 +16,7 @@ use Respect\Validation\Validator as DataValidator;
  * @apiParam {String} name Name of the new APIKey.
  * @apiParam {Boolean} canCreateUsers canCreateUsers determinates if the apikey has the permission to create users 
  * @apiParam {Boolean} canCreateTickets canCreateTickets determinates if the apikey has the permission to create tickets
- * @apiParam {Boolean} canCommentTickets canCommentTickets determinates if the apikey has the permission to comment tickets
+ * @apiParam {Boolean} canCheckTickets canCheckTickets determinates if the apikey has the permission to check tickets
  * @apiParam {Boolean} shouldReturnTicketNumber shouldReturnTicketNumber determinates if the apikey has the permission of returning ticket number after ticket creation
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_NAME
@@ -48,7 +48,7 @@ class AddAPIKeyController extends Controller {
         $name = Controller::request('name');
         $canCreateUsers = (bool)Controller::request('canCreateUsers');
         $canCreateTickets = (bool)Controller::request('canCreateTickets');
-        $canCommentTickets = (bool)Controller::request('canCommentTickets');
+        $canCheckTickets = (bool)Controller::request('canCheckTickets');
         $shouldReturnTicketNumber = (bool)Controller::request('shouldReturnTicketNumber');
         $keyInstance = APIKey::getDataStore($name, 'name');
 
@@ -60,7 +60,7 @@ class AddAPIKeyController extends Controller {
                 'token' => $token,
                 'canCreateUsers' => $canCreateUsers,
                 'canCreateTickets' => $canCreateTickets,
-                'canCommentTickets' => $canCommentTickets,
+                'canCheckTickets' => $canCheckTickets,
                 'shouldReturnTicketNumber' => $shouldReturnTicketNumber
             ]);
 

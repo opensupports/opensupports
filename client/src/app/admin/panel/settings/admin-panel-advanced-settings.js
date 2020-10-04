@@ -131,7 +131,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                     <FormField value={currentAPIKey.shouldReturnTicketNumber*1} label={i18n('TICKET_NUMBER_RETURN_PERMISSION')} field='checkbox'/>
                 </div>
                 <div className="admin-panel-advanced-settings__api-keys__permissions" >
-                    <FormField className="admin-panel-advanced-settings__api-keys__permissions__item" value={currentAPIKey.canCommentTickets*1} label={i18n('TICKET_COMMENT_PERMISSION')} field='checkbox'/>
+                    <FormField className="admin-panel-advanced-settings__api-keys__permissions__item" value={currentAPIKey.canCheckTickets*1} label={i18n('TICKET_CHECK_PERMISSION')} field='checkbox'/>
                     <FormField value={currentAPIKey.canCreateUser*1} label={i18n('USER_CREATION_PERMISSION')} field='checkbox'/>
                 </div>
                 <Button className="admin-panel-advanced-settings__api-keys-button" size="medium" onClick={this.onDeleteKeyClick.bind(this)}>
@@ -167,7 +167,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                     <FormField name="ticketNumberPermission" label={i18n('TICKET_NUMBER_RETURN_PERMISSION')}  field='checkbox'/>
                 </div>
                 <div className="admin-panel-advanced-settings__api-keys__permissions" >
-                    <FormField className = "admin-panel-advanced-settings__api-keys__permissions__item" name="commentTicketPermission" label={i18n('TICKET_COMMENT_PERMISSION')}  field='checkbox'/>
+                    <FormField className = "admin-panel-advanced-settings__api-keys__permissions__item" name="commentTicketPermission" label={i18n('TICKET_CHECK_PERMISSION')}  field='checkbox'/>
                     <FormField name="userPermission" label={i18n('USER_CREATION_PERMISSION')}   field='checkbox'/>
                 </div>
                 <SubmitButton className="admin-panel-advanced-settings__api-keys-modal__submit-button" type="secondary">{i18n('SUBMIT')}</SubmitButton>
@@ -186,7 +186,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                 name,
                 canCreateUsers: userPermission*1,
                 canCreateTickets: createTicketPermission*1,
-                canCommentTickets: commentTicketPermission*1,
+                canCheckTickets: commentTicketPermission*1,
                 shouldReturnTicketNumber: ticketNumberPermission*1
             }
         }).then(this.getAllKeys.bind(this));

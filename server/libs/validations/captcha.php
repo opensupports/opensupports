@@ -26,17 +26,16 @@ class Captcha extends AbstractRule {
         if (!$apiKey->isNull()){
             switch ($this->apiKeyPermissionType) {
                 case 'TICKET_CREATE_PERMISSION':
-                    return $apiKey->canCreateUsers;
-                case 'USER_CREATE_PERMISSION': 
-                    return $apiKey->canCommentTickets;
-                case 'TICKET_COMMENT_PERMISSION':
                     return $apiKey->canCreateTickets;
+                case 'USER_CREATE_PERMISSION': 
+                    return $apiKey->canCreateUsers;
+                case 'TICKET_CHECK_PERMISSION':
+                    return $apiKey->canCheckTickets;
             }
         }
 
         $reCaptcha = new \ReCaptcha\ReCaptcha($reCaptchaPrivateKey);
         $reCaptchaValidation = $reCaptcha->verify($reCaptchaResponse, $_SERVER['REMOTE_ADDR']);
-
         return $reCaptchaValidation->isSuccess();
     }
 }

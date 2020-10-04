@@ -53,10 +53,6 @@ class CommentController extends Controller {
                 'ticketNumber' => [
                     'validation' => DataValidator::validTicketNumber(),
                     'error' => ERRORS::INVALID_TICKET
-                ],
-                'apiKey' => [
-                    'validation' => DataValidator::oneOf(DataValidator::captcha(APIKey::TICKET_COMMENT_PERMISSION),DataValidator::nullType()),
-                    'error' => ERRORS::INVALID_CAPTCHA
                 ]
             ]
         ];
@@ -76,11 +72,6 @@ class CommentController extends Controller {
 
         if(!$this->user->canManageTicket($this->ticket)) {
             throw new RequestException(ERRORS::NO_PERMISSION);
-        }
-        
-
-        if(Controller::request('apiKey') && ($apiKey->isNUll() || !$apiKey->canCommentTickets) ) {
-            throw new Exception(ERRORS::INVALID_API_KEY_PERMISSION);
         }
 
         $this->storeComment();

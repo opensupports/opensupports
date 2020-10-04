@@ -65,13 +65,13 @@ describe'system/add-api-key' do
         (row['can_create_users']).should.equal(0)
         (row['can_create_tickets']).should.equal(0)
         (row['should_return_ticket_number']).should.equal(1)
-        (row['can_comment_tickets']).should.equal(0)
+        (row['can_check_tickets']).should.equal(0)
 
         result= request('/system/add-api-key', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
-            name: 'APIkey comment tickets',
-            canCommentTickets: 'true'
+            name: 'APIkey check tickets',
+            canCheckTickets: 'true'
         })
 
         (result['status']).should.equal('success')
@@ -81,7 +81,7 @@ describe'system/add-api-key' do
         (row['can_create_users']).should.equal(0)
         (row['can_create_tickets']).should.equal(0)
         (row['should_return_ticket_number']).should.equal(0)
-        (row['can_comment_tickets']).should.equal(1)
+        (row['can_check_tickets']).should.equal(1)
 
         result= request('/system/add-api-key', {
             csrf_userid: $csrf_userid,
@@ -97,7 +97,7 @@ describe'system/add-api-key' do
         (row['can_create_users']).should.equal(1)
         (row['can_create_tickets']).should.equal(0)
         (row['should_return_ticket_number']).should.equal(0)
-        (row['can_comment_tickets']).should.equal(0)
+        (row['can_check_tickets']).should.equal(0)
 
         result= request('/system/add-api-key', {
             csrf_userid: $csrf_userid,
@@ -113,6 +113,6 @@ describe'system/add-api-key' do
         (row['can_create_users']).should.equal(0)
         (row['can_create_tickets']).should.equal(1)
         (row['should_return_ticket_number']).should.equal(0)
-        (row['can_comment_tickets']).should.equal(0)
+        (row['can_check_tickets']).should.equal(0)
     end
 end

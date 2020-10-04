@@ -11,10 +11,10 @@ class APIKey extends DataStore {
     const TABLE  = 'apikey';
     const TICKET_CREATE_PERMISSION = 'TICKET_CREATE_PERMISSION';
     const USER_CREATE_PERMISSION = 'USER_CREATE_PERMISSION';
-    const TICKET_COMMENT_PERMISSION = 'TICKET_CREATE_PERMISSION';
+    const TICKET_CHECK_PERMISSION = 'TICKET_CHECK_PERMISSION';
     const TICKET_NUMBER_RETURN_PERMISSION = 'TICKET_NUMBER_RETURN_PERMISSION';
 
-    const TYPES = [APIKey::TICKET_CREATE_PERMISSION,APIKey::USER_CREATE_PERMISSION,APIKey::TICKET_COMMENT_PERMISSION,APIKey::TICKET_NUMBER_RETURN_PERMISSION];
+    const TYPES = [APIKey::TICKET_CREATE_PERMISSION,APIKey::USER_CREATE_PERMISSION,APIKey::TICKET_CHECK_PERMISSION,APIKey::TICKET_NUMBER_RETURN_PERMISSION];
 
     public static function getProps() {
         return [
@@ -22,7 +22,7 @@ class APIKey extends DataStore {
             'token',
             'canCreateUsers',
             'canCreateTickets',
-            'canCommentTickets',
+            'canCheckTickets',
             'shouldReturnTicketNumber'
         ];
     }
@@ -33,7 +33,7 @@ class APIKey extends DataStore {
             'token' => $this->token,
             'canCreateUser' => $this->canCreateUsers,
             'canCreateTickets' => $this->canCreateTickets,
-            'canCommentTickets' => $this->canCommentTickets,
+            'canCheckTickets' => $this->canCheckTickets,
             'shouldReturnTicketNumber' => $this->shouldReturnTicketNumber
         ];
     }

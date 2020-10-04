@@ -12,7 +12,7 @@ describe'system/get-api-keys' do
         (result['status']).should.equal('success')
         (result['data'][0]['name']).should.equal('APIkeyToTicketget')
         (result['data'][1]['name']).should.equal('APIkey ticketnumber return')
-        (result['data'][2]['name']).should.equal('APIkey comment tickets')
+        (result['data'][2]['name']).should.equal('APIkey check tickets')
         (result['data'][3]['name']).should.equal('APIkey user create')
         (result['data'][4]['name']).should.equal('APIkey  create tickets')
         

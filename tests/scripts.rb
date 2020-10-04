@@ -96,14 +96,14 @@ class Scripts
         result['data']
     end
 
-    def self.createAPIKey(name, canCreateUsers=0, canCreateTickets=0, canCommentTickets=0,  shouldReturnTicketNumber=0)
+    def self.createAPIKey(name, canCreateUsers=0, canCreateTickets=0, canCheckTickets=0,  shouldReturnTicketNumber=0)
         request('/system/add-api-key', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             name: name,
             canCreateUsers: canCreateUsers,
             canCreateTickets: canCreateTickets,
-            canCommentTickets: canCommentTickets,
+            canCheckTickets: canCheckTickets,
             shouldReturnTicketNumber: shouldReturnTicketNumber
         })
     end
