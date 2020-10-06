@@ -288,4 +288,24 @@ class StatsController extends Controller {
                 GROUP BY ticket.id) AS Z;
         ");
     }
+
+    // Returns the number of seconds, on average, that a ticket waits until it's first closed
+    public function getAverageFirstClosed() {
+        
+    }
+
+    // Returns the number of seconds, on average, that a ticket waits until it's closed for the last time
+    public function getAverageLastClosed() {
+
+    }
+
+    // Returns the average number of departments a ticket has been in
+    public function getAverageDepartmentHops() {
+
+    }
+
+    // Returns the average number of staff members a ticket has been assigned to
+    public function getAverageStaffHops() {
+        
+    }
 }
