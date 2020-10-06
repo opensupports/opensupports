@@ -83,7 +83,9 @@ class StatsController extends Controller {
             'created_by_date' => $this->getNumberOfCreatedTicketsByHour(),
             'created_by_weekday' => $this->getNumberOfCreatedTicketsByWeekday(),
             'average_first_reply' => $this->getAverageFirstReply(),
-            'average_first_closed' => $this->getAverageFirstClosed()
+            'average_first_closed' => $this->getAverageFirstClosed(),
+            'average_department_hops' => $this->getAverageDepartmentHops(),
+            'average_staff_hops' => $this->getAverageStaffHops()
         ]);
     }
 
@@ -334,11 +336,11 @@ class StatsController extends Controller {
 
     // Returns the average number of departments a ticket has been in
     public function getAverageDepartmentHops() {
-        
+        return 0;
     }
 
     // Returns the average number of staff members a ticket has been assigned to
     public function getAverageStaffHops() {
-
+        return 0;
     }
 }
