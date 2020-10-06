@@ -193,6 +193,8 @@ class CreateController extends Controller {
             'closed' => false,
             'authorName' => $this->name,
             'authorEmail' => $this->email,
+            'totalDepartments' => 0,
+            'totalOwners' => 0
         ));
 
         $ticket->setAuthor($author);

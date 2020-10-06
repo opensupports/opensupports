@@ -53,7 +53,9 @@ class Ticket extends DataStore {
             'authorName',
             'sharedTagList',
             'editedContent',
-            'editedTitle'
+            'editedTitle',
+            'totalDepartments',
+            'totalOwners'
         );
     }
 
