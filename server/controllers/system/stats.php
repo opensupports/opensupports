@@ -269,7 +269,7 @@ class StatsController extends Controller {
         return $ans;
     }
 
-    // Returns the number of seconds, on average, that a ticket waits for the first reply of a staff
+    // Returns the number of seconds (as int), on average, that a ticket waits for the first reply of a staff
     public function getAverageFirstReply() {
         return (int) RedBean::getCell("
             SELECT AVG(SECS)
@@ -292,7 +292,7 @@ class StatsController extends Controller {
         ");
     }
 
-    // Returns the number of seconds, on average, that a ticket waits until it's first closed
+    // Returns the number of seconds (as int), on average, that a ticket waits until it's first closed
     public function getAverageFirstClosed() {
         return (int) RedBean::getCell("
             SELECT
@@ -313,7 +313,7 @@ class StatsController extends Controller {
         ");
     }
 
-    // Returns the number of seconds, on average, that a ticket waits until it's closed for the last time
+    // Returns the number of seconds (as int), on average, that a ticket waits until it's closed for the last time
     public function getAverageLastClosed() {
         return (int) RedBean::getCell("
             SELECT
@@ -334,13 +334,43 @@ class StatsController extends Controller {
         ");
     }
 
-    // Returns the average number of departments a ticket has been in
+    // Returns the average number of departments (as double) a ticket has been in
     public function getAverageDepartmentHops() {
-        return 0;
+        return (double) RedBean::getCell("
+            SELECT
+                AVG(CNT)
+            FROM
+                (SELECT 
+                    ticket.id, ticket.total_departments AS CNT
+                FROM
+                    {$this->table}
+                WHERE
+                    1 = 1
+                    {$this->dateRangeFilter}
+                    {$this->departmentsFilter}
+                    {$this->tagsFilter}
+                    {$this->ownersFilter}
+                {$this->groupBy}) AS Z;
+        ");
     }
 
     // Returns the average number of staff members a ticket has been assigned to
     public function getAverageStaffHops() {
-        return 0;
+        return (double) RedBean::getCell("
+            SELECT
+                AVG(CNT)
+            FROM
+                (SELECT 
+                    ticket.id, ticket.total_owners AS CNT
+                FROM
+                    {$this->table}
+                WHERE
+                    1 = 1
+                    {$this->dateRangeFilter}
+                    {$this->departmentsFilter}
+                    {$this->tagsFilter}
+                    {$this->ownersFilter}
+                {$this->groupBy}) AS Z;
+        ");
     }
 }
