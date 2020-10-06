@@ -2,14 +2,14 @@ describe '/ticket/search' do
     request('/user/logout')
     Scripts.login($staff[:email], $staff[:password], true)
 
-    result = Scripts.createTicket('test ticket1')
-    @ticketNumber1 = result['ticketNumber']
+    Scripts.createTicket('test ticket1')
+    @ticketNumber1 = $database.getRow('ticket', 'test ticket1', 'title')['ticket_number']
 
-    result = Scripts.createTicket('test ticket2')
-    @ticketNumber2 = result['ticketNumber']
+    Scripts.createTicket('test ticket2')
+    @ticketNumber2 = $database.getRow('ticket', 'test ticket2', 'title')['ticket_number']
 
-    result = Scripts.createTicket('test ticket3')
-    @ticketNumber3 = result['ticketNumber']
+    Scripts.createTicket('test ticket3')
+    @ticketNumber3 = $database.getRow('ticket', 'test ticket3', 'title')['ticket_number']
 
     $pages = 1..10
 
