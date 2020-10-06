@@ -119,7 +119,7 @@ export default {
     'ADD_CUSTOM_TAG': 'Özel etiket ekle',
     'EDIT_CUSTOM_TAG': 'Düzenleme özel etiket',
     'NO_RESULTS': 'Sonuç yok',
-    'DELETE_AND_BAN': 'Sil ve yasaklama',
+    'DELETE_AND_BAN': 'Sil ve yasakla',
     'STAFF_LEVEL': 'Personel Seviyesi',
     'ASSIGNED': 'Atanmış',
     'ASSIGNED_TICKETS': '{tickets} bilet atandı',
