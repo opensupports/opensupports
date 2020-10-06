@@ -37,7 +37,7 @@ class TicketGetController extends Controller {
             'requestData' => [
                 'ticketNumber' => [
                     'validation' => DataValidator::validTicketNumber(),
-                    'error' => ERRORS::INVALID_TICKET
+                    'error' => ERRORS::NO_PERMISSION
                 ]
             ]
         ];

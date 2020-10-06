@@ -7,7 +7,6 @@ describe'system/edit-settings' do
             "csrf_userid" => $csrf_userid,
             "csrf_token" => $csrf_token,
             "maintenance-mode" => 0,
-            "time-zone" => -3,
             "layout" => 'full-width',
             "allow-attachments" => 1,
             "max-size" => 2,
@@ -20,9 +19,6 @@ describe'system/edit-settings' do
 
         row = $database.getRow('setting', 'maintenance-mode', 'name')
         (row['value']).should.equal('0')
-
-        row = $database.getRow('setting', 'time-zone', 'name')
-        (row['value']).should.equal('-3')
 
         row = $database.getRow('setting', 'layout', 'name')
         (row['value']).should.equal('full-width')

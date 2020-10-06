@@ -1,6 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
 import classNames from 'classnames';
+import {connect} from 'react-redux';
+
+import AdminDataActions from 'actions/admin-data-actions';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -21,6 +24,7 @@ class StaffEditor extends React.Component {
     static propTypes = {
         myAccount: React.PropTypes.bool,
         staffId: React.PropTypes.number,
+        userId: React.PropTypes.number,
         email: React.PropTypes.string.isRequired,
         name: React.PropTypes.string.isRequired,
         profilePic: React.PropTypes.string.isRequired,
@@ -46,32 +50,46 @@ class StaffEditor extends React.Component {
     };
 
     render() {
+        const {
+            name,
+            level,
+            tickets,
+            profilePic,
+            myAccount,
+            staffId,
+            userId
+        } = this.props;
+        const {
+            message,
+            loadingPicture,
+            email
+        } = this.state;
         return (
             <div className="staff-editor">
-                {(this.state.message) ? this.renderMessage() : null}
+                {message ? this.renderMessage() : null}
                 <div className="row">
                     <div className="col-md-4">
                         <div className="staff-editor__card">
                             <div className="staff-editor__card-data">
                                 <div className="staff-editor__card-name">
-                                    {this.props.name}
+                                    {name}
                                 </div>
                                 <div className="staff-editor__card-info">
                                     <div className="staff-editor__card-badge">
                                         <span className="staff-editor__card-badge-blue">
-                                            {this.props.level}
+                                            {level}
                                         </span>
                                         <span className="staff-editor__card-badge-text">{i18n('STAFF_LEVEL')}</span>
                                     </div>
                                     <div className="staff-editor__card-badge">
                                         <span className="staff-editor__card-badge-green">
-                                            {_.filter(this.props.tickets, {closed: false}).length}
+                                            {_.filter(tickets, {closed: false}).length}
                                         </span>
                                         <span className="staff-editor__card-badge-text">{i18n('ASSIGNED')}</span>
                                     </div>
                                     <div className="staff-editor__card-badge">
                                         <span className="staff-editor__card-badge-red">
-                                            {_.filter(this.props.tickets, {closed: true}).length}
+                                            {_.filter(tickets, {closed: true}).length}
                                         </span>
                                         <span className="staff-editor__card-badge-text">{i18n('CLOSED')}</span>
                                     </div>
@@ -79,15 +97,15 @@ class StaffEditor extends React.Component {
                             </div>
                             <label className={this.getPictureWrapperClass()}>
                                 <div className="staff-editor__card-pic-background"></div>
-                                <img className="staff-editor__card-pic" src={(this.props.profilePic) ? API.getFileLink(this.props.profilePic) : (API.getURL() + '/images/profile.png')} />
-                                {(this.state.loadingPicture) ? <Loading className="staff-editor__card-pic-loading" size="large"/> : <Icon className="staff-editor__card-pic-icon" name="upload" size="4x"/>}
+                                <img className="staff-editor__card-pic" src={(profilePic) ? API.getFileLink(profilePic) : (API.getURL() + '/images/profile.png')} />
+                                {(loadingPicture) ? <Loading className="staff-editor__card-pic-loading" size="large"/> : <Icon className="staff-editor__card-pic-icon" name="upload" size="4x"/>}
                                 <input className="staff-editor__image-uploader" type="file" multiple={false} accept="image/x-png,image/gif,image/jpeg" onChange={this.onProfilePicChange.bind(this)}/>
                             </label>
                         </div>
                     </div>
                     <div className="col-md-8">
                         <div className="staff-editor__form">
-                            <Form className="staff-editor__update-email" values={{email: this.state.email}} onChange={form => this.setState({email: form.email})} onSubmit={this.onSubmit.bind(this, 'EMAIL')}>
+                            <Form className="staff-editor__update-email" values={{email: email}} onChange={form => this.setState({email: form.email})} onSubmit={this.onSubmit.bind(this, 'EMAIL')}>
                                 <FormField name="email" validation="EMAIL" required label={i18n('EMAIL')} fieldProps={{size: 'large'}}/>
                                 <SubmitButton size="medium" className="staff-editor__submit-button">{i18n('UPDATE_EMAIL')}</SubmitButton>
                             </Form>
@@ -97,7 +115,7 @@ class StaffEditor extends React.Component {
                                 <FormField name="rpassword" validation="REPEAT_PASSWORD" required label={i18n('REPEAT_PASSWORD')} fieldProps={{size: 'large', password: true}}/>
                                 <SubmitButton size="medium" className="staff-editor__submit-button">{i18n('UPDATE_PASSWORD')}</SubmitButton>
                             </Form>
-                            {(this.props.myAccount) ? this.renderSendEmailOnNewTicketForm() : this.renderLevelForm()}
+                            {(myAccount) ? this.renderSendEmailOnNewTicketForm() : this.renderLevelForm()}
                             <span className="separator staff-editor__separator" />
                         </div>
                     </div>
@@ -106,7 +124,7 @@ class StaffEditor extends React.Component {
                     <div className="col-md-4">
                         <div className="staff-editor__departments">
                             <div className="staff-editor__departments-title">{i18n('DEPARTMENTS')}</div>
-                            {(!this.props.myAccount) ? this.renderDepartmentsForm() : this.renderDepartmentsInfo()}
+                            {(myAccount && (level !== 3))  ? this.renderDepartmentsInfo() : this.renderDepartmentsForm()}
                         </div>
                     </div>
                     <div className="col-md-8">
@@ -116,38 +134,39 @@ class StaffEditor extends React.Component {
                         </div>
                     </div>
                 </div>
-                {(this.props.tickets) ? this.renderTickets() : null}
-                {(!this.props.myAccount) ? this.renderDelete() : null}
+                {(tickets) ? this.renderTickets() : null}
+                {((!myAccount) && (userId !== staffId)) ? this.renderDelete() : null}
             </div>
         );
     }
 
     renderMessage() {
-        let messageType = (this.state.message === 'FAIL') ? 'error' : 'success';
-        let message = null;
+        const { message } = this.state;
+        let messageType = (message === 'FAIL') ? 'error' : 'success';
+        let _message = null;
 
-        switch (this.state.message) {
+        switch (message) {
             case 'EMAIL':
-                message = 'EMAIL_CHANGED';
+                _message = 'EMAIL_CHANGED';
                 break;
             case 'PASSWORD':
-                message = 'PASSWORD_CHANGED';
+                _message = 'PASSWORD_CHANGED';
                 break;
             case 'LEVEL':
-                message = 'LEVEL_UPDATED';
+                _message = 'LEVEL_UPDATED';
                 break;
             case 'DEPARTMENTS':
-                message = 'DEPARTMENTS_UPDATED';
+                _message = 'DEPARTMENTS_UPDATED';
                 break;
             case 'SEND_EMAIL_ON_NEW_TICKET':
-                message = 'STAFF_UPDATED';
+                _message = 'STAFF_UPDATED';
                 break;
             case 'FAIL':
-                message = 'FAILED_EDIT_STAFF';
+                _message = 'FAILED_EDIT_STAFF';
                 break;
         }
 
-        return <Message className="staff-editor__message" type={messageType}>{i18n(message)}</Message>;
+        return <Message className="staff-editor__message" type={messageType}>{i18n(_message)}</Message>;
     }
 
     renderSendEmailOnNewTicketForm() {
@@ -190,7 +209,7 @@ class StaffEditor extends React.Component {
     renderDepartmentsInfo() {
         return (
             <Form values={{departments: this.state.departments}}>
-                <FormField name="departments" field="checkbox-group" fieldProps={{items: this.getDepartments()}} />
+                <FormField name="departments" field="checkbox-group" fieldProps={{items: this.getDepartments().filter((department,index) => this.state.departments.includes(index))}} />
             </Form>
         );
     }
@@ -241,11 +260,16 @@ class StaffEditor extends React.Component {
     }
 
     getTicketListProps() {
+        const {
+            staffId,
+            tickets,
+            departments
+        } = this.props;
         return {
             type: 'secondary',
-            userId: this.props.staffId,
-            tickets: this.props.tickets,
-            departments: this.props.departments,
+            userId: staffId,
+            tickets: tickets,
+            departments: departments,
             ticketPath: '/admin/panel/tickets/view-ticket/'
         };
     }
@@ -259,13 +283,12 @@ class StaffEditor extends React.Component {
                 departmentIndexes.push(index);
             }
         });
-
         return departmentIndexes;
     }
 
     getDepartments() {
         return SessionStore.getDepartments().map(department => {
-            if(department.private * 1){
+            if(department.private*1){
                 return <span> {department.name} <Icon name='user-secret'/> </span>
             } else {
                 return department.name;
@@ -293,6 +316,11 @@ class StaffEditor extends React.Component {
     }
 
     onSubmit(eventType, form) {
+        const {
+            myAccount,
+            staffId,
+            onChange
+        } = this.props;
         let departments;
 
         if(form.departments) {
@@ -304,20 +332,19 @@ class StaffEditor extends React.Component {
         API.call({
             path: '/staff/edit',
             data: {
-                staffId: (!this.props.myAccount) ? this.props.staffId : null,
+                staffId: (!myAccount) ? staffId : null,
                 sendEmailOnNewTicket: (eventType === 'SEND_EMAIL_ON_NEW_TICKET') ? form.sendEmailOnNewTicket * 1 : null,
                 email: (eventType === 'EMAIL') ? form.email : null,
                 password: (eventType === 'PASSWORD') ? form.password : null,
-                level: (form.level !== undefined && eventType == 'LEVEL') ? form.level + 1 : null,
+                level: ((form.level !== undefined) && (eventType == 'LEVEL')) ? form.level + 1 : null,
                 departments: (eventType === 'DEPARTMENTS') ? (departments && JSON.stringify(departments)) : null,
             }
         }).then(() => {
+            this.retrieveStaffMembers();
             window.scrollTo(0,0);
             this.setState({message: eventType});
 
-            if(this.props.onChange) {
-                this.props.onChange();
-            }
+            onChange && onChange();
         }).catch(() => {
             window.scrollTo(0,0);
             this.setState({message: 'FAIL'});
@@ -325,18 +352,27 @@ class StaffEditor extends React.Component {
     }
 
     onDeleteClick() {
+        const {
+            staffId,
+            onDelete
+        } = this.props;
         return API.call({
             path: '/staff/delete',
             data: {
-                staffId: this.props.staffId
+                staffId: staffId
             }
-        }).then(this.props.onDelete).catch(() => {
+        }).then(onDelete).catch(() => {
             window.scrollTo(0,0);
             this.setState({message: 'FAIL'});
         });
     }
 
     onProfilePicChange(event) {
+        const {
+            myAcount,
+            staffId,
+            onChange
+        } = this.props;
         this.setState({
             loadingPicture: true
         });
@@ -345,7 +381,7 @@ class StaffEditor extends React.Component {
             path: '/staff/edit',
             dataAsForm: true,
             data: {
-                staffId: (!this.props.myAcount) ? this.props.staffId : null,
+                staffId: (!myAcount) ? staffId : null,
                 file: event.target.files[0]
             }
         }).then(() => {
@@ -353,14 +389,16 @@ class StaffEditor extends React.Component {
                 loadingPicture: false
             });
 
-            if(this.props.onChange) {
-                this.props.onChange();
-            }
+            onChange && onChange();
         }).catch(() => {
             window.scrollTo(0,0);
             this.setState({message: 'FAIL', loadingPicture: false});
         });
     }
+
+    retrieveStaffMembers() {
+        this.props.dispatch(AdminDataActions.retrieveStaffMembers());
+    }
 }
 
-export default StaffEditor;
+export default connect()(StaffEditor);

@@ -41,7 +41,6 @@ export function updateSearchTicketsFromURL() {
                 searchTicketsUtils.prepareFiltersForAPI(listConfig.filters)
             ));
         });
-
     }
 }
 

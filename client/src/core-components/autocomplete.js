@@ -168,6 +168,7 @@ class Autocomplete extends React.Component {
 
             onChange && onChange(newList);
             onItemSelected && onItemSelected(selectedItem.id);
+            this.searchApi("", newList);
         }
     }
 
@@ -240,20 +241,22 @@ class Autocomplete extends React.Component {
         const { getItemListFromQuery } = this.props;
         let id = ++this.searchApiRequestId;
 
-        getItemListFromQuery && getItemListFromQuery(query, blacklist.map(
-            item => {return item.isStaff !== undefined ? {isStaff: item.isStaff, id: item.id} : item.id}
-        ))
-        .then(result => {
-            if (id === this.searchApiRequestId){
-                this.setState({
-                    itemsFromQuery: result,
-                    loading: false,
-                });
-            }
-        })
-        .catch(() => this.setState({
-            loading: false,
-        }));
+        if(getItemListFromQuery) {
+            this.setState({loading: true});
+
+            getItemListFromQuery(query, blacklist)
+            .then(result => {
+                if (id === this.searchApiRequestId){
+                    this.setState({
+                        itemsFromQuery: result,
+                        loading: false,
+                    });
+                }
+            })
+            .catch(() => this.setState({
+                loading: false,
+            }));
+        }
     }
 }
 

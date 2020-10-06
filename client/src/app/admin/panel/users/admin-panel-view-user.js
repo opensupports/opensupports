@@ -88,7 +88,7 @@ class AdminPanelViewUser extends React.Component {
                     <div className="admin-panel-view-user__supervised-users-content">
                         <Autocomplete
                             onChange={this.onChangeValues.bind(this)}
-                            getItemListFromQuery={this.searchUsers} 
+                            getItemListFromQuery={this.searchUsers.bind(this)}
                             values={this.transformUserListToAutocomplete()}
                         />
                         <Button
@@ -110,6 +110,7 @@ class AdminPanelViewUser extends React.Component {
             </div>
         );
     }
+
     renderSupervisedUserMessage(){
         if(this.state.message) {
             if(this.state.message != 'success'){
@@ -161,7 +162,10 @@ class AdminPanelViewUser extends React.Component {
             userList: newList
         });
     }
+
     searchUsers(query, blacklist = []) {
+        blacklist = blacklist.map(item => {return {isStaff: item.isStaff, id: item.id}});
+
         return API.call({
             path: '/ticket/search-authors',
             data: {
@@ -170,7 +174,9 @@ class AdminPanelViewUser extends React.Component {
                 searchUsers: 1
             }
         }).then(r => {
-            return r.data.authors.map(author => {
+            const authorsListWithoutMe = r.data.authors.filter(author => author.id != this.props.params.userId);
+
+            return authorsListWithoutMe.map(author => {
                 return {
                     name: author.name,
                     color: "gray",
