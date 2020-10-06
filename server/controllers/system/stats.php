@@ -82,7 +82,8 @@ class StatsController extends Controller {
             'reopened' => $this->getNumberOfReopenedTickets(),
             'created_by_date' => $this->getNumberOfCreatedTicketsByHour(),
             'created_by_weekday' => $this->getNumberOfCreatedTicketsByWeekday(),
-            'average_first_reply' => $this->getAverageFirstReply()
+            'average_first_reply' => $this->getAverageFirstReply(),
+            'average_first_closed' => $this->getAverageFirstClosed()
         ]);
     }
 
@@ -291,7 +292,21 @@ class StatsController extends Controller {
 
     // Returns the number of seconds, on average, that a ticket waits until it's first closed
     public function getAverageFirstClosed() {
-        
+        return (int) RedBean::getCell("
+            SELECT
+                AVG(SECS)
+            FROM
+                (SELECT 
+                    ticket.id,
+                        UNIX_TIMESTAMP(STR_TO_DATE(CONVERT( MIN(ticket.first_closed_at) , CHAR), '%Y%m%d%H%i')) - UNIX_TIMESTAMP(STR_TO_DATE(CONVERT( ticket.date , CHAR), '%Y%m%d%H%i')) AS SECS
+                FROM
+                    ticket
+                LEFT JOIN ticketevent ON ticket.id = ticketevent.ticket_id
+                LEFT JOIN tag_ticket ON ticket.id = tag_ticket.ticket_id
+                WHERE
+                    first_closed_at IS NOT NULL
+                GROUP BY ticket.id) AS Z;
+        ");
     }
 
     // Returns the number of seconds, on average, that a ticket waits until it's closed for the last time
@@ -301,11 +316,11 @@ class StatsController extends Controller {
 
     // Returns the average number of departments a ticket has been in
     public function getAverageDepartmentHops() {
-
+        
     }
 
     // Returns the average number of staff members a ticket has been assigned to
     public function getAverageStaffHops() {
-        
+
     }
 }
