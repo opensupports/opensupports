@@ -277,16 +277,16 @@ class StatsController extends Controller {
                     UNIX_TIMESTAMP(STR_TO_DATE(CONVERT(MIN(ticketevent.date), CHAR), '%Y%m%d%H%i')) - 
                     UNIX_TIMESTAMP(STR_TO_DATE(CONVERT(ticket.date, CHAR), '%Y%m%d%H%i')) AS SECS
                 FROM
-                    ticket
-                        LEFT JOIN
-                    ticketevent ON ticket.id = ticketevent.ticket_id
-                        LEFT JOIN
-                    tag_ticket ON ticket.id = tag_ticket.ticket_id
+                    {$this->table}
                 WHERE
                     ticketevent.type = 'COMMENT'
                         AND ticketevent.author_staff_id
                         AND private = 0
-                GROUP BY ticket.id) AS Z;
+                        {$this->dateRangeFilter}
+                        {$this->departmentsFilter}
+                        {$this->tagsFilter}
+                        {$this->ownersFilter}
+                    {$this->groupBy}) AS Z;
         ");
     }
 
@@ -300,12 +300,14 @@ class StatsController extends Controller {
                     ticket.id,
                         UNIX_TIMESTAMP(STR_TO_DATE(CONVERT( MIN(ticket.first_closed_at) , CHAR), '%Y%m%d%H%i')) - UNIX_TIMESTAMP(STR_TO_DATE(CONVERT( ticket.date , CHAR), '%Y%m%d%H%i')) AS SECS
                 FROM
-                    ticket
-                LEFT JOIN ticketevent ON ticket.id = ticketevent.ticket_id
-                LEFT JOIN tag_ticket ON ticket.id = tag_ticket.ticket_id
+                    {$this->table}
                 WHERE
                     first_closed_at IS NOT NULL
-                GROUP BY ticket.id) AS Z;
+                    {$this->dateRangeFilter}
+                    {$this->departmentsFilter}
+                    {$this->tagsFilter}
+                    {$this->ownersFilter}
+                {$this->groupBy}) AS Z;
         ");
     }
 
@@ -319,12 +321,14 @@ class StatsController extends Controller {
                     ticket.id,
                         UNIX_TIMESTAMP(STR_TO_DATE(CONVERT( MIN(ticket.last_closed_at) , CHAR), '%Y%m%d%H%i')) - UNIX_TIMESTAMP(STR_TO_DATE(CONVERT( ticket.date , CHAR), '%Y%m%d%H%i')) AS SECS
                 FROM
-                    ticket
-                LEFT JOIN ticketevent ON ticket.id = ticketevent.ticket_id
-                LEFT JOIN tag_ticket ON ticket.id = tag_ticket.ticket_id
+                    {$this->table}
                 WHERE
                     first_closed_at IS NOT NULL
-                GROUP BY ticket.id) AS Z;
+                    {$this->dateRangeFilter}
+                    {$this->departmentsFilter}
+                    {$this->tagsFilter}
+                    {$this->ownersFilter}
+                {$this->groupBy}) AS Z;
         ");
     }
 
