@@ -35,13 +35,13 @@ class AdminPanelStats extends React.Component {
         return (
             <div className="admin-panel-stats">
                 <Header title={i18n('STATISTICS')} description={i18n('STATISTICS_DESCRIPTION')}/>
-                <Form loading={this.state.loading} values={this.state.rawForm} onChange={this.onFormChange.bind(this)} onSubmit={this.onFormSubmit}>
-                    <div className="row">
-                        <div className="col-sm-6">
+                <Form className="admin-panel-stats__form" loading={this.state.loading} values={this.state.rawForm} onChange={this.onFormChange.bind(this)} onSubmit={this.onFormSubmit}>
+                    <div className="admin-panel-stats__form__row">
+                        <div className="admin-panel-stats__form__col">
                             <FormField name="dateRange" label={i18n('DATE')} field="date-range" fieldProps={{defaultValue: this.state.rawForm.dateRange}}/>
                             <FormField name="tags" label={i18n('TAGS')} field="tag-selector" fieldProps={{items: this.getTagItems()}} />
                         </div>
-                        <div className="col-sm-6">
+                        <div className="admin-panel-stats__form__col">
                             <FormField name="departments" label={i18n('DEPARTMENTS')} field="autocomplete" fieldProps={{items: this.getDepartmentsItems()}} />
                             <FormField name="owners" label={i18n('OWNER')} field="autocomplete" fieldProps={{items: this.getStaffItems()}} />
                         </div>
