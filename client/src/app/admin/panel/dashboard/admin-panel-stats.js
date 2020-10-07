@@ -69,7 +69,7 @@ class AdminPanelStats extends React.Component {
                     borderWidth: 1,
                     hoverBackgroundColor: primaryBlueWithTransparency(0.4),
                     hoverBorderColor: primaryBlueWithTransparency(1),
-                    data: this.state.ticketData.created_by_date
+                    data: this.state.ticketData.created_by_hour
                 }
             ]
         };

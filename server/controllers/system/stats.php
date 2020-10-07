@@ -80,7 +80,7 @@ class StatsController extends Controller {
             'closed' => $this->getNumberOfClosedTickets(),
             'instant' => $this->getNumberOfInstantTickets(),
             'reopened' => $this->getNumberOfReopenedTickets(),
-            'created_by_date' => $this->getNumberOfCreatedTicketsByHour(),
+            'created_by_hour' => $this->getNumberOfCreatedTicketsByHour(),
             'created_by_weekday' => $this->getNumberOfCreatedTicketsByWeekday(),
             'average_first_reply' => $this->getAverageFirstReply(),
             'average_first_closed' => $this->getAverageFirstClosed(),
