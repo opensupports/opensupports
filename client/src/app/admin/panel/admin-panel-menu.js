@@ -3,7 +3,6 @@ import _ from 'lodash';
 import {connect} from 'react-redux';
 
 import i18n from 'lib-app/i18n';
-import searchTicketsUtils from 'lib-app/search-tickets-utils';
 
 import Menu from 'core-components/menu';
 import queryString from 'query-string';
