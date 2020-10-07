@@ -137,7 +137,7 @@ class Ticket extends DataStore {
             'language' => $this->language,
             'unread' => !!$this->unread,
             'unreadStaff' => !!$this->unreadStaff,
-            'closed' => !!$this->isClosed(),
+            'closed' => !!$this->closed,
             'author' => $this->authorToArray(),
             'owner' => $this->ownerToArray(),
             'events' => $minimized ? [] : $this->eventsToArray(),
@@ -232,9 +232,5 @@ class Ticket extends DataStore {
 
     public function isOwner($user) {
         return !$user->isNull() && $this->owner && $user->id == $this->owner->id && ($user instanceof Staff);
-    }
-
-    public function isClosed() {
-        return $this->closed;
     }
 }

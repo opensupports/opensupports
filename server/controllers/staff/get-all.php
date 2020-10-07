@@ -40,7 +40,7 @@ class GetAllStaffController extends Controller {
             $closedTickets = 0;
 
             foreach ($staff->sharedTicketList as $ticket) {
-                if($ticket->isClosed()) $closedTickets++;
+                if($ticket->closed) $closedTickets++;
                 else $assignedTickets++;
             }
 
