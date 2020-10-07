@@ -247,12 +247,7 @@ class TicketViewer extends React.Component {
         return (
             <div className="ticket-viewer__edit-tags">
                 <TagSelector
-                    items={tags.map((tag) => { // hack ot make tag.id a number... fix
-                        return {
-                            ...tag,
-                            id: tag.id*1
-                        }
-                    })}
+                    items={tags}
                     values={ticket.tags}
                     onRemoveClick={this.removeTag.bind(this)}
                     onTagSelected={this.addTag.bind(this)}
@@ -897,6 +892,6 @@ export default connect((store) => {
         staffMembersLoaded: store.adminData.staffMembersLoaded,
         allowAttachments: store.config['allow-attachments'],
         userLevel: store.session.userLevel*1,
-        tags: store.config['tags']
+        tags: store.config['tags'].map((tag) => {return {...tag, id: tag.id*1}})
     };
 })(TicketViewer);
