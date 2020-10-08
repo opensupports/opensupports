@@ -91,7 +91,7 @@ class AdminPanelEmailSettings extends React.Component {
     renderLoading() {
         return (
             <div className="admin-panel-email-settings__loading">
-                <Loading backgrounded size="large"/>
+                <Loading backgrounded size="large" />
             </div>
         );
     }

@@ -25,6 +25,15 @@
         }
     }
 
+    &__loading {
+        min-height: 361px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: $grey;
+    }
+
     &__card-list {
         display: flex;
         flex-direction: row;

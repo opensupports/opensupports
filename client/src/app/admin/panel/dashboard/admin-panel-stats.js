@@ -10,6 +10,7 @@ import Tooltip from 'core-components/tooltip';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import Icon from 'core-components/icon';
+import Loading from 'core-components/loading';
 
 class AdminPanelStats extends React.Component {
 
@@ -63,7 +64,7 @@ class AdminPanelStats extends React.Component {
                         <span className="separator" />
                     </div>
                 </div>
-                {loading ? "Loading..." : this.renderStatistics()}
+                {loading ? <div className="admin-panel-stats__loading"><Loading backgrounded size="large" /></div> : this.renderStatistics()}
             </div>
         )
     }
