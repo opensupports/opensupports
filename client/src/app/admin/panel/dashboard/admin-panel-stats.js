@@ -11,6 +11,8 @@ import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import Icon from 'core-components/icon';
 import Loading from 'core-components/loading';
+import SubmitButton from 'core-components/submit-button';
+import Button from 'core-components/button';
 
 class AdminPanelStats extends React.Component {
 
@@ -47,16 +49,33 @@ class AdminPanelStats extends React.Component {
         return (
             <div className="admin-panel-stats">
                 <Header title={i18n('STATISTICS')} description={i18n('STATISTICS_DESCRIPTION')} />
-                <Form className="admin-panel-stats__form" loading={loading} values={rawForm} onChange={this.onFormChange.bind(this)} onSubmit={this.onFormSubmit}>
-                    <div className="admin-panel-stats__form__row">
-                        <div className="admin-panel-stats__form__col">
-                            <FormField name="dateRange" label={i18n('DATE')} field="date-range" fieldProps={{defaultValue: rawForm.dateRange}} />
-                            <FormField name="tags" label={i18n('TAGS')} field="tag-selector" fieldProps={{items: this.getTagItems()}} />
+                <Form className="admin-panel-stats__form" loading={loading} values={rawForm} onChange={this.onFormChange.bind(this)} onSubmit={this.onFormSubmit.bind(this)}>
+                    <div className="admin-panel-stats__form__container">
+                        <div className="admin-panel-stats__form__container__row">
+                            <div className="admin-panel-stats__form__container__col">
+                                <FormField name="dateRange" label={i18n('DATE')} field="date-range" fieldProps={{defaultValue: rawForm.dateRange}} />
+                                <FormField name="tags" label={i18n('TAGS')} field="tag-selector" fieldProps={{items: this.getTagItems()}} />
+                            </div>
+                            <div className="admin-panel-stats__form__container__col">
+                                <FormField name="departments" label={i18n('DEPARTMENTS')} field="autocomplete" fieldProps={{items: this.getDepartmentsItems()}} />
+                                <FormField name="owners" label={i18n('OWNER')} field="autocomplete" fieldProps={{items: this.getStaffItems()}} />
+                            </div>
                         </div>
-                        <div className="admin-panel-stats__form__col">
-                            <FormField name="departments" label={i18n('DEPARTMENTS')} field="autocomplete" fieldProps={{items: this.getDepartmentsItems()}} />
-                            <FormField name="owners" label={i18n('OWNER')} field="autocomplete" fieldProps={{items: this.getStaffItems()}} />
-                        </div>
+                    </div>
+                    <div className="admin-panel-stats__container">
+                        <Button
+                            className="admin-panel-stats__container__button admin-panel-stats__container__clear-button"
+                            size= "medium"
+                            disabled={loading}
+                            onClick={this.clearFormValues.bind(this)}>
+                                {loading ? <Loading /> : i18n('CLEAR')}
+                        </Button>
+                        <SubmitButton
+                            className="admin-panel-stats__container__button admin-panel-stats__container__apply-button"
+                            type="secondary"
+                            size= "medium">
+                                {i18n('APPLY')}
+                        </SubmitButton>
                     </div>
                 </Form>
                 <div className="row">
@@ -149,6 +168,18 @@ class AdminPanelStats extends React.Component {
         )
     }
 
+    clearFormValues(event) {
+        event.preventDefault();
+        this.setState({
+            rawForm: {
+                dateRange: this.getInitialDateRange(),
+                departments: [],
+                owners: [],
+                tags: []
+            }
+        });
+    }
+
     getTagItems() {
         return this.props.tags.map((tag) => {
             return {
@@ -231,9 +262,7 @@ class AdminPanelStats extends React.Component {
     }
 
     onFormChange(newFormState) {
-        this.setState({rawForm: newFormState}, () => {
-            this.retrieveStats();
-        });
+        this.setState({rawForm: newFormState});
     }
 
     onFormSubmit() {

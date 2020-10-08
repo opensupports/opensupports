@@ -105,9 +105,7 @@ class TicketQueryFilters extends React.Component {
                             size= "medium"
                             disabled={ticketQueryListState.loading}
                             onClick={this.clearFormValues.bind(this)}>
-                                {ticketQueryListState.loading ?
-                                    <Loading />
-                                    : i18n('CLEAR')}
+                                {ticketQueryListState.loading ? <Loading /> : i18n('CLEAR')}
                         </Button>
                         <SubmitButton
                             className="ticket-query-filters__container__button ticket-query-filters__container__search-button"

@@ -2,26 +2,39 @@
 
 .admin-panel-stats {
     text-align: left;
-    
-    &__form {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
 
-        &__row {
+    &__form {
+        &__container {
             display: flex;
             flex-direction: row;
             align-items: center;
-            justify-content: space-between;
-            width: 80%;
-        }
-
-        &__col {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+
+            &__row {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                width: 80%;
+            }
+
+            &__col {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+
+    &__container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+
+        &__button {
+            margin: 0 10px;
         }
     }
 

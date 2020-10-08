@@ -102,6 +102,7 @@ export default {
     'CHANGE_PASSWORD': 'Change password',
     'NAME': 'Name',
     'SEARCH': 'Search',
+    'APPLY': 'Apply',
     'CLEAR': 'Clear',
     'SIGNUP_DATE': 'Sign up date',
     'SEARCH_USERS': 'Search users...',
