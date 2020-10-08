@@ -2,7 +2,7 @@ import React from 'react';
 import { connect }  from 'react-redux';
 import { Bar, HorizontalBar } from 'react-chartjs-2';
 
-
+import date from 'lib-app/date';
 import i18n from 'lib-app/i18n';
 import Header from 'core-components/header';
 import Tooltip from 'core-components/tooltip';
@@ -16,16 +16,22 @@ class AdminPanelStats extends React.Component {
     state = {
         loading: true,
         rawForm: {
-            dateRange: {
-                startDate: 202009130000,
-                endDate: 202009132359
-            },
+            dateRange: this.getInitialDateRange(),
             departments: [],
             owners: [],
             tags: []
         },
         ticketData: {}
     };
+
+    getInitialDateRange() {
+        let firstDayOfMonth = new Date();
+        firstDayOfMonth.setDate(1);
+        return {
+            startDate: date.getFullDate(firstDayOfMonth),
+            endDate: date.getCurrentFullDate()
+        }
+    }
 
     componentDidMount() {
         this.retrieveStats();
