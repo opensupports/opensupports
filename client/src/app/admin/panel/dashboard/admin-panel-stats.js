@@ -82,7 +82,15 @@ class AdminPanelStats extends React.Component {
 
         const primaryGreenWithTransparency = (alpha) => `rgba(130, 202, 156, ${alpha})`;
         const ticketsByWeekdayChartData = {
-            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], // Add i18n
+            labels: [
+                i18n('MONDAY'),
+                i18n('TUESDAY'),
+                i18n('WEDNESDAY'),
+                i18n('THURSDAY'),
+                i18n('FRIDAY'),
+                i18n('SATURDAY'),
+                i18n('SUNDAY')
+            ],
             datasets: [
                 {
                     label: 'Created Tickets by Weekday',

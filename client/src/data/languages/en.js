@@ -460,5 +460,12 @@ export default {
     'INSTANT': 'Instant',
     'INSTANT_DESCRIPTION': 'Percentage of tickets closed after a single staff reply over the total of tickets closed',
     'REOPENED': 'Reopened',
-    'REOPENED_DESCRIPTION': 'Percentage of tickets that were reopened over the total of tickets created'
+    'REOPENED_DESCRIPTION': 'Percentage of tickets that were reopened over the total of tickets created',
+    'MONDAY': 'Monday',
+    'TUESDAY': 'Tuesday',
+    'WEDNESDAY': 'Wednesday',
+    'THURSDAY': 'Thursday',
+    'FRIDAY': 'Friday',
+    'SATURDAY': 'Saturday',
+    'SUNDAY': 'Sunday'
 };
