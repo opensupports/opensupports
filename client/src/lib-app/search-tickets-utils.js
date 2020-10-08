@@ -2,6 +2,7 @@ import queryString from 'query-string';
 import _ from 'lodash';
 
 import DateTransformer from 'lib-core/date-transformer';
+import date from 'lib-app/date';
 import API from 'lib-app/api-call';
 
 const DEFAULT_UTC_START_DATE = 201701010000;
@@ -211,7 +212,11 @@ export default {
         return DEFAULT_UTC_START_DATE
     },
     getDefaultUTCEndDate() {
-        return DateTransformer.localDateToUTCNumericDate(JSON.stringify((DateTransformer.getDateToday()*10000)+2359));
+        let todayNight = new Date();
+        todayNight.setHours(23);
+        todayNight.setMinutes(59);
+        console.warn('Date: ', date.getFullDate(todayNight))
+        return DateTransformer.localDateToUTCNumericDate(JSON.stringify(date.getFullDate(todayNight)));
     },
     getDefaultLocalStartDate() {
         return DateTransformer.UTCDateToLocalNumericDate(this.getDefaultUTCStartDate())
