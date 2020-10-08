@@ -124,16 +124,16 @@ class AdminPanelStats extends React.Component {
         const renderCard = (label, description, value, isPercentage) => {
             const displayValue = isNaN(value) ? "-" : (isPercentage ? value.toFixed(2) : value);
             return (
-                <div className="admin-panel-stats__card-list__card">
-                    <div className="admin-panel-stats__card-list__card__wrapper">
-                        <Tooltip content={description} openOnHover>
-                            {label}
-                        </Tooltip>
-                        <div className="admin-panel-stats__card-list__container">
-                            {displayValue}{isPercentage && !isNaN(value) ? "%" : ""}
+                <Tooltip content={description} openOnHover>
+                    <div className="admin-panel-stats__card-list__card">
+                        <div className="admin-panel-stats__card-list__card__wrapper">
+                                {label}
+                            <div className="admin-panel-stats__card-list__container">
+                                {displayValue}{isPercentage && !isNaN(value) ? "%" : ""}
+                            </div>
                         </div>
                     </div>
-                </div>
+                </Tooltip>
             );
         }
 
