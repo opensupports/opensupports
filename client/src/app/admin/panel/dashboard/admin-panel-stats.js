@@ -3,13 +3,13 @@ import { connect }  from 'react-redux';
 import { Bar, HorizontalBar } from 'react-chartjs-2';
 
 import date from 'lib-app/date';
+import API from 'lib-app/api-call';
 import i18n from 'lib-app/i18n';
 import Header from 'core-components/header';
 import Tooltip from 'core-components/tooltip';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import Icon from 'core-components/icon';
-import API from 'lib-app/api-call';
 
 class AdminPanelStats extends React.Component {
 
@@ -38,13 +38,18 @@ class AdminPanelStats extends React.Component {
     }
 
     render() {
+        const {
+            loading,
+            rawForm
+        } = this.state;
+
         return (
             <div className="admin-panel-stats">
-                <Header title={i18n('STATISTICS')} description={i18n('STATISTICS_DESCRIPTION')}/>
-                <Form className="admin-panel-stats__form" loading={this.state.loading} values={this.state.rawForm} onChange={this.onFormChange.bind(this)} onSubmit={this.onFormSubmit}>
+                <Header title={i18n('STATISTICS')} description={i18n('STATISTICS_DESCRIPTION')} />
+                <Form className="admin-panel-stats__form" loading={loading} values={rawForm} onChange={this.onFormChange.bind(this)} onSubmit={this.onFormSubmit}>
                     <div className="admin-panel-stats__form__row">
                         <div className="admin-panel-stats__form__col">
-                            <FormField name="dateRange" label={i18n('DATE')} field="date-range" fieldProps={{defaultValue: this.state.rawForm.dateRange}}/>
+                            <FormField name="dateRange" label={i18n('DATE')} field="date-range" fieldProps={{defaultValue: rawForm.dateRange}} />
                             <FormField name="tags" label={i18n('TAGS')} field="tag-selector" fieldProps={{items: this.getTagItems()}} />
                         </div>
                         <div className="admin-panel-stats__form__col">
@@ -58,7 +63,7 @@ class AdminPanelStats extends React.Component {
                         <span className="separator" />
                     </div>
                 </div>
-                {this.state.loading ? "Loading..." : this.renderStatistics()}
+                {loading ? "Loading..." : this.renderStatistics()}
             </div>
         )
     }
@@ -107,8 +112,8 @@ class AdminPanelStats extends React.Component {
         return (
             <div>
                 {this.renderTicketData()}
-                <Bar data={ticketsByHoursChartData} legend={{onClick: null}}/> {/* Weird, but if you only set the legend here, it changes that of the HorizontalBar next too*/}
-                <HorizontalBar data={ticketsByWeekdayChartData} legend={{onClick: null}}/>
+                <Bar data={ticketsByHoursChartData} legend={{onClick: null}} /> {/* Weird, but if you only set the legend here, it changes that of the HorizontalBar next too*/}
+                <HorizontalBar data={ticketsByWeekdayChartData} legend={{onClick: null}} />
             </div>
         );
     }
@@ -154,8 +159,7 @@ class AdminPanelStats extends React.Component {
     }
 
     getSelectedTagIds() {
-        return this.props.tags.filter(tag => _.includes(this.state.rawForm.tags, tag.name))
-                              .map(tag => tag.id);
+        return this.props.tags.filter(tag => _.includes(this.state.rawForm.tags, tag.name)).map(tag => tag.id);
     }
 
     getStaffItems() {
@@ -166,7 +170,7 @@ class AdminPanelStats extends React.Component {
         const renderStaffItem = (staff, style) => {
             return (
                 <div className={`admin-panel-stats__staff-${style}`} key={`staff-${style}-${staff.id}`}>
-                    <img className={`admin-panel-stats__staff-${style}__profile-pic`} src={getStaffProfilePic(staff)}/>
+                    <img className={`admin-panel-stats__staff-${style}__profile-pic`} src={getStaffProfilePic(staff)} />
                     <span className={`admin-panel-stats__staff-${style}__name`}>{staff.name}</span>
                 </div>
             )
@@ -190,9 +194,7 @@ class AdminPanelStats extends React.Component {
         const renderDepartmentItem = (department, style) => {
             return (
                 <div className={`admin-panel-stats__department-${style}`} key={`department-${style}-${department.id}`}>
-                    {department.private*1 ?
-                        <Icon className={`admin-panel-stats__department-${style}__icon`} name='user-secret'/> :
-                        null}
+                    {department.private*1 ? <Icon className={`admin-panel-stats__department-${style}__icon`} name='user-secret' /> : null}
                     <span className={`admin-panel-stats__department-${style}__name`}>{department.name}</span>
                 </div>
             );

@@ -16,6 +16,7 @@
             justify-content: space-between;
             width: 80%;
         }
+
         &__col {
             display: flex;
             flex-direction: column;
@@ -97,5 +98,12 @@
             border-radius: 50%;
             margin-right: 5px;
         }
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .admin-panel-stats__form__row {
+        display: flex;
+        flex-direction: column;
     }
 }
