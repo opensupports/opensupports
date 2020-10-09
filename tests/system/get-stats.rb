@@ -193,4 +193,40 @@ describe '/system/stats/' do
             2, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 3, 0, 0, 0, 0, 1, 4, 0, 0, 1
         ])
     end
+
+    it 'should update created_by_weekday accordingly' do
+        asUser()
+        for i in 1..4
+            nextDay() # Go to next monday
+        end
+
+        createTicket(@today + 0*10000)
+        createTicket(@today + 0*10000)
+        createTicket(@today + 1*10000)
+        createTicket(@today + 1*10000)
+        createTicket(@today + 1*10000)
+        createTicket(@today + 2*10000)
+        createTicket(@today + 2*10000)
+        createTicket(@today + 2*10000)
+        createTicket(@today + 2*10000)
+        createTicket(@today + 3*10000)
+        createTicket(@today + 4*10000)
+        createTicket(@today + 4*10000)
+        createTicket(@today + 5*10000)
+        createTicket(@today + 5*10000)
+        createTicket(@today + 5*10000)
+        createTicket(@today + 6*10000)
+        createTicket(@today + 6*10000)
+
+        asStaff()
+        result = request('/system/stats', {
+            dateRange: @dateRangeBefore2000,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        (result['status']).should.equal('success')
+        (result['data']['created_by_weekday']).should.equal([
+            2, 3, 4, 1, 2, 3, 2
+        ])
+    end
 end
