@@ -139,8 +139,14 @@ class AdminPanelStats extends React.Component {
         return (
             <div>
                 {this.renderStatCards()}
-                <Bar data={ticketsByHoursChartData} legend={{onClick: null}} /> {/* Weird, but if you only set the legend here, it changes that of the HorizontalBar next too*/}
-                <HorizontalBar data={ticketsByWeekdayChartData} legend={{onClick: null}} />
+                <Bar
+                    options={this.getStatsOptions('y')}
+                    data={ticketsByHoursChartData}
+                    legend={{onClick: null}} /> {/* Weird, but if you only set the legend here, it changes that of the HorizontalBar next too*/}
+                <HorizontalBar
+                    options={this.getStatsOptions('x')}
+                    data={ticketsByWeekdayChartData}
+                    legend={{onClick: null}} />
             </div>
         );
     }
@@ -173,6 +179,18 @@ class AdminPanelStats extends React.Component {
                 <StatCard label={i18n('REOPENED')} description={i18n('REOPENED_DESCRIPTION')} value={100*reopened / created} isPercentage={true} />
             </div>
         )
+    }
+
+    getStatsOptions(axis) {
+        return {
+            scales: {
+                [`${axis}Axes`]: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
     }
 
     clearFormValues(event) {
