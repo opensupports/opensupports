@@ -29,10 +29,13 @@ class AdminPanelStats extends React.Component {
 
     getInitialDateRange() {
         let firstDayOfMonth = new Date();
+        let todayAtNight = new Date();
         firstDayOfMonth.setDate(1);
+        todayAtNight.setHours(23);
+        todayAtNight.setMinutes(59);
         return {
             startDate: date.getFullDate(firstDayOfMonth),
-            endDate: date.getCurrentFullDate()
+            endDate: date.getFullDate(todayAtNight)
         }
     }
 
