@@ -167,7 +167,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                     <FormField name="ticketNumberPermission" label={i18n('TICKET_NUMBER_RETURN_PERMISSION')}  field='checkbox'/>
                 </div>
                 <div className="admin-panel-advanced-settings__api-keys__permissions" >
-                    <FormField className = "admin-panel-advanced-settings__api-keys__permissions__item" name="commentTicketPermission" label={i18n('TICKET_CHECK_PERMISSION')}  field='checkbox'/>
+                    <FormField className = "admin-panel-advanced-settings__api-keys__permissions__item" name="checkTicketPermission" label={i18n('TICKET_CHECK_PERMISSION')}  field='checkbox'/>
                     <FormField name="userPermission" label={i18n('USER_CREATION_PERMISSION')}   field='checkbox'/>
                 </div>
                 <SubmitButton className="admin-panel-advanced-settings__api-keys-modal__submit-button" type="secondary">{i18n('SUBMIT')}</SubmitButton>
@@ -175,7 +175,7 @@ class AdminPanelAdvancedSettings extends React.Component {
         );
     }
 
-    addAPIKey({name,userPermission,createTicketPermission,commentTicketPermission,ticketNumberPermission}) {
+    addAPIKey({name,userPermission,createTicketPermission,checkTicketPermission,ticketNumberPermission}) {
         ModalContainer.closeModal();
         this.setState({
             error: ''
@@ -186,7 +186,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                 name,
                 canCreateUsers: userPermission*1,
                 canCreateTickets: createTicketPermission*1,
-                canCheckTickets: commentTicketPermission*1,
+                canCheckTickets: checkTicketPermission*1,
                 shouldReturnTicketNumber: ticketNumberPermission*1
             }
         }).then(this.getAllKeys.bind(this));
