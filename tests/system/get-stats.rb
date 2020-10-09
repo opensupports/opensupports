@@ -12,7 +12,7 @@ describe '/system/stats/' do
     end
 
     @dateRangeBefore2000 = "[197001010000,200001010000]"
-    @currTicket = 9901
+    @currTicket = 1
 
     def createTicket()
         result = request('/ticket/create', {
@@ -53,19 +53,20 @@ describe '/system/stats/' do
     it 'should update number of created tickets after a ticket is created' do
         asUser()
         createTicket()
+
         asStaff()
         result = request('/system/stats', {
             dateRange: @dateRangeBefore2000,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
-
+        (result['status']).should.equal('success')
         (result['data']['created']).should.equal(1)
         (result['data']['open']).should.equal(1)
         (result['data']['closed']).should.equal(0)
     end
 
-    it 'should update number of closed tickets after a ticket is closed' do
+    it 'should update number of open/closed tickets after a ticket is closed' do
         asStaff()
         ticket = $database.getLastRow('ticket')
 
@@ -81,7 +82,7 @@ describe '/system/stats/' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
-
+        (result['status']).should.equal('success')
         (result['data']['created']).should.equal(1)
         (result['data']['open']).should.equal(0)
         (result['data']['closed']).should.equal(1)
@@ -113,9 +114,44 @@ describe '/system/stats/' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
+        (result['status']).should.equal('success')
         (result['data']['created']).should.equal(2)
         (result['data']['open']).should.equal(0)
         (result['data']['closed']).should.equal(2)
         (result['data']['instant']).should.equal(1)
+    end
+    
+    it 'should update number of reopened tickets after a ticket is reopened' do
+        asUser()
+        createTicket()
+
+        asStaff()
+        ticket = $database.getLastRow('ticket')
+
+        result = request('/ticket/close', {
+            ticketNumber: ticket['ticket_number'],
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        (result['status']).should.equal('success')
+        
+        result = request('/ticket/re-open', {
+            ticketNumber: ticket['ticket_number'],
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        (result['status']).should.equal('success')
+
+        result = request('/system/stats', {
+            dateRange: @dateRangeBefore2000,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        (result['status']).should.equal('success')
+        (result['data']['created']).should.equal(3)
+        (result['data']['open']).should.equal(1)
+        (result['data']['closed']).should.equal(2)
+        (result['data']['instant']).should.equal(1)
+        (result['data']['reopened']).should.equal(1)
     end
 end
