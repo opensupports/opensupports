@@ -86,4 +86,36 @@ describe '/system/stats/' do
         (result['data']['open']).should.equal(0)
         (result['data']['closed']).should.equal(1)
     end
+
+    it 'should update number of instant tickets after a ticket is replied by a single staff member' do
+        asUser()
+        createTicket()
+
+        asStaff()
+        ticket = $database.getLastRow('ticket')
+        result = request('/ticket/comment', {
+            content: 'This will be the only public reply to this ticket from a staff, then it will be closed',
+            ticketNumber: ticket['ticket_number'],
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        (result['status']).should.equal('success')
+
+        result = request('/ticket/close', {
+            ticketNumber: ticket['ticket_number'],
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        (result['status']).should.equal('success')
+        
+        result = request('/system/stats', {
+            dateRange: @dateRangeBefore2000,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        (result['data']['created']).should.equal(2)
+        (result['data']['open']).should.equal(0)
+        (result['data']['closed']).should.equal(2)
+        (result['data']['instant']).should.equal(1)
+    end
 end
