@@ -29,8 +29,10 @@ class AdminPanelStats extends React.Component {
 
     getInitialDateRange() {
         let firstDayOfMonth = new Date();
-        let todayAtNight = new Date();
         firstDayOfMonth.setDate(1);
+        firstDayOfMonth.setHours(0);
+        firstDayOfMonth.setMinutes(0);
+        let todayAtNight = new Date();
         todayAtNight.setHours(23);
         todayAtNight.setMinutes(59);
         return {
@@ -134,14 +136,14 @@ class AdminPanelStats extends React.Component {
 
         return (
             <div>
-                {this.renderTicketData()}
+                {this.renderStatCards()}
                 <Bar data={ticketsByHoursChartData} legend={{onClick: null}} /> {/* Weird, but if you only set the legend here, it changes that of the HorizontalBar next too*/}
                 <HorizontalBar data={ticketsByWeekdayChartData} legend={{onClick: null}} />
             </div>
         );
     }
 
-    renderTicketData() {
+    renderStatCards() {
         const {created, open, closed, instant, reopened} = this.state.ticketData;
 
         const renderCard = (label, description, value, isPercentage) => {
