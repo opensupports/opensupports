@@ -5,6 +5,8 @@ import { Bar, HorizontalBar } from 'react-chartjs-2';
 import date from 'lib-app/date';
 import API from 'lib-app/api-call';
 import i18n from 'lib-app/i18n';
+import StatCard from 'app-components/stat-card';
+
 import Header from 'core-components/header';
 import Tooltip from 'core-components/tooltip';
 import Form from 'core-components/form';
@@ -164,11 +166,11 @@ class AdminPanelStats extends React.Component {
 
         return (
             <div className="admin-panel-stats__card-list">
-                {renderCard(i18n('CREATED'), i18n('CREATED_DESCRIPTION'), created, false)}
-                {renderCard(i18n('OPEN'), i18n('OPEN_DESCRIPTION'), open, false)}
-                {renderCard(i18n('CLOSED'), i18n('CLOSED_DESCRIPTION'), closed, false)}
-                {renderCard(i18n('INSTANT'), i18n('INSTANT_DESCRIPTION'), 100*instant / closed, true)}
-                {renderCard(i18n('REOPENED'), i18n('REOPENED_DESCRIPTION'), 100*reopened / created, true)}
+                <StatCard label={i18n('CREATED')} description={i18n('CREATED_DESCRIPTION')} value={created} isPercentage={false} />
+                <StatCard label={i18n('OPEN')} description={i18n('OPEN_DESCRIPTION')} value={open} isPercentage={false} />
+                <StatCard label={i18n('CLOSED')} description={i18n('CLOSED_DESCRIPTION')} value={closed} isPercentage={false} />
+                <StatCard label={i18n('INSTANT')} description={i18n('INSTANT_DESCRIPTION')} value={100*instant / closed} isPercentage={true} />
+                <StatCard label={i18n('REOPENED')} description={i18n('REOPENED_DESCRIPTION')} value={100*reopened / created} isPercentage={true} />
             </div>
         )
     }
