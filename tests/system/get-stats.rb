@@ -11,10 +11,16 @@ describe '/system/stats/' do
         Scripts.login($staff[:email], $staff[:password], true)
     end
 
-    @dateRangeBefore2000 = "[197001010000,200001010000]"
+    @today = 199701010000
+    @dateRangeBefore2000 = "[" + @today.to_s + ",200001010000]"
     @currTicket = 1
 
-    def createTicket()
+    def nextDay()
+        @today += 10000
+        @dateRangeBefore2000 = "[" + @today.to_s + ",200001010000]"
+    end
+
+    def createTicket(date = @today)
         result = request('/ticket/create', {
             title: "Stats Ticket ##{@currTicket}: Title",
             content: "Stats Ticket ##{@currTicket}: Content",
@@ -23,8 +29,28 @@ describe '/system/stats/' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
-        $database.query("UPDATE ticket SET date=199701010000 ORDER BY id DESC LIMIT 1")
+        $database.query("UPDATE ticket SET date=#{date} ORDER BY id DESC LIMIT 1")
         @currTicket += 1
+    end
+
+    def closeTicket(ticket_number)
+        result = request('/ticket/close', {
+            ticketNumber: ticket_number,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        (result['status']).should.equal('success')
+        return result
+    end
+
+    def reOpen(ticket_number)
+        result = request('/ticket/re-open', {
+            ticketNumber: ticket_number,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        (result['status']).should.equal('success')
+        return result
     end
 
     it 'should report no stats before year 2000' do
@@ -70,12 +96,7 @@ describe '/system/stats/' do
         asStaff()
         ticket = $database.getLastRow('ticket')
 
-        result = request('/ticket/close', {
-            ticketNumber: ticket['ticket_number'],
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token
-        })
-        (result['status']).should.equal('success')
+        result = closeTicket(ticket['ticket_number'])
 
         result = request('/system/stats', {
             dateRange: @dateRangeBefore2000,
@@ -102,12 +123,7 @@ describe '/system/stats/' do
         })
         (result['status']).should.equal('success')
 
-        result = request('/ticket/close', {
-            ticketNumber: ticket['ticket_number'],
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token
-        })
-        (result['status']).should.equal('success')
+        result = closeTicket(ticket['ticket_number'])
         
         result = request('/system/stats', {
             dateRange: @dateRangeBefore2000,
@@ -127,20 +143,8 @@ describe '/system/stats/' do
 
         asStaff()
         ticket = $database.getLastRow('ticket')
-
-        result = request('/ticket/close', {
-            ticketNumber: ticket['ticket_number'],
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token
-        })
-        (result['status']).should.equal('success')
-        
-        result = request('/ticket/re-open', {
-            ticketNumber: ticket['ticket_number'],
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token
-        })
-        (result['status']).should.equal('success')
+        result = closeTicket(ticket['ticket_number'])
+        result = reOpen(ticket['ticket_number'])
 
         result = request('/system/stats', {
             dateRange: @dateRangeBefore2000,
@@ -153,5 +157,29 @@ describe '/system/stats/' do
         (result['data']['closed']).should.equal(2)
         (result['data']['instant']).should.equal(1)
         (result['data']['reopened']).should.equal(1)
+    end
+
+    it 'should update created_by_hour accordingly' do
+        nextDay()
+
+        asUser()
+        for h in 0..23
+            # print("\n>>> Creating stat tickets for hour #{h}")
+            createTicket(@today + h*100)      # First minute in this hour
+            createTicket(@today + h*100 + 59) # Last minute in this hour
+
+            for m in 1..h%3
+                createTicket(@today + h*100 + 5 + m) # Internal minutes, 5 is padding
+            end
+        end
+
+        asStaff()
+        result = request('/system/stats', {
+            dateRange: @dateRangeBefore2000,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        (result['status']).should.equal('success')
+        (result['data']['created_by_hour']).should.equal(Array.new(24) {|i| 2 + i%3})
     end
 end
