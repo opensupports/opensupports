@@ -103,3 +103,16 @@
         padding-bottom: 10px;
     }
 }
+
+@media screen and (max-width: 992px) {
+    .ticket-query-filters {
+        &__first-row,
+        &__second-row,
+        &__third-row {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: unset;
+        }
+    }
+}
