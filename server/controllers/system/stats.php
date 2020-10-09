@@ -84,6 +84,7 @@ class StatsController extends Controller {
             'created_by_weekday' => $this->getNumberOfCreatedTicketsByWeekday(),
             'average_first_reply' => $this->getAverageFirstReply(),
             'average_first_closed' => $this->getAverageFirstClosed(),
+            'average_last_closed' => $this->getAverageLastClosed(),
             'average_department_hops' => $this->getAverageDepartmentHops(),
             'average_staff_hops' => $this->getAverageStaffHops()
         ]);
