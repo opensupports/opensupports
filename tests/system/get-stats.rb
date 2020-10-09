@@ -11,7 +11,7 @@ describe '/system/stats/' do
         Scripts.login($staff[:email], $staff[:password], true)
     end
 
-    it 'report no stats before year 2000' do
+    it 'should report no stats before year 2000' do
         asStaff()
         result = request('/system/stats', {
             dateRange: "[197001010000,200001010000]",
@@ -32,5 +32,29 @@ describe '/system/stats/' do
         (result['data']['average_last_closed']).should.equal(0)
         (result['data']['average_department_hops']).should.equal(0.0)
         (result['data']['average_staff_hops']).should.equal(0.0)
+    end
+
+    it 'should update number of created tickets after a ticket is created' do
+        asUser()
+        result = request('/ticket/create', {
+            title: 'Stats Ticket #1: Title',
+            content: 'Stats Ticket #1: Content',
+            departmentId: 1,
+            language: 'en',
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        $database.query("UPDATE ticket SET date=199701010000 ORDER BY id DESC LIMIT 1")
+
+        asStaff()
+        result = request('/system/stats', {
+            dateRange: "[197001010000,200001010000]",
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        (result['data']['created']).should.equal(1)
+        (result['data']['open']).should.equal(1)
+        (result['data']['closed']).should.equal(0)
     end
 end
