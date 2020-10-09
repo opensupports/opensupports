@@ -163,15 +163,24 @@ describe '/system/stats/' do
         nextDay()
 
         asUser()
-        for h in 0..23
-            # print("\n>>> Creating stat tickets for hour #{h}")
-            createTicket(@today + h*100)      # First minute in this hour
-            createTicket(@today + h*100 + 59) # Last minute in this hour
 
-            for m in 1..h%3
-                createTicket(@today + h*100 + 5 + m) # Internal minutes, 5 is padding
-            end
-        end
+        createTicket(@today +    0)
+        createTicket(@today +   59)
+        createTicket(@today +  112)
+        createTicket(@today +  319)
+        createTicket(@today +  559)
+        createTicket(@today +  935)
+        createTicket(@today + 1044)
+        createTicket(@today + 1237)
+        createTicket(@today + 1400)
+        createTicket(@today + 1421)
+        createTicket(@today + 1449)
+        createTicket(@today + 1922)
+        createTicket(@today + 2033)
+        createTicket(@today + 2034)
+        createTicket(@today + 2035)
+        createTicket(@today + 2050)
+        createTicket(@today + 2359)
 
         asStaff()
         result = request('/system/stats', {
@@ -180,6 +189,8 @@ describe '/system/stats/' do
             csrf_token: $csrf_token
         })
         (result['status']).should.equal('success')
-        (result['data']['created_by_hour']).should.equal(Array.new(24) {|i| 2 + i%3})
+        (result['data']['created_by_hour']).should.equal([
+            2, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 3, 0, 0, 0, 0, 1, 4, 0, 0, 1
+        ])
     end
 end
