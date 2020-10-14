@@ -308,8 +308,8 @@
  * @apiError {String} INVALID_COLOR The color should be in hexadecimal, preceded by a '#'
  */
 /**
- * @apiDefine INVALID_API_KEY_TYPE
- * @apiError {String} INVALID_API_KEY_TYPE Api key type is not one of the availables
+ * @apiDefine INVALID_API_KEY_PERMISSION
+ * @apiError {String} INVALID_API_KEY_PERMISSION Api key type is not one of the availables
  */
 /**
  * @apiDefine MANDATORY_LOGIN_IS_DESACTIVATED
@@ -404,7 +404,7 @@ class ERRORS {
     const INVALID_CUSTOM_FIELD_OPTION = 'INVALID_CUSTOM_FIELD_OPTION';
     const UNAVAILABLE_STATS = 'UNAVAILABLE_STATS';
     const INVALID_COLOR = 'INVALID_COLOR';
-    const INVALID_API_KEY_TYPE = 'INVALID_API_KEY_TYPE';
+    const INVALID_API_KEY_PERMISSION = 'INVALID_API_KEY_PERMISSION';
     const MANDATORY_LOGIN_IS_DESACTIVATED = 'MANDATORY_LOGIN_IS_DESACTIVATED';
     const REGISTRATION_IS_DESACTIVATED = 'REGISTRATION_IS_DESACTIVATED';
     const INVALID_SUPERVISED_USERS = 'INVALID_SUPERVISED_USERS';

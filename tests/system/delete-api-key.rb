@@ -22,7 +22,7 @@ describe'system/delete-api-key' do
 
             (result['status']).should.equal('success')
 
-            row = $database.getRow('apikey', 1, 'id')
+            row = $database.getRow('apikey', 2, 'id')
 
             (row).should.equal(nil)
         end

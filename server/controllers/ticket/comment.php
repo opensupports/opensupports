@@ -17,7 +17,8 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} content Content of the comment.
  * @apiParam {Number} ticketNumber The number of the ticket to comment.
  * @apiParam {Boolean} private Indicates if the comment is not shown to users.
- * @apiParam {Number} images The number of images in the content
+ * @apiParam {Number} images The number of images in the content.
+ * @apiParam {String} apiKey apiKey to comment a ticket.
  * @apiParam image_i The image file of index `i` (mutiple params accepted)
  * @apiParam file The file you with to upload.
  *
@@ -67,6 +68,7 @@ class CommentController extends Controller {
         $isAuthor = $this->ticket->isAuthor($this->user);
         $isOwner = $this->ticket->isOwner($this->user);
         $private = Controller::request('private');
+        $apiKey = APIKey::getDataStore(Controller::request('apiKey'), 'token');
 
         if(!$this->user->canManageTicket($this->ticket)) {
             throw new RequestException(ERRORS::NO_PERMISSION);

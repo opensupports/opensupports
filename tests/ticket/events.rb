@@ -12,7 +12,9 @@ describe 'Ticket Events' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
-        ticketNumber = response['data']['ticketNumber']
+        ticket = $database.getRow('ticket', 'Ticket with many events','title')
+        
+        ticketNumber = ticket['ticket_number']
 
         request('/user/logout')
         Scripts.login($staff[:email], $staff[:password], true)
