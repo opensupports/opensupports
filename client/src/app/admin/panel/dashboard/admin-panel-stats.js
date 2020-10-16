@@ -154,22 +154,6 @@ class AdminPanelStats extends React.Component {
     renderStatCards() {
         const {created, open, closed, instant, reopened} = this.state.ticketData;
 
-        const renderCard = (label, description, value, isPercentage) => {
-            const displayValue = isNaN(value) ? "-" : (isPercentage ? value.toFixed(2) : value);
-            return (
-                <Tooltip content={description} openOnHover>
-                    <div className="admin-panel-stats__card-list__card">
-                        <div className="admin-panel-stats__card-list__card__wrapper">
-                                {label}
-                            <div className="admin-panel-stats__card-list__container">
-                                {displayValue}{isPercentage && !isNaN(value) ? "%" : ""}
-                            </div>
-                        </div>
-                    </div>
-                </Tooltip>
-            );
-        }
-
         return (
             <div className="admin-panel-stats__card-list">
                 <StatCard label={i18n('CREATED')} description={i18n('CREATED_DESCRIPTION')} value={created} isPercentage={false} />

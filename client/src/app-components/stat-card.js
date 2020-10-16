@@ -26,10 +26,10 @@ class StatCard extends React.Component {
         const displayValue = isNaN(value) ? "-" : (isPercentage ? value.toFixed(2) : value);
         return (
             <Tooltip content={description} show={this.state.showTooltip} >
-                <div className="admin-panel-stats__card-list__card" onMouseEnter={() => this.setState({showTooltip: true})} onMouseLeave={() => this.setState({showTooltip: false})}>
-                    <div className="admin-panel-stats__card-list__card__wrapper">
+                <div className="stat-card" onMouseEnter={() => this.setState({showTooltip: true})} onMouseLeave={() => this.setState({showTooltip: false})}>
+                    <div className="stat-card__wrapper">
                             {label}
-                        <div className="admin-panel-stats__card-list__container">
+                        <div className="stat-card__container">
                             {displayValue}{isPercentage && !isNaN(value) ? "%" : ""}
                         </div>
                     </div>
