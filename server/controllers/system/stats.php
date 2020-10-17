@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 use RedBeanPHP\Facade as RedBean;
 
 /**
- * @api {post} /system/stats Get overall stats
+ * @api {post} /system/get-stats Get overall stats
  * @apiVersion 4.8.0
  *
  * @apiName Stats
@@ -30,8 +30,8 @@ use RedBeanPHP\Facade as RedBean;
  *
  */
 
-class StatsController extends Controller {
-    const PATH = '/stats';
+class GetStatsController extends Controller {
+    const PATH = '/get-stats';
     const METHOD = 'POST';
     private $table;
     private $groupBy;

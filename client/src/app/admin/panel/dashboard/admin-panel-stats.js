@@ -256,7 +256,7 @@ class AdminPanelStats extends React.Component {
         const { rawForm } = this.state;
         const { startDate, endDate } = rawForm.dateRange;
         API.call({
-            path: '/system/stats',
+            path: '/system/get-stats',
             data: {
                 dateRange: "[" + startDate.toString() + "," + endDate.toString() + "]",
                 departments: "[" + rawForm.departments.map(department => department.id) + "]",

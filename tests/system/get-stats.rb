@@ -1,4 +1,4 @@
-describe '/system/stats/' do
+describe '/system/get-stats/' do
     Scripts.createUser('statsuser@os4.com', 'StatsUser', 'StatsUser')
 
     def asUser()
@@ -55,7 +55,7 @@ describe '/system/stats/' do
 
     it 'should report no stats before year 2000' do
         asStaff()
-        result = request('/system/stats', {
+        result = request('/system/get-stats', {
             dateRange: @dateRangeBefore2000,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
@@ -81,7 +81,7 @@ describe '/system/stats/' do
         createTicket()
 
         asStaff()
-        result = request('/system/stats', {
+        result = request('/system/get-stats', {
             dateRange: @dateRangeBefore2000,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
@@ -98,7 +98,7 @@ describe '/system/stats/' do
 
         result = closeTicket(ticket['ticket_number'])
 
-        result = request('/system/stats', {
+        result = request('/system/get-stats', {
             dateRange: @dateRangeBefore2000,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
@@ -125,7 +125,7 @@ describe '/system/stats/' do
 
         result = closeTicket(ticket['ticket_number'])
         
-        result = request('/system/stats', {
+        result = request('/system/get-stats', {
             dateRange: @dateRangeBefore2000,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
@@ -146,7 +146,7 @@ describe '/system/stats/' do
         result = closeTicket(ticket['ticket_number'])
         result = reOpen(ticket['ticket_number'])
 
-        result = request('/system/stats', {
+        result = request('/system/get-stats', {
             dateRange: @dateRangeBefore2000,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
@@ -183,7 +183,7 @@ describe '/system/stats/' do
         createTicket(@today + 2359)
 
         asStaff()
-        result = request('/system/stats', {
+        result = request('/system/get-stats', {
             dateRange: @dateRangeBefore2000,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
@@ -219,7 +219,7 @@ describe '/system/stats/' do
         createTicket(@today + 6*10000)
 
         asStaff()
-        result = request('/system/stats', {
+        result = request('/system/get-stats', {
             dateRange: @dateRangeBefore2000,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
