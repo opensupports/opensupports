@@ -263,14 +263,23 @@ class StaffEditor extends React.Component {
         const {
             staffId,
             tickets,
-            departments
+            departments,
+            page,
+            pages,
+            onPageChange,
+            onDepartmentChange
         } = this.props;
+
         return {
             type: 'secondary',
             userId: staffId,
             tickets: tickets,
             departments: departments,
-            ticketPath: '/admin/panel/tickets/view-ticket/'
+            ticketPath: '/admin/panel/tickets/view-ticket/',
+            page,
+            pages,
+            onPageChange: onPageChange.bind(this),
+            onDepartmentChange: onDepartmentChange.bind(this)
         };
     }
 
