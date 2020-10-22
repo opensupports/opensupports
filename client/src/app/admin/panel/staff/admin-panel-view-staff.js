@@ -15,7 +15,7 @@ class AdminPanelViewStaff extends React.Component {
 
     state = {
         loading: true,
-        userData: {},
+        userData: {}
     };
 
     componentDidMount() {
@@ -48,7 +48,7 @@ class AdminPanelViewStaff extends React.Component {
             userId: userId*1,
             staffId: params.staffId*1,
             onDelete: this.onDelete.bind(this),
-            onChange: this.retrieveStaff.bind(this),
+            onChange: this.retrieveStaff.bind(this)
         });
     }
 

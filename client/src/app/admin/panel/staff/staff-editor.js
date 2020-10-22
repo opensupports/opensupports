@@ -266,12 +266,12 @@ class StaffEditor extends React.Component {
     getTicketListProps() {
         const {
             staffId,
-            departments,
+            departments
         } = this.props;
         const {
             tickets,
             page,
-            pages,
+            pages
         } = this.state;
 
         return {
@@ -283,7 +283,7 @@ class StaffEditor extends React.Component {
             page,
             pages,
             onPageChange: this.onPageChange.bind(this),
-            onDepartmentChange: this.onDepartmentChange.bind(this),
+            onDepartmentChange: this.onDepartmentChange.bind(this)
         };
     }
 
@@ -350,7 +350,7 @@ class StaffEditor extends React.Component {
                 email: (eventType === 'EMAIL') ? form.email : null,
                 password: (eventType === 'PASSWORD') ? form.password : null,
                 level: ((form.level !== undefined) && (eventType == 'LEVEL')) ? form.level + 1 : null,
-                departments: (eventType === 'DEPARTMENTS') ? (departments && JSON.stringify(departments)) : null,
+                departments: (eventType === 'DEPARTMENTS') ? (departments && JSON.stringify(departments)) : null
             }
         }).then(() => {
             this.retrieveStaffMembers();
