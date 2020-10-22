@@ -29,15 +29,10 @@ class StaffEditor extends React.Component {
         name: React.PropTypes.string.isRequired,
         profilePic: React.PropTypes.string.isRequired,
         level: React.PropTypes.number.isRequired,
-        tickets: React.PropTypes.array.isRequired,
         departments: React.PropTypes.array.isRequired,
         sendEmailOnNewTicket: React.PropTypes.bool,
         onChange: React.PropTypes.func,
         onDelete: React.PropTypes.func
-    };
-
-    static defaultProps = {
-        tickets: []
     };
 
     state = {
@@ -45,15 +40,22 @@ class StaffEditor extends React.Component {
         level: this.props.level - 1,
         message: null,
         loadingPicture: false,
+        tickets: [],
+        page: 1,
+        pages: 0,
+        department: undefined,
         departments: this.getUserDepartments(),
         sendEmailOnNewTicket: this.props.sendEmailOnNewTicket
     };
+
+    componentDidMount() {
+        this.retrieveTicketsAssigned({page: 1, departments: undefined});
+    }
 
     render() {
         const {
             name,
             level,
-            tickets,
             profilePic,
             myAccount,
             staffId,
@@ -61,9 +63,11 @@ class StaffEditor extends React.Component {
         } = this.props;
         const {
             message,
+            tickets,
             loadingPicture,
             email
         } = this.state;
+
         return (
             <div className="staff-editor">
                 {message ? this.renderMessage() : null}
@@ -227,7 +231,7 @@ class StaffEditor extends React.Component {
             <div>
                 <span className="separator"/>
                 <div className="staff-editor__tickets">
-                    <div className="staff-editor__tickets-title">{i18n('TICKETS')}</div>
+                    <div className="staff-editor__tickets-title">{i18n('TICKETS_ASSIGNED')}</div>
                     <TicketList {...this.getTicketListProps()}/>
                 </div>
             </div>
@@ -262,24 +266,24 @@ class StaffEditor extends React.Component {
     getTicketListProps() {
         const {
             staffId,
-            tickets,
             departments,
+        } = this.props;
+        const {
+            tickets,
             page,
             pages,
-            onPageChange,
-            onDepartmentChange
-        } = this.props;
+        } = this.state;
 
         return {
             type: 'secondary',
             userId: staffId,
-            tickets: tickets,
-            departments: departments,
+            tickets,
+            departments,
             ticketPath: '/admin/panel/tickets/view-ticket/',
             page,
             pages,
-            onPageChange: onPageChange.bind(this),
-            onDepartmentChange: onDepartmentChange.bind(this)
+            onPageChange: this.onPageChange.bind(this),
+            onDepartmentChange: this.onDepartmentChange.bind(this),
         };
     }
 
@@ -403,6 +407,41 @@ class StaffEditor extends React.Component {
             window.scrollTo(0,0);
             this.setState({message: 'FAIL', loadingPicture: false});
         });
+    }
+
+    retrieveTicketsAssigned({page, department}) {
+        API.call({
+            path: '/ticket/search',
+            data: {
+                page,
+                departments: department,
+                owners: `[${this.props.staffId}]`
+            }
+        }).then((result) => {
+            const data = result.data;
+
+            this.setState({
+                tickets: data.tickets,
+                page: data.page,
+                pages: data.pages
+            });
+        });
+    }
+
+    onPageChange(event) {
+        this.setState({
+            page: event.target.value
+        });
+
+        this.retrieveTicketsAssigned({page: event.target.value});
+    }
+
+    onDepartmentChange(department) {
+        this.setState({
+            department
+        });
+
+        this.retrieveTicketsAssigned({department: department ? `[${department}]` : undefined});
     }
 
     retrieveStaffMembers() {

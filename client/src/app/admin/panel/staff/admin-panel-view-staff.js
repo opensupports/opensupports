@@ -16,15 +16,10 @@ class AdminPanelViewStaff extends React.Component {
     state = {
         loading: true,
         userData: {},
-        tickets: [],
-        department: 1,
-        page: 1,
-        pages: 0
     };
 
     componentDidMount() {
         this.retrieveStaff();
-        this.retrieveTicketsAssigned({page: 1, departments: '[1]'});
     }
 
     render() {
@@ -37,12 +32,7 @@ class AdminPanelViewStaff extends React.Component {
     }
 
     getProps() {
-        const {
-            userData,
-            tickets,
-            page,
-            pages
-        } = this.state;
+        const { userData } = this.state;
         const {
             userId,
             params
@@ -57,30 +47,9 @@ class AdminPanelViewStaff extends React.Component {
         return _.extend({}, userDataWithNumericLevel, {
             userId: userId*1,
             staffId: params.staffId*1,
-            tickets,
-            page,
-            pages,
-            onPageChange: this.onPageChange.bind(this),
-            onDepartmentChange: this.onDepartmentChange.bind(this),
             onDelete: this.onDelete.bind(this),
             onChange: this.retrieveStaff.bind(this),
         });
-    }
-
-    onPageChange(event) {
-        this.setState({
-            page: event.target.value
-        });
-
-        this.retrieveTicketsAssigned({page: event.target.value});
-    }
-
-    onDepartmentChange(department) {
-        this.setState({
-            department
-        });
-
-        this.retrieveTicketsAssigned({department: department ? `[${department}]` : undefined});
     }
 
     retrieveStaff() {
@@ -105,25 +74,6 @@ class AdminPanelViewStaff extends React.Component {
         });
 
         if(userId == params.staffId) dispatch(SessionActions.getUserData(null, null, true));
-    }
-
-    retrieveTicketsAssigned({page, department}) {
-        API.call({
-            path: '/ticket/search',
-            data: {
-                page,
-                departments: department,
-                owners: `[${this.props.params.staffId*1}]`
-            }
-        }).then((result) => {
-            const data = result.data;
-
-            this.setState({
-                tickets: data.tickets,
-                page: data.page,
-                pages: data.pages
-            });
-        });
     }
 
     onDelete() {
