@@ -1,0 +1,37 @@
+version: 2
+orbs:
+  php: circleci/php@1.0.2
+  node: circleci/node@1.1.6
+  aws-cli: circleci/aws-cli@1.0.0
+jobs:
+  build:
+    docker:
+      - image: circleci/node:11.15.0-stretch
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - dependency-cache-{{ checksum "server/composer.json" }}-{{ checksum "client/package.json" }}
+
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt-get update;
+            sudo apt-get install lftp;
+            sudo npm install -g npm@6.7.0
+            sudo npm install -g mocha@6.2.0
+            make install
+
+      - save_cache:
+          paths:
+            - server/vendor
+            - client/node_modules
+          key: dependency-cache-{{ checksum "server/composer.json" }}-{{ checksum "client/package.json" }}
+
+      - deploy:
+          name: Deploy
+          command: |
+            if [ "$CIRCLE_BRANCH" = "master" ]; then make deploy; fi    
+    
