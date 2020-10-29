@@ -1,0 +1,84 @@
+version: 2.1
+orbs:
+  php: circleci/php@1.0.2
+  node: circleci/node@1.1.6
+  aws-cli: circleci/aws-cli@1.0.0
+jobs:
+  install_composer_packages:
+    executor: php/default
+    steps:
+      - checkout
+      - php/install-composer
+
+      - run:
+          name: Install php extensions
+          command: |
+            sudo add-apt-repository ppa:ondrej/php
+            sudo apt install php-imap
+
+      - php/install-packages:
+          app-dir: server/
+
+      - persist_to_workspace:
+          root: .
+          paths:
+              - .
+
+  install_node_packages:
+    docker:
+      - image: circleci/node:11.15.0-stretch
+    
+    steps:
+      - attach_workspace:
+          at: .
+
+      - restore_cache:
+          keys:
+          - node-cache-{{ checksum "client/package.json" }}
+
+      - run:
+          name: Install dependencies
+          command: |
+            sudo npm install -g npm@6.7.0
+            sudo npm install -g mocha@6.2.0
+            cd client && npm install
+
+      - save_cache:
+          paths:
+            - client/node_modules
+          key: node-cache-{{ checksum "client/package.json" }}
+
+      - persist_to_workspace:
+          root: .
+          paths:
+              - .
+  
+  deploy_staging_files:
+    docker:
+      - image: circleci/node:11.15.0-stretch
+    
+    steps:
+      - attach_workspace:
+          at: .
+
+      - deploy:
+          name: Deploy staging files
+          command: |
+            curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+            sudo python get-pip.py pip==19.3.1
+            sudo pip install awscli
+            sudo apt-get update
+            sudo apt-get install lftp
+            if [ "$CIRCLE_BRANCH" = "master" ]; then make deploy-staging-files; fi    
+          
+workflows:
+  install:
+    jobs:
+      - install_composer_packages
+      - install_node_packages:
+          requires:
+            - install_composer_packages
+      - deploy_staging_files:
+          requires:
+            - install_node_packages
+            
