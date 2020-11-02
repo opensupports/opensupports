@@ -49,6 +49,7 @@ class StaffEditor extends React.Component {
     };
 
     componentDidMount() {
+        this.retrieveStaffMembers();
         this.retrieveTicketsAssigned({page: 1, departments: undefined});
     }
 
@@ -59,6 +60,7 @@ class StaffEditor extends React.Component {
             profilePic,
             myAccount,
             staffId,
+            staffList,
             userId
         } = this.props;
         const {
@@ -67,6 +69,7 @@ class StaffEditor extends React.Component {
             loadingPicture,
             email
         } = this.state;
+        const myData = _.filter(staffList, {id: `${staffId}`})[0];
 
         return (
             <div className="staff-editor">
@@ -87,13 +90,13 @@ class StaffEditor extends React.Component {
                                     </div>
                                     <div className="staff-editor__card-badge">
                                         <span className="staff-editor__card-badge-green">
-                                            {_.filter(tickets, {closed: false}).length}
+                                            {myData.assignedTickets}
                                         </span>
                                         <span className="staff-editor__card-badge-text">{i18n('ASSIGNED')}</span>
                                     </div>
                                     <div className="staff-editor__card-badge">
                                         <span className="staff-editor__card-badge-red">
-                                            {_.filter(tickets, {closed: true}).length}
+                                            {myData.closedTickets}
                                         </span>
                                         <span className="staff-editor__card-badge-text">{i18n('CLOSED')}</span>
                                     </div>
@@ -449,4 +452,8 @@ class StaffEditor extends React.Component {
     }
 }
 
-export default connect()(StaffEditor);
+export default connect((store) => {
+    return {
+        staffList: store.adminData.staffMembers
+    };
+})(StaffEditor);
