@@ -1,5 +1,6 @@
 .idea
 .jshintrc
+.DS_Store
 client/package-lock.json
 tests/Gemfile.lock
 server/composer.lock
