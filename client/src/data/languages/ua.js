@@ -301,9 +301,9 @@ export default {
     'STEP_6_DESCRIPTION': 'Введіть налаштування адміністративного аккаунту.',
 
     //VIEW DESCRIPTIONS
-    'CREATE_TICKET_DESCRIPTION': 'This is a form for creating tickets. Fill the form and send us your issues/doubts/suggestions. Our support system will answer it as soon as possible.',
-    'TICKET_LIST_DESCRIPTION': 'Here you can find a list of all tickets you have sent to our support team.',
-    'TICKETS_DESCRIPTION': 'Send ticket through our support center and get response of your doubts, suggestions and issues.',
+    'CREATE_TICKET_DESCRIPTION': 'Подано форму для створення заявок. Заповніть поля форми та надішліть нам свої питання / сумніви / пропозиції. Ми надамо відповідь найближчим часом.',
+    'TICKET_LIST_DESCRIPTION': 'Далі ви можете побачити всі заявки, які були надіслані вами до нашої команди підтримки.',
+    'TICKETS_DESCRIPTION': 'Надішліть заявку за дпопомогою центру підтримки та отримайте відповідь на ваші питання / сумніви / пропозиції.',
     'ARTICLES_DESCRIPTION': 'Take a look to our articles about common issues, guides and documentation.',
     'ACCOUNT_DESCRIPTION': 'All your tickets are stored in your account\'s profile. Keep track of all your tickets you send to our staff team.',
     'SUPPORT_CENTER_DESCRIPTION': 'Welcome to our support center. You can contact us through a tickets system. Your tickets will be answered by our staff.',
