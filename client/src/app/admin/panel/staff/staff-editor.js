@@ -445,11 +445,16 @@ class StaffEditor extends React.Component {
     }
 
     onDepartmentChange(department) {
+        const { closedTicketsShown } = this.state;
+
         this.setState({
             department
         });
 
-        this.retrieveTicketsAssigned({department: department ? `[${department}]` : undefined});
+        this.retrieveTicketsAssigned(this.prepareFiltersForAPI({
+            newClosedFilter: closedTicketsShown,
+            newDepartmentFilter: department
+        }));
     }
 
     onClosedTicketsShownChange() {
@@ -463,14 +468,21 @@ class StaffEditor extends React.Component {
             closedTicketsShown: newClosedValue
         });
 
-        this.retrieveTicketsAssigned({
-            closed: newClosedValue ? undefined : 0,
-            department: department ? `[${department}]` : undefined
-        });
+        this.retrieveTicketsAssigned(this.prepareFiltersForAPI({
+            newClosedFilter: newClosedValue,
+            newDepartmentFilter: department
+        }));
     }
 
     retrieveStaffMembers() {
         this.props.dispatch(AdminDataActions.retrieveStaffMembers());
+    }
+
+    prepareFiltersForAPI({newClosedFilter, newDepartmentFilter}) {
+        return {
+            closed: newClosedFilter ? undefined : 0,
+            department: newDepartmentFilter ? `[${newDepartmentFilter}]` : undefined
+        }
     }
 }
 
