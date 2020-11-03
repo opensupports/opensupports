@@ -76,7 +76,7 @@ export default {
         name: 'Polish',
         data: polishLanguage
     },
-    'pl': {
+    'ua': {
         name: 'Ukrainian',
         data: ukrainianLanguage
     },
