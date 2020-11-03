@@ -20,6 +20,11 @@ import Button from 'core-components/button';
 import Icon from 'core-components/icon';
 import Loading from 'core-components/loading';
 
+const INITIAL_API_VALUE = {
+    page: 1,
+    closed: 0,
+    departments: undefined,
+};
 class StaffEditor extends React.Component {
     static propTypes = {
         myAccount: React.PropTypes.bool,
@@ -51,7 +56,7 @@ class StaffEditor extends React.Component {
 
     componentDidMount() {
         this.retrieveStaffMembers();
-        this.retrieveTicketsAssigned({page: 1, departments: undefined, closed: 0});
+        this.retrieveTicketsAssigned(INITIAL_API_VALUE);
     }
 
     render() {
