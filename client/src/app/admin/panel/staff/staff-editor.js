@@ -45,12 +45,13 @@ class StaffEditor extends React.Component {
         pages: 0,
         department: undefined,
         departments: this.getUserDepartments(),
+        closedTicketsShown: false,
         sendEmailOnNewTicket: this.props.sendEmailOnNewTicket
     };
 
     componentDidMount() {
         this.retrieveStaffMembers();
-        this.retrieveTicketsAssigned({page: 1, departments: undefined});
+        this.retrieveTicketsAssigned({page: 1, departments: undefined, closed: 0});
     }
 
     render() {
@@ -274,7 +275,8 @@ class StaffEditor extends React.Component {
         const {
             tickets,
             page,
-            pages
+            pages,
+            closedTicketsShown
         } = this.state;
 
         return {
@@ -282,11 +284,13 @@ class StaffEditor extends React.Component {
             userId: staffId,
             tickets,
             departments,
+            closedTicketsShown,
             ticketPath: '/admin/panel/tickets/view-ticket/',
             page,
             pages,
             onPageChange: this.onPageChange.bind(this),
-            onDepartmentChange: this.onDepartmentChange.bind(this)
+            onDepartmentChange: this.onDepartmentChange.bind(this),
+            onClosedTicketsShownChange: this.onClosedTicketsShownChange.bind(this)
         };
     }
 
@@ -412,12 +416,13 @@ class StaffEditor extends React.Component {
         });
     }
 
-    retrieveTicketsAssigned({page, department}) {
+    retrieveTicketsAssigned({page, department, closed}) {
         API.call({
             path: '/ticket/search',
             data: {
                 page,
                 departments: department,
+                closed,
                 owners: `[${this.props.staffId}]`
             }
         }).then((result) => {
@@ -445,6 +450,23 @@ class StaffEditor extends React.Component {
         });
 
         this.retrieveTicketsAssigned({department: department ? `[${department}]` : undefined});
+    }
+
+    onClosedTicketsShownChange() {
+        const {
+            department,
+            closedTicketsShown
+        } = this.state;
+        const newClosedValue = !closedTicketsShown;
+
+        this.setState({
+            closedTicketsShown: newClosedValue
+        });
+
+        this.retrieveTicketsAssigned({
+            closed: newClosedValue ? undefined : 0,
+            department: department ? `[${department}]` : undefined
+        });
     }
 
     retrieveStaffMembers() {
