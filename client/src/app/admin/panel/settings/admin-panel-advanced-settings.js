@@ -170,7 +170,16 @@ class AdminPanelAdvancedSettings extends React.Component {
                     <FormField className = "admin-panel-advanced-settings__api-keys__permissions__item" name="checkTicketPermission" label={i18n('TICKET_CHECK_PERMISSION')}  field='checkbox'/>
                     <FormField name="userPermission" label={i18n('USER_CREATION_PERMISSION')}   field='checkbox'/>
                 </div>
-                <SubmitButton className="admin-panel-advanced-settings__api-keys-modal__submit-button" type="secondary">{i18n('SUBMIT')}</SubmitButton>
+                <div className="admin-panel-advanced-settings__api-keys__buttons-container">
+                    <Button
+                        className="admin-panel-advanced-settings__api-keys__cancel-button"
+                        onClick={(e) => {e.preventDefault(); ModalContainer.closeModal();}}
+                        type='link'
+                        size="medium">
+                            {i18n('CANCEL')}
+                    </Button>
+                    <SubmitButton className="admin-panel-advanced-settings__api-keys-modal__submit-button" type="secondary">{i18n('SUBMIT')}</SubmitButton>
+                </div>
             </Form>
         );
     }

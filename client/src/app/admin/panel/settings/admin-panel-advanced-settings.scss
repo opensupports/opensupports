@@ -21,6 +21,13 @@
 
     &__api-keys {
 
+        &__buttons-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+
         &-title {
             font-size: $font-size--bg;
             margin-bottom: 20px;
@@ -55,7 +62,7 @@
         }
         
         &-modal {
-            min-width: 500px;
+            min-width: 400px;
 
             &__submit-button {
                 margin-top: 20px;
