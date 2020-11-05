@@ -479,7 +479,6 @@ class TicketViewer extends React.Component {
         );
     }
 
-
     renderCustomResponses() {
         let customResponsesNode = null;
 
