@@ -29,9 +29,10 @@ class AdminPanelCustomFields extends React.Component {
             <div className="admin-panel-custom-fields">
                 <Header title={i18n('CUSTOM_FIELDS')} description={i18n('CUSTOM_FIELDS_DESCRIPTION')} />
                 {this.renderCustomFieldList()}
-                <div className="admin-panel-custom-fields__add-button">
-                    <Button type="secondary" onClick={this.onNewCustomFieldClick.bind(this)}>
-                        <Icon name="plus"/> {i18n('NEW_CUSTOM_FIELD')}
+                <div className="admin-panel-custom-fields__container-button">
+                    <Button className="admin-panel-custom-fields__container-button__add-button" type="secondary" onClick={this.onNewCustomFieldClick.bind(this)}>
+                        <Icon name="plus"/>
+                        {i18n('NEW_CUSTOM_FIELD')}
                     </Button>
                 </div>
             </div>
@@ -72,7 +73,7 @@ class AdminPanelCustomFields extends React.Component {
     onNewCustomFieldClick() {
         ModalContainer.openModal(
             <AdminPanelCustomFieldForm
-                onClose={ModalContainer.closeModal}
+                onClose={(e) => {e.preventDefault(); ModalContainer.closeModal();}}
                 onChange={() => {
                     this.retrieveCustomFields();
                     ModalContainer.closeModal();
