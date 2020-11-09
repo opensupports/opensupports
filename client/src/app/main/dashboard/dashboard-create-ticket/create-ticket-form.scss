@@ -8,6 +8,13 @@
         margin-top: 20px;
     }
 
+    &__buttons-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
     &__captcha {
         margin: 0 auto 20px;
         height: 78px;
