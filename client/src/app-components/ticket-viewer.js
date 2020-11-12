@@ -118,7 +118,7 @@ class TicketViewer extends React.Component {
                 <div className="ticket-viewer__comments">
                     {ticket.events && ticket.events.map(this.renderTicketEvent.bind(this))}
                 </div>
-                {(!ticket.closed && (editable || !assignmentAllowed)) ? this.renderResponseField() : (this.showDeleteButton())? <Button size="medium" onClick={this.onDeleteTicketClick.bind(this)}>{i18n('DELETE_TICKET')}</Button> : null}
+                {(!ticket.closed && (editable || !assignmentAllowed)) ? this.renderResponseField() : (this.showDeleteButton()) ? this.renderDeleteTicketButton() : null}
             </div>
         );
     }
@@ -265,9 +265,7 @@ class TicketViewer extends React.Component {
                     <Button type='secondary' size="medium" onClick={this.onReopenClick.bind(this)}>
                         {i18n('RE_OPEN')}
                     </Button> :
-                    <Button type='secondary' size="medium" onClick={this.onCloseTicketClick.bind(this)}>
-                        {i18n('CLOSE')}
-                    </Button>}
+                    this.renderCloseTicketButton()}
             </div>
         );
     }
@@ -454,17 +452,32 @@ class TicketViewer extends React.Component {
                     </div>
                     <div className="ticket-viewer__response-field row">
                         <FormField name="content" validation="TEXT_AREA" required field="textarea" fieldProps={{allowImages: allowAttachments}} />
-                        {allowAttachments ? <FormField name="file" field="file" /> : null}
                         <div className="ticket-viewer__response-buttons">
+                            {allowAttachments ? <FormField name="file" field="file" /> : null}
                             <SubmitButton type="secondary">{i18n('RESPOND_TICKET')}</SubmitButton>
-                            <div>
-                                {(this.showDeleteButton())? <Button className="ticket-viewer__delete-button" size="medium" onClick={this.onDeleteTicketClick.bind(this)}>{i18n('DELETE_TICKET')}</Button> : null}
+                        </div>
+                        <div className="ticket-viewer__buttons-column">
+                            <div className="ticket-viewer__buttons-row">
+                                {(this.showDeleteButton()) ? this.renderDeleteTicketButton() : null}
+                                {this.renderCloseTicketButton()}
                             </div>
                         </div>
                     </div>
                     {(this.state.commentError) ? this.renderCommentError() : null}
                 </Form>
             </div>
+        );
+    }
+
+    renderDeleteTicketButton() {
+        return (
+            <Button className="ticket-viewer__delete-button" size="medium" onClick={this.onDeleteTicketClick.bind(this)}>{i18n('DELETE_TICKET')}</Button>
+        );
+    }
+
+    renderCloseTicketButton() {
+        return (
+            <Button size="medium" onClick={this.onCloseTicketClick.bind(this)}>{i18n('CLOSE_TICKET')}</Button>
         );
     }
 
