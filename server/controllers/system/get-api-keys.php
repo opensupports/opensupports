@@ -32,7 +32,6 @@ class GetAPIKeysController extends Controller {
 
     public function handler() {
         $apiList = APIKey::getAll();
-        
         Response::respondSuccess($apiList->toArray());
     }
 }

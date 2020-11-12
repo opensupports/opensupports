@@ -1,5 +1,19 @@
 describe '/ticket/get/' do
     request('/user/logout')
+    Scripts.login($staff[:email], $staff[:password], true)    
+    
+    result= request('/system/add-api-key', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: 'APIkeyToTicketget',
+            shouldReturnTicketNumber: 'true',
+            canCreateTickets: 1
+    })
+    (result['status']).should.equal('success')
+    $token = result['data'];
+
+    request('/user/logout')
+
     Scripts.createUser('cersei@os4.com', 'cersei','Cersei Lannister')
     Scripts.createUser('not_ticket_getter@os4.com', 'not_ticket_getter','No Author')
 
@@ -13,10 +27,11 @@ describe '/ticket/get/' do
             departmentId: 1,
             language: 'en',
             csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token
+            csrf_token: $csrf_token,
+            apiKey: $token
         })
         @ticketNumber = result['data']['ticketNumber']
-
+        
         request('/ticket/comment', {
             ticketNumber: @ticketNumber,
             content: 'some valid comment made',

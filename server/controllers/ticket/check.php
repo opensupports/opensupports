@@ -46,7 +46,7 @@ class CheckTicketController extends Controller {
                     'error' => ERRORS::INVALID_EMAIL
                 ],
                 'captcha' => [
-                    'validation' => DataValidator::captcha(),
+                    'validation' => DataValidator::captcha(APIKey::TICKET_CHECK_PERMISSION),
                     'error' => ERRORS::INVALID_CAPTCHA
                 ]
             ]

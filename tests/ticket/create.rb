@@ -181,18 +181,19 @@ describe '/ticket/create' do
         Scripts.login($staff[:email], $staff[:password], true)
         result = request('/ticket/create', {
             title: 'created by staff',
-            content: 'The staff created it',
+            content: 'The staff created it believing this path returns the ticketnumber',
             departmentId: 1,
             language: 'en',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
         (result['status']).should.equal('success')
-        ticket = $database.getRow('ticket', result['data']['ticketNumber'], 'ticket_number')
+        
+        ticket = $database.getRow('ticket', 'The staff created it believing this path returns the ticketnumber', 'content')
         (ticket['author_id']).should.equal(nil)
         (ticket['author_staff_id']).should.equal(1)
 
-        $ticketNumberByStaff = result['data']['ticketNumber']
+        $ticketNumberByStaff = ticket['ticket_number']
         request('/user/logout')
     end
 end

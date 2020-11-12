@@ -111,7 +111,6 @@ describe'system/mandatory-login' do
             $userRow = $database.getRow('user','nonuser@os4.com','email')
 
             (result['status']).should.equal('success')
-            (result['data']['ticketNumber']).should.equal($ticketRow['ticket_number'].to_i)
             ($userRow['email']).should.equal('nonuser@os4.com')
             ($userRow['not_registered']).should.equal(1)
             ($userRow['tickets']).should.equal(1)
@@ -131,7 +130,6 @@ describe'system/mandatory-login' do
             $userRow = $database.getRow('user','nonuser@os4.com','email')
 
             (result['status']).should.equal('success')
-            (result['data']['ticketNumber']).should.equal($ticketRow['ticket_number'].to_i)
             ($userRow['email']).should.equal('nonuser@os4.com')
             ($userRow['tickets']).should.equal(2)
 

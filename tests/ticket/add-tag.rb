@@ -3,9 +3,9 @@ describe '/ticket/add-tag' do
     Scripts.login($staff[:email], $staff[:password], true)
 
     Scripts.createTag('test tag', 'orange')
-    result = Scripts.createTicket('test ticket')
-
-    @ticketNumber = result['ticketNumber']
+    Scripts.createTicket('test ticket')
+    ticket = $database.getRow('ticket', 'test ticket', 'title')
+    @ticketNumber = ticket['ticket_number']
 
     it 'should fail if the tagId is invalid' do
         result = request('/ticket/add-tag', {
