@@ -136,6 +136,7 @@ export default {
     'UPDATE_EMAIL': 'Update email',
     'UPDATE_PASSWORD': 'Update password',
     'UPDATE_LEVEL': 'Update level',
+    'UPDATE_CUSTOM_FIELDS': 'Update custom fields',
     'UPDATE_DEPARTMENTS': 'Update departments',
     'EDIT_STAFF': 'Edit staff member',
     'ADD_DEPARTMENT': 'Add department',
