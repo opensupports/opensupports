@@ -202,7 +202,10 @@ class AdminPanelAdvancedSettings extends React.Component {
                     </Button>
                     <SubmitButton className="admin-panel-advanced-settings__api-keys-modal__submit-button" type="secondary">{i18n('SUBMIT')}</SubmitButton>
                 </div>
-            </Form>
+            </Form>,
+            null,
+            null,
+            true
         );
     }
 
@@ -267,6 +270,7 @@ class AdminPanelAdvancedSettings extends React.Component {
             config,
             dispatch
         } = this.props;
+
         return API.call({
             path: config['mandatory-login'] ? '/system/disable-mandatory-login' : '/system/enable-mandatory-login',
             data: {
@@ -287,6 +291,7 @@ class AdminPanelAdvancedSettings extends React.Component {
             config,
             dispatch
         } = this.props;
+
         return API.call({
             path: config['registration'] ? '/system/disable-registration' : '/system/enable-registration',
             data: {
