@@ -36,11 +36,7 @@ class AdminPanelAdvancedSettings extends React.Component {
 
     render() {
         const { config } = this.props;
-        const {
-            messageType,
-            error,
-            selectedAPIKey
-        } = this.state;
+        const { messageType, error, selectedAPIKey } = this.state;
 
         return (
             <div className="admin-panel-advanced-settings">
@@ -106,11 +102,7 @@ class AdminPanelAdvancedSettings extends React.Component {
     }
 
     renderMessage() {
-        const {
-            messageType,
-            messageTitle,
-            messageContent
-        } = this.state;
+        const { messageType, messageTitle, messageContent } = this.state;
 
         return (
             <Message className="admin-panel-advanced-settings__message" type={messageType} title={messageTitle}>
@@ -128,10 +120,7 @@ class AdminPanelAdvancedSettings extends React.Component {
     }
 
     renderKey() {
-        const {
-            APIKeys,
-            selectedAPIKey
-        } = this.state;
+        const { APIKeys, selectedAPIKey } = this.state;
         const {
             name,
             token,
@@ -203,17 +192,17 @@ class AdminPanelAdvancedSettings extends React.Component {
                     <SubmitButton className="admin-panel-advanced-settings__api-keys-modal__submit-button" type="secondary">{i18n('SUBMIT')}</SubmitButton>
                 </div>
             </Form>,
-            null,
-            null,
-            true
+            {showCloseButton: true}
         );
     }
 
     addAPIKey({name,userPermission,createTicketPermission,checkTicketPermission,ticketNumberPermission}) {
         ModalContainer.closeModal();
+
         this.setState({
             error: ''
-        })
+        });
+
         API.call({
             path: '/system/add-api-key',
             data: {
@@ -266,10 +255,7 @@ class AdminPanelAdvancedSettings extends React.Component {
     }
 
     onAreYouSureMandatoryLoginOk(password) {
-        const {
-            config,
-            dispatch
-        } = this.props;
+        const { config, dispatch } = this.props;
 
         return API.call({
             path: config['mandatory-login'] ? '/system/disable-mandatory-login' : '/system/enable-mandatory-login',
@@ -287,10 +273,7 @@ class AdminPanelAdvancedSettings extends React.Component {
     }
 
     onAreYouSureRegistrationOk(password) {
-        const {
-            config,
-            dispatch
-        } = this.props;
+        const { config, dispatch } = this.props;
 
         return API.call({
             path: config['registration'] ? '/system/disable-registration' : '/system/enable-registration',

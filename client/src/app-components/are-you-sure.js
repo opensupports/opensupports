@@ -31,8 +31,8 @@ class AreYouSure extends React.Component {
 
     static openModal(description, onYes, type = 'default') {
         ModalContainer.openModal(
-            <AreYouSure description={description} onYes={onYes} type={type}/>,
-            true
+            <AreYouSure description={description} onYes={onYes} type={type} />,
+            {noPadding: true}
         );
     }
 
@@ -42,18 +42,20 @@ class AreYouSure extends React.Component {
 
     render() {
         const { loading } = this.state;
+        const { description, type } = this.props;
+
         return (
             <div className="are-you-sure" role="dialog" aria-labelledby="are-you-sure__header" aria-describedby="are-you-sure__description">
                 <div className="are-you-sure__header" id="are-you-sure__header">
                     {i18n('ARE_YOU_SURE')}
                 </div>
                 <span className="are-you-sure__close-icon" onClick={this.onNo.bind(this)}>
-                    <Icon name="times" size="2x"/>
+                    <Icon name="times" size="2x" />
                 </span>
                 <div className="are-you-sure__description" id="are-you-sure__description">
-                    {this.props.description || (this.props.type === 'secure' && i18n('PLEASE_CONFIRM_PASSWORD'))}
+                    {description || (type === 'secure' && i18n('PLEASE_CONFIRM_PASSWORD'))}
                 </div>
-                {(this.props.type === 'secure') ? this.renderPassword() : null}
+                {(type === 'secure') ? this.renderPassword() : null}
                 <span className="separator" />
                 <div className="are-you-sure__buttons">
                     <div className="are-you-sure__no-button">
@@ -79,10 +81,8 @@ class AreYouSure extends React.Component {
     }
 
     renderPassword() {
-        const {
-            password,
-            loading
-        } = this.state;
+        const { password, loading } = this.state;
+
         return (
             <Input
                 className="are-you-sure__password"
@@ -112,13 +112,8 @@ class AreYouSure extends React.Component {
     }
 
     onYes() {
-        const {
-            password,
-        } = this.state;
-        const {
-            type,
-            onYes
-        } = this.props;
+        const { password } = this.state;
+        const { type, onYes } = this.props;
 
         if(type === 'secure' && !password) {
             this.refs.password.focus()
@@ -166,9 +161,9 @@ class AreYouSure extends React.Component {
     }
 
     closeModal() {
-        if (this.context.closeModal) {
-            this.context.closeModal();
-        }
+        const { closeModal } = this.context;
+
+        closeModal && closeModal();
     }
 }
 
