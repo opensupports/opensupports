@@ -37,7 +37,7 @@ class CreateTicketForm extends React.Component {
         form: {
             title: '',
             content: TextEditor.createEmpty(),
-            departmentIndex: getPublicDepartmentIndexFromDepartmentId(this.props.defaultDepartmentId),
+            departmentIndex: getPublicDepartmentIndexFromDepartmentId(this.props.defaultDepartmentId, SessionStore.getDepartments()),
             email: '',
             name: '',
             language: this.props.language
