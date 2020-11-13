@@ -47,57 +47,51 @@ class TicketQueryFilters extends React.Component {
                     <div className="ticket-query-filters__search-box">
                         <FormField name="query" field="search-box" fieldProps={{onSearch: this.onSubmitListConfig.bind(this)}} />
                     </div>
-                    <div className="ticket-query-filters__row">
-                        <div className="ticket-query-filters__row__filter">
-                            <span>{i18n('DATE')}</span>
-                            <FormField
-                                name="dateRange"
-                                field="date-range"
-                                fieldProps={{defaultValue: formState.dateRange}} />
-                        </div>
-                        <div className="ticket-query-filters__row__filter">
-                            <span>{i18n('STATUS')}</span>
-                            <FormField name="closed" field="select" fieldProps={{items: this.getStatusItems(), className: 'ticket-query-filters__group__container__status-drop-down'}} />
-                        </div>
+                    <div className="ticket-query-filters__first-row">
+                        <FormField
+                            label={i18n('DATE')}
+                            name="dateRange"
+                            field="date-range"
+                            fieldProps={{defaultValue: formState.dateRange}} />
+                        <FormField
+                            label={i18n('STATUS')}
+                            name="closed"
+                            field="select"
+                            fieldProps={{
+                                items: this.getStatusItems(),
+                                className: 'ticket-query-filters__status-drop-down'
+                            }} />
                     </div>
-                    <div className="ticket-query-filters__row">
-                        <div className="ticket-query-filters__row__filter">
-                            <span className="ticket-query-filters__title">{i18n('DEPARTMENTS')}</span>
-                            <FormField
-                                name="departments"
-                                field="autocomplete"
-                                fieldProps={{items: this.getDepartmentsItems()}} />
-                        </div>
-                        <div className="ticket-query-filters__row__filter">
-                            <span className="ticket-query-filters__title">{i18n('OWNER')}</span>
-                            <FormField
-                                name="owners"
-                                field="autocomplete"
-                                fieldProps={{items: this.getStaffList()}} />
-                        </div>
+                    <div className="ticket-query-filters__second-row">
+                        <FormField
+                            label={i18n('DEPARTMENTS')}
+                            name="departments"
+                            field="autocomplete"
+                            fieldProps={{items: this.getDepartmentsItems()}} />
+                        <FormField
+                            label={i18n('OWNER')}
+                            name="owners"
+                            field="autocomplete"
+                            fieldProps={{items: this.getStaffList()}} />
                     </div>
-                    <div className="ticket-query-filters__row">
-                        <div className="ticket-query-filters__row__filter">
-                            <span className="ticket-query-filters__title">{i18n('TAGS')}</span>
-                            <FormField
-                                name="tags"
-                                field="tag-selector"
-                                fieldProps={{
-                                    items: this.getTags(filters.tags),
-                                    onRemoveClick: this.removeTag.bind(this),
-                                    onTagSelected: this.addTag.bind(this)
-                                }} />
-                        </div>
-                        <div className="ticket-query-filters__row__filter">
-                            <span className="ticket-query-filters__title">{i18n('AUTHORS')}</span>
-                            <FormField
-                                name="authors"
-                                field="autocomplete"
-                                fieldProps={{
-                                    getItemListFromQuery: this.searchAuthors.bind(this),
-                                    comparerFunction: this.autorsComparer.bind(this)
-                                }} />
-                        </div>
+                    <div className="ticket-query-filters__third-row">
+                        <FormField
+                            label={i18n('TAGS')}
+                            name="tags"
+                            field="tag-selector"
+                            fieldProps={{
+                                items: this.getTags(filters.tags),
+                                onRemoveClick: this.removeTag.bind(this),
+                                onTagSelected: this.addTag.bind(this)
+                            }} />
+                        <FormField
+                            label={i18n('AUTHORS')}
+                            name="authors"
+                            field="autocomplete"
+                            fieldProps={{
+                                getItemListFromQuery: this.searchAuthors.bind(this),
+                                comparerFunction: this.autorsComparer.bind(this)
+                            }} />
                     </div>
                     <div className="ticket-query-filters__container">
                         <Button
