@@ -25,8 +25,7 @@ function getPublicDepartmentList(){
     return _.filter(SessionStore.getDepartments(),item => item.private != 1)
 }
 
-export const getPublicDepartmentIndexFromDepartmentId = (departmentId) => {
-    const departments = getPublicDepartmentList();
+export const getPublicDepartmentIndexFromDepartmentId = (departmentId, departments) => {
     const departmentIndex = _.findIndex(departments, department  => department.id == departmentId );
 
     return (departmentIndex !== -1) ? departmentIndex : 0;
@@ -228,7 +227,7 @@ class AdminPanelDepartments extends React.Component {
 
         return {
             values: {
-                defaultDepartment: getPublicDepartmentIndexFromDepartmentId(defaultDepartment),
+                defaultDepartment: getPublicDepartmentIndexFromDepartmentId(defaultDepartment, getPublicDepartmentList()),
                 locked: defaultDepartmentLocked ? true : false,
             },
             onChange: (formValue) => {
