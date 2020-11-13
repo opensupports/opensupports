@@ -219,11 +219,13 @@ class StaffEditor extends React.Component {
         );
     }
 
-
     renderDepartmentsInfo() {
+        const { departments } = this.state;
+        const departmentsAssigned = this.getDepartments().filter((_department, index) => departments.includes(index))
+
         return (
-            <Form values={{departments: this.state.departments}}>
-                <FormField name="departments" field="checkbox-group" fieldProps={{items: this.getDepartments().filter((department,index) => this.state.departments.includes(index))}} />
+            <Form values={{departments: Array.from({length: departmentsAssigned.length}, (value, index) => index)}}>
+                <FormField name="departments" field="checkbox-group" fieldProps={{items: departmentsAssigned}} />
             </Form>
         );
     }
