@@ -1,7 +1,6 @@
 @import "../scss/vars";
 
 .ticket-viewer {
-
     &__header {
         background-color: $primary-blue;
         border-top-right-radius: 4px;
@@ -18,6 +17,22 @@
                 color: $grey;
             }
         }
+    }
+
+    &__buttons-column {
+        padding-top: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    &__buttons-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 250px;
     }
 
     &__edited-title-text {
@@ -193,13 +208,14 @@
 
         &-buttons {
             display: flex;
+            flex-direction: row;
             justify-content: space-between;
             align-items: center;
         }
 
     }
+
     &__delete-button {
-        margin-left: 10px;
     }
 
     @media screen and (max-width: 1151px) {
