@@ -11,7 +11,7 @@ class Modal extends React.Component {
         noPadding: React.PropTypes.bool,
         outsideClick: React.PropTypes.bool,
         onOutsideClick: React.PropTypes.func,
-        renderCloseButton: React.PropTypes.bool
+        showCloseButton: React.PropTypes.bool
     };
 
     render() {
@@ -37,14 +37,14 @@ class Modal extends React.Component {
 
     renderModal(animation) {
         const {
-            renderCloseButton,
+            showCloseButton,
             content
         } = this.props;
 
         return (
             <div className={this.getClass()} style={{opacity: animation.fade}} onClick={this.onModalClick.bind(this)}>
                 <div className="modal__content" style={{transform: 'scale(' + animation.scale + ')'}} onClick={this.onModalContentClick.bind(this)}>
-                    {renderCloseButton ? this.renderCloseButton() : null}
+                    {showCloseButton ? this.renderCloseButton() : null}
                     {content}
                 </div>
             </div>

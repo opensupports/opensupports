@@ -8,13 +8,13 @@ import Modal from 'core-components/modal';
 
 class ModalContainer extends React.Component {
 
-    static openModal(content, noPadding, outsideClick=false, renderCloseButton=false) {
+    static openModal(content, noPadding, outsideClick=false, showCloseButton=false) {
         store.dispatch(
             ModalActions.openModal({
                 content,
                 noPadding,
                 outsideClick,
-                renderCloseButton
+                showCloseButton
             })
         );
     }
@@ -50,10 +50,10 @@ class ModalContainer extends React.Component {
     }
     
     renderModal() {
-        const {content, noPadding, outsideClick, renderCloseButton} = this.props.modal;
+        const {content, noPadding, outsideClick, showCloseButton} = this.props.modal;
 
         return (
-            <Modal content={content} noPadding={noPadding} outsideClick={outsideClick} onOutsideClick={this.closeModal.bind(this)} renderCloseButton={renderCloseButton} />
+            <Modal content={content} noPadding={noPadding} outsideClick={outsideClick} onOutsideClick={this.closeModal.bind(this)} showCloseButton={showCloseButton} />
         );
     }
 
