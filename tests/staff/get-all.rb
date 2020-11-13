@@ -24,8 +24,8 @@ describe'/staff/get-all' do
         (result['data'][0]['departments'][1]['name']).should.equal('useless private deapartment')
         (result['data'][0]['departments'][2]['id']).should.equal('3')
         (result['data'][0]['departments'][2]['name']).should.equal('Suggestions')
-        (result['data'][0]['assignedTickets']).should.equal(10)
-        (result['data'][0]['closedTickets']).should.equal(1)
+        (result['data'][0]['assignedTickets']).should.equal(22)
+        (result['data'][0]['closedTickets']).should.equal(0)
 
         (result['data'][2]['name']).should.equal('Arya Stark')
         (result['data'][2]['email']).should.equal('ayra2@opensupports.com')

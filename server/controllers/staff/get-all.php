@@ -40,8 +40,8 @@ class GetAllStaffController extends Controller {
             $closedTickets = 0;
 
             foreach ($staff->sharedTicketList as $ticket) {
-                if($ticket->closed) $closedTickets++;
-                else $assignedTickets++;
+                if(($ticket->closed) && ($ticket->owner_id == $staff->id)) $closedTickets++;
+                if($ticket->owner_id == $staff->id) $assignedTickets++;
             }
 
             $staffArray[] = [
