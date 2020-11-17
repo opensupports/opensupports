@@ -14,7 +14,6 @@ import ModalContainer from 'app-components/modal-container';
 import InviteStaffModal from 'app/admin/panel/staff/invite-staff-modal';
 
 import Header from 'core-components/header';
-import DropDown from 'core-components/drop-down';
 import Button from 'core-components/button';
 import Icon from 'core-components/icon';
 import Loading from 'core-components/loading';

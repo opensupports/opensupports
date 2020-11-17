@@ -51,7 +51,7 @@ class AdminPanelListUsers extends React.Component {
                 <Table {...this.getTableProps()} />
                 <div style={{textAlign: 'right', marginTop: 10}}>
                     <Button onClick={this.onInviteUser.bind(this)} type="secondary" size="medium">
-                        <Icon size="sm" name="plus" /> {i18n('INVITE_USER')}
+                        <Icon size="sm" name="user-plus" /> {i18n('INVITE_USER')}
                     </Button>
                 </div>
             </div>
