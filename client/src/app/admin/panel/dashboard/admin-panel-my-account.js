@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import _ from 'lodash';
 
 import i18n from 'lib-app/i18n';
-import API from 'lib-app/api-call';
 import SessionActions from 'actions/session-actions';
 
 import StaffEditor from 'app/admin/panel/staff/staff-editor';

@@ -69,7 +69,8 @@ jobs:
             sudo pip install awscli
             sudo apt-get update
             sudo apt-get install lftp
-            if [ "$CIRCLE_BRANCH" = "master" ]; then make deploy-staging-files; fi    
+            if [ "$CIRCLE_BRANCH" = "master" ]; then make deploy-staging-files; fi
+            if [ "$CIRCLE_BRANCH" = "master" ]; then make deploy-staging-population; fi
           
 workflows:
   install:

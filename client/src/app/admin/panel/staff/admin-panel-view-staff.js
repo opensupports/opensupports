@@ -67,6 +67,7 @@ class AdminPanelViewStaff extends React.Component {
             params,
             dispatch
         } = this.props;
+
         this.setState({
             loading: false,
             userData: result.data
