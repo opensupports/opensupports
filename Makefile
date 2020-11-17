@@ -23,3 +23,8 @@ deploy-instance-files:
 
 s3upload:
 	aws s3 cp ${FILE} s3://$(BUCKET)/ --cache-control max-age=0
+
+deploy-staging-population:
+	curl -u ${CIRCLE_API_USER_TOKEN}: \
+		-d 'build_parameters[CIRCLE_JOB]=deploy_dev1' \
+		https://circleci.com/api/v1.1/project/github/opensupports/staging-population/tree/master

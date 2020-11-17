@@ -1,10 +1,10 @@
 {
     "config": {
         "platform": {
-            "php": "7.1",
+            "php": "5.6",
             "ext-fileinfo": "1.0.5"
         }
-    },    
+    },
     "require": {
         "slim/slim": "~2.0",
         "respect/validation": "^1.1",
