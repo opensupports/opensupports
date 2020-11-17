@@ -11,7 +11,10 @@ class ModalReducer extends Reducer {
             options: {
                 noPadding: false,
                 outsideClick: false,
-                showCloseButton: false
+                closeButton: {
+                    showCloseButton: false,
+                    whiteColor: false
+                }
             }
         };
     }
@@ -25,7 +28,7 @@ class ModalReducer extends Reducer {
 
     onOpenModal(state, payload) {
         const { content, options } = payload;
-        const { noPadding, outsideClick, showCloseButton } = options;
+        const { noPadding, outsideClick, closeButton } = options;
 
         document.body.setAttribute('style', 'overflow:hidden');
 
@@ -35,7 +38,7 @@ class ModalReducer extends Reducer {
             options: {
                 noPadding: noPadding || false,
                 outsideClick,
-                showCloseButton
+                closeButton
             }
         });
     }
@@ -49,7 +52,10 @@ class ModalReducer extends Reducer {
             options: {
                 noPadding: false,
                 outsideClick: false,
-                showCloseButton: false
+                closeButton: {
+                    showCloseButton: false,
+                    whiteColor: false
+                }
             }
         });
     }

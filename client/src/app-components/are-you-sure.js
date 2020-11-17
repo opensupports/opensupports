@@ -5,9 +5,7 @@ import ModalContainer from 'app-components/modal-container';
 
 import Button from 'core-components/button';
 import Input from 'core-components/input';
-import Icon from 'core-components/icon';
 import Loading from 'core-components/loading'
-
 
 class AreYouSure extends React.Component {
     static propTypes = {
@@ -32,7 +30,7 @@ class AreYouSure extends React.Component {
     static openModal(description, onYes, type = 'default') {
         ModalContainer.openModal(
             <AreYouSure description={description} onYes={onYes} type={type} />,
-            {noPadding: true}
+            {noPadding: true, closeButton: {showCloseButton: true, whiteColor: true}}
         );
     }
 
@@ -49,9 +47,6 @@ class AreYouSure extends React.Component {
                 <div className="are-you-sure__header" id="are-you-sure__header">
                     {i18n('ARE_YOU_SURE')}
                 </div>
-                <span className="are-you-sure__close-icon" onClick={this.onNo.bind(this)}>
-                    <Icon name="times" size="2x" />
-                </span>
                 <div className="are-you-sure__description" id="are-you-sure__description">
                     {description || (type === 'secure' && i18n('PLEASE_CONFIRM_PASSWORD'))}
                 </div>
@@ -70,9 +65,8 @@ class AreYouSure extends React.Component {
                             onClick={this.onYes.bind(this)}
                             ref="yesButton"
                             tabIndex="2"
-                            disabled={loading}
-                        >
-                            {loading ? <Loading /> : i18n('YES')}
+                            disabled={loading}>
+                                {loading ? <Loading /> : i18n('YES')}
                         </Button>
                     </div>
                 </div>
@@ -94,8 +88,7 @@ class AreYouSure extends React.Component {
                 value={password}
                 onChange={this.onPasswordChange.bind(this)}
                 onKeyDown={this.onInputKeyDown.bind(this)}
-                disabled={loading}
-            />
+                disabled={loading} />
         );
     }
 

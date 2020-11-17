@@ -192,7 +192,11 @@ class AdminPanelAdvancedSettings extends React.Component {
                     <SubmitButton className="admin-panel-advanced-settings__api-keys-modal__submit-button" type="secondary">{i18n('SUBMIT')}</SubmitButton>
                 </div>
             </Form>,
-            {showCloseButton: true}
+            {
+                closeButton: {
+                    showCloseButton: true
+                }
+            }
         );
     }
 

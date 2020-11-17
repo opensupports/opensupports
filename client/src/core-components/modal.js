@@ -5,13 +5,18 @@ import {Motion, spring} from 'react-motion';
 
 import Icon from 'core-components/icon';
 
+const closeButtonSchema = React.PropTypes.shape({
+    showCloseButton: React.PropTypes.bool,
+    whiteColor: React.PropTypes.bool
+});
+
 class Modal extends React.Component {
     static propTypes = {
         content: React.PropTypes.node,
         noPadding: React.PropTypes.bool,
         outsideClick: React.PropTypes.bool,
         onOutsideClick: React.PropTypes.func,
-        showCloseButton: React.PropTypes.bool
+        closeButton: closeButtonSchema
     };
 
     render() {
@@ -36,24 +41,22 @@ class Modal extends React.Component {
     }
 
     renderModal(animation) {
-        const {
-            showCloseButton,
-            content
-        } = this.props;
+        const { closeButton, content } = this.props;
+        const { showCloseButton, whiteColor } = closeButton;
 
         return (
             <div className={this.getClass()} style={{opacity: animation.fade}} onClick={this.onModalClick.bind(this)}>
                 <div className="modal__content" style={{transform: 'scale(' + animation.scale + ')'}} onClick={this.onModalContentClick.bind(this)}>
-                    {showCloseButton ? this.renderCloseButton() : null}
+                    {showCloseButton ? this.renderCloseButton(whiteColor) : null}
                     {content}
                 </div>
             </div>
         )
     }
 
-    renderCloseButton() {
+    renderCloseButton(whiteColor = false) {
         return (
-            <span className="modal__close-icon" onClick={() => this.props.onOutsideClick()}>
+            <span className={`modal__close-icon${whiteColor ? " modal__close-icon__white-color" : ""}`} onClick={() => this.props.onOutsideClick()}>
                 <Icon name="times" size="2x"/>
             </span>
         );
