@@ -8,18 +8,18 @@ describe '/system/apikey-permissions' do
     apikeycanCheckTickets = Scripts.createAPIKey('comment tickets',canCreateUsers=0, canCreateTickets=0, canCheckTickets=1,  shouldReturnTicketNumber=0)['data']
     apikeycanReturnTickets = Scripts.createAPIKey('create and return tickets',canCreateUsers=0, canCreateTickets=1, canCheckTickets=0,  shouldReturnTicketNumber=1)['data']
     
-    result = request('/system/disable-mandatory-login', {
+    request('/system/disable-mandatory-login', {
             "csrf_userid" => $csrf_userid,
             "csrf_token" => $csrf_token,
             "password" => "staff"
     })
-    result = request('/system/edit-settings', {
+    request('/system/edit-settings', {
         "csrf_userid" => $csrf_userid,
         "csrf_token" => $csrf_token,
         "recaptcha-private" => "THISISVALID"
     })
     request('/user/logout')
-    
+
     it 'should fail ticket create if the apikey does not have create ticket permission' do
         result = request('/ticket/create', {
             language: 'en',
@@ -193,5 +193,13 @@ describe '/system/apikey-permissions' do
         })
 
         (result['status']).should.equal('success')
+
+        Scripts.login($staff[:email], $staff[:password], true)
+        request('/system/edit-settings', {
+            "csrf_userid" => $csrf_userid,
+            "csrf_token" => $csrf_token,
+            "recaptcha-private" => ""
+        })
+        request('/user/logout')
     end
 end
