@@ -1,10 +1,8 @@
 import React from 'react';
 
-import i18n from 'lib-app/i18n';
 import ModalContainer from 'app-components/modal-container';
 
 import Button from 'core-components/button';
-import Icon from 'core-components/icon';
 import Message from 'core-components/message';
 
 
@@ -17,9 +15,8 @@ class PopupMessage extends React.Component {
 
     static open(props) {
         ModalContainer.openModal(
-            <PopupMessage {...props}/>,
-            true,
-            true
+            <PopupMessage {...props} />,
+            {noPadding: true, outsideClick: true}
         );
     }
 
@@ -30,16 +27,21 @@ class PopupMessage extends React.Component {
     render() {
         return (
             <div className="popup-message">
-                <Message {...this.props} className="popup-message__message"/>
-                <Button className="popup-message__close-button" iconName="times" type="clean" ref="closeButton" onClick={this.closeModal.bind(this)}/>
+                <Message {...this.props} className="popup-message__message" />
+                <Button
+                    className="popup-message__close-button"
+                    iconName="times"
+                    type="clean"
+                    ref="closeButton"
+                    onClick={this.closeModal.bind(this)} />
             </div>
         );
     }
 
     closeModal() {
-        if (this.context.closeModal) {
-            this.context.closeModal();
-        }
+        const { closeModal } = this.context;
+
+        closeModal && closeModal();
     }
 }
 
