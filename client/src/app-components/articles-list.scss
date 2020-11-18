@@ -1,11 +1,14 @@
 @import "../scss/vars";
 
 .articles-list {
-
     &__add {
         position: relative;
     }
 
-    &__add-icon {
+    &__add-topic-button {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
     }
 }

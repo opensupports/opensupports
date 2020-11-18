@@ -100,10 +100,10 @@ class AdminPanelSystemPreferences extends React.Component {
                     </div>
                     <div className="row admin-panel-system-preferences__container">
                         <div className="col-md-4 col-md-offset-2">
-                            <SubmitButton className="admin-panel-system-preferences__container__button" type="secondary">{i18n('UPDATE_SETTINGS')}</SubmitButton>
+                            <Button className="admin-panel-system-preferences__container__button" onClick={this.onDiscardChangesSubmit.bind(this)}>{i18n('DISCARD_CHANGES')}</Button>
                         </div>
                         <div className="col-md-4">
-                            <Button className="admin-panel-system-preferences__container__button" onClick={this.onDiscardChangesSubmit.bind(this)}>{i18n('DISCARD_CHANGES')}</Button>
+                            <SubmitButton className="admin-panel-system-preferences__container__button" type="secondary">{i18n('UPDATE_SETTINGS')}</SubmitButton>
                         </div>
                     </div>
                 </Form>
