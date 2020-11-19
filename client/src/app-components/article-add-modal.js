@@ -32,11 +32,11 @@ class ArticleAddModal extends React.Component {
                 <Form onSubmit={this.onAddNewArticleFormSubmit.bind(this)} loading={this.state.loading}>
                     <FormField name="title" label={i18n('TITLE')} field="input" fieldProps={{size: 'large'}} validation="TITLE" required/>
                     <FormField name="content" label={i18n('CONTENT')} field="textarea" validation="TEXT_AREA" required fieldProps={{allowImages: this.props.allowAttachments}}/>
-                    <SubmitButton type="secondary">{i18n('ADD_ARTICLE')}</SubmitButton>
                     <Button className="article-add-modal__cancel-button" type="link" onClick={(event) => {
                         event.preventDefault();
                         ModalContainer.closeModal();
                     }}>{i18n('CANCEL')}</Button>
+                    <SubmitButton className="article-add-modal__submit-button" type="secondary">{i18n('ADD_ARTICLE')}</SubmitButton>
                 </Form>
             </div>
         );

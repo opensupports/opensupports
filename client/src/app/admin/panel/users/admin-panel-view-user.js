@@ -51,31 +51,40 @@ class AdminPanelViewUser extends React.Component {
     }
 
     renderUserInfo() {
+        const {
+            name,
+            disabled,
+            email,
+            verified,
+            customfields,
+            loading
+        } = this.state;
+
         return (
             <div className="admin-panel-view-user__content">
                 <div className="admin-panel-view-user__info">
                     <div className="admin-panel-view-user__info-item">
                         {i18n('NAME')}
                         <div className="admin-panel-view-user__info-box">
-                            {this.state.name}
-                            {(this.state.disabled) ? this.renderDisabled() : null}
+                            {name}
+                            {disabled ? this.renderDisabled() : null}
                         </div>
                     </div>
                     <div className="admin-panel-view-user__info-item">
                         {i18n('EMAIL')}
                         <div className="admin-panel-view-user__info-box">
-                            {this.state.email}
-                            {(!this.state.verified) ? this.renderNotVerified() : null}
+                            {email}
+                            {(!verified) ? this.renderNotVerified() : null}
                         </div>
                     </div>
-                    {this.state.customfields.map(this.renderCustomField.bind(this))}
+                    {customfields.map(this.renderCustomField.bind(this))}
                     <div className="admin-panel-view-user__action-buttons">
                         <Button
                             className="admin-panel-view-user__action-button"
                             onClick={this.onDisableClick.bind(this)}
                             size="medium"
-                            type={this.state.disabled ? 'tertiary' : 'primary'}>
-                            {i18n(this.state.disabled ? 'ENABLE_USER' : 'DISABLE_USER')}
+                            type={disabled ? 'tertiary' : 'primary'}>
+                                {i18n(disabled ? 'ENABLE_USER' : 'DISABLE_USER')}
                         </Button>
                         <Button className="admin-panel-view-user__action-button" onClick={this.onDeleteClick.bind(this)} size="medium">
                             {i18n('DELETE_AND_BAN')}
@@ -89,15 +98,14 @@ class AdminPanelViewUser extends React.Component {
                         <Autocomplete
                             onChange={this.onChangeValues.bind(this)}
                             getItemListFromQuery={this.searchUsers.bind(this)}
-                            values={this.transformUserListToAutocomplete()}
-                        />
+                            values={this.transformUserListToAutocomplete()} />
                         <Button
-                            disabled = {this.state.loading}
+                            disabled={loading}
+                            type="secondary"
                             className="admin-panel-view-user__submit-button"
                             onClick={this.onClickSupervisorUserButton.bind(this)}
-                            size="medium"
-                        >
-                            {i18n('UPDATE')}
+                            size="medium">
+                                {i18n('UPDATE')}
                         </Button>
                     </div>
                     {this.renderSupervisedUserMessage()}
@@ -105,26 +113,28 @@ class AdminPanelViewUser extends React.Component {
                 <span className="separator" />
                 <div className="admin-panel-view-user__tickets">
                     <div className="admin-panel-view-user__tickets-title">{i18n('TICKETS')}</div>
-                    <TicketList {...this.getTicketListProps()}/>
+                    <TicketList {...this.getTicketListProps()} />
                 </div>
             </div>
         );
     }
 
     renderSupervisedUserMessage(){
-        if(this.state.message) {
-            if(this.state.message != 'success'){
-                return(
+        const { message } = this.state;
+
+        if(message) {
+            if(message != 'success') {
+                return (
                     <div className="admin-panel-view-user__supervised-users-message">
-                            <Message type="error">{i18n(this.state.message)}</Message>
+                        <Message type="error">{i18n(message)}</Message>
                     </div>
-                )
-            }else{
-                return(
+                );
+            } else {
+                return (
                     <div className= "admin-panel-view-user__supervised-users-message">
-                            <Message type="success">{i18n('SUPERVISED_USERS_UPDATED')}</Message>
+                        <Message type="success">{i18n('SUPERVISED_USERS_UPDATED')}</Message>
                     </div>
-                )
+                );
             }
         }
     }
@@ -133,11 +143,11 @@ class AdminPanelViewUser extends React.Component {
         this.setState({
             loading: true
         });
-        
+
         const userIdList = this.state.userList.map((item) => {
             return item.id;
         });
-        
+
         API.call({
             path: '/user/edit-supervised-list',
             data: {
@@ -177,11 +187,16 @@ class AdminPanelViewUser extends React.Component {
             const authorsListWithoutMe = r.data.authors.filter(author => author.id != this.props.params.userId);
 
             return authorsListWithoutMe.map(author => {
+                const {
+                    id,
+                    name
+                } = author;
+
                 return {
-                    name: author.name,
+                    name,
                     color: "gray",
-                    id: author.id*1,
-                    content: <div>{author.name}</div>,
+                    id: id*1,
+                    content: <div>{name}</div>,
                     isStaff: false
                 }});
         }).catch((r) => {
@@ -192,10 +207,15 @@ class AdminPanelViewUser extends React.Component {
     transformUserListToAutocomplete() {
         return(
             this.state.userList.map((user) => {
+                const {
+                    id,
+                    name
+                } = user;
+
                 return ({
-                    id: user.id*1,
-                    name: user.name,
-                    content: <div>{user.name}</div>,
+                    id: id*1,
+                    name,
+                    content: <div>{name}</div>,
                     color: 'grey',
                     isStaff: false
                 });
@@ -215,37 +235,58 @@ class AdminPanelViewUser extends React.Component {
         );
     }
 
-    renderCustomField(customfield) {
+    renderCustomField(_customfield) {
+        const {
+            customfield,
+            value,
+            id
+        } = _customfield;
+
         return (
-            <div className="admin-panel-view-user__info-item">
-                {customfield.customfield}
+            <div className="admin-panel-view-user__info-item" key={`customFieldId__${id}`}>
+                {customfield}
                 <div className="admin-panel-view-user__info-box">
-                    {customfield.value}
+                    {value}
                 </div>
             </div>
         );
     }
 
     getTicketListProps() {
+        const {
+            tickets,
+            loading
+        } = this.state;
+
         return {
             type: 'secondary',
-            tickets: this.state.tickets,
-            loading: this.state.loading,
+            tickets,
+            loading,
             departments: this.props.departments,
             ticketPath: '/admin/panel/tickets/view-ticket/'
         };
     }
 
     onUserRetrieved(result) {
+        const {
+            name,
+            email,
+            verified,
+            tickets,
+            disabled,
+            customfields,
+            userList
+        } = result.data;
+
         this.setState({
-            name: result.data.name,
-            email: result.data.email,
-            verified: result.data.verified,
-            tickets: result.data.tickets,
-            disabled: result.data.disabled,
-            customfields: result.data.customfields,
+            name,
+            email,
+            verified,
+            tickets,
+            disabled,
+            customfields,
             loading: false,
-            userList: result.data.userList
+            userList
         });
     }
 

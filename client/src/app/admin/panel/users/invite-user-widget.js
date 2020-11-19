@@ -1,5 +1,4 @@
 import React              from 'react';
-import ReactDOM           from 'react-dom';
 import _                  from 'lodash';
 import classNames         from 'classnames';
 
@@ -13,6 +12,8 @@ import Form               from 'core-components/form';
 import FormField          from 'core-components/form-field';
 import Widget             from 'core-components/widget';
 import Header             from 'core-components/header';
+import Button from 'core-components/button';
+import ModalContainer from 'app-components/modal-container';
 
 class InviteUserWidget extends React.Component {
 
@@ -52,9 +53,11 @@ class InviteUserWidget extends React.Component {
                     <div className="invite-user-widget__captcha">
                         <Captcha ref="captcha"/>
                     </div>
-                    <SubmitButton type="primary">{i18n('INVITE_USER')}</SubmitButton>
+                    <div className="invite-user-widget__buttons-container">
+                        <Button onClick={(e) => {e.preventDefault(); ModalContainer.closeModal();}} type="link">{i18n('CANCEL')}</Button>
+                        <SubmitButton type="secondary">{i18n('INVITE_USER')}</SubmitButton>
+                    </div>
                 </Form>
-
                 {this.renderMessage()}
             </Widget>
         );
@@ -88,9 +91,9 @@ class InviteUserWidget extends React.Component {
     renderMessage() {
         switch (this.state.message) {
             case 'success':
-                return <Message type="success">{i18n('INVITE_USER_SUCCESS')}</Message>;
+                return <Message className="invite-user-widget__success-message" type="success">{i18n('INVITE_USER_SUCCESS')}</Message>;
             case 'fail':
-                return <Message type="error">{i18n('EMAIL_EXISTS')}</Message>;
+                return <Message className="invite-user-widget__error-message" type="error">{i18n('EMAIL_EXISTS')}</Message>;
             default:
                 return null;
         }

@@ -138,10 +138,11 @@ class AdminPanelEmailSettings extends React.Component {
                             <FormField name="smtp-user" label={i18n('SMTP_USER')} fieldProps={{size: 'large'}} />
                             <FormField name="smtp-pass" label={i18n('SMTP_PASSWORD')} fieldProps={{size: 'large', autoComplete: 'off'}} />
                             <div className="admin-panel-email-settings__server-form-buttons">
-                                <SubmitButton className="admin-panel-email-settings__submit" type="secondary"
-                                              size="small">{i18n('SAVE')}</SubmitButton>
                                 <SubmitButton type="tertiary" size="small" onClick={this.testSMTP.bind(this)}>
                                     {i18n('TEST')}
+                                </SubmitButton>
+                                <SubmitButton className="admin-panel-email-settings__submit" type="secondary" size="small">
+                                    {i18n('SAVE')}
                                 </SubmitButton>
                             </div>
                         </Form>
@@ -160,10 +161,11 @@ class AdminPanelEmailSettings extends React.Component {
                                 infoMessage={i18n('IMAP_TOKEN_DESCRIPTION')}
                                 fieldProps={{size: 'large', icon: 'refresh', onIconClick: this.generateImapToken.bind(this)}} />
                             <div className="admin-panel-email-settings__server-form-buttons">
-                                <SubmitButton className="admin-panel-email-settings__submit" type="secondary"
-                                              size="small">{i18n('SAVE')}</SubmitButton>
                                 <SubmitButton type="tertiary" size="small" onClick={this.testIMAP.bind(this)}>
                                     {i18n('TEST')}
+                                </SubmitButton>
+                                <SubmitButton className="admin-panel-email-settings__submit" type="secondary" size="small">
+                                    {i18n('SAVE')}
                                 </SubmitButton>
                             </div>
                         </Form>
@@ -177,10 +179,16 @@ class AdminPanelEmailSettings extends React.Component {
     }
 
     renderForm() {
+        const {
+            form,
+            language,
+            selectedIndex,
+            edited
+        } = this.state;
         return (
             <div className="col-md-9">
-                <FormField label={i18n('LANGUAGE')} decorator={LanguageSelector} value={this.state.language}
-                           onChange={event => this.onItemChange(this.state.selectedIndex, event.target.value)}
+                <FormField label={i18n('LANGUAGE')} decorator={LanguageSelector} value={language}
+                           onChange={event => this.onItemChange(selectedIndex, event.target.value)}
                            fieldProps={{
                                type: 'allowed',
                                size: 'medium'
@@ -196,29 +204,32 @@ class AdminPanelEmailSettings extends React.Component {
                     <FormField key="text1" label={i18n('TEXT') + '1'} name="text1" validation="TEXT_AREA" required
                                decorator={'textarea'}
                                fieldProps={{className: 'admin-panel-email-settings__text-area'}} />
-                    {(this.state.form.text2) ?
+                    {(form.text2) ?
                         <FormField key="text2" label={i18n('TEXT') + '2'} name="text2" validation="TEXT_AREA" required
                                    decorator={'textarea'}
                                    fieldProps={{className: 'admin-panel-email-settings__text-area'}} /> : null}
-                    {(this.state.form.text3) ?
+                    {(form.text3) ?
                         <FormField key="text3" label={i18n('TEXT') + '3'} name="text3" validation="TEXT_AREA" required
                                    decorator={'textarea'}
                                    fieldProps={{className: 'admin-panel-email-settings__text-area'}} /> : null}
 
                     <div className="admin-panel-email-settings__actions">
-                        <div className="admin-panel-email-settings__save-button">
-                            <SubmitButton key="submit-email-template" type="secondary" size="small" onClick={e => {
-                                e.preventDefault();
-                                this.onFormSubmit(this.state.form);
-                            }}>{i18n('SAVE')}</SubmitButton>
-                        </div>
                         <div className="admin-panel-email-settings__optional-buttons">
-                            {(this.state.edited) ? this.renderDiscardButton() : null}
                             <div className="admin-panel-email-settings__recover-button">
                                 <Button onClick={this.onRecoverClick.bind(this)} size="medium">
                                     {i18n('RECOVER_DEFAULT')}
                                 </Button>
                             </div>
+                            {edited ? this.renderDiscardButton() : null}
+                        </div>
+                        <div className="admin-panel-email-settings__save-button">
+                            <SubmitButton
+                                key="submit-email-template"
+                                type="secondary"
+                                size="small"
+                                onClick={(e) => {e.preventDefault(); this.onFormSubmit(form);}}>
+                                    {i18n('SAVE')}
+                            </SubmitButton>
                         </div>
                     </div>
                 </Form>

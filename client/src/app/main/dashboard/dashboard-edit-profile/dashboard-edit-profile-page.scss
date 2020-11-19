@@ -22,4 +22,13 @@
         display: inline-block;
         margin-right: 20px;
     }
+
+    &__change-email-container,
+    &__change-password-container,
+    &__edit-custom-field-form {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
 }

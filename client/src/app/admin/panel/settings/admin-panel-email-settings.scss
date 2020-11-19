@@ -17,12 +17,12 @@
 
     &__save-button {
         display: inline-block;
-        float: left;
+        float: right;
     }
 
     &__optional-buttons {
         display: inline-block;
-        float: right;
+        float: left;
     }
 
     &__discard-button {
@@ -31,7 +31,7 @@
 
     &__recover-button {
         display: inline-block;
-        margin-left: 10px;
+        margin: 0 10px;
     }
 
     &__image-container,

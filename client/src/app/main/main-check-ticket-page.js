@@ -42,7 +42,7 @@ class MainCheckTicketPage extends React.Component {
                         <div className="main-check-ticket-page__captcha">
                             <Captcha ref="captcha"/>
                         </div>
-                        <SubmitButton>{i18n('CHECK_TICKET')}</SubmitButton>
+                        <SubmitButton type="secondary">{i18n('CHECK_TICKET')}</SubmitButton>
                     </Form>
                 </Widget>
             </div>
