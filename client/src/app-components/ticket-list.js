@@ -218,11 +218,11 @@ class TicketList extends React.Component {
     }
 
     getIconName(header, orderBy) {
-        return ((orderBy && orderBy.value) === (header && orderBy.asc)) ? "up" : "down";
+        return (orderBy && orderBy.value === header && orderBy.asc) ? "up" : "down";
     }
 
     getIconColor(header, orderBy) {
-        return ((orderBy && orderBy.value) === header) ? "gray" : "white";
+        return (orderBy && orderBy.value === header) ? "gray" : "white";
     }
 
     getTableRows() {
