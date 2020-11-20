@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import {connect}  from 'react-redux';
+import {connect} from 'react-redux';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -26,10 +26,11 @@ function getPublicDepartmentList(){
 }
 
 export const getPublicDepartmentIndexFromDepartmentId = (departmentId, departments) => {
-    const departmentIndex = _.findIndex(departments, department  => department.id == departmentId );
+    const departmentIndex = _.findIndex(departments, department => department.id == departmentId);
 
     return (departmentIndex !== -1) ? departmentIndex : 0;
 }
+
 class AdminPanelDepartments extends React.Component {
     static defaultProps = {
         items: []
@@ -47,7 +48,7 @@ class AdminPanelDepartments extends React.Component {
         form: {
             name: '',
             language: 'en',
-            private: 0,
+            private: 0
         },
         defaultDepartment: this.props.defaultDepartmentId,
         defaultDepartmentLocked: this.props.defaultDepartmentLocked * 1
@@ -61,15 +62,15 @@ class AdminPanelDepartments extends React.Component {
                 <Header title={i18n('DEPARTMENTS')} description={i18n('DEPARTMENTS_DESCRIPTION')} />
                 <div className="row">
                     <div className="col-md-4">
-                        <Listing {...this.getListingProps()}/>
+                        <Listing {...this.getListingProps()} />
                     </div>
                     <div className="col-md-8">
                         {errorMessage ? <Message type="error">{i18n(errorMessage)}</Message> : null}
                         <Form {...this.getFormProps()}>
                             <div className="admin-panel-departments__container">
-                                <FormField className="admin-panel-departments__container__name" label={i18n('NAME')} name="name" validation="NAME" required fieldProps={{size: 'large'}}/>
+                                <FormField className="admin-panel-departments__container__name" label={i18n('NAME')} name="name" validation="NAME" required fieldProps={{size: 'large'}} />
                                 <div className="admin-panel-departments__private-option">
-                                    <FormField label={i18n('PRIVATE')} name="private" field="checkbox"/>
+                                    <FormField label={i18n('PRIVATE')} name="private" field="checkbox" />
                                     <InfoTooltip className="admin-panel-departments__container__info-tooltip" text={i18n('PRIVATE_DEPARTMENT_DESCRIPTION')} />
                                 </div>
                             </div>
@@ -77,11 +78,11 @@ class AdminPanelDepartments extends React.Component {
                                 size="medium"
                                 className="admin-panel-departments__update-name-button"
                                 type="secondary"> 
-                                    {formLoading ?
-                                        <Loading /> :
-                                        i18n((selectedIndex !== -1) ?
-                                            'UPDATE_DEPARTMENT' :
-                                            'ADD_DEPARTMENT')}
+                                    {
+                                        formLoading ?
+                                            <Loading /> :
+                                            i18n((selectedIndex !== -1) ? 'UPDATE_DEPARTMENT' : 'ADD_DEPARTMENT')
+                                    }
                             </SubmitButton>
                         </Form>
                         {(selectedIndex !== -1 && this.props.departments.length) ? this.renderOptionalButtons() : null}
@@ -111,9 +112,8 @@ class AdminPanelDepartments extends React.Component {
                             name="defaultDepartment"
                             field="select"
                             decorator={DepartmentDropdown}
-                            fieldProps={{ departments: getPublicDepartmentList() , size: 'medium' }}
-                        />
-                        <FormField className="admin-panel-departments__default-departments-container__form__fields__checkbox" label={i18n('LOCK_DEPARTMENT_DESCRIPTION')} name="locked" field="checkbox"/>
+                            fieldProps={{departments: getPublicDepartmentList(), size: 'medium'}} />
+                        <FormField className="admin-panel-departments__default-departments-container__form__fields__checkbox" label={i18n('LOCK_DEPARTMENT_DESCRIPTION')} name="locked" field="checkbox" />
                     </div>
                     <SubmitButton
                         className="admin-panel-departments__default-departments-container__form__button"
@@ -166,10 +166,7 @@ class AdminPanelDepartments extends React.Component {
     }
 
     getListingProps() {
-        const {
-            departments,
-           defaultDepartmentId 
-        } = this.props;
+        const { departments, defaultDepartmentId } = this.props;
 
         return {
             className: 'admin-panel-departments__list',
@@ -179,11 +176,11 @@ class AdminPanelDepartments extends React.Component {
                     content: (
                         <span>
                             {department.name}
-                            {department.private*1 ? <Icon className="admin-panel-departments__private-icon" name='user-secret'/> : null }
-                            {department.id == defaultDepartmentId ? <spam className="admin-panel-departments__default-icon"> {i18n('DEFAULT')} </spam> : null }
+                            {department.private*1 ? <Icon className="admin-panel-departments__private-icon" name='user-secret' /> : null}
+                            {department.id == defaultDepartmentId ? <spam className="admin-panel-departments__default-icon"> {i18n('DEFAULT')} </spam> : null}
                             {(!department.owners) ? (
                                 <span className="admin-panel-departments__warning">
-                                    <InfoTooltip type="warning" text={i18n('NO_STAFF_ASSIGNED')}/>
+                                    <InfoTooltip type="warning" text={i18n('NO_STAFF_ASSIGNED')} />
                                 </span>
                             ) : null}
                         </span>
@@ -225,7 +222,7 @@ class AdminPanelDepartments extends React.Component {
                     editedDefaultDepartmentForm: true,
                     defaultDepartmentError: null,
                     defaultDepartment: getPublicDepartmentList()[formValue.defaultDepartment].id,
-                    defaultDepartmentLocked: formValue.locked,
+                    defaultDepartmentLocked: formValue.locked
                 });
             },
             onSubmit: this.onDefaultDepartmentFormSubmit.bind(this),
@@ -285,7 +282,7 @@ class AdminPanelDepartments extends React.Component {
                 this.retrieveDepartments();
                 this.onItemChange(-1);
             }).catch(() => {
-                this.onItemChange.bind(this, -1)
+                this.onItemChange.bind(this, -1);
                 this.setState({formLoading: false, defaultDepartmentError: null});
             });
         }
@@ -320,7 +317,7 @@ class AdminPanelDepartments extends React.Component {
 
     updateForm(index) {
         let form = _.clone(this.state.form);
-        let department = this.getCurrentDepartment(this.props.departments,index);
+        let department = this.getCurrentDepartment(this.props.departments, index);
 
         form.name = (department && department.name) || '';
         form.private = (department && department.private) || 0;
