@@ -244,7 +244,7 @@ class TicketList extends React.Component {
         const { date, title, ticketNumber, closed, tags, department, author } = ticket;
         const dateTodayWithOutHoursAndMinutes = DateTransformer.getDateToday();
         const ticketDateWithOutHoursAndMinutes = Math.floor(DateTransformer.UTCDateToLocalNumericDate(JSON.stringify(date*1)) / 10000);
-        const stringTicketLocalDateFormat = DateTransformer.transformToString(date, false)
+        const stringTicketLocalDateFormat = DateTransformer.transformToString(date, false, true);
         const ticketDate = (
             ((dateTodayWithOutHoursAndMinutes - ticketDateWithOutHoursAndMinutes) > 1) ?
                 stringTicketLocalDateFormat :
