@@ -248,30 +248,39 @@ class TicketList extends React.Component {
     }
 
     gerTicketTableObject(ticket) {
-        let titleText = (this.isTicketUnread(ticket)) ? ticket.title  + ' (1)' : ticket.title;
+        const { date, title, ticketNumber, closed, tags, department, author } = ticket;
+        const dateTodayWithOutHoursAndMinutes = DateTransformer.getDateToday();
+        const ticketDateWithOutHoursAndMinutes = Math.floor(DateTransformer.UTCDateToLocalNumericDate(JSON.stringify(date*1)) / 10000);
+        const stringTicketLocalDateFormat = DateTransformer.transformToString(date, false)
+        const ticketDate = (
+            ((dateTodayWithOutHoursAndMinutes - ticketDateWithOutHoursAndMinutes) > 1) ?
+                stringTicketLocalDateFormat :
+                `${(dateTodayWithOutHoursAndMinutes - ticketDateWithOutHoursAndMinutes) ? "Yesterday" : "Today"} at ${stringTicketLocalDateFormat.slice(-5)}`
+        );
+        let titleText = (this.isTicketUnread(ticket)) ? title  + ' (1)' : title;
 
         return {
             number: (
                 <Tooltip content={<TicketInfo ticket={ticket}/>} openOnHover>
-                    {'#' + ticket.ticketNumber}
+                    {'#' + ticketNumber}
                 </Tooltip>
             ),
             title: (
                 <div>
-                    {ticket.closed ? <Icon size="sm" name="lock" /> : null}
-                    <Button className="ticket-list__title-link" type="clean" route={{to: this.props.ticketPath + ticket.ticketNumber}}>
+                    {closed ? <Icon size="sm" name="lock" /> : null}
+                    <Button className="ticket-list__title-link" type="clean" route={{to: this.props.ticketPath + ticketNumber}}>
                         {titleText}
                     </Button>
-                    {(ticket.tags || []).map((tagName,index) => {
+                    {(tags || []).map((tagName,index) => {
                         let tag = _.find(this.props.tags, {name:tagName});
                         return <Tag size='small' name={tag && tag.name} color={tag && tag.color} key={index} />
                     })}
                 </div>
 
             ),
-            department: ticket.department.name,
-            author: ticket.author.name,
-            date: DateTransformer.transformToString(ticket.date, false),
+            department: department.name,
+            author: author.name,
+            date: ticketDate,
             unread: this.isTicketUnread(ticket),
             highlighted: this.isTicketUnread(ticket)
         };
