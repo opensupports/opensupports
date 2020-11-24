@@ -14,6 +14,11 @@ import Message from 'core-components/message';
 import InfoTooltip from 'core-components/info-tooltip';
 import Autocomplete from 'core-components/autocomplete';
 
+const INITIAL_API_VALUE = {
+    page: 1,
+    departments: undefined,
+};
+
 class AdminPanelViewUser extends React.Component {
 
     state = {
@@ -31,6 +36,7 @@ class AdminPanelViewUser extends React.Component {
 
     componentDidMount() {
         this.retrieveUser();
+        this.retrieveUserTickets(INITIAL_API_VALUE);
     }
 
     render() {
@@ -51,14 +57,7 @@ class AdminPanelViewUser extends React.Component {
     }
 
     renderUserInfo() {
-        const {
-            name,
-            disabled,
-            email,
-            verified,
-            customfields,
-            loading
-        } = this.state;
+        const { name, disabled, email, verified, customfields, loading } = this.state;
 
         return (
             <div className="admin-panel-view-user__content">
@@ -187,10 +186,7 @@ class AdminPanelViewUser extends React.Component {
             const authorsListWithoutMe = r.data.authors.filter(author => author.id != this.props.params.userId);
 
             return authorsListWithoutMe.map(author => {
-                const {
-                    id,
-                    name
-                } = author;
+                const { id, name } = author;
 
                 return {
                     name,
@@ -207,10 +203,7 @@ class AdminPanelViewUser extends React.Component {
     transformUserListToAutocomplete() {
         return(
             this.state.userList.map((user) => {
-                const {
-                    id,
-                    name
-                } = user;
+                const { id, name } = user;
 
                 return ({
                     id: id*1,
@@ -236,11 +229,7 @@ class AdminPanelViewUser extends React.Component {
     }
 
     renderCustomField(_customfield) {
-        const {
-            customfield,
-            value,
-            id
-        } = _customfield;
+        const { customfield, value, id } = _customfield;
 
         return (
             <div className="admin-panel-view-user__info-item" key={`customFieldId__${id}`}>
@@ -252,37 +241,13 @@ class AdminPanelViewUser extends React.Component {
         );
     }
 
-    getTicketListProps() {
-        const {
-            tickets,
-            loading
-        } = this.state;
-
-        return {
-            type: 'secondary',
-            tickets,
-            loading,
-            departments: this.props.departments,
-            ticketPath: '/admin/panel/tickets/view-ticket/'
-        };
-    }
-
     onUserRetrieved(result) {
-        const {
-            name,
-            email,
-            verified,
-            tickets,
-            disabled,
-            customfields,
-            userList
-        } = result.data;
+        const { name, email, verified, disabled, customfields, userList } = result.data;
 
         this.setState({
             name,
             email,
             verified,
-            tickets,
             disabled,
             customfields,
             loading: false,
@@ -335,6 +300,61 @@ class AdminPanelViewUser extends React.Component {
         }).then(this.onUserRetrieved.bind(this)).catch(() => this.setState({
             invalid: true
         }));
+    }
+
+    getTicketListProps() {
+        const { departments, params } = this.props;
+        const { tickets, page, pages, loading } = this.state;
+
+        return {
+            type: 'secondary',
+            userId: params.userId,
+            tickets,
+            loading,
+            departments,
+            ticketPath: '/admin/panel/tickets/view-ticket/',
+            page,
+            pages,
+            onPageChange: this.onPageChange.bind(this),
+            onDepartmentChange: this.onDepartmentChange.bind(this)
+        };
+    }
+
+    onPageChange(event) {
+        this.setState({
+            page: event.target.value
+        });
+
+        this.retrieveUserTickets({page: event.target.value});
+    }
+
+    onDepartmentChange(department) {
+        this.setState({
+            department
+        });
+
+        this.retrieveUserTickets({
+            department: department ? `[${department}]` : undefined
+        });
+    }
+
+    retrieveUserTickets({page, department}) {
+        API.call({
+            path: '/ticket/search',
+            data: {
+                page,
+                departments: department,
+                authors: `[{"id":${this.props.params.userId}, "isStaff":0}]`
+            }
+        }).then((result) => {
+            const data = result.data;
+
+            this.setState({
+                tickets: data.tickets,
+                page: data.page,
+                pages: data.pages
+            });
+        });
     }
 }
 
