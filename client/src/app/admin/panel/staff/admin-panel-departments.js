@@ -74,18 +74,22 @@ class AdminPanelDepartments extends React.Component {
                                     <InfoTooltip className="admin-panel-departments__container__info-tooltip" text={i18n('PRIVATE_DEPARTMENT_DESCRIPTION')} />
                                 </div>
                             </div>
-                            <SubmitButton
-                                size="medium"
-                                className="admin-panel-departments__update-name-button"
-                                type="secondary"> 
-                                    {
-                                        formLoading ?
-                                            <Loading /> :
-                                            i18n((selectedIndex !== -1) ? 'UPDATE_DEPARTMENT' : 'ADD_DEPARTMENT')
-                                    }
-                            </SubmitButton>
+                            <div className="admin-panel-departments__buttons-container">
+                                {(selectedIndex !== -1 && this.props.departments.length) ? this.renderOptionalButtons() : null}
+                                <div className="admin-panel-departments__update-name-button__container">
+                                    <SubmitButton
+                                        size="medium"
+                                        className="admin-panel-departments__update-name-button"
+                                        type="secondary">
+                                            {
+                                                formLoading ?
+                                                    <Loading /> :
+                                                    i18n((selectedIndex !== -1) ? 'UPDATE_DEPARTMENT' : 'ADD_DEPARTMENT')
+                                            }
+                                    </SubmitButton>
+                                </div>
+                            </div>
                         </Form>
-                        {(selectedIndex !== -1 && this.props.departments.length) ? this.renderOptionalButtons() : null}
                     </div>
                 </div>
                 {this.renderDefaultDepartmentForm()}
@@ -128,7 +132,8 @@ class AdminPanelDepartments extends React.Component {
 
     renderOptionalButtons() {
         return (
-            <div className="admin-panel-departments__optional-buttons">
+            <div className="admin-panel-departments__optional-buttons-container">
+                {this.props.departments.length > 1 ? this.renderDeleteButton() : null}
                 {
                     (this.state.editedAddDepartmentForm) ?
                         <div className="admin-panel-departments__discard-button">
@@ -136,7 +141,6 @@ class AdminPanelDepartments extends React.Component {
                         </div> :
                         null
                 }
-                {this.props.departments.length > 1 ? this.renderDeleteButton() : null}
             </div>
         );
     }
