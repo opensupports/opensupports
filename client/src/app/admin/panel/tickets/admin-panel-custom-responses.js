@@ -125,11 +125,7 @@ class AdminPanelCustomResponses extends React.Component {
     }
 
     getFormProps() {
-        const {
-            form,
-            errors,
-            formLoading
-        } = this.state;
+        const { form, errors, formLoading } = this.state;
 
         return {
             values: form,
@@ -211,6 +207,8 @@ class AdminPanelCustomResponses extends React.Component {
     }
 
     deleteCustomResponse() {
+        this.updateForm(this.state.selectedIndex)
+
         return API.call({
             path: '/ticket/delete-custom-response',
             data: {
@@ -223,10 +221,7 @@ class AdminPanelCustomResponses extends React.Component {
     }
 
     updateForm(index) {
-        const {
-            items,
-            language
-        } = this.props;
+        const { items, language } = this.props;
         const item = items[index];
 
         let form = _.clone(this.state.form);
@@ -251,11 +246,7 @@ class AdminPanelCustomResponses extends React.Component {
     }
 
     isEdited() {
-        const {
-            form,
-            formClicked,
-            originalForm
-        } = this.state;
+        const { form, formClicked, originalForm } = this.state;
 
         return (
             form.title && formClicked && (
