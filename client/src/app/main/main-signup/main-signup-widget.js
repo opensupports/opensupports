@@ -40,6 +40,7 @@ class MainSignUpWidget extends React.Component {
 
     render() {
         if(!this.state.customFields) return null;
+
         return (
             <Widget className={this.getClass()}>
                 <Header title={i18n('SIGN_UP')} description={i18n('SIGN_UP_VIEW_DESCRIPTION')} />
