@@ -46,14 +46,14 @@ class MainSignUpWidget extends React.Component {
                 <Header title={i18n('SIGN_UP')} description={i18n('SIGN_UP_VIEW_DESCRIPTION')} />
                 <Form {...this.getFormProps()}>
                     <div className="signup-widget__inputs">
-                        <FormField {...this.getInputProps()} label={i18n('FULL_NAME')} name="name" validation="NAME" required/>
-                        <FormField {...this.getInputProps()} label={i18n('EMAIL')} name="email" validation="EMAIL" required/>
-                        <FormField {...this.getInputProps(true)} label={i18n('PASSWORD')} name="password" validation="PASSWORD" required/>
-                        <FormField {...this.getInputProps(true)} label={i18n('REPEAT_PASSWORD')} name="repeated-password" validation="REPEAT_PASSWORD" required/>
+                        <FormField {...this.getInputProps()} label={i18n('FULL_NAME')} name="name" validation="NAME" required />
+                        <FormField {...this.getInputProps()} label={i18n('EMAIL')} name="email" validation="EMAIL" required />
+                        <FormField {...this.getInputProps(true)} label={i18n('PASSWORD')} name="password" validation="PASSWORD" required />
+                        <FormField {...this.getInputProps(true)} label={i18n('REPEAT_PASSWORD')} name="repeated-password" validation="REPEAT_PASSWORD" required />
                         {this.state.customFields.map(this.renderCustomField.bind(this))}
                     </div>
                     <div className="signup-widget__captcha">
-                        <Captcha ref="captcha"/>
+                        <Captcha ref="captcha" />
                     </div>
                     <SubmitButton type="primary">{i18n('SIGN_UP')}</SubmitButton>
                 </Form>
@@ -71,7 +71,7 @@ class MainSignUpWidget extends React.Component {
                     key={key}
                     label={customField.name}
                     infoMessage={customField.description}
-                    field="input"/>
+                    field="input" />
             );
         } else {
             const items = customField.options.map(option => ({content: option.name, value: option.name}));
@@ -83,7 +83,7 @@ class MainSignUpWidget extends React.Component {
                     label={customField.name}
                     infoMessage={customField.description}
                     field="select"
-                    fieldProps={{size:'medium', items}}/>
+                    fieldProps={{size: 'medium', items}} />
             );
         }
     }
