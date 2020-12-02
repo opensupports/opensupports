@@ -56,7 +56,10 @@ jobs:
   deploy_staging_files:
     docker:
       - image: circleci/node:11.15.0-stretch
-    
+
+    environment:
+      - GIT_COMMIT_DESC: git log --format=oneline -n 1 $CIRCLE_SHA1
+
     steps:
       - attach_workspace:
           at: .
@@ -64,16 +67,90 @@ jobs:
       - deploy:
           name: Deploy staging files
           command: |
-            curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-            sudo python get-pip.py pip==19.3.1
-            sudo pip install awscli
+            if [ ! "$CIRCLE_BRANCH" = "master" ]; then exit 0; fi
+            if [[ "$GIT_COMMIT_DESC" = Release* ]]; then exit 0; fi
+            sudo apt update
+            sudo apt install  -y lftp
+            make deploy-staging-files
+            make deploy-staging-population
+
+  add_release_commit:
+    docker:
+      - image: circleci/node:11.15.0-stretch
+
+    parameters:
+      version:
+        type: string
+        default: ""
+
+    steps:
+      - attach_workspace:
+          at: .
+
+      - add_ssh_keys:
+          fingerprints:
+            - "45:1e:cf:38:3f:9f:97:87:5b:b8:fd:e1:6c:71:11:41"
+
+      - run:
+          name: Commit new version
+          command: |
+            export VERSION=<< parameters.version >>
+            cd version_upgrades/release_script
+            npm i
+            npm run modify-files
+            cd ../..
+            git add .
+            git commit -m "Release $VERSION"
+            git push origin master
+
+      - persist_to_workspace:
+          root: .
+          paths:
+              - .
+
+  add_release_tag:
+    docker:
+      - image: circleci/node:11.15.0-stretch
+
+    parameters:
+      version:
+        type: string
+        default: ""
+    
+    steps:
+      - attach_workspace:
+          at: .
+
+      - add_ssh_keys:
+          fingerprints:
+            - "45:1e:cf:38:3f:9f:97:87:5b:b8:fd:e1:6c:71:11:41"
+
+      - run:
+          name: Add Release tag
+          command: |
+            export VERSION=<< parameters.version >>
             sudo apt-get update
             sudo apt-get install lftp
-            if [ "$CIRCLE_BRANCH" = "master" ]; then make deploy-staging-files; fi
-            if [ "$CIRCLE_BRANCH" = "master" ]; then make deploy-staging-population; fi
-          
+            make build-release-bundles
+            make upload-bundles
+            make deploy-prerelease-tag
+            make populate-staging-release
+
+      - persist_to_workspace:
+          root: .
+          paths:
+              - .
+
+parameters:
+  version:
+    type: string
+    default: ""
+
 workflows:
-  install:
+  build:
+    when:
+      condition:
+          - equal: [ master, << pipeline.git.branch >> ]
     jobs:
       - install_composer_packages
       - install_node_packages:
@@ -82,4 +159,18 @@ workflows:
       - deploy_staging_files:
           requires:
             - install_node_packages
-            
+  release:
+    when: << pipeline.parameters.version >>
+    jobs:
+      - install_composer_packages
+      - install_node_packages:
+          requires:
+            - install_composer_packages
+      - add_release_commit:
+          version: << pipeline.parameters.version >>
+          requires:
+            - install_node_packages
+      - add_release_tag:
+          version: << pipeline.parameters.version >>
+          requires:
+            - add_release_commit
