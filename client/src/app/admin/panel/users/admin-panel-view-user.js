@@ -51,14 +51,7 @@ class AdminPanelViewUser extends React.Component {
     }
 
     renderUserInfo() {
-        const {
-            name,
-            disabled,
-            email,
-            verified,
-            customfields,
-            loading
-        } = this.state;
+        const { name, disabled, email, verified, customfields, loading } = this.state;
 
         return (
             <div className="admin-panel-view-user__content">
@@ -187,10 +180,7 @@ class AdminPanelViewUser extends React.Component {
             const authorsListWithoutMe = r.data.authors.filter(author => author.id != this.props.params.userId);
 
             return authorsListWithoutMe.map(author => {
-                const {
-                    id,
-                    name
-                } = author;
+                const { id, name } = author;
 
                 return {
                     name,
@@ -207,10 +197,7 @@ class AdminPanelViewUser extends React.Component {
     transformUserListToAutocomplete() {
         return(
             this.state.userList.map((user) => {
-                const {
-                    id,
-                    name
-                } = user;
+                const { id, name } = user;
 
                 return ({
                     id: id*1,
@@ -236,27 +223,20 @@ class AdminPanelViewUser extends React.Component {
     }
 
     renderCustomField(_customfield) {
-        const {
-            customfield,
-            value,
-            id
-        } = _customfield;
+        const { customfield, value, id } = _customfield;
 
         return (
             <div className="admin-panel-view-user__info-item" key={`customFieldId__${id}`}>
                 {customfield}
                 <div className="admin-panel-view-user__info-box">
-                    {value}
+                    {(value !== "") ? value : <div className="admin-panel-view-user__empty-content">EMPTY</div>}
                 </div>
             </div>
         );
     }
 
     getTicketListProps() {
-        const {
-            tickets,
-            loading
-        } = this.state;
+        const { tickets, loading } = this.state;
 
         return {
             type: 'secondary',
@@ -268,15 +248,7 @@ class AdminPanelViewUser extends React.Component {
     }
 
     onUserRetrieved(result) {
-        const {
-            name,
-            email,
-            verified,
-            tickets,
-            disabled,
-            customfields,
-            userList
-        } = result.data;
+        const { name, email, verified, tickets, disabled, customfields, userList } = result.data;
 
         this.setState({
             name,

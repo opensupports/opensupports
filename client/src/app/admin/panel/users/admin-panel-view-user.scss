@@ -9,6 +9,7 @@
             display: inline-block;
             margin-right: 20px;
             min-width: 200px;
+            margin-top: 10px;
         }
 
         &-box {
@@ -18,6 +19,10 @@
             padding: 5px 15px;
             text-align: center;
         }
+    }
+
+    &__empty-content {
+        font-family: italic;
     }
 
     &__action-buttons {
