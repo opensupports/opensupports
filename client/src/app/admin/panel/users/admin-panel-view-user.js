@@ -229,7 +229,7 @@ class AdminPanelViewUser extends React.Component {
             <div className="admin-panel-view-user__info-item" key={`customFieldId__${id}`}>
                 {customfield}
                 <div className="admin-panel-view-user__info-box">
-                    {(value !== "") ? value : <div className="admin-panel-view-user__empty-content">EMPTY</div>}
+                    {(value !== "") ? value : <div className="admin-panel-view-user__empty-content">Empty</div>}
                 </div>
             </div>
         );

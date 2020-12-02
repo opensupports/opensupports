@@ -22,7 +22,8 @@
     }
 
     &__empty-content {
-        font-family: italic;
+        font-style: italic;
+        color: $dark-grey;
     }
 
     &__action-buttons {
