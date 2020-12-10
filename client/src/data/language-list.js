@@ -1,18 +1,19 @@
-import chineseLanguage    from 'data/languages/cn';
-import germanLanguage     from 'data/languages/de';
-import englishLanguage    from 'data/languages/en';
-import spanishLanguage    from 'data/languages/es';
-import frenchLanguage     from 'data/languages/fr';
-import indianLanguage     from 'data/languages/in';
-import japaneseLanguage   from 'data/languages/jp';
-import portugueseLanguage from 'data/languages/pt';
-import russianLanguage    from 'data/languages/ru';
-import turkishLanguage    from 'data/languages/tr';
-import italianLanguage    from 'data/languages/it';
-import brazilLanguage     from 'data/languages/br';
-import greekLanguage      from 'data/languages/gr';
-import dutchLanguage      from 'data/languages/nl';
-import polishLanguage     from 'data/languages/pl';
+import chineseLanguage     from 'data/languages/cn';
+import germanLanguage      from 'data/languages/de';
+import englishLanguage     from 'data/languages/en';
+import spanishLanguage     from 'data/languages/es';
+import frenchLanguage      from 'data/languages/fr';
+import indianLanguage      from 'data/languages/in';
+import japaneseLanguage    from 'data/languages/jp';
+import portugueseLanguage  from 'data/languages/pt';
+import russianLanguage     from 'data/languages/ru';
+import turkishLanguage     from 'data/languages/tr';
+import italianLanguage     from 'data/languages/it';
+import brazilLanguage      from 'data/languages/br';
+import greekLanguage       from 'data/languages/gr';
+import dutchLanguage       from 'data/languages/nl';
+import polishLanguage      from 'data/languages/pl';
+import swedishLanguage     from 'data/languages/se';
 
 export default {
     'en': {
@@ -74,5 +75,9 @@ export default {
     'pl': {
         name: 'Polish',
         data: polishLanguage
+    },
+    'se': {
+        name: 'Swedish',
+        data: swedishLanguage
     },
 };
