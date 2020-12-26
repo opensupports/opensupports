@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import {connect}  from 'react-redux';
+import {connect} from 'react-redux';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -26,10 +26,11 @@ function getPublicDepartmentList(){
 }
 
 export const getPublicDepartmentIndexFromDepartmentId = (departmentId, departments) => {
-    const departmentIndex = _.findIndex(departments, department  => department.id == departmentId );
+    const departmentIndex = _.findIndex(departments, department => department.id == departmentId);
 
     return (departmentIndex !== -1) ? departmentIndex : 0;
 }
+
 class AdminPanelDepartments extends React.Component {
     static defaultProps = {
         items: []
@@ -39,55 +40,56 @@ class AdminPanelDepartments extends React.Component {
         formLoading: false,
         selectedIndex: -1,
         selectedDropDownIndex: 0,
-        edited: false,
+        editedAddDepartmentForm: false,
+        editedDefaultDepartmentForm: false,
         errorMessage: null,
         errors: {},
         defaultDepartmentError: null,
         form: {
             name: '',
             language: 'en',
-            private: 0,
+            private: 0
         },
         defaultDepartment: this.props.defaultDepartmentId,
-        defaultDepartmentLocked: this.props.defaultDepartmentLocked * 1,
+        defaultDepartmentLocked: this.props.defaultDepartmentLocked * 1
     };
 
     render() {
-        const {
-            errorMessage,
-            formLoading,
-            selectedIndex
-        } = this.state;
+        const { errorMessage, formLoading, selectedIndex } = this.state;
 
         return (
             <div className="admin-panel-departments">
                 <Header title={i18n('DEPARTMENTS')} description={i18n('DEPARTMENTS_DESCRIPTION')} />
                 <div className="row">
                     <div className="col-md-4">
-                        <Listing {...this.getListingProps()}/>
+                        <Listing {...this.getListingProps()} />
                     </div>
                     <div className="col-md-8">
-                        {(errorMessage) ? <Message type="error">{i18n(errorMessage)}</Message> : null}
+                        {errorMessage ? <Message type="error">{i18n(errorMessage)}</Message> : null}
                         <Form {...this.getFormProps()}>
                             <div className="admin-panel-departments__container">
-                                <FormField className="admin-panel-departments__container__name" label={i18n('NAME')} name="name" validation="NAME" required fieldProps={{size: 'large'}}/>
+                                <FormField className="admin-panel-departments__container__name" label={i18n('NAME')} name="name" validation="NAME" required fieldProps={{size: 'large'}} />
                                 <div className="admin-panel-departments__private-option">
-                                    <FormField label={i18n('PRIVATE')} name="private" field="checkbox"/>
+                                    <FormField label={i18n('PRIVATE')} name="private" field="checkbox" />
                                     <InfoTooltip className="admin-panel-departments__container__info-tooltip" text={i18n('PRIVATE_DEPARTMENT_DESCRIPTION')} />
                                 </div>
                             </div>
-                            <SubmitButton
-                                size="medium"
-                                className="admin-panel-departments__update-name-button"
-                                type="secondary"> 
-                                    {formLoading ?
-                                        <Loading /> :
-                                        i18n((selectedIndex !== -1) ?
-                                            'UPDATE_DEPARTMENT' :
-                                            'ADD_DEPARTMENT')}
-                            </SubmitButton>
+                            <div className="admin-panel-departments__buttons-container">
+                                {(selectedIndex !== -1 && this.props.departments.length) ? this.renderOptionalButtons() : null}
+                                <div className="admin-panel-departments__update-name-button__container">
+                                    <SubmitButton
+                                        size="medium"
+                                        className="admin-panel-departments__update-name-button"
+                                        type="secondary">
+                                            {
+                                                formLoading ?
+                                                    <Loading /> :
+                                                    i18n((selectedIndex !== -1) ? 'UPDATE_DEPARTMENT' : 'ADD_DEPARTMENT')
+                                            }
+                                    </SubmitButton>
+                                </div>
+                            </div>
                         </Form>
-                        {(selectedIndex !== -1 && this.props.departments.length) ? this.renderOptionalButtons() : null}
                     </div>
                 </div>
                 {this.renderDefaultDepartmentForm()}
@@ -96,10 +98,7 @@ class AdminPanelDepartments extends React.Component {
     }
 
     renderDefaultDepartmentForm() {
-        const {
-            defaultDepartmentError,
-            formLoading
-        } = this.state
+        const { defaultDepartmentError, formLoading } = this.state;
 
         return (
             <div className="admin-panel-departments__default-departments-container">
@@ -117,9 +116,8 @@ class AdminPanelDepartments extends React.Component {
                             name="defaultDepartment"
                             field="select"
                             decorator={DepartmentDropdown}
-                            fieldProps={{ departments: getPublicDepartmentList() , size: 'medium' }}
-                        />
-                        <FormField className="admin-panel-departments__default-departments-container__form__fields__checkbox" label={i18n('LOCK_DEPARTMENT_DESCRIPTION')} name="locked" field="checkbox"/>
+                            fieldProps={{departments: getPublicDepartmentList(), size: 'medium'}} />
+                        <FormField className="admin-panel-departments__default-departments-container__form__fields__checkbox" label={i18n('LOCK_DEPARTMENT_DESCRIPTION')} name="locked" field="checkbox" />
                     </div>
                     <SubmitButton
                         className="admin-panel-departments__default-departments-container__form__button"
@@ -134,11 +132,15 @@ class AdminPanelDepartments extends React.Component {
 
     renderOptionalButtons() {
         return (
-            <div className="admin-panel-departments__optional-buttons">
-                <div className="admin-panel-departments__discard-button">
-                    <Button onClick={this.onDiscardChangesClick.bind(this)} size="medium">{i18n('DISCARD_CHANGES')}</Button>
-                </div>
+            <div className="admin-panel-departments__optional-buttons-container">
                 {this.props.departments.length > 1 ? this.renderDeleteButton() : null}
+                {
+                    (this.state.editedAddDepartmentForm) ?
+                        <div className="admin-panel-departments__discard-button">
+                            <Button onClick={this.onDiscardChangesClick.bind(this)} size="medium">{i18n('DISCARD_CHANGES')}</Button>
+                        </div> :
+                        null
+                }
             </div>
         );
     }
@@ -168,10 +170,7 @@ class AdminPanelDepartments extends React.Component {
     }
 
     getListingProps() {
-        const {
-            departments,
-           defaultDepartmentId 
-        } = this.props;
+        const { departments, defaultDepartmentId } = this.props;
 
         return {
             className: 'admin-panel-departments__list',
@@ -181,11 +180,11 @@ class AdminPanelDepartments extends React.Component {
                     content: (
                         <span>
                             {department.name}
-                            {department.private*1 ? <Icon className="admin-panel-departments__private-icon" name='user-secret'/> : null }
-                            {department.id == defaultDepartmentId ? <spam className="admin-panel-departments__default-icon"> {i18n('DEFAULT')} </spam> : null }
+                            {department.private*1 ? <Icon className="admin-panel-departments__private-icon" name='user-secret' /> : null}
+                            {department.id == defaultDepartmentId ? <spam className="admin-panel-departments__default-icon"> {i18n('DEFAULT')} </spam> : null}
                             {(!department.owners) ? (
                                 <span className="admin-panel-departments__warning">
-                                    <InfoTooltip type="warning" text={i18n('NO_STAFF_ASSIGNED')}/>
+                                    <InfoTooltip type="warning" text={i18n('NO_STAFF_ASSIGNED')} />
                                 </span>
                             ) : null}
                         </span>
@@ -200,17 +199,13 @@ class AdminPanelDepartments extends React.Component {
     }
 
     getFormProps() {
-        const {
-            form,
-            errors,
-            formLoading,
-        } = this.state;
+        const { form, errors, formLoading } = this.state;
 
         return {
             values: {...form, private: !!form.private},
             errors: errors,
             loading: formLoading,
-            onChange: (form) => {this.setState({form, edited: true})},
+            onChange: (form) => {this.setState({form, editedAddDepartmentForm: true})},
             onValidateErrors: (errors) => {this.setState({errors})},
             onSubmit: this.onFormSubmit.bind(this),
             loading: formLoading,
@@ -219,11 +214,7 @@ class AdminPanelDepartments extends React.Component {
     }
 
     getDefaultDepartmentFormProps() {
-        const {
-            formLoading,
-            defaultDepartment,
-            defaultDepartmentLocked
-        } = this.state;
+        const { formLoading, defaultDepartment, defaultDepartmentLocked } = this.state;
 
         return {
             values: {
@@ -232,10 +223,10 @@ class AdminPanelDepartments extends React.Component {
             },
             onChange: (formValue) => {
                 this.setState({
-                    edited: true,
+                    editedDefaultDepartmentForm: true,
                     defaultDepartmentError: null,
                     defaultDepartment: getPublicDepartmentList()[formValue.defaultDepartment].id,
-                    defaultDepartmentLocked: formValue.locked,
+                    defaultDepartmentLocked: formValue.locked
                 });
             },
             onSubmit: this.onDefaultDepartmentFormSubmit.bind(this),
@@ -244,7 +235,7 @@ class AdminPanelDepartments extends React.Component {
     }
 
     onItemChange(index) {
-        if(this.state.edited) {
+        if(this.state.editedAddDepartmentForm) {
             AreYouSure.openModal(i18n('WILL_LOSE_CHANGES'), this.updateForm.bind(this, index));
         } else {
             this.updateForm(index);
@@ -254,7 +245,7 @@ class AdminPanelDepartments extends React.Component {
     onDefaultDepartmentFormSubmit(formValue) {
         let publicDepartments = getPublicDepartmentList();
 
-        this.setState({formLoading: true, edited: false});
+        this.setState({formLoading: true, editedDefaultDepartmentForm: false});
 
         API.call({
             path: '/system/edit-settings',
@@ -263,13 +254,13 @@ class AdminPanelDepartments extends React.Component {
                 'default-is-locked': formValue.locked ? 1 : 0
             }
         }).then(() => {
-            this.retrieveDepartments();
+            this.retrieveDepartments(true);
             this.setState({formLoading: false, errorMessage: false, defaultDepartmentError: false});
         }).catch(result => this.setState({formLoading: false, defaultDepartmentError: result.message}));
     }
 
     onFormSubmit(form) {
-        this.setState({formLoading: true, edited: false});
+        this.setState({formLoading: true, editedAddDepartmentForm: false});
 
         if(this.state.selectedIndex !== -1) {
             API.call({
@@ -295,7 +286,7 @@ class AdminPanelDepartments extends React.Component {
                 this.retrieveDepartments();
                 this.onItemChange(-1);
             }).catch(() => {
-                this.onItemChange.bind(this, -1)
+                this.onItemChange.bind(this, -1);
                 this.setState({formLoading: false, defaultDepartmentError: null});
             });
         }
@@ -330,14 +321,14 @@ class AdminPanelDepartments extends React.Component {
 
     updateForm(index) {
         let form = _.clone(this.state.form);
-        let department = this.getCurrentDepartment(this.props.departments,index);
+        let department = this.getCurrentDepartment(this.props.departments, index);
 
         form.name = (department && department.name) || '';
         form.private = (department && department.private) || 0;
 
         this.setState({
             selectedIndex: index,
-            edited: false,
+            editedAddDepartmentForm: false,
             formLoading: false,
             form,
             errorMessage: null,
@@ -346,11 +337,14 @@ class AdminPanelDepartments extends React.Component {
         });
     }
 
-    retrieveDepartments() {
+    retrieveDepartments(fromUpdateDefaultDepartmentForm = false) {
         this.props.dispatch(ConfigActions.updateData());
-        this.setState({
-            edited: false
-        });
+
+        this.setState(
+            fromUpdateDefaultDepartmentForm ?
+                {editedDefaultDepartmentForm: false} :
+                {editedAddDepartmentForm: false}
+        );
     }
 
     getCurrentDepartment(list, index) {
@@ -358,10 +352,7 @@ class AdminPanelDepartments extends React.Component {
     }
 
     getDropDownItemId() {
-        const {
-            selectedIndex,
-            selectedDropDownIndex
-        } = this.state;
+        const { selectedIndex, selectedDropDownIndex } = this.state;
 
         return this.props.departments.filter((department, index) => index !== selectedIndex)[selectedDropDownIndex].id;
     }
