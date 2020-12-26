@@ -28,7 +28,7 @@ class InviteUserWidget extends React.Component {
         this.state = {
             loading: false,
             email: null,
-            customFields: []
+            customFields: null
         };
     }
 
@@ -41,17 +41,19 @@ class InviteUserWidget extends React.Component {
     }
 
     render() {
+        if(!this.state.customFields) return null;
+
         return (
             <Widget className={this.getClass()}>
                 <Header title={i18n('INVITE_USER')} description={i18n('INVITE_USER_VIEW_DESCRIPTION')} />
                 <Form {...this.getFormProps()}>
                     <div className="invite-user-widget__inputs">
-                        <FormField {...this.getInputProps()} label={i18n('FULL_NAME')} name="name" validation="NAME" required/>
-                        <FormField {...this.getInputProps()} label={i18n('EMAIL')} name="email" validation="EMAIL" required/>
+                        <FormField {...this.getInputProps()} label={i18n('FULL_NAME')} name="name" validation="NAME" required />
+                        <FormField {...this.getInputProps()} label={i18n('EMAIL')} name="email" validation="EMAIL" required />
                         {this.state.customFields.map(this.renderCustomField.bind(this))}
                     </div>
                     <div className="invite-user-widget__captcha">
-                        <Captcha ref="captcha"/>
+                        <Captcha ref="captcha" />
                     </div>
                     <div className="invite-user-widget__buttons-container">
                         <Button onClick={(e) => {e.preventDefault(); ModalContainer.closeModal();}} type="link">{i18n('CANCEL')}</Button>
@@ -71,7 +73,7 @@ class InviteUserWidget extends React.Component {
                     key={key}
                     label={customField.name}
                     infoMessage={customField.description}
-                    field="input"/>
+                    field="input" />
             );
         } else {
             const items = customField.options.map(option => ({content: option.name, value: option.name}));
@@ -83,7 +85,7 @@ class InviteUserWidget extends React.Component {
                     label={customField.name}
                     infoMessage={customField.description}
                     field="select"
-                    fieldProps={{size:'medium', items}}/>
+                    fieldProps={{size: 'medium', items}} />
             );
         }
     }

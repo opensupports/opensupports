@@ -1,5 +1,5 @@
 const editJsonFile = require('edit-json-file');
-const regexReplace = require('regex-replace');
+const replace = require('replace-in-file');
 
 const WORKDIR = `${__dirname}/../..`;
 
@@ -22,23 +22,23 @@ updateJSONVersion(`${WORKDIR}/client/package-lock.json`);
 updateJSONVersion(`${WORKDIR}/server/apidoc.json`);
 
 // Replace in places
-regexReplace(
-  `opensupports_version = '${OLD_VERSION}';`,
-  `opensupports_version = '${NEW_VERSION}';`,
-  `${WORKDIR}/client/src/config.js`
-);
-regexReplace(
-  `opensupports_version = '${OLD_VERSION}';`,
-  `opensupports_version = '${NEW_VERSION}';`,
-  `${WORKDIR}/client/src/index.php`
-);
-regexReplace(
-  `* @apiVersion ${OLD_VERSION}`,
-  `* @apiVersion ${NEW_VERSION}`,
-  `${WORKDIR}/server`
-);
-regexReplace(
-  `v${OLD_VERSION}`,
-  `v${NEW_VERSION}`,
-  `${WORKDIR}/README.md`
-);
+replace({
+  files: `${WORKDIR}/client/src/config.js`,
+  from: `opensupports_version = '${OLD_VERSION}';`,
+  to: `opensupports_version = '${NEW_VERSION}';`
+});
+replace({
+  files: `${WORKDIR}/client/src/index.php`,
+  from: `opensupports_version = '${OLD_VERSION}';`,
+  to: `opensupports_version = '${NEW_VERSION}';`
+});
+replace({
+  files: `${WORKDIR}/server/**/*.php`,
+  from: `* @apiVersion ${OLD_VERSION}`,
+  to: `* @apiVersion ${NEW_VERSION}`
+});
+replace({
+  files: `${WORKDIR}/client/src/config.js`,
+  from: `v${OLD_VERSION}`,
+  to: `v${NEW_VERSION}`
+});
