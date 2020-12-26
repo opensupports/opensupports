@@ -99,9 +99,13 @@ jobs:
             npm i
             npm run modify-files
             cd ../..
+            ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+            git config --global user.email "ivan@opensupports.com"
+            git config --global user.name "CircleCI-BOT"
             git add .
             git commit -m "Release $VERSION"
-            git push origin master
+            git checkout -b release-${VERSION}
+            git push origin release-${VERSION}
 
       - persist_to_workspace:
           root: .
@@ -133,7 +137,7 @@ jobs:
             sudo apt-get install lftp
             make build-release-bundles
             make upload-bundles
-            make deploy-prerelease-tag
+            # make push-prerelease-tag
             make populate-staging-release
 
       - persist_to_workspace:
@@ -145,12 +149,16 @@ parameters:
   version:
     type: string
     default: ""
+  run_build:
+    type: boolean
+    default: true
 
 workflows:
   build:
     when:
-      condition:
-          - equal: [ master, << pipeline.git.branch >> ]
+      and:
+        - equal: [ master, << pipeline.git.branch >> ]
+        - << pipeline.parameters.run_build >>
     jobs:
       - install_composer_packages
       - install_node_packages:
