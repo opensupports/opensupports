@@ -556,7 +556,7 @@ class TicketViewer extends React.Component {
             }));
         }
 
-        this,this.setState({
+        this.setState({
             editOwner: false
         });
 
@@ -643,7 +643,7 @@ class TicketViewer extends React.Component {
     changeDepartment(departmentId) {
         const { userId, userDepartments, ticket } = this.props;
 
-        this,this.setState({
+        this.setState({
             editDepartment: false
         });
 

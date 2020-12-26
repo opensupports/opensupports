@@ -208,15 +208,15 @@ export default {
         return JSON.stringify([DEFAULT_UTC_START_DATE, this.getDefaultUTCEndDate()]);
     },
     getDefaultUTCStartDate() {
-        return DEFAULT_UTC_START_DATE
+        return DEFAULT_UTC_START_DATE;
     },
     getDefaultUTCEndDate() {
         return DateTransformer.localDateToUTCNumericDate(JSON.stringify((DateTransformer.getDateToday()*10000)+2359));
     },
     getDefaultLocalStartDate() {
-        return DateTransformer.UTCDateToLocalNumericDate(this.getDefaultUTCStartDate())
+        return DateTransformer.UTCDateToLocalNumericDate(this.getDefaultUTCStartDate());
     },
     getDefaultlocalEndDate() {
-        return DateTransformer.UTCDateToLocalNumericDate(this.getDefaultUTCEndDate())
+        return DateTransformer.UTCDateToLocalNumericDate(this.getDefaultUTCEndDate());
     }
 }
