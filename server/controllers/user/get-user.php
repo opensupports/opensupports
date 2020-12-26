@@ -23,7 +23,6 @@ DataValidator::with('CustomValidations', true);
  * @apiSuccess {String} data.name Name of the user
  * @apiSuccess {String} data.email Email of the user
  * @apiSuccess {Number} data.signupDate Date of signup of the user
- * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data.tickets Array of tickets of the user
  * @apiSuccess {Boolean} data.verified Indicates if the user is verified
  *
  */
@@ -45,23 +44,14 @@ class GetUserByIdController extends Controller {
     }
 
     public function handler() {
-    
         $userId = Controller::request('userId');
         $user = User::getDataStore($userId);
         $staff = Controller::getLoggedUser();
 
-        $tickets = new DataStoreList();
-
-        foreach($user->sharedTicketList as $ticket) {
-            if($staff->sharedDepartmentList->includesId($ticket->department->id)) {
-                $tickets->add($ticket);
-            }
-        }
         Response::respondSuccess([
             'name' => $user->name,
             'email' => $user->email,
             'signupDate' => $user->signupDate,
-            'tickets' => $tickets->toArray(true),
             'verified' => !$user->verificationToken,
             'disabled' => !!$user->disabled,
             'customfields' => $user->xownCustomfieldvalueList->toArray(),

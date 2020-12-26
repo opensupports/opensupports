@@ -14,6 +14,11 @@ import Message from 'core-components/message';
 import InfoTooltip from 'core-components/info-tooltip';
 import Autocomplete from 'core-components/autocomplete';
 
+const INITIAL_API_VALUE = {
+    page: 1,
+    departments: undefined,
+};
+
 class AdminPanelViewUser extends React.Component {
 
     state = {
@@ -31,6 +36,7 @@ class AdminPanelViewUser extends React.Component {
 
     componentDidMount() {
         this.retrieveUser();
+        this.retrieveUserTickets(INITIAL_API_VALUE);
     }
 
     render() {
@@ -248,13 +254,12 @@ class AdminPanelViewUser extends React.Component {
     }
 
     onUserRetrieved(result) {
-        const { name, email, verified, tickets, disabled, customfields, userList } = result.data;
+        const { name, email, verified, disabled, customfields, userList } = result.data;
 
         this.setState({
             name,
             email,
             verified,
-            tickets,
             disabled,
             customfields,
             loading: false,
@@ -307,6 +312,61 @@ class AdminPanelViewUser extends React.Component {
         }).then(this.onUserRetrieved.bind(this)).catch(() => this.setState({
             invalid: true
         }));
+    }
+
+    getTicketListProps() {
+        const { departments, params } = this.props;
+        const { tickets, page, pages, loading } = this.state;
+
+        return {
+            type: 'secondary',
+            userId: params.userId,
+            tickets,
+            loading,
+            departments,
+            ticketPath: '/admin/panel/tickets/view-ticket/',
+            page,
+            pages,
+            onPageChange: this.onPageChange.bind(this),
+            onDepartmentChange: this.onDepartmentChange.bind(this)
+        };
+    }
+
+    onPageChange(event) {
+        this.setState({
+            page: event.target.value
+        });
+
+        this.retrieveUserTickets({page: event.target.value});
+    }
+
+    onDepartmentChange(department) {
+        this.setState({
+            department
+        });
+
+        this.retrieveUserTickets({
+            department: department ? `[${department}]` : undefined
+        });
+    }
+
+    retrieveUserTickets({page, department}) {
+        API.call({
+            path: '/ticket/search',
+            data: {
+                page,
+                departments: department,
+                authors: `[{"id":${this.props.params.userId}, "isStaff":0}]`
+            }
+        }).then((result) => {
+            const data = result.data;
+
+            this.setState({
+                tickets: data.tickets,
+                page: data.page,
+                pages: data.pages
+            });
+        });
     }
 }
 

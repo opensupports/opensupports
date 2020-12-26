@@ -23,7 +23,6 @@ describe '/user/get-user' do
         (user['email']).should.equal(result['data']['email'])
         (user['signup_date']).should.equal(result['data']['signupDate'].to_i)
         (user['name']).should.equal(result['data']['name'])
-        (user['tickets']).should.equal(result['data']['tickets'].size)
     end
 
 end
