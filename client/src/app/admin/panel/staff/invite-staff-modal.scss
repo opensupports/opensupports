@@ -20,4 +20,12 @@
         font-size: $font-size--md;
         text-align: center;
     }
+
+    &__buttons-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 50%;
+    }
 }
