@@ -19,7 +19,6 @@ $systemControllerGroup->addController(new EditMailTemplateController);
 $systemControllerGroup->addController(new RecoverMailTemplateController);
 $systemControllerGroup->addController(new DisableRegistrationController);
 $systemControllerGroup->addController(new EnableRegistrationController);
-$systemControllerGroup->addController(new GetStatsController);
 $systemControllerGroup->addController(new AddAPIKeyController);
 $systemControllerGroup->addController(new DeleteAPIKeyController);
 $systemControllerGroup->addController(new GetAPIKeysController);
@@ -35,5 +34,6 @@ $systemControllerGroup->addController(new EmailPollingController);
 $systemControllerGroup->addController(new AddCustomFieldController);
 $systemControllerGroup->addController(new DeleteCustomFieldController);
 $systemControllerGroup->addController(new GetCustomFieldsController);
+$systemControllerGroup->addController(new GetStatsController);
 
 $systemControllerGroup->finalize();

@@ -68,6 +68,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "chart.js": "^2.9.3",
     "classnames": "^2.2.5",
     "history": "^3.0.0",
     "html-to-text": "^4.0.0",
@@ -81,6 +82,7 @@
     "quill-image-resize-module-react": "^3.0.0",
     "random-string": "^0.2.0",
     "react": "^15.4.2",
+    "react-chartjs-2": "^2.10.0",
     "react-document-title": "^1.0.2",
     "react-dom": "^15.4.2",
     "react-google-recaptcha": "^0.5.2",

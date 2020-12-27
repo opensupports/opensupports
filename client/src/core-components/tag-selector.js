@@ -6,6 +6,7 @@ class TagSelector extends React.Component {
 
     static propTypes = {
         items: React.PropTypes.arrayOf(React.PropTypes.shape({
+            id: React.PropTypes.number,
             name: React.PropTypes.string,
             color: React.PropTypes.string,
         })),
@@ -16,7 +17,7 @@ class TagSelector extends React.Component {
     };
 
     render() {
-        const items = this.props.items.map(tag => ({...tag, content: this.renderTagOption(tag), id: tag.id*1}));
+        const items = this.props.items.map(tag => ({...tag, content: this.renderTagOption(tag)}));
         const values = items.filter(item => _.includes(this.props.values, item.name));
 
         return (
@@ -25,11 +26,16 @@ class TagSelector extends React.Component {
                     items={items}
                     values={values}
                     onRemoveClick={this.props.onRemoveClick}
-                    onChange={this.props.onChange}
+                    onChange={this.onChange.bind(this)}
                     onItemSelected={this.props.onTagSelected}
                     disabled={this.props.loading} />
             </div>
         );
+    }
+
+    onChange(tags) {
+        const { onChange } = this.props;
+        onChange && onChange(tags.map(tag => tag.name));
     }
 
     renderTagOption(item) {

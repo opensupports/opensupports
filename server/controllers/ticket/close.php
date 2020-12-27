@@ -54,6 +54,10 @@ class CloseController extends Controller {
         $this->markAsUnread();
         $this->addCloseEvent();
         $this->ticket->closed = true;
+        if (!$this->ticket->first_closed_at) {
+            $this->ticket->first_closed_at = Date::getCurrentDate();
+        }
+        $this->ticket->last_closed_at = Date::getCurrentDate();
 
         $this->ticket->store();
 

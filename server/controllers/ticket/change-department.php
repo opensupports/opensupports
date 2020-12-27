@@ -76,6 +76,7 @@ class ChangeDepartmentController extends Controller {
         ));
         $ticket->addEvent($event);
         $ticket->department = $department;
+        $ticket->totalDepartments++;
         $ticket->unread = !$ticket->isAuthor($user);
         $ticket->store();
 

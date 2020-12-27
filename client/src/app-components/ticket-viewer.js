@@ -866,6 +866,6 @@ export default connect((store) => {
         staffMembersLoaded: store.adminData.staffMembersLoaded,
         allowAttachments: store.config['allow-attachments'],
         userLevel: store.session.userLevel*1,
-        tags: store.config['tags']
+        tags: store.config['tags'].map((tag) => {return {...tag, id: tag.id*1}})
     };
 })(TicketViewer);

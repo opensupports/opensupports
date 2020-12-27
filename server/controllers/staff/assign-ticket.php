@@ -74,6 +74,7 @@ class AssignStaffController extends Controller {
         } else {
             $this->staffToAssign->sharedTicketList->add($this->ticket);
             $this->ticket->owner = $this->staffToAssign;
+            $this->ticket->totalOwners++;
             $this->ticket->unread = !$this->ticket->isAuthor($this->staffToAssign);
             $event = Ticketevent::getEvent(Ticketevent::ASSIGN);
             $event->setProperties(array(

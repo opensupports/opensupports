@@ -134,14 +134,14 @@ class AdminPanelMenu extends React.Component {
                 icon: 'tachometer',
                 level: 1,
                 items: this.getItemsByFilteredByLevel([
-                    /*{
-                        name: i18n('STATISTICS'),
-                        path: '/admin/panel/stats',
-                        level: 1
-                    },*/
                     {
                         name: i18n('LAST_ACTIVITY'),
                         path: '/admin/panel/activity',
+                        level: 1
+                    },
+                    {
+                        name: i18n('STATISTICS'),
+                        path: '/admin/panel/stats',
                         level: 1
                     }
                 ])

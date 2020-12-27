@@ -41,5 +41,5 @@ export default {
         let newDate = Year.concat(Month.concat(Day));
 
         return newDate*1;
-    },
+    }
 };

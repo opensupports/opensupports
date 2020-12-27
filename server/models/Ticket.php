@@ -40,6 +40,9 @@ class Ticket extends DataStore {
             'date',
             'unread',
             'closed',
+            'first_closed_at',
+            'last_closed_at',
+            'reopened',
             'author',
             'authorStaff',
             'owner',
@@ -50,7 +53,9 @@ class Ticket extends DataStore {
             'authorName',
             'sharedTagList',
             'editedContent',
-            'editedTitle'
+            'editedTitle',
+            'totalDepartments',
+            'totalOwners'
         );
     }
 
