@@ -74,11 +74,7 @@ class TicketViewer extends React.Component {
     };
 
     componentDidMount() {
-        const {
-            staffMembersLoaded,
-            userStaff,
-            dispatch
-        } = this.props;
+        const { staffMembersLoaded, userStaff, dispatch } = this.props;
 
         if(!staffMembersLoaded && userStaff) {
             dispatch(AdminDataActions.retrieveStaffMembers());
@@ -86,14 +82,7 @@ class TicketViewer extends React.Component {
     }
 
     render() {
-        const {
-            ticket,
-            userStaff,
-            userId,
-            editable,
-            allowAttachments,
-            assignmentAllowed
-        } = this.props;
+        const { ticket, userStaff, userId, editable, allowAttachments, assignmentAllowed } = this.props;
 
         return (
             <div className="ticket-viewer">
@@ -118,7 +107,7 @@ class TicketViewer extends React.Component {
                 <div className="ticket-viewer__comments">
                     {ticket.events && ticket.events.map(this.renderTicketEvent.bind(this))}
                 </div>
-                {(!ticket.closed && (editable || !assignmentAllowed)) ? this.renderResponseField() : (this.showDeleteButton())? <Button size="medium" onClick={this.onDeleteTicketClick.bind(this)}>{i18n('DELETE_TICKET')}</Button> : null}
+                {(!ticket.closed && (editable || !assignmentAllowed)) ? this.renderResponseField() : (this.showDeleteButton()) ? this.renderDeleteTicketButton() : null}
             </div>
         );
     }
@@ -239,10 +228,7 @@ class TicketViewer extends React.Component {
     }
 
     renderEditTags() {
-        const {
-            tags,
-            ticket
-        } = this.props;
+        const { tags, ticket } = this.props;
 
         return (
             <div className="ticket-viewer__edit-tags">
@@ -265,9 +251,7 @@ class TicketViewer extends React.Component {
                     <Button type='secondary' size="medium" onClick={this.onReopenClick.bind(this)}>
                         {i18n('RE_OPEN')}
                     </Button> :
-                    <Button type='secondary' size="medium" onClick={this.onCloseTicketClick.bind(this)}>
-                        {i18n('CLOSE')}
-                    </Button>}
+                    this.renderCloseTicketButton()}
             </div>
         );
     }
@@ -312,10 +296,7 @@ class TicketViewer extends React.Component {
     }
 
     renderTags() {
-        const {
-            ticket,
-            tags
-        } = this.props;
+        const { ticket, tags } = this.props;
         const TAGS = (
             ticket.tags.length ?
                 ticket.tags.map((tagName, index) => {
@@ -329,10 +310,7 @@ class TicketViewer extends React.Component {
     }
 
     renderOwnerNode() {
-        const {
-            assignmentAllowed,
-            ticket
-        } = this.props;
+        const { assignmentAllowed, ticket } = this.props;
         const filtersOnlyWithOwner = ticket.owner && {owners: [ticket.owner.id*1]};
         let ownerNode = null;
 
@@ -410,16 +388,11 @@ class TicketViewer extends React.Component {
     }
 
     renderCancelButton(option) {
-        return <Button type='link' size="medium" onClick={() => this.setState({["edit"+option]: false})}>{i18n('CANCEL')}</Button>
+        return <Button type='link' size="medium" onClick={() => this.setState({["edit"+option]: false})}>{i18n('CLOSE')}</Button>
     }
 
     renderTicketEvent(options, index) {
-        const {
-            userStaff,
-            ticket,
-            userId,
-            allowAttachments
-        } = this.props;
+        const { userStaff, ticket, userId, allowAttachments } = this.props;
 
         if(userStaff && typeof options.content === 'string') {
             options.content = MentionsParser.parse(options.content);
@@ -454,17 +427,32 @@ class TicketViewer extends React.Component {
                     </div>
                     <div className="ticket-viewer__response-field row">
                         <FormField name="content" validation="TEXT_AREA" required field="textarea" fieldProps={{allowImages: allowAttachments}} />
-                        {allowAttachments ? <FormField name="file" field="file" /> : null}
                         <div className="ticket-viewer__response-buttons">
+                            {allowAttachments ? <FormField name="file" field="file" /> : null}
                             <SubmitButton type="secondary">{i18n('RESPOND_TICKET')}</SubmitButton>
-                            <div>
-                                {(this.showDeleteButton())? <Button className="ticket-viewer__delete-button" size="medium" onClick={this.onDeleteTicketClick.bind(this)}>{i18n('DELETE_TICKET')}</Button> : null}
+                        </div>
+                        <div className="ticket-viewer__buttons-column">
+                            <div className="ticket-viewer__buttons-row">
+                                {(this.showDeleteButton()) ? this.renderDeleteTicketButton() : null}
+                                {this.renderCloseTicketButton()}
                             </div>
                         </div>
                     </div>
                     {(this.state.commentError) ? this.renderCommentError() : null}
                 </Form>
             </div>
+        );
+    }
+
+    renderDeleteTicketButton() {
+        return (
+            <Button className="ticket-viewer__delete-button" size="medium" onClick={this.onDeleteTicketClick.bind(this)}>{i18n('DELETE_TICKET')}</Button>
+        );
+    }
+
+    renderCloseTicketButton() {
+        return (
+            <Button size="medium" onClick={this.onCloseTicketClick.bind(this)}>{i18n('CLOSE_TICKET')}</Button>
         );
     }
 
@@ -568,6 +556,10 @@ class TicketViewer extends React.Component {
             }));
         }
 
+        this.setState({
+            editOwner: false
+        });
+
         return APICallPromise.then(this.onTicketModification.bind(this));
     }
 
@@ -649,11 +641,11 @@ class TicketViewer extends React.Component {
     }
 
     changeDepartment(departmentId) {
-        const {
-            userId,
-            userDepartments,
-            ticket
-        } = this.props;
+        const { userId, userDepartments, ticket } = this.props;
+
+        this.setState({
+            editDepartment: false
+        });
 
         return API.call({
             path: '/ticket/change-department',
@@ -803,17 +795,12 @@ class TicketViewer extends React.Component {
 
     onTicketModification() {
         const { onChange } = this.props;
-        if(onChange) {
-            onChange();
-        }
+
+        onChange && onChange();
     }
 
     getStaffAssignmentItems() {
-        const {
-            userDepartments,
-            userId,
-            ticket
-        } = this.props;
+        const { userDepartments, userId, ticket } = this.props;
         let staffAssignmentItems = [
             {content: i18n('NONE'), contentOnSelected: i18n('NONE'), id: 0}
         ];
@@ -837,11 +824,7 @@ class TicketViewer extends React.Component {
     }
 
     getStaffList() {
-        const {
-            userId,
-            staffMembers,
-            ticket
-        } = this.props;
+        const { userId, staffMembers, ticket } = this.props;
 
         return _.filter(staffMembers, ({id, departments}) => {
             return (id != userId) && _.some(departments, {id: ticket.department.id});
@@ -849,11 +832,7 @@ class TicketViewer extends React.Component {
     }
 
     getCurrentStaff() {
-        const {
-            userId,
-            staffMembers,
-            ticket
-        } = this.props;
+        const { userId, staffMembers, ticket } = this.props;
 
         return _.find(staffMembers, ({id}) => {return id == userId});
     }
@@ -863,12 +842,7 @@ class TicketViewer extends React.Component {
     }
 
     showDeleteButton() {
-        const {
-            ticket,
-            userLevel,
-            userId,
-            userStaff
-        } = this.props;
+        const { ticket, userLevel, userId, userStaff } = this.props;
 
         if(!ticket.owner) {
             if(userLevel === 3) return true;

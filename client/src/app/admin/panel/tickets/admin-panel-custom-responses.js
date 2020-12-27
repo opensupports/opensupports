@@ -61,7 +61,7 @@ class AdminPanelCustomResponses extends React.Component {
         return (
             <div className="row">
                 <div className="col-md-3">
-                    <Listing {...this.getListingProps()}/>
+                    <Listing {...this.getListingProps()} />
                 </div>
                 {this.state.showForm ?  this.renderForm() : null}
             </div>
@@ -71,7 +71,7 @@ class AdminPanelCustomResponses extends React.Component {
     renderLoading() {
         return (
             <div className="admin-panel-custom-responses__loading">
-                <Loading backgrounded size="large"/>
+                <Loading backgrounded size="large" />
             </div>
         );
     }
@@ -82,7 +82,7 @@ class AdminPanelCustomResponses extends React.Component {
                 <Form {...this.getFormProps()}>
                     <div className="row">
                         <div className="col-md-7">
-                            <FormField label={i18n('TITLE')} name="title" validation="TITLE" required fieldProps={{size: 'large'}}/>
+                            <FormField label={i18n('TITLE')} name="title" validation="TITLE" required fieldProps={{size: 'large'}} />
                         </div>
                         <div className="col-md-5">
                             <FormField label={i18n('LANGUAGE')} name="language" field="input" decorator={LanguageSelector} fieldProps={{size: 'medium'}} />
@@ -90,10 +90,10 @@ class AdminPanelCustomResponses extends React.Component {
                     </div>
                     <FormField label={i18n('CONTENT')} name="content" validation="TEXT_AREA" required field="textarea" />
                     <div className="admin-panel-custom-responses__actions">
+                        {(this.state.selectedIndex !== -1) ? this.renderOptionalButtons() : null}
                         <div className="admin-panel-custom-responses__save-button">
                             <SubmitButton type="secondary" size="small">{i18n('SAVE')}</SubmitButton>
                         </div>
-                        {(this.state.selectedIndex !== -1) ? this.renderOptionalButtons() : null}
                     </div>
                 </Form>
             </div>
@@ -103,11 +103,11 @@ class AdminPanelCustomResponses extends React.Component {
     renderOptionalButtons() {
         return (
             <div className="admin-panel-custom-responses__optional-buttons">
-                <div className="admin-panel-custom-responses__discard-button">
-                    {this.isEdited() ? <Button onClick={this.onDiscardChangesClick.bind(this)}>{i18n('DISCARD_CHANGES')}</Button> : null}
-                </div>
                 <div className="admin-panel-custom-responses__delete-button">
                     <Button onClick={this.onDeleteClick.bind(this)}>{i18n('DELETE')}</Button>
+                </div>
+                <div className="admin-panel-custom-responses__discard-button">
+                    {this.isEdited() ? <Button onClick={this.onDiscardChangesClick.bind(this)}>{i18n('DISCARD_CHANGES')}</Button> : null}
                 </div>
             </div>
         );
@@ -125,10 +125,12 @@ class AdminPanelCustomResponses extends React.Component {
     }
 
     getFormProps() {
+        const { form, errors, formLoading } = this.state;
+
         return {
-            values: this.state.form,
-            errors: this.state.errors,
-            loading: this.state.formLoading,
+            values: form,
+            errors,
+            loading: formLoading,
             onClick: () => this.setState({formClicked: true}),
             onChange: (form) => this.setState({form}),
             onValidateErrors: (errors) => {this.setState({errors})},
@@ -143,7 +145,7 @@ class AdminPanelCustomResponses extends React.Component {
                     <span>
                         {item.name}
                         <span className="admin-panel-custom-responses__item-flag">
-                            <Icon name={(item.language != 'en') ? item.language : 'us'}/>
+                            <Icon name={(item.language != 'en') ? item.language : 'us'} />
                         </span>
                     </span>
                 )
@@ -161,13 +163,15 @@ class AdminPanelCustomResponses extends React.Component {
 
     onFormSubmit(form) {
         const {items, allowedLanguages} = this.props;
+        const { selectedIndex } = this.state;
+
         this.setState({formLoading: true});
 
-        if(this.state.selectedIndex !== -1) {
+        if(selectedIndex !== -1) {
             API.call({
                 path: '/ticket/edit-custom-response',
                 data: {
-                    id: items[this.state.selectedIndex].id,
+                    id: items[selectedIndex].id,
                     name: form.title,
                     content: form.content,
                     language: _.includes(allowedLanguages, form.language) ? form.language : allowedLanguages[0]
@@ -203,6 +207,8 @@ class AdminPanelCustomResponses extends React.Component {
     }
 
     deleteCustomResponse() {
+        this.updateForm(this.state.selectedIndex)
+
         return API.call({
             path: '/ticket/delete-custom-response',
             data: {
@@ -215,11 +221,14 @@ class AdminPanelCustomResponses extends React.Component {
     }
 
     updateForm(index) {
+        const { items, language } = this.props;
+        const item = items[index];
+
         let form = _.clone(this.state.form);
 
-        form.title = (this.props.items[index] && this.props.items[index].name) || '';
-        form.content = TextEditor.getEditorStateFromHTML((this.props.items[index] && this.props.items[index].content) || '');
-        form.language = (this.props.items[index] && this.props.items[index].language) || this.props.language;
+        form.title = (item && item.name) || '';
+        form.content = TextEditor.getEditorStateFromHTML((item && item.content) || '');
+        form.language = (item && item.language) || language;
 
         this.setState({
             formClicked: false,
@@ -227,7 +236,7 @@ class AdminPanelCustomResponses extends React.Component {
             selectedIndex: index,
             formLoading: false,
             originalForm: form,
-            form: form,
+            form,
             errors: {}
         });
     }
@@ -237,10 +246,14 @@ class AdminPanelCustomResponses extends React.Component {
     }
 
     isEdited() {
-        return this.state.form.title && this.state.formClicked && (
-            this.state.form.title != this.state.originalForm.title ||
-            this.state.form.content != this.state.originalForm.content ||
-            this.state.form.language != this.state.originalForm.language
+        const { form, formClicked, originalForm } = this.state;
+
+        return (
+            form.title && formClicked && (
+                form.title != originalForm.title ||
+                form.content != originalForm.content ||
+                form.language != originalForm.language
+            )
         );
     }
 }

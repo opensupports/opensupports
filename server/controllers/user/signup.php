@@ -18,7 +18,7 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} name The name of the new user.
  * @apiParam {String} email The email of the new user.
  * @apiParam {String} password The password of the new user.
- * @apiParam {String} apiKey APIKey to sign up an user if the registration system is disabled.
+ * @apiParam {String} apiKey apiKey to sign up an user if the registration system is disabled.
  * @apiParam {String} customfield_ Custom field values for this user.
  * @apiParam {Boolean} indirectSignUp Indicates if the new User has been created by ticket/create
  *
@@ -72,7 +72,7 @@ class SignUpController extends Controller {
 
         if(!$this->csvImported) {
             $validations['requestData']['captcha'] = [
-                'validation' => DataValidator::captcha(APIKey::REGISTRATION),
+                'validation' => DataValidator::captcha(APIKey::USER_CREATE_PERMISSION),
                 'error' => ERRORS::INVALID_CAPTCHA
             ];
         }
@@ -98,10 +98,6 @@ class SignUpController extends Controller {
 
         if (!Setting::getSetting('registration')->value && $apiKey->isNull() && !Controller::isStaffLogged(2) && !$this->csvImported) {
             throw new RequestException(ERRORS::NO_PERMISSION);
-        }
-
-        if(!$apiKey->isNull() && $apiKey->type !== APIKey::REGISTRATION) {
-            throw new RequestException(ERRORS::INVALID_API_KEY_TYPE);
         }
         
         $userId = $this->createNewUserAndRetrieveId();

@@ -36,11 +36,13 @@ class ArticlesList extends React.Component {
     }
 
     render() {
-        if(this.props.errored) {
+        const { errored, loading } = this.props;
+
+        if(errored) {
             return <Message type="error">{i18n('ERROR_RETRIEVING_ARTICLES')}</Message>;
         }
 
-        return (this.props.loading) ? <Loading /> : this.renderContent();
+        return loading ? <Loading /> : this.renderContent();
     }
 
     renderContent() {
@@ -53,17 +55,19 @@ class ArticlesList extends React.Component {
     }
 
     renderTopics() {
+        const { topics, editable, articlePath } = this.props;
+
         return (
             <div className="articles-list__topics">
-                {this.props.topics.map((topic, index) => {
+                {topics.map((topic, index) => {
                     return (
                         <div key={index}>
                             <TopicViewer
                                 {...topic}
                                 id={topic.id * 1}
-                                editable={this.props.editable}
+                                editable={editable}
                                 onChange={this.retrieveArticles.bind(this)}
-                                articlePath={this.props.articlePath} />
+                                articlePath={articlePath} />
                             <span className="separator" />
                         </div>
                     );
@@ -76,7 +80,7 @@ class ArticlesList extends React.Component {
         return (
             <div className="articles-list__add-topic-button">
                 <Button onClick={() => ModalContainer.openModal(<TopicEditModal addForm onChange={this.retrieveArticles.bind(this)} />)} type="secondary" className="articles-list__add">
-                    <Icon name="plus-circle" size="2x" className="articles-list__add-icon"/> {i18n('ADD_TOPIC')}
+                    <Icon name="plus" className="articles-list__add-icon" /> {i18n('ADD_TOPIC')}
                 </Button>
             </div>
         );
@@ -88,9 +92,11 @@ class ArticlesList extends React.Component {
 }
 
 export default connect((store) => {
+    const { topics, errored, loading } = store.articles;
+
     return {
-        topics: store.articles.topics.map((topic) => {return {...topic, private: topic.private === "1"}}),
-        errored: store.articles.errored,
-        loading: store.articles.loading
+        topics: topics.map((topic) => {return {...topic, private: topic.private === "1"}}),
+        errored,
+        loading
     };
 })(ArticlesList);

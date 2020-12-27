@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import ConfigActions from 'actions/config-actions';
 import API from 'lib-app/api-call';
 import i18n from 'lib-app/i18n';
-import ToggleButton from 'app-components/toggle-button';
 import AreYouSure from 'app-components/are-you-sure';
 import ModalContainer from 'app-components/modal-container';
 
@@ -26,10 +25,9 @@ class AdminPanelAdvancedSettings extends React.Component {
         messageTitle: null,
         messageType: '',
         messageContent: '',
-        keyName: '',
-        keyCode: '',
         selectedAPIKey: -1,
-        APIKeys: []
+        APIKeys: [],
+        error: ''
     };
 
     componentDidMount() {
@@ -38,10 +36,12 @@ class AdminPanelAdvancedSettings extends React.Component {
 
     render() {
         const { config } = this.props;
+        const { messageType, error, selectedAPIKey } = this.state;
+
         return (
             <div className="admin-panel-advanced-settings">
-                <Header title={i18n('ADVANCED_SETTINGS')} description={i18n('ADVANCED_SETTINGS_DESCRIPTION')}/>
-                {(this.state.messageType) ? this.renderMessage() : null}
+                <Header title={i18n('ADVANCED_SETTINGS')} description={i18n('ADVANCED_SETTINGS_DESCRIPTION')} />
+                {messageType ? this.renderMessage() : null}
                 <div className="row">
                     <div className="col-md-12">
                         <div className="col-md-6 admin-panel-advanced-settings__mandatory-login">
@@ -51,8 +51,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                                 className="admin-panel-advanced-settings__mandatory-login__checkbox"
                                 value={config['mandatory-login']}
                                 onChange={this.onCheckboxMandatoryLoginChange.bind(this)}
-                                wrapInLabel
-                            />
+                                wrapInLabel />
                         </div>
                         <div className="col-md-6">
                             <div className="admin-panel-advanced-settings__registration">
@@ -62,8 +61,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                                     className="admin-panel-advanced-settings__registration__checkbox"
                                     value={config['registration']}
                                     onChange={this.onCheckboxRegistrationChange.bind(this)}
-                                    wrapInLabel
-                                />
+                                    wrapInLabel />
                             </div>
                         </div>
                     </div>
@@ -75,7 +73,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                             <div className="admin-panel-advanced-settings__text">
                                 {i18n('INCLUDE_USERS_VIA_CSV')} <InfoTooltip text={i18n('CSV_DESCRIPTION')} />
                             </div>
-                            <FileUploader className="admin-panel-advanced-settings__button" text="Upload" onChange={this.onImportCSV.bind(this)}/>
+                            <FileUploader className="admin-panel-advanced-settings__button" text="Upload" onChange={this.onImportCSV.bind(this)} />
                         </div>
                         <div className="col-md-4">
                             <div className="admin-panel-advanced-settings__text">{i18n('BACKUP_DATABASE')}</div>
@@ -95,7 +93,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                             <Listing {...this.getListingProps()} />
                         </div>
                         <div className="col-md-8 admin-panel-advanced-settings__api-keys__container">
-                            {(this.state.selectedAPIKey === -1) ? this.renderNoKey() : this.renderKey()}
+                            {error ? <Message type="error">{i18n(error)}</Message> : ((selectedAPIKey === -1) ? this.renderNoKey() : this.renderKey())}
                         </div>
                     </div>
                 </div>
@@ -104,9 +102,11 @@ class AdminPanelAdvancedSettings extends React.Component {
     }
 
     renderMessage() {
+        const { messageType, messageTitle, messageContent } = this.state;
+
         return (
-            <Message className="admin-panel-advanced-settings__message" type={this.state.messageType} title={this.state.messageTitle}>
-              {this.state.messageContent}
+            <Message className="admin-panel-advanced-settings__message" type={messageType} title={messageTitle}>
+                {messageContent}
             </Message>
         );
     }
@@ -120,14 +120,31 @@ class AdminPanelAdvancedSettings extends React.Component {
     }
 
     renderKey() {
-        let currentAPIKey = this.state.APIKeys[this.state.selectedAPIKey];
+        const { APIKeys, selectedAPIKey } = this.state;
+        const {
+            name,
+            token,
+            canCreateTickets,
+            shouldReturnTicketNumber,
+            canCheckTickets,
+            canCreateUser
+        } = APIKeys[selectedAPIKey];
 
         return (
             <div className="admin-panel-advanced-settings__api-keys__container-info">
                 <div className="admin-panel-advanced-settings__api-keys-subtitle">{i18n('NAME_OF_KEY')}</div>
-                <div className="admin-panel-advanced-settings__api-keys-data">{currentAPIKey.name}</div>
+                <div className="admin-panel-advanced-settings__api-keys-data">{name}</div>
                 <div className="admin-panel-advanced-settings__api-keys-subtitle">{i18n('KEY')}</div>
-                <div className="admin-panel-advanced-settings__api-keys-data">{currentAPIKey.token}</div>
+                <div className="admin-panel-advanced-settings__api-keys-data">{token}</div>
+                <div className="admin-panel-advanced-settings__api-keys-subtitle">{i18n('PERMISSIONS')}</div>
+                <div className="admin-panel-advanced-settings__api-keys__permissions">
+                    <FormField className="admin-panel-advanced-settings__api-keys__permissions__item" value={canCreateTickets*1} label={i18n('TICKET_CREATION_PERMISSION')} field='checkbox' />
+                    <FormField value={shouldReturnTicketNumber*1} label={i18n('TICKET_NUMBER_RETURN_PERMISSION')} field='checkbox' />
+                </div>
+                <div className="admin-panel-advanced-settings__api-keys__permissions">
+                    <FormField className="admin-panel-advanced-settings__api-keys__permissions__item" value={canCheckTickets*1} label={i18n('TICKET_CHECK_PERMISSION')} field='checkbox' />
+                    <FormField value={canCreateUser*1} label={i18n('USER_CREATION_PERMISSION')} field='checkbox' />
+                </div>
                 <Button className="admin-panel-advanced-settings__api-keys-button" size="medium" onClick={this.onDeleteKeyClick.bind(this)}>
                     {i18n('DELETE')}
                 </Button>
@@ -146,7 +163,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                 };
             }),
             selectedIndex: this.state.selectedAPIKey,
-            onChange: index => this.setState({selectedAPIKey: index}),
+            onChange: index => this.setState({selectedAPIKey: index, error:''}),
             onAddClick: this.openAPIKeyModal.bind(this)
         };
     }
@@ -154,18 +171,51 @@ class AdminPanelAdvancedSettings extends React.Component {
     openAPIKeyModal() {
         ModalContainer.openModal(
             <Form className="admin-panel-advanced-settings__api-keys-modal" onSubmit={this.addAPIKey.bind(this)}>
-                <Header title={i18n('ADD_API_KEY')} description={i18n('ADD_API_KEY_DESCRIPTION')}/>
-                <FormField name="name" label={i18n('NAME_OF_KEY')} validation="DEFAULT" required fieldProps={{size: 'large'}}/>
-                <SubmitButton type="secondary">{i18n('SUBMIT')}</SubmitButton>
-            </Form>
+                <Header title={i18n('ADD_API_KEY')} description={i18n('ADD_API_KEY_DESCRIPTION')} />
+                <FormField name="name" label={i18n('NAME_OF_KEY')} validation="DEFAULT" required fieldProps={{size: 'large'}} />
+                <div className="admin-panel-advanced-settings__api-keys__permissions">
+                    <FormField className = "admin-panel-advanced-settings__api-keys__permissions__item" name="createTicketPermission" label={i18n('TICKET_CREATION_PERMISSION')} field='checkbox' />
+                    <FormField name="ticketNumberPermission" label={i18n('TICKET_NUMBER_RETURN_PERMISSION')} field='checkbox' />
+                </div>
+                <div className="admin-panel-advanced-settings__api-keys__permissions" >
+                    <FormField className = "admin-panel-advanced-settings__api-keys__permissions__item" name="checkTicketPermission" label={i18n('TICKET_CHECK_PERMISSION')} field='checkbox' />
+                    <FormField name="userPermission" label={i18n('USER_CREATION_PERMISSION')} field='checkbox' />
+                </div>
+                <div className="admin-panel-advanced-settings__api-keys__buttons-container">
+                    <Button
+                        className="admin-panel-advanced-settings__api-keys__cancel-button"
+                        onClick={(e) => {e.preventDefault(); ModalContainer.closeModal();}}
+                        type='link'
+                        size="medium">
+                            {i18n('CANCEL')}
+                    </Button>
+                    <SubmitButton className="admin-panel-advanced-settings__api-keys-modal__submit-button" type="secondary">{i18n('SUBMIT')}</SubmitButton>
+                </div>
+            </Form>,
+            {
+                closeButton: {
+                    showCloseButton: true
+                }
+            }
         );
     }
 
-    addAPIKey({name}) {
+    addAPIKey({name,userPermission,createTicketPermission,checkTicketPermission,ticketNumberPermission}) {
         ModalContainer.closeModal();
+
+        this.setState({
+            error: ''
+        });
+
         API.call({
             path: '/system/add-api-key',
-            data: {name, type: 'REGISTRATION'}
+            data: {
+                name,
+                canCreateUsers: userPermission*1,
+                canCreateTickets: createTicketPermission*1,
+                canCheckTickets: checkTicketPermission*1,
+                shouldReturnTicketNumber: ticketNumberPermission*1
+            }
         }).then(this.getAllKeys.bind(this));
     }
 
@@ -173,15 +223,20 @@ class AdminPanelAdvancedSettings extends React.Component {
         API.call({
             path: '/system/get-api-keys',
             data: {}
-        }).then(this.onRetrieveSuccess.bind(this));
+        }).then(this.onRetrieveSuccess.bind(this))
     }
 
     onDeleteKeyClick() {
+        const {
+            APIKeys,
+            selectedAPIKey
+        } = this.state;
+
         AreYouSure.openModal(null, () => {
             return API.call({
                 path: '/system/delete-api-key',
                 data: {
-                    name: this.state.APIKeys[this.state.selectedAPIKey].name
+                    name: APIKeys[selectedAPIKey].name
                 }
             }).then(this.getAllKeys.bind(this));
         });
@@ -189,8 +244,9 @@ class AdminPanelAdvancedSettings extends React.Component {
 
     onRetrieveSuccess(result) {
         this.setState({
-            APIKeys: result.data.filter(key => key['type'] === 'REGISTRATION'),
-            selectedAPIKey: -1
+            APIKeys: result.data,
+            selectedAPIKey: -1,
+            error: null
         });
     }
 
@@ -203,10 +259,8 @@ class AdminPanelAdvancedSettings extends React.Component {
     }
 
     onAreYouSureMandatoryLoginOk(password) {
-        const {
-            config,
-            dispatch
-        } = this.props;
+        const { config, dispatch } = this.props;
+
         return API.call({
             path: config['mandatory-login'] ? '/system/disable-mandatory-login' : '/system/enable-mandatory-login',
             data: {
@@ -223,10 +277,8 @@ class AdminPanelAdvancedSettings extends React.Component {
     }
 
     onAreYouSureRegistrationOk(password) {
-        const {
-            config,
-            dispatch
-        } = this.props;
+        const { config, dispatch } = this.props;
+
         return API.call({
             path: config['registration'] ? '/system/disable-registration' : '/system/enable-registration',
             data: {

@@ -2,7 +2,6 @@ import React              from 'react';
 import _                  from 'lodash';
 import {connect}          from 'react-redux';
 
-import history            from 'lib-app/history';
 import i18n               from 'lib-app/i18n';
 import API                from 'lib-app/api-call';
 import SessionStore       from 'lib-app/session-store';
@@ -37,7 +36,7 @@ class CreateTicketForm extends React.Component {
         form: {
             title: '',
             content: TextEditor.createEmpty(),
-            departmentIndex: getPublicDepartmentIndexFromDepartmentId(this.props.defaultDepartmentId),
+            departmentIndex: getPublicDepartmentIndexFromDepartmentId(this.props.defaultDepartmentId, SessionStore.getDepartments()),
             email: '',
             name: '',
             language: this.props.language
@@ -45,36 +44,46 @@ class CreateTicketForm extends React.Component {
     };
 
     render() {
+        const {
+            userLogged,
+            isDefaultDepartmentLocked,
+            isStaff,
+            onlyOneSupportedLanguage,
+            allowAttachments
+        } = this.props;
+
         return (
             <div className="create-ticket-form">
                 <Header title={i18n('CREATE_TICKET')} description={i18n('CREATE_TICKET_DESCRIPTION')} />
                 <Form {...this.getFormProps()}>
-                    {(!this.props.userLogged) ? this.renderEmailAndName() : null}
-                    <FormField label={i18n('TITLE')} name="title" validation="TITLE" required field="input" fieldProps={{size: 'large'}}/>
+                    {(!userLogged) ? this.renderEmailAndName() : null}
+                    <FormField label={i18n('TITLE')} name="title" validation="TITLE" required field="input" fieldProps={{size: 'large'}} />
                     <div className="row">
-                        {!(this.props.isDefaultDepartmentLocked*1) || this.props.isStaff ?
+                        {!(isDefaultDepartmentLocked*1) || isStaff ?
                             <FormField className="col-md-5" label={i18n('DEPARTMENT')} name="departmentIndex" field="select" decorator={DepartmentDropdown} fieldProps={{
                                 departments: SessionStore.getDepartments(),
                                 size: 'medium'
                             }} /> : null
                         }    
-                        {!this.props.onlyOneSupportedLanguage ?  
+                        {!onlyOneSupportedLanguage ?
                             <FormField className="col-md-5" label={i18n('LANGUAGE')} name="language" field="select" decorator={LanguageSelector} fieldProps={{
                                 type: 'supported',
                                 size: 'medium'
-                            }}/> : null
+                            }} /> : null
                         }
                     </div>
                     <FormField
                         label={i18n('CONTENT')}
                         name="content"
                         validation="TEXT_AREA"
-                        fieldProps={{allowImages: this.props.allowAttachments}}
+                        fieldProps={{allowImages: allowAttachments}}
                         required
                         field="textarea" />
-                    {(this.props.allowAttachments) ? this.renderFileUpload() : null}
-                    {(!this.props.userLogged) ? this.renderCaptcha() : null}
-                    <SubmitButton>{i18n('CREATE_TICKET')}</SubmitButton>
+                    <div className="create-ticket-form__buttons-container">
+                        {allowAttachments ? this.renderFileUpload() : null}
+                        {(!userLogged) ? this.renderCaptcha() : null}
+                        <SubmitButton type="secondary">{i18n('CREATE_TICKET')}</SubmitButton>
+                    </div>
                 </Form>
                 {this.renderMessage()}
             </div>
@@ -84,8 +93,8 @@ class CreateTicketForm extends React.Component {
     renderEmailAndName() {
         return (
             <div className="row">
-                <FormField className="col-md-6" label={i18n('EMAIL')} name="email" validation="EMAIL" required field="input" fieldProps={{size: 'large'}}/>
-                <FormField className="col-md-6" label={i18n('FULL_NAME')} name="name" validation="NAME" required field="input" fieldProps={{size: 'large'}}/>
+                <FormField className="col-md-6" label={i18n('EMAIL')} name="email" validation="EMAIL" required field="input" fieldProps={{size: 'large'}} />
+                <FormField className="col-md-6" label={i18n('FULL_NAME')} name="name" validation="NAME" required field="input" fieldProps={{size: 'large'}} />
             </div>
         );
     }
@@ -101,7 +110,7 @@ class CreateTicketForm extends React.Component {
     renderCaptcha() {
         return (
             <div className="create-ticket-form__captcha">
-                <Captcha ref="captcha"/>
+                <Captcha ref="captcha" />
             </div>
         );
     }
@@ -118,10 +127,15 @@ class CreateTicketForm extends React.Component {
     }
 
     getFormProps() {
+        const {
+            loading,
+            form
+        } = this.state;
+
         return {
-            loading: this.state.loading,
+            loading,
             onSubmit: this.onSubmit.bind(this),
-            values: this.state.form,
+            values: form,
             onChange: form => this.setState({form})
         };
     }
@@ -148,15 +162,16 @@ class CreateTicketForm extends React.Component {
     }
 
     onTicketSuccess(email, result) {
-        let message = 'success'
-        this.setState({
-            loading: false,
-            message: message
-        }, () => {
-            if(this.props.onSuccess) {
-                this.props.onSuccess(result, email, message);
-            }
-        });
+        const { onSuccess } = this.props;
+        const message = 'success';
+
+        this.setState(
+            {
+                loading: false,
+                message
+            },
+            () => {onSuccess && onSuccess(result, email, message);}
+        );
     }
 
     onTicketFail() {

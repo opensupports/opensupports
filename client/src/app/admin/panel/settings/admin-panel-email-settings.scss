@@ -17,12 +17,12 @@
 
     &__save-button {
         display: inline-block;
-        float: left;
+        float: right;
     }
 
     &__optional-buttons {
         display: inline-block;
-        float: right;
+        float: left;
     }
 
     &__discard-button {
@@ -31,11 +31,11 @@
 
     &__recover-button {
         display: inline-block;
-        margin-left: 10px;
+        margin: 0 10px;
     }
 
     &__image-container,
-    &__email-form {
+    &__email-container {
         background-color: $very-light-grey;
         display: flex;
         justify-content: space-between;
@@ -68,5 +68,26 @@
         margin-top: 10px;
         padding-left: 40px;
         text-align: left;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .admin-panel-email-settings {
+        &__image-container > label > .input,
+        &__email-container > label > .input {
+            display: unset;
+        }
+
+        &__image-container,
+        &__email-container,
+        &__servers {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__email-server-address,
+        &__image-header-url {
+            width: 100%;
+        }
     }
 }

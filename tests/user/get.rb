@@ -5,14 +5,16 @@ describe '/user/get' do
     Scripts.login('user_get@os4.com', 'user_get')
     result = request('/ticket/create', {
         title: 'Should we pay?',
-        content: 'A Lannister always pays his debts.',
+        content: 'A Lannister always pays his debtssss.',
         departmentId: 1,
         language: 'en',
         csrf_userid: $csrf_userid,
         csrf_token: $csrf_token
     })
 
-    @ticketNumber = result['data']['ticketNumber']
+    ticket = $database.getRow('ticket', 'A Lannister always pays his debtssss.' , 'content')
+
+    @ticketNumber = ticket['ticket_number']
 
     it 'should fail if not logged' do
         request('/user/logout')

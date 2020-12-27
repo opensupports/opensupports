@@ -24,9 +24,10 @@ export default {
 
         return range.map((date) => {return trasformerDateFunction(JSON.stringify(date))});
     },
-    transformToString(date, expressive = true) {
+    transformToString(date, expressive = true, retrunShortcutDate = false) {
         const momentDateLocal = this.stringDateToMoment(JSON.stringify(this.UTCDateToLocalNumericDate(date)));
-        if (expressive) momentDateLocal.format('D MMMM YYYY')
+        if(expressive) momentDateLocal.format('D MMMM YYYY');
+        if(retrunShortcutDate) return momentDateLocal.format('D MMM YYYY, HH:mm');
         return momentDateLocal.format('D MMMM YYYY, HH:mm');
     },
 };

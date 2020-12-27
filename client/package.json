@@ -15,7 +15,7 @@
   "scripts": {
     "start": "webpack-dev-server",
     "start-fixtures": "webpack-dev-server --env.FIXTURES=1",
-    "build": "rimraf build && NODE_ENV=production webpack -p --devtool none",
+    "build": "./node_modules/.bin/rimraf build && NODE_ENV=production ./node_modules/.bin/webpack -p --devtool none",
     "test": "export NODE_PATH=src && mocha src/lib-test/preprocessor.js --require @babel/register --recursive src/**/**/__tests__/*-test.js"
   },
   "devDependencies": {

@@ -42,33 +42,33 @@
         }
     }
 
-    &__row {
+    &__first-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10%;
+    }
+
+    &__second-row,
+    &__third-row {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
         align-items: flex-start;
+    }
 
-        &__filter {
-            display: flex;
-            flex-direction: column;
-            align-items: start;
-            margin-bottom: 30px;
+    &__status-drop-down > .drop-down__current-item {
+        background-color: $very-light-grey;
 
-            &__status-drop-down > .drop-down__current-item {
-                background-color: $very-light-grey;
-
-                &:focus {
-                    background-color: $medium-grey;
-                }
-            }
+        &:focus {
+            background-color: $medium-grey;
         }
-    
     }
 
     &__search-box {
         width:  100%;
         padding: 0 50px;
-        margin-bottom: 30px;
     }
 
     &__staff-option {
@@ -101,5 +101,18 @@
 
     &__title {
         padding-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .ticket-query-filters {
+        &__first-row,
+        &__second-row,
+        &__third-row {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: unset;
+        }
     }
 }

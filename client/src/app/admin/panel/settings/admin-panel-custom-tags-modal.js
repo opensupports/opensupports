@@ -12,7 +12,8 @@ import ColorSelector from 'core-components/color-selector';
 
 class AdminPanelCustomTagsModal extends React.Component {
     static contextTypes = {
-        closeModal: React.PropTypes.func
+        closeModal: React.PropTypes.func,
+        createTag: React.PropTypes.bool
     };
 
     static propTypes = {
@@ -27,57 +28,50 @@ class AdminPanelCustomTagsModal extends React.Component {
 
     render() {
         return (
-            this.props.createTag ? this.renderCreateTagContent() : this.renderEditTagContent()
+            this.renderTagContentPopUp(this.props.createTag)
         );
     }
 
-    renderEditTagContent() {
-        return (
-            <div className='admin-panel-custom-tags-modal'>
-                <Header title={i18n('EDIT_CUSTOM_TAG')} description={i18n('DESCRIPTION_EDIT_CUSTOM_TAG')} />
-                <Form
-                    values={this.state.form}
-                    onChange={this.onFormChange.bind(this)}
-                    onSubmit={this.onSubmitEditTag.bind(this)}
-                    errors={this.state.errors}
-                    onValidateErrors={errors => this.setState({errors})}
-                    loading={this.state.loading}>
-                    <FormField name="name" label={i18n('NAME')} fieldProps={{size: 'large'}}/>
-                    <FormField name="color" label={i18n('COLOR')} decorator={ColorSelector} />
-                    <div className='admin-panel-custom-tags-modal__actions'>
-                        <SubmitButton  type="secondary" size="small">
-                            {i18n('SAVE')}
-                        </SubmitButton>
-                        <Button onClick={this.onDiscardClick.bind(this)} size="small">
-                            {i18n('CANCEL')}
-                        </Button>
-                    </div>
-                </Form>
-            </div>
-        );
-    }
+    renderTagContentPopUp(create) {
+        const {
+            form,
+            errors,
+            loading,
+        } = this.state;
+        let title, description, nameRequired, submitFunction;
 
-    renderCreateTagContent() {
+        if(create) {
+            title = i18n('ADD_CUSTOM_TAG');
+            description = i18n('DESCRIPTION_ADD_CUSTOM_TAG');
+            submitFunction = this.onSubmitNewTag.bind(this);
+            nameRequired = true;
+        } else {
+            title = i18n('EDIT_CUSTOM_TAG');
+            description = i18n('DESCRIPTION_EDIT_CUSTOM_TAG');
+            nameRequired = false;
+            submitFunction = this.onSubmitEditTag.bind(this);
+        }
+
         return (
             <div className='admin-panel-custom-tags-modal'>
-                <Header title={i18n('ADD_CUSTOM_TAG')} description={i18n('DESCRIPTION_ADD_CUSTOM_TAG')} />
+                <Header title={title} description={description} />
                 <Form
-                    values={this.state.form}
+                    values={form}
                     onChange={this.onFormChange.bind(this)}
-                    onSubmit={this.onSubmitNewTag.bind(this)}
-                    errors={this.state.errors}
+                    onSubmit={submitFunction}
+                    errors={errors}
                     onValidateErrors={errors => this.setState({errors})}
-                    loading={this.state.loading}>
-                    <FormField name="name" label={i18n('NAME')} fieldProps={{size: 'large'}} required />
-                    <FormField name="color" label={i18n('COLOR')} decorator={ColorSelector} />
-                    <div className='admin-panel-custom-tags-modal__actions'>
-                        <SubmitButton  type="secondary" size="small">
-                            {i18n('SAVE')}
-                        </SubmitButton>
-                        <Button onClick={this.onDiscardClick.bind(this)} size="small">
-                            {i18n('CANCEL')}
-                        </Button>
-                    </div>
+                    loading={loading}>
+                        <FormField name="name" label={i18n('NAME')} fieldProps={{size: 'large'}} required={nameRequired} />
+                        <FormField name="color" label={i18n('COLOR')} decorator={ColorSelector} />
+                        <div className='admin-panel-custom-tags-modal__actions'>
+                            <Button onClick={this.onDiscardClick.bind(this)} size="small">
+                                {i18n('CANCEL')}
+                            </Button>
+                            <SubmitButton type="secondary" size="small">
+                                {i18n('SAVE')}
+                            </SubmitButton>
+                        </div>
                 </Form>
             </div>
         );
@@ -118,7 +112,7 @@ class AdminPanelCustomTagsModal extends React.Component {
 
         });
     }
-    
+
     onSubmitNewTag(form) {
         this.setState({
             loading: true

@@ -36,10 +36,10 @@ class AdminPanelMyTickets extends React.Component {
         return (
             <div className="admin-panel-my-tickets">
                 <Header title={i18n('MY_TICKETS')} description={i18n('MY_TICKETS_DESCRIPTION')} />
-                {(this.props.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketList {...this.getProps()}/>}
+                {(this.props.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketList {...this.getProps()} />}
                 <div style={{textAlign: 'right', marginTop: 10}}>
                     <Button onClick={this.onCreateTicket.bind(this)} type="secondary" size="medium">
-                        <Icon size="sm" name="plus"/> {i18n('CREATE_TICKET')}
+                        <Icon size="sm" name="plus" /> {i18n('CREATE_TICKET')}
                     </Button>
                 </div>
             </div>
@@ -47,21 +47,31 @@ class AdminPanelMyTickets extends React.Component {
     }
 
     getProps() {
+        const { closedTicketsShown } = this.state;
+        const {
+            userId,
+            departments,
+            tickets,
+            loading,
+            pages,
+            page
+        } = this.props;
+
         return {
-            userId: this.props.userId,
-            departments: this.props.departments,
-            tickets: this.props.tickets,
+            userId,
+            departments ,
+            tickets,
             type: 'secondary',
-            loading: this.props.loading,
+            loading,
             ticketPath: '/admin/panel/tickets/view-ticket/',
-            closedTicketsShown: this.state.closedTicketsShown,
+            closedTicketsShown,
             onClosedTicketsShownChange: this.onClosedTicketsShownChange.bind(this),
-            pages: this.props.pages,
-            page: this.props.page,
+            pages,
+            page,
             onPageChange: event => this.retrieveMyTickets(event.target.value),
             onDepartmentChange: departmentId => {
                 this.setState({departmentId});
-                this.retrieveMyTickets(1, this.state.closedTicketsShown, departmentId);
+                this.retrieveMyTickets(1, closedTicketsShown, departmentId);
             },
         };
     }
@@ -76,10 +86,13 @@ class AdminPanelMyTickets extends React.Component {
 
     onCreateTicket() {
         ModalContainer.openModal(
-            <div>
-                <CreateTicketForm isStaff={true} onSuccess={this.onCreateTicketSuccess.bind(this)} />
-                <div style={{textAlign: 'center'}}>
-                    <Button onClick={ModalContainer.closeModal} type="link">{i18n('CLOSE')}</Button>
+            <div className="admin-panel-my-tickets__create-ticket-form-container">
+                <CreateTicketForm
+                    className="admin-panel-my-tickets__create-ticket-form"
+                    isStaff={true}
+                    onSuccess={this.onCreateTicketSuccess.bind(this)} />
+                <div className="admin-panel-my-tickets__close-button-container">
+                    <Button className="admin-panel-my-tickets__close-button" onClick={ModalContainer.closeModal} type="link">{i18n('CLOSE')}</Button>
                 </div>
             </div>
         );

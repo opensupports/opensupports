@@ -19,7 +19,8 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {Number} departmentId The id of the department of the current ticket.
  * @apiParam {String} language The language of the ticket.
  * @apiParam {String} email The email of the user who created the ticket.
- * @apiParam {Number} images The number of images in the content
+ * @apiParam {Number} images The number of images in the content.
+ * @apiParam {String} apiKey apiKey to create tickets and show ticket-number created.
  * @apiParam image_i The image file of index `i` (mutiple params accepted)
  * @apiParam file The file you with to upload.
  *
@@ -48,7 +49,7 @@ class CreateController extends Controller {
     private $ticketNumber;
     private $email;
     private $name;
-
+    private $apiKey;
     public function validations() {
         $validations = [
             'permission' => 'user',
@@ -74,7 +75,7 @@ class CreateController extends Controller {
         if (!Controller::isLoginMandatory() && !Controller::isStaffLogged() && !Controller::isUserLogged()) {
             $validations['permission'] = 'any';
             $validations['requestData']['captcha'] = [
-                'validation' => DataValidator::captcha(APIKey::TICKET_CREATE),
+                'validation' => DataValidator::captcha(APIKey::TICKET_CREATE_PERMISSION),
                 'error' => ERRORS::INVALID_CAPTCHA
             ];
             $validations['requestData']['email'] = [
@@ -92,12 +93,10 @@ class CreateController extends Controller {
 
     public function handler() {
         
-        ///
         $session = Session::getInstance();
         if($session->isTicketSession())  {
             $session->clearSessionData();
         }
-        ///
 
         $this->title = Controller::request('title');
         $this->content = Controller::request('content', true);
@@ -105,8 +104,9 @@ class CreateController extends Controller {
         $this->language = Controller::request('language');
         $this->email = Controller::request('email');
         $this->name = Controller::request('name');
+        $this->apiKey = APIKey::getDataStore(Controller::request('apiKey'), 'token');
         
-        if(!Controller::isStaffLogged() && Department::getDataStore($this->departmentId)->private){
+        if(!Controller::isStaffLogged() && Department::getDataStore($this->departmentId)->private) {
             throw new Exception(ERRORS::INVALID_DEPARTMENT);
         }
         
@@ -132,11 +132,14 @@ class CreateController extends Controller {
         }
         
         Log::createLog('CREATE_TICKET', $this->ticketNumber);
-
-        Response::respondSuccess([
-            'ticketNumber' => $this->ticketNumber
-        ]);
-           
+        
+        if(!$this->apiKey->isNull() && $this->apiKey->shouldReturnTicketNumber){
+            Response::respondSuccess([
+                'ticketNumber' => $this->ticketNumber
+            ]);
+        }else{
+            Response::respondSuccess();
+        }
     }
 
     private function isEmailInvalid(){

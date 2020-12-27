@@ -44,7 +44,7 @@ class AdminPanelCustomTags extends React.Component {
             <div className="admin-panel-custom-tags__content">
                 <div>
                     <Button onClick={this.openTagModal.bind(this)}  type="secondary">
-                        {i18n('ADD_CUSTOM_TAG')}<Icon className="admin-panel-custom-tags__add-button-icon" name="plus"/>
+                        <Icon className="admin-panel-custom-tags__add-button-icon" name="plus" /> {i18n('ADD_CUSTOM_TAG')}
                     </Button>
                 </div>
                 <div className="admin-panel-custom-tags__tag-list">
@@ -77,13 +77,13 @@ class AdminPanelCustomTags extends React.Component {
     
     openEditTagModal(tagId,tagName,tagColor, event) {
         ModalContainer.openModal(
-            <AdminPanelCustomTagsModal defaultValues={{name: tagName , color: tagColor}} id={tagId} onTagChange={this.retrieveCustomTags.bind(this)}/>
+            <AdminPanelCustomTagsModal defaultValues={{name: tagName , color: tagColor}} id={tagId} onTagChange={this.retrieveCustomTags.bind(this)} />
         );
     }
 
     onDeleteClick(tagId, event) {
         event.preventDefault();
-        AreYouSure.openModal(i18n('WILL_DELETE_CUSTOM_RESPONSE'), this.deleteCustomTag.bind(this, tagId));
+        AreYouSure.openModal(i18n('WILL_DELETE_CUSTOM_TAG'), this.deleteCustomTag.bind(this, tagId));
     }
 
     deleteCustomTag(tagId) {

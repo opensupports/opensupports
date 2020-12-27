@@ -48,10 +48,10 @@ class AdminPanelListUsers extends React.Component {
         return (
             <div>
                 <SearchBox className="admin-panel-list-users__search-box" placeholder={i18n('SEARCH_USERS')} onSearch={this.onSearch.bind(this)} />
-                <Table {...this.getTableProps()}/>
+                <Table {...this.getTableProps()} />
                 <div style={{textAlign: 'right', marginTop: 10}}>
                     <Button onClick={this.onInviteUser.bind(this)} type="secondary" size="medium">
-                        <Icon size="sm" name="plus"/> {i18n('INVITE_USER')}
+                        <Icon size="sm" name="user-plus" /> {i18n('INVITE_USER')}
                     </Button>
                 </div>
             </div>
@@ -138,11 +138,17 @@ class AdminPanelListUsers extends React.Component {
     }
 
     onPageChange(event) {
+        const {
+            orderBy,
+            desc,
+            search
+        } = this.state;
+
         this.retrieveUsers({
             page: event.target.value,
-            orderBy: this.state.orderBy,
-            desc: this.state.desc,
-            search: this.state.search
+            orderBy,
+            desc,
+            search
         });
     }
 
@@ -179,9 +185,6 @@ class AdminPanelListUsers extends React.Component {
         ModalContainer.openModal(
             <div className="admin-panel-list-users__invite-user-form">
                 <InviteUserWidget onSuccess={this.onInviteUserSuccess.bind(this)} />
-                <div style={{textAlign: 'center'}}>
-                    <Button onClick={ModalContainer.closeModal} type="link">{i18n('CLOSE')}</Button>
-                </div>
             </div>
         );
     }

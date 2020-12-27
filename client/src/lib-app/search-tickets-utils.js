@@ -209,7 +209,7 @@ export default {
         return JSON.stringify([DEFAULT_UTC_START_DATE, this.getDefaultUTCEndDate()]);
     },
     getDefaultUTCStartDate() {
-        return DEFAULT_UTC_START_DATE
+        return DEFAULT_UTC_START_DATE;
     },
     getDefaultUTCEndDate() {
         let todayNight = new Date();
@@ -219,9 +219,9 @@ export default {
         return DateTransformer.localDateToUTCNumericDate(JSON.stringify(date.getFullDate(todayNight)));
     },
     getDefaultLocalStartDate() {
-        return DateTransformer.UTCDateToLocalNumericDate(this.getDefaultUTCStartDate())
+        return DateTransformer.UTCDateToLocalNumericDate(this.getDefaultUTCStartDate());
     },
     getDefaultlocalEndDate() {
-        return DateTransformer.UTCDateToLocalNumericDate(this.getDefaultUTCEndDate())
+        return DateTransformer.UTCDateToLocalNumericDate(this.getDefaultUTCEndDate());
     }
 }

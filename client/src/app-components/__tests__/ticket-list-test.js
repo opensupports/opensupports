@@ -57,7 +57,7 @@ describe('TicketList component', function () {
 
     function renderTicketList(props = {}) {
         ticketList = TestUtils.renderIntoDocument(
-            <TicketList tickets={tickets} {...props}/>
+            <TicketList tickets={tickets} {...props}></TicketList>
         );
 
         table = TestUtils.scryRenderedComponentsWithType(ticketList, Table);
