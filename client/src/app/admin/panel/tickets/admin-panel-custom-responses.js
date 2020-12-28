@@ -14,6 +14,7 @@ import Button from 'core-components/button';
 import Header from 'core-components/header';
 import Listing from 'core-components/listing';
 import Loading from 'core-components/loading';
+import Message from 'core-components/message';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
@@ -30,6 +31,7 @@ class AdminPanelCustomResponses extends React.Component {
         formLoading: false,
         selectedIndex: -1,
         errors: {},
+        error:'',
         originalForm: {
             title: '',
             content: TextEditor.createEmpty(),
@@ -88,18 +90,23 @@ class AdminPanelCustomResponses extends React.Component {
                             <FormField label={i18n('LANGUAGE')} name="language" field="input" decorator={LanguageSelector} fieldProps={{size: 'medium'}} />
                         </div>
                     </div>
-                    <FormField label={i18n('CONTENT')} name="content" validation="TEXT_AREA" required field="textarea" />
+                         <FormField label={i18n('CONTENT')} name="content" validation="TEXT_AREA" required field="textarea" />
                     <div className="admin-panel-custom-responses__actions">
                         {(this.state.selectedIndex !== -1) ? this.renderOptionalButtons() : null}
                         <div className="admin-panel-custom-responses__save-button">
                             <SubmitButton type="secondary" size="small">{i18n('SAVE')}</SubmitButton>
                         </div>
                     </div>
+                    {this.state.error ? this.renderErrorMessage() : null}
                 </Form>
             </div>
         );
     }
-
+    renderErrorMessage() {
+        return(
+            <Message className="admin-panel-custom-responses__message" type="error">{i18n(this.state.error)}</Message>
+        )
+    }
     renderOptionalButtons() {
         return (
             <div className="admin-panel-custom-responses__optional-buttons">
@@ -190,9 +197,13 @@ class AdminPanelCustomResponses extends React.Component {
                     language: _.includes(allowedLanguages, form.language) ? form.language : allowedLanguages[0]
                 }
             }).then(() => {
+                this.setState({error: ''});
                 this.retrieveCustomResponses();
                 this.onItemChange(-1);
-            }).catch(this.onItemChange.bind(this, -1));
+            }).catch((e) => {
+                this.onItemChange.bind(this, -1)
+                this.setState({error: e.message, formLoading:false});
+            });
         }
     }
 
