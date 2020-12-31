@@ -153,10 +153,14 @@ class InviteUserWidget extends React.Component {
     }
 
     onInviteUserSuccess() {
+        const { onSuccess } = this.props;
+
         this.setState({
             loading: false,
             message: 'success'
         });
+
+        onSuccess && onSuccess();
     }
 
     onInviteUserFail() {
