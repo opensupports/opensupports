@@ -29,8 +29,8 @@ export default {
         data: germanLanguage
     },
     'fr': {
-        name: 'French',
-        data: frenchLanguage
+        name: 'Serbian',
+        data: serbianLanguage
     },
     'pt': {
         name: 'Portuguese',
