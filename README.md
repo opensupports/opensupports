@@ -23,6 +23,7 @@ Here is a guide of how to set up the development environment in OpenSupports.
 11. Your browser will automatically be opened and directed to the browser-sync proxy address.
 
 Use the following line for running ONLY the frontend. No Backend needed.
+
 12. Use `npm run-script start-fixtures` to enable fixtures and not require php server to be running.
 
 
