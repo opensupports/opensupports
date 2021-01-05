@@ -1,9 +1,4 @@
-![OpenSupports](http://www.opensupports.com/logo.png)
 
-[![Build Status](https://travis-ci.org/opensupports/opensupports.svg?branch=master)](https://travis-ci.org/opensupports/opensupports) v4.8.0
-
-OpenSupports is an open source ticket system built primarily with PHP and ReactJS.
-Please, visit our website for more information: [http://www.opensupports.com/](http://www.opensupports.com/)
 
 ## Requirements
 * PHP 5.6+
@@ -26,7 +21,11 @@ Here is a guide of how to set up the development environment in OpenSupports.
 8. Run: `npm start` (PHP server api it must be running at :8080)
 10. Go to the main app: `http://localhost:3000/app` or to the component demo `http://localhost:3000/demo`
 11. Your browser will automatically be opened and directed to the browser-sync proxy address.
-12. Use `npm start-fixtures` to enable fixtures and not require php server to be running.
+
+Use the following line for running ONLY the frontend. No Backend needed.
+
+12. Use `npm run-script start-fixtures` to enable fixtures and not require php server to be running.
+
 
 OpenSupport uses by default the port 3000, but this port could already be used. If this is the case, you can modify this in the file: `client/webpack.config.js`.
 
@@ -62,28 +61,3 @@ you can access with the username `root` and empty password
 ##### Building
 Once you've installed dependencies for frontend and backend, you can run `./build.sh` and it will generate a zip file inside `dist/` ready for distribution. You can use this file to install OpenSupports on a serving following the [installation instructions](https://github.com/opensupports/opensupports/wiki/Installation)
 
-##### BACKEND API RUBY TESTING
-
-1. Go to tests folder: `cd opensupports/tests`
-2. Run `make build` to install ruby container and its required dependencies
-
-- `make run` for running tests (database will be cleared)
-- `make clear` for clearing database
-
-##### BACKEND FAKE SMTP SERVER
-If you're doing development, you can use a FakeSMTP server to see the mails that are being sent.
-
-1. Install Java if you don't have it yet:
-
-     `sudo apt-get install default-jre`
-     `sudo apt-get install default-jdk`
-
-2. [Download FakeSMTP](https://nilhcem.github.io/FakeSMTP/download.html)
-
-3. Extract the file from the zip and run it:
-
-    `java -jar fakeSMTP-2.0.jar`
-
-4. Set the port to 7070 and start the SMTP server.
-
-5. Every time the application sends an email, it will be reflected there.
