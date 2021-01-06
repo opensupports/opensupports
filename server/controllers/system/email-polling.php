@@ -106,11 +106,10 @@ class EmailPollingController extends Controller {
         $session->clearSessionData();
         $session->setSessionData($oldSession);
 
-        $this->eraseAllEmails();
-
         if(count($errors)) {
             Response::respondError(ERRORS::EMAIL_POLLING, null, $errors);
         } else {
+            $this->eraseAllEmails();
             Response::respondSuccess();
         }
     }
