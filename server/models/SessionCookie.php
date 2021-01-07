@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} SessionCookie SessionCookie
- * @apiVersion 4.8.0
+ * @apiVersion 4.9.0
  * @apiGroup Data Structures
  * @apiParam {Boolean} isStaff Indicates if it wants to login a staff or a regular user.
  * @apiParam {Object} user The user.
