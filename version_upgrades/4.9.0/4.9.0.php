@@ -5,7 +5,7 @@ use RedBeanPHP\Facade as RedBean;
 print 'Begin update v4.9.0...' . PHP_EOL;
 
 // Update apikey table
-print '[1/3] Updating apikey table...'. PHP_EOL; 
+print '[1/1] Updating apikey table...'. PHP_EOL; 
 
 if($mysql->query("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'apikey' AND TABLE_SCHEMA = '$mysql_db'")->num_rows != 0){
     
