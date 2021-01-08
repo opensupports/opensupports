@@ -99,7 +99,7 @@ describe('Login/Recover Widget', function () {
                     failMessage: 'INVALID_CREDENTIALS'
                 }
             });
-            expect(loginForm.props.errors).to.deep.equal({password: 'ERROR_PASSWORD'});
+            expect(loginForm.props.errors).to.deep.equal({password: 'Invalid password'});
             expect(loginForm.props.loading).to.equal(false);
         });
 
@@ -149,7 +149,7 @@ describe('Login/Recover Widget', function () {
 
         it('should add error and stop loading when send recover fails', function () {
             component.onRecoverPasswordFail();
-            expect(recoverPassword.props.formProps.errors).to.deep.equal({email: 'EMAIL_NOT_EXIST'});
+            expect(recoverPassword.props.formProps.errors).to.deep.equal({email: 'Email does not exist'});
             expect(recoverPassword.props.formProps.loading).to.equal(false);
         });
 
