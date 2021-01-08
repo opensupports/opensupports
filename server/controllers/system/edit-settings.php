@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /system/edit-settings Edit settings
- * @apiVersion 4.8.0
+ * @apiVersion 4.9.0
  *
  * @apiName Edit settings
  *
