@@ -48,6 +48,7 @@ class AdminPanelListUsers extends React.Component {
         return (
             <div>
                 <SearchBox className="admin-panel-list-users__search-box" placeholder={i18n('SEARCH_USERS')} onSearch={this.onSearch.bind(this)} />
+                {this.state.message === 'success' ? <Message className="admin-panel-list-users__success-message" type="success">{i18n('INVITE_USER_SUCCESS')}</Message> : null}
                 <Table {...this.getTableProps()} />
                 <div style={{textAlign: 'right', marginTop: 10}}>
                     <Button onClick={this.onInviteUser.bind(this)} type="secondary" size="medium">
@@ -199,10 +200,24 @@ class AdminPanelListUsers extends React.Component {
     onInviteUser(user) {
         ModalContainer.openModal(
             <div className="admin-panel-list-users__invite-user-form">
-                <InviteUserWidget onSuccess={this.onInviteUserSuccess.bind(this)} />
-            </div>
+                <InviteUserWidget
+                    onSuccess={this.onInviteUserSuccess.bind(this)}
+                    onChangeMessage={this.onChangeMessage.bind(this)} />
+            </div>,
+            {
+                closeButton: {
+                    showCloseButton: true
+                }
+            }
         );
     }
+
+    onChangeMessage(message) {
+        this.setState({
+            message
+        });
+    }
+
     onInviteUserSuccess() {
         ModalContainer.closeModal();
 
