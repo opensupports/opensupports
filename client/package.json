@@ -1,6 +1,6 @@
 {
   "name": "OpenSupports",
-  "version": "4.8.0",
+  "version": "4.9.0",
   "author": "Ivan Diaz <contact@opensupports.com>",
   "description": "Open source ticket system made with PHP and ReactJS",
   "repository": {
@@ -67,7 +67,7 @@
     "webpack-import-glob": "^2.0.0"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "chart.js": "^2.9.3",
     "classnames": "^2.2.5",
     "history": "^3.0.0",

@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Tag Tag
- * @apiVersion 4.8.0
+ * @apiVersion 4.9.0
  * @apiGroup Data Structures
  * @apiParam {String}  name The name of the tag.
  * @apiParam {String}  color The color of the tag.

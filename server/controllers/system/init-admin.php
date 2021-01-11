@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /system/init-admin Init admin
- * @apiVersion 4.8.0
+ * @apiVersion 4.9.0
  *
  * @apiName Init admin
  *

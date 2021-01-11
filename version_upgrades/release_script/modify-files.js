@@ -42,3 +42,8 @@ replace({
   from: `v${OLD_VERSION}`,
   to: `v${NEW_VERSION}`
 });
+replace({
+  files: `${WORKDIR}/README.md`,
+  from: `v${OLD_VERSION}`,
+  to: `v${NEW_VERSION}`
+});
