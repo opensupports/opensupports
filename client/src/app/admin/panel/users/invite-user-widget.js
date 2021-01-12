@@ -19,7 +19,8 @@ class InviteUserWidget extends React.Component {
 
     static propTypes = {
         onSuccess: React.PropTypes.func,
-        className: React.PropTypes.string
+        className: React.PropTypes.string,
+        onChangeMessage: React.PropTypes.func
     };
 
     constructor(props) {
@@ -153,17 +154,28 @@ class InviteUserWidget extends React.Component {
     }
 
     onInviteUserSuccess() {
+        const { onSuccess, onChangeMessage } = this.props;
+        const message = 'success';
+
         this.setState({
             loading: false,
-            message: 'success'
+            message
         });
+
+        onChangeMessage && onChangeMessage(message);
+        onSuccess && onSuccess();
     }
 
     onInviteUserFail() {
+        const { onChangeMessage } = this.props;
+        const message = 'fail';
+
         this.setState({
             loading: false,
-            message: 'fail'
+            message
         });
+
+        onChangeMessage && onChangeMessage(message);
     }
 }
 
