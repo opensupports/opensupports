@@ -116,7 +116,7 @@ class CreateTicketForm extends React.Component {
     renderMessage() {
         switch (this.state.message) {
             case 'success':
-                return <Message className="create-ticket-form__message" type="success">{this.props.userLogged ? i18n('TICKET_SENT') : i18n('TICKET_NUMBER_SENT')}</Message>;
+                return this.props.userLogged ? <Message className="create-ticket-form__message" type="success">{i18n('TICKET_SENT')}</Message> : null;
             case 'fail':
                 return <Message className="create-ticket-form__message" type="error">{i18n('TICKET_SENT_ERROR')}</Message>;
             default:
@@ -157,7 +157,7 @@ class CreateTicketForm extends React.Component {
     }
 
     onTicketSuccess() {
-        const { onSuccess, userLogged } = this.props;
+        const { onSuccess, userLogged, language } = this.props;
         const { form } = this.state;
         const message = 'success';
 
@@ -169,7 +169,9 @@ class CreateTicketForm extends React.Component {
                     {
                         ...form,
                         ...DEFAULT_CREATE_TICKET_FORM_VALUE,
-                        content: TextEditor.createEmpty()
+                        content: TextEditor.createEmpty(),
+                        departmentIndex: getPublicDepartmentIndexFromDepartmentId(this.props.defaultDepartmentId, SessionStore.getDepartments()),
+                        language
                     } :
                     form
             },
