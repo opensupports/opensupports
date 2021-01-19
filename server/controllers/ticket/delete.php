@@ -56,7 +56,11 @@ class DeleteController extends Controller {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
+        $ticketAuthor = User::getUser($ticket->authorToArray()['id']);
+        $ticketAuthor->tickets--;
+
         $ticket->delete();
+        $ticketAuthor->store();
 
         Response::respondSuccess();
     }
