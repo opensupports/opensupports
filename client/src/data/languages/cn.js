@@ -4,7 +4,7 @@ export default {
     'ARTICLES': '帮助文档',
     'ACCOUNT': '账户',
     'SUBMIT': '提交',
-    'EMAIL': '電子郵件',
+    'EMAIL': '电子邮件',
     'DEFAULT': '默认',
     'PASSWORD': '密码',
     'REPEAT_PASSWORD': '重复输入密码',
