@@ -17,6 +17,12 @@ import FormField          from 'core-components/form-field';
 import SubmitButton       from 'core-components/submit-button';
 import Message            from 'core-components/message';
 
+const DEFAULT_CREATE_TICKET_FORM_VALUE = {
+    title: '',
+    email: '',
+    name: ''
+};
+
 class CreateTicketForm extends React.Component {
     
     static propTypes = {
@@ -34,23 +40,15 @@ class CreateTicketForm extends React.Component {
         loading: false,
         message: null,
         form: {
-            title: '',
+            ...DEFAULT_CREATE_TICKET_FORM_VALUE,
             content: TextEditor.createEmpty(),
             departmentIndex: getPublicDepartmentIndexFromDepartmentId(this.props.defaultDepartmentId, SessionStore.getDepartments()),
-            email: '',
-            name: '',
             language: this.props.language
         }
     };
 
     render() {
-        const {
-            userLogged,
-            isDefaultDepartmentLocked,
-            isStaff,
-            onlyOneSupportedLanguage,
-            allowAttachments
-        } = this.props;
+        const { userLogged, isDefaultDepartmentLocked, isStaff, onlyOneSupportedLanguage, allowAttachments } = this.props;
 
         return (
             <div className="create-ticket-form">
@@ -118,7 +116,7 @@ class CreateTicketForm extends React.Component {
     renderMessage() {
         switch (this.state.message) {
             case 'success':
-                return <Message className="create-ticket-form__message" type="success">{i18n('TICKET_SENT')}</Message>;
+                return this.props.userLogged ? <Message className="create-ticket-form__message" type="success">{i18n('TICKET_SENT')}</Message> : null;
             case 'fail':
                 return <Message className="create-ticket-form__message" type="error">{i18n('TICKET_SENT_ERROR')}</Message>;
             default:
@@ -127,10 +125,7 @@ class CreateTicketForm extends React.Component {
     }
 
     getFormProps() {
-        const {
-            loading,
-            form
-        } = this.state;
+        const { loading, form } = this.state;
 
         return {
             loading,
@@ -161,16 +156,26 @@ class CreateTicketForm extends React.Component {
         }
     }
 
-    onTicketSuccess(email, result) {
-        const { onSuccess } = this.props;
+    onTicketSuccess() {
+        const { onSuccess, userLogged, language } = this.props;
+        const { form } = this.state;
         const message = 'success';
 
         this.setState(
             {
                 loading: false,
-                message
+                message,
+                form: !userLogged ?
+                    {
+                        ...form,
+                        ...DEFAULT_CREATE_TICKET_FORM_VALUE,
+                        content: TextEditor.createEmpty(),
+                        departmentIndex: getPublicDepartmentIndexFromDepartmentId(this.props.defaultDepartmentId, SessionStore.getDepartments()),
+                        language
+                    } :
+                    form
             },
-            () => {onSuccess && onSuccess(result, email, message);}
+            () => {onSuccess && onSuccess(message);}
         );
     }
 
@@ -184,6 +189,7 @@ class CreateTicketForm extends React.Component {
 
 export default connect((store) => {
     const { language, supportedLanguages } = store.config;
+
     return {
         language: _.includes(supportedLanguages, language) ? language : supportedLanguages[0],
         onlyOneSupportedLanguage: supportedLanguages.length == 1 ? true : false,

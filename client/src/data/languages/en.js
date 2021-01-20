@@ -408,6 +408,7 @@ export default {
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',
     'INVITE_USER_SUCCESS': 'You have invited a new user successfully in our support system',
     'TICKET_SENT': 'Ticket has been created successfully.',
+    'TICKET_NUMBER_SENT': 'Ticket has been created successfully and an email with the ticket number has been sent.',
     'VALID_RECOVER': 'Password recovered successfully',
     'EMAIL_EXISTS': 'Email already exists',
     'ARE_YOU_SURE': 'Confirm action',
