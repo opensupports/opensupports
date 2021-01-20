@@ -26,6 +26,9 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} title Title of the support center
  * @apiParam {String} url Url of the frontend client.
  * @apiParam {Boolean} mandatory-login Indicates if the login is mandatory.
+ * @apiParam {Boolean} enable-google-login Indicates if google social login should be enabled.
+ * @apiParam {Boolean} enable-facebook-login Indicates if facebook social login should be enabled.
+ * @apiParam {Boolean} enable-linkedin-login Indicates if linkedin social login should be enabled.
  * @apiParam {Number} default-department-id Indicates the id of the default department
  * @apiParam {Boolean} locked-department Indicates if the default department is locked or not
  * @apiUse INVALID_LANGUAGE
@@ -93,7 +96,10 @@ class InitSettingsController extends Controller {
             'default-department-id' => 1,
             'default-is-locked' => false,
             'imap-token' => '',
-            'mandatory-login' => !!Controller::request('mandatory-login')
+            'mandatory-login' => !!Controller::request('mandatory-login'),
+            'enable-google-login' => !!Controller::request('enable-google-login'),
+            'enable-facebook-login' => !!Controller::request('enable-facebook-login'),
+            'enable-linkedin-login' => !!Controller::request('enable-linkedin-login')
         ]);
     }
 

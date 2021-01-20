@@ -1,15 +1,14 @@
 import React      from 'react';
-import ReactDOM   from 'react-dom';
 import {connect}  from 'react-redux';
 import classNames from 'classnames';
 import _          from 'lodash';
 
 import SessionActions from 'actions/session-actions';
 import API         from 'lib-app/api-call';
-import focus       from 'lib-core/focus';
 import i18n        from 'lib-app/i18n';
 
 import PasswordRecovery from 'app-components/password-recovery';
+import SocialLoginOptions from 'app-components/social-login-options';
 import SubmitButton     from 'core-components/submit-button';
 import Button           from 'core-components/button';
 import Form             from 'core-components/form';
@@ -45,6 +44,8 @@ class MainHomePageLoginWidget extends React.Component {
     }
 
     renderLogin() {
+        const { config } = this.props;
+
         return (
             <Widget className="main-home-page__widget" title={i18n('LOG_IN')} ref="loginWidget">
                 <Form {...this.getLoginFormProps()}>
@@ -60,6 +61,10 @@ class MainHomePageLoginWidget extends React.Component {
                 <Button className="login-widget__forgot-password" type="link" onClick={this.onForgotPasswordClick.bind(this)} onMouseDown={(event) => {event.preventDefault()}}>
                     {i18n('FORGOT_PASSWORD')}
                 </Button>
+                <SocialLoginOptions
+                    googleLoginOption={config['enable-google-login']}
+                    facebookLoginOption={config['enable-facebook-login']}
+                    linkedInLoginOption={config['enable-linkedin-login']} />
             </Widget>
         );
     }
@@ -183,6 +188,7 @@ class MainHomePageLoginWidget extends React.Component {
 
 export default connect((store) => {
     return {
+        config: store.config,
         session: store.session
     };
 })(MainHomePageLoginWidget);

@@ -1,0 +1,12 @@
+.social-login-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &__buttons {
+        width: 100%;
+        margin: 5px;
+        font-size: 20px;
+    }
+}

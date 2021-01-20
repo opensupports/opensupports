@@ -67,7 +67,6 @@ class MainHomePage extends React.Component {
     getLoginWidgetClass() {
         const { config } = this.props;
         let classes = {
-            'col-md-4': config['mandatory-login'],
             'main-home-page__login-widget': config['mandatory-login'],
             'main-home-page__center': !config['mandatory-login']
         };
@@ -80,7 +79,7 @@ class MainHomePage extends React.Component {
         let classes = {
             'main-home-page__portal-wrapper': true,
             'col-md-8': (this.props.config['mandatory-login'] && this.props.config['layout'] === 'boxed'),
-            'col-md-10 col-md-offset-1' : (!this.props.config['mandatory-login'])
+            'col-md-10' : (!this.props.config['mandatory-login'])
         };
 
         return classNames(classes);

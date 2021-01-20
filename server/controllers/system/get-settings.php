@@ -59,7 +59,10 @@ class GetSettingsController extends Controller {
                     'tags' => Tag::getAll()->toArray(),
                     'mandatory-login' => Setting::getSetting('mandatory-login')->getValue(),
                     'default-department-id' => Setting::getSetting('default-department-id')->getValue(),
-                    'default-is-locked' => Setting::getSetting('default-is-locked')->getValue()
+                    'default-is-locked' => Setting::getSetting('default-is-locked')->getValue(),
+                    'enable-google-login' => Setting::getSetting('enable-google-login')->getValue(),
+                    'enable-facebook-login' => Setting::getSetting('enable-facebook-login')->getValue(),
+                    'enable-linkedin-login' => Setting::getSetting('enable-linkedin-login')->getValue()
                 ];
             } else {
                 $settingsList = [
@@ -78,7 +81,10 @@ class GetSettingsController extends Controller {
                     'tags' => Tag::getAll()->toArray(),
                     'mandatory-login' => Setting::getSetting('mandatory-login')->getValue(),
                     'default-department-id' => Setting::getSetting('default-department-id')->getValue(),
-                    'default-is-locked' => Setting::getSetting('default-is-locked')->getValue()
+                    'default-is-locked' => Setting::getSetting('default-is-locked')->getValue(),
+                    'enable-google-login' => Setting::getSetting('enable-google-login')->getValue(),
+                    'enable-facebook-login' => Setting::getSetting('enable-facebook-login')->getValue(),
+                    'enable-linkedin-login' => Setting::getSetting('enable-linkedin-login')->getValue()
                 ];
             }
         }

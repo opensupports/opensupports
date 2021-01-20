@@ -1,0 +1,33 @@
+.social-login-settings {
+    background-color: $very-light-grey;
+    width: 70%;
+    padding: 20px;
+    margin-top: 20px;
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+        &__google-container,
+        &__facebook-container,
+        &__linkedin-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 5px 0;
+        }
+
+        &__container {
+            padding-top: 15px;
+            width: 50%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+}

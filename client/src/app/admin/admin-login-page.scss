@@ -28,6 +28,11 @@
         }
     }
 
+    &__recovery-form-container {
+        position: absolute;
+        width: 100%;
+    }
+
     &__error {
         margin-top: 30px;
     }
