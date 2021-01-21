@@ -1,5 +1,6 @@
 import chineseLanguage    from 'data/languages/cn';
 import germanLanguage     from 'data/languages/de';
+import arabicLanguage     from 'data/languages/ar';
 import englishLanguage    from 'data/languages/en';
 import spanishLanguage    from 'data/languages/es';
 import frenchLanguage     from 'data/languages/fr';
@@ -18,6 +19,10 @@ export default {
     'en': {
         name: 'English',
         data: englishLanguage
+    },
+    'ar': {
+        name: 'Arabic',
+        data: arabicLanguage
     },
     'es': {
         name: 'Spanish',
