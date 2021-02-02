@@ -15,7 +15,8 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiParam {Number} page The page number.
  * @apiParam {bool} closed Include closed tickets in the response.
- *
+ * @apiParam {Number} departmentId The id of the department searched
+ * 
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_PAGE
  *

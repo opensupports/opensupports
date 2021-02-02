@@ -15,7 +15,8 @@ use Respect\Validation\Validator as DataValidator;
  * @apiPermission staff1
  *
  * @apiParam {Number} page The page number.
- *
+ * @apiParam {Number} departmentId The id of the department searched
+ * 
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_PAGE
  *
