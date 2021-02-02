@@ -18,6 +18,7 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} content Content of the ticket.
  * @apiParam {Number} departmentId The id of the department of the current ticket.
  * @apiParam {String} language The language of the ticket.
+ * @apiParam {String} name The name of author of the ticket.
  * @apiParam {String} email The email of the user who created the ticket.
  * @apiParam {Number} images The number of images in the content.
  * @apiParam {String} apiKey apiKey to create tickets and show ticket-number created.
