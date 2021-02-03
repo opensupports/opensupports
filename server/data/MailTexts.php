@@ -992,6 +992,72 @@ class MailTexts {
               'Możesz uzyskać dostęp do zgłoszenia po jego numerze.',
           ],
         ],
+		'se' => [
+          'USER_SIGNUP' => [
+              'Registrering {{to}} - OpenSupports',
+              'Verifiera ditt konto',
+              'Välkommen till vårt support-system, {{name}}! Du behöver verifiera denna E-postadress för att få tillgång till ditt konto.',
+              'Använd denna kod på {{url}}/verify-token/{{to}}/{{verificationToken}} eller klicka på knappen nedan.',
+          ],
+          'USER_PASSWORD' => [
+              'Lösenordet ändrat - OpenSupports',
+              'Bytt lösenord',
+              'Hej, {{name}}. Vi vill informera dig om att ditt lösenord har ändrats från din kundpanel.'
+          ],
+          'USER_EMAIL' => [
+              'E-postadress ändrad - OpenSupports',
+              'Bytt E-postadress',
+              'Hej, {{name}}. Vi vill informera dig om att din E-postadress har ändrats från din kundpanel.'
+          ],
+          'PASSWORD_FORGOT' => [
+              'Återställa lösenord - OpenSupports',
+              'Återställa lösenord',
+              'Hej, {{name}}. Du har begärat att återställa ditt lösenord.',
+              'Använd denna kod på {{url}}/recover-password?email={{to}}&token={{token}} eller klicka på knappen nedan.',
+          ],
+          'USER_INVITE' => [
+              'Du har blivit injuden - OpenSupports',
+              'Du har blivit injuden',
+              'Hej, {{name}}. Du har blivit inbjuden att gå med i vårat support-system.',
+              'Använd denna kod på {{url}}/recover-password?email={{to}}&token={{token}}&invited=true eller klicka på knappen nedan för att skapa ditt konto.'
+          ],
+          'USER_SYSTEM_DISABLED' => [
+              'Åtkomstsystemet har ändrats - OpenSupports',
+              'Åtkomstsystemet har ändrats',
+              'Hej, {{name}}. Din åtkomst till dina ärenden har ändrats.',
+              'Du kan komma åt och se dina ärenden genom att använda din E-postadress och ärende-nummer. Klicka på knappen nedan för att se dina ärenden.',
+          ],
+          'USER_SYSTEM_ENABLED' => [
+              'Konto skapat - OpenSupports',
+              'Konto skapat',
+              'Hej, {{name}}. Vi har skapat ett konto åt dig där du kan se de ärenden som du har skickat till oss.',
+              'Du kan logga in på ditt konto genom att använda denna E-postadress <i>({{to}})</i> och lösenordet nedan. Snälla ändra lösenordet så snart du loggat in.',
+          ],
+          'TICKET_CREATED' => [
+              '#{{ticketNumber}} Ärende skapat - OpenSupports',
+              'Ärende skapat',
+              'Hej, {{name}}. Du har skapat ett ärende med titeln <i>{{title}}</i> i vårat support-system.',
+              'Du kan komma åt ditt ärende med ärende-numret eller klicka på knappen nedan.',
+          ],
+          'TICKET_RESPONDED' => [
+              '#{{ticketNumber}} Nytt svar - OpenSupports',
+              'Ärendet har besvarats',
+              'Hej, {{name}}. Du har ett svar i ärendet med titeln <i>{{title}}</i>.',
+              'Klicka nedan för att se det nya svaret.'
+          ],
+          'TICKET_CLOSED' => [
+             '#{{ticketNumber}} Ärende avslutat - OpenSupports',
+              'Ärende avslutat',
+              'Hej, {{name}}. Ditt ärende med titeln <i>{{title}}</i> har avslutats.',
+              'Du kan komma åt ditt ärende med ärende-numret eller klicka på knappen nedan.'
+          ],
+          'TICKET_CREATED_STAFF' => [
+              '#{{ticketNumber}} Ärende skapat - OpenSupports',
+              'Ärende skapat',
+              'Användare {{name}} har skapat ett nytt ärende med titeln <i>{{title}}</i>.',
+              'Du kan komma åt ärendet genom ärende-numret.',
+          ],
+        ],
     ];
   }
 }
