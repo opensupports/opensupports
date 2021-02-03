@@ -13,6 +13,7 @@ import brazilLanguage     from 'data/languages/br';
 import greekLanguage      from 'data/languages/gr';
 import dutchLanguage      from 'data/languages/nl';
 import polishLanguage     from 'data/languages/pl';
+import swedishLanguage    from 'data/languages/se';
 
 export default {
     'en': {
@@ -74,5 +75,9 @@ export default {
     'pl': {
         name: 'Polish',
         data: polishLanguage
+    },
+    'se': {
+        name: 'Swedish',
+        data: swedishLanguage
     },
 };
