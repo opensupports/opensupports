@@ -215,7 +215,7 @@ export default {
         let todayNight = new Date();
         todayNight.setHours(23);
         todayNight.setMinutes(59);
-        console.warn('Date: ', date.getFullDate(todayNight))
+
         return DateTransformer.localDateToUTCNumericDate(JSON.stringify(date.getFullDate(todayNight)));
     },
     getDefaultLocalStartDate() {
