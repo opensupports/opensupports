@@ -1,4 +1,8 @@
 <?php
+
+// In case the webserver doesn't remove the /api at the beginning
+$_SERVER["REQUEST_URI"] = str_replace("/api", "", $_SERVER["REQUEST_URI"]);
+
 @include 'config.php';
 require_once 'vendor/autoload.php';
 
