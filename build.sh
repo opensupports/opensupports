@@ -4,24 +4,24 @@ npm run build
 rm build/index.html
 echo "2/3 Creating api folder..."
 cd ../server
-echo -n > config.php
 mkdir files2
 mv files/.htaccess files2
 rm -rf files/
 mv files2 files
 cd ..
 mkdir api
-mv server/index.php api
-mv server/.htaccess api
-mv server/composer.json api
-mv server/composer.lock api
-mv server/controllers api
-mv server/data api
-mv server/libs api
-mv server/models api
-mv server/vendor api
-mv server/files api
+cp server/index.php api
+cp server/.htaccess api
+cp server/composer.json api
+cp server/composer.lock api
+cp -r server/controllers api
+cp -r server/data api
+cp -r server/libs api
+cp -r server/models api
+cp -r server/vendor api
+cp -r server/files api
 cp server/config.php api
+echo -n > api/config.php
 chmod -R 755 .
 cp client/src/index.php client/build
 echo "3/3 Generating zip..."
@@ -33,5 +33,6 @@ zip -ur opensupports_dev.zip images
 mv opensupports_dev.zip ../..
 cd ../..
 zip -ur opensupports_dev.zip api
-mkdir dist
+mkdir -p dist
 mv opensupports_dev.zip dist
+rm -r api
