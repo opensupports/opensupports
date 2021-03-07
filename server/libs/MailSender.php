@@ -16,7 +16,7 @@ class MailSender {
 
     public function setConnectionSettings($host, $user, $pass, $serverEmail) {
         $this->mailOptions['from'] = $serverEmail;
-        $this->mailOptions['fromName'] = 'OpenSupports';
+        $this->mailOptions['fromName'] = Setting::getSetting('title')->getValue();
 
         $this->mailOptions['smtp-host'] = $host;
         $this->mailOptions['smtp-user'] = $user;
