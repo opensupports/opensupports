@@ -1,59 +1,23 @@
 'use strict';
 
-const React = require('react');
-// const LineChart = require("react-chartjs-2").Line;
-const _ = require('lodash');
-const DocumentTitle = require('react-document-title');
+import React from 'react';
+import _ from 'lodash';
+import DocumentTitle from 'react-document-title';
 
-const ModalContainer = require('app-components/modal-container');
-const AreYouSure = require('app-components/are-you-sure');
+import ModalContainer from 'app-components/modal-container';
+import AreYouSure from 'app-components/are-you-sure';
 
-const Button = require('core-components/button');
-const Input = require('core-components/input');
-const Checkbox = require('core-components/checkbox');
-const Widget = require('core-components/widget');
-const DropDown = require('core-components/drop-down');
-const Menu = require('core-components/menu');
-const Tooltip = require('core-components/tooltip');
-const Table = require('core-components/table');
-const InfoTooltip = require('core-components/info-tooltip');
-const TagSelector = require('core-components/tag-selector');
+import Button from 'core-components/button';
+import Input from 'core-components/input';
+import Checkbox from 'core-components/checkbox';
+import Widget from 'core-components/widget';
+import DropDown from 'core-components/drop-down';
+import Menu from 'core-components/menu';
+import Tooltip from 'core-components/tooltip';
+import Table from 'core-components/table';
+import InfoTooltip from 'core-components/info-tooltip';
+import TagSelector from 'core-components/tag-selector';
 
-function rand(min, max, num) {
-    var rtn = [];
-    while (rtn.length < num) {
-        rtn.push((Math.random() * (max - min)) + min);
-    }
-    return rtn;
-}
-
-let chartData = {
-    labels: ["January", "February", "March", "April", "May", "June"],
-    datasets: [
-        {
-            label: "My Second dataset",
-            fill: false,
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            borderWidth: 3,
-            data: rand(32, 100, 6),
-            pointRadius: 0
-        },
-        {
-            label: "My Second dataset",
-            fill: false,
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            borderWidth: 3,
-            data: rand(32, 100, 6)
-        }
-    ]
-};
-let chartOptions = {};
 let dropDownItems = [{content: 'English'}, {content: 'Spanish'}, {content: 'German'}, {content: 'Portuguese'}, {content: 'Japanese'}];
 let secondaryMenuItems = [
     {content: 'My Tickets', icon: 'file-text'},
@@ -63,19 +27,15 @@ let secondaryMenuItems = [
     {content: 'Close Session', icon: 'lock'}
 ];
 
-let DemoPage = React.createClass({
-
-	propTypes: {
-		currentUser: React.PropTypes.object.isRequired
-	},
-
-	elements: [
-		{
-			title: 'Primary Button',
-			render: (
-				<Button type="primary">Sign up</Button>
-			)
-		},
+class DemoPage extends React.Component {
+    elements = [
+        {
+            title: 'Primary Button',
+            key: 'Primary Button',
+            render: (
+                <Button type="primary">Sign up</Button>
+            )   
+        },
         {
             title: 'Tag selector',
             render: (
@@ -198,15 +158,15 @@ let DemoPage = React.createClass({
                     {value:'Title First', key: 'title1'},
                     {value:'Title Second', key: 'title2'}
                 ]} rows={[
-                    {title1: 'Row1', title2: 'Example', n: 1},
-                    {title1: 'Row2', title2: 'Example', n: 2},
-                    {title1: 'Row3', title2: 'Example', n: 3},
-                    {title1: 'Row4', title2: 'Example', n: 4},
-                    {title1: 'Row5', title2: 'Example', n: 5},
-                    {title1: 'Row6', title2: 'Example', n: 6},
-                    {title1: 'Row7', title2: 'Example', n: 7},
-                    {title1: 'Row8', title2: 'Example', n: 8},
-                    {title1: 'Row9', title2: 'Example', n: 9},
+                    {title1: 'Row01', title2: 'Example', n: 1},
+                    {title1: 'Row02', title2: 'Example', n: 2},
+                    {title1: 'Row03', title2: 'Example', n: 3},
+                    {title1: 'Row04', title2: 'Example', n: 4},
+                    {title1: 'Row05', title2: 'Example', n: 5},
+                    {title1: 'Row06', title2: 'Example', n: 6},
+                    {title1: 'Row07', title2: 'Example', n: 7},
+                    {title1: 'Row08', title2: 'Example', n: 8},
+                    {title1: 'Row09', title2: 'Example', n: 9},
                     {title1: 'Row10', title2: 'Example', n: 10},
                     {title1: 'Row11', title2: 'Example', n: 11},
                     {title1: 'Row12', title2: 'Example', n: 12},
@@ -237,32 +197,34 @@ let DemoPage = React.createClass({
                 null
             )
         }
-	],
+	];
 
 	render() {
 		return (
 			<DocumentTitle title="Demo Page">
 				<section className="demo-page">
+                    Hola
 					{this.renderElements()}
 				</section>
 			</DocumentTitle>
 		);
-	},
+	}
 
-	renderElements: function () {
+	renderElements() {
 		return this.elements.map((element) => {
+            console.warn(element.render);
 			return (
-				<div className="demo-element col-md-4">
+				<div className="demo-element col-md-4" key={element.title}>
 					<h4>
-					{element.title}
+					    {element.title}
 					</h4>
-					<div class="demo-element--example">
-					{element.render}
+					<div className="demo-element--example">
+					    {element.render}
 					</div>
 				</div>
 			);
 		});
 	}
-});
+}
 
 export default DemoPage;

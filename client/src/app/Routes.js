@@ -147,8 +147,7 @@ export default (
                     </Route>
                 </Route>
             </Route>
-
-            <Route name='Demo' path='components-demo' component={DemoPage} />
+            <Route path='components-demo' name='Demo' component={DemoPage} />
         </Route>
     </Router>
 );
