@@ -992,6 +992,73 @@ class MailTexts {
               'Możesz uzyskać dostęp do zgłoszenia po jego numerze.',
           ],
         ],
+        'ba' => [
+          'USER_SIGNUP' => [
+              'Registrujte se {{to}} - OpenSupports',
+              'Verifikujte vaš nalog',
+              'Dobro došli u naš centar za podršku, {{name}}!. Potrebno je da verifikujete Vaš email kako biste mogli pristupiti Vašem nalogu.',
+
+              'Koristite ovaj kod {{url}}/verify-token/{{to}}/{{verificationToken}} ili kliknite na dugme ispod.',
+          ],
+          'USER_PASSWORD' => [
+              'Šifra uređena - OpenSupports',
+              'Šifra izmijenjena',
+              'Pozdrav, {{name}}. Želimo da Vas obavijestimo da je Vaša šifra izmijenjena na upravljačkoj ploči.'
+          ],
+          'USER_EMAIL' => [
+              'Email uređen - OpenSupports',
+              'Email izmijenjen',
+              'Pozdrav, {{name}}. Želimo da Vas informišemo da je Vaš email izmijenjen na upravljačkoj ploči i sada je: {{newemail}}.'
+          ],
+          'PASSWORD_FORGOT' => [
+              'Oporavak šifre - OpenSupports',
+              'Oporavi šifru',
+              'Pozdrav, {{name}}. Podnijeli ste zahtjev za oporavak šifre.',
+              'Koristite ovak kod {{url}}/recover-password?email={{to}}&token={{token}} ili kliknite da dugme ispod.',
+          ],
+          'USER_INVITE' => [
+              'Pozvani ste - OpenSupports',
+              'Pozvani ste',
+              'Pozdrav, {{name}}. Pozvani ste da se pridružite našem sistemu za podršku.',
+              'Koristite ovak kod {{url}}/recover-password?email={{to}}&token={{token}}&invited=true ili kliknite na dugme ispod kako bi postavili svoju šifru.'
+          ],
+          'USER_SYSTEM_DISABLED' => [
+              'Promijenjen pristup sistemu - OpenSupports',
+              'Promijenjen pristup sistemu',
+              'Pozdrav, {{name}}. Sistem za pristup tiketima je promijenjen.',
+              'Možete pristupiti i vidjeti vaše tikete koristeći vaš email i broj tiketa. Kliknite na dugme ispod da biste vidjeli Vaše tikete',
+          ],
+          'USER_SYSTEM_ENABLED' => [
+              'Korisnički nalog kreiran - OpenSupports',
+              'Korisnički nalog kreiran',
+              'Pozdrav, {{name}}. Kreirali smo Vam korisnički nalog gdje možete pristupiti Vašim tiketima.',
+              'Možete pristupiti korisničkom nalogu koristeći ovaj email <i>({{to}})</i>  i šifru ispod. Molimo Vad da promijenite šifru čim se logujete.',
+          ],
+          'TICKET_CREATED' => [
+              '#{{ticketNumber}} Tiket kreiran - OpenSupports',
+              'Tiket kreiran',
+              'Pozdrav, {{name}}. Poslali ste našem centru za podršku tiket naslovljen <i>{{title}}</i>.',
+              'Možete pristupiti tiketu preko broja ili klikom da dugme ispod.',
+          ],
+          'TICKET_RESPONDED' => [
+              '#{{ticketNumber}} Novi odgovor - OpenSupports',
+              'Tiket je odgovoren',
+              'Pozdrav, {{name}}. Dobili ste odgovor na tiket koji je naslovljen <i>{{title}}</i>.',
+              'Molimo Vas da kliknete ispod kako biste vidjeli odgovor.'
+          ],
+          'TICKET_CLOSED' => [
+             '#{{ticketNumber}} Tiket žatvoren - OpenSupports',
+              'Ticket žatvoren',
+              'Pozdrav, {{name}}.Tiket koji ste poslali pod naslovom <i>{{title}}</i> je zatvoren.',
+              'Možete pristupiti tiketu preko njegovog broja. Ili možete kliknuti na dugme ispod.'
+          ],
+          'TICKET_CREATED_STAFF' => [
+              '#{{ticketNumber}} Tiket kreiran - OpenSupports',
+              'Tiket kreiran',
+              'Korisnik {{name}} je kreirao novi tiket naslovljen: <i>{{title}}</i>.',
+              'Možete pristupiti tiketu preko njegovog broja.',
+          ],
+        ],
     ];
   }
 }
