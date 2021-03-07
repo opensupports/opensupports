@@ -992,6 +992,72 @@ class MailTexts {
               'Możesz uzyskać dostęp do zgłoszenia po jego numerze.',
           ],
         ],
+        'hu' => [
+          'USER_SIGNUP' => [
+              'Regisztráció {{to}} - OpenSupports',
+              'Saját fiók ellenőrzése',
+              'Üdvözlet a támogatói központunktól {{name}}!. A létrehozott fiók eléréséhez szükséges ennek az email címnek az ellenőrzése.',
+              'Ezt a kódot kell használni {{url}}/verify-token/{{to}}/{{verificationToken}} vagy a lenti gombra kell kattintani.',
+          ],
+          'USER_PASSWORD' => [
+              'jJelszó szerkesztve - OpenSupports',
+              'Jelszó megváltozott',
+              'Üdvözlet {{name}}. A beállított saját jelszót megváltoztatták az vevői panelen.'
+          ],
+          'USER_EMAIL' => [
+              'Email szerkesztve - OpenSupports',
+              'Email megváltozott',
+              'Üdvözlet, {{name}}. A saját email cím {{newemail}} címre változott a vevői panelen.'
+          ],
+          'PASSWORD_FORGOT' => [
+              'Jelszó visszaállítása - OpenSupports',
+              'Jelszó visszaállítása',
+              'Üdvözlet, {{name}}. Kérés érkezett jelszó visszaállítására..',
+              'Ezt a kódot kell használni {{url}}/recover-password?email={{to}}&token={{token}} vagy a lenti gombra kell kattintani.',
+          ],
+          'USER_INVITE' => [
+              'Meghívás érkezett - OpenSupports',
+              'Meghívás érkezett',
+              'Üdvözlet, {{name}}. Meghívás érkezett a támogatói központunkhoz csatlakozásra.',
+              'Jelszó beállításához ezt a kódot kell használni {{url}}/recover-password?email={{to}}&token={{token}}&invited=true vagy a lenti gombra kell kattintani..'
+          ],
+          'USER_SYSTEM_DISABLED' => [
+              'Hozzáférési rendszer megváltozott - OpenSupports',
+              'Hozzáférési rendszer megváltozott',
+              'Üdvözlet, {{name}}. A rendszer hibajegy elérési metódusa megváltozott.',
+              'A saját jegyeket a saját email cím és a hibajegy számának használatával lehet elérni és megtekinteni. A hibajegyek megtekinthetőek a lenti gombra kattintva.',
+          ],
+          'USER_SYSTEM_ENABLED' => [
+              'Fiók létrehozva - OpenSupports',
+              'Fiók létrehozva',
+              'Üdvözlet, {{name}}. Létrehoztunk egy fiókot amin a beküldett saját  hibajegyek elérhetőek.',
+              'A fiók <i>({{to}})</i> email címmel és a lenti jelszóval érhető el. A jelszót javasolt bejelentkezés után rögtön megváltoztatni.',
+          ],
+          'TICKET_CREATED' => [
+              '#{{ticketNumber}} hibajegy létrehozva - OpenSupports',
+              'Hibajegy létrehozva',
+              'Üdvözlet, {{name}}. Új saját hibajegy lett beküldve <i>{{title}}</i> címmel támogatói központunkba.',
+              'A hibajegy a számával vagy a lenti gombra kattintással érhető el.',
+          ],
+          'TICKET_RESPONDED' => [
+              '#{{ticketNumber}} új válasz - OpenSupports',
+              'Hibajegy megválaszolva',
+              'Üdvözlet, {{name}}. Válasz érkezett <i>{{title}}</i> című hibajegyre.',
+              'Az új válasz megtekintéséhez lentebb kell kattintani.'
+          ],
+          'TICKET_CLOSED' => [
+             '#{{ticketNumber}} hibajegy lezárva - OpenSupports',
+              'Hibajegy lezárva',
+              'Üdvözlet, {{name}}. <i>{{title}}</i> című saját hibajegy lezárásra került.',
+              'A hibajegy a számával érhető el. Vagy a lenti gombra kell kattintani.'
+          ],
+          'TICKET_CREATED_STAFF' => [
+              '#{{ticketNumber}} Hibajegy létrehozva - OpenSupports',
+              'Hibajegy létrehozva',
+              '{{name}} felhasználó létrehozott egy új, <i>{{title}}</i> című hibajegyet.',
+              'A hibajegy a számával érhető el..',
+          ],
+        ],
     ];
   }
 }

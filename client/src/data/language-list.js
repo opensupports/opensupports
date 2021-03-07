@@ -75,4 +75,9 @@ export default {
         name: 'Polish',
         data: polishLanguage
     },
+    'hu': {
+        name: 'Hungarian',
+        data: hungarianLanguage
+    },
+
 };
