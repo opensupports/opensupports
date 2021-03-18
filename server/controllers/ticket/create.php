@@ -1,5 +1,7 @@
 <?php
+
 use Respect\Validation\Validator as DataValidator;
+
 DataValidator::with('CustomValidations', true);
 
 /**
@@ -50,6 +52,8 @@ class CreateController extends Controller {
     private $email;
     private $name;
     private $apiKey;
+    private $isStaffTicket = false;
+
     public function validations() {
         $validations = [
             'permission' => 'user',
@@ -92,9 +96,10 @@ class CreateController extends Controller {
     }
 
     public function handler() {
-        
+
         $session = Session::getInstance();
-        if($session->isTicketSession())  {
+
+        if ($session->isTicketSession()) {
             $session->clearSessionData();
         }
 
@@ -105,54 +110,51 @@ class CreateController extends Controller {
         $this->email = Controller::request('email');
         $this->name = Controller::request('name');
         $this->apiKey = APIKey::getDataStore(Controller::request('apiKey'), 'token');
-        
-        if(!Controller::isStaffLogged() && Department::getDataStore($this->departmentId)->private) {
+
+        if (!Controller::isStaffLogged() && Department::getDataStore($this->departmentId)->private) {
             throw new Exception(ERRORS::INVALID_DEPARTMENT);
         }
-        
-        if(!Staff::getUser($this->email,'email')->isNull() || $this->isEmailInvalid()) {
-            throw new Exception(ERRORS::INVALID_EMAIL);
-        }
-        
-        if(!Controller::isLoginMandatory() && !Controller::isStaffLogged() && !Controller::isUserLogged()  && !User::getUser($this->email, 'email')->email){
-            $this->createNewUser();
-        }
-        
+
+        // $this->isLoginMandatory = Controller::isLoginMandatory();
+        // $this->isStaffLogged=Controller::isStaffLogged();
+        // $this->isUserLogged=Controller::isUserLogged();
+        // $this->emailUser=User::getUser($this->email, 'email')->email;
+
         $this->storeTicket();
 
-        if(!Controller::isLoginMandatory() && !Controller::isUserLogged()) {
+        if (!Controller::isLoginMandatory() && !Controller::isUserLogged()) {
             $this->sendMail();
         }
 
         $staffs = Staff::find('send_email_on_new_ticket = 1');
         foreach ($staffs as $staff) {
-            if($staff->sharedDepartmentList->includesId(Controller::request('departmentId'))) {
+            if ($staff->sharedDepartmentList->includesId(Controller::request('departmentId'))) {
                 $this->sendMailStaff($staff->email);
             }
         }
-        
+
         Log::createLog('CREATE_TICKET', $this->ticketNumber);
-        
-        if(!$this->apiKey->isNull() && $this->apiKey->shouldReturnTicketNumber){
+
+        if (!$this->apiKey->isNull() && $this->apiKey->shouldReturnTicketNumber) {
             Response::respondSuccess([
                 'ticketNumber' => $this->ticketNumber
             ]);
-        }else{
+        } else {
             Response::respondSuccess();
         }
     }
 
-    private function isEmailInvalid(){
+    private function isEmailInvalid() {
         $session = Session::getInstance();
-        $sessionUser = User::getUser($session->getUserId() ,'id');
+        $sessionUser = User::getUser($session->getUserId(), 'id');
 
-        return  ($session->sessionExists() && $sessionUser  &&  $this->email && !($sessionUser->email == $this->email));
+        return ($session->sessionExists() && $sessionUser  &&  $this->email && !($sessionUser->email == $this->email));
     }
 
     private function createNewUser() {
-        
+
         $signupController = new SignUpController(true);
-        
+
         Controller::setDataRequester(function ($key) {
             switch ($key) {
                 case 'email':
@@ -161,7 +163,7 @@ class CreateController extends Controller {
                     return Hashing::generateRandomToken();
                 case 'name':
                     return $this->name;
-                case 'indirectSignUp' : 
+                case 'indirectSignUp':
                     return true;
             }
 
@@ -203,7 +205,7 @@ class CreateController extends Controller {
         $ticket->setAuthor($author);
         $author->sharedTicketList->add($ticket);
 
-        if(!Controller::isStaffLogged()) {
+        if (!Controller::isStaffLogged() && $this->isStaffTicket == false) {
             $author->tickets++;
 
             $this->email = $author->email;
@@ -217,17 +219,17 @@ class CreateController extends Controller {
     }
 
     private function getCorrectLanguage() {
-        if($this->language){
+        if ($this->language) {
             return $this->language;
-        }else{
+        } else {
             return Setting::getSetting('language')->getValue();
         }
     }
-    
-    private function getCorrectDepartmentId(){
+
+    private function getCorrectDepartmentId() {
         $defaultDepartmentId = Setting::getSetting('default-department-id')->getValue();
         $isLocked = Setting::getSetting('default-is-locked')->getValue();
-        $validDepartment = Department::getDataStore($defaultDepartmentId)->id; 
+        $validDepartment = Department::getDataStore($defaultDepartmentId)->id;
         if (Controller::isStaffLogged()) {
             if ($this->departmentId) $validDepartment = $this->departmentId;
         } else {
@@ -237,11 +239,41 @@ class CreateController extends Controller {
     }
 
     private function getAuthor() {
-        if(Controller::getLoggedUser()->email) { 
-            return Controller::getLoggedUser();
-        }else{
+        $user = $this->getLoggedUserin();
+        if ($user->email) {
+            return $user;
+        } else {
             return User::getUser($this->email, 'email');
         }
+    }
+
+    private function getLoggedUserin() {
+        $session = Session::getInstance();
+
+        if ($this->email == null) {
+            # UI Ticket
+            if ($session->isStaffLogged()) {
+                $user = Staff::getUser($session->getUserId());
+                Log::createLog('CREATE_TICKET', "NEW TICKET BY STAFF:" . $user->email);
+                $this->isStaffTicket = true;
+            } else {
+                $user = User::getUser($session->getUserId());
+                Log::createLog('CREATE_TICKET', "NEW TICKET BY USER:" . $user->email);
+            }
+        } else {
+            # IMAP Ticket
+            $user = Staff::getUser($this->email, "email");
+            if ($user == null) {
+                $user = User::getUser($this->email, "email");
+                Log::createLog('CREATE_TICKET', "NEW EMAIL TICKET BY USER:" . $this->email);
+            } else {
+                Log::createLog('CREATE_TICKET', "NEW EMAIL TICKET BY STAFF:" . $this->email);
+                $this->isStaffTicket = true;
+            }
+        }
+
+        if ($session->getTicketNumber()) $user->ticketNumber = $session->getTicketNumber();
+        return $user;
     }
 
     private function sendMail() {
