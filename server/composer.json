@@ -2,7 +2,7 @@
     "require": {
         "slim/slim": "~2.0",
         "respect/validation": "^1.1",
-        "phpmailer/phpmailer": "^5.2",
+        "phpmailer/phpmailer": "^6.5",
         "google/recaptcha": "~1.1",
         "gabordemooij/redbean": "^5.4",
         "ifsnop/mysqldump-php": "2.*",
