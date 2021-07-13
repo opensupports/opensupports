@@ -451,7 +451,7 @@ export default {
     'LEFT_EMPTY_DATABASE': 'Leer lassen für automatische Datenbankerstellung.',
     'REMEMBER_ME': 'Merken',
     'EMAIL_LOWERCASE': 'E-Mail',
-    'DEFAULT_PORT': 'Leave leer für 3306 als Standard',
+    'DEFAULT_PORT': 'Für 3306 als Standard leer lassen',
     'PASSWORD_LOWERCASE': 'Passwort',
     'TEST_SMTP_CONNECTION': 'SMTP Verbindung testen',
     'SERVER_ERROR': 'Kann nicht mit dem Server verbinden.',
