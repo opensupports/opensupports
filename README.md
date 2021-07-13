@@ -13,7 +13,7 @@ Please, visit our website for more information: [http://www.opensupports.com/](h
 Here is a guide of how to set up the development environment in OpenSupports.
 
 ### Getting up and running FRONT-END (client folder)
-1. Update: `sudo apt-get update`
+1. Update: `apt update`
 2. Creating Directory: `mkdir opensupports`
 3. Clone this repo: `git clone https://github.com/opensupports/opensupports.git`
 4. Install node 4.x version:
