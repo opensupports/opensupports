@@ -17,10 +17,10 @@ Here is a guide of how to set up the development environment in OpenSupports.
 2. Creating Directory: `mkdir opensupports`
 3. Clone this repo: `git clone https://github.com/opensupports/opensupports.git`
 4. Install node 4.x version:
-    - `sudo apt-get install curl`
+    - `apt install curl`
     - `curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -`
-    - `sudo apt-get install -y nodejs`
-5. Install npm: `sudo apt-get install npm`
+    - `apt install -y nodejs`
+5. Install npm: `apt install npm`
 6. Go to client: `cd opensupports/client`
 7. Install dependencies: `npm install`
 8. Rebuild node-sass: `npm rebuild node-sass`
