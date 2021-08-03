@@ -57,9 +57,6 @@ abstract class Controller {
             $logger->error(
               $app->request->getResourceUri(),
               [
-                'smtp-host' => Setting::getSMTPValues()['smtp-host'],
-                'smtp-user' => Setting::getSMTPValues()['smtp-user'],
-                'smtp-pass' => Setting::getSMTPValues()['smtp-pass'],
                 'clientId' => $client->getClientId(),
                 'requestTime' => $time,
                 'logged' => $loggedUserString,
