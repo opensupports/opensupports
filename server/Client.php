@@ -68,7 +68,7 @@ class Client {
         $s3Client = AWSClients::getS3ClientInstance();
 
         $s3Client->putObject([
-            'Bucket' => 'files',
+            'Bucket' => 'ticketcenterfiles',
             'Key'    => $this->getClientId() . '_' . $fileName,
             'Body'   => fopen($file['tmp_name'], 'r'),
             'ACL'    => 'private'
@@ -78,7 +78,7 @@ class Client {
     public function downloadFile($fileName, $filePath) {
         $s3Client = AWSClients::getS3ClientInstance();
         $s3Client->getObject([
-            'Bucket' => 'files',
+            'Bucket' => 'ticketcenterfiles',
             'Key'    => $this->getClientId() . '_' . $fileName,
             'SaveAs' => $filePath
         ]);
