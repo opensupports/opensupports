@@ -22,7 +22,12 @@ class AWSClients {
         if(!AWSClients::$s3Client) {
             AWSClients::$s3Client = new S3Client([
                 'version' => 'latest',
-                'region'  => 'us-east-1'
+                'region'  => 'us-east-1',
+                'endpoint' => getenv('SPACES_ENDPOINT'),
+                'credentials' => [
+                    'key'    => getenv('SPACES_KEY'),
+                    'secret' => getenv('SPACES_SECRET'),
+                ],
             ]);
         }
 
