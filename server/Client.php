@@ -29,7 +29,8 @@ class Client {
             'MYSQL_HOST' => $this->getItem($this->clientId . '_mysql-host'),
             'MYSQL_DATABASE' => $this->getItem($this->clientId . '_mysql-db'),
             'MYSQL_USER' => $this->getItem($this->clientId . '_mysql-user'),
-            'MYSQL_PASSWORD' => $this->getItem($this->clientId . '_mysql-password')
+            'MYSQL_PASSWORD' => $this->getItem($this->clientId . '_mysql-password'),
+            'MYSQL_PORT' => $this->getItem($this->clientId . '_mysql-port')
         ];
     }
 
