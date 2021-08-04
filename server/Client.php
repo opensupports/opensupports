@@ -23,6 +23,7 @@ class Client {
     }
 
     public function setClientId($clientId) {
+        $start_time = microtime();
         $this->clientId = $clientId;
         $this->clientVersion = $this->getItem($this->clientId . '_version');
         $this->clientMySQLSettings = [
@@ -32,6 +33,17 @@ class Client {
             'MYSQL_PASSWORD' => $this->getItem($this->clientId . '_mysql-password'),
             'MYSQL_PORT' => $this->getItem($this->clientId . '_mysql-port')
         ];
+        $elapsed = microtime() - $start_time;
+        $logger = new \Monolog\Logger('general');
+        $logdnaHandler = new \Zwijn\Monolog\Handler\LogdnaHandler($_ENV['LOGDNA_KEY'], 'opensupports-api', \Monolog\Logger::DEBUG);
+        $logger->pushHandler($logdnaHandler);
+        $logger->debug(
+            'api46-performance',
+            [
+                'key' => $key,
+                'time'=> $elapsed
+            ]
+        );
     }
 
 
