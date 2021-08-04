@@ -11,7 +11,7 @@ class AWSClients {
         if(!AWSClients::$dynamoDbClient) {
             AWSClients::$dynamoDbClient = new DynamoDbClient([
                 'version' => 'latest',
-                'region'  => 'us-east-1'
+                'region'  => 'eu-central-1'
             ]);
         }
         
@@ -22,7 +22,7 @@ class AWSClients {
         if(!AWSClients::$s3Client) {
             AWSClients::$s3Client = new S3Client([
                 'version' => 'latest',
-                'region'  => 'us-east-1',
+                'region'  => 'us-east-1', // IGNORED, ONLY MANTIANED FOR COMPATIBILITY
                 'endpoint' => getenv('SPACES_ENDPOINT'),
                 'credentials' => [
                     'key'    => getenv('SPACES_KEY'),
