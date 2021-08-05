@@ -1,21 +1,18 @@
 <?php
-use Aws\DynamoDb\SessionHandler;
-use Aws\DynamoDb\DynamoDbClient;
 use Aws\S3\S3Client;
 
-class AWSClients {
-    private static $dynamoDbClient = null;
-    private static $s3Client = null;
+Predis\Autoloader::register();
 
-    public static function getDynamoDbClientInstance() {
-        if(!AWSClients::$dynamoDbClient) {
-            AWSClients::$dynamoDbClient = new DynamoDbClient([
-                'version' => 'latest',
-                'region'  => 'eu-central-1'
-            ]);
+class AWSClients {
+    private static $s3Client = null;
+    private static $redisClient = null;
+
+    public static function getRedisClientInstance() {
+        if(!AWSClients::$redisClient) {
+            AWSClients::$redisClient = new Predis\Client(getenv('REDIS_URI'));
         }
         
-        return AWSClients::$dynamoDbClient;
+        return AWSClients::$redisClient;
     }
 
     public static function getS3ClientInstance() {
@@ -36,10 +33,9 @@ class AWSClients {
     }
 
     public static function registerSessionHandler() {
-        $sessionHandler = SessionHandler::fromClient(AWSClients::getDynamoDbClientInstance(), [
-            'table_name' => 'opensupports_sessions'
-        ]);
-
-        $sessionHandler->register();
+        $client = new Predis\Client(getenv('REDIS_URI'), ['prefix' => 'sessions:']);
+        $client->select(2);
+        $handler = new Predis\Session\Handler($client);
+        $handler->register();
     }
 }

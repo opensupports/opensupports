@@ -23,7 +23,6 @@ class Client {
     }
 
     public function setClientId($clientId) {
-        $start_time = microtime();
         $this->clientId = $clientId;
         $this->clientVersion = $this->getItem($this->clientId . '_version');
         $this->clientMySQLSettings = [
@@ -33,17 +32,6 @@ class Client {
             'MYSQL_PASSWORD' => $this->getItem($this->clientId . '_mysql-password'),
             'MYSQL_PORT' => $this->getItem($this->clientId . '_mysql-port')
         ];
-        $elapsed = microtime() - $start_time;
-        $logger = new \Monolog\Logger('general');
-        $logdnaHandler = new \Zwijn\Monolog\Handler\LogdnaHandler($_ENV['LOGDNA_KEY'], 'opensupports-api', \Monolog\Logger::DEBUG);
-        $logger->pushHandler($logdnaHandler);
-        $logger->debug(
-            'api46-performance',
-            [
-                'key' => $key,
-                'time'=> $elapsed
-            ]
-        );
     }
 
 
@@ -106,42 +94,14 @@ class Client {
     }
 
     private function getVersionItem($key) {
-        $value = AWSClients::getDynamoDbClientInstance()->getItem(array(
-            'ConsistentRead' => true,
-            'TableName' => Client::VERSION_TABLE,
-            'Key' => [
-                'id' => [
-                    'S' => $key
-                ]
-            ]
-        ))['Item']['value'];
-
-        if($value && array_key_exists('S', $value)) {
-            return $value['S'];
-        } else if($value && array_key_exists('N', $value)) {
-            return $value['N'];
-        } else {
-            return null;
-        }
+        $redis = AWSClients::getRedisClientInstance();
+        $redis->select(1);
+        $versionData = $redis->lrange($key, 0, 1);
+        $redis->select(0);
+        return $versionData[1];
     }
 
     public function getItem($key) {
-        $value = AWSClients::getDynamoDbClientInstance()->getItem(array(
-            'ConsistentRead' => true,
-            'TableName' => Client::CLIENT_TABLE,
-            'Key' => [
-                'id' => [
-                    'S' => $key
-                ]
-            ]
-        ))['Item']['value'];
-
-        if($value && array_key_exists('S', $value)) {
-            return $value['S'];
-        } else if($value && array_key_exists('N', $value)) {
-            return $value['N'];
-        } else {
-            return null;
-        }
+        return AWSClients::getRedisClientInstance()->get($key);
     }
 }

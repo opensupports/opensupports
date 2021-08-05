@@ -9,4 +9,4 @@ VERSIONING
     1. Database backup
     2. Maintenance mode
     3. Make a request to `opensupports-migration` with clientId
-    4. Update dynamodb version number
+    4. Update version number in redis
