@@ -30,10 +30,15 @@ abstract class Controller {
             $app = self::getAppInstance();
             $resourceUri = $app->request->getResourceUri();
 
-            foreach($blockList as $blockedPath) {
-                if(strpos($resourceUri, $blockedPath) === false) {
-                    throw new RequestException(ERRORS::STAFF_LIMIT);
+            $uriAllowed = false;
+            foreach($allowed as $allowedPath) {
+                if(strpos($resourceUri, $allowedPath) !== false) {
+                    $uriAllowed = true;
+                    break;
                 }
+            }
+            if(!$uriAllowed) {
+                throw new RequestException(ERRORS::STAFF_LIMIT);
             }
         }
     }
