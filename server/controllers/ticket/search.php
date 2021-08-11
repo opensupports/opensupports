@@ -6,7 +6,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/search Search tickets
- * @apiVersion 4.5.0
+ * @apiVersion 4.9.0
  *
  * @apiName Search ticket
  *
@@ -19,7 +19,6 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {Number[]} tags The ids of the tags to make a custom search.
  * @apiParam {Number} closed The status of closed 1 or 0 to make a custom search.
  * @apiParam {Number} unreadStaff The status of unread_staff 1 or 0 to make a custom search.
- * @apiParam {Number[]} priority The values of priority to make a custom search.
  * @apiParam {Number[]} dateRange The numbers of the range of date to make a custom search.
  * @apiParam {Number[]} departments The ids of the departments to make a custom search.
  * @apiParam {Object[]} authors A object {id,staff} with id and boolean to make a custom search.
@@ -27,12 +26,13 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} query A string to find into a ticket to make a custom search.
  * @apiParam {Number} page The number of the page of the tickets.
  * @apiParam {Object} orderBy A object {value, asc}with string and boolean to make a especific order of the  search.
+ * @apiParam {Number[]} owners The ids of the owners to make a custom search.
+ * @apiParam {Boolean} supervisor Boolean to deteminate if a super-user is making the call.
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TAG_FILTER
  * @apiUse INVALID_CLOSED_FILTER
  * @apiUse INVALID_UNREAD_STAFF_FILTER
- * @apiUse INVALID_PRIORITY_FILTER
  * @apiUse INVALID_DATE_RANGE_FILTER
  * @apiUse INVALID_DEPARTMENT_FILTER
  * @apiUse INVALID_AUTHOR_FILTER
@@ -49,6 +49,7 @@ DataValidator::with('CustomValidations', true);
 class SearchController extends Controller {
     const PATH = '/search';
     const METHOD = 'POST';
+    private $ignoreDeparmentFilter;
 
     public function validations() {
         return [
@@ -70,10 +71,6 @@ class SearchController extends Controller {
                     'validation' => DataValidator::oneOf(DataValidator::in(['0','1']),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_UNREAD_STAFF_FILTER
                 ],
-                'priority' => [
-                    'validation' => DataValidator::oneOf(DataValidator::validPriorities(),DataValidator::nullType()),
-                    'error' => ERRORS::INVALID_PRIORITY_FILTER
-                ],
                 'dateRange' => [
                     'validation' => DataValidator::oneOf(DataValidator::validDateRange(),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_DATE_RANGE_FILTER
@@ -86,9 +83,17 @@ class SearchController extends Controller {
                     'validation' => DataValidator::oneOf(DataValidator::validAuthorsId(),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_AUTHOR_FILTER
                 ],
+                'owners' => [
+                    'validation' => DataValidator::oneOf(DataValidator::validOwnersId(),DataValidator::nullType()),
+                    'error' => ERRORS::INVALID_OWNER_FILTER
+                ],
                 'assigned' => [
                     'validation' => DataValidator::oneOf(DataValidator::in(['0','1']),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_ASSIGNED_FILTER
+                ],
+                'query' => [
+                    'validation' => DataValidator::oneOf(DataValidator::notBlank(),DataValidator::nullType()),
+                    'error' => ERRORS::INVALID_QUERY_FILTER
                 ],
                 'orderBy' => [
                     'validation' => DataValidator::oneOf(DataValidator::validOrderBy(),DataValidator::nullType()),
@@ -99,52 +104,47 @@ class SearchController extends Controller {
     }
 
     public function handler() {
+        $this->ignoreDeparmentFilter = (bool)Controller::request('supervisor');
+
+        $allowedDepartmentsId = [];
+        foreach (Controller::getLoggedUser()->sharedDepartmentList->toArray() as $department) {
+            array_push($allowedDepartmentsId,$department['id']);
+        }
+
         $inputs = [
             'closed' => Controller::request('closed'),
             'tags' => json_decode(Controller::request('tags')),
             'unreadStaff' => Controller::request('unreadStaff'),
-            'priority' => json_decode(Controller::request('priority')),
             'dateRange' => json_decode(Controller::request('dateRange')),
             'departments' => json_decode(Controller::request('departments')),
             'authors' => json_decode(Controller::request('authors'),true),
+            'owners' => json_decode(Controller::request('owners')),
             'assigned' => Controller::request('assigned'),
             'query' => Controller::request('query'),
             'orderBy' => json_decode(Controller::request('orderBy'),true),
             'page' => Controller::request('page'),
-            'allowedDepartments' => Controller::getLoggedUser()->sharedDepartmentList->toArray(),
+            'allowedDepartments' => $allowedDepartmentsId,
+            'staffId' => Controller::getLoggedUser()->id
         ];
-
-
         $query = $this->getSQLQuery($inputs);
-        $queryWithOrder = $this->getSQLQueryWithOrder($inputs);
-        $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", [':query' => $inputs['query']])[0]['COUNT(*)'];
-        $ticketIdList = RedBean::getAll($queryWithOrder, [':query' => "%" . $inputs['query'] . "%"]);
+        $queryWithOrder = $this->getSQLQueryWithOrder($inputs, $query);
+        $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", [':query' => "%" . $inputs['query'] . "%", ':queryAtBeginning' => $inputs['query'] . "%" ])[0]['COUNT(*)'];
+        $ticketIdList = RedBean::getAll($queryWithOrder, [':query' => "%" . $inputs['query'] . "%", ':queryAtBeginning' => $inputs['query'] . "%"]);
         $ticketList = [];
-
         foreach ($ticketIdList as $item) {
             $ticket = Ticket::getDataStore($item['id']);
             array_push($ticketList, $ticket->toArray());
         }
-        $ticketTableExists  = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticket';");
-
-        if($ticketTableExists){
-            Response::respondSuccess([
-                'tickets' => $ticketList,
-                'pages' => ceil($totalCount / 10),
-                'page' => $inputs['page'] ? ($inputs['page']*1) : 1
-            ]);
-        }else{
-            Response::respondSuccess([]);
-        }
-
+        Response::respondSuccess([
+            'tickets' => $ticketList,
+            'pages' => ceil($totalCount / 10),
+            'page' => $inputs['page'] ? ($inputs['page']*1) : 1
+        ]);
     }
 
     public function getSQLQuery($inputs) {
-        $tagsTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'tag_ticket';");
-        $ticketEventTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticketevent';");
-
-        $taglistQuery = ( $tagsTableExists ? " LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id" : '');
-        $ticketeventlistQuery = ( $ticketEventTableExists ? " LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id" : '');
+        $taglistQuery = " LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id";
+        $ticketeventlistQuery = " LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id";
 
         $query = "FROM (ticket" . $taglistQuery . $ticketeventlistQuery .")";
         $filters = "";
@@ -153,8 +153,7 @@ class SearchController extends Controller {
         return $query;
     }
 
-    public function getSQLQueryWithOrder($inputs) {
-        $query = $this->getSQLQuery($inputs);
+    public function getSQLQueryWithOrder($inputs, $query) {
         $order = "";
         $query = "SELECT" . " ticket.id " . $query;
 
@@ -170,18 +169,18 @@ class SearchController extends Controller {
         if(array_key_exists('closed',$inputs)) $this->setClosedFilter($inputs['closed'], $filters);
         if(array_key_exists('assigned',$inputs)) $this->setAssignedFilter($inputs['assigned'], $filters);
         if(array_key_exists('unreadStaff',$inputs)) $this->setSeenFilter($inputs['unreadStaff'], $filters);
-        if(array_key_exists('priority',$inputs)) $this->setPriorityFilter($inputs['priority'], $filters);
         if(array_key_exists('dateRange',$inputs)) $this->setDateFilter($inputs['dateRange'], $filters);
-        if(array_key_exists('departments',$inputs)) $this->setDepartmentFilter($inputs['departments'],$inputs['allowedDepartments'], $filters);
+        if(array_key_exists('departments',$inputs) && array_key_exists('allowedDepartments',$inputs) && array_key_exists('staffId',$inputs)){
+            if(!$this->ignoreDeparmentFilter) $this->setDepartmentFilter($inputs['departments'],$inputs['allowedDepartments'], $inputs['staffId'], $filters);  
+        }
         if(array_key_exists('authors',$inputs)) $this->setAuthorFilter($inputs['authors'], $filters);
+        if(array_key_exists('owners',$inputs)) $this->setOwnerFilter($inputs['owners'], $filters);
         if(array_key_exists('query',$inputs)) $this->setStringFilter($inputs['query'], $filters);
         if($filters != "") $filters =  " WHERE " . $filters;
     }
 
     private function setTagFilter($tagList, &$filters){
-        $tagsTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'tag_ticket';");
-
-        if($tagList && $tagsTableExists){
+        if($tagList){
             $filters != "" ? $filters .= " and " : null;
 
             foreach($tagList as $key => $tag) {
@@ -206,33 +205,6 @@ class SearchController extends Controller {
             $filters .= "ticket.unread_staff = " . $unreadStaff;
         }
     }
-    private function setPriorityFilter($priorities, &$filters){
-        if($priorities !== null){
-            $first = TRUE;
-            if ($filters != "")  $filters .= " and ";
-            foreach(array_unique($priorities) as $priority) {
-
-                if($first){
-                    $filters .= " ( ";
-                    $first = FALSE;
-                } else {
-                    $filters .= " or ";
-                }
-
-                if($priority == 0){
-                    $filters .= "ticket.priority = 'low'";
-                }elseif($priority == 1){
-                    $filters .= "ticket.priority = 'medium'";
-                }elseif($priority == 2){
-                    $filters .= "ticket.priority = 'high'";
-                }
-
-
-            }
-            $priorities != "" ? $filters .= ") " : null;
-        }
-
-    }
 
     private function setDateFilter($dateRange, &$filters){
        if ($dateRange !== null) {
@@ -244,26 +216,59 @@ class SearchController extends Controller {
         }
     }
 
-    private function setDepartmentFilter($departments,$allowedDepartments, &$filters){
-        $validDepartments = $this->generateValidDepartmentList($departments, $allowedDepartments);
+    private function setDepartmentFilter($requestedDepartments,$myDepartments, $idStaff, &$filters){
         if ($filters != "")  $filters .= " and ";
+        if (!$requestedDepartments) $requestedDepartments = [];
+
+        $requestedOwnedDepartments = $this->getRequestedOwnedDepartments($requestedDepartments, $myDepartments);
+        $requestedNotOwnedDepartments =  $this->getRequestedNotOwnedDepartments($requestedDepartments, $myDepartments);
         $first = TRUE;
-
-        foreach($validDepartments as $department) {
-            if($first){
-                $filters .= " ( ";
-                $first = FALSE;
-            } else {
-                $filters .= " or ";
+        
+        if(!$requestedOwnedDepartments && !$requestedNotOwnedDepartments){
+            foreach($myDepartments as $department) {
+                if($first){
+                    $filters .= "(ticket.author_staff_id = " . $idStaff . " or ";
+                    $first = FALSE;
+                } else {
+                    $filters .= " or ";
+                }
+                $filters .= "ticket.department_id = " . $department;
+            } 
+            $filters .= ")";
+        } 
+        
+        if($requestedOwnedDepartments){
+            foreach($requestedOwnedDepartments as $department) {
+                if($first){
+                    $filters .= " ( ";
+                    $first = FALSE;
+                } else {
+                    $filters .= " or ";
+                }
+                $filters .= "ticket.department_id = " . $department;
             }
-            $filters .= "ticket.department_id = " . $department;
         }
-        $filters .= ")";
-
+        
+        if($requestedNotOwnedDepartments){
+            if($requestedOwnedDepartments) $filters .= " or ";
+            $filters .= "(ticket.author_staff_id = " . $idStaff . " and ";
+            $first = TRUE;
+            foreach($requestedNotOwnedDepartments as $department) {
+                if($first){
+                    $filters .= " ( ";
+                    $first = FALSE;
+                } else {
+                    $filters .= " or ";
+                }
+                $filters .= "ticket.department_id = " . $department;
+            }
+            $filters .= "))";
+        }
+        if($requestedOwnedDepartments) $filters .= " )";
     }
 
     private function setAuthorFilter($authors, &$filters){
-        if($authors !== null){
+        if($authors){
             $first = TRUE;
             if ($filters != "")  $filters .= " and ";
 
@@ -276,15 +281,33 @@ class SearchController extends Controller {
                     $filters .= " or ";
                 }
 
-                if($author['staff']){
+                if($author['isStaff']){
                     $filters .= "ticket.author_staff_id  = " . $author['id'];
                 } else {
                     $filters .= "ticket.author_id = " . $author['id'];
                 }
             }
+            $filters .= ")";
+        }
+    }
+
+    private function setOwnerFilter($owners, &$filters){
+        if($owners){
+            $first = TRUE;
+            if ($filters != "")  $filters .= " and ";
+
+            foreach($owners as $owner){
+
+                if($first){
+                    $filters .= "(";
+                    $first = FALSE;
+                } else {
+                    $filters .= " or ";
+                }
+                $filters .= "ticket.owner_id = " . $owner;
+            }
 
             $filters .= ")";
-
         }
     }
 
@@ -298,29 +321,27 @@ class SearchController extends Controller {
     }
 
     private function setStringFilter($search, &$filters){
-        $ticketEventTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticketevent';");
-
         if($search !== null){
             if ($filters != "")  $filters .= " and ";
-            $ticketevent = ( $ticketEventTableExists ? " or (ticketevent.type = 'COMMENT' and ticketevent.content LIKE :query)" : "");
+            $ticketevent = " or (ticketevent.type = 'COMMENT' and ticketevent.content LIKE :query)";
             $filters .= " (ticket.title LIKE :query or ticket.content LIKE :query or ticket.ticket_number LIKE :query". $ticketevent  ." )";
         };
     }
+                       
+    private function getRequestedOwnedDepartments($requestedDepartments, $myDepartments){
+        $requestedOwnedDepartments = [];
+        $requestedOwnedDepartments = array_values(array_unique(array_intersect($requestedDepartments, $myDepartments)));
+        
+        return $requestedOwnedDepartments;
+    }
 
-    private function generateValidDepartmentList($departments, $allowedDepartments){
-        $result = [];
-        $managedDepartments = [];
-        if($departments == null) $departments = [];
-        foreach ($allowedDepartments as $department) {
-             array_push($managedDepartments,$department['id']);
-        }
-        $result = array_intersect($departments,$managedDepartments);
-
-        if(empty($result)) $result =  $managedDepartments;
-
-        $result = array_unique($result);
-
-        return $result;
+    private function getRequestedNotOwnedDepartments($requestedDepartments, $myDepartments){
+        $requestedNotOwnedDepartments = [];
+        $requestedOwnedDepartments = [];
+        $requestedOwnedDepartments = array_values(array_unique(array_intersect($requestedDepartments, $myDepartments)));
+        $requestedNotOwnedDepartments = array_values(array_diff($requestedDepartments, $requestedOwnedDepartments));
+        
+        return $requestedNotOwnedDepartments;
     }
 
     //ORDER
@@ -328,7 +349,7 @@ class SearchController extends Controller {
         $order =  " ORDER BY ";
         if(array_key_exists('query',$inputs)) $this->setStringOrder($inputs['query'], $order);
         if(array_key_exists('orderBy',$inputs)) $this->setEspecificOrder($inputs['orderBy'], $order);
-        $order .=  "ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.priority desc, ticket.date desc ";
+        $order .=  "ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.date desc, ticket.id desc";
     }
     private function setEspecificOrder($orderBy, &$order){
         if($orderBy !== null){
@@ -337,12 +358,10 @@ class SearchController extends Controller {
         };
     }
     private function setStringOrder($querysearch, &$order){
-        $ticketEventTableExists = RedBean::exec("select table_name from information_schema.tables where table_name = 'ticketevent';");
-
         if($querysearch !== null){
-            $ticketeventOrder =  ( $ticketEventTableExists ? " CASE WHEN (ticketevent.type = 'COMMENT' and ticketevent.content LIKE :query) THEN ticketevent.content END desc," : "");
-            $order .= "CASE WHEN (ticket.ticket_number LIKE :query) THEN ticket.ticket_number END desc,CASE WHEN (ticket.title LIKE :query) THEN ticket.title END desc, CASE WHEN ( ticket.content LIKE :query) THEN ticket.content END desc," . $ticketeventOrder ;
-        }
+            $ticketeventOrder =  " WHEN (ticketevent.content LIKE :query) THEN 5 ";
+            $order .= "CASE WHEN (ticket.ticket_number LIKE :query) THEN 1 WHEN (ticket.title LIKE :queryAtBeginning) THEN 2 WHEN (ticket.title LIKE :query) THEN 3 WHEN ( ticket.content LIKE :query) THEN 4 " . $ticketeventOrder ."END asc, ";
+       }
     }
 
 }

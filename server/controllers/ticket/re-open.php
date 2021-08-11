@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /ticket/re-open Reopen ticket
- * @apiVersion 4.5.0
+ * @apiVersion 4.9.0
  *
  * @apiName Reopen ticket
  *
@@ -48,6 +48,10 @@ class ReOpenController extends Controller {
 
         $this->markAsUnread();
         $this->addReopenEvent();
+
+        if ($this->ticket->closed) {
+            $this->ticket->reopened = true;
+        }
         $this->ticket->closed = false;
 
         $this->ticket->store();

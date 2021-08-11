@@ -23,6 +23,7 @@ class FileUploader extends FileManager {
         $file->addValidations(array(
             new \Upload\Validation\Mimetype([
                 'image/png',
+                'image/gif',
                 'image/jpeg',
                 'image/bmp',
                 'image/tiff',

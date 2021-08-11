@@ -13,9 +13,19 @@
 
     }
 
-    &__discard-button {
-        float: right;
+    &__buttons-container {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 0 0 0;
     }
+
+    &__discard-button {
+        float: left;
+    }
+
     &__private {
         display: inline-block;
         padding-right: 10px;

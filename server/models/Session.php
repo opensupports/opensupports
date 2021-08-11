@@ -36,13 +36,9 @@ class Session {
             $this->store($key, $value);
     }
 
-    public function createSession($userId, $staff = false) {
+    public function createSession($userId, $staff = false, $ticketNumber = null) {
         $this->store('userId', $userId);
         $this->store('staff', $staff);
-        $this->store('token', Hashing::generateRandomToken());
-    }
-
-    public function createTicketSession($ticketNumber) {
         $this->store('ticketNumber', $ticketNumber);
         $this->store('token', Hashing::generateRandomToken());
     }

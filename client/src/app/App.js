@@ -56,7 +56,7 @@ class App extends React.Component {
             'application': true,
             'application_modal-opened': (this.props.modal.opened),
             'application_full-width': (this.props.config.layout === 'full-width' && !_.includes(this.props.location.pathname, '/admin')),
-            'application_user-system': (this.props.config['user-system-enabled'])
+            'application_mandatory-login': (this.props.config['mandatory-login'])
         };
 
         return classNames(classes);
@@ -106,7 +106,7 @@ class App extends React.Component {
             history.push('/');
         }
 
-        if(props.config['user-system-enabled'] && _.includes(pathname, '/check-ticket')) {
+        if(props.config['mandatory-login'] && _.includes(props.location.pathname, '/check-ticket')) {
             history.push('/');
         }
 

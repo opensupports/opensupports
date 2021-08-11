@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /staff/assign-ticket Assign ticket
- * @apiVersion 4.5.0
+ * @apiVersion 4.9.0
  *
  * @apiName Assign ticket
  *
@@ -74,6 +74,7 @@ class AssignStaffController extends Controller {
         } else {
             $this->staffToAssign->sharedTicketList->add($this->ticket);
             $this->ticket->owner = $this->staffToAssign;
+            $this->ticket->totalOwners++;
             $this->ticket->unread = !$this->ticket->isAuthor($this->staffToAssign);
             $event = Ticketevent::getEvent(Ticketevent::ASSIGN);
             $event->setProperties(array(

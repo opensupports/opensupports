@@ -1,8 +1,6 @@
 .idea
 .jshintrc
-client/package-lock.json
-tests/Gemfile.lock
-server/composer.lock
+.DS_Store
 server/vendor
 server/files/
 !server/files/.gitkeep
@@ -11,3 +9,4 @@ server/.dbdata
 server/.fakemail
 server/apidoc
 dist/
+.env

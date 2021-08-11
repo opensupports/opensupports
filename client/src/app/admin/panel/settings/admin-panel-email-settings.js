@@ -77,10 +77,10 @@ class AdminPanelEmailSettings extends React.Component {
         return (
             <div>
                 {this.renderEmailSettings()}
-                <Header title={i18n('EMAIL_TEMPLATES')} description={i18n('EMAIL_TEMPLATES_DESCRIPTION')}/>
+                <Header title={i18n('EMAIL_TEMPLATES')} description={i18n('EMAIL_TEMPLATES_DESCRIPTION')} />
                 <div className="row">
                     <div className="col-md-3">
-                        <Listing {...this.getListingProps()}/>
+                        <Listing {...this.getListingProps()} />
                     </div>
                     {(this.state.selectedIndex !== -1) ? this.renderForm() : null}
                 </div>
@@ -91,7 +91,7 @@ class AdminPanelEmailSettings extends React.Component {
     renderLoading() {
         return (
             <div className="admin-panel-email-settings__loading">
-                <Loading backgrounded size="large"/>
+                <Loading backgrounded size="large" />
             </div>
         );
     }
@@ -99,27 +99,31 @@ class AdminPanelEmailSettings extends React.Component {
     renderEmailSettings() {
         return (
             <div>
-                <Header title={i18n('EMAIL_SETTINGS')} description={i18n('EMAIL_SETTINGS_DESCRIPTION')}/>
+                <Header title={i18n('EMAIL_SETTINGS')} description={i18n('EMAIL_SETTINGS_DESCRIPTION')} />
                 <Form className="admin-panel-email-settings__email-form"
                       onSubmit={this.submitEmailAddress.bind(this)}
                       onChange={emailForm => this.setState({emailForm})}
                       values={this.state.emailForm}>
-                    <FormField name="server-email"
-                               label={i18n('EMAIL_SERVER_ADDRESS')}
-                               fieldProps={{size: 'large'}}
-                               infoMessage={i18n('EMAIL_SERVER_ADDRESS_DESCRIPTION')}/>
-                    <SubmitButton className="admin-panel-email-settings__submit" type="secondary"
-                                  size="small">{i18n('SAVE')}</SubmitButton>
+                    <div className="admin-panel-email-settings__email-container">
+                        <FormField className="admin-panel-email-settings__email-server-address"
+                                name="server-email"
+                                label={i18n('EMAIL_SERVER_ADDRESS')}
+                                fieldProps={{size: 'large'}}
+                                infoMessage={i18n('EMAIL_SERVER_ADDRESS_DESCRIPTION')} />
+                        <SubmitButton className="admin-panel-email-settings__submit" type="secondary"
+                                    size="small">{i18n('SAVE')}</SubmitButton>
+                    </div>
                 </Form>
 
-                <Form values={{headerImage: this.state.headerImage}}
+                <Form className="admin-panel-email-settings__image-form"
+                      values={{headerImage: this.state.headerImage}}
                       onChange={form => this.setState({headerImage: form.headerImage})}
                       onSubmit={this.onHeaderImageSubmit.bind(this)}>
                     <div className="admin-panel-email-settings__image-container">
                         <FormField className="admin-panel-email-settings__image-header-url"
                                    label={i18n('IMAGE_HEADER_URL')} name="headerImage" required
                                    infoMessage={i18n('IMAGE_HEADER_URL_DESCRIPTION')}
-                                   fieldProps={{size: 'large'}}/>
+                                   fieldProps={{size: 'large'}} />
                         <SubmitButton className="admin-panel-email-settings__image-header-submit" type="secondary"
                                       size="small">{i18n('SAVE')}</SubmitButton>
                     </div>
@@ -127,35 +131,41 @@ class AdminPanelEmailSettings extends React.Component {
 
                 <div className="admin-panel-email-settings__servers">
                     <div className="admin-panel-email-settings__box">
-                        <Header title={i18n('SMTP_SERVER')} description={i18n('SMTP_SERVER_DESCRIPTION')}/>
+                        <Header title={i18n('SMTP_SERVER')} description={i18n('SMTP_SERVER_DESCRIPTION')} />
                         <Form onSubmit={this.submitSMTP.bind(this)} onChange={smtpForm => this.setState({smtpForm})}
                               values={this.state.smtpForm} loading={this.state.smtpLoading}>
-                            <FormField name="smtp-host" label={i18n('SMTP_SERVER')} fieldProps={{size: 'large'}}/>
-                            <FormField name="smtp-user" label={i18n('SMTP_USER')} fieldProps={{size: 'large'}}/>
-                            <FormField name="smtp-pass" label={i18n('SMTP_PASSWORD')} fieldProps={{size: 'large'}}/>
+                            <FormField name="smtp-host" label={i18n('SMTP_SERVER')} fieldProps={{size: 'large'}} />
+                            <FormField name="smtp-user" label={i18n('SMTP_USER')} fieldProps={{size: 'large'}} />
+                            <FormField name="smtp-pass" label={i18n('SMTP_PASSWORD')} fieldProps={{size: 'large', autoComplete: 'off'}} />
                             <div className="admin-panel-email-settings__server-form-buttons">
-                                <SubmitButton className="admin-panel-email-settings__submit" type="secondary"
-                                              size="small">{i18n('SAVE')}</SubmitButton>
                                 <SubmitButton type="tertiary" size="small" onClick={this.testSMTP.bind(this)}>
                                     {i18n('TEST')}
+                                </SubmitButton>
+                                <SubmitButton className="admin-panel-email-settings__submit" type="secondary" size="small">
+                                    {i18n('SAVE')}
                                 </SubmitButton>
                             </div>
                         </Form>
                     </div>
 
                     <div className="admin-panel-email-settings__box">
-                        <Header title={i18n('IMAP_SERVER')} description={i18n('IMAP_SERVER_DESCRIPTION')}/>
+                        <Header title={i18n('IMAP_SERVER')} description={i18n('IMAP_SERVER_DESCRIPTION')} />
                         <Form onSubmit={this.submitIMAP.bind(this)} onChange={imapForm => this.setState({imapForm})}
                               values={this.state.imapForm} loading={this.state.imapLoading}>
-                            <FormField name="imap-host" label={i18n('IMAP_SERVER')} fieldProps={{size: 'large'}}/>
-                            <FormField name="imap-user" label={i18n('IMAP_USER')} fieldProps={{size: 'large'}}/>
-                            <FormField name="imap-pass" label={i18n('IMAP_PASSWORD')} fieldProps={{size: 'large'}}/>
-                            <FormField name="imap-token" label={i18n('IMAP_TOKEN')} infoMessage={i18n('IMAP_TOKEN_DESCRIPTION')} fieldProps={{size: 'large', icon: 'refresh', onIconClick: this.generateImapToken.bind(this)}}/>
+                            <FormField name="imap-host" label={i18n('IMAP_SERVER')} fieldProps={{size: 'large'}} />
+                            <FormField name="imap-user" label={i18n('IMAP_USER')} fieldProps={{size: 'large'}} />
+                            <FormField name="imap-pass" label={i18n('IMAP_PASSWORD')} fieldProps={{size: 'large', autoComplete: 'off'}} />
+                            <FormField
+                                name="imap-token"
+                                label={i18n('IMAP_TOKEN')}
+                                infoMessage={i18n('IMAP_TOKEN_DESCRIPTION')}
+                                fieldProps={{size: 'large', icon: 'refresh', onIconClick: this.generateImapToken.bind(this)}} />
                             <div className="admin-panel-email-settings__server-form-buttons">
-                                <SubmitButton className="admin-panel-email-settings__submit" type="secondary"
-                                              size="small">{i18n('SAVE')}</SubmitButton>
                                 <SubmitButton type="tertiary" size="small" onClick={this.testIMAP.bind(this)}>
                                     {i18n('TEST')}
+                                </SubmitButton>
+                                <SubmitButton className="admin-panel-email-settings__submit" type="secondary" size="small">
+                                    {i18n('SAVE')}
                                 </SubmitButton>
                             </div>
                         </Form>
@@ -169,48 +179,57 @@ class AdminPanelEmailSettings extends React.Component {
     }
 
     renderForm() {
+        const {
+            form,
+            language,
+            selectedIndex,
+            edited
+        } = this.state;
         return (
             <div className="col-md-9">
-                <FormField label={i18n('LANGUAGE')} decorator={LanguageSelector} value={this.state.language}
-                           onChange={event => this.onItemChange(this.state.selectedIndex, event.target.value)}
+                <FormField label={i18n('LANGUAGE')} decorator={LanguageSelector} value={language}
+                           onChange={event => this.onItemChange(selectedIndex, event.target.value)}
                            fieldProps={{
                                type: 'allowed',
                                size: 'medium'
-                           }}/>
+                           }} />
                 <Form {...this.getFormProps()}>
                     <div className="row">
                         <div className="col-md-7">
                             <FormField label={i18n('SUBJECT')} name="subject" validation="TITLE" required
-                                       fieldProps={{size: 'large'}}/>
+                                       fieldProps={{size: 'large'}} />
                         </div>
                     </div>
 
                     <FormField key="text1" label={i18n('TEXT') + '1'} name="text1" validation="TEXT_AREA" required
                                decorator={'textarea'}
-                               fieldProps={{className: 'admin-panel-email-settings__text-area'}}/>
-                    {(this.state.form.text2) ?
+                               fieldProps={{className: 'admin-panel-email-settings__text-area'}} />
+                    {(form.text2) ?
                         <FormField key="text2" label={i18n('TEXT') + '2'} name="text2" validation="TEXT_AREA" required
                                    decorator={'textarea'}
-                                   fieldProps={{className: 'admin-panel-email-settings__text-area'}}/> : null}
-                    {(this.state.form.text3) ?
+                                   fieldProps={{className: 'admin-panel-email-settings__text-area'}} /> : null}
+                    {(form.text3) ?
                         <FormField key="text3" label={i18n('TEXT') + '3'} name="text3" validation="TEXT_AREA" required
                                    decorator={'textarea'}
-                                   fieldProps={{className: 'admin-panel-email-settings__text-area'}}/> : null}
+                                   fieldProps={{className: 'admin-panel-email-settings__text-area'}} /> : null}
 
                     <div className="admin-panel-email-settings__actions">
-                        <div className="admin-panel-email-settings__save-button">
-                            <SubmitButton key="submit-email-template" type="secondary" size="small" onClick={e => {
-                                e.preventDefault();
-                                this.onFormSubmit(this.state.form);
-                            }}>{i18n('SAVE')}</SubmitButton>
-                        </div>
                         <div className="admin-panel-email-settings__optional-buttons">
-                            {(this.state.edited) ? this.renderDiscardButton() : null}
                             <div className="admin-panel-email-settings__recover-button">
                                 <Button onClick={this.onRecoverClick.bind(this)} size="medium">
                                     {i18n('RECOVER_DEFAULT')}
                                 </Button>
                             </div>
+                            {edited ? this.renderDiscardButton() : null}
+                        </div>
+                        <div className="admin-panel-email-settings__save-button">
+                            <SubmitButton
+                                key="submit-email-template"
+                                type="secondary"
+                                size="small"
+                                onClick={(e) => {e.preventDefault(); this.onFormSubmit(form);}}>
+                                    {i18n('SAVE')}
+                            </SubmitButton>
                         </div>
                     </div>
                 </Form>
@@ -438,7 +457,7 @@ class AdminPanelEmailSettings extends React.Component {
     recoverEmailTemplate() {
         const {selectedIndex, language, templates} = this.state;
 
-        API.call({
+        return API.call({
             path: '/system/recover-mail-template',
             data: {
                 template: templates[selectedIndex],
@@ -454,7 +473,7 @@ class AdminPanelEmailSettings extends React.Component {
             loadingForm: true,
         });
 
-        API.call({
+        return API.call({
             path: '/system/get-mail-template',
             data: {template: this.state.templates[index], language}
         }).then((result) => this.setState({
@@ -482,20 +501,20 @@ class AdminPanelEmailSettings extends React.Component {
             path: '/system/get-settings',
             data: {allSettings: 1}
         }).then(result => this.setState({
-            headerImage: result.data['mail-template-header-image'],
+            headerImage: result.data['mail-template-header-image'] || '',
             emailForm: {
-                ['server-email']: result.data['server-email'],
+                ['server-email']: result.data['server-email'] || '',
             },
             smtpForm: {
-                ['smtp-host']: result.data['smtp-host'],
-                ['smtp-user']: result.data['smtp-user'],
+                ['smtp-host']: result.data['smtp-host'] || '',
+                ['smtp-user']: result.data['smtp-user'] || '',
                 ['smtp-pass']: 'HIDDEN',
             },
             imapForm: {
-                ['imap-host']: result.data['imap-host'],
-                ['imap-user']: result.data['imap-user'],
+                ['imap-host']: result.data['imap-host'] || '',
+                ['imap-user']: result.data['imap-user'] || '',
                 ['imap-pass']: 'HIDDEN',
-                ['imap-token']: result.data['imap-token'],
+                ['imap-token']: result.data['imap-token'] || '',
             },
         }));
     }

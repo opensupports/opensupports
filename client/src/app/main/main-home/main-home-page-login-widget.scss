@@ -2,6 +2,7 @@
 
     &__container {
         height: 361px;
+        width: 324px;
     }
 
     &__inputs {
@@ -16,5 +17,32 @@
 
     &__message {
         margin-top: 18px;
+    }
+}
+
+@media screen and (min-width: 379px) {
+    .login-widget__container {
+        min-width: 324px;
+    }
+    .Widget {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 409px) {
+    .login-widget__container {
+        min-width: 313px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .login-widget__container {
+        width: 100%;
+    }
+    .main-home-page__widget {
+        width: 100%;
     }
 }

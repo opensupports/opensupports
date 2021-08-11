@@ -32,9 +32,9 @@ class DashboardCreateTicketPage extends React.Component {
         );
     }
 
-    onCreateTicketSuccess(result, email) {
+    onCreateTicketSuccess(result, email, message) {
         if((this.props.location.pathname !== '/create-ticket')) {
-            setTimeout(() => {history.push('/dashboard')}, 2000);
+            history.push(`/dashboard?message=${message}`);
         } else {
             setTimeout(() => {history.push('/check-ticket/' + result.data.ticketNumber + '/' + email)}, 1000);
         }
@@ -44,7 +44,7 @@ class DashboardCreateTicketPage extends React.Component {
         let classes = {
             'dashboard-create-ticket-page': true,
             'dashboard-create-ticket-page_wrapped': (this.props.location.pathname === '/create-ticket'),
-            'col-md-10 col-md-offset-1': (!this.props.config['user-system-enabled'])
+            'col-md-10 col-md-offset-1': !this.props.isLogged
         };
 
         return classNames(classes);
@@ -53,6 +53,7 @@ class DashboardCreateTicketPage extends React.Component {
 
 export default connect((store) => {
     return {
+        isLogged: store.session.logged,
         config: store.config
     };
 })(DashboardCreateTicketPage);

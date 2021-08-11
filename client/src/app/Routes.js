@@ -32,7 +32,6 @@ import AdminPanelMyAccount from 'app/admin/panel/dashboard/admin-panel-my-accoun
 
 import AdminPanelMyTickets from 'app/admin/panel/tickets/admin-panel-my-tickets';
 import AdminPanelNewTickets from 'app/admin/panel/tickets/admin-panel-new-tickets';
-import AdminPanelAllTickets from 'app/admin/panel/tickets/admin-panel-all-tickets';
 import AdminPanelSearchTickets from 'app/admin/panel/tickets/admin-panel-search-tickets';
 import AdminPanelViewTicket from 'app/admin/panel/tickets/admin-panel-view-ticket';
 import AdminPanelCustomResponses from 'app/admin/panel/tickets/admin-panel-custom-responses';
@@ -62,7 +61,7 @@ import InstallStep3Database from 'app/install/install-step-3-database';
 import InstallStep4UserSystem from 'app/install/install-step-4-user-system';
 import InstallStep5Settings from 'app/install/install-step-5-settings';
 import InstallStep6Admin from 'app/install/install-step-6-admin';
-import InstallStep7Completed from 'app/install/install-step-7-completed';
+import InstallCompleted from 'app/install/install-completed';
 
 export default (
     <Router history={history}>
@@ -99,7 +98,7 @@ export default (
                 <Route path="step-4" component={InstallStep4UserSystem} />
                 <Route path="step-5" component={InstallStep5Settings} />
                 <Route path="step-6" component={InstallStep6Admin} />
-                <Route path="step-7" component={InstallStep7Completed} />
+                <Route path="completed" component={InstallCompleted} />
             </Route>
             <Route path="admin">
                 <IndexRoute component={AdminLoginPage} />
@@ -113,7 +112,6 @@ export default (
                         <IndexRedirect to="my-tickets" />
                         <Route path="my-tickets" component={AdminPanelMyTickets} />
                         <Route path="new-tickets" component={AdminPanelNewTickets} />
-                        <Route path="all-tickets" component={AdminPanelAllTickets} />
                         <Route path="search-tickets" component={AdminPanelSearchTickets} />
                         <Route path="custom-responses" component={AdminPanelCustomResponses} />
                         <Route path="view-ticket/:ticketNumber" component={AdminPanelViewTicket} />

@@ -3,12 +3,20 @@ import classNames from 'classnames';
 
 import {Motion, spring} from 'react-motion';
 
+import Icon from 'core-components/icon';
+
+const closeButtonSchema = React.PropTypes.shape({
+    showCloseButton: React.PropTypes.bool,
+    whiteColor: React.PropTypes.bool
+});
+
 class Modal extends React.Component {
     static propTypes = {
         content: React.PropTypes.node,
         noPadding: React.PropTypes.bool,
         outsideClick: React.PropTypes.bool,
-        onOutsideClick: React.PropTypes.func
+        onOutsideClick: React.PropTypes.func,
+        closeButton: closeButtonSchema
     };
 
     render() {
@@ -33,13 +41,25 @@ class Modal extends React.Component {
     }
 
     renderModal(animation) {
+        const { closeButton, content } = this.props;
+        const { showCloseButton, whiteColor } = closeButton;
+
         return (
             <div className={this.getClass()} style={{opacity: animation.fade}} onClick={this.onModalClick.bind(this)}>
                 <div className="modal__content" style={{transform: 'scale(' + animation.scale + ')'}} onClick={this.onModalContentClick.bind(this)}>
-                    {this.props.content}
+                    {showCloseButton ? this.renderCloseButton(whiteColor) : null}
+                    {content}
                 </div>
             </div>
         )
+    }
+
+    renderCloseButton(whiteColor = false) {
+        return (
+            <span className={`modal__close-icon${whiteColor ? " modal__close-icon__white-color" : ""}`} onClick={() => this.props.onOutsideClick()}>
+                <Icon name="times" size="2x"/>
+            </span>
+        );
     }
 
     getClass() {
@@ -52,15 +72,16 @@ class Modal extends React.Component {
     }
 
     onModalClick() {
-        if(this.props.outsideClick) {
-            this.props.onOutsideClick();
-        }
+        const {
+            outsideClick,
+            onOutsideClick
+        } = this.props;
+
+        outsideClick && onOutsideClick();
     }
 
     onModalContentClick(event) {
-        if(this.props.outsideClick) {
-            event.stopPropagation();
-        }
+        this.props.outsideClick && event.stopPropagation();
     }
 }
 

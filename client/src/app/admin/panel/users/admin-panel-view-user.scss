@@ -9,6 +9,7 @@
             display: inline-block;
             margin-right: 20px;
             min-width: 200px;
+            margin-top: 10px;
         }
 
         &-box {
@@ -18,6 +19,11 @@
             padding: 5px 15px;
             text-align: center;
         }
+    }
+
+    &__empty-content {
+        font-style: italic;
+        color: $dark-grey;
     }
 
     &__action-buttons {
@@ -34,7 +40,28 @@
         text-align: left;
     }
 
+    &__supervised-users-header {
+        font-size: $font-size--md;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    &__supervised-users-content {
+        display:flex;
+        flex-direction: column;
+        align-items:flex-start; 
+    }
+
+    &__supervised-users-message {
+        margin-top: 20px
+    }
+    
+    &__submit-button {
+        margin-top: 20px;
+    }
+
     &__unverified {
         margin-left: 15px;
     }
+    
 }

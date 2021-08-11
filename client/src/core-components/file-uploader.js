@@ -31,6 +31,7 @@ class FileUploader extends React.Component {
     getMimeTypes() {
         return `
             image/png,
+            image/gif,
             image/jpeg,
             image/bmp,
             image/tiff,

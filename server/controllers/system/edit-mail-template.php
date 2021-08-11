@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/edit-mail-template Edit mail template
- * @apiVersion 4.5.0
+ * @apiVersion 4.9.0
  *
  * @apiName Edit mail template
  *
@@ -46,15 +46,15 @@ class EditMailTemplateController extends Controller {
             'permission' => 'staff_3',
             'requestData' => [
                 'template' => [
-                    'validation' => DataValidator::length(4),
+                    'validation' => DataValidator::notBlank()->length(4),
                     'error' => ERRORS::INVALID_TEMPLATE
                 ],
                 'language' => [
-                    'validation' => DataValidator::length(2, 2),
+                    'validation' => DataValidator::notBlank()->length(2,2),
                     'error' => ERRORS::INVALID_LANGUAGE
                 ],
                 'subject' => [
-                    'validation' => DataValidator::length(4),
+                    'validation' => DataValidator::notBlank()->length(4),
                     'error' => ERRORS::INVALID_SUBJECT
                 ],
             ]

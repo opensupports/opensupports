@@ -12,7 +12,7 @@ class EmailPollingController extends Controller {
             'permission' => 'any',
             'requestData' => [
                 'token' => [
-                    'validation' => DataValidator::length(1, 200),
+                    'validation' => DataValidator::notBlank()->length(1, 200),
                     'error' => ERRORS::INVALID_TOKEN
                 ]
             ]
@@ -29,8 +29,6 @@ class EmailPollingController extends Controller {
         if(Controller::request('token') !== Setting::getSetting('imap-token')->getValue())
             throw new RequestException(ERRORS::INVALID_TOKEN);
 
-        if(Controller::isUserSystemEnabled())
-            throw new RequestException(ERRORS::USER_SYSTEM_ENABLED);
 
         $this->mailbox = new \PhpImap\Mailbox(
             Setting::getSetting('imap-host')->getValue(),
@@ -108,11 +106,10 @@ class EmailPollingController extends Controller {
         $session->clearSessionData();
         $session->setSessionData($oldSession);
 
-        $this->eraseAllEmails();
-
         if(count($errors)) {
             Response::respondError(ERRORS::EMAIL_POLLING, null, $errors);
         } else {
+            $this->eraseAllEmails();
             Response::respondSuccess();
         }
     }

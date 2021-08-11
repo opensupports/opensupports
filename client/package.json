@@ -1,6 +1,6 @@
 {
   "name": "OpenSupports",
-  "version": "4.2.0",
+  "version": "4.9.0",
   "author": "Ivan Diaz <contact@opensupports.com>",
   "description": "Open source ticket system made with PHP and ReactJS",
   "repository": {
@@ -15,7 +15,7 @@
   "scripts": {
     "start": "webpack-dev-server",
     "start-fixtures": "webpack-dev-server --env.FIXTURES=1",
-    "build": "rimraf build && NODE_ENV=production webpack -p --devtool none",
+    "build": "./node_modules/.bin/rimraf build && NODE_ENV=production ./node_modules/.bin/webpack -p --devtool none",
     "test": "export NODE_PATH=src && mocha src/lib-test/preprocessor.js --require @babel/register --recursive src/**/**/__tests__/*-test.js"
   },
   "devDependencies": {
@@ -67,18 +67,22 @@
     "webpack-import-glob": "^2.0.0"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
+    "chart.js": "^2.9.3",
     "classnames": "^2.2.5",
     "history": "^3.0.0",
     "html-to-text": "^4.0.0",
     "keycode": "^2.1.4",
     "localStorage": "^1.0.3",
-    "lodash": "^3.10.0",
+    "lodash": "^4.17.15",
     "messageformat": "^0.2.2",
+    "moment": "^2.27.0",
     "qs": "^6.5.2",
+    "query-string": "^6.12.1",
     "quill-image-resize-module-react": "^3.0.0",
     "random-string": "^0.2.0",
     "react": "^15.4.2",
+    "react-chartjs-2": "^2.10.0",
     "react-document-title": "^1.0.2",
     "react-dom": "^15.4.2",
     "react-google-recaptcha": "^0.5.2",

@@ -1,7 +1,6 @@
 import React              from 'react';
 import { connect }        from 'react-redux';
 import keyCode            from 'keycode';
-import classNames         from 'classnames';
 
 import store from 'app/store';
 import ModalActions from 'actions/modal-actions';
@@ -9,12 +8,14 @@ import Modal from 'core-components/modal';
 
 class ModalContainer extends React.Component {
 
-    static openModal(content, noPadding, outsideClick=false) {
+    static openModal(
+        content,
+        options={noPadding: false, outsideClick: false, closeButton: {showCloseButton: false, whiteColor: false}}
+        ) {
         store.dispatch(
             ModalActions.openModal({
                 content,
-                noPadding,
-                outsideClick
+                options
             })
         );
     }
@@ -50,9 +51,16 @@ class ModalContainer extends React.Component {
     }
     
     renderModal() {
-        const {content, noPadding, outsideClick} = this.props.modal;
+        const { content, options } = this.props.modal;
+        const { noPadding, outsideClick, closeButton } = options;
+
         return (
-            <Modal content={content} noPadding={noPadding} outsideClick={outsideClick} onOutsideClick={this.closeModal.bind(this)}/>
+            <Modal
+                content={content}
+                noPadding={noPadding}
+                outsideClick={outsideClick}
+                onOutsideClick={this.closeModal.bind(this)}
+                closeButton={closeButton} />
         );
     }
 

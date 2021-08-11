@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/get-api-keys Get APIKeys
- * @apiVersion 4.5.0
+ * @apiVersion 4.9.0
  *
  * @apiName Get APIKeys
  *
@@ -32,7 +32,6 @@ class GetAPIKeysController extends Controller {
 
     public function handler() {
         $apiList = APIKey::getAll();
-        
         Response::respondSuccess($apiList->toArray());
     }
 }

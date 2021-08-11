@@ -122,37 +122,6 @@ class SearchControllerTest extends TestCase {
         );
     }
 
-    public function testPriorityFilter() {
-
-        $this->assertEquals(
-            $this->searchController->getSQLQuery([
-                'tags' => []
-            ]),
-            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) GROUP BY ticket.id'
-        );
-
-        $this->assertEquals(
-            $this->searchController->getSQLQuery([
-                'tags' => [1]
-            ]),
-            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  ( tag_ticket.tag_id  = 1) GROUP BY ticket.id'
-        );
-
-        $this->assertEquals(
-            $this->searchController->getSQLQuery([
-                'tags' => [2,3]
-            ]),
-            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  ( tag_ticket.tag_id  = 2 or tag_ticket.tag_id  = 3) GROUP BY ticket.id'
-        );
-
-        $this->assertEquals(
-            $this->searchController->getSQLQuery([
-                'tags' => [1,2,3]
-            ]),
-            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  ( tag_ticket.tag_id  = 1 or tag_ticket.tag_id  = 2 or tag_ticket.tag_id  = 3) GROUP BY ticket.id'
-        );
-    }
-
     public function testdateRangeFilter() {
         $this->assertEquals(
             $this->searchController->getSQLQuery([
@@ -169,66 +138,71 @@ class SearchControllerTest extends TestCase {
         );
     }
 
+    public function testOwnerFilter() {
+        $this->assertEquals(
+            $this->searchController->getSQLQuery([
+                'owners' => [1,2]
+            ]),
+            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE (ticket.owner_id = 1 or ticket.owner_id = 2) GROUP BY ticket.id'
+        );
+
+        $this->assertEquals(
+            $this->searchController->getSQLQuery([
+                'owners' => [6,1,9]
+            ]),
+            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE (ticket.owner_id = 6 or ticket.owner_id = 1 or ticket.owner_id = 9) GROUP BY ticket.id'
+        );
+
+        $this->assertEquals(
+            $this->searchController->getSQLQuery([
+                'owners' => []
+            ]),
+            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) GROUP BY ticket.id'
+        );
+    }
+
     public function testDepartmentsFilter() {
         $this->assertEquals(
             $this->searchController->getSQLQuery([
                 'departments' => null,
-                'allowedDepartments' => [
-                    [
-                        'id' => 2
-                    ],
-                    [
-                        'id' => 1
-                    ],
-                    [
-                        'id' => 3
-                    ]
-                ]
+                'staffId' => 1,
+                'allowedDepartments' => [2,1,3]
             ]),
-            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  ( ticket.department_id = 2 or ticket.department_id = 1 or ticket.department_id = 3) GROUP BY ticket.id'
+            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE (ticket.author_staff_id = 1 or ticket.department_id = 2 or ticket.department_id = 1 or ticket.department_id = 3) GROUP BY ticket.id'
         );
 
         $this->assertEquals(
             $this->searchController->getSQLQuery([
                 'departments' => [1],
-                'allowedDepartments' => [
-                    [
-                        'id' => 2
-                    ],
-                    [
-                        'id' => 1
-                    ],
-                    [
-                        'id' => 3
-                    ]
-                ]
+                'staffId' => 1,
+                'allowedDepartments' => [2,1,3]
             ]),
-            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  ( ticket.department_id = 1) GROUP BY ticket.id'
+            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  ( ticket.department_id = 1 ) GROUP BY ticket.id'
         );
 
         $this->assertEquals(
             $this->searchController->getSQLQuery([
-                'departments' => [1,2,3],
-                'allowedDepartments' => [
-                    [
-                        'id' => 2
-                    ],
-                    [
-                        'id' => 1
-                    ],
-                    [
-                        'id' => 3
-                    ]
-                ]
+                'departments' => [1,2,3,4],
+                'staffId' => 1,
+                'allowedDepartments' => [2,1]
             ]),
-            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  ( ticket.department_id = 1 or ticket.department_id = 2 or ticket.department_id = 3) GROUP BY ticket.id'
+            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  ( ticket.department_id = 1 or ticket.department_id = 2 or (ticket.author_staff_id = 1 and  ( ticket.department_id = 3 or ticket.department_id = 4)) ) GROUP BY ticket.id'
+        );
+
+        $this->assertEquals(
+            $this->searchController->getSQLQuery([
+                'departments' => [2],
+                'staffId' => 1,
+                'allowedDepartments' => [5,6]
+            ]),
+            'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE (ticket.author_staff_id = 1 and  ( ticket.department_id = 2)) GROUP BY ticket.id'
         );
     }
 
     public function testAuthorsFilter() {
         $this->assertEquals(
             $this->searchController->getSQLQuery([
-                'authors' => null
+                'authors' => []
             ]),
             'FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) GROUP BY ticket.id'
         );
@@ -237,11 +211,11 @@ class SearchControllerTest extends TestCase {
                 'authors' => [
                     [
                         'id' => 1,
-                        'staff' => 1
+                        'isStaff' => 1
                     ],
                     [
                         'id' => 2,
-                        'staff' => 0
+                        'isStaff' => 0
                     ]
                 ]
             ]),
@@ -266,27 +240,30 @@ class SearchControllerTest extends TestCase {
         );
     }
     public function testQueryWithOrder() {
+        $inputs1 = [
+            'page' => 1
+        ];
+        $inputs2 = [
+            'page' => 1,
+            'query' => 'stark'
+        ];
+        $inputs3 = [
+            'page' => 1,
+            'orderBy' => ['value' => 'closed', 'asc' => 1]
+        ];
         $this->assertEquals(
-            $this->searchController->getSQLQueryWithOrder([
-                'page' => 1
-            ]),
-            "SELECT ticket.id FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) GROUP BY ticket.id ORDER BY ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.priority desc, ticket.date desc  LIMIT 10 OFFSET 0"
+            $this->searchController->getSQLQueryWithOrder($inputs1, $this->searchController->getSQLQuery($inputs1)),
+            "SELECT ticket.id FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) GROUP BY ticket.id ORDER BY ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.date desc, ticket.id desc LIMIT 10 OFFSET 0"
         );
 
         $this->assertEquals(
-            $this->searchController->getSQLQueryWithOrder([
-                'page' => 1,
-                'query' => 'stark'
-            ]),
-            "SELECT ticket.id FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  (ticket.title LIKE :query or ticket.content LIKE :query or ticket.ticket_number LIKE :query or (ticketevent.type = 'COMMENT' and ticketevent.content LIKE :query) ) GROUP BY ticket.id ORDER BY CASE WHEN (ticket.ticket_number LIKE :query) THEN ticket.ticket_number END desc,CASE WHEN (ticket.title LIKE :query) THEN ticket.title END desc, CASE WHEN ( ticket.content LIKE :query) THEN ticket.content END desc, CASE WHEN (ticketevent.type = 'COMMENT' and ticketevent.content LIKE :query) THEN ticketevent.content END desc,ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.priority desc, ticket.date desc  LIMIT 10 OFFSET 0"
+            $this->searchController->getSQLQueryWithOrder($inputs2, $this->searchController->getSQLQuery($inputs2)),
+            "SELECT ticket.id FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE  (ticket.title LIKE :query or ticket.content LIKE :query or ticket.ticket_number LIKE :query or (ticketevent.type = 'COMMENT' and ticketevent.content LIKE :query) ) GROUP BY ticket.id ORDER BY CASE WHEN (ticket.ticket_number LIKE :query) THEN 1 WHEN (ticket.title LIKE :queryAtBeginning) THEN 2 WHEN (ticket.title LIKE :query) THEN 3 WHEN ( ticket.content LIKE :query) THEN 4  WHEN (ticketevent.content LIKE :query) THEN 5 END asc, ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.date desc, ticket.id desc LIMIT 10 OFFSET 0"
         );
 
         $this->assertEquals(
-            $this->searchController->getSQLQueryWithOrder([
-                'page' => 1,
-                'orderBy' => ['value' => 'closed', 'asc' => 1]
-            ]),
-            "SELECT ticket.id FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) GROUP BY ticket.id ORDER BY ticket.closed asc,ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.priority desc, ticket.date desc  LIMIT 10 OFFSET 0"
+            $this->searchController->getSQLQueryWithOrder($inputs3, $this->searchController->getSQLQuery($inputs3)),
+            "SELECT ticket.id FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) GROUP BY ticket.id ORDER BY ticket.closed asc,ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.date desc, ticket.id desc LIMIT 10 OFFSET 0"
         );
     }
 }

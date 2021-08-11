@@ -33,8 +33,21 @@ class AdminPanelViewStaff extends React.Component {
     }
 
     getProps() {
-        return _.extend({}, this.state.userData, {
-            staffId: this.props.params.staffId * 1,
+        const { userData } = this.state;
+        const {
+            userId,
+            params
+        } = this.props;
+        const userDataWithNumericLevel = {
+            ...userData,
+            level: userData.level*1,
+            sendEmailOnNewTicket: userData.sendEmailOnNewTicket === "1",
+            myAccount: this.props.userEmail == userData.email
+        };
+
+        return _.extend({}, userDataWithNumericLevel, {
+            userId: userId*1,
+            staffId: params.staffId*1,
             onDelete: this.onDelete.bind(this),
             onChange: this.retrieveStaff.bind(this)
         });
@@ -50,14 +63,18 @@ class AdminPanelViewStaff extends React.Component {
     }
 
     onStaffRetrieved(result) {
+        const {
+            userId,
+            params,
+            dispatch
+        } = this.props;
+
         this.setState({
             loading: false,
             userData: result.data
         });
 
-        if(this.props.userId == this.props.params.staffId) {
-            this.props.dispatch(SessionActions.getUserData(null, null, true))
-        }
+        if(userId == params.staffId) dispatch(SessionActions.getUserData(null, null, true));
     }
 
     onDelete() {

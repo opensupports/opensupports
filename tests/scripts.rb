@@ -84,7 +84,6 @@ class Scripts
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
-        result['data']
     end
 
     def self.closeTicket(ticketNumber)
@@ -97,12 +96,15 @@ class Scripts
         result['data']
     end
 
-    def self.createAPIKey(name, type)
+    def self.createAPIKey(name, canCreateUsers=0, canCreateTickets=0, canCheckTickets=0,  shouldReturnTicketNumber=0)
         request('/system/add-api-key', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             name: name,
-            type: type
+            canCreateUsers: canCreateUsers,
+            canCreateTickets: canCreateTickets,
+            canCheckTickets: canCheckTickets,
+            shouldReturnTicketNumber: shouldReturnTicketNumber
         })
     end
 
@@ -139,6 +141,22 @@ class Scripts
             ticketNumber: ticketnumber,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
+        })
+    end
+    
+    def self.createDepartment(nameDepartment = 'validnameDepartment')
+        request('/system/add-department', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                name: nameDepartment
+        })
+    end
+
+    def self.updateLockedDepartmentSetting(value = 0)
+        request('/system/edit-settings', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            "default-is-locked" => value 
         })
     end
 end

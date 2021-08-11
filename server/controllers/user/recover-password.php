@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/recover-password Recover password
- * @apiVersion 4.5.0
+ * @apiVersion 4.9.0
  *
  * @apiName Recover password
  *
@@ -20,7 +20,6 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiUse INVALID_EMAIL
  * @apiUse INVALID_PASSWORD
- * @apiUse USER_SYSTEM_DISABLED
  * @apiUse NO_PERMISSION
  *
  * @apiSuccess {Object} data Empty object
@@ -48,7 +47,7 @@ class RecoverPasswordController extends Controller {
                     'error' => ERRORS::INVALID_EMAIL
                 ],
                 'password' => [
-                    'validation' => DataValidator::length(5, 200),
+                    'validation' => DataValidator::notBlank()->length(5, 200),
                     'error' => ERRORS::INVALID_PASSWORD
                 ]
             ]
@@ -73,10 +72,6 @@ class RecoverPasswordController extends Controller {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
-        if(!Controller::isUserSystemEnabled() && !$recoverPassword->staff) {
-            throw new RequestException(ERRORS::USER_SYSTEM_DISABLED);
-        }
-
         if($recoverPassword->staff) {
             $this->user = Staff::getDataStore($this->email, 'email');
         } else {
@@ -88,7 +83,8 @@ class RecoverPasswordController extends Controller {
         $recoverPassword->delete();
 
         $this->user->setProperties([
-            'password' => Hashing::hashPassword($this->password)
+            'password' => Hashing::hashPassword($this->password),
+            'notRegistered' => null
         ]);
 
         $this->user->store();

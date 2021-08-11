@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/edit-comment Edit a comment
- * @apiVersion 4.5.0
+ * @apiVersion 4.9.0
  *
  * @apiName Edit comment
  *
@@ -31,39 +31,19 @@ class EditCommentController extends Controller {
     const METHOD = 'POST';
 
     public function validations() {
-        if(Controller::isUserSystemEnabled()){
-            return [
-                'permission' => 'user',
-                'requestData' => [
-                    'content' => [
-                        'validation' => DataValidator::length(10, 5000),
-                        'error' => ERRORS::INVALID_CONTENT
-                    ],
-                    'ticketNumber' => [
-                        'validation' => DataValidator::oneOf(DataValidator::validTicketNumber(),DataValidator::nullType()),
-                        'error' => ERRORS::INVALID_TICKET
-                    ]
+        return [
+            'permission' => 'user',
+            'requestData' => [
+                'content' => [
+                    'validation' => DataValidator::content(),
+                    'error' => ERRORS::INVALID_CONTENT
+                ],
+                'ticketNumber' => [
+                    'validation' => DataValidator::oneOf(DataValidator::validTicketNumber(),DataValidator::nullType()),
+                    'error' => ERRORS::INVALID_TICKET
                 ]
-            ];
-        } else {
-            return [
-                'permission' => 'any',
-                'requestData' => [
-                    'content' => [
-                        'validation' => DataValidator::length(10, 5000),
-                        'error' => ERRORS::INVALID_CONTENT
-                    ],
-                    'ticketNumber' => [
-                        'validation' => DataValidator::oneOf(DataValidator::validTicketNumber(),DataValidator::nullType()),
-                        'error' => ERRORS::INVALID_TICKET
-                    ],
-                    'csrf_token' => [
-                        'validation' => DataValidator::equals(Session::getInstance()->getToken()),
-                        'error' => ERRORS::INVALID_TOKEN
-                    ]
-                ]
-            ];
-        }
+            ]
+        ];
     }
 
     public function handler() {
@@ -74,7 +54,7 @@ class EditCommentController extends Controller {
         $ticketevent = Ticketevent::getTicketEvent(Controller::request('ticketEventId'));
         $ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
 
-        if(Controller::isUserSystemEnabled() && !Controller::isStaffLogged() &&  ($user->id !== $ticketevent->authorUserId && $user->id !== $ticket->authorId ) ){
+        if(!Controller::isStaffLogged() &&  ($user->id !== $ticketevent->authorUserId && $user->id !== $ticket->authorId ) ){
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 

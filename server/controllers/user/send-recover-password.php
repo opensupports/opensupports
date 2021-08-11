@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/send-recover-password Send password recovery
- * @apiVersion 4.5.0
+ * @apiVersion 4.9.0
  *
  * @apiName Send password recovery
  *
@@ -50,10 +50,6 @@ class SendRecoverPasswordController extends Controller {
 
     public function handler() {
         $this->staff = Controller::request('staff');
-
-        if(!Controller::isUserSystemEnabled() && !$this->staff) {
-            throw new RequestException(ERRORS::USER_SYSTEM_DISABLED);
-        }
 
         $email = Controller::request('email');
 

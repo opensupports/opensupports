@@ -95,7 +95,7 @@ class SessionReducer extends Reducer {
             sessionStore.storeRememberData({
                 token: resultData.rememberToken,
                 userId: resultData.userId,
-                staff: resultData.staff,
+                isStaff: resultData.staff ? 1 : 0,
                 expiration: resultData.rememberExpiration
             });
         }
@@ -106,7 +106,6 @@ class SessionReducer extends Reducer {
     onUserDataRetrieved(state, payload) {
         let userData = payload.data;
         sessionStore.storeUserData(payload.data);
-
         return _.extend({}, state, {
             staff: userData.staff,
             userName: userData.name,
@@ -116,7 +115,8 @@ class SessionReducer extends Reducer {
             userDepartments: userData.departments,
             userTickets: userData.tickets,
             userSendEmailOnNewTicket: userData.sendEmailOnNewTicket * 1,
-            userCustomFields: userData.customfields
+            userCustomFields: userData.customfields,
+            userUsers: userData.users
         });
     }
 

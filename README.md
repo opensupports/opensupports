@@ -1,6 +1,6 @@
 ![OpenSupports](http://www.opensupports.com/logo.png)
 
-[![Build Status](https://travis-ci.org/opensupports/opensupports.svg?branch=master)](https://travis-ci.org/opensupports/opensupports) v4.5.0
+[![Build Status](https://travis-ci.org/opensupports/opensupports.svg?branch=master)](https://travis-ci.org/opensupports/opensupports) v4.9.0
 
 OpenSupports is an open source ticket system built primarily with PHP and ReactJS.
 Please, visit our website for more information: [http://www.opensupports.com/](http://www.opensupports.com/)
@@ -65,7 +65,7 @@ Once you've installed dependencies for frontend and backend, you can run `./buil
 ##### BACKEND API RUBY TESTING
 
 1. Go to tests folder: `cd opensupports/tests`
-2. Run `make install` to install ruby and its the required dependencies
+2. Run `make build` to install ruby container and its required dependencies
 
 - `make run` for running tests (database will be cleared)
 - `make clear` for clearing database

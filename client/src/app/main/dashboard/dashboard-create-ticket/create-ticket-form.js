@@ -2,13 +2,13 @@ import React              from 'react';
 import _                  from 'lodash';
 import {connect}          from 'react-redux';
 
-import history            from 'lib-app/history';
 import i18n               from 'lib-app/i18n';
 import API                from 'lib-app/api-call';
 import SessionStore       from 'lib-app/session-store';
 import LanguageSelector   from 'app-components/language-selector';
-import Captcha            from 'app/main/captcha';
 import DepartmentDropdown from 'app-components/department-dropdown';
+import Captcha            from 'app/main/captcha';
+import {getPublicDepartmentIndexFromDepartmentId} from 'app/admin/panel/staff/admin-panel-departments';
 
 import Header             from 'core-components/header';
 import TextEditor         from 'core-components/text-editor';
@@ -18,14 +18,16 @@ import SubmitButton       from 'core-components/submit-button';
 import Message            from 'core-components/message';
 
 class CreateTicketForm extends React.Component {
-
+    
     static propTypes = {
         userLogged: React.PropTypes.bool,
+        isStaff: React.PropTypes.bool,
         onSuccess: React.PropTypes.func,
     };
 
     static defaultProps = {
-        userLogged: true
+        userLogged: true,
+        isStaff: false
     };
 
     state = {
@@ -34,7 +36,7 @@ class CreateTicketForm extends React.Component {
         form: {
             title: '',
             content: TextEditor.createEmpty(),
-            departmentIndex: 0,
+            departmentIndex: getPublicDepartmentIndexFromDepartmentId(this.props.defaultDepartmentId, SessionStore.getDepartments()),
             email: '',
             name: '',
             language: this.props.language
@@ -42,32 +44,46 @@ class CreateTicketForm extends React.Component {
     };
 
     render() {
+        const {
+            userLogged,
+            isDefaultDepartmentLocked,
+            isStaff,
+            onlyOneSupportedLanguage,
+            allowAttachments
+        } = this.props;
+
         return (
             <div className="create-ticket-form">
                 <Header title={i18n('CREATE_TICKET')} description={i18n('CREATE_TICKET_DESCRIPTION')} />
                 <Form {...this.getFormProps()}>
-                    {(!this.props.userLogged) ? this.renderEmailAndName() : null}
-                    <FormField label={i18n('TITLE')} name="title" validation="TITLE" required field="input" fieldProps={{size: 'large'}}/>
+                    {(!userLogged) ? this.renderEmailAndName() : null}
+                    <FormField label={i18n('TITLE')} name="title" validation="TITLE" required field="input" fieldProps={{size: 'large'}} />
                     <div className="row">
-                        <FormField className="col-md-5" label={i18n('DEPARTMENT')} name="departmentIndex" field="select" decorator={DepartmentDropdown} fieldProps={{
-                            departments: SessionStore.getDepartments(),
-                            size: 'medium'
-                        }} />
-                        <FormField className="col-md-5" label={i18n('LANGUAGE')} name="language" field="select" decorator={LanguageSelector} fieldProps={{
-                            type: 'supported',
-                            size: 'medium'
-                        }}/>
+                        {!(isDefaultDepartmentLocked*1) || isStaff ?
+                            <FormField className="col-md-5" label={i18n('DEPARTMENT')} name="departmentIndex" field="select" decorator={DepartmentDropdown} fieldProps={{
+                                departments: SessionStore.getDepartments(),
+                                size: 'medium'
+                            }} /> : null
+                        }    
+                        {!onlyOneSupportedLanguage ?
+                            <FormField className="col-md-5" label={i18n('LANGUAGE')} name="language" field="select" decorator={LanguageSelector} fieldProps={{
+                                type: 'supported',
+                                size: 'medium'
+                            }} /> : null
+                        }
                     </div>
                     <FormField
                         label={i18n('CONTENT')}
                         name="content"
                         validation="TEXT_AREA"
-                        fieldProps={{allowImages: this.props.allowAttachments}}
+                        fieldProps={{allowImages: allowAttachments}}
                         required
                         field="textarea" />
-                    {(this.props.allowAttachments) ? this.renderFileUpload() : null}
-                    {(!this.props.userLogged) ? this.renderCaptcha() : null}
-                    <SubmitButton>{i18n('CREATE_TICKET')}</SubmitButton>
+                    <div className="create-ticket-form__buttons-container">
+                        {allowAttachments ? this.renderFileUpload() : null}
+                        {(!userLogged) ? this.renderCaptcha() : null}
+                        <SubmitButton type="secondary">{i18n('CREATE_TICKET')}</SubmitButton>
+                    </div>
                 </Form>
                 {this.renderMessage()}
             </div>
@@ -77,8 +93,8 @@ class CreateTicketForm extends React.Component {
     renderEmailAndName() {
         return (
             <div className="row">
-                <FormField className="col-md-6" label={i18n('EMAIL')} name="email" validation="EMAIL" required field="input" fieldProps={{size: 'large'}}/>
-                <FormField className="col-md-6" label={i18n('FULL_NAME')} name="name" validation="NAME" required field="input" fieldProps={{size: 'large'}}/>
+                <FormField className="col-md-6" label={i18n('EMAIL')} name="email" validation="EMAIL" required field="input" fieldProps={{size: 'large'}} />
+                <FormField className="col-md-6" label={i18n('FULL_NAME')} name="name" validation="NAME" required field="input" fieldProps={{size: 'large'}} />
             </div>
         );
     }
@@ -94,7 +110,7 @@ class CreateTicketForm extends React.Component {
     renderCaptcha() {
         return (
             <div className="create-ticket-form__captcha">
-                <Captcha ref="captcha"/>
+                <Captcha ref="captcha" />
             </div>
         );
     }
@@ -111,10 +127,15 @@ class CreateTicketForm extends React.Component {
     }
 
     getFormProps() {
+        const {
+            loading,
+            form
+        } = this.state;
+
         return {
-            loading: this.state.loading,
+            loading,
             onSubmit: this.onSubmit.bind(this),
-            values: this.state.form,
+            values: form,
             onChange: form => this.setState({form})
         };
     }
@@ -141,14 +162,16 @@ class CreateTicketForm extends React.Component {
     }
 
     onTicketSuccess(email, result) {
-        this.setState({
-            loading: false,
-            message: 'success'
-        }, () => {
-            if(this.props.onSuccess) {
-                this.props.onSuccess(result, email);
-            }
-        });
+        const { onSuccess } = this.props;
+        const message = 'success';
+
+        this.setState(
+            {
+                loading: false,
+                message
+            },
+            () => {onSuccess && onSuccess(result, email, message);}
+        );
     }
 
     onTicketFail() {
@@ -161,9 +184,11 @@ class CreateTicketForm extends React.Component {
 
 export default connect((store) => {
     const { language, supportedLanguages } = store.config;
-
     return {
         language: _.includes(supportedLanguages, language) ? language : supportedLanguages[0],
-        allowAttachments: store.config['allow-attachments']
+        onlyOneSupportedLanguage: supportedLanguages.length == 1 ? true : false,
+        isDefaultDepartmentLocked: store.config['default-is-locked'],
+        allowAttachments: store.config['allow-attachments'],
+        defaultDepartmentId: store.config['default-department-id']
     };
 })(CreateTicketForm);

@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/close Close ticket
- * @apiVersion 4.5.0
+ * @apiVersion 4.9.0
  *
  * @apiName Close
  *
@@ -32,49 +32,32 @@ class CloseController extends Controller {
     public function validations() {
         $session = Session::getInstance();
 
-        if (Controller::isUserSystemEnabled() || Controller::isStaffLogged()) {
             return [
-                'permission' => 'user',
-                'requestData' => [
-                    'ticketNumber' => [
-                        'validation' => DataValidator::validTicketNumber(),
-                        'error' => ERRORS::INVALID_TICKET
+                    'permission' => 'user',
+                    'requestData' => [
+                        'ticketNumber' => [
+                            'validation' => DataValidator::validTicketNumber(),
+                            'error' => ERRORS::INVALID_TICKET
+                        ]
                     ]
-                ]
             ];
-        } else {
-            return [
-                'permission' => 'any',
-                'requestData' => [
-                    'ticketNumber' => [
-                        'validation' => DataValidator::equals($session->getTicketNumber()),
-                        'error' => ERRORS::INVALID_TICKET
-                    ],
-                    'csrf_token' => [
-                        'validation' => DataValidator::equals($session->getToken()),
-                    	'error' => ERRORS::INVALID_TOKEN
-                    ]
-                ]
-            ];
-        }
     }
 
     public function handler() {
         $this->ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
         $user = Controller::getLoggedUser();
 
-        if(!Controller::isStaffLogged() && Controller::isUserSystemEnabled() &&
-           !$user->canManageTicket($this->ticket)){
-            throw new RequestException(ERRORS::NO_PERMISSION);
-        }
-
-        if(Controller::isStaffLogged() && (!$user->canManageTicket($this->ticket))){
+        if(!$user->canManageTicket($this->ticket)){
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
         $this->markAsUnread();
         $this->addCloseEvent();
         $this->ticket->closed = true;
+        if (!$this->ticket->first_closed_at) {
+            $this->ticket->first_closed_at = Date::getCurrentDate();
+        }
+        $this->ticket->last_closed_at = Date::getCurrentDate();
 
         $this->ticket->store();
 

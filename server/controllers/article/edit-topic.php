@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /article/edit-topic Edit topic
- * @apiVersion 4.5.0
+ * @apiVersion 4.9.0
  *
  * @apiName Edit topic
  *
@@ -38,7 +38,12 @@ class EditTopicController extends Controller {
                 'topicId' => [
                     'validation' => DataValidator::dataStoreId('topic'),
                     'error' => ERRORS::INVALID_TOPIC
-                ]
+                ],
+                'name' => [
+                    'validation' => DataValidator::notBlank()->length(1, 200),
+                    'error' => ERRORS::INVALID_NAME
+                ],
+                
             ]
         ];
     }

@@ -23,7 +23,8 @@ class Input extends React.Component {
     };
 
     static defaultProps = {
-        size: 'small'
+        size: 'small',
+        value: ''
     };
 
     render() {
@@ -58,6 +59,7 @@ class Input extends React.Component {
         delete props.inputType;
         delete props.errored;
         delete props.password;
+        delete props.onIconClick;
 
         return props;
     }

@@ -42,7 +42,7 @@ class MainCheckTicketPage extends React.Component {
                         <div className="main-check-ticket-page__captcha">
                             <Captcha ref="captcha"/>
                         </div>
-                        <SubmitButton>{i18n('CHECK_TICKET')}</SubmitButton>
+                        <SubmitButton type="secondary">{i18n('CHECK_TICKET')}</SubmitButton>
                     </Form>
                 </Widget>
             </div>
@@ -52,7 +52,6 @@ class MainCheckTicketPage extends React.Component {
     getClass() {
         let classes = {
             'main-check-ticket-page': true,
-            'col-md-10 col-md-offset-1': (!this.props.config['user-system-enabled'])
         };
 
         return classNames(classes);
@@ -98,7 +97,7 @@ class MainCheckTicketPage extends React.Component {
     }
 
     onTicketGetSuccess(result) {
-        SessionStore.setItem('token', result.data.token);
+        SessionStore.createSession(result.data.userId, result.data.token, this.state.form.ticketNumber);
         setTimeout(() => {history.push('/view-ticket/' + this.state.form.ticketNumber)}, 2000);
     }
 }
