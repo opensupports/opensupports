@@ -79,7 +79,7 @@ class CreateTicketForm extends React.Component {
                         fieldProps={{allowImages: allowAttachments}}
                         required
                         field="textarea" />
-                    <div className="create-ticket-form__buttons-container">
+                    <div className={`create-ticket-form__buttons-container${allowAttachments ? "" : "-without-allow-attachments"}`}>
                         {allowAttachments ? this.renderFileUpload() : null}
                         {(!userLogged) ? this.renderCaptcha() : null}
                         <SubmitButton type="secondary">{i18n('CREATE_TICKET')}</SubmitButton>
