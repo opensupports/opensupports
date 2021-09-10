@@ -31,7 +31,7 @@ class AdminPanelMyTickets extends React.Component {
     componentDidMount() {
         this.retrieveMyTickets();
     }
-
+  
     render() {
         return (
             <div className="admin-panel-my-tickets">

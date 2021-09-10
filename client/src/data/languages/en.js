@@ -362,6 +362,7 @@ export default {
     'CUSTOM_FIELDS_DESCRIPTION': 'Custom fields are defined additional fields the users are able to fill to provide more information about them.',
     'INVITE_USER_VIEW_DESCRIPTION': 'Here you can invite an user to join our support system, he will just need to provide his password to create a new user.',
     'INVITE_STAFF_DESCRIPTION': 'Here you can invite staff members to your teams.',
+    'TICKETS_INFORMATION' : 'Tickets from departments you don’t have assigned won’t be visible.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',

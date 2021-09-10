@@ -34,6 +34,10 @@
         margin-right: 20px;
     }
 
+    &__tickets-info-container {
+        display: flex;
+    }
+
     &__tickets-title {
         font-size: $font-size--md;
         margin-bottom: 20px;
@@ -64,4 +68,7 @@
         margin-left: 15px;
     }
     
+    &__info-tooltip{
+        margin-left: 10px;
+    }
 }
