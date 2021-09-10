@@ -86,7 +86,6 @@ class AdminPanelCustomFieldForm extends React.Component {
 
     onAddOptionClick(event) {
         event.preventDefault();
-
         let addFormOptions = _.clone(this.state.addFormOptions);
 
         addFormOptions.push("");
@@ -95,6 +94,11 @@ class AdminPanelCustomFieldForm extends React.Component {
     }
 
     onDeleteOptionClick(index, event) {
+        
+        document.addEventListener('keydown', (event) => {
+            event.key == 'Enter' ? event.preventDefault() : null
+        }, false);
+
         event.preventDefault();
 
         let addForm = _.clone(this.state.addForm);
