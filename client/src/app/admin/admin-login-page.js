@@ -40,7 +40,7 @@ class AdminLoginPage extends React.Component {
                     {this.renderLogin()}
                     {this.renderPasswordRecovery()}
                 </WidgetTransition>
-            </div>   
+            </div>
         );
     }
 
