@@ -41,7 +41,8 @@ class AdminPanelCustomFieldForm extends React.Component {
                         loading={loading}
                         values={addForm}
                         onChange={this.onAddFormChange.bind(this)}
-                        onSubmit={this.onSubmit.bind(this)}>
+                        onSubmit={this.onSubmit.bind(this)}
+                        onKeyDown={(event) => { if(event.key == 'Enter') event.preventDefault()}}>
                         <FormField name="name" validation="NAME" label={i18n('NAME')} field="input" fieldProps={{size: 'large'}} required/>
                         <FormField name="description" label={i18n('FIELD_DESCRIPTION')} field="input" fieldProps={{size: 'large'}}/>
                         <FormField name="type" label={i18n('TYPE')} field="select" fieldProps={{size: 'large', items: [{content: i18n('TEXT_INPUT')}, {content: i18n('SELECT_INPUT')}]}} required/>
@@ -86,7 +87,6 @@ class AdminPanelCustomFieldForm extends React.Component {
 
     onAddOptionClick(event) {
         event.preventDefault();
-
         let addFormOptions = _.clone(this.state.addFormOptions);
 
         addFormOptions.push("");
