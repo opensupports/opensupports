@@ -13,6 +13,7 @@ import Button from 'core-components/button';
 import Message from 'core-components/message';
 import InfoTooltip from 'core-components/info-tooltip';
 import Autocomplete from 'core-components/autocomplete';
+import Tooltip from '../../../../core-components/tooltip';
 
 const INITIAL_API_VALUE = {
     page: 1,
@@ -111,7 +112,10 @@ class AdminPanelViewUser extends React.Component {
                 </div>
                 <span className="separator" />
                 <div className="admin-panel-view-user__tickets">
-                    <div className="admin-panel-view-user__tickets-title">{i18n('TICKETS')}</div>
+                    <div className="admin-panel-view-user__tickets-info-container">
+                        <div className="admin-panel-view-user__tickets-title">{i18n('TICKETS')}</div>
+                        <InfoTooltip className="admin-panel-view-user__info-tooltip" text={i18n('TICKETS_INFORMATION')}/>
+                    </div>
                     <TicketList {...this.getTicketListProps()} />
                 </div>
             </div>
