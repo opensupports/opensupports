@@ -114,7 +114,7 @@ class CreateController extends Controller {
             throw new Exception(ERRORS::INVALID_EMAIL);
         }
         
-        if(!Controller::isLoginMandatory() && !Controller::isStaffLogged() && !Controller::isUserLogged()  && !User::getUser($this->email, 'email')->email){
+        if(!Controller::isLoginMandatory() && !Controller::isStaffLogged() && !Controller::isUserLogged()  && User::getUser($this->email, 'email')->isNull()){
             $this->createNewUser();
         }
         
@@ -237,9 +237,9 @@ class CreateController extends Controller {
     }
 
     private function getAuthor() {
-        if(Controller::getLoggedUser()->email) { 
+        if (!Controller::getLoggedUser()->isNull()) { 
             return Controller::getLoggedUser();
-        }else{
+        } else {
             return User::getUser($this->email, 'email');
         }
     }
