@@ -84,7 +84,7 @@
             border: 2px solid $light-grey;
             border-bottom: none;
             padding: 12px;
-            font-size: 10.6px;
+            font-size: 12.5px;
             font-family: helvetica;
             background-color: $light-grey;
 
@@ -94,21 +94,56 @@
             background-color: white;
             border: 2px solid $very-light-grey;
             border-top: none;
-            padding: 20px 10px;
+            padding: 28px 10px;
             text-align: left;
-            
+            position:relative;
+            overflow-y: initial;
+
+            &:hover {
+                .ticket-event__comment-content__edit {
+                    color: grey;
+                    cursor:pointer;
+                }
+            }
+
             img {
                 max-width:100%;
             }
+
+            &__edit {
+                position:absolute;
+                top: 3px;
+                right: 9px;
+                align-self: right;
+                color:white;
+            }
         }
+    }
+    &__submit-edited-comment {
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px;
+    }
+
+    &__items {
+        background-color: $very-light-grey;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px;
+        font-size: 12px;
     }
 
     &__file {
-        background-color: $very-light-grey;
         cursor: pointer;
         text-align: right;
-        padding: 5px 10px;
-        font-size: 12px;
+    }
+    &__edited{
+        font-style: italic;
+    }
+    &__comment-badge-value {
+        font-weight: normal;
     }
 
     &_staff {
@@ -178,12 +213,6 @@
         }
     }
 
-    &_priority {
-        .ticket-event__icon {
-            padding-left: 11px;
-            padding-top: 5px;
-        }
-    }
     &_private {
         .ticket-event__comment-pointer {
             border-right-color: $light-yellow;

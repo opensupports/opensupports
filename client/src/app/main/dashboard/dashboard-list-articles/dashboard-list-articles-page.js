@@ -34,7 +34,10 @@ class DashboardListArticlesPage extends React.Component {
             <div className={this.getClass()}>
                 <Wrapper>
                     <Header title={i18n('LIST_ARTICLES')} description={i18n('LIST_ARTICLES_DESCRIPTION')}/>
-                    <SearchBox className="dashboard-list-articles-page__search-box" onSearch={this.onSearch.bind(this)} searchOnType />
+                    <SearchBox
+                        className="dashboard-list-articles-page__search-box"
+                        onSearch={this.onSearch.bind(this)}
+                        searchOnType />
                     {(!this.state.showSearchResults) ? this.renderArticleList() : this.renderSearchResults()}
                 </Wrapper>
             </div>
@@ -52,7 +55,9 @@ class DashboardListArticlesPage extends React.Component {
     renderSearchResults() {
         return (
             <div className="dashboard-list-articles-page__search-results">
-                {(_.isEmpty(this.state.results)) ? i18n('NO_RESULTS') : this.state.results.map(this.renderSearchResultsItem.bind(this))}
+                {(_.isEmpty(this.state.results)) ?
+                    i18n('NO_RESULTS') :
+                        this.state.results.map(this.renderSearchResultsItem.bind(this))}
             </div>
         );
     }
@@ -65,7 +70,13 @@ class DashboardListArticlesPage extends React.Component {
         return (
             <div className="dashboard-list-articles-page__search-result" key={index}>
                 <div className="dashboard-list-articles-page__search-result-title">
-                    <Link to={((this.props.location.pathname == '/articles') ? '/article/' : '/dashboard/article/') + item.id}>{item.title}</Link>
+                    <Link
+                        to={
+                            ((this.props.location.pathname == '/articles') ? '/article/' : '/dashboard/article/') +
+                            item.id
+                        }>
+                        {item.title}
+                    </Link>
                 </div>
                 <div className="dashboard-list-articles-page__search-result-description">{content}</div>
                 <div className="dashboard-list-articles-page__search-result-topic">{item.topic}</div>
@@ -76,8 +87,8 @@ class DashboardListArticlesPage extends React.Component {
     getClass() {
         let classes = {
             'dashboard-list-articles-page': true,
-            'dashboard-list-articles-page_wrapped': (this.props.location.pathname == '/articles'),
-            'col-md-10 col-md-offset-1': (!this.props.config['user-system-enabled'])
+            'dashboard-list-articles-page_wrapped': (this.props.location.pathname == '/dashboard/articles'),
+            'col-md-10 col-md-offset-1': !this.props.isLogged
         };
 
         return classNames(classes);
@@ -85,7 +96,11 @@ class DashboardListArticlesPage extends React.Component {
 
     onSearch(query) {
         this.setState({
-            results: SearchBox.searchQueryInList(this.getArticles(), query, this.isQueryInTitle.bind(this), this.isQueryInContent.bind(this)),
+            results:
+                SearchBox.searchQueryInList(this.getArticles(),
+                query,
+                this.isQueryInTitle.bind(this),
+                this.isQueryInContent.bind(this)),
             showSearchResults: query.length
         });
     }
@@ -125,8 +140,9 @@ class DashboardListArticlesPage extends React.Component {
 
 export default connect((store) => {
     return {
+        isLogged: store.session.logged,
         config: store.config,
-        topics: store.articles.topics,
+        topics: store.articles.topics.map((topic) => {return {...topic, private: topic.private === "1"}}),
         loading: store.articles.loading
     };
 })(DashboardListArticlesPage);

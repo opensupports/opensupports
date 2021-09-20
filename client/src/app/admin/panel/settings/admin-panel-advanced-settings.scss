@@ -1,19 +1,12 @@
 @import "../../../../scss/vars";
 
 .admin-panel-advanced-settings {
-    &__user-system-enabled {
+    &__mandatory-login {
 
     }
 
     &__registration {
 
-    }
-
-    &__toggle-button {
-        display: inline-block;
-        margin-left: 20px;
-        margin-top: 20px;
-        margin-bottom: 20px;
     }
 
     &__text {
@@ -28,13 +21,20 @@
 
     &__api-keys {
 
+        &__buttons-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
         &-title {
             font-size: $font-size--bg;
             margin-bottom: 20px;
             text-align: left;
         }
 
-        &-info {
+        &__container-info {
             text-align: left;
         }
 
@@ -52,8 +52,21 @@
             padding: 5px 0;
         }
 
+        &__permissions {
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 20px;
+            &__item {
+                margin-right: 25px;
+            }
+        }
+        
         &-modal {
-            min-width: 500px;
+            min-width: 400px;
+
+            &__submit-button {
+                margin-top: 20px;
+            }
         }
 
         &-none {
@@ -61,4 +74,36 @@
             font-size: $font-size--md;
         }
     }
+
+    &__message {
+      margin-bottom: 20px;
+    }
+
+    @media screen and (max-width: 415px) {
+        .admin-panel-advanced-settings {
+            &__api-keys {
+
+                &-button {
+                    margin-bottom: 30px;
+                    width: 150px;
+                }
+
+                &__container {
+                    padding: 30px 0;
+
+                    &-info {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                }
+
+                &-subtitle {
+                    margin: 10px 0 0 0;
+                }
+            }
+        }
+    }
+
 }

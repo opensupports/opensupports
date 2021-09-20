@@ -32,7 +32,7 @@ describe '/ticket/create' do
         (result['message']).should.equal('INVALID_TITLE')
     end
 
-    it 'should fail if content is too short' do
+    it 'should craete ticket with a short content' do
         result = request('/ticket/create', {
             title: 'Winter is coming',
             content: 'Test',
@@ -42,13 +42,12 @@ describe '/ticket/create' do
             csrf_token: $csrf_token
         })
 
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_CONTENT')
+        (result['status']).should.equal('success')
     end
 
-    it 'should fail if content is very long' do
+    it 'should fail if the ticket has a very large content' do
         long_text = ''
-        6000.times {long_text << 'a'}
+        10001.times {long_text << 'a'}
 
         result = request('/ticket/create',{
             title: 'Winter is coming',
@@ -114,7 +113,7 @@ describe '/ticket/create' do
         Scripts.login('creator@os4.com','creator')
 
         result = request('/ticket/create', {
-            title: 'Winter is coming',
+            title: 'Winter is coming!',
             content: 'The north remembers',
             departmentId: 1,
             language: 'en',
@@ -124,17 +123,16 @@ describe '/ticket/create' do
 
         (result['status']).should.equal('success')
 
-        ticket = $database.getRow('ticket','Winter is coming','title')
+        ticket = $database.getRow('ticket','Winter is coming!','title')
         (ticket['content']).should.equal('The north remembers')
-        (ticket['unread']).should.equal('0')
-        (ticket['closed']).should.equal('0')
-        (ticket['priority']).should.equal('low')
-        (ticket['department_id']).should.equal('1')
-        (ticket['author_id']).should.equal($csrf_userid)
-        (ticket['ticket_number'].size).should.equal(6)
+        (ticket['unread']).should.equal(0)
+        (ticket['closed']).should.equal(0)
+        (ticket['department_id']).should.equal(1)
+        (ticket['author_id']).should.equal($csrf_userid.to_i)
+        ((Math.log10(ticket['ticket_number'].to_i)).ceil).should.equal(6)
 
         ticket_user_relation = $database.getRow('ticket_user', ticket['id'],'ticket_id')
-        (ticket_user_relation['user_id']).should.equal($csrf_userid)
+        (ticket_user_relation['user_id']).should.equal($csrf_userid.to_i)
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('CREATE_TICKET')
@@ -168,7 +166,7 @@ describe '/ticket/create' do
 
         ticket_number_gap = $database.getRow('setting', 'ticket-gap', 'name')['value'].to_i
 
-        ticket0 = $database.getRow('ticket','Winter is coming','title')['ticket_number'].to_i
+        ticket0 = $database.getRow('ticket','Winter is coming!','title')['ticket_number'].to_i
         ticket1 = $database.getRow('ticket','Winter is coming1','title')['ticket_number'].to_i
         ticket2 = $database.getRow('ticket','Winter is coming2','title')['ticket_number'].to_i
         ticket3 = $database.getRow('ticket','Winter is coming3','title')['ticket_number'].to_i
@@ -183,18 +181,19 @@ describe '/ticket/create' do
         Scripts.login($staff[:email], $staff[:password], true)
         result = request('/ticket/create', {
             title: 'created by staff',
-            content: 'The staff created it',
+            content: 'The staff created it believing this path returns the ticketnumber',
             departmentId: 1,
             language: 'en',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
         (result['status']).should.equal('success')
-        ticket = $database.getRow('ticket', result['data']['ticketNumber'], 'ticket_number')
+        
+        ticket = $database.getRow('ticket', 'The staff created it believing this path returns the ticketnumber', 'content')
         (ticket['author_id']).should.equal(nil)
-        (ticket['author_staff_id']).should.equal('1')
+        (ticket['author_staff_id']).should.equal(1)
 
-        $ticketNumberByStaff = result['data']['ticketNumber']
+        $ticketNumberByStaff = ticket['ticket_number']
         request('/user/logout')
     end
 end

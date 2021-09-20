@@ -1,0 +1,35 @@
+@import '../scss/vars';
+
+.tag-selector{
+  text-align: left;
+
+  &__drop-down {
+    .drop-down__current-item {
+      cursor: text;
+      background-color: $very-light-grey;
+      border: 1px solid $grey;
+      min-height: 38px;
+
+      &:focus {
+        outline: none;
+        border-color: $primary-blue;
+      }
+    }
+  }
+
+  &__tag-option {
+    display: flex;
+    align-items: center;
+
+    &-square {
+      display: inline-block;
+      height: 15px;
+      width: 15px;
+      border-radius: 4px;
+    }
+
+    &-name {
+      margin-left: 10px;
+    }
+  }
+}

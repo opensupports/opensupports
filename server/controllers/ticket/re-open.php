@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /ticket/re-open Reopen ticket
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  *
  * @apiName Reopen ticket
  *
@@ -42,14 +42,16 @@ class ReOpenController extends Controller {
 
     public function handler() {
         $this->ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
+        $user = Controller::getLoggedUser();
 
-        if($this->shouldDenyPermission()) {
-            throw new RequestException(ERRORS::NO_PERMISSION);
-            return;
-        }
+        if (!$user->canManageTicket($this->ticket)) throw new RequestException(ERRORS::NO_PERMISSION);
 
         $this->markAsUnread();
         $this->addReopenEvent();
+
+        if ($this->ticket->closed) {
+            $this->ticket->reopened = true;
+        }
         $this->ticket->closed = false;
 
         $this->ticket->store();
@@ -57,19 +59,6 @@ class ReOpenController extends Controller {
         Log::createLog('RE_OPEN', $this->ticket->ticketNumber);
 
         Response::respondSuccess();
-    }
-
-
-    private function shouldDenyPermission() {
-        $user = Controller::getLoggedUser();
-
-        return !(
-            $this->ticket->isAuthor($user) ||
-            (
-                Controller::isStaffLogged() &&
-                $user->sharedDepartmentList->includesId($this->ticket->department->id)
-            )
-        );
     }
 
     private function markAsUnread() {

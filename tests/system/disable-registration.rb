@@ -1,6 +1,7 @@
 describe'/system/disable-registration' do
     request('/user/logout')
     Scripts.login($staff[:email], $staff[:password], true)
+    api_key = Scripts.createAPIKey('registrationKey', canCreateUsers = 1)['data']
 
     it 'should not disable registration if password is not correct' do
         result= request('/system/disable-registration', {
@@ -17,7 +18,7 @@ describe'/system/disable-registration' do
     end
 
     it 'should disable registration' do
-        result= request('/system/disable-registration', {
+        result = request('/system/disable-registration', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             password: $staff[:password]
@@ -31,13 +32,23 @@ describe'/system/disable-registration' do
     end
 
     it 'should not create user in database if registration is false' do
-        response = request('/user/signup', {
+        result = request('/user/signup', {
           :name => 'ponzio',
           :email => 'jc@ponziolandia.com',
           :password => 'tequila'
         })
 
-        (response['status']).should.equal('fail')
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('NO_PERMISSION')
+    end
 
+    it 'should create user if using api key' do
+        result = request('/user/signup', {
+          :name => 'ponzio',
+          :email => 'jc@ponziolandia.com',
+          :password => 'tequila',
+          :apiKey => api_key
+        })
+        (result['status']).should.equal('success')
     end
 end

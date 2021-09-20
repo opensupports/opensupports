@@ -16,6 +16,11 @@ class DataStoreList implements IteratorAggregate {
         return new ArrayIterator($this->list);
     }
 
+    public function first() {
+        if(count($this->list)) return $this->list[0];
+        else return new NullDataStore();
+    }
+
     public function add(DataStore $dataStore) {
         $this->list[] = $dataStore;
     }
@@ -47,6 +52,12 @@ class DataStoreList implements IteratorAggregate {
         return empty($this->list);
     }
 
+    public function clear() {
+        foreach($this->list as $index=>$item)         {
+            unset($this->list[$index]);
+        }
+    }
+
     public function toBeanList() {
         $beanList = [];
 
@@ -57,7 +68,7 @@ class DataStoreList implements IteratorAggregate {
 
         return $beanList;
     }
-
+    
     public function toArray($minimized = false) {
         $array = [];
 

@@ -9,6 +9,7 @@
             display: inline-block;
             margin-right: 20px;
             min-width: 200px;
+            margin-top: 10px;
         }
 
         &-box {
@@ -20,6 +21,11 @@
         }
     }
 
+    &__empty-content {
+        font-style: italic;
+        color: $dark-grey;
+    }
+
     &__action-buttons {
         margin-top: 20px;
     }
@@ -28,13 +34,41 @@
         margin-right: 20px;
     }
 
+    &__tickets-info-container {
+        display: flex;
+    }
+
     &__tickets-title {
         font-size: $font-size--md;
         margin-bottom: 20px;
         text-align: left;
     }
 
+    &__supervised-users-header {
+        font-size: $font-size--md;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    &__supervised-users-content {
+        display:flex;
+        flex-direction: column;
+        align-items:flex-start; 
+    }
+
+    &__supervised-users-message {
+        margin-top: 20px
+    }
+    
+    &__submit-button {
+        margin-top: 20px;
+    }
+
     &__unverified {
         margin-left: 15px;
+    }
+    
+    &__info-tooltip{
+        margin-left: 10px;
     }
 }

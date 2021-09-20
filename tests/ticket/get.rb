@@ -1,5 +1,19 @@
 describe '/ticket/get/' do
     request('/user/logout')
+    Scripts.login($staff[:email], $staff[:password], true)    
+    
+    result= request('/system/add-api-key', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: 'APIkeyToTicketget',
+            shouldReturnTicketNumber: 'true',
+            canCreateTickets: 1
+    })
+    (result['status']).should.equal('success')
+    $token = result['data'];
+
+    request('/user/logout')
+
     Scripts.createUser('cersei@os4.com', 'cersei','Cersei Lannister')
     Scripts.createUser('not_ticket_getter@os4.com', 'not_ticket_getter','No Author')
 
@@ -13,10 +27,11 @@ describe '/ticket/get/' do
             departmentId: 1,
             language: 'en',
             csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token
+            csrf_token: $csrf_token,
+            apiKey: $token
         })
         @ticketNumber = result['data']['ticketNumber']
-
+        
         request('/ticket/comment', {
             ticketNumber: @ticketNumber,
             content: 'some valid comment made',
@@ -65,12 +80,12 @@ describe '/ticket/get/' do
 
 
         (result['status']).should.equal('success')
-        (result['data']['ticketNumber']).should.equal(ticket['ticket_number'])
+        (result['data']['ticketNumber']).should.equal(ticket['ticket_number'].to_s)
         (result['data']['title']).should.equal(ticket['title'])
         (result['data']['content']).should.equal(ticket['content'])
         (result['data']['department']['id']).should.equal('1')
         (result['data']['department']['name']).should.equal($database.getRow('department', 1)['name'])
-        (result['data']['date']).should.equal(ticket['date'])
+        (result['data']['date'].to_i).should.equal(ticket['date'])
         (result['data']['file']).should.equal(ticket['file'])
         (result['data']['language']).should.equal(ticket['language'])
         (result['data']['unread']).should.equal(false)
@@ -80,5 +95,72 @@ describe '/ticket/get/' do
         (result['data']['events'].size).should.equal(1)
         (result['data']['events'][0]['type']).should.equal('COMMENT')
         (result['data']['events'][0]['content']).should.equal('some valid comment made')
+    end
+    it 'should successfully return the ticket information if staff member serves to the department of the ticket' do
+        request('/user/logout')
+        Scripts.login('cersei@os4.com', 'cersei')
+        Scripts.createTicket('titleofticket87','contentoftheticket87',1)
+        Scripts.createTicket('2titleofticket87','2contentoftheticket87',1)
+        request('/user/logout')
+        Scripts.login($staff[:email], $staff[:password], true)
+
+        ticket = $database.getRow('ticket','titleofticket87', 'title')
+
+        result = request('/ticket/get', {
+            ticketNumber: ticket['ticket_number'],
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        (result['status']).should.equal('success')
+        (result['data']['ticketNumber']).should.equal(ticket['ticket_number'].to_s)
+        (result['data']['title']).should.equal('titleofticket87')
+        (result['data']['content']).should.equal('contentoftheticket87')
+
+    end
+    it 'should successfully return the ticket information if staff member does not serve to the deparment of the ticket but is author' do
+        request('/user/logout')
+        Scripts.login($staff[:email], $staff[:password], true)
+
+        Scripts.createTicket('titleoftheticket107','contentoftheticket107',1)
+        ticket = $database.getRow('ticket','titleoftheticket107', 'title')
+
+        request('/staff/edit', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            departments: '[]'
+        })
+
+        result = request('/ticket/get', {
+            ticketNumber: ticket['ticket_number'],
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        (result['status']).should.equal('success')
+        (result['data']['ticketNumber'].to_i).should.equal(ticket['ticket_number'])
+        (result['data']['title']).should.equal('titleoftheticket107')
+        (result['data']['content']).should.equal('contentoftheticket107')
+    end
+
+    it 'should fail if staff member does not serve to the department of the ticket and is not the author' do
+        ticket = $database.getRow('ticket','2titleofticket87', 'title')
+        request('/user/logout')
+        Scripts.login($staff[:email], $staff[:password], true)
+        
+        result = request('/ticket/get', {
+            ticketNumber: ticket['ticket_number'],
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('NO_PERMISSION')
+
+        request('/staff/edit', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            departments: '[1, 2, 3]',
+            staffId: 1
+        })
     end
 end

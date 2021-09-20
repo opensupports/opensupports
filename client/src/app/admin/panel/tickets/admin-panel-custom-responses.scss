@@ -7,25 +7,30 @@
         float: right;
     }
 
-    &__actions {
-        text-align: left;
+    &__message {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    &__actions,
+    &__optional-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+    }
+
+    &__discard-button,
+    &__delete-button {
+        padding: 0 10px;
     }
 
     &__save-button {
-        display: inline-block;
-        margin-right: 30px;
-    }
-
-    &__optional-buttons {
-        display: inline;
-    }
-
-    &__discard-button {
-        display: inline-block;
-    }
-
-    &__delete-button {
-        display: inline-block;
-        float: right;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
     }
 }

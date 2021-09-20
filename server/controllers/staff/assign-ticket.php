@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /staff/assign-ticket Assign ticket
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  *
  * @apiName Assign ticket
  *
@@ -49,6 +49,7 @@ class AssignStaffController extends Controller {
         $ticketNumber = Controller::request('ticketNumber');
         $staffId = Controller::request('staffId');
         $this->ticket = Ticket::getByTicketNumber($ticketNumber);
+        $user = Controller::getLoggedUser();
 
         if($staffId) {
             $this->staffToAssign = Staff::getDataStore($staffId, 'id');
@@ -68,11 +69,12 @@ class AssignStaffController extends Controller {
             throw new RequestException(ERRORS::TICKET_ALREADY_ASSIGNED);
         }
 
-        if(!$this->ticketHasStaffDepartment())  {
-            throw new RequestException(ERRORS::INVALID_DEPARTMENT);
+        if(!$user->canManageTicket($this->ticket)) {
+            throw new RequestException(ERRORS::NO_PERMISSION);
         } else {
             $this->staffToAssign->sharedTicketList->add($this->ticket);
             $this->ticket->owner = $this->staffToAssign;
+            $this->ticket->totalOwners++;
             $this->ticket->unread = !$this->ticket->isAuthor($this->staffToAssign);
             $event = Ticketevent::getEvent(Ticketevent::ASSIGN);
             $event->setProperties(array(
@@ -90,15 +92,4 @@ class AssignStaffController extends Controller {
 
     }
 
-    public function ticketHasStaffDepartment() {
-        $departmentMatch = false;
-
-        foreach ($this->staffToAssign->sharedDepartmentList as $department) {
-            if($this->ticket->department->id === $department->id) {
-                $departmentMatch = true;
-            }
-        }
-
-        return $departmentMatch;
-    }
 }

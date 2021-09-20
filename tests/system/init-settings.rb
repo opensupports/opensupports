@@ -14,21 +14,26 @@ describe '/system/init-settings' do
 
     it 'should initialize correctly' do
         result = request('/system/init-settings', {
-            'user-system-enabled' => true,
             'registration' => true,
             'title' => 'Support Center',
-            'smtp-host' => 'localhost',
-            'smtp-port' => 7070,
-            'smtp-user' => 'noreply@opensupports.com',
-            'smtp-password' => '',
-            'no-reply-email' => 'noreply@opensupports.com',
-            'language' => 'en'
+            'smtp-host' => 'localhost:7070',
+            'smtp-user' => 'testemail@opensupports.com',
+            'smtp-pass' => 'password',
+            'server-email' => 'testemail@opensupports.com',
+            'language' => 'en',
+            'mandatory-login' => true
         })
 
         (result['status']).should.equal('success')
 
         lang = $database.getRow('setting', 'language', 'name')
         (lang['value']).should.equal('en')
+        
+        default = $database.getRow('setting', 'default-department-id', 'name')
+        (default['value']).should.equal('1')
+
+        locked = $database.getRow('setting', 'default-is-locked', 'name')
+        (locked['value']).should.equal('0')
 
         result = request('/system/init-admin', {
             name: 'Emilia Clarke',

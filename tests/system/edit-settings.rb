@@ -3,25 +3,22 @@ describe'system/edit-settings' do
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should edit settings' do
-        result= request('/system/edit-settings', {
+        result = request('/system/edit-settings', {
             "csrf_userid" => $csrf_userid,
             "csrf_token" => $csrf_token,
             "maintenance-mode" => 0,
-            "time-zone" => -3,
             "layout" => 'full-width',
             "allow-attachments" => 1,
             "max-size" => 2,
             "language" => 'en',
-            "no-reply-email" => 'testemail@hotmail.com'
+            "server-email" => 'testemail@hotmail.com',
+            "default-is-locked" => 1
         })
 
         (result['status']).should.equal('success')
 
         row = $database.getRow('setting', 'maintenance-mode', 'name')
         (row['value']).should.equal('0')
-
-        row = $database.getRow('setting', 'time-zone', 'name')
-        (row['value']).should.equal('-3')
 
         row = $database.getRow('setting', 'layout', 'name')
         (row['value']).should.equal('full-width')
@@ -32,9 +29,10 @@ describe'system/edit-settings' do
         row = $database.getRow('setting', 'language', 'name')
         (row['value']).should.equal('en')
 
-        row = $database.getRow('setting', 'no-reply-email', 'name')
+        row = $database.getRow('setting', 'server-email', 'name')
         (row['value']).should.equal('testemail@hotmail.com')
-
+        row = $database.getRow('setting', 'default-is-locked', 'name')
+        (row['value']).should.equal('1')
         request('/user/logout')
     end
     it 'should fail if supported languages are invalid' do
@@ -65,35 +63,37 @@ describe'system/edit-settings' do
         (result['status']).should.equal('success')
 
         row = $database.getRow('language', 'en', 'code')
-        (row['supported']).should.equal('1')
+        (row['supported']).should.equal(1)
 
         row = $database.getRow('language', 'pt', 'code')
-        (row['supported']).should.equal('1')
+        (row['supported']).should.equal(1)
 
         row = $database.getRow('language', 'jp', 'code')
-        (row['supported']).should.equal('1')
+        (row['supported']).should.equal(1)
 
         row = $database.getRow('language', 'ru', 'code')
-        (row['supported']).should.equal('1')
+        (row['supported']).should.equal(1)
 
         row = $database.getRow('language', 'en', 'code')
-        (row['allowed']).should.equal('1')
+        (row['allowed']).should.equal(1)
 
         row = $database.getRow('language', 'pt', 'code')
-        (row['allowed']).should.equal('1')
+        (row['allowed']).should.equal(1)
 
         row = $database.getRow('language', 'jp', 'code')
-        (row['allowed']).should.equal('1')
+        (row['allowed']).should.equal(1)
 
         row = $database.getRow('language', 'ru', 'code')
-        (row['allowed']).should.equal('1')
+        (row['allowed']).should.equal(1)
 
         row = $database.getRow('language', 'de', 'code')
-        (row['allowed']).should.equal('1')
+        (row['allowed']).should.equal(1)
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('EDIT_SETTINGS')
 
+
+        Scripts.updateLockedDepartmentSetting(0);
         request('/user/logout')
     end
 end

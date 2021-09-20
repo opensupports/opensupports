@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/get-all  Get all staffs
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  *
  * @apiName Get all staffs
  *
@@ -11,7 +11,7 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiDescription This path retrieves information about all the staff member.
  *
- * @apiPermission staff3
+ * @apiPermission staff1
  *
  * @apiUse NO_PERMISSION
  *
@@ -40,8 +40,8 @@ class GetAllStaffController extends Controller {
             $closedTickets = 0;
 
             foreach ($staff->sharedTicketList as $ticket) {
-                if($ticket->closed) $closedTickets++;
-                else $assignedTickets++;
+                if(($ticket->closed) && ($ticket->owner_id == $staff->id)) $closedTickets++;
+                if($ticket->owner_id == $staff->id) $assignedTickets++;
             }
 
             $staffArray[] = [

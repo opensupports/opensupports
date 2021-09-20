@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /user/un-ban Un ban
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  *
  * @apiName Un ban
  *

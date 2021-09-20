@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/comment Comment ticket
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  *
  * @apiName Comment ticket
  *
@@ -17,7 +17,8 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} content Content of the comment.
  * @apiParam {Number} ticketNumber The number of the ticket to comment.
  * @apiParam {Boolean} private Indicates if the comment is not shown to users.
- * @apiParam {Number} images The number of images in the content
+ * @apiParam {Number} images The number of images in the content.
+ * @apiParam {String} apiKey apiKey to comment a ticket.
  * @apiParam image_i The image file of index `i` (mutiple params accepted)
  * @apiParam file The file you with to upload.
  *
@@ -37,65 +38,54 @@ class CommentController extends Controller {
 
     private $ticket;
     private $content;
+    private $session;
+    private $imagePaths;
 
     public function validations() {
-        $session = Session::getInstance();
-
-        if (Controller::isUserSystemEnabled() || Controller::isStaffLogged()) {
-            return [
-                'permission' => 'user',
-                'requestData' => [
-                    'content' => [
-                        'validation' => DataValidator::length(20, 5000),
-                        'error' => ERRORS::INVALID_CONTENT
-                    ],
-                    'ticketNumber' => [
-                        'validation' => DataValidator::validTicketNumber(),
-                        'error' => ERRORS::INVALID_TICKET
-                    ]
+        $this->session = Session::getInstance();
+        return [
+            'permission' => 'user',
+            'requestData' => [
+                'content' => [
+                    'validation' => DataValidator::content(),
+                    'error' => ERRORS::INVALID_CONTENT
+                ],
+                'ticketNumber' => [
+                    'validation' => DataValidator::validTicketNumber(),
+                    'error' => ERRORS::INVALID_TICKET
                 ]
-            ];
-        } else {
-            return [
-                'permission' => 'any',
-                'requestData' => [
-                    'content' => [
-                        'validation' => DataValidator::length(20, 5000),
-                        'error' => ERRORS::INVALID_CONTENT
-                    ],
-                    'ticketNumber' => [
-                        'validation' => DataValidator::equals($session->getTicketNumber()),
-                        'error' => ERRORS::INVALID_TICKET
-                    ],
-                    'csrf_token' => [
-                        'validation' => DataValidator::equals($session->getToken()),
-                        'error' => ERRORS::INVALID_TOKEN
-                    ]
-                ]
-            ];
-        }
+            ]
+        ];
     }
 
     public function handler() {
-        $this->requestData();
-        $ticketAuthor = $this->ticket->authorToArray();
-        $isAuthor = $this->ticket->isAuthor(Controller::getLoggedUser());
-        $isOwner = $this->ticket->isOwner(Controller::getLoggedUser());
+        $ticketNumber = Controller::request('ticketNumber');
+        $this->ticket = Ticket::getByTicketNumber($ticketNumber);
+        $this->content = Controller::request('content', true);
+        $this->user = Controller::getLoggedUser();
 
-        if((Controller::isUserSystemEnabled() || Controller::isStaffLogged()) && !$isOwner && !$isAuthor) {
+        $ticketAuthor = $this->ticket->authorToArray();
+        $isAuthor = $this->ticket->isAuthor($this->user);
+        $isOwner = $this->ticket->isOwner($this->user);
+        $private = Controller::request('private');
+        $apiKey = APIKey::getDataStore(Controller::request('apiKey'), 'token');
+
+        if(!$this->user->canManageTicket($this->ticket)) {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
         $this->storeComment();
 
-        if($isAuthor && $this->ticket->owner) {
-          $this->sendMail([
-            'email' => $this->ticket->owner->email,
-            'name' => $this->ticket->owner->name,
-            'staff' => true
-          ]);
-        } else {
-          $this->sendMail($ticketAuthor);
+        if(!$isAuthor && !$private) {
+            $this->sendMail($ticketAuthor);
+        }
+
+        if($this->ticket->owner && !$isOwner) {
+            $this->sendMail([
+                'email' => $this->ticket->owner->email,
+                'name' => $this->ticket->owner->name,
+                'staff' => true
+            ]);
         }
 
         Log::createLog('COMMENT', $this->ticket->ticketNumber);
@@ -103,33 +93,26 @@ class CommentController extends Controller {
         Response::respondSuccess();
     }
 
-    private function requestData() {
-        $ticketNumber = Controller::request('ticketNumber');
-        $this->ticket = Ticket::getByTicketNumber($ticketNumber);
-        $this->content = Controller::request('content', true);
-    }
-
     private function storeComment() {
         $fileUploader = FileUploader::getInstance();
         $fileUploader->setPermission(FileManager::PERMISSION_TICKET, $this->ticket->ticketNumber);
-        $imagePaths = $this->uploadImages(Controller::isStaffLogged());
         $fileUploader = $this->uploadFile(Controller::isStaffLogged());
 
         $comment = Ticketevent::getEvent(Ticketevent::COMMENT);
         $comment->setProperties(array(
-            'content' => $this->replaceWithImagePaths($imagePaths, $this->content),
+            'content' => $this->replaceWithImagePaths($this->getImagePaths(), $this->content),
             'file' => ($fileUploader instanceof FileUploader) ? $fileUploader->getFileName() : null,
             'date' => Date::getCurrentDate(),
             'private' => (Controller::isStaffLogged() && Controller::request('private')) ? 1 : 0
         ));
 
         if(Controller::isStaffLogged()) {
-            $this->ticket->unread = !$this->ticket->isAuthor(Controller::getLoggedUser());
-            $this->ticket->unreadStaff = !$this->ticket->isOwner(Controller::getLoggedUser());
-            $comment->authorStaff = Controller::getLoggedUser();
-        } else if(Controller::isUserSystemEnabled()) {
+            $this->ticket->unread = !$this->ticket->isAuthor($this->user);
+            $this->ticket->unreadStaff = !$this->ticket->isOwner($this->user);
+            $comment->authorStaff = $this->user;
+        } else {
             $this->ticket->unreadStaff = true;
-            $comment->authorUser = Controller::getLoggedUser();
+            $comment->authorUser = $this->user;
         }
 
         $this->ticket->addEvent($comment);
@@ -145,19 +128,27 @@ class CommentController extends Controller {
 
         $url = Setting::getSetting('url')->getValue();
 
-        if(!Controller::isUserSystemEnabled() && !$isStaff) {
-          $url .= '/check-ticket/' . $this->ticket->ticketNumber;
-          $url .= '/' . $email;
+        if(!Controller::isLoginMandatory() && !$isStaff){
+            $url .= '/check-ticket/' . $this->ticket->ticketNumber;
+            $url .= '/' . $email;
         }
-
         $mailSender->setTemplate(MailTemplate::TICKET_RESPONDED, [
-            'to' => $email,
-            'name' => $name,
-            'title' => $this->ticket->title,
-            'ticketNumber' => $this->ticket->ticketNumber,
-            'url' => $url
+          'to' => $email,
+          'name' => $name,
+          'title' => $this->ticket->title,
+          'ticketNumber' => $this->ticket->ticketNumber,
+          'content' => $this->replaceWithImagePaths($this->getImagePaths(), $this->content),
+          'url' => $url
         ]);
 
         $mailSender->send();
+    }
+    
+    private function getImagePaths() {
+        if(!$this->imagePaths){
+            $this->imagePaths = $this->uploadImages(Controller::isStaffLogged());
+        }
+        
+        return $this->imagePaths;
     }
 }

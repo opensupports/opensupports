@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /system/get-settings Get settings
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  *
  * @apiName Get settings
  *
@@ -38,29 +38,33 @@ class GetSettingsController extends Controller {
                     'language' => Setting::getSetting('language')->getValue(),
                     'reCaptchaKey' => Setting::getSetting('recaptcha-public')->getValue(),
                     'reCaptchaPrivate' => Setting::getSetting('recaptcha-private')->getValue(),
-                    'time-zone' => Setting::getSetting('time-zone')->getValue(),
                     'maintenance-mode' => intval(Setting::getSetting('maintenance-mode')->getValue()),
                     'layout' => Setting::getSetting('layout')->getValue(),
                     'allow-attachments' => intval(Setting::getSetting('allow-attachments')->getValue()),
                     'max-size' => Setting::getSetting('max-size')->getValue(),
                     'url' => Setting::getSetting('url')->getValue(),
                     'title' => Setting::getSetting('title')->getValue(),
-                    'no-reply-email' => Setting::getSetting('no-reply-email')->getValue(),
-                    'smtp-port' => Setting::getSetting('smtp-port')->getValue(),
+                    'server-email' => Setting::getSetting('server-email')->getValue(),
                     'smtp-host' => Setting::getSetting('smtp-host')->getValue(),
                     'smtp-user' => Setting::getSetting('smtp-user')->getValue(),
+                    'imap-host' => Setting::getSetting('imap-host')->getValue(),
+                    'imap-user' => Setting::getSetting('imap-user')->getValue(),
+                    'imap-token' => Setting::getSetting('imap-token')->getValue(),
                     'registration' => Setting::getSetting('registration')->getValue(),
                     'departments' => Department::getAllDepartmentNames(),
                     'supportedLanguages' => Language::getSupportedLanguages(),
                     'allowedLanguages' => Language::getAllowedLanguages(),
                     'session-prefix' => Setting::getSetting('session-prefix')->getValue(),
-                    'mail-template-header-image' => Setting::getSetting('mail-template-header-image')->getValue()
+                    'mail-template-header-image' => Setting::getSetting('mail-template-header-image')->getValue(),
+                    'tags' => Tag::getAll()->toArray(),
+                    'mandatory-login' => Setting::getSetting('mandatory-login')->getValue(),
+                    'default-department-id' => Setting::getSetting('default-department-id')->getValue(),
+                    'default-is-locked' => Setting::getSetting('default-is-locked')->getValue()
                 ];
             } else {
                 $settingsList = [
                     'language' => Setting::getSetting('language')->getValue(),
                     'reCaptchaKey' => Setting::getSetting('recaptcha-public')->getValue(),
-                    'time-zone' => Setting::getSetting('time-zone')->getValue(),
                     'maintenance-mode' => intval(Setting::getSetting('maintenance-mode')->getValue()),
                     'layout' => Setting::getSetting('layout')->getValue(),
                     'allow-attachments' => intval(Setting::getSetting('allow-attachments')->getValue()),
@@ -70,8 +74,11 @@ class GetSettingsController extends Controller {
                     'departments' => Controller::isStaffLogged() ? Department::getAllDepartmentNames() : Department::getPublicDepartmentNames(),
                     'supportedLanguages' => Language::getSupportedLanguages(),
                     'allowedLanguages' => Language::getAllowedLanguages(),
-                    'user-system-enabled' => intval(Setting::getSetting('user-system-enabled')->getValue()),
-                    'session-prefix' => Setting::getSetting('session-prefix')->getValue()
+                    'session-prefix' => Setting::getSetting('session-prefix')->getValue(),
+                    'tags' => Tag::getAll()->toArray(),
+                    'mandatory-login' => Setting::getSetting('mandatory-login')->getValue(),
+                    'default-department-id' => Setting::getSetting('default-department-id')->getValue(),
+                    'default-is-locked' => Setting::getSetting('default-is-locked')->getValue()
                 ];
             }
         }

@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/add-department Add department
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  *
  * @apiName Add department
  *
@@ -31,7 +31,7 @@ class AddDepartmentController extends Controller {
             'permission' => 'staff_3',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::length(2, 100),
+                    'validation' => DataValidator::notBlank()->length(2, 100),
                     'error' => ERRORS::INVALID_NAME
                 ]
             ]

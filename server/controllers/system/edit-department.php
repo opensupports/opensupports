@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /system/edit-department Edit department
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  *
  * @apiName Edit department
  *
@@ -37,7 +37,11 @@ class EditDepartmentController extends Controller {
                 'departmentId' => [
                     'validation' => DataValidator::dataStoreId('department'),
                     'error' => ERRORS::INVALID_DEPARTMENT
-                ]
+                ],
+                'name' => [
+                    'validation' => DataValidator::notBlank()->length(1, 200),
+                    'error' => ERRORS::INVALID_NAME
+                ],
             ]
         ];
     }
@@ -49,6 +53,10 @@ class EditDepartmentController extends Controller {
 
         $departmentInstance = Department::getDataStore($departmentId);
 
+        if($private && $departmentId == Setting::getSetting('default-department-id')->getValue()){
+            throw new RequestException(ERRORS::DEFAULT_DEPARTMENT_CAN_NOT_BE_PRIVATE);
+        }
+        
         if($private && Ticket::count(' author_id IS NOT NULL AND department_id = ? ', [$departmentId])) {
             throw new RequestException(ERRORS::DEPARTMENT_PRIVATE_TICKETS);
         }

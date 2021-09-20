@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /user/get-users Get users list
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  *
  * @apiName Get users list
  *
@@ -21,7 +21,6 @@ use Respect\Validation\Validator as DataValidator;
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_PAGE
  * @apiUse INVALID_ORDER
- * @apiUse USER_SYSTEM_DISABLED
  *
  * @apiSuccess {Object} data
  * @apiSuccess {[User](#api-Data_Structures-ObjectUser)[]} data.users Array of users found
@@ -53,9 +52,6 @@ class GetUsersController extends Controller {
     }
 
     public function handler() {
-        if(!Controller::isUserSystemEnabled()) {
-            throw new RequestException(ERRORS::USER_SYSTEM_DISABLED);
-        }
 
         $userList = $this->getUserList();
         $userListArray = [];

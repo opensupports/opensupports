@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/delete-custom-response Delete custom response
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  *
  * @apiName Delete custom response
  *

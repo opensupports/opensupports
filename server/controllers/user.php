@@ -4,6 +4,7 @@ $userControllers->setGroupPath('/user');
 
 $userControllers->addController(new LoginController);
 $userControllers->addController(new SignUpController);
+$userControllers->addController(new InviteUserController);
 $userControllers->addController(new LogoutController);
 $userControllers->addController(new CheckSessionController);
 $userControllers->addController(new SendRecoverPasswordController);
@@ -20,4 +21,8 @@ $userControllers->addController(new ListBanUserController);
 $userControllers->addController(new VerifyController);
 $userControllers->addController(new EnableUserController);
 $userControllers->addController(new DisableUserController);
+$userControllers->addController(new EditCustomFieldsController);
+$userControllers->addController(new EditSupervisedListController);
+$userControllers->addController(new GetSupervisedTicketController);
+
 $userControllers->finalize();

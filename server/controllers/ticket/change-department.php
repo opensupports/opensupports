@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/change-department Change department
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  *
  * @apiName Change department
  *
@@ -56,9 +56,17 @@ class ChangeDepartmentController extends Controller {
             throw new Exception(ERRORS::NO_PERMISSION);
         }
 
-        if($ticket->owner && $ticket->owner->id !== $user->id && $user->level == 1){
+        if(!$user->canManageTicket($ticket)){
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
+
+        if($ticket->owner && !$ticket->owner->sharedDepartmentList->includesId($department->id)) {
+            $unAssignTicketController = new UnAssignStaffController($user);
+            $unAssignTicketController->validate();
+            $unAssignTicketController->handler();
+        }
+
+        $ticket = Ticket::getByTicketNumber($ticketNumber);
 
         $event = Ticketevent::getEvent(Ticketevent::DEPARTMENT_CHANGED);
         $event->setProperties(array(
@@ -68,14 +76,9 @@ class ChangeDepartmentController extends Controller {
         ));
         $ticket->addEvent($event);
         $ticket->department = $department;
+        $ticket->totalDepartments++;
         $ticket->unread = !$ticket->isAuthor($user);
         $ticket->store();
-
-        if($ticket->owner && !$ticket->owner->sharedDepartmentList->includesId($department->id)) {
-            $unAssignTicketController = new UnAssignStaffController($ticket->owner);
-            $unAssignTicketController->validate();
-            $unAssignTicketController->handler();
-        }
 
         Log::createLog('DEPARTMENT_CHANGED', $ticket->ticketNumber);
 

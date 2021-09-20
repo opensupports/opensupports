@@ -66,17 +66,17 @@ class AdminPanelViewArticle extends React.Component {
         return (
             <div className="admin-panel-view-article__content">
                 <div className="admin-panel-view-article__edit-buttons">
-                    <Button className="admin-panel-view-article__edit-button" size="medium" onClick={this.onEditClick.bind(this, article)} type="tertiary">
-                        {i18n('EDIT')}
-                    </Button>
                     <Button size="medium" onClick={this.onDeleteClick.bind(this, article)}>
                         {i18n('DELETE')}
+                    </Button>
+                    <Button className="admin-panel-view-article__edit-button" size="medium" onClick={this.onEditClick.bind(this, article)} type="tertiary">
+                        {i18n('EDIT')}
                     </Button>
                 </div>
                 <div className="admin-panel-view-article__article">
                     <Header title={article.title}/>
 
-                    <div className="admin-panel-view-article__article-content">
+                    <div className="admin-panel-view-article__article-content ql-editor">
                         <div dangerouslySetInnerHTML={{__html: MentionsParser.parse(article.content)}}/>
                     </div>
                     <div className="admin-panel-view-article__last-edited">
@@ -91,13 +91,13 @@ class AdminPanelViewArticle extends React.Component {
         return (
             <Form values={this.state.form} onChange={(form) => this.setState({form})} onSubmit={this.onFormSubmit.bind(this)}>
                 <div className="admin-panel-view-article__buttons">
-                    <SubmitButton className="admin-panel-view-article__button" type="secondary" size="medium">{i18n('SAVE')}</SubmitButton>
                     <Button className="admin-panel-view-article__button" size="medium" onClick={this.onFormCancel.bind(this)}>
                         {i18n('CANCEL')}
                     </Button>
+                    <SubmitButton className="admin-panel-view-article__button" type="secondary" size="medium">{i18n('SAVE')}</SubmitButton>
                 </div>
                 <FormField name="title" label={i18n('TITLE')} />
-                <FormField name="content" label={i18n('CONTENT')} field="textarea" fieldProps={{allowImages: this.props.allowAttachments}}/>
+                <FormField name="content" label={i18n('CONTENT')} field="textarea" validation="TEXT_AREA" required  fieldProps={{allowImages: this.props.allowAttachments}}/>     
             </Form>
         );
     }
@@ -153,7 +153,7 @@ class AdminPanelViewArticle extends React.Component {
     }
 
     onArticleDeleted(article) {
-        API.call({
+        return API.call({
             path: '/article/delete',
             data: {
                 articleId: article.id

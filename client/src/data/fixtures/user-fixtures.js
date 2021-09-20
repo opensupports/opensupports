@@ -1,4 +1,4 @@
-import _ from 'lodash';
+const _ = require('lodash');
 
 module.exports = [
     {
@@ -159,6 +159,7 @@ module.exports = [
                     email: 'kurt@currycurrylady.hs',
                     verified: false,
                     sendEmailOnNewTicket: true,
+                    customfields: [],
                     tickets: _.times(13).map(() => {
                         return {
                             ticketNumber: '118551',
@@ -173,7 +174,6 @@ module.exports = [
                             language: 'en',
                             unread: false,
                             closed: false,
-                            priority: 'low',
                             author: {
                                 name: 'Haskell Curry',
                                 email: 'haskell@lambda.com'
@@ -232,17 +232,6 @@ module.exports = [
                                         name: 'Haskell Curry',
                                         steve: 'haskell@lambda.com',
                                         staff: false
-                                    }
-                                },
-                                {
-                                    type: 'PRIORITY_CHANGED',
-                                    date: '201504130035',
-                                    content: 'MEDIUM',
-                                    author: {
-                                        name: 'Emilia Clarke',
-                                        email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
-                                        staff: true
                                     }
                                 },
                                 {
@@ -379,6 +368,7 @@ module.exports = [
                     name: 'Haskell Curry',
                     email: 'haskell@lambda.com',
                     sendEmailOnNewTicket: true,
+                    customfields: [],
                     tickets: [
                         {
                             ticketNumber: '445441',
@@ -393,7 +383,6 @@ module.exports = [
                             language: 'en',
                             unread: true,
                             closed: false,
-                            priority: 'low',
                             author: {
                                 id: 12,
                                 name: 'Haskell Curry',
@@ -458,17 +447,6 @@ module.exports = [
                                     }
                                 },
                                 {
-                                    type: 'PRIORITY_CHANGED',
-                                    date: '201504130755',
-                                    content: 'MEDIUM',
-                                    author: {
-                                        name: 'Emilia Clarke',
-                                        email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
-                                        staff: true
-                                    }
-                                },
-                                {
                                     type: 'COMMENT',
                                     date: '201505110759',
                                     content: 'Thanks!, I solved it by myself',
@@ -512,7 +490,6 @@ module.exports = [
                             language: 'en',
                             unread: false,
                             closed: false,
-                            priority: 'medium',
                             author: {
                                 name: 'Haskell Curry',
                                 email: 'haskell@lambda.com'
@@ -561,17 +538,6 @@ module.exports = [
                                     }
                                 },
                                 {
-                                    type: 'PRIORITY_CHANGED',
-                                    date: '201504130943',
-                                    content: 'MEDIUM',
-                                    author: {
-                                        name: 'Emilia Clarke',
-                                        email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
-                                        staff: true
-                                    }
-                                },
-                                {
                                     type: 'COMMENT',
                                     date: '201505110955',
                                     content: 'Thanks!, I soved it by myself',
@@ -615,7 +581,6 @@ module.exports = [
                             language: 'en',
                             unread: false,
                             closed: false,
-                            priority: 'high',
                             author: {
                                 name: 'Haskell Curry',
                                 email: 'haskell@lambda.com'
@@ -674,17 +639,6 @@ module.exports = [
                                         name: 'Haskell Curry',
                                         steve: 'haskell@lambda.com',
                                         staff: false
-                                    }
-                                },
-                                {
-                                    type: 'PRIORITY_CHANGED',
-                                    date: '201504131119',
-                                    content: 'MEDIUM',
-                                    author: {
-                                        name: 'Emilia Clarke',
-                                        email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
-                                        staff: true
                                     }
                                 },
                                 {

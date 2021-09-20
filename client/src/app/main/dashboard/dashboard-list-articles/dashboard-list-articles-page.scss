@@ -2,6 +2,10 @@
 
 .dashboard-list-articles-page {
 
+    @media screen and (min-width: 993px){
+        float: none;
+    }
+
     &__search-results {
 
     }
@@ -31,6 +35,7 @@
     }
 
     &_wrapped {
+        word-break: break-word;
         padding: 0 15px;
     }
 }

@@ -5,7 +5,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/signup Sign up
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  *
  * @apiName Sign up
  *
@@ -18,16 +18,18 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} name The name of the new user.
  * @apiParam {String} email The email of the new user.
  * @apiParam {String} password The password of the new user.
- * @apiParam {String} apiKey APIKey to sign up an user if the user system is disabled.
+ * @apiParam {String} apiKey apiKey to sign up an user if the registration system is disabled.
+ * @apiParam {String} customfield_ Custom field values for this user.
+ * @apiParam {Boolean} indirectSignUp Indicates if the new User has been created by ticket/create
  *
  * @apiUse INVALID_NAME
  * @apiUse INVALID_EMAIL
  * @apiUse INVALID_PASSWORD
  * @apiUse INVALID_CAPTCHA
- * @apiUse USER_SYSTEM_DISABLED
  * @apiUse USER_EXISTS
  * @apiUse ALREADY_BANNED
  * @apiUse NO_PERMISSION
+ * @apiUse INVALID_CUSTOM_FIELD_OPTION
  *
  * @apiSuccess {Object} data Information about created user
  * @apiSuccess {Number} data.userId Id of the new user
@@ -54,7 +56,7 @@ class SignUpController extends Controller {
             'permission' => 'any',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::length(2, 55),
+                    'validation' => DataValidator::notBlank()->length(2, 55),
                     'error' => ERRORS::INVALID_NAME
                 ],
                 'email' => [
@@ -62,7 +64,7 @@ class SignUpController extends Controller {
                     'error' => ERRORS::INVALID_EMAIL
                 ],
                 'password' => [
-                    'validation' => DataValidator::length(5, 200),
+                    'validation' => DataValidator::notBlank()->length(5, 200),
                     'error' => ERRORS::INVALID_PASSWORD
                 ]
             ]
@@ -70,7 +72,7 @@ class SignUpController extends Controller {
 
         if(!$this->csvImported) {
             $validations['requestData']['captcha'] = [
-                'validation' => DataValidator::captcha(),
+                'validation' => DataValidator::captcha(APIKey::USER_CREATE_PERMISSION),
                 'error' => ERRORS::INVALID_CAPTCHA
             ];
         }
@@ -79,16 +81,13 @@ class SignUpController extends Controller {
     }
 
     public function handler() {
-        if(!Controller::isUserSystemEnabled()) {
-            throw new RequestException(ERRORS::USER_SYSTEM_DISABLED);
-        }
 
         $this->storeRequestData();
         $apiKey = APIKey::getDataStore(Controller::request('apiKey'), 'token');
 
-        $existentUser = User::getUser($this->userEmail, 'email');
-
-        if (!$existentUser->isNull()) {
+        $user = User::getUser($this->userEmail, 'email');
+        
+        if (!$user->isNull() && !$user->notRegistered) {
             throw new RequestException(ERRORS::USER_EXISTS);
         }
         $banRow = Ban::getDataStore($this->userEmail,'email');
@@ -100,7 +99,7 @@ class SignUpController extends Controller {
         if (!Setting::getSetting('registration')->value && $apiKey->isNull() && !Controller::isStaffLogged(2) && !$this->csvImported) {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
-
+        
         $userId = $this->createNewUserAndRetrieveId();
 
         if(MailSender::getInstance()->isConnected()) {
@@ -123,15 +122,20 @@ class SignUpController extends Controller {
     }
 
     public function createNewUserAndRetrieveId() {
-        $userInstance = new User();
+        $user = User::getUser($this->userEmail,'email');
+        
+        $userInstance = ($user->isNull() ? new User() : $user );
+        $UserTickets = ($user->isNull() ? 0 : $user->tickets);
 
         $userInstance->setProperties([
             'name' => $this->userName,
             'signupDate' => Date::getCurrentDate(),
-            'tickets' => 0,
+            'tickets' => $UserTickets,
             'email' => $this->userEmail,
             'password' => Hashing::hashPassword($this->userPassword),
-            'verificationToken' => (MailSender::getInstance()->isConnected()) ? $this->verificationToken : null
+            'verificationToken' => (MailSender::getInstance()->isConnected()) ? $this->verificationToken : null,
+            'notRegistered' => Controller::request('indirectSignUp') ?  true : null,
+            'xownCustomfieldvalueList' => $this->getCustomFieldValues()
         ]);
 
         return $userInstance->store();
@@ -147,6 +151,6 @@ class SignUpController extends Controller {
             'verificationToken' => $this->verificationToken
         ]);
 
-        $mailSender->send();
+        if(!Controller::request('indirectSignUp')) $mailSender->send();
     }
 }

@@ -34,7 +34,6 @@ describe 'CustomResponses' do
             })
 
             customResponse = $database.getRow('customresponse', 1)
-
             (result['status']).should.equal('success')
             (customResponse['name']).should.equal('Some common problem')
             (customResponse['content']).should.equal('this is the content of a custom response for a common problem 2')

@@ -1,0 +1,93 @@
+@import "../../../../scss/vars";
+
+.admin-panel-email-settings {
+    &__loading {
+        min-height: 361px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: $grey;
+    }
+
+    &__text-area {
+        width: 100%;
+        height: 45px;
+    }
+
+    &__save-button {
+        display: inline-block;
+        float: right;
+    }
+
+    &__optional-buttons {
+        display: inline-block;
+        float: left;
+    }
+
+    &__discard-button {
+        display: inline-block;
+    }
+
+    &__recover-button {
+        display: inline-block;
+        margin: 0 10px;
+    }
+
+    &__image-container,
+    &__email-container {
+        background-color: $very-light-grey;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 20px;
+        margin-top: 20px;
+    }
+
+    &__box {
+        text-align: center;
+        background-color: $very-light-grey;
+        padding: 30px;
+        margin-bottom: 30px;
+        flex-basis: 48%;
+    }
+
+    &__servers {
+        display: flex;
+        justify-content: space-evenly;
+        margin-top: 30px;
+    }
+
+    &__server-form-buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__imap-message {
+        margin-top: 10px;
+        padding-left: 40px;
+        text-align: left;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .admin-panel-email-settings {
+        &__image-container > label > .input,
+        &__email-container > label > .input {
+            display: unset;
+        }
+
+        &__image-container,
+        &__email-container,
+        &__servers {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__email-server-address,
+        &__image-header-url {
+            width: 100%;
+        }
+    }
+}

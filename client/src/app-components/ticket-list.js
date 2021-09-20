@@ -1,5 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
+import {connect} from 'react-redux';
+import queryString from 'query-string';
 
 import i18n from 'lib-app/i18n';
 import DateTransformer from 'lib-core/date-transformer';
@@ -9,8 +11,10 @@ import DepartmentDropdown from 'app-components/department-dropdown';
 import Table from 'core-components/table';
 import Button from 'core-components/button';
 import Tooltip from 'core-components/tooltip';
-import Icon from 'core-components/icon';
 import Checkbox from 'core-components/checkbox';
+import Tag from 'core-components/tag';
+import Icon from 'core-components/icon';
+import Message from 'core-components/message';
 
 class TicketList extends React.Component {
     static propTypes = {
@@ -25,7 +29,8 @@ class TicketList extends React.Component {
             'secondary'
         ]),
         closedTicketsShown: React.PropTypes.bool,
-        onClosedTicketsShownChange: React.PropTypes.func
+        onClosedTicketsShownChange: React.PropTypes.func,
+        onDepartmentChange: React.PropTypes.func
     };
 
     static defaultProps = {
@@ -43,11 +48,18 @@ class TicketList extends React.Component {
     };
 
     render() {
+        const { type, showDepartmentDropdown, onClosedTicketsShownChange } = this.props;
+
         return (
             <div className="ticket-list">
                 <div className="ticket-list__filters">
-                    {(this.props.type === 'secondary' && this.props.showDepartmentDropdown) ? this.renderDepartmentsDropDown() : null}
-                    {this.props.onClosedTicketsShownChange ? this.renderFilterCheckbox() : null}
+                    {(type === 'primary') ? this.renderMessage() : null}
+                    {
+                        ((type === 'secondary') && showDepartmentDropdown) ?
+                            this.renderDepartmentsDropDown() :
+                            null
+                    }
+                    {onClosedTicketsShownChange ? this.renderFilterCheckbox() : null}
                 </div>
                 <Table {...this.getTableProps()} />
             </div>
@@ -56,7 +68,15 @@ class TicketList extends React.Component {
 
 
     renderFilterCheckbox() {
-        return <Checkbox className="ticket-list__checkbox" label={i18n("SHOW_CLOSED_TICKETS")} value={this.props.closedTicketsShown} onChange={this.props.onClosedTicketsShownChange} wrapInLabel/>
+        return (
+            <Checkbox
+                className="ticket-list__checkbox"
+                label={i18n("SHOW_CLOSED_TICKETS")}
+                value={this.props.closedTicketsShown}
+                onChange={this.props.onClosedTicketsShownChange}
+                wrapInLabel
+            />
+        );
     }
 
     renderDepartmentsDropDown() {
@@ -67,28 +87,46 @@ class TicketList extends React.Component {
         );
     }
 
+    renderMessage() {
+        switch (queryString.parse(window.location.search)["message"]) {
+            case 'success':
+                return <Message className="create-ticket-form__message" type="success">{i18n('TICKET_SENT')}</Message>
+            case 'fail':
+                return <Message className="create-ticket-form__message" type="error">{i18n('TICKET_SENT_ERROR')}</Message>;
+            default:
+                return null;
+        }
+    }
+
     getDepartmentDropdownProps() {
+        const { departments, onDepartmentChange } = this.props;
+
         return {
             departments: this.getDepartments(),
             onChange: (event) => {
+                const departmentId = event.index && departments[event.index - 1].id;
+
                 this.setState({
-                    selectedDepartment: event.index && this.props.departments[event.index - 1].id
+                    selectedDepartment: departmentId
                 });
+
+                onDepartmentChange && onDepartmentChange(departmentId || null);
             },
             size: 'medium'
         };
     }
 
     getTableProps() {
+        const { loading, page, pages, onPageChange } = this.props;
+
         return {
-            loading: this.props.loading,
+            loading,
             headers: this.getTableHeaders(),
             rows: this.getTableRows(),
             pageSize: 10,
-            comp: this.compareFunction,
-            page: this.props.page,
-            pages: this.props.pages,
-            onPageChange: this.props.onPageChange
+            page,
+            pages,
+            onPageChange
         };
     }
 
@@ -103,7 +141,9 @@ class TicketList extends React.Component {
     }
 
     getTableHeaders() {
-        if (this.props.type  == 'primary' ) {
+        const { type } = this.props;
+
+        if(type == 'primary' ) {
             return [
                 {
                     key: 'number',
@@ -122,11 +162,14 @@ class TicketList extends React.Component {
                 },
                 {
                     key: 'date',
-                    value: i18n('DATE'),
+                    value:  <div>
+                                {i18n('DATE')}
+                                {this.renderSortArrow('date')}
+                            </div>,
                     className: 'ticket-list__date col-md-2'
                 }
             ];
-        } else if (this.props.type == 'secondary') {
+        } else if(type == 'secondary') {
             return [
                 {
                     key: 'number',
@@ -137,11 +180,6 @@ class TicketList extends React.Component {
                     key: 'title',
                     value: i18n('TITLE'),
                     className: 'ticket-list__title col-md-4'
-                },
-                {
-                    key: 'priority',
-                    value: i18n('PRIORITY'),
-                    className: 'ticket-list__priority col-md-1'
                 },
                 {
                     key: 'department',
@@ -155,11 +193,36 @@ class TicketList extends React.Component {
                 },
                 {
                     key: 'date',
-                    value: i18n('DATE'),
+                    value:  <div>
+                                {i18n('DATE')}
+                                {this.renderSortArrow('date')}
+                            </div>,
                     className: 'ticket-list__date col-md-2'
                 }
             ];
         }
+    }
+
+    renderSortArrow(header) {
+        const { orderBy, showOrderArrows, onChangeOrderBy } = this.props;
+
+        return (
+            showOrderArrows ?
+                <Icon
+                    name={`arrow-${this.getIconName(header, orderBy)}`}
+                    className="ticket-list__order-icon"
+                    color={this.getIconColor(header, orderBy)}
+                    onClick={() => onChangeOrderBy(header)} /> :
+                null
+        );
+    }
+
+    getIconName(header, orderBy) {
+        return (orderBy && orderBy.value === header && orderBy.asc) ? "up" : "down";
+    }
+
+    getIconColor(header, orderBy) {
+        return (orderBy && orderBy.value === header) ? "gray" : "white";
     }
 
     getTableRows() {
@@ -167,95 +230,73 @@ class TicketList extends React.Component {
     }
 
     getTickets() {
-        return (this.state.selectedDepartment) ? _.filter(this.props.tickets, (ticket) => {
-            return ticket.department.id == this.state.selectedDepartment
-        }) : this.props.tickets;
+        const { tickets } = this.props;
+        const { selectedDepartment } = this.state;
+
+        return (
+            (selectedDepartment) ?
+                _.filter(tickets, (ticket) => { return ticket.department.id == selectedDepartment}) :
+                tickets
+        );
     }
 
     gerTicketTableObject(ticket) {
-        let titleText = (this.isTicketUnread(ticket)) ? ticket.title  + ' (1)' : ticket.title;
+        const { date, title, ticketNumber, closed, tags, department, author } = ticket;
+        const dateTodayWithOutHoursAndMinutes = DateTransformer.getDateToday();
+        const ticketDateWithOutHoursAndMinutes = Math.floor(DateTransformer.UTCDateToLocalNumericDate(JSON.stringify(date*1)) / 10000);
+        const stringTicketLocalDateFormat = DateTransformer.transformToString(date, false, true);
+        const ticketDate = (
+            ((dateTodayWithOutHoursAndMinutes - ticketDateWithOutHoursAndMinutes) > 1) ?
+                stringTicketLocalDateFormat :
+                `${(dateTodayWithOutHoursAndMinutes - ticketDateWithOutHoursAndMinutes) ? "Yesterday" : "Today"} at ${stringTicketLocalDateFormat.slice(-5)}`
+        );
+        let titleText = (this.isTicketUnread(ticket)) ? title + ' (1)' : title;
 
         return {
             number: (
-                <Tooltip content={<TicketInfo ticket={ticket}/>} openOnHover>
-                    {'#' + ticket.ticketNumber}
+                <Tooltip content={<TicketInfo ticket={ticket} />} openOnHover>
+                    {'#' + ticketNumber}
                 </Tooltip>
             ),
             title: (
-                <Button className="ticket-list__title-link" type="clean" route={{to: this.props.ticketPath + ticket.ticketNumber}}>
-                    {titleText}
-                </Button>
+                <div>
+                    {closed ? <Icon size="sm" name="lock" /> : null}
+                    <Button className="ticket-list__title-link" type="clean" route={{to: this.props.ticketPath + ticketNumber}}>
+                        {titleText}
+                    </Button>
+                    {(tags || []).map((tagName,index) => {
+                        let tag = _.find(this.props.tags, {name:tagName});
+                        return <Tag size='small' name={tag && tag.name} color={tag && tag.color} key={index} />
+                    })}
+                </div>
+
             ),
-            priority: this.getTicketPriority(ticket.priority),
-            department: ticket.department.name,
-            author: ticket.author.name,
-            date: DateTransformer.transformToString(ticket.date, false),
+            department: department.name,
+            author: author.name,
+            date: ticketDate,
             unread: this.isTicketUnread(ticket),
             highlighted: this.isTicketUnread(ticket)
         };
     }
 
-    getTicketPriority(priority) {
-        if(priority == 'high'){
-            return (
-                <span className="ticket-list__priority-high">{i18n('HIGH')}</span>
-            );
-        }
-        if(priority == 'medium'){
-            return (
-                <span className="ticket-list__priority-medium">{i18n('MEDIUM')}</span>
-            );
-        }
-        if(priority == 'low'){
-            return (
-                <span className="ticket-list__priority-low">{i18n('LOW')}</span>
-            );
-        }
-    }
-
-    compareFunction(row1, row2) {
-        if (row1.closed == row2.closed) {
-            if (row1.unread == row2.unread) {
-                let s1 = row1.date;
-                let s2 = row2.date;
-
-                let y1 = s1.substring(0, 4);
-                let y2 = s2.substring(0, 4);
-
-                if (y1 == y2) {
-                    let m1 = s1.substring(4, 6);
-                    let m2 = s2.substring(4, 6);
-
-                    if (m1 == m2) {
-                        let d1 = s1.substring(6, 8);
-                        let d2 = s2.substring(6, 8);
-
-                        if (d1 == d2) {
-                            return 0;
-                        }
-                        return d1 > d2 ? -1 : 1;
-                    }
-                    return m1 > m2 ? -1 : 1;
-                }
-                return y1 > y2 ? -1 : 1;
-            }
-            return row1.unread ? -1 : 1;
-        }
-        return row1.closed ? -1 : 1;
-    }
-
     isTicketUnread(ticket) {
-        if(this.props.type === 'primary') {
-            return ticket.unread;
-        } else if(this.props.type === 'secondary') {
-              if(ticket.author.id == this.props.userId && ticket.author.staff) {
-                  return ticket.unread;
-              } else {
-                  return ticket.unreadStaff;
-              }
+        const { type, userId } = this.props;
+        const { unread, author, unreadStaff } = ticket;
+
+        if(type === 'primary') {
+            return unread;
+        } else if(type === 'secondary') {
+            if(author.id == userId && author.staff) {
+                return unread;
+            } else {
+                return unreadStaff;
+            }
         }
     }
 }
 
-
-export default TicketList;
+export default connect((store) => {
+    return {
+        tags: store.config['tags']
+    };
+})(TicketList);

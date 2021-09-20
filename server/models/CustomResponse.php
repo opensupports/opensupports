@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} CustomResponse CustomResponse
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  * @apiGroup Data Structures
  * @apiParam {Number} id Id of the custom response.
  * @apiParam {String} content Content of the custom response.

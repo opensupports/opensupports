@@ -1,9 +1,9 @@
 <?php
 /**
  * @api {OBJECT} TicketEvent TicketEvent
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  * @apiGroup Data Structures
- * @apiParam {String}  type The type of the ticket event. It can be COMMENT, ASSIGN, UN_ASSIGN, CLOSE, RE_OPEN, DEPARTMENT_CHANGED or PRIORITY_CHANGED
+ * @apiParam {String}  type The type of the ticket event. It can be COMMENT, ASSIGN, UN_ASSIGN, CLOSE, RE_OPEN or DEPARTMENT_CHANGED
  * @apiParam {String}  content The content of the ticket event.
  * @apiParam {Object}  author The author of the ticket event.
  * @apiParam {Number}  author.id The author's id of the ticket event.
@@ -25,7 +25,6 @@ class Ticketevent extends DataStore {
     const CLOSE = 'CLOSE';
     const RE_OPEN = 'RE_OPEN';
     const DEPARTMENT_CHANGED = 'DEPARTMENT_CHANGED';
-    const PRIORITY_CHANGED = 'PRIORITY_CHANGED';
 
     private static function getEventTypes() {
         return [
@@ -35,7 +34,6 @@ class Ticketevent extends DataStore {
             'CLOSE',
             'RE_OPEN',
             'DEPARTMENT_CHANGED',
-            'PRIORITY_CHANGED'
         ];
     }
 
@@ -60,7 +58,15 @@ class Ticketevent extends DataStore {
             'authorUser',
             'authorStaff',
             'date',
-            'private'
+            'private',
+            'editedContent'
+        ];
+    }
+
+    public static function getFetchAs() {
+        return [
+            'authorUser' => 'user',
+            'authorStaff' => 'staff'
         ];
     }
 
@@ -75,18 +81,25 @@ class Ticketevent extends DataStore {
 
         return new NullDataStore();
     }
+    
+    public static function getTicketEvent($value, $property = 'id') {
+        return parent::getDataStore($value, $property);
+    }
 
     public function toArray() {
         $user = ($this->authorStaff) ? $this->authorStaff : $this->authorUser;
+        $author = $this->ticket->authorToArray();
 
         return [
             'type' => $this->type,
             'ticketNumber' => $this->ticket->ticketNumber,
             'author' => [
-                'name' => $user ? $user->name : null,
+                'name' => $user ? $user->name : $author['name'],
                 'staff' => $user instanceOf Staff,
-                'id' => $user ? $user->id : null
-            ]
+                'id' => $user ? $user->id : null,
+                'customfields' => ($user && $user->xownCustomfieldvalueList) ? $user->xownCustomfieldvalueList->toArray() : [],
+            ],
+            'edited' => $this->editedContent
         ];
     }
 }

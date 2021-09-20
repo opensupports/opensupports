@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/edit Edit staff
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  *
  * @apiName Edit staff
  *
@@ -42,7 +42,7 @@ class EditStaffController extends Controller {
                     'error' => ERRORS::INVALID_EMAIL
                 ],
                 'password' => [
-                    'validation' => DataValidator::oneOf(DataValidator::length(5, 200), DataValidator::falseVal()),
+                    'validation' => DataValidator::oneOf(DataValidator::notBlank()->length(5, 200), DataValidator::falseVal()),
                     'error' => ERRORS::INVALID_PASSWORD
                 ],
                 'level' => [
@@ -59,16 +59,14 @@ class EditStaffController extends Controller {
 
         if(!$staffId) {
             $this->staffInstance = Controller::getLoggedUser();
-        } else if(Controller::isStaffLogged(3)) {
+        } else if(Controller::isStaffLogged(3) || ((Controller::isStaffLogged() && Controller::getLoggedUser()->id == $staffId)) ) {
             $this->staffInstance = Staff::getDataStore($staffId, 'id');
 
             if($this->staffInstance->isNull()) {
                 throw new RequestException(ERRORS::INVALID_STAFF);
-                return;
             }
         } else {
             throw new RequestException(ERRORS::NO_PERMISSION);
-            return;
         }
 
         if(Controller::request('departments')) {

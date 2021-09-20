@@ -16,7 +16,7 @@ describe'/staff/delete' do
         (row).should.equal(nil)
 
         row = $database.getRow('department', 1, 'id')
-        (row['owners']).should.equal('3')
+        (row['owners']).should.equal(4)
 
     end
 
@@ -31,6 +31,6 @@ describe'/staff/delete' do
         (result['message']).should.equal('INVALID_STAFF')
 
         row = $database.getRow('department', 1, 'id')
-        (row['owners']).should.equal('3')
+        (row['owners']).should.equal(4)
     end
 end

@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Staff Staff
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  * @apiGroup Data Structures
  * @apiParam {String} name Name of the staff member.
  * @apiParam {String} email Email of the staff member.
@@ -41,7 +41,7 @@ class Staff extends DataStore {
         return [
             'level' => 1,
             'ownStatList' => new DataStoreList(),
-            'sendEmailOnNewTicket' => 0 
+            'sendEmailOnNewTicket' => 0
         ];
     }
 
@@ -49,7 +49,21 @@ class Staff extends DataStore {
         return parent::getDataStore($value, $property);
     }
 
-    public function toArray() {
+    public function canManageTicket(Ticket $ticket){
+        return $this->sharedDepartmentList->includesId($ticket->departmentId) || $this->id === $ticket->authorStaffId;
+    }
+
+    public function toArray($minimal = false) {
+        if($minimal) {
+            return [
+                'id' => $this->id,
+                'name' => $this->name,
+                'email' => $this->email,
+                'profilePic' => $this->profilePic,
+                'isStaff' => 1
+            ];
+        }
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -58,7 +72,7 @@ class Staff extends DataStore {
             'level' => $this->level,
             'departments' => $this->sharedDepartmentList->toArray(),
             'tickets' => $this->sharedTicketList->toArray(),
-            'lastLogin' => $this->lastLogin ,
+            'lastLogin' => $this->lastLogin,
             'sendEmailOnNewTicket' => $this->sendEmailOnNewTicket
         ];
     }

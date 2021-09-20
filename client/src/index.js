@@ -2,10 +2,18 @@ import React  from 'react';
 import {render} from 'react-dom'
 import { Provider } from 'react-redux';
 
+import history from 'lib-app/history';
+
 import SessionActions from 'actions/session-actions';
 import ConfigActions from 'actions/config-actions';
+import searchFiltersActions from 'actions/search-filters-actions';
+
 import routes from 'app/Routes';
 import store from 'app/store';
+
+import { updateSearchTicketsFromURL } from './app/admin/panel/tickets/admin-panel-search-tickets';
+
+import './main.scss';
 
 Array.prototype.swap = function (x,y) {
     var b = this[x];
@@ -14,12 +22,12 @@ Array.prototype.swap = function (x,y) {
     return this;
 };
 
-if (isProd === 'disabled') {
+if (process.env.NODE_ENV !== 'production') {
     // Enable React devtools
     window.React = React;
 }
 
-if (noFixtures === 'disabled') {
+if (process.env.FIXTURES) {
     require('lib-app/fixtures-loader');
 }
 
@@ -35,6 +43,11 @@ let unsubscribe = store.subscribe(() => {
         unsubscribe();
         renderApplication();
     }
+});
+
+history.listen(() => {
+    store.dispatch(searchFiltersActions.setLoadingInTrue());
+    updateSearchTicketsFromURL();
 });
 
 store.dispatch(ConfigActions.checkInstallation());

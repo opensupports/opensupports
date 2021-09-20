@@ -1,20 +1,24 @@
 DB_HOST ?= `docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' opensupports-db`
 
-install:
-	@apt-get install ruby-full
-	@apt-get install libmysqlclient-dev ruby-dev
-	@gem install bundler
-	@bundle install
+build:
+	@docker build -t opensupports-tests .
 
-run: export MYSQL_HOST=127.0.0.1
-run: export MYSQL_PORT=4040
 run:
+	@docker run -it --network os-net -v ${PWD}:/app -v ${PWD}/../server:/server opensupports-tests make test
+
+clear:
+	@docker run -it --network os-net -v ${PWD}:/app -v ${PWD}/../server:/server opensupports-tests make truncate-db
+
+test: export MYSQL_HOST=opensupports-db
+test: export MYSQL_PORT=3306
+test: export API_URL=http://opensupports-srv
+test:
 	 ./run-tests.sh
 
 
-clear: export MYSQL_HOST=127.0.0.1
-clear: export MYSQL_PORT=4040
-clear:
-	./clean_db.sh && \
-  ./clean_db.sh && \
-  ./clean_db.sh
+truncate-db: export MYSQL_HOST=opensupports-db
+truncate-db: export MYSQL_PORT=3306
+truncate-db:
+	./truncate_db.sh && \
+  ./truncate_db.sh && \
+  ./truncate_db.sh

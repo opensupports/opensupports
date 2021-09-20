@@ -4,7 +4,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {get} /system/download Download file
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  *
  * @apiName Download file
  *
@@ -57,7 +57,7 @@ class DownloadController extends Controller {
                     }
                     break;
                 case FileManager::PERMISSION_ARTICLE:
-                    if(Controller::isUserSystemEnabled() && !$session->sessionExists()) {
+                    if(!$session->sessionExists()) {
                         return Response::respond403();
                     }
                     break;

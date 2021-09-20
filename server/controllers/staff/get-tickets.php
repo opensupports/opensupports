@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/get-tickets Get tickets
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  *
  * @apiName Get tickets
  *
@@ -46,15 +46,28 @@ class GetTicketStaffController extends Controller {
         $user = Controller::getLoggedUser();
         $closed = Controller::request('closed');
         $page = Controller::request('page');
+        $departmentId = Controller::request('departmentId');
         $offset = ($page-1)*10;
 
-        if ($closed) {
-            $tickets = $user->withCondition(' TRUE LIMIT 10 OFFSET ?', [$offset])->sharedTicketList->toArray(true);
-            $countTotal = $user->countShared('ticket');
-        } else {
-            $tickets = $user->withCondition(' closed = ? LIMIT 10 OFFSET ?', ['0', $offset])->sharedTicketList->toArray(true);
-            $countTotal = $user->withCondition(' closed = ?', ['0'])->countShared('ticket');
+        $condition = 'TRUE';
+        $bindings = [];
+
+        if($departmentId) {
+            $condition .= ' AND department_id = ?';
+            $bindings[] = $departmentId;
         }
+
+        if(!$closed) {
+            $condition .= ' AND closed = ?';
+            $bindings[] = '0';
+        }
+
+        $countTotal = $user->withCondition($condition, $bindings)->countShared('ticket');
+
+        $condition .= ' LIMIT 10 OFFSET ?';
+        $bindings[] = $offset;
+
+        $tickets = $user->withCondition($condition, $bindings)->sharedTicketList->toArray(true);
 
         Response::respondSuccess([
             'tickets' => $tickets,

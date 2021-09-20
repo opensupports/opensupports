@@ -1,0 +1,17 @@
+{
+  "name": "release_script",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "modify-files": "node modify-files.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "edit-json-file": "^1.5.0",
+    "github-release-cli": "^2.0.0",
+    "regex-replace": "^2.3.1",
+    "replace-in-file": "^6.1.0"
+  }
+}

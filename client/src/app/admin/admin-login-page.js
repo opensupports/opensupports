@@ -49,11 +49,32 @@ class AdminLoginPage extends React.Component {
             <div>
                 <Widget className="admin-login-page__content">
                     <div className="admin-login-page__image"><img width="100%" src={API.getURL() + '/images/logo.png'} alt="OpenSupports Admin Panel"/></div>
-                    <div className="admin-login-page__login-form">
-                        <Form onSubmit={this.onLoginFormSubmit.bind(this)} loading={this.props.session.pending}>
-                            <FormField name="email" label={i18n('EMAIL')} field="input" validation="EMAIL" fieldProps={{size:'large'}} required />
-                            <FormField name="password" label={i18n('PASSWORD')} field="input" fieldProps={{password:true, size:'large'}} />
-                            <SubmitButton>{i18n('LOG_IN')}</SubmitButton>
+                    <div className="admin-login-page__login-form-container">
+                        <Form {...this.getLoginFormProps()}>
+                            <div className="admin-login-page__login-form-container__login-form__fields">
+                                <FormField
+                                    name="email"
+                                    label={i18n('EMAIL')}
+                                    className="admin-login-page__login-form-container__login-form__fields__email"
+                                    field="input"
+                                    validation="EMAIL"
+                                    fieldProps={{size:'large'}}
+                                    required />
+                                <FormField
+                                    name="password"
+                                    label={i18n('PASSWORD')}
+                                    className="admin-login-page__login-form-container__login-form__fields__password"
+                                    field="input"
+                                    fieldProps={{password:true, size:'large'}} />
+                                <FormField
+                                    name="remember"
+                                    label={i18n('REMEMBER_ME')}
+                                    className="admin-login-page__login-form-container__login-form__fields__remember"
+                                    field="checkbox" />
+                            </div>
+                            <div className="admin-login-page__login-form-container__login-form__submit-button">
+                                <SubmitButton>{i18n('LOG_IN')}</SubmitButton>
+                            </div>
                         </Form>
                     </div>
                     {this.renderRecoverStatus()}
@@ -68,7 +89,7 @@ class AdminLoginPage extends React.Component {
 
     renderPasswordRecovery() {
         return (
-            <div>
+            <div className="admin-login-page__recovery-form-container">
                 <PasswordRecovery recoverSent={this.state.recoverSent} formProps={this.getRecoverFormProps()} onBackToLoginClick={this.onBackToLoginClick.bind(this)} renderLogo={true}/>
             </div>
         );
@@ -105,7 +126,7 @@ class AdminLoginPage extends React.Component {
     getLoginFormProps() {
         return {
             loading: this.props.session.pending,
-            className: 'admin-login-page__form',
+            className: 'admin-login-page__login-form-container__login-form',
             ref: 'loginForm',
             onSubmit: this.onLoginFormSubmit.bind(this),
             errors: this.getLoginFormErrors(),
@@ -114,12 +135,17 @@ class AdminLoginPage extends React.Component {
     }
 
     getRecoverFormProps() {
+        const {
+            loadingRecover,
+            recoverFormErrors
+        } = this.state;
+
         return {
-            loading: this.state.loadingRecover,
-            className: 'admin-login-page__form',
+            loading: loadingRecover,
+            className: 'admin-login-page__recovery-form-container__recovery-form',
             ref: 'recoverForm',
             onSubmit: this.onForgotPasswordSubmit.bind(this),
-            errors: this.state.recoverFormErrors,
+            errors: recoverFormErrors,
             onValidateErrors: this.onRecoverFormErrorsValidation.bind(this)
         };
     }

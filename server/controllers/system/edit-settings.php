@@ -1,8 +1,10 @@
 <?php
+use Respect\Validation\Validator as DataValidator;
+DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /system/edit-settings Edit settings
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  *
  * @apiName Edit settings
  *
@@ -14,7 +16,7 @@
  *
  * @apiParam {String} allowedLanguages The list of languages allowed.
  * @apiParam {String} supportedLanguages The list of languages supported.
- * @apiParam {Setting} setting A setting can be any of the following: language, recaptcha-public, recaptcha-private, no-reply-email, smtp-host, smtp-port, smtp-user, smtp-pass, time-zone, maintenance-mode, layout, allow-attachments, max-size, title, url.
+ * @apiParam {Setting} setting A setting can be any of the following: language, recaptcha-public, recaptcha-private, server-email, smtp-host, smtp-port, smtp-user, smtp-pass, maintenance-mode, layout, allow-attachments, max-size, title, url.
  *
  * @apiUse NO_PERMISSION
  *
@@ -29,7 +31,12 @@ class EditSettingsController extends Controller {
     public function validations() {
         return [
             'permission' => 'staff_3',
-            'requestData' => []
+            'requestData' => [
+                'default-department-id' => [
+                    'validation' => DataValidator::oneOf(DataValidator::dataStoreId('department'),DataValidator::nullType()),
+                    'error' => ERRORS::INVALID_DEFAULT_DEPARTMENT
+                ],
+            ]
         ];
     }
 
@@ -38,20 +45,25 @@ class EditSettingsController extends Controller {
             'language',
             'recaptcha-public',
             'recaptcha-private',
-            'no-reply-email',
+            'server-email',
+            'imap-host',
+            'imap-user',
+            'imap-pass',
+            'imap-token',
             'smtp-host',
-            'smtp-port',
             'smtp-user',
             'smtp-pass',
-            'time-zone',
             'maintenance-mode',
             'layout',
             'allow-attachments',
             'max-size',
             'title',
             'url',
-            'mail-template-header-image'
+            'mail-template-header-image',
+            'default-is-locked',
+            'default-department-id'
         ];
+        $this->checkDefaultDepartmentValid();
 
         foreach($settings as $setting) {
             if(Controller::request($setting)!==null) {
@@ -60,6 +72,7 @@ class EditSettingsController extends Controller {
                 $settingInstance->store();
             }
         }
+
 
         if(Controller::request('allowedLanguages') || Controller::request('supportedLanguages')) {
             $this->handleLanguages();
@@ -86,6 +99,25 @@ class EditSettingsController extends Controller {
 
             $language->store();
         }
-
     }
+
+    public function checkDefaultDepartmentValid() {
+                
+        $departmentId = Controller::request('default-department-id');
+
+        if($departmentId){
+            $Publicdepartments = Department::getPublicDepartmentNames();
+            
+            $isValid = false;
+            
+            foreach($Publicdepartments as $department) {
+                if($department['id'] == $departmentId){ 
+                    $isValid = true;
+                }
+            }
+
+            if(!$isValid) throw new Exception(ERRORS::INVALID_DEFAULT_DEPARTMENT);
+        }
+    }
+        
 }

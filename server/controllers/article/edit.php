@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /article/edit Edit article
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  *
  * @apiName Edit a article
  *
@@ -41,7 +41,15 @@ class EditArticleController extends Controller {
                 'articleId' => [
                     'validation' => DataValidator::dataStoreId('article'),
                     'error' => ERRORS::INVALID_TOPIC
-                ]
+                ],
+                'title' => [
+                    'validation' => DataValidator::oneOf(DataValidator::notBlank()->length(1, 200),DataValidator::nullType()),
+                    'error' => ERRORS::INVALID_TITLE
+                ],
+                'content' => [
+                    'validation' => DataValidator::oneOf(DataValidator::content(),DataValidator::nullType()),
+                    'error' => ERRORS::INVALID_CONTENT
+                ],
             ]
         ];
     }

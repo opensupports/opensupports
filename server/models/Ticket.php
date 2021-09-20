@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Ticket Ticket
- * @apiVersion 4.3.2
+ * @apiVersion 4.9.0
  * @apiGroup Data Structures
  * @apiParam {Number}  ticketNumber The number of the ticket.
  * @apiParam {String}  title The title of the ticket.
@@ -14,7 +14,6 @@
  * @apiParam {Boolean}  unread Indicates if the user has already read the last comment.
  * @apiParam {Boolean}  unreadStaff Indicates if the staff has already read the last comment.
  * @apiParam {Boolean}  closed Indicates if the ticket is closed.
- * @apiParam {String}  priority The priority of the ticket. It can be LOW, MEDIUM or HIGH.
  * @apiParam {Object}  author The author of the ticket.
  * @apiParam {Number}  author.id The id of the author of the ticket.
  * @apiParam {String}  author.name The author's name of the ticket.
@@ -41,7 +40,9 @@ class Ticket extends DataStore {
             'date',
             'unread',
             'closed',
-            'priority',
+            'first_closed_at',
+            'last_closed_at',
+            'reopened',
             'author',
             'authorStaff',
             'owner',
@@ -49,8 +50,21 @@ class Ticket extends DataStore {
             'unreadStaff',
             'language',
             'authorEmail',
-            'authorName'
+            'authorName',
+            'sharedTagList',
+            'editedContent',
+            'editedTitle',
+            'totalDepartments',
+            'totalOwners'
         );
+    }
+
+    public static function getFetchAs() {
+        return [
+            'author' => 'user',
+            'authorStaff' => 'staff',
+            'owner' => 'staff',
+        ];
     }
 
     public static function getTicket($value, $property = 'id') {
@@ -79,7 +93,6 @@ class Ticket extends DataStore {
 
     public function getDefaultProps() {
         return array(
-            'priority' => 'low',
             'unread' => false,
             'unreadStaff' => true,
             'ticketNumber' => $this->generateUniqueTicketNumber()
@@ -125,10 +138,12 @@ class Ticket extends DataStore {
             'unread' => !!$this->unread,
             'unreadStaff' => !!$this->unreadStaff,
             'closed' => !!$this->closed,
-            'priority' => $this->priority,
             'author' => $this->authorToArray(),
             'owner' => $this->ownerToArray(),
-            'events' => $minimized ? [] : $this->eventsToArray()
+            'events' => $minimized ? [] : $this->eventsToArray(),
+            'tags' => $this->sharedTagList->toArray(true),
+            'edited' => $this->editedContent,
+            'editedTitle' => $this->editedTitle
         ];
     }
 
@@ -141,7 +156,8 @@ class Ticket extends DataStore {
                 'name' => $author->name,
                 'staff' => $author instanceof Staff,
                 'profilePic' => ($author instanceof Staff) ? $author->profilePic : null,
-                'email' => $author->email
+                'email' => $author->email,
+                'customfields' => $author->xownCustomfieldvalueList ? $author->xownCustomfieldvalueList->toArray() : [],
             ];
         } else {
             return [
@@ -178,6 +194,8 @@ class Ticket extends DataStore {
                 'date'=> $ticketEvent->date,
                 'file'=> $ticketEvent->file,
                 'private'=> $ticketEvent->private,
+                'edited' => $ticketEvent->editedContent,
+                'id' => $ticketEvent->id
             ];
 
             $author = $ticketEvent->getAuthor();

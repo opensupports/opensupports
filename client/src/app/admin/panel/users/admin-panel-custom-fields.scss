@@ -1,0 +1,17 @@
+.admin-panel-custom-fields {
+
+    &__list {
+        text-align: left;
+    }
+
+    &__container-button {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 20px;
+
+        &__add-button {
+        }
+    }
+}

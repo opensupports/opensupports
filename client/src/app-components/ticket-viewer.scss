@@ -1,7 +1,6 @@
 @import "../scss/vars";
 
 .ticket-viewer {
-
     &__header {
         background-color: $primary-blue;
         border-top-right-radius: 4px;
@@ -9,31 +8,148 @@
         color: white;
         font-size: 16px;
         padding: 6px 0;
+        display: flex;
+        align-items:center;
+        justify-content:center;
+
+        &:hover {
+            .ticket-viewer__edit-title-icon {
+                color: $grey;
+            }
+        }
     }
 
+    &__buttons-column {
+        padding-top: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    &__buttons-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 250px;
+    }
+
+    &__edited-title-text {
+        font-style: italic;
+        font-size: 14px;
+        margin: 0 10px;
+    }
+
+    &__edit-icon {
+        right: 12px;
+        margin: 0 10px;
+        color: $light-grey;
+
+        &:hover {
+            cursor:pointer;
+        }
+    }
+
+    &__edit-title-icon {
+        color: $primary-blue;
+        right: 12px;
+        margin: 0 10px;
+
+        &:hover {
+            cursor:pointer;
+        }
+    }
+
+    &__edit-status__buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    &___input-edit-title {
+        color: black;
+        align-items:center;
+        justify-content: center;
+        margin-bottom: 6px;
+        margin-right: 6px;
+
+        .input__text {
+            height: 25px;
+        }
+    }
+
+    &__edit-title__buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 160px;
+    }
     &__number {
         color: white;
-        margin-right: 10px;
+        margin-right: 30px;
         font-size: 14px;
     }
 
     &__title {
-        display: inline-block;
+        max-width: 375px;
     }
 
     &__flag {
-        margin-left: 10px;
+        margin-left: 30px;
     }
 
-    &__info-row-header {
+    &__info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
         background-color: $light-grey;
-        font-weight: bold;
-    }
+        padding: 0 15px 30px 15px;
 
-    &__info-row-values {
-        background-color: $light-grey;
-        color: $secondary-blue;
-        padding-bottom: 10px;
+        &-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            min-width: 150px;
+            max-width: 250px;
+        }
+
+        &-container-editable {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start;
+            min-width: 300px;
+
+            &:hover {
+                .ticket-viewer__edit-icon {
+                    color: $primary-blue;
+                }
+            }
+
+            &__column {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                min-width: 170px;
+            }
+        }
+
+        &-header {
+            font-weight: bold;
+        }
+
+        &-value {
+            color: $secondary-blue;
+            padding-bottom: 10px;
+            width: 100%;
+        }
     }
 
     &__editable-dropdown {
@@ -92,12 +208,48 @@
 
         &-buttons {
             display: flex;
+            flex-direction: row;
             justify-content: space-between;
             align-items: center;
         }
 
     }
+
     &__delete-button {
-        margin-left: 10px;
+    }
+
+    @media screen and (max-width: 1151px) {
+        .ticket-viewer__info  {
+            &-container {
+                width: 200px;
+                min-width: unset;
+                max-width: unset;
+            }
+
+            &-container-editable {
+                min-width: 250px;
+                max-width: 300px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        .ticket-viewer__info  {
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
+    @media screen and (max-width: 571px) {
+        .ticket-viewer {
+            &__number, &__edit-title-icon {
+                margin: 0 5px;
+            }
+
+            &__flag {
+                padding: 0 10px;
+            }
+        }
     }
 }
