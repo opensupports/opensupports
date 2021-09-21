@@ -55,12 +55,14 @@ class DeleteController extends Controller {
         if(!Controller::isStaffLogged() && ($user->email !== $ticketAuthor['email'] || $ticketAuthor['staff'])) {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
-
-        $ticketAuthor = User::getUser($ticket->authorToArray()['id']);
-        $ticketAuthor->tickets--;
+        
+        if($ticket->author){
+            $ticketAuthor = User::getUser($ticket->authorToArray()['id']);
+            $ticketAuthor->tickets--;
+            $ticketAuthor->store();
+        }
 
         $ticket->delete();
-        $ticketAuthor->store();
 
         Response::respondSuccess();
     }
