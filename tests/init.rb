@@ -17,7 +17,6 @@ require './system/init-settings.rb'
 require './system/get-settings.rb'
 require './system/edit-settings.rb'
 require './user/signup.rb'
-=begin
 require './user/login.rb'
 require './user/send-recover-password.rb'
 require './user/recover-password.rb'
@@ -81,4 +80,3 @@ require './user/edit-supervised-list.rb'
 require './user/get-supervised-tickets.rb'
 require './system/apikey-permissions.rb'
 require './system/get-stats.rb'
-=end

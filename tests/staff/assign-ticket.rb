@@ -46,7 +46,7 @@ describe '/staff/assign-ticket' do
         ticket16 = $database.getRow('ticket', 'ticket_to_assing_16', 'title')
         ticket17 = $database.getRow('ticket', 'ticket_to_assing_17', 'title')
         ticket18 = $database.getRow('ticket', 'ticket_to_assing_18', 'title')
-        ticket_with_id_1 = $database.getRow('ticket', 1 , 'id')
+        ticket_with_id_1 = $database.getRow('ticket', 'Should we pay?', 'title')
 
         tickets = [
             ticket1,
@@ -92,7 +92,7 @@ describe '/staff/assign-ticket' do
     it 'should assign ticket if a staff choose another to assing a ticket ' do
         staffId = $database.getRow('staff','ayra2@opensupports.com','email')['id']
 
-        ticket = $database.getRow('ticket', 3 , 'id')
+        ticket = $database.getRow('ticket', 'Winter is coming!', 'title')
         result = request('/staff/assign-ticket', {
             ticketNumber: ticket['ticket_number'],
             staffId: staffId,
@@ -101,7 +101,7 @@ describe '/staff/assign-ticket' do
         })
         (result['status']).should.equal('success')
 
-        ticket = $database.getRow('ticket', 3 , 'id')
+        ticket = $database.getRow('ticket', 'Winter is coming!', 'title')
 
         (ticket['owner_id']).should.equal(staffId)
 
@@ -109,7 +109,7 @@ describe '/staff/assign-ticket' do
     end
 
     it 'should fail if ticket is already owned' do
-        ticket = $database.getRow('ticket', 1 , 'id')
+        ticket = $database.getRow('ticket', 'Should we pay?', 'title')
 
         result = request('/staff/assign-ticket', {
             ticketNumber: ticket['ticket_number'],
