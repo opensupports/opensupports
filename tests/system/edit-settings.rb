@@ -96,4 +96,20 @@ describe'system/edit-settings' do
         Scripts.updateLockedDepartmentSetting(0);
         request('/user/logout')
     end
+
+    it 'should delete ticket when user table is not created' do
+        request('/user/logout')
+        Scripts.login($staff[:email], $staff[:password], true)
+
+        Scripts.createTicket('TicketToDeleteWithoutUsersCreated')
+        ticket = $database.getRow('ticket', 'TicketToDeleteWithoutUsersCreated', 'title');
+
+        result = request('/ticket/delete', {
+            ticketNumber: ticket['ticket_number'],
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        (result['status']).should.equal('success')
+    end
+
 end

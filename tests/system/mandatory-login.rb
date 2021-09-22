@@ -136,7 +136,7 @@ describe'system/mandatory-login' do
         end
 
         it 'should fail if a creator check others ticket' do
-            $ticketRow = $database.getRow('ticket',1,'id')
+            $ticketRow = $database.getRow('ticket','Should we pay?','title')
 
             result = request('/ticket/check', {
                 email: 'nonuser@os4.com',

@@ -34,7 +34,7 @@ describe '/ticket/change-department' do
 
         request('/user/logout')
         Scripts.login($staff[:email], $staff[:password], true)
-        ticket = $database.getRow('ticket', 1 , 'id')
+        ticket = $database.getRow('ticket', 'Should we pay?', 'title')
 
         result = request('/ticket/change-department', {
             ticketNumber: ticket['ticket_number'],
@@ -45,7 +45,7 @@ describe '/ticket/change-department' do
 
         (result['status']).should.equal('success')
 
-        ticket = $database.getRow('ticket', 1 , 'id')
+        ticket = $database.getRow('ticket', 'Should we pay?', 'title')
         (ticket['unread']).should.equal(1)
         (ticket['department_id']).should.equal(4)
 
@@ -55,7 +55,7 @@ describe '/ticket/change-department' do
 
     it 'should unassing ticket if staff does not server new department' do
 
-          ticket = $database.getRow('ticket', 1 , 'id')
+          ticket = $database.getRow('ticket', 'Should we pay?', 'title')
           Scripts.assignTicket(ticket['ticket_number'])
           request('/staff/edit', {
               csrf_userid: $csrf_userid,
@@ -73,7 +73,7 @@ describe '/ticket/change-department' do
 
           (result['status']).should.equal('success')
 
-          ticket = $database.getRow('ticket', 1 , 'id')
+          ticket = $database.getRow('ticket', 'Should we pay?', 'title')
           (ticket['unread']).should.equal(1)
           (ticket['department_id']).should.equal(3)
           (ticket['owner_id']).should.equal(nil)

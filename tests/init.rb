@@ -23,7 +23,6 @@ require './user/recover-password.rb'
 require './user/edit-password.rb'
 require './user/edit-email.rb'
 require './user/get.rb'
-
 require './user/enable-disable.rb'
 require './ticket/create.rb'
 require './ticket/seen.rb'

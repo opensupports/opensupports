@@ -9,7 +9,7 @@ describe '/staff/un-assign-ticket' do
     #end
 
     it 'should unassign ticket if it is the current owner' do
-        ticket = $database.getRow('ticket', 1 , 'id')
+        ticket = $database.getRow('ticket', 'Should we pay?', 'title')
 
         result = request('/staff/un-assign-ticket', {
             ticketNumber: ticket['ticket_number'],
@@ -19,7 +19,7 @@ describe '/staff/un-assign-ticket' do
 
         (result['status']).should.equal('success')
 
-        ticket = $database.getRow('ticket', 1 , 'id')
+        ticket = $database.getRow('ticket', 'Should we pay?', 'title')
 
         (ticket['owner_id']).should.equal(nil)
         (ticket['unread']).should.equal(1)
@@ -32,7 +32,7 @@ describe '/staff/un-assign-ticket' do
     it 'should unassign ticket if you are a staff level 1' do
         $database.query('update staff set level="1" where id="1";')
 
-        ticket = $database.getRow('ticket', 1 , 'id')
+        ticket = $database.getRow('ticket', 'Should we pay?', 'title')
 
         Scripts.logout()
         Scripts.login('ayra2@opensupports.com', 'starkpassword', true)
@@ -45,7 +45,7 @@ describe '/staff/un-assign-ticket' do
 
         (result['status']).should.equal('success')
 
-        ticket = $database.getRow('ticket', 1 , 'id')
+        ticket = $database.getRow('ticket', 'Should we pay?', 'title')
 
         Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
@@ -64,7 +64,7 @@ describe '/staff/un-assign-ticket' do
     it 'should unassign ticket if you are a staff level 2' do
         $database.query('update staff set level="2" where id="1";')
 
-        ticket = $database.getRow('ticket', 1 , 'id')
+        ticket = $database.getRow('ticket', 'Should we pay?', 'title')
 
         Scripts.logout()
         Scripts.login('ayra2@opensupports.com', 'starkpassword', true)
@@ -77,7 +77,7 @@ describe '/staff/un-assign-ticket' do
 
         (result['status']).should.equal('success')
 
-        ticket = $database.getRow('ticket', 1 , 'id')
+        ticket = $database.getRow('ticket', 'Should we pay?', 'title')
 
         Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
@@ -94,7 +94,7 @@ describe '/staff/un-assign-ticket' do
     end
 
     it 'should unassign ticket if you are a staff level 3' do
-      ticket = $database.getRow('ticket', 1 , 'id')
+      ticket = $database.getRow('ticket', 'Should we pay?' , 'title')
 
       Scripts.logout()
       Scripts.login($staff[:email], $staff[:password], true)
@@ -107,7 +107,7 @@ describe '/staff/un-assign-ticket' do
 
       (result['status']).should.equal('success')
 
-      ticket = $database.getRow('ticket', 1 , 'id')
+      ticket = $database.getRow('ticket', 'Should we pay?' , 'title')
 
       result = request('/staff/un-assign-ticket', {
           ticketNumber: ticket['ticket_number'],
@@ -117,7 +117,7 @@ describe '/staff/un-assign-ticket' do
 
       (result['status']).should.equal('success')
 
-      ticket = $database.getRow('ticket', 1 , 'id')
+      ticket = $database.getRow('ticket', 'Should we pay?' , 'title')
 
       (ticket['owner_id']).should.equal(nil)
       (ticket['unread']).should.equal(1)

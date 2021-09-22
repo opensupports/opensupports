@@ -3,7 +3,7 @@ describe '/ticket/re-open' do
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should re open  a ticket if staff member has the deparment of the ticket' do
-        ticket = $database.getRow('ticket', 1 , 'id')
+        ticket = $database.getRow('ticket', 'Should we pay?' , 'title')
 
         result = request('/ticket/re-open', {
             ticketNumber: ticket['ticket_number'],
@@ -13,7 +13,7 @@ describe '/ticket/re-open' do
 
         (result['status']).should.equal('success')
 
-        ticket = $database.getRow('ticket', 1 , 'id')
+        ticket = $database.getRow('ticket', 'Should we pay?' , 'title')
         (ticket['closed']).should.equal(0)
         (ticket['unread']).should.equal(1)
 
