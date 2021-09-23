@@ -7,6 +7,8 @@ import Widget from 'core-components/widget';
 import Card from 'core-components/card';
 import i18n from 'lib-app/i18n';
 import Header from 'core-components/header';
+import queryString from 'query-string';
+import Message from 'core-components/message';
 
 class MainHomePagePortal extends React.Component {
     static propTypes = {
@@ -19,6 +21,11 @@ class MainHomePagePortal extends React.Component {
                 <div className="main-home-page-portal__title">
                     <Header title={this.props.title || i18n('SUPPORT_CENTER')} description={i18n('SUPPORT_CENTER_DESCRIPTION')} />
                 </div>
+                {queryString.parse(window.location.search)["message"] ?
+                    <Message className="dashboard-create-ticket-page__message" type="success">
+                        {i18n('TICKET_NUMBER_SENT')}
+                    </Message> :
+                    null}
                 <div className="main-home-page-portal__cards">
                     <div className="main-home-page-portal__card col-md-4">
                         <Card {...this.getTicketsCardProps()}/>
