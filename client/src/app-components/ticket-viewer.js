@@ -843,13 +843,13 @@ class TicketViewer extends React.Component {
 
     showDeleteButton() {
         const { ticket, userLevel, userId, userStaff } = this.props;
-
-        if(!ticket.owner) {
+        const { owner, author } = ticket;
+        const { staff, id } = author;
+              
+        if(!owner) {
             if(userLevel === 3) return true;
-            if(userId == ticket.author.id*1) {
-                if((userStaff && ticket.author.staff) || (!userStaff && !ticket.author.staff)){
-                    return true;
-                }
+            if(userId == id*1) {
+                return ((userStaff && staff));
             }
         }
 
