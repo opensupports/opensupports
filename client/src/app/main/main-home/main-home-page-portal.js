@@ -17,27 +17,29 @@ class MainHomePagePortal extends React.Component {
 
     render() {
         return (
-            <Widget className={classNames('main-home-page-portal', this.props.className)}>
-                <div className="main-home-page-portal__title">
-                    <Header title={this.props.title || i18n('SUPPORT_CENTER')} description={i18n('SUPPORT_CENTER_DESCRIPTION')} />
-                </div>
+            <div className="">
                 {queryString.parse(window.location.search)["message"] ?
-                    <Message className="dashboard-create-ticket-page__message" type="success">
-                        {i18n('TICKET_NUMBER_SENT')}
-                    </Message> :
-                    null}
-                <div className="main-home-page-portal__cards">
-                    <div className="main-home-page-portal__card col-md-4">
-                        <Card {...this.getTicketsCardProps()}/>
+                        <Message className="dashboard-create-ticket-page__message" type="success">
+                            {i18n('TICKET_NUMBER_SENT')}
+                        </Message> :
+                        null}
+                <Widget className={classNames('main-home-page-portal', this.props.className)}>
+                    <div className="main-home-page-portal__title">
+                        <Header title={this.props.title || i18n('SUPPORT_CENTER')} description={i18n('SUPPORT_CENTER_DESCRIPTION')} />
                     </div>
-                    <div className="main-home-page-portal__card col-md-4">
-                        <Card {...((this.props.type === 'complete') ? this.getViewTicketCardProps() : this.getAccountCardProps())} />
+                    <div className="main-home-page-portal__cards">
+                        <div className="main-home-page-portal__card col-md-4">
+                            <Card {...this.getTicketsCardProps()}/>
+                        </div>
+                        <div className="main-home-page-portal__card col-md-4">
+                            <Card {...((this.props.type === 'complete') ? this.getViewTicketCardProps() : this.getAccountCardProps())} />
+                        </div>
+                        <div className="main-home-page-portal__card col-md-4">
+                            <Card {...this.getArticlesCardProps()} />
+                        </div>
                     </div>
-                    <div className="main-home-page-portal__card col-md-4">
-                        <Card {...this.getArticlesCardProps()} />
-                    </div>
-                </div>
-            </Widget>
+                </Widget>
+            </div>
         );
     }
 
