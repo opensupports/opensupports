@@ -189,7 +189,6 @@ export default {
     'BACKUP_DATABASE': 'Резервная база данных',
     'DELETE_ALL_USERS': 'Удалить всех пользователей',
     'PLEASE_CONFIRM_PASSWORD': 'Подтвердите свой пароль, чтобы внести эти изменения.',
-    'REGISTRATION_API_KEYS': 'Ключи регистрации API',
     'NAME_OF_KEY': 'Название ключа',
     'KEY': 'Ключ',
     'ADD_API_KEY': 'Добавить ключ API',

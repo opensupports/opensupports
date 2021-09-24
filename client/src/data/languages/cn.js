@@ -189,7 +189,6 @@ export default {
     'BACKUP_DATABASE': '備份數據庫',
     'DELETE_ALL_USERS': '刪除所有用戶',
     'PLEASE_CONFIRM_PASSWORD': '請確認您的密碼進行更改',
-    'REGISTRATION_API_KEYS': '註冊API密鑰',
     'NAME_OF_KEY': '密鑰名稱',
     'KEY': '鍵',
     'ADD_API_KEY': '添加API密鑰',

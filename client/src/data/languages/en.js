@@ -190,7 +190,7 @@ export default {
     'BACKUP_DATABASE': 'Backup database',
     'DELETE_ALL_USERS': 'Delete all users',
     'PLEASE_CONFIRM_PASSWORD': 'Please confirm your password to make these changes',
-    'REGISTRATION_API_KEYS': 'Registration API keys',
+    'API_KEYS': 'API keys',
     'NAME_OF_KEY': 'Name of key',
     'KEY': 'Key',
     'ADD_API_KEY': 'Add API Key',

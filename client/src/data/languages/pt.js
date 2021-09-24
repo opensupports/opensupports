@@ -189,7 +189,6 @@ export default {
     'BACKUP_DATABASE': 'Banco de dados de backup',
     'DELETE_ALL_USERS': 'Excluir todos os usuários',
     'PLEASE_CONFIRM_PASSWORD': 'Confirme sua senha para fazer essas alterações',
-    'REGISTRATION_API_KEYS': 'API de registro',
     'NAME_OF_KEY': 'Nome da chave',
     'KEY': 'Chave',
     'ADD_API_KEY': 'Adicionar chave de API',
