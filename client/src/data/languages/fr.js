@@ -189,7 +189,6 @@ export default {
     'BACKUP_DATABASE': 'Base de données de sauvegarde',
     'DELETE_ALL_USERS': 'Supprimer tous les utilisateurs',
     'PLEASE_CONFIRM_PASSWORD': 'Veuillez confirmer votre mot de passe pour effectuer ces modifications.',
-    'REGISTRATION_API_KEYS': 'Clés d\'authentification API',
     'NAME_OF_KEY': 'Nom de la clé',
     'KEY': 'Clé',
     'ADD_API_KEY': 'Ajouter une clé API',

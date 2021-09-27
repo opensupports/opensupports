@@ -178,7 +178,6 @@ export default {
     'BACKUP_DATABASE': 'Zrób kopię zapasową bazy danych',
     'DELETE_ALL_USERS': 'Usuń wszystkich użytkowników',
     'PLEASE_CONFIRM_PASSWORD': 'Potwierdź swoje hasło by dokonać tych zmian',
-    'REGISTRATION_API_KEYS': 'Klucze API rejestracji',
     'NAME_OF_KEY': 'Nazwa klucza',
     'KEY': 'Klucz',
     'ADD_API_KEY': 'Dodaj klucz API',

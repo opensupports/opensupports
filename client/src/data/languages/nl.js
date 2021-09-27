@@ -189,7 +189,6 @@ export default {
     'BACKUP_DATABASE': 'Backup database',
     'DELETE_ALL_USERS': 'Verwijder alle gebruikers',
     'PLEASE_CONFIRM_PASSWORD': 'Gelieve uw wachtwoord te bevestigen om de wijziging door te voeren. ',
-    'REGISTRATION_API_KEYS': 'Registratie API Sleutels',
     'NAME_OF_KEY': 'Naam van de sleutel',
     'KEY': 'Sleutel',
     'ADD_API_KEY': 'Voeg API sleutel toe',
