@@ -16,13 +16,18 @@ class MainHomePagePortal extends React.Component {
     };
 
     render() {
+
+        const currentSearchParams = queryString.parse(window.location.search) || {};
+
         return (
             <div className="">
-                {queryString.parse(window.location.search)["message"] ?
+                {
+                    currentSearchParams["message"] ?
                         <Message className="dashboard-create-ticket-page__message" type="success">
                             {i18n('TICKET_NUMBER_SENT')}
                         </Message> :
-                        null}
+                        null
+                }
                 <Widget className={classNames('main-home-page-portal', this.props.className)}>
                     <div className="main-home-page-portal__title">
                         <Header title={this.props.title || i18n('SUPPORT_CENTER')} description={i18n('SUPPORT_CENTER_DESCRIPTION')} />
