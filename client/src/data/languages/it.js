@@ -189,7 +189,6 @@ export default {
     'BACKUP_DATABASE': 'Backup database',
     'DELETE_ALL_USERS': 'Cancella tutti gli utenti',
     'PLEASE_CONFIRM_PASSWORD': 'Devi confermare la tua password per apportare queste modifiche',
-    'REGISTRATION_API_KEYS': 'Registrazione API keys',
     'NAME_OF_KEY': 'Name of key',
     'KEY': 'Key',
     'ADD_API_KEY': 'Add API Key',

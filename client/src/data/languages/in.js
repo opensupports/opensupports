@@ -189,7 +189,6 @@ export default {
     'BACKUP_DATABASE': 'बैकअप डेटाबेस',
     'DELETE_ALL_USERS': 'सभी उपयोगकर्ताओं को हटाएं',
     'PLEASE_CONFIRM_PASSWORD': 'ये परिवर्तन करने के लिए कृपया अपने पासवर्ड की पुष्टि करें',
-    'REGISTRATION_API_KEYS': 'पंजीकरण एपीआई कुंजी',
     'NAME_OF_KEY': 'कुंजी का नाम',
     'KEY': 'कुंजी',
     'ADD_API_KEY': 'एपीआई कुंजी जोड़ें',

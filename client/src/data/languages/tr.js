@@ -189,7 +189,6 @@ export default {
     'BACKUP_DATABASE': 'Yedek veritabanı',
     'DELETE_ALL_USERS': 'Tüm kullanıcıları sil',
     'PLEASE_CONFIRM_PASSWORD': 'Bu değişiklikleri yapmak için lütfen şifrenizi onaylayın',
-    'REGISTRATION_API_KEYS': 'Kayıt API tuşları',
     'NAME_OF_KEY': 'Anahtarın adı',
     'KEY': 'Anahtar',
     'ADD_API_KEY': 'API Anahtarı Ekle',

@@ -189,7 +189,6 @@ export default {
     'BACKUP_DATABASE': 'Sicherungsdatenbank',
     'DELETE_ALL_USERS': 'Alle Benutzer löschen',
     'PLEASE_CONFIRM_PASSWORD': 'Bitte bestätigen Sie Ihr Passwort, um diese Änderungen vorzunehmen!',
-    'REGISTRATION_API_KEYS': 'Registrierungs-API Schlüssel',
     'NAME_OF_KEY': 'Name des Schlüssels',
     'KEY': 'Schlüssel',
     'ADD_API_KEY': 'API-Schlüssel hinzufügen',
