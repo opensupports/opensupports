@@ -207,7 +207,8 @@ class AdminPanelListUsers extends React.Component {
             {
                 closeButton: {
                     showCloseButton: true
-                }
+                },
+                outsideClick: true
             }
         );
     }
