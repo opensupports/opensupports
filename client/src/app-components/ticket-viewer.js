@@ -636,7 +636,7 @@ class TicketViewer extends React.Component {
             }
         }).then((result) => {
              this.onTicketModification(result);
-             history.push('/admin/panel/tickets/my-tickets/');
+             history.push(history.goBack());
         });
     }
 
