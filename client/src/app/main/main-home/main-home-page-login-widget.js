@@ -60,6 +60,9 @@ class MainHomePageLoginWidget extends React.Component {
                 <Button className="login-widget__forgot-password" type="link" onClick={this.onForgotPasswordClick.bind(this)} onMouseDown={(event) => {event.preventDefault()}}>
                     {i18n('FORGOT_PASSWORD')}
                 </Button>
+                {this.props.session.failMessage === 'UNVERIFIED_USER' ? <Button className="login-widget__resend-verification-token" type="link" onClick={this.onResendVerificationTokenClick.bind(this)} onMouseDown={(event) => {event.preventDefault()}}>
+                    {i18n('RESEND_EMAIL_VERIFICATION')}
+                </Button> : null}
             </Widget>
         );
     }

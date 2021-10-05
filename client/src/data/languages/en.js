@@ -241,6 +241,7 @@ export default {
     'CHART_SIGNUP': 'Signups',
     'CHART_COMMENT': 'Replies',
     'CHART_ASSIGN': 'Assigned',
+    'RESEND_EMAIL_VERIFICATION': 'Resend e-mail verification',
 
     //ACTIVITIES
     'ACTIVITY_COMMENT': 'commented ticket',
