@@ -24,5 +24,6 @@ $userControllers->addController(new DisableUserController);
 $userControllers->addController(new EditCustomFieldsController);
 $userControllers->addController(new EditSupervisedListController);
 $userControllers->addController(new GetSupervisedTicketController);
+$userControllers->addController(new ResendEmailTokenController);
 
 $userControllers->finalize();
