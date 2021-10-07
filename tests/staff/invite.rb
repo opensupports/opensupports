@@ -2,6 +2,81 @@ describe'/staff/invite' do
     request('/user/logout')
     Scripts.login($staff[:email], $staff[:password], true)
 
+    it 'should if data is wrong' do
+
+        result = request('/staff/invite', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: 'Tyrion Lannister',
+            email: 'tyrion@opensupports.com',
+            level: 5,
+            profilePic: '',
+            departments: '[1]'
+        })
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('INVALID_LEVEL')
+        
+        result = request('/staff/invite', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: 'Tyrion Lannister',
+            email: 'tyrion@opensupports.com',
+            level: 0,
+            profilePic: '',
+            departments: '[1]'
+        })
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('INVALID_LEVEL')
+
+        result = request('/staff/invite', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: 'Tyrion Lannister',
+            email: 'tyrion@opensupports.com',
+            level: 1,
+            profilePic: '',
+            departments: '[1,100]'
+        })
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('INVALID_DEPARTMENT')
+
+        result = request('/staff/invite', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: 'Tyrion Lannister',
+            email: 'tyrion@opensupports.com',
+            level: 1,
+            profilePic: '',
+            departments: 'xd'
+        })
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('INVALID_DEPARTMENT')
+
+        result = request('/staff/invite', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: 'Tyrion LannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannister',
+            email: 'tyrion@opensupports.com',
+            level: 1,
+            profilePic: '',
+            departments: '[1]'
+        })
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('INVALID_NAME')
+
+        result = request('/staff/invite', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: 'T',
+            email: 'tyrion@opensupports.com',
+            level: 1,
+            profilePic: '',
+            departments: '[1]'
+        })
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('INVALID_NAME')
+    end
+
     it 'should add staff member' do
 
         result = request('/staff/invite', {
