@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 
 /**
- * @api {post} /staff/resend-user-staff resend invite user
+ * @api {post} /user/resend-invite-user resend invite user
  * @apiVersion 4.9.0
  *
  * @apiName Resend resend invite user
@@ -19,8 +19,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse ALREADY_BANNED
  * @apiUse INVALID_EMAIL
  *
- * @apiSuccess {Object} data Staff info object
- * @apiSuccess {Number} data.id Staff id
+ * @apiSuccess {Object} data Empty object
  *
  */
 
