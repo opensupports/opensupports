@@ -80,3 +80,6 @@ require './user/edit-supervised-list.rb'
 require './user/get-supervised-tickets.rb'
 require './system/apikey-permissions.rb'
 require './system/get-stats.rb'
+
+
+require './user/resend-email-token.rb'
