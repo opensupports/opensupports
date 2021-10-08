@@ -19,6 +19,10 @@ import WidgetTransition from 'core-components/widget-transition';
 import Message          from 'core-components/message';
 import Loading          from 'core-components/loading';
 
+const UNVERIFIED_USER_STEP = 0;
+const LOADING_STEP = 1;
+const REQUEST_RESULT_STEP = 2;
+
 class MainHomePageLoginWidget extends React.Component {
 
     state = {
@@ -29,6 +33,8 @@ class MainHomePageLoginWidget extends React.Component {
         loadingLogin: false,
         loadingRecover: false,
         reSendEMailVerificationLoading: false,
+        reSendEmailVerificationStep: 0,
+        reSendEmailVerificationMessage: ""
     };
 
     componentDidUpdate(prevProps) {
@@ -63,30 +69,39 @@ class MainHomePageLoginWidget extends React.Component {
                     <Button className="login-widget__forgot-password" type="link" onClick={this.onForgotPasswordClick.bind(this)} onMouseDown={(event) => {event.preventDefault()}}>
                         {i18n('FORGOT_PASSWORD')}
                     </Button>
-                    <div className="">
-                        {
-                            (this.props.session.failMessage === 'UNVERIFIED_USER') ?
-                                (
-                                    (this.state.reSendEmailVerificationLoading) ?
-                                        <Loading /> :
-                                        (
-                                            (!this.state.reSendEMailVerificationMessage) ?
-                                                <Button className="login-widget__resend-verification-token" type="link" onClick={this.onReSendEmailVerificationClick.bind(this)}>
-                                                    {i18n('RESEND_EMAIL_VERIFICATION')}
-                                                </Button> :
-                                                (this.state.reSendEMailVerificationMessage === "success") ? <Message className="login-widget__resend-email-verification-success" type="success" leftAligned>
-                                                {i18n('RESEND_EMAIL_VERIFICATION_SUCCESS')}
-                                            </Message> : <Message className="login-widget__resend-email-verification-fail" type="error" leftAligned>
-                                                {i18n('RESEND_EMAIL_VERIFICATION_FAIL')}
-                                            </Message>
-                                        )
-                                ) :
-                                null
-                        }
-                    </div>
+                    {this.renderReSendEmailVerificationSection()}
                 </div>
             </Widget>
         );
+    }
+
+    renderReSendEmailVerificationSection() {
+        if(this.props.session.failMessage === 'UNVERIFIED_USER') {
+            switch (this.state.reSendEmailVerificationStep) {
+                case UNVERIFIED_USER_STEP:
+                    return (
+                        <Button className="login-widget__resend-verification-token" type="link" onClick={this.onReSendEmailVerificationClick.bind(this)}>
+                            {i18n('RESEND_EMAIL_VERIFICATION')}
+                        </Button>
+                    )
+
+                case LOADING_STEP:
+                    return <Loading />
+
+                case REQUEST_RESULT_STEP:
+                    return (
+                        (this.state.emailVerificationMessage === "success") ?
+                            <Message className="login-widget__resend-email-verification-success" type="success" leftAligned>
+                                {i18n('RESEND_EMAIL_VERIFICATION_SUCCESS')}
+                            </Message> :
+                            <Message className="login-widget__resend-email-verification-fail" type="error" leftAligned>
+                                {i18n('RESEND_EMAIL_VERIFICATION_FAIL')}
+                            </Message>
+                    )
+            }
+        } else {
+            return null
+        }
     }
 
     renderPasswordRecovery() {
@@ -151,6 +166,7 @@ class MainHomePageLoginWidget extends React.Component {
         this.setState({
             loadingRecover: true,
             recoverSent: false,
+            reSendEmailVerificationStep: UNVERIFIED_USER_STEP
         })
         this.props.dispatch(SessionActions.login(formState));
     }
@@ -210,7 +226,7 @@ class MainHomePageLoginWidget extends React.Component {
 
     onReSendEmailVerificationClick() {
         this.setState({
-            reSendEMailVerificationLoading: true
+            reSendEmailVerificationStep: LOADING_STEP,
         })
 
         API.call({
@@ -220,12 +236,12 @@ class MainHomePageLoginWidget extends React.Component {
             }
         }).then(() => {
             this.setState({
-                reSendEMailVerificationLoading: false,
+                reSendEmailVerificationStep: REQUEST_RESULT_STEP,
                 reSendEMailVerificationMessage: 'success'
             })
         }).catch(() => {
             this.setState({
-                reSendEMailVerificationLoading: false,
+                reSendEmailVerificationStep: REQUEST_RESULT_STEP,
                 reSendEMailVerificationMessage: 'error'
             })
         });
