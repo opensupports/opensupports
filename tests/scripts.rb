@@ -16,6 +16,22 @@ class Scripts
         })
     end
 
+    def self.inviteUser(email, name='genericName')
+        response = request('/user/invite', {
+            :name => name,
+            :email => email,
+        })
+    end
+
+    def self.inviteStaff(email, name='validName', level=1, profilePic='', departments: '[1]')
+        response = request('/staff/invite', {
+            :name => name,
+            :email => email,
+            :level => level,
+            :departments => departments.to_string
+        })
+    end
+    
     def self.createStaff(email, password, name, level='1') # WARNING: NOT USED ANYWHERE
         departments = request('/system/get-settings', {
           csrf_userid: $csrf_userid,
