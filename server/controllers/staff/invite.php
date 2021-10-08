@@ -26,7 +26,8 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_PASSWORD
  * @apiUse INVALID_LEVEL
  * @apiUse ALREADY_A_STAFF
- *
+ * @apiUse INVALID_DEPARTMENT
+ * 
  * @apiSuccess {Object} data Staff info object
  * @apiSuccess {Number} data.id Staff id
  *
@@ -57,6 +58,10 @@ class InviteStaffController extends Controller {
                 'level' => [
                     'validation' => DataValidator::between(1, 3, true),
                     'error' => ERRORS::INVALID_LEVEL
+                ],
+                'departments' => [
+                    'validation' => DataValidator::oneOf(DataValidator::validDepartmentsId(),DataValidator::nullType()),
+                    'error' => ERRORS::INVALID_DEPARTMENT
                 ]
             ]
         ];
