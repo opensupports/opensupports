@@ -242,6 +242,8 @@ export default {
     'CHART_COMMENT': 'Replies',
     'CHART_ASSIGN': 'Assigned',
     'RESEND_EMAIL_VERIFICATION': 'Resend e-mail verification',
+    'RESEND_EMAIL_VERIFICATION_SUCCESS': 'The mail was sent successfully',
+    'RESEND_EMAIL_VERIFICATION_FAIL': 'An error has occurred',
 
     //ACTIVITIES
     'ACTIVITY_COMMENT': 'commented ticket',

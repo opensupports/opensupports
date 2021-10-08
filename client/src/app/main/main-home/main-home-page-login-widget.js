@@ -17,6 +17,7 @@ import FormField        from 'core-components/form-field';
 import Widget           from 'core-components/widget';
 import WidgetTransition from 'core-components/widget-transition';
 import Message          from 'core-components/message';
+import Loading          from 'core-components/loading';
 
 class MainHomePageLoginWidget extends React.Component {
 
@@ -26,7 +27,8 @@ class MainHomePageLoginWidget extends React.Component {
         recoverFormErrors: {},
         recoverSent: false,
         loadingLogin: false,
-        loadingRecover: false
+        loadingRecover: false,
+        reSendEMailVerificationLoading: false,
     };
 
     componentDidUpdate(prevProps) {
@@ -57,12 +59,32 @@ class MainHomePageLoginWidget extends React.Component {
                         <SubmitButton type="primary">{i18n('LOG_IN')}</SubmitButton>
                     </div>
                 </Form>
-                <Button className="login-widget__forgot-password" type="link" onClick={this.onForgotPasswordClick.bind(this)} onMouseDown={(event) => {event.preventDefault()}}>
-                    {i18n('FORGOT_PASSWORD')}
-                </Button>
-                {this.props.session.failMessage === 'UNVERIFIED_USER' ? <Button className="login-widget__resend-verification-token" type="link" onClick={this.onResendVerificationTokenClick.bind(this)} onMouseDown={(event) => {event.preventDefault()}}>
-                    {i18n('RESEND_EMAIL_VERIFICATION')}
-                </Button> : null}
+                <div className="main-home-page__link-buttons-container">
+                    <Button className="login-widget__forgot-password" type="link" onClick={this.onForgotPasswordClick.bind(this)} onMouseDown={(event) => {event.preventDefault()}}>
+                        {i18n('FORGOT_PASSWORD')}
+                    </Button>
+                    <div className="">
+                        {
+                            (this.props.session.failMessage === 'UNVERIFIED_USER') ?
+                                (
+                                    (this.state.reSendEmailVerificationLoading) ?
+                                        <Loading /> :
+                                        (
+                                            (!this.state.reSendEMailVerificationMessage) ?
+                                                <Button className="login-widget__resend-verification-token" type="link" onClick={this.onReSendEmailVerificationClick.bind(this)}>
+                                                    {i18n('RESEND_EMAIL_VERIFICATION')}
+                                                </Button> :
+                                                (this.state.reSendEMailVerificationMessage === "success") ? <Message className="login-widget__resend-email-verification-success" type="success" leftAligned>
+                                                {i18n('RESEND_EMAIL_VERIFICATION_SUCCESS')}
+                                            </Message> : <Message className="login-widget__resend-email-verification-fail" type="error" leftAligned>
+                                                {i18n('RESEND_EMAIL_VERIFICATION_FAIL')}
+                                            </Message>
+                                        )
+                                ) :
+                                null
+                        }
+                    </div>
+                </div>
             </Widget>
         );
     }
@@ -126,6 +148,10 @@ class MainHomePageLoginWidget extends React.Component {
     }
 
     onLoginFormSubmit(formState) {
+        this.setState({
+            loadingRecover: true,
+            recoverSent: false,
+        })
         this.props.dispatch(SessionActions.login(formState));
     }
 
@@ -181,6 +207,29 @@ class MainHomePageLoginWidget extends React.Component {
             }
         }, () => this.refs.passwordRecovery.focusEmail());
     }
+
+    onReSendEmailVerificationClick() {
+        this.setState({
+            reSendEMailVerificationLoading: true
+        })
+
+        API.call({
+            path: '/user/resend-email-verification',
+            data: {
+                email: this.state.email
+            }
+        }).then(() => {
+            this.setState({
+                reSendEMailVerificationLoading: false,
+                reSendEMailVerificationMessage: 'success'
+            })
+        }).catch(() => {
+            this.setState({
+                reSendEMailVerificationLoading: false,
+                reSendEMailVerificationMessage: 'error'
+            })
+        });
+    }
 }
 
 
@@ -189,3 +238,6 @@ export default connect((store) => {
         session: store.session
     };
 })(MainHomePageLoginWidget);
+<Message className="login-widget__message" type="info" leftAligned>
+                    {i18n('RECOVER_SENT')}
+                </Message>

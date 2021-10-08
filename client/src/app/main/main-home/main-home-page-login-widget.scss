@@ -18,6 +18,18 @@
     &__message {
         margin-top: 18px;
     }
+
+    &__link-buttons-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__resend-email-verification-success, &__resend-email-verification-fail  {
+        width: 300px;
+        text-align: center;
+        margin: auto;
+        margin-top: 10px;
+    }
 }
 
 @media screen and (min-width: 379px) {
