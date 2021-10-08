@@ -238,6 +238,3 @@ export default connect((store) => {
         session: store.session
     };
 })(MainHomePageLoginWidget);
-<Message className="login-widget__message" type="info" leftAligned>
-                    {i18n('RECOVER_SENT')}
-                </Message>
