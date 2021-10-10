@@ -83,6 +83,7 @@ class TicketViewer extends React.Component {
 
     render() {
         const { ticket, userStaff, userId, editable, allowAttachments, assignmentAllowed } = this.props;
+        const showResponseField = (!ticket.closed && (editable || !assignmentAllowed));
 
         return (
             <div className="ticket-viewer">
@@ -107,7 +108,14 @@ class TicketViewer extends React.Component {
                 <div className="ticket-viewer__comments">
                     {ticket.events && ticket.events.map(this.renderTicketEvent.bind(this))}
                 </div>
-                {(!ticket.closed && (editable || !assignmentAllowed)) ? this.renderResponseField() : (this.showDeleteButton()) ? this.renderDeleteTicketButton() : null}
+                <div className="ticket-viewer__reopen-closeticket-buttons">
+                    {!showResponseField ? this.renderReopenTicketButton() : null}
+                    {
+                        showResponseField ?
+                            this.renderResponseField() :
+                            (this.showDeleteButton()) ? this.renderDeleteTicketButton() : null
+                    }
+                </div>
             </div>
         );
     }
@@ -247,12 +255,16 @@ class TicketViewer extends React.Component {
         return  (
             <div className="ticket-viewer__edit-status__buttons">
                 {this.renderCancelButton("Status")}
-                {this.props.ticket.closed ?
-                    <Button type='secondary' size="medium" onClick={this.onReopenClick.bind(this)}>
-                        {i18n('RE_OPEN')}
-                    </Button> :
-                    this.renderCloseTicketButton()}
+                {this.props.ticket.closed ? this.renderReopenTicketButton() : this.renderCloseTicketButton()}
             </div>
+        );
+    }
+
+    renderReopenTicketButton() {
+        return (
+            <Button type='secondary' size="medium" onClick={this.onReopenClick.bind(this)}>
+                {i18n('RE_OPEN')}
+            </Button>
         );
     }
 
