@@ -169,13 +169,13 @@
     }
 
     &__reopen-closeticket-buttons {
-        width: 230px;
         display: flex;
         justify-content: space-between;
         align-content: center;
     }
     
     &__response {
+        width: 100%;
         margin-top: 20px;
         position: relative;
 
@@ -221,9 +221,6 @@
         }
 
     }
-
-    // &__delete-button {
-    // }
 
     @media screen and (max-width: 1151px) {
         .ticket-viewer__info  {

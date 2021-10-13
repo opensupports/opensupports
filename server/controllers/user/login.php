@@ -49,7 +49,7 @@ class LoginController extends Controller {
 
     public function handler() {
         $this->clearOldRememberTokens();
-        
+   
         if ($this->checkInputCredentials() || $this->checkRememberToken()) {
             if($this->userInstance->verificationToken !== null) {
                 throw new RequestException(ERRORS::UNVERIFIED_USER);
