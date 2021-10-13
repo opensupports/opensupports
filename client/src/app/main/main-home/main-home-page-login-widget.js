@@ -86,7 +86,7 @@ class MainHomePageLoginWidget extends React.Component {
                     )
 
                 case LOADING_STEP:
-                    return <Loading />
+                    return <Loading className="login-widget__loading" />
 
                 case REQUEST_RESULT_STEP:
                     return (
