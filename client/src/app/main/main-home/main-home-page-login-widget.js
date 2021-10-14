@@ -164,8 +164,6 @@ class MainHomePageLoginWidget extends React.Component {
 
     onLoginFormSubmit(formState) {
         this.setState({
-            loadingRecover: true,
-            recoverSent: false,
             reSendEmailVerificationStep: UNVERIFIED_USER_STEP
         })
         this.props.dispatch(SessionActions.login(formState));
@@ -230,7 +228,7 @@ class MainHomePageLoginWidget extends React.Component {
         })
 
         API.call({
-            path: '/user/resend-email-verification',
+            path: '/resend-email-token',
             data: {
                 email: this.state.email
             }
