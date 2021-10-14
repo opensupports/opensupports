@@ -18,7 +18,8 @@ DataValidator::with('CustomValidations', true);
  * 
  * @apiParam {String} query A string to find into a ticket to make a custom search.
  * @apiParam {Object[]} blackList A array of objects {id, isStaff} with id and boolean to eliminate the authors of the new list.
- *
+ * @apiParam {Boolean} searchUsers A boolean that determinates if the search is for users or not
+ * 
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_QUERY
  * 
