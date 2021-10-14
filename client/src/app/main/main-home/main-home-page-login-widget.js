@@ -228,7 +228,7 @@ class MainHomePageLoginWidget extends React.Component {
         })
 
         API.call({
-            path: '/resend-email-token',
+            path: '/user/resend-email-token',
             data: {
                 email: this.state.email
             }
