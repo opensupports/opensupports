@@ -108,16 +108,18 @@ class TicketViewer extends React.Component {
                 <div className="ticket-viewer__comments">
                     {ticket.events && ticket.events.map(this.renderTicketEvent.bind(this))}
                 </div>
-                <div className="ticket-viewer__reopen-closeticket-buttons">
-                    {!showResponseField ? this.renderReopenTicketButton() : null}
-                    {
-                        showResponseField ?
-                            this.renderResponseField() :
-                            (this.showDeleteButton()) ? this.renderDeleteTicketButton() : null
-                    }
-                </div>
+                {showResponseField ? this.renderResponseField() : this.renderReopenCloseButtons()}
             </div>
         );
+    }
+
+    renderReopenCloseButtons() {
+        return(
+            <div className="ticket-viewer__reopen-close-buttons">
+                {this.renderReopenTicketButton()}
+                {this.showDeleteButton() ? this.renderDeleteTicketButton() : null}
+            </div>
+        )
     }
 
     renderTitleHeader() {
@@ -445,7 +447,6 @@ class TicketViewer extends React.Component {
                         </div>
                         <div className="ticket-viewer__buttons-column">
                             <div className="ticket-viewer__buttons-row">
-                                {(this.showDeleteButton()) ? this.renderDeleteTicketButton() : null}
                                 {this.renderCloseTicketButton()}
                             </div>
                         </div>

@@ -168,10 +168,11 @@
         position: relative;
     }
 
-    &__reopen-closeticket-buttons {
+    &__reopen-close-buttons {
+        width: 230px;
         display: flex;
+        align-content: left;
         justify-content: space-between;
-        align-content: center;
     }
     
     &__response {
