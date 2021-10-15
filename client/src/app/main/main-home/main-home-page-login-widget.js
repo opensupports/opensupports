@@ -164,7 +164,8 @@ class MainHomePageLoginWidget extends React.Component {
 
     onLoginFormSubmit(formState) {
         this.setState({
-            reSendEmailVerificationStep: UNVERIFIED_USER_STEP
+            reSendEmailVerificationStep: UNVERIFIED_USER_STEP,
+            email: formState.email
         })
         this.props.dispatch(SessionActions.login(formState));
     }
