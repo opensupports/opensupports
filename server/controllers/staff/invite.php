@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /staff/invite Invite staff
- * @apiVersion 4.9.0
+ * @apiVersion 4.10.0
  *
  * @apiName Invite staff
  *

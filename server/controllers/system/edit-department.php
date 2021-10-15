@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /system/edit-department Edit department
- * @apiVersion 4.9.0
+ * @apiVersion 4.10.0
  *
  * @apiName Edit department
  *
