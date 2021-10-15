@@ -1,5 +1,8 @@
 <?php
 
+ini_set('session.cookie_httponly', 1);
+ini_set('session.cookie_secure', getenv('IS_DOCKER') ? 0 : 1);
+
 class Session {
     use SingletonTrait;
 
