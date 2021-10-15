@@ -20,7 +20,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_TICKET
  *
  * @apiSuccess {Object} data Empty object
- *ulp d
+ *
  */
 
 class DeleteController extends Controller {
