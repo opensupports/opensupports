@@ -99,7 +99,7 @@ class CreateController extends Controller {
             $session->clearSessionData();
         }
 
-        $this->title = Controller::request('title');
+        $this->title = Controller::request('title', true);
         $this->content = Controller::request('content', true);
         $this->departmentId = Controller::request('departmentId');
         $this->language = Controller::request('language');

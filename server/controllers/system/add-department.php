@@ -39,7 +39,7 @@ class AddDepartmentController extends Controller {
     }
 
     public function handler() {
-        $name = Controller::request('name');
+        $name = Controller::request('name', true);
         $private = Controller::request('private');
 
         $departmentInstance = new Department();

@@ -52,7 +52,7 @@ class EditTopicController extends Controller {
         $topic = Topic::getDataStore(Controller::request('topicId'));
 
         if(Controller::request('name')) {
-            $topic->name = Controller::request('name');
+            $topic->name = Controller::request('name', true);
         }
 
         if(Controller::request('iconColor')) {

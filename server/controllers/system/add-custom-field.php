@@ -63,9 +63,9 @@ class AddCustomFieldController extends Controller {
     }
 
     public function handler() {
-        $name = Controller::request('name');
+        $name = Controller::request('name', true);
         $type = Controller::request('type');
-        $description = Controller::request('description');
+        $description = Controller::request('description', true);
         $options = Controller::request('options');
 
         if(!Customfield::getDataStore($name, 'name')->isNull())
