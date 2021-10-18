@@ -469,7 +469,6 @@ export default {
     'CREATED_DESCRIPTION': 'Created tickets during the selected time range',
     'OPEN': 'Open',
     'OPEN_DESCRIPTION': 'Open tickets created during the selected time range',
-    'CLOSED': 'Closed',
     'CLOSED_DESCRIPTION': 'Closed tickets created during the selected time range',
     'INSTANT': 'Instant',
     'INSTANT_DESCRIPTION': 'Percentage of tickets closed after a single staff reply over the total of tickets closed',

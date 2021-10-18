@@ -455,5 +455,25 @@ export default {
     'TEST_SMTP_CONNECTION': '测试SMTP连接',
     'SERVER_ERROR': '无法连接到服务器。',
     'EMAIL_SERVER_ADDRESS': '电邮服务器地址',
-    'EMAIL_SERVER_ADDRESS_DESCRIPTION': '地址将收到和发送邮件'
+    'EMAIL_SERVER_ADDRESS_DESCRIPTION': '地址将收到和发送邮件',
+    /////////////////////
+    'CREATED': '已创建',
+    'CREATED_DESCRIPTION': '在选定时间范围内创建的工单',
+    'OPEN': '打开',
+    'OPEN_DESCRIPTION': '在选定时间范围内创建的未结票',
+    'CLOSED_DESCRIPTION': '在选定时间范围内创建的已关闭工单',
+    'INSTANT': '立即的',
+    'INSTANT_DESCRIPTION': '单个工作人员回复后关闭的门票占关闭的门票总数的百分比',
+    'REOPENED': '重新开放',
+    'REOPENED_DESCRIPTION': '重新打开的工单占创建的工单总数的百分比',
+    'MONDAY': '周一',
+    'TUESDAY': '周二',
+    'WEDNESDAY': '周三',
+    'THURSDAY': '周四',
+    'FRIDAY': '星期五',
+    'SATURDAY': '周六',
+    'SUNDAY': '星期日',
+    'TICKET_NUMBER_SENT': '已成功创建票证，并已发送带有票证编号的电子邮件。',
+    'TICKETS_INFORMATION' : '来自您未分配部门的工单将不可见。',
+    'API_KEYS': 'API 密钥'
 };
