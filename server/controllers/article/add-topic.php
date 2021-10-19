@@ -46,7 +46,7 @@ class AddTopicController extends Controller {
     public function handler() {
         $topic = new Topic();
         $topic->setProperties([
-            'name' => Controller::request('name'),
+            'name' => Controller::request('name', true),
             'icon' => Controller::request('icon'),
             'iconColor' => Controller::request('iconColor'),
             'private' => Controller::request('private') ? 1 : 0

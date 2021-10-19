@@ -102,8 +102,8 @@ class InviteUserController extends Controller {
     }
 
     public function storeRequestData() {
-        $this->userName = Controller::request('name');
-        $this->userEmail = Controller::request('email');
+        $this->userName = Controller::request('name', true);
+        $this->userEmail = Controller::request('email', true);
     }
 
     public function createNewUserAndRetrieveId() {

@@ -46,7 +46,7 @@ class CreateTagController extends Controller {
     }
 
     public function handler() {
-        $name = Controller::request('name');
+        $name = Controller::request('name', true);
         $color = Controller::request('color');
 
         if (!Tag::getDataStore($name, 'name')->isNull()) {
