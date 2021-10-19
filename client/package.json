@@ -1,6 +1,6 @@
 {
   "name": "OpenSupports",
-  "version": "4.9.0",
+  "version": "4.10.0",
   "author": "Ivan Diaz <contact@opensupports.com>",
   "description": "Open source ticket system made with PHP and ReactJS",
   "repository": {

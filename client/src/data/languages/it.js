@@ -455,6 +455,25 @@ export default {
     'TEST_SMTP_CONNECTION': 'Verifica connessione SMTP',
     'SERVER_ERROR': 'Non è possibile connettersi con il server.',
     'EMAIL_SERVER_ADDRESS': 'Indirizzo del server email',
-    'EMAIL_SERVER_ADDRESS_DESCRIPTION': 'Indirizzo dove verranno ricevuti e inviati i messaggi'
+    'EMAIL_SERVER_ADDRESS_DESCRIPTION': 'Indirizzo dove verranno ricevuti e inviati i messaggi',
+    'CREATED': 'Creato',
+    'CREATED_DESCRIPTION': 'Biglietti creati durante l\'intervallo di tempo selezionato',
+    'OPEN': 'Aprire',
+    'OPEN_DESCRIPTION': 'Biglietti aperti creati durante l\'intervallo di tempo selezionato',
+    'CLOSED_DESCRIPTION': 'Biglietti chiusi creati durante l\'intervallo di tempo selezionato',
+    'INSTANT': 'Immediato',
+    'INSTANT_DESCRIPTION': 'Percentuale di ticket chiusi dopo una singola risposta del personale sul totale dei ticket chiusi',
+    'REOPENED': 'Riaperto',
+    'REOPENED_DESCRIPTION': 'Percentuale di biglietti riaperti sul totale dei biglietti creati',
+    'MONDAY': 'Lunedì',
+    'TUESDAY': 'Martedì',
+    'WEDNESDAY': 'Mercoledì',
+    'THURSDAY': 'Giovedi',
+    'FRIDAY': 'venerdì',
+    'SATURDAY': 'Sabato',
+    'SUNDAY': 'Domenica',
+    'TICKET_NUMBER_SENT': 'Il biglietto è stato creato con successo ed è stata inviata un\'e-mail con il numero del biglietto.',
+    'TICKETS_INFORMATION' : 'I biglietti dei reparti che non hai assegnato non saranno visibili.',
+    'API_KEYS': 'Chiavi API' 
 };
 /** Special thanks to Fabio Giarrusso for translation contribution **/
