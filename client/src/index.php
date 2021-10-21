@@ -1,6 +1,7 @@
 <?php
     $path = rtrim(str_replace('\\','/',dirname($_SERVER['PHP_SELF'])), '/');
     $url = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $path;
+    header('X-Frame-Options: DENY');
 ?>
 <!doctype html>
 <html class="no-js" lang="">
