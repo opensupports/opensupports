@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/create Create ticket
- * @apiVersion 4.9.0
+ * @apiVersion 4.10.0
  *
  * @apiName Create ticket
  *
@@ -18,6 +18,7 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} content Content of the ticket.
  * @apiParam {Number} departmentId The id of the department of the current ticket.
  * @apiParam {String} language The language of the ticket.
+ * @apiParam {String} name The name of author of the ticket.
  * @apiParam {String} email The email of the user who created the ticket.
  * @apiParam {Number} images The number of images in the content.
  * @apiParam {String} apiKey apiKey to create tickets and show ticket-number created.
@@ -98,7 +99,7 @@ class CreateController extends Controller {
             $session->clearSessionData();
         }
 
-        $this->title = Controller::request('title');
+        $this->title = Controller::request('title', true);
         $this->content = Controller::request('content', true);
         $this->departmentId = Controller::request('departmentId');
         $this->language = Controller::request('language');
@@ -237,7 +238,7 @@ class CreateController extends Controller {
     }
 
     private function getAuthor() {
-        if(!Controller::getLoggedUser()->isNull()) { 
+        if (!Controller::getLoggedUser()->isNull()) { 
             return Controller::getLoggedUser();
         } else {
             return User::getUser($this->email, 'email');

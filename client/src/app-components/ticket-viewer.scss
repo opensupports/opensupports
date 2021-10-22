@@ -168,7 +168,15 @@
         position: relative;
     }
 
+    &__reopen-close-buttons {
+        width: 230px;
+        display: flex;
+        align-content: left;
+        justify-content: space-between;
+    }
+    
     &__response {
+        width: 100%;
         margin-top: 20px;
         position: relative;
 
@@ -213,9 +221,6 @@
             align-items: center;
         }
 
-    }
-
-    &__delete-button {
     }
 
     @media screen and (max-width: 1151px) {

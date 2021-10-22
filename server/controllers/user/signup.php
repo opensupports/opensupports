@@ -5,7 +5,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/signup Sign up
- * @apiVersion 4.9.0
+ * @apiVersion 4.10.0
  *
  * @apiName Sign up
  *
@@ -115,7 +115,7 @@ class SignUpController extends Controller {
     }
 
     public function storeRequestData() {
-        $this->userName = Controller::request('name');
+        $this->userName = Controller::request('name', true);
         $this->userEmail = Controller::request('email');
         $this->userPassword = Controller::request('password');
         $this->verificationToken = Hashing::generateRandomToken();

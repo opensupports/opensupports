@@ -42,16 +42,8 @@ class DashboardListTicketsPage extends React.Component {
     }
 
     render() {
-        const {
-            userUsers
-        } = this.props;
-        const {
-            loading,
-            page,
-            pages,
-            tickets,
-            message
-        } = this.state;
+        const { userUsers } = this.props;
+        const { loading, page, pages, tickets, message } = this.state;
 
         return (
             <div className="dashboard-ticket-list">

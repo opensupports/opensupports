@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /article/add-topic Add topic
- * @apiVersion 4.9.0
+ * @apiVersion 4.10.0
  *
  * @apiName Add topic
  *
@@ -46,7 +46,7 @@ class AddTopicController extends Controller {
     public function handler() {
         $topic = new Topic();
         $topic->setProperties([
-            'name' => Controller::request('name'),
+            'name' => Controller::request('name', true),
             'icon' => Controller::request('icon'),
             'iconColor' => Controller::request('iconColor'),
             'private' => Controller::request('private') ? 1 : 0

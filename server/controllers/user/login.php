@@ -3,7 +3,7 @@ use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {post} /user/login Login
- * @apiVersion 4.9.0
+ * @apiVersion 4.10.0
  *
  * @apiName Login
  *
@@ -49,7 +49,7 @@ class LoginController extends Controller {
 
     public function handler() {
         $this->clearOldRememberTokens();
-        
+
         if ($this->checkInputCredentials() || $this->checkRememberToken()) {
             if($this->userInstance->verificationToken !== null) {
                 throw new RequestException(ERRORS::UNVERIFIED_USER);

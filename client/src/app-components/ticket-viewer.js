@@ -83,6 +83,7 @@ class TicketViewer extends React.Component {
 
     render() {
         const { ticket, userStaff, userId, editable, allowAttachments, assignmentAllowed } = this.props;
+        const showResponseField = (!ticket.closed && (editable || !assignmentAllowed));
 
         return (
             <div className="ticket-viewer">
@@ -107,9 +108,18 @@ class TicketViewer extends React.Component {
                 <div className="ticket-viewer__comments">
                     {ticket.events && ticket.events.map(this.renderTicketEvent.bind(this))}
                 </div>
-                {(!ticket.closed && (editable || !assignmentAllowed)) ? this.renderResponseField() : (this.showDeleteButton()) ? this.renderDeleteTicketButton() : null}
+                {showResponseField ? this.renderResponseField() : this.renderReopenCloseButtons()}
             </div>
         );
+    }
+
+    renderReopenCloseButtons() {
+        return(
+            <div className="ticket-viewer__reopen-close-buttons">
+                {this.renderReopenTicketButton()}
+                {this.showDeleteButton() ? this.renderDeleteTicketButton() : null}
+            </div>
+        )
     }
 
     renderTitleHeader() {
@@ -247,12 +257,16 @@ class TicketViewer extends React.Component {
         return  (
             <div className="ticket-viewer__edit-status__buttons">
                 {this.renderCancelButton("Status")}
-                {this.props.ticket.closed ?
-                    <Button type='secondary' size="medium" onClick={this.onReopenClick.bind(this)}>
-                        {i18n('RE_OPEN')}
-                    </Button> :
-                    this.renderCloseTicketButton()}
+                {this.props.ticket.closed ? this.renderReopenTicketButton() : this.renderCloseTicketButton()}
             </div>
+        );
+    }
+
+    renderReopenTicketButton() {
+        return (
+            <Button type='secondary' size="medium" onClick={this.onReopenClick.bind(this)}>
+                {i18n('RE_OPEN')}
+            </Button>
         );
     }
 
@@ -433,7 +447,6 @@ class TicketViewer extends React.Component {
                         </div>
                         <div className="ticket-viewer__buttons-column">
                             <div className="ticket-viewer__buttons-row">
-                                {(this.showDeleteButton()) ? this.renderDeleteTicketButton() : null}
                                 {this.renderCloseTicketButton()}
                             </div>
                         </div>
@@ -636,7 +649,7 @@ class TicketViewer extends React.Component {
             }
         }).then((result) => {
              this.onTicketModification(result);
-             history.push('/admin/panel/tickets/my-tickets/');
+             history.push(history.goBack());
         });
     }
 
@@ -843,13 +856,13 @@ class TicketViewer extends React.Component {
 
     showDeleteButton() {
         const { ticket, userLevel, userId, userStaff } = this.props;
+        const { owner, author, closed } = ticket || {};
+        const { staff, id } = author || {};
 
-        if(!ticket.owner) {
+        if(!owner) {
             if(userLevel === 3) return true;
-            if(userId == ticket.author.id*1) {
-                if((userStaff && ticket.author.staff) || (!userStaff && !ticket.author.staff)){
-                    return true;
-                }
+            if(userId == id*1) {
+                return (userStaff && staff && closed);
             }
         }
 

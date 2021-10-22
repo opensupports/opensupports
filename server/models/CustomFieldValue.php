@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Customfieldvalue Customfieldvalue
- * @apiVersion 4.9.0
+ * @apiVersion 4.10.0
  * @apiGroup Data Structures
  * @apiParam {Number} id Id of the value.
  * @apiParam {Customfield} customfield Customfield of the value.

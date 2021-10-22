@@ -5,7 +5,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/invite Invite
- * @apiVersion 4.9.0
+ * @apiVersion 4.10.0
  *
  * @apiName Invite
  *
@@ -102,8 +102,8 @@ class InviteUserController extends Controller {
     }
 
     public function storeRequestData() {
-        $this->userName = Controller::request('name');
-        $this->userEmail = Controller::request('email');
+        $this->userName = Controller::request('name', true);
+        $this->userEmail = Controller::request('email', true);
     }
 
     public function createNewUserAndRetrieveId() {

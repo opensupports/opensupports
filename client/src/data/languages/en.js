@@ -190,7 +190,7 @@ export default {
     'BACKUP_DATABASE': 'Backup database',
     'DELETE_ALL_USERS': 'Delete all users',
     'PLEASE_CONFIRM_PASSWORD': 'Please confirm your password to make these changes',
-    'REGISTRATION_API_KEYS': 'Registration API keys',
+    'API_KEYS': 'API keys',
     'NAME_OF_KEY': 'Name of key',
     'KEY': 'Key',
     'ADD_API_KEY': 'Add API Key',
@@ -241,6 +241,9 @@ export default {
     'CHART_SIGNUP': 'Signups',
     'CHART_COMMENT': 'Replies',
     'CHART_ASSIGN': 'Assigned',
+    'RESEND_EMAIL_VERIFICATION': 'Resend e-mail verification',
+    'RESEND_EMAIL_VERIFICATION_SUCCESS': 'The mail was sent successfully',
+    'RESEND_EMAIL_VERIFICATION_FAIL': 'An error has occurred',
 
     //ACTIVITIES
     'ACTIVITY_COMMENT': 'commented ticket',
@@ -362,6 +365,7 @@ export default {
     'CUSTOM_FIELDS_DESCRIPTION': 'Custom fields are defined additional fields the users are able to fill to provide more information about them.',
     'INVITE_USER_VIEW_DESCRIPTION': 'Here you can invite an user to join our support system, he will just need to provide his password to create a new user.',
     'INVITE_STAFF_DESCRIPTION': 'Here you can invite staff members to your teams.',
+    'TICKETS_INFORMATION' : 'Tickets from departments you don’t have assigned won’t be visible.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
@@ -408,6 +412,7 @@ export default {
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',
     'INVITE_USER_SUCCESS': 'You have invited a new user successfully in our support system',
     'TICKET_SENT': 'Ticket has been created successfully.',
+    'TICKET_NUMBER_SENT': 'Ticket has been created successfully and an email with the ticket number has been sent.',
     'VALID_RECOVER': 'Password recovered successfully',
     'EMAIL_EXISTS': 'Email already exists',
     'ARE_YOU_SURE': 'Confirm action',
@@ -469,7 +474,6 @@ export default {
     'CREATED_DESCRIPTION': 'Created tickets during the selected time range',
     'OPEN': 'Open',
     'OPEN_DESCRIPTION': 'Open tickets created during the selected time range',
-    'CLOSED': 'Closed',
     'CLOSED_DESCRIPTION': 'Closed tickets created during the selected time range',
     'INSTANT': 'Instant',
     'INSTANT_DESCRIPTION': 'Percentage of tickets closed after a single staff reply over the total of tickets closed',

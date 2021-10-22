@@ -1,6 +1,6 @@
 {
   "name": "OpenSupports",
-  "version": "4.9.0",
+  "version": "4.10.0",
   "author": "Ivan Diaz <contact@opensupports.com>",
   "description": "Open source ticket system made with PHP and ReactJS",
   "repository": {
@@ -30,7 +30,7 @@
     "axios-mock-adapter": "^1.15.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-add-module-exports": "^1.0.2",
-    "browser-sync": "^2.7.13",
+    "browser-sync": "^2.27.5",
     "chai": "^3.5.0",
     "copy-webpack-plugin": "^5.0.3",
     "css-loader": "^3.0.0",
@@ -74,7 +74,7 @@
     "html-to-text": "^4.0.0",
     "keycode": "^2.1.4",
     "localStorage": "^1.0.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "messageformat": "^0.2.2",
     "moment": "^2.27.0",
     "qs": "^6.5.2",

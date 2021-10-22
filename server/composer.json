@@ -11,7 +11,7 @@
         "aws/aws-sdk-php": "^3.27",
         "nvanheuverzwijn/monolog-logdna": "^2.1",
         "monolog/monolog": "^1.24",
-        "php-imap/php-imap": "^3.0",
+        "php-imap/php-imap": "^3.1",
         "willdurand/email-reply-parser": "^2.8",
         "ext-fileinfo": "*",
         "predis/predis": "^1.1"

@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /article/delete Delete article
- * @apiVersion 4.9.0
+ * @apiVersion 4.10.0
  *
  * @apiName Delete article
  *

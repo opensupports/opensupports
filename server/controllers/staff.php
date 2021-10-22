@@ -14,5 +14,6 @@ $systemControllerGroup->addController(new GetAllStaffController);
 $systemControllerGroup->addController(new DeleteStaffController);
 $systemControllerGroup->addController(new EditStaffController);
 $systemControllerGroup->addController(new LastEventsStaffController);
+$systemControllerGroup->addController(new ResendInviteStaffController);
 
 $systemControllerGroup->finalize();

@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /article/add Add article
- * @apiVersion 4.9.0
+ * @apiVersion 4.10.0
  *
  * @apiName Add article
  *
@@ -64,7 +64,7 @@ class AddArticleController extends Controller {
 
         $article = new Article();
         $article->setProperties([
-            'title' => Controller::request('title'),
+            'title' => Controller::request('title', true),
             'content' => $this->replaceWithImagePaths($imagePaths, $content),
             'lastEdited' => Date::getCurrentDate(),
             'position' => Controller::request('position') || 1

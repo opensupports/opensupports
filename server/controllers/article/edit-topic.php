@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /article/edit-topic Edit topic
- * @apiVersion 4.9.0
+ * @apiVersion 4.10.0
  *
  * @apiName Edit topic
  *
@@ -52,7 +52,7 @@ class EditTopicController extends Controller {
         $topic = Topic::getDataStore(Controller::request('topicId'));
 
         if(Controller::request('name')) {
-            $topic->name = Controller::request('name');
+            $topic->name = Controller::request('name', true);
         }
 
         if(Controller::request('iconColor')) {

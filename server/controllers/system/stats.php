@@ -4,7 +4,7 @@ use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {post} /system/get-stats Get overall stats
- * @apiVersion 4.9.0
+ * @apiVersion 4.10.0
  *
  * @apiName Stats
  *
@@ -14,7 +14,6 @@ use RedBeanPHP\Facade as RedBean;
  *
  * @apiPermission staff1
  *
- * @apiParam {Number} staffId Id of the current staff.
  * @apiParam {Number[]} tags The ids of the tags for the custom stats.
  * @apiParam {Number[]} dateRange The array with start and end date of the range for the custom stats.
  * @apiParam {Number[]} departments The ids of the departments for the custom stats.

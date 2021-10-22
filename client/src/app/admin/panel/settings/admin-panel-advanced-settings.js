@@ -88,7 +88,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                         <span className="separator" />
                     </div>
                     <div className="col-md-12 admin-panel-advanced-settings__api-keys">
-                        <div className="col-md-12 admin-panel-advanced-settings__api-keys-title">{i18n('REGISTRATION_API_KEYS')}</div>
+                        <div className="col-md-12 admin-panel-advanced-settings__api-keys-title">{i18n('API_KEYS')}</div>
                         <div className="col-md-4">
                             <Listing {...this.getListingProps()} />
                         </div>
@@ -154,7 +154,7 @@ class AdminPanelAdvancedSettings extends React.Component {
 
     getListingProps() {
         return {
-            title: i18n('REGISTRATION_API_KEYS'),
+            title: i18n('API_KEYS'),
             enableAddNew: true,
             items: this.state.APIKeys.map((item) => {
                 return {
