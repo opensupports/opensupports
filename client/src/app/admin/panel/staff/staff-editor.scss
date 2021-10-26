@@ -213,11 +213,29 @@
     }
 
     &__activity {
-
         &-title {
             margin-bottom: 10px;
             text-align: left;
         }
     }
 
+    &__staff {
+
+        &-invitation-content {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        &-invitation-button {
+            min-width: 180px;
+        }
+
+        &-invitation-message {
+            width: 310px;
+            margin: 10px auto;
+        }
+    }
 }

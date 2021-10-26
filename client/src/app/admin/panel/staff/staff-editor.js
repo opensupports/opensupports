@@ -52,7 +52,9 @@ class StaffEditor extends React.Component {
         department: undefined,
         departments: this.getUserDepartments(),
         closedTicketsShown: false,
-        sendEmailOnNewTicket: this.props.sendEmailOnNewTicket
+        sendEmailOnNewTicket: this.props.sendEmailOnNewTicket,
+        loadingReInviteStaff: false,
+        reInviteStaff: ""
     };
 
     componentDidMount() {
@@ -61,21 +63,8 @@ class StaffEditor extends React.Component {
     }
 
     render() {
-        const {
-            name,
-            level,
-            profilePic,
-            myAccount,
-            staffId,
-            staffList,
-            userId
-        } = this.props;
-        const {
-            message,
-            tickets,
-            loadingPicture,
-            email
-        } = this.state;
+        const { name, level, profilePic, myAccount, staffId, staffList, userId } = this.props;
+        const { message, tickets, loadingPicture, email } = this.state;
         const myData = _.filter(staffList, {id: `${staffId}`})[0];
 
         return (
@@ -144,6 +133,8 @@ class StaffEditor extends React.Component {
                     <div className="col-md-8">
                         <div className="staff-editor__activity">
                             <div className="staff-editor__activity-title">{i18n('ACTIVITY')}</div>
+                            {myData.lastLogin ? null : this.renderReInviteStaffButton()}
+                            {this.renderReInviteStaffMessage()}
                             {this.renderStaffStats()}
                         </div>
                     </div>
@@ -152,6 +143,60 @@ class StaffEditor extends React.Component {
                 {((!myAccount) && (userId !== staffId)) ? this.renderDelete() : null}
             </div>
         );
+    }
+
+    renderReInviteStaffButton () {
+        const inviteStaffButtonContent = <div><Icon name="user-plus" /> {i18n('INVITE_STAFF')}</div>;
+
+        return (
+            <div className="staff-editor__staff-invitation-content">
+                {i18n('USER_UNLOGGED_IN')}
+                <Button onClick={this.onReInviteStaffButton.bind(this)} size="medium" type="secondary" className="staff-editor__staff-invitation-button" disabled={this.state.loadingReInviteStaff}>
+                    {this.state.loadingReInviteStaff ? <Loading /> : inviteStaffButtonContent}
+                </Button>
+            </div>
+        );
+    }
+
+    renderReInviteStaffMessage() {
+        if (this.state.reInviteStaff === "success") {
+            return (
+                 <Message className="staff-editor__staff-invitation-message" type="success" leftAligned>
+                    {i18n('RESEND_STAFF_INVITATION_SUCCESS')}
+                </Message>
+            );
+        } else if(this.state.reInviteStaff === "error") {
+            return(
+                <Message className="staff-editor__staff-invitation-message" type="error" leftAligned>
+                    {i18n('RESEND_STAFF_INVITATION_FAIL')}
+                </Message>
+            );
+        } else {
+            return null;
+        }
+    }
+
+    onReInviteStaffButton() {
+        this.setState({
+            loadingReInviteStaff: true
+        })
+
+        API.call({
+            path: '/staff/resend-invite-staff',
+            data: {
+                email: this.props.email
+            }
+        }).then(() => {
+            this.setState({
+                loadingReInviteStaff: false,
+                reInviteStaff: 'success'
+            })
+        }).catch(() => {
+            this.setState({
+                loadingReInviteStaff: false,
+                reInviteStaff: 'error'
+            })
+        })
     }
 
     renderMessage() {
@@ -276,16 +321,8 @@ class StaffEditor extends React.Component {
     }
 
     getTicketListProps() {
-        const {
-            staffId,
-            departments
-        } = this.props;
-        const {
-            tickets,
-            page,
-            pages,
-            closedTicketsShown
-        } = this.state;
+        const { staffId, departments } = this.props;
+        const { tickets, page, pages, closedTicketsShown } = this.state;
 
         return {
             type: 'secondary',
@@ -311,6 +348,7 @@ class StaffEditor extends React.Component {
                 departmentIndexes.push(index);
             }
         });
+
         return departmentIndexes;
     }
 
@@ -344,11 +382,7 @@ class StaffEditor extends React.Component {
     }
 
     onSubmit(eventType, form) {
-        const {
-            myAccount,
-            staffId,
-            onChange
-        } = this.props;
+        const { myAccount, staffId, onChange } = this.props;
         let departments;
 
         if(form.departments) {
@@ -380,10 +414,8 @@ class StaffEditor extends React.Component {
     }
 
     onDeleteClick() {
-        const {
-            staffId,
-            onDelete
-        } = this.props;
+        const { staffId, onDelete } = this.props;
+
         return API.call({
             path: '/staff/delete',
             data: {
@@ -396,11 +428,8 @@ class StaffEditor extends React.Component {
     }
 
     onProfilePicChange(event) {
-        const {
-            myAcount,
-            staffId,
-            onChange
-        } = this.props;
+        const { myAcount, staffId, onChange } = this.props;
+
         this.setState({
             loadingPicture: true
         });
@@ -466,10 +495,7 @@ class StaffEditor extends React.Component {
     }
 
     onClosedTicketsShownChange() {
-        const {
-            department,
-            closedTicketsShown
-        } = this.state;
+        const { department, closedTicketsShown } = this.state;
         const newClosedValue = !closedTicketsShown;
 
         this.setState({
