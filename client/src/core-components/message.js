@@ -18,6 +18,10 @@ class Message extends React.Component {
         leftAligned: false
     };
 
+    state = {
+        showMessage: true
+    }
+
     render() {
         return (
             <Motion {...this.getAnimationProps()}>
@@ -38,13 +42,18 @@ class Message extends React.Component {
     }
 
     renderMessage(style) {
-        return (
-            <div className={this.getClass()} style={style} aria-live="assertive">
-                <Icon className="message__icon" name={this.getIconName()} size={this.getIconSize()} />
-                <div className="message__title">{this.props.title}</div>
-                <div className="message__content">{this.props.children}</div>
-            </div>
-        )
+            if(this.state.showMessage === true) {
+                return (
+                    <div className={this.getClass()} style={style} aria-live="assertive">
+                        <Icon className="message__icon" name={this.getIconName()} size={this.getIconSize()} />
+                        <div className="message__title">{this.props.title}</div>
+                        <div className="message__content">{this.props.children}</div>
+                        {this.renderCloseButton()}
+                    </div>
+                )
+            } else {
+                return null
+            }
     }
 
     getClass() {
@@ -76,6 +85,20 @@ class Message extends React.Component {
 
     getIconSize() {
         return (this.props.title) ? '2x' : 'lg';
+    }
+
+    renderCloseButton(whiteColor = false) {
+        return (
+            <span className="message__close-icon" onClick={() => this.onCloseButtonClick()}>
+                <Icon name="times" size="1x"/>
+            </span>
+        );
+    }
+
+    onCloseButtonClick() {
+        this.setState({
+            showMessage: false
+        })
     }
 }
 
