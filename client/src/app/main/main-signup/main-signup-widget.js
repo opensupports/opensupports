@@ -155,7 +155,7 @@ class MainSignUpWidget extends React.Component {
             loading: false,
             message: 'success'
         }, () => {
-            setTimeout(() => {history.push('/check-ticket')}, 2000);
+            setTimeout(() => {history.push('/')}, 2000);
         });
     }
 
