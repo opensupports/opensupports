@@ -111,4 +111,11 @@
             padding-left: 28px;
         }
     }
+
+    &__close-icon {
+        cursor: pointer;
+        position: absolute;
+        top: 5px;
+        right: 10px;
+    }
 }

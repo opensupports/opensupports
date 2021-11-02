@@ -5,7 +5,6 @@ import { connect }        from 'react-redux'
 import DocumentTitle      from 'react-document-title';
 
 import history from 'lib-app/history';
-import ModalContainer from 'app-components/modal-container';
 
 const level2Paths = [
     '/admin/panel/tickets/custom-responses',
@@ -39,7 +38,6 @@ class App extends React.Component {
                     <div className="application__content">
                         {React.cloneElement(this.props.children, {})}
                     </div>
-                    <ModalContainer />
                 </div>
             </DocumentTitle>
         );
