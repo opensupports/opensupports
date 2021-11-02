@@ -1,5 +1,5 @@
 describe '/ticket/get/' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)    
     
     result= request('/system/add-api-key', {
@@ -12,7 +12,7 @@ describe '/ticket/get/' do
     (result['status']).should.equal('success')
     $token = result['data'];
 
-    request('/user/logout')
+    Scripts.logout()
 
     Scripts.createUser('cersei@os4.com', 'cersei','Cersei Lannister')
     Scripts.createUser('not_ticket_getter@os4.com', 'not_ticket_getter','No Author')
@@ -51,7 +51,7 @@ describe '/ticket/get/' do
     end
 
     it 'should fail if ticket does not belong to user' do
-        request('/user/logout')
+        Scripts.logout()
         result = Scripts.login('not_ticket_getter@os4.com', 'not_ticket_getter')
 
         $csrf_userid = result['userId']
@@ -97,11 +97,11 @@ describe '/ticket/get/' do
         (result['data']['events'][0]['content']).should.equal('some valid comment made')
     end
     it 'should successfully return the ticket information if staff member serves to the department of the ticket' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('cersei@os4.com', 'cersei')
         Scripts.createTicket('titleofticket87','contentoftheticket87',1)
         Scripts.createTicket('2titleofticket87','2contentoftheticket87',1)
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         ticket = $database.getRow('ticket','titleofticket87', 'title')
@@ -119,7 +119,7 @@ describe '/ticket/get/' do
 
     end
     it 'should successfully return the ticket information if staff member does not serve to the deparment of the ticket but is author' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         Scripts.createTicket('titleoftheticket107','contentoftheticket107',1)
@@ -145,7 +145,7 @@ describe '/ticket/get/' do
 
     it 'should fail if staff member does not serve to the department of the ticket and is not the author' do
         ticket = $database.getRow('ticket','2titleofticket87', 'title')
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         
         result = request('/ticket/get', {

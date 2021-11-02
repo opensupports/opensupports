@@ -1,5 +1,5 @@
 describe '/ticket/get-authors/' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
     Scripts.createUser('userauthor@os4.com', 'passwordofuserauthor', 'userauthorname')    
     

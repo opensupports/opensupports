@@ -29,7 +29,7 @@ describe '/user/login' do
     end
 
     it 'should login staff member' do
-        request('/user/logout', {})
+        Scripts.logout()
         result = request('/user/login', {
             email: $staff[:email],
             password: $staff[:password],
@@ -40,7 +40,7 @@ describe '/user/login' do
     end
 
     it 'should work autologin user with remember token' do
-        request('/user/logout', {})
+        Scripts.logout()
         result = request('/user/login', {
             email: @loginEmail,
             password: @loginPass,
@@ -52,7 +52,7 @@ describe '/user/login' do
         @rememberToken = result['data']['rememberToken']
         @userId = result['data']['userId']
 
-        request('/user/logout', {})
+        Scripts.logout()
         result = request('/user/login', {
             userId: @userId,
             rememberToken: '12abc',
@@ -79,7 +79,7 @@ describe '/user/login' do
     end
 
     it 'should work autologin staff with remember token' do
-        request('/user/logout', {})
+        Scripts.logout()
         result = request('/user/login', {
             email: $staff[:email],
             password: $staff[:password],
@@ -91,7 +91,7 @@ describe '/user/login' do
         @rememberToken = result['data']['rememberToken']
         @staffId = result['data']['userId']
 
-        request('/user/logout', {})
+        Scripts.logout()
         result = request('/user/login', {
             userId: @staffId,
             rememberToken: '12abc',
@@ -115,6 +115,26 @@ describe '/user/login' do
             remember: 1
         })
         (result['status']).should.equal('success')
+
+        $csrf_userid = result['data']['userId']
+        $csrf_token = result['data']['token']
     end
 
+    it 'should logout if user is logged in'do
+        result = request('/user/logout', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        (result['status']).should.equal('success')
+    end
+
+    it 'should fail logout if user is not logged in' do
+        result = request('/user/logout', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('NO_PERMISSION')
+    end
 end

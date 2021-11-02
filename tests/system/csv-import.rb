@@ -1,5 +1,5 @@
 describe'system/csv-import' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         it 'should create user with csv-import' do

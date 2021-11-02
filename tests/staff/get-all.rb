@@ -1,5 +1,5 @@
 describe'/staff/get-all' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should get all staff member' do

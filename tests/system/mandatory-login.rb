@@ -14,7 +14,7 @@ describe'system/mandatory-login' do
             (result['message']).should.equal('NO_PERMISSION')
         end
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         
         it 'should fail trying to disable mandatory login when registration is off' do
@@ -98,7 +98,7 @@ describe'system/mandatory-login' do
         end
         
         it 'should allow a creator creates a ticket and create him a user' do
-            request('/user/logout')
+            Scripts.logout()
             result = request('/ticket/create', {
                 email: 'nonuser@os4.com',
                 language: 'en',
@@ -283,7 +283,7 @@ describe'system/mandatory-login' do
             (result['status']).should.equal('fail')
             (result['message']).should.equal('INVALID_CREDENTIALS')
 
-            request('/user/logout')
+            Scripts.logout()
 
             result = request('/user/login', {
                 email: 'nonuser@os4.com'
@@ -294,7 +294,7 @@ describe'system/mandatory-login' do
         end
         
         it 'should allow the creator sign up' do
-            request('/user/logout')
+            Scripts.logout()
             Scripts.createUser('nonuser@os4.com', 'customPassword', 'nonuser')
             $userRow = $database.getRow('user','nonuser@os4.com','email')
             ($userRow['never_logged']).should.equal(nil)
@@ -302,7 +302,7 @@ describe'system/mandatory-login' do
         end
 
         it 'should allow the creator login and get more than 1 own ticket' do
-            request('/user/logout')
+            Scripts.logout()
             result = request('/user/login', {
                 email: 'nonuser@os4.com',
                 password: 'customPassword'
@@ -338,7 +338,7 @@ describe'system/mandatory-login' do
             (result['status']).should.equal('success')
         end
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         it 'should allow staff enable the mandatory login' do

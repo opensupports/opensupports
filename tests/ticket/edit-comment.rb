@@ -1,6 +1,6 @@
 describe '/ticket/edit-comment' do
 
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login();
     Scripts.createTicket('ticket made by an user','content of the ticket made by an user')
     ticket = $database.getRow('ticket', 'ticket made by an user', 'title')
@@ -38,7 +38,7 @@ describe '/ticket/edit-comment' do
     end
 
     it 'should change the content of a comment and the content of the ticket if the admin is logged' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         ticketevent = $database.getRow('ticketevent', 'comment edited by the user', 'content')
 
@@ -66,11 +66,11 @@ describe '/ticket/edit-comment' do
         (result['status']).should.equal('success')
         (ticket['content']).should.equal('content edited by a staff')
 
-        request('/user/logout')
+        Scripts.logout()
     end
 
     it 'should not change the content of a comment if the user is not the author' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         ticket = $database.getRow('ticket', 'ticket made by an user', 'title')
@@ -80,7 +80,7 @@ describe '/ticket/edit-comment' do
 
         ticketevent = $database.getRow('ticketevent', 'this is a new comment of a staff member', 'content')
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login();
 
         result = request('/ticket/edit-comment', {
