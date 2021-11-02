@@ -159,13 +159,15 @@ class StaffEditor extends React.Component {
     }
 
     renderReInviteStaffMessage() {
-        if (this.state.reInviteStaff === "success") {
+        const { reInviteStaff } = this.state
+
+        if (reInviteStaff === "success") {
             return (
                  <Message className="staff-editor__staff-invitation-message" type="success" leftAligned>
                     {i18n('RESEND_STAFF_INVITATION_SUCCESS')}
                 </Message>
             );
-        } else if (this.state.reInviteStaff === "error") {
+        } else if (reInviteStaff === "error") {
             return (
                 <Message className="staff-editor__staff-invitation-message" type="error" leftAligned>
                     {i18n('RESEND_STAFF_INVITATION_FAIL')}
