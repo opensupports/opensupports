@@ -137,7 +137,7 @@ export default {
     'UPDATE_EMAIL': 'Actualizar correo electrónico',
     'UPDATE_PASSWORD': 'Actualizar contraseña',
     'UPDATE_LEVEL': 'Actualizar nivel',
-    'UPDATE_DEPARTMENTS': 'Actializar departamentos',
+    'UPDATE_DEPARTMENTS': 'Actualizar departamentos',
     'EDIT_STAFF': 'Editar miembro del staff',
     'ADD_DEPARTMENT': 'Añadir departamento',
     'UPDATE_DEPARTMENT': 'Actualizar Departamento',
