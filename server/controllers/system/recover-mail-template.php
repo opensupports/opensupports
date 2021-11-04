@@ -37,7 +37,7 @@ class RecoverMailTemplateController extends Controller {
                     'error' => ERRORS::INVALID_TEMPLATE
                 ],
                 'language' => [
-                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_LANGUAGE, LengthConfig::MAX_LENGTH_LANGUAGE),
+                    'validation' => DataValidator::oneOf(DataValidator::in(Language::getSupportedLanguages()), DataValidator::nullType()),
                     'error' => ERRORS::INVALID_LANGUAGE
                 ],
             ]
