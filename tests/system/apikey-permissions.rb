@@ -11,7 +11,7 @@ describe '/system/apikey-permissions' do
     request('/system/disable-mandatory-login', {
             "csrf_userid" => $csrf_userid,
             "csrf_token" => $csrf_token,
-            "password" => "staff"
+            "password" => $staff[:password]
     })
     request('/system/edit-settings', {
         "csrf_userid" => $csrf_userid,

@@ -6,8 +6,8 @@ describe '/user/get-users' do
     Scripts.createUser('tests3@hotmail.com','passfasfasfws','laeczvwaf')
 
     result = request('/user/login', {
-        email: 'staff@opensupports.com',
-        password: 'staff',
+        email: $staff[:email],
+        password: $staff[:password],
         staff: true
     })
 

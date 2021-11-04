@@ -28,7 +28,7 @@ describe 'Article path' do
 
     it 'should create article' do
         result = request('/article/add', {
-            title: 'Some article',
+            name: 'Some article',
             content: 'This is an article about server management.',
             topicId: @topic_id,
             position: 1,
@@ -108,7 +108,7 @@ describe 'Article path' do
 
     it 'should retrieve all articles' do
         request('/article/add', {
-            title: 'Some article',
+            name: 'Some article',
             content: 'This is an article about server management.',
             topicId: @topic_id,
             position: 1,

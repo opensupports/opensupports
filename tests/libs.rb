@@ -153,6 +153,6 @@ $database = Database.new
 # $mail_server.check
 
 $staff = {
-    :email => 'staff@opensupports.com',
-    :password => 'staff'
+    :email => 'admin@opensupports.com',
+    :password => 'admin22'
 }

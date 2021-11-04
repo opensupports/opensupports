@@ -2,8 +2,8 @@ describe '/user/ban' do
 
     request('/user/logout')
     result = request('/user/login', {
-        email: 'staff@opensupports.com',
-        password: 'staff',
+        email: $staff[:email],
+        password: $staff[:password],
         staff: true
     })
     (result['status']).should.equal('success')

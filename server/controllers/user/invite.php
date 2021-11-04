@@ -45,7 +45,7 @@ class InviteUserController extends Controller {
             'permission' => 'staff_1',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::notBlank()->length(2, 55),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
                     'error' => ERRORS::INVALID_NAME
                 ],
                 'email' => [

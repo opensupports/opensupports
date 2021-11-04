@@ -7,7 +7,7 @@ describe '/user/delete' do
         Scripts.createTicket('Ticket that will be deleted')
 
         request('/user/logout')
-        Scripts.login('staff@opensupports.com', 'staff', true)
+        Scripts.login($staff[:email], $staff[:password], true)
         ticket = $database.getLastRow('ticket')
         deletable_user = $database.getLastRow('user')
 
