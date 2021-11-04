@@ -16,7 +16,7 @@ class PopupMessage extends React.Component {
     static open(props) {
         ModalContainer.openModal(
             <PopupMessage {...props} />,
-            {noPadding: true, outsideClick: true}
+            {noPadding: true, outsideClick: true, closeButton: {showCloseButton: false, whiteColor: false}}
         );
     }
 
@@ -27,7 +27,7 @@ class PopupMessage extends React.Component {
     render() {
         return (
             <div className="popup-message">
-                <Message {...this.props} className="popup-message__message" />
+                <Message {...this.props} showCloseButton={false} className="popup-message__message" />
                 <Button
                     className="popup-message__close-button"
                     iconName="times"
