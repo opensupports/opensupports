@@ -18,8 +18,6 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {Boolean} staff Indicates if the user is a staff member.
  *
  * @apiUse INVALID_EMAIL
- * @apiUse USER_SYSTEM_DISABLED
- * @apiUse INVALID_EMAIL
  *
  * @apiSuccess {Object} data Empty object.
  *

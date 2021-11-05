@@ -1,5 +1,5 @@
 describe '/ticket/remove-tag' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     result = $database.getRow('ticket', 'test ticket' , 'title')
@@ -75,10 +75,10 @@ describe '/ticket/remove-tag' do
         })
     end
     it 'should fail if staff does not serve to department of the ticket and is not the author' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('pepito@pepito.com', 'pepito12345')
         Scripts.createTicket('title73','contentoftheticket73',3)
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         ticket = $database.getRow('ticket','title73', 'title')

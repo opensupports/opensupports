@@ -1,6 +1,6 @@
 describe '/user/get-users' do
 
-    request('/user/logout')
+    Scripts.logout()
     Scripts.createUser('tests@hotmail.com','passdasdasdas','laasdasd')
     Scripts.createUser('tests2@hotmail.com','passfasfasfsa','laeaefae')
     Scripts.createUser('tests3@hotmail.com','passfasfasfws','laeczvwaf')

@@ -1,5 +1,5 @@
 describe'system/get-api-keys' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should get all API keys' do

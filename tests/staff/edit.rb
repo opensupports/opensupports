@@ -1,5 +1,5 @@
 describe'/staff/edit' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should edit another staff member' do
@@ -93,7 +93,7 @@ describe'/staff/edit' do
 
     it 'should fail if is not staff logged' do
 
-        request('/user/logout')
+        Scripts.logout()
 
         result = request('/staff/edit', {
             csrf_userid: $csrf_userid,

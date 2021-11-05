@@ -1,5 +1,5 @@
 describe'system/add-department' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         it 'should add department with alphanumeric characters' do

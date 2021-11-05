@@ -1,5 +1,5 @@
 describe 'Topic paths' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should add topic correctly' do
@@ -60,7 +60,7 @@ describe 'Topic paths' do
     end
 
     it 'should deny permission if it is not logged as staff' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('tyrion@opensupports.com', 'tyrionl')
 
         result = request('/article/add-topic', {

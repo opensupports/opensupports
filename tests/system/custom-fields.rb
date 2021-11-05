@@ -1,5 +1,5 @@
 describe 'Custom fields' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     describe '/system/add-custom-field' do

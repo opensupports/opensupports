@@ -1,5 +1,5 @@
 describe'system/edit-department' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         it 'should edit department' do
