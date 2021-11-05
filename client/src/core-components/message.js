@@ -15,7 +15,8 @@ class Message extends React.Component {
 
     static defaultProps = {
         type: 'info',
-        leftAligned: false
+        leftAligned: false,
+        showCloseButton: true
     };
 
     state = {
@@ -46,14 +47,14 @@ class Message extends React.Component {
     }
 
     renderMessageContent(style) {
-        const { children, title } = this.props;
+        const { children, title, showCloseButton } = this.props;
 
         return (
             <div className={this.getClass()} style={style} aria-live="assertive">
                 <Icon className="message__icon" name={this.getIconName()} size={this.getIconSize()} />
                 <div className="message__title">{title}</div>
                 <div className="message__content">{children}</div>
-                {this.renderCloseButton()}
+                {showCloseButton ? this.renderCloseButton() : null}
             </div>
         )
     }
