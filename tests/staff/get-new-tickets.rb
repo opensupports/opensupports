@@ -1,5 +1,5 @@
 describe '/staff/get-new-tickets' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should get new tickets' do

@@ -1,5 +1,5 @@
 describe '/staff/assign-ticket' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     Scripts.createTicket('ticket_to_assing_1')

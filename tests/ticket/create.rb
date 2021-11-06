@@ -1,5 +1,5 @@
 describe '/ticket/create' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.createUser('creator@os4.com','creator','Creator')
     Scripts.login('creator@os4.com','creator')
 
@@ -78,7 +78,7 @@ describe '/ticket/create' do
 
     end
     it 'should fail if an user tries to create a ticket with a private department' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('staff@opensupports.com', 'staff', true)
 
         result = request('/system/add-department', {
@@ -90,7 +90,7 @@ describe '/ticket/create' do
 
         row = $database.getRow('department', 'useless private deapartment', 'name')
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.createUser('user@os4.com', 'loginpass')
         Scripts.login('user@os4.com', 'loginpass')
 
@@ -106,7 +106,7 @@ describe '/ticket/create' do
         (result['status']).should.equal('fail')
         (result['message']).should.equal('INVALID_DEPARTMENT')
 
-        request('/user/logout')
+        Scripts.logout()
     end
 
     it 'should create ticket if pass data is valid' do
@@ -177,7 +177,7 @@ describe '/ticket/create' do
     end
 
     it 'should be able to create a ticket while being staff' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         result = request('/ticket/create', {
             title: 'created by staff',
@@ -194,6 +194,6 @@ describe '/ticket/create' do
         (ticket['author_staff_id']).should.equal(1)
 
         $ticketNumberByStaff = ticket['ticket_number']
-        request('/user/logout')
+        Scripts.logout()
     end
 end

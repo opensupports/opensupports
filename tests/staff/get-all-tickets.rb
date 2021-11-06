@@ -37,7 +37,7 @@ describe 'Retrieve all tickets' do
             createTicket('placerat id velit')
             createTicket('Quisque egestas ipsum')
 
-            request('/user/logout')
+            Scripts.logout()
             Scripts.login($staff[:email], $staff[:password], true)
             response = request('/staff/get-all-tickets', {
                 page: 1,

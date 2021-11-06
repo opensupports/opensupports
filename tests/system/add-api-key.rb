@@ -1,5 +1,5 @@
 describe'system/add-api-key' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should add API key' do

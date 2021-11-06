@@ -72,7 +72,6 @@ class Scripts
     end
 
     def self.login(email = 'steve@jobs.com', password = 'custompassword', staff = false)
-        request('/user/logout')
         response = request('/user/login', {
             :email => email,
             :password => password,
@@ -88,7 +87,10 @@ class Scripts
     end
 
     def self.logout()
-      request('/user/logout')
+        request('/user/logout', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
     end
 
     def self.createTicket(title = 'Winter is coming',content = 'The north remembers', department = 1)

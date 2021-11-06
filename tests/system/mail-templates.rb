@@ -1,5 +1,5 @@
 describe 'Mail templates' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     describe 'system/get-mail-template' do

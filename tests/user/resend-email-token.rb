@@ -1,6 +1,6 @@
 describe '/user/resend-email-token' do
 
-    request('/user/logout')
+    Scripts.logout()
 
     it 'should fail is data is wrong' do
         result = request('/user/resend-email-token', {

@@ -1,5 +1,5 @@
 describe '/ticket/add-tag' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     Scripts.createTag('test tag', 'orange')
@@ -72,12 +72,12 @@ describe '/ticket/add-tag' do
     end
 
     it 'should fail if staff member does not serve to the department of the ticket and he is not the author' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.createUser('pepito@pepito.com', 'pepito12345','pepito')
         Scripts.login('pepito@pepito.com', 'pepito12345')
         Scripts.createTicket('title70','contentoftheticket70',3)
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         ticket = $database.getRow('ticket','title70', 'title')
 

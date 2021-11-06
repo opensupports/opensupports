@@ -1,5 +1,5 @@
 describe'/system/disable-registration' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
     api_key = Scripts.createAPIKey('registrationKey', canCreateUsers = 1)['data']
 

@@ -1,7 +1,7 @@
 describe '/ticket/search-authors/' do
     
     it 'should fail if a user is loged' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('tyrion@opensupports.com', 'tyrionl')
         
         result = request('/ticket/search-authors', {
@@ -17,7 +17,7 @@ describe '/ticket/search-authors/' do
     end
     
     it 'should fail if blackList is invalid' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         Scripts.createUser(email = 'eemilia@jobs.com', password = 'custompassword', name = 'eemilia')
 
