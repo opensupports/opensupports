@@ -1,5 +1,5 @@
 describe'/system/enable-registration' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should not enable registration if password is not correct' do

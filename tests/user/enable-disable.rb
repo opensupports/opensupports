@@ -1,8 +1,8 @@
 describe 'Enable/disable user' do
-    user = $database.getRow('user', 'login@os4.com', 'email');
+    user = $database.getRow('user', 'login@os4.com', 'email')
 
     describe '/user/disable' do
-        request('/user/logout');
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         it 'should disable user' do
@@ -12,7 +12,7 @@ describe 'Enable/disable user' do
                 csrf_userid: $csrf_userid,
             })
 
-            (result['status']).should.equal('success');
+            (result['status']).should.equal('success')
         end
 
         it 'should not disable user if already disabled' do
@@ -22,12 +22,12 @@ describe 'Enable/disable user' do
                 csrf_userid: $csrf_userid,
             })
 
-            (result['status']).should.equal('fail');
+            (result['status']).should.equal('fail')
             (result['message']).should.equal('ALREADY_DISABLED')
         end
 
         it 'should reject login' do
-            request('/user/logout');
+            Scripts.logout()
             result = request('/user/login', {
                 email: 'login@os4.com',
                 password: 'loginpass'
@@ -39,7 +39,7 @@ describe 'Enable/disable user' do
     end
 
     describe '/user/enable' do
-        request('/user/logout');
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         it 'should enable user' do
@@ -49,7 +49,7 @@ describe 'Enable/disable user' do
                 csrf_userid: $csrf_userid,
             })
 
-            (result['status']).should.equal('success');
+            (result['status']).should.equal('success')
         end
 
         it 'should not enable user if already enabled' do
@@ -59,7 +59,7 @@ describe 'Enable/disable user' do
                 csrf_userid: $csrf_userid,
             })
 
-            (result['status']).should.equal('fail');
+            (result['status']).should.equal('fail')
             (result['message']).should.equal('ALREADY_ENABLED')
 
             result = request('/user/enable', {
@@ -68,7 +68,7 @@ describe 'Enable/disable user' do
                 csrf_userid: $csrf_userid,
             })
 
-            (result['status']).should.equal('fail');
+            (result['status']).should.equal('fail')
             (result['message']).should.equal('ALREADY_ENABLED')
         end
     end

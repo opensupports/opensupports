@@ -1,5 +1,5 @@
 describe '/ticket/re-open' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should re open  a ticket if staff member has the deparment of the ticket' do
@@ -20,7 +20,7 @@ describe '/ticket/re-open' do
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('RE_OPEN')
 
-        request('/user/logout')
+        Scripts.logout()
     end
     it 'Should re-open if staff member does not serve to the department of the ticket and its the author'do
         Scripts.login($staff[:email], $staff[:password], true)
@@ -81,7 +81,7 @@ describe '/ticket/re-open' do
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('RE_OPEN')
 
-        request('/user/logout')
+        Scripts.logout()
     end
 
     it 'Should fail re-open the ticket if the staff does not serve to the department and he is not the author' do

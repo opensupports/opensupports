@@ -1,5 +1,5 @@
 describe 'system/delete-department' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.createUser('tranferguy@opensupports.com', 'transfer', 'Transfer Guy')
         Scripts.login('tranferguy@opensupports.com', 'transfer')
         $apikey = $database.getRow('apikey',1,'id')
@@ -35,7 +35,7 @@ describe 'system/delete-department' do
         ticket2 = ticket2['data']['ticketNumber']
         ticket3 = ticket3['data']['ticketNumber']
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         request('/staff/edit', {
             csrf_userid: $csrf_userid,

@@ -11,6 +11,8 @@
  *
  * @apiPermission any
  *
+ * @apiUse NO_PERMISSION
+ * 
  * @apiSuccess {Object} data Empty object
  *
  */
@@ -20,7 +22,7 @@ class LogoutController extends Controller {
 
     public function validations() {
         return [
-            'permission' => 'any',
+            'permission' => 'user',
             'requestData' => []
         ];
     }

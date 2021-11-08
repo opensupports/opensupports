@@ -1,6 +1,6 @@
 describe '/user/edit-password' do
 
-    request('/user/logout')
+    Scripts.logout()
     result = request('/user/login', {
         email: 'steve@jobs.com',
         password: 'custompassword'
@@ -53,7 +53,7 @@ describe '/user/edit-password' do
         })
         (result['status']).should.equal('success')
 
-        request('/user/logout')
+        Scripts.logout()
 
         Scripts.login('steve@jobs.com','newpassword')
 

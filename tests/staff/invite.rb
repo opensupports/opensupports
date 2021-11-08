@@ -1,5 +1,5 @@
 describe'/staff/invite' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should if data is wrong' do

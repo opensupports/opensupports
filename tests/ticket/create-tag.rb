@@ -1,5 +1,5 @@
 describe '/ticket/create-tag' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should add a tag' do

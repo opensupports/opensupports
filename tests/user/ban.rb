@@ -1,6 +1,6 @@
 describe '/user/ban' do
 
-    request('/user/logout')
+    Scripts.logout()
     result = request('/user/login', {
         email: $staff[:email],
         password: $staff[:password],

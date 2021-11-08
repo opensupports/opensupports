@@ -1,5 +1,5 @@
 describe '/staff/get/' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should return staff member data' do

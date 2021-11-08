@@ -1,5 +1,5 @@
 describe'/staff/delete' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
     @staffId = $database.getRow('staff','littlelannister@opensupports.com','email')['id']
 

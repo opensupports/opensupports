@@ -1,5 +1,5 @@
 describe '/ticket/search' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     Scripts.createTicket('test ticket1')

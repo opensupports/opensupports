@@ -1,5 +1,5 @@
 describe '/staff/supervisor-user-list' do
-    request('/user/logout')
+    Scripts.logout()
     
     Scripts.createUser('supervisor@opensupports.com', 'passwordOfSupervisor', 'Supervisor Guy')
     Scripts.createUser('usersupervised1@opensupports.com', 'usersupervised1', 'supervised Guy1')
@@ -32,7 +32,7 @@ describe '/staff/supervisor-user-list' do
     ticketuser2 = $database.getRow('ticket', 'titlecreateadbyusersupervised2', 'title')
     ticketuser3 = $database.getRow('ticket', 'titlecreateadbyusersupervised3', 'title')
     it'should fail if a no-staff tryes to make the request'do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('supervisor@opensupports.com', 'passwordOfSupervisor')
         
         result = request('/user/edit-supervised-list', {
@@ -48,7 +48,7 @@ describe '/staff/supervisor-user-list' do
     end
 
     it 'should fail if userIdList is wrong' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         
         result = request('/user/edit-supervised-list', {
@@ -83,7 +83,7 @@ describe '/staff/supervisor-user-list' do
     end
 
     it'should fail if userId is wrong'do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         
         result = request('/user/edit-supervised-list', {
@@ -98,7 +98,7 @@ describe '/staff/supervisor-user-list' do
     end
 
     it'should fail if supervisor is included in user-id-List'do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         
         result = request('/user/edit-supervised-list', {
@@ -113,7 +113,7 @@ describe '/staff/supervisor-user-list' do
     end
     
     it'should create supervisor user'do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         
         result = request('/user/edit-supervised-list', {
@@ -128,7 +128,7 @@ describe '/staff/supervisor-user-list' do
     end
 
     it 'should allow supervisor to access tickets from supervisated users' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('supervisor@opensupports.com', 'passwordOfSupervisor')
         result = request('/ticket/get', {
             ticketNumber: ticketsupervisor['ticket_number'],
@@ -160,7 +160,7 @@ describe '/staff/supervisor-user-list' do
         
     end
     it 'should allow supervisor see only the new user list' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         
         request('/user/edit-supervised-list', {
@@ -171,7 +171,7 @@ describe '/staff/supervisor-user-list' do
         })
         
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('supervisor@opensupports.com', 'passwordOfSupervisor')
 
         result = request('/ticket/get', {

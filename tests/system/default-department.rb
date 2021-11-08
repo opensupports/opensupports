@@ -1,9 +1,9 @@
 describe '/system/default-department' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
     
     it 'should fail if try to turn a private department default' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         privatedepartment = $database.getRow('department', 1, 'private')
@@ -32,7 +32,7 @@ describe '/system/default-department' do
     end
     
     it 'should fail if default-department-id does not exist' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         result= request('/system/edit-settings', {
@@ -46,7 +46,7 @@ describe '/system/default-department' do
     end
 
     it 'should set a new default deparment' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         publicdepartment = $database.getRow('department', 'Suggestions', 'name')
@@ -61,7 +61,7 @@ describe '/system/default-department' do
     end
 
     it 'should fail if try to delete the default department' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         defaultDepartment  = $database.getRow('setting', 'default-department-id', 'name')
@@ -79,8 +79,9 @@ describe '/system/default-department' do
     end
     
     it 'should fail if try to edit default department into private' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
+
         defaultDepartmentId = $database.getRow('setting', 'default-department-id', 'name')
         department = $database.getRow('department',defaultDepartmentId['value'],'id')
         
@@ -97,7 +98,7 @@ describe '/system/default-department' do
     end
 
     it 'should create ticket in default department if Staff does not give department with locked on' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         Scripts.updateLockedDepartmentSetting(1)
         
@@ -116,7 +117,7 @@ describe '/system/default-department' do
     end
 
     it 'should create ticket in default department if staff does not give department with locked off'do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         Scripts.updateLockedDepartmentSetting(0)
         
@@ -135,7 +136,7 @@ describe '/system/default-department' do
     end
 
     it 'should create ticket in selected department if staff give department and lockd is off'do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         Scripts.updateLockedDepartmentSetting(0)
         
@@ -154,7 +155,7 @@ describe '/system/default-department' do
     end
         
     it 'should create ticket in selected department if staff give department and locked is on' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         Scripts.updateLockedDepartmentSetting(1)
         
@@ -173,12 +174,11 @@ describe '/system/default-department' do
     end
         
     it 'should create ticket on default department if user does not give department and locked is on' do
-        
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         Scripts.updateLockedDepartmentSetting(1)
         
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('user@os4.com', 'loginpass')
         
         result = request('/ticket/create', {
@@ -198,12 +198,11 @@ describe '/system/default-department' do
     end
 
     it 'should create ticket on default department if user does not give department and locked is off'do
-        
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         Scripts.updateLockedDepartmentSetting(0)
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('user@os4.com', 'loginpass')
         
         result = request('/ticket/create', {
@@ -221,12 +220,11 @@ describe '/system/default-department' do
     end
         
     it 'should create ticket on selected department if user give department and locked is off'do
-        
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         Scripts.updateLockedDepartmentSetting(0)
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('user@os4.com', 'loginpass')
         
         result = request('/ticket/create', {
@@ -246,7 +244,7 @@ describe '/system/default-department' do
     it 'should create ticket on default language if user does not pass language'do
         $database.query('update setting set value="ru" where name="language";')
         
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('user@os4.com', 'loginpass')
 
         result = request('/ticket/create', {

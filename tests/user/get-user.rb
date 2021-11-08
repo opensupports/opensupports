@@ -1,6 +1,6 @@
 describe '/user/get-user' do
 
-    request('/user/logout')
+    Scripts.logout()
     result = request('/user/login', {
         email: $staff[:email],
         password: $staff[:password],

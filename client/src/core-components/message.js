@@ -15,8 +15,13 @@ class Message extends React.Component {
 
     static defaultProps = {
         type: 'info',
-        leftAligned: false
+        leftAligned: false,
+        showCloseButton: true
     };
+
+    state = {
+        showMessage: true
+    }
 
     render() {
         return (
@@ -38,26 +43,35 @@ class Message extends React.Component {
     }
 
     renderMessage(style) {
+        return this.state.showMessage ? this.renderMessageContent(style) : null
+    }
+
+    renderMessageContent(style) {
+        const { children, title, showCloseButton } = this.props;
+
         return (
             <div className={this.getClass()} style={style} aria-live="assertive">
                 <Icon className="message__icon" name={this.getIconName()} size={this.getIconSize()} />
-                <div className="message__title">{this.props.title}</div>
-                <div className="message__content">{this.props.children}</div>
+                <div className="message__title">{title}</div>
+                <div className="message__content">{children}</div>
+                {showCloseButton ? this.renderCloseButton() : null}
             </div>
         )
     }
 
     getClass() {
+        const { type, title, leftAligned, className } = this.props
+
         let classes = {
             'message': true,
-            'message_success': (this.props.type === 'success'),
-            'message_error': (this.props.type === 'error'),
-            'message_info': (this.props.type === 'info'),
-            'message_warning': (this.props.type === 'warning'),
-            'message_with-title': (this.props.title),
-            'message_left-aligned': (this.props.leftAligned),
+            'message_success': (type === 'success'),
+            'message_error': (type === 'error'),
+            'message_info': (type === 'info'),
+            'message_warning': (type === 'warning'),
+            'message_with-title': title,
+            'message_left-aligned': leftAligned,
 
-            [this.props.className]: (this.props.className)
+            [className]: className
         };
 
         return classNames(classes);
@@ -76,6 +90,14 @@ class Message extends React.Component {
 
     getIconSize() {
         return (this.props.title) ? '2x' : 'lg';
+    }
+
+    renderCloseButton() {
+        return (
+            <span className="message__close-icon" onClick={() => this.setState({showMessage: false})}>
+                <Icon name="times" size="1x"/>
+            </span>
+        );
     }
 }
 
