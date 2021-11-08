@@ -1,6 +1,5 @@
 <?php
 @include 'config.php';
-@include 'data/length-config.php';
 require_once 'vendor/autoload.php';
 header('X-Frame-Options: DENY');
 
