@@ -53,7 +53,7 @@ class Database
     end
 
     def query(query_string)
-        return @connection.query(query_string);
+        return @connection.query(query_string)
     end
 end
 
