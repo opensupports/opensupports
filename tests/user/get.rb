@@ -1,5 +1,5 @@
 describe '/user/get' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.createUser('user_get@os4.com', 'user_get','User Get')
 
     Scripts.login('user_get@os4.com', 'user_get')
@@ -17,7 +17,7 @@ describe '/user/get' do
     @ticketNumber = ticket['ticket_number']
 
     it 'should fail if not logged' do
-        request('/user/logout')
+        Scripts.logout()
         result = request('/user/get', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token

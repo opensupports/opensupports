@@ -2,7 +2,7 @@ describe 'Enable/disable user' do
     user = $database.getRow('user', 'login@os4.com', 'email');
 
     describe '/user/disable' do
-        request('/user/logout');
+        Scripts.logout();
         Scripts.login('staff@opensupports.com', 'staff', true);
 
         it 'should disable user' do
@@ -27,7 +27,7 @@ describe 'Enable/disable user' do
         end
 
         it 'should reject login' do
-            request('/user/logout');
+            Scripts.logout();
             result = request('/user/login', {
                 email: 'login@os4.com',
                 password: 'loginpass'
@@ -39,7 +39,7 @@ describe 'Enable/disable user' do
     end
 
     describe '/user/enable' do
-        request('/user/logout');
+        Scripts.logout();
         Scripts.login('staff@opensupports.com', 'staff', true);
 
         it 'should enable user' do

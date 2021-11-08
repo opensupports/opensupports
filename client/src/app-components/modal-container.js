@@ -11,7 +11,7 @@ class ModalContainer extends React.Component {
     static openModal(
         content,
         options={noPadding: false, outsideClick: false, closeButton: {showCloseButton: false, whiteColor: false}}
-        ) {
+    ) {
         store.dispatch(
             ModalActions.openModal({
                 content,

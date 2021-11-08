@@ -1,11 +1,11 @@
 describe '/ticket/change-department' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     Scripts.createTicket('Stafftitle','This ticket was made by an staff',1)
-    request('/user/logout')
+    Scripts.logout()
 
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     request('/system/add-department', {
@@ -32,7 +32,7 @@ describe '/ticket/change-department' do
 
     it 'should change department if staff has same department as ticket' do
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         ticket = $database.getRow('ticket', 'Should we pay?', 'title')
 
@@ -104,7 +104,7 @@ describe '/ticket/change-department' do
         })
     end
     it 'should not unassing ticket if owner has the new ticket department and staff does not have it' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         result = request('/staff/edit', {
@@ -184,7 +184,7 @@ describe '/ticket/change-department' do
         Scripts.deleteStaff(staff['id'])
     end
     it 'should unassing ticket if owner has not the new ticket department' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         result = request('/staff/edit', {

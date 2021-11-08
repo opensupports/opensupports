@@ -1,7 +1,7 @@
 describe '/ticket/delete' do
 
     it 'should delete ticket if it is not assigned and is logged a staff lvl 3 ' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         Scripts.createTicket('ticket_to_delete')
         ticket = $database.getRow('ticket', 'ticket_to_delete', 'title')
@@ -24,7 +24,7 @@ describe '/ticket/delete' do
             token: recoverpassword['token']
         })
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('ned@opensupports.com', 'headless', true)
 
         result = request('/ticket/delete', {
@@ -37,7 +37,7 @@ describe '/ticket/delete' do
     end
 
     it 'should delete ticket if it is yours and it is not assigned' do
-      request('/user/logout')
+      Scripts.logout()
       Scripts.createUser('deleter@opensupports.com', 'deleterpassword', 'Delter')
       Scripts.login('deleter@opensupports.com', 'deleterpassword')
 
@@ -52,13 +52,13 @@ describe '/ticket/delete' do
     end
 
     it 'should not delete ticket if it is assigned' do
-      request('/user/logout')
+      Scripts.logout()
       Scripts.login('deleter@opensupports.com', 'deleterpassword')
 
       Scripts.createTicket('ticket_to_delete_3')
       ticket = $database.getRow('ticket', 'ticket_to_delete_3', 'title');
 
-      request('/user/logout')
+      Scripts.logout()
       Scripts.login($staff[:email], $staff[:password], true)
 
       result = request('/staff/assign-ticket', {
@@ -67,7 +67,7 @@ describe '/ticket/delete' do
           csrf_token: $csrf_token
       })
 
-      request('/user/logout')
+      Scripts.logout()
       Scripts.login('deleter@opensupports.com', 'deleterpassword')
 
       result = request('/ticket/delete', {
@@ -81,7 +81,7 @@ describe '/ticket/delete' do
     end
 
     it 'should not delete ticket if the staff logged is not lvl 3' do
-         request('/user/logout')
+         Scripts.logout()
          Scripts.login($staff[:email], $staff[:password], true)
          Scripts.createTicket('ticket_to_delete_4')
 
@@ -105,7 +105,7 @@ describe '/ticket/delete' do
              token: recoverpassword['token']
          })
 
-         request('/user/logout')
+         Scripts.logout()
 
          Scripts.login('uselessstaff@opensupports.com', 'theyaregonnafireme',true)
 
@@ -118,7 +118,7 @@ describe '/ticket/delete' do
          (result['status']).should.equal('fail')
          (result['message']).should.equal('NO_PERMISSION')
 
-         request('/user/logout')
+         Scripts.logout()
          Scripts.login($staff[:email], $staff[:password], true)
          staff = $database.getRow('staff', 'ned@opensupports.com', 'email')
          Scripts.deleteStaff(staff['id'])
