@@ -103,7 +103,7 @@ export default {
     'CHANGE_PASSWORD': 'Cambiar contraseña',
     'NAME': 'Nombre',
     'SIGNUP_DATE': 'Fecha de registro',
-    'CLEAR': 'Claro',
+    'CLEAR': 'Limpiar',
     'SEARCH': 'Buscar',
     'SEARCH_USERS': 'Buscar usuarios...',
     'SEARCH_EMAIL': 'Buscar email...',
