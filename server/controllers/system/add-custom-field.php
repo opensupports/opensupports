@@ -41,7 +41,7 @@ class AddCustomFieldController extends Controller {
                     'error' => ERRORS::INVALID_NAME
                 ],
                 'description' => [
-                    'validation' => DataValidator::notBlank()->length(2, 100),
+                    'validation' => DataValidator::length(0, 100),
                     'error' => ERRORS::INVALID_DESCRIPTION
                 ],
                 'type' => [
@@ -68,8 +68,26 @@ class AddCustomFieldController extends Controller {
         $description = Controller::request('description', true);
         $options = Controller::request('options');
 
-        if(!Customfield::getDataStore($name, 'name')->isNull())
+        if(!Customfield::getDataStore($name, 'name')->isNull()) {
             throw new Exception(ERRORS::CUSTOM_FIELD_ALREADY_EXISTS);
+        }
+
+        if($type == 'select') {
+            if(is_array(json_decode($options))) {
+                $arrayOptions = json_decode($options);
+                if(2 <= (sizeof($arrayOptions))) {
+                    foreach($arrayOptions as $option) {
+                        if(!$option && $option != '0') {
+                            throw new Exception(ERRORS::INVALID_CUSTOM_FIELD_OPTIONS);
+                        }
+                    }
+                } else {
+                    throw new Exception(ERRORS::INVALID_CUSTOM_FIELD_OPTIONS);
+                }
+            } else {
+                throw new Exception(ERRORS::INVALID_CUSTOM_FIELD_OPTIONS);
+            }
+        }
 
         $customField = new Customfield();
         $customField->setProperties([
