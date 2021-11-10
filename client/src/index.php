@@ -1,6 +1,7 @@
 <?php
     $path = rtrim(str_replace('\\','/',dirname($_SERVER['PHP_SELF'])), '/');
     $url = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $path;
+    header('X-Frame-Options: DENY');
 ?>
 <!doctype html>
 <html class="no-js" lang="">
@@ -19,7 +20,7 @@
         <div id="app"></div>
 
         <script>
-            opensupports_version = '4.9.0';
+            opensupports_version = '4.10.0';
             root = "<?=$url ?>";
             apiRoot = '<?=$url ?>/api';
             globalIndexPath = "<?=$path ?>";

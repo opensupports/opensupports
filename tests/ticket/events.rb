@@ -1,5 +1,5 @@
 describe 'Ticket Events' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.createUser('tyrion@opensupports.com', 'tyrionl', 'Tyrion Lannister')
 
     it 'should add events correctly' do
@@ -16,7 +16,7 @@ describe 'Ticket Events' do
         
         ticketNumber = ticket['ticket_number']
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         request('/staff/assign-ticket', {
             ticketNumber: ticketNumber,
@@ -51,7 +51,7 @@ describe 'Ticket Events' do
             csrf_token: $csrf_token
         })
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('tyrion@opensupports.com', 'tyrionl')
         request('/ticket/re-open', {
             ticketNumber: ticketNumber,

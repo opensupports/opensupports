@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/send-recover-password Send password recovery
- * @apiVersion 4.9.0
+ * @apiVersion 4.10.0
  *
  * @apiName Send password recovery
  *
@@ -17,8 +17,6 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} email The email of the user/staff who forgot the password.
  * @apiParam {Boolean} staff Indicates if the user is a staff member.
  *
- * @apiUse INVALID_EMAIL
- * @apiUse USER_SYSTEM_DISABLED
  * @apiUse INVALID_EMAIL
  *
  * @apiSuccess {Object} data Empty object.

@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/create-tag Create tag
- * @apiVersion 4.9.0
+ * @apiVersion 4.10.0
  *
  * @apiName Create tag
  *
@@ -46,7 +46,7 @@ class CreateTagController extends Controller {
     }
 
     public function handler() {
-        $name = Controller::request('name');
+        $name = Controller::request('name', true);
         $color = Controller::request('color');
 
         if (!Tag::getDataStore($name, 'name')->isNull()) {

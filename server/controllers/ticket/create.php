@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/create Create ticket
- * @apiVersion 4.9.0
+ * @apiVersion 4.10.0
  *
  * @apiName Create ticket
  *
@@ -99,7 +99,7 @@ class CreateController extends Controller {
             $session->clearSessionData();
         }
 
-        $this->title = Controller::request('title');
+        $this->title = Controller::request('title', true);
         $this->content = Controller::request('content', true);
         $this->departmentId = Controller::request('departmentId');
         $this->language = Controller::request('language');

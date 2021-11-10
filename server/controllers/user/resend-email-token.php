@@ -1,9 +1,10 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
-	
+DataValidator::with('CustomValidations', true);
+
 /** 
 * @api {post} /user/resend-email-token Resend user sign up token
-* @apiVersion 4.9.0
+* @apiVersion 4.10.0
 *
 * @apiName Resend user sign up token
 *

@@ -1,14 +1,14 @@
 describe '/ticket/close' do
 
     it 'should close ticket if staff member has the same department as ticket' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.createUser('closer@os4.com','closer','Closer')
         Scripts.login('closer@os4.com','closer')
         Scripts.createTicket('tickettoclose','thecontentoftickettoclose',1)
         Scripts.createTicket('tickettoclose2','thecontentoftickettoclose2',3)
         Scripts.createTicket('tickettoclose3','thecontentoftickettoclose3',3)
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         ticket = $database.getRow('ticket', 'tickettoclose', 'title')
@@ -81,7 +81,7 @@ describe '/ticket/close' do
         })
     end
     it 'should close ticket if User is the author' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('closer@os4.com','closer')
 
         ticket = $database.getRow('ticket', 'tickettoclose3', 'title')
@@ -100,6 +100,6 @@ describe '/ticket/close' do
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('CLOSE')
 
-        request('/user/logout')
+        Scripts.logout()
     end
 end

@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/add-department Add department
- * @apiVersion 4.9.0
+ * @apiVersion 4.10.0
  *
  * @apiName Add department
  *
@@ -39,7 +39,7 @@ class AddDepartmentController extends Controller {
     }
 
     public function handler() {
-        $name = Controller::request('name');
+        $name = Controller::request('name', true);
         $private = Controller::request('private');
 
         $departmentInstance = new Department();

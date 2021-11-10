@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 	
 /**
 * @api {post} /user/get-supervised-tickets Get supervised tickets
-* @apiVersion 4.9.0
+* @apiVersion 4.10.0
 *
 * @apiName Get supervised tickets
 *

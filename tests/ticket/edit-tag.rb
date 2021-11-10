@@ -1,5 +1,5 @@
 describe '/ticket/edit-tag' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should edit a tag' do

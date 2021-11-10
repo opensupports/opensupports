@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/add-custom-field Add a custom field
- * @apiVersion 4.9.0
+ * @apiVersion 4.10.0
  *
  * @apiName Add Custom field
  *
@@ -63,9 +63,9 @@ class AddCustomFieldController extends Controller {
     }
 
     public function handler() {
-        $name = Controller::request('name');
+        $name = Controller::request('name', true);
         $type = Controller::request('type');
-        $description = Controller::request('description');
+        $description = Controller::request('description', true);
         $options = Controller::request('options');
 
         if(!Customfield::getDataStore($name, 'name')->isNull())

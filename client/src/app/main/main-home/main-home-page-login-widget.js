@@ -33,7 +33,7 @@ class MainHomePageLoginWidget extends React.Component {
         loadingLogin: false,
         loadingRecover: false,
         reSendEMailVerificationLoading: false,
-        reSendEmailVerificationStep: 0,
+        reSendEmailVerificationStep: UNVERIFIED_USER_STEP,
         reSendEmailVerificationMessage: ""
     };
 
@@ -90,7 +90,7 @@ class MainHomePageLoginWidget extends React.Component {
 
                 case REQUEST_RESULT_STEP:
                     return (
-                        (this.state.emailVerificationMessage === "success") ?
+                        (this.state.reSendEmailVerificationMessage === "success") ?
                             <Message className="login-widget__resend-email-verification-success" type="success" leftAligned>
                                 {i18n('RESEND_EMAIL_VERIFICATION_SUCCESS')}
                             </Message> :
@@ -164,7 +164,8 @@ class MainHomePageLoginWidget extends React.Component {
 
     onLoginFormSubmit(formState) {
         this.setState({
-            reSendEmailVerificationStep: UNVERIFIED_USER_STEP
+            reSendEmailVerificationStep: UNVERIFIED_USER_STEP,
+            email: formState.email
         })
         this.props.dispatch(SessionActions.login(formState));
     }
@@ -235,12 +236,12 @@ class MainHomePageLoginWidget extends React.Component {
         }).then(() => {
             this.setState({
                 reSendEmailVerificationStep: REQUEST_RESULT_STEP,
-                reSendEMailVerificationMessage: 'success'
+                reSendEmailVerificationMessage: 'success'
             })
         }).catch(() => {
             this.setState({
                 reSendEmailVerificationStep: REQUEST_RESULT_STEP,
-                reSendEMailVerificationMessage: 'error'
+                reSendEmailVerificationMessage: 'error'
             })
         });
     }

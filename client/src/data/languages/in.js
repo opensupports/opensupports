@@ -455,5 +455,25 @@ export default {
     'TEST_SMTP_CONNECTION': 'परीक्षण एसएमटीपी कनेक्शन',
     'SERVER_ERROR': 'सर्वर से कनेक्ट नहीं हो पा रहा।',
     'EMAIL_SERVER_ADDRESS': 'ईमेल सर्वर का पता',
-    'EMAIL_SERVER_ADDRESS_DESCRIPTION': 'पता जहां मेल प्राप्त होगा और भेजा जाएगा'
+    'EMAIL_SERVER_ADDRESS_DESCRIPTION': 'पता जहां मेल प्राप्त होगा और भेजा जाएगा',
+    'CREATED': 'बनाया था',
+    'CREATED_DESCRIPTION': 'चयनित समय सीमा के दौरान निर्मित टिकट',
+    'OPEN': 'खोलना',
+    'OPEN_DESCRIPTION': 'चयनित समय सीमा के दौरान बनाए गए खुले टिकट',
+    'CLOSED_DESCRIPTION': 'चयनित समय सीमा के दौरान बनाए गए बंद टिकट',
+    'INSTANT': 'तुरंत',
+    'INSTANT_DESCRIPTION': 'कुल बंद टिकटों पर एक कर्मचारी के जवाब के बाद बंद टिकटों का प्रतिशत',
+    'REOPENED': 'फिर से खोल दी',
+    'REOPENED_DESCRIPTION': 'बनाए गए कुल टिकटों पर दोबारा खोले गए टिकटों का प्रतिशत',
+    'MONDAY': 'सोमवार',
+    'TUESDAY': 'मंगलवार',
+    'WEDNESDAY': 'बुधवार',
+    'THURSDAY': 'गुरूवार',
+    'FRIDAY': 'शुक्रवार',
+    'SATURDAY': 'शनिवार',
+    'SUNDAY': 'शनिवार',
+    'TICKET_NUMBER_SENT': 'टिकट सफलतापूर्वक बनाया गया है और टिकट संख्या के साथ एक ईमेल भेज दिया गया है।',
+    'TICKETS_INFORMATION' : 'जिन विभागों को आपने असाइन नहीं किया है उनके टिकट दिखाई नहीं देंगे.',
+    'API_KEYS': 'एपीआई कुंजियाँ' 
 };
+    

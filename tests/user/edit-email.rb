@@ -1,6 +1,6 @@
 describe '/user/edit-email' do
 
-    request('/user/logout')
+    Scripts.logout()
     result = request('/user/login', {
         email: 'steve@jobs.com',
         password: 'custompassword'

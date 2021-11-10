@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/delete-custom-field Delete custom field
- * @apiVersion 4.9.0
+ * @apiVersion 4.10.0
  *
  * @apiName Delete a custom field
  *

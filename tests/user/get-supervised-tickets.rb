@@ -1,5 +1,5 @@
 describe '/user/get-supervised-tickets' do
-    request('/user/logout')
+    Scripts.logout()
     
     supervisor = $database.getRow('user', 'supervisor@opensupports.com', 'email')
     user1 = $database.getRow('user', 'usersupervised1@opensupports.com', 'email')
@@ -12,7 +12,7 @@ describe '/user/get-supervised-tickets' do
     
     
     it 'should fail if supervised users are not valid' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         
         result = request('/user/edit-supervised-list', {
@@ -24,7 +24,7 @@ describe '/user/get-supervised-tickets' do
 
         (result['status']).should.equal('success')
         
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('supervisor@opensupports.com', 'passwordOfSupervisor')
         
         result = request('/user/get-supervised-tickets', {
@@ -141,7 +141,7 @@ describe '/user/get-supervised-tickets' do
         (result['data']).should.equal([])  
     end
     it 'should works propertly if 2 supervisors has the same users' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         Scripts.createUser('supervisor2@opensupports.com', 'usersupervised2', 'supervisor Guy2')
         supervisor2 = $database.getRow('user', 'supervisor2@opensupports.com', 'email')
@@ -188,7 +188,7 @@ describe '/user/get-supervised-tickets' do
     end
 
     it 'should if supervised Users tryes to handle supervisor-ticket' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('usersupervised1@opensupports.com', 'usersupervised1')
         
         result = request('/user/get-supervised-tickets', {
@@ -201,7 +201,7 @@ describe '/user/get-supervised-tickets' do
         (result['status']).should.equal('fail')
         (result['message']).should.equal('INVALID_SUPERVISED_USERS')  
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('usersupervised2@opensupports.com', 'usersupervised2')
         
         result = request('/user/get-supervised-tickets', {
@@ -214,7 +214,7 @@ describe '/user/get-supervised-tickets' do
         (result['status']).should.equal('fail')
         (result['message']).should.equal('INVALID_SUPERVISED_USERS')  
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('usersupervised3@opensupports.com', 'usersupervised3')
         
         result = request('/user/get-supervised-tickets', {

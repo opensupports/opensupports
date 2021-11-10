@@ -3,7 +3,7 @@ use Ifsnop\Mysqldump as IMysqldump;
 
 /**
  * @api {post} /system/backup-database Backup database
- * @apiVersion 4.9.0
+ * @apiVersion 4.10.0
  *
  * @apiName Backup database
  *

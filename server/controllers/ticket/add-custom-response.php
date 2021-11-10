@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/add-custom-response Add custom responses
- * @apiVersion 4.9.0
+ * @apiVersion 4.10.0
  *
  * @apiName Add a custom response
  *
@@ -54,7 +54,7 @@ class AddCustomResponseController extends Controller {
     public function handler() {
         $customResponse = new CustomResponse();
         $customResponse->setProperties([
-            'name' => Controller::request('name'),
+            'name' => Controller::request('name', true),
             'content' => Controller::request('content', true),
             'language' => Controller::request('language')
         ]);
