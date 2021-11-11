@@ -12,7 +12,7 @@ class ValidOptions extends AbstractRule {
 
             if(2 <= (sizeof($arrayOptions))) {
                 foreach($arrayOptions as $option) {
-                    if(!$option && $option != '0') {
+                    if(!$option && $option != '0' || empty(trim($option))) {
                         return false;
                     }
                 }
