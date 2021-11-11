@@ -1,5 +1,6 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
+DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /system/add-custom-field Add a custom field
@@ -53,7 +54,7 @@ class AddCustomFieldController extends Controller {
                 ],
                 'options' => [
                     'validation' => DataValidator::oneOf(
-                        DataValidator::json(),
+                        DataValidator::ValidOptions(),
                         DataValidator::nullType()
                     ),
                     'error' => ERRORS::INVALID_CUSTOM_FIELD_OPTIONS
@@ -70,23 +71,6 @@ class AddCustomFieldController extends Controller {
 
         if(!Customfield::getDataStore($name, 'name')->isNull()) {
             throw new Exception(ERRORS::CUSTOM_FIELD_ALREADY_EXISTS);
-        }
-
-        if($type == 'select') {
-            if(is_array(json_decode($options))) {
-                $arrayOptions = json_decode($options);
-                if(2 <= (sizeof($arrayOptions))) {
-                    foreach($arrayOptions as $option) {
-                        if(!$option && $option != '0') {
-                            throw new Exception(ERRORS::INVALID_CUSTOM_FIELD_OPTIONS);
-                        }
-                    }
-                } else {
-                    throw new Exception(ERRORS::INVALID_CUSTOM_FIELD_OPTIONS);
-                }
-            } else {
-                throw new Exception(ERRORS::INVALID_CUSTOM_FIELD_OPTIONS);
-            }
         }
 
         $customField = new Customfield();
