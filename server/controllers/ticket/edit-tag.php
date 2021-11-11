@@ -43,7 +43,7 @@ class EditTagController extends Controller {
                     'error' => ERRORS::INVALID_COLOR
                 ],
                 'name' => [
-                    'validation' => DataValidator::notBlank()->length(1, 200),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
                     'error' => ERRORS::INVALID_NAME
                 ]
             ]

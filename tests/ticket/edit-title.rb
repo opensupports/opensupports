@@ -1,7 +1,7 @@
 describe '/ticket/edit-title' do
 
     Scripts.logout()
-    Scripts.login();
+    Scripts.login()
     Scripts.createTicket('Valar Morghulis','content of the ticket made by an user')
     ticket = $database.getRow('ticket', 'Valar Morghulis', 'title')
     ticketNumber = ticket['ticket_number']

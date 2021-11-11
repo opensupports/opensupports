@@ -1,7 +1,7 @@
 describe '/ticket/edit-comment' do
 
     Scripts.logout()
-    Scripts.login();
+    Scripts.login()
     Scripts.createTicket('ticket made by an user','content of the ticket made by an user')
     ticket = $database.getRow('ticket', 'ticket made by an user', 'title')
     Scripts.commentTicket(ticket['ticket_number'],'com    ment of a user')
@@ -81,7 +81,7 @@ describe '/ticket/edit-comment' do
         ticketevent = $database.getRow('ticketevent', 'this is a new comment of a staff member', 'content')
 
         Scripts.logout()
-        Scripts.login();
+        Scripts.login()
 
         result = request('/ticket/edit-comment', {
             csrf_userid: $csrf_userid,
