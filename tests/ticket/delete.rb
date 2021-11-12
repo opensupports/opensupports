@@ -42,7 +42,7 @@ describe '/ticket/delete' do
       Scripts.login('deleter@opensupports.com', 'deleterpassword')
 
       Scripts.createTicket('ticket_to_delete_2')
-      ticket = $database.getRow('ticket', 'ticket_to_delete_2', 'title');
+      ticket = $database.getRow('ticket', 'ticket_to_delete_2', 'title')
       result = request('/ticket/delete', {
           ticketNumber: ticket['ticket_number'],
           csrf_userid: $csrf_userid,
@@ -56,7 +56,7 @@ describe '/ticket/delete' do
       Scripts.login('deleter@opensupports.com', 'deleterpassword')
 
       Scripts.createTicket('ticket_to_delete_3')
-      ticket = $database.getRow('ticket', 'ticket_to_delete_3', 'title');
+      ticket = $database.getRow('ticket', 'ticket_to_delete_3', 'title')
 
       Scripts.logout()
       Scripts.login($staff[:email], $staff[:password], true)
@@ -85,7 +85,7 @@ describe '/ticket/delete' do
          Scripts.login($staff[:email], $staff[:password], true)
          Scripts.createTicket('ticket_to_delete_4')
 
-         ticket = $database.getRow('ticket', 'ticket_to_delete_4', 'title');
+         ticket = $database.getRow('ticket', 'ticket_to_delete_4', 'title')
 
          request('/staff/invite', {
             csrf_userid: $csrf_userid,
