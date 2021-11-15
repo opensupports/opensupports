@@ -31,7 +31,9 @@ class TicketEvent extends React.Component {
         private: React.PropTypes.string,
         edited: React.PropTypes.bool,
         edit: React.PropTypes.bool,
-        onToggleEdit: React.PropTypes.func
+        onToggleEdit: React.PropTypes.func,
+        isLastComment: React.PropTypes.bool,
+        closed: React.PropTypes.bool
     };
 
     state = {
@@ -92,12 +94,7 @@ class TicketEvent extends React.Component {
     }
 
     renderComment() {
-        const {
-            author,
-            date,
-            edit,
-            file
-        } = this.props;
+        const { author, date, edit, file } = this.props;
         const customFields = (author && author.customfields) || [];
 
         return (
@@ -142,10 +139,13 @@ class TicketEvent extends React.Component {
     }
 
     renderContent() {
+        const { content, author, userId, userStaff, isLastComment, closed } = this.props;
+        const { id, staff } = author;
+
         return (
-            <div  className="ticket-event__comment-content ql-editor">
-                <div dangerouslySetInnerHTML={{__html: this.props.content}}></div>
-                {((this.props.author.id == this.props.userId && this.props.author.staff == this.props.userStaff) || this.props.userStaff) ? this.renderEditIcon() : null}
+            <div className="ticket-event__comment-content ql-editor">
+                <div dangerouslySetInnerHTML={{__html: content}}></div>
+                {(id == userId && staff == userStaff && isLastComment && !closed) ? this.renderEditIcon() : null }
             </div>
         )
     }
