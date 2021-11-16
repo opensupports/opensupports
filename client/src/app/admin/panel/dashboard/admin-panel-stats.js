@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect }  from 'react-redux';
 
-import date from 'lib-app/date';
 import API from 'lib-app/api-call';
 import i18n from 'lib-app/i18n';
 import statsUtils from 'lib-app/stats-utils';
@@ -19,27 +18,13 @@ class AdminPanelStats extends React.Component {
     state = {
         loading: true,
         rawForm: {
-            dateRange: this.getInitialDateRange(),
+            dateRange: statsUtils.getInitialDateRange(),
             departments: [],
             owners: [],
             tags: []
         },
         ticketData: {}
     };
-
-    getInitialDateRange() {
-        let firstDayOfMonth = new Date();
-        firstDayOfMonth.setDate(1);
-        firstDayOfMonth.setHours(0);
-        firstDayOfMonth.setMinutes(0);
-        let todayAtNight = new Date();
-        todayAtNight.setHours(23);
-        todayAtNight.setMinutes(59);
-        return {
-            startDate: date.getFullDate(firstDayOfMonth),
-            endDate: date.getFullDate(todayAtNight)
-        }
-    }
 
     componentDidMount() {
         statsUtils.retrieveStats({rawForm: this.state.rawForm, tags: this.props.tags})
@@ -103,7 +88,7 @@ class AdminPanelStats extends React.Component {
         event.preventDefault();
         this.setState({
             rawForm: {
-                dateRange: this.getInitialDateRange(),
+                dateRange: statsUtils.getInitialDateRange(),
                 departments: [],
                 owners: [],
                 tags: []

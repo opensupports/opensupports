@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 
 import AdminDataActions from 'actions/admin-data-actions';
 
-import date from 'lib-app/date';
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
 import SessionStore from 'lib-app/session-store';
@@ -56,27 +55,13 @@ class StaffEditor extends React.Component {
         closedTicketsShown: false,
         sendEmailOnNewTicket: this.props.sendEmailOnNewTicket,
         rawForm: {
-            dateRange: this.getInitialDateRange(),
+            dateRange: statsUtils.getInitialDateRange(),
             departments: [],
             owners: [],
             tags: []
         },
         ticketData: {}
     };
-
-    getInitialDateRange() {
-        let firstDayOfMonth = new Date();
-        firstDayOfMonth.setDate(1);
-        firstDayOfMonth.setHours(0);
-        firstDayOfMonth.setMinutes(0);
-        let todayAtNight = new Date();
-        todayAtNight.setHours(23);
-        todayAtNight.setMinutes(59);
-        return {
-            startDate: date.getFullDate(firstDayOfMonth),
-            endDate: date.getFullDate(todayAtNight)
-        }
-    }
 
     componentDidMount() {
         const departmentsAssigned = SessionStore.getDepartments().filter((_department, index) => this.state.departments.includes(index));

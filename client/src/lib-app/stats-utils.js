@@ -2,6 +2,7 @@ import API from 'lib-app/api-call';
 import i18n from 'lib-app/i18n';
 import StatCard from 'app-components/stat-card';
 import { Bar, HorizontalBar } from 'react-chartjs-2';
+import date from 'lib-app/date';
 
 export default {
     renderStatistics({showStatCards, showStatsByHours, showStatsByDays, ticketData}) {
@@ -61,6 +62,20 @@ export default {
             </div>
         );
     },
+
+    getInitialDateRange() {
+        let firstDayOfMonth = new Date();
+        firstDayOfMonth.setDate(1);
+        firstDayOfMonth.setHours(0);
+        firstDayOfMonth.setMinutes(0);
+        let todayAtNight = new Date();
+        todayAtNight.setHours(23);
+        todayAtNight.setMinutes(59);
+        return {
+            startDate: date.getFullDate(firstDayOfMonth),
+            endDate: date.getFullDate(todayAtNight)
+        };
+    } ,
 
     getStatsOptions(axis) {
         return {
