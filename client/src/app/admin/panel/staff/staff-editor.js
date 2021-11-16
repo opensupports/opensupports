@@ -19,7 +19,7 @@ import Message from 'core-components/message';
 import Button from 'core-components/button';
 import Icon from 'core-components/icon';
 import Loading from 'core-components/loading';
-import statsUtils from '../../../../lib-app/stats-utils';
+import statsUtils from 'lib-app/stats-utils';
 
 const INITIAL_API_VALUE = {
     page: 1,
@@ -69,12 +69,11 @@ class StaffEditor extends React.Component {
 
         this.retrieveStaffMembers();
         this.retrieveTicketsAssigned(INITIAL_API_VALUE);
-        statsUtils.retrieveStats({rawForm: this.state.rawForm, departments: departmentsAssignedId})
-        .then(({data}) => {
-            this.setState({ticketData: data, loading: false});
-        }).catch((error) => {
-            if (showLogs) console.error('ERROR: ', error);
-        });
+        statsUtils.retrieveStats({
+            rawForm: this.state.rawForm,
+            departments: departmentsAssignedId
+        }).then(({data}) => {this.setState({ticketData: data, loading: false});
+        }).catch((error) => {if (showLogs) console.error('ERROR: ', error)});
     }
 
     render() {
@@ -389,6 +388,7 @@ class StaffEditor extends React.Component {
 
     onDeleteClick() {
         const { staffId, onDelete } = this.props;
+
         return API.call({
             path: '/staff/delete',
             data: {
@@ -402,6 +402,7 @@ class StaffEditor extends React.Component {
 
     onProfilePicChange(event) {
         const { myAcount, staffId, onChange } = this.props;
+
         this.setState({
             loadingPicture: true
         });

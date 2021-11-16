@@ -71,6 +71,7 @@ export default {
         let todayAtNight = new Date();
         todayAtNight.setHours(23);
         todayAtNight.setMinutes(59);
+
         return {
             startDate: date.getFullDate(firstDayOfMonth),
             endDate: date.getFullDate(todayAtNight)

@@ -27,12 +27,11 @@ class AdminPanelStats extends React.Component {
     };
 
     componentDidMount() {
-        statsUtils.retrieveStats({rawForm: this.state.rawForm, tags: this.props.tags})
-        .then(({data}) => {
-            this.setState({ticketData: data, loading: false});
-        }).catch((error) => {
-            if (showLogs) console.error('ERROR: ', error);
-        });
+        statsUtils.retrieveStats({
+            rawForm: this.state.rawForm,
+            tags: this.props.tags
+        }).then(({data}) => {this.setState({ticketData: data, loading: false});
+        }).catch((error) => {if (showLogs) console.error('ERROR: ', error)});
     }
 
     render() {
