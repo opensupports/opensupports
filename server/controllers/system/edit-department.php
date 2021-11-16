@@ -39,7 +39,10 @@ class EditDepartmentController extends Controller {
                     'error' => ERRORS::INVALID_DEPARTMENT
                 ],
                 'name' => [
-                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
+                    'validation' => DataValidator::AllOf(
+                        DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
+                        DataValidator::ValidDepartmentName()    
+                    ),
                     'error' => ERRORS::INVALID_NAME
                 ],
             ]

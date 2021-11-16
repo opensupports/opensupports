@@ -1,6 +1,7 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
 
+DataValidator::with('CustomValidations', true);
 /**
  * @api {post} /system/add-department Add department
  * @apiVersion 4.10.0
@@ -31,7 +32,10 @@ class AddDepartmentController extends Controller {
             'permission' => 'staff_3',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
+                    'validation' => DataValidator::AllOf(
+                        DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
+                        DataValidator::ValidDepartmentName()    
+                    ),
                     'error' => ERRORS::INVALID_NAME
                 ]
             ]
