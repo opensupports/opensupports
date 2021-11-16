@@ -54,4 +54,41 @@ describe'system/add-department' do
             lastLog = $database.getLastRow('log')
             (lastLog['type']).should.equal('ADD_DEPARTMENT')
         end
+
+
+        it 'should fail if name is invalid' do
+            result = request('/system/add-department', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                name: ''
+            })
+            result['status'].should.equal('fail')
+            result['message'].should.equal('INVALID_NAME')
+
+            long_name = ''
+            201.times {long_name << 'A'}
+
+            result = request('/system/add-department', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                name: long_name
+            })
+
+            
+            result['status'].should.equal('fail')
+            result['message'].should.equal('INVALID_NAME')
+            
+            lastDepartment = $database.getLastRow('department')
+
+            result = request('/system/add-department', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                name: lastDepartment['name']
+            })
+
+            
+            result['status'].should.equal('fail')
+            result['message'].should.equal('INVALID_NAME')
+
+        end
 end
