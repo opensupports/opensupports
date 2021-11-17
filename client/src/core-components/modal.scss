@@ -11,12 +11,17 @@
     z-index: 1000;
 
     &__content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: relative;
         margin: auto;
         background-color: white;
         border-radius: 4px;
         padding: 50px;
         box-shadow: 0 0 10px white;
+        width: 500px;
+        height: 800px;
     }
 
     &_no-padding {
@@ -34,6 +39,13 @@
 
         &__white-color {
             color: white;
+        }
+    }
+
+     @media screen and (max-width: 768px) {
+        &__content {
+            width: 500px;
+            height: 800px;
         }
     }
 }

@@ -14,6 +14,7 @@ import Widget             from 'core-components/widget';
 import Header             from 'core-components/header';
 import Button from 'core-components/button';
 import ModalContainer from 'app-components/modal-container';
+import Loading from 'core-components/loading';
 
 class InviteUserWidget extends React.Component {
 
@@ -37,13 +38,35 @@ class InviteUserWidget extends React.Component {
         API.call({
             path: '/system/get-custom-fields',
             data: {}
-        })
-        .then(result => this.setState({customFields: result.data}));
+        }).then(result => {
+            this.setState({
+                customFields: result.data,
+                loading: false
+            })
+        });
     }
 
     render() {
-        if(!this.state.customFields) return null;
+        const { customFields, loading } = this.state;
 
+        if(!customFields) return null;
+
+        return (
+            <div className="invite-user-widget__modal-wrapper">
+                {loading ? this.renderLoading() : this.renderModal()}
+            </div>
+        );
+    }
+
+    renderLoading() {
+        return (
+            <div className="invite-user-widget__loading">
+                <Loading backgrounded size="large" />
+            </div>
+        );
+    }
+
+    renderModal() {
         return (
             <Widget className={this.getClass()}>
                 <Header title={i18n('INVITE_USER')} description={i18n('INVITE_USER_VIEW_DESCRIPTION')} />
