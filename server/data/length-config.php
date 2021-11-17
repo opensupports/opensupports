@@ -11,7 +11,7 @@ class LengthConfig {
     const MIN_LENGTH_PASSWORD = 6;
     const MAX_LENGTH_PASSWORD = 200;
 
-    const MIN_LENGTH_DESCRIPTION = 2;
+    const MIN_LENGTH_DESCRIPTION = 0;
     const MAX_LENGTH_DESCRIPTION = 100;
 
     const MIN_LENGTH_TOKEN = 1;
