@@ -1,3 +1,4 @@
+import React from 'react';
 import API from 'lib-app/api-call';
 import i18n from 'lib-app/i18n';
 import StatCard from 'app-components/stat-card';
