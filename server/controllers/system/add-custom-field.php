@@ -42,7 +42,7 @@ class AddCustomFieldController extends Controller {
                     'error' => ERRORS::INVALID_NAME
                 ],
                 'description' => [
-                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_DESCRIPTION, LengthConfig::MAX_LENGTH_DESCRIPTION),
+                    'validation' => DataValidator::length(LengthConfig::MIN_LENGTH_DESCRIPTION, LengthConfig::MAX_LENGTH_DESCRIPTION),
                     'error' => ERRORS::INVALID_DESCRIPTION
                 ],
                 'type' => [
