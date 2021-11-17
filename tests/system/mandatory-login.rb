@@ -21,12 +21,12 @@ describe'system/mandatory-login' do
             request('/system/disable-registration', {
                 "csrf_userid" => $csrf_userid,
                 "csrf_token" => $csrf_token,
-                "password" => "staff"
+                "password" => $staff[:password]
             })
             result = request('/system/disable-mandatory-login', {
                 "csrf_userid" => $csrf_userid,
                 "csrf_token" => $csrf_token,
-                "password" => "staff"
+                "password" => $staff[:password]
             })
 
             (result['status']).should.equal('fail')
@@ -38,7 +38,7 @@ describe'system/mandatory-login' do
             request('/system/enable-registration', {
                 "csrf_userid" => $csrf_userid,
                 "csrf_token" => $csrf_token,
-                "password" => "staff"
+                "password" => $staff[:password]
             })
         end 
 
@@ -59,7 +59,7 @@ describe'system/mandatory-login' do
             result = request('/system/disable-mandatory-login', {
                 "csrf_userid" => $csrf_userid,
                 "csrf_token" => $csrf_token,
-                "password" => "staff"
+                "password" => $staff[:password]
             })
 
             (result['status']).should.equal('success')
@@ -73,7 +73,7 @@ describe'system/mandatory-login' do
             result = request('/system/disable-registration', {
                 "csrf_userid" => $csrf_userid,
                 "csrf_token" => $csrf_token,
-                "password" => "staff"
+                "password" => $staff[:password]
             })
 
             (result['status']).should.equal('fail')
@@ -358,7 +358,7 @@ describe'system/mandatory-login' do
             result = request('/system/enable-mandatory-login', {
                 "csrf_userid" => $csrf_userid,
                 "csrf_token" => $csrf_token,
-                "password" => "staff"
+                "password" => $staff[:password]
             })
 
             (result['status']).should.equal('success')

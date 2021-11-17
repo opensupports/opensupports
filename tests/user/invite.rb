@@ -7,7 +7,7 @@ describe'/user/invite' do
         result = request('/user/invite', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
-            name: 'i',
+            name: '',
             email: 'inviteduser2@opensupports.com'
         })
         (result['status']).should.equal('fail')
@@ -16,7 +16,7 @@ describe'/user/invite' do
         result = request('/user/invite', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
-            name: 'invited userinvited userinvited userinvited userinvited userinvited userinvited userinvited userinvited userinvited user',
+            name: 'invited user invited user invited user invited user invited user invited user invited user invited user invited user invited user invited user invited user invited user invited user invited user invited user',
             email: 'inviteduser2@opensupports.com'
         })
         (result['status']).should.equal('fail')

@@ -1,10 +1,10 @@
 describe '/system/default-department' do
     Scripts.logout()
-    Scripts.login('staff@opensupports.com', 'staff', true)
+    Scripts.login($staff[:email], $staff[:password], true)
     
     it 'should fail if try to turn a private department default' do
         Scripts.logout()
-        Scripts.login('staff@opensupports.com', 'staff', true)
+        Scripts.login($staff[:email], $staff[:password], true)
 
         privatedepartment = $database.getRow('department', 1, 'private')
 
@@ -47,7 +47,7 @@ describe '/system/default-department' do
 
     it 'should set a new default deparment' do
         Scripts.logout()
-        Scripts.login('staff@opensupports.com', 'staff', true)
+        Scripts.login($staff[:email], $staff[:password], true)
 
         publicdepartment = $database.getRow('department', 'Suggestions', 'name')
 
@@ -62,7 +62,7 @@ describe '/system/default-department' do
 
     it 'should fail if try to delete the default department' do
         Scripts.logout()
-        Scripts.login('staff@opensupports.com', 'staff', true)
+        Scripts.login($staff[:email], $staff[:password], true)
 
         defaultDepartment  = $database.getRow('setting', 'default-department-id', 'name')
         transferDepartment = $database.getRow('department','<b>new department</b>','name')
@@ -80,7 +80,8 @@ describe '/system/default-department' do
     
     it 'should fail if try to edit default department into private' do
         Scripts.logout()
-        Scripts.login('staff@opensupports.com', 'staff', true)
+        Scripts.login($staff[:email], $staff[:password], true)
+
         defaultDepartmentId = $database.getRow('setting', 'default-department-id', 'name')
         department = $database.getRow('department',defaultDepartmentId['value'],'id')
         
@@ -98,7 +99,7 @@ describe '/system/default-department' do
 
     it 'should create ticket in default department if Staff does not give department with locked on' do
         Scripts.logout()
-        Scripts.login('staff@opensupports.com', 'staff', true)
+        Scripts.login($staff[:email], $staff[:password], true)
         Scripts.updateLockedDepartmentSetting(1)
         
         result = request('/ticket/create', {
@@ -117,7 +118,7 @@ describe '/system/default-department' do
 
     it 'should create ticket in default department if staff does not give department with locked off'do
         Scripts.logout()
-        Scripts.login('staff@opensupports.com', 'staff', true)
+        Scripts.login($staff[:email], $staff[:password], true)
         Scripts.updateLockedDepartmentSetting(0)
         
         result = request('/ticket/create', {
@@ -136,7 +137,7 @@ describe '/system/default-department' do
 
     it 'should create ticket in selected department if staff give department and lockd is off'do
         Scripts.logout()
-        Scripts.login('staff@opensupports.com', 'staff', true)
+        Scripts.login($staff[:email], $staff[:password], true)
         Scripts.updateLockedDepartmentSetting(0)
         
         result = request('/ticket/create', {
@@ -155,7 +156,7 @@ describe '/system/default-department' do
         
     it 'should create ticket in selected department if staff give department and locked is on' do
         Scripts.logout()
-        Scripts.login('staff@opensupports.com', 'staff', true)
+        Scripts.login($staff[:email], $staff[:password], true)
         Scripts.updateLockedDepartmentSetting(1)
         
         result = request('/ticket/create', {
@@ -173,9 +174,8 @@ describe '/system/default-department' do
     end
         
     it 'should create ticket on default department if user does not give department and locked is on' do
-        
         Scripts.logout()
-        Scripts.login('staff@opensupports.com', 'staff', true)
+        Scripts.login($staff[:email], $staff[:password], true)
         Scripts.updateLockedDepartmentSetting(1)
         
         Scripts.logout()
@@ -198,9 +198,8 @@ describe '/system/default-department' do
     end
 
     it 'should create ticket on default department if user does not give department and locked is off'do
-        
         Scripts.logout()
-        Scripts.login('staff@opensupports.com', 'staff', true)
+        Scripts.login($staff[:email], $staff[:password], true)
         Scripts.updateLockedDepartmentSetting(0)
 
         Scripts.logout()
@@ -221,9 +220,8 @@ describe '/system/default-department' do
     end
         
     it 'should create ticket on selected department if user give department and locked is off'do
-        
         Scripts.logout()
-        Scripts.login('staff@opensupports.com', 'staff', true)
+        Scripts.login($staff[:email], $staff[:password], true)
         Scripts.updateLockedDepartmentSetting(0)
 
         Scripts.logout()
