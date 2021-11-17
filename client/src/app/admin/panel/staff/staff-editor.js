@@ -71,8 +71,14 @@ class StaffEditor extends React.Component {
         statsUtils.retrieveStats({
             rawForm: this.state.rawForm,
             departments: departmentsAssignedId
-        }).then(({data}) => {this.setState({ticketData: data, loading: false});
-        }).catch((error) => {if (showLogs) console.error('ERROR: ', error)});
+        }).then(({data}) => {
+            this.setState({
+                ticketData: data,
+                loading: false
+            });
+        }).catch((error) => {
+            if (showLogs) console.error('ERROR: ', error);
+        })
     }
 
     render() {
