@@ -10,7 +10,6 @@ import API from 'lib-app/api-call';
 import SessionStore from 'lib-app/session-store';
 import TicketList from 'app-components/ticket-list';
 import AreYouSure from 'app-components/are-you-sure';
-// import Stats from 'app-components/stats';
 
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
@@ -372,8 +371,10 @@ class StaffEditor extends React.Component {
             const departmentsAssigned = SessionStore.getDepartments().filter((_department, index) => this.state.departments.includes(index));
             const departmentsAssignedId = departmentsAssigned.map(department => department.id);
 
-            statsUtils.retrieveStats({rawForm: this.state.rawForm, departments: departmentsAssignedId})
-            .then(({data}) => {
+            statsUtils.retrieveStats({
+                rawForm: this.state.rawForm,
+                departments: departmentsAssignedId
+            }).then(({data}) => {
                 this.setState({ticketData: data, loading: false});
             }).catch((error) => {
                 if (showLogs) console.error('ERROR: ', error);
