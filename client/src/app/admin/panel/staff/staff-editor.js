@@ -78,7 +78,7 @@ class StaffEditor extends React.Component {
             });
         }).catch((error) => {
             if (showLogs) console.error('ERROR: ', error);
-        })
+        });
     }
 
     render() {
