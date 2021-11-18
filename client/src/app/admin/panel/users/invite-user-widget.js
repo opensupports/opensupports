@@ -40,20 +40,34 @@ class InviteUserWidget extends React.Component {
             data: {}
         }).then(result => {
             this.setState({
-                customFields: result.data,
-                loading: false
-            })
+                customFields: result.data
+            });
         });
     }
 
     render() {
-        const { customFields, loading } = this.state;
-
-        if(!customFields) return null;
+        if(!this.state.customFields) return this.renderLoading();
 
         return (
             <div className="invite-user-widget__modal-wrapper">
-                {loading ? this.renderLoading() : this.renderModal()}
+                <Widget className={this.getClass()}>
+                    <Header title={i18n('INVITE_USER')} description={i18n('INVITE_USER_VIEW_DESCRIPTION')} />
+                    <Form {...this.getFormProps()}>
+                        <div className="invite-user-widget__inputs">
+                            <FormField {...this.getInputProps()} label={i18n('FULL_NAME')} name="name" validation="NAME" required />
+                            <FormField {...this.getInputProps()} label={i18n('EMAIL')} name="email" validation="EMAIL" required />
+                            {this.state.customFields.map(this.renderCustomField.bind(this))}
+                        </div>
+                        <div className="invite-user-widget__captcha">
+                            <Captcha ref="captcha" />
+                        </div>
+                        <div className="invite-user-widget__buttons-container">
+                            <Button onClick={(e) => {e.preventDefault(); ModalContainer.closeModal();}} type="link">{i18n('CANCEL')}</Button>
+                            <SubmitButton type="secondary">{i18n('INVITE_USER')}</SubmitButton>
+                        </div>
+                    </Form>
+                    {this.renderMessage()}
+                </Widget>
             </div>
         );
     }
@@ -63,29 +77,6 @@ class InviteUserWidget extends React.Component {
             <div className="invite-user-widget__loading">
                 <Loading backgrounded size="large" />
             </div>
-        );
-    }
-
-    renderModal() {
-        return (
-            <Widget className={this.getClass()}>
-                <Header title={i18n('INVITE_USER')} description={i18n('INVITE_USER_VIEW_DESCRIPTION')} />
-                <Form {...this.getFormProps()}>
-                    <div className="invite-user-widget__inputs">
-                        <FormField {...this.getInputProps()} label={i18n('FULL_NAME')} name="name" validation="NAME" required />
-                        <FormField {...this.getInputProps()} label={i18n('EMAIL')} name="email" validation="EMAIL" required />
-                        {this.state.customFields.map(this.renderCustomField.bind(this))}
-                    </div>
-                    <div className="invite-user-widget__captcha">
-                        <Captcha ref="captcha" />
-                    </div>
-                    <div className="invite-user-widget__buttons-container">
-                        <Button onClick={(e) => {e.preventDefault(); ModalContainer.closeModal();}} type="link">{i18n('CANCEL')}</Button>
-                        <SubmitButton type="secondary">{i18n('INVITE_USER')}</SubmitButton>
-                    </div>
-                </Form>
-                {this.renderMessage()}
-            </Widget>
         );
     }
 
