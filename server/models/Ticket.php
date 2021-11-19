@@ -234,7 +234,7 @@ class Ticket extends DataStore {
         return !$user->isNull() && $this->owner && $user->id == $this->owner->id && ($user instanceof Staff);
     }
 
-    public function getEvents($type) {
+    public function getEventsOfType($type) {
         $ticketEvents = $this->eventsToArray();
         $filteredEventsList = [];
 
@@ -247,7 +247,9 @@ class Ticket extends DataStore {
         return $filteredEventsList;
     }
 
-    public function getLastEvent($type) {
-        return end($this->getEvents($type));
+    public function getLatestEventOfType($type) {
+        $filteredEventsList = $this->getEventsOfType($type);
+
+        return end($filteredEventsList);
     }
 }
