@@ -33,7 +33,7 @@ class EditPassword extends Controller {
             'permission' => 'user',
             'requestData' => [
                 'newPassword' => [
-                    'validation' => DataValidator::notBlank()->length(5, 200),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_PASSWORD, LengthConfig::MAX_LENGTH_PASSWORD),
                     'error' => ERRORS::INVALID_PASSWORD
                 ]
             ]

@@ -1,14 +1,11 @@
 import React from 'react';
 import { connect }  from 'react-redux';
-import { Bar, HorizontalBar } from 'react-chartjs-2';
 
-import date from 'lib-app/date';
 import API from 'lib-app/api-call';
 import i18n from 'lib-app/i18n';
-import StatCard from 'app-components/stat-card';
+import statsUtils from 'lib-app/stats-utils';
 
 import Header from 'core-components/header';
-import Tooltip from 'core-components/tooltip';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import Icon from 'core-components/icon';
@@ -21,7 +18,7 @@ class AdminPanelStats extends React.Component {
     state = {
         loading: true,
         rawForm: {
-            dateRange: this.getInitialDateRange(),
+            dateRange: statsUtils.getInitialDateRange(),
             departments: [],
             owners: [],
             tags: []
@@ -29,29 +26,19 @@ class AdminPanelStats extends React.Component {
         ticketData: {}
     };
 
-    getInitialDateRange() {
-        let firstDayOfMonth = new Date();
-        firstDayOfMonth.setDate(1);
-        firstDayOfMonth.setHours(0);
-        firstDayOfMonth.setMinutes(0);
-        let todayAtNight = new Date();
-        todayAtNight.setHours(23);
-        todayAtNight.setMinutes(59);
-        return {
-            startDate: date.getFullDate(firstDayOfMonth),
-            endDate: date.getFullDate(todayAtNight)
-        }
-    }
-
     componentDidMount() {
-        this.retrieveStats();
+        statsUtils.retrieveStats({
+            rawForm: this.state.rawForm,
+            tags: this.props.tags
+        }).then(({data}) => {
+            this.setState({ticketData: data, loading: false});
+        }).catch((error) => {
+            if (showLogs) console.error('ERROR: ', error);
+        });
     }
 
     render() {
-        const {
-            loading,
-            rawForm
-        } = this.state;
+        const { loading, rawForm, ticketData } = this.state;
 
         return (
             <div className="admin-panel-stats">
@@ -90,98 +77,20 @@ class AdminPanelStats extends React.Component {
                         <span className="separator" />
                     </div>
                 </div>
-                {loading ? <div className="admin-panel-stats__loading"><Loading backgrounded size="large" /></div> : this.renderStatistics()}
+                {
+                    loading ?
+                        <div className="admin-panel-stats__loading"><Loading backgrounded size="large" /></div> :
+                        statsUtils.renderStatistics({showStatCards: true, showStatsByHours: true, showStatsByDays: true, ticketData})
+                }
             </div>
         )
-    }
-    
-    renderStatistics() {
-        const primaryBlueWithTransparency = (alpha) => `rgba(32, 184, 197, ${alpha})`;
-        const ticketsByHoursChartData = {
-            labels: Array.from(Array(24).keys()),
-            datasets: [
-                {
-                    label: 'Created Tickets by Hour',
-                    backgroundColor: primaryBlueWithTransparency(0.2),
-                    borderColor: primaryBlueWithTransparency(1),
-                    borderWidth: 1,
-                    hoverBackgroundColor: primaryBlueWithTransparency(0.4),
-                    hoverBorderColor: primaryBlueWithTransparency(1),
-                    data: this.state.ticketData.created_by_hour
-                }
-            ]
-        };
-
-        const primaryGreenWithTransparency = (alpha) => `rgba(130, 202, 156, ${alpha})`;
-        const ticketsByWeekdayChartData = {
-            labels: [
-                i18n('MONDAY'),
-                i18n('TUESDAY'),
-                i18n('WEDNESDAY'),
-                i18n('THURSDAY'),
-                i18n('FRIDAY'),
-                i18n('SATURDAY'),
-                i18n('SUNDAY')
-            ],
-            datasets: [
-                {
-                    label: 'Created Tickets by Weekday',
-                    backgroundColor: primaryGreenWithTransparency(0.2),
-                    borderColor: primaryGreenWithTransparency(1),
-                    borderWidth: 1,
-                    hoverBackgroundColor: primaryGreenWithTransparency(0.4),
-                    hoverBorderColor: primaryGreenWithTransparency(1),
-                    data: this.state.ticketData.created_by_weekday
-                }
-            ]
-        }
-
-        return (
-            <div>
-                {this.renderStatCards()}
-                <Bar
-                    options={this.getStatsOptions('y')}
-                    data={ticketsByHoursChartData}
-                    legend={{onClick: null}} /> {/* Weird, but if you only set the legend here, it changes that of the HorizontalBar next too*/}
-                <HorizontalBar
-                    options={this.getStatsOptions('x')}
-                    data={ticketsByWeekdayChartData}
-                    legend={{onClick: null}} />
-            </div>
-        );
-    }
-
-    renderStatCards() {
-        const {created, open, closed, instant, reopened} = this.state.ticketData;
-
-        return (
-            <div className="admin-panel-stats__card-list">
-                <StatCard label={i18n('CREATED')} description={i18n('CREATED_DESCRIPTION')} value={created} isPercentage={false} />
-                <StatCard label={i18n('OPEN')} description={i18n('OPEN_DESCRIPTION')} value={open} isPercentage={false} />
-                <StatCard label={i18n('CLOSED')} description={i18n('CLOSED_DESCRIPTION')} value={closed} isPercentage={false} />
-                <StatCard label={i18n('INSTANT')} description={i18n('INSTANT_DESCRIPTION')} value={100*instant / closed} isPercentage={true} />
-                <StatCard label={i18n('REOPENED')} description={i18n('REOPENED_DESCRIPTION')} value={100*reopened / created} isPercentage={true} />
-            </div>
-        )
-    }
-
-    getStatsOptions(axis) {
-        return {
-            scales: {
-                [`${axis}Axes`]: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
     }
 
     clearFormValues(event) {
         event.preventDefault();
         this.setState({
             rawForm: {
-                dateRange: this.getInitialDateRange(),
+                dateRange: statsUtils.getInitialDateRange(),
                 departments: [],
                 owners: [],
                 tags: []
@@ -197,10 +106,6 @@ class AdminPanelStats extends React.Component {
                 color : tag.color
             }
         });
-    }
-
-    getSelectedTagIds() {
-        return this.props.tags.filter(tag => _.includes(this.state.rawForm.tags, tag.name)).map(tag => tag.id);
     }
 
     getStaffItems() {
@@ -252,30 +157,19 @@ class AdminPanelStats extends React.Component {
         });
     }
 
-    retrieveStats() {
-        const { rawForm } = this.state;
-        const { startDate, endDate } = rawForm.dateRange;
-        API.call({
-            path: '/system/get-stats',
-            data: {
-                dateRange: "[" + startDate.toString() + "," + endDate.toString() + "]",
-                departments: "[" + rawForm.departments.map(department => department.id) + "]",
-                owners: "[" + rawForm.owners.map(owner => owner.id) + "]",
-                tags: "[" + this.getSelectedTagIds() + "]"
-            }
-        }).then(({data}) => {
-            this.setState({ticketData: data, loading: false});
-        }).catch((error) => {
-            if (showLogs) console.error('ERROR: ', error);
-        })
-    }
-
     onFormChange(newFormState) {
         this.setState({rawForm: newFormState});
     }
 
     onFormSubmit() {
-        this.retrieveStats();
+        statsUtils.retrieveStats({
+            rawForm: this.state.rawForm,
+            tags: this.props.tags
+        }).then(({data}) => {
+            this.setState({ticketData: data, loading: false});
+        }).catch((error) => {
+            if (showLogs) console.error('ERROR: ', error);
+        });
     }
 }
 

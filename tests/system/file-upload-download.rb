@@ -40,7 +40,7 @@ describe 'File Upload and Download' do
 
     it 'should download if department owner is logged' do
         Scripts.logout()
-        Scripts.login('staff@opensupports.com', 'staff', true)
+        Scripts.login($staff[:email], $staff[:password], true)
 
         ticket = $database.getLastRow('ticket')
         file = File.open("../server/files/" + ticket['file'])

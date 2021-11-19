@@ -36,14 +36,17 @@ class EditCustomResponseController extends Controller {
             'requestData' => [
                 'id' => [
                     'validation' => DataValidator::dataStoreId('customresponse'),
-                    'error' => ERRORS::INVALID_NAME
+                    'error' => ERRORS::INVALID_CUSTOM_RESPONSE
                 ],
                 'content' => [
                     'validation' => DataValidator::content(),
                     'error' => ERRORS::INVALID_CONTENT
                 ],
                 'name' => [
-                    'validation' => DataValidator::oneOf(DataValidator::notBlank()->length(1, 200),DataValidator::nullType()),
+                    'validation' => DataValidator::oneOf(
+                        DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
+                        DataValidator::nullType()
+                    ),
                     'error' => ERRORS::INVALID_NAME
                 ],
             ]

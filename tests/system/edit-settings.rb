@@ -93,7 +93,7 @@ describe'system/edit-settings' do
         (lastLog['type']).should.equal('EDIT_SETTINGS')
 
 
-        Scripts.updateLockedDepartmentSetting(0);
+        Scripts.updateLockedDepartmentSetting(0)
         Scripts.logout()
     end
 
@@ -102,7 +102,7 @@ describe'system/edit-settings' do
         Scripts.login($staff[:email], $staff[:password], true)
 
         Scripts.createTicket('TicketToDeleteWithoutUsersCreated')
-        ticket = $database.getRow('ticket', 'TicketToDeleteWithoutUsersCreated', 'title');
+        ticket = $database.getRow('ticket', 'TicketToDeleteWithoutUsersCreated', 'title')
 
         result = request('/ticket/delete', {
             ticketNumber: ticket['ticket_number'],

@@ -21,7 +21,10 @@ class AdminPanelCustomFieldForm extends React.Component {
     state = {
         loading: false,
         error: null,
-        addForm: {},
+        addForm: {
+            name: "",
+            description: ""
+        },
         addFormOptions: [],
     };
 

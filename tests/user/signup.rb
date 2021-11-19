@@ -22,10 +22,10 @@ describe '/user/signup' do
 
     it 'should fail if name is invalid' do
         long_text = ''
-        100.times {long_text << 'a'}
+        201.times {long_text << 'a'}
 
         result = request('/user/signup', {
-            name: 't',
+            name: '',
             email: 'tyrion@outlook.com',
             password: 'Lannister'
         })

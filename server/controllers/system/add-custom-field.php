@@ -1,5 +1,6 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
+DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /system/add-custom-field Add a custom field
@@ -37,11 +38,11 @@ class AddCustomFieldController extends Controller {
             'permission' => 'staff_2',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::notBlank()->length(2, 100),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
                     'error' => ERRORS::INVALID_NAME
                 ],
                 'description' => [
-                    'validation' => DataValidator::notBlank()->length(2, 100),
+                    'validation' => DataValidator::length(LengthConfig::MIN_LENGTH_DESCRIPTION, LengthConfig::MAX_LENGTH_DESCRIPTION),
                     'error' => ERRORS::INVALID_DESCRIPTION
                 ],
                 'type' => [
@@ -53,7 +54,7 @@ class AddCustomFieldController extends Controller {
                 ],
                 'options' => [
                     'validation' => DataValidator::oneOf(
-                        DataValidator::json(),
+                        DataValidator::ValidOptions(),
                         DataValidator::nullType()
                     ),
                     'error' => ERRORS::INVALID_CUSTOM_FIELD_OPTIONS
@@ -68,8 +69,9 @@ class AddCustomFieldController extends Controller {
         $description = Controller::request('description', true);
         $options = Controller::request('options');
 
-        if(!Customfield::getDataStore($name, 'name')->isNull())
+        if(!Customfield::getDataStore($name, 'name')->isNull()) {
             throw new Exception(ERRORS::CUSTOM_FIELD_ALREADY_EXISTS);
+        }
 
         $customField = new Customfield();
         $customField->setProperties([

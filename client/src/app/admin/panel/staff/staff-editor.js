@@ -10,7 +10,6 @@ import API from 'lib-app/api-call';
 import SessionStore from 'lib-app/session-store';
 import TicketList from 'app-components/ticket-list';
 import AreYouSure from 'app-components/are-you-sure';
-// import Stats from 'app-components/stats';
 
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
@@ -19,6 +18,7 @@ import Message from 'core-components/message';
 import Button from 'core-components/button';
 import Icon from 'core-components/icon';
 import Loading from 'core-components/loading';
+import statsUtils from 'lib-app/stats-utils';
 
 const INITIAL_API_VALUE = {
     page: 1,
@@ -54,12 +54,33 @@ class StaffEditor extends React.Component {
         closedTicketsShown: false,
         sendEmailOnNewTicket: this.props.sendEmailOnNewTicket,
         loadingReInviteStaff: false,
-        reInviteStaff: ""
+        reInviteStaff: "",
+        rawForm: {
+            dateRange: statsUtils.getInitialDateRange(),
+            departments: [],
+            owners: [],
+            tags: []
+        },
+        ticketData: {}
     };
 
     componentDidMount() {
+        const departmentsAssigned = SessionStore.getDepartments().filter((_department, index) => this.state.departments.includes(index));
+        const departmentsAssignedId = departmentsAssigned.map(department => department.id);
+
         this.retrieveStaffMembers();
         this.retrieveTicketsAssigned(INITIAL_API_VALUE);
+        statsUtils.retrieveStats({
+            rawForm: this.state.rawForm,
+            departments: departmentsAssignedId
+        }).then(({data}) => {
+            this.setState({
+                ticketData: data,
+                loading: false
+            });
+        }).catch((error) => {
+            if (showLogs) console.error('ERROR: ', error);
+        });
     }
 
     render() {
@@ -272,11 +293,17 @@ class StaffEditor extends React.Component {
     }
 
     renderStaffStats() {
-        // return (
-        //     <Stats staffId={this.props.staffId} type="staff" />
-        // );
+        const { loading, ticketData } = this.state;
 
-        return null;
+        return (
+            <div className="admin-panel-stats">
+                {
+                    loading ?
+                        <div className="admin-panel-stats__loading"><Loading backgrounded size="large" /></div> :
+                        statsUtils.renderStatistics({showStatCards: true, showStatsByHours: true, ticketData})
+                }
+            </div>
+        )
     }
 
     renderTickets() {
@@ -401,6 +428,18 @@ class StaffEditor extends React.Component {
             this.retrieveStaffMembers();
             window.scrollTo(0,0);
             this.setState({message: eventType});
+
+            const departmentsAssigned = SessionStore.getDepartments().filter((_department, index) => this.state.departments.includes(index));
+            const departmentsAssignedId = departmentsAssigned.map(department => department.id);
+
+            statsUtils.retrieveStats({
+                rawForm: this.state.rawForm,
+                departments: departmentsAssignedId
+            }).then(({data}) => {
+                this.setState({ticketData: data, loading: false});
+            }).catch((error) => {
+                if (showLogs) console.error('ERROR: ', error);
+            });
 
             onChange && onChange();
         }).catch(() => {
