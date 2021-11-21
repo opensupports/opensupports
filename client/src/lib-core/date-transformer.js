@@ -6,7 +6,7 @@ const localUTCMins = new Date().getTimezoneOffset();
 let language = sessionStore.getConfigs().language;
 if (language == 'br') language = 'pt';
 if (language == 'cn') language = 'zh-cn';
-if (language == 'in') language = 'en';
+if (language == 'in') language = 'hi';
 if (language == 'jp') language = 'ja';
 if (language == 'gr') language = 'el';
 
@@ -15,7 +15,7 @@ export default {
         return moment(`${date}`, stringDateFormat);
     },
     momentToStringDate(date) {
-        return date.locale(language).format(stringDateFormat);
+        return date.format(stringDateFormat);
     },
     UTCDateToLocalNumericDate(date) {
         return JSON.parse(this.momentToStringDate(this.stringDateToMoment(date).subtract(localUTCMins, 'minutes')));
