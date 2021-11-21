@@ -9,14 +9,14 @@ class Language extends DataStore {
         'de',
         'fr',
         'pt',
-        'jp',//ja
+        'jp',
         'ru',
-        'cn',//zh-cn
-        'in',//hi 
+        'cn',
+        'in', 
         'tr',
         'it',
-        'br',//pt porque br = Breton
-        'gr',//el 
+        'br',
+        'gr', 
         'nl',
         'pl'
     ];
