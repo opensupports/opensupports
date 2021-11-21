@@ -3,7 +3,12 @@ import sessionStore from 'lib-app/session-store';
 
 const stringDateFormat = 'YYYYMMDDHHmm';
 const localUTCMins = new Date().getTimezoneOffset();
-const language = sessionStore.getConfigs().language;
+let language = sessionStore.getConfigs().language;
+if (language == 'br') language = 'pt';
+if (language == 'cn') language = 'zh-cn';
+if (language == 'in') language = 'en';
+if (language == 'jp') language = 'ja';
+if (language == 'gr') language = 'el';
 
 export default {
     stringDateToMoment(date) {
