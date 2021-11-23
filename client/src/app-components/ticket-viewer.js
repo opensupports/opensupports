@@ -84,15 +84,19 @@ class TicketViewer extends React.Component {
     render() {
         const { ticket, userStaff, userId, editable, allowAttachments, assignmentAllowed } = this.props;
         const { editTitle, loading, edit, editId } = this.state;
-        const { closed, author, content, date, edited, file} = ticket;
+        const { closed, author, content, date, edited, file, events} = ticket;
         const showResponseField = (!closed && (editable || !assignmentAllowed));
+        const eventsWithModifiedComments = [...events];
+        let lastCommentIndex = 0;
 
-        let events = ticket.events.map((event, index) => {return {...event, index, closed}});
-
-        const comments = events.filter(event => event.type == "COMMENT");
-        const lastComment = {...comments[comments.length - 1], isLastComment: true };
-
-        events[lastComment.index] = lastComment;
+        for(let index = eventsWithModifiedComments.length-1; 0 < index; index--) {
+            if(eventsWithModifiedComments[index].type === "COMMENT" && lastCommentIndex < index) {
+                lastCommentIndex = index;
+                eventsWithModifiedComments[index].isLastComment = true;
+            } else {
+                eventsWithModifiedComments[index].isLastComment = false;
+            }
+        }
 
         return (
             <div className="ticket-viewer">
@@ -102,9 +106,9 @@ class TicketViewer extends React.Component {
                     <TicketEvent
                         loading={loading}
                         type="COMMENT"
-                        isLastComment={!events.length}
+                        isLastComment={!events.filter(event => event.type === "COMMENT").length}
                         author={author}
-                        closed={closed}
+                        isTicketClosed={closed}
                         content={userStaff ? MentionsParser.parse(content) : content}
                         userStaff={userStaff}
                         userId={userId}
@@ -117,7 +121,7 @@ class TicketViewer extends React.Component {
                         allowAttachments={allowAttachments} />
                 </div>
                 <div className="ticket-viewer__comments">
-                    {events && events.map(this.renderTicketEvent.bind(this))}
+                    {eventsWithModifiedComments && eventsWithModifiedComments.map(this.renderTicketEvent.bind(this, closed))}
                 </div>
                 {showResponseField ? this.renderResponseField() : this.renderReopenCloseButtons()}
             </div>
@@ -416,10 +420,10 @@ class TicketViewer extends React.Component {
         return <Button type='link' size="medium" onClick={() => this.setState({["edit"+option]: false})}>{i18n('CLOSE')}</Button>
     }
 
-    renderTicketEvent(ticketEventObject, index) {
+    renderTicketEvent(isTicketClosed, ticketEventObject, index) {
         const { userStaff, ticket, userId, allowAttachments } = this.props;
         const { edit, editId } = this.state;
-        const { content, author, id, closed } = ticketEventObject;
+        const { content, author, id} = ticketEventObject;
 
         if(userStaff && typeof content === 'string') {
             ticketEventObject.content = MentionsParser.parse(content);
@@ -431,7 +435,7 @@ class TicketViewer extends React.Component {
                 isLastComment={ticketEventObject.isLastComment}
                 author={(!_.isEmpty(author)) ? author : ticket.author}
                 userStaff={userStaff}
-                closed={closed}
+                isTicketClosed={isTicketClosed}
                 userId={userId}
                 onEdit={this.onEdit.bind(this, id)}
                 edit={edit && editId == id}
@@ -750,16 +754,16 @@ class TicketViewer extends React.Component {
         })
     }
 
-    onEdit(ticketeventid,{content}) {
+    onEdit(ticketeventid, {content}) {
         this.setState({
             loading: true
         });
         const data = {};
 
-        if(ticketeventid){
-            data.ticketEventId = ticketeventid
-        }else{
-            data.ticketNumber = this.props.ticket.ticketNumber
+        if(ticketeventid) {
+            data.ticketEventId = ticketeventid;
+        } else {
+            data.ticketNumber = this.props.ticket.ticketNumber;
         }
 
         API.call({

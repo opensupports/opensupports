@@ -33,7 +33,7 @@ class TicketEvent extends React.Component {
         edit: React.PropTypes.bool,
         onToggleEdit: React.PropTypes.func,
         isLastComment: React.PropTypes.bool,
-        closed: React.PropTypes.bool
+        isTicketClosed: React.PropTypes.bool
     };
 
     state = {
@@ -139,13 +139,13 @@ class TicketEvent extends React.Component {
     }
 
     renderContent() {
-        const { content, author, userId, userStaff, isLastComment, closed } = this.props;
+        const { content, author, userId, userStaff, isLastComment, isTicketClosed } = this.props;
         const { id, staff } = author;
 
         return (
             <div className="ticket-event__comment-content ql-editor">
                 <div dangerouslySetInnerHTML={{__html: content}}></div>
-                {(id == userId && staff == userStaff && isLastComment && !closed) ? this.renderEditIcon() : null }
+                {(id == userId && staff == userStaff && isLastComment && !isTicketClosed) ? this.renderEditIcon() : null }
             </div>
         )
     }

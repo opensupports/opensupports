@@ -71,7 +71,7 @@ class EditCommentController extends Controller {
                 throw new RequestException(ERRORS::INVALID_TICKET_EVENT);
             }
         } else {
-            if(sizeof($ticket->getEvents("COMMENT"))) {
+            if(sizeof($ticket->getEventsOfType("COMMENT"))) {
                 throw new RequestException(ERRORS::INVALID_TICKET_EVENT);
             }
         }
