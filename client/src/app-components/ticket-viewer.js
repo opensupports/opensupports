@@ -813,23 +813,14 @@ class TicketViewer extends React.Component {
     }
 
     getStaffAssignmentItems() {
-        const { userDepartments, userId, ticket } = this.props;
         let staffAssignmentItems = [
             {content: i18n('NONE'), contentOnSelected: i18n('NONE'), id: 0}
         ];
 
-        if(_.some(userDepartments, {id: ticket.department.id})) {
-            staffAssignmentItems.push({
-                content: i18n('ASSIGN_TO_ME'),
-                contentOnSelected: this.getCurrentStaff().name,
-                id: userId
-            });
-        }
-
         staffAssignmentItems = staffAssignmentItems.concat(
             _.map(
                 this.getStaffList(),
-                ({id, name}) => ({content: name, contentOnSelected: name, id: id*1})
+                ({id, name, content}) => ({content, contentOnSelected: name, id: id*1})
             )
         );
 
@@ -837,11 +828,29 @@ class TicketViewer extends React.Component {
     }
 
     getStaffList() {
-        const { userId, staffMembers, ticket } = this.props;
+        const { staffMembers, ticket } = this.props;
+        const staffList = _.filter(staffMembers, ({ departments }) => {
+            return _.some(departments, {id: ticket.department.id});
+        });
 
-        return _.filter(staffMembers, ({id, departments}) => {
-            return (id != userId) && _.some(departments, {id: ticket.department.id});
-        })
+        return staffList.map(staff => {
+            return {
+                content: this.renderStaffOption(staff)
+            }
+        });
+    }
+
+    renderStaffOption(staff) {
+        return (
+            <div className="ticket-query-filters__staff-option" key={`staff-option-${staff.id}`}>
+                <img className="ticket-query-filters__staff-option__profile-pic" src={this.getStaffProfilePic(staff)}/>
+                <span className="ticket-query-filters__staff-option__name">{staff.name}</span>
+            </div>
+        );
+    }
+
+    getStaffProfilePic(staff) {
+        return staff.profilePic ? API.getFileLink(staff.profilePic) : (API.getURL() + '/images/profile.png');
     }
 
     getCurrentStaff() {
