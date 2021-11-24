@@ -113,16 +113,16 @@
         },
         {
             "name": "gabordemooij/redbean",
-            "version": "v5.7.1",
+            "version": "v5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gabordemooij/redbean.git",
-                "reference": "7d1ce93d6c6b8155a3912e4383a8b30db46e2db8"
+                "reference": "e31aad3b38d5c34a809381f9a5283645ce4abb29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gabordemooij/redbean/zipball/7d1ce93d6c6b8155a3912e4383a8b30db46e2db8",
-                "reference": "7d1ce93d6c6b8155a3912e4383a8b30db46e2db8",
+                "url": "https://api.github.com/repos/gabordemooij/redbean/zipball/e31aad3b38d5c34a809381f9a5283645ce4abb29",
+                "reference": "e31aad3b38d5c34a809381f9a5283645ce4abb29",
                 "shasum": ""
             },
             "require": {
@@ -150,7 +150,11 @@
             "keywords": [
                 "orm"
             ],
-            "time": "2021-10-30T07:55:45+00:00"
+            "support": {
+                "issues": "https://github.com/gabordemooij/redbean/issues",
+                "source": "https://github.com/gabordemooij/redbean/tree/v5.7"
+            },
+            "time": "2021-03-28T11:01:15+00:00"
         },
         {
             "name": "google/recaptcha",
@@ -405,6 +409,20 @@
                 "issues": "https://github.com/PHPMailer/PHPMailer/issues",
                 "source": "https://github.com/PHPMailer/PHPMailer/tree/v5.2.28"
             },
+            "funding": [
+                {
+                    "url": "https://marcus.bointon.com/donations/",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/Synchro",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/marcusbointon",
+                    "type": "patreon"
+                }
+            ],
             "time": "2020-03-19T14:29:37+00:00"
         },
         {
@@ -589,6 +607,20 @@
             "support": {
                 "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.19.0"
             },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-10-23T09:01:57+00:00"
         },
         {
@@ -1452,6 +1484,12 @@
                 "issues": "https://github.com/sebastianbergmann/code-unit-reverse-lookup/issues",
                 "source": "https://github.com/sebastianbergmann/code-unit-reverse-lookup/tree/1.0.2"
             },
+            "funding": [
+                {
+                    "url": "https://github.com/sebastianbergmann",
+                    "type": "github"
+                }
+            ],
             "time": "2020-11-30T08:15:22+00:00"
         },
         {
@@ -2022,6 +2060,20 @@
             "support": {
                 "source": "https://github.com/symfony/polyfill-ctype/tree/v1.19.0"
             },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-10-23T09:01:57+00:00"
         },
         {
@@ -2079,6 +2131,20 @@
             "support": {
                 "source": "https://github.com/symfony/yaml/tree/v3.4.47"
             },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-10-24T10:57:07+00:00"
         },
         {
@@ -2141,5 +2207,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.1.0"
 }
