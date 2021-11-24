@@ -126,13 +126,14 @@ class AdminPanelSystemPreferences extends React.Component {
     onFormChange(form) {
         const { language, supportedLanguages, allowedLanguages } = form;
         const languageIndex = _.indexOf(languageKeys, language);
+        const updatedSupportedLanguages = _.filter(supportedLanguages, (supportedIndex) => _.includes(allowedLanguages, supportedIndex));
 
         this.setState({
-          values: _.extend({}, form, {
-              language: _.includes(supportedLanguages, languageIndex) ? language : languageKeys[supportedLanguages[0]],
-              supportedLanguages: _.filter(supportedLanguages, (supportedIndex) => _.includes(allowedLanguages, supportedIndex))
-          }),
-          message: null
+            values: _.extend({}, form, {
+                language: _.includes(updatedSupportedLanguages, languageIndex) ? language : languageKeys[updatedSupportedLanguages[0]],
+                supportedLanguages: updatedSupportedLanguages
+            }),
+            message: null
         });
     }
 
