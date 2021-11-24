@@ -67,7 +67,7 @@ class EditCommentController extends Controller {
         }
 
         if(!$ticketevent->isNull()) {
-            if($ticketevent->type != "COMMENT" || $ticket->closed || $ticket->getLatestEventOfType("COMMENT")['id'] != $ticketevent->id) {
+            if($ticketevent->type !== "COMMENT" || $ticket->closed || $ticket->getLatestEventOfType("COMMENT")['id'] !== $ticketevent->id) {
                 throw new RequestException(ERRORS::INVALID_TICKET_EVENT);
             }
         } else {
