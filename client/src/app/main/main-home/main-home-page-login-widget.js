@@ -19,9 +19,12 @@ import WidgetTransition from 'core-components/widget-transition';
 import Message          from 'core-components/message';
 import Loading          from 'core-components/loading';
 
+import Captcha          from 'app/main/captcha';
+
 const UNVERIFIED_USER_STEP = 0;
 const LOADING_STEP = 1;
 const REQUEST_RESULT_STEP = 2;
+const MAX_FREE_LOGIN_ATTEMPTS = 3;
 
 class MainHomePageLoginWidget extends React.Component {
 
@@ -61,6 +64,7 @@ class MainHomePageLoginWidget extends React.Component {
                         <FormField placeholder={i18n('PASSWORD_LOWERCASE')} name="password" className="login-widget__input" required fieldProps={{password: true}}/>
                         <FormField name="remember" label={i18n('REMEMBER_ME')} className="login-widget__input" field="checkbox"/>
                     </div>
+                    {this.props.session.loginAttempts > MAX_FREE_LOGIN_ATTEMPTS ? this.renderLoginCaptcha() : null}
                     <div className="login-widget__submit-button">
                         <SubmitButton type="primary">{i18n('LOG_IN')}</SubmitButton>
                     </div>
@@ -73,6 +77,17 @@ class MainHomePageLoginWidget extends React.Component {
                 </div>
             </Widget>
         );
+    }
+
+    renderLoginCaptcha(){
+        return(
+            <div>
+                <Captcha ref="captcha" />
+                <Button className="login-widget__forgot-password" type="link" >
+                        {i18n('FORGOT_PASSWORD')}
+                    </Button>
+            </div>
+        )
     }
 
     renderReSendEmailVerificationSection() {
@@ -148,7 +163,6 @@ class MainHomePageLoginWidget extends React.Component {
 
     getLoginFormErrors() {
         let errors = _.extend({}, this.state.loginFormErrors);
-
         if (this.props.session.failed) {
             if (this.props.session.failMessage === 'INVALID_CREDENTIALS') {
                 errors.password = i18n('ERROR_PASSWORD');
