@@ -285,9 +285,9 @@ class AdminPanelDepartments extends React.Component {
                 this.setState({formLoading: false,errorMessage: false, defaultDepartmentError: null});
                 this.retrieveDepartments();
                 this.onItemChange(-1);
-            }).catch(() => {
+            }).catch(result => {
                 this.onItemChange.bind(this, -1);
-                this.setState({formLoading: false, defaultDepartmentError: null});
+                this.setState({formLoading: false, errorMessage: result.message, defaultDepartmentError: null});
             });
         }
     }

@@ -89,7 +89,7 @@ describe '/system/default-department' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             departmentId: department['id'],
-            name: department['name'],
+            name: 'thisIsAdiferentName',
             private: true
         })
         
