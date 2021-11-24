@@ -16,6 +16,9 @@ import Message from 'core-components/message';
 import Widget from 'core-components/widget';
 import WidgetTransition from 'core-components/widget-transition';
 
+import Captcha          from 'app/main/captcha';
+
+const MAX_FREE_LOGIN_ATTEMPTS = 3;
 class AdminLoginPage extends React.Component {
 
     state = {
@@ -72,6 +75,7 @@ class AdminLoginPage extends React.Component {
                                     className="admin-login-page__login-form-container__login-form__fields__remember"
                                     field="checkbox" />
                             </div>
+                            {this.props.session.loginAttempts > MAX_FREE_LOGIN_ATTEMPTS ? this.renderLoginCaptcha() : null}
                             <div className="admin-login-page__login-form-container__login-form__submit-button">
                                 <SubmitButton>{i18n('LOG_IN')}</SubmitButton>
                             </div>
@@ -85,6 +89,14 @@ class AdminLoginPage extends React.Component {
                 </Widget>
             </div>
         );
+    }
+
+    renderLoginCaptcha() {
+        return(
+            <div>
+                <Captcha ref="captcha" />
+            </div>
+        )
     }
 
     renderPasswordRecovery() {

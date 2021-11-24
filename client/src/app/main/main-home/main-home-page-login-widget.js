@@ -79,13 +79,10 @@ class MainHomePageLoginWidget extends React.Component {
         );
     }
 
-    renderLoginCaptcha(){
+    renderLoginCaptcha() {
         return(
             <div>
                 <Captcha ref="captcha" />
-                <Button className="login-widget__forgot-password" type="link" >
-                        {i18n('FORGOT_PASSWORD')}
-                    </Button>
             </div>
         )
     }
