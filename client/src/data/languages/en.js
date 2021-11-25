@@ -445,6 +445,8 @@ export default {
 
     'TITLE_EDITED': '(title edited)',
     'COMMENT_EDITED': '(comment edited)',
+    'TODAY_AT': 'Today at',
+    'YESTERDAY_AT': 'Yesterday at',
     'LAST_7_DAYS': 'Last 7 days',
     'LAST_30_DAYS': 'Last 30 days',
     'LAST_90_DAYS': 'Last 90 days',
