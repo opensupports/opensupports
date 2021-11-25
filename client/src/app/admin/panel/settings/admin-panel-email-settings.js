@@ -204,11 +204,11 @@ class AdminPanelEmailSettings extends React.Component {
                     <FormField key="text1" label={i18n('TEXT') + '1'} name="text1" validation="TEXT_AREA" required
                                decorator={'textarea'}
                                fieldProps={{className: 'admin-panel-email-settings__text-area'}} />
-                    {(form.text2) ?
+                    {(form.text2 || form.text2 === "") ?
                         <FormField key="text2" label={i18n('TEXT') + '2'} name="text2" validation="TEXT_AREA" required
                                    decorator={'textarea'}
                                    fieldProps={{className: 'admin-panel-email-settings__text-area'}} /> : null}
-                    {(form.text3) ?
+                    {(form.text3 || form.text3 === "") ?
                         <FormField key="text3" label={i18n('TEXT') + '3'} name="text3" validation="TEXT_AREA" required
                                    decorator={'textarea'}
                                    fieldProps={{className: 'admin-panel-email-settings__text-area'}} /> : null}
