@@ -10,6 +10,7 @@ import SessionStore       from 'lib-app/session-store';
 import MentionsParser     from 'lib-app/mentions-parser';
 import history from 'lib-app/history';
 import searchTicketsUtils from 'lib-app/search-tickets-utils';
+import ticketUtils from 'lib-app/ticket-utils';
 
 import TicketEvent        from 'app-components/ticket-event';
 import AreYouSure         from 'app-components/are-you-sure';
@@ -813,44 +814,19 @@ class TicketViewer extends React.Component {
     }
 
     getStaffAssignmentItems() {
+        const { staffMembers, ticket } = this.props;
         let staffAssignmentItems = [
             {content: i18n('NONE'), contentOnSelected: i18n('NONE'), id: 0}
         ];
 
         staffAssignmentItems = staffAssignmentItems.concat(
             _.map(
-                this.getStaffList(),
+                ticketUtils.getStaffList({staffMembers, ticket}, 'toDropDown'),
                 ({id, name, content}) => ({content, contentOnSelected: name, id: id*1})
             )
         );
 
         return staffAssignmentItems;
-    }
-
-    getStaffList() {
-        const { staffMembers, ticket } = this.props;
-        const staffList = _.filter(staffMembers, ({ departments }) => {
-            return _.some(departments, {id: ticket.department.id});
-        });
-
-        return staffList.map(staff => {
-            return {
-                content: this.renderStaffOption(staff)
-            }
-        });
-    }
-
-    renderStaffOption(staff) {
-        return (
-            <div className="ticket-query-filters__staff-option" key={`staff-option-${staff.id}`}>
-                <img className="ticket-query-filters__staff-option__profile-pic" src={this.getStaffProfilePic(staff)}/>
-                <span className="ticket-query-filters__staff-option__name">{staff.name}</span>
-            </div>
-        );
-    }
-
-    getStaffProfilePic(staff) {
-        return staff.profilePic ? API.getFileLink(staff.profilePic) : (API.getURL() + '/images/profile.png');
     }
 
     getCurrentStaff() {
