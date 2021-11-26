@@ -81,7 +81,7 @@ class MainHomePageLoginWidget extends React.Component {
 
     renderLoginCaptcha() {
         return(
-            <div>
+            <div className="main-home-page__captcha">
                 <Captcha ref="captcha" />
             </div>
         )

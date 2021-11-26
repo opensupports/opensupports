@@ -93,7 +93,7 @@ class AdminLoginPage extends React.Component {
 
     renderLoginCaptcha() {
         return(
-            <div>
+            <div className="admin-login-page__captcha">
                 <Captcha ref="captcha" />
             </div>
         )
