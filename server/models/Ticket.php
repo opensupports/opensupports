@@ -233,4 +233,23 @@ class Ticket extends DataStore {
     public function isOwner($user) {
         return !$user->isNull() && $this->owner && $user->id == $this->owner->id && ($user instanceof Staff);
     }
+
+    public function getEventsOfType($type) {
+        $ticketEvents = $this->eventsToArray();
+        $filteredEventsList = [];
+
+        foreach($ticketEvents as $ticketEvent) {
+            if($ticketEvent['type'] == $type) {
+                array_push($filteredEventsList, $ticketEvent);
+            }
+        }
+
+        return $filteredEventsList;
+    }
+
+    public function getLatestEventOfType($type) {
+        $filteredEventsList = $this->getEventsOfType($type);
+
+        return end($filteredEventsList);
+    }
 }
