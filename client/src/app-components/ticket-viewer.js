@@ -86,16 +86,16 @@ class TicketViewer extends React.Component {
         const { editTitle, loading, edit, editId } = this.state;
         const { closed, author, content, date, edited, file, events} = ticket;
         const showResponseField = (!closed && (editable || !assignmentAllowed));
-        const lastCommentIndex = events.map(
+        const lastComment = events.map(
             (event, index) => {
                 return  {...event, index}}
         ).filter(
             (event) => event.type === "COMMENT"
-        ).at(-1).index;
+        ).at(-1);
 
         const eventsWithModifiedComments = events.map(
             (event, index) => {
-                return {...event, isLastComment: index === lastCommentIndex && event.type === "COMMENT"};
+                return {...event, isLastComment: lastComment && index === lastComment && event.type === "COMMENT"};
             }
         );
 
