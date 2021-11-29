@@ -95,7 +95,7 @@ class TicketViewer extends React.Component {
 
         const eventsWithModifiedComments = events.map(
             (event, index) => {
-                return {...event, isLastComment: lastComment && index === lastComment && event.type === "COMMENT"};
+                return {...event, isLastComment: lastComment && index === lastComment.index && event.type === "COMMENT"};
             }
         );
 
