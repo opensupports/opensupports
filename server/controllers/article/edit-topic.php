@@ -22,6 +22,7 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TOPIC
+ * @apiUse INVALID_NAME
  *
  * @apiSuccess {Object} data Empty object
  *
@@ -42,8 +43,7 @@ class EditTopicController extends Controller {
                 'name' => [
                     'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
                     'error' => ERRORS::INVALID_NAME
-                ],
-                
+                ]
             ]
         ];
     }

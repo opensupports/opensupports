@@ -21,6 +21,9 @@ use Respect\Validation\Validator as DataValidator;
  * @apiParam {Boolean} sendEmailOnNewTicket Indicates if it receives an email when a new ticket is created.
  *
  * @apiUse NO_PERMISSION
+ * @apiUse INVALID_EMAIL
+ * @apiUse INVALID_PASSWORD
+ * @apiUse INVALID_LEVEL
  * @apiUse INVALID_STAFF
  *
  * @apiSuccess {Object} data Empty object
@@ -52,7 +55,6 @@ class EditStaffController extends Controller {
                     'validation' => DataValidator::oneOf(DataValidator::between(1, 3, true), DataValidator::falseVal()),
                     'error' => ERRORS::INVALID_LEVEL
                 ]
-
             ]
         ];
     }
