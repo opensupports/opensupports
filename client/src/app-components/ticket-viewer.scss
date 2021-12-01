@@ -33,6 +33,9 @@
         justify-content: space-between;
         align-items: flex-start;
         width: 250px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
     }
 
     &__edited-title-text {
@@ -214,11 +217,19 @@
             }
         }
 
+        &-container {
+            display: flex;
+            position: relative;
+            flex-direction: row-reverse;
+        }
+
         &-buttons {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-end;
+            width: 50%;
+            min-width: 50%;
         }
 
     }

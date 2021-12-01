@@ -461,13 +461,15 @@ class TicketViewer extends React.Component {
                     </div>
                     <div className="ticket-viewer__response-field row">
                         <FormField name="content" validation="TEXT_AREA" required field="textarea" fieldProps={{allowImages: allowAttachments}} />
-                        <div className="ticket-viewer__response-buttons">
-                            {allowAttachments ? <FormField name="file" field="file" /> : null}
-                            <SubmitButton type="secondary">{i18n('RESPOND_TICKET')}</SubmitButton>
-                        </div>
-                        <div className="ticket-viewer__buttons-column">
-                            <div className="ticket-viewer__buttons-row">
-                                {this.renderCloseTicketButton()}
+                        <div className="ticket-viewer__response-container">
+                            <div className="ticket-viewer__response-buttons">
+                                {allowAttachments ? <FormField name="file" field="file" /> : null}
+                                <SubmitButton type="secondary">{i18n('RESPOND_TICKET')}</SubmitButton>
+                            </div>
+                            <div className="ticket-viewer__buttons-column">
+                                <div className="ticket-viewer__buttons-row">
+                                    {this.renderCloseTicketButton()}
+                                </div>
                             </div>
                         </div>
                     </div>
