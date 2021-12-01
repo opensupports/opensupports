@@ -17,7 +17,7 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {Number} articleId Id of the article.
  * @apiParam {Number} topicId Id of the topic of the article. Optional.
  * @apiParam {String} content The new content of the article. Optional.
- * @apiParam {String} name The new name of the article. Optional.
+ * @apiParam {String} title The new title of the article. Optional.
  * @apiParam {Number} position The new position of the article. Optional.
  * @apiParam {Number} images The number of images in the content
  * @apiParam image_i The image file of index `i` (mutiple params accepted)
@@ -25,6 +25,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TOPIC
  * @apiUse INVALID_FILE
+ * @apiUse INVALID_TITLE
  *
  * @apiSuccess {Object} data Empty object
  *
@@ -42,17 +43,17 @@ class EditArticleController extends Controller {
                     'validation' => DataValidator::dataStoreId('article'),
                     'error' => ERRORS::INVALID_TOPIC
                 ],
-                'name' => [
+                'title' => [
                     'validation' => DataValidator::oneOf(
-                        DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
+                        DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_TITLE, LengthConfig::MAX_LENGTH_TITLE),
                         DataValidator::nullType()
                     ),
-                    'error' => ERRORS::INVALID_NAME
+                    'error' => ERRORS::INVALID_TITLE
                 ],
                 'content' => [
                     'validation' => DataValidator::oneOf(DataValidator::content(),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_CONTENT
-                ],
+                ]
             ]
         ];
     }
@@ -81,8 +82,8 @@ class EditArticleController extends Controller {
             $article->content = $this->replaceWithImagePaths($imagePaths, $content);
         }
 
-        if(Controller::request('name')) {
-            $article->title = Controller::request('name');
+        if(Controller::request('title')) {
+            $article->title = Controller::request('title');
         }
 
         if(Controller::request('position')) {
