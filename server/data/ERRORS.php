@@ -323,6 +323,10 @@
  * @apiDefine INVALID_SUPERVISED_USERS
  * @apiError {String} INVALID_SUPERVISED_USERS supervised users are invalid
  */
+/**
+ * @apiDefine TICKET_CONTENT_CANNOT_BE_EDITED
+ * @apiError {String} TICKET_CONTENT_CANNOT_BE_EDITED Ticket content cannot be edited because it has comments
+ */
 
 class ERRORS {
     const INVALID_CREDENTIALS = 'INVALID_CREDENTIALS';
