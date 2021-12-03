@@ -205,6 +205,15 @@ describe'system/mandatory-login' do
             })
             (result['status']).should.equal('success')
 
+            result = request('/ticket/edit-comment', {
+                csrf_token: $sessionToken,
+                csrf_userid: $sessionId,
+                ticketNumber:  $sessionTicketNumber,
+                ticketEventId: 0,
+                content: 'this is the first edited-comment without login'
+            })
+            (result['status']).should.equal('success')
+
             result = request('/ticket/comment', {
                 csrf_token: $sessionToken,
                 csrf_userid: $sessionId,
@@ -218,15 +227,6 @@ describe'system/mandatory-login' do
                 csrf_userid: $sessionId,
                 ticketNumber:  $sessionTicketNumber,
                 content: 'this is the second comment without login'
-            })
-            (result['status']).should.equal('success')
-
-            result = request('/ticket/edit-comment', {
-                csrf_token: $sessionToken,
-                csrf_userid: $sessionId,
-                ticketNumber:  $sessionTicketNumber,
-                ticketEventId: 0,
-                content: 'this is the first edited-comment without login'
             })
             (result['status']).should.equal('success')
 

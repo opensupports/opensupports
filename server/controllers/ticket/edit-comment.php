@@ -20,7 +20,9 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_CONTENT
- * @apiUse INVALID_TOKEN
+ * @apiUse INVALID_TICKET
+ * @apiUse INVALID_TICKET_EVENT
+ * @apiUse TICKET_CONTENT_CANNOT_BE_EDITED
  *
  * @apiSuccess {Object} data Empty object
  *
@@ -62,6 +64,14 @@ class EditCommentController extends Controller {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
+        if (!$ticketevent->isNull()) {
+            if($user->id !== $ticketevent->authorUserId) {
+                throw new RequestException(ERRORS::NO_PERMISSION);
+            }
+        } else if ($user->id !== $ticket->authorId) {
+            throw new RequestException(ERRORS::NO_PERMISSION);
+        }
+
         if(Controller::isStaffLogged() && !$user->canManageTicket($ticket)) {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
@@ -70,10 +80,8 @@ class EditCommentController extends Controller {
             if($ticketevent->type !== "COMMENT" || $ticket->closed || $ticket->getLatestEventOfType("COMMENT")['id'] !== $ticketevent->id) {
                 throw new RequestException(ERRORS::INVALID_TICKET_EVENT);
             }
-        } else {
-            if(sizeof($ticket->getEventsOfType("COMMENT"))) {
-                throw new RequestException(ERRORS::INVALID_TICKET_EVENT);
-            }
+        } else if(sizeof($ticket->getEventsOfType("COMMENT"))) {
+            throw new RequestException(ERRORS::TICKET_CONTENT_CANNOT_BE_EDITED);
         }
 
         if(!$ticketevent->isNull()){
