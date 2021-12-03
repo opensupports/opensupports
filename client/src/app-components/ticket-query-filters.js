@@ -210,8 +210,10 @@ class TicketQueryFilters extends React.Component {
         let selectedDepartments = [];
 
         if(selectedDepartmentsId !== undefined) {
-            let departments = this.getDepartmentsItems();
-            selectedDepartments = departments.filter(item => _.includes(selectedDepartmentsId, item.id));
+            selectedDepartments = selectedDepartmentsId.map(
+                (departmentId) => this.getDepartmentsItems().filter(_department => (_department.id === departmentId))[0]
+            );
+
         }
 
         return selectedDepartments;
@@ -231,7 +233,9 @@ class TicketQueryFilters extends React.Component {
         let selectedTagsName = [];
 
         if(selectedTagsId !== undefined) {
-            selectedTagsName = selectedTagsId.map((tagId) => (this.getTags().filter(_tag => (_tag.id === tagId))[0].name));
+            selectedTagsName = selectedTagsId.map(
+                (tagId) => this.getTags().filter(_tag => (_tag.id === tagId))[0].name
+            );
         }
 
         return selectedTagsName;
@@ -316,7 +320,9 @@ class TicketQueryFilters extends React.Component {
         let selectedTagsId = [];
 
         if (selectedTagsName != undefined) {
-            selectedTagsId = selectedTagsName.map((tagName) => (this.getTags().filter(_tag => (_tag.name === tagName))[0].id));
+            selectedTagsId = selectedTagsName.map(
+                (tagName) => this.getTags().filter(_tag => (_tag.name === tagName))[0].id
+            );
         }
 
         return selectedTagsId;
