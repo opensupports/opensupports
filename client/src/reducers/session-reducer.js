@@ -10,7 +10,8 @@ class SessionReducer extends Reducer {
             logged: false,
             pending: false,
             failed: false,
-            verify: null
+            verify: null,
+            loginAttempts: 0
         };
     }
 
@@ -45,7 +46,8 @@ class SessionReducer extends Reducer {
             pending: false,
             failed: false,
             staff: payload.data.staff,
-            userId: payload.data.userId
+            userId: payload.data.userId,
+            loginAttempts: 0
         });
     }
 
@@ -54,7 +56,8 @@ class SessionReducer extends Reducer {
             failMessage: payload.message,
             logged: false,
             pending: false,
-            failed: true
+            failed: true,
+            loginAttempts: state.loginAttempts + 1
         });
     }
 

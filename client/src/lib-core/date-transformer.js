@@ -1,7 +1,14 @@
 import moment from 'moment';
+import sessionStore from 'lib-app/session-store';
 
 const stringDateFormat = 'YYYYMMDDHHmm';
 const localUTCMins = new Date().getTimezoneOffset();
+let language = sessionStore.getConfigs().language;
+if (language == 'br') language = 'pt';
+if (language == 'cn') language = 'zh-cn';
+if (language == 'in') language = 'hi';
+if (language == 'jp') language = 'ja';
+if (language == 'gr') language = 'el';
 
 export default {
     stringDateToMoment(date) {
@@ -26,9 +33,9 @@ export default {
     },
     transformToString(date, expressive = true, retrunShortcutDate = false) {
         const momentDateLocal = this.stringDateToMoment(JSON.stringify(this.UTCDateToLocalNumericDate(date)));
-        if(expressive) momentDateLocal.format('D MMMM YYYY');
-        if(retrunShortcutDate) return momentDateLocal.format('D MMM YYYY, HH:mm');
-        return momentDateLocal.format('D MMMM YYYY, HH:mm');
+        if(expressive) momentDateLocal.locale(language).format('D MMMM YYYY');
+        if(retrunShortcutDate) return momentDateLocal.locale(language).format('D MMM YYYY, HH:mm');
+        return momentDateLocal.locale(language).format('D MMMM YYYY, HH:mm');
     },
     getDate(date) {
         return date < 10 ? `0${date}` : `${date}`;

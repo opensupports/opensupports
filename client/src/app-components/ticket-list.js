@@ -226,7 +226,7 @@ class TicketList extends React.Component {
     }
 
     getTableRows() {
-        return this.getTickets().map(this.gerTicketTableObject.bind(this));
+        return this.getTickets().map(this.getTicketTableObject.bind(this));
     }
 
     getTickets() {
@@ -240,7 +240,7 @@ class TicketList extends React.Component {
         );
     }
 
-    gerTicketTableObject(ticket) {
+    getTicketTableObject(ticket) {
         const { date, title, ticketNumber, closed, tags, department, author } = ticket;
         const dateTodayWithOutHoursAndMinutes = DateTransformer.getDateToday();
         const ticketDateWithOutHoursAndMinutes = Math.floor(DateTransformer.UTCDateToLocalNumericDate(JSON.stringify(date*1)) / 10000);
@@ -248,7 +248,7 @@ class TicketList extends React.Component {
         const ticketDate = (
             ((dateTodayWithOutHoursAndMinutes - ticketDateWithOutHoursAndMinutes) > 1) ?
                 stringTicketLocalDateFormat :
-                `${(dateTodayWithOutHoursAndMinutes - ticketDateWithOutHoursAndMinutes) ? "Yesterday" : "Today"} at ${stringTicketLocalDateFormat.slice(-5)}`
+                `${(dateTodayWithOutHoursAndMinutes - ticketDateWithOutHoursAndMinutes) ? i18n("YESTERDAY_AT") : i18n("TODAY_AT")} ${stringTicketLocalDateFormat.slice(-5)}`
         );
         let titleText = (this.isTicketUnread(ticket)) ? title + ' (1)' : title;
 

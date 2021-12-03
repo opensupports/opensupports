@@ -53,6 +53,8 @@ class StaffEditor extends React.Component {
         departments: this.getUserDepartments(),
         closedTicketsShown: false,
         sendEmailOnNewTicket: this.props.sendEmailOnNewTicket,
+        loadingReInviteStaff: false,
+        reInviteStaff: "",
         rawForm: {
             dateRange: statsUtils.getInitialDateRange(),
             departments: [],
@@ -152,6 +154,8 @@ class StaffEditor extends React.Component {
                     <div className="col-md-8">
                         <div className="staff-editor__activity">
                             <div className="staff-editor__activity-title">{i18n('ACTIVITY')}</div>
+                            {myData.lastLogin ? null : this.renderReInviteStaffButton()}
+                            {this.renderReInviteStaffMessage()}
                             {this.renderStaffStats()}
                         </div>
                     </div>
@@ -160,6 +164,56 @@ class StaffEditor extends React.Component {
                 {((!myAccount) && (userId !== staffId)) ? this.renderDelete() : null}
             </div>
         );
+    }
+
+    renderReInviteStaffButton () {
+        const inviteStaffButtonContent = <div><Icon name="user-plus" /> {i18n('INVITE_STAFF')}</div>;
+
+        return (
+            <div className="staff-editor__staff-invitation-content">
+                {i18n('USER_UNLOGGED_IN')}
+                <Button onClick={this.onReInviteStaffButton.bind(this)} size="medium" type="secondary" className="staff-editor__staff-invitation-button" disabled={this.state.loadingReInviteStaff}>
+                    {this.state.loadingReInviteStaff ? <Loading /> : inviteStaffButtonContent}
+                </Button>
+            </div>
+        );
+    }
+
+    renderReInviteStaffMessage() {
+        const { reInviteStaff } = this.state;
+
+        if (reInviteStaff) {
+            return (
+                 <Message className="staff-editor__staff-invitation-message" type={reInviteStaff} leftAligned>
+                    {(reInviteStaff === "success") ? i18n('RESEND_STAFF_INVITATION_SUCCESS') : i18n('RESEND_STAFF_INVITATION_FAIL')}
+                </Message>
+            );
+        } else {
+            return null;
+        }
+    }
+
+    onReInviteStaffButton() {
+        this.setState({
+            loadingReInviteStaff: true
+        })
+
+        API.call({
+            path: '/staff/resend-invite-staff',
+            data: {
+                email: this.props.email
+            }
+        }).then(() => {
+            this.setState({
+                loadingReInviteStaff: false,
+                reInviteStaff: 'success'
+            })
+        }).catch(() => {
+            this.setState({
+                loadingReInviteStaff: false,
+                reInviteStaff: 'error'
+            })
+        })
     }
 
     renderMessage() {
@@ -317,6 +371,7 @@ class StaffEditor extends React.Component {
                 departmentIndexes.push(index);
             }
         });
+
         return departmentIndexes;
     }
 

@@ -244,6 +244,9 @@ export default {
     'RESEND_EMAIL_VERIFICATION': 'Resend e-mail verification',
     'RESEND_EMAIL_VERIFICATION_SUCCESS': 'The mail was sent successfully',
     'RESEND_EMAIL_VERIFICATION_FAIL': 'An error has occurred',
+    'USER_UNLOGGED_IN': 'This user has never logged in before',
+    'RESEND_STAFF_INVITATION_SUCCESS': 'The invitation was sent successfully',
+    'RESEND_STAFF_INVITATION_FAIL': 'The invitation could not be sent',
 
     //ACTIVITIES
     'ACTIVITY_COMMENT': 'commented ticket',
@@ -442,6 +445,8 @@ export default {
 
     'TITLE_EDITED': '(title edited)',
     'COMMENT_EDITED': '(comment edited)',
+    'TODAY_AT': 'Today at',
+    'YESTERDAY_AT': 'Yesterday at',
     'LAST_7_DAYS': 'Last 7 days',
     'LAST_30_DAYS': 'Last 30 days',
     'LAST_90_DAYS': 'Last 90 days',
