@@ -221,9 +221,11 @@ class TicketQueryFilters extends React.Component {
 
     getSelectedStaffs(selectedStaffsId) {
         let selectedStaffs = [];
+
         if(selectedStaffsId !== undefined) {
-            let staffs = this.getStaffList();
-            selectedStaffs = staffs.filter(staff => _.includes(selectedStaffsId, staff.id));
+            selectedStaffs = selectedStaffsId.map(
+                (staffId) => this.getStaffList().filter(_staff => (_staff.id === staffId))[0]
+            );
         }
 
         return selectedStaffs;
