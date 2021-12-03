@@ -179,9 +179,7 @@ class TicketQueryFilters extends React.Component {
 
     addTag(tag) {
         const { formState } = this.props;
-        let selectedTagsId = formState.tags.concat(this.tagsNametoTagsId(this.getSelectedTagsName([tag])));
-
-        this.onChangeFormState({...formState, tags: selectedTagsId});
+        this.onChangeFormState({...formState, tags: [...formState.tags, tag]});
     }
 
     autorsComparer(autorList, autorSelectedList) {
@@ -233,9 +231,7 @@ class TicketQueryFilters extends React.Component {
         let selectedTagsName = [];
 
         if(selectedTagsId !== undefined) {
-            let tagList = this.getTags();
-            let selectedTags = tagList.filter(item => _.includes(selectedTagsId, item.id));
-            selectedTagsName = selectedTags.map(tag => tag.name);
+            selectedTagsName = selectedTagsId.map((tagId) => (this.getTags().filter(_tag => (_tag.id === tagId))[0].name));
         }
 
         return selectedTagsName;
@@ -312,17 +308,16 @@ class TicketQueryFilters extends React.Component {
 
     removeTag(tag) {
         const { formState } = this.props;
-        let tagListName = formState.tags;
-        let newTagList = tagListName.filter(item => item !== tag);
-        let selectedTags = this.tagsNametoTagsId(this.getSelectedTagsName(newTagList));
 
-        this.onChangeFormState({...formState, tags: selectedTags});
+        this.onChangeFormState({...formState, tags: formState.tags.filter(item => item !== tag)});
     }
 
     tagsNametoTagsId(selectedTagsName) {
-        let tagList = this.getTags();
-        let selectedTags = tagList.filter(item => _.includes(selectedTagsName, item.name));
-        let selectedTagsId = selectedTags.map(tag => tag.id);
+        let selectedTagsId = [];
+
+        if (selectedTagsName != undefined) {
+            selectedTagsId = selectedTagsName.map((tagName) => (this.getTags().filter(_tag => (_tag.name === tagName))[0].id));
+        }
 
         return selectedTagsId;
     }
