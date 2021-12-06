@@ -3,17 +3,18 @@ import API   from 'lib-app/api-call';
 import _ from 'lodash';
 
 export default {
-    getStaffList({staffList, staffMembers, ticket}, type) {
+    getStaffList({staffList, ticket}, type) {
         switch(type) {
             case 'toDropDown': 
                 {
                     return _.filter(
-                        staffMembers,
+                        staffList,
                         ({ departments }) => {
                             return _.some(departments, {id: ticket.department.id});
                         }
                     ).map(staff => {
                         return {
+                            ...staff,
                             content: this.renderStaffOption(staff)
                         }
                     });

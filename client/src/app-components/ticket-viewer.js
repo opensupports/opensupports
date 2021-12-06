@@ -348,7 +348,7 @@ class TicketViewer extends React.Component {
         if(assignmentAllowed && ticket.owner) {
             ownerNode = (
                 <a className="ticket-viewer__info-owner-name" href={this.searchTickets(filtersOnlyWithOwner)}>
-                    {ticket.owner.name}
+                {ticketUtils.renderStaffSelected(ticket.owner)}
                 </a>
             );
         } else {
@@ -842,12 +842,10 @@ class TicketViewer extends React.Component {
         ];
 
         staffAssignmentItems = staffAssignmentItems.concat(
-            _.map(
-                ticketUtils.getStaffList({staffMembers, ticket}, 'toDropDown'),
-                ({id, name, content}) => ({content, contentOnSelected: name, id: id*1})
+            ticketUtils.getStaffList({staffList: staffMembers, ticket}, 'toDropDown').map(
+                ({id, content}) => ({content, id: id*1})
             )
         );
-
         return staffAssignmentItems;
     }
 
