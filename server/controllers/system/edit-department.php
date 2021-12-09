@@ -21,6 +21,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_NAME
  * @apiUse INVALID_DEPARTMENT
+ * @apiUse NAME_ALREADY_USED
  *
  * @apiSuccess {Object} data Empty object
  *
@@ -39,10 +40,7 @@ class EditDepartmentController extends Controller {
                     'error' => ERRORS::INVALID_DEPARTMENT
                 ],
                 'name' => [
-                    'validation' => DataValidator::AllOf(
-                        DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
-                        DataValidator::ValidDepartmentName()    
-                    ),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
                     'error' => ERRORS::INVALID_NAME
                 ],
             ]
@@ -55,6 +53,11 @@ class EditDepartmentController extends Controller {
         $private = Controller::request('private');
 
         $departmentInstance = Department::getDataStore($departmentId);
+        $createdDepartment = Department::getDataStore($newName, 'name');
+        
+        if(!$createdDepartment->isNull() && $createdDepartment->name !== $departmentInstance->name){
+            throw new RequestException(ERRORS::NAME_ALREADY_USED);
+        }
 
         if($private && $departmentId == Setting::getSetting('default-department-id')->getValue()){
             throw new RequestException(ERRORS::DEFAULT_DEPARTMENT_CAN_NOT_BE_PRIVATE);

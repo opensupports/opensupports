@@ -11,6 +11,7 @@ import SubmitButton from 'core-components/submit-button';
 import IconSelector from 'core-components/icon-selector';
 import ColorSelector from 'core-components/color-selector';
 import InfoTooltip from 'core-components/info-tooltip';
+import Message from 'core-components/message';
 
 class TopicEditModal extends React.Component {
 
@@ -26,14 +27,17 @@ class TopicEditModal extends React.Component {
 
     state = {
         values: this.props.defaultValues || {title: '', icon: 'address-card', color: '#ff6900', private: false},
-        loading: false
+        loading: false,
+        errorMessage: false
     };
 
     render() {
+        if (this.state.errorMessage ) console.log(this.state.errorMessage)
         return (
             <div className="topic-edit-modal">
                 <Header title={i18n((this.props.addForm) ? 'ADD_TOPIC' : 'EDIT_TOPIC')} description={i18n((this.props.addForm) ? 'ADD_TOPIC_DESCRIPTION' : 'EDIT_TOPIC_DESCRIPTION')} />
                 <Form values={this.state.values} onChange={this.onFormChange.bind(this)} onSubmit={this.onSubmit.bind(this)} loading={this.state.loading}>
+                    {this.state.errorMessage ? <Message type="error">{i18n(this.state.errorMessage)}</Message> : null}
                     <FormField name="title" label={i18n('TITLE')} fieldProps={{size: 'large'}} validation="TITLE" required />
                     <FormField name="icon" className="topic-edit-modal__icon" label={i18n('ICON')} decorator={IconSelector} />
                     <FormField name="color" className="topic-edit-modal__color" label={i18n('COLOR')} decorator={ColorSelector} />
@@ -68,13 +72,16 @@ class TopicEditModal extends React.Component {
             }
         }).then(() => {
             this.context.closeModal();
-
+            this.setState({
+                errorMessage: false
+              });
             if(this.props.onChange) {
                 this.props.onChange();
             }
-        }).catch(() => {
+        }).catch((e) => {
             this.setState({
-              loading: false
+              loading: false,
+              errorMessage: e.message
             });
         });
     }
