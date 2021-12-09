@@ -37,4 +37,21 @@ class APIKey extends DataStore {
             'shouldReturnTicketNumber' => $this->shouldReturnTicketNumber
         ];
     }
+
+    public static function getDataStore($value, $key = '') {
+        global $client;
+        $globalToken = $client->getItem('ticket-api-key');
+        if($key === 'token' && $value === $globalToken) {
+          $apiKey = new APIKey();
+          $apiKey->setProperties([
+            'name' => 'ticket-api-key',
+            'token' => $globalToken,
+            'canCreateTickets' => true,
+            'shouldReturnTicketNumber' => true
+          ]);
+          return $apiKey;
+        } else {
+          return parent::getDataStore($key, $value);
+        }
+      }
 }
