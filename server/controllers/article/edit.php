@@ -26,7 +26,9 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_TOPIC
  * @apiUse INVALID_FILE
  * @apiUse INVALID_TITLE
- *
+ * @apiUse CONTENT_ALREADY_USED
+ * @apiUse TITLE_ALREADY_USED
+ * 
  * @apiSuccess {Object} data Empty object
  *
  */
@@ -51,7 +53,10 @@ class EditArticleController extends Controller {
                     'error' => ERRORS::INVALID_TITLE
                 ],
                 'content' => [
-                    'validation' => DataValidator::oneOf(DataValidator::content(),DataValidator::nullType()),
+                    'validation' => DataValidator::oneOf(
+                        DataValidator::content(),
+                        DataValidator::nullType()
+                    ),
                     'error' => ERRORS::INVALID_CONTENT
                 ]
             ]
@@ -59,10 +64,24 @@ class EditArticleController extends Controller {
     }
 
     public function handler() {
+        $topicId = Controller::request('topicId');
+        $content = Controller::request('content', true);
+        $title = Controller::request('title');
+        
         $article = Article::getDataStore(Controller::request('articleId'));
+        $createdArticleTookByTitle = Article::getDataStore($title, 'title');
+        $createdArticleTookByContent = Article::getDataStore($content, 'content');
 
-        if (Controller::request('topicId')) {
-            $newArticleTopic = Topic::getDataStore(Controller::request('topicId'));
+        if(!$createdArticleTookByTitle->isNull() && $article->title !== $createdArticleTookByTitle->title){
+            throw new RequestException(ERRORS::TITLE_ALREADY_USED);
+        }
+
+        if(!$createdArticleTookByContent->isNull() && $article->content !== $createdArticleTookByContent->content){
+            throw new RequestException(ERRORS::CONTENT_ALREADY_USED);
+        }
+
+        if ($topicId) {
+            $newArticleTopic = Topic::getDataStore($topicId);
 
             if (!$newArticleTopic->isNull()) {
                 $article->topic = $newArticleTopic;
@@ -72,18 +91,17 @@ class EditArticleController extends Controller {
             }
         }
 
-        if(Controller::request('content')) {
+        if($content) {
             $fileUploader = FileUploader::getInstance();
             $fileUploader->setPermission(FileManager::PERMISSION_ARTICLE);
 
-            $content = Controller::request('content', true);
             $imagePaths = $this->uploadImages(true);
 
             $article->content = $this->replaceWithImagePaths($imagePaths, $content);
         }
 
-        if(Controller::request('title')) {
-            $article->title = Controller::request('title');
+        if($title) {
+            $article->title = $title;
         }
 
         if(Controller::request('position')) {
