@@ -25,8 +25,6 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_TITLE
  * @apiUse INVALID_CONTENT
  * @apiUse INVALID_TOPIC
- * @apiUse TITLE_ALREADY_USED
- * @apiUse CONTENT_ALREADY_USED
  *
  * @apiSuccess {Object} data Article info
  * @apiSuccess {Number} data.articleId Article id
@@ -41,7 +39,7 @@ class AddArticleController extends Controller {
             'permission' => 'staff_2',
             'requestData' => [
                 'title' => [
-                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_TITLE, LengthConfig::MAX_LENGTH_TITLE),
                     'error' => ERRORS::INVALID_TITLE
                 ],
                 'content' => [
@@ -58,26 +56,14 @@ class AddArticleController extends Controller {
 
     public function handler() {
         $content = Controller::request('content', true);
-        $title = Controller::request('title', true);
-        $createdArticleTookByTitle = Article::getDataStore($title,'title');
-        $createdArticleTookByContent = Article::getDataStore($content,'content');
 
-        if(!$createdArticleTookByTitle->isNull()){
-            throw new RequestException(ERRORS::TITLE_ALREADY_USED);
-        }
-
-        if(!$createdArticleTookByContent->isNull()){
-            throw new RequestException(ERRORS::CONTENT_ALREADY_USED);
-        }
-
-        
         $fileUploader = FileUploader::getInstance();
         $fileUploader->setPermission(FileManager::PERMISSION_ARTICLE);
         $imagePaths = $this->uploadImages(true);
 
         $article = new Article();
         $article->setProperties([
-            'title' => $title,
+            'title' => Controller::request('title', true),
             'content' => $this->replaceWithImagePaths($imagePaths, $content),
             'lastEdited' => Date::getCurrentDate(),
             'position' => Controller::request('position') || 1
