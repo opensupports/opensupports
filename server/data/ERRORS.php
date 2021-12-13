@@ -24,8 +24,16 @@
  * @apiError {String} INVALID_TITLE The title is invalid, probably too short.
  */
 /**
- * @apiDefine INVALID_CONTENT
+ * @apiDefine TITLE_ALREADY_USED
+ * @apiError {String} TITLE_ALREADY_USED The title is already in use.
+ */
+/**
+ * @apiDefine INVALID_CONTENT 
  * @apiError {String} INVALID_CONTENT The content is invalid, probably to short.
+ */
+/**
+ * @apiDefine CONTENT_ALREADY_USED
+ * @apiError {String} CONTENT_ALREADY_USED The content is already in use.
  */
 /**
  * @apiDefine INVALID_EMAIL
@@ -335,7 +343,9 @@ class ERRORS {
     const TAG_EXISTS = 'TAG_EXISTS';
     const NO_PERMISSION = 'NO_PERMISSION';
     const INVALID_TITLE = 'INVALID_TITLE';
+    const TITLE_ALREADY_USED = 'TITLE_ALREADY_USED';
     const INVALID_CONTENT = 'INVALID_CONTENT';
+    const CONTENT_ALREADY_USED = 'CONTENT_ALREADY_USED';
     const INVALID_EMAIL = 'INVALID_EMAIL';
     const INVALID_PASSWORD = 'INVALID_PASSWORD';
     const INVALID_NAME = 'INVALID_NAME';
