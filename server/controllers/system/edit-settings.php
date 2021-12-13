@@ -102,7 +102,6 @@ class EditSettingsController extends Controller {
     }
 
     public function checkDefaultDepartmentValid() {
-                
         $departmentId = Controller::request('default-department-id');
 
         if($departmentId){

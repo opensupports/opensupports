@@ -43,6 +43,9 @@ class AdminPanelDepartments extends React.Component {
         editedAddDepartmentForm: false,
         editedDefaultDepartmentForm: false,
         errorMessage: null,
+        showErrorMessage: true,
+        showSuccessMessage: true,
+        showDefaultDepartmentErrorMessage: true,
         errors: {},
         defaultDepartmentError: null,
         form: {
@@ -55,7 +58,7 @@ class AdminPanelDepartments extends React.Component {
     };
 
     render() {
-        const { errorMessage, formLoading, selectedIndex } = this.state;
+        const { errorMessage, formLoading, selectedIndex, showErrorMessage } = this.state;
 
         return (
             <div className="admin-panel-departments">
@@ -65,7 +68,13 @@ class AdminPanelDepartments extends React.Component {
                         <Listing {...this.getListingProps()} />
                     </div>
                     <div className="col-md-8">
-                        {errorMessage ? <Message type="error">{i18n(errorMessage)}</Message> : null}
+                        {
+                            errorMessage ?
+                                <Message showMessage={showErrorMessage} onCloseMessage={this.onCloseMessage.bind(this, "showErrorMessage")} type="error">
+                                    {i18n(errorMessage)}
+                                </Message> :
+                                null
+                        }
                         <Form {...this.getFormProps()}>
                             <div className="admin-panel-departments__container">
                                 <FormField className="admin-panel-departments__container__name" label={i18n('NAME')} name="name" validation="NAME" required fieldProps={{size: 'large'}} />
@@ -98,15 +107,19 @@ class AdminPanelDepartments extends React.Component {
     }
 
     renderDefaultDepartmentForm() {
-        const { defaultDepartmentError, formLoading } = this.state;
+        const { defaultDepartmentError, formLoading, showSuccessMessage, showDefaultDepartmentErrorMessage } = this.state;
 
         return (
             <div className="admin-panel-departments__default-departments-container">
                 <span className="separator" />
                 {(defaultDepartmentError !== null) ?
                     ((!defaultDepartmentError) ?
-                        <Message type="success">{i18n('SETTINGS_UPDATED')}</Message> :
-                        <Message type="error">{i18n(defaultDepartmentError)}</Message>) :
+                        <Message showMessage={showSuccessMessage} onCloseMessage={this.onCloseMessage.bind(this, "showSuccessMessage")} type="success">
+                            {i18n('SETTINGS_UPDATED')}
+                        </Message> :
+                        <Message showMessage={showDefaultDepartmentErrorMessage} onCloseMessage={this.onCloseMessage.bind(this, "showDefaultDepartmentErrorMessage")} type="error">
+                            {i18n(defaultDepartmentError)}
+                        </Message>) :
                     null}
                 <Form {...this.getDefaultDepartmentFormProps()} className="admin-panel-departments__default-departments-container__form">
                     <div className="admin-panel-departments__default-departments-container__form__fields" >
@@ -234,6 +247,12 @@ class AdminPanelDepartments extends React.Component {
         };
     }
 
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
+        })
+    }
+
     onItemChange(index) {
         if(this.state.editedAddDepartmentForm) {
             AreYouSure.openModal(i18n('WILL_LOSE_CHANGES'), this.updateForm.bind(this, index));
@@ -255,8 +274,8 @@ class AdminPanelDepartments extends React.Component {
             }
         }).then(() => {
             this.retrieveDepartments(true);
-            this.setState({formLoading: false, errorMessage: false, defaultDepartmentError: false});
-        }).catch(result => this.setState({formLoading: false, defaultDepartmentError: result.message}));
+            this.setState({formLoading: false, errorMessage: false, defaultDepartmentError: false, showSuccessMessage: true});
+        }).catch(result => this.setState({formLoading: false, defaultDepartmentError: result.message, showDefaultDepartmentErrorMessage: true}));
     }
 
     onFormSubmit(form) {
@@ -273,7 +292,7 @@ class AdminPanelDepartments extends React.Component {
             }).then(() => {
                 this.setState({formLoading: false, errorMessage: false, defaultDepartmentError: null});
                 this.retrieveDepartments();
-            }).catch(result => this.setState({formLoading: false, errorMessage: result.message, defaultDepartmentError: null}));
+            }).catch(result => this.setState({formLoading: false, errorMessage: result.message, showErrorMessage: true, defaultDepartmentError: null}));
         } else {
             API.call({
                 path: '/system/add-department',
@@ -287,7 +306,7 @@ class AdminPanelDepartments extends React.Component {
                 this.onItemChange(-1);
             }).catch(result => {
                 this.onItemChange.bind(this, -1);
-                this.setState({formLoading: false, errorMessage: result.message, defaultDepartmentError: null});
+                this.setState({formLoading: false, errorMessage: result.message, showErrorMessage: true, defaultDepartmentError: null});
             });
         }
     }
@@ -316,7 +335,7 @@ class AdminPanelDepartments extends React.Component {
             this.onItemChange(-1);
             this.setState({defaultDepartmentError: null});
         })
-        .catch(result => this.setState({errorMessage: result.message, defaultDepartmentError: null}));
+        .catch(result => this.setState({errorMessage: result.message, showErrorMessage: true, defaultDepartmentError: null}));
     }
 
     updateForm(index) {

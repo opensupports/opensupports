@@ -10,30 +10,24 @@ class Message extends React.Component {
         title: React.PropTypes.string,
         children: React.PropTypes.node,
         leftAligned: React.PropTypes.bool,
+        onCloseMessage: React.PropTypes.func,
         type: React.PropTypes.oneOf(['success', 'error', 'info', 'warning'])
     };
 
     static defaultProps = {
         type: 'info',
         leftAligned: false,
-        showCloseButton: true
-    };
-
-    state = {
+        showCloseButton: true,
         showMessage: true
-    }
-
-    componentWillReceiveProps() {
-        this.setState({
-            showMessage: true
-        })
-    }
+    };
 
     render() {
         return (
-            <Motion {...this.getAnimationProps()}>
-                {this.renderMessage.bind(this)}
-            </Motion>
+            this.props.showMessage ?
+                <Motion {...this.getAnimationProps()}>
+                    {this.renderMessage.bind(this)}
+                </Motion> :
+                null
         );
     }
 
@@ -49,7 +43,7 @@ class Message extends React.Component {
     }
 
     renderMessage(style) {
-        return this.state.showMessage ? this.renderMessageContent(style) : null
+        return this.renderMessageContent(style);
     }
 
     renderMessageContent(style) {
@@ -100,10 +94,16 @@ class Message extends React.Component {
 
     renderCloseButton() {
         return (
-            <span className="message__close-icon" onClick={() => this.setState({showMessage: false})}>
+            <span className="message__close-icon" onClick={this.onCloseMessage.bind(this)}>
                 <Icon name="times" size="1x"/>
             </span>
         );
+    }
+
+    onCloseMessage() {
+        const { onCloseMessage } = this.props
+
+        onCloseMessage && onCloseMessage();
     }
 }
 
