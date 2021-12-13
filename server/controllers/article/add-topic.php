@@ -19,9 +19,10 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} iconColor Icon's color of the new topic.
  * @apiParam {Boolean} private Indicates if the topic is not shown to users.
  *
- * @apiUse NO_PERMISSION
- * @apiUse INVALID_NAME
- *
+ * @apiUse NO_PERMISSION 
+ * @apiUse INVALID_TITLE
+ * @apiUse NAME_ALREADY_USED
+ * 
  * @apiSuccess {Object} data Topic info
  * @apiSuccess {Number} data.topicId Topic id
  *
@@ -37,19 +38,30 @@ class AddTopicController extends Controller {
             'requestData' => [
                 'name' => [
                     'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
-                    'error' => ERRORS::INVALID_NAME
+                    'error' => ERRORS::INVALID_TITLE
                 ],
             ]
         ];
     }
 
     public function handler() {
+
+        $name = Controller::request('name', true);
+        $icon = Controller::request('icon');
+        $iconColor = Controller::request('iconColor');
+        $private = Controller::request('private') ? 1 : 0;
+        $CreatedTopic = Topic::getDataStore($name, 'name');
+
+        if(!$CreatedTopic->isNull()){
+            throw new RequestException(ERRORS::NAME_ALREADY_USED);
+        }
+
         $topic = new Topic();
         $topic->setProperties([
-            'name' => Controller::request('name', true),
-            'icon' => Controller::request('icon'),
-            'iconColor' => Controller::request('iconColor'),
-            'private' => Controller::request('private') ? 1 : 0
+            'name' => $name,
+            'icon' => $icon,
+            'iconColor' => $iconColor,
+            'private' => $private
         ]);
 
         Log::createLog('ADD_TOPIC', $topic->name);

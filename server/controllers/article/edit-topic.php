@@ -22,7 +22,8 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TOPIC
- * @apiUse INVALID_NAME
+ * @apiUse INVALID_TITLE
+ * @apiUse NAME_ALREADY_USED
  *
  * @apiSuccess {Object} data Empty object
  *
@@ -42,7 +43,7 @@ class EditTopicController extends Controller {
                 ],
                 'name' => [
                     'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
-                    'error' => ERRORS::INVALID_NAME
+                    'error' => ERRORS::INVALID_TITLE
                 ]
             ]
         ];
@@ -50,20 +51,29 @@ class EditTopicController extends Controller {
 
     public function handler() {
         $topic = Topic::getDataStore(Controller::request('topicId'));
+        $name = Controller::request('name');
+        $iconColor = Controller::request('iconColor');
+        $private = Controller::request('private');
+        $icon = Controller::request('icon');
+        $createdArticleTookByName = Topic::getDataStore($name, 'name');
 
-        if(Controller::request('name')) {
+        if(!$createdArticleTookByName->isNull() && $topic->id !== $createdArticleTookByName->id){
+            throw new RequestException(ERRORS::NAME_ALREADY_USED);
+        }
+
+        if($name) {
             $topic->name = Controller::request('name', true);
         }
 
-        if(Controller::request('iconColor')) {
-            $topic->iconColor = Controller::request('iconColor');
+        if($iconColor) {
+            $topic->iconColor = $iconColor;
         }
 
-        if(Controller::request('icon')) {
-            $topic->icon = Controller::request('icon');
+        if($icon) {
+            $topic->icon = $icon;
         }
-        if (Controller::request('private') !== null) {
-            $topic->private = Controller::request('private');
+        if ($private !== null) {
+            $topic->private = $private;
         }
 
         $topic->store();
