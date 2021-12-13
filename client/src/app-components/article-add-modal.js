@@ -12,7 +12,6 @@ import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
 import Button from 'core-components/button';
 import TextEditor from 'core-components/text-editor';
-import Message from 'core-components/message';
 
 class ArticleAddModal extends React.Component {
     static propTypes = {
@@ -23,8 +22,7 @@ class ArticleAddModal extends React.Component {
     };
 
     state = {
-        loading: false,
-        errorMessage: false
+        loading: false
     };
 
     render() {
@@ -33,7 +31,6 @@ class ArticleAddModal extends React.Component {
                 <Header title={i18n('ADD_ARTICLE')} description={i18n('ADD_ARTICLE_DESCRIPTION', {category: this.props.topicName})} />
                 <Form onSubmit={this.onAddNewArticleFormSubmit.bind(this)} loading={this.state.loading}>
                     <FormField name="title" label={i18n('TITLE')} field="input" fieldProps={{size: 'large'}} validation="TITLE" required/>
-                    {this.state.errorMessage ? <Message type="error">{i18n(this.state.errorMessage)}</Message> : null}
                     <FormField name="content" label={i18n('CONTENT')} field="textarea" validation="TEXT_AREA" required fieldProps={{allowImages: this.props.allowAttachments}}/>
                     <Button className="article-add-modal__cancel-button" type="link" onClick={(event) => {
                         event.preventDefault();
@@ -60,16 +57,13 @@ class ArticleAddModal extends React.Component {
             })
         }).then(() => {
             ModalContainer.closeModal();
-            this.setState({
-                errorMessage: false
-              });
+
             if(this.props.onChange) {
                 this.props.onChange();
             }
-        }).catch((e) => {
+        }).catch(() => {
             this.setState({
-              loading: false,
-              errorMessage: e.message
+              loading: false
             });
         });
     }

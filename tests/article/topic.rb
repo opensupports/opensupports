@@ -24,19 +24,6 @@ describe 'Topic paths' do
         (lastLog['type']).should.equal('ADD_TOPIC')
     end
 
-    it 'should success if topic has same name' do
-        result = request('/article/edit-topic', {
-            topicId: 1,
-            name: 'Server management',
-            iconColor: 'blue',
-            private: 1,
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token
-        })
-
-        (result['status']).should.equal('success')
-    end
-
     it 'should edit topic correctly' do
         result = request('/article/edit-topic', {
             topicId: 1,
@@ -54,47 +41,6 @@ describe 'Topic paths' do
         (topic['icon_color']).should.equal('blue')
         (topic['icon']).should.equal('cogs')
         (topic['private']).should.equal(1)
-    end
-
-    it 'should fail if data is already in use' do
-        result = request('/article/add-topic', {
-            name: 'Installation issues',
-            icon: 'cogs',
-            iconColor: 'red',
-            private: 0,
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token
-        })
-
-        (result['status']).should.equal('fail')
-        (result['message']).should.equal('NAME_ALREADY_USED')
-    end
-
-    it 'should edit topic if data  is right without name' do
-        result = request('/article/add-topic', {
-            name: 'Valid name',
-            icon: 'cogs',
-            iconColor: 'red',
-            private: 0,
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token
-        })
-
-        (result['status']).should.equal('success')
-        
-        topic = $database.getLastRow('topic')
-
-        result = request('/article/edit-topic', {
-            name: 'Valid name',
-            topicId: topic['id'],
-            iconColor: 'pink',
-            icon: 'flag',
-            private: 1,
-            csrf_userid: $csrf_userid,
-            csrf_token: $csrf_token
-        })
-
-        (result['status']).should.equal('success')
     end
 
     it 'should delete topic correctly' do
