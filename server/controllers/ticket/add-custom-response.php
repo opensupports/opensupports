@@ -37,7 +37,7 @@ class AddCustomResponseController extends Controller {
             'requestData' => [
                 'name' => [
                     'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
-                    'error' => ERRORS::INVALID_TITLE
+                    'error' => ERRORS::INVALID_NAME
                 ],
                 'content' => [
                     'validation' => DataValidator::content(),
