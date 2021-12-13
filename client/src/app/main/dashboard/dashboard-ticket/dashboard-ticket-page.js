@@ -16,6 +16,7 @@ class DashboardTicketPage extends React.Component {
     state = {
         error: null,
         ticket: null,
+        showErrorMessage: true
     };
 
     componentDidMount() {
@@ -23,7 +24,7 @@ class DashboardTicketPage extends React.Component {
     }
 
     render() {
-        const {ticket, error} = this.state;
+        const { ticket, error } = this.state;
 
         return (
             <div className="dashboard-ticket-page">
@@ -33,11 +34,11 @@ class DashboardTicketPage extends React.Component {
     }
 
     renderContent() {
-        const {ticket, error} = this.state;
+        const { ticket, error, showErrorMessage } = this.state;
 
         if(error) {
             return (
-                <Message type="error">
+                <Message showMessage={showErrorMessage} onCloseMessage={this.onCloseMessage.bind(this, "showErrorMessage")} type="error">
                     {i18n(error)}
                 </Message>
             );
@@ -71,11 +72,17 @@ class DashboardTicketPage extends React.Component {
                 });
             }
         })
-        .catch(result => this.setState({error: result.message}));
+        .catch(result => this.setState({error: result.message, showErrorMessage: true}));
     }
 
     retrieveUserData() {
         store.dispatch(SessionActions.getUserData());
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
+        })
     }
 }
 

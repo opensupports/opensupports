@@ -26,6 +26,7 @@ class AdminPanelCustomFieldForm extends React.Component {
             description: ""
         },
         addFormOptions: [],
+        showErrorMessage: true
     };
 
     render() {
