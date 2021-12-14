@@ -48,8 +48,11 @@ describe'system/edit-department' do
 
         it 'should success if you change for the same name' do
             Scripts.createDepartment('thisisAnewName')
-            department = $database.getLastRow('department')
 
+            department = $database.getLastRow('department')
+            (department['private']).should.equal(0)
+
+            
             result = request('/system/edit-department', {
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
@@ -57,6 +60,9 @@ describe'system/edit-department' do
                 departmentId: department['id'],
                 private:1
             })
+
+            row = $database.getRow('department', 'thisisAnewName', 'name')
+            (row['private']).should.equal(1)
 
             result['status'].should.equal('success')
             
