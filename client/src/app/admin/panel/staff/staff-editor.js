@@ -55,6 +55,7 @@ class StaffEditor extends React.Component {
         sendEmailOnNewTicket: this.props.sendEmailOnNewTicket,
         loadingReInviteStaff: false,
         reInviteStaff: "",
+        loading: true,
         rawForm: {
             dateRange: statsUtils.getInitialDateRange(),
             departments: [],
