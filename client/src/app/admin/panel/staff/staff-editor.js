@@ -55,7 +55,7 @@ class StaffEditor extends React.Component {
         sendEmailOnNewTicket: this.props.sendEmailOnNewTicket,
         loadingReInviteStaff: false,
         reInviteStaff: "",
-        loading: true,
+        loadingStats: true,
         rawForm: {
             dateRange: statsUtils.getInitialDateRange(),
             departments: [],
@@ -77,7 +77,7 @@ class StaffEditor extends React.Component {
         }).then(({data}) => {
             this.setState({
                 ticketData: data,
-                loading: false
+                loadingStats: false
             });
         }).catch((error) => {
             if (showLogs) console.error('ERROR: ', error);
@@ -294,12 +294,12 @@ class StaffEditor extends React.Component {
     }
 
     renderStaffStats() {
-        const { loading, ticketData } = this.state;
+        const { loadingStats, ticketData } = this.state;
 
         return (
             <div className="admin-panel-stats">
                 {
-                    loading ?
+                    loadingStats ?
                         <div className="admin-panel-stats__loading"><Loading backgrounded size="large" /></div> :
                         statsUtils.renderStatistics({showStatCards: true, showStatsByHours: true, ticketData})
                 }
@@ -437,7 +437,7 @@ class StaffEditor extends React.Component {
                 rawForm: this.state.rawForm,
                 departments: departmentsAssignedId
             }).then(({data}) => {
-                this.setState({ticketData: data, loading: false});
+                this.setState({ticketData: data, loadingStats: false});
             }).catch((error) => {
                 if (showLogs) console.error('ERROR: ', error);
             });
