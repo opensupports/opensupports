@@ -10,9 +10,9 @@
 
     &__buttons-container {
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
 
         &-without-allow-attachments {
             display: flex;
