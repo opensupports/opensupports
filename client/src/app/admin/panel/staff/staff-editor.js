@@ -55,6 +55,7 @@ class StaffEditor extends React.Component {
         sendEmailOnNewTicket: this.props.sendEmailOnNewTicket,
         loadingReInviteStaff: false,
         reInviteStaff: "",
+        loadingStats: true,
         rawForm: {
             dateRange: statsUtils.getInitialDateRange(),
             departments: [],
@@ -76,7 +77,7 @@ class StaffEditor extends React.Component {
         }).then(({data}) => {
             this.setState({
                 ticketData: data,
-                loading: false
+                loadingStats: false
             });
         }).catch((error) => {
             if (showLogs) console.error('ERROR: ', error);
@@ -293,12 +294,12 @@ class StaffEditor extends React.Component {
     }
 
     renderStaffStats() {
-        const { loading, ticketData } = this.state;
+        const { loadingStats, ticketData } = this.state;
 
         return (
             <div className="admin-panel-stats">
                 {
-                    loading ?
+                    loadingStats ?
                         <div className="admin-panel-stats__loading"><Loading backgrounded size="large" /></div> :
                         statsUtils.renderStatistics({showStatCards: true, showStatsByHours: true, ticketData})
                 }
@@ -426,24 +427,27 @@ class StaffEditor extends React.Component {
             }
         }).then(() => {
             this.retrieveStaffMembers();
-            window.scrollTo(0,0);
+            window.scrollTo(0,250);
             this.setState({message: eventType});
 
             const departmentsAssigned = SessionStore.getDepartments().filter((_department, index) => this.state.departments.includes(index));
             const departmentsAssignedId = departmentsAssigned.map(department => department.id);
 
+            this.setState({loadingStats: true});
+
             statsUtils.retrieveStats({
                 rawForm: this.state.rawForm,
                 departments: departmentsAssignedId
             }).then(({data}) => {
-                this.setState({ticketData: data, loading: false});
+                this.setState({ticketData: data, loadingStats: false});
             }).catch((error) => {
                 if (showLogs) console.error('ERROR: ', error);
+                this.setState({loadingStats: false});
             });
 
             onChange && onChange();
         }).catch(() => {
-            window.scrollTo(0,0);
+            window.scrollTo(0,250);
             this.setState({message: 'FAIL'});
         });
     }

@@ -21,6 +21,12 @@ class Message extends React.Component {
         showMessage: true
     };
 
+    componentWillReceiveProps() {
+        this.setState({
+            showMessage: true
+        })
+    }
+
     render() {
         return (
             this.props.showMessage ?
