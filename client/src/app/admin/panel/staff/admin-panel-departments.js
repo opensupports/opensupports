@@ -250,7 +250,7 @@ class AdminPanelDepartments extends React.Component {
     onCloseMessage(showMessage) {
         this.setState({
             [showMessage]: false
-        })
+        });
     }
 
     onItemChange(index) {

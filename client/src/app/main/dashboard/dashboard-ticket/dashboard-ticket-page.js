@@ -82,7 +82,7 @@ class DashboardTicketPage extends React.Component {
     onCloseMessage(showMessage) {
         this.setState({
             [showMessage]: false
-        })
+        });
     }
 }
 

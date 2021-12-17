@@ -578,7 +578,7 @@ class StaffEditor extends React.Component {
     onCloseMessage(showMessage) {
         this.setState({
             [showMessage]: false
-        })
+        });
     }
 }
 
