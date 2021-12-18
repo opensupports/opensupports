@@ -60,6 +60,7 @@ class AdminPanelCustomFieldForm extends React.Component {
 
     renderErrorMessage() {
         const { error, showErrorMessage } = this.state;
+
         return (
             <Message showMessage={showErrorMessage} onCloseMessage={this.onCloseMessage.bind(this, "showErrorMessage")} type="error">
                 {error}
