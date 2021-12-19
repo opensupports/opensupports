@@ -169,7 +169,7 @@ class AdminPanelEmailSettings extends React.Component {
                                 </SubmitButton>
                             </div>
                         </Form>
-                        <Message className="admin-panel-email-settings__imap-message" type="info">
+                        <Message showCloseButton={false} className="admin-panel-email-settings__imap-message" type="info">
                             {i18n('IMAP_POLLING_DESCRIPTION', {url: `${apiRoot}/system/email-polling`})}
                         </Message>
                     </div>
