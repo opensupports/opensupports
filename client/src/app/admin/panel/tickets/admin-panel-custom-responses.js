@@ -41,7 +41,8 @@ class AdminPanelCustomResponses extends React.Component {
             title: '',
             content: TextEditor.createEmpty(),
             language: this.props.language
-        }
+        },
+        showErrorMessage: true
     };
 
     componentDidMount() {
@@ -103,8 +104,16 @@ class AdminPanelCustomResponses extends React.Component {
         );
     }
     renderErrorMessage() {
+        const { showErrorMessage, error } = this.state;
+
         return(
-            <Message className="admin-panel-custom-responses__message" type="error">{i18n(this.state.error)}</Message>
+            <Message
+                showMessage={showErrorMessage}
+                onCloseMessage={this.onCloseMessage.bind(this, "showErrorMessage")}
+                className="admin-panel-custom-responses__message"
+                type="error">
+                    {i18n(error)}
+            </Message>
         )
     }
     renderOptionalButtons() {
@@ -202,7 +211,7 @@ class AdminPanelCustomResponses extends React.Component {
                 this.onItemChange(-1);
             }).catch((e) => {
                 this.onItemChange.bind(this, -1)
-                this.setState({error: e.message, formLoading:false});
+                this.setState({error: e.message, formLoading:false, showErrorMessage: true});
             });
         }
     }
@@ -266,6 +275,12 @@ class AdminPanelCustomResponses extends React.Component {
                 form.language != originalForm.language
             )
         );
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
+        });
     }
 }
 
