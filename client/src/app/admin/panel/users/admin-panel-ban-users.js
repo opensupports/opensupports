@@ -22,7 +22,8 @@ class AdminPanelBanUsers extends React.Component {
         addBanStatus: 'none',
         emails: [],
         filteredEmails: [],
-        showMessage: true
+        showMessage: true,
+        showListErrorMessage: true
     };
 
     componentDidMount() {
@@ -30,10 +31,18 @@ class AdminPanelBanUsers extends React.Component {
     }
 
     render() {
+        const { listError, showListErrorMessage } = this.state;
+
         return (
             <div className="admin-panel-ban-users row">
                 <Header title={i18n('BAN_USERS')} description={i18n('BAN_USERS_DESCRIPTION')} />
-                {(this.state.listError) ? <Message type="error">{i18n('ERROR_RETRIEVING_BAN_LIST')}</Message> : this.renderContent()}
+                {
+                    listError ?
+                        <Message showMessage={showListErrorMessage} onCloseMessage={this.onCloseMessage.bind(this, "showListErrorMessage")} type="error">
+                            {i18n('ERROR_RETRIEVING_BAN_LIST')}
+                        </Message> :
+                        this.renderContent()
+                }
             </div>
         );
     }
@@ -170,6 +179,7 @@ class AdminPanelBanUsers extends React.Component {
             filteredEmails: result.data
         })).catch(() => this.setState({
             listError: true,
+            showListErrorMessage: true,
             loadingList: false,
             loadingForm: false
         }));
