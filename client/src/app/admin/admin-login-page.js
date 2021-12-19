@@ -34,7 +34,7 @@ class AdminLoginPage extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (!prevProps.session.failed && this.props.session.failed) {
-            this.setState({showEmailOrPassordErrorMessage : true})
+            this.setState({showEmailOrPassordErrorMessage : true});
             this.refs.loginForm.refs.password.focus();
         }
     }
@@ -242,7 +242,6 @@ class AdminLoginPage extends React.Component {
     }
 
     onCloseMessage(showMessage) {
-        console.log(showMessage)
         this.setState({
             [showMessage]: false
         });
