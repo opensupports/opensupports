@@ -118,7 +118,7 @@ class CreateTicketForm extends React.Component {
         const { message, showMessage } = this.state;
 
         switch (message) {
-            case 'success':
+            case 'success': //  TODO Remove this message case
                 return (
                     this.props.userLogged ?
                         <Message

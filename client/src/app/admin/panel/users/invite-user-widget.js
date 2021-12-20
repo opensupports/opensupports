@@ -110,7 +110,7 @@ class InviteUserWidget extends React.Component {
         const { message, showMessage } = this.state;
 
         switch (message) {
-            case 'success':
+            case 'success': // TODO Remove this message case
                 return (
                     <Message
                         showMessage={showMessage}
