@@ -30,7 +30,8 @@ class InviteUserWidget extends React.Component {
         this.state = {
             loading: false,
             email: null,
-            customFields: null
+            customFields: null,
+            showMessage: true
         };
     }
 
@@ -106,11 +107,29 @@ class InviteUserWidget extends React.Component {
     }
 
     renderMessage() {
-        switch (this.state.message) {
+        const { message, showMessage } = this.state;
+
+        switch (message) {
             case 'success':
-                return <Message className="invite-user-widget__success-message" type="success">{i18n('INVITE_USER_SUCCESS')}</Message>;
+                return (
+                    <Message
+                        showMessage={showMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                        className="invite-user-widget__success-message"
+                        type="success">
+                            {i18n('INVITE_USER_SUCCESS')}
+                    </Message>
+                );
             case 'fail':
-                return <Message className="invite-user-widget__error-message" type="error">{i18n('EMAIL_EXISTS')}</Message>;
+                return (
+                    <Message
+                        showMessage={showMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                        className="invite-user-widget__error-message"
+                        type="error">
+                            {i18n('EMAIL_EXISTS')}
+                    </Message>
+                );
             default:
                 return null;
         }
@@ -173,7 +192,8 @@ class InviteUserWidget extends React.Component {
 
         this.setState({
             loading: false,
-            message
+            message,
+            showMessage: true
         });
 
         onChangeMessage && onChangeMessage(message);
@@ -186,10 +206,17 @@ class InviteUserWidget extends React.Component {
 
         this.setState({
             loading: false,
-            message
+            message,
+            showMessage: true
         });
 
         onChangeMessage && onChangeMessage(message);
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
+        });
     }
 }
 
