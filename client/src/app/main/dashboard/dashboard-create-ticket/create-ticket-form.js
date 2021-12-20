@@ -44,7 +44,8 @@ class CreateTicketForm extends React.Component {
             content: TextEditor.createEmpty(),
             departmentIndex: getPublicDepartmentIndexFromDepartmentId(this.props.defaultDepartmentId, SessionStore.getDepartments()),
             language: this.props.language
-        }
+        },
+        showMessage: true
     };
 
     render() {
@@ -114,11 +115,31 @@ class CreateTicketForm extends React.Component {
     }
 
     renderMessage() {
-        switch (this.state.message) {
+        const { message, showMessage } = this.state;
+
+        switch (message) {
             case 'success':
-                return this.props.userLogged ? <Message className="create-ticket-form__message" type="success">{i18n('TICKET_SENT')}</Message> : null;
+                return (
+                    this.props.userLogged ?
+                        <Message
+                            showMessage={showMessage}
+                            onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                            className="create-ticket-form__message"
+                            type="success">
+                                {i18n('TICKET_SENT')}
+                        </Message> :
+                        null
+                );
             case 'fail':
-                return <Message className="create-ticket-form__message" type="error">{i18n('TICKET_SENT_ERROR')}</Message>;
+                return (
+                    <Message
+                        showMessage={showMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                        className="create-ticket-form__message"
+                        type="error">
+                            {i18n('TICKET_SENT_ERROR')}
+                    </Message>
+                );
             default:
                 return null;
         }
@@ -165,6 +186,7 @@ class CreateTicketForm extends React.Component {
             {
                 loading: false,
                 message,
+                showMessage: true,
                 form: !userLogged ?
                     {
                         ...form,
@@ -182,7 +204,14 @@ class CreateTicketForm extends React.Component {
     onTicketFail() {
         this.setState({
             loading: false,
-            message: 'fail'
+            message: 'fail',
+            showMessage: true
+        });
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
         });
     }
 }
