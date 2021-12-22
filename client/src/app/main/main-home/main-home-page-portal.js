@@ -21,7 +21,7 @@ class MainHomePagePortal extends React.Component {
 
     render() {
         return (
-            <div className="">
+            <div className="main-home-page-portal__message">
                 <Message
                     showMessage={this.state.showMessage}
                     onCloseMessage={this.onCloseMessage.bind(this)}
