@@ -9,12 +9,19 @@ import MainHomePagePortal      from 'app/main/main-home/main-home-page-portal';
 import Message                 from 'core-components/message';
 
 class MainHomePage extends React.Component {
-    
+
+    state = {
+        showMessage: true
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!prevProps.session && this.props.session) {
+            this.setState({showMessage : true});
+        }
+    }
+
     render() {
-        const {
-            config,
-            loginForm
-        } = this.props;
+        const { config, loginForm } = this.props;
         return (
             <div className="main-home-page row">
                 {this.renderMessage()}
@@ -50,16 +57,26 @@ class MainHomePage extends React.Component {
 
     renderSuccess() {
         return (
-            <Message title={i18n('VERIFY_SUCCESS')} type="success" className="main-home-page__message">
-                {i18n('VERIFY_SUCCESS_DESCRIPTION')}
+            <Message
+                showMessage={this.state.showMessage}
+                onCloseMessage={this.onCloseMessage.bind(this)}
+                title={i18n('VERIFY_SUCCESS')}
+                type="success"
+                className="main-home-page__message">
+                    {i18n('VERIFY_SUCCESS_DESCRIPTION')}
             </Message>
         );
     }
 
     renderFailed() {
         return (
-            <Message title={i18n('VERIFY_FAILED')} type="error" className="main-home-page__message">
-                {i18n('VERIFY_FAILED_DESCRIPTION')}
+            <Message
+                showMessage={this.state.showMessage}
+                onCloseMessage={this.onCloseMessage.bind(this)}
+                title={i18n('VERIFY_FAILED')}
+                type="error"
+                className="main-home-page__message">
+                    {i18n('VERIFY_FAILED_DESCRIPTION')}
             </Message>
         );
     }
@@ -84,6 +101,12 @@ class MainHomePage extends React.Component {
         };
 
         return classNames(classes);
+    }
+
+    onCloseMessage() {
+        this.setState({
+            showMessage: false
+        });
     }
 }
 
