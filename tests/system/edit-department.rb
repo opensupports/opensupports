@@ -44,19 +44,45 @@ describe'system/edit-department' do
             result['status'].should.equal('fail')
             result['message'].should.equal('INVALID_NAME')
 
+        end
+
+        it 'should success if you change for the same name' do
+            Scripts.createDepartment('thisisAnewName')
+
+            department = $database.getLastRow('department')
+            (department['private']).should.equal(0)
+
+            
+            result = request('/system/edit-department', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                name: department['name'],
+                departmentId: department['id'],
+                private:1
+            })
+
+            row = $database.getRow('department', 'thisisAnewName', 'name')
+            (row['private']).should.equal(1)
+
+            result['status'].should.equal('success')
+            
+        end
+
+        it 'shouild fail if you use an used name' do
+            Scripts.createDepartment('thistitleisunique')
+            
             lastDepartment = $database.getLastRow('department')
 
             result = request('/system/edit-department', {
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
-                name: lastDepartment['name'],
-                departmentId: 4
+                name: 'thisisAnewName',
+                departmentId: lastDepartment['id'],
+                private:1
             })
 
-            
             result['status'].should.equal('fail')
-            result['message'].should.equal('INVALID_NAME')
-
+            result['message'].should.equal('NAME_ALREADY_USED')
         end
 
 end

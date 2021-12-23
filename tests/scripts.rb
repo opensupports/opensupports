@@ -162,11 +162,12 @@ class Scripts
         })
     end
     
-    def self.createDepartment(nameDepartment = 'validnameDepartment')
+    def self.createDepartment(nameDepartment, isPrivate = 0)
         request('/system/add-department', {
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
-                name: nameDepartment
+                name: nameDepartment,
+                private: isPrivate
         })
     end
 
