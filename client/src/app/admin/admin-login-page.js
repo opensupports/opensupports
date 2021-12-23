@@ -93,7 +93,7 @@ class AdminLoginPage extends React.Component {
 
     renderLoginCaptcha() {
         return(
-            <div className="admin-login-page__captcha">
+            <div className={`main-home-page__${this.props.sitekey ? "captcha" : "no-captcha"}`}>
                 <Captcha ref="captcha" />
             </div>
         )
@@ -240,6 +240,7 @@ class AdminLoginPage extends React.Component {
 
 export default connect((store) => {
     return {
-        session: store.session
+        session: store.session,
+        sitekey: store.config.reCaptchaKey
     };
 })(AdminLoginPage);
