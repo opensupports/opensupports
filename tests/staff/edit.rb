@@ -107,4 +107,73 @@ describe'/staff/edit' do
         (result['status']).should.equal('fail')
         (result['message']).should.equal('NO_PERMISSION')
     end
+
+    it 'should success if email selected is used by himself' do
+
+        Scripts.login($staff[:email], $staff[:password], true)
+        
+        result = request('/staff/invite', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: 'sellamamarlos',
+            email: 'dalas@os4.com',
+            level: 2,
+            profilePic: '',
+            departments: '[1]'
+        })
+
+        row = $database.getRow('staff', 'dalas@os4.com', 'email')
+        
+        result = request('/staff/edit', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            staffId: row['id'],
+            email:  row['email']
+        })
+
+        (result['status']).should.equal('success')
+        
+        staffRow = $database.getRow('staff', 'dalas@os4.com', 'email')
+
+        (staffRow['email']).should.equal('dalas@os4.com')
+
+    end
+
+    it 'should fail if  email selected is already used' do
+
+        staffRow = $database.getRow('staff', 'dalas@os4.com', 'email')
+        
+        result = request('/staff/invite', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: 'sellamamarlos',
+            email: 'dalas2@os4.com',
+            level: 2,
+            profilePic: '',
+            departments: '[1]'
+        })
+
+        staffRow2 = $database.getRow('staff', 'dalas2@os4.com', 'email')
+        userRow = $database.getRow('user', 'miare@os4.com', 'email')
+
+        result = request('/staff/edit', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            staffId: staffRow['id'],
+            email:  staffRow2['email'],
+        })
+
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('INVALID_EMAIL')
+        
+        result = request('/staff/edit', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            staffId: staffRow['id'],
+            email:  userRow['email'],
+        })
+
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('INVALID_EMAIL')
+    end
 end
