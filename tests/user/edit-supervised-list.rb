@@ -117,7 +117,7 @@ describe '/staff/supervisor-user-list' do
         Scripts.login($staff[:email], $staff[:password], true)
         
         result = request('/user/edit-supervised-list', {
-            userIdList: "[30,31,32]",
+            userIdList: "[31,32,33]",
             userId:  supervisor['id'],
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
@@ -164,7 +164,7 @@ describe '/staff/supervisor-user-list' do
         Scripts.login($staff[:email], $staff[:password], true)
         
         request('/user/edit-supervised-list', {
-            userIdList: "[30]",
+            userIdList: "[31]",
             userId:  supervisor['id'],
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
