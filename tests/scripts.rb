@@ -28,7 +28,7 @@ class Scripts
             :name => name,
             :email => email,
             :level => level,
-            :departments => departments.to_string
+            :departments => departments.to_str
         })
     end
     
