@@ -211,7 +211,7 @@ class TicketQueryFilters extends React.Component {
 
         if(selectedDepartmentsId !== undefined) {
             selectedDepartments = selectedDepartmentsId.map(
-                (departmentId) => this.getDepartmentsItems().filter(_department => (_department.id === departmentId))[0]
+                (departmentId) => this.getDepartmentsItems().find(_department => (_department.id === departmentId))
             );
 
         }
@@ -224,7 +224,7 @@ class TicketQueryFilters extends React.Component {
 
         if(selectedStaffsId !== undefined) {
             selectedStaffs = selectedStaffsId.map(
-                (staffId) => this.getStaffList().filter(_staff => (_staff.id === staffId))[0]
+                (staffId) => this.getStaffList().find(_staff => (_staff.id === staffId))
             );
         }
 
@@ -236,7 +236,7 @@ class TicketQueryFilters extends React.Component {
 
         if(selectedTagsId !== undefined) {
             selectedTagsName = selectedTagsId.map(
-                (tagId) => this.getTags().filter(_tag => (_tag.id === tagId))[0].name
+                (tagId) => (this.getTags().find(_tag => (_tag.id === tagId)) || {}).name
             );
         }
 
@@ -323,7 +323,7 @@ class TicketQueryFilters extends React.Component {
 
         if (selectedTagsName != undefined) {
             selectedTagsId = selectedTagsName.map(
-                (tagName) => this.getTags().filter(_tag => (_tag.name === tagName))[0].id
+                (tagName) => (this.getTags().find(_tag => (_tag.name === tagName)) || {}).id
             );
         }
 
