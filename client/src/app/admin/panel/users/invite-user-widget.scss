@@ -27,4 +27,18 @@
     &__error-message {
         margin-top: 20px;
     }
+
+    &__modal-wrapper {
+        min-width: 700px;
+        min-height: 400px;
+    }
+
+    &__loading {
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: $grey;
+    }
 }
