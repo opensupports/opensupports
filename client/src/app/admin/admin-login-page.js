@@ -27,11 +27,14 @@ class AdminLoginPage extends React.Component {
         recoverFormErrors: {},
         recoverSent: false,
         loadingLogin: false,
-        loadingRecover: false
+        loadingRecover: false,
+        showRecoverSentMessage: true,
+        showEmailOrPassordErrorMessage: true
     };
 
     componentDidUpdate(prevProps) {
         if (!prevProps.session.failed && this.props.session.failed) {
+            this.setState({showEmailOrPassordErrorMessage : true});
             this.refs.loginForm.refs.password.focus();
         }
     }
@@ -108,31 +111,34 @@ class AdminLoginPage extends React.Component {
     }
 
     renderRecoverStatus() {
-        let status = null;
+        const { showRecoverSentMessage, recoverSent } = this.state;
 
-        if (this.state.recoverSent) {
-            status = (
-                <Message className="admin-login-page__message" type="info" leftAligned>
-                    {i18n('RECOVER_SENT')}
-                </Message>
-            );
-        }
-
-        return status;
+        return (
+            recoverSent ?
+                <Message
+                    showMessage={showRecoverSentMessage}
+                    onCloseMessage={this.onCloseMessage.bind(this, "showRecoverSentMessage")}
+                    className="admin-login-page__message"
+                    type="info"
+                    leftAligned>
+                        {i18n('RECOVER_SENT')}
+                </Message> :
+                null
+        );
     }
 
     renderErrorStatus() {
-        let status = null;
-
-        if (this.props.session.failed) {
-            status = (
-                <Message className="admin-login-page__error" type="error">
-                    {i18n('EMAIL_OR_PASSWORD')}
-                </Message>
-            );
-        }
-
-        return status;
+        return (
+            this.props.session.failed ?
+                <Message
+                    showMessage={this.state.showEmailOrPassordErrorMessage}
+                    onCloseMessage={this.onCloseMessage.bind(this, "showEmailOrPassordErrorMessage")}
+                    className="admin-login-page__error"
+                    type="error">
+                        {i18n('EMAIL_OR_PASSWORD')}
+                </Message> :
+                null
+        );
     }
 
     getLoginFormProps() {
@@ -147,10 +153,7 @@ class AdminLoginPage extends React.Component {
     }
 
     getRecoverFormProps() {
-        const {
-            loadingRecover,
-            recoverFormErrors
-        } = this.state;
+        const { loadingRecover, recoverFormErrors } = this.state;
 
         return {
             loading: loadingRecover,
@@ -222,7 +225,8 @@ class AdminLoginPage extends React.Component {
     onRecoverPasswordSent() {
         this.setState({
             loadingRecover: false,
-            recoverSent: true
+            recoverSent: true,
+            showRecoverSentMessage: true
         });
     }
 
@@ -235,6 +239,12 @@ class AdminLoginPage extends React.Component {
         }, function () {
             this.refs.recoverForm.refs.email.focus();
         }.bind(this));
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
+        });
     }
 }
 

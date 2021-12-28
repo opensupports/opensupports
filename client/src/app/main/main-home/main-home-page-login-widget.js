@@ -37,11 +37,14 @@ class MainHomePageLoginWidget extends React.Component {
         loadingRecover: false,
         reSendEMailVerificationLoading: false,
         reSendEmailVerificationStep: UNVERIFIED_USER_STEP,
-        reSendEmailVerificationMessage: ""
+        reSendEmailVerificationMessage: "",
+        showRecoverSentMessage: true,
+        showReSendEmailVerificationMessage: true
     };
 
     componentDidUpdate(prevProps) {
         if (!prevProps.session.failed && this.props.session.failed) {
+            this.setState({showReSendEmailVerificationMessage : true});
             this.refs.loginForm.refs.password.focus();
         }
     }
@@ -88,31 +91,43 @@ class MainHomePageLoginWidget extends React.Component {
     }
 
     renderReSendEmailVerificationSection() {
+        const { reSendEmailVerificationMessage,reSendEmailVerificationStep, showReSendEmailVerificationMessage } = this.state;
+
         if(this.props.session.failMessage === 'UNVERIFIED_USER') {
-            switch (this.state.reSendEmailVerificationStep) {
+            switch (reSendEmailVerificationStep) {
                 case UNVERIFIED_USER_STEP:
                     return (
                         <Button className="login-widget__resend-verification-token" type="link" onClick={this.onReSendEmailVerificationClick.bind(this)}>
                             {i18n('RESEND_EMAIL_VERIFICATION')}
                         </Button>
-                    )
+                    );
 
                 case LOADING_STEP:
-                    return <Loading className="login-widget__loading" />
+                    return <Loading className="login-widget__loading" />;
 
                 case REQUEST_RESULT_STEP:
                     return (
-                        (this.state.reSendEmailVerificationMessage === "success") ?
-                            <Message className="login-widget__resend-email-verification-success" type="success" leftAligned>
-                                {i18n('RESEND_EMAIL_VERIFICATION_SUCCESS')}
+                        (reSendEmailVerificationMessage === "success") ?
+                            <Message
+                                showMessage={showReSendEmailVerificationMessage}
+                                onCloseMessage={this.onCloseMessage.bind(this, "showReSendEmailVerificationMessage")}
+                                className="login-widget__resend-email-verification-success"
+                                type="success"
+                                leftAligned>
+                                    {i18n('RESEND_EMAIL_VERIFICATION_SUCCESS')}
                             </Message> :
-                            <Message className="login-widget__resend-email-verification-fail" type="error" leftAligned>
-                                {i18n('RESEND_EMAIL_VERIFICATION_FAIL')}
+                            <Message
+                                showMessage={showReSendEmailVerificationMessage}
+                                onCloseMessage={this.onCloseMessage.bind(this, "showReSendEmailVerificationMessage")}
+                                className="login-widget__resend-email-verification-fail"
+                                type="error"
+                                leftAligned>
+                                    {i18n('RESEND_EMAIL_VERIFICATION_FAIL')}
                             </Message>
-                    )
+                    );
             }
         } else {
-            return null
+            return null;
         }
     }
 
@@ -123,17 +138,20 @@ class MainHomePageLoginWidget extends React.Component {
     }
 
     renderRecoverStatus() {
-        let status = null;
+        const { recoverSent, showRecoverSentMessage} = this.state;
 
-        if (this.state.recoverSent) {
-            status = (
-                <Message className="login-widget__message" type="info" leftAligned>
-                    {i18n('RECOVER_SENT')}
-                </Message>
-            );
-        }
-
-        return status;
+        return (
+            recoverSent ?
+                <Message
+                    showMessage={showRecoverSentMessage}
+                    onCloseMessage={this.onCloseMessage.bind(this, "showRecoverSentMessage")}
+                    className="login-widget__message"
+                    type="info"
+                    leftAligned>
+                        {i18n('RECOVER_SENT')}
+                </Message> :
+                null
+        );
     }
 
     getLoginFormProps() {
@@ -221,7 +239,8 @@ class MainHomePageLoginWidget extends React.Component {
     onRecoverPasswordSent() {
         this.setState({
             loadingRecover: false,
-            recoverSent: true
+            recoverSent: true,
+            showRecoverSentMessage: true
         });
     }
 
@@ -254,6 +273,12 @@ class MainHomePageLoginWidget extends React.Component {
                 reSendEmailVerificationStep: REQUEST_RESULT_STEP,
                 reSendEmailVerificationMessage: 'error'
             })
+        });
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
         });
     }
 }

@@ -15,6 +15,7 @@ class InstallStep6Admin extends React.Component {
     state = {
         loading: false,
         error: false,
+        showErrorMessage: true,
         errorMessage: ''
     };
 
@@ -36,17 +37,19 @@ class InstallStep6Admin extends React.Component {
     }
 
     renderMessage() {
-        let message = null;
+        const { error, errorMessage, showErrorMessage } = this.state;
 
-        if(this.state.error) {
-            message = (
-                <Message className="install-step-6_message" type="error">
-                    {i18n('ERROR_UPDATING_SETTINGS')}: {this.state.errorMessage}
-                </Message>
-            );
-        }
-
-        return message;
+        return (
+            error ?
+                <Message
+                    showMessage={showErrorMessage}
+                    onCloseMessage={this.onCloseMessage.bind(this, "showErrorMessage")}
+                    className="install-step-6_message"
+                    type="error">
+                        {i18n('ERROR_UPDATING_SETTINGS')}: {errorMessage}
+                </Message> :
+                null
+        );
     }
 
     onSubmit(form) {
@@ -61,8 +64,15 @@ class InstallStep6Admin extends React.Component {
                 .catch(({message}) => this.setState({
                     loading: false,
                     error: true,
+                    showErrorMessage: true,
                     errorMessage: message
                 }));
+        });
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
         });
     }
 }

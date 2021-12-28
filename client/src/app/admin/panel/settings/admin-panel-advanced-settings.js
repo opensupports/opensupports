@@ -27,7 +27,9 @@ class AdminPanelAdvancedSettings extends React.Component {
         messageContent: '',
         selectedAPIKey: -1,
         APIKeys: [],
-        error: ''
+        error: '',
+        showMessage: true,
+        showAPIKeyMessage: true
     };
 
     componentDidMount() {
@@ -36,7 +38,7 @@ class AdminPanelAdvancedSettings extends React.Component {
 
     render() {
         const { config } = this.props;
-        const { messageType, error, selectedAPIKey } = this.state;
+        const { messageType, error, selectedAPIKey, showAPIKeyMessage } = this.state;
 
         return (
             <div className="admin-panel-advanced-settings">
@@ -93,7 +95,16 @@ class AdminPanelAdvancedSettings extends React.Component {
                             <Listing {...this.getListingProps()} />
                         </div>
                         <div className="col-md-8 admin-panel-advanced-settings__api-keys__container">
-                            {error ? <Message type="error">{i18n(error)}</Message> : ((selectedAPIKey === -1) ? this.renderNoKey() : this.renderKey())}
+                            {
+                                error ?
+                                    <Message
+                                        showMessage={showAPIKeyMessage}
+                                        onCloseMessage={this.onCloseMessage.bind(this, "showAPIKeyMessage")}
+                                        type="error">
+                                            {i18n(error)}
+                                    </Message> :
+                                    ((selectedAPIKey === -1) ? this.renderNoKey() : this.renderKey())
+                            }
                         </div>
                     </div>
                 </div>
@@ -102,11 +113,16 @@ class AdminPanelAdvancedSettings extends React.Component {
     }
 
     renderMessage() {
-        const { messageType, messageTitle, messageContent } = this.state;
+        const { messageType, messageTitle, messageContent, showMessage } = this.state;
 
         return (
-            <Message className="admin-panel-advanced-settings__message" type={messageType} title={messageTitle}>
-                {messageContent}
+            <Message
+                showMessage={showMessage}
+                onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                className="admin-panel-advanced-settings__message"
+                type={messageType}
+                title={messageTitle}>
+                    {messageContent}
             </Message>
         );
     }
@@ -270,10 +286,11 @@ class AdminPanelAdvancedSettings extends React.Component {
             this.setState({
                 messageType: 'success',
                 messageTitle: null,
+                showMessage: true,
                 messageContent: config['mandatory-login'] ? i18n('MANDATORY_LOGIN_DISABLED') : i18n('MANDATORY_LOGIN_ENABLED')
             });
             dispatch(ConfigActions.updateData());
-        }).catch(() => this.setState({messageType: 'error', messageTitle: null, messageContent: i18n('ERROR_UPDATING_SETTINGS')}));
+        }).catch(() => this.setState({messageType: 'error', showMessage: true, messageTitle: null, messageContent: i18n('ERROR_UPDATING_SETTINGS')}));
     }
 
     onAreYouSureRegistrationOk(password) {
@@ -287,11 +304,12 @@ class AdminPanelAdvancedSettings extends React.Component {
         }).then(() => {
             this.setState({
                 messageType: 'success',
+                showMessage: true,
                 messageTitle: null,
                 messageContent: config['registration'] ? i18n('REGISTRATION_DISABLED') : i18n('REGISTRATION_ENABLED')
             });
             dispatch(ConfigActions.updateData());
-        }).catch(() => this.setState({messageType: 'error', messageTitle: null, messageContent: i18n('ERROR_UPDATING_SETTINGS')}));
+        }).catch(() => this.setState({messageType: 'error', showMessage: true, messageTitle: null, messageContent: i18n('ERROR_UPDATING_SETTINGS')}));
     }
 
     onImportCSV(event) {
@@ -308,7 +326,8 @@ class AdminPanelAdvancedSettings extends React.Component {
             }
         })
         .then((result) => this.setState({
-            messageType: 'success', 
+            messageType: 'success',
+            showMessage: true,
             messageTitle: i18n('SUCCESS_IMPORTING_CSV_DESCRIPTION'),
             messageContent: (result.data.length) ? (
                 <div>
@@ -319,7 +338,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                 </div>
             ) : null
         }))
-        .catch(() => this.setState({messageType: 'error', messageTitle: null, messageContent: i18n('INVALID_FILE')}));
+        .catch(() => this.setState({messageType: 'error', showMessage: true, messageTitle: null, messageContent: i18n('INVALID_FILE')}));
     }
 
     onBackupDatabase() {
@@ -347,11 +366,16 @@ class AdminPanelAdvancedSettings extends React.Component {
             data: {
                 password: password
             }
-        }).then(() => this.setState({messageType: 'success', messageTitle: null, messageContent: i18n('SUCCESS_DELETING_ALL_USERS')}
-        )).catch(() => this.setState({messageType: 'error', messageTitle: null, messageContent: i18n('ERROR_DELETING_ALL_USERS')}));
+        }).then(() => this.setState({messageType: 'success', showMessage: true, messageTitle: null, messageContent: i18n('SUCCESS_DELETING_ALL_USERS')}
+        )).catch(() => this.setState({messageType: 'error', showMessage: true, messageTitle: null, messageContent: i18n('ERROR_DELETING_ALL_USERS')}));
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
+        });
     }
 }
-
 
 export default connect((store) => {
     return {

@@ -21,7 +21,9 @@ class AdminPanelBanUsers extends React.Component {
         listError: false,
         addBanStatus: 'none',
         emails: [],
-        filteredEmails: []
+        filteredEmails: [],
+        showMessage: true,
+        showListErrorMessage: true
     };
 
     componentDidMount() {
@@ -29,10 +31,18 @@ class AdminPanelBanUsers extends React.Component {
     }
 
     render() {
+        const { listError, showListErrorMessage } = this.state;
+
         return (
             <div className="admin-panel-ban-users row">
                 <Header title={i18n('BAN_USERS')} description={i18n('BAN_USERS_DESCRIPTION')} />
-                {(this.state.listError) ? <Message type="error">{i18n('ERROR_RETRIEVING_BAN_LIST')}</Message> : this.renderContent()}
+                {
+                    listError ?
+                        <Message showMessage={showListErrorMessage} onCloseMessage={this.onCloseMessage.bind(this, "showListErrorMessage")} type="error">
+                            {i18n('ERROR_RETRIEVING_BAN_LIST')}
+                        </Message> :
+                        this.renderContent()
+                }
             </div>
         );
     }
@@ -59,11 +69,29 @@ class AdminPanelBanUsers extends React.Component {
     }
 
     renderMessage() {
-        switch (this.state.addBanStatus) {
+        const { addBanStatus, showMessage } = this.state;
+
+        switch (addBanStatus) {
             case 'success':
-                return <Message className="admin-panel-ban-users__form-message" type="success">{i18n('EMAIL_BANNED_SUCCESSFULLY')}</Message>;
+                return (
+                    <Message
+                        showMessage={showMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                        className="admin-panel-ban-users__form-message"
+                        type="success">
+                            {i18n('EMAIL_BANNED_SUCCESSFULLY')}
+                    </Message>
+                );
             case 'fail':
-                return <Message className="admin-panel-ban-users__form-message" type="error">{i18n('ERROR_BANNING_EMAIL')}</Message>;
+                return (
+                    <Message
+                        showMessage={showMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                        className="admin-panel-ban-users__form-message"
+                        type="error">
+                            {i18n('ERROR_BANNING_EMAIL')}
+                    </Message>
+                );
             default:
                 return null;
         }
@@ -119,10 +147,11 @@ class AdminPanelBanUsers extends React.Component {
             }
         }).then(() => {
             this.setState({
-                addBanStatus: 'success'
+                addBanStatus: 'success',
+                showMessage: true
             });
             this.retrieveEmails();
-        }).catch(() => this.setState({addBanStatus: 'fail', loadingForm: false}));
+        }).catch(() => this.setState({addBanStatus: 'fail', loadingForm: false, showMessage: true}));
     }
 
     onUnBanClick(email) {
@@ -150,9 +179,16 @@ class AdminPanelBanUsers extends React.Component {
             filteredEmails: result.data
         })).catch(() => this.setState({
             listError: true,
+            showListErrorMessage: true,
             loadingList: false,
             loadingForm: false
         }));
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
+        });
     }
 }
 

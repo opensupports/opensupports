@@ -39,7 +39,7 @@ class ArticlesList extends React.Component {
         const { errored, loading } = this.props;
 
         if(errored) {
-            return <Message type="error">{i18n('ERROR_RETRIEVING_ARTICLES')}</Message>;
+            return <Message showCloseButton={false} type="error">{i18n('ERROR_RETRIEVING_ARTICLES')}</Message>;
         }
 
         return loading ? <Loading /> : this.renderContent();

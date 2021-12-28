@@ -17,6 +17,10 @@ class DashboardCreateTicketPage extends React.Component {
         userSystemEnabled: React.PropTypes.bool
     };
 
+    state = {
+        showMessage: !!queryString.parse(window.location.search)["message"]
+    };
+
     render() {
         let Wrapper = 'div';
 
@@ -27,11 +31,13 @@ class DashboardCreateTicketPage extends React.Component {
         return (
             <div className={this.getClass()}>
                 <Wrapper className="dashboard-create-ticket-page__container">
-                    {queryString.parse(window.location.search)["message"] ?
-                        <Message className="dashboard-create-ticket-page__message" type="success">
+                    <Message // TODO Remove this message
+                        showMessage={this.state.showMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this)}
+                        className="dashboard-create-ticket-page__message"
+                        type="success">
                             {i18n('TICKET_NUMBER_SENT')}
-                        </Message> :
-                        null}
+                    </Message>
                     <div className={this.getCreateTicketFormClass()}>
                         <CreateTicketForm
                             userLogged={(this.props.location.pathname !== '/create-ticket')}
@@ -63,6 +69,12 @@ class DashboardCreateTicketPage extends React.Component {
         };
 
         return classNames(classes);
+    }
+
+    onCloseMessage() {
+        this.setState({
+            showMessage: false
+        });
     }
 }
 

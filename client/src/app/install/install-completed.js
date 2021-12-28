@@ -19,7 +19,7 @@ class InstallCompleted extends React.Component {
     render() {
         return (
             <div className="install-completed">
-                <Message title={i18n('INSTALLATION_COMPLETED_TITLE')} type="success">
+                <Message showCloseButton={false} title={i18n('INSTALLATION_COMPLETED_TITLE')} type="success">
                     {i18n('INSTALLATION_COMPLETED_DESCRIPTION')}
                 </Message>
             </div>

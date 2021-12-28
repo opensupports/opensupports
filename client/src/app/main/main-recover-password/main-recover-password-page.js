@@ -23,7 +23,8 @@ class MainRecoverPasswordPage extends React.Component {
 
         this.state = {
             recoverStatus: 'waiting',
-            loading: false
+            loading: false,
+            showMessage: true
         }
     }
 
@@ -47,11 +48,27 @@ class MainRecoverPasswordPage extends React.Component {
     }
 
     renderRecoverStatus() {
-        switch (this.state.recoverStatus) {
+        const { recoverStatus, showMessage } = this.state;
+
+        switch (recoverStatus) {
             case 'valid':
-                return <Message type="success">{i18n('VALID_RECOVER')}</Message>;
+                return (
+                    <Message
+                        showMessage={showMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                        type="success">
+                            {i18n('VALID_RECOVER')}
+                    </Message>
+                );
             case 'invalid':
-                return <Message type="error">{i18n('INVALID_RECOVER')}</Message>;
+                return (
+                    <Message
+                        showMessage={showMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                        type="error">
+                            {i18n('INVALID_RECOVER')}
+                    </Message>
+                );
             case 'waiting':
                 return null;
         }
@@ -78,6 +95,7 @@ class MainRecoverPasswordPage extends React.Component {
         setTimeout(() => {history.push((response.data.staff*1) ? '/admin' : '/')}, 2000);
         this.setState({
             recoverStatus: 'valid',
+            showMessage: true,
             loading: false
         });
     }
@@ -85,7 +103,14 @@ class MainRecoverPasswordPage extends React.Component {
     onPasswordRecoverFail() {
         this.setState({
             recoverStatus: 'invalid',
+            showMessage: true,
             loading: false
+        });
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
         });
     }
 }
