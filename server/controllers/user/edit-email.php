@@ -42,7 +42,11 @@ class EditEmail extends Controller{
         $newEmail = Controller::request('newEmail');
         $user = Controller::getLoggedUser();
         $oldEmail = $user->email;
+
+        $this->verifyEmail($newEmail, $user);
+
         $user->email = $newEmail;
+        
         $user->store();
         
         $mailSender = MailSender::getInstance();
@@ -54,5 +58,19 @@ class EditEmail extends Controller{
         $mailSender->send();
         
         Response::respondSuccess();
+    }
+
+    private function verifyEmail($email, $logedUser){
+
+        $staff = Staff::getDataStore($email,'email');
+        $user = User::getDataStore($email,'email');
+        
+        if($user->email == $email && $logedUser->email != $email){
+            throw new RequestException(ERRORS::INVALID_EMAIL);
+        }
+
+        if($staff->email == $email){
+            throw new RequestException(ERRORS::INVALID_EMAIL);
+        }
     }
 }
