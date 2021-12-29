@@ -18,6 +18,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: flex-end;
+        z-index: 999;
 
         &-without-allow-attachments {
             display: flex;
