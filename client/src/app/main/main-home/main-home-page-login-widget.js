@@ -84,7 +84,7 @@ class MainHomePageLoginWidget extends React.Component {
 
     renderLoginCaptcha() {
         return(
-            <div className="main-home-page__captcha">
+            <div className={`main-home-page__${this.props.sitekey ? "captcha" : "no-captcha"}`}>
                 <Captcha ref="captcha" />
             </div>
         )
@@ -286,6 +286,7 @@ class MainHomePageLoginWidget extends React.Component {
 
 export default connect((store) => {
     return {
-        session: store.session
+        session: store.session,
+        sitekey: store.config.reCaptchaKey
     };
 })(MainHomePageLoginWidget);
