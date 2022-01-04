@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /user/edit-supervised-list Edit user list
- * @apiVersion 4.10.0
+ * @apiVersion 4.11.0
  *
  * @apiName Edit user list
  *
