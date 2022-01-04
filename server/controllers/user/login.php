@@ -5,7 +5,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/login Login
- * @apiVersion 4.10.0
+ * @apiVersion 4.11.0
  *
  * @apiName Login
  *

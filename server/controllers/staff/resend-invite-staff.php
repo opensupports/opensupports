@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /staff/resend-invite-staff resend invite staff
- * @apiVersion 4.10.0
+ * @apiVersion 4.11.0
  *
  * @apiName Resend resend invite staff
  *
