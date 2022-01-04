@@ -317,7 +317,7 @@ class StaffEditor extends React.Component {
             <div className="admin-panel-stats">
                 {
                     loadingStats ?
-                        <div className="admin-panel-stats__loading"><Loading backgrounded size="large" /></div> :
+                        <Loading className="admin-panel-stats__loading" backgrounded size="large" /> :
                         statsUtils.renderStatistics({showStatCards: true, showStatsByHours: true, ticketData})
                 }
             </div>
