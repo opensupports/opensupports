@@ -65,14 +65,6 @@ class AdminPanelViewArticle extends React.Component {
     renderArticlePreview(article) {
         return (
             <div className="admin-panel-view-article__content">
-                <div className="admin-panel-view-article__edit-buttons">
-                    <Button size="medium" onClick={this.onDeleteClick.bind(this, article)}>
-                        {i18n('DELETE')}
-                    </Button>
-                    <Button className="admin-panel-view-article__edit-button" size="medium" onClick={this.onEditClick.bind(this, article)} type="tertiary">
-                        {i18n('EDIT')}
-                    </Button>
-                </div>
                 <div className="admin-panel-view-article__article">
                     <Header title={article.title}/>
 
@@ -82,6 +74,14 @@ class AdminPanelViewArticle extends React.Component {
                     <div className="admin-panel-view-article__last-edited">
                         {i18n('LAST_EDITED_IN', {date: DateTransformer.transformToString(article.lastEdited)})}
                     </div>
+                </div>
+                <div className="admin-panel-view-article__edit-buttons">
+                    <Button size="medium" onClick={this.onDeleteClick.bind(this, article)}>
+                        {i18n('DELETE')}
+                    </Button>
+                    <Button className="admin-panel-view-article__edit-button" size="medium" onClick={this.onEditClick.bind(this, article)} type="tertiary">
+                        {i18n('EDIT')}
+                    </Button>
                 </div>
             </div>
         );
