@@ -28,7 +28,8 @@ class AdminPanelListUsers extends React.Component {
         users: [],
         usersParams: DEFAULT_USERS_PARAMS,
         error: false,
-        pages: 1
+        pages: 1,
+        showMessage: true
     };
 
     componentDidMount() {
@@ -39,16 +40,28 @@ class AdminPanelListUsers extends React.Component {
         return (
             <div className="admin-panel-list-users">
                 <Header title={i18n('LIST_USERS')} description={i18n('LIST_USERS_DESCRIPTION')} />
-                {(this.state.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_USERS')}</Message> : this.renderTableAndInviteButton()}
+                {(this.state.error) ? <Message showCloseButton={false} type="error">{i18n('ERROR_RETRIEVING_USERS')}</Message> : this.renderTableAndInviteButton()}
             </div>
         );
     }
 
     renderTableAndInviteButton() {
+        const { message, showMessage } = this.state;
+
         return (
             <div>
                 <SearchBox className="admin-panel-list-users__search-box" placeholder={i18n('SEARCH_USERS')} onSearch={this.onSearch.bind(this)} />
-                {this.state.message === 'success' ? <Message className="admin-panel-list-users__success-message" type="success">{i18n('INVITE_USER_SUCCESS')}</Message> : null}
+                {
+                    (message === 'success') ?
+                        <Message
+                            showMessage={showMessage}
+                            onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                            className="admin-panel-list-users__success-message"
+                            type="success">
+                                {i18n('INVITE_USER_SUCCESS')}
+                        </Message> :
+                        null
+                }
                 <Table {...this.getTableProps()} />
                 <div style={{textAlign: 'right', marginTop: 10}}>
                     <Button onClick={this.onInviteUser.bind(this)} type="secondary" size="medium">
@@ -214,7 +227,8 @@ class AdminPanelListUsers extends React.Component {
 
     onChangeMessage(message) {
         this.setState({
-            message
+            message,
+            showMessage: true
         });
     }
 
@@ -245,6 +259,12 @@ class AdminPanelListUsers extends React.Component {
         this.setState({
             error: true,
             loading: false
+        });
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
         });
     }
 }

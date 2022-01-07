@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /article/add-topic Add topic
- * @apiVersion 4.10.0
+ * @apiVersion 4.11.0
  *
  * @apiName Add topic
  *
@@ -36,8 +36,8 @@ class AddTopicController extends Controller {
             'permission' => 'staff_2',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::notBlank()->length(1, 200),
-                    'error' => ERRORS::INVALID_TITLE
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
+                    'error' => ERRORS::INVALID_NAME
                 ],
             ]
         ];

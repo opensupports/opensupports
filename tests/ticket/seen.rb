@@ -1,7 +1,7 @@
 describe '/ticket/seen' do
 
     describe 'when a staff is logged' do
-        request('/user/logout')
+        Scripts.logout()
         ticket = $database.getRow('ticket', 'Should we pay?', 'title')
 
         Scripts.login($staff[:email], $staff[:password], true)
@@ -22,7 +22,7 @@ describe '/ticket/seen' do
 
     describe 'when an user is logged' do
         
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login()
         it 'should fail if user is not author' do
             ticket = $database.getRow('ticket', 'Should we pay?', 'title')
@@ -36,7 +36,7 @@ describe '/ticket/seen' do
             (result['message']).should.equal('NO_PERMISSION')
         end
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('user_get@os4.com', 'user_get')
         it 'should change unread if everything is okey ' do
             ticket = $database.getRow('ticket', 'Should we pay?', 'title')

@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/create Create ticket
- * @apiVersion 4.10.0
+ * @apiVersion 4.11.0
  *
  * @apiName Create ticket
  *
@@ -56,7 +56,7 @@ class CreateController extends Controller {
             'permission' => 'user',
             'requestData' => [
                 'title' => [
-                    'validation' => DataValidator::notBlank()->length(1, 200),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_TITLE, LengthConfig::MAX_LENGTH_TITLE),
                     'error' => ERRORS::INVALID_TITLE
                 ],
                 'content' => [
@@ -84,7 +84,7 @@ class CreateController extends Controller {
                 'error' => ERRORS::INVALID_EMAIL
             ];
             $validations['requestData']['name'] = [
-                'validation' => DataValidator::notBlank()->length(2, 55),
+                'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
                 'error' => ERRORS::INVALID_NAME
             ];
         }

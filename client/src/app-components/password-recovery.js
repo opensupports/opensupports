@@ -24,13 +24,19 @@ class PasswordRecovery extends React.Component {
         renderLogo: false
     };
 
+    state = {
+        showRecoverSentMessage: true
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!prevProps.recoverSent && this.props.recoverSent) {
+            this.setState({showRecoverSentMessage : true});
+        }
+    }
+
     render() {
-        const {
-            renderLogo,
-            formProps,
-            onBackToLoginClick,
-            style
-        } = this.props;
+        const { renderLogo, formProps, onBackToLoginClick, style } = this.props;
+
         return (
             <Widget style={style} className={this.getClass()} title={!renderLogo ? i18n('RECOVER_PASSWORD') : ''}>
                 {this.renderLogo()}
@@ -68,21 +74,28 @@ class PasswordRecovery extends React.Component {
     }
 
     renderRecoverStatus() {
-        let status = null;
-
-        if (this.props.recoverSent) {
-            status = (
-                <Message className="password-recovery__message" type="info" leftAligned>
-                    {i18n('RECOVER_SENT')}
-                </Message>
-            );
-        }
-
-        return status;
+        return (
+            this.props.recoverSent ?
+                <Message
+                    showMessage={this.state.showRecoverSentMessage}
+                    onCloseMessage={this.onCloseMessage.bind(this, "showRecoverSentMessage")}
+                    className="password-recovery__message"
+                    type="info"
+                    leftAligned>
+                        {i18n('RECOVER_SENT')}
+                </Message> :
+                null
+        );
     }
 
     focusEmail() {
         this.refs.email.focus();
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
+        });
     }
 }
 

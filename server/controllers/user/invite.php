@@ -5,7 +5,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/invite Invite
- * @apiVersion 4.10.0
+ * @apiVersion 4.11.0
  *
  * @apiName Invite
  *
@@ -45,7 +45,7 @@ class InviteUserController extends Controller {
             'permission' => 'staff_1',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::notBlank()->length(2, 55),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
                     'error' => ERRORS::INVALID_NAME
                 ],
                 'email' => [

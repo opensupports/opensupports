@@ -17,6 +17,9 @@ import Message from 'core-components/message';
 import Widget from 'core-components/widget';
 import WidgetTransition from 'core-components/widget-transition';
 
+import Captcha          from 'app/main/captcha';
+
+const MAX_FREE_LOGIN_ATTEMPTS = 3;
 class AdminLoginPage extends React.Component {
 
     state = {
@@ -25,7 +28,9 @@ class AdminLoginPage extends React.Component {
         recoverFormErrors: {},
         recoverSent: false,
         loadingLogin: false,
-        loadingRecover: false
+        loadingRecover: false,
+        showRecoverSentMessage: true,
+        showEmailOrPassordErrorMessage: true
     };
 
     componentDidMount() {
@@ -34,6 +39,7 @@ class AdminLoginPage extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (!prevProps.session.failed && this.props.session.failed) {
+            this.setState({showEmailOrPassordErrorMessage : true});
             this.refs.loginForm.refs.password.focus();
         }
     }
@@ -77,6 +83,7 @@ class AdminLoginPage extends React.Component {
                                     className="admin-login-page__login-form-container__login-form__fields__remember"
                                     field="checkbox" />
                             </div>
+                            {this.props.session.loginAttempts > MAX_FREE_LOGIN_ATTEMPTS ? this.renderLoginCaptcha() : null}
                             <div className="admin-login-page__login-form-container__login-form__submit-button">
                                 <SubmitButton>{i18n('LOG_IN')}</SubmitButton>
                             </div>
@@ -92,6 +99,14 @@ class AdminLoginPage extends React.Component {
         );
     }
 
+    renderLoginCaptcha() {
+        return(
+            <div className={`main-home-page__${this.props.sitekey ? "captcha" : "no-captcha"}`}>
+                <Captcha ref="captcha" />
+            </div>
+        )
+    }
+
     renderPasswordRecovery() {
         return (
             <div className="admin-login-page__recovery-form-container">
@@ -101,31 +116,34 @@ class AdminLoginPage extends React.Component {
     }
 
     renderRecoverStatus() {
-        let status = null;
+        const { showRecoverSentMessage, recoverSent } = this.state;
 
-        if (this.state.recoverSent) {
-            status = (
-                <Message className="admin-login-page__message" type="info" leftAligned>
-                    {i18n('RECOVER_SENT')}
-                </Message>
-            );
-        }
-
-        return status;
+        return (
+            recoverSent ?
+                <Message
+                    showMessage={showRecoverSentMessage}
+                    onCloseMessage={this.onCloseMessage.bind(this, "showRecoverSentMessage")}
+                    className="admin-login-page__message"
+                    type="info"
+                    leftAligned>
+                        {i18n('RECOVER_SENT')}
+                </Message> :
+                null
+        );
     }
 
     renderErrorStatus() {
-        let status = null;
-
-        if (this.props.session.failed) {
-            status = (
-                <Message className="admin-login-page__error" type="error">
-                    {i18n('EMAIL_OR_PASSWORD')}
-                </Message>
-            );
-        }
-
-        return status;
+        return (
+            this.props.session.failed ?
+                <Message
+                    showMessage={this.state.showEmailOrPassordErrorMessage}
+                    onCloseMessage={this.onCloseMessage.bind(this, "showEmailOrPassordErrorMessage")}
+                    className="admin-login-page__error"
+                    type="error">
+                        {i18n('EMAIL_OR_PASSWORD')}
+                </Message> :
+                null
+        );
     }
 
     getLoginFormProps() {
@@ -140,10 +158,7 @@ class AdminLoginPage extends React.Component {
     }
 
     getRecoverFormProps() {
-        const {
-            loadingRecover,
-            recoverFormErrors
-        } = this.state;
+        const { loadingRecover, recoverFormErrors } = this.state;
 
         return {
             loading: loadingRecover,
@@ -215,7 +230,8 @@ class AdminLoginPage extends React.Component {
     onRecoverPasswordSent() {
         this.setState({
             loadingRecover: false,
-            recoverSent: true
+            recoverSent: true,
+            showRecoverSentMessage: true
         });
     }
 
@@ -229,10 +245,17 @@ class AdminLoginPage extends React.Component {
             this.refs.recoverForm.refs.email.focus();
         }.bind(this));
     }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
+        });
+    }
 }
 
 export default connect((store) => {
     return {
-        session: store.session
+        session: store.session,
+        sitekey: store.config.reCaptchaKey
     };
 })(AdminLoginPage);

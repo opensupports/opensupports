@@ -1,5 +1,5 @@
 describe'/staff/invite' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should if data is wrong' do
@@ -55,7 +55,7 @@ describe'/staff/invite' do
         result = request('/staff/invite', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
-            name: 'Tyrion LannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannister',
+            name: 'Tyrion LannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannisterLannister',
             email: 'tyrion@opensupports.com',
             level: 1,
             profilePic: '',
@@ -67,7 +67,7 @@ describe'/staff/invite' do
         result = request('/staff/invite', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
-            name: 'T',
+            name: '',
             email: 'tyrion@opensupports.com',
             level: 1,
             profilePic: '',

@@ -1,7 +1,7 @@
 describe '/ticket/edit-title' do
 
-    request('/user/logout')
-    Scripts.login();
+    Scripts.logout()
+    Scripts.login()
     Scripts.createTicket('Valar Morghulis','content of the ticket made by an user')
     ticket = $database.getRow('ticket', 'Valar Morghulis', 'title')
     ticketNumber = ticket['ticket_number']
@@ -36,7 +36,7 @@ describe '/ticket/edit-title' do
     end
 
     it 'should change the title of the ticket if staff is logged' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         result = request('/ticket/edit-title', {
@@ -54,12 +54,12 @@ describe '/ticket/edit-title' do
     end
 
     it 'should not change the title if the user is not the author' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         Scripts.createTicket('Winterfell')
         ticket = $database.getRow('ticket', 'Winterfell', 'title')
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login()
 
         result = request('/ticket/edit-title', {

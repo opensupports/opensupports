@@ -71,6 +71,7 @@ class TicketViewer extends React.Component {
         editTags: false,
         editOwner: false,
         editDepartment: false,
+        showTicketCommentErrorMessage: true
     };
 
     componentDidMount() {
@@ -83,30 +84,46 @@ class TicketViewer extends React.Component {
 
     render() {
         const { ticket, userStaff, userId, editable, allowAttachments, assignmentAllowed } = this.props;
-        const showResponseField = (!ticket.closed && (editable || !assignmentAllowed));
+        const { editTitle, loading, edit, editId } = this.state;
+        const { closed, author, content, date, edited, file, events} = ticket;
+        const showResponseField = (!closed && (editable || !assignmentAllowed));
+        const lastComment = events.map(
+            (event, index) => {
+                return  {...event, index}}
+        ).filter(
+            (event) => event.type === "COMMENT"
+        ).at(-1);
+
+        const eventsWithModifiedComments = events.map(
+            (event, index) => {
+                return {...event, isLastComment: lastComment && index === lastComment.index && event.type === "COMMENT"};
+            }
+        );
 
         return (
             <div className="ticket-viewer">
-                {this.state.editTitle ? this.renderEditableTitle() : this.renderTitleHeader()}
+                {editTitle ? this.renderEditableTitle() : this.renderTitleHeader()}
                 {editable ? this.renderEditableHeaders() : this.renderHeaders()}
                 <div className="ticket-viewer__content">
                     <TicketEvent
-                        loading={this.state.loading}
+                        loading={loading}
                         type="COMMENT"
-                        author={ticket.author}
-                        content={userStaff ? MentionsParser.parse(ticket.content) : ticket.content}
+                        isLastComment={!events.filter(event => event.type === "COMMENT").length}
+                        author={author}
+                        isTicketClosed={closed}
+                        content={userStaff ? MentionsParser.parse(content) : content}
                         userStaff={userStaff}
                         userId={userId}
-                        date={ticket.date}
+                        date={date}
                         onEdit={this.onEdit.bind(this,0)}
-                        edited={ticket.edited}
-                        file={ticket.file}
-                        edit={this.state.edit && this.state.editId == 0}
+                        edited={edited}
+                        file={file}
+                        edit={edit && editId == 0}
                         onToggleEdit={this.onToggleEdit.bind(this, 0)}
                         allowAttachments={allowAttachments} />
                 </div>
                 <div className="ticket-viewer__comments">
-                    {ticket.events && ticket.events.map(this.renderTicketEvent.bind(this))}
+                    {eventsWithModifiedComments && eventsWithModifiedComments.map(this.renderTicketEvent.bind(this, closed))}
                 </div>
                 {showResponseField ? this.renderResponseField() : this.renderReopenCloseButtons()}
             </div>
@@ -405,22 +422,26 @@ class TicketViewer extends React.Component {
         return <Button type='link' size="medium" onClick={() => this.setState({["edit"+option]: false})}>{i18n('CLOSE')}</Button>
     }
 
-    renderTicketEvent(options, index) {
+    renderTicketEvent(isTicketClosed, ticketEventObject, index) {
         const { userStaff, ticket, userId, allowAttachments } = this.props;
+        const { edit, editId } = this.state;
+        const { content, author, id} = ticketEventObject;
 
-        if(userStaff && typeof options.content === 'string') {
-            options.content = MentionsParser.parse(options.content);
+        if(userStaff && typeof content === 'string') {
+            ticketEventObject.content = MentionsParser.parse(content);
         }
 
         return (
             <TicketEvent
-                {...options}
-                author={(!_.isEmpty(options.author)) ? options.author : ticket.author}
+                {...ticketEventObject}
+                isLastComment={ticketEventObject.isLastComment}
+                author={(!_.isEmpty(author)) ? author : ticket.author}
                 userStaff={userStaff}
+                isTicketClosed={isTicketClosed}
                 userId={userId}
-                onEdit={this.onEdit.bind(this, options.id)}
-                edit={this.state.edit && this.state.editId == options.id}
-                onToggleEdit={this.onToggleEdit.bind(this, options.id)}
+                onEdit={this.onEdit.bind(this, id)}
+                edit={edit && editId == id}
+                onToggleEdit={this.onToggleEdit.bind(this, id)}
                 key={index}
                 allowAttachments={allowAttachments} />
         );
@@ -441,13 +462,15 @@ class TicketViewer extends React.Component {
                     </div>
                     <div className="ticket-viewer__response-field row">
                         <FormField name="content" validation="TEXT_AREA" required field="textarea" fieldProps={{allowImages: allowAttachments}} />
-                        <div className="ticket-viewer__response-buttons">
-                            {allowAttachments ? <FormField name="file" field="file" /> : null}
-                            <SubmitButton type="secondary">{i18n('RESPOND_TICKET')}</SubmitButton>
-                        </div>
-                        <div className="ticket-viewer__buttons-column">
-                            <div className="ticket-viewer__buttons-row">
-                                {this.renderCloseTicketButton()}
+                        <div className="ticket-viewer__response-container">
+                            <div className="ticket-viewer__response-buttons">
+                                {allowAttachments ? <FormField name="file" field="file" /> : null}
+                                <SubmitButton type="secondary">{i18n('RESPOND_TICKET')}</SubmitButton>
+                            </div>
+                            <div className="ticket-viewer__buttons-column">
+                                <div className="ticket-viewer__buttons-row">
+                                    {this.renderCloseTicketButton()}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -507,8 +530,16 @@ class TicketViewer extends React.Component {
     }
 
     renderCommentError() {
+        const { showTicketCommentErrorMessage } = this.state;
+
         return (
-            <Message className="ticket-viewer__message" type="error">{i18n('TICKET_COMMENT_ERROR')}</Message>
+            <Message
+                showMessage={showTicketCommentErrorMessage}
+                onCloseMessage={this.onCloseMessage.bind(this, "showTicketCommentErrorMessage")}
+                className="ticket-viewer__message"
+                type="error">
+                    {i18n('TICKET_COMMENT_ERROR')}
+            </Message>
         );
     }
 
@@ -735,16 +766,16 @@ class TicketViewer extends React.Component {
         })
     }
 
-    onEdit(ticketeventid,{content}) {
+    onEdit(ticketeventid, {content}) {
         this.setState({
             loading: true
         });
         const data = {};
 
-        if(ticketeventid){
-            data.ticketEventId = ticketeventid
-        }else{
-            data.ticketNumber = this.props.ticket.ticketNumber
+        if(ticketeventid) {
+            data.ticketEventId = ticketeventid;
+        } else {
+            data.ticketNumber = this.props.ticket.ticketNumber;
         }
 
         API.call({
@@ -753,7 +784,7 @@ class TicketViewer extends React.Component {
                 data,
                 TextEditor.getContentFormData(content)
             )
-        }).then(this.onEditCommentSuccess.bind(this), this.onFailCommentFail.bind(this));
+        }).then(this.onEditCommentSuccess.bind(this), this.onEditCommentFail.bind(this));
     }
 
     onEditCommentSuccess() {
@@ -767,10 +798,11 @@ class TicketViewer extends React.Component {
         this.onTicketModification();
     }
 
-    onFailCommentFail() {
+    onEditCommentFail() {
         this.setState({
             loading: false,
-            commentError: true
+            commentError: true,
+            showTicketCommentErrorMessage: true
         });
     }
 
@@ -802,7 +834,8 @@ class TicketViewer extends React.Component {
     onCommentFail() {
         this.setState({
             loading: false,
-            commentError: true
+            commentError: true,
+            showTicketCommentErrorMessage: true
         });
     }
 
@@ -867,6 +900,12 @@ class TicketViewer extends React.Component {
         }
 
         return false;
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
+        });
     }
 }
 

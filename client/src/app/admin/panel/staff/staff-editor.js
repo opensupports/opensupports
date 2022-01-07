@@ -10,7 +10,6 @@ import API from 'lib-app/api-call';
 import SessionStore from 'lib-app/session-store';
 import TicketList from 'app-components/ticket-list';
 import AreYouSure from 'app-components/are-you-sure';
-// import Stats from 'app-components/stats';
 
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
@@ -19,6 +18,7 @@ import Message from 'core-components/message';
 import Button from 'core-components/button';
 import Icon from 'core-components/icon';
 import Loading from 'core-components/loading';
+import statsUtils from 'lib-app/stats-utils';
 
 const INITIAL_API_VALUE = {
     page: 1,
@@ -52,30 +52,43 @@ class StaffEditor extends React.Component {
         department: undefined,
         departments: this.getUserDepartments(),
         closedTicketsShown: false,
-        sendEmailOnNewTicket: this.props.sendEmailOnNewTicket
+        sendEmailOnNewTicket: this.props.sendEmailOnNewTicket,
+        loadingReInviteStaff: false,
+        reInviteStaff: "",
+        loadingStats: true,
+        showMessage: true,
+        showReInviteStaffMessage: true,
+        rawForm: {
+            dateRange: statsUtils.getInitialDateRange(),
+            departments: [],
+            owners: [],
+            tags: []
+        },
+        ticketData: {}
     };
 
     componentDidMount() {
+        const departmentsAssigned = SessionStore.getDepartments().filter((_department, index) => this.state.departments.includes(index));
+        const departmentsAssignedId = departmentsAssigned.map(department => department.id);
+
         this.retrieveStaffMembers();
         this.retrieveTicketsAssigned(INITIAL_API_VALUE);
+        statsUtils.retrieveStats({
+            rawForm: this.state.rawForm,
+            departments: departmentsAssignedId
+        }).then(({data}) => {
+            this.setState({
+                ticketData: data,
+                loadingStats: false
+            });
+        }).catch((error) => {
+            if (showLogs) console.error('ERROR: ', error);
+        });
     }
 
     render() {
-        const {
-            name,
-            level,
-            profilePic,
-            myAccount,
-            staffId,
-            staffList,
-            userId
-        } = this.props;
-        const {
-            message,
-            tickets,
-            loadingPicture,
-            email
-        } = this.state;
+        const { name, level, profilePic, myAccount, staffId, staffList, userId } = this.props;
+        const { message, tickets, loadingPicture, email } = this.state;
         const myData = _.filter(staffList, {id: `${staffId}`})[0];
 
         return (
@@ -144,6 +157,8 @@ class StaffEditor extends React.Component {
                     <div className="col-md-8">
                         <div className="staff-editor__activity">
                             <div className="staff-editor__activity-title">{i18n('ACTIVITY')}</div>
+                            {myData.lastLogin ? null : this.renderReInviteStaffButton()}
+                            {this.renderReInviteStaffMessage()}
                             {this.renderStaffStats()}
                         </div>
                     </div>
@@ -154,9 +169,66 @@ class StaffEditor extends React.Component {
         );
     }
 
+    renderReInviteStaffButton () {
+        const inviteStaffButtonContent = <div><Icon name="user-plus" /> {i18n('INVITE_STAFF')}</div>;
+
+        return (
+            <div className="staff-editor__staff-invitation-content">
+                {i18n('USER_UNLOGGED_IN')}
+                <Button onClick={this.onReInviteStaffButton.bind(this)} size="medium" type="secondary" className="staff-editor__staff-invitation-button" disabled={this.state.loadingReInviteStaff}>
+                    {this.state.loadingReInviteStaff ? <Loading /> : inviteStaffButtonContent}
+                </Button>
+            </div>
+        );
+    }
+
+    renderReInviteStaffMessage() {
+        const { reInviteStaff, showReInviteStaffMessage } = this.state;
+
+        if (reInviteStaff) {
+            return (
+                <Message
+                    showMessage={showReInviteStaffMessage}
+                    onCloseMessage={this.onCloseMessage.bind(this, "showReInviteStaffMessage")}
+                    className="staff-editor__staff-invitation-message"
+                    type={reInviteStaff}
+                    leftAligned>
+                        {(reInviteStaff === "success") ? i18n('RESEND_STAFF_INVITATION_SUCCESS') : i18n('RESEND_STAFF_INVITATION_FAIL')}
+                </Message>
+            );
+        } else {
+            return null;
+        }
+    }
+
+    onReInviteStaffButton() {
+        this.setState({
+            loadingReInviteStaff: true
+        })
+
+        API.call({
+            path: '/staff/resend-invite-staff',
+            data: {
+                email: this.props.email
+            }
+        }).then(() => {
+            this.setState({
+                loadingReInviteStaff: false,
+                reInviteStaff: 'success',
+                showReInviteStaffMessage: true
+            })
+        }).catch(() => {
+            this.setState({
+                loadingReInviteStaff: false,
+                reInviteStaff: 'error',
+                showReInviteStaffMessage: true
+            })
+        })
+    }
+
     renderMessage() {
-        const { message } = this.state;
-        let messageType = (message === 'FAIL') ? 'error' : 'success';
+        const { message, showMessage } = this.state;
+        const messageType = (message === 'FAIL') ? 'error' : 'success';
         let _message = null;
 
         switch (message) {
@@ -180,7 +252,15 @@ class StaffEditor extends React.Component {
                 break;
         }
 
-        return <Message className="staff-editor__message" type={messageType}>{i18n(_message)}</Message>;
+        return (
+            <Message
+                showMessage={showMessage}
+                onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                className="staff-editor__message"
+                type={messageType}>
+                    {i18n(_message)}
+            </Message>
+        );
     }
 
     renderSendEmailOnNewTicketForm() {
@@ -231,11 +311,17 @@ class StaffEditor extends React.Component {
     }
 
     renderStaffStats() {
-        // return (
-        //     <Stats staffId={this.props.staffId} type="staff" />
-        // );
+        const { loadingStats, ticketData } = this.state;
 
-        return null;
+        return (
+            <div className="admin-panel-stats">
+                {
+                    loadingStats ?
+                        <div className="admin-panel-stats__loading"><Loading backgrounded size="large" /></div> :
+                        statsUtils.renderStatistics({showStatCards: true, showStatsByHours: true, ticketData})
+                }
+            </div>
+        )
     }
 
     renderTickets() {
@@ -276,16 +362,8 @@ class StaffEditor extends React.Component {
     }
 
     getTicketListProps() {
-        const {
-            staffId,
-            departments
-        } = this.props;
-        const {
-            tickets,
-            page,
-            pages,
-            closedTicketsShown
-        } = this.state;
+        const { staffId, departments } = this.props;
+        const { tickets, page, pages, closedTicketsShown } = this.state;
 
         return {
             type: 'secondary',
@@ -311,6 +389,7 @@ class StaffEditor extends React.Component {
                 departmentIndexes.push(index);
             }
         });
+
         return departmentIndexes;
     }
 
@@ -344,11 +423,9 @@ class StaffEditor extends React.Component {
     }
 
     onSubmit(eventType, form) {
-        const {
-            myAccount,
-            staffId,
-            onChange
-        } = this.props;
+        this.setState({loadingStats: true});
+
+        const { myAccount, staffId, onChange } = this.props;
         let departments;
 
         if(form.departments) {
@@ -369,21 +446,32 @@ class StaffEditor extends React.Component {
             }
         }).then(() => {
             this.retrieveStaffMembers();
-            window.scrollTo(0,0);
-            this.setState({message: eventType});
+            window.scrollTo(0,250);
+            this.setState({message: eventType, showMessage: true});
+
+            const departmentsAssigned = SessionStore.getDepartments().filter((_department, index) => this.state.departments.includes(index));
+            const departmentsAssignedId = departmentsAssigned.map(department => department.id);
+
+            statsUtils.retrieveStats({
+                rawForm: this.state.rawForm,
+                departments: departmentsAssignedId
+            }).then(({data}) => {
+                this.setState({ticketData: data, loadingStats: false});
+            }).catch((error) => {
+                if (showLogs) console.error('ERROR: ', error);
+                this.setState({loadingStats: false});
+            });
 
             onChange && onChange();
         }).catch(() => {
-            window.scrollTo(0,0);
-            this.setState({message: 'FAIL'});
+            window.scrollTo(0,250);
+            this.setState({message: 'FAIL', loadingStats: false, showMessage: true});
         });
     }
 
     onDeleteClick() {
-        const {
-            staffId,
-            onDelete
-        } = this.props;
+        const { staffId, onDelete } = this.props;
+
         return API.call({
             path: '/staff/delete',
             data: {
@@ -391,16 +479,13 @@ class StaffEditor extends React.Component {
             }
         }).then(onDelete).catch(() => {
             window.scrollTo(0,0);
-            this.setState({message: 'FAIL'});
+            this.setState({message: 'FAIL', showMessage: true});
         });
     }
 
     onProfilePicChange(event) {
-        const {
-            myAcount,
-            staffId,
-            onChange
-        } = this.props;
+        const { myAcount, staffId, onChange } = this.props;
+
         this.setState({
             loadingPicture: true
         });
@@ -420,7 +505,7 @@ class StaffEditor extends React.Component {
             onChange && onChange();
         }).catch(() => {
             window.scrollTo(0,0);
-            this.setState({message: 'FAIL', loadingPicture: false});
+            this.setState({message: 'FAIL', loadingPicture: false, showMessage: true});
         });
     }
 
@@ -466,10 +551,7 @@ class StaffEditor extends React.Component {
     }
 
     onClosedTicketsShownChange() {
-        const {
-            department,
-            closedTicketsShown
-        } = this.state;
+        const { department, closedTicketsShown } = this.state;
         const newClosedValue = !closedTicketsShown;
 
         this.setState({
@@ -491,6 +573,12 @@ class StaffEditor extends React.Component {
             closed: newClosedFilter ? undefined : 0,
             department: newDepartmentFilter ? `[${newDepartmentFilter}]` : undefined
         }
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
+        });
     }
 }
 

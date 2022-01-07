@@ -1,5 +1,5 @@
 describe'/staff/delete' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
     @staffId = $database.getRow('staff','littlelannister@opensupports.com','email')['id']
 
@@ -16,7 +16,7 @@ describe'/staff/delete' do
         (row).should.equal(nil)
 
         row = $database.getRow('department', 1, 'id')
-        (row['owners']).should.equal(4)
+        (row['owners']).should.equal(6)
 
     end
 
@@ -31,6 +31,6 @@ describe'/staff/delete' do
         (result['message']).should.equal('INVALID_STAFF')
 
         row = $database.getRow('department', 1, 'id')
-        (row['owners']).should.equal(4)
+        (row['owners']).should.equal(6)
     end
 end

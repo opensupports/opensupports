@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /article/edit Edit article
- * @apiVersion 4.10.0
+ * @apiVersion 4.11.0
  *
  * @apiName Edit a article
  *
@@ -25,6 +25,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TOPIC
  * @apiUse INVALID_FILE
+ * @apiUse INVALID_TITLE
  *
  * @apiSuccess {Object} data Empty object
  *
@@ -43,13 +44,16 @@ class EditArticleController extends Controller {
                     'error' => ERRORS::INVALID_TOPIC
                 ],
                 'title' => [
-                    'validation' => DataValidator::oneOf(DataValidator::notBlank()->length(1, 200),DataValidator::nullType()),
+                    'validation' => DataValidator::oneOf(
+                        DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_TITLE, LengthConfig::MAX_LENGTH_TITLE),
+                        DataValidator::nullType()
+                    ),
                     'error' => ERRORS::INVALID_TITLE
                 ],
                 'content' => [
                     'validation' => DataValidator::oneOf(DataValidator::content(),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_CONTENT
-                ],
+                ]
             ]
         ];
     }

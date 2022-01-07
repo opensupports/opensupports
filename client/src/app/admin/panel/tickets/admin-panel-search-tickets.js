@@ -49,7 +49,8 @@ updateSearchTicketsFromURL();
 class AdminPanelSearchTickets extends React.Component {
 
     render() {
-        const { listConfig } = this.props;
+        const { listConfig, error } = this.props;
+
         return (
             <div className="admin-panel-search-tickets">
                 <div className="admin-panel-search-tickets__container">
@@ -67,10 +68,9 @@ class AdminPanelSearchTickets extends React.Component {
                 </div>
                 <TicketQueryFilters />
                 {
-                    (this.props.error) ?
-                        <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> :
-                        <TicketQueryList
-                            onChangeOrderBy={this.onChangeOrderBy.bind(this)} />
+                    error ?
+                        <Message showCloseButton={false} type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> :
+                        <TicketQueryList onChangeOrderBy={this.onChangeOrderBy.bind(this)} />
                 }
             </div>
         );

@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/edit-title Edit title of a ticket
- * @apiVersion 4.10.0
+ * @apiVersion 4.11.0
  *
  * @apiName Edit title
  *
@@ -34,7 +34,7 @@ class EditTitleController extends Controller {
             'permission' => 'user',
             'requestData' => [
                 'title' => [
-                    'validation' => DataValidator::notBlank()->length(1, 200),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_TITLE, LengthConfig::MAX_LENGTH_TITLE),
                     'error' => ERRORS::INVALID_TITLE
                 ],
                 'ticketNumber' => [

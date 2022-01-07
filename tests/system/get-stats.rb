@@ -2,12 +2,12 @@ describe '/system/get-stats/' do
     Scripts.createUser('statsuser@os4.com', 'StatsUser', 'StatsUser')
 
     def asUser()
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('statsuser@os4.com', 'StatsUser')
     end
 
     def asStaff()
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
     end
 

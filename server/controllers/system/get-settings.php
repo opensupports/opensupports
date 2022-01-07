@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /system/get-settings Get settings
- * @apiVersion 4.10.0
+ * @apiVersion 4.11.0
  *
  * @apiName Get settings
  *

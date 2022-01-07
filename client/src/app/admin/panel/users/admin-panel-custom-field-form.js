@@ -21,16 +21,16 @@ class AdminPanelCustomFieldForm extends React.Component {
     state = {
         loading: false,
         error: null,
-        addForm: {},
+        addForm: {
+            name: "",
+            description: ""
+        },
         addFormOptions: [],
+        showErrorMessage: true
     };
 
     render() {
-        const {
-            loading,
-            addForm,
-            error
-        } = this.state;
+        const { loading, addForm, error } = this.state;
 
         return (
             <div className="admin-panel-custom-field-form">
@@ -59,9 +59,11 @@ class AdminPanelCustomFieldForm extends React.Component {
     }
 
     renderErrorMessage() {
+        const { error, showErrorMessage } = this.state;
+
         return (
-            <Message type="error">
-                {this.state.error}
+            <Message showMessage={showErrorMessage} onCloseMessage={this.onCloseMessage.bind(this, "showErrorMessage")} type="error">
+                {error}
             </Message>
         );
     }
@@ -83,6 +85,12 @@ class AdminPanelCustomFieldForm extends React.Component {
                 <Button className="admin-panel-custom-field-form__option-delete-button" size="medium" iconName="times" onClick={this.onDeleteOptionClick.bind(this, index)}/>
             </div>
         );
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
+        });
     }
 
     onAddOptionClick(event) {
@@ -127,7 +135,7 @@ class AdminPanelCustomFieldForm extends React.Component {
             this.setState({loading: false, message: null});
             if(this.props.onChange) this.props.onChange();
         })
-        .catch(result => this.setState({loading: false, error: result.message}));
+        .catch(result => this.setState({loading: false, error: result.message, showErrorMessage: true}));
     }
 }
 

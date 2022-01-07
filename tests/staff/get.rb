@@ -1,5 +1,5 @@
 describe '/staff/get/' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should return staff member data' do
@@ -11,7 +11,7 @@ describe '/staff/get/' do
         (result['status']).should.equal('success')
         (result['data']['name']).should.equal('Emilia Clarke')
         (result['data']['staff']).should.equal(true)
-        (result['data']['email']).should.equal('staff@opensupports.com')
+        (result['data']['email']).should.equal($staff[:email])
         (result['data']['level']).should.equal('3')
         (result['data']['sendEmailOnNewTicket']).should.equal('1')
     end

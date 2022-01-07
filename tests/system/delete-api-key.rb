@@ -1,5 +1,5 @@
 describe'system/delete-api-key' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         it 'should not delete API key' do

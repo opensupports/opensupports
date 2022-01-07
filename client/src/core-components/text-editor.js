@@ -2,11 +2,12 @@ import React from 'react';
 import classNames from 'classnames';
 import ReactQuill, { Quill } from 'react-quill';
 import ImageResize from 'quill-image-resize-module-react';
-
+import MagicUrl from 'quill-magic-url';
 import {isIE} from 'lib-core/navigator';
 import Base64ImageParser from 'lib-core/base64-image-parser';
 
 Quill.register('modules/ImageResize', ImageResize);
+Quill.register('modules/magicUrl', MagicUrl)
 
 class TextEditor extends React.Component {
     static propTypes = {
@@ -113,6 +114,7 @@ class TextEditor extends React.Component {
                 ],
             },
             ImageResize: {parchment: Quill.import('parchment')},
+            magicUrl: true
         };
     }
 

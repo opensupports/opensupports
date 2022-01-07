@@ -1,5 +1,5 @@
 describe '/ticket/get-authors/' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
     Scripts.createUser('userauthor@os4.com', 'passwordofuserauthor', 'userauthorname')    
     
@@ -80,7 +80,7 @@ describe '/ticket/get-authors/' do
     end
 
     it 'should succed if you try to get a staff' do
-        staffauthor = $database.getRow('staff', 'staff@opensupports.com', 'email')
+        staffauthor = $database.getRow('staff', $staff[:email], 'email')
         authorsstring = '[{"isStaff":1,"id":'
         authorsstring.concat(staffauthor['id'].to_s)
         authorsstring.concat('}]')
@@ -98,7 +98,7 @@ describe '/ticket/get-authors/' do
     end
     it 'should succed if you try to get a staff and a user' do
         userauthor = $database.getRow('user', 'userauthor@os4.com', 'email')
-        staffauthor = $database.getRow('staff', 'staff@opensupports.com', 'email')
+        staffauthor = $database.getRow('staff', $staff[:email], 'email')
         authorsstring = '[{"isStaff":1,"id":'
         authorsstring.concat(staffauthor['id'].to_s)
         authorsstring.concat('},{"isStaff":0,"id":')
@@ -121,7 +121,7 @@ describe '/ticket/get-authors/' do
 
     end
     it 'should succed if you try to get a author without duplicate' do
-        staffauthor = $database.getRow('staff', 'staff@opensupports.com', 'email')
+        staffauthor = $database.getRow('staff', $staff[:email], 'email')
         authorsstring = '[{"isStaff":1,"id":'
         authorsstring.concat(staffauthor['id'].to_s)
         authorsstring.concat('},{"isStaff":1,"id":')

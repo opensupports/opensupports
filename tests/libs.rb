@@ -53,7 +53,7 @@ class Database
     end
 
     def query(query_string)
-        return @connection.query(query_string);
+        return @connection.query(query_string)
     end
 end
 
@@ -153,6 +153,6 @@ $database = Database.new
 # $mail_server.check
 
 $staff = {
-    :email => 'staff@opensupports.com',
-    :password => 'staff'
+    :email => 'admin@opensupports.com',
+    :password => 'admin22'
 }

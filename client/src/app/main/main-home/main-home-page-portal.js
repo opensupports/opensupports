@@ -15,19 +15,20 @@ class MainHomePagePortal extends React.Component {
         type: React.PropTypes.oneOf(['default', 'complete'])
     };
 
+    state = {
+        showMessage: !!queryString.parse(window.location.search)["message"]
+    };
+
     render() {
-
-        const currentSearchParams = queryString.parse(window.location.search) || {};
-
         return (
-            <div className="">
-                {
-                    currentSearchParams["message"] ?
-                        <Message className="dashboard-create-ticket-page__message" type="success">
-                            {i18n('TICKET_NUMBER_SENT')}
-                        </Message> :
-                        null
-                }
+            <div className="main-home-page-portal__message">
+                <Message
+                    showMessage={this.state.showMessage}
+                    onCloseMessage={this.onCloseMessage.bind(this)}
+                    className="dashboard-create-ticket-page__message"
+                    type="success">
+                        {i18n('TICKET_NUMBER_SENT')}
+                </Message>
                 <Widget className={classNames('main-home-page-portal', this.props.className)}>
                     <div className="main-home-page-portal__title">
                         <Header title={this.props.title || i18n('SUPPORT_CENTER')} description={i18n('SUPPORT_CENTER_DESCRIPTION')} />
@@ -88,6 +89,12 @@ class MainHomePagePortal extends React.Component {
             buttonText: (this.props.type === 'complete') ? i18n('CHECK_TICKET') : null,
             onButtonClick: () => history.push('/check-ticket')
         };
+    }
+
+    onCloseMessage() {
+        this.setState({
+            showMessage: false
+        });
     }
 }
 

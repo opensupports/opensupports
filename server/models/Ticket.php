@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Ticket Ticket
- * @apiVersion 4.10.0
+ * @apiVersion 4.11.0
  * @apiGroup Data Structures
  * @apiParam {Number}  ticketNumber The number of the ticket.
  * @apiParam {String}  title The title of the ticket.
@@ -232,5 +232,24 @@ class Ticket extends DataStore {
 
     public function isOwner($user) {
         return !$user->isNull() && $this->owner && $user->id == $this->owner->id && ($user instanceof Staff);
+    }
+
+    public function getEventsOfType($type) {
+        $ticketEvents = $this->eventsToArray();
+        $filteredEventsList = [];
+
+        foreach($ticketEvents as $ticketEvent) {
+            if($ticketEvent['type'] == $type) {
+                array_push($filteredEventsList, $ticketEvent);
+            }
+        }
+
+        return $filteredEventsList;
+    }
+
+    public function getLatestEventOfType($type) {
+        $filteredEventsList = $this->getEventsOfType($type);
+
+        return end($filteredEventsList);
     }
 }

@@ -1,5 +1,5 @@
 describe 'Article path' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
     topic = request('/article/add-topic', {
         name: 'Server management',
@@ -140,7 +140,7 @@ describe 'Article path' do
 
     end
     it 'should retrieve public departments' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('tyrion@opensupports.com', 'tyrionl')
 
         result = request('/article/get-all', {

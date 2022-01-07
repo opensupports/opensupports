@@ -5,7 +5,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/search-authors search authors of tickets
- * @apiVersion 4.7
+ * @apiVersion 4.11.0
  *
  * @apiName Search authors
  *

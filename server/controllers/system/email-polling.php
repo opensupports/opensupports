@@ -12,7 +12,7 @@ class EmailPollingController extends Controller {
             'permission' => 'any',
             'requestData' => [
                 'token' => [
-                    'validation' => DataValidator::notBlank()->length(1, 200),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_TOKEN, LengthConfig::MAX_LENGTH_TOKEN),
                     'error' => ERRORS::INVALID_TOKEN
                 ]
             ]

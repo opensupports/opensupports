@@ -1,5 +1,5 @@
 describe 'Custom fields' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     describe '/system/add-custom-field' do
@@ -8,7 +8,7 @@ describe 'Custom fields' do
             result = request('/system/add-custom-field', {
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
-                name: 'A',
+                name: '',
                 type: 'text',
                 description: 'custom field description',
                 options: nil
@@ -21,7 +21,7 @@ describe 'Custom fields' do
 
         it 'should fail if the name is to long' do
             long_text = ''
-            101.times {long_text << 'A'}
+            201.times {long_text << 'A'}
 
             result = request('/system/add-custom-field', {
                 csrf_userid: $csrf_userid,

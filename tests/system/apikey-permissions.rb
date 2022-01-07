@@ -1,5 +1,5 @@
 describe '/system/apikey-permissions' do
-    request('/user/logout')
+    Scripts.logout()
    
     Scripts.login($staff[:email], $staff[:password], true)
     
@@ -11,14 +11,14 @@ describe '/system/apikey-permissions' do
     request('/system/disable-mandatory-login', {
             "csrf_userid" => $csrf_userid,
             "csrf_token" => $csrf_token,
-            "password" => "staff"
+            "password" => $staff[:password]
     })
     request('/system/edit-settings', {
         "csrf_userid" => $csrf_userid,
         "csrf_token" => $csrf_token,
         "recaptcha-private" => "THISISVALID"
     })
-    request('/user/logout')
+    Scripts.logout()
 
     it 'should fail ticket create if the apikey does not have create ticket permission' do
         result = request('/ticket/create', {
@@ -148,7 +148,7 @@ describe '/system/apikey-permissions' do
 
     it 'should fail signing up user if the apikey permission is wrong' do
         
-        request('/user/logout')            
+        Scripts.logout()            
         result = request('/user/signup', {
             name: 'Petyr Baelish',
             email: 'littlefinger@got.com',
@@ -200,6 +200,6 @@ describe '/system/apikey-permissions' do
             "csrf_token" => $csrf_token,
             "recaptcha-private" => ""
         })
-        request('/user/logout')
+        Scripts.logout()
     end
 end

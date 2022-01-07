@@ -1,5 +1,5 @@
 describe'system/add-api-key' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should add API key' do
@@ -34,7 +34,7 @@ describe'system/add-api-key' do
         result= request('/system/add-api-key', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
-            name: 'A',
+            name: '',
         })
 
         (result['status']).should.equal('fail')
@@ -43,7 +43,7 @@ describe'system/add-api-key' do
         result= request('/system/add-api-key', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
-            name: 'APIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAME',
+            name: 'APIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAME',
         })
 
         (result['status']).should.equal('fail')

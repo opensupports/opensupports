@@ -14,19 +14,19 @@ describe'system/mandatory-login' do
             (result['message']).should.equal('NO_PERMISSION')
         end
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         
         it 'should fail trying to disable mandatory login when registration is off' do
             request('/system/disable-registration', {
                 "csrf_userid" => $csrf_userid,
                 "csrf_token" => $csrf_token,
-                "password" => "staff"
+                "password" => $staff[:password]
             })
             result = request('/system/disable-mandatory-login', {
                 "csrf_userid" => $csrf_userid,
                 "csrf_token" => $csrf_token,
-                "password" => "staff"
+                "password" => $staff[:password]
             })
 
             (result['status']).should.equal('fail')
@@ -38,7 +38,7 @@ describe'system/mandatory-login' do
             request('/system/enable-registration', {
                 "csrf_userid" => $csrf_userid,
                 "csrf_token" => $csrf_token,
-                "password" => "staff"
+                "password" => $staff[:password]
             })
         end 
 
@@ -59,7 +59,7 @@ describe'system/mandatory-login' do
             result = request('/system/disable-mandatory-login', {
                 "csrf_userid" => $csrf_userid,
                 "csrf_token" => $csrf_token,
-                "password" => "staff"
+                "password" => $staff[:password]
             })
 
             (result['status']).should.equal('success')
@@ -73,7 +73,7 @@ describe'system/mandatory-login' do
             result = request('/system/disable-registration', {
                 "csrf_userid" => $csrf_userid,
                 "csrf_token" => $csrf_token,
-                "password" => "staff"
+                "password" => $staff[:password]
             })
 
             (result['status']).should.equal('fail')
@@ -98,7 +98,7 @@ describe'system/mandatory-login' do
         end
         
         it 'should allow a creator creates a ticket and create him a user' do
-            request('/user/logout')
+            Scripts.logout()
             result = request('/ticket/create', {
                 email: 'nonuser@os4.com',
                 language: 'en',
@@ -205,6 +205,15 @@ describe'system/mandatory-login' do
             })
             (result['status']).should.equal('success')
 
+            result = request('/ticket/edit-comment', {
+                csrf_token: $sessionToken,
+                csrf_userid: $sessionId,
+                ticketNumber:  $sessionTicketNumber,
+                ticketEventId: 0,
+                content: 'this is the first edited-comment without login'
+            })
+            (result['status']).should.equal('success')
+
             result = request('/ticket/comment', {
                 csrf_token: $sessionToken,
                 csrf_userid: $sessionId,
@@ -218,15 +227,6 @@ describe'system/mandatory-login' do
                 csrf_userid: $sessionId,
                 ticketNumber:  $sessionTicketNumber,
                 content: 'this is the second comment without login'
-            })
-            (result['status']).should.equal('success')
-
-            result = request('/ticket/edit-comment', {
-                csrf_token: $sessionToken,
-                csrf_userid: $sessionId,
-                ticketNumber:  $sessionTicketNumber,
-                ticketEventId: 0,
-                content: 'this is the first edited-comment without login'
             })
             (result['status']).should.equal('success')
 
@@ -283,7 +283,7 @@ describe'system/mandatory-login' do
             (result['status']).should.equal('fail')
             (result['message']).should.equal('INVALID_CREDENTIALS')
 
-            request('/user/logout')
+            Scripts.logout()
 
             result = request('/user/login', {
                 email: 'nonuser@os4.com'
@@ -294,7 +294,7 @@ describe'system/mandatory-login' do
         end
         
         it 'should allow the creator sign up' do
-            request('/user/logout')
+            Scripts.logout()
             Scripts.createUser('nonuser@os4.com', 'customPassword', 'nonuser')
             $userRow = $database.getRow('user','nonuser@os4.com','email')
             ($userRow['never_logged']).should.equal(nil)
@@ -302,7 +302,7 @@ describe'system/mandatory-login' do
         end
 
         it 'should allow the creator login and get more than 1 own ticket' do
-            request('/user/logout')
+            Scripts.logout()
             result = request('/user/login', {
                 email: 'nonuser@os4.com',
                 password: 'customPassword'
@@ -338,7 +338,7 @@ describe'system/mandatory-login' do
             (result['status']).should.equal('success')
         end
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         it 'should allow staff enable the mandatory login' do
@@ -358,7 +358,7 @@ describe'system/mandatory-login' do
             result = request('/system/enable-mandatory-login', {
                 "csrf_userid" => $csrf_userid,
                 "csrf_token" => $csrf_token,
-                "password" => "staff"
+                "password" => $staff[:password]
             })
 
             (result['status']).should.equal('success')

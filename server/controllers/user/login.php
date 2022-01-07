@@ -1,9 +1,11 @@
 <?php
 use RedBeanPHP\Facade as RedBean;
+use Respect\Validation\Validator as DataValidator;
+DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/login Login
- * @apiVersion 4.10.0
+ * @apiVersion 4.11.0
  *
  * @apiName Login
  *
@@ -41,10 +43,19 @@ class LoginController extends Controller {
     private $rememberExpiration;
 
     public function validations() {
-        return [
+        $validations = [
             'permission' => 'any',
             'requestData' => []
         ];
+
+        $validations['requestData']['captcha'] = [
+
+            'validation' => DataValidator::oneOf(DataValidator::captcha(),DataValidator::nullType()),
+            'error' => ERRORS::INVALID_CAPTCHA
+        ];
+
+        return $validations;
+
     }
 
     public function handler() {

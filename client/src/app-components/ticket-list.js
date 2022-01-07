@@ -15,6 +15,7 @@ import Checkbox from 'core-components/checkbox';
 import Tag from 'core-components/tag';
 import Icon from 'core-components/icon';
 import Message from 'core-components/message';
+import history from 'lib-app/history';
 
 class TicketList extends React.Component {
     static propTypes = {
@@ -90,9 +91,23 @@ class TicketList extends React.Component {
     renderMessage() {
         switch (queryString.parse(window.location.search)["message"]) {
             case 'success':
-                return <Message className="create-ticket-form__message" type="success">{i18n('TICKET_SENT')}</Message>
+                return (
+                    <Message
+                        onCloseMessage={this.onCloseMessage}
+                        className="create-ticket-form__message"
+                        type="success">
+                            {i18n('TICKET_SENT')}
+                    </Message>
+                );
             case 'fail':
-                return <Message className="create-ticket-form__message" type="error">{i18n('TICKET_SENT_ERROR')}</Message>;
+                return (
+                    <Message
+                        onCloseMessage={this.onCloseMessage}
+                        className="create-ticket-form__message"
+                        type="error">
+                            {i18n('TICKET_SENT_ERROR')}
+                    </Message>
+                );
             default:
                 return null;
         }
@@ -226,7 +241,7 @@ class TicketList extends React.Component {
     }
 
     getTableRows() {
-        return this.getTickets().map(this.gerTicketTableObject.bind(this));
+        return this.getTickets().map(this.getTicketTableObject.bind(this));
     }
 
     getTickets() {
@@ -240,7 +255,7 @@ class TicketList extends React.Component {
         );
     }
 
-    gerTicketTableObject(ticket) {
+    getTicketTableObject(ticket) {
         const { date, title, ticketNumber, closed, tags, department, author } = ticket;
         const dateTodayWithOutHoursAndMinutes = DateTransformer.getDateToday();
         const ticketDateWithOutHoursAndMinutes = Math.floor(DateTransformer.UTCDateToLocalNumericDate(JSON.stringify(date*1)) / 10000);
@@ -248,7 +263,7 @@ class TicketList extends React.Component {
         const ticketDate = (
             ((dateTodayWithOutHoursAndMinutes - ticketDateWithOutHoursAndMinutes) > 1) ?
                 stringTicketLocalDateFormat :
-                `${(dateTodayWithOutHoursAndMinutes - ticketDateWithOutHoursAndMinutes) ? "Yesterday" : "Today"} at ${stringTicketLocalDateFormat.slice(-5)}`
+                `${(dateTodayWithOutHoursAndMinutes - ticketDateWithOutHoursAndMinutes) ? i18n("YESTERDAY_AT") : i18n("TODAY_AT")} ${stringTicketLocalDateFormat.slice(-5)}`
         );
         let titleText = (this.isTicketUnread(ticket)) ? title + ' (1)' : title;
 
@@ -292,6 +307,10 @@ class TicketList extends React.Component {
                 return unreadStaff;
             }
         }
+    }
+
+    onCloseMessage() {
+        history.push(window.location.pathname);
     }
 }
 

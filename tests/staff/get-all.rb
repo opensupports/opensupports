@@ -1,5 +1,5 @@
 describe'/staff/get-all' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should get all staff member' do
@@ -15,7 +15,7 @@ describe'/staff/get-all' do
         end
 
         (result['data'][0]['name']).should.equal('Emilia Clarke')
-        (result['data'][0]['email']).should.equal('staff@opensupports.com')
+        (result['data'][0]['email']).should.equal($staff[:email])
         (result['data'][0]['profilePic']).should.equal('')
         (result['data'][0]['level']).should.equal('3')
         (result['data'][0]['departments'][0]['id']).should.equal('1')

@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /system/disable-mandatory-login Disable mandatory Login
- * @apiVersion 4.10.0
+ * @apiVersion 4.11.0
  *
  * @apiName Disable Mandatory Login
  *

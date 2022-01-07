@@ -5,7 +5,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/signup Sign up
- * @apiVersion 4.10.0
+ * @apiVersion 4.11.0
  *
  * @apiName Sign up
  *
@@ -56,7 +56,7 @@ class SignUpController extends Controller {
             'permission' => 'any',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::notBlank()->length(2, 55),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
                     'error' => ERRORS::INVALID_NAME
                 ],
                 'email' => [
@@ -64,7 +64,7 @@ class SignUpController extends Controller {
                     'error' => ERRORS::INVALID_EMAIL
                 ],
                 'password' => [
-                    'validation' => DataValidator::notBlank()->length(5, 200),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_PASSWORD, LengthConfig::MAX_LENGTH_PASSWORD),
                     'error' => ERRORS::INVALID_PASSWORD
                 ]
             ]

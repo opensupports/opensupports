@@ -33,6 +33,8 @@ class DashboardEditProfilePage extends React.Component {
         customFields: [],
         customFieldsFrom: {},
         loadingCustomFields: false,
+        showChangeEmailMessage: true,
+        showChangePasswordMessage: true
     };
 
     componentDidMount() {
@@ -115,12 +117,7 @@ class DashboardEditProfilePage extends React.Component {
     }
 
     renderCustomField(customField, key) {
-        const {
-            type,
-            name,
-            description,
-            options
-        } = customField;
+        const { type, name, description, options } = customField;
 
         if(type === 'text') {
             return (
@@ -140,22 +137,58 @@ class DashboardEditProfilePage extends React.Component {
     }
 
     renderMessageEmail() {
-        switch (this.state.messageEmail) {
+        const { messageEmail, showChangeEmailMessage } = this.state;
+
+        switch (messageEmail) {
             case 'success':
-                return <Message className="edit-profile-page__message" type="success">{i18n('EMAIL_CHANGED')}</Message>;
+                return (
+                    <Message
+                        showMessage={showChangeEmailMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showChangeEmailMessage")}
+                        className="edit-profile-page__message"
+                        type="success">
+                            {i18n('EMAIL_CHANGED')}
+                    </Message>
+                );
             case 'fail':
-                return <Message className="edit-profile-page__message" type="error">{i18n('EMAIL_EXISTS')}</Message>;
+                return (
+                    <Message
+                        showMessage={showChangeEmailMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showChangeEmailMessage")}
+                        className="edit-profile-page__message"
+                        type="error">
+                            {i18n('EMAIL_EXISTS')}
+                    </Message>
+                );
             default:
                 return null;
         }
     }
 
     renderMessagePass() {
-        switch (this.state.messagePass) {
+        const { messagePass, showChangePasswordMessage } = this.state;
+
+        switch (messagePass) {
             case 'success':
-                return <Message className="edit-profile-page__message" type="success">{i18n('PASSWORD_CHANGED')}</Message>;
+                return (
+                    <Message
+                        showMessage={showChangePasswordMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showChangePasswordMessage")}
+                        className="edit-profile-page__message"
+                        type="success">
+                            {i18n('PASSWORD_CHANGED')}
+                    </Message>
+                );
             case 'fail':
-                return <Message className="edit-profile-page__message" type="error">{i18n('OLD_PASSWORD_INCORRECT')}</Message>;
+                return (
+                    <Message
+                        showMessage={showChangePasswordMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showChangePasswordMessage")}
+                        className="edit-profile-page__message"
+                        type="error">
+                            {i18n('OLD_PASSWORD_INCORRECT')}
+                    </Message>
+                );
             default:
                 return null;
         }
@@ -213,12 +246,14 @@ class DashboardEditProfilePage extends React.Component {
         }).then(function () {
             this.setState({
                 loadingEmail: false,
-                messageEmail: "success"
+                messageEmail: "success",
+                showChangeEmailMessage: true
             });
         }.bind(this)).catch(function (){
             this.setState({
                 loadingEmail: false,
-                messageEmail: 'fail'
+                messageEmail: 'fail',
+                showChangeEmailMessage: true
             })
         }.bind(this));
     }
@@ -237,12 +272,14 @@ class DashboardEditProfilePage extends React.Component {
         }).then(function () {
             this.setState({
                 loadingPass: false,
-                messagePass: "success"
+                messagePass: "success",
+                showChangePasswordMessage: true
             });
         }.bind(this)).catch(function (){
             this.setState({
                 loadingPass: false,
-                messagePass: 'fail'
+                messagePass: 'fail',
+                showChangePasswordMessage: true
             })
         }.bind(this));
     }
@@ -275,6 +312,12 @@ class DashboardEditProfilePage extends React.Component {
                 customFields: result.data,
                 customFieldsFrom,
             });
+        });
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
         });
     }
 }
