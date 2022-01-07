@@ -67,7 +67,6 @@ class AdminPanelViewArticle extends React.Component {
             <div className="admin-panel-view-article__content">
                 <div className="admin-panel-view-article__article">
                     <Header title={article.title}/>
-
                     <div className="admin-panel-view-article__article-content ql-editor">
                         <div dangerouslySetInnerHTML={{__html: MentionsParser.parse(article.content)}}/>
                     </div>
