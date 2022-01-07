@@ -15,7 +15,7 @@
         "willdurand/email-reply-parser": "^2.8",
         "ext-fileinfo": "*",
         "predis/predis": "^1.1",
-        "php": "^7.4"
+        "php": "^7.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7",
