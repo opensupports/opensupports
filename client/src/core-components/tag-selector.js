@@ -18,7 +18,7 @@ class TagSelector extends React.Component {
 
     render() {
         const items = this.props.items.map(tag => ({...tag, content: this.renderTagOption(tag)}));
-        const values = items.filter(item => _.includes(this.props.values, item.name));
+        const values = this.props.values.map((tagName) => items.find(_tag => (_tag.name === tagName)));
 
         return (
             <div className="tag-selector">
