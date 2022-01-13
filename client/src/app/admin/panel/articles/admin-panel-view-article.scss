@@ -7,14 +7,15 @@
     &__edit-buttons {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
         align-items: center;
         width: 200px;
         margin-bottom: 20px;
     }
 
-    &__edit-button {
-        margin-right: 20px;
+    &__edit-icon {
+        color: $grey;
+        cursor: pointer;
+        margin-left: 15px;
     }
 
     &__last-edited {

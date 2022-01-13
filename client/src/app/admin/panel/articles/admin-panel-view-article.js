@@ -18,6 +18,7 @@ import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
 import TextEditor from 'core-components/text-editor';
+import Icon from 'core-components/icon';
 
 class AdminPanelViewArticle extends React.Component {
 
@@ -65,6 +66,14 @@ class AdminPanelViewArticle extends React.Component {
     renderArticlePreview(article) {
         return (
             <div className="admin-panel-view-article__content">
+                 <div className="admin-panel-view-article__edit-buttons">
+                    <span onClick={this.onEditClick.bind(this, article)}>
+                        <Icon className="admin-panel-view-article__edit-icon" name="pencil" />
+                    </span>
+                    <span onClick={this.onDeleteClick.bind(this, article)} >
+                        <Icon className="admin-panel-view-article__edit-icon" name="trash" />
+                    </span>
+                </div>
                 <div className="admin-panel-view-article__article">
                     <Header title={article.title}/>
                     <div className="admin-panel-view-article__article-content ql-editor">
@@ -73,14 +82,6 @@ class AdminPanelViewArticle extends React.Component {
                     <div className="admin-panel-view-article__last-edited">
                         {i18n('LAST_EDITED_IN', {date: DateTransformer.transformToString(article.lastEdited)})}
                     </div>
-                </div>
-                <div className="admin-panel-view-article__edit-buttons">
-                    <Button size="medium" onClick={this.onDeleteClick.bind(this, article)}>
-                        {i18n('DELETE')}
-                    </Button>
-                    <Button className="admin-panel-view-article__edit-button" size="medium" onClick={this.onEditClick.bind(this, article)} type="tertiary">
-                        {i18n('EDIT')}
-                    </Button>
                 </div>
             </div>
         );
