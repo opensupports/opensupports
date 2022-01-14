@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/delete Delete a ticket
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  *
  * @apiName Delete ticket
  *
@@ -20,7 +20,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_TICKET
  *
  * @apiSuccess {Object} data Empty object
- *ulp d
+ *
  */
 
 class DeleteController extends Controller {
@@ -54,6 +54,12 @@ class DeleteController extends Controller {
 
         if(!Controller::isStaffLogged() && ($user->email !== $ticketAuthor['email'] || $ticketAuthor['staff'])) {
             throw new RequestException(ERRORS::NO_PERMISSION);
+        }
+        
+        if($ticket->author){
+            $ticketAuthor = User::getUser($ticket->authorToArray()['id']);
+            $ticketAuthor->tickets--;
+            $ticketAuthor->store();
         }
 
         $ticket->delete();

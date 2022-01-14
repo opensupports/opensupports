@@ -1,5 +1,5 @@
 describe '/ticket/create-tag' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should add a tag' do
@@ -41,7 +41,7 @@ describe '/ticket/create-tag' do
         result = request('/ticket/create-tag', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
-            name: 'T',
+            name: '',
             color: '#0000ff'
         })
 
@@ -49,7 +49,7 @@ describe '/ticket/create-tag' do
         (result['message']).should.equal('INVALID_NAME')
 
         long_text = ''
-        200.times {long_text << 'a'}
+        201.times {long_text << 'a'}
 
         result = request('/ticket/create-tag', {
             csrf_userid: $csrf_userid,

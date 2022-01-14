@@ -38,6 +38,7 @@ const timeout = function (f, t) {
 };
 
 const searchApi = spy((query, blacklist = []) => {
+    blacklist = blacklist.map(item => {return item.id});
     const data = countries.filter(x => !_.includes(blacklist, x.id));
 
     return new Promise((res,rej) => {
@@ -69,7 +70,7 @@ describe('Autocomplete component with external api', function () {
         });
 
         it('should open menu with list', function() {
-            expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
+            expect(searchApi).to.have.been.calledWith("", selectedList);
             expect(selectedList.length).to.equal(0);
 
             autocompleteInput.value = "ho";
@@ -81,7 +82,7 @@ describe('Autocomplete component with external api', function () {
         });
 
         it('should select item if enter is pressed', function() {
-            expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
+            expect(searchApi).to.have.been.calledWith("", selectedList);
             expect(selectedList.length).to.equal(0);
 
             autocompleteInput.value = "argentina";
@@ -92,7 +93,7 @@ describe('Autocomplete component with external api', function () {
 
             return timeout(function() {
                 expect(autocompleteDropdown.props.loading).to.equal(false);
-                expect(searchApi).to.have.been.calledWith("argentina", selectedList.map(item => item.id));
+                expect(searchApi).to.have.been.calledWith("argentina", selectedList);
                 expect(autocompleteDropdown.props.items.length).to.equal(1);
                 expect(autocompleteDropdown.props.items[0].name).to.equal("argentina");
                 expect(autocompleteDropdown.props.items[0].id).to.equal(10);
@@ -101,15 +102,14 @@ describe('Autocomplete component with external api', function () {
                 autocompleteDropdown.props.onChange({index: 0});
 
                 expect(autocompleteDropdown.props.opened).to.equal(false);
-                expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
                 expect(selectedList.length).to.equal(1);
                 expect(selectedList[0].name).to.equal("argentina");
                 expect(selectedList[0].id).to.equal(10);
-            }, 360);
+            }, 400);
         });
 
         it('should sinc', function() {
-            expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
+            expect(searchApi).to.have.been.calledWith("", selectedList);
             expect(selectedList.length).to.equal(0);
 
             autocompleteInput.value = "brazilq";
@@ -120,7 +120,7 @@ describe('Autocomplete component with external api', function () {
 
             return timeout(function() {
                 expect(autocompleteDropdown.props.loading).to.equal(true);
-                expect(searchApi).to.have.not.been.calledWith("brazil", selectedList.map(item => item.id));
+                expect(searchApi).to.have.not.been.calledWith("brazil", selectedList);
                 expect(selectedList.length).to.equal(0);
 
                 autocompleteInput.value = "brazil";
@@ -131,7 +131,7 @@ describe('Autocomplete component with external api', function () {
 
                 return timeout(function() {
                     expect(autocompleteDropdown.props.loading).to.equal(false);
-                    expect(searchApi).to.have.been.calledWith("brazil", selectedList.map(item => item.id));
+                    expect(searchApi).to.have.been.calledWith("brazil", selectedList);
                     expect(autocompleteDropdown.props.items.length).to.equal(1);
                     expect(autocompleteDropdown.props.items[0].name).to.equal("brazil");
                     expect(autocompleteDropdown.props.items[0].id).to.equal(30);
@@ -139,8 +139,6 @@ describe('Autocomplete component with external api', function () {
 
                     autocompleteDropdown.props.onChange({index: 0});
 
-                    expect(autocompleteDropdown.props.opened).to.equal(false);
-                    expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
                     expect(autocompleteDropdown.props.opened).to.equal(false);
                     expect(selectedList.length).to.equal(1);
                     expect(selectedList[0].name).to.equal("brazil");
@@ -150,12 +148,12 @@ describe('Autocomplete component with external api', function () {
 
                     expect(autocompleteDropdown.props.opened).to.equal(true);
                     expect(autocompleteDropdown.props.items.length).to.equal(0); 
-                }, 360);
+                }, 400);
             }, 25);
         });
 
         it('should delete item if backspace is pressed and input value is ""', function() {
-            expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
+            expect(searchApi).to.have.been.calledWith("", selectedList);
             expect(selectedList.length).to.equal(0);
 
             autocompleteInput.value = "ang";
@@ -166,7 +164,7 @@ describe('Autocomplete component with external api', function () {
 
             return timeout(function() {
                 expect(autocompleteDropdown.props.loading).to.equal(false);
-                expect(searchApi).to.have.been.calledWith("ang", selectedList.map(item => item.id));
+                expect(searchApi).to.have.been.calledWith("ang", selectedList);
                 expect(autocompleteDropdown.props.items.length).to.equal(3);
                 expect(autocompleteDropdown.props.items[0].name).to.equal("angola");
                 expect(autocompleteDropdown.props.items[0].id).to.equal(6);
@@ -175,7 +173,6 @@ describe('Autocomplete component with external api', function () {
                 autocompleteDropdown.props.onChange({index: 0});
 
                 expect(autocompleteDropdown.props.opened).to.equal(false);
-                expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
                 expect(selectedList.length).to.equal(1);
                 expect(selectedList[0].name).to.equal("angola");
                 expect(selectedList[0].id).to.equal(6);
@@ -188,7 +185,7 @@ describe('Autocomplete component with external api', function () {
 
                 return timeout(function() {
                     expect(autocompleteDropdown.props.loading).to.equal(false);
-                    expect(searchApi).to.have.been.calledWith("ang", selectedList.map(item => item.id));
+                    expect(searchApi).to.have.been.calledWith("ang", selectedList);
                     expect(autocompleteDropdown.props.items.length).to.equal(2);
                     expect(autocompleteDropdown.props.items[0].name).to.equal("anguilla");
                     expect(autocompleteDropdown.props.items[0].id).to.equal(7);
@@ -197,7 +194,6 @@ describe('Autocomplete component with external api', function () {
                     autocompleteDropdown.props.onChange({index: 0});
 
                     expect(autocompleteDropdown.props.opened).to.equal(false);
-                    expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
                     expect(selectedList.length).to.equal(2);
                     expect(selectedList[0].name).to.equal("angola");
                     expect(selectedList[0].id).to.equal(6);
@@ -209,7 +205,7 @@ describe('Autocomplete component with external api', function () {
 
                     TestUtils.Simulate.keyDown(autocompleteInput, {key: 'backspace', keyCode: 8, which: 8});
 
-                    expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
+                    expect(searchApi).to.have.been.calledWith("", selectedList);
                     expect(selectedList.length).to.equal(1);
                     expect(selectedList[0].name).to.equal("angola");
                     expect(selectedList[0].id).to.equal(6);
@@ -222,18 +218,18 @@ describe('Autocomplete component with external api', function () {
 
                     return timeout(function() {
                         expect(autocompleteDropdown.props.loading).to.equal(false);
-                        expect(searchApi).to.have.been.calledWith("ang", selectedList.map(item => item.id));
+                        expect(searchApi).to.have.been.calledWith("ang", selectedList);
                         expect(autocompleteDropdown.props.items.length).to.equal(2);
                         expect(autocompleteDropdown.props.items[0].name).to.equal("anguilla");
                         expect(autocompleteDropdown.props.items[0].id).to.equal(7);
                         expect(selectedList.length).to.equal(1);
-                    }, 360);
-                },360);
-            }, 360);
+                    }, 400);
+                }, 400);
+            }, 400);
         });
 
         it("should delete item if click is pressed", function() {
-            expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
+            expect(searchApi).to.have.been.calledWith("", selectedList);
             expect(selectedList.length).to.equal(0);
 
             autocompleteInput.value = "ang";
@@ -244,14 +240,13 @@ describe('Autocomplete component with external api', function () {
 
             return timeout(function () {
                 expect(autocompleteDropdown.props.loading).to.equal(false);
-                expect(searchApi).to.have.been.calledWith("ang", selectedList.map(item => item.id));
+                expect(searchApi).to.have.been.calledWith("ang", selectedList);
                 expect(autocompleteDropdown.props.items.length).to.equal(3);
                 expect(selectedList.length).to.equal(0);
 
                 autocompleteDropdown.props.onChange({index: 0});
 
                 expect(autocompleteDropdown.props.opened).to.equal(false);
-                expect(searchApi).to.have.been.calledWith("", selectedList.map(item => item.id));
                 expect(selectedList.length).to.equal(1);
                 expect(selectedList[0].name).to.equal("angola");
                 expect(selectedList[0].id).to.equal(6);
@@ -269,13 +264,13 @@ describe('Autocomplete component with external api', function () {
 
                 return timeout(function () {
                     expect(autocompleteDropdown.props.loading).to.equal(false);
-                    expect(searchApi).to.have.been.calledWith("ang", selectedList.map(item => item.id));
+                    expect(searchApi).to.have.been.calledWith("ang", selectedList);
                     expect(autocompleteDropdown.props.items.length).to.equal(3);
                     expect(autocompleteDropdown.props.items[0].name).to.equal("angola");
                     expect(autocompleteDropdown.props.items[0].id).to.equal(6);
                     expect(selectedList.length).to.equal(0);
-                }, 360);
-            }, 360);
+                }, 400);
+            }, 400);
         });
     });
 

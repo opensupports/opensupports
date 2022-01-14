@@ -2,7 +2,7 @@
 
 /**
  * @api {post} /system/get-settings Get settings
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  *
  * @apiName Get settings
  *
@@ -38,7 +38,6 @@ class GetSettingsController extends Controller {
                     'language' => Setting::getSetting('language')->getValue(),
                     'reCaptchaKey' => Setting::getSetting('recaptcha-public')->getValue(),
                     'reCaptchaPrivate' => Setting::getSetting('recaptcha-private')->getValue(),
-                    'time-zone' => Setting::getSetting('time-zone')->getValue(),
                     'maintenance-mode' => intval(Setting::getSetting('maintenance-mode')->getValue()),
                     'layout' => Setting::getSetting('layout')->getValue(),
                     'allow-attachments' => intval(Setting::getSetting('allow-attachments')->getValue()),
@@ -57,13 +56,15 @@ class GetSettingsController extends Controller {
                     'allowedLanguages' => Language::getAllowedLanguages(),
                     'session-prefix' => Setting::getSetting('session-prefix')->getValue(),
                     'mail-template-header-image' => Setting::getSetting('mail-template-header-image')->getValue(),
-                    'tags' => Tag::getAll()->toArray()
+                    'tags' => Tag::getAll()->toArray(),
+                    'mandatory-login' => Setting::getSetting('mandatory-login')->getValue(),
+                    'default-department-id' => Setting::getSetting('default-department-id')->getValue(),
+                    'default-is-locked' => Setting::getSetting('default-is-locked')->getValue()
                 ];
             } else {
                 $settingsList = [
                     'language' => Setting::getSetting('language')->getValue(),
                     'reCaptchaKey' => Setting::getSetting('recaptcha-public')->getValue(),
-                    'time-zone' => Setting::getSetting('time-zone')->getValue(),
                     'maintenance-mode' => intval(Setting::getSetting('maintenance-mode')->getValue()),
                     'layout' => Setting::getSetting('layout')->getValue(),
                     'allow-attachments' => intval(Setting::getSetting('allow-attachments')->getValue()),
@@ -73,9 +74,11 @@ class GetSettingsController extends Controller {
                     'departments' => Controller::isStaffLogged() ? Department::getAllDepartmentNames() : Department::getPublicDepartmentNames(),
                     'supportedLanguages' => Language::getSupportedLanguages(),
                     'allowedLanguages' => Language::getAllowedLanguages(),
-                    'user-system-enabled' => intval(Setting::getSetting('user-system-enabled')->getValue()),
                     'session-prefix' => Setting::getSetting('session-prefix')->getValue(),
-                    'tags' => Tag::getAll()->toArray()
+                    'tags' => Tag::getAll()->toArray(),
+                    'mandatory-login' => Setting::getSetting('mandatory-login')->getValue(),
+                    'default-department-id' => Setting::getSetting('default-department-id')->getValue(),
+                    'default-is-locked' => Setting::getSetting('default-is-locked')->getValue()
                 ];
             }
         }

@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /staff/get Get staff
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  *
  * @apiName Get staff
  *
@@ -25,7 +25,6 @@ DataValidator::with('CustomValidations', true);
  * @apiSuccess {Number} data.level Level of staff member
  * @apiSuccess {Boolean} data.staff Indicates that it is a staff (always true)
  * @apiSuccess {[Department](#api-Data_Structures-ObjectDepartment)[]} data.departments Array of departments that has assigned.
- * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data.tickets Array of tickets that has assigned.
  * @apiSuccess {Boolean} data.sendEmailOnNewTicket Indicates if this member receives a mail when a ticket is created.
  *
  */
@@ -69,7 +68,6 @@ class GetStaffController extends Controller {
             'level' => $user->level,
             'staff' => true,
             'departments' => $parsedDepartmentList,
-            'tickets' => $user->sharedTicketList->toArray(true),
             'sendEmailOnNewTicket' => $user->sendEmailOnNewTicket
         ]);
     }

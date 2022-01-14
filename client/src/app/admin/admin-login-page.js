@@ -16,6 +16,9 @@ import Message from 'core-components/message';
 import Widget from 'core-components/widget';
 import WidgetTransition from 'core-components/widget-transition';
 
+import Captcha          from 'app/main/captcha';
+
+const MAX_FREE_LOGIN_ATTEMPTS = 3;
 class AdminLoginPage extends React.Component {
 
     state = {
@@ -24,11 +27,14 @@ class AdminLoginPage extends React.Component {
         recoverFormErrors: {},
         recoverSent: false,
         loadingLogin: false,
-        loadingRecover: false
+        loadingRecover: false,
+        showRecoverSentMessage: true,
+        showEmailOrPassordErrorMessage: true
     };
 
     componentDidUpdate(prevProps) {
         if (!prevProps.session.failed && this.props.session.failed) {
+            this.setState({showEmailOrPassordErrorMessage : true});
             this.refs.loginForm.refs.password.focus();
         }
     }
@@ -49,11 +55,33 @@ class AdminLoginPage extends React.Component {
             <div>
                 <Widget className="admin-login-page__content">
                     <div className="admin-login-page__image"><img width="100%" src={API.getURL() + '/images/logo.png'} alt="OpenSupports Admin Panel"/></div>
-                    <div className="admin-login-page__login-form">
-                        <Form onSubmit={this.onLoginFormSubmit.bind(this)} loading={this.props.session.pending}>
-                            <FormField name="email" label={i18n('EMAIL')} field="input" validation="EMAIL" fieldProps={{size:'large'}} required />
-                            <FormField name="password" label={i18n('PASSWORD')} field="input" fieldProps={{password:true, size:'large'}} />
-                            <SubmitButton>{i18n('LOG_IN')}</SubmitButton>
+                    <div className="admin-login-page__login-form-container">
+                        <Form {...this.getLoginFormProps()}>
+                            <div className="admin-login-page__login-form-container__login-form__fields">
+                                <FormField
+                                    name="email"
+                                    label={i18n('EMAIL')}
+                                    className="admin-login-page__login-form-container__login-form__fields__email"
+                                    field="input"
+                                    validation="EMAIL"
+                                    fieldProps={{size:'large'}}
+                                    required />
+                                <FormField
+                                    name="password"
+                                    label={i18n('PASSWORD')}
+                                    className="admin-login-page__login-form-container__login-form__fields__password"
+                                    field="input"
+                                    fieldProps={{password:true, size:'large'}} />
+                                <FormField
+                                    name="remember"
+                                    label={i18n('REMEMBER_ME')}
+                                    className="admin-login-page__login-form-container__login-form__fields__remember"
+                                    field="checkbox" />
+                            </div>
+                            {this.props.session.loginAttempts > MAX_FREE_LOGIN_ATTEMPTS ? this.renderLoginCaptcha() : null}
+                            <div className="admin-login-page__login-form-container__login-form__submit-button">
+                                <SubmitButton>{i18n('LOG_IN')}</SubmitButton>
+                            </div>
                         </Form>
                     </div>
                     {this.renderRecoverStatus()}
@@ -66,46 +94,57 @@ class AdminLoginPage extends React.Component {
         );
     }
 
+    renderLoginCaptcha() {
+        return(
+            <div className={`main-home-page__${this.props.sitekey ? "captcha" : "no-captcha"}`}>
+                <Captcha ref="captcha" />
+            </div>
+        )
+    }
+
     renderPasswordRecovery() {
         return (
-            <div>
+            <div className="admin-login-page__recovery-form-container">
                 <PasswordRecovery recoverSent={this.state.recoverSent} formProps={this.getRecoverFormProps()} onBackToLoginClick={this.onBackToLoginClick.bind(this)} renderLogo={true}/>
             </div>
         );
     }
 
     renderRecoverStatus() {
-        let status = null;
+        const { showRecoverSentMessage, recoverSent } = this.state;
 
-        if (this.state.recoverSent) {
-            status = (
-                <Message className="admin-login-page__message" type="info" leftAligned>
-                    {i18n('RECOVER_SENT')}
-                </Message>
-            );
-        }
-
-        return status;
+        return (
+            recoverSent ?
+                <Message
+                    showMessage={showRecoverSentMessage}
+                    onCloseMessage={this.onCloseMessage.bind(this, "showRecoverSentMessage")}
+                    className="admin-login-page__message"
+                    type="info"
+                    leftAligned>
+                        {i18n('RECOVER_SENT')}
+                </Message> :
+                null
+        );
     }
 
     renderErrorStatus() {
-        let status = null;
-
-        if (this.props.session.failed) {
-            status = (
-                <Message className="admin-login-page__error" type="error">
-                    {i18n('EMAIL_OR_PASSWORD')}
-                </Message>
-            );
-        }
-
-        return status;
+        return (
+            this.props.session.failed ?
+                <Message
+                    showMessage={this.state.showEmailOrPassordErrorMessage}
+                    onCloseMessage={this.onCloseMessage.bind(this, "showEmailOrPassordErrorMessage")}
+                    className="admin-login-page__error"
+                    type="error">
+                        {i18n('EMAIL_OR_PASSWORD')}
+                </Message> :
+                null
+        );
     }
 
     getLoginFormProps() {
         return {
             loading: this.props.session.pending,
-            className: 'admin-login-page__form',
+            className: 'admin-login-page__login-form-container__login-form',
             ref: 'loginForm',
             onSubmit: this.onLoginFormSubmit.bind(this),
             errors: this.getLoginFormErrors(),
@@ -114,12 +153,14 @@ class AdminLoginPage extends React.Component {
     }
 
     getRecoverFormProps() {
+        const { loadingRecover, recoverFormErrors } = this.state;
+
         return {
-            loading: this.state.loadingRecover,
-            className: 'admin-login-page__form',
+            loading: loadingRecover,
+            className: 'admin-login-page__recovery-form-container__recovery-form',
             ref: 'recoverForm',
             onSubmit: this.onForgotPasswordSubmit.bind(this),
-            errors: this.state.recoverFormErrors,
+            errors: recoverFormErrors,
             onValidateErrors: this.onRecoverFormErrorsValidation.bind(this)
         };
     }
@@ -184,7 +225,8 @@ class AdminLoginPage extends React.Component {
     onRecoverPasswordSent() {
         this.setState({
             loadingRecover: false,
-            recoverSent: true
+            recoverSent: true,
+            showRecoverSentMessage: true
         });
     }
 
@@ -198,10 +240,17 @@ class AdminLoginPage extends React.Component {
             this.refs.recoverForm.refs.email.focus();
         }.bind(this));
     }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
+        });
+    }
 }
 
 export default connect((store) => {
     return {
-        session: store.session
+        session: store.session,
+        sitekey: store.config.reCaptchaKey
     };
 })(AdminLoginPage);

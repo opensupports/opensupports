@@ -33,7 +33,6 @@ module.exports = [
                             language: 'en',
                             unread: true,
                             closed: false,
-                            priority: 'low',
                             author: {
                                 id: 12,
                                 name: 'Haskell Curry',
@@ -95,17 +94,6 @@ module.exports = [
                                         name: 'Haskell Curry',
                                         steve: 'haskell@lambda.com',
                                         staff: false
-                                    }
-                                },
-                                {
-                                    type: 'PRIORITY_CHANGED',
-                                    date: '20150413',
-                                    content: 'MEDIUM',
-                                    author: {
-                                        name: 'Emilia Clarke',
-                                        email: 'jobs@steve.com',
-                                        profilePic: '',
-                                        staff: true
                                     }
                                 },
                                 {
@@ -153,7 +141,6 @@ module.exports = [
                             language: 'en',
                             unread: false,
                             closed: false,
-                            priority: 'medium',
                             author: {
                                 name: 'Haskell Curry',
                                 email: 'haskell@lambda.com'
@@ -212,17 +199,6 @@ module.exports = [
                                         name: 'Haskell Curry',
                                         steve: 'haskell@lambda.com',
                                         staff: false
-                                    }
-                                },
-                                {
-                                    type: 'PRIORITY_CHANGED',
-                                    date: '20150413',
-                                    content: 'MEDIUM',
-                                    author: {
-                                        name: 'Emilia Clarke',
-                                        email: 'jobs@steve.com',
-                                        profilePic: '',
-                                        staff: true
                                     }
                                 },
                                 {
@@ -270,7 +246,6 @@ module.exports = [
                             language: 'en',
                             unread: false,
                             closed: false,
-                            priority: 'high',
                             author: {
                                 name: 'Haskell Curry',
                                 email: 'haskell@lambda.com'
@@ -332,17 +307,6 @@ module.exports = [
                                     }
                                 },
                                 {
-                                    type: 'PRIORITY_CHANGED',
-                                    date: '20150413',
-                                    content: 'MEDIUM',
-                                    author: {
-                                        name: 'Emilia Clarke',
-                                        email: 'jobs@steve.com',
-                                        profilePic: '',
-                                        staff: true
-                                    }
-                                },
-                                {
                                     type: 'COMMENT',
                                     date: '20150511',
                                     content: 'Thanks!, I soved it by myself',
@@ -387,7 +351,6 @@ module.exports = [
                             language: 'en',
                             unread: false,
                             closed: false,
-                            priority: 'low',
                             author: {
                                 id: 12,
                                 name: 'Haskell Curry',
@@ -426,7 +389,6 @@ module.exports = [
                         language: 'en',
                         unread: true,
                         closed: false,
-                        priority: 'low',
                         author: {
                             id: 12,
                             name: 'Haskell Curry',
@@ -491,17 +453,6 @@ module.exports = [
                                 }
                             },
                             {
-                                type: 'PRIORITY_CHANGED',
-                                date: '201504130402',
-                                content: 'MEDIUM',
-                                author: {
-                                    name: 'Emilia Clarke',
-                                    email: 'jobs@steve.com',
-                                    profilePic: '',
-                                    staff: true
-                                }
-                            },
-                            {
                                 type: 'COMMENT',
                                 date: '201505110405',
                                 content: 'Thanks!, I solved it by myself',
@@ -546,7 +497,6 @@ module.exports = [
                         language: 'en',
                         unread: false,
                         closed: false,
-                        priority: 'medium',
                         author: {
                             name: 'Haskell Curry',
                             email: 'haskell@lambda.com'
@@ -608,17 +558,6 @@ module.exports = [
                                 }
                             },
                             {
-                                type: 'PRIORITY_CHANGED',
-                                date: '201504132240',
-                                content: 'MEDIUM',
-                                author: {
-                                    name: 'Emilia Clarke',
-                                    email: 'jobs@steve.com',
-                                    profilePic: '',
-                                    staff: true
-                                }
-                            },
-                            {
                                 type: 'COMMENT',
                                 date: '201505112241',
                                 content: 'Thanks!, I soved it by myself',
@@ -663,7 +602,6 @@ module.exports = [
                         language: 'en',
                         unread: false,
                         closed: false,
-                        priority: 'high',
                         author: {
                             name: 'Haskell Curry',
                             email: 'haskell@lambda.com'
@@ -725,17 +663,6 @@ module.exports = [
                                 }
                             },
                             {
-                                type: 'PRIORITY_CHANGED',
-                                date: '201504132305',
-                                content: 'MEDIUM',
-                                author: {
-                                    name: 'Emilia Clarke',
-                                    email: 'jobs@steve.com',
-                                    profilePic: '',
-                                    staff: true
-                                }
-                            },
-                            {
                                 type: 'COMMENT',
                                 date: '201505112306',
                                 content: 'Thanks!, I soved it by myself',
@@ -780,7 +707,6 @@ module.exports = [
                         language: 'en',
                         unread: false,
                         closed: false,
-                        priority: 'low',
                         author: {
                             id: 12,
                             name: 'Haskell Curry',
@@ -818,7 +744,6 @@ module.exports = [
                         language: 'en',
                         unread: true,
                         closed: false,
-                        priority: 'low',
                         author: {
                             id: 12,
                             name: 'Haskell Curry',
@@ -845,7 +770,6 @@ module.exports = [
                         language: 'en',
                         unread: true,
                         closed: false,
-                        priority: 'low',
                         author: {
                             id: 12,
                             name: 'Haskell Curry',
@@ -872,7 +796,6 @@ module.exports = [
                         language: 'en',
                         unread: true,
                         closed: false,
-                        priority: 'low',
                         author: {
                             id: 12,
                             name: 'Haskell Curry',
@@ -911,7 +834,6 @@ module.exports = [
                             language: 'en',
                             unread: false,
                             closed: false,
-                            priority: 'low',
                             author: {
                                 id: 12,
                                 name: 'Haskell Curry',
@@ -952,7 +874,6 @@ module.exports = [
                             language: 'en',
                             unread: false,
                             closed: false,
-                            priority: 'low',
                             author: {
                                 id: 12,
                                 name: 'Haskell Curry',
@@ -1111,15 +1032,6 @@ module.exports = [
                         }
                     },
                     {
-                        "type": "PRIORITY_CHANGED",
-                        "ticketNumber": "683061",
-                        "author": {
-                            "name": "Emilia Clarke",
-                            "staff": true,
-                            "id": "1"
-                        }
-                    },
-                    {
                         "type": "ASSIGN",
                         "ticketNumber": "683061",
                         "author": {
@@ -1155,15 +1067,6 @@ module.exports = [
                             "id": "1"
                         }
                     },
-                    {
-                        "type": "PRIORITY_CHANGED",
-                        "ticketNumber": "608120",
-                        "author": {
-                            "name": "Emilia Clarke",
-                            "staff": true,
-                            "id": "1"
-                        }
-                    }
                 ]
             };
         }

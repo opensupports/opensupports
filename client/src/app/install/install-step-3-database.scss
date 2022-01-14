@@ -10,9 +10,14 @@
         float: left;
     }
 
+    &__buttons {
+        width: 55%;
+        display: inline-flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
     &__next {
-        float: left;
-        position: absolute;
-        margin-left: 286px;
     }
 }

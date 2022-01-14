@@ -1,9 +1,11 @@
 <?php
 use RedBeanPHP\Facade as RedBean;
+use Respect\Validation\Validator as DataValidator;
+DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/login Login
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  *
  * @apiName Login
  *
@@ -20,8 +22,6 @@ use RedBeanPHP\Facade as RedBean;
  * @apiParam {Number} userId The id of the user to login.
  * @apiParam {String} rememberToken Token to login automatically. It replaces the password.
  *
- * @apiUse USER_SYSTEM_DISABLED
- * @apiUse SESSION_EXISTS
  * @apiUse UNVERIFIED_USER
  * @apiUse INVALID_CREDENTIALS
  *
@@ -43,21 +43,22 @@ class LoginController extends Controller {
     private $rememberExpiration;
 
     public function validations() {
-        return [
+        $validations = [
             'permission' => 'any',
             'requestData' => []
         ];
+
+        $validations['requestData']['captcha'] = [
+
+            'validation' => DataValidator::oneOf(DataValidator::captcha(),DataValidator::nullType()),
+            'error' => ERRORS::INVALID_CAPTCHA
+        ];
+
+        return $validations;
+
     }
 
     public function handler() {
-        if(!Controller::isUserSystemEnabled() && !Controller::request('staff')) {
-            throw new RequestException(ERRORS::USER_SYSTEM_DISABLED);
-        }
-
-        if ($this->isAlreadyLoggedIn()) {
-            throw new RequestException(ERRORS::SESSION_EXISTS);
-        }
-
         $this->clearOldRememberTokens();
 
         if ($this->checkInputCredentials() || $this->checkRememberToken()) {
@@ -71,6 +72,7 @@ class LoginController extends Controller {
 
             $this->createUserSession();
             $this->createRememberToken();
+
             if(Controller::request('staff')) {
                 $this->userInstance->lastLogin = Date::getCurrentDate();
                 $this->userInstance->store();
@@ -80,10 +82,6 @@ class LoginController extends Controller {
         } else {
             throw new RequestException(ERRORS::INVALID_CREDENTIALS);
         }
-    }
-
-    private function isAlreadyLoggedIn() {
-        return Session::getInstance()->sessionExists();
     }
 
     private function checkInputCredentials() {
@@ -130,13 +128,18 @@ class LoginController extends Controller {
         $rememberToken = Controller::request('rememberToken');
         $userInstance = new NullDataStore();
 
-        if ($rememberToken) {
+        if($rememberToken) {
             $sessionCookie = SessionCookie::getDataStore($rememberToken, 'token');
             $userId = Controller::request('userId');
+            $isStaff = !!Controller::request('staff');
 
-            if (!$sessionCookie->isNull() && $userId === $sessionCookie->user->id) {
-                $userInstance = $sessionCookie->user;
-                $sessionCookie->delete();
+            if(!$sessionCookie->isNull()) {
+                $loggedInstance = $isStaff ? $sessionCookie->staff : $sessionCookie->user;
+
+                if(($userId == $loggedInstance->id) && ($isStaff == $sessionCookie->isStaff)) {
+                    $userInstance = $loggedInstance;
+                    $sessionCookie->delete();
+                }
             }
         }
 
@@ -154,13 +157,15 @@ class LoginController extends Controller {
     private function createRememberToken() {
         $remember = Controller::request('remember');
 
-        if (!Controller::request('staff') && $remember) {
+        if($remember) {
             $this->rememberToken = Hashing::generateRandomToken();
             $this->rememberExpiration = Date::getNextDate(30);
 
             $sessionCookie = new SessionCookie();
             $sessionCookie->setProperties(array(
-                'user' => $this->userInstance,
+                'isStaff' => !!Controller::request('staff'),
+                'user' => $this->userInstance instanceof User ? $this->userInstance : null,
+                'staff' => $this->userInstance instanceof Staff ? $this->userInstance : null,
                 'token' => $this->rememberToken,
                 'ip' => $_SERVER['REMOTE_ADDR'],
                 'creationDate' =>  Date::getCurrentDate(),

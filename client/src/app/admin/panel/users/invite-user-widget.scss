@@ -1,9 +1,8 @@
 .invite-user-widget {
-    padding: 30px;
+    padding: 10px;
     text-align: center;
 
     &__form {
-        margin-bottom: 20px;
     }
 
     &__inputs {
@@ -15,5 +14,31 @@
         margin: 10px auto 20px;
         height: 78px;
         width: 304px;
+    }
+
+    &__buttons-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__success-message,
+    &__error-message {
+        margin-top: 20px;
+    }
+
+    &__modal-wrapper {
+        min-width: 700px;
+        min-height: 400px;
+    }
+
+    &__loading {
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: $grey;
     }
 }

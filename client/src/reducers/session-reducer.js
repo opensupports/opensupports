@@ -10,7 +10,8 @@ class SessionReducer extends Reducer {
             logged: false,
             pending: false,
             failed: false,
-            verify: null
+            verify: null,
+            loginAttempts: 0
         };
     }
 
@@ -45,7 +46,8 @@ class SessionReducer extends Reducer {
             pending: false,
             failed: false,
             staff: payload.data.staff,
-            userId: payload.data.userId
+            userId: payload.data.userId,
+            loginAttempts: 0
         });
     }
 
@@ -54,7 +56,8 @@ class SessionReducer extends Reducer {
             failMessage: payload.message,
             logged: false,
             pending: false,
-            failed: true
+            failed: true,
+            loginAttempts: state.loginAttempts + 1
         });
     }
 
@@ -95,7 +98,7 @@ class SessionReducer extends Reducer {
             sessionStore.storeRememberData({
                 token: resultData.rememberToken,
                 userId: resultData.userId,
-                staff: resultData.staff,
+                isStaff: resultData.staff ? 1 : 0,
                 expiration: resultData.rememberExpiration
             });
         }
@@ -106,7 +109,6 @@ class SessionReducer extends Reducer {
     onUserDataRetrieved(state, payload) {
         let userData = payload.data;
         sessionStore.storeUserData(payload.data);
-
         return _.extend({}, state, {
             staff: userData.staff,
             userName: userData.name,
@@ -116,7 +118,8 @@ class SessionReducer extends Reducer {
             userDepartments: userData.departments,
             userTickets: userData.tickets,
             userSendEmailOnNewTicket: userData.sendEmailOnNewTicket * 1,
-            userCustomFields: userData.customfields
+            userCustomFields: userData.customfields,
+            userUsers: userData.users
         });
     }
 

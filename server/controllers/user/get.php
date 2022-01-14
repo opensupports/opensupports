@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/get Get my information
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  *
  * @apiName Get my Information
  *
@@ -38,6 +38,7 @@ class GetUserController extends Controller {
     }
 
     public function handler() {
+        
         if (Controller::isStaffLogged()) {
             throw new RequestException(ERRORS::INVALID_CREDENTIALS);
             return;
@@ -50,7 +51,7 @@ class GetUserController extends Controller {
         foreach($ticketList as $ticket) {
             $parsedTicketList[] = $ticket->toArray(true);
         }
-
+        
         Response::respondSuccess([
             'name' => $user->name,
             'email' => $user->email,
@@ -58,6 +59,7 @@ class GetUserController extends Controller {
             'verified' => !$user->verificationToken,
             'tickets' => $parsedTicketList,
             'customfields' => $user->xownCustomfieldvalueList->toArray(),
+            'users' => $user->supervisedrelation ? $user->supervisedrelation->sharedUserList->toArray() : null
         ]);
     }
 }

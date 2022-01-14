@@ -37,7 +37,7 @@ describe 'Retrieve all tickets' do
             createTicket('placerat id velit')
             createTicket('Quisque egestas ipsum')
 
-            request('/user/logout')
+            Scripts.logout()
             Scripts.login($staff[:email], $staff[:password], true)
             response = request('/staff/get-all-tickets', {
                 page: 1,
@@ -46,7 +46,7 @@ describe 'Retrieve all tickets' do
             })
 
             (response['status']).should.equal('success')
-            (response['data']['pages']).should.equal(5)
+            (response['data']['pages']).should.equal(7)
             (response['data']['tickets'].size).should.equal(10)
             (response['data']['tickets'][0]['title']).should.equal('Quisque egestas ipsum')
             (response['data']['tickets'][1]['title']).should.equal('placerat id velit')
@@ -68,7 +68,7 @@ describe 'Retrieve all tickets' do
             })
 
             (response['status']).should.equal('success')
-            (response['data']['pages']).should.equal(5)
+            (response['data']['pages']).should.equal(7)
             (response['data']['tickets'].size).should.equal(10)
             (response['data']['tickets'][0]['title']).should.equal('quis vulputate lectus feugiat eu')
             (response['data']['tickets'][1]['title']).should.equal('Fusce venenatis iaculis commodo')

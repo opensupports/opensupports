@@ -5,7 +5,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /user/invite Invite
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  *
  * @apiName Invite
  *
@@ -45,7 +45,7 @@ class InviteUserController extends Controller {
             'permission' => 'staff_1',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::notBlank()->length(2, 55),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
                     'error' => ERRORS::INVALID_NAME
                 ],
                 'email' => [
@@ -64,9 +64,6 @@ class InviteUserController extends Controller {
     }
 
     public function handler() {
-        if (!Controller::isUserSystemEnabled()) {
-            throw new RequestException(ERRORS::USER_SYSTEM_DISABLED);
-        }
 
         $this->storeRequestData();
 
@@ -105,8 +102,8 @@ class InviteUserController extends Controller {
     }
 
     public function storeRequestData() {
-        $this->userName = Controller::request('name');
-        $this->userEmail = Controller::request('email');
+        $this->userName = Controller::request('name', true);
+        $this->userEmail = Controller::request('email', true);
     }
 
     public function createNewUserAndRetrieveId() {

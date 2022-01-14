@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /staff/invite Invite staff
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  *
  * @apiName Invite staff
  *
@@ -26,7 +26,8 @@ DataValidator::with('CustomValidations', true);
  * @apiUse INVALID_PASSWORD
  * @apiUse INVALID_LEVEL
  * @apiUse ALREADY_A_STAFF
- *
+ * @apiUse INVALID_DEPARTMENT
+ * 
  * @apiSuccess {Object} data Staff info object
  * @apiSuccess {Number} data.id Staff id
  *
@@ -47,7 +48,7 @@ class InviteStaffController extends Controller {
             'permission' => 'staff_3',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::notBlank()->length(2, 55),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
                     'error' => ERRORS::INVALID_NAME
                 ],
                 'email' => [
@@ -57,6 +58,10 @@ class InviteStaffController extends Controller {
                 'level' => [
                     'validation' => DataValidator::between(1, 3, true),
                     'error' => ERRORS::INVALID_LEVEL
+                ],
+                'departments' => [
+                    'validation' => DataValidator::oneOf(DataValidator::validDepartmentsId(),DataValidator::nullType()),
+                    'error' => ERRORS::INVALID_DEPARTMENT
                 ]
             ]
         ];

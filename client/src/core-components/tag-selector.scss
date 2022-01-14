@@ -1,7 +1,6 @@
 @import '../scss/vars';
 
 .tag-selector{
-  margin-bottom: 30px;
   text-align: left;
 
   &__drop-down {
@@ -18,13 +17,7 @@
     }
   }
 
-  &__tag-options {
-    font-size: 13px;
-    color: $dark-grey;
-  }
-
   &__tag-option {
-    color: $primary-black;
     display: flex;
     align-items: center;
 

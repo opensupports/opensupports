@@ -84,10 +84,6 @@
  * @apiError {String} TICKET_ALREADY_ASSIGNED The ticket is already assigned.
  */
 /**
- * @apiDefine INVALID_PRIORITY
- * @apiError {String} INVALID_PRIORITY The priority is invalid.
- */
-/**
  * @apiDefine INVALID_PAGE
  * @apiError {String} INVALID_PAGE The page is invalid.
  */
@@ -100,6 +96,10 @@
  * @apiError {String} INVALID_BLACK_LIST The black list is invalid.
  */
 /**
+ * @apiDefine INVALID_LIST
+ * @apiError {String} INVALID_LIST The list is invalid.
+ */
+/**
  * @apiDefine INVALID_TAG_FILTER
  * @apiError {String} INVALID_TAG_FILTER The tag filter is invalid.
  */
@@ -110,10 +110,6 @@
 /**
  * @apiDefine INVALID_UNREAD_STAFF_FILTER
  * @apiError {String} INVALID_UNREAD_STAFF_FILTER The unread-staff filter is invalid.
- */
-/**
- * @apiDefine INVALID_PRIORITY_FILTER
- * @apiError {String} INVALID_PRIORITY_FILTER The priority filter is invalid.
  */
 /**
  * @apiDefine INVALID_DATE_RANGE_FILTER
@@ -200,14 +196,6 @@
  * @apiError {String} INVALID_BODY The body is invalid.
  */
 /**
- * @apiDefine USER_SYSTEM_ENABLED
- * @apiError {String} USER_SYSTEM_ENABLED The user system is enabled.
- */
-/**
- * @apiDefine USER_SYSTEM_DISABLED
- * @apiError {String} USER_SYSTEM_DISABLED The user system is disabled.
- */
-/**
  * @apiDefine SYSTEM_USER_IS_ALREADY_DISABLED
  * @apiError {String} SYSTEM_USER_IS_ALREADY_DISABLED The system user is already disabled.
  */
@@ -226,6 +214,14 @@
 /**
  * @apiDefine INVALID_FILE
  * @apiError {String} INVALID_FILE The file is invalid or max size exceeded.
+ */
+/**
+ * @apiDefine INVALID_DEFAULT_DEPARTMENT
+ * @apiError {String} INVALID_DEFAULT_DEPARTMENT The default department id is invalid.
+ */
+/**
+ * @apiDefine CAN_NOT_DELETE_DEFAULT_DEPARTMENT
+ * @apiError {String} CAN_NOT_DELETE_DEFAULT_DEPARTMENT The default department can not be deleted.
  */
 /**
  * @apiDefine DATABASE_CONNECTION
@@ -268,6 +264,14 @@
  * @apiError {String} DEPARTMENT_PRIVATE_TICKETS There are tickets for in department created by non-staff and it can't be private
  */
 /**
+ * @apiDefine DEFAULT_DEPARTMENT_CAN_NOT_BE_PRIVATE
+ * @apiError {String} DEFAULT_DEPARTMENT_CAN_NOT_BE_PRIVATE Default Department can not be private
+ */
+/**
+ * @apiDefine SUPERVISOR_CAN_NOT_SUPERVISE_HIMSELF
+ * @apiError {String} SUPERVISOR_CAN_NOT_SUPERVISE_HIMSELF The supervisor cannot select himself
+ */
+/**
  * @apiDefine EMAIL_POLLING
  * @apiError {String} EMAIL_POLLING Email polling was unsuccesful
  */
@@ -304,8 +308,24 @@
  * @apiError {String} INVALID_COLOR The color should be in hexadecimal, preceded by a '#'
  */
 /**
- * @apiDefine INVALID_API_KEY_TYPE
- * @apiError {String} INVALID_API_KEY_TYPE Api key type is not one of the availables
+ * @apiDefine INVALID_API_KEY_PERMISSION
+ * @apiError {String} INVALID_API_KEY_PERMISSION Api key type is not one of the availables
+ */
+/**
+ * @apiDefine MANDATORY_LOGIN_IS_DESACTIVATED
+ * @apiError {String} MANDATORY_LOGIN_IS_DESACTIVATED Mandatory login is disactivated
+ */
+/**
+ * @apiDefine REGISTRATION_IS_DESACTIVATED
+ * @apiError {String} REGISTRATION_IS_DESACTIVATED Registration is disactivated
+  */
+/**
+ * @apiDefine INVALID_SUPERVISED_USERS
+ * @apiError {String} INVALID_SUPERVISED_USERS supervised users are invalid
+ */
+/**
+ * @apiDefine TICKET_CONTENT_CANNOT_BE_EDITED
+ * @apiError {String} TICKET_CONTENT_CANNOT_BE_EDITED Ticket content cannot be edited because it has comments
  */
 
 class ERRORS {
@@ -331,14 +351,13 @@ class ERRORS {
     const INVALID_LANGUAGE = 'INVALID_LANGUAGE';
     const INVALID_SUPPORTED_LANGUAGES = 'INVALID_SUPPORTED_LANGUAGES';
     const TICKET_ALREADY_ASSIGNED = 'TICKET_ALREADY_ASSIGNED';
-    const INVALID_PRIORITY = 'INVALID_PRIORITY';
     const INVALID_PAGE = 'INVALID_PAGE';
     const INVALID_QUERY = 'INVALID_QUERY';
+    const INVALID_LIST = 'INVALID_LIST';
     const INVALID_BLACK_LIST = 'INVALID_BLACK_LIST';
     const INVALID_TAG_FILTER = 'INVALID_TAG_FILTER';
     const INVALID_CLOSED_FILTER = 'INVALID_CLOSED_FILTER';
     const INVALID_UNREAD_STAFF_FILTER = 'INVALID_UNREAD_STAFF_FILTER';
-    const INVALID_PRIORITY_FILTER = 'INVALID_PRIORITY_FILTER';
     const INVALID_DATE_RANGE_FILTER = 'INVALID_DATE_RANGE_FILTER';
     const INVALID_DEPARTMENT_FILTER = 'INVALID_DEPARTMENT_FILTER';
     const INVALID_AUTHOR_FILTER = 'INVALID_AUTHOR_FILTER';
@@ -354,19 +373,20 @@ class ERRORS {
     const INVALID_LEVEL = 'INVALID_LEVEL';
     const ALREADY_A_STAFF = 'ALREADY_A_STAFF';
     const INVALID_STAFF = 'INVALID_STAFF';
+    const YOU_CAN_NOT_DELETE_YOURSELF = 'YOU_CAN_NOT_DELETE_YOURSELF';
     const SAME_DEPARTMENT = 'SAME_DEPARTMENT';
     const INVALID_TOKEN = 'INVALID_TOKEN';
     const UNVERIFIED_USER = 'UNVERIFIED_USER';
     const INVALID_TEMPLATE = 'INVALID_TEMPLATE';
     const INVALID_SUBJECT = 'INVALID_SUBJECT';
     const INVALID_BODY = 'INVALID_BODY';
-    const USER_SYSTEM_ENABLED = 'USER_SYSTEM_ENABLED';
-    const USER_SYSTEM_DISABLED = 'USER_SYSTEM_DISABLED';
     const SYSTEM_USER_IS_ALREADY_DISABLED = 'SYSTEM_USER_IS_ALREADY_DISABLED';
     const SYSTEM_USER_IS_ALREADY_ENABLED = 'SYSTEM_USER_IS_ALREADY_ENABLED';
     const INVALID_PERIOD = 'INVALID_PERIOD';
     const NAME_ALREADY_USED = 'NAME_ALREADY_USED';
     const INVALID_FILE = 'INVALID_FILE';
+    const INVALID_DEFAULT_DEPARTMENT = 'INVALID_DEFAULT_DEPARTMENT';
+    const CAN_NOT_DELETE_DEFAULT_DEPARTMENT = 'CAN_NOT_DELETE_DEFAULT_DEPARTMENT';
     const DATABASE_CONNECTION = 'DATABASE_CONNECTION';
     const DATABASE_CREATION = 'DATABASE_CREATION';
     const SMTP_CONNECTION = 'SMTP_CONNECTION';
@@ -378,6 +398,8 @@ class ERRORS {
     const INVALID_TEXT_2 = 'INVALID_TEXT_2';
     const INVALID_TEXT_3 = 'INVALID_TEXT_3';
     const DEPARTMENT_PRIVATE_TICKETS = 'DEPARTMENT_PRIVATE_TICKETS';
+    const DEFAULT_DEPARTMENT_CAN_NOT_BE_PRIVATE = 'DEFAULT_DEPARTMENT_CAN_NOT_BE_PRIVATE';
+    const SUPERVISOR_CAN_NOT_SUPERVISE_HIMSELF = 'SUPERVISOR_CAN_NOT_SUPERVISE_HIMSELF';
     const EMAIL_POLLING = 'EMAIL_POLLING';
     const CUSTOM_FIELD_ALREADY_EXISTS = 'CUSTOM_FIELD_ALREADY_EXISTS';
     const INVALID_CUSTOM_FIELD = 'INVALID_CUSTOM_FIELD';
@@ -386,5 +408,11 @@ class ERRORS {
     const INVALID_CUSTOM_FIELD_OPTION = 'INVALID_CUSTOM_FIELD_OPTION';
     const UNAVAILABLE_STATS = 'UNAVAILABLE_STATS';
     const INVALID_COLOR = 'INVALID_COLOR';
-    const INVALID_API_KEY_TYPE = 'INVALID_API_KEY_TYPE';
+    const INVALID_API_KEY_PERMISSION = 'INVALID_API_KEY_PERMISSION';
+    const INVALID_CUSTOM_RESPONSE = 'INVALID_CUSTOM_RESPONSE';
+    const MANDATORY_LOGIN_IS_DESACTIVATED = 'MANDATORY_LOGIN_IS_DESACTIVATED';
+    const REGISTRATION_IS_DESACTIVATED = 'REGISTRATION_IS_DESACTIVATED';
+    const INVALID_SUPERVISED_USERS = 'INVALID_SUPERVISED_USERS';
+    const INVALID_USER_SEARCH_OPTION = 'INVALID_USER_SEARCH_OPTION';
+    const TICKET_CONTENT_CANNOT_BE_EDITED = 'TICKET_CONTENT_CANNOT_BE_EDITED';
 }

@@ -1,5 +1,5 @@
 describe'system/add-api-key' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should add API key' do
@@ -7,12 +7,12 @@ describe'system/add-api-key' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             name: 'new API',
-            type: 'REGISTRATION'
+            canCreateUser: 1
         })
 
         (result['status']).should.equal('success')
 
-        row = $database.getRow('apikey', 1, 'id')
+        row = $database.getRow('apikey', 2, 'id')
 
         (row['name']).should.equal('new API')
         (result['data']).should.equal(row['token'])
@@ -23,22 +23,96 @@ describe'system/add-api-key' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             name: 'new API',
-            type: 'REGISTRATION'
+            canCreateUser: 1
         })
 
         (result['status']).should.equal('fail')
         (result['message']).should.equal('NAME_ALREADY_USED')
     end
 
-    it 'should not add API key if invalid type is used' do
+    it 'should fail if API key size is wrong' do
         result= request('/system/add-api-key', {
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
-            name: 'new API2',
-            type: 'REGISTRATON'
+            name: '',
         })
 
         (result['status']).should.equal('fail')
-        (result['message']).should.equal('INVALID_API_KEY_TYPE')
+        (result['message']).should.equal('INVALID_NAME')
+
+        result= request('/system/add-api-key', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: 'APIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAMEAPIKEYNAME',
+        })
+
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('INVALID_NAME')
+    end
+
+    it 'should succes with the required permissions API key' do
+        result= request('/system/add-api-key', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: 'APIkey ticketnumber return',
+            shouldReturnTicketNumber: 'true'
+        })
+
+        (result['status']).should.equal('success')
+
+        row = $database.getRow('apikey', 3, 'id')
+
+        (row['can_create_users']).should.equal(0)
+        (row['can_create_tickets']).should.equal(0)
+        (row['should_return_ticket_number']).should.equal(1)
+        (row['can_check_tickets']).should.equal(0)
+
+        result= request('/system/add-api-key', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: 'APIkey check tickets',
+            canCheckTickets: 'true'
+        })
+
+        (result['status']).should.equal('success')
+
+        row = $database.getRow('apikey', 4, 'id')
+
+        (row['can_create_users']).should.equal(0)
+        (row['can_create_tickets']).should.equal(0)
+        (row['should_return_ticket_number']).should.equal(0)
+        (row['can_check_tickets']).should.equal(1)
+
+        result= request('/system/add-api-key', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: 'APIkey user create',
+            canCreateUsers: 'true'
+        })
+
+        (result['status']).should.equal('success')
+
+        row = $database.getRow('apikey', 5, 'id')
+
+        (row['can_create_users']).should.equal(1)
+        (row['can_create_tickets']).should.equal(0)
+        (row['should_return_ticket_number']).should.equal(0)
+        (row['can_check_tickets']).should.equal(0)
+
+        result= request('/system/add-api-key', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            name: 'APIkey  create tickets',
+            canCreateTickets: 'true'
+        })
+
+        (result['status']).should.equal('success')
+
+        row = $database.getRow('apikey', 6, 'id')
+
+        (row['can_create_users']).should.equal(0)
+        (row['can_create_tickets']).should.equal(1)
+        (row['should_return_ticket_number']).should.equal(0)
+        (row['can_check_tickets']).should.equal(0)
     end
 end

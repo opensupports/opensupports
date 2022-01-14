@@ -2,9 +2,9 @@ describe '/ticket/comment/' do
     Scripts.createUser('commenter@os4.com', 'commenter', 'Commenter')
     Scripts.login('commenter@os4.com', 'commenter')
 
-    result = Scripts.createTicket
-
-    @ticketNumber = result['ticketNumber']
+    Scripts.createTicket('Winter came and it was a disappointment','The fandom remembers')
+    ticket = $database.getRow('ticket', 'Winter came and it was a disappointment' , 'title')
+    @ticketNumber = ticket['ticket_number']
 
     it 'should fail if invalid token is passed' do
         result = request('/ticket/comment', {
@@ -44,15 +44,15 @@ describe '/ticket/comment/' do
         comment = $database.getRow('ticketevent', ticket['id'], 'ticket_id')
         (comment['content']).should.equal('some comment content')
         (comment['type']).should.equal('COMMENT')
-        (comment['author_user_id']).should.equal($csrf_userid)
-        (ticket['unread_staff']).should.equal('1')
+        (comment['author_user_id']).should.equal($csrf_userid.to_i)
+        (ticket['unread_staff']).should.equal(1)
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('COMMENT')
     end
 
     it 'should add comment if staff member serves to the same department as the ticket' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         result = request('/ticket/comment', {
             content: 'some comment content',
@@ -67,16 +67,16 @@ describe '/ticket/comment/' do
         comment = $database.getRow('ticketevent', ticket['id'], 'ticket_id')
         (comment['content']).should.equal('some comment content')
         (comment['type']).should.equal('COMMENT')
-        (comment['author_staff_id']).should.equal($csrf_userid)
-        (ticket['unread_staff']).should.equal('1')
+        (comment['author_staff_id']).should.equal($csrf_userid.to_i)
+        (ticket['unread_staff']).should.equal(1)
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('COMMENT')
 
-        request('/user/logout')
+        Scripts.logout()
     end
     it 'should comment the ticket if staff member does not serve the deparment of the ticket and he is author' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         Scripts.createTicket('ticketttobecommented', 'tickettobecommentedbytheauthor', 2)
         request('/staff/edit', {
@@ -100,7 +100,7 @@ describe '/ticket/comment/' do
         comment = $database.getRow('ticketevent', ticket['id'], 'ticket_id')
         (comment['content']).should.equal('some comment content jeje')
         (comment['type']).should.equal('COMMENT')
-        (comment['author_staff_id']).should.equal($csrf_userid)
+        (comment['author_staff_id']).should.equal($csrf_userid.to_i)
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('COMMENT')
@@ -114,10 +114,10 @@ describe '/ticket/comment/' do
             staffId: 1
         })
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('commenter@os4.com', 'commenter')
         Scripts.createTicket('title138','commentofthetitkect138', 1)
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         ticket = $database.getRow('ticket', 'title138' , 'title')
 
@@ -153,7 +153,7 @@ describe '/ticket/comment/' do
         (result['status']).should.equal('fail')
         (result['message']).should.equal('NO_PERMISSION')
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         result = request('/staff/invite', {
@@ -168,7 +168,7 @@ describe '/ticket/comment/' do
 
         (result['status'].should.equal('success'))
 
-        request('/user/logout')
+        Scripts.logout()
 
         recoverpassword = $database.getRow('recoverpassword', 'jorah@opensupports.com', 'email')
         request('/user/recover-password', {
@@ -201,13 +201,13 @@ describe '/ticket/comment/' do
 
         (result['status']).should.equal('success')
         comment = $database.getRow('ticketevent', 'this is not a private comment', 'content')
-        (comment['private']).should.equal("0")
-        request('/user/logout')
+        (comment['private']).should.equal(0)
+        Scripts.logout()
 
     end
 
     it 'should change private to 1 if a staff creates a private comment' do
-        request('/user/logout')
+        Scripts.logout()
 
         Scripts.login('jorah@opensupports.com', 'testpassword', true)
 
@@ -227,6 +227,6 @@ describe '/ticket/comment/' do
 
         (result['status']).should.equal('success')
         comment = $database.getRow('ticketevent', 'this is a private comment', 'content')
-        (comment['private']).should.equal("1")
+        (comment['private']).should.equal(1)
     end
 end

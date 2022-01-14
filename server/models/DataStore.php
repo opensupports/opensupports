@@ -96,6 +96,8 @@ abstract class DataStore {
     public function __set($prop, $value) {
         if (in_array($prop, static::getProps())) {
             $this->properties[$prop] = $value;
+        } else if(property_exists($this, $prop)){
+            $this->{$prop} = $value;
         } else {
             throw new Exception("Invalid prop: $prop");
         }
@@ -128,7 +130,7 @@ abstract class DataStore {
             $parsedProp = $this->_bean[$prop];
         }
 
-        if (strpos($prop, 'List')) {
+        if (strpos($prop, 'List') || strpos($prop, 'shared') === 0) {
             $parsedProp = DataStoreList::getList($this->getListType($prop), $parsedProp);
         } else if ($parsedProp instanceof \RedBeanPHP\OODBBean) {
             $beanType = ucfirst($parsedProp->getPropertiesAndType()[1]);

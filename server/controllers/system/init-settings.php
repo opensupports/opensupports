@@ -5,7 +5,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /system/init-settings Init settings
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  *
  * @apiName Init settings
  *
@@ -16,7 +16,6 @@ DataValidator::with('CustomValidations', true);
  * @apiPermission any
  *
  * @apiParam {String} language Indicates the default language of the system.
- * @apiParam {String} user-system-enabled Indicates if the user system should be enabled.
  * @apiParam {String} registration Indicates if the registration should be enabled.
  * @apiParam {String} server-email Email from where automated emails will be sent.
  * @apiParam {String} smtp-host SMTP Server address.
@@ -26,7 +25,9 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} allow-attachments Indicates if files can be attached to tickets and comments.
  * @apiParam {String} title Title of the support center
  * @apiParam {String} url Url of the frontend client.
- *
+ * @apiParam {Boolean} mandatory-login Indicates if the login is mandatory.
+ * @apiParam {Number} default-department-id Indicates the id of the default department
+ * @apiParam {Boolean} locked-department Indicates if the default department is locked or not
  * @apiUse INVALID_LANGUAGE
  * @apiUse INIT_SETTINGS_DONE
  *
@@ -77,7 +78,6 @@ class InitSettingsController extends Controller {
             'smtp-host' => Controller::request('smtp-host'),
             'smtp-user' => Controller::request('smtp-user'),
             'smtp-pass' => Controller::request('smtp-pass'),
-            'time-zone' => 0,
             'maintenance-mode' => 0,
             'layout' => 'boxed',
             'allow-attachments' => !!Controller::request('allow-attachments'),
@@ -85,13 +85,15 @@ class InitSettingsController extends Controller {
             'title' => Controller::request('title') ? Controller::request('title') : 'Support Center',
             'url' => Controller::request('url')  ? Controller::request('url') : ('http://' . $_SERVER['HTTP_HOST']),
             'registration' => !!Controller::request('registration'),
-            'user-system-enabled' => !!Controller::request('user-system-enabled'),
             'last-stat-day' => date('YmdHi', strtotime(' -12 day ')),
             'ticket-gap' => Hashing::generateRandomPrime(100000, 999999),
             'ticket-first-number' => Hashing::generateRandomNumber(100000, 999999),
             'session-prefix' => 'opensupports-'.Hashing::generateRandomToken().'_',
             'mail-template-header-image' => 'https://s3.amazonaws.com/opensupports/logo.png',
+            'default-department-id' => 1,
+            'default-is-locked' => false,
             'imap-token' => '',
+            'mandatory-login' => !!Controller::request('mandatory-login')
         ]);
     }
 
@@ -119,7 +121,6 @@ class InitSettingsController extends Controller {
     private function storeSettings($settings) {
         foreach ($settings as $settingName => $settingValue) {
             $setting = new Setting();
-
             $setting->setProperties([
                 'name' => $settingName,
                 'value' => $settingValue
@@ -151,6 +152,7 @@ class InitSettingsController extends Controller {
         foreach ($departments as $departmentName) {
             $department = new Department();
             $department->name = $departmentName;
+            $department->private = 0;
             $department->store();
         }
     }

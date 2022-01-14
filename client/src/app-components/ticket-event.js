@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import {connect} from 'react-redux';
 
 import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
@@ -7,12 +8,13 @@ import API from 'lib-app/api-call';
 import DateTransformer from 'lib-core/date-transformer';
 import Icon from 'core-components/icon';
 import Tooltip from 'core-components/tooltip';
-import TextEditor from 'core-components/text-editor';
 import Button from 'core-components/button';
 import SubmitButton from 'core-components/submit-button';
 import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 
+const VIEW_USER_PATH = "/admin/panel/users/view-user/";
+const VIEW_STAFF_PATH = "/admin/panel/staff/view-staff/";
 class TicketEvent extends React.Component {
     static propTypes = {
         type: React.PropTypes.oneOf([
@@ -22,7 +24,6 @@ class TicketEvent extends React.Component {
             'CLOSE',
             'RE_OPEN',
             'DEPARTMENT_CHANGED',
-            'PRIORITY_CHANGED'
         ]),
         author: React.PropTypes.object,
         content: React.PropTypes.string,
@@ -30,7 +31,9 @@ class TicketEvent extends React.Component {
         private: React.PropTypes.string,
         edited: React.PropTypes.bool,
         edit: React.PropTypes.bool,
-        onToggleEdit: React.PropTypes.func
+        onToggleEdit: React.PropTypes.func,
+        isLastComment: React.PropTypes.bool,
+        isTicketClosed: React.PropTypes.bool
     };
 
     state = {
@@ -85,39 +88,64 @@ class TicketEvent extends React.Component {
             'CLOSE': this.renderClosed.bind(this),
             'RE_OPEN': this.renderReOpened.bind(this),
             'DEPARTMENT_CHANGED': this.renderDepartmentChange.bind(this),
-            'PRIORITY_CHANGED': this.renderPriorityChange.bind(this)
         };
 
         return renders[this.props.type]();
     }
 
     renderComment() {
-        const author = this.props.author;
+        const { author, date, edit, file } = this.props;
         const customFields = (author && author.customfields) || [];
 
         return (
             <div className="ticket-event__comment">
                 <span className="ticket-event__comment-pointer" />
                 <div className="ticket-event__comment-author">
-                    <span className="ticket-event__comment-author-name">{this.props.author.name}</span>
+                    {this.renderCommentAuthor()}
                     <span className="ticket-event__comment-badge-container">
-                        <span className="ticket-event__comment-badge">{i18n((this.props.author.staff) ? 'STAFF' : 'CUSTOMER')}</span>
+                        <span className="ticket-event__comment-badge">{i18n((author.staff) ? 'STAFF' : 'CUSTOMER')}</span>
                     </span>
                     {customFields.map(this.renderCustomFieldValue.bind(this))}
                     {(this.props.private*1) ? this.renderPrivateBadge() : null}
                 </div>
-                <div className="ticket-event__comment-date">{DateTransformer.transformToString(this.props.date)}</div>
-                {!this.props.edit ? this.renderContent() : this.renderEditField()}
-                {this.renderFooter(this.props.file)}
+                <div className="ticket-event__comment-date">{DateTransformer.transformToString(date)}</div>
+                {!edit ? this.renderContent() : this.renderEditField()}
+                {this.renderFooter(file)}
             </div>
         );
     }
 
+    renderCommentAuthor() {
+        const {
+            author,
+            level
+        } = this.props;
+        const commentAutorClass = "ticket-event__comment-author-name";
+        let commentAuthor;
+
+        if(level === "3") {
+            commentAuthor = (
+                <a className={commentAutorClass} href={((author.staff) ? VIEW_STAFF_PATH : VIEW_USER_PATH)+author.id}>
+                    {author.name}
+                </a>
+            );
+        } else if(level && !author.staff) {
+            commentAuthor = <a className={commentAutorClass} href={VIEW_USER_PATH+author.id}>{author.name}</a>;
+        } else {
+            commentAuthor = <span className={commentAutorClass}>{author.name}</span>;
+        }
+
+        return commentAuthor;
+    }
+
     renderContent() {
+        const { content, author, userId, userStaff, isLastComment, isTicketClosed } = this.props;
+        const { id, staff } = author;
+
         return (
-            <div  className="ticket-event__comment-content">
-                <div dangerouslySetInnerHTML={{__html: this.props.content}}></div>
-                {((this.props.author.id == this.props.userId && this.props.author.staff == this.props.userStaff) || this.props.userStaff) ? this.renderEditIcon() : null}
+            <div className="ticket-event__comment-content ql-editor">
+                <div dangerouslySetInnerHTML={{__html: content}}></div>
+                {(id == userId && staff == userStaff && isLastComment && !isTicketClosed) ? this.renderEditIcon() : null }
             </div>
         )
     }
@@ -206,17 +234,6 @@ class TicketEvent extends React.Component {
         );
     }
 
-    renderPriorityChange() {
-        return (
-            <div className="ticket-event__circled">
-                <span className="ticket-event__circled-author">{this.props.author.name}</span>
-                <span className="ticket-event__circled-text"> {i18n('ACTIVITY_PRIORITY_CHANGED_THIS')}</span>
-                <span className="ticket-event__circled-indication"> {this.props.content}</span>
-                <span className="ticket-event__circled-date"> {i18n('DATE_PREFIX')} {DateTransformer.transformToString(this.props.date)}</span>
-            </div>
-        );
-    }
-
     renderPrivateBadge() {
         return (
             <span className="ticket-event__comment-badge-container">
@@ -271,7 +288,6 @@ class TicketEvent extends React.Component {
             'CLOSE': true,
             'RE_OPEN': true,
             'DEPARTMENT_CHANGED': true,
-            'PRIORITY_CHANGED': true
         };
         const classes = {
             'row': true,
@@ -282,7 +298,6 @@ class TicketEvent extends React.Component {
             'ticket-event_close': this.props.type === 'CLOSE',
             'ticket-event_reopen': this.props.type === 'RE_OPEN',
             'ticket-event_department': this.props.type === 'DEPARTMENT_CHANGED',
-            'ticket-event_priority': this.props.type === 'PRIORITY_CHANGED',
             'ticket-event_private': this.props.private*1,
         };
 
@@ -297,7 +312,6 @@ class TicketEvent extends React.Component {
             'CLOSE': 'lock',
             'RE_OPEN': 'unlock-alt',
             'DEPARTMENT_CHANGED': 'exchange',
-            'PRIORITY_CHANGED': 'exclamation'
         };
         const iconSize = {
             'COMMENT': '2x',
@@ -306,7 +320,6 @@ class TicketEvent extends React.Component {
             'CLOSE': 'lg',
             'RE_OPEN': 'lg',
             'DEPARTMENT_CHANGED': 'lg',
-            'PRIORITY_CHANGED': 'lg'
         };
 
         return {
@@ -324,4 +337,7 @@ class TicketEvent extends React.Component {
     }
 }
 
-export default TicketEvent;
+export default connect((store) => {
+    return { level: store.session.userLevel };
+})(TicketEvent);
+

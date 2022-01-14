@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /article/add Add article
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  *
  * @apiName Add article
  *
@@ -22,10 +22,9 @@ DataValidator::with('CustomValidations', true);
  * @apiParam image_i The image file of index `i` (mutiple params accepted)
  *
  * @apiUse NO_PERMISSION
- * @apiUse INVALID_NAME
+ * @apiUse INVALID_TITLE
  * @apiUse INVALID_CONTENT
  * @apiUse INVALID_TOPIC
- * @apiUse INVALID_FILE
  *
  * @apiSuccess {Object} data Article info
  * @apiSuccess {Number} data.articleId Article id
@@ -40,8 +39,8 @@ class AddArticleController extends Controller {
             'permission' => 'staff_2',
             'requestData' => [
                 'title' => [
-                    'validation' => DataValidator::notBlank()->length(1, 100),
-                    'error' => ERRORS::INVALID_NAME
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_TITLE, LengthConfig::MAX_LENGTH_TITLE),
+                    'error' => ERRORS::INVALID_TITLE
                 ],
                 'content' => [
                     'validation' => DataValidator::content(),
@@ -64,7 +63,7 @@ class AddArticleController extends Controller {
 
         $article = new Article();
         $article->setProperties([
-            'title' => Controller::request('title'),
+            'title' => Controller::request('title', true),
             'content' => $this->replaceWithImagePaths($imagePaths, $content),
             'lastEdited' => Date::getCurrentDate(),
             'position' => Controller::request('position') || 1

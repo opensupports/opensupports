@@ -28,7 +28,7 @@ class AdminDataReducer extends Reducer {
             allTicketsLoaded: false,
             allTicketsError: false,
 
-            staffMembers: [],
+            staffMembers: JSON.parse(sessionStore.getItem('staffMembers')) || [],
             staffMembersLoaded: false,
             staffMembersError: false,
         };
@@ -135,6 +135,8 @@ class AdminDataReducer extends Reducer {
     }
 
     onStaffMembersRetrieved(state, payload) {
+        sessionStore.setItem('staffMembers', JSON.stringify(payload.data));
+
         return _.extend({}, state, {
             staffMembers: payload.data,
             staffMembersLoaded: true

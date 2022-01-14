@@ -1,6 +1,11 @@
 <?php
-
-//documentacion
+/**
+ * @api {OBJECT} Tag Tag
+ * @apiVersion 4.11.0
+ * @apiGroup Data Structures
+ * @apiParam {String}  name The name of the tag.
+ * @apiParam {String}  color The color of the tag.
+ */
 class Tag extends DataStore {
     const TABLE = 'tag';
 

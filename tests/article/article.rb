@@ -1,5 +1,5 @@
 describe 'Article path' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
     topic = request('/article/add-topic', {
         name: 'Server management',
@@ -23,7 +23,7 @@ describe 'Article path' do
         row = $database.getRow('topic', 'Private Topic', 'name')
 
         result['status'].should.equal('success')
-        (row['private']).should.equal('1')
+        (row['private']).should.equal(1)
     end
 
     it 'should create article' do
@@ -41,8 +41,8 @@ describe 'Article path' do
         article = $database.getRow('article', @article_id)
         (article['title']).should.equal('Some article')
         (article['content']).should.equal('This is an article about server management.')
-        (article['topic_id']).should.equal(@topic_id.to_s)
-        (article['position']).should.equal('1')
+        (article['topic_id']).should.equal(@topic_id)
+        (article['position']).should.equal(1)
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('ADD_ARTICLE')
@@ -60,8 +60,8 @@ describe 'Article path' do
         article = $database.getRow('article', @article_id)
         (article['title']).should.equal('Some article')
         (article['content']).should.equal('This is an article about server management2.')
-        (article['topic_id']).should.equal(@topic_id.to_s)
-        (article['position']).should.equal('1')
+        (article['topic_id']).should.equal(@topic_id)
+        (article['position']).should.equal(1)
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('EDIT_ARTICLE')
@@ -87,8 +87,8 @@ describe 'Article path' do
         article = $database.getRow('article', @article_id)
         (article['title']).should.equal('Some article')
         (article['content']).should.equal('This is an article about server management2.')
-        (article['topic_id']).should.equal((@topic_id+1).to_s)
-        (article['position']).should.equal('1')
+        (article['topic_id']).should.equal((@topic_id+1))
+        (article['position']).should.equal(1)
     end
 
     it 'should delete article' do
@@ -140,7 +140,7 @@ describe 'Article path' do
 
     end
     it 'should retrieve public departments' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('tyrion@opensupports.com', 'tyrionl')
 
         result = request('/article/get-all', {
@@ -157,6 +157,5 @@ describe 'Article path' do
         (result['data'][1]['icon']).should.equal('photo')
         (result['data'][1]['iconColor']).should.equal('blue')
         (result['data'][1]['private']).should.equal('0')
-
     end
 end

@@ -1,5 +1,8 @@
 <?php
 
+ini_set('session.cookie_httponly', 1);
+ini_set('session.cookie_secure', getenv('IS_DOCKER') ? 0 : 1);
+
 class Session {
     use SingletonTrait;
 
@@ -30,13 +33,10 @@ class Session {
             $this->store($key, $value);
     }
 
-    public function createSession($userId, $staff = false) {
+    public function createSession($userId, $staff = false, $ticketNumber = null) {
+        session_regenerate_id();
         $this->store('userId', $userId);
         $this->store('staff', $staff);
-        $this->store('token', Hashing::generateRandomToken());
-    }
-
-    public function createTicketSession($ticketNumber) {
         $this->store('ticketNumber', $ticketNumber);
         $this->store('token', Hashing::generateRandomToken());
     }

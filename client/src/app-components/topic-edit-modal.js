@@ -37,15 +37,16 @@ class TopicEditModal extends React.Component {
                     <FormField name="title" label={i18n('TITLE')} fieldProps={{size: 'large'}} validation="TITLE" required />
                     <FormField name="icon" className="topic-edit-modal__icon" label={i18n('ICON')} decorator={IconSelector} />
                     <FormField name="color" className="topic-edit-modal__color" label={i18n('COLOR')} decorator={ColorSelector} />
-                    <FormField className="topic-edit-modal__private" label={i18n('PRIVATE')} name="private" field="checkbox"/>
+                    <FormField className="topic-edit-modal__private" label={i18n('PRIVATE')} name="private" field="checkbox" />
                     <InfoTooltip className="topic-edit-modal__private"  text={i18n('PRIVATE_TOPIC_DESCRIPTION')} />
-                
-                    <SubmitButton className="topic-edit-modal__save-button" type="secondary" size="small">
-                        {i18n('SAVE')}
-                    </SubmitButton>
-                    <Button className="topic-edit-modal__discard-button" onClick={this.onDiscardClick.bind(this)} size="small">
-                        {i18n('CANCEL')}
-                    </Button>
+                    <div className="topic-edit-modal__buttons-container">
+                        <Button className="topic-edit-modal__discard-button" onClick={this.onDiscardClick.bind(this)} size="small">
+                            {i18n('CANCEL')}
+                        </Button>
+                        <SubmitButton className="topic-edit-modal__save-button" type="secondary" size="small">
+                            {i18n('SAVE')}
+                        </SubmitButton>
+                    </div>
                 </Form>
             </div>
         );

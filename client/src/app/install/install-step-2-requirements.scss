@@ -6,7 +6,8 @@
         margin: 15px 0;
 
         &-button {
-            width: 120px;
+            min-width: 120px;
+            width: auto;
             position: relative;
             text-align: right;
         }
@@ -43,12 +44,16 @@
     }
 
     &__previous {
-        float: left;
+    }
+
+    &__buttons {
+        width: 55%;
+        display: inline-flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
     }
 
     &__next {
-        float: left;
-        position: absolute;
-        margin-left: 103px;
     }
 }

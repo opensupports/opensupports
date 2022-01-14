@@ -15,43 +15,57 @@ import Icon from 'core-components/icon';
 import ModalContainer from 'app-components/modal-container';
 import InviteUserWidget from 'app/admin/panel/users/invite-user-widget';
 
+const DEFAULT_USERS_PARAMS = {
+    page: 1,
+    orderBy: 'id',
+    desc: true,
+    search: ''
+}
+
 class AdminPanelListUsers extends React.Component {
     state = {
         loading: true,
         users: [],
-        orderBy: 'id',
-        desc: true,
+        usersParams: DEFAULT_USERS_PARAMS,
         error: false,
-        page: 1,
-        pages: 1
+        pages: 1,
+        showMessage: true
     };
 
     componentDidMount() {
-        this.retrieveUsers({
-            page: 1,
-            orderBy: 'id',
-            desc: true,
-            search: ''
-        });
+        this.retrieveUsers(DEFAULT_USERS_PARAMS);
     }
 
     render() {
         return (
             <div className="admin-panel-list-users">
                 <Header title={i18n('LIST_USERS')} description={i18n('LIST_USERS_DESCRIPTION')} />
-                {(this.state.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_USERS')}</Message> : this.renderTableAndInviteButton()}
+                {(this.state.error) ? <Message showCloseButton={false} type="error">{i18n('ERROR_RETRIEVING_USERS')}</Message> : this.renderTableAndInviteButton()}
             </div>
         );
     }
 
     renderTableAndInviteButton() {
+        const { message, showMessage } = this.state;
+
         return (
             <div>
                 <SearchBox className="admin-panel-list-users__search-box" placeholder={i18n('SEARCH_USERS')} onSearch={this.onSearch.bind(this)} />
-                <Table {...this.getTableProps()}/>
+                {
+                    (message === 'success') ?
+                        <Message
+                            showMessage={showMessage}
+                            onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                            className="admin-panel-list-users__success-message"
+                            type="success">
+                                {i18n('INVITE_USER_SUCCESS')}
+                        </Message> :
+                        null
+                }
+                <Table {...this.getTableProps()} />
                 <div style={{textAlign: 'right', marginTop: 10}}>
                     <Button onClick={this.onInviteUser.bind(this)} type="secondary" size="medium">
-                        <Icon size="sm" name="plus"/> {i18n('INVITE_USER')}
+                        <Icon size="sm" name="user-plus" /> {i18n('INVITE_USER')}
                     </Button>
                 </div>
             </div>
@@ -59,14 +73,16 @@ class AdminPanelListUsers extends React.Component {
     }
 
     getTableProps() {
+        const {loading, users, usersParams, pages } = this.state;
+
         return {
             className: 'admin-panel-list-users__table',
-            loading: this.state.loading,
+            loading,
             headers: this.getTableHeaders(),
-            rows: this.state.users.map(this.getUserRow.bind(this)),
+            rows: users.map(this.getUserRow.bind(this)),
             pageSize: 10,
-            page: this.state.page,
-            pages: this.state.pages,
+            page: usersParams.page,
+            pages,
             onPageChange: this.onPageChange.bind(this)
         };
     }
@@ -129,38 +145,57 @@ class AdminPanelListUsers extends React.Component {
     }
 
     onSearch(query) {
-        this.retrieveUsers({
-            page: 1,
-            orderBy: 'id',
-            desc: true,
+        const newUsersParams = {
+            ...this.state.usersParams,
+            page: DEFAULT_USERS_PARAMS.page,
             search: query
+        }
+
+        this.retrieveUsers(newUsersParams);
+
+        this.setState({
+            usersParams: newUsersParams
         });
     }
 
     onPageChange(event) {
-        this.retrieveUsers({
+        const newUsersParams = {
+            ...this.state.usersParams,
             page: event.target.value,
-            orderBy: this.state.orderBy,
-            desc: this.state.desc,
-            search: this.state.search
+        }
+
+        this.retrieveUsers(newUsersParams);
+
+        this.setState({
+            usersParams: newUsersParams
         });
     }
 
     orderByTickets(desc) {
-        this.retrieveUsers({
-            page: 1,
+        const newUsersParams = {
+            ...this.state.usersParams,
             orderBy: 'tickets',
-            desc: desc,
-            search: this.state.search
+            desc: desc
+        }
+
+        this.retrieveUsers(newUsersParams);
+
+        this.setState({
+            usersParams: newUsersParams
         });
     }
 
     orderById(desc) {
-        this.retrieveUsers({
-            page: 1,
+        const newUsersParams = {
+            ...this.state.usersParams,
             orderBy: 'id',
-            desc: desc,
-            search: this.state.search
+            desc: desc
+        }
+
+        this.retrieveUsers(newUsersParams);
+
+        this.setState({
+            usersParams: newUsersParams
         });
     }
 
@@ -178,24 +213,43 @@ class AdminPanelListUsers extends React.Component {
     onInviteUser(user) {
         ModalContainer.openModal(
             <div className="admin-panel-list-users__invite-user-form">
-                <InviteUserWidget onSuccess={this.onInviteUserSuccess.bind(this)} />
-                <div style={{textAlign: 'center'}}>
-                    <Button onClick={ModalContainer.closeModal} type="link">{i18n('CLOSE')}</Button>
-                </div>
-            </div>
+                <InviteUserWidget
+                    onSuccess={this.onInviteUserSuccess.bind(this)}
+                    onChangeMessage={this.onChangeMessage.bind(this)} />
+            </div>,
+            {
+                closeButton: {
+                    showCloseButton: true
+                }
+            }
         );
     }
+
+    onChangeMessage(message) {
+        this.setState({
+            message,
+            showMessage: true
+        });
+    }
+
     onInviteUserSuccess() {
         ModalContainer.closeModal();
+
+        this.retrieveUsers(DEFAULT_USERS_PARAMS);
     }
 
     onUsersRetrieved(result) {
+        const { page, pages, users, orderBy, desc } = result.data;
+
         this.setState({
-            page: result.data.page * 1,
-            pages: result.data.pages * 1,
-            users: result.data.users,
-            orderBy: result.data.orderBy,
-            desc: (result.data.desc*1),
+            usersParams: {
+                ...this.state.usersParams,
+                page: page*1,
+                orderBy: orderBy,
+                desc: desc*1,
+            },
+            pages: pages*1,
+            users: users,
             error: false,
             loading: false
         });
@@ -205,6 +259,12 @@ class AdminPanelListUsers extends React.Component {
         this.setState({
             error: true,
             loading: false
+        });
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
         });
     }
 }

@@ -1,6 +1,10 @@
 @import "../scss/vars";
 
 .ticket-list {
+    &__order-icon {
+        padding-left: 5px;
+        font-size: 14px;
+    }
 
     &__filters {
         margin-bottom: 25px;
@@ -43,24 +47,4 @@
         text-decoration: underline;
     }
 
-    &__priority-low,
-    &__priority-medium,
-    &__priority-high {
-        display: inline-block;
-        border-radius: 10px;
-        width: 70px;
-        color: white;
-    }
-
-    &__priority-low {
-        background-color: $primary-green;
-    }
-
-    &__priority-medium {
-        background-color: $secondary-blue;
-    }
-
-    &__priority-high {
-        background-color: $primary-red;
-    }
 }

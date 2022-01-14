@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/edit Edit staff
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  *
  * @apiName Edit staff
  *
@@ -21,6 +21,9 @@ use Respect\Validation\Validator as DataValidator;
  * @apiParam {Boolean} sendEmailOnNewTicket Indicates if it receives an email when a new ticket is created.
  *
  * @apiUse NO_PERMISSION
+ * @apiUse INVALID_EMAIL
+ * @apiUse INVALID_PASSWORD
+ * @apiUse INVALID_LEVEL
  * @apiUse INVALID_STAFF
  *
  * @apiSuccess {Object} data Empty object
@@ -42,14 +45,16 @@ class EditStaffController extends Controller {
                     'error' => ERRORS::INVALID_EMAIL
                 ],
                 'password' => [
-                    'validation' => DataValidator::oneOf(DataValidator::notBlank()->length(5, 200), DataValidator::falseVal()),
+                    'validation' => DataValidator::oneOf(
+                        DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_PASSWORD, LengthConfig::MAX_LENGTH_PASSWORD),
+                        DataValidator::falseVal()
+                    ),
                     'error' => ERRORS::INVALID_PASSWORD
                 ],
                 'level' => [
                     'validation' => DataValidator::oneOf(DataValidator::between(1, 3, true), DataValidator::falseVal()),
                     'error' => ERRORS::INVALID_LEVEL
                 ]
-
             ]
         ];
     }
@@ -64,11 +69,9 @@ class EditStaffController extends Controller {
 
             if($this->staffInstance->isNull()) {
                 throw new RequestException(ERRORS::INVALID_STAFF);
-                return;
             }
         } else {
             throw new RequestException(ERRORS::NO_PERMISSION);
-            return;
         }
 
         if(Controller::request('departments')) {
@@ -82,7 +85,11 @@ class EditStaffController extends Controller {
     private function editInformation() {
 
         if(Controller::request('email')) {
-            $this->staffInstance->email = Controller::request('email');
+            $newEmail = Controller::request('email');
+
+            $this->verifyEmail($newEmail);
+
+            $this->staffInstance->email = $newEmail;
         }
 
         if(Controller::request('password')) {
@@ -128,7 +135,20 @@ class EditStaffController extends Controller {
         $this->staffInstance->store();
     }
 
+    private function verifyEmail($email){
 
+        $staff = Staff::getDataStore($email,'email');
+        $user = User::getDataStore($email,'email');
+
+        if($user->email == $email){
+            throw new RequestException(ERRORS::INVALID_EMAIL);
+        }
+
+        if($staff->email == $email && $this->staffInstance->email != $email){
+            throw new RequestException(ERRORS::INVALID_EMAIL);
+        }
+    }
+    
     private function getDepartmentList() {
         $listDepartments = new DataStoreList();
         $departmentIds = json_decode(Controller::request('departments'));

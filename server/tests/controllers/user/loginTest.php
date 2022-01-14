@@ -25,14 +25,6 @@ class LoginControllerTest extends TestCase {
         $this->loginController = new LoginController();
     }
 
-    public function testShouldRespondErrorIfAlreadyLoggedIn() {
-        Session::mockInstanceFunction('sessionExists', \Mock::stub()->returns(true));
-
-        $this->expectExceptionMessage(ERRORS::SESSION_EXISTS);
-
-        $this->loginController->handler();
-    }
-
     public function testShouldCreateSessionAndRespondSuccessIfCredentialsAreValid() {
         Session::mockInstanceFunction('sessionExists', \Mock::stub()->returns(false));
         Controller::useValueReturn();

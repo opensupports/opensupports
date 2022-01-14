@@ -26,7 +26,8 @@ class AdminPanelSystemPreferences extends React.Component {
         message: null,
         values: {
             maintenance: false,
-        }
+        },
+        showMessage: true
     };
 
     componentDidMount() {
@@ -52,13 +53,12 @@ class AdminPanelSystemPreferences extends React.Component {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-6">
-                            <FormField label={i18n('SUPPORT_CENTER_URL')} fieldProps={{size: 'large'}} name="url" validation="URL" required/>
-                            <FormField label={i18n('SUPPORT_CENTER_LAYOUT')} fieldProps={{size: 'large', items: [{content: i18n('BOXED')}, {content: i18n('FULL_WIDTH')}]}} field="select" name="layout" />
+                        <div className="col-md-6 admin-panel-system-preferences__form-fields">
+                            <FormField className="admin-panel-system-preferences__form-fields__input" label={i18n('SUPPORT_CENTER_URL')} fieldProps={{size: 'large'}} name="url" validation="URL" required/>
+                            <FormField className="admin-panel-system-preferences__form-fields__select" label={i18n('SUPPORT_CENTER_LAYOUT')} fieldProps={{size: 'large', items: [{content: i18n('BOXED')}, {content: i18n('FULL_WIDTH')}]}} field="select" name="layout" />
                         </div>
                         <div className="col-md-6">
                             <FormField label={i18n('SUPPORT_CENTER_TITLE')} fieldProps={{size: 'large'}} name="title" validation="TITLE" required/>
-                            <FormField label={i18n('DEFAULT_TIMEZONE')} fieldProps={{size: 'large'}} name="time-zone"/>
                         </div>
                     </div>
                     <div className="row">
@@ -99,12 +99,12 @@ class AdminPanelSystemPreferences extends React.Component {
                             <span className="separator" />
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row admin-panel-system-preferences__container">
                         <div className="col-md-4 col-md-offset-2">
-                            <SubmitButton type="secondary">{i18n('UPDATE_SETTINGS')}</SubmitButton>
+                            <Button className="admin-panel-system-preferences__container__button" onClick={this.onDiscardChangesSubmit.bind(this)}>{i18n('DISCARD_CHANGES')}</Button>
                         </div>
                         <div className="col-md-4">
-                            <Button onClick={this.onDiscardChangesSubmit.bind(this)}>{i18n('DISCARD_CHANGES')}</Button>
+                            <SubmitButton className="admin-panel-system-preferences__container__button" type="secondary">{i18n('UPDATE_SETTINGS')}</SubmitButton>
                         </div>
                     </div>
                 </Form>
@@ -114,11 +114,29 @@ class AdminPanelSystemPreferences extends React.Component {
     }
 
     renderMessage() {
-        switch (this.state.message) {
+        const { message, showMessage } = this.state;
+
+        switch (message) {
             case 'success':
-                return <Message className="admin-panel-system-preferences__message" type="success">{i18n('SETTINGS_UPDATED')}</Message>;
+                return (
+                    <Message
+                        showMessage={showMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                        className="admin-panel-system-preferences__message"
+                        type="success">
+                            {i18n('SETTINGS_UPDATED')}
+                    </Message>
+                );
             case 'fail':
-                return <Message className="admin-panel-system-preferences__message" type="error">{i18n('ERROR_UPDATING_SETTINGS')}</Message>;
+                return (
+                    <Message
+                        showMessage={showMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                        className="admin-panel-system-preferences__message"
+                        type="error">
+                            {i18n('ERROR_UPDATING_SETTINGS')}
+                    </Message>
+                );
             default:
                 return null;
         }
@@ -127,13 +145,14 @@ class AdminPanelSystemPreferences extends React.Component {
     onFormChange(form) {
         const { language, supportedLanguages, allowedLanguages } = form;
         const languageIndex = _.indexOf(languageKeys, language);
+        const updatedSupportedLanguages = _.filter(supportedLanguages, (supportedIndex) => _.includes(allowedLanguages, supportedIndex));
 
         this.setState({
-          values: _.extend({}, form, {
-              language: _.includes(supportedLanguages, languageIndex) ? language : languageKeys[supportedLanguages[0]],
-              supportedLanguages: _.filter(supportedLanguages, (supportedIndex) => _.includes(allowedLanguages, supportedIndex))
-          }),
-          message: null
+            values: _.extend({}, form, {
+                language: _.includes(updatedSupportedLanguages, languageIndex) ? language : languageKeys[updatedSupportedLanguages[0]],
+                supportedLanguages: updatedSupportedLanguages
+            }),
+            message: null
         });
     }
 
@@ -149,21 +168,21 @@ class AdminPanelSystemPreferences extends React.Component {
                 'url': form['url'],
                 'title': form['title'],
                 'layout': form['layout'] ? 'full-width' : 'boxed',
-                'time-zone': form['time-zone'],
                 'maintenance-mode': form['maintenance-mode'] * 1,
                 'allow-attachments': form['allow-attachments'] * 1,
                 'max-size': form['max-size'],
                 'allowedLanguages': JSON.stringify(form.allowedLanguages.map(index => languageKeys[index])),
                 'supportedLanguages': JSON.stringify(form.supportedLanguages.map(index => languageKeys[index]))
             }
-        }).then(this.onSubmitSuccess.bind(this)).catch(() => this.setState({loading: false, message: 'fail'}));
+        }).then(this.onSubmitSuccess.bind(this)).catch(() => this.setState({loading: false, message: 'fail', showMessage: true}));
     }
 
     onSubmitSuccess() {
         this.recoverSettings();
         this.setState({
             message: 'success',
-            loading: false
+            loading: false,
+            showMessage: true
         });
     }
 
@@ -190,7 +209,6 @@ class AdminPanelSystemPreferences extends React.Component {
                 'url': result.data['url'],
                 'title': result.data['title'],
                 'layout': (result.data['layout'] == 'full-width') ? 1 : 0,
-                'time-zone': result.data['time-zone'],
                 'maintenance-mode': !!(result.data['maintenance-mode'] * 1),
                 'allow-attachments': !!(result.data['allow-attachments'] * 1),
                 'max-size': result.data['max-size'],
@@ -204,7 +222,8 @@ class AdminPanelSystemPreferences extends React.Component {
 
     onRecoverSettingsFail() {
         this.setState({
-            message: 'error'
+            message: 'error',
+            showMessage: true
         });
     }
 
@@ -212,6 +231,12 @@ class AdminPanelSystemPreferences extends React.Component {
         event.preventDefault();
         this.setState({loading: true});
         this.recoverSettings();
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
+        });
     }
 }
 

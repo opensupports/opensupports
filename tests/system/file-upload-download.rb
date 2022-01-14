@@ -1,5 +1,5 @@
 describe 'File Upload and Download' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login('creator@os4.com', 'creator')
 
     it 'should upload file when creating ticket' do
@@ -21,7 +21,7 @@ describe 'File Upload and Download' do
         ticket = $database.getLastRow('ticket')
 
         (ticket['file'].include? 'upload_3_.txt').should.equal(true)
-        (ticket['file'].include? ('' + ticket['ticket_number'] + '_')).should.equal(true)
+        (ticket['file'].include? ('' + ticket['ticket_number'].to_s + '_')).should.equal(true)
         (File.exist? ('../server/files/' + ticket['file'])).should.equal(true)
     end
 
@@ -39,8 +39,8 @@ describe 'File Upload and Download' do
     end
 
     it 'should download if department owner is logged' do
-        request('/user/logout')
-        Scripts.login('staff@opensupports.com', 'staff', true)
+        Scripts.logout()
+        Scripts.login($staff[:email], $staff[:password], true)
 
         ticket = $database.getLastRow('ticket')
         file = File.open("../server/files/" + ticket['file'])
@@ -79,7 +79,7 @@ describe 'File Upload and Download' do
     end
 
     it 'should add images to ticket content when creating a new ticket' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login('creator@os4.com', 'creator')
 
         file = File.open( "../server/files/profile.jpg")

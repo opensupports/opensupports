@@ -22,7 +22,15 @@
         text-align: center;
     }
 
+    &__success-message {
+        margin-bottom: 20px;
+    }
+
     &__add-user-form {
         max-width: 500px;
+    }
+
+    &__invite-user-form {
+        min-width: 700px;
     }
 }

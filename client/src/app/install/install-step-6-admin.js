@@ -15,13 +15,14 @@ class InstallStep6Admin extends React.Component {
     state = {
         loading: false,
         error: false,
+        showErrorMessage: true,
         errorMessage: ''
     };
 
     render() {
         return (
             <div className="install-step-6">
-                <Header title={i18n('STEP_TITLE', {title: i18n('ADMIN_SETUP'), current: 6, total: 7})} description={i18n('STEP_6_DESCRIPTION')}/>
+                <Header title={i18n('STEP_TITLE', {title: i18n('ADMIN_SETUP'), current: 6, total: 6})} description={i18n('STEP_6_DESCRIPTION')} />
                 {this.renderMessage()}
                 <Form onSubmit={this.onSubmit.bind(this)}>
                     <FormField name="name" validation="NAME" label={i18n('ADMIN_NAME')} fieldProps={{size: 'large'}} required/>
@@ -36,17 +37,19 @@ class InstallStep6Admin extends React.Component {
     }
 
     renderMessage() {
-        let message = null;
+        const { error, errorMessage, showErrorMessage } = this.state;
 
-        if(this.state.error) {
-            message = (
-                <Message className="install-step-6_message" type="error">
-                    {i18n('ERROR_UPDATING_SETTINGS')}: {this.state.errorMessage}
-                </Message>
-            );
-        }
-
-        return message;
+        return (
+            error ?
+                <Message
+                    showMessage={showErrorMessage}
+                    onCloseMessage={this.onCloseMessage.bind(this, "showErrorMessage")}
+                    className="install-step-6_message"
+                    type="error">
+                        {i18n('ERROR_UPDATING_SETTINGS')}: {errorMessage}
+                </Message> :
+                null
+        );
     }
 
     onSubmit(form) {
@@ -57,12 +60,19 @@ class InstallStep6Admin extends React.Component {
                 path: '/system/init-admin',
                 data: form
             })
-                .then(() => history.push('/install/step-7'))
+                .then(() => history.push('/install/completed'))
                 .catch(({message}) => this.setState({
                     loading: false,
                     error: true,
+                    showErrorMessage: true,
                     errorMessage: message
                 }));
+        });
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
         });
     }
 }

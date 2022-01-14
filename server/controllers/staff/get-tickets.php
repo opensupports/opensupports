@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/get-tickets Get tickets
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  *
  * @apiName Get tickets
  *
@@ -15,7 +15,8 @@ use Respect\Validation\Validator as DataValidator;
  *
  * @apiParam {Number} page The page number.
  * @apiParam {bool} closed Include closed tickets in the response.
- *
+ * @apiParam {Number} departmentId The id of the department searched
+ * 
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_PAGE
  *

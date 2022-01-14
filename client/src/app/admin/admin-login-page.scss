@@ -19,12 +19,22 @@
         margin-bottom: 30px;
     }
 
-    &__login-form {
+    &__login-form-container {
         margin: 0 auto;
         display: inline-block;
+
+        &__login-form__fields {
+            padding: 10px 0;
+        }
     }
 
     &__error {
         margin-top: 30px;
+    }
+    
+    &__captcha {
+        margin: 10px auto 20px;
+        height: 78px;
+        width: 304px;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {post} /user/logout Log out
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  *
  * @apiName Log out 
  *
@@ -11,6 +11,8 @@
  *
  * @apiPermission any
  *
+ * @apiUse NO_PERMISSION
+ * 
  * @apiSuccess {Object} data Empty object
  *
  */
@@ -20,7 +22,7 @@ class LogoutController extends Controller {
 
     public function validations() {
         return [
-            'permission' => 'any',
+            'permission' => 'user',
             'requestData' => []
         ];
     }

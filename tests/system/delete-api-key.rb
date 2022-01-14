@@ -1,5 +1,5 @@
 describe'system/delete-api-key' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
 
         it 'should not delete API key' do
@@ -22,7 +22,7 @@ describe'system/delete-api-key' do
 
             (result['status']).should.equal('success')
 
-            row = $database.getRow('apikey', 1, 'id')
+            row = $database.getRow('apikey', 2, 'id')
 
             (row).should.equal(nil)
         end

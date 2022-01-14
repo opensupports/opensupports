@@ -2,5 +2,23 @@
 
     &_wrapped {
         padding: 0 10px;
+
+        @media screen and (min-width: 993px){
+            float: none;
+        }
+    }
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    &__create-ticket-form__hidden {
+        display: none;
+    }
+
+    &__message {
+        margin-bottom: 30px;
     }
 }

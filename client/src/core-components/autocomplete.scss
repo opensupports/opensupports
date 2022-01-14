@@ -1,8 +1,8 @@
 @import "../scss/vars";
 
 .autocomplete {
-    margin-bottom: 30px;
     text-align: left;
+    display: inline-block;
 
     &__drop-down {
         .drop-down__current-item {
@@ -11,10 +11,17 @@
             border: 1px solid $grey;
             min-height: 38px;
 
-            &:focus {
+            &:focus-within {
                 outline: none;
                 border-color: $primary-blue;
+                background-color: $very-light-grey;
             }
+        }
+
+        .menu__list {
+            max-height: 410px;
+            overflow-y: auto;
+            @include scrollbars();
         }
     }
   

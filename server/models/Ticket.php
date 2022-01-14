@@ -1,7 +1,7 @@
 <?php
 /**
  * @api {OBJECT} Ticket Ticket
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  * @apiGroup Data Structures
  * @apiParam {Number}  ticketNumber The number of the ticket.
  * @apiParam {String}  title The title of the ticket.
@@ -14,7 +14,6 @@
  * @apiParam {Boolean}  unread Indicates if the user has already read the last comment.
  * @apiParam {Boolean}  unreadStaff Indicates if the staff has already read the last comment.
  * @apiParam {Boolean}  closed Indicates if the ticket is closed.
- * @apiParam {String}  priority The priority of the ticket. It can be LOW, MEDIUM or HIGH.
  * @apiParam {Object}  author The author of the ticket.
  * @apiParam {Number}  author.id The id of the author of the ticket.
  * @apiParam {String}  author.name The author's name of the ticket.
@@ -41,7 +40,9 @@ class Ticket extends DataStore {
             'date',
             'unread',
             'closed',
-            'priority',
+            'first_closed_at',
+            'last_closed_at',
+            'reopened',
             'author',
             'authorStaff',
             'owner',
@@ -52,7 +53,9 @@ class Ticket extends DataStore {
             'authorName',
             'sharedTagList',
             'editedContent',
-            'editedTitle'
+            'editedTitle',
+            'totalDepartments',
+            'totalOwners'
         );
     }
 
@@ -90,7 +93,6 @@ class Ticket extends DataStore {
 
     public function getDefaultProps() {
         return array(
-            'priority' => 'low',
             'unread' => false,
             'unreadStaff' => true,
             'ticketNumber' => $this->generateUniqueTicketNumber()
@@ -136,7 +138,6 @@ class Ticket extends DataStore {
             'unread' => !!$this->unread,
             'unreadStaff' => !!$this->unreadStaff,
             'closed' => !!$this->closed,
-            'priority' => $this->priority,
             'author' => $this->authorToArray(),
             'owner' => $this->ownerToArray(),
             'events' => $minimized ? [] : $this->eventsToArray(),
@@ -231,5 +232,24 @@ class Ticket extends DataStore {
 
     public function isOwner($user) {
         return !$user->isNull() && $this->owner && $user->id == $this->owner->id && ($user instanceof Staff);
+    }
+
+    public function getEventsOfType($type) {
+        $ticketEvents = $this->eventsToArray();
+        $filteredEventsList = [];
+
+        foreach($ticketEvents as $ticketEvent) {
+            if($ticketEvent['type'] == $type) {
+                array_push($filteredEventsList, $ticketEvent);
+            }
+        }
+
+        return $filteredEventsList;
+    }
+
+    public function getLatestEventOfType($type) {
+        $filteredEventsList = $this->getEventsOfType($type);
+
+        return end($filteredEventsList);
     }
 }

@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/add-custom-response Add custom responses
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  *
  * @apiName Add a custom response
  *
@@ -36,8 +36,8 @@ class AddCustomResponseController extends Controller {
             'permission' => 'staff_2',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::notBlank()->length(5, 100),
-                    'error' => ERRORS::INVALID_NAME
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
+                    'error' => ERRORS::INVALID_TITLE
                 ],
                 'content' => [
                     'validation' => DataValidator::content(),
@@ -54,7 +54,7 @@ class AddCustomResponseController extends Controller {
     public function handler() {
         $customResponse = new CustomResponse();
         $customResponse->setProperties([
-            'name' => Controller::request('name'),
+            'name' => Controller::request('name', true),
             'content' => Controller::request('content', true),
             'language' => Controller::request('language')
         ]);

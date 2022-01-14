@@ -26,4 +26,21 @@
     &__private {
         margin-left: 5px;
     }
+
+    @media screen and (max-width: 415px) {
+        .admin-panel-staff-members {
+            &__drowpdown {
+                float: unset;
+            }
+
+            &__button {
+                float: unset;
+                margin: 15px;
+            }
+
+            &__wrapper {
+                height: unset;
+            }
+        }
+    }
 }

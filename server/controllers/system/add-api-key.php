@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/add-api-key Add APIKey
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  *
  * @apiName Add APIKey
  *
@@ -14,12 +14,13 @@ use Respect\Validation\Validator as DataValidator;
  * @apiPermission staff3
  *
  * @apiParam {String} name Name of the new APIKey.
- * @apiParam {String} type Type of APIKey: "REGISTRATION" or "TICKET_CREATE"
- *
+ * @apiParam {Boolean} canCreateUsers canCreateUsers determinates if the apikey has the permission to create users 
+ * @apiParam {Boolean} canCreateTickets canCreateTickets determinates if the apikey has the permission to create tickets
+ * @apiParam {Boolean} canCheckTickets canCheckTickets determinates if the apikey has the permission to check tickets
+ * @apiParam {Boolean} shouldReturnTicketNumber shouldReturnTicketNumber determinates if the apikey has the permission of returning ticket number after ticket creation
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_NAME
  * @apiUse NAME_ALREADY_USED
- * @apiUse INVALID_API_KEY_TYPE
  *
  * @apiSuccess {String} data Token of the APIKey.
  *
@@ -34,12 +35,8 @@ class AddAPIKeyController extends Controller {
             'permission' => 'staff_3',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::notBlank()->length(2, 55)->alnum(),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME)->alnum(),
                     'error' => ERRORS::INVALID_NAME
-                ],
-                'type' => [
-                    'validation' => DataValidator::in(APIKey::TYPES),
-                    'error' => ERRORS::INVALID_API_KEY_TYPE
                 ]
             ]
         ];
@@ -49,8 +46,10 @@ class AddAPIKeyController extends Controller {
         $apiInstance = new APIKey();
 
         $name = Controller::request('name');
-        $type = Controller::request('type');
-
+        $canCreateUsers = (bool)Controller::request('canCreateUsers');
+        $canCreateTickets = (bool)Controller::request('canCreateTickets');
+        $canCheckTickets = (bool)Controller::request('canCheckTickets');
+        $shouldReturnTicketNumber = (bool)Controller::request('shouldReturnTicketNumber');
         $keyInstance = APIKey::getDataStore($name, 'name');
 
         if($keyInstance->isNull()){
@@ -59,7 +58,10 @@ class AddAPIKeyController extends Controller {
             $apiInstance->setProperties([
                 'name' => $name,
                 'token' => $token,
-                'type' => $type,
+                'canCreateUsers' => $canCreateUsers,
+                'canCreateTickets' => $canCreateTickets,
+                'canCheckTickets' => $canCheckTickets,
+                'shouldReturnTicketNumber' => $shouldReturnTicketNumber
             ]);
 
             $apiInstance->store();

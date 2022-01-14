@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/search-tickets Search tickets
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  *
  * @apiName Search tickets
  *
@@ -35,7 +35,7 @@ class SearchTicketStaffController extends Controller {
             'permission' => 'staff_1',
             'requestData' => [
                 'query' => [
-                    'validation' => DataValidator::notBlank()->length(1),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_QUERY),
                     'error' => ERRORS::INVALID_QUERY
                 ],
                 'page' => [

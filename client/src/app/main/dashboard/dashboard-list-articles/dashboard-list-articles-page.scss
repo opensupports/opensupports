@@ -2,6 +2,10 @@
 
 .dashboard-list-articles-page {
 
+    @media screen and (min-width: 993px){
+        float: none;
+    }
+
     &__search-results {
 
     }

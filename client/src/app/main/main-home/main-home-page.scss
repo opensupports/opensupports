@@ -1,8 +1,19 @@
 .main-home-page {
 
+    &__center {
+        display: flex;
+        justify-content: center;
+    }
+
     &__message {
         margin-bottom: 20px;
         margin-left: 20px;
         margin-right: 20px;
+    }
+
+    &__captcha {
+        margin: 10px auto 20px;
+        height: 78px;
+        width: 304px;
     }
 }

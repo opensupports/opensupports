@@ -13,11 +13,11 @@ class Language extends DataStore {
         'jp',
         'ru',
         'cn',
-        'in',
+        'in', 
         'tr',
         'it',
         'br',
-        'gr',
+        'gr', 
         'nl',
         'pl'
     ];

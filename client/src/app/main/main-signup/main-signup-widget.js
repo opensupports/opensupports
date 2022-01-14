@@ -26,7 +26,9 @@ class MainSignUpWidget extends React.Component {
         this.state = {
             loading: false,
             email: null,
-            customFields: null
+            customFields: null,
+            showMessage: true,
+            message: null
         };
     }
 
@@ -40,19 +42,20 @@ class MainSignUpWidget extends React.Component {
 
     render() {
         if(!this.state.customFields) return null;
+
         return (
             <Widget className={this.getClass()}>
                 <Header title={i18n('SIGN_UP')} description={i18n('SIGN_UP_VIEW_DESCRIPTION')} />
                 <Form {...this.getFormProps()}>
                     <div className="signup-widget__inputs">
-                        <FormField {...this.getInputProps()} label={i18n('FULL_NAME')} name="name" validation="NAME" required/>
-                        <FormField {...this.getInputProps()} label={i18n('EMAIL')} name="email" validation="EMAIL" required/>
-                        <FormField {...this.getInputProps(true)} label={i18n('PASSWORD')} name="password" validation="PASSWORD" required/>
-                        <FormField {...this.getInputProps(true)} label={i18n('REPEAT_PASSWORD')} name="repeated-password" validation="REPEAT_PASSWORD" required/>
+                        <FormField {...this.getInputProps()} label={i18n('FULL_NAME')} name="name" validation="NAME" required />
+                        <FormField {...this.getInputProps()} label={i18n('EMAIL')} name="email" validation="EMAIL" required />
+                        <FormField {...this.getInputProps(true)} label={i18n('PASSWORD')} name="password" validation="PASSWORD" required />
+                        <FormField {...this.getInputProps(true)} label={i18n('REPEAT_PASSWORD')} name="repeated-password" validation="REPEAT_PASSWORD" required />
                         {this.state.customFields.map(this.renderCustomField.bind(this))}
                     </div>
                     <div className="signup-widget__captcha">
-                        <Captcha ref="captcha"/>
+                        <Captcha ref="captcha" />
                     </div>
                     <SubmitButton type="primary">{i18n('SIGN_UP')}</SubmitButton>
                 </Form>
@@ -70,7 +73,7 @@ class MainSignUpWidget extends React.Component {
                     key={key}
                     label={customField.name}
                     infoMessage={customField.description}
-                    field="input"/>
+                    field="input" />
             );
         } else {
             const items = customField.options.map(option => ({content: option.name, value: option.name}));
@@ -82,17 +85,33 @@ class MainSignUpWidget extends React.Component {
                     label={customField.name}
                     infoMessage={customField.description}
                     field="select"
-                    fieldProps={{size:'medium', items}}/>
+                    fieldProps={{size: 'medium', items}} />
             );
         }
     }
 
     renderMessage() {
-        switch (this.state.message) {
+        const { message, showMessage } = this.state;
+
+        switch (message) {
             case 'success':
-                return <Message type="success">{i18n('SIGNUP_SUCCESS')}</Message>;
+                return (
+                    <Message
+                        showMessage={showMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                        type="success">
+                            {i18n('SIGNUP_SUCCESS')}
+                    </Message>
+                );
             case 'fail':
-                return <Message type="error">{i18n('EMAIL_EXISTS')}</Message>;
+                return (
+                    <Message
+                        showMessage={showMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                        type="error">
+                            {i18n('EMAIL_EXISTS')}
+                    </Message>
+                );
             default:
                 return null;
         }
@@ -152,16 +171,24 @@ class MainSignUpWidget extends React.Component {
     onSignupSuccess() {
         this.setState({
             loading: false,
-            message: 'success'
+            message: 'success',
+            showMessage: true
         }, () => {
-            setTimeout(() => {history.push('/check-ticket')}, 2000);
+            setTimeout(() => {history.push('/')}, 2000);
         });
     }
 
     onSignupFail() {
         this.setState({
             loading: false,
-            message: 'fail'
+            message: 'fail',
+            showMessage: true
+        });
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
         });
     }
 }

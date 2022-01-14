@@ -1,9 +1,9 @@
 describe '/ticket/re-open' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     it 'should re open  a ticket if staff member has the deparment of the ticket' do
-        ticket = $database.getRow('ticket', 1 , 'id')
+        ticket = $database.getRow('ticket', 'Should we pay?' , 'title')
 
         result = request('/ticket/re-open', {
             ticketNumber: ticket['ticket_number'],
@@ -13,14 +13,14 @@ describe '/ticket/re-open' do
 
         (result['status']).should.equal('success')
 
-        ticket = $database.getRow('ticket', 1 , 'id')
-        (ticket['closed']).should.equal('0')
-        (ticket['unread']).should.equal('1')
+        ticket = $database.getRow('ticket', 'Should we pay?' , 'title')
+        (ticket['closed']).should.equal(0)
+        (ticket['unread']).should.equal(1)
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('RE_OPEN')
 
-        request('/user/logout')
+        Scripts.logout()
     end
     it 'Should re-open if staff member does not serve to the department of the ticket and its the author'do
         Scripts.login($staff[:email], $staff[:password], true)
@@ -45,7 +45,7 @@ describe '/ticket/re-open' do
         (result['status']).should.equal('success')
 
         ticket = $database.getRow('ticket', 'contentoftheticketthatisgoingtosucces' , 'content')
-        (ticket['closed']).should.equal('0')
+        (ticket['closed']).should.equal(0)
 
         request('/staff/edit', {
             csrf_userid: $csrf_userid,
@@ -76,12 +76,12 @@ describe '/ticket/re-open' do
         (result['status']).should.equal('success')
 
         ticket = $database.getRow('ticket', 'tickettoreopen', 'title')
-        (ticket['closed']).should.equal('0')
+        (ticket['closed']).should.equal(0)
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('RE_OPEN')
 
-        request('/user/logout')
+        Scripts.logout()
     end
 
     it 'Should fail re-open the ticket if the staff does not serve to the department and he is not the author' do

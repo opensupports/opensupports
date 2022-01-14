@@ -51,12 +51,14 @@ class InviteStaffModal extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <SubmitButton type="secondary" size="small">
-                        {i18n('SAVE')}
-                    </SubmitButton>
-                    <Button type="clean" onClick={this.onCancelClick.bind(this)}>
-                        {i18n('CANCEL')}
-                    </Button>
+                    <div className="invite-staff-modal__buttons-container">
+                        <Button type="clean" onClick={this.onCancelClick.bind(this)}>
+                            {i18n('CANCEL')}
+                        </Button>
+                        <SubmitButton type="secondary" size="small">
+                            {i18n('SAVE')}
+                        </SubmitButton>
+                    </div>
                 </Form>
             </div>
         );

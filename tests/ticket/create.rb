@@ -1,5 +1,5 @@
 describe '/ticket/create' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.createUser('creator@os4.com','creator','Creator')
     Scripts.login('creator@os4.com','creator')
 
@@ -78,8 +78,8 @@ describe '/ticket/create' do
 
     end
     it 'should fail if an user tries to create a ticket with a private department' do
-        request('/user/logout')
-        Scripts.login('staff@opensupports.com', 'staff', true)
+        Scripts.logout()
+        Scripts.login($staff[:email], $staff[:password], true)
 
         result = request('/system/add-department', {
             csrf_userid: $csrf_userid,
@@ -90,7 +90,7 @@ describe '/ticket/create' do
 
         row = $database.getRow('department', 'useless private deapartment', 'name')
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.createUser('user@os4.com', 'loginpass')
         Scripts.login('user@os4.com', 'loginpass')
 
@@ -106,7 +106,7 @@ describe '/ticket/create' do
         (result['status']).should.equal('fail')
         (result['message']).should.equal('INVALID_DEPARTMENT')
 
-        request('/user/logout')
+        Scripts.logout()
     end
 
     it 'should create ticket if pass data is valid' do
@@ -125,15 +125,14 @@ describe '/ticket/create' do
 
         ticket = $database.getRow('ticket','Winter is coming!','title')
         (ticket['content']).should.equal('The north remembers')
-        (ticket['unread']).should.equal('0')
-        (ticket['closed']).should.equal('0')
-        (ticket['priority']).should.equal('low')
-        (ticket['department_id']).should.equal('1')
-        (ticket['author_id']).should.equal($csrf_userid)
-        (ticket['ticket_number'].size).should.equal(6)
+        (ticket['unread']).should.equal(0)
+        (ticket['closed']).should.equal(0)
+        (ticket['department_id']).should.equal(1)
+        (ticket['author_id']).should.equal($csrf_userid.to_i)
+        ((Math.log10(ticket['ticket_number'].to_i)).ceil).should.equal(6)
 
         ticket_user_relation = $database.getRow('ticket_user', ticket['id'],'ticket_id')
-        (ticket_user_relation['user_id']).should.equal($csrf_userid)
+        (ticket_user_relation['user_id']).should.equal($csrf_userid.to_i)
 
         lastLog = $database.getLastRow('log')
         (lastLog['type']).should.equal('CREATE_TICKET')
@@ -178,22 +177,23 @@ describe '/ticket/create' do
     end
 
     it 'should be able to create a ticket while being staff' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         result = request('/ticket/create', {
             title: 'created by staff',
-            content: 'The staff created it',
+            content: 'The staff created it believing this path returns the ticketnumber',
             departmentId: 1,
             language: 'en',
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
         (result['status']).should.equal('success')
-        ticket = $database.getRow('ticket', result['data']['ticketNumber'], 'ticket_number')
+        
+        ticket = $database.getRow('ticket', 'The staff created it believing this path returns the ticketnumber', 'content')
         (ticket['author_id']).should.equal(nil)
-        (ticket['author_staff_id']).should.equal('1')
+        (ticket['author_staff_id']).should.equal(1)
 
-        $ticketNumberByStaff = result['data']['ticketNumber']
-        request('/user/logout')
+        $ticketNumberByStaff = ticket['ticket_number']
+        Scripts.logout()
     end
 end

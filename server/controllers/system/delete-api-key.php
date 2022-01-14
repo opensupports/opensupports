@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/delete-api-key Delete APIKey
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  *
  * @apiName Delete APIKey
  *
@@ -31,7 +31,7 @@ class DeleteAPIKeyController extends Controller {
             'permission' => 'staff_3',
             'requestData' => [
                 'name' => [
-                    'validation' => DataValidator::notBlank()->length(2, 55),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
                     'error' => ERRORS::INVALID_NAME
                 ]
             ]

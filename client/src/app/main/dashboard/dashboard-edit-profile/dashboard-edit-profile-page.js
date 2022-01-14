@@ -33,6 +33,8 @@ class DashboardEditProfilePage extends React.Component {
         customFields: [],
         customFieldsFrom: {},
         loadingCustomFields: false,
+        showChangeEmailMessage: true,
+        showChangePasswordMessage: true
     };
 
     componentDidMount() {
@@ -43,77 +45,150 @@ class DashboardEditProfilePage extends React.Component {
         return (
             <div className="edit-profile-page">
                 <Header title={i18n('EDIT_PROFILE')} description={i18n('EDIT_PROFILE_VIEW_DESCRIPTION')} />
-                <div className="edit-profile-page__title">{i18n('EDIT_EMAIL')}</div>
-                <Form loading={this.state.loadingEmail} onSubmit={this.onSubmitEditEmail.bind(this)}>
-                    <FormField name="newEmail" label={i18n('NEW_EMAIL')} field="input" validation="EMAIL" fieldProps={{size:'large'}} required/>
-                    <SubmitButton>{i18n('CHANGE_EMAIL')}</SubmitButton>
-                    {this.renderMessageEmail()}
-                </Form>
-                <div className="edit-profile-page__title">{i18n('EDIT_PASSWORD')}</div>
-                <Form loading={this.state.loadingPass} onSubmit={this.onSubmitEditPassword.bind(this)}>
-                    <FormField name="oldPassword" label={i18n('OLD_PASSWORD')} field="input" validation="PASSWORD" fieldProps={{password:true, size:'large'}} required/>
-                    <FormField name="password" label={i18n('NEW_PASSWORD')} field="input" validation="PASSWORD" fieldProps={{password:true, size:'large'}} required/>
-                    <FormField name="repeatNewPassword" label={i18n('REPEAT_NEW_PASSWORD')} field="input" validation="REPEAT_PASSWORD" fieldProps={{password:true ,size:'large'}} required/>
-                    <SubmitButton>{i18n('CHANGE_PASSWORD')}</SubmitButton>
-                    {this.renderMessagePass()}
-                </Form>
+                {this.renderEditEmail()}
+                {this.renderEditPassword()}
                 {this.state.customFields.length ? this.renderCustomFields() : null}
             </div>
         );
     }
 
-    renderCustomFields() {
+    renderEditEmail() {
         return (
-            <div>
+            <div className="edit-profile-page__edit-email">
+                <span className="separator" />
+                <div className="edit-profile-page__title">{i18n('EDIT_EMAIL')}</div>
+                <Form loading={this.state.loadingEmail} onSubmit={this.onSubmitEditEmail.bind(this)}>
+                    <div className="edit-profile-page__change-email-container">
+                        <FormField name="newEmail" label={i18n('NEW_EMAIL')} field="input" validation="EMAIL" fieldProps={{size: 'large'}} required />
+                        <SubmitButton type="secondary">{i18n('CHANGE_EMAIL')}</SubmitButton>
+                    </div>
+                    {this.renderMessageEmail()}
+                </Form>
+            </div>
+        );
+    }
+
+    renderEditPassword() {
+        return (
+            <div className="edit-profile-page__edit-password">
+                <span className="separator" />
+                <div className="edit-profile-page__title">{i18n('EDIT_PASSWORD')}</div>
+                <Form loading={this.state.loadingPass} onSubmit={this.onSubmitEditPassword.bind(this)}>
+                    <div className="edit-profile-page__change-password-container">
+                        <div className="edit-profile-page__change-password-form-fields">
+                            <FormField name="oldPassword" label={i18n('OLD_PASSWORD')} field="input" validation="PASSWORD" fieldProps={{password: true, size: 'large'}} required />
+                            <FormField name="password" label={i18n('NEW_PASSWORD')} field="input" validation="PASSWORD" fieldProps={{password: true, size: 'large'}} required />
+                            <FormField name="repeatNewPassword" label={i18n('REPEAT_NEW_PASSWORD')} field="input" validation="REPEAT_PASSWORD" fieldProps={{password: true, size: 'large'}} required />
+                        </div>
+                        <SubmitButton type="secondary">{i18n('CHANGE_PASSWORD')}</SubmitButton>
+                    </div>
+                    {this.renderMessagePass()}
+                </Form>
+            </div>
+        );
+    }
+
+    renderCustomFields() {
+        const {
+            loadingCustomFields,
+            customFieldsFrom,
+            customFields
+        } = this.state;
+
+        return (
+            <div className="edit-profile-page__edit-custom-field">
+                <span className="separator" />
                 <div className="edit-profile-page__title">{i18n('ADDITIONAL_FIELDS')}</div>
-                <Form loading={this.state.loadingCustomFields} values={this.state.customFieldsFrom} onChange={form => this.setState({customFieldsFrom: form})} onSubmit={this.onCustomFieldsSubmit.bind(this)}>
-                    <div className="edit-profile-page__custom-fields">
-                        {this.state.customFields.map(this.renderCustomField.bind(this))}
-                    </div>
-                    <div className="row">
-                        <SubmitButton>{i18n('SAVE')}</SubmitButton>
-                    </div>
+                <Form
+                    className="edit-profile-page__edit-custom-field-form"
+                    loading={loadingCustomFields}
+                    values={customFieldsFrom}
+                    onChange={form => this.setState({customFieldsFrom: form})}
+                    onSubmit={this.onCustomFieldsSubmit.bind(this)}>
+                        <div className="edit-profile-page__custom-fields">
+                            {customFields.map(this.renderCustomField.bind(this))}
+                        </div>
+                        <div className="edit-profile-page__update-custom-fields-button-container">
+                            <SubmitButton className="edit-profile-page__update-custom-fields-button" type="secondary">{i18n('UPDATE_CUSTOM_FIELDS')}</SubmitButton>
+                        </div>
                 </Form>
             </div>
         );
     }
 
     renderCustomField(customField, key) {
-        if(customField.type === 'text') {
+        const { type, name, description, options } = customField;
+
+        if(type === 'text') {
             return (
                 <div className="edit-profile-page__custom-field" key={key}>
-                    <FormField name={customField.name} label={customField.name} infoMessage={customField.description} field="input" fieldProps={{size:'small'}}/>
+                    <FormField name={name} label={name} infoMessage={description} field="input" fieldProps={{size: 'small'}} />
                 </div>
             );
         } else {
-            const items = customField.options.map(option => ({content: option.name, value: option.name}));
+            const items = options.map(option => ({content: option.name, value: option.name}));
 
             return (
                 <div className="edit-profile-page__custom-field" key={key}>
-                    <FormField name={customField.name} label={customField.name} infoMessage={customField.description} field="select" fieldProps={{size:'small', items}}/>
+                    <FormField name={name} label={name} infoMessage={description} field="select" fieldProps={{size: 'small', items}} />
                 </div>
             );
         }
     }
 
     renderMessageEmail() {
-        switch (this.state.messageEmail) {
+        const { messageEmail, showChangeEmailMessage } = this.state;
+
+        switch (messageEmail) {
             case 'success':
-                return <Message className="edit-profile-page__message" type="success">{i18n('EMAIL_CHANGED')}</Message>;
+                return (
+                    <Message
+                        showMessage={showChangeEmailMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showChangeEmailMessage")}
+                        className="edit-profile-page__message"
+                        type="success">
+                            {i18n('EMAIL_CHANGED')}
+                    </Message>
+                );
             case 'fail':
-                return <Message className="edit-profile-page__message" type="error">{i18n('EMAIL_EXISTS')}</Message>;
+                return (
+                    <Message
+                        showMessage={showChangeEmailMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showChangeEmailMessage")}
+                        className="edit-profile-page__message"
+                        type="error">
+                            {i18n('EMAIL_EXISTS')}
+                    </Message>
+                );
             default:
                 return null;
         }
-
     }
 
     renderMessagePass() {
-        switch (this.state.messagePass) {
+        const { messagePass, showChangePasswordMessage } = this.state;
+
+        switch (messagePass) {
             case 'success':
-                return <Message className="edit-profile-page__message" type="success">{i18n('PASSWORD_CHANGED')}</Message>;
+                return (
+                    <Message
+                        showMessage={showChangePasswordMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showChangePasswordMessage")}
+                        className="edit-profile-page__message"
+                        type="success">
+                            {i18n('PASSWORD_CHANGED')}
+                    </Message>
+                );
             case 'fail':
-                return <Message className="edit-profile-page__message" type="error">{i18n('OLD_PASSWORD_INCORRECT')}</Message>;
+                return (
+                    <Message
+                        showMessage={showChangePasswordMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showChangePasswordMessage")}
+                        className="edit-profile-page__message"
+                        type="error">
+                            {i18n('OLD_PASSWORD_INCORRECT')}
+                    </Message>
+                );
             default:
                 return null;
         }
@@ -121,13 +196,19 @@ class DashboardEditProfilePage extends React.Component {
 
     onCustomFieldsSubmit(form) {
         const {customFields} = this.state;
-        const parsedFrom = {}
+        const parsedFrom = {};
 
         customFields.forEach(customField => {
-            if(customField.type === 'select') {
-                parsedFrom[getCustomFieldParamName(customField.name)] = customField.options[form[customField.name]].name;
+            const {
+                type,
+                name,
+                options
+            } = customField;
+
+            if(type === 'select') {
+                parsedFrom[getCustomFieldParamName(name)] = options[form[name]].name;
             } else {
-                parsedFrom[getCustomFieldParamName(customField.name)] = form[customField.name];
+                parsedFrom[getCustomFieldParamName(name)] = form[name];
             }
         });
 
@@ -142,7 +223,6 @@ class DashboardEditProfilePage extends React.Component {
             this.setState({loadingCustomFields: false});
             this.props.dispatch(SessionActions.getUserData());
         });
-
     }
 
     onSubmitEditEmail(formState) {
@@ -157,7 +237,8 @@ class DashboardEditProfilePage extends React.Component {
         this.setState({
             loadingEmail: true
         });
-        API.call({
+
+        return API.call({
             path: "/user/edit-email",
             data: {
                 newEmail: formState.newEmail
@@ -165,12 +246,14 @@ class DashboardEditProfilePage extends React.Component {
         }).then(function () {
             this.setState({
                 loadingEmail: false,
-                messageEmail: "success"
+                messageEmail: "success",
+                showChangeEmailMessage: true
             });
         }.bind(this)).catch(function (){
             this.setState({
                 loadingEmail: false,
-                messageEmail: 'fail'
+                messageEmail: 'fail',
+                showChangeEmailMessage: true
             })
         }.bind(this));
     }
@@ -179,7 +262,8 @@ class DashboardEditProfilePage extends React.Component {
         this.setState({
             loadingPass: true
         });
-        API.call({
+
+        return API.call({
             path: "/user/edit-password",
             data: {
                 oldPassword: formState.oldPassword,
@@ -188,12 +272,14 @@ class DashboardEditProfilePage extends React.Component {
         }).then(function () {
             this.setState({
                 loadingPass: false,
-                messagePass: "success"
+                messagePass: "success",
+                showChangePasswordMessage: true
             });
         }.bind(this)).catch(function (){
             this.setState({
                 loadingPass: false,
-                messagePass: 'fail'
+                messagePass: 'fail',
+                showChangePasswordMessage: true
             })
         }.bind(this));
     }
@@ -206,12 +292,19 @@ class DashboardEditProfilePage extends React.Component {
         .then(result => {
             const customFieldsFrom = {};
             const {userCustomFields} = this.props;
+
             result.data.forEach(customField => {
-                if(customField.type === 'select') {
-                    const index = _.indexOf(customField.options.map(option => option.name), userCustomFields[customField.name]);
-                    customFieldsFrom[customField.name] = (index === -1 ? 0 : index);
+                const {
+                    type,
+                    name,
+                    options
+                } = customField;
+
+                if(type === 'select') {
+                    const index = _.indexOf(options.map(option => option.name), userCustomFields[name]);
+                    customFieldsFrom[name] = ((index === -1) ? 0 : index);
                 } else {
-                    customFieldsFrom[customField.name] = userCustomFields[customField.name] || '';
+                    customFieldsFrom[name] = userCustomFields[name] || '';
                 }
             });
 
@@ -219,6 +312,12 @@ class DashboardEditProfilePage extends React.Component {
                 customFields: result.data,
                 customFieldsFrom,
             });
+        });
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
         });
     }
 }

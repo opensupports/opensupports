@@ -21,29 +21,36 @@ class AdminPanelCustomFieldForm extends React.Component {
     state = {
         loading: false,
         error: null,
-        addForm: {},
+        addForm: {
+            name: "",
+            description: ""
+        },
         addFormOptions: [],
+        showErrorMessage: true
     };
 
     render() {
+        const { loading, addForm, error } = this.state;
+
         return (
             <div className="admin-panel-custom-field-form">
                 <Header title={i18n('NEW_CUSTOM_FIELD')} description={i18n('NEW_CUSTOM_FIELD_DESCRIPTION')} />
                 <div className="admin-panel-custom-field-form__form-container">
                     <Form
                         className="admin-panel-custom-field-form__form"
-                        loading={this.state.loading}
-                        values={this.state.addForm}
+                        loading={loading}
+                        values={addForm}
                         onChange={this.onAddFormChange.bind(this)}
-                        onSubmit={this.onSubmit.bind(this)}>
+                        onSubmit={this.onSubmit.bind(this)}
+                        onKeyDown={(event) => { if(event.key == 'Enter') event.preventDefault()}}>
                         <FormField name="name" validation="NAME" label={i18n('NAME')} field="input" fieldProps={{size: 'large'}} required/>
                         <FormField name="description" label={i18n('FIELD_DESCRIPTION')} field="input" fieldProps={{size: 'large'}}/>
                         <FormField name="type" label={i18n('TYPE')} field="select" fieldProps={{size: 'large', items: [{content: i18n('TEXT_INPUT')}, {content: i18n('SELECT_INPUT')}]}} required/>
-                        {this.state.addForm.type ? this.renderOptionFormFields() : null}
-                        {this.state.error ? this.renderErrorMessage() : null}
+                        {addForm.type ? this.renderOptionFormFields() : null}
+                        {error ? this.renderErrorMessage() : null}
                         <div className="admin-panel-custom-field-form__buttons">
-                            <SubmitButton>{i18n('SUBMIT')}</SubmitButton>
                             <Button onClick={this.props.onClose} type="link">{i18n('CLOSE')}</Button>
+                            <SubmitButton type="secondary">{i18n('SUBMIT')}</SubmitButton>
                         </div>
                     </Form>
                 </div>
@@ -52,9 +59,11 @@ class AdminPanelCustomFieldForm extends React.Component {
     }
 
     renderErrorMessage() {
+        const { error, showErrorMessage } = this.state;
+
         return (
-            <Message type="error">
-                {this.state.error}
+            <Message showMessage={showErrorMessage} onCloseMessage={this.onCloseMessage.bind(this, "showErrorMessage")} type="error">
+                {error}
             </Message>
         );
     }
@@ -78,9 +87,14 @@ class AdminPanelCustomFieldForm extends React.Component {
         );
     }
 
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
+        });
+    }
+
     onAddOptionClick(event) {
         event.preventDefault();
-
         let addFormOptions = _.clone(this.state.addFormOptions);
 
         addFormOptions.push("");
@@ -121,7 +135,7 @@ class AdminPanelCustomFieldForm extends React.Component {
             this.setState({loading: false, message: null});
             if(this.props.onChange) this.props.onChange();
         })
-        .catch(result => this.setState({loading: false, error: result.message}));
+        .catch(result => this.setState({loading: false, error: result.message, showErrorMessage: true}));
     }
 }
 

@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /article/edit-topic Edit topic
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  *
  * @apiName Edit topic
  *
@@ -22,6 +22,7 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TOPIC
+ * @apiUse INVALID_NAME
  *
  * @apiSuccess {Object} data Empty object
  *
@@ -40,10 +41,9 @@ class EditTopicController extends Controller {
                     'error' => ERRORS::INVALID_TOPIC
                 ],
                 'name' => [
-                    'validation' => DataValidator::notBlank()->length(1, 200),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
                     'error' => ERRORS::INVALID_NAME
-                ],
-                
+                ]
             ]
         ];
     }
@@ -52,7 +52,7 @@ class EditTopicController extends Controller {
         $topic = Topic::getDataStore(Controller::request('topicId'));
 
         if(Controller::request('name')) {
-            $topic->name = Controller::request('name');
+            $topic->name = Controller::request('name', true);
         }
 
         if(Controller::request('iconColor')) {

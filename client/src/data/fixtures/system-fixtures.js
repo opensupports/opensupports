@@ -13,7 +13,6 @@ module.exports = [
                         'url': 'http://www.opensupports.com/support',
                         'title': 'Support Center',
                         'layout': 'boxed',
-                        'time-zone': 3,
                         'server-email': 'shitr@post.com',
                         'smtp-host': 'localhost',
                         'smtp-port': '7070',
@@ -30,7 +29,7 @@ module.exports = [
                         'allowedLanguages': ['en', 'es', 'de', 'fr', 'id', 'pt', 'jp', 'ru', 'cn', 'in', 'tr'],
                         'supportedLanguages': ['en', 'es', 'de', 'id'],
                         'registration': true,
-                        'user-system-enabled': true,
+                        'mandatory-login': true,
                         'tags': [{id:1,name:'bug', color:'#eb144c'},{id: 2,name:'suggestion',color:'#ff6900'}]
                     }
                 };
@@ -52,7 +51,7 @@ module.exports = [
                         'allowedLanguages': ['en', 'es', 'de', 'fr', 'id', 'pt', 'jp', 'ru', 'cn', 'in', 'tr'],
                         'supportedLanguages': ['en', 'es', 'de', 'id'],
                         'registration': true,
-                        'user-system-enabled': true,
+                        'mandatory-login': true,
                         'tags': [{id:1,name:'bug', color:'#eb144c'},{id: 2,name:'suggestion',color:'#ff6900'}]
                     }
                 };
@@ -281,71 +280,6 @@ module.exports = [
                         body : 'Passwort wurde bearbeitet {{name}}'
                     }
                 ]
-            };
-        }
-    },
-    {
-        path: '/system/get-stats',
-        time: 200,
-        response: function(_data) {
-            let generalVal = _data.staffId;
-
-            let ID = {
-                'WEEK': 7,
-                'MONTH': 30,
-                'QUARTER': 90,
-                'YEAR': 365
-            };
-
-            let k = ID[_data.period];
-            let DATA = [];
-
-            for (let i = 0; i < k; i++) {
-                if(generalVal){
-                    DATA.push({
-                        date: '201701' + (i + 103) % 100,
-                        type: 'ASSIGN',
-                        general: generalVal,
-                        value: (Math.floor((Math.random() + 17) * i)).toString()
-                    });
-                    DATA.push({
-                        date: '201701' + (i + 109) % 100,
-                        type: 'CLOSE',
-                        general: generalVal,
-                        value: (Math.floor((Math.random() + 12) * i )).toString()
-                    });
-                }
-                else {
-                    DATA.push({
-                        date: '201701' + (i + 107) % 100,
-                        type: 'COMMENT',
-                        general: generalVal,
-                        value: (Math.floor((Math.random() + 5) * i)).toString()
-                    });
-                    DATA.push({
-                        date: '201701' + (i + 104) % 100,
-                        type: 'SIGNUP',
-                        general: generalVal,
-                        value: (Math.floor(Math.random() * (i - 180) * (i - 185) / 400)).toString()
-                    });
-                    DATA.push({
-                        date: '201701' + (i + 103) % 100,
-                        type: 'CLOSE',
-                        general: generalVal,
-                        value: (Math.floor((Math.random() + 12) * i )).toString()
-                    });
-                    DATA.push({
-                        date: '201701' + (i + 99) % 100,
-                        type: 'CREATE_TICKET',
-                        general: generalVal,
-                        value: (Math.floor((Math.random() + 7) * i)).toString()
-                    });
-                }
-            }
-
-            return {
-                status: "success",
-                data: DATA.reverse()
             };
         }
     },

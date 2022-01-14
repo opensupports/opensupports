@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /article/get-all Get all articles
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  *
  * @apiName Get all articles
  *
@@ -25,7 +25,7 @@ class GetAllArticlesController extends Controller {
 
     public function validations() {
         return [
-            'permission' => (Controller::isUserSystemEnabled()) ? 'user' : 'any',
+            'permission' => (Controller::isLoginMandatory()) ? 'user' : 'any',
             'requestData' => []
         ];
     }

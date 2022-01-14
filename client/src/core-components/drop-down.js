@@ -89,7 +89,7 @@ class DropDown extends React.Component {
     }
 
     renderCurrentItem() {
-        let item = this.props.items[this.getSelectedIndex()];
+        const item = this.props.items[this.getSelectedIndex()];
         let iconNode = null;
 
         if (item.icon) {
@@ -98,7 +98,7 @@ class DropDown extends React.Component {
 
         return (
             <div>
-                {iconNode}{item.content}
+                {iconNode}{item.contentOnSelected ? item.contentOnSelected : item.content}
             </div>
         );
     }
@@ -191,6 +191,8 @@ class DropDown extends React.Component {
                 }
             },
             'enter': () => {
+                event.preventDefault();
+
                 if (opened) {
                     this.onIndexSelected(highlightedIndex);
                 } else {

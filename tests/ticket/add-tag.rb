@@ -1,11 +1,11 @@
 describe '/ticket/add-tag' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     Scripts.createTag('test tag', 'orange')
-    result = Scripts.createTicket('test ticket')
-
-    @ticketNumber = result['ticketNumber']
+    Scripts.createTicket('test ticket')
+    ticket = $database.getRow('ticket', 'test ticket', 'title')
+    @ticketNumber = ticket['ticket_number']
 
     it 'should fail if the tagId is invalid' do
         result = request('/ticket/add-tag', {
@@ -61,17 +61,23 @@ describe '/ticket/add-tag' do
             tagId: 3,
             ticketNumber: ticket['ticket_number']
         })
+        (result['status']).should.equal('success')
 
+        result = request('/ticket/delete', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            ticketNumber: ticket['ticket_number']
+        })
         (result['status']).should.equal('success')
     end
 
     it 'should fail if staff member does not serve to the department of the ticket and he is not the author' do
-        request('/user/logout')
+        Scripts.logout()
         Scripts.createUser('pepito@pepito.com', 'pepito12345','pepito')
         Scripts.login('pepito@pepito.com', 'pepito12345')
         Scripts.createTicket('title70','contentoftheticket70',3)
 
-        request('/user/logout')
+        Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
         ticket = $database.getRow('ticket','title70', 'title')
 
@@ -105,4 +111,11 @@ describe '/ticket/add-tag' do
         (result['status']).should.equal('fail')
         (result['message']).should.equal('TAG_EXISTS')
     end
+
+    result = request('/ticket/delete', {
+        csrf_userid: $csrf_userid,
+        csrf_token: $csrf_token,
+        ticketNumber: @ticketNumber
+    })
+    (result['status']).should.equal('success')
 end

@@ -61,4 +61,28 @@
     &__pagination {
 
     }
+
+    @media screen and (max-width: 415px) {
+        .people-list {
+            &__item {
+                height: unset;
+                padding: unset;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-end;
+
+                &-profile-pic-wrapper {
+                    top: 15px;
+                    left: 15px;
+                }
+
+                &-block {
+                    width: unset;
+                    display: unset;
+                    padding: 15px 10px 0 0;
+                }
+            }
+        }
+    }
 }

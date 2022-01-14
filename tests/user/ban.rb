@@ -1,11 +1,12 @@
 describe '/user/ban' do
 
-    request('/user/logout')
+    Scripts.logout()
     result = request('/user/login', {
-        email: 'staff@opensupports.com',
-        password: 'staff',
+        email: $staff[:email],
+        password: $staff[:password],
         staff: true
     })
+    (result['status']).should.equal('success')
 
     $csrf_userid = result['data']['userId']
     $csrf_token = result['data']['token']

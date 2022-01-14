@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /user/edit-password Edit password
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  *
  * @apiName Edit password
  *
@@ -33,7 +33,7 @@ class EditPassword extends Controller {
             'permission' => 'user',
             'requestData' => [
                 'newPassword' => [
-                    'validation' => DataValidator::notBlank()->length(5, 200),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_PASSWORD, LengthConfig::MAX_LENGTH_PASSWORD),
                     'error' => ERRORS::INVALID_PASSWORD
                 ]
             ]

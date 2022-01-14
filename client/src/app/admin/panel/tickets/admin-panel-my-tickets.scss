@@ -1,0 +1,12 @@
+.admin-panel-my-tickets {
+    &__close-button-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        position: relative;
+        bottom: 35px;
+    }
+
+}

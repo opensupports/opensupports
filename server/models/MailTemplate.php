@@ -3,7 +3,7 @@ use RedBeanPHP\Facade as RedBean;
 
 /**
  * @api {OBJECT} MailTemplate MailTemplate
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  * @apiGroup Data Structures
  * @apiParam {String} type The type of the mail template.
  * @apiParam {String} subject The subject of the mail template.
@@ -34,8 +34,6 @@ class MailTemplate extends DataStore {
           'USER_EMAIL' => 'data/mail-templates/user-edit-email.html',
           'PASSWORD_FORGOT' => 'data/mail-templates/user-password-forgot.html',
           'USER_INVITE' => 'data/mail-templates/user-invite.html',
-          'USER_SYSTEM_DISABLED' => 'data/mail-templates/user-system-disabled.html',
-          'USER_SYSTEM_ENABLED' => 'data/mail-templates/user-system-enabled.html',
           'TICKET_CREATED' => 'data/mail-templates/ticket-created.html',
           'TICKET_RESPONDED' => 'data/mail-templates/ticket-responded.html',
           'TICKET_CLOSED' => 'data/mail-templates/ticket-closed.html',

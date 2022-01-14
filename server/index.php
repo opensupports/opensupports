@@ -1,7 +1,9 @@
 <?php
 @include 'config.php';
 require_once 'vendor/autoload.php';
+header('X-Frame-Options: DENY');
 
+date_default_timezone_set ('UTC'); 
 // REDBEAN CONFIGURATION
 use RedBeanPHP\Facade as RedBean;
 

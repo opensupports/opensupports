@@ -1,6 +1,7 @@
 <?php
     $path = rtrim(str_replace('\\','/',dirname($_SERVER['PHP_SELF'])), '/');
     $url = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $path;
+    header('X-Frame-Options: DENY');
 ?>
 <!doctype html>
 <html class="no-js" lang="">
@@ -13,13 +14,14 @@
         <title>OpenSupports</title>
 
         <link rel="icon" type="image/x-icon" href="<?=$url ?>/images/icon.png">
-        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/v4-shims.css">
     </head>
     <body>
         <div id="app"></div>
 
         <script>
-            opensupports_version = '4.6.1';
+            opensupports_version = '4.11.0';
             root = "<?=$url ?>";
             apiRoot = '<?=$url ?>/api';
             globalIndexPath = "<?=$path ?>";

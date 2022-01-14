@@ -1,5 +1,5 @@
 describe 'Custom fields' do
-    request('/user/logout')
+    Scripts.logout()
     Scripts.login($staff[:email], $staff[:password], true)
 
     describe '/system/add-custom-field' do
@@ -8,7 +8,7 @@ describe 'Custom fields' do
             result = request('/system/add-custom-field', {
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
-                name: 'A',
+                name: '',
                 type: 'text',
                 description: 'custom field description',
                 options: nil
@@ -21,7 +21,7 @@ describe 'Custom fields' do
 
         it 'should fail if the name is to long' do
             long_text = ''
-            101.times {long_text << 'A'}
+            201.times {long_text << 'A'}
 
             result = request('/system/add-custom-field', {
                 csrf_userid: $csrf_userid,
@@ -97,8 +97,8 @@ describe 'Custom fields' do
             ($database.getRow('customfieldoption', 'option2', 'name')['customfield_id']).should.equal(custom_field_row_id)
             ($database.getRow('customfieldoption', 'option3', 'name')['customfield_id']).should.equal(custom_field_row_id)
 
-            quantity_of_options = $database.query("SELECT COUNT(*) as qt FROM customfieldoption WHERE customfield_id='#{custom_field_row_id}'").fetch_hash['qt']
-            (quantity_of_options).should.equal("3")
+            quantity_of_options = $database.query("SELECT COUNT(*) as qt FROM customfieldoption WHERE customfield_id='#{custom_field_row_id}'").first['qt']
+            (quantity_of_options).should.equal(3)
         end
 
         it 'should fail if field name already exists' do

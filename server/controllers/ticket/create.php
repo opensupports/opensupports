@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/create Create ticket
- * @apiVersion 4.6.1
+ * @apiVersion 4.11.0
  *
  * @apiName Create ticket
  *
@@ -18,8 +18,10 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} content Content of the ticket.
  * @apiParam {Number} departmentId The id of the department of the current ticket.
  * @apiParam {String} language The language of the ticket.
+ * @apiParam {String} name The name of author of the ticket.
  * @apiParam {String} email The email of the user who created the ticket.
- * @apiParam {Number} images The number of images in the content
+ * @apiParam {Number} images The number of images in the content.
+ * @apiParam {String} apiKey apiKey to create tickets and show ticket-number created.
  * @apiParam image_i The image file of index `i` (mutiple params accepted)
  * @apiParam file The file you with to upload.
  *
@@ -48,13 +50,13 @@ class CreateController extends Controller {
     private $ticketNumber;
     private $email;
     private $name;
-
+    private $apiKey;
     public function validations() {
         $validations = [
             'permission' => 'user',
             'requestData' => [
                 'title' => [
-                    'validation' => DataValidator::notBlank()->length(1, 200),
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_TITLE, LengthConfig::MAX_LENGTH_TITLE),
                     'error' => ERRORS::INVALID_TITLE
                 ],
                 'content' => [
@@ -62,20 +64,19 @@ class CreateController extends Controller {
                     'error' => ERRORS::INVALID_CONTENT
                 ],
                 'departmentId' => [
-                    'validation' => DataValidator::dataStoreId('department'),
+                    'validation' => DataValidator::oneOf(DataValidator::dataStoreId('department'), DataValidator::nullType()),
                     'error' => ERRORS::INVALID_DEPARTMENT
                 ],
                 'language' => [
-                    'validation' => DataValidator::in(Language::getSupportedLanguages()),
+                    'validation' => DataValidator::oneOf(DataValidator::in(Language::getSupportedLanguages()), DataValidator::nullType()),
                     'error' => ERRORS::INVALID_LANGUAGE
                 ]
             ]
         ];
-
-        if(!Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) {
+        if (!Controller::isLoginMandatory() && !Controller::isStaffLogged() && !Controller::isUserLogged()) {
             $validations['permission'] = 'any';
             $validations['requestData']['captcha'] = [
-                'validation' => DataValidator::captcha(APIKey::TICKET_CREATE),
+                'validation' => DataValidator::captcha(APIKey::TICKET_CREATE_PERMISSION),
                 'error' => ERRORS::INVALID_CAPTCHA
             ];
             $validations['requestData']['email'] = [
@@ -83,7 +84,7 @@ class CreateController extends Controller {
                 'error' => ERRORS::INVALID_EMAIL
             ];
             $validations['requestData']['name'] = [
-                'validation' => DataValidator::notBlank()->length(2, 40),
+                'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
                 'error' => ERRORS::INVALID_NAME
             ];
         }
@@ -92,19 +93,35 @@ class CreateController extends Controller {
     }
 
     public function handler() {
-        $this->title = Controller::request('title');
+        
+        $session = Session::getInstance();
+        if($session->isTicketSession())  {
+            $session->clearSessionData();
+        }
+
+        $this->title = Controller::request('title', true);
         $this->content = Controller::request('content', true);
         $this->departmentId = Controller::request('departmentId');
         $this->language = Controller::request('language');
         $this->email = Controller::request('email');
         $this->name = Controller::request('name');
-
-        if(!Controller::isStaffLogged() && Department::getDataStore($this->departmentId)->private){
+        $this->apiKey = APIKey::getDataStore(Controller::request('apiKey'), 'token');
+        
+        if(!Controller::isStaffLogged() && Department::getDataStore($this->departmentId)->private) {
             throw new Exception(ERRORS::INVALID_DEPARTMENT);
         }
+        
+        if(!Staff::getUser($this->email,'email')->isNull() || $this->isEmailInvalid()) {
+            throw new Exception(ERRORS::INVALID_EMAIL);
+        }
+        
+        if(!Controller::isLoginMandatory() && !Controller::isStaffLogged() && !Controller::isUserLogged()  && User::getUser($this->email, 'email')->isNull()){
+            $this->createNewUser();
+        }
+        
         $this->storeTicket();
 
-        if(!Controller::isUserSystemEnabled()) {
+        if(!Controller::isLoginMandatory() && !Controller::isUserLogged()) {
             $this->sendMail();
         }
 
@@ -114,22 +131,52 @@ class CreateController extends Controller {
                 $this->sendMailStaff($staff->email);
             }
         }
-
-        Response::respondSuccess([
-            'ticketNumber' => $this->ticketNumber
-        ]);
-
-        if(!Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) {
-            $session = Session::getInstance();
-            $session->createTicketSession($this->ticketNumber);
-        }
         
         Log::createLog('CREATE_TICKET', $this->ticketNumber);
+        
+        if(!$this->apiKey->isNull() && $this->apiKey->shouldReturnTicketNumber){
+            Response::respondSuccess([
+                'ticketNumber' => $this->ticketNumber
+            ]);
+        }else{
+            Response::respondSuccess();
+        }
+    }
+
+    private function isEmailInvalid(){
+        $session = Session::getInstance();
+        $sessionUser = User::getUser($session->getUserId() ,'id');
+
+        return  ($session->sessionExists() && $sessionUser  &&  $this->email && !($sessionUser->email == $this->email));
+    }
+
+    private function createNewUser() {
+        
+        $signupController = new SignUpController(true);
+        
+        Controller::setDataRequester(function ($key) {
+            switch ($key) {
+                case 'email':
+                    return $this->email;
+                case 'password':
+                    return Hashing::generateRandomToken();
+                case 'name':
+                    return $this->name;
+                case 'indirectSignUp' : 
+                    return true;
+            }
+
+            return null;
+        });
+        $signupController->validations();
+        $signupController->handler();
     }
 
     private function storeTicket() {
-        $department = Department::getDataStore($this->departmentId);
-        $author = Controller::getLoggedUser();
+        $department = Department::getDataStore($this->getCorrectDepartmentId());
+        $author = $this->getAuthor();
+        $this->language = $this->getCorrectLanguage();
+
         $ticket = new Ticket();
 
         $fileUploader = FileUploader::getInstance();
@@ -150,15 +197,14 @@ class CreateController extends Controller {
             'closed' => false,
             'authorName' => $this->name,
             'authorEmail' => $this->email,
+            'totalDepartments' => 0,
+            'totalOwners' => 0
         ));
 
         $ticket->setAuthor($author);
+        $author->sharedTicketList->add($ticket);
 
-        if(Controller::isUserSystemEnabled() || Controller::isStaffLogged()) {
-            $author->sharedTicketList->add($ticket);
-        }
-
-        if(Controller::isUserSystemEnabled() && !Controller::isStaffLogged()) {
+        if(!Controller::isStaffLogged()) {
             $author->tickets++;
 
             $this->email = $author->email;
@@ -169,6 +215,34 @@ class CreateController extends Controller {
         $ticket->store();
 
         $this->ticketNumber = $ticket->ticketNumber;
+    }
+
+    private function getCorrectLanguage() {
+        if($this->language){
+            return $this->language;
+        }else{
+            return Setting::getSetting('language')->getValue();
+        }
+    }
+    
+    private function getCorrectDepartmentId(){
+        $defaultDepartmentId = Setting::getSetting('default-department-id')->getValue();
+        $isLocked = Setting::getSetting('default-is-locked')->getValue();
+        $validDepartment = Department::getDataStore($defaultDepartmentId)->id; 
+        if (Controller::isStaffLogged()) {
+            if ($this->departmentId) $validDepartment = $this->departmentId;
+        } else {
+            if (!$isLocked && $this->departmentId) $validDepartment = $this->departmentId;
+        }
+        return $validDepartment;
+    }
+
+    private function getAuthor() {
+        if (!Controller::getLoggedUser()->isNull()) { 
+            return Controller::getLoggedUser();
+        } else {
+            return User::getUser($this->email, 'email');
+        }
     }
 
     private function sendMail() {

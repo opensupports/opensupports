@@ -1,0 +1,110 @@
+@import "../../../../scss/vars";
+
+.admin-panel-stats {
+    text-align: left;
+
+    &__form {
+        &__container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+
+            &__row {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                width: 80%;
+            }
+
+            &__col {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+
+    &__container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+
+        &__button {
+            margin: 0 10px;
+        }
+    }
+
+    &__loading {
+        min-height: 361px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: $grey;
+    }
+
+    &__card-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    &__department-option { // Duplicated from ticket-query-filters, please REMOVE
+        &__name {
+            margin-left: 10px;
+        }
+    }
+
+    &__department-selected { // Duplicated from ticket-query-filters, please REMOVE
+        display: inline-block;
+        border-radius: 3px;
+        margin-left: 5px;
+        padding: 1px;
+        font-size: 13px;
+        cursor: default;
+
+        &__icon {
+            padding-right: 5px;
+        }
+    }
+
+    &__staff-option { // Duplicated from ticket-query-filters, please REMOVE
+        &__profile-pic {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+        }
+
+        &__name {
+            margin-left: 10px;
+        }
+    }
+
+    &__staff-selected { // Duplicated from ticket-query-filters, please REMOVE
+        display: inline-block;
+        border-radius: 3px;
+        margin-left: 5px;
+        padding: 1px;
+        font-size: 13px;
+        cursor: default;
+
+        &__profile-pic {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .admin-panel-stats__form__container__row {
+        display: flex;
+        flex-direction: column;
+    }
+}

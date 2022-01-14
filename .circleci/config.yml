@@ -1,0 +1,190 @@
+version: 2.1
+orbs:
+  php: circleci/php@1.0.2
+  node: circleci/node@1.1.6
+  aws-cli: circleci/aws-cli@1.0.0
+jobs:
+  install_composer_packages:
+    docker:
+      - image: 'cimg/base:edge'
+    steps:
+      - checkout
+      - php/install-php:
+          version: '7.0'
+      - php/install-composer
+
+      - run:
+          name: Install php extensions
+          command: |
+            sudo add-apt-repository ppa:ondrej/php
+            sudo apt update
+            sudo apt install php7.0-imap -y
+            sudo apt install php7.0-xml -y
+            sudo apt install zip unzip php7.0-zip php7.0-mbstring -y
+
+      - php/install-packages:
+          app-dir: server/
+
+      - persist_to_workspace:
+          root: .
+          paths:
+              - .
+
+  install_node_packages:
+    docker:
+      - image: circleci/node:11.15.0-stretch
+    
+    steps:
+      - attach_workspace:
+          at: .
+
+      - restore_cache:
+          keys:
+          - node-cache-{{ checksum "client/package.json" }}
+
+      - run:
+          name: Install dependencies
+          command: |
+            sudo npm install -g npm@6.7.0
+            sudo npm install -g mocha@6.2.0
+            cd client && npm install
+
+      - save_cache:
+          paths:
+            - client/node_modules
+          key: node-cache-{{ checksum "client/package.json" }}
+
+      - persist_to_workspace:
+          root: .
+          paths:
+              - .
+  
+  deploy_staging_files:
+    docker:
+      - image: circleci/node:11.15.0-stretch
+
+    environment:
+      - GIT_COMMIT_DESC: git log --format=oneline -n 1 $CIRCLE_SHA1
+
+    steps:
+      - attach_workspace:
+          at: .
+
+      - deploy:
+          name: Deploy staging files
+          command: |
+            if [ ! "$CIRCLE_BRANCH" = "master" ]; then exit 0; fi
+            if [[ "$GIT_COMMIT_DESC" = Release* ]]; then exit 0; fi
+            sudo apt update
+            sudo apt install  -y lftp
+            make deploy-staging-files
+            make deploy-staging-population
+
+  add_release_commit:
+    docker:
+      - image: circleci/node:11.15.0-stretch
+
+    parameters:
+      version:
+        type: string
+        default: ""
+
+    steps:
+      - attach_workspace:
+          at: .
+
+      - add_ssh_keys:
+          fingerprints:
+            - "45:1e:cf:38:3f:9f:97:87:5b:b8:fd:e1:6c:71:11:41"
+
+      - run:
+          name: Commit new version
+          command: |
+            export VERSION=<< parameters.version >>
+            cd version_upgrades/release_script
+            npm i
+            npm run modify-files
+            cd ../..
+            ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+            git config --global user.email "ivan@opensupports.com"
+            git config --global user.name "CircleCI-BOT"
+            git add .
+            git commit -m "Release $VERSION"
+            git checkout -b release-${VERSION}
+            git push origin release-${VERSION}
+
+      - persist_to_workspace:
+          root: .
+          paths:
+              - .
+
+  add_release_tag:
+    docker:
+      - image: circleci/node:11.15.0-stretch
+
+    parameters:
+      version:
+        type: string
+        default: ""
+    
+    steps:
+      - attach_workspace:
+          at: .
+
+      - add_ssh_keys:
+          fingerprints:
+            - "45:1e:cf:38:3f:9f:97:87:5b:b8:fd:e1:6c:71:11:41"
+
+      - run:
+          name: Add Release tag
+          command: |
+            export VERSION=<< parameters.version >>
+            sudo apt-get update
+            sudo apt-get install lftp
+            make build-release-bundles
+            make upload-bundles
+            # make push-prerelease-tag
+            make populate-staging-release
+
+      - persist_to_workspace:
+          root: .
+          paths:
+              - .
+
+parameters:
+  version:
+    type: string
+    default: ""
+  run_build:
+    type: boolean
+    default: true
+
+workflows:
+  build:
+    when:
+      and:
+        - equal: [ master, << pipeline.git.branch >> ]
+        - << pipeline.parameters.run_build >>
+    jobs:
+      - install_composer_packages
+      - install_node_packages:
+          requires:
+            - install_composer_packages
+      - deploy_staging_files:
+          requires:
+            - install_node_packages
+  release:
+    when: << pipeline.parameters.version >>
+    jobs:
+      - install_composer_packages
+      - install_node_packages:
+          requires:
+            - install_composer_packages
+      - add_release_commit:
+          version: << pipeline.parameters.version >>
+          requires:
+            - install_node_packages
+      - add_release_tag:
+          version: << pipeline.parameters.version >>
+          requires:
+            - add_release_commit
