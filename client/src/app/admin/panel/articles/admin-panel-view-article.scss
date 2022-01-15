@@ -4,13 +4,19 @@
         word-break: break-word;
     }
 
+    &__header-buttons-wrapper{
+        display: flex;
+        flex-direction: row;
+    }
+
     &__edit-buttons {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
         width: 50px;
-        margin-bottom: 20px;
+        margin-bottom: 40px;
+        margin-left: 15px;
     }
 
     &__edit-icon {

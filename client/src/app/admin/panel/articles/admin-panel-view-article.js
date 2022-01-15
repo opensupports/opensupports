@@ -66,16 +66,18 @@ class AdminPanelViewArticle extends React.Component {
     renderArticlePreview(article) {
         return (
             <div className="admin-panel-view-article__content">
-                 <div className="admin-panel-view-article__edit-buttons">
-                    <span onClick={this.onEditClick.bind(this, article)}>
-                        <Icon className="admin-panel-view-article__edit-icon" name="pencil" />
-                    </span>
-                    <span onClick={this.onDeleteClick.bind(this, article)} >
-                        <Icon className="admin-panel-view-article__edit-icon" name="trash" />
-                    </span>
-                </div>
                 <div className="admin-panel-view-article__article">
-                    <Header title={article.title}/>
+                   <div className='admin-panel-view-article__header-buttons-wrapper'>
+                        <Header title={article.title}/>
+                        <div className="admin-panel-view-article__edit-buttons">
+                            <span onClick={this.onEditClick.bind(this, article)}>
+                                <Icon className="admin-panel-view-article__edit-icon" name="pencil" />
+                            </span>
+                            <span onClick={this.onDeleteClick.bind(this, article)} >
+                                <Icon className="admin-panel-view-article__edit-icon" name="trash" />
+                            </span>
+                        </div>
+                   </div>
                     <div className="admin-panel-view-article__article-content ql-editor">
                         <div dangerouslySetInnerHTML={{__html: MentionsParser.parse(article.content)}}/>
                     </div>
