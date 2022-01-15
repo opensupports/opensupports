@@ -50,7 +50,7 @@ class AdminPanelStaffMembers extends React.Component {
                         <Icon name="user-plus" className="" /> {i18n('INVITE_STAFF')}
                     </Button>
                 </div>
-                {(this.props.loading) ? <Loading backgrounded /> : <PeopleList list={this.getStaffList()} page={this.state.page} onPageSelect={(index) => this.setState({page: index+1})} />}
+                {(this.props.loading) ? <Loading className="admin-panel-staff-members__loading" backgrounded size="large"/> : <PeopleList list={this.getStaffList()} page={this.state.page} onPageSelect={(index) => this.setState({page: index+1})} />}
             </div>
         );
     }
