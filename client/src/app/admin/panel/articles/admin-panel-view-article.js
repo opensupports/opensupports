@@ -18,6 +18,7 @@ import Form from 'core-components/form';
 import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
 import TextEditor from 'core-components/text-editor';
+import Message from 'core-components/message';
 
 class AdminPanelViewArticle extends React.Component {
 
@@ -33,7 +34,8 @@ class AdminPanelViewArticle extends React.Component {
     };
 
     state = {
-        editable: false
+        editable: false,
+        errorMessage: false
     };
 
     componentDidMount() {
@@ -96,6 +98,7 @@ class AdminPanelViewArticle extends React.Component {
                     </Button>
                     <SubmitButton className="admin-panel-view-article__button" type="secondary" size="medium">{i18n('SAVE')}</SubmitButton>
                 </div>
+                {this.state.errorMessage ? <Message type="error">{i18n(this.state.errorMessage)}</Message> : null}
                 <FormField name="title" label={i18n('TITLE')} />
                 <FormField name="content" label={i18n('CONTENT')} field="textarea" validation="TEXT_AREA" required  fieldProps={{allowImages: this.props.allowAttachments}}/>     
             </Form>
@@ -139,7 +142,12 @@ class AdminPanelViewArticle extends React.Component {
         }).then(() => {
             this.props.dispatch(ArticlesActions.retrieveArticles());
             this.setState({
-                editable: false
+                editable: false,
+                errorMessage: false
+            })
+        }).catch((e) => {
+            this.setState({
+              errorMessage: e.message
             });
         });
     }
