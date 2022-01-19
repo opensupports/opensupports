@@ -7,6 +7,7 @@
     &__header-buttons-wrapper{
         display: flex;
         flex-direction: row;
+        height: 35px;
     }
 
     &__edit-buttons {
@@ -15,7 +16,7 @@
         justify-content: space-between;
         align-items: center;
         width: 50px;
-        margin-bottom: 40px;
+        margin-bottom: 5px;
         margin-left: 15px;
     }
 
