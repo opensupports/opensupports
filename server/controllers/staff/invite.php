@@ -23,7 +23,6 @@ DataValidator::with('CustomValidations', true);
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_NAME
  * @apiUse INVALID_EMAIL
- * @apiUse INVALID_PASSWORD
  * @apiUse INVALID_LEVEL
  * @apiUse ALREADY_A_STAFF
  * @apiUse INVALID_DEPARTMENT

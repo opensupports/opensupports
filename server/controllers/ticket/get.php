@@ -15,8 +15,6 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiParam {Number} ticketNumber The number of the ticket.
  *
- * @apiUse INVALID_TICKET
- * @apiUse INVALID_TOKEN
  * @apiUse NO_PERMISSION
  *
  * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)} data Information about the requested ticket.

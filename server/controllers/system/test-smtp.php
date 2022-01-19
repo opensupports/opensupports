@@ -14,7 +14,6 @@ use Respect\Validation\Validator as DataValidator;
  * @apiPermission any
  *
  * @apiParam {String} smtp-host Host of the SMTP server.
- * @apiParam {String} smtp-port Port of the SMTP server.
  * @apiParam {String} smtp-user User for the SMTP server.
  * @apiParam {String} smtp-pass Password for the SMTP server.
  *

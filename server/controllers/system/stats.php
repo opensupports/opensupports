@@ -20,7 +20,6 @@ use RedBeanPHP\Facade as RedBean;
  * @apiParam {Number[]} owners The ids of the owners for the custom stats.
  * 
  * @apiUse NO_PERMISSION
- * @apiUse INVALID_PERIOD
  * @apiUse INVALID_DEPARTMENT_FILTER
  * @apiUse INVALID_DATE_RANGE_FILTER
  * @apiUse INVALID_OWNER_FILTER

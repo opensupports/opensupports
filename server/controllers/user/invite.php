@@ -17,7 +17,6 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiParam {String} name The name of the invited user.
  * @apiParam {String} email The email of the invited user.
- * @apiParam {String} customfield_ Custom field values for this user.
  *
  * @apiUse INVALID_NAME
  * @apiUse INVALID_EMAIL
@@ -25,7 +24,6 @@ DataValidator::with('CustomValidations', true);
  * @apiUse USER_EXISTS
  * @apiUse ALREADY_BANNED
  * @apiUse NO_PERMISSION
- * @apiUse INVALID_CUSTOM_FIELD_OPTION
  *
  * @apiSuccess {Object} data Information about invited user
  * @apiSuccess {Number} data.userId Id of the invited user

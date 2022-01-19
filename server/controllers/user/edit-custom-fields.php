@@ -14,10 +14,8 @@ use Respect\Validation\Validator as DataValidator;
  * @apiPermission user
  *
  * @apiParam {String} userId Id of the user if it is not the one logged. Optional.
- * @apiParam {String} customfield_ Custom field values for this user.
  *
  * @apiUse NO_PERMISSION
- * @apiUse INVALID_CUSTOM_FIELD_OPTION
  *
  * @apiSuccess {Object} data Empty object
  *

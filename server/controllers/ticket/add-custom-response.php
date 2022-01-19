@@ -19,7 +19,6 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} language Language of the response.
  *
  * @apiUse NO_PERMISSION
- * @apiUse INVALID_NAME
  * @apiUse INVALID_CONTENT
  * @apiUse INVALID_LANGUAGE
  *
