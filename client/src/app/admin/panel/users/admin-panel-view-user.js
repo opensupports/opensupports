@@ -93,7 +93,10 @@ class AdminPanelViewUser extends React.Component {
                 </div>
                 <span className="separator" />
                 <div className="admin-panel-view-user">
-                    <div className="admin-panel-view-user__supervised-users-header">{i18n('SUPERVISED_USER')}</div>
+                    <div className="admin-panel-view-user__supervised-users-container">
+                        <div className="admin-panel-view-user__supervised-users-header">{i18n('SUPERVISED_USER')}</div>
+                        <InfoTooltip className="admin-panel-view-user__info-tooltip" text={i18n('SUPERVISED_USER_INFORMATION')}/>
+                    </div>
                     <div className="admin-panel-view-user__supervised-users-content">
                         <Autocomplete
                             onChange={this.onChangeValues.bind(this)}
