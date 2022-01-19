@@ -67,9 +67,9 @@ class AdminPanelViewArticle extends React.Component {
         return (
             <div className="admin-panel-view-article__content">
                 <div className="admin-panel-view-article__article">
-                   <div className='admin-panel-view-article__header-buttons-wrapper'>
+                   <div className='admin-panel-view-article__header-wrapper'>
                         <Header title={article.title}/>
-                        <div className="admin-panel-view-article__edit-buttons">
+                        <div className="admin-panel-view-article__header-buttons">
                             <span onClick={this.onEditClick.bind(this, article)}>
                                 <Icon className="admin-panel-view-article__edit-icon" name="pencil" />
                             </span>
