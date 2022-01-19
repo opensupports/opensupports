@@ -66,24 +66,22 @@ class AdminPanelViewArticle extends React.Component {
     renderArticlePreview(article) {
         return (
             <div className="admin-panel-view-article__content">
-                <div className="admin-panel-view-article__article">
-                   <div className='admin-panel-view-article__header-wrapper'>
-                        <Header title={article.title}/>
-                        <div className="admin-panel-view-article__header-buttons">
-                            <span onClick={this.onEditClick.bind(this, article)}>
-                                <Icon className="admin-panel-view-article__edit-icon" name="pencil" />
-                            </span>
-                            <span onClick={this.onDeleteClick.bind(this, article)} >
-                                <Icon className="admin-panel-view-article__edit-icon" name="trash" />
-                            </span>
-                        </div>
-                   </div>
-                    <div className="admin-panel-view-article__article-content ql-editor">
-                        <div dangerouslySetInnerHTML={{__html: MentionsParser.parse(article.content)}}/>
+                <div className="admin-panel-view-article__header-wrapper">
+                    <Header title={article.title} />
+                    <div className="admin-panel-view-article__header-buttons">
+                        <span onClick={this.onEditClick.bind(this, article)}>
+                            <Icon className="admin-panel-view-article__edit-icon" name="pencil" />
+                        </span>
+                        <span onClick={this.onDeleteClick.bind(this, article)} >
+                            <Icon className="admin-panel-view-article__edit-icon" name="trash" />
+                        </span>
                     </div>
-                    <div className="admin-panel-view-article__last-edited">
-                        {i18n('LAST_EDITED_IN', {date: DateTransformer.transformToString(article.lastEdited)})}
-                    </div>
+                </div>
+                <div className="admin-panel-view-article__article-content ql-editor">
+                    <div dangerouslySetInnerHTML={{__html: MentionsParser.parse(article.content)}}/>
+                </div>
+                <div className="admin-panel-view-article__last-edited">
+                    {i18n('LAST_EDITED_IN', {date: DateTransformer.transformToString(article.lastEdited)})}
                 </div>
             </div>
         );
