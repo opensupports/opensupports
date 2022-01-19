@@ -481,6 +481,7 @@ class StaffEditor extends React.Component {
                 loadingPicture: false
             });
 
+            this.retrieveStaffMembers();
             onChange && onChange();
         }).catch(() => {
             window.scrollTo(0,0);
