@@ -4,13 +4,13 @@
         word-break: break-word;
     }
 
-    &__header-buttons-wrapper{
+    &__header-wrapper{
         display: flex;
         flex-direction: row;
         height: 35px;
     }
 
-    &__edit-buttons {
+    &__header-buttons {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
