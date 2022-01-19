@@ -20,8 +20,6 @@ class MainLayoutFooter extends React.Component {
         return (
             <div className="main-layout-footer__extra-links">
                 <a className="main-layout-footer__extra-link" href="http://www.opensupports.com/documentation/" target="_blank">Documentation</a>
-                <span> | </span>
-                <a className="main-layout-footer__extra-link" href="http://www.opensupports.com/download/#donation" target="_blank">Donate</a>
             </div>
         );
     }
