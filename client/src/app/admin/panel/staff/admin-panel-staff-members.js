@@ -22,6 +22,7 @@ import DepartmentDropdown from 'app-components/department-dropdown';
 class AdminPanelStaffMembers extends React.Component {
 
     static propTypes = {
+        staffLimit: React.PropTypes.number,
         staffList: React.PropTypes.array,
         loading: React.PropTypes.bool,
     }
@@ -56,7 +57,7 @@ class AdminPanelStaffMembers extends React.Component {
     }
 
     onInviteStaff() {
-        ModalContainer.openModal(<InviteStaffModal onSuccess={this.retrieveStaffMembers.bind(this)} />);
+        ModalContainer.openModal(<InviteStaffModal onSuccess={this.retrieveStaffMembers.bind(this)} staffLimit={this.props.staffLimit} />);
     }
 
     getDepartmentDropdownProps() {
@@ -112,6 +113,7 @@ class AdminPanelStaffMembers extends React.Component {
 
 export default connect((store) => {
     return {
+        staffLimit: store.config.staffLimit * 1,
         staffList: store.adminData.staffMembers,
         loading: !store.adminData.staffMembersLoaded,
         error: store.adminData.staffMembersError

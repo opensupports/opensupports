@@ -11,6 +11,7 @@ import FormField from 'core-components/form-field';
 import SubmitButton from 'core-components/submit-button';
 import Button from 'core-components/button';
 import Icon from 'core-components/icon';
+import Message from 'core-components/message';
 
 class InviteStaffModal extends React.Component {
 
@@ -19,6 +20,7 @@ class InviteStaffModal extends React.Component {
     };
 
     static propTypes = {
+        staffLimit: React.PropTypes.number,
         onSuccess: React.PropTypes.func
     };
 
@@ -60,6 +62,15 @@ class InviteStaffModal extends React.Component {
                         </SubmitButton>
                     </div>
                 </Form>
+                {
+                    this.state.error === 'STAFF_LIMIT' ? (
+                        <div style={{marginTop: 20}}>
+                            <Message title={i18n('STAFF_LIMIT_EXCEEDED')} type="error" showCloseButton={false}>
+                                {i18n('STAFF_LIMIT_EXCEEDED_DESCRIPTION', {staffLimit: this.props.staffLimit})}
+                            </Message>
+                        </div>
+                    ) : null
+                }
             </div>
         );
     }
