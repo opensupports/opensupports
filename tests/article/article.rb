@@ -139,7 +139,7 @@ describe 'Article path' do
 
     end
 
-    it 'should success if change for the same date' do
+    it 'should success if change for the same data' do
         result = request('/article/add', {
             title: 'unique article',
             content: 'this content is unique pt2',
