@@ -196,22 +196,47 @@ class AdminPanelEmailSettings extends React.Component {
                 <Form {...this.getFormProps()}>
                     <div className="row">
                         <div className="col-md-7">
-                            <FormField label={i18n('SUBJECT')} name="subject" validation="TITLE" required
-                                       fieldProps={{size: 'large'}} />
+                            <FormField
+                                fieldProps={{size: 'large'}}
+                                label={i18n('SUBJECT')}
+                                name="subject"
+                                validation="TITLE"
+                                required />
                         </div>
                     </div>
 
-                    <FormField key="text1" label={i18n('TEXT') + '1'} name="text1" validation="TEXT_AREA" required
-                               decorator={'textarea'}
-                               fieldProps={{className: 'admin-panel-email-settings__text-area'}} />
-                    {(form.text2 || form.text2 === "") ?
-                        <FormField key="text2" label={i18n('TEXT') + '2'} name="text2" validation="TEXT_AREA" required
-                                   decorator={'textarea'}
-                                   fieldProps={{className: 'admin-panel-email-settings__text-area'}} /> : null}
-                    {(form.text3 || form.text3 === "") ?
-                        <FormField key="text3" label={i18n('TEXT') + '3'} name="text3" validation="TEXT_AREA" required
-                                   decorator={'textarea'}
-                                   fieldProps={{className: 'admin-panel-email-settings__text-area'}} /> : null}
+                    <FormField
+                        fieldProps={{className: 'admin-panel-email-settings__text-area'}}
+                        label={i18n('TEXT') + '1'}
+                        key="text1"
+                        name="text1"
+                        validation="TEXT_AREA"
+                        required
+                        decorator={'textarea'} />
+                    {
+                        (form.text2 || form.text2 === "") ?
+                            <FormField
+                                fieldProps={{className: 'admin-panel-email-settings__text-area'}}
+                                label={i18n('TEXT') + '2'}
+                                key="text2"
+                                name="text2"
+                                validation="TEXT_AREA"
+                                required
+                                decorator={'textarea'} /> :
+                            null
+                    }
+                    {
+                        (form.text3 || form.text3 === "") ?
+                            <FormField
+                                fieldProps={{className: 'admin-panel-email-settings__text-area'}}
+                                label={i18n('TEXT') + '3'}
+                                key="text3"
+                                name="text3"
+                                validation="TEXT_AREA"
+                                required
+                                decorator={'textarea'} /> :
+                            null
+                    }
 
                     <div className="admin-panel-email-settings__actions">
                         <div className="admin-panel-email-settings__optional-buttons">
@@ -223,11 +248,7 @@ class AdminPanelEmailSettings extends React.Component {
                             {edited ? this.renderDiscardButton() : null}
                         </div>
                         <div className="admin-panel-email-settings__save-button">
-                            <SubmitButton
-                                key="submit-email-template"
-                                type="secondary"
-                                size="small"
-                                onClick={(e) => {e.preventDefault(); this.onFormSubmit(form);}}>
+                            <SubmitButton key="submit-email-template" type="secondary" size="small">
                                     {i18n('SAVE')}
                             </SubmitButton>
                         </div>
@@ -257,16 +278,19 @@ class AdminPanelEmailSettings extends React.Component {
     }
 
     getFormProps() {
+        const { form, errors, loadingForm } = this.state;
+
         return {
-            values: this.state.form,
-            errors: this.state.errors,
-            loading: this.state.loadingForm,
+            values: form,
+            errors,
+            loading: loadingForm,
             onChange: (form) => {
                 this.setState({form, edited: true})
             },
             onValidateErrors: (errors) => {
                 this.setState({errors})
             },
+            onSubmit: this.onFormSubmit.bind(this, form)
         }
     }
 
