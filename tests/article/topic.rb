@@ -35,6 +35,10 @@ describe 'Topic paths' do
         })
 
         (result['status']).should.equal('success')
+        topic = $database.getRow('topic', 1)
+        (topic['icon_color']).should.equal('blue')
+        (topic['name']).should.equal('Server management')
+        
     end
 
     it 'should edit topic correctly' do
@@ -94,7 +98,10 @@ describe 'Topic paths' do
             csrf_token: $csrf_token
         })
 
+        topic = $database.getLastRow('topic')
         (result['status']).should.equal('success')
+        (topic['icon_color']).should.equal('pink')
+        (topic['name']).should.equal('Valid name')
     end
 
     it 'should delete topic correctly' do
