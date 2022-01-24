@@ -59,6 +59,10 @@ class ChangeDepartmentController extends Controller {
         if(!$user->canManageTicket($ticket)){
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
+        
+        if($ticket->department->id == $department->id){
+            throw new RequestException(ERRORS::SAME_DEPARTMENT);
+        }
 
         if($ticket->owner && !$ticket->owner->sharedDepartmentList->includesId($department->id)) {
             $unAssignTicketController = new UnAssignStaffController($user);
