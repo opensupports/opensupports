@@ -51,7 +51,7 @@ class EditTopicController extends Controller {
 
     public function handler() {
         $topic = Topic::getDataStore(Controller::request('topicId'));
-        $name = Controller::request('name');
+        $name = Controller::request('name', true);
         $iconColor = Controller::request('iconColor');
         $private = Controller::request('private');
         $icon = Controller::request('icon');
@@ -61,9 +61,7 @@ class EditTopicController extends Controller {
             throw new RequestException(ERRORS::NAME_ALREADY_USED);
         }
 
-        if($name) {
-            $topic->name = Controller::request('name', true);
-        }
+        if($name) $topic->name = $name;
 
         if($iconColor) {
             $topic->iconColor = $iconColor;
