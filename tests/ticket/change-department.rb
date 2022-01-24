@@ -88,13 +88,15 @@ describe '/ticket/change-department' do
 
         result = request('/ticket/change-department', {
             ticketNumber: ticket['ticket_number'],
-            departmentId: 1,
+            departmentId: 2,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })
+        
+        ticket = $database.getRow('ticket', 'Stafftitle', 'title')
 
         (result['status']).should.equal('success')
-        (ticket['department_id']).should.equal(1)
+        (ticket['department_id']).should.equal(2)
 
         request('/staff/edit', {
             csrf_userid: $csrf_userid,
@@ -103,6 +105,23 @@ describe '/ticket/change-department' do
             staffId: 1
         })
     end
+
+    it 'should fail if tryes to change to the same deparment' do
+
+        ticket = $database.getRow('ticket', 'Stafftitle', 'title')
+
+        result = request('/ticket/change-department', {
+            ticketNumber: ticket['ticket_number'],
+            departmentId: 2,
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token
+        })
+        
+        (result['status']).should.equal('fail')
+        (result['message']).should.equal('SAME_DEPARTMENT')
+        
+    end
+
     it 'should not unassing ticket if owner has the new ticket department and staff does not have it' do
         Scripts.logout()
         Scripts.login($staff[:email], $staff[:password], true)
