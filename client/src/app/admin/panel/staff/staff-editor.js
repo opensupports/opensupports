@@ -301,7 +301,7 @@ class StaffEditor extends React.Component {
 
     renderDepartmentsInfo() {
         const { departments } = this.state;
-        const departmentsAssigned = this.getDepartments().filter((_department, index) => departments.includes(index))
+        const departmentsAssigned = this.getDepartments().filter((_department, index) => departments.includes(index));
 
         return (
             <Form values={{departments: Array.from({length: departmentsAssigned.length}, (value, index) => index)}}>
@@ -462,6 +462,7 @@ class StaffEditor extends React.Component {
                 this.setState({loadingStats: false});
             });
 
+            this.retrieveTicketsAssigned({page: 1});
             onChange && onChange();
         }).catch(() => {
             window.scrollTo(0,250);
