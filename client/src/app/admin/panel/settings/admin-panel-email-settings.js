@@ -179,12 +179,8 @@ class AdminPanelEmailSettings extends React.Component {
     }
 
     renderForm() {
-        const {
-            form,
-            language,
-            selectedIndex,
-            edited
-        } = this.state;
+        const { form, language, selectedIndex, edited } = this.state;
+
         return (
             <div className="col-md-9">
                 <FormField label={i18n('LANGUAGE')} decorator={LanguageSelector} value={language}
@@ -226,14 +222,14 @@ class AdminPanelEmailSettings extends React.Component {
                             null
                     }
                     {
-                        (form.text3 || form.text3 === "") ?
+                        ((form.text3 || form.text3 === "") && (selectedIndex !== 1 && selectedIndex !== 2)) ?
                             <FormField
                                 fieldProps={{className: 'admin-panel-email-settings__text-area'}}
                                 label={i18n('TEXT') + '3'}
                                 key="text3"
                                 name="text3"
-                                validation="TEXT_AREA"
-                                required
+                                validation={(selectedIndex !== 1 && selectedIndex !== 2) ? "TEXT_AREA" : ""}
+                                required={(selectedIndex !== 1 && selectedIndex !== 2)}
                                 decorator={'textarea'} /> :
                             null
                     }
