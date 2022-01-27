@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /ticket/remove-tag Remove tag
- * @apiVersion 4.10.0
+ * @apiVersion 4.11.0
  *
  * @apiName Remove tag
  *

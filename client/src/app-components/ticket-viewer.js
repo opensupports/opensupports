@@ -72,6 +72,7 @@ class TicketViewer extends React.Component {
         editTags: false,
         editOwner: false,
         editDepartment: false,
+        showTicketCommentErrorMessage: true
     };
 
     componentDidMount() {
@@ -530,8 +531,16 @@ class TicketViewer extends React.Component {
     }
 
     renderCommentError() {
+        const { showTicketCommentErrorMessage } = this.state;
+
         return (
-            <Message className="ticket-viewer__message" type="error">{i18n('TICKET_COMMENT_ERROR')}</Message>
+            <Message
+                showMessage={showTicketCommentErrorMessage}
+                onCloseMessage={this.onCloseMessage.bind(this, "showTicketCommentErrorMessage")}
+                className="ticket-viewer__message"
+                type="error">
+                    {i18n('TICKET_COMMENT_ERROR')}
+            </Message>
         );
     }
 
@@ -776,7 +785,7 @@ class TicketViewer extends React.Component {
                 data,
                 TextEditor.getContentFormData(content)
             )
-        }).then(this.onEditCommentSuccess.bind(this), this.onFailCommentFail.bind(this));
+        }).then(this.onEditCommentSuccess.bind(this), this.onEditCommentFail.bind(this));
     }
 
     onEditCommentSuccess() {
@@ -790,10 +799,11 @@ class TicketViewer extends React.Component {
         this.onTicketModification();
     }
 
-    onFailCommentFail() {
+    onEditCommentFail() {
         this.setState({
             loading: false,
-            commentError: true
+            commentError: true,
+            showTicketCommentErrorMessage: true
         });
     }
 
@@ -825,7 +835,8 @@ class TicketViewer extends React.Component {
     onCommentFail() {
         this.setState({
             loading: false,
-            commentError: true
+            commentError: true,
+            showTicketCommentErrorMessage: true
         });
     }
 
@@ -872,6 +883,12 @@ class TicketViewer extends React.Component {
         }
 
         return false;
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
+        });
     }
 }
 

@@ -4,7 +4,7 @@ DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /system/add-custom-field Add a custom field
- * @apiVersion 4.10.0
+ * @apiVersion 4.11.0
  *
  * @apiName Add Custom field
  *

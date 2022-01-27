@@ -8,19 +8,29 @@
         margin-top: 20px;
     }
 
+    &__container {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
     &__buttons-container {
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+        z-index: 999;
 
         &-without-allow-attachments {
             display: flex;
             flex-direction: row;
             justify-content: flex-end;
             align-items: center;
-            width: 100%;
+            z-index: 999;
         }
+    }
+
+    &__captcha-container {
+        padding-right: 20px;
     }
 
     &__captcha {

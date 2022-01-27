@@ -26,7 +26,9 @@ class MainSignUpWidget extends React.Component {
         this.state = {
             loading: false,
             email: null,
-            customFields: null
+            customFields: null,
+            showMessage: true,
+            message: null
         };
     }
 
@@ -89,11 +91,27 @@ class MainSignUpWidget extends React.Component {
     }
 
     renderMessage() {
-        switch (this.state.message) {
+        const { message, showMessage } = this.state;
+
+        switch (message) {
             case 'success':
-                return <Message type="success">{i18n('SIGNUP_SUCCESS')}</Message>;
+                return (
+                    <Message
+                        showMessage={showMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                        type="success">
+                            {i18n('SIGNUP_SUCCESS')}
+                    </Message>
+                );
             case 'fail':
-                return <Message type="error">{i18n('EMAIL_EXISTS')}</Message>;
+                return (
+                    <Message
+                        showMessage={showMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                        type="error">
+                            {i18n('EMAIL_EXISTS')}
+                    </Message>
+                );
             default:
                 return null;
         }
@@ -153,7 +171,8 @@ class MainSignUpWidget extends React.Component {
     onSignupSuccess() {
         this.setState({
             loading: false,
-            message: 'success'
+            message: 'success',
+            showMessage: true
         }, () => {
             setTimeout(() => {history.push('/')}, 2000);
         });
@@ -162,7 +181,14 @@ class MainSignUpWidget extends React.Component {
     onSignupFail() {
         this.setState({
             loading: false,
-            message: 'fail'
+            message: 'fail',
+            showMessage: true
+        });
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
         });
     }
 }

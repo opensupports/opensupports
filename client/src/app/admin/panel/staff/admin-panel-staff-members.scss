@@ -27,6 +27,11 @@
         margin-left: 5px;
     }
 
+    &__loading {
+        min-width: 300px;
+        min-height: 300px;
+    }
+
     @media screen and (max-width: 415px) {
         .admin-panel-staff-members {
             &__drowpdown {

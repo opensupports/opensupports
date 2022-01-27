@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /system/delete-api-key Delete APIKey
- * @apiVersion 4.10.0
+ * @apiVersion 4.11.0
  *
  * @apiName Delete APIKey
  *

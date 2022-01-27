@@ -13,7 +13,6 @@ import Button from 'core-components/button';
 import Message from 'core-components/message';
 import InfoTooltip from 'core-components/info-tooltip';
 import Autocomplete from 'core-components/autocomplete';
-import Tooltip from '../../../../core-components/tooltip';
 
 const INITIAL_API_VALUE = {
     page: 1,
@@ -32,7 +31,8 @@ class AdminPanelViewUser extends React.Component {
         loading: true,
         disabled: false,
         userList: [],
-        message: ''
+        message: '',
+        showMessage: true
     };
 
     componentDidMount() {
@@ -52,7 +52,7 @@ class AdminPanelViewUser extends React.Component {
     renderInvalid() {
         return (
             <div className="admin-panel-view-user__invalid">
-                <Message type="error">{i18n('INVALID_USER')}</Message>
+                <Message showCloseButton={false} type="error">{i18n('INVALID_USER')}</Message>
             </div>
         );
     }
@@ -93,7 +93,10 @@ class AdminPanelViewUser extends React.Component {
                 </div>
                 <span className="separator" />
                 <div className="admin-panel-view-user">
-                    <div className="admin-panel-view-user__supervised-users-header">{i18n('SUPERVISED_USER')}</div>
+                    <div className="admin-panel-view-user__supervised-users-container">
+                        <div className="admin-panel-view-user__supervised-users-header">{i18n('SUPERVISED_USER')}</div>
+                        <InfoTooltip className="admin-panel-view-user__info-tooltip" text={i18n('SUPERVISED_USER_INFORMATION')}/>
+                    </div>
                     <div className="admin-panel-view-user__supervised-users-content">
                         <Autocomplete
                             onChange={this.onChangeValues.bind(this)}
@@ -123,22 +126,32 @@ class AdminPanelViewUser extends React.Component {
     }
 
     renderSupervisedUserMessage(){
-        const { message } = this.state;
+        const { message, showMessage } = this.state;
 
         if(message) {
-            if(message != 'success') {
+            if(message !== 'success') {
                 return (
-                    <div className="admin-panel-view-user__supervised-users-message">
-                        <Message type="error">{i18n(message)}</Message>
-                    </div>
+                    <Message
+                        showMessage={showMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                        className="admin-panel-view-user__supervised-users-message"
+                        type="error">
+                            {i18n(message)}
+                    </Message>
                 );
             } else {
                 return (
-                    <div className= "admin-panel-view-user__supervised-users-message">
-                        <Message type="success">{i18n('SUPERVISED_USERS_UPDATED')}</Message>
-                    </div>
+                    <Message
+                        showMessage={showMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                        className="admin-panel-view-user__supervised-users-message"
+                        type="success">
+                            {i18n('SUPERVISED_USERS_UPDATED')}
+                    </Message>
                 );
             }
+        } else {
+            return null;
         }
     }
 
@@ -160,12 +173,14 @@ class AdminPanelViewUser extends React.Component {
         }).then(r => {
             this.setState({
                 loading: false,
-                message: 'success'
+                message: 'success',
+                showMessage: true
             })
         }).catch((r) => {
             this.setState({
                 loading: false,
-                message: r.message
+                message: r.message,
+                showMessage: true
             })
         });
     }
@@ -370,6 +385,12 @@ class AdminPanelViewUser extends React.Component {
                 page: data.page,
                 pages: data.pages
             });
+        });
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
         });
     }
 }

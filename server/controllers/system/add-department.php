@@ -4,7 +4,7 @@ use Respect\Validation\Validator as DataValidator;
 DataValidator::with('CustomValidations', true);
 /**
  * @api {post} /system/add-department Add department
- * @apiVersion 4.10.0
+ * @apiVersion 4.11.0
  *
  * @apiName Add department
  *

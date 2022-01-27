@@ -14,6 +14,7 @@ import Widget             from 'core-components/widget';
 import Header             from 'core-components/header';
 import Button from 'core-components/button';
 import ModalContainer from 'app-components/modal-container';
+import Loading from 'core-components/loading';
 
 class InviteUserWidget extends React.Component {
 
@@ -29,7 +30,8 @@ class InviteUserWidget extends React.Component {
         this.state = {
             loading: false,
             email: null,
-            customFields: null
+            customFields: null,
+            showMessage: true
         };
     }
 
@@ -37,32 +39,45 @@ class InviteUserWidget extends React.Component {
         API.call({
             path: '/system/get-custom-fields',
             data: {}
-        })
-        .then(result => this.setState({customFields: result.data}));
+        }).then(result => {
+            this.setState({
+                customFields: result.data
+            });
+        });
     }
 
     render() {
-        if(!this.state.customFields) return null;
+        if(!this.state.customFields) return this.renderLoading();
 
         return (
-            <Widget className={this.getClass()}>
-                <Header title={i18n('INVITE_USER')} description={i18n('INVITE_USER_VIEW_DESCRIPTION')} />
-                <Form {...this.getFormProps()}>
-                    <div className="invite-user-widget__inputs">
-                        <FormField {...this.getInputProps()} label={i18n('FULL_NAME')} name="name" validation="NAME" required />
-                        <FormField {...this.getInputProps()} label={i18n('EMAIL')} name="email" validation="EMAIL" required />
-                        {this.state.customFields.map(this.renderCustomField.bind(this))}
-                    </div>
-                    <div className="invite-user-widget__captcha">
-                        <Captcha ref="captcha" />
-                    </div>
-                    <div className="invite-user-widget__buttons-container">
-                        <Button onClick={(e) => {e.preventDefault(); ModalContainer.closeModal();}} type="link">{i18n('CANCEL')}</Button>
-                        <SubmitButton type="secondary">{i18n('INVITE_USER')}</SubmitButton>
-                    </div>
-                </Form>
-                {this.renderMessage()}
-            </Widget>
+            <div className="invite-user-widget__modal-wrapper">
+                <Widget className={this.getClass()}>
+                    <Header title={i18n('INVITE_USER')} description={i18n('INVITE_USER_VIEW_DESCRIPTION')} />
+                    <Form {...this.getFormProps()}>
+                        <div className="invite-user-widget__inputs">
+                            <FormField {...this.getInputProps()} label={i18n('FULL_NAME')} name="name" validation="NAME" required />
+                            <FormField {...this.getInputProps()} label={i18n('EMAIL')} name="email" validation="EMAIL" required />
+                            {this.state.customFields.map(this.renderCustomField.bind(this))}
+                        </div>
+                        <div className="invite-user-widget__captcha">
+                            <Captcha ref="captcha" />
+                        </div>
+                        <div className="invite-user-widget__buttons-container">
+                            <Button onClick={(e) => {e.preventDefault(); ModalContainer.closeModal();}} type="link">{i18n('CANCEL')}</Button>
+                            <SubmitButton type="secondary">{i18n('INVITE_USER')}</SubmitButton>
+                        </div>
+                    </Form>
+                    {this.renderMessage()}
+                </Widget>
+            </div>
+        );
+    }
+
+    renderLoading() {
+        return (
+            <div className="invite-user-widget__loading">
+                <Loading backgrounded size="large" />
+            </div>
         );
     }
 
@@ -92,11 +107,29 @@ class InviteUserWidget extends React.Component {
     }
 
     renderMessage() {
-        switch (this.state.message) {
-            case 'success':
-                return <Message className="invite-user-widget__success-message" type="success">{i18n('INVITE_USER_SUCCESS')}</Message>;
+        const { message, showMessage } = this.state;
+
+        switch (message) {
+            case 'success': // TODO Remove this message case
+                return (
+                    <Message
+                        showMessage={showMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                        className="invite-user-widget__success-message"
+                        type="success">
+                            {i18n('INVITE_USER_SUCCESS')}
+                    </Message>
+                );
             case 'fail':
-                return <Message className="invite-user-widget__error-message" type="error">{i18n('EMAIL_EXISTS')}</Message>;
+                return (
+                    <Message
+                        showMessage={showMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                        className="invite-user-widget__error-message"
+                        type="error">
+                            {i18n('EMAIL_EXISTS')}
+                    </Message>
+                );
             default:
                 return null;
         }
@@ -159,7 +192,8 @@ class InviteUserWidget extends React.Component {
 
         this.setState({
             loading: false,
-            message
+            message,
+            showMessage: true
         });
 
         onChangeMessage && onChangeMessage(message);
@@ -172,10 +206,17 @@ class InviteUserWidget extends React.Component {
 
         this.setState({
             loading: false,
-            message
+            message,
+            showMessage: true
         });
 
         onChangeMessage && onChangeMessage(message);
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
+        });
     }
 }
 

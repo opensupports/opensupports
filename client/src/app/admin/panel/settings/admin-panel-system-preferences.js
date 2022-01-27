@@ -26,7 +26,8 @@ class AdminPanelSystemPreferences extends React.Component {
         message: null,
         values: {
             maintenance: false,
-        }
+        },
+        showMessage: true
     };
 
     componentDidMount() {
@@ -113,11 +114,29 @@ class AdminPanelSystemPreferences extends React.Component {
     }
 
     renderMessage() {
-        switch (this.state.message) {
+        const { message, showMessage } = this.state;
+
+        switch (message) {
             case 'success':
-                return <Message className="admin-panel-system-preferences__message" type="success">{i18n('SETTINGS_UPDATED')}</Message>;
+                return (
+                    <Message
+                        showMessage={showMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                        className="admin-panel-system-preferences__message"
+                        type="success">
+                            {i18n('SETTINGS_UPDATED')}
+                    </Message>
+                );
             case 'fail':
-                return <Message className="admin-panel-system-preferences__message" type="error">{i18n('ERROR_UPDATING_SETTINGS')}</Message>;
+                return (
+                    <Message
+                        showMessage={showMessage}
+                        onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                        className="admin-panel-system-preferences__message"
+                        type="error">
+                            {i18n('ERROR_UPDATING_SETTINGS')}
+                    </Message>
+                );
             default:
                 return null;
         }
@@ -155,14 +174,15 @@ class AdminPanelSystemPreferences extends React.Component {
                 'allowedLanguages': JSON.stringify(form.allowedLanguages.map(index => languageKeys[index])),
                 'supportedLanguages': JSON.stringify(form.supportedLanguages.map(index => languageKeys[index]))
             }
-        }).then(this.onSubmitSuccess.bind(this)).catch(() => this.setState({loading: false, message: 'fail'}));
+        }).then(this.onSubmitSuccess.bind(this)).catch(() => this.setState({loading: false, message: 'fail', showMessage: true}));
     }
 
     onSubmitSuccess() {
         this.recoverSettings();
         this.setState({
             message: 'success',
-            loading: false
+            loading: false,
+            showMessage: true
         });
     }
 
@@ -202,7 +222,8 @@ class AdminPanelSystemPreferences extends React.Component {
 
     onRecoverSettingsFail() {
         this.setState({
-            message: 'error'
+            message: 'error',
+            showMessage: true
         });
     }
 
@@ -210,6 +231,12 @@ class AdminPanelSystemPreferences extends React.Component {
         event.preventDefault();
         this.setState({loading: true});
         this.recoverSettings();
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
+        });
     }
 }
 

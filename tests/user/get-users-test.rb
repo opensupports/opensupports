@@ -36,7 +36,7 @@ describe '/user/get-users' do
         })
 
         (result['status']).should.equal('success')
-        (result['data']['users'].size).should.equal(7)
+        (result['data']['users'].size).should.equal(8)
     end
 
     it 'should get users with order by tickets and asc' do

@@ -11,6 +11,9 @@
     z-index: 1000;
 
     &__content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: relative;
         margin: auto;
         background-color: white;

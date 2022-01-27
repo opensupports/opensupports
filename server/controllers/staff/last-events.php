@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/last-events Get last events
- * @apiVersion 4.10.0
+ * @apiVersion 4.11.0
  *
  * @apiName Get last events
  *

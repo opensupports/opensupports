@@ -20,6 +20,7 @@ class InstallStep5Settings extends React.Component {
         loading: false,
         form: {},
         error: false,
+        showErrorMessage: true,
         errorMessage: ''
     };
 
@@ -65,17 +66,19 @@ class InstallStep5Settings extends React.Component {
     }
 
     renderMessage() {
-        let message = null;
+        const { error, errorMessage, showErrorMessage } = this.state;
 
-        if(this.state.error) {
-            message = (
-                <Message className="install-step-5__message" type="error">
-                    {i18n('ERROR_UPDATING_SETTINGS')}: {this.state.errorMessage}
-                </Message>
-            );
-        }
-
-        return message;
+        return (
+            error ?
+                <Message
+                    showMessage={showErrorMessage}
+                    onCloseMessage={this.onCloseMessage.bind(this, "showErrorMessage")}
+                    className="install-step-5__message"
+                    type="error">
+                        {i18n('ERROR_UPDATING_SETTINGS')}: {errorMessage}
+                </Message> :
+                null
+        );
     }
 
     onTestSMTPClick(event) {
@@ -125,8 +128,15 @@ class InstallStep5Settings extends React.Component {
                 .catch(({message}) => this.setState({
                     loading: false,
                     error: true,
+                    showErrorMessage: true,
                     errorMessage: message
                 }));
+        });
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
         });
     }
 }

@@ -3,7 +3,7 @@ use Respect\Validation\Validator as DataValidator;
 
 /**
  * @api {post} /staff/edit Edit staff
- * @apiVersion 4.10.0
+ * @apiVersion 4.11.0
  *
  * @apiName Edit staff
  *
@@ -85,7 +85,11 @@ class EditStaffController extends Controller {
     private function editInformation() {
 
         if(Controller::request('email')) {
-            $this->staffInstance->email = Controller::request('email');
+            $newEmail = Controller::request('email');
+
+            $this->verifyEmail($newEmail);
+
+            $this->staffInstance->email = $newEmail;
         }
 
         if(Controller::request('password')) {
@@ -131,7 +135,20 @@ class EditStaffController extends Controller {
         $this->staffInstance->store();
     }
 
+    private function verifyEmail($email){
 
+        $staff = Staff::getDataStore($email,'email');
+        $user = User::getDataStore($email,'email');
+
+        if($user->email == $email){
+            throw new RequestException(ERRORS::INVALID_EMAIL);
+        }
+
+        if($staff->email == $email && $this->staffInstance->email != $email){
+            throw new RequestException(ERRORS::INVALID_EMAIL);
+        }
+    }
+    
     private function getDepartmentList() {
         $listDepartments = new DataStoreList();
         $departmentIds = json_decode(Controller::request('departments'));

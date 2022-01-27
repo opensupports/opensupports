@@ -27,6 +27,7 @@ export default {
     'TICKET_LIST': 'Ticket List',
     'SUPPORT_CENTER': 'Support Center',
     'SUPERVISED_USER': 'Supervised users',
+    'SUPERVISED_USER_INFORMATION': 'Allows to see tickets from another user',
     'DEPARTMENT': 'Department',
     'DEFAULT_DEPARTMENT': 'Default Department',
     'AUTHOR': 'Author',

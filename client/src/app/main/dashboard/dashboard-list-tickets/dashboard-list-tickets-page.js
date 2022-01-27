@@ -33,7 +33,8 @@ class DashboardListTicketsPage extends React.Component {
             ownTickets: true
         },
         message: '',
-        loading: false
+        loading: false,
+        showMessage: true
     };
 
     componentDidMount() {
@@ -43,7 +44,7 @@ class DashboardListTicketsPage extends React.Component {
 
     render() {
         const { userUsers } = this.props;
-        const { loading, page, pages, tickets, message } = this.state;
+        const { loading, page, pages, tickets, message, showMessage } = this.state;
 
         return (
             <div className="dashboard-ticket-list">
@@ -56,7 +57,16 @@ class DashboardListTicketsPage extends React.Component {
                     pages={pages}
                     tickets={tickets}
                     type={userUsers.length ? "secondary" : "primary"} />
-                {message ? <Message type="error" >{i18n(message)}</Message> : null}
+                {
+                    message ?
+                        <Message
+                            showMessage={showMessage}
+                            onCloseMessage={this.onCloseMessage.bind(this, "showMessage")}
+                            type="error">
+                                {i18n(message)}
+                        </Message> :
+                        null
+                }
             </div>
         );
     }
@@ -122,10 +132,17 @@ class DashboardListTicketsPage extends React.Component {
             this.setState({
                 tickets: [],
                 message: r.message,
+                showMessage: true,
                 loading: false
             })
         });
         
+    }
+
+    onCloseMessage(showMessage) {
+        this.setState({
+            [showMessage]: false
+        });
     }
 }
 
