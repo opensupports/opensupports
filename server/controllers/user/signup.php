@@ -19,6 +19,7 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} email The email of the new user.
  * @apiParam {String} password The password of the new user.
  * @apiParam {String} apiKey apiKey to sign up an user if the registration system is disabled.
+ * @apiParam {String} customfield_ Custom field values for this user.
  * @apiParam {Boolean} indirectSignUp Indicates if the new User has been created by ticket/create
  *
  * @apiUse INVALID_NAME
@@ -28,6 +29,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse USER_EXISTS
  * @apiUse ALREADY_BANNED
  * @apiUse NO_PERMISSION
+ * @apiUse INVALID_CUSTOM_FIELD_OPTION
  *
  * @apiSuccess {Object} data Information about created user
  * @apiSuccess {Number} data.userId Id of the new user
