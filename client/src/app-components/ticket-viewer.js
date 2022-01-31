@@ -349,7 +349,7 @@ class TicketViewer extends React.Component {
         if(assignmentAllowed && ticket.owner) {
             ownerNode = (
                 <a className="ticket-viewer__info-owner-name" href={this.searchTickets(filtersOnlyWithOwner)}>
-                {ticketUtils.renderStaffSelected(ticket.owner)}
+                    {ticketUtils.renderStaffSelected(ticket.owner)}
                 </a>
             );
         } else {
