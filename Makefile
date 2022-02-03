@@ -22,7 +22,11 @@ deploy-staging-population:
 		--header 'Circle-Token: ${CIRCLE_API_USER_TOKEN}' \
 		--header 'content-type: application/json' \
 		--data '{"branch":"master","parameters":{"server_to_deploy": "dev3"}}'
-
+	curl --request POST \
+		--url https://circleci.com/api/v2/project/github/opensupports/staging-population/pipeline \
+		--header 'Circle-Token: ${CIRCLE_API_USER_TOKEN}' \
+		--header 'content-type: application/json' \
+		--data '{"branch":"master","parameters":{"server_to_deploy": "dev4"}}'
 build-release-bundles:
 	$(eval UPGRADE_ZIP="opensupports_v$(VERSION)_update.zip")
 	./build.sh
