@@ -64,7 +64,8 @@ class StaffEditor extends React.Component {
             owners: [],
             tags: []
         },
-        ticketData: {}
+        ticketData: {},
+        ticketListLoading: false
     };
 
     componentDidMount() {
@@ -301,7 +302,7 @@ class StaffEditor extends React.Component {
 
     renderDepartmentsInfo() {
         const { departments } = this.state;
-        const departmentsAssigned = this.getDepartments().filter((_department, index) => departments.includes(index))
+        const departmentsAssigned = this.getDepartments().filter((_department, index) => departments.includes(index));
 
         return (
             <Form values={{departments: Array.from({length: departmentsAssigned.length}, (value, index) => index)}}>
@@ -330,7 +331,10 @@ class StaffEditor extends React.Component {
                 <span className="separator" />
                 <div className="staff-editor__tickets">
                     <div className="staff-editor__tickets-title">{i18n('TICKETS_ASSIGNED')}</div>
-                    <TicketList {...this.getTicketListProps()} />
+                        {this.state.ticketListLoading ?
+                            <Loading className="staff-editor__ticketlist-loading" backgrounded size="large"/> :
+                            <TicketList {...this.getTicketListProps()} />
+                        }
                 </div>
             </div>
         );
@@ -423,7 +427,10 @@ class StaffEditor extends React.Component {
     }
 
     onSubmit(eventType, form) {
-        this.setState({loadingStats: true});
+        this.setState({
+            loadingStats: true,
+            ticketListLoading: true
+        });
 
         const { myAccount, staffId, onChange } = this.props;
         let departments;
@@ -447,7 +454,11 @@ class StaffEditor extends React.Component {
         }).then(() => {
             this.retrieveStaffMembers();
             window.scrollTo(0,250);
-            this.setState({message: eventType, showMessage: true});
+            this.setState({
+                message: eventType,
+                showMessage: true,
+                ticketListLoading: false
+            });
 
             const departmentsAssigned = SessionStore.getDepartments().filter((_department, index) => this.state.departments.includes(index));
             const departmentsAssignedId = departmentsAssigned.map(department => department.id);
@@ -462,6 +473,7 @@ class StaffEditor extends React.Component {
                 this.setState({loadingStats: false});
             });
 
+            this.retrieveTicketsAssigned({page: 1});
             onChange && onChange();
         }).catch(() => {
             window.scrollTo(0,250);
