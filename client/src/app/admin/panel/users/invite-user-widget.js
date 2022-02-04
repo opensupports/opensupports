@@ -63,8 +63,8 @@ class InviteUserWidget extends React.Component {
                             <Captcha ref="captcha" />
                         </div>
                         <div className="invite-user-widget__buttons-container">
-                            <Button onClick={(e) => {e.preventDefault(); ModalContainer.closeModal();}} type="link">{i18n('CANCEL')}</Button>
                             <SubmitButton type="secondary">{i18n('INVITE_USER')}</SubmitButton>
+                            <Button onClick={(e) => {e.preventDefault(); ModalContainer.closeModal();}} type="link">{i18n('CANCEL')}</Button>
                         </div>
                     </Form>
                     {this.renderMessage()}
