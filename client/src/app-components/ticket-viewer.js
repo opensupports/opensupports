@@ -419,7 +419,7 @@ class TicketViewer extends React.Component {
     }
 
     renderCancelButton(option) {
-        return <Button type='link' size="medium" onClick={() => this.setState({["edit"+option]: false})}>{i18n('CLOSE')}</Button>
+        return <Button type='link' size="medium" onClick={() => this.setState({["edit"+option]: false})}>{i18n('CANCEL')}</Button>
     }
 
     renderTicketEvent(isTicketClosed, ticketEventObject, index) {
