@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import classNames from 'classnames';
 
-import {reactDFS, renderChildrenWithProps} from 'lib-core/react-dfs';
+import {reactDFS, renderDescendantsWithProps} from 'lib-core/react-dfs';
 import ValidationFactory from 'lib-app/validations/validator-factory';
 
 import FormField from 'core-components/form-field';
@@ -45,7 +45,7 @@ class Form extends React.Component {
     render() {
         return (
             <form {...this.getProps()}>
-                {renderChildrenWithProps(this.props.children, this.getFieldProps.bind(this))}
+                {renderDescendantsWithProps(this.props.children, this.getFieldProps.bind(this))}
             </form>
         );
     }

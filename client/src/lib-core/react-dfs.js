@@ -23,7 +23,7 @@ export let reactDFS = function (children, visitFunction) {
     }
 };
 
-export let renderChildrenWithProps = function(children, mapFunction) {
+export let renderDescendantsWithProps = function(children, mapFunction) {
     if (typeof children !== 'object' || children === null) {
         return children;
     }
@@ -38,7 +38,7 @@ export let renderChildrenWithProps = function(children, mapFunction) {
         if (!_.isEmpty(props)) {
             return React.cloneElement(child, props, child.props && child.props.children);
         } else {
-            return React.cloneElement(child, {}, renderChildrenWithProps(child.props && child.props.children, mapFunction));
+            return React.cloneElement(child, {}, renderDescendantsWithProps(child.props && child.props.children, mapFunction));
         }
     }.bind(this));
 };
