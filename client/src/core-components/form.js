@@ -43,7 +43,9 @@ class Form extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState(this.getInitialFormAndValidations(nextProps.children));
+        if(nextProps.values && this.props.values && (nextProps.values.template !== this.props.values.template)) {
+            this.setState(this.getInitialFormAndValidations(nextProps.children));
+        }
     }
 
     render() {
