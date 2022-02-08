@@ -180,6 +180,7 @@ class AdminPanelEmailSettings extends React.Component {
 
     renderForm() {
         const { form, language, selectedIndex, edited } = this.state;
+        const { template, text2, text3} = form;
 
         return (
             <div className="col-md-9">
@@ -210,7 +211,7 @@ class AdminPanelEmailSettings extends React.Component {
                         required
                         decorator={'textarea'} />
                     {
-                        (form.text2 || form.text2 === "") ?
+                        (text2 || text2 === "") ?
                             <FormField
                                 fieldProps={{className: 'admin-panel-email-settings__text-area'}}
                                 label={i18n('TEXT') + '2'}
@@ -222,14 +223,14 @@ class AdminPanelEmailSettings extends React.Component {
                             null
                     }
                     {
-                        ((form.text3 || form.text3 === "") && (selectedIndex !== 1 && selectedIndex !== 2)) ?
+                        ((text3 || text3 === "") && (template !== "USER_PASSWORD" && template !== "USER_EMAIL")) ?
                             <FormField
                                 fieldProps={{className: 'admin-panel-email-settings__text-area'}}
                                 label={i18n('TEXT') + '3'}
                                 key="text3"
                                 name="text3"
-                                validation={(selectedIndex !== 1 && selectedIndex !== 2) ? "TEXT_AREA" : ""}
-                                required={(selectedIndex !== 1 && selectedIndex !== 2)}
+                                validation={(template !== "USER_PASSWORD" && template !== "USER_EMAIL") ? "TEXT_AREA" : ""}
+                                required={(template !== "USER_PASSWORD" && template !== "USER_EMAIL")}
                                 decorator={'textarea'} /> :
                             null
                     }
