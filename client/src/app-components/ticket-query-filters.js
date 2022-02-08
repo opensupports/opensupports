@@ -8,6 +8,7 @@ import i18n from 'lib-app/i18n';
 import API from 'lib-app/api-call';
 import history from 'lib-app/history';
 import searchTicketsUtils from 'lib-app/search-tickets-utils';
+import ticketUtils from 'lib-app/ticket-utils';
 
 import Form from 'core-components/form';
 import SubmitButton from 'core-components/submit-button';
@@ -34,7 +35,8 @@ class TicketQueryFilters extends React.Component {
             formState,
             filters,
             showFilters,
-            ticketQueryListState
+            ticketQueryListState,
+            staffList
         } = this.props;
 
         return (
@@ -72,7 +74,7 @@ class TicketQueryFilters extends React.Component {
                             label={i18n('OWNER')}
                             name="owners"
                             field="autocomplete"
-                            fieldProps={{items: this.getStaffList()}} />
+                            fieldProps={{items: ticketUtils.getStaffList({staffList}, 'toAutocomplete')}} />
                     </div>
                     <div className="ticket-query-filters__third-row">
                         <FormField
@@ -131,8 +133,8 @@ class TicketQueryFilters extends React.Component {
                     id: author.id*1,
                     profilePic: author.profilePic,
                     isStaff: author.isStaff * 1,
-                    content: author.profilePic !== undefined ? this.renderStaffOption(author) : author.name,
-                    contentOnSelected: author.profilePic !== undefined ? this.renderStaffSelected(author) : author.name
+                    content: author.profilePic !== undefined ? ticketUtils.renderStaffOption(author) : author.name,
+                    contentOnSelected: author.profilePic !== undefined ? ticketUtils.renderStaffSelected(author) : author.name
                 }});
         });
     }
@@ -155,24 +157,6 @@ class TicketQueryFilters extends React.Component {
                     <Icon className="ticket-query-filters__department-selected__icon" name='user-secret'/> :
                     null}
                 <span className="ticket-query-filters__department-selected__name">{department.name}</span>
-            </div>
-        );
-    }
-
-    renderStaffOption(staff) {
-        return (
-            <div className="ticket-query-filters__staff-option" key={`staff-option-${staff.id}`}>
-                <img className="ticket-query-filters__staff-option__profile-pic" src={this.getStaffProfilePic(staff)}/>
-                <span className="ticket-query-filters__staff-option__name">{staff.name}</span>
-            </div>
-        );
-    }
-
-    renderStaffSelected(staff) {
-        return (
-            <div className="ticket-query-filters__staff-selected" key={`staff-selected-${staff.id}`}>
-                <img className="ticket-query-filters__staff-selected__profile-pic" src={this.getStaffProfilePic(staff)}/>
-                <span className="ticket-query-filters__staff-selected__name">{staff.name}</span>
             </div>
         );
     }
@@ -220,11 +204,12 @@ class TicketQueryFilters extends React.Component {
     }
 
     getSelectedStaffs(selectedStaffsId) {
+        const { staffList } = this.props;
         let selectedStaffs = [];
 
         if(selectedStaffsId !== undefined) {
             selectedStaffs = selectedStaffsId.map(
-                (staffId) => this.getStaffList().find(_staff => (_staff.id === staffId))
+                (staffId) => ticketUtils.getStaffList({staffList}, 'toAutocomplete').find(_staff => (_staff.id === staffId))
             );
         }
 
@@ -241,25 +226,6 @@ class TicketQueryFilters extends React.Component {
         }
 
         return selectedTagsName;
-    }
-
-    getStaffList() {
-        const { staffList, } = this.props;
-        let newStaffList = staffList.map(staff => {
-            return {
-                id: JSON.parse(staff.id),
-                name: staff.name.toLowerCase(),
-                color: 'gray',
-                contentOnSelected: this.renderStaffSelected(staff),
-                content: this.renderStaffOption(staff),
-            }
-        });
-
-        return newStaffList;
-    }
-
-    getStaffProfilePic(staff) {
-        return staff.profilePic ? API.getFileLink(staff.profilePic) : (API.getURL() + '/images/profile.png');
     }
 
     getStatusItems() {
@@ -369,8 +335,8 @@ class TicketQueryFilters extends React.Component {
             id: author.id*1,
             isStaff: author.isStaff*1,
             profilePic: author.profilePic,
-            content: author.profilePic !== undefined ? this.renderStaffOption(author) : author.name,
-            contentOnSelected: author.profilePic !== undefined ? this.renderStaffSelected(author) : author.name
+            content: author.profilePic !== undefined ? ticketUtils.renderStaffOption(author) : author.name,
+            contentOnSelected: author.profilePic !== undefined ? ticketUtils.renderStaffSelected(author) : author.name
         }));
     }
 

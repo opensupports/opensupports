@@ -176,7 +176,8 @@ class Ticket extends DataStore {
             return [
                 'id' => $owner->id,
                 'name' => $owner->name,
-                'email' => $owner->email
+                'email' => $owner->email,
+                'profilePic' => $owner->profilePic
             ];
         } else {
             return null;
