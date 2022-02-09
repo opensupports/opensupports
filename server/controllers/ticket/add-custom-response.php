@@ -21,6 +21,7 @@ DataValidator::with('CustomValidations', true);
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_CONTENT
  * @apiUse INVALID_LANGUAGE
+ * @apiUse INVALID_TITLE
  *
  * @apiSuccess {Object} data Empty object
  *
