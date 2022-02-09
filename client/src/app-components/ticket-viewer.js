@@ -266,7 +266,7 @@ class TicketViewer extends React.Component {
                     onRemoveClick={this.removeTag.bind(this)}
                     onTagSelected={this.addTag.bind(this)}
                     loading={this.state.tagSelectorLoading} />
-                {this.renderCancelButton("Tags")}
+                {this.renderCancelButton("Tags", "CLOSE")}
             </div>
         );
     }
@@ -274,7 +274,7 @@ class TicketViewer extends React.Component {
     renderEditStatus() {
         return  (
             <div className="ticket-viewer__edit-status__buttons">
-                {this.renderCancelButton("Status")}
+                {this.renderCancelButton("Status", "CANCEL")}
                 {this.props.ticket.closed ? this.renderReopenTicketButton() : this.renderCloseTicketButton()}
             </div>
         );
@@ -376,7 +376,7 @@ class TicketViewer extends React.Component {
                     className="ticket-viewer__editable-dropdown" items={items}
                     selectedIndex={selectedIndex}
                     onChange={this.onAssignmentChange.bind(this)} />
-                {this.renderCancelButton("Owner")}
+                {this.renderCancelButton("Owner", "CANCEL")}
             </div>
         );
     }
@@ -392,7 +392,7 @@ class TicketViewer extends React.Component {
                     departments={departments}
                     selectedIndex={_.findIndex(departments, {id: ticket.department.id})}
                     onChange={this.onDepartmentDropdownChanged.bind(this)} />
-                {this.renderCancelButton("Department")}
+                {this.renderCancelButton("Department", "CANCEL")}
             </div>
         );
     }
@@ -419,8 +419,8 @@ class TicketViewer extends React.Component {
         )
     }
 
-    renderCancelButton(option) {
-        return <Button type='link' size="medium" onClick={() => this.setState({["edit"+option]: false})}>{i18n('CLOSE')}</Button>
+    renderCancelButton(option, type) {
+        return <Button type='link' size="medium" onClick={() => this.setState({["edit"+option]: false})}>{i18n(type)}</Button>
     }
 
     renderTicketEvent(isTicketClosed, ticketEventObject, index) {
