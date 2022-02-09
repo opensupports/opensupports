@@ -2,6 +2,10 @@
 
     &__menu {
         margin: 0 auto 20px auto;
-        width: 300px;
+        min-width: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
     }
 }
