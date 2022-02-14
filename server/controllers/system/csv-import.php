@@ -42,17 +42,17 @@ class CSVImportController extends Controller {
         $file = fopen($fileUploader->getFullFilePath(),'r');
         $errors = [];
 
-        while(!feof($file)) {
-            $userList = fgetcsv($file);
+        $user = fgetcsv($file);
 
-            Controller::setDataRequester(function ($key) use ($userList) {
+        while(!feof($file)) {
+            Controller::setDataRequester(function ($key) use ($user) {
                 switch ($key) {
                     case 'email':
-                        return $userList[0];
+                        return $user[0];
                     case 'password':
-                        return $userList[1];
+                        return $user[1];
                     case 'name':
-                        return $userList[2];
+                        return $user[2];
                 }
 
                 return null;
@@ -64,8 +64,10 @@ class CSVImportController extends Controller {
                 $signupController->validate();
                 $signupController->handler();
             } catch (\Exception $exception) {
-                $errors[] = $exception->getMessage() . ' in email ' . $userList[0];
+                $errors[] = $exception->getMessage() . ' in email ' . $user[0];
             }
+
+            $user = fgetcsv($file);
         }
 
         fclose($file);
