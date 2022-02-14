@@ -190,7 +190,7 @@ class AdminPanelEmailSettings extends React.Component {
                 <FormField label={i18n('LANGUAGE')} decorator={LanguageSelector} value={language}
                            onChange={event => this.onItemChange(selectedIndex, event.target.value)}
                            fieldProps={{
-                               type: 'allowed',
+                               type: 'supported',
                                size: 'medium'
                            }} />
                 <Form {...this.getFormProps()}>
