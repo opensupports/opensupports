@@ -33,6 +33,13 @@ class CSVImportController extends Controller {
     }
 
     public function handler() {
+        $password = Controller::request('password');
+
+        if(!Hashing::verifyPassword($password, Controller::getLoggedUser()->password)) {
+            throw new RequestException(ERRORS::INVALID_PASSWORD);
+            return;
+        }
+
         $fileUploader = $this->uploadFile(true);
 
         if(!$fileUploader instanceof FileUploader) {
