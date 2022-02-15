@@ -115,15 +115,12 @@ class CreateController extends Controller {
             throw new Exception(ERRORS::INVALID_EMAIL);
         }
         
-        if(!Controller::isLoginMandatory() && !Controller::isStaffLogged() && !Controller::isUserLogged()  && User::getUser($this->email, 'email')->isNull()){
+        if(!Controller::isLoginMandatory() && User::getUser($this->email, 'email')->isNull()){
             $this->createNewUser();
         }
         
         $this->storeTicket();
-
-        if(!Controller::isLoginMandatory() && !Controller::isUserLogged()) {
-            $this->sendMail();
-        }
+        $this->sendMail();
 
         $staffs = Staff::find('send_email_on_new_ticket = 1');
         foreach ($staffs as $staff) {
