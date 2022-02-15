@@ -80,7 +80,10 @@
         margin-right: 6px;
 
         .input__text {
-            height: 25px;
+            height: 30px;
+            text-align: center;
+            padding-top: 12px;
+            border-radius: 5px;
         }
     }
 
@@ -91,6 +94,14 @@
         align-items: center;
         width: 160px;
     }
+
+    &__edit-title__button {
+        width: 50px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+    }
+
     &__number {
         color: white;
         margin-right: 30px;
