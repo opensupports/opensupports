@@ -42,13 +42,7 @@ class CSVImportController extends Controller {
         $file = fopen($fileUploader->getFullFilePath(),'r');
         $errors = [];
 
-        $user = fgetcsv($file);
-
-        while($user != null) {
-            if($user == false) {
-                throw new RequestException("Error trying to read file");
-            }
-
+        while(($user = fgetcsv($file)) != false) {
             Controller::setDataRequester(function ($key) use ($user) {
                 switch ($key) {
                     case 'email':
@@ -70,8 +64,6 @@ class CSVImportController extends Controller {
             } catch (\Exception $exception) {
                 $errors[] = $exception->getMessage() . ' in email ' . $user[0];
             }
-
-            $user = fgetcsv($file);
         }
 
         fclose($file);
