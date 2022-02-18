@@ -333,7 +333,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                 <div>
                     {i18n('ERRORS_FOUND')}
                     <ul>
-                        {result.data.map((error) => <li>{error}</li>)}
+                        {result.data.map((error, index) => <li key={`csv-file__key-${index}`} >{error}</li>)}
                     </ul>
                 </div>
             ) : null
