@@ -24,6 +24,7 @@
             opensupports_version = '4.11.0';
             root = "<?=$url ?>";
             apiRoot = '<?=$url ?>/api';
+            console.log('INIT API ROOT: ', apiRoot);
             globalIndexPath = "<?=$path ?>";
             showLogs = false;
         </script>

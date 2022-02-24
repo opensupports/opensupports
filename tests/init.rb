@@ -60,7 +60,7 @@ require './system/delete-api-key.rb'
 require './system/get-api-keys.rb'
 require './system/disable-registration.rb'
 require './system/enable-registration.rb'
-require './system/file-upload-download.rb'
+require './system/file-upload-download.rb' # These tests break the profile picture
 require './system/csv-import.rb'
 require './ticket/create-tag.rb'
 require './ticket/edit-tag.rb'

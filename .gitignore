@@ -5,6 +5,7 @@ server/vendor
 server/files/
 !server/files/.gitkeep
 !server/files/.htaccess
+!server/files/emilia-clarke-profile.jpg
 server/.dbdata
 server/.fakemail
 server/apidoc

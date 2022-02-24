@@ -55,15 +55,13 @@ describe 'File Upload and Download' do
     end
 
     it 'should upload profile picture' do
-        file = File.new('../server/files/profile.jpg', 'w+')
-        file.puts('file content')
-        file.close
+        file = File.open("../server/files/emilia-clarke-profile.jpg")
 
         request('/staff/edit', {
             'csrf_userid' => $csrf_userid,
             'csrf_token' => $csrf_token,
             'staffId' => $csrf_userid,
-            'file' => File.open( "../server/files/profile.jpg")
+            'file' => File.open("../server/files/emilia-clarke-profile.jpg")
         })
 
         user = $database.getRow('staff', $csrf_userid)
@@ -75,7 +73,7 @@ describe 'File Upload and Download' do
             'file' => user['profile_pic']
         }, 'GET')
 
-        (result.body).should.include('file content')
+        (result['status']).should.equal('success')
     end
 
     it 'should add images to ticket content when creating a new ticket' do

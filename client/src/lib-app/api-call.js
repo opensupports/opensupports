@@ -54,10 +54,12 @@ module.exports = {
     },
 
     getAPIUrl() {
+        console.log('apiRoot: ', apiRoot);
         return apiRoot;
     },
 
     getURL() {
+        console.log('root: ', root);
         return root;
     }
 };

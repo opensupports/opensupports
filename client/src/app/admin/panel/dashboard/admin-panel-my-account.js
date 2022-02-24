@@ -20,6 +20,8 @@ class AdminPanelMyAccount extends React.Component {
     }
 
     getEditorProps() {
+        console.log('ADMIN PROPS: ', this.props);
+
         return {
             myAccount: true,
             staffId: this.props.userId * 1,
