@@ -363,7 +363,6 @@ class TicketViewer extends React.Component {
     }
 
     renderEditOwner() {
-        console.log('xxxx')
         const items = this.getStaffAssignmentItems();
         const { ticket } = this.props;
         const ownerId = ticket.owner && ticket.owner.id*1;
