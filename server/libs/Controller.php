@@ -173,10 +173,6 @@ abstract class Controller {
     public static function getLoggedUser() {
         $session = Session::getInstance();
 
-        // TODO: Delete, this is just for testing purposes.
-        $data = $_SESSION;
-        error_log(print_r($data, true), 3, "/var/tmp/my-errors.log");
-
         if ($session->isStaffLogged()) {
             return Staff::getUser($session->getUserId());
         } else {
