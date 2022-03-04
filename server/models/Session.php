@@ -21,6 +21,8 @@ class Session {
             error_log("Already existing session id from cookie: ", 3, "/var/tmp/my-errors.log");
             error_log(print_r($data, true), 3, "/var/tmp/my-errors.log");
             error_log("\n", 3, "/var/tmp/my-errors.log");
+        } else {
+            error_log("No previous cookie.\n", 3, "/var/tmp/my-errors.log");
         }
 
         if(Controller::request('session_id')) {
