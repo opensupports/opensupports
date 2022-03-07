@@ -226,9 +226,11 @@ abstract class Controller {
 
         $imagePaths = [];
         $url = Setting::getSetting('url')->getValue();
+        global $client;
+        $apiRoot = 'https://' . $client->getClientVersionURL();
         for($i=0;$i<$totalImages;$i++) {
             $fileUploader->upload("image_$i");
-            $imagePaths[] = $url . '/api/system/download?file=' . $fileUploader->getFileName();
+            $imagePaths[] = $apiRoot . '/system/download?file=' . $fileUploader->getFileName() . '&client_id=' . $client->getClientId();
         }
 
         return $imagePaths;
