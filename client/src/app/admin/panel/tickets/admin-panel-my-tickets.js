@@ -73,6 +73,10 @@ class AdminPanelMyTickets extends React.Component {
                 this.setState({departmentId});
                 this.retrieveMyTickets(1, closedTicketsShown, departmentId);
             },
+            onDepartmentChange: pageSize => {
+                this.setState({pageSize});
+                this.retrieveMyTickets(1, closedTicketsShown, pageSize);
+            },
         };
     }
 

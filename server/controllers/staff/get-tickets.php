@@ -65,7 +65,7 @@ class GetTicketStaffController extends Controller {
 
         $countTotal = $user->withCondition($condition, $bindings)->countShared('ticket');
 
-        $condition .= ' LIMIT 10 OFFSET ?';
+        $condition .= ' LIMIT 50 OFFSET ?';
         $bindings[] = $offset;
 
         $tickets = $user->withCondition($condition, $bindings)->sharedTicketList->toArray(true);

@@ -16,6 +16,7 @@ import Tag from 'core-components/tag';
 import Icon from 'core-components/icon';
 import Message from 'core-components/message';
 import history from 'lib-app/history';
+import PageDropdown from './page-dropdown';
 
 class TicketList extends React.Component {
     static propTypes = {
@@ -45,11 +46,13 @@ class TicketList extends React.Component {
     };
 
     state = {
-        selectedDepartment: 0
+        selectedDepartment: 0,
+        tickets: 10
     };
 
     render() {
         const { type, showDepartmentDropdown, onClosedTicketsShownChange } = this.props;
+        const pages = [5, 10, 20, 50];
 
         return (
             <div className="ticket-list">
@@ -61,10 +64,25 @@ class TicketList extends React.Component {
                             null
                     }
                     {onClosedTicketsShownChange ? this.renderFilterCheckbox() : null}
+                    <PageDropdown pages={pages} />
                 </div>
                 <Table {...this.getTableProps()} />
             </div>
         );
+    }
+
+    renderTicketsDropDown() {
+    return(
+         <div className="ticket-list__tickets-dropdown">
+             <label>Select tickets quantity</label>
+             <select name="tickets" id="tickets_quantity">
+                 <option value={5} onClick={() => this.setState({tickets: 5})}>5</option>
+                 <option value={10} onClick={() => this.setState({tickets: 10})}>10</option>
+                 <option value={20} onClick={() => this.setState({tickets: 20})}>20</option>
+                 <option value={50} onClick={() => this.setState({tickets: 50})}>50</option>
+             </select>
+         </div>
+        )
     }
 
 
@@ -138,7 +156,7 @@ class TicketList extends React.Component {
             loading,
             headers: this.getTableHeaders(),
             rows: this.getTableRows(),
-            pageSize: 10,
+            pageSize: this.state.tickets,
             page,
             pages,
             onPageChange
