@@ -40,7 +40,7 @@ class DownloadController extends Controller {
 
     public function handler() {
 
-        $allowed = array('maxi.ticketcenter.cloud');
+        $allowed = array('https://maxi.ticketcenter.cloud');
 
         if(isset($_SERVER['HTTP_ORIGIN']) && in_array($_SERVER['HTTP_ORIGIN'], $allowed)){
             header("Access-Control-Allow-Origin: " . $_SERVER['HTTP_ORIGIN'] . "");
