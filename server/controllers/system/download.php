@@ -39,18 +39,6 @@ class DownloadController extends Controller {
     }
 
     public function handler() {
-
-        $allowed = array('https://maxi.ticketcenter.cloud');
-
-        if(isset($_SERVER['HTTP_ORIGIN']) && in_array($_SERVER['HTTP_ORIGIN'], $allowed)){
-            header("Access-Control-Allow-Origin: " . $_SERVER['HTTP_ORIGIN'] . "");
-        } else if (isset($_SERVER['HTTP_REFERER']) && in_array($_SERVER['HTTP_REFERER'], $allowed)) {
-            header("Access-Control-Allow-Origin: " . $_SERVER['HTTP_REFERER'] . "");
-        } else {
-            throw new Exception("Not accepted origin");
-            return Response::respond403();
-        }
-
         $fileName = Controller::request('file');
         $isStaffProfilePic = !Staff::getDataStore($fileName, 'profilePic')->isNull();
 
