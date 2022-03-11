@@ -14,11 +14,6 @@ class Session {
 
     public function initSession() {
         if(Controller::request('session_id')) {
-            // TODO: Delete, this is just for testing purposes.
-            $data = Controller::request('session_id');
-            error_log(print_r($data, true), 3, "/var/tmp/my-errors.log");
-            error_log("\n", 3, "/var/tmp/my-errors.log");
-
             session_id(Controller::request('session_id'));
         }
 

@@ -49,6 +49,10 @@ class DownloadController extends Controller {
 
         $isStaffLogged = $session->isStaffLogged();
 
+        // TODO: Delete, this is just for testing purposes.
+        $data = $_SESSION;
+        error_log(print_r($isStaffLogged, true), 3, "/var/tmp/my-errors.log");
+
         if(!$isStaffLogged) {
             switch($fileDownloader->getFilePermission()) {
                 case FileManager::PERMISSION_TICKET:
