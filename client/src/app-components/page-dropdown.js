@@ -29,10 +29,7 @@ class PageDropdown extends React.Component {
         })
         if(this.props.onChange) {
             this.props.onChange({
-                index: event.index,
-                target: {
-                    value: event.index
-                }
+                pageSize: this.props.pages[event.index]
             });
         }
     }

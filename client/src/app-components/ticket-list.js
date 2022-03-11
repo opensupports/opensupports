@@ -46,8 +46,7 @@ class TicketList extends React.Component {
     };
 
     state = {
-        selectedDepartment: 0,
-        tickets: 10
+        selectedDepartment: 0
     };
 
     render() {
@@ -64,27 +63,12 @@ class TicketList extends React.Component {
                             null
                     }
                     {onClosedTicketsShownChange ? this.renderFilterCheckbox() : null}
-                    <PageDropdown pages={pages} />
+                    <PageDropdown pages={pages} onChange={(event) => this.pageSizeChange(event)}/>
                 </div>
                 <Table {...this.getTableProps()} />
             </div>
         );
     }
-
-    renderTicketsDropDown() {
-    return(
-         <div className="ticket-list__tickets-dropdown">
-             <label>Select tickets quantity</label>
-             <select name="tickets" id="tickets_quantity">
-                 <option value={5} onClick={() => this.setState({tickets: 5})}>5</option>
-                 <option value={10} onClick={() => this.setState({tickets: 10})}>10</option>
-                 <option value={20} onClick={() => this.setState({tickets: 20})}>20</option>
-                 <option value={50} onClick={() => this.setState({tickets: 50})}>50</option>
-             </select>
-         </div>
-        )
-    }
-
 
     renderFilterCheckbox() {
         return (
@@ -129,6 +113,12 @@ class TicketList extends React.Component {
             default:
                 return null;
         }
+    }
+
+    pageSizeChange(event) {
+        const { onPageSizeChange } = this.props;
+
+        onPageSizeChange && onPageSizeChange(event.pageSize);
     }
 
     getDepartmentDropdownProps() {
