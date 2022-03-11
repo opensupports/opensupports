@@ -13,16 +13,6 @@ class Session {
     }
 
     public function initSession() {
-        if (isset($_COOKIE["OS4SESSID"]) {
-            $sessionId = $_COOKIE["OS4SESSID"];
-
-            // TODO: Delete, this is just for testing purposes.
-            $data = $sessionId;
-            error_log("Already existing session id from cookie: ", 3, "/var/tmp/my-errors.log");
-            error_log(print_r($data, true), 3, "/var/tmp/my-errors.log");
-            error_log("\n", 3, "/var/tmp/my-errors.log");
-        }
-
         if(Controller::request('session_id')) {
             // TODO: Delete, this is just for testing purposes.
             $data = Controller::request('session_id');
@@ -37,7 +27,6 @@ class Session {
         }
 
         session_start();
-        setcookie("OS4SESSID", session_id(), time() + 3600 * 24 * 30);
     }
 
     public function closeSession() {
