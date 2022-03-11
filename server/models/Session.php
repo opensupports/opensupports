@@ -13,7 +13,7 @@ class Session {
     }
 
     public function initSession() {
-        if (isset($_COOKIE["OS4SESSID"])) {
+        if (isset($_COOKIE["OS4SESSID"]) {
             $sessionId = $_COOKIE["OS4SESSID"];
 
             // TODO: Delete, this is just for testing purposes.
