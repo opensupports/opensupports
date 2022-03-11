@@ -44,10 +44,8 @@ class DownloadController extends Controller {
 
         if(isset($_SERVER['HTTP_ORIGIN']) && in_array($_SERVER['HTTP_ORIGIN'], $allowed)){
             header("Access-Control-Allow-Origin: " . $_SERVER['HTTP_ORIGIN'] . "");
-        } else if (isset($_SERVER['HTTP_REFERER']) && in_array($_SERVER['HTTP_REFERER'], $allowed)) {
-            header("Access-Control-Allow-Origin: " . $_SERVER['HTTP_REFERER'] . "");
         } else {
-            throw new Exception("Not accepted origin");
+            throw new Exception("Not accepted origin: " . $_SERVER['HTTP_ORIGIN']);
             return Response::respond403();
         }
 
