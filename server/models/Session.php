@@ -38,7 +38,6 @@ class Session {
             AWSClients::registerSessionHandler();
         }
 
-        session_set_cookie_params(['SameSite' => 'None', 'Secure' => true]);
         session_start();
         setcookie("OS4SESSID", session_id(), time() + 3600 * 24 * 30);
     }
