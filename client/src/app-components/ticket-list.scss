@@ -7,11 +7,25 @@
     }
 
     &__filters {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         margin-bottom: 25px;
         text-align: left;
     }
 
+    &__main-filters {
+        display: flex;
+        align-items: center;
+    }
+
     &__department-selector {
+        display: inline-block;
+        margin-right: 25px;
+        text-align: center;
+    }
+
+    &__page-dropdown {
         display: inline-block;
         margin-right: 25px;
         text-align: center;
