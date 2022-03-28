@@ -56,7 +56,7 @@ class CommentController extends Controller {
                 ]
             ]
         ];
-        if($validations['requestData']['captcha']){
+        if(Controller::request('captcha')){
             $validations['permission'] = 'any';
             $validations['requestData']['captcha'] = [
                 'validation' => DataValidator::captcha(APIKey::TICKET_CREATE_PERMISSION),
