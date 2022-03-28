@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import classNames from 'classnames';
 
 import languageList from 'data/language-list';
-import i18n from 'lib-app/i18n';
 import DropDown from 'core-components/drop-down';
 
 const languageCodes = Object.keys(languageList);

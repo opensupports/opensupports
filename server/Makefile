@@ -25,6 +25,12 @@ test:
 log:
 	@docker attach opensupports-srv || echo "${red}Please execute 'make run' first${reset}"
 
+clear-debug:
+	@docker exec -it opensupports-srv bash -c "cd /var/www/html && ./run-clear-debug.sh"
+
+debug:
+	@docker exec -it opensupports-srv bash -c "cd /var/www/html && ./run-debug.sh"
+
 stop:
 	@docker stop opensupports-db && docker rm opensupports-db || true
 	@docker stop opensupports-myadmin && docker rm opensupports-myadmin || true

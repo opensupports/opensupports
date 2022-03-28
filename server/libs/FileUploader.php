@@ -65,7 +65,7 @@ class FileUploader extends FileManager {
         if($this->permission) $result = $this->permission . '_';
         else $result = '';
 
-        $result .= substr(Hashing::generateRandomToken(),  0, 6) . '_' . $newName;
+        $result .= Hashing::generateRandomToken() . '_' . $newName;
 
         return $result;
     }

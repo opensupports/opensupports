@@ -69,14 +69,10 @@ class StaffEditor extends React.Component {
     };
 
     componentDidMount() {
-        const departmentsAssigned = SessionStore.getDepartments().filter((_department, index) => this.state.departments.includes(index));
-        const departmentsAssignedId = departmentsAssigned.map(department => department.id);
-
         this.retrieveStaffMembers();
         this.retrieveTicketsAssigned(INITIAL_API_VALUE);
         statsUtils.retrieveStats({
-            rawForm: this.state.rawForm,
-            departments: departmentsAssignedId
+            rawForm: this.state.rawForm
         }).then(({data}) => {
             this.setState({
                 ticketData: data,
@@ -460,12 +456,8 @@ class StaffEditor extends React.Component {
                 ticketListLoading: false
             });
 
-            const departmentsAssigned = SessionStore.getDepartments().filter((_department, index) => this.state.departments.includes(index));
-            const departmentsAssignedId = departmentsAssigned.map(department => department.id);
-
             statsUtils.retrieveStats({
-                rawForm: this.state.rawForm,
-                departments: departmentsAssignedId
+                rawForm: this.state.rawForm
             }).then(({data}) => {
                 this.setState({ticketData: data, loadingStats: false});
             }).catch((error) => {
