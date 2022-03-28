@@ -127,7 +127,10 @@ class SearchController extends Controller {
             'staffId' => Controller::getLoggedUser()->id
         ];
         $query = $this->getSQLQuery($inputs);
+        // throw new Exception('query: ' . $query);
+        //Object { status: "fail", message: "query: FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE ticket.closed = 0 and  and (ticket.owner_id = 1) GROUP BY ticket.id", data: null }
         $queryWithOrder = $this->getSQLQueryWithOrder($inputs, $query);
+        // throw new Exception($queryWithOrder);
         $totalCount = RedBean::getAll("SELECT COUNT(*) FROM (SELECT COUNT(*) " . $query . " ) AS T2", [':query' => "%" . $inputs['query'] . "%", ':queryAtBeginning' => $inputs['query'] . "%" ])[0]['COUNT(*)'];
         $ticketIdList = RedBean::getAll($queryWithOrder, [':query' => "%" . $inputs['query'] . "%", ':queryAtBeginning' => $inputs['query'] . "%"]);
         $ticketList = [];
@@ -135,6 +138,16 @@ class SearchController extends Controller {
             $ticket = Ticket::getDataStore($item['id']);
             array_push($ticketList, $ticket->toArray());
         }
+        // "SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; 
+        // check the manual that corresponds to your MySQL server version for the right syntax to use near
+        //  ') and (ticket.owner_id = 1) GROUP BY ticket.id ) AS T2' at line 1"
+
+        // "SELECT ticket.id 
+        //  FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) 
+        //  WHERE ticket.closed = 0 and ) and (ticket.owner_id = 1) 
+        //  GROUP BY ticket.id 
+        //  ORDER BY ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.date desc, ticket.id desc 
+        //  LIMIT 10 OFFSET 0"
         Response::respondSuccess([
             'tickets' => $ticketList,
             'pages' => ceil($totalCount / 10),
@@ -149,29 +162,50 @@ class SearchController extends Controller {
         $query = "FROM (ticket" . $taglistQuery . $ticketeventlistQuery .")";
         $filters = "";
         $this->setQueryFilters($inputs, $filters);
+        // throw new Exception('filters: ' . $filters);
+        //Object { status: "fail", message: "filters:  WHERE ticket.closed = 0 and  and (ticket.owner_id = 1)", data: null }
         $query .= $filters . " GROUP BY ticket.id";
         return $query;
     }
 
     public function getSQLQueryWithOrder($inputs, $query) {
         $order = "";
-        $query = "SELECT" . " ticket.id " . $query;
+        $query = "SELECT ticket.id " . $query;
+
+        // throw new Exception('query: ' . $query);
+        // //Object { status: "fail", message: "query: SELECT ticket.id FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE ticket.closed = 0 and  and (ticket.owner_id = 1) GROUP BY ticket.id", data: null }
 
         $this->setQueryOrder($inputs, $order);
         $inputs['page'] ?  $page =  $inputs['page'] : $page  = 1 ;
         $query .= $order ." LIMIT 10 OFFSET " . (($page-1)*10);
+        // throw new Exception('query: ' . $query);
+        //Object { status: "fail", message: "query: SELECT ticket.id FROM (ticket LEFT JOIN tag_ticket ON tag_ticket.ticket_id = ticket.id LEFT JOIN ticketevent ON ticketevent.ticket_id = ticket.id) WHERE ticket.closed = 0 and  and (ticket.owner_id = 1) GROUP BY ticket.id ORDER BY ticket.closed asc, ticket.owner_id asc, ticket.unread_staff asc, ticket.date desc, ticket.id desc LIMIT 10 OFFSET 0", data: null }
         return $query;
     }
 
     //FILTER
     private function setQueryFilters($inputs, &$filters){
+        //Object { status: "fail", message: "filters:  WHERE ticket.closed = 0 and  and (ticket.owner_id = 1)", data: null }
         if(array_key_exists('tags',$inputs)) $this->setTagFilter($inputs['tags'], $filters);
         if(array_key_exists('closed',$inputs)) $this->setClosedFilter($inputs['closed'], $filters);
-        if(array_key_exists('assigned',$inputs)) $this->setAssignedFilter($inputs['assigned'], $filters);
-        if(array_key_exists('unreadStaff',$inputs)) $this->setSeenFilter($inputs['unreadStaff'], $filters);
+        if(array_key_exists('assigned',$inputs)) {
+            $this->setAssignedFilter($inputs['assigned'], $filters);
+            //Object { status: "fail", message: "ticket.closed = 0", data: null }
+            //Object { status: "fail", message: "se corren los assigned", data: null }
+        }
+        if(array_key_exists('unreadStaff',$inputs)) {
+            $this->setSeenFilter($inputs['unreadStaff'], $filters);
+        }
         if(array_key_exists('dateRange',$inputs)) $this->setDateFilter($inputs['dateRange'], $filters);
         if(array_key_exists('departments',$inputs) && array_key_exists('allowedDepartments',$inputs) && array_key_exists('staffId',$inputs)){
-            if(!$this->ignoreDeparmentFilter) $this->setDepartmentFilter($inputs['departments'],$inputs['allowedDepartments'], $inputs['staffId'], $filters);  
+            if(!$this->ignoreDeparmentFilter){
+                //Object { status: "fail", message: "se corre el filtro de departamentos", data: null }
+                // throw new Exception($filters);
+                //Object { status: "fail", message: "ticket.closed = 0", data: null }
+                $this->setDepartmentFilter($inputs['departments'],$inputs['allowedDepartments'], $inputs['staffId'], $filters);
+                // throw new Exception('filters: ' . $filters);
+                //Object { status: "fail", message: "filters: ticket.closed = 0 and ", data: null }
+            }
         }
         if(array_key_exists('authors',$inputs)) $this->setAuthorFilter($inputs['authors'], $filters);
         if(array_key_exists('owners',$inputs)) $this->setOwnerFilter($inputs['owners'], $filters);
@@ -217,14 +251,17 @@ class SearchController extends Controller {
     }
 
     private function setDepartmentFilter($requestedDepartments,$myDepartments, $idStaff, &$filters){
-        if ($filters != "")  $filters .= " and ";
+        // error_log(print_r("Requested Departments: ", true), 3, "/var/tmp/my-errors.log");
+        // error_log(print_r($requestedDepartments, true), 3, "/var/tmp/my-errors.log");
+        // error_log(print_r("\n", true), 3, "/var/tmp/my-errors.log");
+
         if (!$requestedDepartments) $requestedDepartments = [];
 
         $requestedOwnedDepartments = $this->getRequestedOwnedDepartments($requestedDepartments, $myDepartments);
         $requestedNotOwnedDepartments =  $this->getRequestedNotOwnedDepartments($requestedDepartments, $myDepartments);
         $first = TRUE;
-        
-        if(!$requestedOwnedDepartments && !$requestedNotOwnedDepartments){
+        if(!$requestedOwnedDepartments && !$requestedNotOwnedDepartments && !!$myDepartments){
+            if ($filters != "")  $filters .= " and ";
             foreach($myDepartments as $department) {
                 if($first){
                     $filters .= "(ticket.author_staff_id = " . $idStaff . " or ";
@@ -237,6 +274,9 @@ class SearchController extends Controller {
             $filters .= ")";
         } 
         
+        // throw new Exception($filters);
+        //Object { status: "fail", message: "ticket.closed = 0 and ", data: null }
+
         if($requestedOwnedDepartments){
             foreach($requestedOwnedDepartments as $department) {
                 if($first){
@@ -248,7 +288,10 @@ class SearchController extends Controller {
                 $filters .= "ticket.department_id = " . $department;
             }
         }
-        
+
+        // throw new Exception($filters);
+        //Object { status: "fail", message: "ticket.closed = 0 and ", data: null }
+
         if($requestedNotOwnedDepartments){
             if($requestedOwnedDepartments) $filters .= " or ";
             $filters .= "(ticket.author_staff_id = " . $idStaff . " and ";
