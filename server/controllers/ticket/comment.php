@@ -42,7 +42,6 @@ class CommentController extends Controller {
     private $imagePaths;
 
     public function validations() {
-        $this->session = Session::getInstance();
         $validations = [
             'permission' => 'user',
             'requestData' => [
