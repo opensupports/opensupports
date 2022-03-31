@@ -338,12 +338,14 @@ class AdminPanelAdvancedSettings extends React.Component {
                 </div>
             ) : null
         }))
-        .catch(() => this.setState({
-            messageType: 'error',
-            showMessage: true,
-            messageTitle: null,
-            messageContent: (file.type !== "text/plain") ? i18n('INVALID_FILE') : i18n('ERROR_PASSWORD')
-        }));
+        .catch((error) => {
+            this.setState({
+                messageType: 'error',
+                showMessage: true,
+                messageTitle: null,
+                messageContent: i18n(error.message)
+            })
+        });
     }
 
     onBackupDatabase() {
