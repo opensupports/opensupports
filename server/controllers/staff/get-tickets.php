@@ -40,8 +40,8 @@ class GetTicketStaffController extends Controller {
                     'error' => ERRORS::INVALID_PAGE
                 ],
                 'pageSize' => [
-                    'validation' => DataValidator::numeric(),
-                    'error' => "pageSize Error"
+                    'validation' => DataValidator::intVal()->between(5, 50),
+                    'error' => ERRORS::PAGESIZE_ERROR
                 ]
             ]
         ];

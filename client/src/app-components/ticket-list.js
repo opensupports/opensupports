@@ -16,7 +16,7 @@ import Tag from 'core-components/tag';
 import Icon from 'core-components/icon';
 import Message from 'core-components/message';
 import history from 'lib-app/history';
-import PageDropdown from './page-dropdown';
+import PageSizeDropdown from './page-size-dropdown';
 
 class TicketList extends React.Component {
     static propTypes = {
@@ -65,7 +65,7 @@ class TicketList extends React.Component {
                             }
                         {onClosedTicketsShownChange ? this.renderFilterCheckbox() : null}
                    </div>
-                    <PageDropdown className="ticket-list__page-dropdown" pages={pages} onChange={(event) => this.pageSizeChange(event)}/>
+                    <PageSizeDropdown className="ticket-list__page-dropdown" pages={pages} onChange={(event) => this.pageSizeChange(event)}/>
                 </div>
                 <Table {...this.getTableProps()} />
             </div>

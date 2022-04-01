@@ -2,7 +2,7 @@ import React from 'react';
 
 import DropDown from 'core-components/drop-down';
 
-class PageDropdown extends React.Component {
+class PageSizeDropdown extends React.Component {
     static propTypes = {
         value: React.PropTypes.number,
         onChange: React.PropTypes.func,
@@ -35,4 +35,4 @@ class PageDropdown extends React.Component {
     }
 }
 
-export default PageDropdown;
+export default PageSizeDropdown;
