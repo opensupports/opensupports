@@ -9,7 +9,7 @@ class Hashing {
     }
 
     public static function generateRandomToken() {
-        return md5(uniqid(rand()));
+        return bin2hex(random_bytes(20));
     }
 
     public static function generateRandomNumber($min, $max) {

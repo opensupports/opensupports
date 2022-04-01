@@ -31,22 +31,16 @@ abstract class DataStore {
 
     public static function getAll() {
         $beanList = RedBean::findAll(static::TABLE);
-        $dataStoreList = new DataStoreList();
-
-        foreach($beanList as $bean) {
-            $dataStoreList->add(new static($bean));
-        }
-
-        return $dataStoreList;
+        return DataStoreList::getList(static::TABLE, $beanList);
     }
-    public static function find($query = '', $matches = []) {
-        $beanList = RedBean::find(static::TABLE, $query, $matches);
+    public static function find($query = '', $bindings = []) {
+        $beanList = RedBean::find(static::TABLE, $query, $bindings);
 
         return DataStoreList::getList(ucfirst(static::TABLE), $beanList);
     }
 
-    public static function findOne($query = '', $matches = []) {
-        $bean = RedBean::findOne(static::TABLE, $query, $matches);
+    public static function findOne($query = '', $bindings = []) {
+        $bean = RedBean::findOne(static::TABLE, $query, $bindings);
 
         return ($bean) ? new static($bean) : new NullDataStore();
     }
