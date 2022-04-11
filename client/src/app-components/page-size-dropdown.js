@@ -13,13 +13,21 @@ class PageSizeDropdown extends React.Component {
         selectedIndex: 1
     }
 
+    static defaultProps = {
+        showDropDown: true
+    }
+
     render() {
-        return <DropDown {...this.props} onChange={this.onChange.bind(this)} items={this.getPages()} selectedIndex={this.state.selectedIndex}/>
+        return (
+            this.props.showDropDown ?
+                <DropDown {...this.props} onChange={this.onChange.bind(this)} items={this.getPages()} selectedIndex={this.state.selectedIndex}/> :
+                null
+        )
     }
 
     getPages() {
         return this.props.pages.map((page) => {
-            return {content: page}
+            return {content: `${page} / tickets`}
         });
     }
 

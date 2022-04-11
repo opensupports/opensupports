@@ -33,7 +33,7 @@ class AdminPanelNewTickets extends React.Component {
             <div className="admin-panel-new-tickets">
                 <Header title={i18n('NEW_TICKETS')} description={i18n('NEW_TICKETS_DESCRIPTION')} />
                 {(noDepartments) ? <Message showCloseButton={false} className="admin-panel-new-tickets__department-warning" type="warning">{i18n('NO_DEPARTMENT_ASSIGNED')}</Message> : null}
-                {(this.props.error) ? <Message showCloseButton={false} type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketList {...this.getProps()}/>}
+                {(this.props.error) ? <Message showCloseButton={false} type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketList {...this.getProps()} />}
             </div>
         );
     }

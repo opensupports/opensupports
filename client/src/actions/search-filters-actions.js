@@ -9,14 +9,15 @@ export default {
             payload: {}
         }
     },
-    retrieveSearchTickets(ticketQueryListState, filters = {}) {
+    retrieveSearchTickets(ticketQueryListState, filters = {}, pageSize = 10) {
         return {
             type: 'SEARCH_TICKETS',
             payload: API.call({
                 path: '/ticket/search',
                 data: {
                     ...filters,
-                    page: ticketQueryListState.page
+                    page: ticketQueryListState.page,
+                    pageSize
                 }
             })
         }

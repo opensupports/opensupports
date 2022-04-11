@@ -50,7 +50,7 @@ class TicketList extends React.Component {
     };
 
     render() {
-        const { type, showDepartmentDropdown, onClosedTicketsShownChange } = this.props;
+        const { type, showDepartmentDropdown, onClosedTicketsShownChange, showDropDown } = this.props;
         const pages = [5, 10, 20, 50];
 
         return (
@@ -65,7 +65,7 @@ class TicketList extends React.Component {
                             }
                         {onClosedTicketsShownChange ? this.renderFilterCheckbox() : null}
                    </div>
-                    <PageSizeDropdown className="ticket-list__page-dropdown" pages={pages} onChange={(event) => this.pageSizeChange(event)}/>
+                    <PageSizeDropdown className="ticket-list__page-dropdown" pages={pages} onChange={(event) => this.pageSizeChange(event)} showDropDown={showDropDown}/>
                 </div>
                 <Table {...this.getTableProps()} />
             </div>
