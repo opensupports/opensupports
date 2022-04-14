@@ -42,8 +42,7 @@ class CommentController extends Controller {
     private $imagePaths;
 
     public function validations() {
-        $this->session = Session::getInstance();
-        return [
+        $validations = [
             'permission' => 'user',
             'requestData' => [
                 'content' => [
@@ -56,6 +55,15 @@ class CommentController extends Controller {
                 ]
             ]
         ];
+        if(Controller::request('captcha')){
+            $validations['permission'] = 'any';
+            $validations['requestData']['captcha'] = [
+                'validation' => DataValidator::captcha(APIKey::TICKET_CREATE_PERMISSION),
+                'error' => ERRORS::INVALID_CAPTCHA
+            ];
+        }
+
+        return $validations;
     }
 
     public function handler() {
