@@ -1,6 +1,7 @@
 import React from 'react';
 
 import DropDown from 'core-components/drop-down';
+import i18n from 'lib-app/i18n';
 
 class PageSizeDropdown extends React.Component {
     static propTypes = {
@@ -13,21 +14,15 @@ class PageSizeDropdown extends React.Component {
         selectedIndex: 1
     }
 
-    static defaultProps = {
-        showDropDown: true
-    }
-
     render() {
         return (
-            this.props.showDropDown ?
-                <DropDown {...this.props} onChange={this.onChange.bind(this)} items={this.getPages()} selectedIndex={this.state.selectedIndex}/> :
-                null
+            <DropDown {...this.props} onChange={this.onChange.bind(this)} items={this.getPages()} selectedIndex={this.state.selectedIndex} />
         )
     }
 
     getPages() {
         return this.props.pages.map((page) => {
-            return {content: `${page} / tickets`}
+            return {content: `${page} / ${i18n('TICKETS')}`}
         });
     }
 

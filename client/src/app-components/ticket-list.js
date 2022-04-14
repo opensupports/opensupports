@@ -32,7 +32,8 @@ class TicketList extends React.Component {
         ]),
         closedTicketsShown: React.PropTypes.bool,
         onClosedTicketsShownChange: React.PropTypes.func,
-        onDepartmentChange: React.PropTypes.func
+        onDepartmentChange: React.PropTypes.func,
+        showPageSizeDropdown: React.PropTypes.bool
     };
 
     static defaultProps = {
@@ -42,7 +43,8 @@ class TicketList extends React.Component {
         departments: [],
         ticketPath: '/dashboard/ticket/',
         type: 'primary',
-        closedTicketsShown: false
+        closedTicketsShown: false,
+        showPageSizeDropdown: true
     };
 
     state = {
@@ -50,7 +52,7 @@ class TicketList extends React.Component {
     };
 
     render() {
-        const { type, showDepartmentDropdown, onClosedTicketsShownChange, showDropDown } = this.props;
+        const { type, showDepartmentDropdown, onClosedTicketsShownChange, showPageSizeDropdown } = this.props;
         const pages = [5, 10, 20, 50];
 
         return (
@@ -65,7 +67,11 @@ class TicketList extends React.Component {
                             }
                         {onClosedTicketsShownChange ? this.renderFilterCheckbox() : null}
                    </div>
-                    <PageSizeDropdown className="ticket-list__page-dropdown" pages={pages} onChange={(event) => this.pageSizeChange(event)} showDropDown={showDropDown}/>
+                    {
+                        showPageSizeDropdown ?
+                            <PageSizeDropdown className="ticket-list__page-dropdown" pages={pages} onChange={(event) => this.pageSizeChange(event)} /> : 
+                            null
+                    }
                 </div>
                 <Table {...this.getTableProps()} />
             </div>

@@ -67,19 +67,8 @@ class TicketQueryList extends React.Component {
             orderBy: filters.orderBy ? JSON.parse(filters.orderBy) : filters.orderBy,
             showOrderArrows: true,
             onChangeOrderBy: onChangeOrderBy,
-            onPageSizeChange: this.test.bind(this),
-            showDropDown: false
+            showPageSizeDropdown: false
         };
-    }
-
-    test(selectedIndex) {
-        const currentPath = window.location.pathname;
-        const urlQuery = searchTicketsUtils.getFiltersForURL({
-            filters: {pageSizeIndex: 2},
-            shouldRemoveCustomParam: true,
-            shouldRemoveUseInitialValuesParam: true
-        });
-        urlQuery && history.push(`${currentPath}${urlQuery}`);
     }
 
 }
