@@ -204,10 +204,6 @@
  * @apiError {String} SYSTEM_USER_IS_ALREADY_ENABLED The system user is already enabled.
  */
 /**
- * @apiDefine INVALID_PERIOD
- * @apiError {String} INVALID_PERIOD The period is invalid.
- */
-/**
  * @apiDefine NAME_ALREADY_USED
  * @apiError {String} NAME_ALREADY_USED The name is already used.
  */
@@ -382,7 +378,6 @@ class ERRORS {
     const INVALID_BODY = 'INVALID_BODY';
     const SYSTEM_USER_IS_ALREADY_DISABLED = 'SYSTEM_USER_IS_ALREADY_DISABLED';
     const SYSTEM_USER_IS_ALREADY_ENABLED = 'SYSTEM_USER_IS_ALREADY_ENABLED';
-    const INVALID_PERIOD = 'INVALID_PERIOD';
     const NAME_ALREADY_USED = 'NAME_ALREADY_USED';
     const INVALID_FILE = 'INVALID_FILE';
     const INVALID_DEFAULT_DEPARTMENT = 'INVALID_DEFAULT_DEPARTMENT';

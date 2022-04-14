@@ -25,7 +25,6 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} title Title of the support center
  * @apiParam {String} url Url of the frontend client.
  * @apiParam {Boolean} mandatory-login Indicates if the login is mandatory.
- * @apiParam {Number} default-department-id Indicates the id of the default department
  * @apiUse INVALID_LANGUAGE
  * @apiUse INIT_SETTINGS_DONE
  *
