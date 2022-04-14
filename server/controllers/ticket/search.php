@@ -167,17 +167,13 @@ class SearchController extends Controller {
     private function setQueryFilters($inputs, &$filters){
         if(array_key_exists('tags',$inputs)) $this->setTagFilter($inputs['tags'], $filters);
         if(array_key_exists('closed',$inputs)) $this->setClosedFilter($inputs['closed'], $filters);
-        if(array_key_exists('assigned',$inputs)) {
-            $this->setAssignedFilter($inputs['assigned'], $filters);
-        }
+        if(array_key_exists('assigned',$inputs)) $this->setAssignedFilter($inputs['assigned'], $filters);
         if(array_key_exists('unreadStaff',$inputs)) {
             $this->setSeenFilter($inputs['unreadStaff'], $filters);
         }
         if(array_key_exists('dateRange',$inputs)) $this->setDateFilter($inputs['dateRange'], $filters);
         if(array_key_exists('departments',$inputs) && array_key_exists('allowedDepartments',$inputs) && array_key_exists('staffId',$inputs)){
-            if(!$this->ignoreDeparmentFilter){
-                $this->setDepartmentFilter($inputs['departments'],$inputs['allowedDepartments'], $inputs['staffId'], $filters);
-            }
+            if(!$this->ignoreDeparmentFilter) $this->setDepartmentFilter($inputs['departments'],$inputs['allowedDepartments'], $inputs['staffId'], $filters);
         }
         if(array_key_exists('authors',$inputs)) $this->setAuthorFilter($inputs['authors'], $filters);
         if(array_key_exists('owners',$inputs)) $this->setOwnerFilter($inputs['owners'], $filters);
@@ -238,9 +234,9 @@ class SearchController extends Controller {
                     $filters .= " or ";
                 }
                 $filters .= "ticket.department_id = " . $department;
-            } 
+            }
             $filters .= ")";
-        } 
+        }
 
         if($requestedOwnedDepartments){
             foreach($requestedOwnedDepartments as $department) {
