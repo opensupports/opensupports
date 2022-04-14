@@ -327,10 +327,6 @@
  * @apiDefine TICKET_CONTENT_CANNOT_BE_EDITED
  * @apiError {String} TICKET_CONTENT_CANNOT_BE_EDITED Ticket content cannot be edited because it has comments
  */
-/**
- * @apiDefine ERROR_PASSWORD
- * @apiError {String} ERROR_PASSWORD The file is invalid or max size exceeded.
- */
 
 class ERRORS {
     const INVALID_CREDENTIALS = 'INVALID_CREDENTIALS';
@@ -419,5 +415,4 @@ class ERRORS {
     const INVALID_SUPERVISED_USERS = 'INVALID_SUPERVISED_USERS';
     const INVALID_USER_SEARCH_OPTION = 'INVALID_USER_SEARCH_OPTION';
     const TICKET_CONTENT_CANNOT_BE_EDITED = 'TICKET_CONTENT_CANNOT_BE_EDITED';
-    const ERROR_PASSWORD = 'ERROR_PASSWORD';
 }
