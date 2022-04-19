@@ -99,6 +99,10 @@ class SearchController extends Controller {
                     'validation' => DataValidator::oneOf(DataValidator::validOrderBy(),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_ORDER_BY
                 ],
+                'pageSize' => [
+                    'validation' => DataValidator::intVal()->between(5, 50),
+                    'error' => ERRORS::PAGESIZE_ERROR
+                ]
             ]
         ];
     }
@@ -124,7 +128,8 @@ class SearchController extends Controller {
             'orderBy' => json_decode(Controller::request('orderBy'),true),
             'page' => Controller::request('page'),
             'allowedDepartments' => $allowedDepartmentsId,
-            'staffId' => Controller::getLoggedUser()->id
+            'staffId' => Controller::getLoggedUser()->id,
+            'pageSize' => Controller::request('pageSize')
         ];
         $query = $this->getSQLQuery($inputs);
         $queryWithOrder = $this->getSQLQueryWithOrder($inputs, $query);
@@ -137,7 +142,7 @@ class SearchController extends Controller {
         }
         Response::respondSuccess([
             'tickets' => $ticketList,
-            'pages' => ceil($totalCount / 10),
+            'pages' => ceil($totalCount / $inputs['pageSize']),
             'page' => $inputs['page'] ? ($inputs['page']*1) : 1
         ]);
     }
@@ -154,12 +159,14 @@ class SearchController extends Controller {
     }
 
     public function getSQLQueryWithOrder($inputs, $query) {
+        $pageSize = $inputs['pageSize'];
         $order = "";
         $query = "SELECT ticket.id " . $query;
 
         $this->setQueryOrder($inputs, $order);
         $inputs['page'] ?  $page =  $inputs['page'] : $page  = 1 ;
-        $query .= $order ." LIMIT 10 OFFSET " . (($page-1)*10);
+        $query .= $order . ' LIMIT ' . $pageSize . ' OFFSET ' . ($page-1)*10;
+
         return $query;
     }
 

@@ -26,10 +26,11 @@ class AdminPanelMyTickets extends React.Component {
     state = {
         closedTicketsShown: false,
         departmentId: null,
+        pageSize: 10
     };
 
     componentDidMount() {
-        this.retrieveMyTickets();
+        this.retrieveMyTickets({});
     }
 
     render() {
@@ -68,10 +69,14 @@ class AdminPanelMyTickets extends React.Component {
             onClosedTicketsShownChange: this.onClosedTicketsShownChange.bind(this),
             pages,
             page,
-            onPageChange: event => this.retrieveMyTickets(event.target.value),
+            onPageChange: event => this.retrieveMyTickets({page: event.target.value}),
             onDepartmentChange: departmentId => {
-                this.setState({departmentId});
-                this.retrieveMyTickets(1, closedTicketsShown, departmentId);
+                this.setState({departmentId})
+                this.retrieveMyTickets({page: 1,  departmentId});
+            },
+            onPageSizeChange: pageSize => {
+                this.setState({pageSize});
+                this.retrieveMyTickets({page: 1, pageSize});
             },
         };
     }
@@ -81,7 +86,7 @@ class AdminPanelMyTickets extends React.Component {
             return {
                 closedTicketsShown: !state.closedTicketsShown
             };
-        }, () => this.retrieveMyTickets());
+        }, () => this.retrieveMyTickets({}));
     }
 
     onCreateTicket() {
@@ -100,11 +105,11 @@ class AdminPanelMyTickets extends React.Component {
 
     onCreateTicketSuccess() {
         ModalContainer.closeModal();
-        this.retrieveMyTickets();
+        this.retrieveMyTickets({});
     }
 
-    retrieveMyTickets(page = this.props.page, closed = this.state.closedTicketsShown, departmentId = this.state.departmentId) {
-        this.props.dispatch(AdminDataAction.retrieveMyTickets(page, closed * 1, departmentId));
+    retrieveMyTickets({page = this.props.page, closed = this.state.closedTicketsShown, departmentId = this.state.departmentId, pageSize = this.state.pageSize}) {
+        this.props.dispatch(AdminDataAction.retrieveMyTickets({page, closed: closed * 1, departmentId, pageSize}));
     }
 }
 

@@ -20,10 +20,11 @@ class AdminPanelNewTickets extends React.Component {
 
     state = {
         departmentId: null,
+        pageSize: 10
     };
 
     componentDidMount() {
-        this.retrieveNewTickets();
+        this.retrieveNewTickets({});
     }
 
     render() {
@@ -32,7 +33,7 @@ class AdminPanelNewTickets extends React.Component {
             <div className="admin-panel-new-tickets">
                 <Header title={i18n('NEW_TICKETS')} description={i18n('NEW_TICKETS_DESCRIPTION')} />
                 {(noDepartments) ? <Message showCloseButton={false} className="admin-panel-new-tickets__department-warning" type="warning">{i18n('NO_DEPARTMENT_ASSIGNED')}</Message> : null}
-                {(this.props.error) ? <Message showCloseButton={false} type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketList {...this.getProps()}/>}
+                {(this.props.error) ? <Message showCloseButton={false} type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketList {...this.getProps()} />}
             </div>
         );
     }
@@ -47,16 +48,20 @@ class AdminPanelNewTickets extends React.Component {
             ticketPath: '/admin/panel/tickets/view-ticket/',
             page: this.props.page,
             pages: this.props.pages,
-            onPageChange: event => this.retrieveNewTickets(event.target.value),
+            onPageChange: event => this.retrieveNewTickets({page: event.target.value}),
             onDepartmentChange: departmentId => {
                 this.setState({departmentId});
-                this.retrieveNewTickets(1, departmentId);
+                this.retrieveNewTickets({page: 1, departmentId});
             },
+            onPageSizeChange: pageSize => {
+                this.setState({pageSize});
+                this.retrieveNewTickets({page: 1, pageSize});
+            }
         };
     }
 
-    retrieveNewTickets(page = this.props.page, departmentId = this.state.departmentId) {
-        this.props.dispatch(AdminDataAction.retrieveNewTickets(page, departmentId));
+    retrieveNewTickets({page = this.props.page, departmentId = this.state.departmentId, pageSize = this.state.pageSize }) {
+        this.props.dispatch(AdminDataAction.retrieveNewTickets({page, departmentId, pageSize}));
     }
 }
 

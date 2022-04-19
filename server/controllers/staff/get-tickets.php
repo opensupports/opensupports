@@ -38,6 +38,10 @@ class GetTicketStaffController extends Controller {
                 'page' => [
                     'validation' => DataValidator::numeric(),
                     'error' => ERRORS::INVALID_PAGE
+                ],
+                'pageSize' => [
+                    'validation' => DataValidator::intVal()->between(5, 50),
+                    'error' => ERRORS::PAGESIZE_ERROR
                 ]
             ]
         ];
@@ -48,7 +52,8 @@ class GetTicketStaffController extends Controller {
         $closed = Controller::request('closed');
         $page = Controller::request('page');
         $departmentId = Controller::request('departmentId');
-        $offset = ($page-1)*10;
+        $pageSize = Controller::request('pageSize');
+        $offset = ($page-1)*$pageSize;
 
         $condition = 'TRUE';
         $bindings = [];
@@ -65,7 +70,7 @@ class GetTicketStaffController extends Controller {
 
         $countTotal = $user->withCondition($condition, $bindings)->countShared('ticket');
 
-        $condition .= ' LIMIT 10 OFFSET ?';
+        $condition .= ' LIMIT ' . $pageSize . ' OFFSET ?';
         $bindings[] = $offset;
 
         $tickets = $user->withCondition($condition, $bindings)->sharedTicketList->toArray(true);
@@ -73,7 +78,7 @@ class GetTicketStaffController extends Controller {
         Response::respondSuccess([
             'tickets' => $tickets,
             'page' => $page,
-            'pages' => ceil($countTotal / 10)
+            'pages' => ceil($countTotal / $pageSize)
         ]);
     }
 }
