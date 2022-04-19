@@ -338,7 +338,7 @@ class AdminPanelAdvancedSettings extends React.Component {
                 </div>
             ) : null
         }))
-        .catch(() => this.setState({messageType: 'error', showMessage: true, messageTitle: null, messageContent: i18n('INVALID_FILE')}));
+        .catch(() => this.setState({messageType: 'error', showMessage: true, messageTitle: null, messageContent: i18n('FAIL_IMPORTING_CSV')}));
     }
 
     onBackupDatabase() {

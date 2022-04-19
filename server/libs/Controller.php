@@ -136,7 +136,7 @@ abstract class Controller {
         $fileUploader = FileUploader::getInstance();
         $fileUploader->setMaxSize($maxSize);
 
-        if($fileUploader->upload('file')) {
+        if($fileUploader->uploadCSVFile('file')) {
             return $fileUploader;
         } else {
             throw new RequestException(ERRORS::INVALID_FILE);
