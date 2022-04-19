@@ -15,6 +15,7 @@
  * @apiParam {String} file A csv file with this content format: email, password, name.
  *
  * @apiUse NO_PERMISSION
+ * @apiUse INVALID_PASSWORD
  * @apiUse INVALID_FILE
  * 
  * @apiSuccess {String[]} data Array of errors found
@@ -28,11 +29,21 @@ class CSVImportController extends Controller {
     public function validations() {
         return [
             'permission' => 'staff_3',
-            'requestData' => []
+            'requestData' => [],
+            'password' => [
+                'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_PASSWORD, LengthConfig::MAX_LENGTH_PASSWORD),
+                'error' => ERRORS::INVALID_PASSWORD
+            ]
         ];
     }
 
     public function handler() {
+        $password = Controller::request('password');
+
+        if(!Hashing::verifyPassword($password, Controller::getLoggedUser()->password)) {
+            throw new RequestException(ERRORS::INVALID_PASSWORD);
+        }
+
         $fileUploader = $this->uploadFile(true);
 
         if(!$fileUploader instanceof FileUploader) {
@@ -69,7 +80,6 @@ class CSVImportController extends Controller {
         fclose($file);
         
         unlink($fileUploader->getFullFilePath());
-        
         Response::respondSuccess($errors);
     }
 }
