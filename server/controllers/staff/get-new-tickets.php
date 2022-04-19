@@ -38,6 +38,10 @@ class GetNewTicketsStaffController extends Controller {
                 'page' => [
                     'validation' => DataValidator::numeric(),
                     'error' => ERRORS::INVALID_PAGE
+                ],
+                'pageSize' => [
+                    'validation' => DataValidator::intVal()->between(5, 50),
+                    'error' => ERRORS::PAGESIZE_ERROR
                 ]
             ]
         ];
@@ -45,6 +49,7 @@ class GetNewTicketsStaffController extends Controller {
     public function handler() {
         $page = Controller::request('page');
         $departmentId = Controller::request('departmentId');
+        $pageSize = Controller::request('pageSize');
 
         if (Ticket::isTableEmpty()) {
             Response::respondSuccess([
@@ -77,14 +82,14 @@ class GetNewTicketsStaffController extends Controller {
         $countTotal = Ticket::count($query);
 
         $query .= ' ORDER BY unread_staff DESC';
-        $query .= ' LIMIT 10 OFFSET ' . ($page-1)*10;
+        $query .= ' LIMIT ' . $pageSize . ' OFFSET ' . ($page-1)*10;
 
         $ticketList = Ticket::find($query);
 
         Response::respondSuccess([
             'tickets' => $ticketList->toArray(true),
             'page' => $page,
-            'pages' => ceil($countTotal / 10)
+            'pages' => ceil($countTotal / $pageSize)
         ]);
     }
 }

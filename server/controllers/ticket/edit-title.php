@@ -19,7 +19,7 @@ DataValidator::with('CustomValidations', true);
  *
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_TITLE
- * @apiUse INVALID_TOKEN
+ * @apiUse INVALID_TICKET
  *
  * @apiSuccess {Object} data Empty object
  *

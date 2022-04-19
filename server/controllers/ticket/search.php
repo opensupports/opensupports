@@ -99,6 +99,10 @@ class SearchController extends Controller {
                     'validation' => DataValidator::oneOf(DataValidator::validOrderBy(),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_ORDER_BY
                 ],
+                'pageSize' => [
+                    'validation' => DataValidator::intVal()->between(5, 50),
+                    'error' => ERRORS::PAGESIZE_ERROR
+                ]
             ]
         ];
     }
@@ -124,7 +128,8 @@ class SearchController extends Controller {
             'orderBy' => json_decode(Controller::request('orderBy'),true),
             'page' => Controller::request('page'),
             'allowedDepartments' => $allowedDepartmentsId,
-            'staffId' => Controller::getLoggedUser()->id
+            'staffId' => Controller::getLoggedUser()->id,
+            'pageSize' => Controller::request('pageSize')
         ];
         $query = $this->getSQLQuery($inputs);
         $queryWithOrder = $this->getSQLQueryWithOrder($inputs, $query);
@@ -137,7 +142,7 @@ class SearchController extends Controller {
         }
         Response::respondSuccess([
             'tickets' => $ticketList,
-            'pages' => ceil($totalCount / 10),
+            'pages' => ceil($totalCount / $inputs['pageSize']),
             'page' => $inputs['page'] ? ($inputs['page']*1) : 1
         ]);
     }
@@ -154,12 +159,14 @@ class SearchController extends Controller {
     }
 
     public function getSQLQueryWithOrder($inputs, $query) {
+        $pageSize = $inputs['pageSize'];
         $order = "";
-        $query = "SELECT" . " ticket.id " . $query;
+        $query = "SELECT ticket.id " . $query;
 
         $this->setQueryOrder($inputs, $order);
         $inputs['page'] ?  $page =  $inputs['page'] : $page  = 1 ;
-        $query .= $order ." LIMIT 10 OFFSET " . (($page-1)*10);
+        $query .= $order . ' LIMIT ' . $pageSize . ' OFFSET ' . ($page-1)*10;
+
         return $query;
     }
 
@@ -168,10 +175,12 @@ class SearchController extends Controller {
         if(array_key_exists('tags',$inputs)) $this->setTagFilter($inputs['tags'], $filters);
         if(array_key_exists('closed',$inputs)) $this->setClosedFilter($inputs['closed'], $filters);
         if(array_key_exists('assigned',$inputs)) $this->setAssignedFilter($inputs['assigned'], $filters);
-        if(array_key_exists('unreadStaff',$inputs)) $this->setSeenFilter($inputs['unreadStaff'], $filters);
+        if(array_key_exists('unreadStaff',$inputs)) {
+            $this->setSeenFilter($inputs['unreadStaff'], $filters);
+        }
         if(array_key_exists('dateRange',$inputs)) $this->setDateFilter($inputs['dateRange'], $filters);
         if(array_key_exists('departments',$inputs) && array_key_exists('allowedDepartments',$inputs) && array_key_exists('staffId',$inputs)){
-            if(!$this->ignoreDeparmentFilter) $this->setDepartmentFilter($inputs['departments'],$inputs['allowedDepartments'], $inputs['staffId'], $filters);  
+            if(!$this->ignoreDeparmentFilter) $this->setDepartmentFilter($inputs['departments'],$inputs['allowedDepartments'], $inputs['staffId'], $filters);
         }
         if(array_key_exists('authors',$inputs)) $this->setAuthorFilter($inputs['authors'], $filters);
         if(array_key_exists('owners',$inputs)) $this->setOwnerFilter($inputs['owners'], $filters);
@@ -217,14 +226,13 @@ class SearchController extends Controller {
     }
 
     private function setDepartmentFilter($requestedDepartments,$myDepartments, $idStaff, &$filters){
-        if ($filters != "")  $filters .= " and ";
         if (!$requestedDepartments) $requestedDepartments = [];
 
         $requestedOwnedDepartments = $this->getRequestedOwnedDepartments($requestedDepartments, $myDepartments);
         $requestedNotOwnedDepartments =  $this->getRequestedNotOwnedDepartments($requestedDepartments, $myDepartments);
         $first = TRUE;
-        
-        if(!$requestedOwnedDepartments && !$requestedNotOwnedDepartments){
+        if(!$requestedOwnedDepartments && !$requestedNotOwnedDepartments && !!$myDepartments){
+            if ($filters != "")  $filters .= " and ";
             foreach($myDepartments as $department) {
                 if($first){
                     $filters .= "(ticket.author_staff_id = " . $idStaff . " or ";
@@ -233,10 +241,10 @@ class SearchController extends Controller {
                     $filters .= " or ";
                 }
                 $filters .= "ticket.department_id = " . $department;
-            } 
+            }
             $filters .= ")";
-        } 
-        
+        }
+
         if($requestedOwnedDepartments){
             foreach($requestedOwnedDepartments as $department) {
                 if($first){
@@ -248,7 +256,7 @@ class SearchController extends Controller {
                 $filters .= "ticket.department_id = " . $department;
             }
         }
-        
+
         if($requestedNotOwnedDepartments){
             if($requestedOwnedDepartments) $filters .= " or ";
             $filters .= "(ticket.author_staff_id = " . $idStaff . " and ";

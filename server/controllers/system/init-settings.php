@@ -19,15 +19,12 @@ DataValidator::with('CustomValidations', true);
  * @apiParam {String} registration Indicates if the registration should be enabled.
  * @apiParam {String} server-email Email from where automated emails will be sent.
  * @apiParam {String} smtp-host SMTP Server address.
- * @apiParam {String} smtp-port SMTP Server port.
  * @apiParam {String} smtp-user SMTP Authentication User.
  * @apiParam {String} smtp-pass SMTP Authentication Password.
  * @apiParam {String} allow-attachments Indicates if files can be attached to tickets and comments.
  * @apiParam {String} title Title of the support center
  * @apiParam {String} url Url of the frontend client.
  * @apiParam {Boolean} mandatory-login Indicates if the login is mandatory.
- * @apiParam {Number} default-department-id Indicates the id of the default department
- * @apiParam {Boolean} locked-department Indicates if the default department is locked or not
  * @apiUse INVALID_LANGUAGE
  * @apiUse INIT_SETTINGS_DONE
  *

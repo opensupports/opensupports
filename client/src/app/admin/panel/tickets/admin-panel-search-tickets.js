@@ -38,7 +38,8 @@ export function updateSearchTicketsFromURL() {
                     ...store.getState().searchFilters.ticketQueryListState,
                     page: (currentSearchParams.page || INITIAL_PAGE)*1
                 },
-                searchTicketsUtils.prepareFiltersForAPI(listConfig.filters)
+                searchTicketsUtils.prepareFiltersForAPI(listConfig.filters),
+                currentSearchParams.pageSize
             ));
         });
     }
