@@ -39,7 +39,13 @@ class Form extends React.Component {
     }
 
     componentDidMount() {
-        this.setState(this.getInitialFormAndValidations());
+        this.setState(this.getInitialFormAndValidations(this.props.children));
+    }
+
+    componentDidUpdate(nextProps) {
+        if(nextProps.values != this.props.values) {
+            this.setState(this.getInitialFormAndValidations(nextProps.children));
+        }
     }
 
     render() {
@@ -135,12 +141,11 @@ class Form extends React.Component {
         return newErrors;
     }
 
-    getInitialFormAndValidations() {
+    getInitialFormAndValidations(children) {
         let form = {};
         let validations = {};
 
-        reactDFS(this.props.children, (child) => {
-
+        reactDFS(children, (child) => {
             if (this.isValidField(child)) {
                 form[child.props.name] = child.props.value || FormField.getDefaultValue(child.props.field);
 
