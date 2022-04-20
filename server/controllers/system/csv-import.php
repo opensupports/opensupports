@@ -1,4 +1,6 @@
 <?php
+use Respect\Validation\Validator as DataValidator;
+DataValidator::with('CustomValidations', true);
 
 /**
  * @api {post} /system/csv-import CSV import

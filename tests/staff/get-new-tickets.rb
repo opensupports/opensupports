@@ -5,6 +5,7 @@ describe '/staff/get-new-tickets' do
     it 'should get new tickets' do
         result = request('/staff/get-new-tickets', {
             page: 1,
+            pageSize: 10,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })

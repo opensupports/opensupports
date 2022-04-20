@@ -72,6 +72,8 @@ class GetSupervisedTicketController extends Controller {
                     return $this->page*1;
                 case 'supervisor':
                     return 1;
+                case 'pageSize':
+                    return 10;
             }
 
             return null;
