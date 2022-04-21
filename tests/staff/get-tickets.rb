@@ -20,7 +20,6 @@ describe '/staff/get-tickets' do
         })
         result = request('/staff/get-tickets', {
             page: 1,
-            pageSize: 10,
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token
         })

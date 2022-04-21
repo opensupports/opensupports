@@ -173,7 +173,6 @@ describe '/ticket/search' do
                     csrf_userid: $csrf_userid,
                     csrf_token: $csrf_token,
                     page: page,
-                    pageSize: 10,
                     owners: ownerFilter
                 })
                 (result['status']).should.equal('success')
@@ -196,7 +195,6 @@ describe '/ticket/search' do
                     csrf_userid: $csrf_userid,
                     csrf_token: $csrf_token,
                     page: page,
-                    pageSize: 10,
                     closed: closedFilter
                 })
                 (result['status']).should.equal('success')
@@ -215,7 +213,6 @@ describe '/ticket/search' do
             result = request('/ticket/search', {
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
-                pageSize: 10,
                 page: page
             })
             (result['status']).should.equal('success')
@@ -273,7 +270,6 @@ describe '/ticket/search' do
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
                 page: 1,
-                pageSize: 10,
                 tags: tagObject['tagIdFilter']
             })
             (result['status']).should.equal('success')
@@ -290,7 +286,6 @@ describe '/ticket/search' do
             csrf_userid: $csrf_userid,
             csrf_token: $csrf_token,
             page: 1,
-            pageSize: 10,
             tags: '[2, 3]'
         })
         (result['status']).should.equal('success')
@@ -320,7 +315,6 @@ describe '/ticket/search' do
                     csrf_userid: $csrf_userid,
                     csrf_token: $csrf_token,
                     page: page,
-                    pageSize: 10,
                     departments: departmentFilter
                 })
                 (result['status']).should.equal('success')
@@ -355,7 +349,6 @@ describe '/ticket/search' do
                     csrf_userid: $csrf_userid,
                     csrf_token: $csrf_token,
                     page: page,
-                    pageSize: 10,
                     authors: authorsFilter
                 })
                 (result['status']).should.equal('success')
@@ -397,7 +390,6 @@ describe '/ticket/search' do
                     csrf_userid: $csrf_userid,
                     csrf_token: $csrf_token,
                     page: page,
-                    pageSize: 10,
                     unreadStaff: unreadStaff
                 })
                 (result['status']).should.equal('success')
@@ -420,7 +412,6 @@ describe '/ticket/search' do
                     csrf_userid: $csrf_userid,
                     csrf_token: $csrf_token,
                     page: page,
-                    pageSize: 10,
                     assigned: assignedFilter
                 })
                 (result['status']).should.equal('success')
@@ -445,7 +436,6 @@ describe '/ticket/search' do
                     csrf_userid: $csrf_userid,
                     csrf_token: $csrf_token,
                     page: page,
-                    pageSize: 10,
                     dateRange: dateRangeFilter
                 })
                 (result['status']).should.equal('success')
@@ -465,7 +455,6 @@ describe '/ticket/search' do
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
                 page: page,
-                pageSize: 10,
                 orderBy: orderByClosedDesc
             })
             (result['status']).should.equal('success')
@@ -483,7 +472,6 @@ describe '/ticket/search' do
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
                 page: page,
-                pageSize: 10,
                 orderBy: orderByClosedAsc
             })
             (result['status']).should.equal('success')
@@ -501,7 +489,6 @@ describe '/ticket/search' do
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
                 page: page,
-                pageSize: 10,
                 orderBy: orderByOwnerIdDesc
             })
             (result['status']).should.equal('success')
@@ -525,7 +512,6 @@ describe '/ticket/search' do
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
                 page: page,
-                pageSize: 10,
                 orderBy: orderByOwnerIdAsc
             })
             (result['status']).should.equal('success')
@@ -556,7 +542,6 @@ describe '/ticket/search' do
                     csrf_userid: $csrf_userid,
                     csrf_token: $csrf_token,
                     page: page,
-                    pageSize: 10,
                     query: query
                 })
                 (result['status']).should.equal('fail')
@@ -613,7 +598,6 @@ describe '/ticket/search' do
                         csrf_token: $csrf_token,
                         page: page,
                         assigned: assignedFilter,
-                        pageSize: 10,
                         authors: authorsFilter
                     })
                     (result['status']).should.equal('success')
@@ -651,7 +635,6 @@ describe '/ticket/search' do
                         csrf_token: $csrf_token,
                         page: page,
                         closed: closedFilter,
-                        pageSize: 10,
                         owners: ownerFilter
                     })
                     (result['status']).should.equal('success')
