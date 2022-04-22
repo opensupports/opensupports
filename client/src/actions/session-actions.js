@@ -101,7 +101,7 @@ export default {
         };
     },
 
-    initSession() {
+    checkSession() {
         return {
             type: 'CHECK_SESSION',
             payload: new Promise((resolve, reject) => {
