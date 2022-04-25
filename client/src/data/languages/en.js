@@ -225,6 +225,7 @@ export default {
     'NEW_CUSTOM_FIELD': 'New Custom field',
     'TYPE': 'Type',
     'SELECT_INPUT': 'Select input',
+    'TEXT': 'Text',
     'TEXT_INPUT': 'Text input',
     'OPTION': 'Option {index}',
     'OPTIONS': 'Options',
