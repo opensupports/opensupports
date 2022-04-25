@@ -8,7 +8,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
+    min-height: 40px;
     &__user-name {
         color: $primary-red;
     }

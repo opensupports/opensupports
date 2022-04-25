@@ -19,7 +19,8 @@ use Respect\Validation\Validator as DataValidator;
 *
 * @apiUse NO_PERMISSION
 * @apiUse INVALID_SUPERVISED_USERS
-*
+* @apiUse PAGESIZE_ERROR
+
 * @apiSuccess {Object} data Information about a tickets and quantity of pages.
 * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data.tickets Array of tickets assigned to the staff of the current page.
 * @apiSuccess {Number} data.page Number of current page.
@@ -42,6 +43,10 @@ class GetSupervisedTicketController extends Controller {
                 'page' => [
                     'validation' => DataValidator::oneOf(DataValidator::numeric()->positive(),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_PAGE
+                ],
+                'pageSize' => [
+                    'validation' => DataValidator::oneOf(DataValidator::intVal()->between(5, 50),DataValidator::nullType()),
+                    'error' => ERRORS::PAGESIZE_ERROR
                 ]
             ]
         ];
@@ -55,6 +60,7 @@ class GetSupervisedTicketController extends Controller {
         if(Controller::isStaffLogged()) throw new RequestException(ERRORS::NO_PERMISSION);
 
         $this->page = Controller::request('page') ? Controller::request('page') : 1;
+        $this->pageSize = Controller::request('pageSize') ? Controller::request('pageSize') : 10;
         $this->showOwnTickets = (bool)Controller::request('showOwnTickets');
         $this->supervisedUserList = Controller::request('supervisedUsers')?  json_decode(Controller::request('supervisedUsers')) : []; 
         $this->authors = $this->createAuthorsArray();
@@ -72,6 +78,8 @@ class GetSupervisedTicketController extends Controller {
                     return $this->page*1;
                 case 'supervisor':
                     return 1;
+                case 'pageSize':
+                    return $this->pageSize;
             }
 
             return null;

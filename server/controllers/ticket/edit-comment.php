@@ -52,20 +52,22 @@ class EditCommentController extends Controller {
         $user = Controller::getLoggedUser();
         $newcontent = Controller::request('content', true);
         $ticketNumberLog = null;
-        $ticketevent = Ticketevent::getTicketEvent(Controller::request('ticketEventId'));
+        $ticketEvent = Ticketevent::getTicketEvent(Controller::request('ticketEventId'));
 
-        if(!$ticketevent->isNull()) {
-            $ticket = Ticket::getDataStore($ticketevent->ticketId);
+        if(!$ticketEvent->isNull()) {
+            $ticket = Ticket::getDataStore($ticketEvent->ticketId);
         } else {
             $ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
         }
 
-        if(!Controller::isStaffLogged() &&  $user->id !== $ticketevent->authorUserId && $user->id !== $ticket->authorId) {
+        $ticketEventArray = $ticketEvent->toArray();
+
+        if(!Controller::isStaffLogged() &&  $user->id !== $ticketEventArray["author"]["id"] && $user->id !== $ticket->authorId) {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
-        if (!$ticketevent->isNull()) {
-            if($user->id !== $ticketevent->authorUserId) {
+        if (!$ticketEvent->isNull()) {
+            if($user->id !== $ticketEventArray["author"]["id"]) {
                 throw new RequestException(ERRORS::NO_PERMISSION);
             }
         } else if ($user->id !== $ticket->authorId) {
@@ -76,20 +78,20 @@ class EditCommentController extends Controller {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
-        if(!$ticketevent->isNull()) {
-            if($ticketevent->type !== "COMMENT" || $ticket->closed || $ticket->getLatestEventOfType("COMMENT")['id'] !== $ticketevent->id) {
+        if(!$ticketEvent->isNull()) {
+            if($ticketEvent->type !== "COMMENT" || $ticket->closed || $ticket->getLatestEventOfType("COMMENT")['id'] !== $ticketEvent->id) {
                 throw new RequestException(ERRORS::INVALID_TICKET_EVENT);
             }
         } else if(sizeof($ticket->getEventsOfType("COMMENT"))) {
             throw new RequestException(ERRORS::TICKET_CONTENT_CANNOT_BE_EDITED);
         }
 
-        if(!$ticketevent->isNull()){
-            $ticketNumber = Ticket::getTicket($ticketevent->ticketId)->ticketNumber;
+        if(!$ticketEvent->isNull()){
+            $ticketNumber = Ticket::getTicket($ticketEvent->ticketId)->ticketNumber;
 
-            $ticketevent->content = $newcontent;
-            $ticketevent->editedContent = true;
-            $ticketevent->store();
+            $ticketEvent->content = $newcontent;
+            $ticketEvent->editedContent = true;
+            $ticketEvent->store();
         } else {
             $ticketNumber = $ticket->ticketNumber;
 

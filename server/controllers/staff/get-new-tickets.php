@@ -41,7 +41,7 @@ class GetNewTicketsStaffController extends Controller {
                     'error' => ERRORS::INVALID_PAGE
                 ],
                 'pageSize' => [
-                    'validation' => DataValidator::intVal()->between(5, 50),
+                    'validation' => DataValidator::oneOf(DataValidator::intVal()->between(5, 50),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_PAGE_SIZE
                 ]
             ]
@@ -50,7 +50,7 @@ class GetNewTicketsStaffController extends Controller {
     public function handler() {
         $page = Controller::request('page');
         $departmentId = Controller::request('departmentId');
-        $pageSize = Controller::request('pageSize');
+        $pageSize = Controller::request('pageSize') ? Controller::request('pageSize') : 10;
 
         if (Ticket::isTableEmpty()) {
             Response::respondSuccess([

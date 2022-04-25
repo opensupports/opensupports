@@ -100,7 +100,7 @@ class SearchController extends Controller {
                     'error' => ERRORS::INVALID_ORDER_BY
                 ],
                 'pageSize' => [
-                    'validation' => DataValidator::intVal()->between(5, 50),
+                    'validation' => DataValidator::oneOf(DataValidator::intVal()->between(5, 50),DataValidator::nullType()),
                     'error' => ERRORS::INVALID_PAGE_SIZE
                 ]
             ]
@@ -129,7 +129,7 @@ class SearchController extends Controller {
             'page' => Controller::request('page'),
             'allowedDepartments' => $allowedDepartmentsId,
             'staffId' => Controller::getLoggedUser()->id,
-            'pageSize' => Controller::request('pageSize')
+            'pageSize' => Controller::request('pageSize') ? Controller::request('pageSize') : 10
         ];
         $query = $this->getSQLQuery($inputs);
         $queryWithOrder = $this->getSQLQueryWithOrder($inputs, $query);
@@ -159,13 +159,12 @@ class SearchController extends Controller {
     }
 
     public function getSQLQueryWithOrder($inputs, $query) {
-        $pageSize = $inputs['pageSize'];
         $order = "";
         $query = "SELECT ticket.id " . $query;
 
         $this->setQueryOrder($inputs, $order);
         $inputs['page'] ?  $page =  $inputs['page'] : $page  = 1 ;
-        $query .= $order . ' LIMIT ' . $pageSize . ' OFFSET ' . ($page-1)*10;
+        $query .= $order . ' LIMIT ' . $inputs['pageSize'] . ' OFFSET ' . ($page-1)*10;
 
         return $query;
     }
