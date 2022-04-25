@@ -9,9 +9,11 @@ describe'system/csv-import' do
             file.puts('prueba2@hotmail.com,contrasena2,max')
             file.puts('prueba3@hotmail.com,contrasena3,maxi')
             file.close
+
             result= request('/system/csv-import', {
                 csrf_userid: $csrf_userid,
                 csrf_token: $csrf_token,
+                password: $staff[:password],
                 file: File.open( "../server/files/test.csv")
             })
 
