@@ -412,7 +412,10 @@ export default {
     'INVALID_SUPERVISED_USERS': 'Invalid supervised users',
     'SUPERVISOR_CAN_NOT_SUPERVISE_HIMSELF': 'Supervisor can not supervise himself',
     'NAME_ALREADY_USED': 'Name already used',
-    'PAGESIZE_ERROR': 'Invalid page size',
+    'INVALID_PAGE_SIZE': 'Invalid page size',
+    'INVALID_CUSTOM_FIELD_TYPE': 'Invalid custom field type',
+    'INVALID_CUSTOM_FIELD_OPTIONS': 'Invalid custom field options',
+    'CUSTOM_FIELD_ALREADY_EXISTS': 'Custom field already exists',
 
     //MESSAGES
     'SIGNUP_SUCCESS': 'You have registered successfully in our support system.',

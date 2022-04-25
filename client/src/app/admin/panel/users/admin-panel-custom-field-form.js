@@ -63,7 +63,7 @@ class AdminPanelCustomFieldForm extends React.Component {
 
         return (
             <Message showMessage={showErrorMessage} onCloseMessage={this.onCloseMessage.bind(this, "showErrorMessage")} type="error">
-                {error}
+                {i18n(error)}
             </Message>
         );
     }

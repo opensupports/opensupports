@@ -101,7 +101,7 @@ class SearchController extends Controller {
                 ],
                 'pageSize' => [
                     'validation' => DataValidator::oneOf(DataValidator::intVal()->between(5, 50),DataValidator::nullType()),
-                    'error' => ERRORS::PAGESIZE_ERROR
+                    'error' => ERRORS::INVALID_PAGE_SIZE
                 ]
             ]
         ];

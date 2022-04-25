@@ -19,6 +19,7 @@ use Respect\Validation\Validator as DataValidator;
  * 
  * @apiUse NO_PERMISSION
  * @apiUse INVALID_PAGE
+ * @apiUse INVALID_PAGE_SIZE
  *
  * @apiSuccess {Object} data Information about a tickets and quantity of pages.
  * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data.tickets Array of tickets assigned to the staff of the current page.
@@ -40,8 +41,8 @@ class GetTicketStaffController extends Controller {
                     'error' => ERRORS::INVALID_PAGE
                 ],
                 'pageSize' => [
-                    'validation' => DataValidator::oneOf(DataValidator::intVal()->between(5, 50),DataValidator::nullType()),
-                    'error' => ERRORS::PAGESIZE_ERROR
+                  'validation' => DataValidator::oneOf(DataValidator::intVal()->between(5, 50),DataValidator::nullType()),
+                  'error' => ERRORS::INVALID_PAGE_SIZE
                 ]
             ]
         ];
