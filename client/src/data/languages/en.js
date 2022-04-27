@@ -376,7 +376,7 @@ export default {
     'EMAIL_OR_PASSWORD': 'Email or password invalid',
     'EMAIL_NOT_EXIST': 'Email does not exist',
     'ERROR_EMPTY': 'Invalid value',
-    'ERROR_PASSWORD': 'Invalid password',
+    'INVALID_PASSWORD': 'Invalid password',
     'ERROR_NAME': 'Invalid name',
     'ERROR_TITLE': 'Invalid title',
     'ERROR_EMAIL': 'Invalid email',

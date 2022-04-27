@@ -180,7 +180,7 @@ class MainHomePageLoginWidget extends React.Component {
         let errors = _.extend({}, this.state.loginFormErrors);
         if (this.props.session.failed) {
             if (this.props.session.failMessage === 'INVALID_CREDENTIALS') {
-                errors.password = i18n('ERROR_PASSWORD');
+                errors.password = i18n('INVALID_PASSWORD');
             } else if (this.props.session.failMessage === 'UNVERIFIED_USER') {
                 errors.email = i18n('UNVERIFIED_EMAIL');
             } else if (this.props.session.failMessage === 'USER_DISABLED') {

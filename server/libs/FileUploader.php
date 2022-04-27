@@ -57,14 +57,18 @@ class FileUploader extends FileManager {
     }
 
     public function uploadCSVFile($fileKey) {
+        return $this->uploadFile($fileKey, [
+            'text/csv',
+            'text/plain'
+        ]);
+    }
+
+    private function uploadFile($fileKey, $fileTypes) {
         $file = new \Upload\File($fileKey, $this->storage);
         $file->setName($this->generateFileName($_FILES[$fileKey]['name']));
 
         $file->addValidations(array(
-            new \Upload\Validation\Mimetype([
-                'text/csv',
-                'text/plain'
-            ]),
+            new \Upload\Validation\Mimetype($fileTypes),
             new \Upload\Validation\Size($this->maxSize.'M')
         ));
 

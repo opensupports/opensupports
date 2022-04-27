@@ -27,4 +27,18 @@ describe'system/csv-import' do
             row = $database.getRow('user', 'prueba3@hotmail.com', 'email')
             (row['name']).should.equal('maxi')
         end
+
+        it 'should fail if the uploaded file is not a csv' do
+
+            result= request('/system/csv-import', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                password: $staff[:password],
+                file: File.open( "../server/files/pdf-test.pdf")
+            })
+
+            (result['status']).should.equal('fail')
+            (result['message']).should.equal('INVALID_FILE')
+
+        end
 end

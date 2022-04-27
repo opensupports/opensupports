@@ -11,7 +11,7 @@ let validators = {
     'TITLE': new LengthValidator(1, 'ERROR_TITLE'),
     'EMAIL': new EmailValidator(),
     'TEXT_AREA': new ImageSizeValidator(undefined, new LengthValidator(1, 'ERROR_CONTENT_SHORT', true)),
-    'PASSWORD': new LengthValidator(6, 'ERROR_PASSWORD'),
+    'PASSWORD': new LengthValidator(6, 'INVALID_PASSWORD'),
     'REPEAT_PASSWORD': new RepeatPasswordValidator(),
     'URL': new LengthValidator(5, 'ERROR_URL'),
     'LIST': new ListValidator()
