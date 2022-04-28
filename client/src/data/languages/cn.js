@@ -378,7 +378,7 @@ export default {
     'EMAIL_OR_PASSWORD': '電子郵件或密碼無效',
     'EMAIL_NOT_EXIST': '電子郵件不存在',
     'ERROR_EMPTY': '無效值',
-    'ERROR_PASSWORD': '無效的密碼',
+    'INVALID_PASSWORD': '無效的密碼',
     'INVITE_USER_VIEW_DESCRIPTION': '在这里，你可以邀请一个用户加入我们的支持系统，他将只需要提供自己的密码，以创建一个新用户。',
     'ERROR_NAME': '名稱無效',
     'INVITE_STAFF_DESCRIPTION': '在这里，你可以邀请工作人员您的团队。',

@@ -41,4 +41,30 @@ describe'system/csv-import' do
             (result['message']).should.equal('INVALID_FILE')
 
         end
+
+        it 'should upload a csv file' do
+
+            result= request('/system/csv-import', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                password: $staff[:password],
+                file: File.open( "../server/files/test.csv")
+            })
+
+            (result['status']).should.equal('success')
+
+        end
+
+        it 'should fail if the password is incorrect' do
+
+            result= request('/system/csv-import', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                password: "invalid password"
+            })
+
+            (result['status']).should.equal('fail')
+            (result['message']).should.equal('INVALID_PASSWORD')
+
+        end
 end

@@ -342,7 +342,7 @@ export default {
     'EMAIL_OR_PASSWORD': 'Niewłaściwy email lub hasło',
     'EMAIL_NOT_EXIST': 'Nie ma takiego emaila',
     'ERROR_EMPTY': 'Niewłaściwa wartość',
-    'ERROR_PASSWORD': 'Niewłaściwe hasło',
+    'INVALID_PASSWORD': 'Niewłaściwe hasło',
     'ERROR_NAME': 'Niewłaściwa nazwa',
     'ERROR_TITLE': 'Niewłaściwy tytuł',
     'ERROR_EMAIL': 'Niewłaściwy email',

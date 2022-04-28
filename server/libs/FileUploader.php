@@ -17,43 +17,29 @@ class FileUploader extends FileManager {
     }
 
     public function upload($fileKey) {
-        $file = new \Upload\File($fileKey, $this->storage);
-        $file->setName($this->generateFileName($_FILES[$fileKey]['name']));
+        return $this_.uploadFile($fileKey, [
+            'image/png',
+            'image/gif',
+            'image/jpeg',
+            'image/bmp',
+            'image/tiff',
 
-        $file->addValidations(array(
-            new \Upload\Validation\Mimetype([
-                'image/png',
-                'image/gif',
-                'image/jpeg',
-                'image/bmp',
-                'image/tiff',
+            'application/gzip',
+            'application/x-gzip',
+            'application/zip',
+            'application/x-rar-compressed',
+            'application/x-7z-compressed',
+            'application/x-tar',
+            'application/x-bzip',
+            'application/x-bzip2',
 
-                'application/gzip',
-                'application/x-gzip',
-                'application/zip',
-                'application/x-rar-compressed',
-                'application/x-7z-compressed',
-                'application/x-tar',
-                'application/x-bzip',
-                'application/x-bzip2',
-
-                'text/csv',
-                'text/rtf',
-                'application/msword',
-                'application/vnd.ms-excel',
-                'text/plain',
-                'application/pdf'
-            ]),
-            new \Upload\Validation\Size($this->maxSize.'M')
-        ));
-
-        try {
-            $file->upload();
-            $this->setFileName($file->getNameWithExtension());
-            return true;
-        } catch (\Exception $e) {
-            return false;
-        }
+            'text/csv',
+            'text/rtf',
+            'application/msword',
+            'application/vnd.ms-excel',
+            'text/plain',
+            'application/pdf'
+        ]);
     }
 
     public function uploadCSVFile($fileKey) {

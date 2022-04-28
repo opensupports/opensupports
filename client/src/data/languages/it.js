@@ -379,7 +379,7 @@ export default {
     'EMAIL_OR_PASSWORD': 'Email o password errate',
     'EMAIL_NOT_EXIST': 'Email non esiste',
     'ERROR_EMPTY': 'Invalid value',
-    'ERROR_PASSWORD': 'Password errata',
+    'INVALID_PASSWORD': 'Password errata',
     'INVITE_USER_VIEW_DESCRIPTION': 'Qui è possibile invitare un utente ad entrare il nostro sistema di supporto, avrà solo bisogno di fornire la propria password per creare un nuovo utente.',
     'ERROR_NAME': 'Nome errato',
     'INVITE_STAFF_DESCRIPTION': 'Qui è possibile invitare membri del personale per le vostre squadre.',
