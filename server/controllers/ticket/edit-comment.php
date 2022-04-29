@@ -62,16 +62,17 @@ class EditCommentController extends Controller {
 
         if (!$ticketEvent->isNull()) {
             $ticketEventArray = $ticketEvent->toArray();
+            $userArray = $user->toArray();
 
             if($user->id !== $ticketEventArray["author"]["id"] && $user->id !== $ticket->authorId) {
                 throw new RequestException(ERRORS::NO_PERMISSION);
             }
 
-            if((!!$user->isStaff === !!$ticketEventArray["author"]["staff"]) && ($user->id !== $ticketEventArray["author"]["id"])) {
+            if((!!$userArray["isStaff"] === !!$ticketEventArray["author"]["staff"]) && ($user->id !== $ticketEventArray["author"]["id"])) {
                 throw new RequestException(ERRORS::NO_PERMISSION);
             }
 
-            if (!!$user->isStaff !== !!$ticketEventArray["author"]["staff"]) {
+            if (!!$userArray["isStaff"] !== !!$ticketEventArray["author"]["staff"]) {
                 throw new RequestException(ERRORS::NO_PERMISSION);
             }
         } else if ($user->id !== $ticket->authorId) {

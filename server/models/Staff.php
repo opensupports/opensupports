@@ -73,7 +73,8 @@ class Staff extends DataStore {
             'departments' => $this->sharedDepartmentList->toArray(),
             'tickets' => $this->sharedTicketList->toArray(),
             'lastLogin' => $this->lastLogin,
-            'sendEmailOnNewTicket' => $this->sendEmailOnNewTicket
+            'sendEmailOnNewTicket' => $this->sendEmailOnNewTicket,
+            'isStaff' => 1
         ];
     }
 }
