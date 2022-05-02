@@ -19,7 +19,7 @@ class Staff extends DataStore {
     public static function authenticate($userEmail, $userPassword) {
         $user = Staff::getUser($userEmail, 'email');
 
-        return ($user && Hashing::verifyPassword($userPassword, $user->password)) ? $user : new NullDataStore();
+        return (!$user->isNull() && Hashing::verifyPassword($userPassword, $user->password)) ? $user : new NullDataStore();
     }
 
     public static function getProps() {
