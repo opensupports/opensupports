@@ -6,7 +6,7 @@ describe '/ticket/seen' do
 
         Scripts.login($staff[:email], $staff[:password], true)
         Scripts.assignTicket(ticket['ticket_number'])
-        it 'should change unread if everything is okey ' do
+        it 'should change unread if everything is okay ' do
             
             result = request('/ticket/seen', {
                         ticketNumber: ticket['ticket_number'],
@@ -38,7 +38,7 @@ describe '/ticket/seen' do
 
         Scripts.logout()
         Scripts.login('user_get@os4.com', 'user_get')
-        it 'should change unread if everything is okey ' do
+        it 'should change unread if everything is okay ' do
             ticket = $database.getRow('ticket', 'Should we pay?', 'title')
             result = request('/ticket/seen', {
                 ticketNumber: ticket['ticket_number'],

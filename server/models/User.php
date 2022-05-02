@@ -19,7 +19,7 @@ class User extends DataStore {
     public static function authenticate($userEmail, $userPassword) {
         $user = User::getUser($userEmail, 'email');
 
-        return ($user && Hashing::verifyPassword($userPassword, $user->password) && !$user->notRegistered) ? $user : new NullDataStore();
+        return (!$user->isNull() && Hashing::verifyPassword($userPassword, $user->password) && !$user->notRegistered) ? $user : new NullDataStore();
     }
 
     public static function getProps() {

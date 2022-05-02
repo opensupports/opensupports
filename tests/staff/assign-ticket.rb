@@ -27,7 +27,7 @@ describe '/staff/assign-ticket' do
 
     #end
 
-    it 'should assign ticket if everything is okey' do
+    it 'should assign ticket if everything is okay' do
         ticket1 = $database.getRow('ticket', 'ticket_to_assing_1', 'title')
         ticket2 = $database.getRow('ticket', 'ticket_to_assing_2', 'title')
         ticket3 = $database.getRow('ticket', 'ticket_to_assing_3', 'title')
