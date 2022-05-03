@@ -649,4 +649,33 @@ describe '/ticket/search' do
             end
         end
     end
+
+    it 'should success if the page size is valid' do
+        pageSizeList = [5, 10, 20, 50]
+
+        for pageSize in pageSizeList
+            result = request('/ticket/search', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                page: 1,
+                pageSize: pageSize
+            })
+            (result['status'].should.equal('success'))
+        end
+    end
+
+    it 'should fail if page size is not among validation options' do
+        pageSizeList = [0, 51, 'string', true]
+
+        for pageSize in pageSizeList
+            result = request('/ticket/search', {
+                csrf_userid: $csrf_userid,
+                csrf_token: $csrf_token,
+                page: 1,
+                pageSize: pageSize
+            })
+            (result['status'].should.equal('fail'))
+            (result['message']).should.equal('INVALID_PAGE_SIZE')
+        end
+    end
 end
