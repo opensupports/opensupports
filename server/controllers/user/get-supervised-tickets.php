@@ -1,6 +1,6 @@
 <?php
 use Respect\Validation\Validator as DataValidator;
-	
+
 /**
 * @api {post} /user/get-supervised-tickets Get supervised tickets
 * @apiVersion 4.11.0
@@ -19,7 +19,7 @@ use Respect\Validation\Validator as DataValidator;
 *
 * @apiUse NO_PERMISSION
 * @apiUse INVALID_SUPERVISED_USERS
-* @apiUse PAGESIZE_ERROR
+* @apiUse INVALID_PAGE_SIZE
 
 * @apiSuccess {Object} data Information about a tickets and quantity of pages.
 * @apiSuccess {[Ticket](#api-Data_Structures-ObjectTicket)[]} data.tickets Array of tickets assigned to the staff of the current page.
@@ -46,7 +46,7 @@ class GetSupervisedTicketController extends Controller {
                 ],
                 'pageSize' => [
                     'validation' => DataValidator::oneOf(DataValidator::intVal()->between(5, 50),DataValidator::nullType()),
-                    'error' => ERRORS::PAGESIZE_ERROR
+                    'error' => ERRORS::INVALID_PAGE_SIZE
                 ]
             ]
         ];
@@ -55,6 +55,7 @@ class GetSupervisedTicketController extends Controller {
     private $page;
     private $showOwnTickets;
     private $supervisedUserList;
+    private $pageSize;
 
     public function handler() {
         if(Controller::isStaffLogged()) throw new RequestException(ERRORS::NO_PERMISSION);
@@ -79,7 +80,7 @@ class GetSupervisedTicketController extends Controller {
                 case 'supervisor':
                     return 1;
                 case 'pageSize':
-                    return $this->pageSize;
+                    return $this->pageSize*1;
             }
 
             return null;

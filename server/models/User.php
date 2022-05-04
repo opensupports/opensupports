@@ -80,7 +80,8 @@ class User extends DataStore {
             'disabled' => $this->disabled,
             'customfields' => $this->xownCustomfieldvalueList->toArray(),
             'notRegistered' => $this->notRegistered,
-            'supervisedrelation' => $this->supervisedrelation
+            'supervisedrelation' => $this->supervisedrelation,
+            'isStaff' => 0
         ];
     }
 }

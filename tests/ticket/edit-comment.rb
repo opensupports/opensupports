@@ -96,11 +96,39 @@ describe '/ticket/edit-comment' do
         ticketevent = tickets_comments.to_a.last
 
         (result['status']).should.equal('success')
+
+        Scripts.logout()
+        Scripts.login($staff[:email], $staff[:password], true)
+
+        Scripts.commentTicket(ticket['ticket_number'],'com    ment of a staff xd')
+        ticketevent = $database.getRow('ticketevent', 'com    ment of a staff xd', 'content')
+
+        tickets_comments = $database.query(getTicketEventsCommentsQuery(ticket['id']))
+        tickets_comments.size.should.equal(4)
+        tickets_comments.to_a.last['content'].should.equal('com    ment of a staff xd')
+
+        result = request('/ticket/edit-comment', {
+            csrf_userid: $csrf_userid,
+            csrf_token: $csrf_token,
+            content: 'comment edited by the staff xd',
+            ticketEventId: ticketevent['id']
+        })
+
+        tickets_comments = $database.query(getTicketEventsCommentsQuery(ticket['id']))
+        tickets_comments.size.should.equal(4)
+        tickets_comments.to_a.last['content'].should.equal('comment edited by the staff xd')
+
+        ticketevent = tickets_comments.to_a.last
+
+        (result['status']).should.equal('success')
+
+        Scripts.logout()
+        Scripts.login()
     end
 
     it 'should fail if author is right but ticket has other commets below' do
         tickets_comments = $database.query(getTicketEventsCommentsQuery(ticket['id']))
-        tickets_comments.size.should.equal(3)
+        tickets_comments.size.should.equal(4)
 
         result = request('/ticket/edit-comment', {
             csrf_userid: $csrf_userid,
@@ -113,13 +141,18 @@ describe '/ticket/edit-comment' do
         (result['message']).should.equal('TICKET_CONTENT_CANNOT_BE_EDITED')
 
         tickets_comments = $database.query(getTicketEventsCommentsQuery(ticket['id']))
-        tickets_comments.size.should.equal(3)
-        ticket_comment3 = tickets_comments.to_a.last
+        tickets_comments.size.should.equal(4)
 
         Scripts.commentTicket(ticket['ticket_number'],'com    ment of a user 4')
 
         tickets_comments = $database.query(getTicketEventsCommentsQuery(ticket['id']))
-        tickets_comments.size.should.equal(4)
+        tickets_comments.size.should.equal(5)
+        ticket_comment3 = tickets_comments.to_a.last
+
+        Scripts.commentTicket(ticket['ticket_number'],'com    ment of a user 5')
+
+        tickets_comments = $database.query(getTicketEventsCommentsQuery(ticket['id']))
+        tickets_comments.size.should.equal(6)
 
         result = request('/ticket/edit-comment', {
             csrf_userid: $csrf_userid,
