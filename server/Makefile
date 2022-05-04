@@ -13,6 +13,10 @@ install:
 	@docker exec -it opensupports-srv bash -c "cd /var/www/html && composer install" || echo "${red}Please execute 'make run' first${reset}"
 	@docker exec -it opensupports-db bash -c "mysql -u root -e \"CREATE DATABASE IF NOT EXISTS development;\" " || echo "${red}Please execute 'make run' first${reset}"
 
+install-not-interactive:
+	@docker exec opensupports-srv bash -c "cd /var/www/html && composer install" || echo "${red}Please execute 'make run' first${reset}"
+	@docker exec opensupports-db bash -c "mysql -u root -e \"CREATE DATABASE IF NOT EXISTS development;\" " || echo "${red}Please execute 'make run' first${reset}"
+
 run: stop
 	@docker run --platform=linux/amd64 -d --network os-net --name opensupports-db -p 4040:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -v $(PWD)/.dbdata/:/var/lib/mysql mysql:5.6
 	@docker run --platform=linux/amd64 -d --network os-net --name opensupports-myadmin --link opensupports-db:db -p 6060:80 phpmyadmin/phpmyadmin

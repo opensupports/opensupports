@@ -7,6 +7,6 @@ jobs:
       - uses: actions/checkout@v3
       - run: cd server && make build
       - run: cd server && make run
-      - run: cd server && make install
+      - run: cd server && make install-not-interactive
       - run: cd server && make test-not-interactive
       - run: cd tests && make run-not-interactive
