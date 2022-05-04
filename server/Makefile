@@ -22,6 +22,9 @@ run: stop
 test:
 	@docker exec -it opensupports-srv bash -c "cd /var/www/html && ./run-tests.sh"
 
+test-not-interactive:
+	@docker exec opensupports-srv bash -c "cd /var/www/html && ./run-tests.sh"
+
 log:
 	@docker attach opensupports-srv || echo "${red}Please execute 'make run' first${reset}"
 
