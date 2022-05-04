@@ -1,0 +1,12 @@
+name: run-tests
+on: [push]
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: cd server && make build
+      - run: cd server && make run
+      - run: cd server && make install
+      - run: cd server && make test
+      - run: cd tests && make run
