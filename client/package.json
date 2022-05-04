@@ -13,7 +13,7 @@
     "npm": "^2.1.x"
   },
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --display-reasons --display-error-details --history-api-fallback --progress --colors",
     "start-fixtures": "webpack-dev-server --env.FIXTURES=1",
     "build": "./node_modules/.bin/rimraf build && NODE_ENV=production ./node_modules/.bin/webpack -p --devtool none",
     "test": "export NODE_PATH=src && mocha src/lib-test/preprocessor.js --require @babel/register --recursive src/**/**/__tests__/*-test.js"
