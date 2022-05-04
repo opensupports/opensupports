@@ -68,7 +68,7 @@ describe '/ticket/edit-title' do
             title: 'Casterly Rock',
             ticketNumber: ticket['ticket_number']
         })
-        (result['status']).should.equal('failure hehe this is broken')
+        (result['status']).should.equal('fail')
         (result['message']).should.equal('NO_PERMISSION')
     end
 
