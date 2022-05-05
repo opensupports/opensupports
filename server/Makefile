@@ -15,7 +15,7 @@ install:
 
 install-not-interactive:
 	@docker exec opensupports-srv bash -c "cd /var/www/html && composer install" || echo "${red}Please execute 'make run' first${reset}"
-	@docker exec opensupports-db bash -c "mysql -u root --host 0.0.0.0 -e \"CREATE DATABASE IF NOT EXISTS development;\" " || echo "${red}Please execute 'make run' first${reset}"
+	@docker exec opensupports-db bash -c "mysql -u root --protocol tcp -e \"CREATE DATABASE IF NOT EXISTS development;\" " || echo "${red}Please execute 'make run' first${reset}"
 
 setup-vendor-permissions:
 	@docker exec opensupports-srv bash -c "cd /var/www/html && chmod 777 -R vendor/ezyang" || echo "${red}Please execute 'make run' first${reset}"
