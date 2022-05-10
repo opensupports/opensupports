@@ -135,7 +135,7 @@ export default {
     'LEVEL_3': 'Nível 3 (Chamados + Artigos + Equipe)',
     'LEVEL_1_DESCRIPTION': 'Só pode responder aos chamados e gerenciar os usuários',
     'LEVEL_2_DESCRIPTION': 'Pode fazer o que o nível 1 faz e pode criar ou editar artigos e pode criar respostas customizadas.',
-    'LEVEL_3_DESCRIPTION': 'Pode fazero que o nível 2 faz e pode criar ou editar membros da equipe e pode gerenciar todo o sistema.',
+    'LEVEL_3_DESCRIPTION': 'Pode fazer o que o nível 2 faz e pode criar ou editar membros da equipe e pode gerenciar todo o sistema.',
     'UPDATE_EMAIL': 'Atualizar e-mail',
     'UPDATE_PASSWORD': 'Atualizar senha',
     'UPDATE_CUSTOM_FIELDS': 'Atualize campos personalizados',

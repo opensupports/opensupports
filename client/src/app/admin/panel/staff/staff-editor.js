@@ -59,9 +59,8 @@ class StaffEditor extends React.Component {
         showMessage: true,
         showReInviteStaffMessage: true,
         rawForm: {
-            dateRange: statsUtils.getInitialDateRange(),
             departments: [],
-            owners: [],
+            owners: [{id: this.props.staffId}],
             tags: []
         },
         ticketData: {},
@@ -84,6 +83,8 @@ class StaffEditor extends React.Component {
     }
 
     render() {
+        console.log('State: ', this.state.rawForm);
+
         const { name, level, profilePic, myAccount, staffId, staffList, userId } = this.props;
         const { message, tickets, loadingPicture, email } = this.state;
         const myData = _.filter(staffList, {id: `${staffId}`})[0];

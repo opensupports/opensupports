@@ -49,22 +49,15 @@ class TicketQueryFilters extends React.Component {
                     <div className="ticket-query-filters__search-box">
                         <FormField name="query" field="search-box" fieldProps={{onSearch: this.onSubmitListConfig.bind(this)}} />
                     </div>
-                    <div className="ticket-query-filters__first-row">
+                    <div className="ticket-query-filters__second-row">
                         <FormField
-                            label={i18n('DATE')}
-                            name="dateRange"
-                            field="date-range"
-                            fieldProps={{defaultValue: formState.dateRange}} />
-                        <FormField
-                            label={i18n('STATUS')}
-                            name="closed"
+                            label={i18n('PERIOD')}
+                            name="period"
                             field="select"
                             fieldProps={{
-                                items: this.getStatusItems(),
-                                className: 'ticket-query-filters__status-drop-down'
+                                items: [{content: i18n('LAST_7_DAYS')}, {content: i18n('LAST_30_DAYS')}, {content: i18n('LAST_90_DAYS')}, {content: i18n('LAST_365_DAYS')}],
+                                className: 'ticket-query-filters__drop-down'
                             }} />
-                    </div>
-                    <div className="ticket-query-filters__second-row">
                         <FormField
                             label={i18n('DEPARTMENTS')}
                             name="departments"
@@ -77,6 +70,14 @@ class TicketQueryFilters extends React.Component {
                             fieldProps={{items: ticketUtils.getStaffList({staffList}, 'toAutocomplete')}} />
                     </div>
                     <div className="ticket-query-filters__third-row">
+                        <FormField
+                            label={i18n('STATUS')}
+                            name="closed"
+                            field="select"
+                            fieldProps={{
+                                items: this.getStatusItems(),
+                                className: 'ticket-query-filters__drop-down'
+                            }} />
                         <FormField
                             label={i18n('TAGS')}
                             name="tags"
@@ -266,8 +267,8 @@ class TicketQueryFilters extends React.Component {
             true
         );
 
-        if(formEdited && formState.dateRange.valid) {
-            const filtersForAPI = searchTicketsUtils.prepareFiltersForAPI(listConfigWithCompleteAuthorsList.filters);
+        if(formEdited) {
+            const filtersForAPI = searchTicketsUtils.getFiltersForAPI(listConfigWithCompleteAuthorsList.filters);
             const currentPath = window.location.pathname;
             const urlQuery = searchTicketsUtils.getFiltersForURL({
                 filters: filtersForAPI,
@@ -297,8 +298,6 @@ class TicketQueryFilters extends React.Component {
     }
 
     onChangeForm(data) {
-        const newStartDate = data.dateRange.startDate ? data.dateRange.startDate : searchTicketsUtils.getDefaultLocalStartDate();
-        const newEndDate = data.dateRange.endDate ? data.dateRange.endDate : searchTicketsUtils.getDefaultlocalEndDate();
         const departmentsId = data.departments.map(department => department.id);
         const staffsId = data.owners.map(staff => staff.id);
         const tagsName = this.tagsNametoTagsId(data.tags);
@@ -310,11 +309,6 @@ class TicketQueryFilters extends React.Component {
             owners: staffsId,
             departments: departmentsId,
             authors: authors,
-            dateRange: {
-                ...data.dateRange,
-                startDate: newStartDate,
-                endDate: newEndDate
-            }
         });
     }
 

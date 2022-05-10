@@ -29,7 +29,7 @@ export default {
         }
     },
     changeFilters(listConfig) {
-        const filtersForAPI = searchTicketsUtils.prepareFiltersForAPI(listConfig.filters);
+        const filtersForAPI = searchTicketsUtils.getFiltersForAPI(listConfig.filters);
 
         return {
             type: 'SEARCH_FILTERS_CHANGE_FILTERS',
@@ -49,7 +49,7 @@ export default {
         }
     },
     changePage(filtersWithPage) {
-        const filtersForAPI = searchTicketsUtils.prepareFiltersForAPI(filtersWithPage);
+        const filtersForAPI = searchTicketsUtils.getFiltersForAPI(filtersWithPage);
         const currentPath = window.location.pathname;
         const urlQuery = searchTicketsUtils.getFiltersForURL({
             filters: filtersForAPI,
@@ -64,7 +64,7 @@ export default {
         }
     },
     changeOrderBy(filtersWithOrderBy) {
-        const filtersForAPI = searchTicketsUtils.prepareFiltersForAPI(filtersWithOrderBy);
+        const filtersForAPI = searchTicketsUtils.getFiltersForAPI(filtersWithOrderBy);
         const currentPath = window.location.pathname;
         const urlQuery = searchTicketsUtils.getFiltersForURL({
             filters: filtersForAPI,

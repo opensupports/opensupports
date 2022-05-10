@@ -4,6 +4,7 @@ import _ from 'lodash';
 import DateTransformer from 'lib-core/date-transformer';
 import date from 'lib-app/date';
 import API from 'lib-app/api-call';
+import statsUtils from 'lib-app/stats-utils';
 
 const DEFAULT_UTC_START_DATE = 201701010000;
 
@@ -18,6 +19,15 @@ const CLOSED_DROPDOWN_INDEXES = {
     OPENED: 1,
     CLOSED: 2
 }
+
+const getAuthorsForAPI = (authors) => {
+    if (authors === undefined) return undefined;
+    const authorsListFilters = JSON.parse(authors);
+    if (!authorsListFilters || authorsListFilters.length === 0 || !authorsListFilters[0].name) return undefined;
+    return JSON.stringify(
+        authorsListFilters.map(author => ({id: author.id*1, isStaff: author.isStaff}))
+    );
+};
 
 export default {
     getAuthorsFromAPI(authors = '') {
@@ -72,33 +82,21 @@ export default {
             }
         }
     },
-    prepareFiltersForAPI(filters){
-        const authorsListFilters = (filters && filters.authors) ? JSON.parse(filters.authors) : undefined;
-        let filtersForAPI = (
-            (authorsListFilters && authorsListFilters.length && authorsListFilters[0].name) ?
-                {
-                    ...filters,
-                    authors: JSON.stringify(
-                        authorsListFilters.map(author => ({id: author.id*1, isStaff: author.isStaff}))
-                    )
-                } :
-                filters
-        );
-        const dateRange = filtersForAPI.dateRange;
-
-        if(filtersForAPI && filtersForAPI.closed !== undefined) {
-            filtersForAPI = {
-                ...filtersForAPI,
-                closed: filtersForAPI.closed*1
-            }
-        }
-
-        filtersForAPI = {
-            ...filtersForAPI,
-            dateRange: dateRange ? dateRange : this.getDefaultUTCRange()
-        }
-
-        return filtersForAPI ? filtersForAPI : {};
+    getDateRangeForAPI(period) {
+        const {startDate, endDate} = statsUtils.getDateRangeFromPeriod(period);
+        const dateRangeJSON = JSON.stringify([startDate, endDate]);
+        return dateRangeJSON;
+    },
+    getFiltersForAPI(filters) {
+        if (!filters) filters = {};
+        const authorsList = getAuthorsForAPI(filters.authors);
+        const filtersForAPI = {
+            ...filters,
+            ...(filters.closed !== undefined && {closed: filters.closed*1}),
+            ...(authorsList !== undefined && {authors: authorsList}),
+            ...{dateRange: this.getDateRangeForAPI(Number(filters.period) || 0)}
+        };
+        return filtersForAPI;
     },
     getFiltersForURL(filtersWithShouldRemoveParams) {
         const shouldRemoveCustomParam = filtersWithShouldRemoveParams.shouldRemoveCustomParam ? filtersWithShouldRemoveParams.shouldRemoveCustomParam : false;
@@ -136,7 +134,7 @@ export default {
             return `?${query}`;
         }
     },
-    getClosedDropdowIndex(status) {
+    getClosedDropdownIndex(status) {
         let closedDropdownIndex;
 
         switch(status) {
@@ -153,21 +151,14 @@ export default {
         return closedDropdownIndex;
     },
     transformToFormValue(filters) {
-        const localDateRange = DateTransformer.rangeTransformer(JSON.parse(filters.dateRange), "UTCToLocal");
-        const newDateRange = {
-            valid: true,
-            startDate: localDateRange[0],
-            endDate: localDateRange[1],
-        };
-
         return {
             ...filters,
             query: filters.query ? filters.query : '',
-            closed: this.getClosedDropdowIndex(filters.closed*1),
+            closed: this.getClosedDropdownIndex(filters.closed*1),
+            period: filters.period ? filters.period*1 : 0,
             departments: JSON.parse(filters.departments),
             owners: JSON.parse(filters.owners),
             tags: JSON.parse(filters.tags),
-            dateRange: newDateRange,
             authors: filters.authors ? JSON.parse(filters.authors) : [],
         };
     },
@@ -189,17 +180,16 @@ export default {
     },
     formValueToListConfig(form, hasAllAuthorsInfo = false) {
         const authors = form.authors ? form.authors.map(author => ({id: author.id*1, isStaff: author.isStaff})) : [];
-        const localRange = [form.dateRange.startDate, form.dateRange.endDate];
 
         return {
             filters: {
                 ...form,
                 query: form.query !== '' ? form.query : undefined,
                 closed: this.getTicketStatusByDropdownIndex(form.closed),
+                period: form.period ? form.period*1 : 0,
                 departments: form.departments !== undefined ? JSON.stringify(form.departments) : '[]',
                 owners: JSON.stringify(form.owners),
                 tags: JSON.stringify(form.tags),
-                dateRange: JSON.stringify(DateTransformer.rangeTransformer(localRange, "localToUTC")),
                 authors: JSON.stringify(authors),
             },
             hasAllAuthorsInfo

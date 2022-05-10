@@ -78,6 +78,7 @@ export default {
     'OWNER': 'Owner',
     'OWNED': 'Owned',
     'STATUS': 'Status',
+    'PERIOD': 'Period',
     'NONE': 'None',
     'ANY': 'Any',
     'OPENED': 'Opened',
