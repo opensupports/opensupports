@@ -11,11 +11,11 @@ build:
 
 install:
 	@docker exec -it opensupports-srv bash -c "cd /var/www/html && composer install" || echo "${red}Please execute 'make run' first${reset}"
-	@docker exec -it opensupports-db bash -c "service mysqld start; mysql -u root -e \"CREATE DATABASE IF NOT EXISTS development;\" " || echo "${red}Please execute 'make run' first${reset}"
+	@docker exec -u root -it opensupports-db bash -c "service mysql start; mysql -u root -e \"CREATE DATABASE IF NOT EXISTS development;\" " || echo "${red}Please execute 'make run' first${reset}"
 
 install-not-interactive:
 	@docker exec opensupports-srv bash -c "cd /var/www/html && composer install" || echo "${red}Please execute 'make run' first${reset}"
-	@docker exec opensupports-db bash -c "service mysqld start; mysql -u root -e \"CREATE DATABASE IF NOT EXISTS development;\" " || echo "${red}Please execute 'make run' first${reset}"
+	@docker exec -u root opensupports-db bash -c "service mysql start; mysql -u root -e \"CREATE DATABASE IF NOT EXISTS development;\" " || echo "${red}Please execute 'make run' first${reset}"
 
 setup-vendor-permissions:
 	@docker exec opensupports-srv bash -c "cd /var/www/html && chmod 777 -R vendor/ezyang" || echo "${red}Please execute 'make run' first${reset}"
