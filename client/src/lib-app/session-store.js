@@ -48,11 +48,19 @@ class SessionStore {
         return JSON.parse(this.getItem('departments'));
     }
 
+    getCustomFields() {
+        return JSON.parse(this.getItem('customFields'));
+    }
+
     storeRememberData({token, userId, expiration, isStaff}) {
         this.setItem('rememberData-token', token);
         this.setItem('rememberData-userId', userId);
         this.setItem('rememberData-isStaff', isStaff);
         this.setItem('rememberData-expiration', expiration);
+    }
+
+    storeCustomField(customFields) {
+        this.setItem('customFields', JSON.stringify(customFields));
     }
 
     storeConfigs(configs) {
@@ -68,8 +76,6 @@ class SessionStore {
         this.setItem('mandatory-login', configs['mandatory-login']);
         this.setItem('allow-attachments', configs['allow-attachments']);
         this.setItem('maintenance-mode', configs['maintenance-mode']);
-        this.setItem('max-size', configs['max-size']);
-        this.setItem('tags', JSON.stringify(configs['tags']));
         this.setItem('max-size', configs['max-size']);
         this.setItem('tags', JSON.stringify(configs['tags']));
         this.setItem('default-is-locked', configs['default-is-locked']);
