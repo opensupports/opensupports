@@ -9,7 +9,7 @@
     transition: max-height 0.15s ease-out;
 
     .main-layout-header__languages > .drop-down__current-item {
-        height: unset;
+        min-height: unset;
      }
 
     &--content {
