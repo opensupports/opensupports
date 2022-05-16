@@ -826,6 +826,7 @@ class TicketViewer extends React.Component {
             loading: false,
             commentValue: TextEditor.createEmpty(),
             commentError: false,
+            commentFile: null,
             commentEdited: false
         });
 
