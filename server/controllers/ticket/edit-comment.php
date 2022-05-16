@@ -53,23 +53,17 @@ class EditCommentController extends Controller {
         $newcontent = Controller::request('content', true);
         $ticketNumberLog = null;
         $ticketEvent = Ticketevent::getTicketEvent(Controller::request('ticketEventId'));
+        $commentAuthor = null;
 
         if(!$ticketEvent->isNull()) {
             $ticket = Ticket::getDataStore($ticketEvent->ticketId);
+            $commentAuthor = $ticketEvent->toArray()["author"];
         } else {
             $ticket = Ticket::getByTicketNumber(Controller::request('ticketNumber'));
+            $commentAuthor = $ticket->toArray()["author"];
         }
 
-        $ticketArray = $ticket->toArray();
-        $userArray = $user->toArray();
-
-        if(!$ticketEvent->isNull()) {
-            $ticketEventArray = $ticketEvent->toArray();
-
-            if((!!$userArray["isStaff"] !== !!$ticketEventArray["author"]["staff"]) || ($user->id !== $ticketEventArray["author"]["id"])) {
-                throw new RequestException(ERRORS::NO_PERMISSION);
-            }
-        } else if((!!$userArray["isStaff"] !== !!$ticketArray["author"]["staff"]) || ($user->id !== $ticketArray["author"]["id"])) {
+        if((!!$user->toArray()["isStaff"] !== !!$commentAuthor["staff"]) || ($user->id !== $commentAuthor["id"])) {
             throw new RequestException(ERRORS::NO_PERMISSION);
         }
 
