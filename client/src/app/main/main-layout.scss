@@ -8,6 +8,10 @@
     border-radius: 4px;
     transition: max-height 0.15s ease-out;
 
+    .main-layout-header__languages > .drop-down__current-item {
+        min-height: unset;
+     }
+
     &--content {
         min-height: 453px;
         padding: 20px;

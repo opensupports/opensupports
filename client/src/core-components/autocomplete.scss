@@ -10,6 +10,7 @@
             background-color: $very-light-grey;
             border: 1px solid $grey;
             min-height: 38px;
+            display: block;
 
             &:focus-within {
                 outline: none;
