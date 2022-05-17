@@ -122,7 +122,7 @@ class AdminPanelEmailSettings extends React.Component {
                     <div className="admin-panel-email-settings__image-container">
                         <FormField className="admin-panel-email-settings__image-header-url"
                                    label={i18n('IMAGE_HEADER_URL')} name="headerImage" required
-                                   infoMessage={i18n('IMAGE_HEADER_URL_DESCRIPTION')}
+                                   infoMessage={i18n('IMAGE_HEADER_DESCRIPTION')}
                                    fieldProps={{size: 'large'}} />
                         <SubmitButton className="admin-panel-email-settings__image-header-submit" type="secondary"
                                       size="small">{i18n('SAVE')}</SubmitButton>
