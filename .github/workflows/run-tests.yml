@@ -5,6 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - run: sudo /lib/systemd/systemd-sysv-install enable mysql
+      - run: sudo systemctl enable mysql.service
+      - run: sudo systemctl start mysql.service
+      - run: sudo systemctl status mysql.service
       - run: cd server && make build
       - run: cd server && make run
       - run: cd server && make install-not-interactive

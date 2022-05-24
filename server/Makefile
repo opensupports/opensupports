@@ -14,8 +14,11 @@ install:
 	@docker exec -u root -it opensupports-db bash -c "mysql -u root -e \"CREATE DATABASE IF NOT EXISTS development;\" " || echo "${red}Please execute 'make run' first${reset}"
 
 install-not-interactive:
-	@docker exec opensupports-srv bash -c "cd /var/www/html && composer install" || echo "${red}Please execute 'make run' first${reset}"
-	@docker exec -u root opensupports-db bash -c "mysql -u root -e \"CREATE DATABASE IF NOT EXISTS development;\" " || echo "${red}Please execute 'make run' first${reset}"
+	echo "${yellow}About to run COMPOSER INSTALL${reset}"
+	docker exec opensupports-srv bash -c "cd /var/www/html && composer install" || echo "${red}Please execute 'make run' first${reset}"
+	echo "${yellow}About to run CREATE DATABASE IF NOT EXISTS${reset}"
+	docker exec -u root opensupports-db bash -c "mysql -u root -e \"CREATE DATABASE IF NOT EXISTS development;\" " || echo "${red}Please execute 'make run' first${reset}"
+	echo "${yellow}About to FINISH INSTALL-NOT-INTERACTIVE${reset}"
 
 setup-vendor-permissions:
 	@docker exec opensupports-srv bash -c "cd /var/www/html && chmod 777 -R vendor/ezyang" || echo "${red}Please execute 'make run' first${reset}"
@@ -52,6 +55,9 @@ stop:
 
 db:
 	@docker exec -it opensupports-db bash -c "mysql -u root" || echo "${red}Please execute 'make run' first${reset}"
+
+db-sh:
+	@docker exec -it opensupports-db bash
 
 sh:
 	@docker exec -it opensupports-srv bash
