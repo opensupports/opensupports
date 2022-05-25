@@ -17,7 +17,7 @@ install-not-interactive:
 	echo "${yellow}About to run COMPOSER INSTALL${reset}"
 	docker exec opensupports-srv bash -c "cd /var/www/html && composer install" || echo "${red}Please execute 'make run' first${reset}"
 	echo "${yellow}About to run CREATE DATABASE IF NOT EXISTS${reset}"
-	docker exec -u root opensupports-db bash -c "sudo /etc/init.d/mysql stop && sudo /etc/init.d/mysql start && mysql -u root -e \"CREATE DATABASE IF NOT EXISTS development;\" " || echo "${red}Please execute 'make run' first${reset}"
+	docker exec -u root opensupports-db bash -c "/etc/init.d/mysql status; mysql -u root -e \"CREATE DATABASE IF NOT EXISTS development;\" " || echo "${red}Please execute 'make run' first${reset}"
 	echo "${yellow}About to FINISH INSTALL-NOT-INTERACTIVE${reset}"
 
 setup-vendor-permissions:
