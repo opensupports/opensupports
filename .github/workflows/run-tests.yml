@@ -11,7 +11,7 @@ jobs:
       - run: sudo systemctl start mysql.service
       - run: sudo systemctl status mysql.service
       - run: cd server && make build
-      - run: cd server && make run-not-interactive
+      - run: cd server && make run
       - run: cd server && make install-not-interactive
       - run: cd server && make setup-vendor-permissions
       - run: cd server && make test-not-interactive
