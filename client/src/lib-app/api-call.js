@@ -24,13 +24,30 @@ function processData (data, dataAsForm = false) {
     return newData;
 }
 
+const randomString = (length) => {
+    var result = "";
+    var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+};
+
 module.exports = {
     call: function ({path, data, plain, dataAsForm}) {
-        if(showLogs) console.log('request ' + path, data);
+        const callId = randomString(3);
+        const boldStyle = 'font-weight: bold;';
+        const normalStyle = 'font-weight: normal;';
+        if (showLogs) {
+            console.log(`▶ Request %c${path}%c [${callId}]: `, boldStyle, normalStyle, data);
+        }
         return new Promise(function (resolve, reject) {
             APIUtils.post(apiRoot + path, processData(data, dataAsForm), dataAsForm)
                 .then(function (result) {
-                    if(showLogs) console.log(result);
+                    if (showLogs) {
+                        console.log(`▶ Result %c${path}%c [${callId}]: `, boldStyle, normalStyle, result);
+                    }
 
                     if (plain || result.status === 'success') {
                         resolve(result);

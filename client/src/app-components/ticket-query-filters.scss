@@ -58,7 +58,7 @@
         align-items: flex-start;
     }
 
-    &__status-drop-down > .drop-down__current-item {
+    &__drop-down > .drop-down__current-item {
         background-color: $very-light-grey;
 
         &:focus {

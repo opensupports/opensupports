@@ -77,7 +77,7 @@ export default {
             startDate: date.getFullDate(firstDayOfMonth),
             endDate: date.getFullDate(todayAtNight)
         };
-    } ,
+    },
 
     getStatsOptions(axis) {
         return {
@@ -109,13 +109,41 @@ export default {
         );
     },
 
-    retrieveStats({ rawForm, tags, departments}) {
-        const { startDate, endDate } = rawForm.dateRange;
+    getDateRangeFromPeriod(periodIndex) {
+        let daysInPeriod = 0;
+        switch (periodIndex) {
+            case 0:
+                daysInPeriod = 7;
+                break;
+            case 1:
+                daysInPeriod = 30;
+                break;
+            case 2:
+                daysInPeriod = 90;
+                break;
+            case 3:
+                daysInPeriod = 365;
+                break;
+        }
+        const d = new Date();
+        d.setDate(d.getDate() - daysInPeriod);
 
+        const startDate = date.getFullDate(d);
+        const endDate = date.getCurrentFullDate();
+        return {
+            startDate,
+            endDate
+        };
+    },
+
+    retrieveStats({ rawForm, tags, departments}) {
+        const { dateRange } = rawForm;
+        const dateRangeProp = dateRange && {dateRange: "[" + dateRange.startDate.toString() + "," + dateRange.endDate.toString() + "]"};
+        
         return API.call({
             path: '/system/get-stats',
             data: {
-                dateRange: "[" + startDate.toString() + "," + endDate.toString() + "]",
+                ...dateRangeProp,
                 departments: departments ? JSON.stringify(departments) : "[" + rawForm.departments.map(department => department.id) + "]",
                 owners: "[" + rawForm.owners.map(owner => owner.id) + "]",
                 tags: tags ? "[" + this.getSelectedTagIds(rawForm, tags) + "]" : "[]"

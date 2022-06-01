@@ -4,6 +4,7 @@ import { connect }  from 'react-redux';
 import API from 'lib-app/api-call';
 import i18n from 'lib-app/i18n';
 import statsUtils from 'lib-app/stats-utils';
+import date from 'lib-app/date';
 
 import Header from 'core-components/header';
 import Form from 'core-components/form';
@@ -18,7 +19,7 @@ class AdminPanelStats extends React.Component {
     state = {
         loading: true,
         rawForm: {
-            dateRange: statsUtils.getInitialDateRange(),
+            period: 0,
             departments: [],
             owners: [],
             tags: []
@@ -28,7 +29,7 @@ class AdminPanelStats extends React.Component {
 
     componentDidMount() {
         statsUtils.retrieveStats({
-            rawForm: this.state.rawForm,
+            rawForm: this.getFormWithDateRange(this.state.rawForm),
             tags: this.props.tags
         }).then(({data}) => {
             this.setState({ticketData: data, loading: false});
@@ -47,7 +48,7 @@ class AdminPanelStats extends React.Component {
                     <div className="admin-panel-stats__form__container">
                         <div className="admin-panel-stats__form__container__row">
                             <div className="admin-panel-stats__form__container__col">
-                                <FormField name="dateRange" label={i18n('DATE')} field="date-range" fieldProps={{defaultValue: rawForm.dateRange}} />
+                                <FormField name="period" label={i18n('DATE')} field="select" fieldProps={{size: 'large', items: [{content: i18n('LAST_7_DAYS')}, {content: i18n('LAST_30_DAYS')}, {content: i18n('LAST_90_DAYS')}, {content: i18n('LAST_365_DAYS')}]}} />
                                 <FormField name="tags" label={i18n('TAGS')} field="tag-selector" fieldProps={{items: this.getTagItems()}} />
                             </div>
                             <div className="admin-panel-stats__form__container__col">
@@ -90,7 +91,7 @@ class AdminPanelStats extends React.Component {
         event.preventDefault();
         this.setState({
             rawForm: {
-                dateRange: statsUtils.getInitialDateRange(),
+                period: 0,
                 departments: [],
                 owners: [],
                 tags: []
@@ -163,13 +164,25 @@ class AdminPanelStats extends React.Component {
 
     onFormSubmit() {
         statsUtils.retrieveStats({
-            rawForm: this.state.rawForm,
+            rawForm: this.getFormWithDateRange(this.state.rawForm),
             tags: this.props.tags
         }).then(({data}) => {
             this.setState({ticketData: data, loading: false});
         }).catch((error) => {
             if (showLogs) console.error('ERROR: ', error);
         });
+    }
+
+    getFormWithDateRange(form) {
+        const {startDate, endDate} = statsUtils.getDateRangeFromPeriod(form.period);
+
+        return {
+            ...form,
+            dateRange: {
+                startDate,
+                endDate
+            }
+        };
     }
 }
 
