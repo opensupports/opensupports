@@ -11,18 +11,17 @@ build:
 
 install:
 	@docker exec -it opensupports-srv bash -c "cd /var/www/html && composer install" || echo "${red}Please execute 'make run' first${reset}"
-	@docker exec -u root -it opensupports-db bash -c "service mysql start; mysql -u root -e \"CREATE DATABASE IF NOT EXISTS development;\" " || echo "${red}Please execute 'make run' first${reset}"
+	@docker exec -u root -it opensupports-db bash -c "mysql -u root -e \"CREATE DATABASE IF NOT EXISTS development;\" " || echo "${red}Please execute 'make run' first${reset}"
 
 install-not-interactive:
-	@docker exec opensupports-srv bash -c "cd /var/www/html && composer install" || echo "${red}Please execute 'make run' first${reset}"
-	@docker exec -u root opensupports-db bash -c "service mysql start; mysql -u root -e \"CREATE DATABASE IF NOT EXISTS development;\" " || echo "${red}Please execute 'make run' first${reset}"
+	docker exec opensupports-srv bash -c "cd /var/www/html && composer install" || echo "${red}Please execute 'make run' first${reset}"
 
 setup-vendor-permissions:
 	@docker exec opensupports-srv bash -c "cd /var/www/html && chmod 777 -R vendor/ezyang" || echo "${red}Please execute 'make run' first${reset}"
 	@docker exec opensupports-srv bash -c "cd /var/www/html && chmod 777 -R files" || echo "${red}Please execute 'make run' first${reset}"
 
 run: stop
-	@docker run --platform=linux/amd64 -d --network os-net --name opensupports-db -p 4040:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -v $(PWD)/.dbdata/:/var/lib/mysql mysql:5.6
+	@docker run --platform=linux/amd64 -d --network os-net --name opensupports-db -p 4040:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -v $(PWD)/.dbdata/:/var/lib/mysql -v $(PWD)/.start-db:/docker-entrypoint-initdb.d mysql:5.6
 	@docker run --platform=linux/amd64 -d --network os-net --name opensupports-myadmin --link opensupports-db:db -p 6060:80 phpmyadmin/phpmyadmin
 	@docker run --platform=linux/amd64 -d --network os-net --name opensupports-fakesmtp -p 7070:25 -v ${PWD}/.fakemail/:/var/mail munkyboy/fakesmtp
 	@docker run --platform=linux/amd64 -d --network os-net --name opensupports-srv -p 8080:80 --link opensupports-db:mysql --rm -e LOG_STDOUT=true -e LOG_STDERR=true -e LOG_LEVEL=debug -v ${PWD}:/var/www/html opensupports-srv
