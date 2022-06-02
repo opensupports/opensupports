@@ -9,8 +9,8 @@
   },
   "private": false,
   "engines": {
-    "node": "^0.12.x",
-    "npm": "^2.1.x"
+    "node": "^11.15.x",
+    "npm": "^6.7.x"
   },
   "scripts": {
     "start": "webpack-dev-server --display-reasons --display-error-details --history-api-fallback --progress --colors",

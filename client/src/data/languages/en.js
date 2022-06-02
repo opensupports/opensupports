@@ -250,6 +250,7 @@ export default {
     'USER_UNLOGGED_IN': 'This user has never logged in before',
     'RESEND_STAFF_INVITATION_SUCCESS': 'The invitation was sent successfully',
     'RESEND_STAFF_INVITATION_FAIL': 'The invitation could not be sent',
+    'SESSION_EXPIRED': 'Session expired',
 
     //ACTIVITIES
     'ACTIVITY_COMMENT': 'commented ticket',
@@ -372,6 +373,7 @@ export default {
     'INVITE_USER_VIEW_DESCRIPTION': 'Here you can invite an user to join our support system, he will just need to provide his password to create a new user.',
     'INVITE_STAFF_DESCRIPTION': 'Here you can invite staff members to your teams.',
     'TICKETS_INFORMATION' : 'Tickets from departments you don’t have assigned won’t be visible.',
+    'SESSION_EXPIRED_DESCRIPTION': 'Your session has timed out. Please log in again.',
 
     //ERRORS
     'EMAIL_OR_PASSWORD': 'Email or password invalid',

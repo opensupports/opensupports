@@ -88,7 +88,7 @@
 //         });
 //     });
 
-//     describe('initSession action', function () {
+//     describe('checkSession action', function () {
 //         beforeEach(function () {
 //             APICallMock.call.returns({
 //                 then: function (resolve) {
@@ -125,7 +125,7 @@
 //                 }
 //             });
 
-//             expect(SessionActions.initSession().type).to.equal('CHECK_SESSION');
+//             expect(SessionActions.checkSession().type).to.equal('CHECK_SESSION');
 //             expect(storeMock.dispatch).to.have.been.calledWith({type: 'SESSION_CHECKED'});
 //             expect(APICallMock.call).to.have.been.calledWith({
 //                 path: '/user/check-session',
@@ -136,7 +136,7 @@
 //         it('should return CHECK_SESSION and dispatch LOGOUT_FULFILLED if session is not active and no remember data', function () {
 //             sessionStoreMock.isRememberDataExpired.returns(true);
 
-//             expect(SessionActions.initSession().type).to.equal('CHECK_SESSION');
+//             expect(SessionActions.checkSession().type).to.equal('CHECK_SESSION');
 //             expect(storeMock.dispatch).to.have.been.calledWith({type: 'LOGOUT_FULFILLED'});
 //             expect(APICallMock.call).to.have.been.calledWith({
 //                 path: '/user/check-session',
@@ -147,7 +147,7 @@
 //         it('should return CHECK_SESSION and dispatch LOGIN_AUTO if session is not active but remember data exists', function () {
 //             sessionStoreMock.isRememberDataExpired.returns(false);
 
-//             expect(SessionActions.initSession().type).to.equal('CHECK_SESSION');
+//             expect(SessionActions.checkSession().type).to.equal('CHECK_SESSION');
 //             expect(storeMock.dispatch).to.not.have.been.calledWith({type: 'LOGOUT_FULFILLED'});
 //             expect(APICallMock.call).to.have.been.calledWith({
 //                 path: '/user/check-session',

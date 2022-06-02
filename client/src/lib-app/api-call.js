@@ -1,28 +1,33 @@
-const _ = require('lodash');
-const APIUtils = require('lib-core/APIUtils').default;
-const SessionStore = require('lib-app/session-store').default;
+const _ = require("lodash");
+const APIUtils = require("lib-core/APIUtils").default;
+const SessionStore = require("lib-app/session-store").default;
+import expiredSessionUtils from "./expired-session-utils";
 
-function processData (data, dataAsForm = false) {
+function processData(data, dataAsForm = false) {
     let newData;
 
-    if(dataAsForm) {
+    if (dataAsForm) {
         newData = new FormData();
 
         _.each(data, (value, key) => {
             newData.append(key, value);
         });
 
-        newData.append('csrf_token', SessionStore.getSessionData().token);
-        newData.append('csrf_userid', SessionStore.getSessionData().userId);
+        newData.append("csrf_token", SessionStore.getSessionData().token);
+        newData.append("csrf_userid", SessionStore.getSessionData().userId);
     } else {
-        newData = _.extend({
-            csrf_token: SessionStore.getSessionData().token,
-            csrf_userid: SessionStore.getSessionData().userId
-        }, data)
+        newData = _.extend(
+            {
+                csrf_token: SessionStore.getSessionData().token,
+                csrf_userid: SessionStore.getSessionData().userId,
+            },
+            data
+        );
     }
 
     return newData;
 }
+
 
 const randomString = (length) => {
     var result = "";
@@ -33,9 +38,8 @@ const randomString = (length) => {
     }
     return result;
 };
-
-module.exports = {
-    call: function ({path, data, plain, dataAsForm}) {
+export default {
+    call: function ({ path, data, plain, dataAsForm }) {
         const callId = randomString(3);
         const boldStyle = 'font-weight: bold;';
         const normalStyle = 'font-weight: normal;';
@@ -48,26 +52,29 @@ module.exports = {
                     if (showLogs) {
                         console.log(`▶ Result %c${path}%c [${callId}]: `, boldStyle, normalStyle, result);
                     }
-
-                    if (plain || result.status === 'success') {
+                    const { status, message } = result;
+                    if (plain || status === "success") {
                         resolve(result);
                     } else if (reject) {
+                        if (status === "fail" && message === "NO_PERMISSION") {
+                            expiredSessionUtils.checkSessionOrLogOut();
+                        }
                         reject(result);
                     }
                 })
                 .catch(function (result) {
-                    console.log('INVALID REQUEST to: ' + path);
+                    console.log("INVALID REQUEST to: " + path);
                     console.log(result);
                     reject({
-                        status: 'fail',
-                        message: 'Internal server error'
+                        status: "fail",
+                        message: "Internal server error",
                     });
                 });
         });
     },
 
     getFileLink(filePath) {
-        return apiRoot + '/system/download?file=' + filePath;
+        return apiRoot + "/system/download?file=" + filePath;
     },
 
     getAPIUrl() {
@@ -76,5 +83,5 @@ module.exports = {
 
     getURL() {
         return root;
-    }
+    },
 };

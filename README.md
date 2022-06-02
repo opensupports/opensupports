@@ -13,18 +13,15 @@ Please, visit our website for more information: [http://www.opensupports.com/](h
 Here is a guide of how to set up the development environment in OpenSupports.
 
 ### Getting up and running FRONT-END (client folder)
-1. Update: `sudo apt-get update`
+1. Update: `sudo apt update`
 2. Clone this repo: `git clone https://github.com/opensupports/opensupports.git`
-3. Install node 4.x version:
-    - `sudo apt-get install curl`
-    - `curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -`
-    - `sudo apt-get install -y nodejs`
-4. Install npm: `sudo apt-get install npm`
+3. Install `nvm`: https://github.com/nvm-sh/nvm
+4. Use node version 11.15.0: `nvm install 11` followed by `nvm use 11`
 5. Go to client: `cd opensupports/client`
 6. Install dependencies: `npm install`
 7. Rebuild node-sass: `npm rebuild node-sass`
 8. Run: `npm start` (PHP server api it must be running at :8080)
-10. Go to the main app: `http://localhost:3000/app` or to the component demo `http://localhost:3000/demo`
+10. Go to the main app: `http://localhost:3000/app`
 11. Your browser will automatically be opened and directed to the browser-sync proxy address.
 12. Use `npm start-fixtures` to enable fixtures and not require php server to be running.
 
