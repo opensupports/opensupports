@@ -60,14 +60,14 @@ class TicketList extends React.Component {
                 <div className="ticket-list__filters">
                    <div className="ticket-list__main-filters">
                         {(type === 'primary') ? this.renderMessage() : null}
-                            {
-                                ((type === 'secondary') && showDepartmentDropdown) ?
-                                    this.renderDepartmentsDropDown() :
-                                    null
-                            }
+                        {
+                            ((type === 'secondary') && showDepartmentDropdown) ?
+                                this.renderDepartmentsDropDown() :
+                                null
+                        }
                         {onClosedTicketsShownChange ? this.renderFilterCheckbox() : null}
                    </div>
-                    {
+                   {
                         showPageSizeDropdown ?
                             <PageSizeDropdown className="ticket-list__page-dropdown" pages={pages} onChange={(event) => this.pageSizeChange(event)} /> : 
                             null

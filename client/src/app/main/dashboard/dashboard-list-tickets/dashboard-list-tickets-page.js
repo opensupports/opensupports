@@ -56,6 +56,7 @@ class DashboardListTicketsPage extends React.Component {
                     page={page}
                     pages={pages}
                     tickets={tickets}
+                    showPageSizeDropdown={false}
                     type={userUsers.length ? "secondary" : "primary"} />
                 {
                     message ?
