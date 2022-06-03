@@ -52,10 +52,13 @@ class CSVImportController extends Controller {
             throw new RequestException(ERRORS::INVALID_FILE);
         }
 
-        $file = fopen($fileUploader->getFullFilePath(),'r');
+        $fileDownloader = FileDownloader::getInstance();
+        $fileDownloader->setFileName($fileUploader->getFileName());
+        $file = $fileDownloader->fopen();
+
         $errors = [];
 
-        while(($user = fgetcsv($file)) != false) {
+        while($file && ($user = fgetcsv($file)) != false) {
             Controller::setDataRequester(function ($key) use ($user) {
                 switch ($key) {
                     case 'email':

@@ -23,6 +23,16 @@ class FileDownloader extends FileManager {
         }
     }
 
+    public function fopen() {
+        $fullFilePath = $this->getFullFilePath();
+
+        if(file_exists($fullFilePath) && is_file($fullFilePath)) {
+            return fopen($fullFilePath, 'r');
+        } else {
+            return false;
+        }
+    }
+
     public function eraseFile() {
         unlink($this->getLocalPath() . $this->getFileName());
     }
