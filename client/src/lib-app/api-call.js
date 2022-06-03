@@ -28,7 +28,6 @@ function processData(data, dataAsForm = false) {
     return newData;
 }
 
-
 const randomString = (length) => {
     var result = "";
     var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -38,6 +37,7 @@ const randomString = (length) => {
     }
     return result;
 };
+
 export default {
     call: function ({ path, data, plain, dataAsForm }) {
         const callId = randomString(3);
@@ -57,7 +57,7 @@ export default {
                         resolve(result);
                     } else if (reject) {
                         if (status === "fail" && message === "NO_PERMISSION") {
-                            expiredSessionUtils.checkSessionOrLogOut();
+                            expiredSessionUtils.checkSessionOrLogOut(processData({}));
                         }
                         reject(result);
                     }
