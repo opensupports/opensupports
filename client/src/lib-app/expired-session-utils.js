@@ -1,3 +1,4 @@
+import React from 'react';
 const _ = require("lodash");
 const APIUtils = require("lib-core/APIUtils").default;
 import SessionActions from "../actions/session-actions";
