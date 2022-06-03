@@ -29,7 +29,7 @@ function onSessionExpired(result) {
 
 export default {
     checkSessionOrLogOut(credentialsData) {
-        APIUtils.post(apiRoot + "/user/check-session", credentialsData, {})
+        APIUtils.post(apiRoot + "/user/check-session", credentialsData, false)
             .then(onSessionExpired)
             .catch((err) =>
                 console.error("An error ocurred when checking session: ", err)
