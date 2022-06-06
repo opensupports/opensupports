@@ -2,10 +2,24 @@
 
 ![OpenSupports](https://user-images.githubusercontent.com/25920622/172173126-f0a07319-0cc2-409b-aa22-120187fa4541.png)
 
-OpenSupports is a simple and beautiful open source ticket system
+OpenSupports is a simple and beautiful open source ticket system.
+
+<a href="https://www.opensupports.com/"><strong>Learn more »</strong></a>
+
 Please, visit our website for more information: [http://www.opensupports.com/](http://www.opensupports.com/)
 
+<p align="center">
+  <a href="#key-features">Key Features</a> •
+  <a href="#how-to-use">How To Use</a> •
+  <a href="#download">Download</a> •
+  <a href="#credits">Credits</a> •
+  <a href="#related">Related</a> •
+  <a href="#license">License</a>
+</p>
+
 </div>
+
+---
 
 ## Requirements
 * PHP 5.6+
