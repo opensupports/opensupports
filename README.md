@@ -6,7 +6,7 @@ OpenSupports is a simple and beautiful open source ticket system.
 
 <a href="https://www.opensupports.com/"><strong>Learn more »</strong></a>
 
-Please, visit our website for more information: [http://www.opensupports.com/](http://www.opensupports.com/)
+<br />
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
