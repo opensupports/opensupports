@@ -41,6 +41,10 @@ OpenSupports is growing and steadily incorporating new features. You might want 
 
 ## 💪🏼 Features
 
+Check out our [most important features](https://opensupports.com/features) at our website!
+
+Are we missing something? [Suggest an improvement](https://github.com/opensupports/opensupports/issues/new)!
+
 ## 🛠 Install
 
 OpenSupports can be hosted on your own servers, or [hosted by us](https://www.opensupports.com/pricing/).
@@ -53,6 +57,8 @@ Check out our [installation guide](https://docs.opensupports.com/guides/installa
 
 ## Development
 
-You can help us build OpenSupports' features.
+Are you a programmer? You can help us build OpenSupports' features!
 
 Check out our [development guide](./DEVELOPMENT.md) to get your development environment up and running.
+
+And even if you are not a programmer, you can help us by [reporting problems or suggesting improvements](https://github.com/opensupports/opensupports/issues/new), we love feedback and learn a lot from it!

@@ -78,4 +78,3 @@ If you're doing development, you can use a FakeSMTP server to see the mails that
 4. Set the port to 7070 and start the SMTP server.
 
 5. Every time the application sends an email, it will be reflected there.
-![2022-06-08_10-32_demo_staff](https://user-images.githubusercontent.com/25920622/172867706-3669c7db-ef86-48df-92a9-8c2bfb19f622.gif)
