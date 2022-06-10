@@ -54,7 +54,7 @@ Check out our [installation guide](https://docs.opensupports.com/guides/installa
 
 ## 👨🏼‍💻 Development
 
-Are you a programmer? You can help us build OpenSupports' features!
+Are you a programmer? You can help us to fix bugs and build OpenSupports' features!
 
 Check out our [development guide](./DEVELOPMENT.md) to get your development environment up and running.
 
