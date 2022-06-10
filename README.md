@@ -6,8 +6,9 @@ OpenSupports is a simple and beautiful open source ticket system. <br />
 <a href="https://www.opensupports.com/"><strong>Learn more »</strong></a>
 <br />
 <p align="center">
+  <a href="#about-the-project">About the Project</a> •
+  <a href="#how-to-use">How to Use</a> •
   <a href="#key-features">Key Features</a> •
-  <a href="#how-to-use">How To Use</a> •
   <a href="#download">Download</a> •
   <a href="#credits">Credits</a> •
   <a href="#related">Related</a> •
@@ -16,7 +17,21 @@ OpenSupports is a simple and beautiful open source ticket system. <br />
 
 </div>
 
----
+## 🌱 About the Project
+
+### What Customers See
+
+![2022-06-08_10-32_demo](https://user-images.githubusercontent.com/25920622/172630004-988c914b-918e-455c-be48-11f96a00611e.gif)
+
+### What Staff Members See
+
+![2022-06-08_10-32_demo_staff](https://user-images.githubusercontent.com/25920622/172867706-3669c7db-ef86-48df-92a9-8c2bfb19f622.gif)
+
+## 🙌🏼 Ticket System for Absolutely Everyone
+
+OpenSupports is a simple and beautiful open source ticket system.
+
+
 
 ## Requirements
 * PHP 5.6+
@@ -97,3 +112,4 @@ If you're doing development, you can use a FakeSMTP server to see the mails that
 4. Set the port to 7070 and start the SMTP server.
 
 5. Every time the application sends an email, it will be reflected there.
+![2022-06-08_10-32_demo_staff](https://user-images.githubusercontent.com/25920622/172867706-3669c7db-ef86-48df-92a9-8c2bfb19f622.gif)
