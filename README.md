@@ -6,13 +6,10 @@ OpenSupports is a simple and beautiful open source ticket system. <br />
 <a href="https://www.opensupports.com/"><strong>Learn more »</strong></a>
 <br />
 <p align="center">
-  <a href="#about-the-project">About the Project</a> |
-  <a href="#how-to-use">How to Use</a> |
-  <a href="#key-features">Key Features</a> |
-  <a href="#download">Download</a> |
-  <a href="#credits">Credits</a> |
-  <a href="#related">Related</a> |
-  <a href="#license">License</a>
+  <a href="https://www.opensupports.com/">Website</a> |
+  <a href="https://docs.opensupports.com/">Docs</a> |
+  <a href="https://opensupports.com/demo/">Demo</a> |
+  <a href="https://www.opensupports.com/pricing/">Official Subscription</a>
 </p>
 
 </div>
@@ -55,7 +52,7 @@ But in the case you prefer your development team to deal with the installation, 
 
 Check out our [installation guide](https://docs.opensupports.com/guides/installation/).
 
-## Development
+## 👨🏼‍💻 Development
 
 Are you a programmer? You can help us build OpenSupports' features!
 
