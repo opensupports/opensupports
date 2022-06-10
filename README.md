@@ -39,6 +39,20 @@ Self-hosted, or [hosted by us](https://www.opensupports.com/pricing/), API-drive
 
 OpenSupports is growing and steadily incorporating new features. You might want to **add a star to the project** (or watch updates) to be notified about new releases.
 
+## 💪🏼 Features
+
+## 🛠 Install
+
+OpenSupports can be hosted on your own servers, or [hosted by us](https://www.opensupports.com/pricing/).
+
+There are multiple benefits to having the system hosted by its creators, including official support into any problem you might encounter.
+
+But in the case you prefer your development team to deal with the installation, maintenance (upgrades, backups, etc.), and integrations, we charge you nothing for it, OpenSupports is **free and open-soruce**!
+
+Check out our 🔗[installation guide](https://docs.opensupports.com/guides/installation/).
+
+## Development
+
 ## Requirements
 * PHP 5.6+
 * MySQL 4.1+
