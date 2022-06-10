@@ -6,12 +6,12 @@ OpenSupports is a simple and beautiful open source ticket system. <br />
 <a href="https://www.opensupports.com/"><strong>Learn more »</strong></a>
 <br />
 <p align="center">
-  <a href="#about-the-project">About the Project</a> •
-  <a href="#how-to-use">How to Use</a> •
-  <a href="#key-features">Key Features</a> •
-  <a href="#download">Download</a> •
-  <a href="#credits">Credits</a> •
-  <a href="#related">Related</a> •
+  <a href="#about-the-project">About the Project</a> |
+  <a href="#how-to-use">How to Use</a> |
+  <a href="#key-features">Key Features</a> |
+  <a href="#download">Download</a> |
+  <a href="#credits">Credits</a> |
+  <a href="#related">Related</a> |
   <a href="#license">License</a>
 </p>
 
@@ -31,7 +31,13 @@ OpenSupports is a simple and beautiful open source ticket system. <br />
 
 OpenSupports is a simple and beautiful open source ticket system.
 
+It is a web application that provides you with a better management of your users’ queries. They send you tickets through OpenSupports and you can handle them appropriately.
 
+Self-hosted, or [hosted by us](https://www.opensupports.com/pricing/), API-driven, and ready to be deployed on your own domain.
+
+## 🧐 Stay Up-to-Date
+
+OpenSupports is growing and steadily incorporating new features. You might want to **add a star to the project** (or watch updates) to be notified about new releases.
 
 ## Requirements
 * PHP 5.6+
