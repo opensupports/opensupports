@@ -992,6 +992,72 @@ class MailTexts {
               'Możesz uzyskać dostęp do zgłoszenia po jego numerze.',
           ],
         ],
-    ];
+        'cz' => [
+            'USER_SIGNUP' => [
+                'Registrace {{to}} - OpenSupports',
+                'Ověřte svůj účet',
+                'Vítáme Vás v našem centru podpory, {{name}}!. Žádáme Vás o ověření e-mailové adresy, abyste se mohli přihlásit ke svému účtu.',
+                'Použijte tento kód na {{url}}/verify-token/{{to}}/{{verificationToken}} nebo klikněte na tlačítko níže.',
+            ],
+            'USER_PASSWORD' => [
+                'Změna hesla - OpenSupports',
+                'Heslo bylo změněno',
+                'Dobrý den, {{name}}. Rádi bychom Vás informovali, že proběhla změna hesla prostřednictvím zákaznického panelu.'
+            ],
+            'USER_EMAIL' => [
+                'Změna e-mailu - OpenSupports',
+                'E-mail byl změněn',
+                'Dobrý den, {{name}}. Rádi bychom Vás informovali, že Vaše e-mailová adresa byla změněna na {{newemail}} prostřednictvím zákaznického panelu.'
+            ],
+            'PASSWORD_FORGOT' => [
+                'Obnovení hesla - OpenSupports',
+                'Obnovte své heslo',
+                'Dobrý den, {{name}}. Požádali jste o změnu Vašeho hesla.',
+                'Použijte tento kód na {{url}}/recover-password?email={{to}}&token={{token}} nebo klikněte na tlačítko níže.',
+            ],
+            'USER_INVITE' => [
+                'Pozvánka - OpenSupports',
+                'Byli jste pozváni',
+                'Dobrý den, {{name}}. Byli jste pozváni do našeho centra podpory.',
+                'Použijte tento kód na {{url}}/recover-password?email={{to}}&token={{token}}&invited=true nebo klikněte na tlačítko níže, abyste si nastavili vlastní heslo.'
+            ],
+            'USER_SYSTEM_DISABLED' => [
+                'Změna přístupového systému - OpenSupports',
+                'Přístupový systém byl změněn',
+                'Dobrý den, {{name}}. Systém přístupu k požadavkům se změnil.',
+                'Ke svým požadavkům můžete nyní přistoupit pomocí e-mailové adresy a čísla požadavku. Klikněte na tlačítko níže pro přístup k Vašim požadavkům.',
+            ],
+            'USER_SYSTEM_ENABLED' => [
+                'Vytvoření účtu - OpenSupports',
+                'Účet byl vytvořen',
+                'Dobrý den, {{name}}. Vytvořili jsme Vám účet, pomocí kterého můžete spravovat požadavky, které jste vytvořili.',
+                'Ke svému účtu se můžete přihlásit pomocí e-mailové adresy <i>({{to}})</i> a níže uvedeného hesla. Prosíme, po nastavení si ihned změňte heslo na své vlastní.',
+            ],
+            'TICKET_CREATED' => [
+                '#{{ticketNumber}} Vytvoření požadavku - OpenSupports',
+                'Váš požadavek jsme přijali',
+                'Dobrý den, {{name}}. Vytvořili jste požadavek s názvem <i>{{title}}</i> v našem centru podpory.',
+                'Ke svému požadavku můžete přistupovat pomocí jeho čísla, nebo klikněte na tlačítko níže.',
+            ],
+            'TICKET_RESPONDED' => [
+                '#{{ticketNumber}} Nová odpověď - OpenSupports',
+                'Odpověď na Váš požadavek',
+                'Dobrý den, {{name}}. Ke svému požadavku s názvem <i>{{title}}</i> jste obdrželi odpověď.',
+                'Klikněte prosím na tlačítko níže pro zobrazení požadavku.'
+            ],
+            'TICKET_CLOSED' => [
+               '#{{ticketNumber}} Požadavek uzavřen - OpenSupports',
+                'Váš požadavek byl uzavřen',
+                'Dobrý den, {{name}}. Váš požadavek s názvem <i>{{title}}</i> byl uzavřen.',
+                'K požadavku můžete přistupovat pomocí jeho čísla. Nebo můžete kliknout na tlačítko níže.'
+            ],
+            'TICKET_CREATED_STAFF' => [
+                '#{{ticketNumber}} Nový požadavek - OpenSupports',
+                'Nový požadavek vytvořen',
+                'Uživatel {{name}} vytvořil požadavek s názvem <i>{{title}}</i>.',
+                'K požadavku můžete přistupovat pomocí jeho čísla.',
+            ],
+          ],
+      ];
   }
 }
