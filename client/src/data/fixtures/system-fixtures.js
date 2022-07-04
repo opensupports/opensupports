@@ -26,8 +26,8 @@ module.exports = [
                             {id: 2, name: 'Technical Issues', owners: 5},
                             {id: 3, name: 'System and Administration', owners: 0}
                         ],
-                        'allowedLanguages': ['en', 'es', 'de', 'fr', 'pt', 'jp', 'ru', 'cn', 'in', 'tr'],
-                        'supportedLanguages': ['en', 'es', 'de'],
+                        'allowedLanguages': ['en', 'es', 'de', 'fr', 'id', 'pt', 'jp', 'ru', 'cn', 'in', 'tr'],
+                        'supportedLanguages': ['en', 'es', 'de', 'id'],
                         'registration': true,
                         'mandatory-login': true,
                         'tags': [{id:1,name:'bug', color:'#eb144c'},{id: 2,name:'suggestion',color:'#ff6900'}]
@@ -48,8 +48,8 @@ module.exports = [
                             {id: 2, name: 'Technical Issues', owners: 5},
                             {id: 3, name: 'System and Administration', owners: 0}
                         ],
-                        'allowedLanguages': ['en', 'es', 'de', 'fr', 'pt', 'jp', 'ru', 'cn', 'in', 'tr'],
-                        'supportedLanguages': ['en', 'es', 'de'],
+                        'allowedLanguages': ['en', 'es', 'de', 'fr', 'id', 'pt', 'jp', 'ru', 'cn', 'in', 'tr'],
+                        'supportedLanguages': ['en', 'es', 'de', 'id'],
                         'registration': true,
                         'mandatory-login': true,
                         'tags': [{id:1,name:'bug', color:'#eb144c'},{id: 2,name:'suggestion',color:'#ff6900'}]
