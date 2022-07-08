@@ -76,7 +76,7 @@
     "localStorage": "^1.0.3",
     "lodash": "^4.17.21",
     "messageformat": "^0.2.2",
-    "moment": "^2.27.0",
+    "moment": "^2.29.4",
     "qs": "^6.5.2",
     "query-string": "^6.12.1",
     "quill-image-resize-module-react": "^3.0.0",
