@@ -379,7 +379,7 @@ export default {
     'EMAIL_OR_PASSWORD': '電子メールまたはパスワードが無効です',
     'EMAIL_NOT_EXIST': 'メールは存在しません',
     'ERROR_EMPTY': '無効な値',
-    'ERROR_PASSWORD': '無効なパスワード',
+    'INVALID_PASSWORD': '無効なパスワード',
     'INVITE_USER_VIEW_DESCRIPTION': 'ここでは、私たちのサポートシステムに参加するユーザーを招待することができ、彼はちょうど新しいユーザーを作成するには、自分のパスワードを提供する必要があります。',
     'ERROR_NAME': '名前が無効です',
     'INVITE_STAFF_DESCRIPTION': 'ここでは、あなたのチームにスタッフのメンバーを招待することができます。',

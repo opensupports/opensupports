@@ -378,7 +378,7 @@ export default {
     'EMAIL_OR_PASSWORD': 'E-Mail-Adresse oder Passwort ungültig!',
     'EMAIL_NOT_EXIST': 'E-Mail-Adresse existiert nicht!',
     'ERROR_EMPTY': 'Ungültiger Wert!',
-    'ERROR_PASSWORD': 'Ungültiges Passwort!',
+    'INVALID_PASSWORD': 'Ungültiges Passwort!',
     'INVITE_USER_VIEW_DESCRIPTION': 'Hier können Sie einen Benutzer einladen, unser Support-System zu verbinden, wird er braucht nur sein Passwort, um einen neuen Benutzer zu erstellen.',
     'ERROR_NAME': 'Ungültiger Name!',
     'INVITE_STAFF_DESCRIPTION': 'Hier können Sie Mitarbeiter auf Ihre Teams einladen.',

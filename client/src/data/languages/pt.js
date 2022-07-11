@@ -379,7 +379,7 @@ export default {
     'EMAIL_OR_PASSWORD': 'E-mail ou senha inválidos',
     'EMAIL_NOT_EXIST': 'Email não existe',
     'ERROR_EMPTY': 'Valor inválido',
-    'ERROR_PASSWORD': 'Senha inválida',
+    'INVALID_PASSWORD': 'Senha inválida',
     'INVITE_USER_VIEW_DESCRIPTION': 'Aqui você pode convidar um usuário para se juntar nosso sistema de suporte, ele só precisará fornecer sua senha para criar um novo usuário.',
     'ERROR_NAME': 'Nome inválido',
     'INVITE_STAFF_DESCRIPTION': 'Aqui você pode convidar membros do pessoal para suas equipes.',

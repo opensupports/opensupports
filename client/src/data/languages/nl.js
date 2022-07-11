@@ -379,7 +379,7 @@ export default {
     'EMAIL_OR_PASSWORD': 'E-mailadres of wachtwoord ongeldig',
     'EMAIL_NOT_EXIST': 'E-mailadres bestaat niet',
     'ERROR_EMPTY': 'Ongeldige waarde',
-    'ERROR_PASSWORD': 'Ongeldig wachtwoord',
+    'INVALID_PASSWORD': 'Ongeldig wachtwoord',
     'INVITE_USER_VIEW_DESCRIPTION': 'Hier kunt u een gebruiker uit te nodigen ons support systeem uit te nodigen, zal hij hoeft alleen maar te zijn wachtwoord om een ​​nieuwe gebruiker aan te maken bieden.',
     'ERROR_NAME': 'Ongeldige naam',
     'INVITE_STAFF_DESCRIPTION': 'Hier kunt u medewerkers uitnodigen om uw teams.',

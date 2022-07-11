@@ -379,7 +379,7 @@ export default {
     'EMAIL_OR_PASSWORD': 'E-posta veya şifre geçersiz',
     'EMAIL_NOT_EXIST': 'E-posta mevcut değil',
     'ERROR_EMPTY': 'geçersiz değer',
-    'ERROR_PASSWORD': 'Geçersiz şifre',
+    'INVALID_PASSWORD': 'Geçersiz şifre',
     'INVITE_USER_VIEW_DESCRIPTION': 'Burada bizim destek sistemi katılmak için bir kullanıcıyı davet edebilirsiniz, o sadece yeni bir kullanıcı oluşturmak için onun şifrelerini vermesi gerekecektir.',
     'ERROR_NAME': 'Geçersiz isim',
     'INVITE_STAFF_DESCRIPTION': 'Burada takımlarına personeli davet edebilir.',
