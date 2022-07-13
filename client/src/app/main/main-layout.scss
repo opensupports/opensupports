@@ -1,6 +1,5 @@
 @import "../../scss/vars";
 
-
 .main-layout {
     margin: 0 auto;
     background-color: $grey;
@@ -27,5 +26,11 @@
         @media screen and (max-width: 333px) {
             padding: 20px 0;
         }
+    }
+
+    &-footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
     }
 }
