@@ -113,6 +113,7 @@ CREATE TABLE `customfieldvalue` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `value` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` int(11) unsigned DEFAULT NULL,
+  `staff_id` int(11) unsigned DEFAULT NULL,
   `customfield_id` int(11) unsigned DEFAULT NULL,
   `customfieldoption_id` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -154,6 +155,25 @@ CREATE TABLE `department` (
   `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `private` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `department_user`
+--
+
+DROP TABLE IF EXISTS `department_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `department_user` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `department_id` int(11) unsigned DEFAULT NULL,
+  `user_id` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_foreignkey_department_staff_department` (`department_id`),
+  KEY `index_foreignkey_department_staff_staff` (`user_id`),
+  CONSTRAINT `c_fk_department_user_department_id` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `c_fk_department_user_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
