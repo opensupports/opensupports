@@ -582,23 +582,26 @@ class TicketViewer extends React.Component {
     }
 
     assingTo(index) {
-        const id = this.getStaffAssignmentItems()[index].id;
-        const {ticketNumber, owner} = this.props.ticket;
+        const {ticketNumber} = this.props.ticket;
+        const owner = this.props.ticket.owner ?? {};
+        const id = this.getStaffAssignmentItems()[index].id ?? 0;
 
         let APICallPromise = new Promise(resolve => resolve());
 
-        if(owner) {
-            APICallPromise = APICallPromise.then(() => API.call({
-                path: '/staff/un-assign-ticket',
-                data: { ticketNumber }
-            }));
-        }
+        if(owner.id != id){
+            if(_.size(owner)) {
+                APICallPromise = APICallPromise.then(() => API.call({
+                    path: '/staff/un-assign-ticket',
+                    data: { ticketNumber }
+                }));
+            }
 
-        if(id !== 0) {
-            APICallPromise = APICallPromise.then(() => API.call({
-                path: '/staff/assign-ticket',
-                data: { ticketNumber, staffId: id }
-            }));
+            if(id !== 0) {
+                APICallPromise = APICallPromise.then(() => API.call({
+                    path: '/staff/assign-ticket',
+                    data: { ticketNumber, staffId: id }
+                }));
+            }
         }
 
         this.setState({
