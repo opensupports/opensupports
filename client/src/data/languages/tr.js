@@ -1,6 +1,6 @@
 export default {
     'WELCOME': 'Hoşgeldiniz',
-    'TICKETS': 'Biletler',
+    'TICKETS': 'Diyetler',
     'ARTICLES': 'Makaleler',
     'ACCOUNT': 'Hesap',
     'SUBMIT': 'Gönder',
