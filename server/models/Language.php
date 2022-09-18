@@ -5,6 +5,7 @@ class Language extends DataStore {
     const TABLE = 'language';
     const LANGUAGES = [
         'en',
+        'ar',
         'es',
         'de',
         'fr',
