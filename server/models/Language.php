@@ -18,6 +18,7 @@ class Language extends DataStore {
         'br',
         'gr', 
         'nl',
+        'da',
         'pl'
     ];
 
