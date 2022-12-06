@@ -77,7 +77,7 @@
     "lodash": "^4.17.21",
     "messageformat": "^0.2.2",
     "moment": "^2.27.0",
-    "qs": "^6.5.2",
+    "qs": "^6.9.7",
     "query-string": "^6.12.1",
     "quill-image-resize-module-react": "^3.0.0",
     "quill-magic-url": "^4.1.3",
