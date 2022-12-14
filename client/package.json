@@ -38,7 +38,7 @@
     "del": "^1.2.0",
     "eslint": "^5.16.0",
     "eslint-loader": "^2.1.2",
-    "express": "^4.13.1",
+    "express": "^4.17.3",
     "express-http-proxy": "^0.6.0",
     "file-loader": "^4.0.0",
     "html-webpack-plugin": "^3.2.0",
