@@ -25,6 +25,7 @@ $userControllers->addController(new EditCustomFieldsController);
 $userControllers->addController(new EditSupervisedListController);
 $userControllers->addController(new GetSupervisedTicketController);
 $userControllers->addController(new ResendEmailTokenController);
+$userControllers->addController(new GetLoginLinkController);
 
 $userControllers->addController(new ResendInviteUserController);
 
