@@ -383,7 +383,7 @@ export default {
     'ERROR_NAME': 'Ungültiger Name!',
     'INVITE_STAFF_DESCRIPTION': 'Hier können Sie Mitarbeiter auf Ihre Teams einladen.',
     'ERROR_TITLE': 'Ungültiger Titel!',
-    'ERROR_EMAIL': 'Ungültige E-Mail-Adrese!',
+    'ERROR_EMAIL': 'Ungültige E-Mail-Adresse!',
     'ERROR_CONTENT_SHORT': 'Inhalt zu kurz!',
     'PASSWORD_NOT_MATCH': 'Passwörter stimmen nicht überein!',
     'INVALID_RECOVER': 'Ungültige Wiederherstellungsdaten!',
