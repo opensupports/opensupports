@@ -8,7 +8,7 @@ RUN apt install build-essential openssl curl git-core zlib1g zlib1g-dev libssl-d
 RUN apt install mysql-client --yes
 RUN apt install ruby-full --yes
 RUN apt install libmysqlclient-dev ruby-dev --yes
-RUN gem install bundler
+RUN gem install bundler -v 2.3.26
 
 COPY Gemfile /app
 RUN bundle install

@@ -19,7 +19,7 @@ before_install:
 - cd client
 - npm install
 - cd ../tests
-- gem install bundler
+- gem install bundler -v 2.3.26
 - bundle install
 - gem install bacon
 - cd ../server
