@@ -1,10 +1,10 @@
 <div align="center">
-
 ![OpenSupports](https://user-images.githubusercontent.com/25920622/172173126-f0a07319-0cc2-409b-aa22-120187fa4541.png)
 
 OpenSupports is a simple and beautiful open source ticket system. <br />
 <a href="https://www.opensupports.com/"><strong>Learn more »</strong></a>
 <br />
+
 <p align="center">
   <a href="https://www.opensupports.com/">Website</a> •
   <a href="https://docs.opensupports.com/">Docs</a> •
