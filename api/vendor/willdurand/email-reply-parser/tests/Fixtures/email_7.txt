@@ -1,0 +1,41 @@
+Fusce bibendum, quam hendrerit sagittis tempor, dui turpis tempus erat, pharetra sodales ante sem sit amet metus.
+Nulla malesuada, orci non vulputate lobortis, massa felis pharetra ex, convallis consectetur ex libero eget ante.
+Nam vel turpis posuere, rhoncus ligula in, venenatis orci. Duis interdum venenatis ex a rutrum.
+Duis ut libero eu lectus consequat consequat ut vel lorem. Vestibulum convallis lectus urna,
+et mollis ligula rutrum quis. Fusce sed odio id arcu varius aliquet nec nec nibh.
+
+Il giovedì 8 dicembre 2016, Company Questions <questions@mycompany.com>
+ha scritto:
+> Ciao Lorem
+>
+> Dino ha risposto alla tua domanda:
+>
+> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra d
+ignissim odio?
+>
+>
+> Vestibulum nec dui luctus, rhoncus tortor in
+>
+>
+> "Lorem
+>
+> Maecenas tempor libero nec orci scelerisque porta a quis orci.
+rhoncus tortor in.
+>
+
+-- 
+
+____________________________________________________________________
+
+Le informazioni contenute in questo messaggio e negli allegati sono
+riservate e per uso esclusivo del destinatario.
+
+Persone diverse dal destinatario non possono copiare o consegnare il
+messaggio a terzi, né trattare i dati qui contenuti.
+
+Se ricevete questo messaggio per errore, Vi preghiamo di restituircelo
+immediatamente e di cancellarlo. Grazie.
+
+MyCompany - 123456 ROMA
+tel 0123-456789 fax 0123-456789 e-mail info@client.it
+_____________________________________________________________________

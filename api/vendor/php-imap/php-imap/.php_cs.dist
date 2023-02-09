@@ -1,0 +1,28 @@
+<?php
+
+return PhpCsFixer\Config::create()
+    ->setRules([
+        '@Symfony' => true,
+        '@Symfony:risky' => true,
+        'array_syntax' => [
+            'syntax' => 'short'
+        ],
+        'ordered_imports' => true,
+        'phpdoc_to_comment' => false,
+        'no_superfluous_phpdoc_tags' => true,
+        'ordered_class_elements' => true,
+        'global_namespace_import' => [
+            'import_classes' => true,
+            'import_constants' => true,
+            'import_functions' => false,
+        ],
+        'native_function_invocation' => true,
+    ])
+    ->setRiskyAllowed(true)
+    ->setFinder(
+        PhpCsFixer\Finder::create()
+            ->in(__DIR__.'/src')
+            ->in(__DIR__.'/tests')
+            ->in(__DIR__.'/examples')
+    )
+;

@@ -1,0 +1,4 @@
+
+[FROM]
+
+My email is <foo@example.com>

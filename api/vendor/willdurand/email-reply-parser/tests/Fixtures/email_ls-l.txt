@@ -1,0 +1,35 @@
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+here's some funny one
+
+
+$ LC_ALL=C ls -l /tmp|grep sess|head
+-rw------- 1 http   http       62 Feb 15 12:45 
+sess_07ncrlhq50obbd5kp1vp02lp97
+-rw------- 1 http   http        0 Feb 15 10:18 
+sess_0g01akj9ccmq6r001p2klb55s0
+-rw------- 1 http   http        0 Feb 14 23:26 
+sess_0gcjo35c35f330p4qm31c1ovv1
+-rw------- 1 http   http     4410 Feb 15 12:32 
+sess_0i16be4lk5derhdfeas2uomnf4
+-rw------- 1 http   http      172 Feb 15 11:59 
+sess_0jv5f5i6eu7qfp41mc6hkfjpq3
+-rw------- 1 http   http        0 Feb 15 10:12 
+sess_0njep2fkt6v5j45t5r0hcfup77
+-rw------- 1 http   http        0 Feb 15 09:57 
+sess_1j44bltbjpkej984sfor5461u3
+-rw------- 1 http   http        0 Feb 14 23:37 
+sess_1r9r8a6kaqscq46psrcf1ssm24
+-rw------- 1 http   http        0 Feb 15 10:17 
+sess_25cvldfhk0nann15asctkrg3b2
+-rw------- 1 http   http       59 Feb 14 23:43 
+sess_25tni1suqgasqk8osnmk098sc6
+
+
+
+-- 
+glen
+
+

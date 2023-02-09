@@ -1,0 +1,22 @@
+{
+  "name": "gabordemooij/redbean",
+  "description": "RedBeanPHP ORM",
+  "keywords": ["orm"],
+  "homepage": "https://redbeanphp.com/",
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Gabor de Mooij",
+      "email": "gabor@redbeanphp.com",
+      "homepage": "https://redbeanphp.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "RedBeanPHP\\" : "RedBeanPHP"
+    }
+  }
+}
