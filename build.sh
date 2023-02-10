@@ -24,7 +24,7 @@ mv server/files api
 cp server/config.php api
 chmod -R 755 .
 cp client/src/index.php client/build
-echo "3/3 Generating zip..."
+echo "3/3 Generating build..."
 cd client/build
 zip opensupports_dev.zip index.php
 zip -u opensupports_dev.zip .htaccess
@@ -34,4 +34,5 @@ mv opensupports_dev.zip ../..
 cd ../..
 zip -ur opensupports_dev.zip api
 mkdir dist
-mv opensupports_dev.zip dist
+unzip -o opensupports_dev.zip -d dist
+rm -rf opensupports_dev.zip
