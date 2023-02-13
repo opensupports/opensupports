@@ -1,0 +1,123 @@
+<?php
+
+namespace RedUNIT\Blackhole;
+
+use RedUNIT\Blackhole as Blackhole;
+use RedBeanPHP\Facade as R;
+use RedBeanPHP\OODBBean as OODBBean;
+
+/**
+ * Meta
+ *
+ * Beans can have meta data. Meta data will not be stored
+ * in the database and cannot be loaded from the database
+ * (except for using special meta masks - this feature is available
+ * in 4.3.2+). This test suite tests whether we can set and get
+ * meta data from beans and verifies meta data does not end up
+ * in the database.
+ *
+ * @file    RedUNIT/Blackhole/Meta.php
+ * @desc    Tests meta data features on OODBBean class.
+ * @author  Gabor de Mooij and the RedBeanPHP Community
+ * @license New BSD/GPLv2
+ *
+ * (c) G.J.G.T. (Gabor) de Mooij and the RedBeanPHP Community.
+ * This source file is subject to the New BSD/GPLv2 License that is bundled
+ * with this source code in the file license.txt.
+ */
+class Meta extends Blackhole
+{
+	/**
+	 * Test meta data methods.
+	 *
+	 * @return void
+	 */
+	public function testMetaData()
+	{
+		testpack( 'Test meta data' );
+		$bean = new OODBBean;
+		$bean->setMeta( "this.is.a.custom.metaproperty", "yes" );
+		asrt( $bean->getMeta( "this.is.a.custom.metaproperty" ), "yes" );
+		asrt( $bean->getMeta( "nonexistant" ), NULL );
+		asrt( $bean->getMeta( "nonexistant", "abc" ), "abc" );
+		asrt( $bean->getMeta( "nonexistant.nested" ), NULL );
+		asrt( $bean->getMeta( "nonexistant,nested", "abc" ), "abc" );
+		$bean->setMeta( "test.two", "second" );
+		asrt( $bean->getMeta( "test.two" ), "second" );
+		$bean->setMeta( "another.little.property", "yes" );
+		asrt( $bean->getMeta( "another.little.property" ), "yes" );
+		asrt( $bean->getMeta( "test.two" ), "second" );
+		// Copy Metadata
+		$bean = new OODBBean;
+		$bean->setMeta( "meta.meta", "123" );
+		$bean2 = new OODBBean;
+		asrt( $bean2->getMeta( "meta.meta" ), NULL );
+		$bean2->copyMetaFrom( $bean );
+		asrt( $bean2->getMeta( "meta.meta" ), "123" );
+	}
+
+	/**
+	 * Meta properties should not be saved.
+	 *
+	 * @return void
+	 */
+	public function testMetaPersist()
+	{
+		$bean = R::dispense( 'bean' );
+		$bean->property = 'test';
+		$bean->setMeta( 'meta', 'hello' );
+		R::store( $bean );
+		asrt( $bean->getMeta( 'meta' ), 'hello' );
+		$bean = $bean->fresh();
+		asrt( $bean->getMeta( 'meta' ), NULL );
+	}
+
+	/**
+	 * You cant access meta data using the array accessors.
+	 *
+	 * @return void
+	 */
+	public function testNoArrayMetaAccess()
+	{
+		$bean = R::dispense( 'bean' );
+		$bean->setMeta( 'greet', 'hello' );
+		asrt( isset( $bean['greet'] ), FALSE );
+		asrt( isset( $bean['__info']['greet'] ), FALSE );
+		asrt( isset( $bean['__info'] ), FALSE );
+		asrt( isset( $bean['meta'] ), FALSE );
+		asrt( count( $bean ), 1 );
+	}
+
+	/**
+	 * Test meta masks.
+	 *
+	 * @return void
+	 */
+	public function testMetaMask()
+	{
+		$rows = array(
+			array('id'=>1, 'name'=>'a', '__meta_rows'=>2, '__meta_columns'=>4),
+			array('id'=>2, 'name'=>'b', '__meta_rows'=>2, '__meta_columns'=>4)
+		);
+		$books = R::convertToBeans( 'book', $rows, '__meta' );
+		$book = reset($books);
+		$data = $book->getMeta('data.bundle');
+		asrt( $data['__meta_rows'], 2 );
+		asrt( $data['__meta_columns'], 4 );
+		$books = R::convertToBeans( 'book', $rows, array( '__meta_rows', '__meta_columns' ) );
+		$book = reset($books);
+		$data = $book->getMeta('data.bundle');
+		asrt( $data['__meta_rows'], 2 );
+		asrt( $data['__meta_columns'], 4 );
+		$books = R::convertToBeans( 'book', $rows, array( '__meta_rows' ) );
+		$book = reset($books);
+		$data = $book->getMeta('data.bundle');
+		asrt( $data['__meta_rows'], 2 );
+		asrt( isset($data['__meta_columns']), FALSE );
+		$books = R::convertToBeans( 'book', $rows, array( '__meta_rows', TRUE ) );
+		$book = reset($books);
+		$data = $book->getMeta('data.bundle');
+		asrt( isset($data['__meta_rows']), FALSE );
+		asrt( isset($data['__meta_columns']), FALSE );
+	}
+}

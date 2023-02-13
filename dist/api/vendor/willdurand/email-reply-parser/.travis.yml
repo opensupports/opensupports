@@ -1,0 +1,17 @@
+language: php
+sudo: required
+dist: trusty
+group: edge
+
+php:
+    - 5.6
+    - 7.0
+    - 7.1
+    - 7.2
+    - hhvm-3.9
+    - hhvm-3.18
+
+before_script:
+    - composer install
+
+script: ./vendor/bin/phpunit --coverage-text

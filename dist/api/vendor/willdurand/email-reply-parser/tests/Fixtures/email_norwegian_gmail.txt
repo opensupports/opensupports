@@ -1,0 +1,24 @@
+Fusce bibendum, quam hendrerit sagittis tempor, dui turpis tempus erat, pharetra sodales ante sem sit amet metus.
+Nulla malesuada, orci non vulputate lobortis, massa felis pharetra ex, convallis consectetur ex libero eget ante.
+Nam vel turpis posuere, rhoncus ligula in, venenatis orci. Duis interdum venenatis ex a rutrum.
+Duis ut libero eu lectus consequat consequat ut vel lorem. Vestibulum convallis lectus urna,
+et mollis ligula rutrum quis. Fusce sed odio id arcu varius aliquet nec nec nibh.
+
+tir. 18. apr. 2017 kl. 13:09 skrev Test user <test@example.com
+>:
+
+> Ok. Thanks.
+>
+> On Nov 21, 2014, at 9:26, Jim Beam <jim@beam123.com> wrote:
+>
+>>> On Nov 20, 2014, at 11:03 AM, John Doe <john@doe123.com> wrote:
+>>>
+>>> if you take a look at a short video from attachment, why full-typed filename does not stay in CMD+T pane?
+>>> When I type last character, it is not shown anymore.
+>>
+>> We think we’ve tracked down the cause of this issue, write back if you see the issue after the next update. (Which will be out shortly.)
+>>
+>> --
+>> Jim Beam – Acme Corp
+>>
+>

@@ -1,0 +1,46 @@
+language: php
+
+env:
+    global:
+        - XDEBUG_MODE=coverage
+
+services:
+  - mysql
+  - postgresql
+
+
+matrix:
+ include:
+  - php: 5.3
+    dist: precise
+  - php: 5.4
+    dist: trusty
+  - php: 5.5
+    dist: trusty
+  - php: 5.6
+    dist: trusty
+  - php: 7.0
+    dist: trusty
+  - php: 7.1
+    dist: trusty
+  - php: 7.2
+    dist: trusty
+  - php: 7.3
+    dist: trusty
+  - php: 7.4
+    dist: trusty
+  - php: 8.0
+    dist: xenial
+
+
+before_script:
+  - touch /tmp/oodb.db
+  - mysql -e 'create database oodb;'
+  - psql template1 -c 'CREATE EXTENSION "uuid-ossp";' -U postgres
+  - psql -c 'create database oodb;' -U postgres
+  - php replica2.php onlyphp
+  - cp rb.php testing/cli/testcontainer/rb.php  
+  - cd testing/cli
+    
+ 
+script: php runtests.php

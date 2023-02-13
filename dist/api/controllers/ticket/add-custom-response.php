@@ -1,0 +1,67 @@
+<?php
+use Respect\Validation\Validator as DataValidator;
+DataValidator::with('CustomValidations', true);
+
+/**
+ * @api {post} /ticket/add-custom-response Add custom responses
+ * @apiVersion 4.11.0
+ *
+ * @apiName Add a custom response
+ *
+ * @apiGroup Ticket
+ *
+ * @apiDescription This path allows add new custom responses for tickets.
+ *
+ * @apiPermission staff2
+ *
+ * @apiParam {String} name Name of the response.
+ * @apiParam {String} content Content of the response.
+ * @apiParam {String} language Language of the response.
+ *
+ * @apiUse NO_PERMISSION
+ * @apiUse INVALID_CONTENT
+ * @apiUse INVALID_LANGUAGE
+ * @apiUse INVALID_TITLE
+ *
+ * @apiSuccess {Object} data Empty object
+ *
+ */
+
+class AddCustomResponseController extends Controller {
+    const PATH = '/add-custom-response';
+    const METHOD = 'POST';
+
+    public function validations() {
+        return [
+            'permission' => 'staff_2',
+            'requestData' => [
+                'name' => [
+                    'validation' => DataValidator::notBlank()->length(LengthConfig::MIN_LENGTH_NAME, LengthConfig::MAX_LENGTH_NAME),
+                    'error' => ERRORS::INVALID_TITLE
+                ],
+                'content' => [
+                    'validation' => DataValidator::content(),
+                    'error' => ERRORS::INVALID_CONTENT
+                ],
+                'language' => [
+                    'validation' => DataValidator::validLanguage(),
+                    'error' => ERRORS::INVALID_LANGUAGE
+                ]
+            ]
+        ];
+    }
+
+    public function handler() {
+        $customResponse = new CustomResponse();
+        $customResponse->setProperties([
+            'name' => Controller::request('name', true),
+            'content' => Controller::request('content', true),
+            'language' => Controller::request('language')
+        ]);
+        $customResponse->store();
+
+        Log::createLog('ADD_CUSTOM_RESPONSE', null);
+
+        Response::respondSuccess();
+    }
+}

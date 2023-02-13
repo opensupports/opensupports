@@ -1,0 +1,60 @@
+{
+    "name": "php-imap/php-imap",
+    "description": "Manage mailboxes, filter/get/delete emails in PHP (supports IMAP/POP3/NNTP)",
+    "keywords": [
+        "PHP",
+        "mail",
+        "IMAP",
+        "POP3",
+        "mailbox",
+        "receive emails"
+    ],
+    "homepage": "https://github.com/barbushin/php-imap",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Sergey Barbushin",
+            "homepage": "http://linkedin.com/in/barbushin",
+            "email": "barbushin@gmail.com"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": ">=5.6",
+        "ext-fileinfo": "*",
+        "ext-iconv": "*",
+        "ext-imap": "*",
+        "ext-mbstring": "*"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "jakub-onderka/php-parallel-lint": "^1.0",
+        "paragonie/random_compat": "^1",
+        "phpunit/phpunit": "^5.7"
+    },
+    "scripts": {
+        "tests": [
+            "parallel-lint .php_cs.dist src tests examples",
+            "phpunit",
+            "composer-require-checker check ./composer.json",
+            "psalm --show-info=false",
+            "php-cs-fixer fix --allow-risky=yes --no-interaction --dry-run --diff-format=udiff -v"
+        ]
+    },
+    "suggest": {
+        "ext-fileinfo": "To facilitate IncomingMailAttachment::getMimeType() auto-detection"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PhpImap\\": "tests/unit"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "PhpImap\\": "src/PhpImap"
+        }
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "name": "willdurand/email-reply-parser",
+    "type": "library",
+    "description": "Port of the cool GitHub's EmailReplyParser library in PHP",
+    "keywords": ["email", "reply-parser"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "William Durand",
+            "email": "will+git@drnd.me"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.0"
+    },
+    "autoload": {
+        "psr-4": { "EmailReplyParser\\": "src/EmailReplyParser" }
+    },
+    "autoload-dev": {
+        "psr-4": { "EmailReplyParser\\Tests\\": "tests/EmailReplyParser/Tests" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.8-dev"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8.35|^5.7"
+    }
+}
