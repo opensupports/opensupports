@@ -1,7 +1,6 @@
 FROM php:7.4.30-apache-bullseye
 
 COPY dist /var/www/html
-COPY fix-https-reverse-proxy.diff /var/www/html
 
 RUN ls;
 
@@ -15,9 +14,9 @@ RUN set -ex; \
 	docker-php-ext-install imap; \
 	a2enmod rewrite; \
 	chmod 777 /var/www/html/api/config.php /var/www/html/api/files; \
-	chmod -R 777 /var/www/html/api/vendor/ezyang/htmlpurifier/library/HTMLPurifier/DefinitionCache/; \
-    patch /var/www/html/index.php < /var/www/html/fix-https-reverse-proxy.diff;
+	chmod -R 777 /var/www/html/api/vendor/ezyang/htmlpurifier/library/HTMLPurifier/DefinitionCache/;
 
 COPY entrypoint.sh /entrypoint.sh
+EXPOSE 9000
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["apache2-foreground"]

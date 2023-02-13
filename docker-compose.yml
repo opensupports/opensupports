@@ -1,17 +1,17 @@
 version: '2'
 services:
-  mariadb:
+  mysql:
     image: 'mysql:8.0'
     ports:
-        - '3306:3306'
+      - '3306:3306'
     environment:
-        MYSQL_ROOT_PASSWORD: 'adminpassword'
-        MYSQL_DATABASE: 'opensupports'
-        MYSQL_USER: 'admin'
-        MYSQL_PASSWORD: 'adminpassword'
-        MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_ROOT_PASSWORD: 'adminpassword'
+      MYSQL_DATABASE: 'opensupports'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'adminpassword'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
     volumes:
-    - ./database:/var/lib/mysql
+      - ./database:/var/lib/mysql
 
   website:
     build: .
@@ -19,6 +19,6 @@ services:
     ports:
       - "8080:80"
     volumes:
-     - ./config:/config
+      - ./config:/config
     depends_on:
-      - mariadb
+      - mysql
