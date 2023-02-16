@@ -1,9 +1,26 @@
-version: '2'
+version: "3"
 services:
+  nginx:
+    image: nginx
+    ports: 
+      - "8080:80"
+    volumes:
+      - ./dist:/var/www/html
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - ticket_net
+  php:
+    build: .
+    container_name: php
+    volumes:
+      - ./config:/config
+    networks:
+      - ticket_net
+
   mysql:
     image: 'mysql:8.0'
     ports:
-      - '3306:3306'
+      - '3304:3306'
     environment:
       MYSQL_ROOT_PASSWORD: 'adminpassword'
       MYSQL_DATABASE: 'opensupports'
@@ -12,13 +29,9 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
     volumes:
       - ./database:/var/lib/mysql
+    networks:
+      - ticket_net
 
-  website:
-    build: .
-    restart: always
-    ports:
-      - "8080:80"
-    volumes:
-      - ./config:/config
-    depends_on:
-      - mysql
+networks:
+  ticket_net:
+    driver: bridge

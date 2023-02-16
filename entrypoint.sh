@@ -10,7 +10,5 @@ if [ ! -f /config/config.php ]; then
 	chmod 777 /config/config.php
 fi
 
-rm /var/www/html/api/config.php
+rm -f /var/www/html/api/config.php
 ln -s /config/config.php /var/www/html/api/config.php
-
-exec "$@"
