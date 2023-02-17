@@ -143,7 +143,7 @@ class InitSettingsController extends Controller {
 
     private function storeMockedDepartments() {
         $departments = [
-            'Help and Support'
+            'Supporto Software'
         ];
 
         foreach ($departments as $departmentName) {

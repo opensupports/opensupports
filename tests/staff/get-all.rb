@@ -19,7 +19,7 @@ describe'/staff/get-all' do
         (result['data'][0]['profilePic']).should.equal('')
         (result['data'][0]['level']).should.equal('3')
         (result['data'][0]['departments'][0]['id']).should.equal('1')
-        (result['data'][0]['departments'][0]['name']).should.equal('Help and Support')
+        (result['data'][0]['departments'][0]['name']).should.equal('Supporto Software')
         (result['data'][0]['departments'][1]['id']).should.equal('2')
         (result['data'][0]['departments'][1]['name']).should.equal('useless private deapartment')
         (result['data'][0]['departments'][2]['id']).should.equal('3')
@@ -32,7 +32,7 @@ describe'/staff/get-all' do
         (result['data'][2]['profilePic']).should.equal('')
         (result['data'][2]['level']).should.equal('2')
         (result['data'][2]['departments'][0]['id']).should.equal('1')
-        (result['data'][2]['departments'][0]['name']).should.equal('Help and Support')
+        (result['data'][2]['departments'][0]['name']).should.equal('Supporto Software')
         (result['data'][2]['assignedTickets']).should.equal(1)
         (result['data'][2]['closedTickets']).should.equal(0)
     end

@@ -4,7 +4,7 @@ describe '/system/get-settings' do
         
         (result['status']).should.equal('success')
         (result['data']['language']).should.equal('en')
-        (result['data']['departments'][0]['name']).should.equal('Help and Support')
+        (result['data']['departments'][0]['name']).should.equal('Supporto Software')
         (result['data']['mandatory-login']).should.equal('1')
         (result['data']['default-department-id']).should.equal('1')
         (result['data']['default-is-locked']).should.equal('0')
