@@ -3,7 +3,7 @@ services:
   nginx:
     image: nginx
     ports: 
-      - "8080:80"
+      - "80:80"
     volumes:
       - ./dist:/var/www/html
       - ./nginx/conf.d/:/etc/nginx/conf.d/
