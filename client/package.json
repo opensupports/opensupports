@@ -68,7 +68,7 @@
   },
   "dependencies": {
     "axios": "^1.4.0",
-    "chart.js": "^4.3.1",
+    "chart.js": "^4.3.2",
     "classnames": "^2.3.2",
     "history": "^5.3.0",
     "html-to-text": "^9.0.5",
