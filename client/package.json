@@ -1,5 +1,5 @@
 {
-  "name": "OpenSupports",
+  "name": "opensupports",
   "version": "4.11.0",
   "author": "Ivan Diaz <contact@opensupports.com>",
   "description": "Open source ticket system made with PHP and ReactJS",
@@ -94,6 +94,5 @@
     "react-router-redux": "^4.0.8",
     "redux": "^4.2.1",
     "redux-promise-middleware": "^6.1.3"
-  }
   }
 }
