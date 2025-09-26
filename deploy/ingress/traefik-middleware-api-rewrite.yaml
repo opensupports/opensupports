@@ -1,0 +1,9 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: opensupports-api-rewrite
+  namespace: supports
+spec:
+  replacePathRegex:
+    regex: "^/api/?(.*)"
+    replacement: "/$1"

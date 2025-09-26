@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: opensupports-web
+  namespace: supports
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt-issuer
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts: ["nts-supports.pai-world.com"]
+      secretName: opensupports-cert
+  rules:
+    - host: nts-supports.pai-world.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: opensupports-client
+                port:
+                  number: 80

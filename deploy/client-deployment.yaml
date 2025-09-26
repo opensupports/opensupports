@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opensupports-client
+  namespace: supports
+  labels:
+    app: opensupports-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opensupports-client
+  template:
+    metadata:
+      labels:
+        app: opensupports-client
+    spec:
+      imagePullSecrets:
+      - name: harbor-secret
+      containers:
+      - name: client
+        image: harbor.pai-world.com/opensupports/opensupports-client:v1.3
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: opensupports-client
+  namespace: supports
+  labels:
+    app: opensupports-client
+spec:
+  selector:
+    app: opensupports-client
+  ports:
+  - port: 80
+    targetPort: 80
+  type: ClusterIP

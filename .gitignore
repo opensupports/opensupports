@@ -10,3 +10,7 @@ server/.fakemail
 server/apidoc
 dist/
 .env
+
+ingress_local.yaml
+secret.yaml
+/backup/

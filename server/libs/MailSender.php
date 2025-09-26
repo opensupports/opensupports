@@ -16,7 +16,7 @@ class MailSender {
 
     public function setConnectionSettings($host, $user, $pass, $serverEmail) {
         $this->mailOptions['from'] = $serverEmail;
-        $this->mailOptions['fromName'] = 'OpenSupports';
+        $this->mailOptions['fromName'] = '국세청 AI 챗봇 티켓';
 
         $this->mailOptions['smtp-host'] = $host;
         $this->mailOptions['smtp-user'] = $user;

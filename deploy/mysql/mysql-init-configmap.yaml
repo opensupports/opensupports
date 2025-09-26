@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-init-config
+  namespace: supports
+data:
+  01-init.sql: |
+    -- OpenSupports 데이터베이스 초기화
+    CREATE DATABASE IF NOT EXISTS opensupports CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+    USE opensupports;
+    
+    -- 사용자 권한 설정
+    GRANT ALL PRIVILEGES ON opensupports.* TO 'opensupports'@'%';
+    FLUSH PRIVILEGES;
+    
+    -- 기본 설정 테이블 생성 (OpenSupports가 작동하기 위한 최소 테이블)
+    CREATE TABLE IF NOT EXISTS `setting` (
+      `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+      `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+      `value` text COLLATE utf8mb4_unicode_ci,
+      PRIMARY KEY (`id`),
+      UNIQUE KEY `name` (`name`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    
+    CREATE TABLE IF NOT EXISTS `staff` (
+      `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+      `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+      `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+      `password` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+      `profile_pic` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+      `level` int(11) DEFAULT NULL,
+      `sharedticketlist` tinyint(1) unsigned DEFAULT NULL,
+      `send_email_on_new_ticket` tinyint(1) unsigned DEFAULT NULL,
+      `last_login` double DEFAULT NULL,
+      PRIMARY KEY (`id`),
+      UNIQUE KEY `email` (`email`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

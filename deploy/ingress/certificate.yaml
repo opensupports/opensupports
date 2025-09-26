@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: opensupports-cert
+  namespace: supports
+spec:
+  secretName: opensupports-cert
+  issuerRef:
+    name: lets-encrypt-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+  commonName: pai-world.com
+  dnsNames:
+    - "pai-world.com"
+    - "nts-supports.pai-world.com"

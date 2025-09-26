@@ -1,13 +1,61 @@
-FROM fauria/lamp
-MAINTAINER Ivan Diaz <ivan@opensupports.com>
+# OpenSupports Server Dockerfile
+# PHP 7.4 기반 Slim 프레임워크 애플리케이션
 
-RUN apt-get update && \
-    apt-get install zip unzip php7.0-zip php7.0-mbstring -y && \
-    apt-get remove --yes php7.0-snmp && \
-    (curl -s https://getcomposer.org/installer | php) && \
-    mv composer.phar /usr/local/bin/composer
+FROM php:7.4-apache
 
-# ENVIRONMENT VARIABLES
-ENV MYSQL_HOST opensupports-db
-ENV MYSQL_PORT 3306
-ENV IS_DOCKER 1
+# 필요한 PHP 확장 및 시스템 패키지 설치
+RUN apt-get update && apt-get install -y \
+    libzip-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libonig-dev \
+    libxml2-dev \
+    unzip \
+    git \
+    libssl-dev \
+    libc-client-dev \
+    libkrb5-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# PHP 확장 설치
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) \
+        pdo \
+        pdo_mysql \
+        mysqli \
+        mbstring \
+        zip \
+        gd \
+        xml \
+        bcmath
+
+# IMAP 확장 설치 (이메일 기능을 위해)
+RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
+    && docker-php-ext-install imap
+
+# Composer 설치
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/html
+
+COPY . .
+
+# Composer 의존성 설치
+RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+# Apache 설정
+RUN a2enmod rewrite headers
+COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
+
+# 파일 권한 설정
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html \
+    && chmod -R 777 /var/www/html/files
+
+# PHP 설정
+COPY php.ini /usr/local/etc/php/
+
+EXPOSE 80
+
+CMD ["apache2-foreground"]
