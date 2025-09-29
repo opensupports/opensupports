@@ -11,6 +11,21 @@ server/apidoc
 dist/
 .env
 
+# Log files
+server/php_errors.log
+*.log
+
+# Composer
+server/composer.phar
+
+# Client PHP dependencies (unnecessary)
+client/vendor/
+client/composer.json
+client/composer.lock
+
+# Development files
+server/router.php
+
 ingress_local.yaml
 secret.yaml
 /backup/

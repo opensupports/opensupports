@@ -1,4 +1,9 @@
 RewriteEngine on
+
+# API 요청 처리 - /api/ 접두어 제거
+RewriteRule ^api/(.*)$ index.php [QSA,L]
+
+# 일반 요청 처리
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule .* index.php [PT,L]
+RewriteRule .* index.php [QSA,L]
