@@ -4,7 +4,6 @@ const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 // const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const {dependencies} = require('./package.json');
 
 const BUILD_DIR = path.join(__dirname, 'build');
@@ -12,14 +11,16 @@ const APP_DIR = path.join(__dirname, 'src');
 
 const config = env => {
     return {
-        devtool: 'source-map',
+        cache: false,
+        devtool: false,
         entry: {
           bundle: APP_DIR + '/index.js',
         },
         output: {
             path: BUILD_DIR,
             filename: '[name].js',
-            publicPath: '/'
+            publicPath: '/',
+            hashFunction: 'md5'
         },
         module: {
             rules: [
@@ -30,7 +31,7 @@ const config = env => {
                         {
                             loader: "babel-loader",
                             options: {
-                                cacheDirectory: true,
+                                cacheDirectory: false,
                                 cacheCompression: false,
                             },
                         } /*, 'eslint-loader'*/,
@@ -65,20 +66,33 @@ const config = env => {
             ],
         },
         devServer: {
-            contentBase: BUILD_DIR,
-            host: "0.0.0.0",
+            contentBase: './src',
+            host: "localhost",
             compress: true,
-            port: 3000,
+            port: 3001,
             disableHostCheck: true,
             open: true,
             hot: true,
             historyApiFallback: true,
+            publicPath: '/',
             proxy: {
                 "/api": {
-                    target: "http://opensupports-srv:80",
+                    target: process.env.REACT_APP_API_URL || "http://localhost:8080",
                     pathRewrite: { "^/api": "" },
                     secure: false,
                     changeOrigin: true,
+                    timeout: 60000,
+                    proxyTimeout: 60000,
+                    logLevel: 'debug',
+                    onError: function (err, req, res) {
+                        console.error('Proxy error:', err);
+                    },
+                    onProxyReq: function (proxyReq, req, res) {
+                        console.log('Proxying request:', req.method, req.url, '-> ', proxyReq.path);
+                    },
+                    onProxyRes: function (proxyRes, req, res) {
+                        console.log('Proxy response:', proxyRes.statusCode, req.url);
+                    }
                 },
             },
         },
@@ -90,7 +104,11 @@ const config = env => {
             new webpack.HotModuleReplacementPlugin(),
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+                'process.env.REACT_APP_CLIENT_URL': JSON.stringify(process.env.REACT_APP_CLIENT_URL),
+                'process.env.REACT_APP_API_URL': JSON.stringify(process.env.REACT_APP_API_URL),
                 'process.env.FIXTURES': env && env.FIXTURES,
+                'window.REACT_APP_API_URL': JSON.stringify(process.env.REACT_APP_API_URL || 'http://localhost:8080'),
+                'window.REACT_APP_CLIENT_URL': JSON.stringify(process.env.REACT_APP_CLIENT_URL || 'http://localhost:3001')
             }),
             // new StyleLintPlugin({
             //     files: './src/**/*.scss',
@@ -102,9 +120,6 @@ const config = env => {
                 './src/config.js',
                 {from: './src/assets/images', to: 'images'},
             ]),
-            new BundleAnalyzerPlugin({
-                analyzerMode: process.env.NODE_ENV !== 'production' ? 'server' : 'disabled'
-            }),
         ],
         resolve: {
             modules: ['./src', './node_modules']

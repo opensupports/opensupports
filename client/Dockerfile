@@ -14,6 +14,7 @@ COPY . .
 RUN npm rebuild node-sass
 RUN npm run build
 
+# Nginx를 사용하여 정적 파일 서빙
 FROM nginx:alpine
 
 COPY --from=0 /app/build /usr/share/nginx/html
