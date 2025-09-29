@@ -39,7 +39,8 @@ window.store = store;
 let unsubscribe = store.subscribe(() => {
     if(showLogs) console.log(store.getState());
 
-    if (store.getState().session.initDone && store.getState().config.initDone) {
+    // session.initDone 조건을 제거하고 config.initDone만 확인
+    if (store.getState().config.initDone) {
         unsubscribe();
         renderApplication();
     }
@@ -52,4 +53,3 @@ history.listen(() => {
 
 store.dispatch(ConfigActions.checkInstallation());
 store.dispatch(ConfigActions.init());
-store.dispatch(SessionActions.checkSession());
