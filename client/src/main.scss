@@ -2,8 +2,8 @@
 @import 'scss/vars';
 @import 'scss/typography';
 @import 'scss/base';
-@import 'scss/quill.snow.min';
+@import 'scss/quill.snow.min.css';
 
-@import 'core-components/*.scss';
-@import 'app-components/*.scss';
+@import 'core-components/index';
+@import 'app-components/index';
 @import 'app/**/*.scss';

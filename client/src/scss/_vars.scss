@@ -59,7 +59,7 @@ $font-size--xl: 32px;
         }
 
         &::-webkit-scrollbar-track {
-            background: lighten($color, 50%);
+            background: mix(white, $color, 50%);
         }
     }
 }
