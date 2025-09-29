@@ -25,6 +25,20 @@ Array.prototype.swap = function (x,y) {
 if (process.env.NODE_ENV !== 'production') {
     // Enable React devtools
     window.React = React;
+    
+    // Suppress React deprecation warnings for legacy code
+    const originalConsoleWarn = console.warn;
+    console.warn = function(...args) {
+        const message = args[0];
+        if (typeof message === 'string' && (
+            message.includes('Accessing PropTypes via the main React package is deprecated') ||
+            message.includes('Accessing createClass via the main React package is deprecated') ||
+            message.includes('React.createElement: type is invalid')
+        )) {
+            return; // Suppress these specific warnings
+        }
+        originalConsoleWarn.apply(console, args);
+    };
 }
 
 if (process.env.FIXTURES) {
@@ -37,9 +51,12 @@ let renderApplication = function () {
 window.store = store;
 
 let unsubscribe = store.subscribe(() => {
-    if(showLogs) console.log(store.getState());
+    // showLogs 변수 체크 제거하고 개발 모드에서만 로그 출력
+    if (process.env.NODE_ENV !== 'production') {
+        console.log(store.getState());
+    }
 
-    // session.initDone 조건을 제거하고 config.initDone만 확인
+    // config가 초기화되면 앱 렌더링
     if (store.getState().config.initDone) {
         unsubscribe();
         renderApplication();

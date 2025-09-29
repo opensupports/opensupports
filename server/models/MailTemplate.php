@@ -49,6 +49,14 @@ class MailTemplate extends DataStore {
             ':language' => $globalLanguage
         ));
 
+        // 요청한 언어의 템플릿이 없으면 영어 템플릿을 fallback으로 사용
+        if (!$bean && $globalLanguage !== 'en') {
+            $bean = RedBean::findOne(MailTemplate::TABLE, 'template = :template AND language = :language', array(
+                ':template'  => $template,
+                ':language' => 'en'
+            ));
+        }
+
         return ($bean) ? new MailTemplate($bean) : new NullDataStore();
     }
 
