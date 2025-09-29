@@ -121,18 +121,29 @@ class CreateController extends Controller {
         
         $this->storeTicket();
 
-        if(!Controller::isLoginMandatory() && !Controller::isUserLogged()) {
-            $this->sendMail();
-        }
-
-        $staffs = Staff::find('send_email_on_new_ticket = 1');
-        foreach ($staffs as $staff) {
-            if($staff->sharedDepartmentList->includesId(Controller::request('departmentId'))) {
-                $this->sendMailStaff($staff->email);
+        // 메일 발송 (한국어 템플릿 추가로 정상 작동)
+        try {
+            if(!Controller::isLoginMandatory() && !Controller::isUserLogged()) {
+                $this->sendMail();
             }
+
+            $staffs = Staff::find('send_email_on_new_ticket = 1');
+            foreach ($staffs as $staff) {
+                if($staff->sharedDepartmentList->includesId(Controller::request('departmentId'))) {
+                    $this->sendMailStaff($staff->email);
+                }
+            }
+        } catch (Exception $e) {
+            // 메일 발송 실패는 로그만 남기고 계속 진행
+            error_log("Mail sending failed: " . $e->getMessage());
         }
         
-        Log::createLog('CREATE_TICKET', $this->ticketNumber);
+        // 로그 생성도 try-catch로 보호
+        try {
+            Log::createLog('CREATE_TICKET', $this->ticketNumber);
+        } catch (Exception $e) {
+            error_log("Log creation failed: " . $e->getMessage());
+        }
         
         if(!$this->apiKey->isNull() && $this->apiKey->shouldReturnTicketNumber){
             Response::respondSuccess([

@@ -11,10 +11,13 @@ class Response {
         );
         self::$responseException = $exception;
 
-        $app = \Slim\Slim::getInstance();
-        $app->response->headers->set('Content-Type', 'application/json');
-        $app->response->setBody(json_encode(self::$response));
-        $app->response->finalize();
+        // CORS 헤더 추가
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+        header('Content-Type: application/json');
+        echo json_encode(self::$response);
+        exit();
     }
 
     public static function respondSuccess($data = null) {
@@ -23,15 +26,21 @@ class Response {
             'data' => $data
         );
 
-        $app = \Slim\Slim::getInstance();
-        $app->response->headers->set('Content-Type', 'application/json');
-        $app->response->setBody(json_encode(self::$response));
-        $app->response->finalize();
+        // CORS 헤더 추가
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+        header('Content-Type: application/json');
+        echo json_encode(self::$response);
+        exit();
     }
 
     public static function respond403() {
-        $app = \Slim\Slim::getInstance();
-        $app->response->setStatus(403);
-        $app->response->finalize();
+        // CORS 헤더 추가
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+        http_response_code(403);
+        exit();
     }
 }
