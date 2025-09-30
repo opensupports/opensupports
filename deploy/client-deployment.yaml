@@ -19,10 +19,16 @@ spec:
       - name: harbor-secret
       containers:
       - name: client
-        image: harbor.pai-world.com/opensupports/opensupports-client:v1.3
+        image: harbor.pai-world.com/opensupports/opensupports-client:v1.4
         imagePullPolicy: Always
         ports:
         - containerPort: 80
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+        envFrom:
+        - configMapRef:
+            name: opensupports-client-config
         resources:
           requests:
             memory: "128Mi"

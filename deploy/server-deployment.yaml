@@ -19,7 +19,7 @@ spec:
       - name: harbor-secret
       containers:
       - name: server
-        image: harbor.pai-world.com/opensupports/opensupports-srv:v1.2
+        image: harbor.pai-world.com/opensupports/opensupports-srv:v1.3
         imagePullPolicy: Always
         command: ["/bin/sh"]
         args: ["-c", "a2enmod headers && apache2-foreground"]
@@ -28,6 +28,8 @@ spec:
         envFrom:
         - secretRef:
             name: opensupports-secret
+        - configMapRef:
+            name: opensupports-server-config
         volumeMounts:
         - name: files-storage
           mountPath: /var/www/html/files

@@ -6,7 +6,6 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: lets-encrypt-issuer
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.middlewares: supports-opensupports-api-rewrite@kubernetescrd
 spec:
   ingressClassName: traefik
   tls:

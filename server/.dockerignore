@@ -1,2 +1,56 @@
-.dbdata
-.fakemail
+# Composer
+vendor/
+composer.phar
+
+# Development files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Git
+.git
+.gitignore
+
+# Documentation
+README.md
+*.md
+
+# Test files
+tests/
+__tests__/
+coverage/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+.cache/
+
+# Files directory (will be mounted as volume)
+files/*
+
+# Database files
+*.sql
+*.db
+*.sqlite

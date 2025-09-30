@@ -1,7 +1,7 @@
 # OpenSupports Server Dockerfile
 # PHP 7.4 기반 Slim 프레임워크 애플리케이션
 
-FROM php:7.4-apache
+FROM --platform=linux/amd64 php:7.4-apache
 
 # 필요한 PHP 확장 및 시스템 패키지 설치
 RUN apt-get update && apt-get install -y \
@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     unzip \
     git \
+    curl \
     libssl-dev \
     libc-client-dev \
     libkrb5-dev \
@@ -56,6 +57,12 @@ RUN chown -R www-data:www-data /var/www/html \
 # PHP 설정
 COPY php.ini /usr/local/etc/php/
 
+# Health check 추가
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost/ || exit 1
+
+# Expose port
 EXPOSE 80
 
+# Start Apache
 CMD ["apache2-foreground"]
