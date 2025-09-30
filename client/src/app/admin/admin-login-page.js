@@ -54,7 +54,7 @@ class AdminLoginPage extends React.Component {
         return (
             <div>
                 <Widget className="admin-login-page__content">
-                    <div className="admin-login-page__image"><img width="100%" src={API.getURL() + '/images/logo.png'} alt="OpenSupports Admin Panel"/></div>
+                    <div className="admin-login-page__image"><img width="100%" src={API.getURL() + '/images/logo_nts.png'} alt="OpenSupports Admin Panel"/></div>
                     <div className="admin-login-page__login-form-container">
                         <Form {...this.getLoginFormProps()}>
                             <div className="admin-login-page__login-form-container__login-form__fields">

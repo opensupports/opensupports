@@ -86,7 +86,7 @@ class InitSettingsController extends Controller {
             'ticket-gap' => Hashing::generateRandomPrime(100000, 999999),
             'ticket-first-number' => Hashing::generateRandomNumber(100000, 999999),
             'session-prefix' => 'opensupports-'.Hashing::generateRandomToken().'_',
-            'mail-template-header-image' => 'https://s3.amazonaws.com/opensupports/logo.png',
+            'mail-template-header-image' => 'https://nts-supports.pai-world.com/images/logo_nts.png',
             'default-department-id' => 1,
             'default-is-locked' => false,
             'imap-token' => '',

@@ -35,7 +35,7 @@ export default {
     },
 
     getStaffProfilePic(staff) {
-        return staff.profilePic ? API.getFileLink(staff.profilePic) : (API.getURL() + '/images/profile.png');
+        return staff.profilePic ? API.getFileLink(staff.profilePic) : (API.getURL() + '/images/profile_nts.png');
     },
 
     renderStaffOption(staff) {

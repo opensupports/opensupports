@@ -67,7 +67,7 @@ class TicketEvent extends React.Component {
 
         return (
             <div className="ticket-event__staff-pic">
-                <img src={(profilePicName) ? API.getFileLink(profilePicName) : (API.getURL() + '/images/profile.png')} className="ticket-event__staff-pic-img" />
+                <img src={(profilePicName) ? API.getFileLink(profilePicName) : (API.getURL() + '/images/profile_nts.png')} className="ticket-event__staff-pic-img" />
             </div>
         );
     }

@@ -111,7 +111,7 @@ class AdminPanelStats extends React.Component {
 
     getStaffItems() {
         const getStaffProfilePic = (staff) => {
-            return staff.profilePic ? API.getFileLink(staff.profilePic) : (API.getURL() + '/images/profile.png');
+            return staff.profilePic ? API.getFileLink(staff.profilePic) : (API.getURL() + '/images/profile_nts.png');
         }
 
         const renderStaffItem = (staff, style) => {

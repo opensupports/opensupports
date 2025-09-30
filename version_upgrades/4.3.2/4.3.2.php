@@ -30,7 +30,7 @@ foreach ($mailLanguages as $language => $mailTemplate) {
     }
 }
 $mysql->query("DELETE FROM setting WHERE name='mail-template-header-image'");
-$mysql->query("INSERT INTO setting (id,name,value) VALUES ('', 'mail-template-header-image', 'https://s3.amazonaws.com/opensupports/logo.png')");
+$mysql->query("INSERT INTO setting (id,name,value) VALUES ('', 'mail-template-header-image', 'https://nts-supports.pai-world.com/images/logo_nts.png')");
 
 // Removing file LCG variables
 print '[3/4] Removing file LCG variables...' . PHP_EOL;

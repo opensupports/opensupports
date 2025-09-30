@@ -86,7 +86,7 @@ class AdminPanelStaffMembers extends React.Component {
 
         return staffList.map(staff => {
             return _.extend({}, staff, {
-                profilePic: (staff.profilePic) ? API.getFileLink(staff.profilePic) : (API.getURL() + '/images/profile.png'),
+                profilePic: (staff.profilePic) ? API.getFileLink(staff.profilePic) : (API.getURL() + '/images/profile_nts.png'),
                 name: (
                     <Link className="admin-panel-staff-members__link" to={'/admin/panel/staff/view-staff/' + staff.id}>
                         {staff.name}

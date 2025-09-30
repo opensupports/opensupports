@@ -188,7 +188,7 @@ module.exports = [
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        profilePic: 'https://nts-supports.pai-world.com/images/profile_nts.png',
                                         staff: true
                                     }
                                 },
@@ -199,7 +199,7 @@ module.exports = [
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        profilePic: 'https://nts-supports.pai-world.com/images/profile_nts.png',
                                         staff: true
                                     }
                                 },
@@ -209,7 +209,7 @@ module.exports = [
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        profilePic: 'https://nts-supports.pai-world.com/images/profile_nts.png',
                                         staff: true
                                     }
                                 },
@@ -220,7 +220,7 @@ module.exports = [
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        profilePic: 'https://nts-supports.pai-world.com/images/profile_nts.png',
                                         staff: true
                                     }
                                 },
@@ -250,7 +250,7 @@ module.exports = [
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        profilePic: 'https://nts-supports.pai-world.com/images/profile_nts.png',
                                         staff: true
                                     }
                                 },
@@ -400,7 +400,7 @@ module.exports = [
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        profilePic: 'https://nts-supports.pai-world.com/images/profile_nts.png',
                                         staff: true
                                     }
                                 },
@@ -411,7 +411,7 @@ module.exports = [
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        profilePic: 'https://nts-supports.pai-world.com/images/profile_nts.png',
                                         staff: true
                                     }
                                 },
@@ -421,7 +421,7 @@ module.exports = [
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        profilePic: 'https://nts-supports.pai-world.com/images/profile_nts.png',
                                         staff: true
                                     }
                                 },
@@ -432,7 +432,7 @@ module.exports = [
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        profilePic: 'https://nts-supports.pai-world.com/images/profile_nts.png',
                                         staff: true
                                     }
                                 },
@@ -462,7 +462,7 @@ module.exports = [
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        profilePic: 'https://nts-supports.pai-world.com/images/profile_nts.png',
                                         staff: true
                                     }
                                 },
@@ -502,7 +502,7 @@ module.exports = [
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        profilePic: 'https://nts-supports.pai-world.com/images/profile_nts.png',
                                         staff: true
                                     }
                                 },
@@ -512,7 +512,7 @@ module.exports = [
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        profilePic: 'https://nts-supports.pai-world.com/images/profile_nts.png',
                                         staff: true
                                     }
                                 },
@@ -523,7 +523,7 @@ module.exports = [
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        profilePic: 'https://nts-supports.pai-world.com/images/profile_nts.png',
                                         staff: true
                                     }
                                 },
@@ -553,7 +553,7 @@ module.exports = [
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        profilePic: 'https://nts-supports.pai-world.com/images/profile_nts.png',
                                         staff: true
                                     }
                                 },
@@ -595,7 +595,7 @@ module.exports = [
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        profilePic: 'https://nts-supports.pai-world.com/images/profile_nts.png',
                                         staff: true
                                     }
                                 },
@@ -606,7 +606,7 @@ module.exports = [
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        profilePic: 'https://nts-supports.pai-world.com/images/profile_nts.png',
                                         staff: true
                                     }
                                 },
@@ -616,7 +616,7 @@ module.exports = [
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        profilePic: 'https://nts-supports.pai-world.com/images/profile_nts.png',
                                         staff: true
                                     }
                                 },
@@ -627,7 +627,7 @@ module.exports = [
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        profilePic: 'https://nts-supports.pai-world.com/images/profile_nts.png',
                                         staff: true
                                     }
                                 },
@@ -657,7 +657,7 @@ module.exports = [
                                     author: {
                                         name: 'Emilia Clarke',
                                         email: 'jobs@steve.com',
-                                        profilePic: 'http://www.opensupports.com/profilepic.jpg',
+                                        profilePic: 'https://nts-supports.pai-world.com/images/profile_nts.png',
                                         staff: true
                                     }
                                 },

@@ -13,7 +13,7 @@
 
         <title>NTS Support</title>
 
-        <link rel="icon" type="image/x-icon" href="<?=$url ?>/images/icon.png">
+        <link rel="icon" type="image/x-icon" href="<?=$url ?>/images/icon_nts.png">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/v4-shims.css">
     </head>
