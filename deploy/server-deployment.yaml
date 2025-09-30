@@ -22,7 +22,7 @@ spec:
         image: harbor.pai-world.com/opensupports/opensupports-srv:v1.3
         imagePullPolicy: Always
         command: ["/bin/sh"]
-        args: ["-c", "a2enmod headers && apache2-foreground"]
+        args: ["-c", "a2enmod headers && a2enmod rewrite && apache2-foreground"]
         ports:
         - containerPort: 80
         envFrom:
