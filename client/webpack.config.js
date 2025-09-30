@@ -77,7 +77,7 @@ const config = env => {
             publicPath: '/',
             proxy: {
                 "/api": {
-                    target: process.env.REACT_APP_API_URL || "http://localhost:8080",
+                    target: process.env.REACT_APP_API_URL || "http://127.0.0.1:8080",
                     pathRewrite: { "^/api": "" },
                     secure: false,
                     changeOrigin: true,
@@ -107,8 +107,8 @@ const config = env => {
                 'process.env.REACT_APP_CLIENT_URL': JSON.stringify(process.env.REACT_APP_CLIENT_URL),
                 'process.env.REACT_APP_API_URL': JSON.stringify(process.env.REACT_APP_API_URL),
                 'process.env.FIXTURES': env && env.FIXTURES,
-                'window.REACT_APP_API_URL': JSON.stringify(process.env.REACT_APP_API_URL || 'http://localhost:8080'),
-                'window.REACT_APP_CLIENT_URL': JSON.stringify(process.env.REACT_APP_CLIENT_URL || 'http://localhost:3001')
+                'window.REACT_APP_API_URL': JSON.stringify(process.env.REACT_APP_API_URL || '/api'),
+                'window.REACT_APP_CLIENT_URL': JSON.stringify(process.env.REACT_APP_CLIENT_URL || '')
             }),
             // new StyleLintPlugin({
             //     files: './src/**/*.scss',

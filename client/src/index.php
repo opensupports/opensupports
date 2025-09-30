@@ -11,7 +11,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
-        <title>OpenSupports</title>
+        <title>NTS Support</title>
 
         <link rel="icon" type="image/x-icon" href="<?=$url ?>/images/icon.png">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
