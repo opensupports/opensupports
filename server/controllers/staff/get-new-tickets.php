@@ -76,16 +76,19 @@ class GetNewTicketsStaffController extends Controller {
             $query .= 'FALSE) AND closed = 0';
         }
 
+        $bindings = [];
+
         if($departmentId) {
-            $query .= ' AND department_id=' . $departmentId;
+            $query .= ' AND department_id=?';
+            $bindings[] = $departmentId;
         }
 
-        $countTotal = Ticket::count($query);
+        $countTotal = Ticket::count($query, $bindings);
 
         $query .= ' ORDER BY unread_staff DESC';
         $query .= ' LIMIT ' . $pageSize . ' OFFSET ' . ($page-1)*10;
 
-        $ticketList = Ticket::find($query);
+        $ticketList = Ticket::find($query, $bindings);
 
         Response::respondSuccess([
             'tickets' => $ticketList->toArray(true),
