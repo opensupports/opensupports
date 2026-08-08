@@ -34,6 +34,10 @@ class TestIMAPController extends Controller {
     }
 
     public function handler() {
+        if(InstallationDoneController::isInstallationDone() && !Controller::isStaffLogged(3)) {
+            throw new RequestException(ERRORS::NO_PERMISSION);
+        }
+
         if(imap_open(Controller::request('imap-host'), Controller::request('imap-user'), Controller::request('imap-pass'))) {
             Response::respondSuccess();
         } else {

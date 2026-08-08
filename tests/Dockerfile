@@ -8,7 +8,9 @@ RUN apt install build-essential openssl curl git-core zlib1g zlib1g-dev libssl-d
 RUN apt install mysql-client --yes
 RUN apt install ruby-full --yes
 RUN apt install libmysqlclient-dev ruby-dev --yes
-RUN gem install bundler
+# Ubuntu 18.04 ships Ruby 2.5; recent Bundler requires Ruby >= 3.2, so pin the
+# last Bundler release compatible with this image instead of the moving latest.
+RUN gem install bundler -v 2.3.27
 
 COPY Gemfile /app
 RUN bundle install
