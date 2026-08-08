@@ -35,6 +35,10 @@ class TestSMTPController extends Controller {
     }
 
     public function handler() {
+        if(InstallationDoneController::isInstallationDone() && !Controller::isStaffLogged(3)) {
+            throw new RequestException(ERRORS::NO_PERMISSION);
+        }
+
         $mailSender = MailSender::getInstance();
         $mailSender->setConnectionSettings(
             Controller::request('smtp-host'),
