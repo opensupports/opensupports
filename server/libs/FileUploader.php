@@ -44,6 +44,14 @@ class FileUploader extends FileManager {
                 'text/plain',
                 'application/pdf'
             ]),
+            // The MIME type is sniffed from the content and can be spoofed (magic bytes)
+            // to smuggle a .bat or .php through. Also restrict the extension to the same
+            // allow-list as the accepted MIME types above.
+            new \Upload\Validation\Extension([
+                'png', 'gif', 'jpeg', 'jpg', 'bmp', 'tiff', 'tif',
+                'gz', 'zip', 'rar', '7z', 'tar', 'bz', 'bz2',
+                'csv', 'rtf', 'doc', 'xls', 'txt', 'pdf'
+            ]),
             new \Upload\Validation\Size($this->maxSize.'M')
         ));
 
