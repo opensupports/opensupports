@@ -196,7 +196,7 @@ class SearchController extends Controller {
                 $key == 0 ? $filters .= " ( " : null;
                 ($key != 0 && $key != sizeof($tagList)) ? $filters .= " or " : null;
 
-                $filters .= "tag_ticket.tag_id  = " . $tag ;
+                $filters .= "tag_ticket.tag_id  = " . intval($tag) ;
             }
             $filters .= ")";
         }
@@ -239,7 +239,7 @@ class SearchController extends Controller {
                 } else {
                     $filters .= " or ";
                 }
-                $filters .= "ticket.department_id = " . $department;
+                $filters .= "ticket.department_id = " . intval($department);
             }
             $filters .= ")";
         }
@@ -252,7 +252,7 @@ class SearchController extends Controller {
                 } else {
                     $filters .= " or ";
                 }
-                $filters .= "ticket.department_id = " . $department;
+                $filters .= "ticket.department_id = " . intval($department);
             }
         }
 
@@ -267,7 +267,7 @@ class SearchController extends Controller {
                 } else {
                     $filters .= " or ";
                 }
-                $filters .= "ticket.department_id = " . $department;
+                $filters .= "ticket.department_id = " . intval($department);
             }
             $filters .= "))";
         }
@@ -289,9 +289,9 @@ class SearchController extends Controller {
                 }
 
                 if($author['isStaff']){
-                    $filters .= "ticket.author_staff_id  = " . $author['id'];
+                    $filters .= "ticket.author_staff_id  = " . intval($author['id']);
                 } else {
-                    $filters .= "ticket.author_id = " . $author['id'];
+                    $filters .= "ticket.author_id = " . intval($author['id']);
                 }
             }
             $filters .= ")";
@@ -311,7 +311,7 @@ class SearchController extends Controller {
                 } else {
                     $filters .= " or ";
                 }
-                $filters .= "ticket.owner_id = " . $owner;
+                $filters .= "ticket.owner_id = " . intval($owner);
             }
 
             $filters .= ")";
